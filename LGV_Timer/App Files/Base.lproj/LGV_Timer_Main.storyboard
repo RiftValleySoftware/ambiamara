@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mvc-fj-sq5">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Clock-->
+        <scene sceneID="eeb-37-a9V">
+            <objects>
+                <viewController title="Clock" id="Vez-CE-LjX" customClass="LGV_Timer_ClockViewController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9Va-CO-rVg"/>
+                        <viewControllerLayoutGuide type="bottom" id="9Ps-Eb-5us"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zuL-PE-pyH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Clock" id="Fkq-aN-ATG"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gjl-pB-pYY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="513" y="89"/>
+        </scene>
+        <!--General Settings-->
+        <scene sceneID="B0X-9f-pVT">
+            <objects>
+                <viewController title="General Settings" id="dZU-jO-ENB" customClass="LGV_Timer_SettingsViewController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7wB-2E-9hN"/>
+                        <viewControllerLayoutGuide type="bottom" id="36h-2E-yI8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WlI-lT-4T0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Setup" id="xaE-0x-fg6"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RKq-cg-tjj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="513" y="-566"/>
+        </scene>
+        <!--Timer Main Tab Controller-->
+        <scene sceneID="8ZY-33-Rjt">
+            <objects>
+                <tabBarController id="mvc-fj-sq5" customClass="LGV_Timer_MainTabController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="egp-Ba-Cka">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.0" green="0.0" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="dZU-jO-ENB" kind="relationship" relationship="viewControllers" id="pQf-zj-6dH"/>
+                        <segue destination="Vez-CE-LjX" kind="relationship" relationship="viewControllers" id="NNg-f2-KUh"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W76-9w-COI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-439" y="-239"/>
+        </scene>
+    </scenes>
+</document>
