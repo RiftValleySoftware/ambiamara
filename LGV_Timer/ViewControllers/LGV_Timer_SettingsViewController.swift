@@ -14,6 +14,6 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_SettingsViewController: UIViewController {
+class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController {
 }
 

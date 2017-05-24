@@ -6,9 +6,28 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Timer Base Nav Controller-->
+        <scene sceneID="lXU-0R-r9G">
+            <objects>
+                <navigationController storyboardIdentifier="LGV_Timer_TimerNavController" id="RhK-pG-4ta" userLabel="Timer Base Nav Controller" customClass="LGV_Timer_TimerNavController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Timer" id="oDm-vU-50Y"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="eRP-fW-XSv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="0.0" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Y3X-jz-wfO" kind="relationship" relationship="rootViewController" id="f1C-Zq-hFz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vnw-nH-hBp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="513" y="603"/>
+        </scene>
         <!--Clock-->
         <scene sceneID="eeb-37-a9V">
             <objects>
@@ -26,7 +45,52 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gjl-pB-pYY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="513" y="89"/>
+            <point key="canvasLocation" x="513" y="-240"/>
+        </scene>
+        <!--Initial Timer View-->
+        <scene sceneID="7Ku-yx-4MG">
+            <objects>
+                <viewController title="Set Timer" id="Y3X-jz-wfO" userLabel="Initial Timer View" customClass="LGV_Timer_TimerSetController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="R7j-jR-eh3"/>
+                        <viewControllerLayoutGuide type="bottom" id="dnv-Bg-783"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gVx-u0-GdF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="0Qv-E8-ESq">
+                        <barButtonItem key="leftBarButtonItem" title="Start" id="en2-R9-W73"/>
+                        <barButtonItem key="rightBarButtonItem" title="Setup" id="2m3-Kd-jYo">
+                            <connections>
+                                <segue destination="Cmw-cs-f0x" kind="show" id="hre-T4-4mm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pMd-Al-am4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1345" y="602"/>
+        </scene>
+        <!--Set Up Timer-->
+        <scene sceneID="diB-ql-vKz">
+            <objects>
+                <viewController id="Cmw-cs-f0x" customClass="LGV_Timer_TimerSetupController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZN5-uz-PEG"/>
+                        <viewControllerLayoutGuide type="bottom" id="Tbu-Nc-I0V"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="m5H-jP-7bL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Set Up Timer" id="bR4-hy-Vgz"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C3L-OZ-3lH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2217" y="602"/>
         </scene>
         <!--General Settings-->
         <scene sceneID="B0X-9f-pVT">
@@ -39,13 +103,51 @@
                     <view key="view" contentMode="scaleToFill" id="WlI-lT-4T0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X1c-Ig-gdi">
+                                <rect key="frame" x="16" y="45" width="51" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="49" id="TbJ-LO-9g9"/>
+                                    <constraint firstAttribute="height" constant="31" id="aGV-G7-UzR"/>
+                                </constraints>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24-Hour (Military) Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1V-9k-E8e">
+                                <rect key="frame" x="73" y="50" width="286" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="RuB-dg-MQC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clock Options" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haF-Kr-9ib">
+                                <rect key="frame" x="16" y="20" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="6qE-GN-uoh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.99215686270000003" green="0.97647058819999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="X1c-Ig-gdi" firstAttribute="top" secondItem="haF-Kr-9ib" secondAttribute="bottom" constant="4" id="0l6-3X-cFG"/>
+                            <constraint firstItem="haF-Kr-9ib" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="Cv6-yU-A1Y"/>
+                            <constraint firstItem="j1V-9k-E8e" firstAttribute="centerY" secondItem="X1c-Ig-gdi" secondAttribute="centerY" id="Jh3-A9-05R"/>
+                            <constraint firstItem="X1c-Ig-gdi" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="cGJ-Ze-DOw"/>
+                            <constraint firstItem="j1V-9k-E8e" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="jYw-By-cQ1"/>
+                            <constraint firstItem="haF-Kr-9ib" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="kOo-45-yls"/>
+                            <constraint firstItem="haF-Kr-9ib" firstAttribute="top" secondItem="7wB-2E-9hN" secondAttribute="bottom" id="qey-9w-lkW"/>
+                            <constraint firstItem="j1V-9k-E8e" firstAttribute="leading" secondItem="X1c-Ig-gdi" secondAttribute="trailing" constant="8" id="sYm-sg-FEL"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Setup" id="xaE-0x-fg6"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RKq-cg-tjj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="513" y="-566"/>
+            <point key="canvasLocation" x="512.79999999999995" y="-1112.2938530734634"/>
         </scene>
         <!--Timer Main Tab Controller-->
         <scene sceneID="8ZY-33-Rjt">
@@ -54,17 +156,19 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="egp-Ba-Cka">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.99215686270000003" green="0.97647058819999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.0" green="0.0" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="dZU-jO-ENB" kind="relationship" relationship="viewControllers" id="pQf-zj-6dH"/>
                         <segue destination="Vez-CE-LjX" kind="relationship" relationship="viewControllers" id="NNg-f2-KUh"/>
+                        <segue destination="RhK-pG-4ta" kind="relationship" relationship="viewControllers" id="EjE-B6-trd"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W76-9w-COI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-439" y="-239"/>
+            <point key="canvasLocation" x="-265" y="-241"/>
         </scene>
     </scenes>
 </document>

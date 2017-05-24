@@ -1,5 +1,5 @@
 //
-//  LGV_Timer_MainTabController.swift
+//  LGV_Timer_TimerSetController.swift
 //  LGV_Timer
 //
 //  Created by Chris Marshall on 5/24/17.
@@ -14,8 +14,6 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_MainTabController: UITabBarController {
-    var globalSettingsViewController: LGV_Timer_SettingsViewController! = nil
-    var clockViewController: LGV_Timer_ClockViewController! = nil
+class LGV_Timer_TimerSetController: LGV_Timer_TimerBaseViewController {
 }
 
