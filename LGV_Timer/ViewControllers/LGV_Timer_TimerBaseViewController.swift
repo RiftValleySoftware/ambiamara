@@ -13,21 +13,67 @@ import UIKit
 
 /* ###################################################################################################################################### */
 /**
+ This is a base class for view controllers used in the app.
  */
 @IBDesignable class LGV_Timer_TimerBaseViewController: UIViewController {
+    // MARK: - IB Properties
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This is the top (initial) color of the background gradient.
+     */
     @IBInspectable var gradientTopColor: UIColor = UIColor.black {
         didSet{
             self.view.setNeedsLayout()
         }
     }
+    
+    /* ################################################################## */
+    /**
+     This is the bottom (final) color of the background gradient.
+     */
     @IBInspectable var gradientBottomColor: UIColor = UIColor.darkGray {
         didSet{
             self.view.setNeedsLayout()
         }
     }
     
+    // MARK: - Instance Properties
+    /* #################################################################################################################################*/
+    /* ################################################################## */
+    /**
+     This is a gradient that is displayed across the background, from top to bottom, using the two colors specified in the IB properties.
+     */
     let gradientLayer = CAGradientLayer()
     
+    // MARK: - Instance Calculated Properties
+    /* #################################################################################################################################*/
+    /* ################################################################## */
+    /**
+     This gets the Navigation Bar Title, and sets the Navigation Bar Title from a given localization token.
+     */
+    var screenTitle: String {
+        get {
+            var ret: String = ""
+            
+            if let title = self.navigationItem.title {
+                ret = title
+            }
+            
+            return ret
+        }
+        
+        set {
+            self.navigationItem.title = newValue.localizedVariant
+        }
+    }
+    
+    // MARK: - Base Class Override Methods
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     Called when the view has finished loading.
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,9 +81,21 @@ import UIKit
         
         self.gradientLayer.locations = [0.0, 1.0]
         
-        self.view.layer.addSublayer(self.gradientLayer)
+        self.view.layer.sublayers?.insert(self.gradientLayer, at: 0)
+        
+        
+        if nil != self.navigationItem.title {
+            self.navigationItem.title = self.navigationItem.title?.localizedVariant
+        }
+        
+        self.navigationController?.navigationBar.barTintColor = self.gradientTopColor
+        self.tabBarController?.tabBar.barTintColor = self.gradientBottomColor
     }
     
+    /* ################################################################## */
+    /**
+     Called when the layout is changed.
+     */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.gradientLayer.frame = self.view.bounds

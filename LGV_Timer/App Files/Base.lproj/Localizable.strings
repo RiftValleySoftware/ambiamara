@@ -8,3 +8,13 @@
 /* ###################################################################################################################################### */
 /**
  */
+"LGV_TIMER-SETUP-TITLE"                                 =   "Setup";
+"LGV_TIMER-CLOCK-TITLE"                                 =   "Clock";
+"LGV_TIMER-TIMER-TITLE"                                 =   "Timer";
+"LGV_TIMER-TIMER-SETUP-TITLE"                           =   "Timer Setup";
+
+"LGV_TIMER-SETUP-CLOCK-SETTINGS-LABEL"                  =   "Clock Settings";
+"LGV_TIMER-SET-LABEL"                                   =   "Set Timer";
+"LGV_TIMER-START-BUTTON"                                =   "Start";
+
+"LGV_TIMER-SETUP-CLOCK-SETTINGS-USE-24-HOUR-LABEL"      =   "Use 24-Hour (Military) Time";

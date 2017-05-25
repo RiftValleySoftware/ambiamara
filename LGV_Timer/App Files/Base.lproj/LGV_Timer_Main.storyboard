@@ -10,11 +10,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Timer Base Nav Controller-->
+        <!--LGV_TIMER-TIMER-TITLE-->
         <scene sceneID="lXU-0R-r9G">
             <objects>
-                <navigationController storyboardIdentifier="LGV_Timer_TimerNavController" id="RhK-pG-4ta" userLabel="Timer Base Nav Controller" customClass="LGV_Timer_TimerNavController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Timer" id="oDm-vU-50Y"/>
+                <navigationController storyboardIdentifier="LGV_Timer_TimerNavController" id="RhK-pG-4ta" customClass="LGV_Timer_TimerNavController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="LGV_TIMER-TIMER-TITLE" id="oDm-vU-50Y"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="eRP-fW-XSv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -26,12 +26,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vnw-nH-hBp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="513" y="603"/>
+            <point key="canvasLocation" x="513" y="520"/>
         </scene>
-        <!--Clock-->
+        <!--LGV_TIMER-CLOCK-TITLE-->
         <scene sceneID="eeb-37-a9V">
             <objects>
-                <viewController title="Clock" id="Vez-CE-LjX" customClass="LGV_Timer_ClockViewController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="LGV_TIMER-CLOCK-TITLE" id="Vez-CE-LjX" customClass="LGV_Timer_ClockViewController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9Va-CO-rVg"/>
                         <viewControllerLayoutGuide type="bottom" id="9Ps-Eb-5us"/>
@@ -41,16 +41,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Clock" id="Fkq-aN-ATG"/>
+                    <tabBarItem key="tabBarItem" title="LGV_TIMER-CLOCK-TITLE" id="Fkq-aN-ATG"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gjl-pB-pYY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="513" y="-240"/>
         </scene>
-        <!--Initial Timer View-->
+        <!--LGV_TIMER-TIMER-TITLE-->
         <scene sceneID="7Ku-yx-4MG">
             <objects>
-                <viewController title="Set Timer" id="Y3X-jz-wfO" userLabel="Initial Timer View" customClass="LGV_Timer_TimerSetController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="LGV_TIMER-TIMER-TITLE" id="Y3X-jz-wfO" customClass="LGV_Timer_TimerSetController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="R7j-jR-eh3"/>
                         <viewControllerLayoutGuide type="bottom" id="dnv-Bg-783"/>
@@ -60,23 +60,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="0Qv-E8-ESq">
-                        <barButtonItem key="leftBarButtonItem" title="Start" id="en2-R9-W73"/>
-                        <barButtonItem key="rightBarButtonItem" title="Setup" id="2m3-Kd-jYo">
+                    <navigationItem key="navigationItem" title="LGV_TIMER-SET-LABEL" id="0Qv-E8-ESq">
+                        <barButtonItem key="leftBarButtonItem" title="LGV_TIMER-START-BUTTON" id="en2-R9-W73"/>
+                        <barButtonItem key="rightBarButtonItem" title="LGV_TIMER-TIMER-SETUP-TITLE" id="2m3-Kd-jYo">
                             <connections>
                                 <segue destination="Cmw-cs-f0x" kind="show" id="hre-T4-4mm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="setupButton" destination="2m3-Kd-jYo" id="NfH-I2-rKy"/>
+                        <outlet property="startButton" destination="en2-R9-W73" id="J8O-OX-LdB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pMd-Al-am4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1345" y="602"/>
+            <point key="canvasLocation" x="1348" y="519"/>
         </scene>
-        <!--Set Up Timer-->
+        <!--LGV_TIMER-TIMER-SETUP-LABEL-->
         <scene sceneID="diB-ql-vKz">
             <objects>
-                <viewController id="Cmw-cs-f0x" customClass="LGV_Timer_TimerSetupController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="LGV_TIMER-TIMER-SETUP-LABEL" id="Cmw-cs-f0x" customClass="LGV_Timer_TimerSetupController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZN5-uz-PEG"/>
                         <viewControllerLayoutGuide type="bottom" id="Tbu-Nc-I0V"/>
@@ -86,16 +90,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Set Up Timer" id="bR4-hy-Vgz"/>
+                    <navigationItem key="navigationItem" title="LGV_TIMER-TIMER-SETUP-TITLE" id="bR4-hy-Vgz"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C3L-OZ-3lH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2217" y="602"/>
+            <point key="canvasLocation" x="2198" y="519"/>
         </scene>
-        <!--General Settings-->
+        <!--LGV_TIMER-SETUP-TITLE-->
         <scene sceneID="B0X-9f-pVT">
             <objects>
-                <viewController title="General Settings" id="dZU-jO-ENB" customClass="LGV_Timer_SettingsViewController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="LGV_TIMER-SETUP-TITLE" id="dZU-jO-ENB" customClass="LGV_Timer_SettingsViewController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7wB-2E-9hN"/>
                         <viewControllerLayoutGuide type="bottom" id="36h-2E-yI8"/>
@@ -111,7 +115,7 @@
                                     <constraint firstAttribute="height" constant="31" id="aGV-G7-UzR"/>
                                 </constraints>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24-Hour (Military) Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1V-9k-E8e">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-CLOCK-SETTINGS-USE-24-HOUR-LABEL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1V-9k-E8e">
                                 <rect key="frame" x="73" y="50" width="286" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="RuB-dg-MQC"/>
@@ -143,11 +147,15 @@
                             <constraint firstItem="j1V-9k-E8e" firstAttribute="leading" secondItem="X1c-Ig-gdi" secondAttribute="trailing" constant="8" id="sYm-sg-FEL"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Setup" id="xaE-0x-fg6"/>
+                    <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" id="xaE-0x-fg6"/>
+                    <connections>
+                        <outlet property="militaryTimeSwitch" destination="X1c-Ig-gdi" id="kAI-uW-Ot8"/>
+                        <outlet property="militaryTimeSwitchLabel" destination="j1V-9k-E8e" id="O6M-ld-219"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RKq-cg-tjj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="512.79999999999995" y="-1112.2938530734634"/>
+            <point key="canvasLocation" x="513" y="-1013"/>
         </scene>
         <!--Timer Main Tab Controller-->
         <scene sceneID="8ZY-33-Rjt">
@@ -156,9 +164,10 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="egp-Ba-Cka">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" red="0.99215686270000003" green="0.97647058819999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.0" green="0.0" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="dZU-jO-ENB" kind="relationship" relationship="viewControllers" id="pQf-zj-6dH"/>

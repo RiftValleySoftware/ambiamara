@@ -15,5 +15,14 @@ import UIKit
 /**
  */
 class LGV_Timer_ClockViewController: LGV_Timer_TimerBaseViewController {
+    // MARK: - Base Class Override Methods
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     Called when the view has finished loading.
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 }
 
