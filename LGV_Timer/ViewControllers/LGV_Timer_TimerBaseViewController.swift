@@ -38,6 +38,26 @@ import UIKit
         }
     }
     
+    /* ################################################################## */
+    /**
+     This is the color for the tab bar item.
+     */
+    @IBInspectable var tabItemColor: UIColor = UIColor.yellow {
+        didSet{
+            self.view.setNeedsLayout()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is the color for the tab bar items that are not selected.
+     */
+    @IBInspectable var unselectedTabItemColor: UIColor = UIColor.lightGray {
+        didSet{
+            self.view.setNeedsLayout()
+        }
+    }
+    
     // MARK: - Instance Properties
     /* #################################################################################################################################*/
     /* ################################################################## */
@@ -83,13 +103,10 @@ import UIKit
         
         self.view.layer.sublayers?.insert(self.gradientLayer, at: 0)
         
-        
-        if nil != self.navigationItem.title {
-            self.navigationItem.title = self.navigationItem.title?.localizedVariant
+        // The nav item for timers is set by the bar manager.
+        if (type(of: self) != LGV_Timer_TimerNavController.self) && (nil != self.navigationItem.title) {
+            self.navigationItem.title = self.navigationItem.title!.localizedVariant
         }
-        
-        self.navigationController?.navigationBar.barTintColor = self.gradientTopColor
-        self.tabBarController?.tabBar.barTintColor = self.gradientBottomColor
     }
     
     /* ################################################################## */
@@ -99,5 +116,16 @@ import UIKit
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.gradientLayer.frame = self.view.bounds
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the will appear.
+     */
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.barTintColor = self.gradientTopColor
+        self.tabBarController?.tabBar.barTintColor = self.gradientBottomColor
+        self.tabBarController?.tabBar.tintColor = self.tabItemColor
+        self.tabBarController?.tabBar.unselectedItemTintColor = self.unselectedTabItemColor
     }
 }

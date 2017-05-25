@@ -17,6 +17,9 @@ import UIKit
 class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController {
     @IBOutlet weak var militaryTimeSwitchLabel: UILabel!
     @IBOutlet weak var militaryTimeSwitch: UISwitch!
+    @IBOutlet weak var keepPhoneAwakeLabel: UILabel!
+    @IBOutlet weak var keepPhoneAwakeSwitch: UISwitch!
+    
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -27,6 +30,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController {
         super.viewDidLoad()
         
         self.militaryTimeSwitchLabel.text = self.militaryTimeSwitchLabel.text?.localizedVariant
+        self.keepPhoneAwakeLabel.text = self.keepPhoneAwakeLabel.text?.localizedVariant
     }
 }
 

@@ -15,10 +15,18 @@ import UIKit
 /**
  */
 class LGV_Timer_MainTabController: UITabBarController {
+    // MARK: - Instance Properties
+    /* ################################################################################################################################## */
     var globalSettingsViewController: LGV_Timer_SettingsViewController! = nil
     var clockViewController: LGV_Timer_ClockViewController! = nil
     var timers: [LGV_Timer_TimerNavController] = []
     
+    // MARK: - Base Class Override Methods
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     Called when the view has finished loading.
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         for barController in self.viewControllers! {
@@ -34,9 +42,19 @@ class LGV_Timer_MainTabController: UITabBarController {
                 }
             }
             
-            let barItem = barController.tabBarItem
-            
-            barItem?.title = barItem?.title?.localizedVariant
+            if let barItem = barController.tabBarItem {
+                // Timers can be dynamically instantiated, so they have a decimal index that identifies each one.
+                if type(of: barController) == LGV_Timer_TimerNavController.self {
+                    let controller = barController as! LGV_Timer_TimerNavController
+                    let count = self.timers.count
+                    let localizedFormat = (barItem.title?.localizedVariant)!
+                    let title = String(format: localizedFormat, count)
+                    barItem.title = title
+                    controller.viewControllers[0].navigationItem.title = title
+                } else {
+                    barItem.title = barItem.title?.localizedVariant
+                }
+            }
         }
     }
 }
