@@ -15,17 +15,28 @@ import UIKit
 /**
  */
 class LGV_Timer_TimerNavController: UINavigationController {
+    // MARK: - Class Constants
+    /* ################################################################################################################################## */
+    /// These specify the bounds of the tab bar icons (We draw our own custom ones).
+    static let s_g_maxTabIconWidth: CGFloat = 48
+    static let s_g_maxTabIconHeight: CGFloat = 32
+    static let s_g_maxTabFontSize: CGFloat = 32
+    
+    // MARK: - Instance Properties
+    /* ################################################################################################################################## */
+    /// This has the index number for this timer instance (1-based).
     var timerNumber: Int = 0
     
+    // MARK: - Instance Calculated Properties
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This supplies a dynamically-created image for the Tab Bar.
+     */
     var tabBarImage: UIImage! {
         get {
-            var ret: UIImage! = nil
-            
-            if let barImageOriginal = UIImage(named: "TimerOutline") {
-                ret = type(of: self).textOverImage(drawText: String(format: "%d", self.timerNumber) as NSString, inImage: barImageOriginal)
-            }
-            
-            return ret
+            let displayedString = "00:00:00"
+            return type(of: self).textOverImage(drawText: displayedString as NSString)
         }
     }
     
@@ -33,40 +44,54 @@ class LGV_Timer_TimerNavController: UINavigationController {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     From here: https://stackoverflow.com/questions/28906914/how-do-i-add-text-to-an-image-in-ios-swift
+     Extruded from here: https://stackoverflow.com/questions/28906914/how-do-i-add-text-to-an-image-in-ios-swift
      
-     Creates an image with the given text superimposed over it.
+     Creates an image with the given text.
      */
-    class func textOverImage(drawText text: NSString, inImage image: UIImage) -> UIImage {
+    class func textOverImage(drawText text: NSString) -> UIImage {
         var ret: UIImage! = nil
         
+        let imageSize = CGSize(width: s_g_maxTabIconWidth, height: s_g_maxTabIconHeight)
         let nudge: CGFloat = 1.1;
         let textColor = UIColor.gray
-        let textFont = UIFont(name: "Helvetica Bold", size: 10)!
         let style = NSMutableParagraphStyle()
         style.alignment = NSTextAlignment.center
         
         let scale = UIScreen.main.scale
-        UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
-        
-        let textFontAttributes = [
-            NSFontAttributeName: textFont,
+        UIGraphicsBeginImageContextWithOptions(imageSize, false, scale)
+        var fontSize: CGFloat = s_g_maxTabFontSize
+        var stringSize: CGSize = CGSize.zero
+        var textFontAttributes = [
             NSForegroundColorAttributeName: textColor,
             NSParagraphStyleAttributeName: style
             ] as [String : Any]
         
-        let textRect = text.boundingRect(with: image.size, options: NSStringDrawingOptions(), attributes: textFontAttributes, context: nil)
+        // We decrease the font size until we have something that fits.
+        while 0 < fontSize {
+            if let textFont = UIFont(name: "Let's Go Digital", size: fontSize) {
+                textFontAttributes[NSFontAttributeName] = textFont
+                
+                stringSize = text.size(attributes: textFontAttributes)
+                
+                if (imageSize.width >= stringSize.width) && (imageSize.height >= stringSize.height) {
+                    break
+                } else {
+                    fontSize -= 0.125
+                }
+            } else {
+                break
+            }
+        }
         
-        text.draw(at: CGPoint(x: (image.size.width - textRect.size.width) / 2, y: ((image.size.height - textRect.size.height) / 2) + nudge), withAttributes: textFontAttributes)
+        text.draw(at: CGPoint(x: (imageSize.width - stringSize.width) / 2, y: ((imageSize.height - stringSize.height) / 2) + nudge), withAttributes: textFontAttributes)
         
         let textImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
         if nil != textImage {
-            UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
+            UIGraphicsBeginImageContextWithOptions(imageSize, false, scale)
             
-            image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
-            textImage!.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
+            textImage!.draw(in: CGRect(origin: CGPoint.zero, size: imageSize))
             
             ret = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()

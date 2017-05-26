@@ -5,17 +5,17 @@
   },
   "images" : [
     {
-      "filename" : "TimerOutline~universal@1x.png",
+      "filename" : "Stopwatch~universal@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "TimerOutline~universal@2x.png",
+      "filename" : "Stopwatch~universal@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "TimerOutline~universal@3x.png",
+      "filename" : "Stopwatch~universal@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,7 +28,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vnw-nH-hBp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="513" y="520"/>
+            <point key="canvasLocation" x="-266" y="1211"/>
         </scene>
         <!--LGV_TIMER-CLOCK-TITLE-->
         <scene sceneID="eeb-37-a9V">
@@ -63,6 +64,39 @@
             </objects>
             <point key="canvasLocation" x="513" y="-240"/>
         </scene>
+        <!--LGV_TIMER-STOPWATCH-TITLE-->
+        <scene sceneID="TlV-rp-AlR">
+            <objects>
+                <viewController id="84j-QX-lWV" customClass="LGV_Timer_StopwatchViewController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CmP-xE-e3A"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ugj-fO-rbO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MKW-Ky-IoO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="LGV_TIMER-STOPWATCH-TITLE" image="Stopwatch" id="Bnq-kF-6Rs"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
+                            <color key="value" red="0.47838134376496222" green="0.13663056065824977" blue="0.074501078992667946" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
+                            <color key="value" red="0.60989850697739756" green="0.17419319553124812" blue="0.094983003493041604" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="tabItemColor">
+                            <color key="value" red="1" green="0.52758987333356777" blue="0.49967525186889994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="unselectedTabItemColor">
+                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1rV-Wq-KaF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="513" y="519"/>
+        </scene>
         <!--LGV_TIMER-TIMER-TITLE-FORMAT-->
         <scene sceneID="7Ku-yx-4MG">
             <objects>
@@ -87,16 +121,16 @@
                     </navigationItem>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
-                            <color key="value" red="0.0" green="0.0" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" red="0.0" green="0.001920315624" blue="0.4493067067" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
-                            <color key="value" red="0.0" green="0.0" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" red="0.0" green="0.0025166519869999999" blue="0.58883477399999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="tabItemColor">
-                            <color key="value" red="0.76629544381657944" green="0.90297275235343011" blue="0.96050822734832764" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.0055246340049539544" green="0.59866538811692716" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="unselectedTabItemColor">
-                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -106,7 +140,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pMd-Al-am4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1348" y="519"/>
+            <point key="canvasLocation" x="513" y="1210"/>
         </scene>
         <!--LGV_TIMER-TIMER-SETUP-LABEL-->
         <scene sceneID="diB-ql-vKz">
@@ -125,10 +159,10 @@
                     <navigationItem key="navigationItem" title="LGV_TIMER-TIMER-SETUP-TITLE" id="bR4-hy-Vgz"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
-                            <color key="value" red="0.0" green="0.0" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" red="0.0" green="0.0019203156236392617" blue="0.44930670669041772" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
-                            <color key="value" red="0.0" green="0.0" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" red="0.0" green="0.002516651987199203" blue="0.58883477400003936" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="tabItemColor">
                             <color key="value" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -140,7 +174,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C3L-OZ-3lH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2198" y="519"/>
+            <point key="canvasLocation" x="1351" y="1209"/>
         </scene>
         <!--LGV_TIMER-SETUP-TITLE-->
         <scene sceneID="B0X-9f-pVT">
@@ -154,7 +188,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clock Options" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haF-Kr-9ib">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-CLOCK-SETTINGS-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haF-Kr-9ib">
                                 <rect key="frame" x="16" y="20" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="6qE-GN-uoh"/>
@@ -163,31 +197,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="X1c-Ig-gdi">
-                                <rect key="frame" x="16" y="45" width="51" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="49" id="TbJ-LO-9g9"/>
-                                    <constraint firstAttribute="height" constant="31" id="aGV-G7-UzR"/>
-                                </constraints>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-CLOCK-SETTINGS-USE-24-HOUR-LABEL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1V-9k-E8e">
-                                <rect key="frame" x="73" y="50" width="286" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="RuB-dg-MQC"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LNa-4p-LI4">
-                                <rect key="frame" x="16" y="84" width="51" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="31" id="CaG-Mo-3Ji"/>
-                                    <constraint firstAttribute="width" constant="49" id="iSf-S9-qZ0"/>
-                                </constraints>
-                            </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-CLOCK-SETTINGS-KEEP-PHONE-AWAKE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O6G-2w-jI0">
-                                <rect key="frame" x="73" y="89" width="286" height="21"/>
+                                <rect key="frame" x="73" y="50" width="286" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="laa-h8-Hfk"/>
                                 </constraints>
@@ -195,23 +206,126 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LNa-4p-LI4">
+                                <rect key="frame" x="16" y="45" width="51" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="CaG-Mo-3Ji"/>
+                                    <constraint firstAttribute="width" constant="49" id="iSf-S9-qZ0"/>
+                                </constraints>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-STOPWATCH-SETTINGS-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIT-hu-k4u">
+                                <rect key="frame" x="16" y="84" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="V0Q-US-tH7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-SETTINGS-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WTk-aN-VpI">
+                                <rect key="frame" x="0.0" y="179" width="375" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="IcC-E1-iDw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-STOPWATCH-SETTINGS-KEEP-PHONE-AWAKE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69F-wT-iPc">
+                                <rect key="frame" x="73" y="114" width="523" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Cft-Ct-86Y"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="atC-1v-yOm">
+                                <rect key="frame" x="16" y="109" width="51" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="Reg-i6-TDo"/>
+                                    <constraint firstAttribute="width" constant="49" id="nHt-W3-hme"/>
+                                </constraints>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-STOPWATCH-SETTINGS-INCLUDE-LAPS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fk5-FV-JN9">
+                                <rect key="frame" x="73" y="149" width="473" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="o7o-eS-epe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kkh-EY-JzG">
+                                <rect key="frame" x="16" y="144" width="51" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="49" id="Ygs-xn-iMD"/>
+                                    <constraint firstAttribute="height" constant="31" id="vsp-oi-3pF"/>
+                                </constraints>
+                            </switch>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j29-iR-j9c">
+                                <rect key="frame" x="16" y="208" width="343" height="368"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="dZU-jO-ENB" id="MdA-Bd-jBI"/>
+                                    <outlet property="delegate" destination="dZU-jO-ENB" id="PVu-Ki-eLq"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="It7-Fi-VZl">
+                                <rect key="frame" x="337" y="588" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="IHE-ns-kT6"/>
+                                    <constraint firstAttribute="width" secondItem="It7-Fi-VZl" secondAttribute="height" multiplier="1:1" id="dQN-pV-pcb"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="infoButtonHit:" destination="dZU-jO-ENB" eventType="touchUpInside" id="5dP-Hr-WCA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P8b-a6-hrj">
+                                <rect key="frame" x="16" y="584" width="313" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="F7I-ny-aTl"/>
+                                </constraints>
+                                <state key="normal" title="LGV_TIMER-SETUP-ADD-TIMER-BUTTON"/>
+                                <connections>
+                                    <action selector="addTimerButtonHit:" destination="dZU-jO-ENB" eventType="touchUpInside" id="Iq4-5U-h9f"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.99215686270000003" green="0.97647058819999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="X1c-Ig-gdi" firstAttribute="top" secondItem="haF-Kr-9ib" secondAttribute="bottom" constant="4" id="0l6-3X-cFG"/>
+                            <constraint firstItem="AIT-hu-k4u" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="0Ls-Wa-f4a"/>
+                            <constraint firstItem="LNa-4p-LI4" firstAttribute="top" secondItem="haF-Kr-9ib" secondAttribute="bottom" constant="4" id="6sP-hs-AO9"/>
+                            <constraint firstItem="j29-iR-j9c" firstAttribute="top" secondItem="WTk-aN-VpI" secondAttribute="bottom" constant="8" id="AAb-mQ-0ny"/>
                             <constraint firstItem="haF-Kr-9ib" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="Cv6-yU-A1Y"/>
+                            <constraint firstItem="j29-iR-j9c" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="DrA-QB-XHT"/>
                             <constraint firstItem="O6G-2w-jI0" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="HfA-2e-mRu"/>
-                            <constraint firstItem="j1V-9k-E8e" firstAttribute="centerY" secondItem="X1c-Ig-gdi" secondAttribute="centerY" id="Jh3-A9-05R"/>
-                            <constraint firstItem="LNa-4p-LI4" firstAttribute="top" secondItem="X1c-Ig-gdi" secondAttribute="bottom" constant="8" id="MWm-L2-oX6"/>
+                            <constraint firstItem="P8b-a6-hrj" firstAttribute="top" secondItem="j29-iR-j9c" secondAttribute="bottom" constant="8" id="J46-aZ-DH3"/>
+                            <constraint firstItem="It7-Fi-VZl" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="LT1-CA-rTV"/>
+                            <constraint firstItem="It7-Fi-VZl" firstAttribute="centerY" secondItem="P8b-a6-hrj" secondAttribute="centerY" id="MJs-LH-QTZ"/>
+                            <constraint firstItem="69F-wT-iPc" firstAttribute="leading" secondItem="atC-1v-yOm" secondAttribute="trailing" constant="8" id="NVx-bG-1Qs"/>
+                            <constraint firstItem="P8b-a6-hrj" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="SL9-TR-cib"/>
+                            <constraint firstItem="j29-iR-j9c" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="Vnj-UI-Xcd"/>
+                            <constraint firstItem="atC-1v-yOm" firstAttribute="top" secondItem="AIT-hu-k4u" secondAttribute="bottom" constant="4" id="WER-Wh-IRf"/>
+                            <constraint firstItem="Kkh-EY-JzG" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="Wso-Gl-LrO"/>
+                            <constraint firstItem="Fk5-FV-JN9" firstAttribute="centerY" secondItem="Kkh-EY-JzG" secondAttribute="centerY" id="XyG-F7-rpv"/>
+                            <constraint firstItem="AIT-hu-k4u" firstAttribute="top" secondItem="LNa-4p-LI4" secondAttribute="bottom" constant="8" id="Zde-NR-fVi"/>
                             <constraint firstItem="LNa-4p-LI4" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="adN-SC-06K"/>
-                            <constraint firstItem="X1c-Ig-gdi" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="cGJ-Ze-DOw"/>
+                            <constraint firstItem="AIT-hu-k4u" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="brs-bG-4aK"/>
                             <constraint firstItem="O6G-2w-jI0" firstAttribute="centerY" secondItem="LNa-4p-LI4" secondAttribute="centerY" id="en0-Q5-HUZ"/>
                             <constraint firstItem="O6G-2w-jI0" firstAttribute="leading" secondItem="LNa-4p-LI4" secondAttribute="trailing" constant="8" id="er3-gn-t2e"/>
-                            <constraint firstItem="j1V-9k-E8e" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="jYw-By-cQ1"/>
+                            <constraint firstAttribute="trailing" secondItem="WTk-aN-VpI" secondAttribute="trailing" id="gpb-RB-47c"/>
+                            <constraint firstItem="Fk5-FV-JN9" firstAttribute="leading" secondItem="Kkh-EY-JzG" secondAttribute="trailing" constant="8" id="hOz-hW-BeQ"/>
+                            <constraint firstItem="Kkh-EY-JzG" firstAttribute="top" secondItem="atC-1v-yOm" secondAttribute="bottom" constant="4" id="hzd-3i-ILB"/>
+                            <constraint firstItem="It7-Fi-VZl" firstAttribute="leading" secondItem="P8b-a6-hrj" secondAttribute="trailing" constant="8" id="j3Y-Yb-oEc"/>
                             <constraint firstItem="haF-Kr-9ib" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="kOo-45-yls"/>
                             <constraint firstItem="haF-Kr-9ib" firstAttribute="top" secondItem="7wB-2E-9hN" secondAttribute="bottom" id="qey-9w-lkW"/>
-                            <constraint firstItem="j1V-9k-E8e" firstAttribute="leading" secondItem="X1c-Ig-gdi" secondAttribute="trailing" constant="8" id="sYm-sg-FEL"/>
+                            <constraint firstItem="atC-1v-yOm" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="r1M-fg-7BY"/>
+                            <constraint firstItem="WTk-aN-VpI" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leading" id="tVF-Sg-CsU"/>
+                            <constraint firstItem="36h-2E-yI8" firstAttribute="top" secondItem="It7-Fi-VZl" secondAttribute="bottom" constant="8" id="xW4-wR-aAT"/>
+                            <constraint firstItem="WTk-aN-VpI" firstAttribute="top" secondItem="Kkh-EY-JzG" secondAttribute="bottom" constant="4" id="xcW-2F-jy6"/>
+                            <constraint firstItem="69F-wT-iPc" firstAttribute="centerY" secondItem="atC-1v-yOm" secondAttribute="centerY" id="ymc-kO-FiS"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" image="Settings" id="xaE-0x-fg6"/>
@@ -223,22 +337,30 @@
                             <color key="value" red="0.68920382137721092" green="0.69039727400003936" blue="0.48484028457731654" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="tabItemColor">
-                            <color key="value" red="0.99215686270000003" green="0.97647058819999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="value" red="1" green="0.97317665254103058" blue="0.22001092623452756" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="unselectedTabItemColor">
                             <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="addTimerButton" destination="P8b-a6-hrj" id="weJ-Fi-wqm"/>
+                        <outlet property="clockOptionsHeaderLabel" destination="haF-Kr-9ib" id="DWI-o7-aqf"/>
+                        <outlet property="infoButton" destination="It7-Fi-VZl" id="pEP-8j-iU1"/>
                         <outlet property="keepPhoneAwakeLabel" destination="O6G-2w-jI0" id="znK-4D-akM"/>
                         <outlet property="keepPhoneAwakeSwitch" destination="LNa-4p-LI4" id="Pfw-Mf-6bK"/>
-                        <outlet property="militaryTimeSwitch" destination="X1c-Ig-gdi" id="kAI-uW-Ot8"/>
-                        <outlet property="militaryTimeSwitchLabel" destination="j1V-9k-E8e" id="O6M-ld-219"/>
+                        <outlet property="stopwatchCountLapsLabel" destination="Fk5-FV-JN9" id="f2U-q6-MQm"/>
+                        <outlet property="stopwatchCountLapsSwitch" destination="atC-1v-yOm" id="kzs-bI-Jky"/>
+                        <outlet property="stopwatchKeepPhoneAwakeLabel" destination="69F-wT-iPc" id="1tJ-zJ-djj"/>
+                        <outlet property="stopwatchKeepPhoneAwakeSwitch" destination="atC-1v-yOm" id="Hje-JG-MKk"/>
+                        <outlet property="stopwatchOptionsHeaderLabel" destination="AIT-hu-k4u" id="asF-qg-Lwu"/>
+                        <outlet property="timerSettingsHeaderLabel" destination="WTk-aN-VpI" id="P6D-UY-C7N"/>
+                        <outlet property="timerTableView" destination="j29-iR-j9c" id="652-Ht-ppL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RKq-cg-tjj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="513" y="-1013"/>
+            <point key="canvasLocation" x="512.79999999999995" y="-1013.3433283358322"/>
         </scene>
         <!--Timer Main Tab Controller-->
         <scene sceneID="8ZY-33-Rjt">
@@ -256,6 +378,7 @@
                     <connections>
                         <segue destination="dZU-jO-ENB" kind="relationship" relationship="viewControllers" id="pQf-zj-6dH"/>
                         <segue destination="Vez-CE-LjX" kind="relationship" relationship="viewControllers" id="NNg-f2-KUh"/>
+                        <segue destination="84j-QX-lWV" kind="relationship" relationship="viewControllers" id="drf-V6-4ck"/>
                         <segue destination="RhK-pG-4ta" kind="relationship" relationship="viewControllers" id="EjE-B6-trd"/>
                     </connections>
                 </tabBarController>
@@ -267,5 +390,6 @@
     <resources>
         <image name="Clock" width="25" height="25"/>
         <image name="Settings" width="25" height="25"/>
+        <image name="Stopwatch" width="25" height="25"/>
     </resources>
 </document>
