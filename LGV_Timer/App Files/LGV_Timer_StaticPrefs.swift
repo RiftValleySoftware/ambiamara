@@ -155,8 +155,6 @@ class LGV_Timer_StaticPrefs {
             if self._loadPrefs() {
                 let savedVal = NSNumber(value: newValue)
                 self._loadedPrefs.setObject(savedVal, forKey: PrefsKeys.KeepAwakeClock.rawValue as NSCopying)
-                
-                self._savePrefs()
             }
         }
     }
@@ -181,8 +179,6 @@ class LGV_Timer_StaticPrefs {
             if self._loadPrefs() {
                 let savedVal = NSNumber(value: newValue)
                 self._loadedPrefs.setObject(savedVal, forKey: PrefsKeys.KeepAwakeStopwatch.rawValue as NSCopying)
-                
-                self._savePrefs()
             }
         }
     }
@@ -207,8 +203,6 @@ class LGV_Timer_StaticPrefs {
             if self._loadPrefs() {
                 let savedVal = NSNumber(value: newValue)
                 self._loadedPrefs.setObject(savedVal, forKey: PrefsKeys.UseLapsStopwatch.rawValue as NSCopying)
-                
-                self._savePrefs()
             }
         }
     }
