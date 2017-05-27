@@ -35,7 +35,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     /**
      Called when the view has finished loading.
      
-     We use this method to establish all the localized strings.
+     We use this method to establish all the localized strings, and restore the controls to reflect the stored state.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +47,44 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         self.stopwatchCountLapsLabel.text = self.stopwatchCountLapsLabel.text?.localizedVariant
         self.timerSettingsHeaderLabel.text = self.timerSettingsHeaderLabel.text?.localizedVariant
         self.addTimerButton.setTitle(self.addTimerButton.title(for: UIControlState.normal)?.localizedVariant, for: UIControlState.normal)
+
+        self.keepPhoneAwakeSwitch.isOn = s_g_LGV_Timer_AppDelegatePrefs.clockKeepsDeviceAwake
+        self.stopwatchKeepPhoneAwakeSwitch.isOn = s_g_LGV_Timer_AppDelegatePrefs.stopwatchKeepsDeviceAwake
+        self.stopwatchCountLapsSwitch.isOn = s_g_LGV_Timer_AppDelegatePrefs.stopwatchTracksLaps
     }
     
     // MARK: - IBAction Methods
     /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This is called when the the switch specifying whether or not the clock keeps the device awake while selected is hit.
+     
+     :param: sender The switch object.
+     */
+    @IBAction func clockKeepsAwakeSwitchHit(_ sender: UISwitch) {
+        s_g_LGV_Timer_AppDelegatePrefs.clockKeepsDeviceAwake = sender.isOn
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called when the the switch specifying whether or not the stopwatch keeps the device awake while running is hit.
+     
+     :param: sender The switch object.
+     */
+    @IBAction func stopwatchKeepsAwakeSwitchHit(_ sender: UISwitch) {
+        s_g_LGV_Timer_AppDelegatePrefs.stopwatchKeepsDeviceAwake = sender.isOn
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called when the the switch specifying whether or not the stopwatch counts laps is hit.
+     
+     :param: sender The switch object.
+     */
+    @IBAction func stopwatchCountsLapSwitchHit(_ sender: UISwitch) {
+        s_g_LGV_Timer_AppDelegatePrefs.stopwatchTracksLaps = sender.isOn
+    }
+    
     /* ################################################################## */
     /**
      This is called when the "Add Timer" button is hit, requesting a new timer be created.

@@ -24,6 +24,8 @@ extension String {
     }
 }
 
+var s_g_LGV_Timer_AppDelegatePrefs = LGV_Timer_StaticPrefs.prefs
+
 @UIApplicationMain
 /* ###################################################################################################################################### */
 /**

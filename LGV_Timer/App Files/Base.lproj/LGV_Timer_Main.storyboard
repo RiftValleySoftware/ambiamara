@@ -206,12 +206,15 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LNa-4p-LI4">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LNa-4p-LI4">
                                 <rect key="frame" x="16" y="45" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="CaG-Mo-3Ji"/>
                                     <constraint firstAttribute="width" constant="49" id="iSf-S9-qZ0"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="clockKeepsAwakeSwitchHit:" destination="dZU-jO-ENB" eventType="valueChanged" id="Osh-tl-cyL"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-STOPWATCH-SETTINGS-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIT-hu-k4u">
                                 <rect key="frame" x="16" y="84" width="343" height="21"/>
@@ -240,12 +243,15 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="atC-1v-yOm">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="atC-1v-yOm" userLabel="Stopwatch Keeps Awake Switch">
                                 <rect key="frame" x="16" y="109" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="Reg-i6-TDo"/>
                                     <constraint firstAttribute="width" constant="49" id="nHt-W3-hme"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="stopwatchKeepsAwakeSwitchHit:" destination="dZU-jO-ENB" eventType="valueChanged" id="dJU-Hu-EAi"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-STOPWATCH-SETTINGS-INCLUDE-LAPS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fk5-FV-JN9">
                                 <rect key="frame" x="73" y="149" width="473" height="21"/>
@@ -256,12 +262,15 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kkh-EY-JzG">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kkh-EY-JzG" userLabel="Stopwatch Count Laps Switch">
                                 <rect key="frame" x="16" y="144" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="Ygs-xn-iMD"/>
                                     <constraint firstAttribute="height" constant="31" id="vsp-oi-3pF"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="stopwatchCountsLapSwitchHit:" destination="dZU-jO-ENB" eventType="valueChanged" id="wNe-dW-en2"/>
+                                </connections>
                             </switch>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j29-iR-j9c">
                                 <rect key="frame" x="16" y="208" width="343" height="368"/>
@@ -350,7 +359,7 @@
                         <outlet property="keepPhoneAwakeLabel" destination="O6G-2w-jI0" id="znK-4D-akM"/>
                         <outlet property="keepPhoneAwakeSwitch" destination="LNa-4p-LI4" id="Pfw-Mf-6bK"/>
                         <outlet property="stopwatchCountLapsLabel" destination="Fk5-FV-JN9" id="f2U-q6-MQm"/>
-                        <outlet property="stopwatchCountLapsSwitch" destination="atC-1v-yOm" id="kzs-bI-Jky"/>
+                        <outlet property="stopwatchCountLapsSwitch" destination="Kkh-EY-JzG" id="IA2-3O-SOo"/>
                         <outlet property="stopwatchKeepPhoneAwakeLabel" destination="69F-wT-iPc" id="1tJ-zJ-djj"/>
                         <outlet property="stopwatchKeepPhoneAwakeSwitch" destination="atC-1v-yOm" id="Hje-JG-MKk"/>
                         <outlet property="stopwatchOptionsHeaderLabel" destination="AIT-hu-k4u" id="asF-qg-Lwu"/>
