@@ -20,7 +20,6 @@ class LGV_Timer_MainTabController: UITabBarController {
     var globalSettingsViewController: LGV_Timer_SettingsViewController! = nil
     var clockViewController: LGV_Timer_ClockViewController! = nil
     var stopwatchViewController: LGV_Timer_StopwatchViewController! = nil
-    var timers: [LGV_Timer_TimerNavController] = []
     
     // MARK: - Class Methods
     /* ################################################################################################################################## */
@@ -87,7 +86,20 @@ class LGV_Timer_MainTabController: UITabBarController {
             }
         }
         
+        self.updateTimers()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func updateTimers() {
         var index = 1
+        
+        let count = self.viewControllers!.count
+        
+        for _ in 3..<count {
+            self.viewControllers?.remove(at: self.viewControllers!.count - 1)
+        }
         
         // We dynamically instantiate timer objects, based on how many we have saved.
         for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
@@ -104,7 +116,7 @@ class LGV_Timer_MainTabController: UITabBarController {
                         timerController.timerNumber = index
                         index += 1
                     }
-
+                    
                     timerController.tabBarItem.title = timerController.tabBarText
                     timerController.tabBarItem.image = timerController.tabBarImage
                 }

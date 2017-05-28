@@ -208,6 +208,15 @@ class LGV_Timer_StaticPrefs {
         case TimerList = "TimerList"
     }
     
+    // MARK: - Private Static Constants
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     These are the thresholds that we apply to our timer when automatically determining the "traffic lights" for podium mode.
+     */
+    static let _podiumModeWarningThreshold: Float  = (6 / 36)
+    static let _podiumModeFinalThreshold: Float    = (3 / 36)
+    
     // MARK: - Internal Enums
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -221,22 +230,49 @@ class LGV_Timer_StaticPrefs {
         case ColorTheme         = "ColorTheme"
     }
     
-    // MARK: - Private Static Constants
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     These are the thresholds that we apply to our timer when automatically determining the "traffic lights" for podium mode.
-     */
-    static let _podiumModeWarningThreshold: Float  = (6 / 36)
-    static let _podiumModeFinalThreshold: Float    = (3 / 36)
-    
     // MARK: - Private Initializer
     /* ################################################################################################################################## */
     /* ################################################################## */
     /** We do this to prevent the class from being instantiated in a different context than our controlled one. */
     private init(){/* Sergeant Schultz says: "I do nut'ing. Nut-ING!" */}
+    
+    
+    // MARK: - Private Class Methods
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    private class func _convertTimerToStorage(_ inTimer: TimerSettingTuple) -> NSDictionary {
+        let tempSetting = NSMutableDictionary()
+        
+        tempSetting.setValue(NSNumber(value: inTimer.timeSet), forKey: TimerPrefKeys.TimeSet.rawValue)
+        tempSetting.setValue(NSNumber(value: inTimer.timeSetPodiumWarn), forKey: TimerPrefKeys.TimeSetPodiumWarn.rawValue)
+        tempSetting.setValue(NSNumber(value: inTimer.timeSetPodiumFinal), forKey: TimerPrefKeys.TimeSetPodiumFinal.rawValue)
+        tempSetting.setValue(NSNumber(value: inTimer.displayMode.rawValue), forKey: TimerPrefKeys.DisplayMode.rawValue)
+        tempSetting.setValue(NSNumber(value: inTimer.keepsDeviceAwake), forKey: TimerPrefKeys.KeepsDeviceAwake.rawValue)
+        tempSetting.setValue(NSNumber(value: inTimer.colorTheme), forKey: TimerPrefKeys.ColorTheme.rawValue)
+        
+        return tempSetting
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private class func _convertStorageToTimer(_ inTimer: NSDictionary) -> TimerSettingTuple {
+        let tempSetting:TimerSettingTuple
+        
+        tempSetting.timeSet = (inTimer.object(forKey: TimerPrefKeys.TimeSet.rawValue) as! NSNumber).intValue
+        tempSetting.timeSetPodiumWarn = (inTimer.object(forKey: TimerPrefKeys.TimeSetPodiumWarn.rawValue) as! NSNumber).intValue
+        tempSetting.timeSetPodiumFinal = (inTimer.object(forKey: TimerPrefKeys.TimeSetPodiumFinal.rawValue) as! NSNumber).intValue
+        tempSetting.displayMode = TimerDisplayMode(rawValue: (inTimer.object(forKey: TimerPrefKeys.TimeSetPodiumFinal.rawValue) as! NSNumber).intValue)!
+        tempSetting.keepsDeviceAwake = (inTimer.object(forKey: TimerPrefKeys.KeepsDeviceAwake.rawValue) as! NSNumber).boolValue
+        tempSetting.colorTheme = (inTimer.object(forKey: TimerPrefKeys.ColorTheme.rawValue) as! NSNumber).intValue
 
+        return tempSetting
+    }
+    
     // MARK: - Private Instance Methods
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This method loads the main prefs into our instance storage.
@@ -254,17 +290,49 @@ class LGV_Timer_StaticPrefs {
             }
         }
         
+        if nil != self._loadedPrefs {
+            if nil == self._loadedPrefs.object(forKey: PrefsKeys.KeepAwakeClock.rawValue) {
+                self._loadedPrefs.setValue(NSNumber(value: false), forKey: PrefsKeys.KeepAwakeClock.rawValue)
+            }
+            
+            if nil == self._loadedPrefs.object(forKey: PrefsKeys.KeepAwakeStopwatch.rawValue) {
+                self._loadedPrefs.setValue(NSNumber(value: false), forKey: PrefsKeys.KeepAwakeStopwatch.rawValue)
+            }
+            
+            if nil == self._loadedPrefs.object(forKey: PrefsKeys.UseLapsStopwatch.rawValue) {
+                self._loadedPrefs.setValue(NSNumber(value: true), forKey: PrefsKeys.UseLapsStopwatch.rawValue)
+            }
+            
+            if nil == self._loadedPrefs.object(forKey: PrefsKeys.TimerList.rawValue) {
+                let tempSetting:NSMutableArray = []
+
+                tempSetting.add(type(of: self)._convertTimerToStorage(type(of: self).defaultTimer))
+                
+                self._loadedPrefs.setObject(tempSetting, forKey: PrefsKeys.TimerList.rawValue as NSCopying)
+           }
+        }
+        
         return nil != self._loadedPrefs
     }
     
-    // MARK: - Private Instance Methods
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This method simply saves the main preferences Dictionary into the standard user defaults.
      */
     private func _savePrefs() {
         UserDefaults.standard.set(self._loadedPrefs, forKey: type(of: self)._mainPrefsKey)
+    }
+    
+    // MARK: - Internal Static Calculated Properties
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This returns one default configurasion timer "tuple" object.
+     */
+    static var defaultTimer: TimerSettingTuple {
+        get {
+            return TimerSettingTuple(timeSet: 0, timeSetPodiumWarn: 0, timeSetPodiumFinal: 0, displayMode: .Digital, keepsDeviceAwake: true, colorTheme: 0)
+        }
     }
     
     // MARK: - Internal Class Methods
@@ -366,7 +434,7 @@ class LGV_Timer_StaticPrefs {
         }
         
         set {
-            if self._loadPrefs() {
+            if nil != self._loadedPrefs {
                 let savedVal = NSNumber(value: newValue)
                 self._loadedPrefs.setObject(savedVal, forKey: PrefsKeys.KeepAwakeClock.rawValue as NSCopying)
             }
@@ -391,7 +459,7 @@ class LGV_Timer_StaticPrefs {
         }
         
         set {
-            if self._loadPrefs() {
+            if nil != self._loadedPrefs {
                 let savedVal = NSNumber(value: newValue)
                 self._loadedPrefs.setObject(savedVal, forKey: PrefsKeys.KeepAwakeStopwatch.rawValue as NSCopying)
             }
@@ -416,7 +484,7 @@ class LGV_Timer_StaticPrefs {
         }
         
         set {
-            if self._loadPrefs() {
+            if nil != self._loadedPrefs {
                 let savedVal = NSNumber(value: newValue)
                 self._loadedPrefs.setObject(savedVal, forKey: PrefsKeys.UseLapsStopwatch.rawValue as NSCopying)
             }
@@ -430,105 +498,41 @@ class LGV_Timer_StaticPrefs {
     var timers:[TimerSettingTuple] {
         get {
             var ret: [TimerSettingTuple] = []
-            let defaultValue: TimerSettingTuple = (timeSet: 0, timeSetPodiumWarn: 0, timeSetPodiumFinal: 0, displayMode: .Digital, keepsDeviceAwake: true, colorTheme: 0)
             
             if self._loadPrefs() {
                 if let temp = self._loadedPrefs.object(forKey: PrefsKeys.TimerList.rawValue) as? NSArray {
                     for index in 0..<temp.count {
                         if let arrayElement = temp[index] as? NSDictionary {
-                            var temp: TimerSettingTuple = defaultValue
-                            print("\(arrayElement)")
-                            if let timeSet = arrayElement.object(forKey: TimerPrefKeys.TimeSet.rawValue as NSString) as? NSNumber {
-                                temp.timeSet = min(86399, max(0, timeSet.intValue))
-                            }
-                            
-                            if let timeSetPodiumWarn = arrayElement.object(forKey: TimerPrefKeys.TimeSetPodiumWarn.rawValue as NSString) as? NSNumber {
-                                temp.timeSetPodiumWarn = max(0, timeSetPodiumWarn.intValue)
-                            }
-                            
-                            if let timeSetPodiumFinal = arrayElement.object(forKey: TimerPrefKeys.TimeSetPodiumFinal.rawValue as NSString) as? NSNumber {
-                                temp.timeSetPodiumFinal = max(0, timeSetPodiumFinal.intValue)
-                            }
-                            
-                            if let displayMode = arrayElement.object(forKey: TimerPrefKeys.DisplayMode.rawValue as NSString) as? NSNumber {
-                                if let dMode = TimerDisplayMode(rawValue: displayMode.intValue) {
-                                    temp.displayMode = dMode
-                                }
-                            }
-                            
-                            if let keepsDeviceAwake = arrayElement.object(forKey: TimerPrefKeys.KeepsDeviceAwake.rawValue as NSString) as? NSNumber {
-                                temp.keepsDeviceAwake = keepsDeviceAwake.boolValue
-                            }
-
-                            if let colorTheme = arrayElement.object(forKey: TimerPrefKeys.ColorTheme.rawValue as NSString) as? NSNumber {
-                                temp.colorTheme = colorTheme.intValue
-                            }
-                            
-                            // If either of these is zero, then we need to calculate the thresholds.
-                            if (0 == temp.timeSetPodiumWarn) || (0 == temp.timeSetPodiumFinal) {
-                                if 0 < temp.timeSet {
-                                    temp.timeSetPodiumWarn = type(of: self).calcPodiumModeWarningThresholdForTimerValue(temp.timeSet)
-                                    temp.timeSetPodiumFinal = type(of: self).calcPodiumModeFinalThresholdForTimerValue(temp.timeSet)
-                                } else {
-                                    temp.timeSetPodiumWarn = 0
-                                    temp.timeSetPodiumFinal = 0
-                                }
-                            }
-                            
+                            let temp: TimerSettingTuple = type(of:self)._convertStorageToTimer(arrayElement)
                             ret.append(temp)
-                        } else {
-                            ret.append(defaultValue)
                         }
                     }
-                } else {
-                    ret.append(defaultValue)
                 }
-            } else {
-                ret.append(defaultValue)
             }
             
+            // We're not allowed to have zero timers.
+            if 0 == ret.count {
+                ret.append(type(of: self).defaultTimer)
+            }
+
             return ret
         }
         
         set {
-            if self._loadPrefs() {
+            if nil != self._loadedPrefs {
                 let tempSetting:NSMutableArray = []
                 
                 for timer in newValue {
-                    let timerInstance = NSDictionary()
-                    
-                    let timeSetKey = TimerPrefKeys.TimeSet.rawValue
-                    let timeSetValue = NSNumber(value: min(86399, max(0, timer.timeSet)))
-                    timerInstance.setValue(timeSetValue, forKey: timeSetKey)
-                    
-                    let timeSetPodiumWarnKey = TimerPrefKeys.TimeSetPodiumWarn.rawValue
-                    let timeSetPodiumWarnValue = NSNumber(value: min(timeSetValue.intValue, max(0, timer.timeSetPodiumWarn)))
-                    timerInstance.setValue(timeSetPodiumWarnValue, forKey: timeSetPodiumWarnKey)
-                    
-                    let timeSetPodiumFinalKey = TimerPrefKeys.TimeSetPodiumFinal.rawValue
-                    let timeSetPodiumFinalValue = NSNumber(value: min(timeSetPodiumWarnValue.intValue, max(0, timer.timeSetPodiumWarn)))
-                    timerInstance.setValue(timeSetPodiumFinalValue, forKey: timeSetPodiumFinalKey)
-                    
-                    let displayModeKey = TimerPrefKeys.DisplayMode.rawValue
-                    let displayModeValue = NSNumber(value: timer.displayMode.rawValue)
-                    timerInstance.setValue(displayModeValue, forKey: displayModeKey)
-                    
-                    let keepsAwakeKey = TimerPrefKeys.KeepsDeviceAwake.rawValue
-                    let keepsAwakeValue = NSNumber(value: timer.keepsDeviceAwake)
-                    timerInstance.setValue(keepsAwakeValue, forKey: keepsAwakeKey)
-                    
-                    let colorThemeKey = TimerPrefKeys.ColorTheme.rawValue
-                    let colorThemeValue = NSNumber(value: timer.colorTheme)
-                    timerInstance.setValue(colorThemeValue, forKey: colorThemeKey)
-                    
+                    let timerInstance = type(of:self)._convertTimerToStorage(timer)
                     tempSetting.add(timerInstance)
                 }
                 
                 // We're not allowed to have zero timers.
                 if 0 == tempSetting.count {
-                    tempSetting.add(TimerSettingTuple(timeSet: 0, timeSetPodiumWarn: 0, timeSetPodiumFinal: 0, displayMode: .Digital, keepsDeviceAwake: true, colorTheme: 0))
+                    tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
                 }
                 
+                self._loadedPrefs.removeObject(forKey: PrefsKeys.TimerList.rawValue as NSCopying)
                 self._loadedPrefs.setObject(tempSetting, forKey: PrefsKeys.TimerList.rawValue as NSCopying)
             }
         }
