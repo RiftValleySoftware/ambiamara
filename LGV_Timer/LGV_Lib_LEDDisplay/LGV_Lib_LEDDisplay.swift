@@ -17,16 +17,8 @@ import UIKit
 @IBDesignable public class LGV_Lib_LEDDisplay : UIView {
     // MARK: - IB Properties
     /* ################################################################################################################################## */
-    @IBInspectable var activeSegmentColor: UIColor = UIColor.green {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
-    @IBInspectable var inactiveSegmentColor: UIColor = UIColor.black {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
+    @IBInspectable var activeSegmentColor: UIColor = UIColor.green
+    @IBInspectable var inactiveSegmentColor: UIColor = UIColor.black
     
     var elementGroup: LED_ElementGrouping! = nil
     
@@ -48,11 +40,7 @@ import UIKit
 /**
  */
 @IBDesignable public class LGV_Lib_LEDDisplaySeparator : LGV_Lib_LEDDisplay {
-    @IBInspectable var numDots: Int = 0 {
-        didSet{
-            self.setNeedsDisplay()
-        }
-    }
+    @IBInspectable var numDots: Int = 0
     
     // MARK: - Superclass Override Methods
     /* ################################################################################################################################## */
@@ -71,26 +59,10 @@ import UIKit
 @IBDesignable public class LGV_Lib_LEDDisplayDigitalDecimal : LGV_Lib_LEDDisplay {
     // MARK: - IB Properties
     /* ################################################################################################################################## */
-    @IBInspectable var maxVal: Int = 0 {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
-    @IBInspectable var currentVal: Int = 0 {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
-    @IBInspectable var canBeNegative: Bool = false {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
-    @IBInspectable var zeroPadding: Bool = false {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
+    @IBInspectable var maxVal: Int = 0
+    @IBInspectable var currentVal: Int = 0
+    @IBInspectable var canBeNegative: Bool = false
+    @IBInspectable var zeroPadding: Bool = false
     
     // MARK: - Superclass Override Methods
     /* ################################################################################################################################## */
@@ -182,77 +154,19 @@ import UIKit
     
     // MARK: - IB Properties
     /* ################################################################################################################################## */
-    @IBInspectable var activeSegmentColor: UIColor = UIColor.green {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
+    @IBInspectable var activeSegmentColor: UIColor = UIColor.green
+    @IBInspectable var inactiveSegmentColor: UIColor = UIColor.black
+    @IBInspectable var displaySeparators: Bool = true
+    @IBInspectable var blinkSeparators: Bool = false
+    @IBInspectable var zeroPadding: Bool = false
+    @IBInspectable var displayHours: Bool = true
+    @IBInspectable var displayMinutes: Bool = true
+    @IBInspectable var displaySeconds: Bool = true
+    @IBInspectable var hours: Int = 0
+    @IBInspectable var minutes: Int = 0
+    @IBInspectable var seconds: Int = 0
+    @IBInspectable var separationSpace: Int = 4
     
-    @IBInspectable var inactiveSegmentColor: UIColor = UIColor.black {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
-    
-    @IBInspectable var displaySeparators: Bool = true {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
-    
-    @IBInspectable var blinkSeparators: Bool = false {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
-    
-    @IBInspectable var zeroPadding: Bool = false {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
-
-    @IBInspectable var displayHours: Bool = true {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
-    
-    @IBInspectable var displayMinutes: Bool = true {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
-    
-    @IBInspectable var displaySeconds: Bool = true {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
-    
-    @IBInspectable var hours: Int = 0 {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
-    
-    @IBInspectable var minutes: Int = 0 {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
-    
-    @IBInspectable var seconds: Int = 0 {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
-    
-    @IBInspectable var separationSpace: Int = 4 {
-        didSet{
-            self.setNeedsLayout()
-        }
-    }
     
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */

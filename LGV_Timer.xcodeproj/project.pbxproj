@@ -15,8 +15,6 @@
 		772A13E31ED5E8BA0043C58B /* LGV_Timer_Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 772A13DE1ED5E8BA0043C58B /* LGV_Timer_Main.storyboard */; };
 		772A13E41ED5E8BA0043C58B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 772A13E01ED5E8BA0043C58B /* Localizable.strings */; };
 		772A13E61ED5E8F80043C58B /* LGV_Timer_Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 772A13E51ED5E8F80043C58B /* LGV_Timer_Assets.xcassets */; };
-		772A13EA1ED5E99B0043C58B /* LED_Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13E81ED5E99B0043C58B /* LED_Element.swift */; };
-		772A13EB1ED5E99B0043C58B /* LGV_Lib_LEDDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13E91ED5E99B0043C58B /* LGV_Lib_LEDDisplay.swift */; };
 		772BF9C41ED600B3002D1782 /* LGV_Timer_TimerNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772BF9C31ED600B3002D1782 /* LGV_Timer_TimerNavController.swift */; };
 		773E06511EDAFACD003FF9DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E06501EDAFACD003FF9DD /* AppDelegate.swift */; };
 		773E06531EDAFACD003FF9DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E06521EDAFACD003FF9DD /* ViewController.swift */; };
@@ -157,8 +155,8 @@
 			children = (
 				77B291131ED5C37C00AD3720 /* README.md */,
 				773E06601EDAFAEB003FF9DD /* TestDisplay.playground */,
-				775ACEDA1ED5C2BA0097FF5C /* LGV_Timer */,
 				773E064F1EDAFACD003FF9DD /* LGV_Lib_LEDDisplay_UI_Test */,
+				775ACEDA1ED5C2BA0097FF5C /* LGV_Timer */,
 				77EFB3DD1ED5C1A800BDDEFF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -289,11 +287,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				772A13EB1ED5E99B0043C58B /* LGV_Lib_LEDDisplay.swift in Sources */,
 				7770CB301ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift in Sources */,
 				772A13D81ED5E8840043C58B /* LGV_Timer_AppDelegate.swift in Sources */,
 				772A13CC1ED5E8270043C58B /* LGV_Timer_MainTabController.swift in Sources */,
-				772A13EA1ED5E99B0043C58B /* LED_Element.swift in Sources */,
 				774A01DD1ED8644D0030E7B4 /* LGV_Timer_StopwatchViewController.swift in Sources */,
 				772A13C81ED5E6CF0043C58B /* LGV_Timer_ClockViewController.swift in Sources */,
 				772A13C61ED5E50C0043C58B /* LGV_Timer_SettingsViewController.swift in Sources */,
@@ -515,6 +511,7 @@
 				773E065E1EDAFACD003FF9DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		77EFB3D71ED5C1A800BDDEFF /* Build configuration list for PBXProject "LGV_Timer" */ = {
 			isa = XCConfigurationList;

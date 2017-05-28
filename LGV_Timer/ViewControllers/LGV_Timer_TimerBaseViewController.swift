@@ -22,41 +22,25 @@ import UIKit
     /**
      This is the top (initial) color of the background gradient.
      */
-    @IBInspectable var gradientTopColor: UIColor = UIColor.black {
-        didSet{
-            self.view.setNeedsLayout()
-        }
-    }
+    @IBInspectable var gradientTopColor: UIColor = UIColor.black
     
     /* ################################################################## */
     /**
      This is the bottom (final) color of the background gradient.
      */
-    @IBInspectable var gradientBottomColor: UIColor = UIColor.darkGray {
-        didSet{
-            self.view.setNeedsLayout()
-        }
-    }
+    @IBInspectable var gradientBottomColor: UIColor = UIColor.darkGray
     
     /* ################################################################## */
     /**
      This is the color for the tab bar item.
      */
-    @IBInspectable var tabItemColor: UIColor = UIColor.yellow {
-        didSet{
-            self.view.setNeedsLayout()
-        }
-    }
+    @IBInspectable var tabItemColor: UIColor = UIColor.yellow
     
     /* ################################################################## */
     /**
      This is the color for the tab bar items that are not selected.
      */
-    @IBInspectable var unselectedTabItemColor: UIColor = UIColor.lightGray {
-        didSet{
-            self.view.setNeedsLayout()
-        }
-    }
+    @IBInspectable var unselectedTabItemColor: UIColor = UIColor.lightGray
     
     // MARK: - Instance Properties
     /* #################################################################################################################################*/
