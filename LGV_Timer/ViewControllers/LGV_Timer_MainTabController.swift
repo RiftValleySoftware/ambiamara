@@ -89,7 +89,8 @@ class LGV_Timer_MainTabController: UITabBarController {
         
         // We dynamically instantiate timer objects, based on how many we have saved.
         for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
-            if let timerController = self.storyboard?.instantiateViewController(withIdentifier: "LGV_Timer_TimerNavController") as? LGV_Timer_TimerNavController {
+            let storyBoardID = "LGV_Timer_TimerNavController"
+            if let timerController = self.storyboard?.instantiateViewController(withIdentifier: storyBoardID) as? LGV_Timer_TimerNavController {
                 self.viewControllers?.append(timerController)
                 self.timers.append(timerController)
                 timerController.timerObject = timer
