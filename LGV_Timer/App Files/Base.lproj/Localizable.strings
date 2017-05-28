@@ -11,6 +11,7 @@
 "LGV_TIMER-SETUP-TITLE"                                 =   "Setup";
 "LGV_TIMER-CLOCK-TITLE"                                 =   "Clock";
 "LGV_TIMER-STOPWATCH-TITLE"                             =   "Stopwatch";
+"LGV_TIMER-TIMER-TITLE-SINGLE"                          =   "Timer";
 "LGV_TIMER-TIMER-TITLE-FORMAT"                          =   "Timer %d";
 "LGV_TIMER-TIMER-SETUP-TITLE"                           =   "Timer Setup";
 

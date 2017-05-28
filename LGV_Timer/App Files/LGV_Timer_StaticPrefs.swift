@@ -151,6 +151,26 @@ class TimeTuple {
     }
 }
 
+/* ################################################################## */
+/**
+ These are the three display modes we have for our countdown timer.
+ */
+enum TimerDisplayMode: Int {
+    case Digital    = 0 ///< Display only digits.
+    case Podium     = 1 ///< Display only "podium lights."
+    case Dual       = 2 ///< Display both.
+}
+
+/// This is the basic element that describes one timer.
+typealias TimerSettingTuple = (
+    timeSet: Int,                   ///< This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
+    timeSetPodiumWarn: Int,         ///< This is the number of seconds (0 - 86399) before the yellow light comes on in Podium Mode. If 0, then it is automatically calculated.
+    timeSetPodiumFinal: Int,        ///< This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
+    displayMode: TimerDisplayMode,  ///< This is how the timer will display
+    keepsDeviceAwake: Bool,         ///< Detemines whether or not to keep the device awake while counting down.
+    colorTheme: Int                 ///< This is the 0-based index for the color theme.
+)
+
 // MARK: - Prefs Class -
 /* ###################################################################################################################################### */
 /**
@@ -159,16 +179,6 @@ class TimeTuple {
  type of prefs most users set in their "gear" screen.
  */
 class LGV_Timer_StaticPrefs {
-    /// This is the basic element that describes one timer.
-    typealias TimerSettingTuple = (
-        timeSet: Int,                   ///< This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
-        timeSetPodiumWarn: Int,         ///< This is the number of seconds (0 - 86399) before the yellow light comes on in Podium Mode. If 0, then it is automatically calculated.
-        timeSetPodiumFinal: Int,        ///< This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
-        displayMode: TimerDisplayMode,  ///< This is how the timer will display
-        keepsDeviceAwake: Bool,         ///< Detemines whether or not to keep the device awake while counting down.
-        colorTheme: Int                 ///< This is the 0-based index for the color theme.
-    )
-    
     // MARK: - Private Static Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -209,16 +219,6 @@ class LGV_Timer_StaticPrefs {
         case DisplayMode        = "DisplayMode"
         case KeepsDeviceAwake   = "KeepsDeviceAwake"
         case ColorTheme         = "ColorTheme"
-    }
-    
-    /* ################################################################## */
-    /**
-     These are the three display modes we have for our countdown timer.
-     */
-    enum TimerDisplayMode: Int {
-        case Digital    = 0 ///< Display only digits.
-        case Podium     = 1 ///< Display only "podium lights."
-        case Dual       = 2 ///< Display both.
     }
     
     // MARK: - Private Static Constants

@@ -26,6 +26,7 @@ class LGV_Timer_TimerNavController: UINavigationController {
     /* ################################################################################################################################## */
     /// This has the index number for this timer instance (1-based).
     var timerNumber: Int = 0
+    var timerObject: TimerSettingTuple! = nil
     
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
@@ -35,8 +36,27 @@ class LGV_Timer_TimerNavController: UINavigationController {
      */
     var tabBarImage: UIImage! {
         get {
-            let displayedString = "00:00:00"
+            var displayedString = "ERROR";
+            
+            if nil != self.timerObject {
+                displayedString = String(format: "%02d:%02d:%02d", TimeTuple(timerObject.timeSet).hours, TimeTuple(timerObject.timeSet).minutes, TimeTuple(timerObject.timeSet).seconds)
+            }
+            
             return type(of: self).textOverImage(drawText: displayedString as NSString)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This supplies a dynamically-created title for the Tab Bar.
+     */
+    var tabBarText: String {
+        get {
+            if 0 < self.timerNumber {
+                return String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, self.timerNumber)
+            } else {
+                return "LGV_TIMER-TIMER-TITLE-SINGLE".localizedVariant
+            }
         }
     }
     
@@ -98,15 +118,5 @@ class LGV_Timer_TimerNavController: UINavigationController {
         }
         
         return ret!
-    }
-
-    // MARK: - Base Class Override Methods
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     Called when the view has finished loading.
-     */
-    override func viewDidLoad() {
-        super.viewDidLoad()
     }
 }

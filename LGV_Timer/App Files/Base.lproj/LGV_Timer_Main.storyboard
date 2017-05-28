@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,6 +16,7 @@
                 <navigationController storyboardIdentifier="LGV_Timer_TimerNavController" id="RhK-pG-4ta" customClass="LGV_Timer_TimerNavController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="LGV_TIMER-TIMER-TITLE-FORMAT" id="oDm-vU-50Y"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="eRP-fW-XSv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -151,7 +151,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Tbu-Nc-I0V"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="m5H-jP-7bL">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -189,7 +189,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-CLOCK-SETTINGS-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haF-Kr-9ib">
-                                <rect key="frame" x="16" y="20" width="343" height="21"/>
+                                <rect key="frame" x="46" y="20" width="283" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="6qE-GN-uoh"/>
                                 </constraints>
@@ -273,31 +273,31 @@
                                 </connections>
                             </switch>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j29-iR-j9c">
-                                <rect key="frame" x="16" y="208" width="343" height="368"/>
+                                <rect key="frame" x="16" y="208" width="343" height="372"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="dZU-jO-ENB" id="MdA-Bd-jBI"/>
                                     <outlet property="delegate" destination="dZU-jO-ENB" id="PVu-Ki-eLq"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="It7-Fi-VZl">
-                                <rect key="frame" x="337" y="588" width="22" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="22" id="IHE-ns-kT6"/>
-                                    <constraint firstAttribute="width" secondItem="It7-Fi-VZl" secondAttribute="height" multiplier="1:1" id="dQN-pV-pcb"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="infoButtonHit:" destination="dZU-jO-ENB" eventType="touchUpInside" id="5dP-Hr-WCA"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P8b-a6-hrj">
-                                <rect key="frame" x="16" y="584" width="313" height="30"/>
+                                <rect key="frame" x="16" y="584" width="343" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="F7I-ny-aTl"/>
+                                    <constraint firstAttribute="height" constant="30" id="2Kt-dK-wGV"/>
                                 </constraints>
                                 <state key="normal" title="LGV_TIMER-SETUP-ADD-TIMER-BUTTON"/>
                                 <connections>
                                     <action selector="addTimerButtonHit:" destination="dZU-jO-ENB" eventType="touchUpInside" id="Iq4-5U-h9f"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="It7-Fi-VZl">
+                                <rect key="frame" x="337" y="20" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="NTm-UE-V3y"/>
+                                    <constraint firstAttribute="height" constant="22" id="UFE-xb-4Lk"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="infoButtonHit:" destination="dZU-jO-ENB" eventType="touchUpInside" id="5dP-Hr-WCA"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -307,14 +307,13 @@
                             <constraint firstItem="AIT-hu-k4u" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="0Ls-Wa-f4a"/>
                             <constraint firstItem="LNa-4p-LI4" firstAttribute="top" secondItem="haF-Kr-9ib" secondAttribute="bottom" constant="4" id="6sP-hs-AO9"/>
                             <constraint firstItem="j29-iR-j9c" firstAttribute="top" secondItem="WTk-aN-VpI" secondAttribute="bottom" constant="8" id="AAb-mQ-0ny"/>
-                            <constraint firstItem="haF-Kr-9ib" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="Cv6-yU-A1Y"/>
+                            <constraint firstItem="It7-Fi-VZl" firstAttribute="leading" secondItem="haF-Kr-9ib" secondAttribute="trailing" constant="8" id="AJp-IO-ufe"/>
+                            <constraint firstItem="haF-Kr-9ib" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" constant="30" id="Cv6-yU-A1Y"/>
                             <constraint firstItem="j29-iR-j9c" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="DrA-QB-XHT"/>
                             <constraint firstItem="O6G-2w-jI0" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="HfA-2e-mRu"/>
-                            <constraint firstItem="P8b-a6-hrj" firstAttribute="top" secondItem="j29-iR-j9c" secondAttribute="bottom" constant="8" id="J46-aZ-DH3"/>
-                            <constraint firstItem="It7-Fi-VZl" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="LT1-CA-rTV"/>
-                            <constraint firstItem="It7-Fi-VZl" firstAttribute="centerY" secondItem="P8b-a6-hrj" secondAttribute="centerY" id="MJs-LH-QTZ"/>
+                            <constraint firstItem="P8b-a6-hrj" firstAttribute="top" secondItem="j29-iR-j9c" secondAttribute="bottom" constant="4" id="LaF-Ya-c7S"/>
                             <constraint firstItem="69F-wT-iPc" firstAttribute="leading" secondItem="atC-1v-yOm" secondAttribute="trailing" constant="8" id="NVx-bG-1Qs"/>
-                            <constraint firstItem="P8b-a6-hrj" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="SL9-TR-cib"/>
+                            <constraint firstItem="36h-2E-yI8" firstAttribute="top" secondItem="P8b-a6-hrj" secondAttribute="bottom" constant="4" id="UnZ-dU-xdA"/>
                             <constraint firstItem="j29-iR-j9c" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="Vnj-UI-Xcd"/>
                             <constraint firstItem="atC-1v-yOm" firstAttribute="top" secondItem="AIT-hu-k4u" secondAttribute="bottom" constant="4" id="WER-Wh-IRf"/>
                             <constraint firstItem="Kkh-EY-JzG" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="Wso-Gl-LrO"/>
@@ -324,15 +323,16 @@
                             <constraint firstItem="AIT-hu-k4u" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="brs-bG-4aK"/>
                             <constraint firstItem="O6G-2w-jI0" firstAttribute="centerY" secondItem="LNa-4p-LI4" secondAttribute="centerY" id="en0-Q5-HUZ"/>
                             <constraint firstItem="O6G-2w-jI0" firstAttribute="leading" secondItem="LNa-4p-LI4" secondAttribute="trailing" constant="8" id="er3-gn-t2e"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="It7-Fi-VZl" secondAttribute="trailing" id="fze-1J-DNl"/>
+                            <constraint firstItem="P8b-a6-hrj" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="goe-3d-KVM"/>
                             <constraint firstAttribute="trailing" secondItem="WTk-aN-VpI" secondAttribute="trailing" id="gpb-RB-47c"/>
                             <constraint firstItem="Fk5-FV-JN9" firstAttribute="leading" secondItem="Kkh-EY-JzG" secondAttribute="trailing" constant="8" id="hOz-hW-BeQ"/>
+                            <constraint firstItem="P8b-a6-hrj" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="hT9-Ej-Bw6"/>
                             <constraint firstItem="Kkh-EY-JzG" firstAttribute="top" secondItem="atC-1v-yOm" secondAttribute="bottom" constant="4" id="hzd-3i-ILB"/>
-                            <constraint firstItem="It7-Fi-VZl" firstAttribute="leading" secondItem="P8b-a6-hrj" secondAttribute="trailing" constant="8" id="j3Y-Yb-oEc"/>
-                            <constraint firstItem="haF-Kr-9ib" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="kOo-45-yls"/>
                             <constraint firstItem="haF-Kr-9ib" firstAttribute="top" secondItem="7wB-2E-9hN" secondAttribute="bottom" id="qey-9w-lkW"/>
                             <constraint firstItem="atC-1v-yOm" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="r1M-fg-7BY"/>
                             <constraint firstItem="WTk-aN-VpI" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leading" id="tVF-Sg-CsU"/>
-                            <constraint firstItem="36h-2E-yI8" firstAttribute="top" secondItem="It7-Fi-VZl" secondAttribute="bottom" constant="8" id="xW4-wR-aAT"/>
+                            <constraint firstItem="It7-Fi-VZl" firstAttribute="top" secondItem="7wB-2E-9hN" secondAttribute="bottom" id="w30-gR-Ffb"/>
                             <constraint firstItem="WTk-aN-VpI" firstAttribute="top" secondItem="Kkh-EY-JzG" secondAttribute="bottom" constant="4" id="xcW-2F-jy6"/>
                             <constraint firstItem="69F-wT-iPc" firstAttribute="centerY" secondItem="atC-1v-yOm" secondAttribute="centerY" id="ymc-kO-FiS"/>
                         </constraints>
@@ -369,7 +369,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RKq-cg-tjj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="512.79999999999995" y="-1013.3433283358322"/>
+            <point key="canvasLocation" x="512.79999999999995" y="-992.65367316341838"/>
         </scene>
         <!--Timer Main Tab Controller-->
         <scene sceneID="8ZY-33-Rjt">
@@ -388,7 +388,6 @@
                         <segue destination="dZU-jO-ENB" kind="relationship" relationship="viewControllers" id="pQf-zj-6dH"/>
                         <segue destination="Vez-CE-LjX" kind="relationship" relationship="viewControllers" id="NNg-f2-KUh"/>
                         <segue destination="84j-QX-lWV" kind="relationship" relationship="viewControllers" id="drf-V6-4ck"/>
-                        <segue destination="RhK-pG-4ta" kind="relationship" relationship="viewControllers" id="EjE-B6-trd"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W76-9w-COI" userLabel="First Responder" sceneMemberID="firstResponder"/>
