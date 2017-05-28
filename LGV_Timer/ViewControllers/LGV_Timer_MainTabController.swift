@@ -66,13 +66,13 @@ class LGV_Timer_MainTabController: UITabBarController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.timers = []
         
         for barController in self.viewControllers! {
             if let barItem = barController.tabBarItem {
                 if type(of: barController) == LGV_Timer_SettingsViewController.self {
                     barItem.title = barItem.title?.localizedVariant
                     self.globalSettingsViewController = barController as! LGV_Timer_SettingsViewController
+                    self.globalSettingsViewController.mainTabController = self
                 } else {
                     if type(of: barController) == LGV_Timer_ClockViewController.self {
                         barItem.title = barItem.title?.localizedVariant
@@ -87,26 +87,28 @@ class LGV_Timer_MainTabController: UITabBarController {
             }
         }
         
+        var index = 1
+        
         // We dynamically instantiate timer objects, based on how many we have saved.
         for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
             let storyBoardID = "LGV_Timer_TimerNavController"
             let storyboard = self.storyboard
             if nil != storyboard {
                 if let timerController = storyboard!.instantiateViewController(withIdentifier: storyBoardID) as? LGV_Timer_TimerNavController {
-                    self.timers.append(timerController)
-                    self.viewControllers?.append(self.timers.last!)
-                    self.timers.last!.timerObject = timer
-                    self.timers.last!.timerNumber = self.timers.count
-                    self.timers.last!.tabBarItem.image = self.timers.last!.tabBarImage
-                    self.timers.last!.tabBarItem.title = self.timers.last!.tabBarText
+                    self.viewControllers?.append(timerController)
+                    timerController.timerObject = timer
+                    // For a singular timer, we don't have a timer number.
+                    if 1 == s_g_LGV_Timer_AppDelegatePrefs.timers.count {
+                        timerController.timerNumber = 0
+                    } else {
+                        timerController.timerNumber = index
+                        index += 1
+                    }
+
+                    timerController.tabBarItem.title = timerController.tabBarText
+                    timerController.tabBarItem.image = timerController.tabBarImage
                 }
             }
-        }
-        
-        // For a singular timer, we don't have a timer number.
-        if 1 == self.timers.count {
-            self.timers[0].timerNumber = 0
-            self.timers[0].tabBarItem.title = self.timers[0].tabBarText
         }
         
         self.customizableViewControllers = []

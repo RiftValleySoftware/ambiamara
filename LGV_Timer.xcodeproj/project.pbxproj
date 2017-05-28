@@ -29,6 +29,8 @@
 		7789C3241ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7789C3231ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift */; };
 		779ADD001ED89B600050F5E7 /* LGV_Timer_StaticPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779ADCFF1ED89B600050F5E7 /* LGV_Timer_StaticPrefs.swift */; };
 		77AF8C5A1ED84EC100C88759 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77AF8C591ED84EC100C88759 /* Let's go Digital Regular.ttf */; };
+		77F8C37F1EDB20F8000C4B3A /* LED_Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13E81ED5E99B0043C58B /* LED_Element.swift */; };
+		77F8C3801EDB20F8000C4B3A /* LGV_Lib_LEDDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13E91ED5E99B0043C58B /* LGV_Lib_LEDDisplay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -144,7 +146,6 @@
 			children = (
 				772A13E71ED5E95A0043C58B /* App Files */,
 				775ACED91ED5C26C0097FF5C /* ViewControllers */,
-				775ACED31ED5C2380097FF5C /* LGV_Lib_LEDDisplay */,
 				775ACED81ED5C25A0097FF5C /* Resources */,
 			);
 			path = LGV_Timer;
@@ -156,6 +157,7 @@
 				77B291131ED5C37C00AD3720 /* README.md */,
 				773E06601EDAFAEB003FF9DD /* TestDisplay.playground */,
 				773E064F1EDAFACD003FF9DD /* LGV_Lib_LEDDisplay_UI_Test */,
+				775ACED31ED5C2380097FF5C /* LGV_Lib_LEDDisplay */,
 				775ACEDA1ED5C2BA0097FF5C /* LGV_Timer */,
 				77EFB3DD1ED5C1A800BDDEFF /* Products */,
 			);
@@ -287,10 +289,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77F8C3801EDB20F8000C4B3A /* LGV_Lib_LEDDisplay.swift in Sources */,
 				7770CB301ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift in Sources */,
 				772A13D81ED5E8840043C58B /* LGV_Timer_AppDelegate.swift in Sources */,
 				772A13CC1ED5E8270043C58B /* LGV_Timer_MainTabController.swift in Sources */,
 				774A01DD1ED8644D0030E7B4 /* LGV_Timer_StopwatchViewController.swift in Sources */,
+				77F8C37F1EDB20F8000C4B3A /* LED_Element.swift in Sources */,
 				772A13C81ED5E6CF0043C58B /* LGV_Timer_ClockViewController.swift in Sources */,
 				772A13C61ED5E50C0043C58B /* LGV_Timer_SettingsViewController.swift in Sources */,
 				7789C3241ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift in Sources */,

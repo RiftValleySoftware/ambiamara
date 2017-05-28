@@ -9,6 +9,10 @@
 
 import UIKit
 
+class LGV_Timer_SettingsTimerTableCell: UITableViewCell {
+    @IBOutlet weak var clockDisplay: LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock!
+}
+
 /* ###################################################################################################################################### */
 /**
  This is the main controller class for the "global" settings tab screen.
@@ -28,6 +32,10 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     @IBOutlet weak var timerTableView: UITableView!
     @IBOutlet weak var addTimerButton: UIButton!
     @IBOutlet weak var infoButton: UIButton!
+    
+    // MARK: - Internal Instance Properties
+    /* ################################################################################################################################## */
+    var mainTabController: LGV_Timer_MainTabController! = nil
     
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
@@ -51,6 +59,15 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         self.keepPhoneAwakeSwitch.isOn = s_g_LGV_Timer_AppDelegatePrefs.clockKeepsDeviceAwake
         self.stopwatchKeepPhoneAwakeSwitch.isOn = s_g_LGV_Timer_AppDelegatePrefs.stopwatchKeepsDeviceAwake
         self.stopwatchCountLapsSwitch.isOn = s_g_LGV_Timer_AppDelegatePrefs.stopwatchTracksLaps
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the view has changed its layout.
+     */
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.timerTableView.reloadData()
     }
     
     // MARK: - IBAction Methods
@@ -113,7 +130,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - returns the number of rows to display.
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return s_g_LGV_Timer_AppDelegatePrefs.timers.count
     }
     
     /* ################################################################## */
@@ -126,7 +143,12 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - returns a nice, shiny cell (or sets the state of a reused one).
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let ret = tableView.dequeueReusableCell(withIdentifier: "REUSE-ID") {
+        if let ret = tableView.dequeueReusableCell(withIdentifier: "SingleTimerCell") as? LGV_Timer_SettingsTimerTableCell {
+            if let clockView = ret.clockDisplay {
+                clockView.hours = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].timeSet).hours
+                clockView.minutes = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].timeSet).minutes
+                clockView.seconds = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].timeSet).seconds
+            }
             return ret
         } else {
             return UITableViewCell()
@@ -155,10 +177,10 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - parameter tableView: The table view being checked
      - parameter canEditRowAt: The indexpath of the row to be checked.
      
-     - returns: true, always.
+     - returns: true, as long as there are more than one timers.
      */
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        return 1 < s_g_LGV_Timer_AppDelegatePrefs.timers.count
     }
     
     /* ################################################################## */
@@ -171,13 +193,13 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      */
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
-            let alertController = UIAlertController(title: NSLocalizedString("DELETE-HEADER", comment: ""), message: NSLocalizedString("DELETE-MESSAGE-FORMAT", comment: ""), preferredStyle: .alert)
+            let alertController = UIAlertController(title: "DELETE-HEADER".localizedVariant, message: String(format: "DELETE-MESSAGE-FORMAT".localizedVariant, indexPath.row + 1), preferredStyle: .alert)
             
-            let deleteAction = UIAlertAction(title: NSLocalizedString("DELETE-OK-BUTTON", comment: ""), style: UIAlertActionStyle.destructive, handler: {(_: UIAlertAction) in self.doADirtyDeedCheap(tableView, forRowAt: indexPath)})
+            let deleteAction = UIAlertAction(title: "DELETE-OK-BUTTON".localizedVariant, style: UIAlertActionStyle.destructive, handler: {(_: UIAlertAction) in self.doADirtyDeedCheap(tableView, forRowAt: indexPath)})
             
             alertController.addAction(deleteAction)
             
-            let cancelAction = UIAlertAction(title: NSLocalizedString("DELETE-CANCEL-BUTTON", comment: ""), style: UIAlertActionStyle.default, handler: {(_: UIAlertAction) in self.dontDoADirtyDeedCheap(tableView)})
+            let cancelAction = UIAlertAction(title: "DELETE-CANCEL-BUTTON".localizedVariant, style: UIAlertActionStyle.default, handler: {(_: UIAlertAction) in self.dontDoADirtyDeedCheap(tableView)})
             
             alertController.addAction(cancelAction)
             
@@ -193,6 +215,9 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - parameter forRowAt: The indexpath of the row to be deleted.
      */
     func doADirtyDeedCheap(_ tableView: UITableView, forRowAt indexPath: IndexPath) {
+        s_g_LGV_Timer_AppDelegatePrefs.timers.remove(at: indexPath.row)
+        self.timerTableView.reloadData()
+        self.mainTabController.viewControllers!.remove(at: indexPath.row + 3)
     }
     
     /* ################################################################## */
@@ -205,4 +230,3 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         tableView.isEditing = false
     }
 }
-
