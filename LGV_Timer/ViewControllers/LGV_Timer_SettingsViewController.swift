@@ -80,6 +80,16 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This is called when the the switch specifying whether or not the timers pause in the background is hit.
+     
+     :param: sender The switch object.
+     */
+    @IBAction func pauseTimersInBackgroundSwitchHit(_ sender: UISwitch) {
+        s_g_LGV_Timer_AppDelegatePrefs.pauseInBackground = sender.isOn
+    }
+    
+    /* ################################################################## */
+    /**
      This is called when the the switch specifying whether or not the clock keeps the device awake while selected is hit.
      
      :param: sender The switch object.
@@ -118,11 +128,11 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         var timers = s_g_LGV_Timer_AppDelegatePrefs.timers
         timers.append(LGV_Timer_StaticPrefs.defaultTimer)
         s_g_LGV_Timer_AppDelegatePrefs.timers = timers
-        s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
         self.mainTabController.updateTimers()
-        self.mainTabController.view.setNeedsLayout()
         self.timerTableView.reloadData()
-        self.mainTabController.selectTimer(timers.count - 1)
+        self.mainTabController.view.setNeedsLayout()
+        let indexPath = IndexPath(row: timers.count - 1, section: 0)
+        _ = self.tableView(self.timerTableView, willSelectRowAt: indexPath)
     }
     
     /* ################################################################## */
@@ -181,6 +191,12 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - returns: nil (don't let selection happen).
      */
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        let timerIndex = indexPath.row
+        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
+        timers[timerIndex].hasBeenSet = false
+        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
+        self.mainTabController.selectTimer(timerIndex)
         return nil
     }
     

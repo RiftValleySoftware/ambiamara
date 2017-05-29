@@ -15,14 +15,37 @@ import UIKit
 /**
  */
 class LGV_Timer_TimerSetupController: LGV_Timer_TimerBaseViewController {
+    @IBOutlet weak var keepDeviceAwakeLabel: UILabel!
+    @IBOutlet weak var keepDeviceAwakeSwitch: UISwitch!
     
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     Called when the view has finished loading.
+     Called when the view will appear.
      */
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.keepDeviceAwakeLabel.text = self.keepDeviceAwakeLabel.text?.localizedVariant
+        let timerNumber = max(0, ((self.navigationController as? LGV_Timer_TimerNavController)?.timerNumber)! - 1)
+        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
+        self.keepDeviceAwakeSwitch.isOn = timers[timerNumber].keepsDeviceAwake
+        timers[timerNumber].hasBeenSet = true
+        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+    }
+    
+    // MARK: - Base Class Override Methods
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     Called when the keep device awake switch is hit.
+     
+     :param: sender The switch object.
+     */
+    @IBAction func keepDeviceAwakeSwitchHit(_ sender: UISwitch) {
+        let timerNumber = max(0, ((self.navigationController as? LGV_Timer_TimerNavController)?.timerNumber)! - 1)
+        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
+        timers[timerNumber].keepsDeviceAwake = sender.isOn
+        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
     }
 }

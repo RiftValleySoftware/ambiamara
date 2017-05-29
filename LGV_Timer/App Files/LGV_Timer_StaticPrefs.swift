@@ -161,24 +161,63 @@ enum TimerDisplayMode: Int {
     case Dual       = 2 ///< Display both.
 }
 
+/* ################################################################## */
+/**
+ These are the three final alert modes we have for our countdown timer.
+ */
 enum AlertMode: Int {
     case VibrateOnly    = 0
     case SoundOnly      = 1
     case Both           = 2
 }
 
-/// This is the basic element that describes one timer.
-typealias TimerSettingTuple = (
-    timeSet: Int,                   ///< This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
-    timeSetPodiumWarn: Int,         ///< This is the number of seconds (0 - 86399) before the yellow light comes on in Podium Mode. If 0, then it is automatically calculated.
-    timeSetPodiumFinal: Int,        ///< This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
-    displayMode: TimerDisplayMode,  ///< This is how the timer will display
-    keepsDeviceAwake: Bool,         ///< Detemines whether or not to keep the device awake while counting down.
-    colorTheme: Int,                ///< This is the 0-based index for the color theme.
-    hasBeenSet: Bool,               ///< This is set to true, once settings have been done once for the timer.
-    alertMode: AlertMode,           ///< This determines what kind of alert the timer makes when it is complete.
-    alertVolume: Int                ///< This is the volume of the alert (when in mode 1 or 2).
-)
+// MARK: - TimerSettingTuple Class -
+/* ###################################################################################################################################### */
+/**
+ This is the basic element that describes one timer.
+ 
+ It is a class, because that means that references (as opposed to copies) will be passed around.
+ */
+class TimerSettingTuple {
+    var timeSet: Int                    ///< This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
+    var timeSetPodiumWarn: Int          ///< This is the number of seconds (0 - 86399) before the yellow light comes on in Podium Mode. If 0, then it is automatically calculated.
+    var timeSetPodiumFinal: Int         ///< This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
+    var displayMode: TimerDisplayMode   ///< This is how the timer will display
+    var keepsDeviceAwake: Bool          ///< Detemines whether or not to keep the device awake while counting down.
+    var colorTheme: Int                 ///< This is the 0-based index for the color theme.
+    var hasBeenSet: Bool                ///< This is set to true, once settings have been done once for the timer.
+    var alertMode: AlertMode            ///< This determines what kind of alert the timer makes when it is complete.
+    var alertVolume: Int                ///< This is the volume of the alert (when in mode 1 or 2).
+
+    // MARK: - Initializers
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     Initialize just like a tuple.
+     
+     :param: timeSet This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
+     :param: timeSetPodiumWarn This is the number of seconds (0 - 86399) before the yellow light comes on in Podium Mode. If 0, then it is automatically calculated.
+     :param: timeSetPodiumFinal This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
+     :param: displayMode This is how the timer will display
+     :param: keepsDeviceAwake Detemines whether or not to keep the device awake while counting down.
+     :param: colorTheme This is the 0-based index for the color theme.
+     :param: hasBeenSet This is set to true, once settings have been done once for the timer.
+     :param: alertMode This determines what kind of alert the timer makes when it is complete.
+     :param: alertVolume This is the volume of the alert (when in mode 1 or 2).
+     */
+    init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, displayMode: TimerDisplayMode, keepsDeviceAwake: Bool, colorTheme: Int, hasBeenSet: Bool, alertMode: AlertMode, alertVolume: Int) {
+        
+        self.timeSet = timeSet
+        self.timeSetPodiumWarn = timeSetPodiumWarn
+        self.timeSetPodiumFinal = timeSetPodiumFinal
+        self.displayMode = displayMode
+        self.keepsDeviceAwake = keepsDeviceAwake
+        self.colorTheme = colorTheme
+        self.hasBeenSet = hasBeenSet
+        self.alertMode = alertMode
+        self.alertVolume = alertVolume
+    }
+}
 
 // MARK: - Prefs Class -
 /* ###################################################################################################################################### */
@@ -276,7 +315,7 @@ class LGV_Timer_StaticPrefs {
     /**
      */
     private class func _convertStorageToTimer(_ inTimer: NSDictionary) -> TimerSettingTuple {
-        var tempSetting:TimerSettingTuple = self.defaultTimer
+        let tempSetting:TimerSettingTuple = self.defaultTimer
         
         if let timeSet = inTimer.object(forKey: TimerPrefKeys.TimeSet.rawValue) as? NSNumber {
             tempSetting.timeSet = timeSet.intValue
@@ -491,6 +530,7 @@ class LGV_Timer_StaticPrefs {
             if nil != self._loadedPrefs {
                 let savedVal = NSNumber(value: newValue)
                 self._loadedPrefs.setObject(savedVal, forKey: PrefsKeys.PauseInBackground.rawValue as NSCopying)
+                self._savePrefs()
             }
         }
     }
@@ -516,6 +556,7 @@ class LGV_Timer_StaticPrefs {
             if nil != self._loadedPrefs {
                 let savedVal = NSNumber(value: newValue)
                 self._loadedPrefs.setObject(savedVal, forKey: PrefsKeys.KeepAwakeClock.rawValue as NSCopying)
+                self._savePrefs()
             }
         }
     }
@@ -541,6 +582,7 @@ class LGV_Timer_StaticPrefs {
             if nil != self._loadedPrefs {
                 let savedVal = NSNumber(value: newValue)
                 self._loadedPrefs.setObject(savedVal, forKey: PrefsKeys.KeepAwakeStopwatch.rawValue as NSCopying)
+                self._savePrefs()
             }
         }
     }
@@ -566,6 +608,7 @@ class LGV_Timer_StaticPrefs {
             if nil != self._loadedPrefs {
                 let savedVal = NSNumber(value: newValue)
                 self._loadedPrefs.setObject(savedVal, forKey: PrefsKeys.UseLapsStopwatch.rawValue as NSCopying)
+                self._savePrefs()
             }
         }
     }
@@ -601,8 +644,7 @@ class LGV_Timer_StaticPrefs {
             if nil != self._loadedPrefs {
                 let tempSetting:NSMutableArray = []
                 
-                for var timer in newValue {
-                    timer.hasBeenSet = true
+                for timer in newValue {
                     let timerInstance = type(of:self)._convertTimerToStorage(timer)
                     tempSetting.add(timerInstance)
                 }
@@ -612,8 +654,8 @@ class LGV_Timer_StaticPrefs {
                     tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
                 }
                 
-                self._loadedPrefs.removeObject(forKey: PrefsKeys.TimerList.rawValue as NSCopying)
                 self._loadedPrefs.setObject(tempSetting, forKey: PrefsKeys.TimerList.rawValue as NSCopying)
+                self._savePrefs()
             }
         }
     }

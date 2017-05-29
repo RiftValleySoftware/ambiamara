@@ -26,7 +26,6 @@ class LGV_Timer_TimerNavController: UINavigationController {
     /* ################################################################################################################################## */
     /// This has the index number for this timer instance (1-based).
     var timerNumber: Int = 0
-    var timerObject: TimerSettingTuple! = nil
     
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
@@ -38,9 +37,9 @@ class LGV_Timer_TimerNavController: UINavigationController {
         get {
             var displayedString = "ERROR";
             
-            if nil != self.timerObject {
-                displayedString = String(format: "%02d:%02d:%02d", TimeTuple(timerObject.timeSet).hours, TimeTuple(timerObject.timeSet).minutes, TimeTuple(timerObject.timeSet).seconds)
-            }
+            let timerNumber = max(0, self.timerNumber - 1)
+            let prefs = s_g_LGV_Timer_AppDelegatePrefs.timers[timerNumber]
+            displayedString = String(format: "%02d:%02d:%02d", TimeTuple(prefs.timeSet).hours, TimeTuple(prefs.timeSet).minutes, TimeTuple(prefs.timeSet).seconds)
             
             return type(of: self)._textAsImage(drawText: displayedString as NSString)
         }

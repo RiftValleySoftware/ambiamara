@@ -92,13 +92,12 @@ class LGV_Timer_MainTabController: UITabBarController {
         }
         
         // We dynamically instantiate timer objects, based on how many we have saved.
-        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+        for _ in s_g_LGV_Timer_AppDelegatePrefs.timers {
             let storyBoardID = "LGV_Timer_TimerNavController"
             let storyboard = self.storyboard
             if nil != storyboard {
                 if let timerController = storyboard!.instantiateViewController(withIdentifier: storyBoardID) as? LGV_Timer_TimerNavController {
                     self.viewControllers?.append(timerController)
-                    timerController.timerObject = timer
                     // For a singular timer, we don't have a timer number.
                     if 1 == s_g_LGV_Timer_AppDelegatePrefs.timers.count {
                         timerController.timerNumber = 0
