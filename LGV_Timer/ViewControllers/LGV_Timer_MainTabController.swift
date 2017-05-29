@@ -17,44 +17,32 @@ import UIKit
 class LGV_Timer_MainTabController: UITabBarController {
     // MARK: - Instance Properties
     /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
     var globalSettingsViewController: LGV_Timer_SettingsViewController! = nil
     var clockViewController: LGV_Timer_ClockViewController! = nil
     var stopwatchViewController: LGV_Timer_StopwatchViewController! = nil
     
-    // MARK: - Class Methods
+    // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     From here: https://stackoverflow.com/questions/28906914/how-do-i-add-text-to-an-image-in-ios-swift
-     
-     Creates an image with the given text superimposed over it.
      */
-    class func textOverImage(drawText text: NSString, inImage image: UIImage, atPoint point: CGPoint! = nil) -> UIImage {
-        let textColor = UIColor.black
-        let textFont = UIFont(name: "Helvetica Bold", size: 10)!
-        var atPoint: CGPoint! = point
-        
-        if nil == atPoint {
-            atPoint = CGPoint(x: image.size.width / 2, y: image.size.height / 2)
+    var timers: [LGV_Timer_TimerNavController] {
+        get {
+            var ret: [LGV_Timer_TimerNavController] = []
+            
+            if let count = self.viewControllers?.count {
+                for viewControllerIndex in 3..<count {
+                    if let viewController = self.viewControllers?[viewControllerIndex] as? LGV_Timer_TimerNavController {
+                        ret.append(viewController)
+                    }
+                }
+            }
+            
+            return ret
         }
-        
-        let scale = UIScreen.main.scale
-        UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
-        
-        let textFontAttributes = [
-            NSFontAttributeName: textFont,
-            NSForegroundColorAttributeName: textColor,
-            ] as [String : Any]
-        
-        image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
-        
-        let rect = CGRect(origin: atPoint, size: image.size)
-        text.draw(in: rect, withAttributes: textFontAttributes)
-        
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage!
     }
     
     // MARK: - Base Class Override Methods
@@ -89,6 +77,8 @@ class LGV_Timer_MainTabController: UITabBarController {
         self.updateTimers()
     }
     
+    // MARK: - Internal Instance Methods
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      */
@@ -117,13 +107,22 @@ class LGV_Timer_MainTabController: UITabBarController {
                         index += 1
                     }
                     
-                    timerController.tabBarItem.title = timerController.tabBarText
+                    let timerTitle = timerController.tabBarText
+                    timerController.tabBarItem.title = timerTitle
                     timerController.tabBarItem.image = timerController.tabBarImage
+                    timerController.navigationBar.topItem?.title = timerTitle
                 }
             }
         }
         
         self.customizableViewControllers = []
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func selectTimer(_ inTimerIndex: Int) {
+        self.selectedIndex = 3 + inTimerIndex
     }
 }
 

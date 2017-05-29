@@ -42,7 +42,7 @@ class LGV_Timer_TimerNavController: UINavigationController {
                 displayedString = String(format: "%02d:%02d:%02d", TimeTuple(timerObject.timeSet).hours, TimeTuple(timerObject.timeSet).minutes, TimeTuple(timerObject.timeSet).seconds)
             }
             
-            return type(of: self).textOverImage(drawText: displayedString as NSString)
+            return type(of: self)._textAsImage(drawText: displayedString as NSString)
         }
     }
     
@@ -60,15 +60,13 @@ class LGV_Timer_TimerNavController: UINavigationController {
         }
     }
     
-    // MARK: - Class Methods
+    // MARK: - Private Class Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     Extruded from here: https://stackoverflow.com/questions/28906914/how-do-i-add-text-to-an-image-in-ios-swift
-     
      Creates an image with the given text.
      */
-    class func textOverImage(drawText text: NSString) -> UIImage {
+    private class func _textAsImage(drawText text: NSString) -> UIImage {
         var ret: UIImage! = nil
         
         let imageSize = CGSize(width: s_g_maxTabIconWidth, height: s_g_maxTabIconHeight)

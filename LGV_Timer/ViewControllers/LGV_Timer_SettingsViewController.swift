@@ -116,6 +116,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         self.mainTabController.updateTimers()
         self.mainTabController.view.setNeedsLayout()
         self.timerTableView.reloadData()
+        self.mainTabController.selectTimer(timers.count - 1)
     }
     
     /* ################################################################## */
