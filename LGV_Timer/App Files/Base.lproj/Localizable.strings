@@ -30,6 +30,16 @@
 
 "LGV_TIMER-SETUP-TIMER-SETTINGS-KEEP-PHONE-AWAKE"       =   "Avoid Sleep While Timer Is Shown";
 "LGV_TIMER-SETUP-TIME-SET-LABEL"                        =   "Set Start Time";
+"LGV_TIMER-SETUP-TIMER-MODE-SWITCH-0"                   =   "Digital Mode";
+"LGV_TIMER-SETUP-TIMER-MODE-SWITCH-1"                   =   "Podium Mode";
+"LGV_TIMER-SETUP-TIMER-MODE-SWITCH-2"                   =   "Dual Mode";
+
+"LGV_TIMER-TIME-PICKER-HOUR-FORMAT"                     =   "%d Hour";
+"LGV_TIMER-TIME-PICKER-HOURS-FORMAT"                    =   "%d Hours";
+"LGV_TIMER-TIME-PICKER-MINUTE-FORMAT"                   =   "%d Minute";
+"LGV_TIMER-TIME-PICKER-MINUTES-FORMAT"                  =   "%d Minutes";
+"LGV_TIMER-TIME-PICKER-SECOND-FORMAT"                   =   "%d Second";
+"LGV_TIMER-TIME-PICKER-SECONDS-FORMAT"                  =   "%d Seconds";
 
 "LGV_TIMER-SETUP-TIMER-SETTINGS-LABEL"                  =   "Timers";
 "LGV_TIMER-SETUP-ADD-TIMER-BUTTON"                      =   "Add New Timer";
