@@ -18,6 +18,9 @@
 "LGV_TIMER-SET-LABEL"                                   =   "Set Timer";
 "LGV_TIMER-START-BUTTON"                                =   "Start";
 
+"LGV_TIMER-SETUP-GENERAL-SETTINGS-LABEL"                =   "General Settings";
+"LGV_TIMER-SETUP-PAUSE-IN-BACKGROUND"                   =   "Pause Timers In Background";
+
 "LGV_TIMER-SETUP-CLOCK-SETTINGS-LABEL"                  =   "Clock Settings";
 "LGV_TIMER-SETUP-CLOCK-SETTINGS-KEEP-PHONE-AWAKE"       =   "Avoid Sleep While Clock Is Shown";
 

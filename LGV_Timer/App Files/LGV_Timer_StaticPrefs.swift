@@ -161,6 +161,12 @@ enum TimerDisplayMode: Int {
     case Dual       = 2 ///< Display both.
 }
 
+enum AlertMode: Int {
+    case VibrateOnly    = 0
+    case SoundOnly      = 1
+    case Both           = 2
+}
+
 /// This is the basic element that describes one timer.
 typealias TimerSettingTuple = (
     timeSet: Int,                   ///< This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
@@ -168,7 +174,10 @@ typealias TimerSettingTuple = (
     timeSetPodiumFinal: Int,        ///< This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
     displayMode: TimerDisplayMode,  ///< This is how the timer will display
     keepsDeviceAwake: Bool,         ///< Detemines whether or not to keep the device awake while counting down.
-    colorTheme: Int                 ///< This is the 0-based index for the color theme.
+    colorTheme: Int,                ///< This is the 0-based index for the color theme.
+    hasBeenSet: Bool,               ///< This is set to true, once settings have been done once for the timer.
+    alertMode: AlertMode,           ///< This determines what kind of alert the timer makes when it is complete.
+    alertVolume: Int                ///< This is the volume of the alert (when in mode 1 or 2).
 )
 
 // MARK: - Prefs Class -
@@ -204,6 +213,8 @@ class LGV_Timer_StaticPrefs {
         case KeepAwakeStopwatch = "KeepAwakeStopwatch"
         /** This will be a Boolean pref, indicating whether or not the stopwatch will display a lap counter. */
         case UseLapsStopwatch = "UseLapsStopwatch"
+        /** If true, then timers and the stopwatch will pause if the app is in the background. */
+        case PauseInBackground = "PauseInBackground"
         /** This will be an array of dictionaries, with a list of timers. */
         case TimerList = "TimerList"
     }
@@ -228,6 +239,9 @@ class LGV_Timer_StaticPrefs {
         case DisplayMode        = "DisplayMode"
         case KeepsDeviceAwake   = "KeepsDeviceAwake"
         case ColorTheme         = "ColorTheme"
+        case HasBeenSet         = "HasBeenSet"
+        case AlertMode          = "AlertMode"
+        case AlertVolume        = "AlertVolume"
     }
     
     // MARK: - Private Initializer
@@ -251,6 +265,9 @@ class LGV_Timer_StaticPrefs {
         tempSetting.setValue(NSNumber(value: inTimer.displayMode.rawValue), forKey: TimerPrefKeys.DisplayMode.rawValue)
         tempSetting.setValue(NSNumber(value: inTimer.keepsDeviceAwake), forKey: TimerPrefKeys.KeepsDeviceAwake.rawValue)
         tempSetting.setValue(NSNumber(value: inTimer.colorTheme), forKey: TimerPrefKeys.ColorTheme.rawValue)
+        tempSetting.setValue(NSNumber(value: inTimer.hasBeenSet), forKey: TimerPrefKeys.HasBeenSet.rawValue)
+        tempSetting.setValue(NSNumber(value: inTimer.alertMode.rawValue), forKey: TimerPrefKeys.AlertMode.rawValue)
+        tempSetting.setValue(NSNumber(value: inTimer.alertVolume), forKey: TimerPrefKeys.AlertVolume.rawValue)
         
         return tempSetting
     }
@@ -259,14 +276,47 @@ class LGV_Timer_StaticPrefs {
     /**
      */
     private class func _convertStorageToTimer(_ inTimer: NSDictionary) -> TimerSettingTuple {
-        let tempSetting:TimerSettingTuple
+        var tempSetting:TimerSettingTuple = self.defaultTimer
         
-        tempSetting.timeSet = (inTimer.object(forKey: TimerPrefKeys.TimeSet.rawValue) as! NSNumber).intValue
-        tempSetting.timeSetPodiumWarn = (inTimer.object(forKey: TimerPrefKeys.TimeSetPodiumWarn.rawValue) as! NSNumber).intValue
-        tempSetting.timeSetPodiumFinal = (inTimer.object(forKey: TimerPrefKeys.TimeSetPodiumFinal.rawValue) as! NSNumber).intValue
-        tempSetting.displayMode = TimerDisplayMode(rawValue: (inTimer.object(forKey: TimerPrefKeys.TimeSetPodiumFinal.rawValue) as! NSNumber).intValue)!
-        tempSetting.keepsDeviceAwake = (inTimer.object(forKey: TimerPrefKeys.KeepsDeviceAwake.rawValue) as! NSNumber).boolValue
-        tempSetting.colorTheme = (inTimer.object(forKey: TimerPrefKeys.ColorTheme.rawValue) as! NSNumber).intValue
+        if let timeSet = inTimer.object(forKey: TimerPrefKeys.TimeSet.rawValue) as? NSNumber {
+            tempSetting.timeSet = timeSet.intValue
+        }
+        
+        if let timeSetPodiumWarn = inTimer.object(forKey: TimerPrefKeys.TimeSetPodiumWarn.rawValue) as? NSNumber {
+            tempSetting.timeSetPodiumWarn = timeSetPodiumWarn.intValue
+        }
+        
+        if let timeSetPodiumFinal = inTimer.object(forKey: TimerPrefKeys.TimeSetPodiumFinal.rawValue) as? NSNumber {
+            tempSetting.timeSetPodiumFinal = timeSetPodiumFinal.intValue
+        }
+        
+        if let displayMode = inTimer.object(forKey: TimerPrefKeys.DisplayMode.rawValue) as? NSNumber {
+            if let displayModeType = TimerDisplayMode(rawValue: displayMode.intValue) {
+                tempSetting.displayMode = displayModeType
+            }
+        }
+        
+        if let keepsDeviceAwake = inTimer.object(forKey: TimerPrefKeys.KeepsDeviceAwake.rawValue) as? NSNumber {
+            tempSetting.keepsDeviceAwake = keepsDeviceAwake.boolValue
+        }
+        
+        if let colorTheme = inTimer.object(forKey: TimerPrefKeys.ColorTheme.rawValue) as? NSNumber {
+            tempSetting.colorTheme = colorTheme.intValue
+        }
+        
+        if let hasBeenSet = inTimer.object(forKey: TimerPrefKeys.HasBeenSet.rawValue) as? NSNumber {
+            tempSetting.hasBeenSet = hasBeenSet.boolValue
+        }
+        
+        if let alertMode = inTimer.object(forKey: TimerPrefKeys.AlertMode.rawValue) as? NSNumber {
+            if let alertModeType = AlertMode(rawValue: alertMode.intValue) {
+                tempSetting.alertMode = alertModeType
+            }
+        }
+        
+        if let alertVolume = inTimer.object(forKey: TimerPrefKeys.AlertVolume.rawValue) as? NSNumber {
+            tempSetting.alertVolume = alertVolume.intValue
+        }
 
         return tempSetting
     }
@@ -303,6 +353,10 @@ class LGV_Timer_StaticPrefs {
                 self._loadedPrefs.setValue(NSNumber(value: true), forKey: PrefsKeys.UseLapsStopwatch.rawValue)
             }
             
+            if nil == self._loadedPrefs.object(forKey: PrefsKeys.PauseInBackground.rawValue) {
+                self._loadedPrefs.setValue(NSNumber(value: false), forKey: PrefsKeys.PauseInBackground.rawValue)
+            }
+            
             if nil == self._loadedPrefs.object(forKey: PrefsKeys.TimerList.rawValue) {
                 let tempSetting:NSMutableArray = []
 
@@ -331,7 +385,7 @@ class LGV_Timer_StaticPrefs {
      */
     static var defaultTimer: TimerSettingTuple {
         get {
-            return TimerSettingTuple(timeSet: 0, timeSetPodiumWarn: 0, timeSetPodiumFinal: 0, displayMode: .Digital, keepsDeviceAwake: true, colorTheme: 0)
+            return TimerSettingTuple(timeSet: 0, timeSetPodiumWarn: 0, timeSetPodiumFinal: 0, displayMode: .Digital, keepsDeviceAwake: true, colorTheme: 0, hasBeenSet: false, alertMode: .Both, alertVolume: 5)
         }
     }
     
@@ -416,6 +470,31 @@ class LGV_Timer_StaticPrefs {
     
     // MARK: - Internal Instance Calculated Properties
     /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     If true, the countdown timers and stopwatch will pause while in the background. Default is false.
+     */
+    var pauseInBackground: Bool {
+        get {
+            var ret: Bool = false
+            
+            if self._loadPrefs() {
+                if let temp = self._loadedPrefs.object(forKey: PrefsKeys.PauseInBackground.rawValue) as? NSNumber {
+                    ret = temp.boolValue
+                }
+            }
+            
+            return ret
+        }
+        
+        set {
+            if nil != self._loadedPrefs {
+                let savedVal = NSNumber(value: newValue)
+                self._loadedPrefs.setObject(savedVal, forKey: PrefsKeys.PauseInBackground.rawValue as NSCopying)
+            }
+        }
+    }
+    
     /* ################################################################## */
     /**
      This sets/returns whether or not the clock keeps the device awake while timing.
@@ -522,7 +601,8 @@ class LGV_Timer_StaticPrefs {
             if nil != self._loadedPrefs {
                 let tempSetting:NSMutableArray = []
                 
-                for timer in newValue {
+                for var timer in newValue {
+                    timer.hasBeenSet = true
                     let timerInstance = type(of:self)._convertTimerToStorage(timer)
                     tempSetting.add(timerInstance)
                 }

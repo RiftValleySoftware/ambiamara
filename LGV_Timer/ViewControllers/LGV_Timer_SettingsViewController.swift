@@ -20,6 +20,7 @@ class LGV_Timer_SettingsTimerTableCell: UITableViewCell {
 class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: - IB Properties
     /* ################################################################################################################################## */
+    @IBOutlet weak var generalSettingsHeaderLabel: UILabel!
     @IBOutlet weak var clockOptionsHeaderLabel: UILabel!
     @IBOutlet weak var keepPhoneAwakeLabel: UILabel!
     @IBOutlet weak var keepPhoneAwakeSwitch: UISwitch!
@@ -32,6 +33,8 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     @IBOutlet weak var timerTableView: UITableView!
     @IBOutlet weak var addTimerButton: UIButton!
     @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var pauseInBackgroundSwitch: UISwitch!
+    @IBOutlet weak var pauseInBackgroundLabel: UILabel!
     
     // MARK: - Internal Instance Properties
     /* ################################################################################################################################## */
@@ -55,7 +58,10 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         self.stopwatchCountLapsLabel.text = self.stopwatchCountLapsLabel.text?.localizedVariant
         self.timerSettingsHeaderLabel.text = self.timerSettingsHeaderLabel.text?.localizedVariant
         self.addTimerButton.setTitle(self.addTimerButton.title(for: UIControlState.normal)?.localizedVariant, for: UIControlState.normal)
+        self.generalSettingsHeaderLabel.text = self.self.generalSettingsHeaderLabel.text?.localizedVariant
+        self.pauseInBackgroundLabel.text = self.self.pauseInBackgroundLabel.text?.localizedVariant
 
+        self.pauseInBackgroundSwitch.isOn = s_g_LGV_Timer_AppDelegatePrefs.pauseInBackground
         self.keepPhoneAwakeSwitch.isOn = s_g_LGV_Timer_AppDelegatePrefs.clockKeepsDeviceAwake
         self.stopwatchKeepPhoneAwakeSwitch.isOn = s_g_LGV_Timer_AppDelegatePrefs.stopwatchKeepsDeviceAwake
         self.stopwatchCountLapsSwitch.isOn = s_g_LGV_Timer_AppDelegatePrefs.stopwatchTracksLaps
