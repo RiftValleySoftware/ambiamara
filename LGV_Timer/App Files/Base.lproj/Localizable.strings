@@ -29,6 +29,7 @@
 "LGV_TIMER-SETUP-STOPWATCH-SETTINGS-INCLUDE-LAPS"       =   "Show Lap Counter";
 
 "LGV_TIMER-SETUP-TIMER-SETTINGS-KEEP-PHONE-AWAKE"       =   "Avoid Sleep While Timer Is Shown";
+"LGV_TIMER-SETUP-TIME-SET-LABEL"                        =   "Set Start Time";
 
 "LGV_TIMER-SETUP-TIMER-SETTINGS-LABEL"                  =   "Timers";
 "LGV_TIMER-SETUP-ADD-TIMER-BUTTON"                      =   "Add New Timer";
@@ -37,3 +38,4 @@
 "DELETE-MESSAGE-FORMAT"                                 =   "If you select \"Delete,\" it will delete Timer %d. Are you sure that you want do this?";
 "DELETE-OK-BUTTON"                                      =   "Delete";
 "DELETE-CANCEL-BUTTON"                                  =   "Cancel";
+

@@ -14,9 +14,18 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
+class LGV_Timer_TimeSetPickerView: UIPickerView {
+    
+}
+
+/* ###################################################################################################################################### */
+/**
+ */
 class LGV_Timer_TimerSetupController: LGV_Timer_TimerBaseViewController {
     @IBOutlet weak var keepDeviceAwakeLabel: UILabel!
     @IBOutlet weak var keepDeviceAwakeSwitch: UISwitch!
+    @IBOutlet weak var timeSetLabel: UILabel!
+    @IBOutlet weak var timeSetPickerView: LGV_Timer_TimeSetPickerView!
     
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
@@ -27,6 +36,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerBaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.keepDeviceAwakeLabel.text = self.keepDeviceAwakeLabel.text?.localizedVariant
+        self.timeSetLabel.text = self.timeSetLabel.text?.localizedVariant
         let timerNumber = max(0, ((self.navigationController as? LGV_Timer_TimerNavController)?.timerNumber)! - 1)
         let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
         self.keepDeviceAwakeSwitch.isOn = timers[timerNumber].keepsDeviceAwake

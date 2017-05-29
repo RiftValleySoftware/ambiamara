@@ -174,14 +174,35 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIME-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qH8-a0-apb">
+                                <rect key="frame" x="16" y="43" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="fMC-CW-e4a"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0es-io-duB" customClass="LGV_Timer_TimeSetPickerView" customModule="LGV_Timer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="DwU-qL-bne"/>
+                                </constraints>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.001920315624" blue="0.4493067067" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="qH8-a0-apb" firstAttribute="top" secondItem="Tzd-08-su5" secondAttribute="bottom" constant="4" id="2JH-E4-Zhm"/>
                             <constraint firstItem="Tzd-08-su5" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="6gT-BN-QWb"/>
+                            <constraint firstItem="qH8-a0-apb" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="BV9-Me-00K"/>
+                            <constraint firstItem="0es-io-duB" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leading" id="NGQ-aT-WiE"/>
                             <constraint firstItem="Tzd-08-su5" firstAttribute="top" secondItem="ZN5-uz-PEG" secondAttribute="bottom" constant="8" id="PLD-cG-goT"/>
                             <constraint firstItem="BLm-jr-98g" firstAttribute="leading" secondItem="Tzd-08-su5" secondAttribute="trailing" constant="8" id="QbK-nE-FY1"/>
+                            <constraint firstItem="0es-io-duB" firstAttribute="top" secondItem="qH8-a0-apb" secondAttribute="bottom" constant="8" id="Udc-iC-xo3"/>
                             <constraint firstItem="BLm-jr-98g" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="lX7-yE-04o"/>
                             <constraint firstItem="BLm-jr-98g" firstAttribute="centerY" secondItem="Tzd-08-su5" secondAttribute="centerY" id="rtd-j2-1Iv"/>
+                            <constraint firstAttribute="trailing" secondItem="0es-io-duB" secondAttribute="trailing" id="vWh-p2-Uqb"/>
+                            <constraint firstItem="qH8-a0-apb" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="zqQ-y3-kDa"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -197,6 +218,8 @@
                     <connections>
                         <outlet property="keepDeviceAwakeLabel" destination="BLm-jr-98g" id="Tqa-tl-3Jl"/>
                         <outlet property="keepDeviceAwakeSwitch" destination="Tzd-08-su5" id="ZAr-hE-eIm"/>
+                        <outlet property="timeSetLabel" destination="qH8-a0-apb" id="vN2-Sb-ZEZ"/>
+                        <outlet property="timeSetPickerView" destination="0es-io-duB" id="sa5-ou-AHP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C3L-OZ-3lH" userLabel="First Responder" sceneMemberID="firstResponder"/>
