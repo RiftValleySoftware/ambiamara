@@ -109,14 +109,44 @@
                     <view key="view" contentMode="scaleToFill" id="gVx-u0-GdF">
                         <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIME-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="AxC-XP-sOe">
+                                <rect key="frame" x="16" y="0.0" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="dRm-oa-smQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lN6-TG-yli">
+                                <rect key="frame" x="16" y="21" width="343" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Nr7-xM-4Ta"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="Y3X-jz-wfO" id="kEq-Sx-PzO"/>
+                                    <outlet property="delegate" destination="Y3X-jz-wfO" id="oBs-qZ-u1s"/>
+                                </connections>
+                            </pickerView>
+                        </subviews>
                         <color key="backgroundColor" red="0.0" green="0.001920315624" blue="0.4493067067" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="AxC-XP-sOe" firstAttribute="leading" secondItem="gVx-u0-GdF" secondAttribute="leadingMargin" id="Kkz-ZL-R5y"/>
+                            <constraint firstItem="AxC-XP-sOe" firstAttribute="top" secondItem="R7j-jR-eh3" secondAttribute="bottom" id="N2K-st-61H"/>
+                            <constraint firstItem="lN6-TG-yli" firstAttribute="leading" secondItem="gVx-u0-GdF" secondAttribute="leadingMargin" id="ewU-Ba-D2e"/>
+                            <constraint firstItem="lN6-TG-yli" firstAttribute="trailing" secondItem="gVx-u0-GdF" secondAttribute="trailingMargin" id="qnh-aJ-BiA"/>
+                            <constraint firstItem="lN6-TG-yli" firstAttribute="top" secondItem="AxC-XP-sOe" secondAttribute="bottom" id="rir-tk-VpF"/>
+                            <constraint firstItem="AxC-XP-sOe" firstAttribute="trailing" secondItem="gVx-u0-GdF" secondAttribute="trailingMargin" id="tJB-5a-HdN"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="0Qv-E8-ESq">
                         <barButtonItem key="leftBarButtonItem" title="LGV_TIMER-START-BUTTON" id="en2-R9-W73"/>
                         <barButtonItem key="rightBarButtonItem" title="LGV_TIMER-TIMER-SETUP-TITLE" id="2m3-Kd-jYo">
                             <connections>
-                                <segue destination="Cmw-cs-f0x" kind="show" identifier="timer-segue-to-settings" id="hre-T4-4mm"/>
+                                <action selector="setupButtonHit:" destination="Y3X-jz-wfO" id="lxs-Pr-bvR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -135,8 +165,11 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="setTimePickerView" destination="lN6-TG-yli" id="4oy-pC-QpC"/>
                         <outlet property="setupButton" destination="2m3-Kd-jYo" id="NfH-I2-rKy"/>
                         <outlet property="startButton" destination="en2-R9-W73" id="J8O-OX-LdB"/>
+                        <outlet property="timeSetLabel" destination="AxC-XP-sOe" id="vtd-cL-Cjx"/>
+                        <segue destination="Cmw-cs-f0x" kind="show" identifier="timer-segue-to-settings" id="hgl-6b-v60"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pMd-Al-am4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -146,12 +179,12 @@
         <!--Individual Timer Settings-->
         <scene sceneID="diB-ql-vKz">
             <objects>
-                <viewController title="Individual Timer Settings" hidesBottomBarWhenPushed="YES" id="Cmw-cs-f0x" customClass="LGV_Timer_TimerSetupController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Individual Timer Settings" id="Cmw-cs-f0x" customClass="LGV_Timer_TimerSetupController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZN5-uz-PEG"/>
                         <viewControllerLayoutGuide type="bottom" id="Tbu-Nc-I0V"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="m5H-jP-7bL">
+                    <view key="view" contentMode="scaleToFill" id="m5H-jP-7bL">
                         <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -165,7 +198,7 @@
                                     <action selector="keepDeviceAwakeSwitchHit:" destination="Cmw-cs-f0x" eventType="valueChanged" id="6JE-71-ZDa"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-SETTINGS-KEEP-PHONE-AWAKE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BLm-jr-98g">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-SETTINGS-KEEP-PHONE-AWAKE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BLm-jr-98g">
                                 <rect key="frame" x="73" y="13" width="286" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="PsU-s0-PCE"/>
@@ -174,27 +207,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIME-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qH8-a0-apb">
-                                <rect key="frame" x="16" y="43" width="343" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="fMC-CW-e4a"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKd-Gx-Wdo">
-                                <rect key="frame" x="16" y="64" width="343" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="cBn-m6-rDA"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="dataSource" destination="Cmw-cs-f0x" id="avs-Al-DxM"/>
-                                    <outlet property="delegate" destination="Cmw-cs-f0x" id="swm-m6-ttC"/>
-                                </connections>
-                            </pickerView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fCL-vy-SIp">
-                                <rect key="frame" x="16" y="124" width="343" height="29"/>
+                                <rect key="frame" x="16" y="47" width="343" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="YYN-rh-tsk"/>
@@ -205,24 +219,21 @@
                                     <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-2"/>
                                 </segments>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="modeSegmentedControlChanged:" destination="Cmw-cs-f0x" eventType="valueChanged" id="nUQ-MR-fsS"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.001920315624" blue="0.4493067067" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="qH8-a0-apb" firstAttribute="top" secondItem="Tzd-08-su5" secondAttribute="bottom" constant="4" id="2JH-E4-Zhm"/>
+                            <constraint firstItem="fCL-vy-SIp" firstAttribute="top" secondItem="Tzd-08-su5" secondAttribute="bottom" constant="8" id="3gd-gT-uop"/>
                             <constraint firstItem="Tzd-08-su5" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="6gT-BN-QWb"/>
-                            <constraint firstItem="fCL-vy-SIp" firstAttribute="top" secondItem="sKd-Gx-Wdo" secondAttribute="bottom" id="A1L-t3-NA5"/>
-                            <constraint firstItem="qH8-a0-apb" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="BV9-Me-00K"/>
-                            <constraint firstItem="sKd-Gx-Wdo" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="K2T-dS-lmG"/>
                             <constraint firstItem="Tzd-08-su5" firstAttribute="top" secondItem="ZN5-uz-PEG" secondAttribute="bottom" constant="8" id="PLD-cG-goT"/>
                             <constraint firstItem="BLm-jr-98g" firstAttribute="leading" secondItem="Tzd-08-su5" secondAttribute="trailing" constant="8" id="QbK-nE-FY1"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="Vvm-JM-uaG"/>
-                            <constraint firstItem="sKd-Gx-Wdo" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="kwb-37-1ed"/>
                             <constraint firstItem="BLm-jr-98g" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="lX7-yE-04o"/>
-                            <constraint firstItem="sKd-Gx-Wdo" firstAttribute="top" secondItem="qH8-a0-apb" secondAttribute="bottom" id="r7H-6t-EHk"/>
                             <constraint firstItem="BLm-jr-98g" firstAttribute="centerY" secondItem="Tzd-08-su5" secondAttribute="centerY" id="rtd-j2-1Iv"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="yrH-mM-v3Q"/>
-                            <constraint firstItem="qH8-a0-apb" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="zqQ-y3-kDa"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -238,8 +249,6 @@
                     <connections>
                         <outlet property="keepDeviceAwakeLabel" destination="BLm-jr-98g" id="Tqa-tl-3Jl"/>
                         <outlet property="keepDeviceAwakeSwitch" destination="Tzd-08-su5" id="ZAr-hE-eIm"/>
-                        <outlet property="setTimePickerView" destination="sKd-Gx-Wdo" id="5eX-4e-oDy"/>
-                        <outlet property="timeSetLabel" destination="qH8-a0-apb" id="vN2-Sb-ZEZ"/>
                         <outlet property="timerModeSegmentedSwitch" destination="fCL-vy-SIp" id="dKL-VY-QQ6"/>
                     </connections>
                 </viewController>
@@ -259,7 +268,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-CLOCK-SETTINGS-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haF-Kr-9ib">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-CLOCK-SETTINGS-LABEL" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="haF-Kr-9ib">
                                 <rect key="frame" x="16" y="83.5" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="c3j-FC-4AR"/>
@@ -268,7 +277,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-CLOCK-SETTINGS-KEEP-PHONE-AWAKE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O6G-2w-jI0">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-CLOCK-SETTINGS-KEEP-PHONE-AWAKE" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="O6G-2w-jI0">
                                 <rect key="frame" x="73" y="113.5" width="286" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="fVE-Tf-wQm"/>
@@ -287,7 +296,7 @@
                                     <action selector="clockKeepsAwakeSwitchHit:" destination="dZU-jO-ENB" eventType="valueChanged" id="Osh-tl-cyL"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-STOPWATCH-SETTINGS-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIT-hu-k4u">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-STOPWATCH-SETTINGS-LABEL" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="AIT-hu-k4u">
                                 <rect key="frame" x="16" y="147.5" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="7Rd-NG-6Q4"/>
@@ -296,7 +305,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-SETTINGS-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WTk-aN-VpI">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-SETTINGS-LABEL" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="WTk-aN-VpI">
                                 <rect key="frame" x="46" y="247" width="283" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="xYK-Ns-5PT"/>
@@ -305,7 +314,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-STOPWATCH-SETTINGS-KEEP-PHONE-AWAKE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69F-wT-iPc">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-STOPWATCH-SETTINGS-KEEP-PHONE-AWAKE" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="69F-wT-iPc">
                                 <rect key="frame" x="73" y="177.5" width="286" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Fft-3S-HVe"/>
@@ -324,7 +333,7 @@
                                     <action selector="stopwatchKeepsAwakeSwitchHit:" destination="dZU-jO-ENB" eventType="valueChanged" id="dJU-Hu-EAi"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-STOPWATCH-SETTINGS-INCLUDE-LAPS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fk5-FV-JN9">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-STOPWATCH-SETTINGS-INCLUDE-LAPS" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Fk5-FV-JN9">
                                 <rect key="frame" x="73" y="212.5" width="286" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="xqW-q5-Kei"/>
@@ -362,10 +371,10 @@
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="activeSegmentColor">
-                                                            <color key="value" red="0.0" green="1" blue="0.044991018680000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <color key="value" red="0.99215686270000003" green="0.97647058819999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="inactiveSegmentColor">
-                                                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.20477552816901409" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.054137323943661969" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
@@ -398,7 +407,7 @@
                                     <action selector="infoButtonHit:" destination="dZU-jO-ENB" eventType="touchUpInside" id="5dP-Hr-WCA"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-GENERAL-SETTINGS-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDr-ef-R1t">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-GENERAL-SETTINGS-LABEL" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="DDr-ef-R1t">
                                 <rect key="frame" x="46" y="18.5" width="283" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="O4D-Ic-TcB"/>
@@ -407,7 +416,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-PAUSE-IN-BACKGROUND" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rml-6c-Iv1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-PAUSE-IN-BACKGROUND" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="rml-6c-Iv1">
                                 <rect key="frame" x="73" y="51.5" width="286" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="O2E-Em-WB7"/>

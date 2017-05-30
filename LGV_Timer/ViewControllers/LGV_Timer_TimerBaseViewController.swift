@@ -107,9 +107,15 @@ import UIKit
      Called when the will appear.
      */
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.barTintColor = self.gradientTopColor
-        self.tabBarController?.tabBar.barTintColor = self.gradientBottomColor
-        self.tabBarController?.tabBar.tintColor = self.tabItemColor
-        self.tabBarController?.tabBar.unselectedItemTintColor = self.unselectedTabItemColor
+        super.viewWillAppear(animated)
+        if let navController = self.navigationController {
+            navController.navigationBar.barTintColor = self.gradientTopColor
+        }
+        
+        if let tabController = self.tabBarController {
+            tabController.tabBar.barTintColor = self.gradientBottomColor
+            tabController.tabBar.tintColor = self.tabItemColor
+            tabController.tabBar.unselectedItemTintColor = self.unselectedTabItemColor
+        }
     }
 }

@@ -24,6 +24,7 @@
 		773E06611EDAFB35003FF9DD /* LED_Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13E81ED5E99B0043C58B /* LED_Element.swift */; };
 		773E06621EDAFB35003FF9DD /* LGV_Lib_LEDDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13E91ED5E99B0043C58B /* LGV_Lib_LEDDisplay.swift */; };
 		774A01DD1ED8644D0030E7B4 /* LGV_Timer_StopwatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774A01DC1ED8644D0030E7B4 /* LGV_Timer_StopwatchViewController.swift */; };
+		775AE1771EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775AE1761EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift */; };
 		7770CB2E1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2D1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift */; };
 		7770CB301ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2F1ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift */; };
 		7789C3241ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7789C3231ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift */; };
@@ -55,6 +56,7 @@
 		773E065C1EDAFACD003FF9DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		773E06601EDAFAEB003FF9DD /* TestDisplay.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TestDisplay.playground; sourceTree = "<group>"; };
 		774A01DC1ED8644D0030E7B4 /* LGV_Timer_StopwatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_StopwatchViewController.swift; path = ViewControllers/LGV_Timer_StopwatchViewController.swift; sourceTree = "<group>"; };
+		775AE1761EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerSetPickerController.swift; path = ViewControllers/LGV_Timer_TimerSetPickerController.swift; sourceTree = "<group>"; };
 		7770CB2D1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerSetController.swift; path = ViewControllers/LGV_Timer_TimerSetController.swift; sourceTree = "<group>"; };
 		7770CB2F1ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerSetupController.swift; path = ViewControllers/LGV_Timer_TimerSetupController.swift; sourceTree = "<group>"; };
 		7789C3231ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerBaseViewController.swift; path = ViewControllers/LGV_Timer_TimerBaseViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				772A13C71ED5E6CF0043C58B /* LGV_Timer_ClockViewController.swift */,
 				774A01DC1ED8644D0030E7B4 /* LGV_Timer_StopwatchViewController.swift */,
 				772BF9C31ED600B3002D1782 /* LGV_Timer_TimerNavController.swift */,
+				775AE1761EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift */,
 				7770CB2D1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift */,
 				7770CB2F1ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift */,
 			);
@@ -299,6 +302,7 @@
 				772A13C61ED5E50C0043C58B /* LGV_Timer_SettingsViewController.swift in Sources */,
 				7789C3241ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift in Sources */,
 				7770CB2E1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift in Sources */,
+				775AE1771EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift in Sources */,
 				779ADD001ED89B600050F5E7 /* LGV_Timer_StaticPrefs.swift in Sources */,
 				772BF9C41ED600B3002D1782 /* LGV_Timer_TimerNavController.swift in Sources */,
 			);

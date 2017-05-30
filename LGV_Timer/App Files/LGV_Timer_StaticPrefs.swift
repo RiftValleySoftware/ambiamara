@@ -120,6 +120,16 @@ class TimeTuple {
         }
     }
     
+    /* ################################################################## */
+    /**
+     Returns the value in an easily readable format.
+     */
+    var description: String {
+        get {
+            return String(format: "%02d:%02d:%02d", self._hours, self._minutes, self._seconds)
+        }
+    }
+    
     // MARK: - Initializers
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -216,6 +226,28 @@ class TimerSettingTuple {
         self.hasBeenSet = hasBeenSet
         self.alertMode = alertMode
         self.alertVolume = alertVolume
+    }
+    
+    // MARK: - Instance Calculated Properties
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     Returns the value in an easily readable format.
+     */
+    var description: String {
+        get {
+            return String(format: "timeSet: %@, timeSetPodiumWarn: %@, timeSetPodiumFinal: %d, displayMode: %@, keepsDeviceAwake: %d, colorTheme: %d, hasBeenSet: %d, alertMode: %d, alertVolume: %d",
+                          self.timeSet.description,
+                          self.timeSetPodiumWarn.description,
+                          self.timeSetPodiumFinal.description,
+                          self.displayMode.rawValue,
+                          self.keepsDeviceAwake ? 1 : 0,
+                          self.colorTheme,
+                          self.hasBeenSet ? 1 : 0,
+                          self.alertMode.rawValue,
+                          self.alertVolume
+            )
+        }
     }
 }
 
@@ -657,6 +689,29 @@ class LGV_Timer_StaticPrefs {
                 self._loadedPrefs.setObject(tempSetting, forKey: PrefsKeys.TimerList.rawValue as NSCopying)
                 self._savePrefs()
             }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Returns the value in an easily readable format.
+     */
+    var description: String {
+        get {
+            var ret = String(format: "pauseInBackground: %d, clockKeepsDeviceAwake: %d, stopwatchKeepsDeviceAwake: %d, stopwatchTracksLaps: %d, timers: [",
+                          self.pauseInBackground ? 1 : 0,
+                          self.clockKeepsDeviceAwake ? 1 : 0,
+                          self.stopwatchKeepsDeviceAwake ? 1 : 0,
+                          self.stopwatchTracksLaps ? 1 : 0
+            )
+            
+            for timer in self.timers {
+                ret += "\n" + timer.description
+            }
+            
+            ret += "]"
+            
+            return ret
         }
     }
 }

@@ -15,6 +15,8 @@ import UIKit
 /**
  */
 class LGV_Timer_MainTabController: UITabBarController {
+    static var s_c_pushTimerSettings: Bool = false
+    
     // MARK: - Instance Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -113,15 +115,17 @@ class LGV_Timer_MainTabController: UITabBarController {
                 }
             }
         }
-        
+        type(of:self).s_c_pushTimerSettings = false
         self.customizableViewControllers = []
     }
     
     /* ################################################################## */
     /**
      */
-    func selectTimer(_ inTimerIndex: Int) {
-        self.selectedIndex = 3 + inTimerIndex
+    func selectTimer(_ inTimerIndex: Int, pushSettings: Bool) {
+        type(of:self).s_c_pushTimerSettings = pushSettings
+        let timerIndex = 3 + inTimerIndex
+        self.selectedViewController = self.viewControllers?[timerIndex]
     }
 }
 

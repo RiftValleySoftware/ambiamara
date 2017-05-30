@@ -31,11 +31,36 @@ var s_g_LGV_Timer_AppDelegatePrefs = LGV_Timer_StaticPrefs.prefs
 /**
  */
 class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate {
+    // MARK: - Instance Properties
+    /* ################################################################################################################################## */
+    var orientationLock = UIInterfaceOrientationMask.all
+    var window: UIWindow?
+
+    // MARK: - Static Class Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      */
-    var window: UIWindow?
+    class func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
+        if let delegate = UIApplication.shared.delegate as? LGV_Timer_AppDelegate {
+            delegate.orientationLock = orientation
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    class func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation:UIInterfaceOrientation) {
+        self.lockOrientation(orientation)
+        UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return self.orientationLock
+    }
 
     /* ################################################################## */
     /**

@@ -73,9 +73,30 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.timerTableView.reloadData()
     }
     
+    /* ################################################################## */
+    /**
+     Called when the view will appear.
+     */
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        LGV_Timer_AppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
+        self.timerTableView.reloadData()
+
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the view will disappear.
+     */
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Don't forget to reset when view is being removed
+        LGV_Timer_AppDelegate.lockOrientation(.all)
+    }
+
     // MARK: - IBAction Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -172,6 +193,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
                 clockView.hours = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].timeSet).hours
                 clockView.minutes = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].timeSet).minutes
                 clockView.seconds = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].timeSet).seconds
+                clockView.setNeedsDisplay()
             }
             return ret
         } else {
@@ -191,12 +213,8 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - returns: nil (don't let selection happen).
      */
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let timerIndex = indexPath.row
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        timers[timerIndex].hasBeenSet = false
-        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
-        s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
-        self.mainTabController.selectTimer(timerIndex)
+        let timerIndex = max(0, min(indexPath.row, s_g_LGV_Timer_AppDelegatePrefs.timers.count - 1))
+        self.mainTabController.selectTimer(timerIndex, pushSettings: true)
         return nil
     }
     
