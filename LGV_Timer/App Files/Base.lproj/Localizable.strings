@@ -33,6 +33,8 @@
 "LGV_TIMER-SETUP-TIMER-MODE-SWITCH-0"                   =   "Digital Mode";
 "LGV_TIMER-SETUP-TIMER-MODE-SWITCH-1"                   =   "Podium Mode";
 "LGV_TIMER-SETUP-TIMER-MODE-SWITCH-2"                   =   "Dual Mode";
+"LGV_TIMER-SETUP-WARNING-SET-LABEL"                     =   "Set Warning (Yellow) Time";
+"LGV_TIMER-SETUP-FINAL-SET-LABEL"                       =   "Set Final (Red) Time";
 
 "LGV_TIMER-TIME-PICKER-HOUR-FORMAT"                     =   "%d Hour";
 "LGV_TIMER-TIME-PICKER-HOURS-FORMAT"                    =   "%d Hours";

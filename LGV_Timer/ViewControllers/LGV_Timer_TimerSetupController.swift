@@ -24,6 +24,11 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
     @IBOutlet weak var setWarningTimePickerView: UIPickerView!
     @IBOutlet weak var setFinalTimePickerView: UIPickerView!
+    @IBOutlet weak var podiumModeContainerView: UIView!
+    @IBOutlet weak var warningThresholdLabel: UILabel!
+    @IBOutlet weak var warningThresholdTimePicker: UIPickerView!
+    @IBOutlet weak var finalThresholdLabel: UILabel!
+    @IBOutlet weak var finalThresholdTimePicker: UIPickerView!
     
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
@@ -34,6 +39,8 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.keepDeviceAwakeLabel.text = self.keepDeviceAwakeLabel.text?.localizedVariant
+        self.warningThresholdLabel.text = self.warningThresholdLabel.text?.localizedVariant
+        self.finalThresholdLabel.text = self.finalThresholdLabel.text?.localizedVariant
         
         for segment in 0..<self.timerModeSegmentedSwitch.numberOfSegments {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
