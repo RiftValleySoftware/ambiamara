@@ -35,6 +35,7 @@
 "LGV_TIMER-SETUP-TIMER-MODE-SWITCH-2"                   =   "Dual Mode";
 "LGV_TIMER-SETUP-WARNING-SET-LABEL"                     =   "Set Warning (Yellow) Time";
 "LGV_TIMER-SETUP-FINAL-SET-LABEL"                       =   "Set Final (Red) Time";
+"LGV_TIMER-SETUP-COLOR-THEME-LABEL"                     =   "Selected Color Theme";
 
 "LGV_TIMER-TIME-PICKER-HOUR-FORMAT"                     =   "%d Hour";
 "LGV_TIMER-TIME-PICKER-HOURS-FORMAT"                    =   "%d Hours";
@@ -51,3 +52,9 @@
 "DELETE-OK-BUTTON"                                      =   "Delete";
 "DELETE-CANCEL-BUTTON"                                  =   "Cancel";
 
+"LGV_TIMER-COLOR-THEME-RED"                             =   "Red";
+"LGV_TIMER-COLOR-THEME-BLUE"                            =   "Blue";
+"LGV_TIMER-COLOR-THEME-GREEN"                           =   "Green";
+"LGV_TIMER-COLOR-THEME-YELLOW"                          =   "Yellow";
+"LGV_TIMER-COLOR-THEME-WHITE"                           =   "White";
+"LGV_TIMER-COLOR-THEME-GRAY"                            =   "Gray";

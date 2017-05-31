@@ -17,7 +17,7 @@
                 <navigationController storyboardIdentifier="LGV_Timer_TimerNavController" title="Timer Navigation Controller" id="RhK-pG-4ta" customClass="LGV_Timer_TimerNavController" customModule="LGV_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="oDm-vU-50Y"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black" translucent="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="eRP-fW-XSv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="eRP-fW-XSv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.0" green="0.0" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -225,8 +225,42 @@
                                     <action selector="modeSegmentedControlChanged:" destination="Cmw-cs-f0x" eventType="valueChanged" id="nUQ-MR-fsS"/>
                                 </connections>
                             </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-6l-M17" userLabel="Color Picker Container View">
+                                <rect key="frame" x="16" y="147" width="343" height="81"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-COLOR-THEME-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qA-v4-gf5">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="hzs-1r-dih"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lha-1G-1eH">
+                                        <rect key="frame" x="0.0" y="21" width="343" height="60"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Cmw-cs-f0x" id="qzY-ez-ZM1"/>
+                                            <outlet property="delegate" destination="Cmw-cs-f0x" id="XPJ-30-mXQ"/>
+                                        </connections>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="7qA-v4-gf5" secondAttribute="trailing" id="5jR-hk-ObC"/>
+                                    <constraint firstItem="7qA-v4-gf5" firstAttribute="leading" secondItem="KvQ-6l-M17" secondAttribute="leading" id="CdK-X7-DcD"/>
+                                    <constraint firstAttribute="trailing" secondItem="lha-1G-1eH" secondAttribute="trailing" id="DYU-3m-ZrY"/>
+                                    <constraint firstAttribute="height" constant="81" id="YGC-fi-vUZ"/>
+                                    <constraint firstItem="7qA-v4-gf5" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="top" id="atX-zm-qf0"/>
+                                    <constraint firstItem="lha-1G-1eH" firstAttribute="leading" secondItem="KvQ-6l-M17" secondAttribute="leading" id="b99-cx-yDQ"/>
+                                    <constraint firstItem="lha-1G-1eH" firstAttribute="top" secondItem="7qA-v4-gf5" secondAttribute="bottom" id="eKR-ta-8z5"/>
+                                    <constraint firstAttribute="bottom" secondItem="lha-1G-1eH" secondAttribute="bottom" id="k70-Zk-Lui"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-1e-i1t" userLabel="Podium Mode Container View">
-                                <rect key="frame" x="16" y="147" width="343" height="182"/>
+                                <rect key="frame" x="16" y="228" width="343" height="182"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-WARNING-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BiL-9Z-SQP">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
@@ -291,12 +325,15 @@
                         <constraints>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="top" secondItem="Tzd-08-su5" secondAttribute="bottom" constant="8" id="3gd-gT-uop"/>
                             <constraint firstItem="Tzd-08-su5" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="6gT-BN-QWb"/>
+                            <constraint firstItem="KvQ-6l-M17" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="8" id="7iL-IY-Da5"/>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="Fnf-Gl-gZk"/>
+                            <constraint firstItem="KvQ-6l-M17" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="GEb-qK-Dvf"/>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="JdF-9e-1iU"/>
                             <constraint firstItem="Tzd-08-su5" firstAttribute="top" secondItem="ZN5-uz-PEG" secondAttribute="bottom" constant="8" id="PLD-cG-goT"/>
                             <constraint firstItem="BLm-jr-98g" firstAttribute="leading" secondItem="Tzd-08-su5" secondAttribute="trailing" constant="8" id="QbK-nE-FY1"/>
-                            <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="8" id="TI1-7H-XFZ"/>
+                            <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="89" id="TI1-7H-XFZ"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="Vvm-JM-uaG"/>
+                            <constraint firstItem="KvQ-6l-M17" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="WQl-XH-4hA"/>
                             <constraint firstItem="BLm-jr-98g" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="lX7-yE-04o"/>
                             <constraint firstItem="BLm-jr-98g" firstAttribute="centerY" secondItem="Tzd-08-su5" secondAttribute="centerY" id="rtd-j2-1Iv"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="yrH-mM-v3Q"/>
@@ -312,6 +349,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="colorPickerContainerLayoutTopConstraint" destination="TI1-7H-XFZ" id="dvZ-M6-6Et"/>
+                        <outlet property="colorPickerContainerView" destination="KvQ-6l-M17" id="gaF-Od-ed5"/>
+                        <outlet property="colorThemePicker" destination="lha-1G-1eH" id="LcQ-Yu-wwh"/>
+                        <outlet property="colorThemePickerLabel" destination="7qA-v4-gf5" id="W07-bq-36w"/>
                         <outlet property="finalThresholdLabel" destination="Ojn-dk-can" id="jam-Y3-yJC"/>
                         <outlet property="finalThresholdTimePicker" destination="VaK-Cn-EOG" id="i7c-SA-P8h"/>
                         <outlet property="keepDeviceAwakeLabel" destination="BLm-jr-98g" id="Tqa-tl-3Jl"/>
