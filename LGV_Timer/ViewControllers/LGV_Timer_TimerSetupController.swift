@@ -45,6 +45,9 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
         self.keepDeviceAwakeSwitch.isOn = timers[self.timerNumber].keepsDeviceAwake
         self.timerModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].displayMode.rawValue
+        
+        self.podiumModeContainerView.isHidden = (timers[self.timerNumber].displayMode == .Digital)
+        
         var timeSetWarnInt = timers[self.timerNumber].timeSetPodiumWarn
         if 0 >= timeSetWarnInt {
             timeSetWarnInt = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(timers[self.timerNumber].timeSet)
@@ -101,6 +104,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
         timers[self.timerNumber].displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
         s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        self.podiumModeContainerView.isHidden = (timers[self.timerNumber].displayMode == .Digital)
     }
     
     /// MARK: - UIPickerViewDelegate Methods
