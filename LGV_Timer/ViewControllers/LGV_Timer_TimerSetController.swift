@@ -120,8 +120,8 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         let seconds = pickerView.selectedRow(inComponent: Components.Seconds.rawValue)
         timers[self.timerNumber].timeSet = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
         // We always reset these when we change the main time.
-        timers[self.timerNumber].timeSetPodiumWarn = 0
-        timers[self.timerNumber].timeSetPodiumFinal = 0
+        timers[self.timerNumber].timeSetPodiumWarn = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(timers[self.timerNumber].timeSet)
+        timers[self.timerNumber].timeSetPodiumFinal = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(timers[self.timerNumber].timeSet)
         s_g_LGV_Timer_AppDelegatePrefs.timers = timers
         if let navController = self.navigationController as? LGV_Timer_TimerNavController {
             navController.tabBarItem.image = navController.tabBarImage

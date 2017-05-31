@@ -45,8 +45,18 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
         self.keepDeviceAwakeSwitch.isOn = timers[self.timerNumber].keepsDeviceAwake
         self.timerModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].displayMode.rawValue
-        let timeSetWarn = TimeTuple(timers[self.timerNumber].timeSetPodiumWarn)
-        let timeSetFinal = TimeTuple(timers[self.timerNumber].timeSetPodiumFinal)
+        var timeSetWarnInt = timers[self.timerNumber].timeSetPodiumWarn
+        if 0 >= timeSetWarnInt {
+            timeSetWarnInt = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(timers[self.timerNumber].timeSet)
+            timers[self.timerNumber].timeSetPodiumWarn = timeSetWarnInt
+        }
+        let timeSetWarn = TimeTuple(timeSetWarnInt)
+        var timeSetFinalInt = timers[self.timerNumber].timeSetPodiumFinal
+        if 0 >= timeSetFinalInt {
+            timeSetFinalInt = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(timers[self.timerNumber].timeSet)
+            timers[self.timerNumber].timeSetPodiumFinal = timeSetFinalInt
+        }
+        let timeSetFinal = TimeTuple(timeSetFinalInt)
         self.warningThresholdTimePicker.selectRow(timeSetWarn.hours, inComponent: Components.Hours.rawValue, animated: true)
         self.warningThresholdTimePicker.selectRow(timeSetWarn.minutes, inComponent: Components.Minutes.rawValue, animated: true)
         self.warningThresholdTimePicker.selectRow(timeSetWarn.seconds, inComponent: Components.Seconds.rawValue, animated: true)
@@ -107,19 +117,33 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
             if timers[self.timerNumber].timeSet > Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds)) {
                 timers[self.timerNumber].timeSetPodiumWarn = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
             } else {
-                let timeSetWarn = TimeTuple(timers[self.timerNumber].timeSetPodiumWarn)
-                pickerView.selectRow(timeSetWarn.hours, inComponent: Components.Hours.rawValue, animated: true)
-                pickerView.selectRow(timeSetWarn.minutes, inComponent: Components.Minutes.rawValue, animated: true)
-                pickerView.selectRow(timeSetWarn.seconds, inComponent: Components.Seconds.rawValue, animated: true)
+                var maxValInt = max(0, timers[self.timerNumber].timeSet - 1)
+                
+                if 0 == maxValInt {
+                    maxValInt = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(timers[self.timerNumber].timeSet)
+                }
+                
+                let maxVal = TimeTuple(maxValInt)
+                
+                pickerView.selectRow(maxVal.hours, inComponent: Components.Hours.rawValue, animated: true)
+                pickerView.selectRow(maxVal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
+                pickerView.selectRow(maxVal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
             }
         } else {
             if timers[self.timerNumber].timeSetPodiumWarn > Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds)) {
                 timers[self.timerNumber].timeSetPodiumFinal = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
             } else {
-                let timeSetFinal = TimeTuple(timers[self.timerNumber].timeSetPodiumFinal)
-                pickerView.selectRow(timeSetFinal.hours, inComponent: Components.Hours.rawValue, animated: true)
-                pickerView.selectRow(timeSetFinal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
-                pickerView.selectRow(timeSetFinal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
+                var maxValInt = max(0, timers[self.timerNumber].timeSetPodiumWarn - 1)
+                
+                if 0 == maxValInt {
+                    maxValInt = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(timers[self.timerNumber].timeSet)
+                }
+                
+                let maxVal = TimeTuple(maxValInt)
+                
+                pickerView.selectRow(maxVal.hours, inComponent: Components.Hours.rawValue, animated: true)
+                pickerView.selectRow(maxVal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
+                pickerView.selectRow(maxVal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
             }
         }
         
