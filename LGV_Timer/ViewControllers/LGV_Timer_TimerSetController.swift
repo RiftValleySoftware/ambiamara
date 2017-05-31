@@ -87,6 +87,16 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         }
     }
     
+    /* ################################################################## */
+    /**
+     Called when we are about to bring in the setup controller.
+     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationController = segue.destination as? LGV_Timer_TimerSetupController {
+            destinationController.timerNumber = self.timerNumber
+        }
+    }
+    
     /// MARK: - IBAction Methods
     /* ################################################################################################################################## */
     /* ################################################################## */

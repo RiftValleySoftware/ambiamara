@@ -195,7 +195,6 @@ class TimerSettingTuple {
     var displayMode: TimerDisplayMode   ///< This is how the timer will display
     var keepsDeviceAwake: Bool          ///< Detemines whether or not to keep the device awake while counting down.
     var colorTheme: Int                 ///< This is the 0-based index for the color theme.
-    var hasBeenSet: Bool                ///< This is set to true, once settings have been done once for the timer.
     var alertMode: AlertMode            ///< This determines what kind of alert the timer makes when it is complete.
     var alertVolume: Int                ///< This is the volume of the alert (when in mode 1 or 2).
 
@@ -211,11 +210,10 @@ class TimerSettingTuple {
      :param: displayMode This is how the timer will display
      :param: keepsDeviceAwake Detemines whether or not to keep the device awake while counting down.
      :param: colorTheme This is the 0-based index for the color theme.
-     :param: hasBeenSet This is set to true, once settings have been done once for the timer.
      :param: alertMode This determines what kind of alert the timer makes when it is complete.
      :param: alertVolume This is the volume of the alert (when in mode 1 or 2).
      */
-    init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, displayMode: TimerDisplayMode, keepsDeviceAwake: Bool, colorTheme: Int, hasBeenSet: Bool, alertMode: AlertMode, alertVolume: Int) {
+    init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, displayMode: TimerDisplayMode, keepsDeviceAwake: Bool, colorTheme: Int, alertMode: AlertMode, alertVolume: Int) {
         
         self.timeSet = timeSet
         self.timeSetPodiumWarn = timeSetPodiumWarn
@@ -223,7 +221,6 @@ class TimerSettingTuple {
         self.displayMode = displayMode
         self.keepsDeviceAwake = keepsDeviceAwake
         self.colorTheme = colorTheme
-        self.hasBeenSet = hasBeenSet
         self.alertMode = alertMode
         self.alertVolume = alertVolume
     }
@@ -236,14 +233,13 @@ class TimerSettingTuple {
      */
     var description: String {
         get {
-            return String(format: "timeSet: %@, timeSetPodiumWarn: %@, timeSetPodiumFinal: %d, displayMode: %@, keepsDeviceAwake: %d, colorTheme: %d, hasBeenSet: %d, alertMode: %d, alertVolume: %d",
+            return String(format: "timeSet: %@, timeSetPodiumWarn: %@, timeSetPodiumFinal: %d, displayMode: %@, keepsDeviceAwake: %d, colorTheme: %d, alertMode: %d, alertVolume: %d",
                           self.timeSet.description,
                           self.timeSetPodiumWarn.description,
                           self.timeSetPodiumFinal.description,
                           self.displayMode.rawValue,
                           self.keepsDeviceAwake ? 1 : 0,
                           self.colorTheme,
-                          self.hasBeenSet ? 1 : 0,
                           self.alertMode.rawValue,
                           self.alertVolume
             )
@@ -310,7 +306,6 @@ class LGV_Timer_StaticPrefs {
         case DisplayMode        = "DisplayMode"
         case KeepsDeviceAwake   = "KeepsDeviceAwake"
         case ColorTheme         = "ColorTheme"
-        case HasBeenSet         = "HasBeenSet"
         case AlertMode          = "AlertMode"
         case AlertVolume        = "AlertVolume"
     }
@@ -336,7 +331,6 @@ class LGV_Timer_StaticPrefs {
         tempSetting.setValue(NSNumber(value: inTimer.displayMode.rawValue), forKey: TimerPrefKeys.DisplayMode.rawValue)
         tempSetting.setValue(NSNumber(value: inTimer.keepsDeviceAwake), forKey: TimerPrefKeys.KeepsDeviceAwake.rawValue)
         tempSetting.setValue(NSNumber(value: inTimer.colorTheme), forKey: TimerPrefKeys.ColorTheme.rawValue)
-        tempSetting.setValue(NSNumber(value: inTimer.hasBeenSet), forKey: TimerPrefKeys.HasBeenSet.rawValue)
         tempSetting.setValue(NSNumber(value: inTimer.alertMode.rawValue), forKey: TimerPrefKeys.AlertMode.rawValue)
         tempSetting.setValue(NSNumber(value: inTimer.alertVolume), forKey: TimerPrefKeys.AlertVolume.rawValue)
         
@@ -373,10 +367,6 @@ class LGV_Timer_StaticPrefs {
         
         if let colorTheme = inTimer.object(forKey: TimerPrefKeys.ColorTheme.rawValue) as? NSNumber {
             tempSetting.colorTheme = colorTheme.intValue
-        }
-        
-        if let hasBeenSet = inTimer.object(forKey: TimerPrefKeys.HasBeenSet.rawValue) as? NSNumber {
-            tempSetting.hasBeenSet = hasBeenSet.boolValue
         }
         
         if let alertMode = inTimer.object(forKey: TimerPrefKeys.AlertMode.rawValue) as? NSNumber {
@@ -456,7 +446,7 @@ class LGV_Timer_StaticPrefs {
      */
     static var defaultTimer: TimerSettingTuple {
         get {
-            return TimerSettingTuple(timeSet: 0, timeSetPodiumWarn: 0, timeSetPodiumFinal: 0, displayMode: .Digital, keepsDeviceAwake: true, colorTheme: 0, hasBeenSet: false, alertMode: .Both, alertVolume: 5)
+            return TimerSettingTuple(timeSet: 0, timeSetPodiumWarn: 0, timeSetPodiumFinal: 0, displayMode: .Digital, keepsDeviceAwake: true, colorTheme: 0, alertMode: .Both, alertVolume: 5)
         }
     }
     

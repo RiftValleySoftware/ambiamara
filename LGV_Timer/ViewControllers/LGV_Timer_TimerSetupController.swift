@@ -18,8 +18,6 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var keepDeviceAwakeLabel: UILabel!
     @IBOutlet weak var keepDeviceAwakeSwitch: UISwitch!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
-    @IBOutlet weak var setWarningTimePickerView: UIPickerView!
-    @IBOutlet weak var setFinalTimePickerView: UIPickerView!
     @IBOutlet weak var podiumModeContainerView: UIView!
     @IBOutlet weak var warningThresholdLabel: UILabel!
     @IBOutlet weak var warningThresholdTimePicker: UIPickerView!
@@ -44,22 +42,18 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
         }
         
-        if let navController = self.navigationController as? LGV_Timer_TimerNavController {
-            self.timerNumber = max(0, navController.self.timerNumber - 1)
-            let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-            self.keepDeviceAwakeSwitch.isOn = timers[self.timerNumber].keepsDeviceAwake
-            self.timerModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].displayMode.rawValue
-            timers[self.timerNumber].hasBeenSet = true
-            let timeSetWarn = TimeTuple(timers[self.timerNumber].timeSetPodiumWarn)
-            let timeSetFinal = TimeTuple(timers[self.timerNumber].timeSetPodiumFinal)
-            self.warningThresholdTimePicker.selectRow(timeSetWarn.hours, inComponent: Components.Hours.rawValue, animated: true)
-            self.warningThresholdTimePicker.selectRow(timeSetWarn.minutes, inComponent: Components.Minutes.rawValue, animated: true)
-            self.warningThresholdTimePicker.selectRow(timeSetWarn.seconds, inComponent: Components.Seconds.rawValue, animated: true)
-            self.finalThresholdTimePicker.selectRow(timeSetFinal.hours, inComponent: Components.Hours.rawValue, animated: true)
-            self.finalThresholdTimePicker.selectRow(timeSetFinal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
-            self.finalThresholdTimePicker.selectRow(timeSetFinal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
-            s_g_LGV_Timer_AppDelegatePrefs.timers = timers
-        }
+        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
+        self.keepDeviceAwakeSwitch.isOn = timers[self.timerNumber].keepsDeviceAwake
+        self.timerModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].displayMode.rawValue
+        let timeSetWarn = TimeTuple(timers[self.timerNumber].timeSetPodiumWarn)
+        let timeSetFinal = TimeTuple(timers[self.timerNumber].timeSetPodiumFinal)
+        self.warningThresholdTimePicker.selectRow(timeSetWarn.hours, inComponent: Components.Hours.rawValue, animated: true)
+        self.warningThresholdTimePicker.selectRow(timeSetWarn.minutes, inComponent: Components.Minutes.rawValue, animated: true)
+        self.warningThresholdTimePicker.selectRow(timeSetWarn.seconds, inComponent: Components.Seconds.rawValue, animated: true)
+        self.finalThresholdTimePicker.selectRow(timeSetFinal.hours, inComponent: Components.Hours.rawValue, animated: true)
+        self.finalThresholdTimePicker.selectRow(timeSetFinal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
+        self.finalThresholdTimePicker.selectRow(timeSetFinal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
+        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
         
         // This ensures that we force the display to portrait (for this screen only).
         LGV_Timer_AppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
@@ -109,7 +103,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         let hours = pickerView.selectedRow(inComponent: Components.Hours.rawValue)
         let minutes = pickerView.selectedRow(inComponent: Components.Minutes.rawValue)
         let seconds = pickerView.selectedRow(inComponent: Components.Seconds.rawValue)
-        if self.setWarningTimePickerView == pickerView {
+        if self.warningThresholdTimePicker == pickerView {
             if timers[self.timerNumber].timeSet > Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds)) {
                 timers[self.timerNumber].timeSetPodiumWarn = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
             } else {
