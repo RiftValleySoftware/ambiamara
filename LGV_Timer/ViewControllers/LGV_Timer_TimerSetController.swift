@@ -21,6 +21,8 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var setupButton: UIBarButtonItem!
     @IBOutlet weak var timeSetLabel: UILabel!
     @IBOutlet weak var setTimePickerView: UIPickerView!
+    
+    var timerNumber: Int = 0
 
     // MARK: - Internal @IBAction Methods
     /* ################################################################################################################################## */
@@ -64,9 +66,9 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         super.viewWillAppear(animated)
         if let navController = self.navigationController as? LGV_Timer_TimerNavController {
             self.setTimePickerView.reloadAllComponents()
-            let timerNumber = max(0, navController.timerNumber - 1)
+            self.timerNumber = max(0, navController.timerNumber - 1)
             let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-            let timeSet = TimeTuple(timers[timerNumber].timeSet)
+            let timeSet = TimeTuple(timers[self.timerNumber].timeSet)
             self.setTimePickerView.selectRow(timeSet.hours, inComponent: Components.Hours.rawValue, animated: true)
             self.setTimePickerView.selectRow(timeSet.minutes, inComponent: Components.Minutes.rawValue, animated: true)
             self.setTimePickerView.selectRow(timeSet.seconds, inComponent: Components.Seconds.rawValue, animated: true)
@@ -85,13 +87,14 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         }
     }
     
+    /// MARK: - IBAction Methods
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      */
     @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
-        let timerNumber = max(0, ((self.navigationController as? LGV_Timer_TimerNavController)?.timerNumber)! - 1)
         let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        timers[timerNumber].displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
+        timers[self.timerNumber].displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
         s_g_LGV_Timer_AppDelegatePrefs.timers = timers
     }
     
@@ -101,12 +104,14 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     /**
      */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let timerNumber = max(0, ((self.navigationController as? LGV_Timer_TimerNavController)?.timerNumber)! - 1)
         let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
         let hours = pickerView.selectedRow(inComponent: Components.Hours.rawValue)
         let minutes = pickerView.selectedRow(inComponent: Components.Minutes.rawValue)
         let seconds = pickerView.selectedRow(inComponent: Components.Seconds.rawValue)
-        timers[timerNumber].timeSet = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
+        timers[self.timerNumber].timeSet = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
+        // We always reset these when we change the main time.
+        timers[self.timerNumber].timeSetPodiumWarn = 0
+        timers[self.timerNumber].timeSetPodiumFinal = 0
         s_g_LGV_Timer_AppDelegatePrefs.timers = timers
         if let navController = self.navigationController as? LGV_Timer_TimerNavController {
             navController.tabBarItem.image = navController.tabBarImage

@@ -128,8 +128,8 @@
                                     <constraint firstAttribute="height" constant="60" id="Nr7-xM-4Ta"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="dataSource" destination="Y3X-jz-wfO" id="kEq-Sx-PzO"/>
-                                    <outlet property="delegate" destination="Y3X-jz-wfO" id="oBs-qZ-u1s"/>
+                                    <outlet property="dataSource" destination="Y3X-jz-wfO" id="mJX-Bx-OAr"/>
+                                    <outlet property="delegate" destination="Y3X-jz-wfO" id="Fdh-I4-b9l"/>
                                 </connections>
                             </pickerView>
                         </subviews>
@@ -167,7 +167,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="setTimePickerView" destination="lN6-TG-yli" id="4oy-pC-QpC"/>
+                        <outlet property="setTimePickerView" destination="lN6-TG-yli" id="0Vp-pr-I6y"/>
                         <outlet property="setupButton" destination="2m3-Kd-jYo" id="NfH-I2-rKy"/>
                         <outlet property="startButton" destination="en2-R9-W73" id="J8O-OX-LdB"/>
                         <outlet property="timeSetLabel" destination="AxC-XP-sOe" id="vtd-cL-Cjx"/>
@@ -244,8 +244,8 @@
                                             <constraint firstAttribute="height" constant="60" id="7bx-yX-rce"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="dataSource" destination="Cmw-cs-f0x" id="79S-Hk-qa7"/>
-                                            <outlet property="delegate" destination="Cmw-cs-f0x" id="IB2-Dg-Kcw"/>
+                                            <outlet property="dataSource" destination="Cmw-cs-f0x" id="TQK-dh-wFK"/>
+                                            <outlet property="delegate" destination="Cmw-cs-f0x" id="7h4-Hg-Hhf"/>
                                         </connections>
                                     </pickerView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-FINAL-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Ojn-dk-can">
@@ -264,8 +264,8 @@
                                             <constraint firstAttribute="height" constant="60" id="KPV-iW-Xaw"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="dataSource" destination="Cmw-cs-f0x" id="zFD-rP-xdn"/>
-                                            <outlet property="delegate" destination="Cmw-cs-f0x" id="UMo-pr-qOD"/>
+                                            <outlet property="dataSource" destination="Cmw-cs-f0x" id="Q3f-gK-kko"/>
+                                            <outlet property="delegate" destination="Cmw-cs-f0x" id="uSC-7W-jgU"/>
                                         </connections>
                                     </pickerView>
                                 </subviews>
@@ -313,13 +313,13 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="finalThresholdLabel" destination="Ojn-dk-can" id="jam-Y3-yJC"/>
-                        <outlet property="finalThresholdTimePicker" destination="VaK-Cn-EOG" id="m0v-uE-tTC"/>
                         <outlet property="keepDeviceAwakeLabel" destination="BLm-jr-98g" id="Tqa-tl-3Jl"/>
                         <outlet property="keepDeviceAwakeSwitch" destination="Tzd-08-su5" id="ZAr-hE-eIm"/>
                         <outlet property="podiumModeContainerView" destination="bOd-1e-i1t" id="ECt-Zz-Rki"/>
+                        <outlet property="setFinalTimePickerView" destination="VaK-Cn-EOG" id="MxC-FV-sAV"/>
+                        <outlet property="setWarningTimePickerView" destination="CPo-vP-d5X" id="r0q-Qp-oIl"/>
                         <outlet property="timerModeSegmentedSwitch" destination="fCL-vy-SIp" id="dKL-VY-QQ6"/>
                         <outlet property="warningThresholdLabel" destination="BiL-9Z-SQP" id="Bb7-QV-Igi"/>
-                        <outlet property="warningThresholdTimePicker" destination="CPo-vP-d5X" id="SRq-nP-ahN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C3L-OZ-3lH" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -15,10 +15,6 @@ import UIKit
 /**
  */
 class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
-    enum Components: Int {
-        case Hours = 0, Minutes, Seconds
-    }
-    
     @IBOutlet weak var keepDeviceAwakeLabel: UILabel!
     @IBOutlet weak var keepDeviceAwakeSwitch: UISwitch!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
@@ -29,6 +25,8 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var warningThresholdTimePicker: UIPickerView!
     @IBOutlet weak var finalThresholdLabel: UILabel!
     @IBOutlet weak var finalThresholdTimePicker: UIPickerView!
+    
+    var timerNumber: Int = 0
     
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
@@ -47,11 +45,19 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         }
         
         if let navController = self.navigationController as? LGV_Timer_TimerNavController {
-            let timerNumber = max(0, navController.timerNumber - 1)
+            self.timerNumber = max(0, navController.self.timerNumber - 1)
             let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-            self.keepDeviceAwakeSwitch.isOn = timers[timerNumber].keepsDeviceAwake
-            self.timerModeSegmentedSwitch.selectedSegmentIndex = timers[timerNumber].displayMode.rawValue
-            timers[timerNumber].hasBeenSet = true
+            self.keepDeviceAwakeSwitch.isOn = timers[self.timerNumber].keepsDeviceAwake
+            self.timerModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].displayMode.rawValue
+            timers[self.timerNumber].hasBeenSet = true
+            let timeSetWarn = TimeTuple(timers[self.timerNumber].timeSetPodiumWarn)
+            let timeSetFinal = TimeTuple(timers[self.timerNumber].timeSetPodiumFinal)
+            self.warningThresholdTimePicker.selectRow(timeSetWarn.hours, inComponent: Components.Hours.rawValue, animated: true)
+            self.warningThresholdTimePicker.selectRow(timeSetWarn.minutes, inComponent: Components.Minutes.rawValue, animated: true)
+            self.warningThresholdTimePicker.selectRow(timeSetWarn.seconds, inComponent: Components.Seconds.rawValue, animated: true)
+            self.finalThresholdTimePicker.selectRow(timeSetFinal.hours, inComponent: Components.Hours.rawValue, animated: true)
+            self.finalThresholdTimePicker.selectRow(timeSetFinal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
+            self.finalThresholdTimePicker.selectRow(timeSetFinal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
             s_g_LGV_Timer_AppDelegatePrefs.timers = timers
         }
         
@@ -79,9 +85,8 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
      :param: sender The switch object.
      */
     @IBAction func keepDeviceAwakeSwitchHit(_ sender: UISwitch) {
-        let timerNumber = max(0, ((self.navigationController as? LGV_Timer_TimerNavController)?.timerNumber)! - 1)
         let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        timers[timerNumber].keepsDeviceAwake = sender.isOn
+        timers[self.timerNumber].keepsDeviceAwake = sender.isOn
         s_g_LGV_Timer_AppDelegatePrefs.timers = timers
     }
     
@@ -89,9 +94,8 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     /**
      */
     @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
-        let timerNumber = max(0, ((self.navigationController as? LGV_Timer_TimerNavController)?.timerNumber)! - 1)
         let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        timers[timerNumber].displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
+        timers[self.timerNumber].displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
         s_g_LGV_Timer_AppDelegatePrefs.timers = timers
     }
     
@@ -101,6 +105,30 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     /**
      */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
+        let hours = pickerView.selectedRow(inComponent: Components.Hours.rawValue)
+        let minutes = pickerView.selectedRow(inComponent: Components.Minutes.rawValue)
+        let seconds = pickerView.selectedRow(inComponent: Components.Seconds.rawValue)
+        if self.setWarningTimePickerView == pickerView {
+            if timers[self.timerNumber].timeSet > Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds)) {
+                timers[self.timerNumber].timeSetPodiumWarn = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
+            } else {
+                let timeSetWarn = TimeTuple(timers[self.timerNumber].timeSetPodiumWarn)
+                pickerView.selectRow(timeSetWarn.hours, inComponent: Components.Hours.rawValue, animated: true)
+                pickerView.selectRow(timeSetWarn.minutes, inComponent: Components.Minutes.rawValue, animated: true)
+                pickerView.selectRow(timeSetWarn.seconds, inComponent: Components.Seconds.rawValue, animated: true)
+            }
+        } else {
+            if timers[self.timerNumber].timeSetPodiumWarn > Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds)) {
+                timers[self.timerNumber].timeSetPodiumFinal = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
+            } else {
+                let timeSetFinal = TimeTuple(timers[self.timerNumber].timeSetPodiumFinal)
+                pickerView.selectRow(timeSetFinal.hours, inComponent: Components.Hours.rawValue, animated: true)
+                pickerView.selectRow(timeSetFinal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
+                pickerView.selectRow(timeSetFinal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
+            }
+        }
         
+        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
     }
 }
