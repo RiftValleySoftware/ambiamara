@@ -11,6 +11,4 @@
 import UIKit
 
 @IBDesignable class LGV_Timer_ColorThemeLabel: UILabel {
-    @IBInspectable var gradientTopColor: UIColor! = nil
-    @IBInspectable var gradientBottomColor: UIColor! = nil
 }

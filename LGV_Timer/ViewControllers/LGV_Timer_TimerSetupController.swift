@@ -99,7 +99,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
      */
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        LGV_Timer_MainTabController.s_c_pushTimerSettings = false
         // Don't forget to reset when view is being removed
         LGV_Timer_AppDelegate.lockOrientation(.all)
     }
@@ -181,7 +181,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
             if let textFont = UIFont(name: "Let's Go Digital", size: 30) {
                 ret.font = textFont
                 ret.adjustsFontSizeToFitWidth = true
-                ret.textColor = swatchLabel.gradientTopColor
+                ret.textColor = swatchLabel.backgroundColor
             }
             
             return ret

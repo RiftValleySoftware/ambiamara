@@ -167,7 +167,6 @@ import UIKit
     @IBInspectable var seconds: Int = 0
     @IBInspectable var separationSpace: Int = 4
     
-    
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
     private var _allElementGroup: LED_ElementGrouping! = nil
@@ -320,8 +319,10 @@ import UIKit
         }
         
         self._allElementGroup.containerSize = self.frame.size
+        
         self.activeSegmentColor.setFill()
         self._allElementGroup.activeSegments.fill()
+        
         self.inactiveSegmentColor.setFill()
         self._allElementGroup.inactiveSegments.fill()
         
