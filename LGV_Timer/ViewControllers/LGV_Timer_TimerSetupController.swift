@@ -15,8 +15,6 @@ import UIKit
 /**
  */
 class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
-    static let s_c_viewBundleName = "LGV_Timer_ColorThemes"
-    
     @IBOutlet weak var keepDeviceAwakeLabel: UILabel!
     @IBOutlet weak var keepDeviceAwakeSwitch: UISwitch!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
@@ -31,7 +29,6 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var colorThemePicker: UIPickerView!
     
     var timerNumber: Int = 0
-    var pickerPepperArray: [LGV_Timer_ColorThemeLabel]! = nil
     
     /* ################################################################## */
     /**
@@ -89,19 +86,11 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         self.finalThresholdTimePicker.selectRow(timeSetFinal.hours, inComponent: Components.Hours.rawValue, animated: true)
         self.finalThresholdTimePicker.selectRow(timeSetFinal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
         self.finalThresholdTimePicker.selectRow(timeSetFinal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
-        self.colorThemePicker.selectRow(timers[self.timerNumber].colorTheme, inComponent: 0, animated: true)
         s_g_LGV_Timer_AppDelegatePrefs.timers = timers
         
         // This ensures that we force the display to portrait (for this screen only).
         LGV_Timer_AppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
-        self.pickerPepperArray = []
-        if let view = UINib(nibName: type(of: self).s_c_viewBundleName, bundle: nil).instantiate(withOwner: self, options: nil)[0] as? UIView {
-            if let subViews = view.subviews as? [LGV_Timer_ColorThemeLabel] {
-                for subView in subViews {
-                    self.pickerPepperArray.append(subView)
-                }
-            }
-        }
+        self.colorThemePicker.selectRow(timers[self.timerNumber].colorTheme, inComponent: 0, animated: true)
     }
     
     /* ################################################################## */
@@ -153,11 +142,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
      */
     override func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if self.colorThemePicker == pickerView {
-            if nil != self.pickerPepperArray {
-                return self.pickerPepperArray.count
-            } else {
-                return 0
-            }
+            return LGV_Timer_StaticPrefs.prefs.pickerPepperArray.count
         } else {
             return super.pickerView(pickerView, numberOfRowsInComponent: component)
         }
@@ -184,19 +169,19 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
      */
     override func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         if self.colorThemePicker == pickerView {
-            var ret: UIView! = view
+            let width = self.pickerView(pickerView, widthForComponent: component)
+            let height = self.pickerView(pickerView, rowHeightForComponent: component)
+            let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: height))
+            let ret: UILabel = UILabel(frame: frame)
             
-            if (nil != self.pickerPepperArray) && (nil == ret) {
-                ret = self.pickerPepperArray[row]
-                if let label = ret as? UILabel {
-                    label.text = label.text?.localizedVariant
-                }
-                
-                let width = self.pickerView(pickerView, widthForComponent: component)
-                let height = self.pickerView(pickerView, rowHeightForComponent: component)
-                let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: height))
-                
-                ret.frame = frame
+            let swatchLabel = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[row]
+            ret.text = swatchLabel.text?.localizedVariant
+            ret.backgroundColor = UIColor.clear
+            ret.textAlignment = swatchLabel.textAlignment
+            if let textFont = UIFont(name: "Let's Go Digital", size: 30) {
+                ret.font = textFont
+                ret.adjustsFontSizeToFitWidth = true
+                ret.textColor = swatchLabel.gradientTopColor
             }
             
             return ret

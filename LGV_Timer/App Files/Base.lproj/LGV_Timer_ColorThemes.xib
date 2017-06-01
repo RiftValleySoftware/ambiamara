@@ -56,10 +56,10 @@
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
-                            <color key="value" red="0.005524634005" green="0.59866538810000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.004673240974" green="0.76673818010000006" blue="0.043079631719999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
-                            <color key="value" red="0.47359455210000001" green="0.83305242199999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.0" green="1" blue="0.044991018680000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </label>
@@ -71,10 +71,25 @@
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
-                            <color key="value" red="0.005524634005" green="0.59866538810000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="1" green="0.97317665249999996" blue="0.22001092620000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
-                            <color key="value" red="0.47359455210000001" green="0.83305242199999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="LGV_TIMER-COLOR-THEME-WHITE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="O59-ek-mlX" customClass="LGV_Timer_ColorThemeLabel" customModule="LGV_Timer" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="202" width="375" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
+                            <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
+                            <color key="value" red="0.93318895725388606" green="0.93318895725388606" blue="0.93318895725388606" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </label>

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Little Green Viper Software Development LLC. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - Convenience Cast -
 /* ###################################################################################################################################### */
@@ -262,12 +262,15 @@ class LGV_Timer_StaticPrefs {
     private static let _mainPrefsKey: String = "LGV_Timer_StaticPrefs"
     /** This is how we enforce a SINGLETON pattern. */
     private static var _sSingletonPrefs: LGV_Timer_StaticPrefs! = nil
-
+    /** This contains our color theme palette. */
+    private static let _sviewBundleName = "LGV_Timer_ColorThemes"
+    
     // MARK: - Private Variable Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
     /** We load the user prefs into this Dictionary object. */
     private var _loadedPrefs: NSMutableDictionary! = nil
+    private var _pickerPepperArray: [LGV_Timer_ColorThemeLabel] = []
     
     // MARK: - Private Enums
     /* ################################################################################################################################## */
@@ -702,6 +705,26 @@ class LGV_Timer_StaticPrefs {
             ret += "]"
             
             return ret
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Returns the color palettes.
+     */
+    var pickerPepperArray: [LGV_Timer_ColorThemeLabel] {
+        get {
+            if self._pickerPepperArray.isEmpty {
+                if let view = UINib(nibName: type(of: self)._sviewBundleName, bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? UIView {
+                    if let subViews = view.subviews as? [LGV_Timer_ColorThemeLabel] {
+                        for subView in subViews {
+                            self._pickerPepperArray.append(subView)
+                        }
+                    }
+                }
+            }
+            
+            return self._pickerPepperArray
         }
     }
 }
