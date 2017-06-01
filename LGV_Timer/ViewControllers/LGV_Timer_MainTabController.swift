@@ -23,8 +23,6 @@ class LGV_Timer_MainTabController: UITabBarController {
     /**
      */
     var globalSettingsViewController: LGV_Timer_SettingsViewController! = nil
-    var clockViewController: LGV_Timer_ClockViewController! = nil
-    var stopwatchViewController: LGV_Timer_StopwatchViewController! = nil
     
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
@@ -36,7 +34,7 @@ class LGV_Timer_MainTabController: UITabBarController {
             var ret: [LGV_Timer_TimerNavController] = []
             
             if let count = self.viewControllers?.count {
-                for viewControllerIndex in 3..<count {
+                for viewControllerIndex in 1..<count {
                     if let viewController = self.viewControllers?[viewControllerIndex] as? LGV_Timer_TimerNavController {
                         ret.append(viewController)
                     }
@@ -62,16 +60,6 @@ class LGV_Timer_MainTabController: UITabBarController {
                     barItem.title = barItem.title?.localizedVariant
                     self.globalSettingsViewController = barController as! LGV_Timer_SettingsViewController
                     self.globalSettingsViewController.mainTabController = self
-                } else {
-                    if type(of: barController) == LGV_Timer_ClockViewController.self {
-                        barItem.title = barItem.title?.localizedVariant
-                        self.clockViewController = barController as! LGV_Timer_ClockViewController
-                    } else {
-                        if type(of: barController) == LGV_Timer_StopwatchViewController.self {
-                            barItem.title = barItem.title?.localizedVariant
-                            self.stopwatchViewController = barController as! LGV_Timer_StopwatchViewController
-                        }
-                    }
                 }
             }
         }
@@ -89,7 +77,7 @@ class LGV_Timer_MainTabController: UITabBarController {
         
         let count = self.viewControllers!.count
         
-        for _ in 3..<count {
+        for _ in 1..<count {
             self.viewControllers?.remove(at: self.viewControllers!.count - 1)
         }
         
@@ -124,7 +112,7 @@ class LGV_Timer_MainTabController: UITabBarController {
      */
     func selectTimer(_ inTimerIndex: Int, pushSettings: Bool) {
         type(of:self).s_c_pushTimerSettings = pushSettings
-        let timerIndex = 3 + inTimerIndex
+        let timerIndex = 1 + inTimerIndex
         self.selectedViewController = self.viewControllers?[timerIndex]
     }
 }

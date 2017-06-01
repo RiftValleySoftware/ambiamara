@@ -27,6 +27,9 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var colorPickerContainerView: UIView!
     @IBOutlet weak var colorThemePickerLabel: UILabel!
     @IBOutlet weak var colorThemePicker: UIPickerView!
+    @IBOutlet weak var alertModeLabel: UILabel!
+    @IBOutlet weak var alertModeSegmentedSwitch: UISegmentedControl!
+    @IBOutlet weak var alertVolumeSlider: UISlider!
     
     var timerNumber: Int = 0
     
@@ -40,6 +43,20 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         self.colorPickerContainerLayoutTopConstraint.constant = 8 + ((timers[self.timerNumber].displayMode == .Podium) ? 0 : self.colorPickerContainerView.bounds.size.height)
     }
     
+    /* ################################################################## */
+    /**
+     */
+    func setUpAlertVolumeSlider() {
+        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
+        if (0 == timers[self.timerNumber].alertVolume) && (((timers[self.timerNumber].alertMode == .SoundOnly) || (timers[self.timerNumber].alertMode == .Both))) {
+            timers[self.timerNumber].alertMode = .Silent
+            self.alertModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].alertMode.rawValue
+            s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        }
+        self.alertVolumeSlider.value = Float(timers[self.timerNumber].alertVolume)
+        self.alertVolumeSlider.isEnabled = ((timers[self.timerNumber].alertMode == .SoundOnly) || (timers[self.timerNumber].alertMode == .Both))
+    }
+    
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -47,21 +64,29 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
      Called when the view will appear.
      */
     override func viewWillAppear(_ animated: Bool) {
+        self.tabItemColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].colorTheme].textColor
         super.viewWillAppear(animated)
         self.keepDeviceAwakeLabel.text = self.keepDeviceAwakeLabel.text?.localizedVariant
         self.warningThresholdLabel.text = self.warningThresholdLabel.text?.localizedVariant
         self.finalThresholdLabel.text = self.finalThresholdLabel.text?.localizedVariant
         self.colorThemePickerLabel.text = self.colorThemePickerLabel.text?.localizedVariant
-
+        self.alertModeLabel.text = self.alertModeLabel.text?.localizedVariant
+        
         for segment in 0..<self.timerModeSegmentedSwitch.numberOfSegments {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
+        }
+        
+        for segment in 0..<self.alertModeSegmentedSwitch.numberOfSegments {
+            self.alertModeSegmentedSwitch.setTitle(self.alertModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
         }
         
         let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
         self.keepDeviceAwakeSwitch.isOn = timers[self.timerNumber].keepsDeviceAwake
         self.timerModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].displayMode.rawValue
+        self.alertModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].alertMode.rawValue
         
         self.setUpPickerViews()
+        self.setUpAlertVolumeSlider()
         
         self.warningThresholdTimePicker.reloadAllComponents()
         self.finalThresholdTimePicker.reloadAllComponents()
@@ -128,6 +153,41 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         self.setUpPickerViews()
     }
     
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func alertModeChanged(_ sender: UISegmentedControl) {
+        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
+        timers[self.timerNumber].alertMode = AlertMode(rawValue: sender.selectedSegmentIndex)!
+        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        if (0 == timers[self.timerNumber].alertVolume) && ((.SoundOnly == timers[self.timerNumber].alertMode) || (.Both == timers[self.timerNumber].alertMode)) {
+            timers[self.timerNumber].alertVolume = 1
+            s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        } else {
+            if ((.Silent == timers[self.timerNumber].alertMode) || (.VibrateOnly == timers[self.timerNumber].alertMode)) {
+                timers[self.timerNumber].alertVolume = 0
+                s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+            }
+        }
+        self.setUpAlertVolumeSlider()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func alertVolumeChanged(_ sender: UISlider) {
+        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
+        timers[self.timerNumber].alertVolume = Int(sender.value)
+        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        sender.value = Float(timers[self.timerNumber].alertVolume)
+        if (0 == timers[self.timerNumber].alertVolume) && (((timers[self.timerNumber].alertMode == .SoundOnly) || (timers[self.timerNumber].alertMode == .Both))) {
+            timers[self.timerNumber].alertMode = .Silent
+            self.alertModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].alertMode.rawValue
+            s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+            self.setUpAlertVolumeSlider()
+        }
+    }
+    
     /// MARK: - UIPickerViewDataSource Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -178,11 +238,9 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
             ret.text = swatchLabel.text?.localizedVariant
             ret.backgroundColor = UIColor.clear
             ret.textAlignment = swatchLabel.textAlignment
-            if let textFont = UIFont(name: "Let's Go Digital", size: 30) {
-                ret.font = textFont
-                ret.adjustsFontSizeToFitWidth = true
-                ret.textColor = swatchLabel.backgroundColor
-            }
+            ret.font = swatchLabel.font
+            ret.adjustsFontSizeToFitWidth = true
+            ret.textColor = swatchLabel.textColor
             
             return ret
         } else {
@@ -197,6 +255,9 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
         if self.colorThemePicker == pickerView {
             timers[self.timerNumber].colorTheme = row
+            if let tabBarController = self.tabBarController {
+                tabBarController.tabBar.tintColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[timers[self.timerNumber].colorTheme].textColor
+            }
         } else {
             let hours = pickerView.selectedRow(inComponent: Components.Hours.rawValue)
             let minutes = pickerView.selectedRow(inComponent: Components.Minutes.rawValue)
@@ -218,8 +279,15 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
                     pickerView.selectRow(maxVal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
                 }
             } else {
-                if timers[self.timerNumber].timeSetPodiumWarn > Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds)) {
-                    timers[self.timerNumber].timeSetPodiumFinal = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
+                if (0 == timers[self.timerNumber].timeSetPodiumWarn) || (0 == timers[self.timerNumber].timeSet) || (timers[self.timerNumber].timeSetPodiumWarn > Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))) {
+                    if (0 == timers[self.timerNumber].timeSetPodiumWarn) || (0 == timers[self.timerNumber].timeSet) {
+                        timers[self.timerNumber].timeSetPodiumFinal =  0
+                        pickerView.selectRow(0, inComponent: Components.Hours.rawValue, animated: true)
+                        pickerView.selectRow(0, inComponent: Components.Minutes.rawValue, animated: true)
+                        pickerView.selectRow(0, inComponent: Components.Seconds.rawValue, animated: true)
+                    } else {
+                        timers[self.timerNumber].timeSetPodiumFinal = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
+                    }
                 } else {
                     var maxValInt = max(0, timers[self.timerNumber].timeSetPodiumWarn - 1)
                     

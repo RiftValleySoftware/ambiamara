@@ -322,7 +322,6 @@ import UIKit
         
         self.activeSegmentColor.setFill()
         self._allElementGroup.activeSegments.fill()
-        
         self.inactiveSegmentColor.setFill()
         self._allElementGroup.inactiveSegments.fill()
         

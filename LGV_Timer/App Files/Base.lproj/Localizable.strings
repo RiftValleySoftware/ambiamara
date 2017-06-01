@@ -9,8 +9,6 @@
 /**
  */
 "LGV_TIMER-SETUP-TITLE"                                 =   "Setup";
-"LGV_TIMER-CLOCK-TITLE"                                 =   "Clock";
-"LGV_TIMER-STOPWATCH-TITLE"                             =   "Stopwatch";
 "LGV_TIMER-TIMER-TITLE-SINGLE"                          =   "Timer";
 "LGV_TIMER-TIMER-TITLE-FORMAT"                          =   "Timer %d";
 "LGV_TIMER-TIMER-SETUP-TITLE"                           =   "Timer Setup";
@@ -21,13 +19,6 @@
 "LGV_TIMER-SETUP-GENERAL-SETTINGS-LABEL"                =   "General Settings";
 "LGV_TIMER-SETUP-PAUSE-IN-BACKGROUND"                   =   "Pause Timers In Background";
 
-"LGV_TIMER-SETUP-CLOCK-SETTINGS-LABEL"                  =   "Clock Settings";
-"LGV_TIMER-SETUP-CLOCK-SETTINGS-KEEP-PHONE-AWAKE"       =   "Avoid Sleep While Clock Is Shown";
-
-"LGV_TIMER-SETUP-STOPWATCH-SETTINGS-LABEL"              =   "Stopwatch Settings";
-"LGV_TIMER-SETUP-STOPWATCH-SETTINGS-KEEP-PHONE-AWAKE"   =   "Avoid Sleep While Stopwatch Is Shown";
-"LGV_TIMER-SETUP-STOPWATCH-SETTINGS-INCLUDE-LAPS"       =   "Show Lap Counter";
-
 "LGV_TIMER-SETUP-TIMER-SETTINGS-KEEP-PHONE-AWAKE"       =   "Avoid Sleep While Timer Is Shown";
 "LGV_TIMER-SETUP-TIME-SET-LABEL"                        =   "Set Start Time";
 "LGV_TIMER-SETUP-TIMER-MODE-SWITCH-0"                   =   "Digital Mode";
@@ -36,6 +27,11 @@
 "LGV_TIMER-SETUP-WARNING-SET-LABEL"                     =   "Set Warning (Yellow) Time";
 "LGV_TIMER-SETUP-FINAL-SET-LABEL"                       =   "Set Final (Red) Time";
 "LGV_TIMER-SETUP-COLOR-THEME-LABEL"                     =   "Selected Color Theme";
+"LGV_TIMER-SETUP-ALERT-MODE-LABEL"                      =   "Alert Mode";
+"LGV_TIMER-SETUP-ALERT-MODE-0"                          =   "Silent";
+"LGV_TIMER-SETUP-ALERT-MODE-1"                          =   "Vibrate";
+"LGV_TIMER-SETUP-ALERT-MODE-2"                          =   "Sound";
+"LGV_TIMER-SETUP-ALERT-MODE-3"                          =   "Both";
 
 "LGV_TIMER-TIME-PICKER-HOUR-FORMAT"                     =   "%d Hour";
 "LGV_TIMER-TIME-PICKER-HOURS-FORMAT"                    =   "%d Hours";
@@ -56,5 +52,11 @@
 "LGV_TIMER-COLOR-THEME-BLUE"                            =   "Blue";
 "LGV_TIMER-COLOR-THEME-GREEN"                           =   "Green";
 "LGV_TIMER-COLOR-THEME-YELLOW"                          =   "Yellow";
+"LGV_TIMER-COLOR-THEME-PURPLE"                          =   "Purple";
+"LGV_TIMER-COLOR-THEME-CYAN"                            =   "Cyan";
+"LGV_TIMER-COLOR-THEME-MAGENTA"                         =   "Magenta";
 "LGV_TIMER-COLOR-THEME-WHITE"                           =   "White";
 "LGV_TIMER-COLOR-THEME-GRAY"                            =   "Gray";
+"LGV_TIMER-COLOR-THEME-BURGUNDY"                        =   "Burgundy";
+"LGV_TIMER-COLOR-THEME-GOLDENROD"                       =   "Goldenrod";
+"LGV_TIMER-COLOR-THEME-SKYBLUE"                         =   "Sky Blue";

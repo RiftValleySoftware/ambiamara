@@ -36,7 +36,6 @@ class LGV_Timer_TimerNavController: UINavigationController {
     var tabBarImage: UIImage! {
         get {
             var displayedString = "ERROR";
-            
             let timerNumber = max(0, self.timerNumber - 1)
             let prefs = s_g_LGV_Timer_AppDelegatePrefs.timers[timerNumber]
             displayedString = String(format: "%02d:%02d:%02d", TimeTuple(prefs.timeSet).hours, TimeTuple(prefs.timeSet).minutes, TimeTuple(prefs.timeSet).seconds)

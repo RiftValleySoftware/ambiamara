@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-               BuildableName = "LGV_Timer.app"
-               BlueprintName = "LGV_Timer"
+               BlueprintIdentifier = "773E064D1EDAFACD003FF9DD"
+               BuildableName = "LGV_Lib_LEDDisplay_UI_Test.app"
+               BlueprintName = "LGV_Lib_LEDDisplay_UI_Test"
                ReferencedContainer = "container:LGV_Timer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-            BuildableName = "LGV_Timer.app"
-            BlueprintName = "LGV_Timer"
+            BlueprintIdentifier = "773E064D1EDAFACD003FF9DD"
+            BuildableName = "LGV_Lib_LEDDisplay_UI_Test.app"
+            BlueprintName = "LGV_Lib_LEDDisplay_UI_Test"
             ReferencedContainer = "container:LGV_Timer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-            BuildableName = "LGV_Timer.app"
-            BlueprintName = "LGV_Timer"
+            BlueprintIdentifier = "773E064D1EDAFACD003FF9DD"
+            BuildableName = "LGV_Lib_LEDDisplay_UI_Test.app"
+            BlueprintName = "LGV_Lib_LEDDisplay_UI_Test"
             ReferencedContainer = "container:LGV_Timer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,9 +74,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-            BuildableName = "LGV_Timer.app"
-            BlueprintName = "LGV_Timer"
+            BlueprintIdentifier = "773E064D1EDAFACD003FF9DD"
+            BuildableName = "LGV_Lib_LEDDisplay_UI_Test.app"
+            BlueprintName = "LGV_Lib_LEDDisplay_UI_Test"
             ReferencedContainer = "container:LGV_Timer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

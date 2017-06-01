@@ -21,14 +21,6 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     // MARK: - IB Properties
     /* ################################################################################################################################## */
     @IBOutlet weak var generalSettingsHeaderLabel: UILabel!
-    @IBOutlet weak var clockOptionsHeaderLabel: UILabel!
-    @IBOutlet weak var keepPhoneAwakeLabel: UILabel!
-    @IBOutlet weak var keepPhoneAwakeSwitch: UISwitch!
-    @IBOutlet weak var stopwatchOptionsHeaderLabel: UILabel!
-    @IBOutlet weak var stopwatchKeepPhoneAwakeSwitch: UISwitch!
-    @IBOutlet weak var stopwatchKeepPhoneAwakeLabel: UILabel!
-    @IBOutlet weak var stopwatchCountLapsSwitch: UISwitch!
-    @IBOutlet weak var stopwatchCountLapsLabel: UILabel!
     @IBOutlet weak var timerSettingsHeaderLabel: UILabel!
     @IBOutlet weak var timerTableView: UITableView!
     @IBOutlet weak var addTimerButton: UIButton!
@@ -51,20 +43,12 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.clockOptionsHeaderLabel.text = self.clockOptionsHeaderLabel.text?.localizedVariant
-        self.keepPhoneAwakeLabel.text = self.keepPhoneAwakeLabel.text?.localizedVariant
-        self.stopwatchOptionsHeaderLabel.text = self.stopwatchOptionsHeaderLabel.text?.localizedVariant
-        self.stopwatchKeepPhoneAwakeLabel.text = self.stopwatchKeepPhoneAwakeLabel.text?.localizedVariant
-        self.stopwatchCountLapsLabel.text = self.stopwatchCountLapsLabel.text?.localizedVariant
         self.timerSettingsHeaderLabel.text = self.timerSettingsHeaderLabel.text?.localizedVariant
         self.addTimerButton.setTitle(self.addTimerButton.title(for: UIControlState.normal)?.localizedVariant, for: UIControlState.normal)
         self.generalSettingsHeaderLabel.text = self.self.generalSettingsHeaderLabel.text?.localizedVariant
         self.pauseInBackgroundLabel.text = self.self.pauseInBackgroundLabel.text?.localizedVariant
 
         self.pauseInBackgroundSwitch.isOn = s_g_LGV_Timer_AppDelegatePrefs.pauseInBackground
-        self.keepPhoneAwakeSwitch.isOn = s_g_LGV_Timer_AppDelegatePrefs.clockKeepsDeviceAwake
-        self.stopwatchKeepPhoneAwakeSwitch.isOn = s_g_LGV_Timer_AppDelegatePrefs.stopwatchKeepsDeviceAwake
-        self.stopwatchCountLapsSwitch.isOn = s_g_LGV_Timer_AppDelegatePrefs.stopwatchTracksLaps
     }
     
     /* ################################################################## */
@@ -111,36 +95,6 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     
     /* ################################################################## */
     /**
-     This is called when the the switch specifying whether or not the clock keeps the device awake while selected is hit.
-     
-     :param: sender The switch object.
-     */
-    @IBAction func clockKeepsAwakeSwitchHit(_ sender: UISwitch) {
-        s_g_LGV_Timer_AppDelegatePrefs.clockKeepsDeviceAwake = sender.isOn
-    }
-    
-    /* ################################################################## */
-    /**
-     This is called when the the switch specifying whether or not the stopwatch keeps the device awake while running is hit.
-     
-     :param: sender The switch object.
-     */
-    @IBAction func stopwatchKeepsAwakeSwitchHit(_ sender: UISwitch) {
-        s_g_LGV_Timer_AppDelegatePrefs.stopwatchKeepsDeviceAwake = sender.isOn
-    }
-    
-    /* ################################################################## */
-    /**
-     This is called when the the switch specifying whether or not the stopwatch counts laps is hit.
-     
-     :param: sender The switch object.
-     */
-    @IBAction func stopwatchCountsLapSwitchHit(_ sender: UISwitch) {
-        s_g_LGV_Timer_AppDelegatePrefs.stopwatchTracksLaps = sender.isOn
-    }
-    
-    /* ################################################################## */
-    /**
      This is called when the "Add Timer" button is hit, requesting a new timer be created.
      
      :param: sender The button object.
@@ -152,8 +106,8 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         self.mainTabController.updateTimers()
         self.timerTableView.reloadData()
         self.mainTabController.view.setNeedsLayout()
-        let indexPath = IndexPath(row: timers.count - 1, section: 0)
-        _ = self.tableView(self.timerTableView, willSelectRowAt: indexPath)
+        let timerIndex = max(0, min(timers.count - 1, s_g_LGV_Timer_AppDelegatePrefs.timers.count - 1))
+        self.mainTabController.selectTimer(timerIndex, pushSettings: true)
     }
     
     /* ################################################################## */
@@ -180,7 +134,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     
     /* ################################################################## */
     /**
-     This is the routine that creates a new table row for the Meeting indicated by the index.
+     This is the routine that creates a new table row for the Timer indicated by the index.
      
      - parameter tableView: The UITableView object requesting the view
      - parameter cellForRowAt: The IndexPath of the requested cell.
@@ -193,7 +147,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
                 clockView.hours = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].timeSet).hours
                 clockView.minutes = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].timeSet).minutes
                 clockView.seconds = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].timeSet).seconds
-                clockView.activeSegmentColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].colorTheme].backgroundColor!
+                clockView.activeSegmentColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].colorTheme].textColor!
                 clockView.setNeedsDisplay()
             }
             return ret
@@ -215,7 +169,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      */
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         let timerIndex = max(0, min(indexPath.row, s_g_LGV_Timer_AppDelegatePrefs.timers.count - 1))
-        self.mainTabController.selectTimer(timerIndex, pushSettings: true)
+        self.mainTabController.selectTimer(timerIndex, pushSettings: false)
         return nil
     }
     
