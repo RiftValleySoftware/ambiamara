@@ -122,6 +122,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
         }
         self.clockPaused = true
         self.pauseButton.image = UIImage(named: self.startButtonImageName)
+        self._setUpDisplay()
     }
     
     /* ################################################################## */
