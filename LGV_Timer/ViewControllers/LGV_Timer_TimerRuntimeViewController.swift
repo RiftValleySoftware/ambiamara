@@ -128,6 +128,13 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
     /* ################################################################## */
     /**
      */
+    func continueTimer() {
+        self._startTimer()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func timerCallback(_ inTimer: Timer) {
         if nil != self.lastTimerDate {
             let seconds = floor(Date().timeIntervalSince(self.lastTimerDate))
@@ -252,7 +259,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
      */
     @IBAction func pauseButtonHit(_ sender: Any) {
         if self.clockPaused || (0 == self.currentTimeInSeconds) {
-            self._startTimer()
+            self.continueTimer()
         } else {
             self.pauseTimer()
         }

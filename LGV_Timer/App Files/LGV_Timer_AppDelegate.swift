@@ -85,6 +85,9 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate {
      */
     func applicationWillResignActive(_ application: UIApplication) {
         s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
+        if (nil != self.currentTimer) && s_g_LGV_Timer_AppDelegatePrefs.pauseInBackground {
+            self.currentTimer.pauseTimer()
+        }
     }
 
     /* ################################################################## */
@@ -92,6 +95,9 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate {
      */
     func applicationDidEnterBackground(_ application: UIApplication) {
         s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
+        if (nil != self.currentTimer) && s_g_LGV_Timer_AppDelegatePrefs.pauseInBackground {
+            self.currentTimer.pauseTimer()
+        }
     }
     
     /* ################################################################## */
@@ -105,6 +111,9 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate {
     /**
      */
     func applicationWillEnterForeground(_ application: UIApplication) {
+        if (nil != self.currentTimer) && s_g_LGV_Timer_AppDelegatePrefs.pauseInBackground {
+            self.currentTimer.continueTimer()
+        }
     }
 
     /* ################################################################## */
