@@ -79,7 +79,7 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DgB-ry-ldz" customClass="LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock" customModule="A_Question_of_Time" customModuleProvider="target">
-                                <rect key="frame" x="16" y="129" width="343" height="425"/>
+                                <rect key="frame" x="16" y="133" width="343" height="417"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
@@ -89,7 +89,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yaY-up-1BU">
-                                <rect key="frame" x="16" y="129" width="343" height="425"/>
+                                <rect key="frame" x="16" y="133" width="343" height="417"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="tapOnNumbers:" destination="Y3X-jz-wfO" eventType="touchUpInside" id="YtM-T9-7eY"/>
@@ -110,9 +110,9 @@
                             <constraint firstItem="lN6-TG-yli" firstAttribute="leading" secondItem="gVx-u0-GdF" secondAttribute="leadingMargin" id="X14-n9-P1H"/>
                             <constraint firstItem="AxC-XP-sOe" firstAttribute="trailing" secondItem="gVx-u0-GdF" secondAttribute="trailingMargin" id="Ywd-8A-EOw"/>
                             <constraint firstItem="KwF-yY-Lrz" firstAttribute="trailing" secondItem="gVx-u0-GdF" secondAttribute="trailingMargin" id="gv1-wm-WCm"/>
-                            <constraint firstItem="dnv-Bg-783" firstAttribute="top" secondItem="DgB-ry-ldz" secondAttribute="bottom" id="kkh-97-F8p"/>
+                            <constraint firstItem="dnv-Bg-783" firstAttribute="top" secondItem="DgB-ry-ldz" secondAttribute="bottom" constant="4" id="kkh-97-F8p"/>
                             <constraint firstItem="yaY-up-1BU" firstAttribute="leading" secondItem="DgB-ry-ldz" secondAttribute="leading" id="n9c-yc-nTs"/>
-                            <constraint firstItem="DgB-ry-ldz" firstAttribute="top" secondItem="KwF-yY-Lrz" secondAttribute="bottom" id="nXW-bS-MTN"/>
+                            <constraint firstItem="DgB-ry-ldz" firstAttribute="top" secondItem="KwF-yY-Lrz" secondAttribute="bottom" constant="4" id="nXW-bS-MTN"/>
                             <constraint firstItem="lN6-TG-yli" firstAttribute="trailing" secondItem="gVx-u0-GdF" secondAttribute="trailingMargin" id="uXQ-St-2rV"/>
                             <constraint firstItem="lN6-TG-yli" firstAttribute="top" secondItem="AxC-XP-sOe" secondAttribute="bottom" id="yZ7-rX-81v"/>
                         </constraints>
@@ -165,7 +165,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvk-HB-53P" customClass="LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock" customModule="A_Question_of_Time" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="4" y="68" width="367" height="595"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
@@ -174,67 +174,15 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oQT-HO-D0y" customClass="LGV_Timer_TimerRuntimeStoplightContainer" customModule="A_Question_of_Time" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OffLight" highlightedImage="YellowLight" translatesAutoresizingMaskIntoConstraints="NO" id="KUv-KF-47G">
-                                        <rect key="frame" x="162.5" y="276" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="KUv-KF-47G" secondAttribute="height" multiplier="1:1" id="1wm-g6-Fmq"/>
-                                            <constraint firstAttribute="height" constant="50" id="mA5-Ao-0DR"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OffLight" highlightedImage="RedLight" translatesAutoresizingMaskIntoConstraints="NO" id="SeJ-fI-QfB">
-                                        <rect key="frame" x="220" y="276" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="SeJ-fI-QfB" secondAttribute="height" multiplier="1:1" id="l24-uL-GSM"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OffLight" highlightedImage="GreenLight" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vyb-N3-cMN">
-                                        <rect key="frame" x="104" y="276" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="Vyb-N3-cMN" secondAttribute="height" multiplier="1:1" id="bS2-GD-WWZ"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="KUv-KF-47G" firstAttribute="width" secondItem="KUv-KF-47G" secondAttribute="height" multiplier="1:1" id="01u-Eb-adY"/>
-                                    <constraint firstItem="KUv-KF-47G" firstAttribute="height" secondItem="Vyb-N3-cMN" secondAttribute="height" id="Ffl-gi-fFy"/>
-                                    <constraint firstItem="SeJ-fI-QfB" firstAttribute="width" secondItem="SeJ-fI-QfB" secondAttribute="height" multiplier="1:1" id="GgW-JA-XF5"/>
-                                    <constraint firstItem="KUv-KF-47G" firstAttribute="centerY" secondItem="oQT-HO-D0y" secondAttribute="centerY" id="I8N-Vu-okh"/>
-                                    <constraint firstItem="SeJ-fI-QfB" firstAttribute="width" secondItem="SeJ-fI-QfB" secondAttribute="height" multiplier="1:1" id="J2n-Wg-k81"/>
-                                    <constraint firstItem="SeJ-fI-QfB" firstAttribute="height" secondItem="Vyb-N3-cMN" secondAttribute="height" id="Rtl-uN-CV9"/>
-                                    <constraint firstItem="SeJ-fI-QfB" firstAttribute="leading" secondItem="KUv-KF-47G" secondAttribute="trailing" constant="8" id="TtS-5m-cx8"/>
-                                    <constraint firstItem="KUv-KF-47G" firstAttribute="centerX" secondItem="oQT-HO-D0y" secondAttribute="centerX" id="UNM-E7-39k"/>
-                                    <constraint firstItem="KUv-KF-47G" firstAttribute="leading" secondItem="Vyb-N3-cMN" secondAttribute="trailing" constant="8" id="fpy-pL-nom"/>
-                                    <constraint firstItem="SeJ-fI-QfB" firstAttribute="centerY" secondItem="oQT-HO-D0y" secondAttribute="centerY" id="lDq-Cw-INt"/>
-                                    <constraint firstItem="Vyb-N3-cMN" firstAttribute="centerY" secondItem="oQT-HO-D0y" secondAttribute="centerY" id="s5f-9J-Qaz"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="oQT-HO-D0y" firstAttribute="top" secondItem="Reo-7Y-Hne" secondAttribute="bottom" id="3Zi-Bb-jRV"/>
-                            <constraint firstAttribute="bottom" secondItem="dvk-HB-53P" secondAttribute="bottom" id="8WS-Wf-OPN"/>
-                            <constraint firstAttribute="trailing" secondItem="oQT-HO-D0y" secondAttribute="trailing" id="Jft-Fv-GuF"/>
-                            <constraint firstItem="oQT-HO-D0y" firstAttribute="leading" secondItem="VER-Lg-FXG" secondAttribute="leading" id="Uw2-Cr-kDS"/>
-                            <constraint firstItem="dvk-HB-53P" firstAttribute="top" secondItem="Reo-7Y-Hne" secondAttribute="bottom" id="VKM-3H-t5J"/>
-                            <constraint firstItem="dvk-HB-53P" firstAttribute="leading" secondItem="VER-Lg-FXG" secondAttribute="leading" id="iPw-OM-93j"/>
-                            <constraint firstItem="iFu-N0-S8w" firstAttribute="top" secondItem="oQT-HO-D0y" secondAttribute="bottom" id="rQM-8J-GFs"/>
-                            <constraint firstAttribute="trailing" secondItem="dvk-HB-53P" secondAttribute="trailing" id="tnL-kU-twy"/>
+                            <constraint firstItem="iFu-N0-S8w" firstAttribute="top" secondItem="dvk-HB-53P" secondAttribute="bottom" constant="4" id="1iO-Yu-Bj2"/>
+                            <constraint firstAttribute="trailing" secondItem="dvk-HB-53P" secondAttribute="trailing" constant="4" id="T38-hd-zRb"/>
+                            <constraint firstItem="dvk-HB-53P" firstAttribute="leading" secondItem="VER-Lg-FXG" secondAttribute="leading" constant="4" id="fIt-ng-lkP"/>
+                            <constraint firstItem="dvk-HB-53P" firstAttribute="top" secondItem="Reo-7Y-Hne" secondAttribute="bottom" constant="4" id="kHn-6f-Iuk"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="Title" id="ItU-wd-SEv" userLabel="LGV_TIMER-RUNNING-TIMER">
                         <barButtonItem key="leftBarButtonItem" image="Stop" id="X6M-Pd-nAJ">
                             <connections>
@@ -257,14 +205,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="greenLight" destination="Vyb-N3-cMN" id="vzf-Td-6aR"/>
                         <outlet property="navItem" destination="ItU-wd-SEv" id="PlC-44-1IL"/>
                         <outlet property="pauseButton" destination="ZYE-eU-dQi" id="jgK-S8-6ak"/>
-                        <outlet property="redLight" destination="SeJ-fI-QfB" id="hyZ-Ve-PBc"/>
                         <outlet property="stopButton" destination="X6M-Pd-nAJ" id="pTd-kO-Cw7"/>
-                        <outlet property="stoplightContainerView" destination="oQT-HO-D0y" id="rUs-P2-vgF"/>
-                        <outlet property="timeDisplay" destination="dvk-HB-53P" id="q6v-Lp-Q4m"/>
-                        <outlet property="yellowLight" destination="KUv-KF-47G" id="6F0-K1-Hw3"/>
+                        <outlet property="timeDisplay" destination="dvk-HB-53P" id="DIV-Ce-1ls"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bp-gA-OQc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -701,14 +645,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="GreenLight" width="171" height="171"/>
-        <image name="OffLight" width="171" height="171"/>
         <image name="Pause" width="22" height="22"/>
         <image name="Plus" width="22" height="22"/>
-        <image name="RedLight" width="171" height="171"/>
         <image name="Settings" width="25" height="25"/>
         <image name="Start" width="22" height="22"/>
         <image name="Stop" width="22" height="22"/>
-        <image name="YellowLight" width="171" height="171"/>
     </resources>
 </document>

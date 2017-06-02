@@ -178,6 +178,8 @@ import UIKit
     private var _separatorsOn: Bool = true
     private var _timer: Timer! = nil
     
+    var drawnFrame: CGRect = CGRect.zero
+    
     // MARK: - Private Class Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -324,6 +326,8 @@ import UIKit
         self._allElementGroup.activeSegments.fill()
         self.inactiveSegmentColor.setFill()
         self._allElementGroup.inactiveSegments.fill()
+        
+        self.drawnFrame = self._allElementGroup.drawnFrame
         
         super.draw(rect)
     }

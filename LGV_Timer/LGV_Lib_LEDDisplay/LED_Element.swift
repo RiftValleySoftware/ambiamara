@@ -762,6 +762,20 @@ public class LED_ElementGrouping : LED_Element, Sequence {
     
     /* ################################################################## */
     /**
+     Get/set the display rect (relative to the main rect) for rendering.
+     */
+    public var drawnFrame: CGRect {
+        get {
+            let bounds = self.allSegments.bounds
+            
+            bounds.offsetBy(dx: (self._containerSize.width - bounds.size.width) / 2.0, dy: (self._containerSize.height - bounds.size.height) / 2.0)
+            
+            return bounds
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      Get/set the separation space for rendering.
      */
     public var separationSpace: CGFloat {
