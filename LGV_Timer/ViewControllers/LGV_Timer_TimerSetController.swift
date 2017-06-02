@@ -16,12 +16,13 @@ import UIKit
  */
 class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     static let switchToSettingsSegueID = "timer-segue-to-settings"
+    static let startTimerSegueID = "timer-segue-to-start-timer"
     
-    @IBOutlet weak var startButton: UIBarButtonItem!
     @IBOutlet weak var setupButton: UIBarButtonItem!
     @IBOutlet weak var timeSetLabel: UILabel!
     @IBOutlet weak var setTimePickerView: UIPickerView!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
+    @IBOutlet weak var startButtonDisplay: LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock!
     
     var timerNumber: Int = 0
     
@@ -33,6 +34,22 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      */
     @IBAction func setupButtonHit(_ sender: Any) {
         self.bringInSettingsScreen()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
+        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
+        timers[self.timerNumber].displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
+        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func tapOnNumbers(_ sender: Any) {
+        self.performSegue(withIdentifier: type(of:self).startTimerSegueID, sender: nil)
     }
     
     // MARK: - Internal Instance Methods
@@ -47,11 +64,14 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     Bring in the setup screen.
      */
-    @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        timers[self.timerNumber].displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
-        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+    func setUpDisplay() {
+        self.startButtonDisplay.hours = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].timeSet).hours
+        self.startButtonDisplay.minutes = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].timeSet).minutes
+        self.startButtonDisplay.seconds = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].timeSet).seconds
+        self.startButtonDisplay.activeSegmentColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].colorTheme].textColor!
+        self.startButtonDisplay.setNeedsDisplay()
     }
     
     // MARK: - Base Class Override Methods
@@ -71,7 +91,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         
         self.timerModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].displayMode.rawValue
         
-        self.startButton.title = self.startButton.title?.localizedVariant
         self.setupButton.title = self.setupButton.title?.localizedVariant
         self.timeSetLabel.text = self.timeSetLabel.text?.localizedVariant
         if let navController = self.navigationController as? LGV_Timer_TimerNavController {
@@ -113,6 +132,15 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     Called when the view has finished displaying.
+     */
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.setUpDisplay()
+    }
+    
+    /* ################################################################## */
+    /**
      Called when we are about to bring in the setup controller.
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -140,6 +168,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
             navController.tabBarItem.image = navController.tabBarImage
             navController.tabBarItem.selectedImage = navController.tabBarImage
         }
+        self.setUpDisplay()
     }
 }
 

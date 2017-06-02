@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77052CD71EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77052CD61EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift */; };
 		772A13C61ED5E50C0043C58B /* LGV_Timer_SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13C51ED5E50C0043C58B /* LGV_Timer_SettingsViewController.swift */; };
 		772A13CC1ED5E8270043C58B /* LGV_Timer_MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13CB1ED5E8270043C58B /* LGV_Timer_MainTabController.swift */; };
 		772A13D81ED5E8840043C58B /* LGV_Timer_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13D41ED5E8840043C58B /* LGV_Timer_AppDelegate.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		77052CD61EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerRuntimeViewController.swift; path = ViewControllers/LGV_Timer_TimerRuntimeViewController.swift; sourceTree = "<group>"; };
 		772A13C51ED5E50C0043C58B /* LGV_Timer_SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_SettingsViewController.swift; path = ViewControllers/LGV_Timer_SettingsViewController.swift; sourceTree = "<group>"; };
 		772A13CB1ED5E8270043C58B /* LGV_Timer_MainTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_MainTabController.swift; path = ViewControllers/LGV_Timer_MainTabController.swift; sourceTree = "<group>"; };
 		772A13D41ED5E8840043C58B /* LGV_Timer_AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_AppDelegate.swift; path = "App Files/LGV_Timer_AppDelegate.swift"; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				775AE1761EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift */,
 				7770CB2D1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift */,
 				7770CB2F1ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift */,
+				77052CD61EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				772A13D81ED5E8840043C58B /* LGV_Timer_AppDelegate.swift in Sources */,
 				772A13CC1ED5E8270043C58B /* LGV_Timer_MainTabController.swift in Sources */,
 				77F8C37F1EDB20F8000C4B3A /* LED_Element.swift in Sources */,
+				77052CD71EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift in Sources */,
 				772A13C61ED5E50C0043C58B /* LGV_Timer_SettingsViewController.swift in Sources */,
 				7789C3241ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift in Sources */,
 				7770CB2E1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift in Sources */,

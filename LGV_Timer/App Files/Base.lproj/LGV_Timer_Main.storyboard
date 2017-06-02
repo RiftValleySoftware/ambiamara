@@ -48,17 +48,17 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIME-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="AxC-XP-sOe">
                                 <rect key="frame" x="16" y="0.0" width="343" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="dRm-oa-smQ"/>
+                                    <constraint firstAttribute="height" constant="21" id="8RA-b2-okT"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lN6-TG-yli">
-                                <rect key="frame" x="16" y="21" width="343" height="60"/>
+                                <rect key="frame" x="16" y="21" width="343" height="80"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="Nr7-xM-4Ta"/>
+                                    <constraint firstAttribute="height" constant="80" id="lDy-qw-sto"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="dataSource" destination="Y3X-jz-wfO" id="mJX-Bx-OAr"/>
@@ -66,12 +66,8 @@
                                 </connections>
                             </pickerView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="KwF-yY-Lrz">
-                                <rect key="frame" x="16" y="81" width="343" height="29"/>
+                                <rect key="frame" x="16" y="101" width="343" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="Apb-JD-iRD"/>
-                                    <constraint firstAttribute="height" constant="28" id="WH7-cp-nFr"/>
-                                </constraints>
                                 <segments>
                                     <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-0"/>
                                     <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-1"/>
@@ -79,26 +75,50 @@
                                 </segments>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <action selector="setupButtonHit:" destination="Y3X-jz-wfO" eventType="valueChanged" id="Ngx-Zb-Q09"/>
+                                    <action selector="modeSegmentedControlChanged:" destination="Y3X-jz-wfO" eventType="valueChanged" id="xKI-5l-205"/>
                                 </connections>
                             </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DgB-ry-ldz" customClass="LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock" customModule="A_Question_of_Time" customModuleProvider="target">
+                                <rect key="frame" x="16" y="129" width="343" height="425"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yaY-up-1BU">
+                                <rect key="frame" x="16" y="129" width="343" height="425"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="tapOnNumbers:" destination="Y3X-jz-wfO" eventType="touchUpInside" id="YtM-T9-7eY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="KwF-yY-Lrz" firstAttribute="trailing" secondItem="gVx-u0-GdF" secondAttribute="trailingMargin" id="1Ac-Wq-fwX"/>
-                            <constraint firstItem="AxC-XP-sOe" firstAttribute="leading" secondItem="gVx-u0-GdF" secondAttribute="leadingMargin" id="Kkz-ZL-R5y"/>
-                            <constraint firstItem="AxC-XP-sOe" firstAttribute="top" secondItem="R7j-jR-eh3" secondAttribute="bottom" id="N2K-st-61H"/>
-                            <constraint firstItem="KwF-yY-Lrz" firstAttribute="top" secondItem="lN6-TG-yli" secondAttribute="bottom" id="ZwD-Aj-9ez"/>
-                            <constraint firstItem="lN6-TG-yli" firstAttribute="leading" secondItem="gVx-u0-GdF" secondAttribute="leadingMargin" id="ewU-Ba-D2e"/>
-                            <constraint firstItem="lN6-TG-yli" firstAttribute="trailing" secondItem="gVx-u0-GdF" secondAttribute="trailingMargin" id="qnh-aJ-BiA"/>
-                            <constraint firstItem="lN6-TG-yli" firstAttribute="top" secondItem="AxC-XP-sOe" secondAttribute="bottom" id="rir-tk-VpF"/>
-                            <constraint firstItem="AxC-XP-sOe" firstAttribute="trailing" secondItem="gVx-u0-GdF" secondAttribute="trailingMargin" id="tJB-5a-HdN"/>
-                            <constraint firstItem="KwF-yY-Lrz" firstAttribute="leading" secondItem="gVx-u0-GdF" secondAttribute="leadingMargin" id="zbB-RP-v9x"/>
+                            <constraint firstItem="AxC-XP-sOe" firstAttribute="top" secondItem="R7j-jR-eh3" secondAttribute="bottom" id="4zX-Xu-6RA"/>
+                            <constraint firstItem="yaY-up-1BU" firstAttribute="height" secondItem="DgB-ry-ldz" secondAttribute="height" id="85h-lq-dnc"/>
+                            <constraint firstItem="DgB-ry-ldz" firstAttribute="leading" secondItem="gVx-u0-GdF" secondAttribute="leadingMargin" id="KZV-lo-Hcd"/>
+                            <constraint firstItem="yaY-up-1BU" firstAttribute="width" secondItem="DgB-ry-ldz" secondAttribute="width" id="P4W-9N-0bM"/>
+                            <constraint firstItem="DgB-ry-ldz" firstAttribute="trailing" secondItem="gVx-u0-GdF" secondAttribute="trailingMargin" id="QPk-cV-MYe"/>
+                            <constraint firstItem="yaY-up-1BU" firstAttribute="top" secondItem="DgB-ry-ldz" secondAttribute="top" id="R03-gW-VU4"/>
+                            <constraint firstItem="AxC-XP-sOe" firstAttribute="leading" secondItem="gVx-u0-GdF" secondAttribute="leadingMargin" id="Ti4-au-eKo"/>
+                            <constraint firstItem="KwF-yY-Lrz" firstAttribute="top" secondItem="lN6-TG-yli" secondAttribute="bottom" id="Wdk-FY-NBS"/>
+                            <constraint firstItem="KwF-yY-Lrz" firstAttribute="leading" secondItem="gVx-u0-GdF" secondAttribute="leadingMargin" id="Wmv-tP-SVR"/>
+                            <constraint firstItem="lN6-TG-yli" firstAttribute="leading" secondItem="gVx-u0-GdF" secondAttribute="leadingMargin" id="X14-n9-P1H"/>
+                            <constraint firstItem="AxC-XP-sOe" firstAttribute="trailing" secondItem="gVx-u0-GdF" secondAttribute="trailingMargin" id="Ywd-8A-EOw"/>
+                            <constraint firstItem="KwF-yY-Lrz" firstAttribute="trailing" secondItem="gVx-u0-GdF" secondAttribute="trailingMargin" id="gv1-wm-WCm"/>
+                            <constraint firstItem="dnv-Bg-783" firstAttribute="top" secondItem="DgB-ry-ldz" secondAttribute="bottom" id="kkh-97-F8p"/>
+                            <constraint firstItem="yaY-up-1BU" firstAttribute="leading" secondItem="DgB-ry-ldz" secondAttribute="leading" id="n9c-yc-nTs"/>
+                            <constraint firstItem="DgB-ry-ldz" firstAttribute="top" secondItem="KwF-yY-Lrz" secondAttribute="bottom" id="nXW-bS-MTN"/>
+                            <constraint firstItem="lN6-TG-yli" firstAttribute="trailing" secondItem="gVx-u0-GdF" secondAttribute="trailingMargin" id="uXQ-St-2rV"/>
+                            <constraint firstItem="lN6-TG-yli" firstAttribute="top" secondItem="AxC-XP-sOe" secondAttribute="bottom" id="yZ7-rX-81v"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="0Qv-E8-ESq">
-                        <barButtonItem key="leftBarButtonItem" title="LGV_TIMER-START-BUTTON" id="en2-R9-W73"/>
+                        <barButtonItem key="leftBarButtonItem" image="Start" id="en2-R9-W73">
+                            <connections>
+                                <action selector="tapOnNumbers:" destination="Y3X-jz-wfO" id="QuL-Ue-o2R"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="LGV_TIMER-TIMER-SETUP-TITLE" id="2m3-Kd-jYo">
                             <connections>
                                 <action selector="setupButtonHit:" destination="Y3X-jz-wfO" id="lxs-Pr-bvR"/>
@@ -107,24 +127,68 @@
                     </navigationItem>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
-                            <color key="value" red="0.15004333280000001" green="0.27720207250000001" blue="0.1723869495" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.26621194949999999" green="0.26621194949999999" blue="0.26621194949999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
-                            <color key="value" red="0.15004333280000001" green="0.27720207250000001" blue="0.1723869495" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.4894349093" green="0.4894349093" blue="0.4894349093" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="setTimePickerView" destination="lN6-TG-yli" id="0Vp-pr-I6y"/>
                         <outlet property="setupButton" destination="2m3-Kd-jYo" id="NfH-I2-rKy"/>
-                        <outlet property="startButton" destination="en2-R9-W73" id="J8O-OX-LdB"/>
+                        <outlet property="startButtonDisplay" destination="DgB-ry-ldz" id="0D1-hB-mc1"/>
                         <outlet property="timeSetLabel" destination="AxC-XP-sOe" id="vtd-cL-Cjx"/>
                         <outlet property="timerModeSegmentedSwitch" destination="KwF-yY-Lrz" id="4u7-Li-vRN"/>
                         <segue destination="Cmw-cs-f0x" kind="show" identifier="timer-segue-to-settings" id="hgl-6b-v60"/>
+                        <segue destination="pId-dv-a9R" kind="show" identifier="timer-segue-to-start-timer" id="OqM-yy-Koa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pMd-Al-am4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="513" y="1210"/>
+            <point key="canvasLocation" x="512.79999999999995" y="1209.4452773613195"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="hTo-Uo-hbx">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="pId-dv-a9R" customClass="LGV_Timer_TimerRuntimeViewController" customModule="A_Question_of_Time" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Reo-7Y-Hne"/>
+                        <viewControllerLayoutGuide type="bottom" id="iFu-N0-S8w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="VER-Lg-FXG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="ItU-wd-SEv" userLabel="LGV_TIMER-RUNNING-TIMER">
+                        <barButtonItem key="leftBarButtonItem" image="Stop" id="X6M-Pd-nAJ">
+                            <connections>
+                                <action selector="stopButtonHit:" destination="pId-dv-a9R" id="6Vg-8r-mJx"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="Pause" id="ZYE-eU-dQi">
+                            <connections>
+                                <action selector="pauseButtonHit:" destination="pId-dv-a9R" id="Cno-CX-GKA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
+                            <color key="value" red="0.26621194949999999" green="0.26621194949999999" blue="0.26621194949999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
+                            <color key="value" red="0.4894349093" green="0.4894349093" blue="0.4894349093" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="navItem" destination="ItU-wd-SEv" id="PlC-44-1IL"/>
+                        <outlet property="pauseButton" destination="ZYE-eU-dQi" id="jgK-S8-6ak"/>
+                        <outlet property="stopButton" destination="X6M-Pd-nAJ" id="pTd-kO-Cw7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5bp-gA-OQc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="513" y="1918"/>
         </scene>
         <!--Individual Timer Settings-->
         <scene sceneID="diB-ql-vKz">
@@ -305,7 +369,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.15004333280000001" green="0.27720207250000001" blue="0.1723869495" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="Tzd-08-su5" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="6gT-BN-QWb"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="top" secondItem="Wdv-vy-5ut" secondAttribute="bottom" constant="8" id="8V1-q1-VrB"/>
@@ -556,7 +620,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Pause" width="22" height="22"/>
         <image name="Plus" width="22" height="22"/>
         <image name="Settings" width="25" height="25"/>
+        <image name="Start" width="22" height="22"/>
+        <image name="Stop" width="22" height="22"/>
     </resources>
 </document>
