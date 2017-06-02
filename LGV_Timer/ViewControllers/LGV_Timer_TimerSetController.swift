@@ -115,6 +115,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
             self.setTimePickerView.selectRow(timeSet.hours, inComponent: Components.Hours.rawValue, animated: true)
             self.setTimePickerView.selectRow(timeSet.minutes, inComponent: Components.Minutes.rawValue, animated: true)
             self.setTimePickerView.selectRow(timeSet.seconds, inComponent: Components.Seconds.rawValue, animated: true)
+            self.setUpDisplay()
         }
     }
     
@@ -146,6 +147,10 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationController = segue.destination as? LGV_Timer_TimerSetupController {
             destinationController.timerNumber = self.timerNumber
+        } else {
+            if let destinationController = segue.destination as? LGV_Timer_TimerRuntimeViewController {
+                destinationController.timerNumber = self.timerNumber
+            }
         }
     }
     

@@ -31,10 +31,21 @@ var s_g_LGV_Timer_AppDelegatePrefs = LGV_Timer_StaticPrefs.prefs
 /**
  */
 class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate {
+    // MARK: - Static Calculated Properties
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This is a quick way to get this object instance (it's a SINGLETON), cast as the correct class.
+     */
+    static var appDelegateObject: LGV_Timer_AppDelegate {
+        get { return UIApplication.shared.delegate as! LGV_Timer_AppDelegate }
+    }
+
     // MARK: - Instance Properties
     /* ################################################################################################################################## */
     var orientationLock = UIInterfaceOrientationMask.all
     var window: UIWindow?
+    var currentTimer: LGV_Timer_TimerRuntimeViewController! = nil
 
     // MARK: - Static Class Methods
     /* ################################################################################################################################## */
