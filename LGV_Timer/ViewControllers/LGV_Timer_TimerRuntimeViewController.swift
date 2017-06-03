@@ -235,6 +235,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         LGV_Timer_AppDelegate.appDelegateObject.currentTimer = self
+        UIApplication.shared.isIdleTimerDisabled = true
         self._startTimer()
     }
     
@@ -244,6 +245,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         LGV_Timer_AppDelegate.appDelegateObject.currentTimer = nil
+        UIApplication.shared.isIdleTimerDisabled = false
     }
     
     // MARK: - IB Action Methods

@@ -15,8 +15,7 @@ import UIKit
 /**
  */
 class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
-    @IBOutlet weak var keepDeviceAwakeLabel: UILabel!
-    @IBOutlet weak var keepDeviceAwakeSwitch: UISwitch!
+    @IBOutlet weak var timerModeLabel: UILabel!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
     @IBOutlet weak var podiumModeContainerView: UIView!
     @IBOutlet weak var warningThresholdLabel: UILabel!
@@ -66,11 +65,12 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     override func viewWillAppear(_ animated: Bool) {
         self.tabItemColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].colorTheme].textColor
         super.viewWillAppear(animated)
-        self.keepDeviceAwakeLabel.text = self.keepDeviceAwakeLabel.text?.localizedVariant
+
         self.warningThresholdLabel.text = self.warningThresholdLabel.text?.localizedVariant
         self.finalThresholdLabel.text = self.finalThresholdLabel.text?.localizedVariant
         self.colorThemePickerLabel.text = self.colorThemePickerLabel.text?.localizedVariant
         self.alertModeLabel.text = self.alertModeLabel.text?.localizedVariant
+        self.timerModeLabel.text = self.timerModeLabel.text?.localizedVariant
         
         for segment in 0..<self.timerModeSegmentedSwitch.numberOfSegments {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
@@ -81,7 +81,6 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         }
         
         let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        self.keepDeviceAwakeSwitch.isOn = timers[self.timerNumber].keepsDeviceAwake
         self.timerModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].displayMode.rawValue
         self.alertModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].alertMode.rawValue
         
@@ -131,18 +130,6 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     
     // MARK: - @IBAction Methods
     /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     Called when the keep device awake switch is hit.
-     
-     :param: sender The switch object.
-     */
-    @IBAction func keepDeviceAwakeSwitchHit(_ sender: UISwitch) {
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        timers[self.timerNumber].keepsDeviceAwake = sender.isOn
-        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
-    }
-    
     /* ################################################################## */
     /**
      */

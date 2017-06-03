@@ -18,8 +18,8 @@
 "LGV_TIMER-SETUP-GENERAL-SETTINGS-LABEL"                =   "General Settings";
 "LGV_TIMER-SETUP-PAUSE-IN-BACKGROUND"                   =   "Pause Timers In Background";
 
-"LGV_TIMER-SETUP-TIMER-SETTINGS-KEEP-PHONE-AWAKE"       =   "Avoid Sleep While Timer Is Shown";
 "LGV_TIMER-SETUP-TIME-SET-LABEL"                        =   "Set Start Time";
+"LGV_TIMER-SETUP-TIMER-MODE-LABEL"                      =   "Timer Mode";
 "LGV_TIMER-SETUP-TIMER-MODE-SWITCH-0"                   =   "Digital Mode";
 "LGV_TIMER-SETUP-TIMER-MODE-SWITCH-1"                   =   "Podium Mode";
 "LGV_TIMER-SETUP-TIMER-MODE-SWITCH-2"                   =   "Dual Mode";

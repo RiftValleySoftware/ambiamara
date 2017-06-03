@@ -162,7 +162,7 @@
                                 <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="inactiveSegmentColor">
-                                        <color key="value" white="1" alpha="0.14829995600000001" colorSpace="calibratedWhite"/>
+                                        <color key="value" white="1" alpha="0.10186509684507042" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -175,6 +175,7 @@
                             <constraint firstItem="dvk-HB-53P" firstAttribute="top" secondItem="Reo-7Y-Hne" secondAttribute="bottom" constant="4" id="kHn-6f-Iuk"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="ItU-wd-SEv" userLabel="LGV_TIMER-RUNNING-TIMER">
                         <barButtonItem key="leftBarButtonItem" image="Stop" id="X6M-Pd-nAJ">
                             <connections>
@@ -219,36 +220,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tzd-08-su5">
-                                <rect key="frame" x="16" y="72" width="51" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="49" id="NfG-Cn-hQT"/>
-                                    <constraint firstAttribute="height" constant="31" id="O0v-K0-MhW"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="keepDeviceAwakeSwitchHit:" destination="Cmw-cs-f0x" eventType="valueChanged" id="6JE-71-ZDa"/>
-                                </connections>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-SETTINGS-KEEP-PHONE-AWAKE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BLm-jr-98g">
-                                <rect key="frame" x="73" y="77" width="286" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="PsU-s0-PCE"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-ALERT-MODE-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wdv-vy-5ut">
-                                <rect key="frame" x="16" y="111" width="343" height="21"/>
+                                <rect key="frame" x="16" y="72" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="bUu-i1-j2w"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="04C-ke-GJA">
-                                <rect key="frame" x="16" y="140" width="343" height="29"/>
+                                <rect key="frame" x="16" y="101" width="343" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="lNx-un-zo7"/>
@@ -265,7 +247,7 @@
                                 </connections>
                             </segmentedControl>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="10" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DqF-Ax-NFf">
-                                <rect key="frame" x="14" y="176" width="347" height="31"/>
+                                <rect key="frame" x="14" y="137" width="347" height="31"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="minimumTrackTintColor" red="0.004673240974" green="0.76673818010000006" blue="0.043079631719999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="maximumTrackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -275,7 +257,7 @@
                                 </connections>
                             </slider>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fCL-vy-SIp">
-                                <rect key="frame" x="16" y="214" width="343" height="29"/>
+                                <rect key="frame" x="16" y="204" width="343" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="YYN-rh-tsk"/>
@@ -291,7 +273,7 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-6l-M17" userLabel="Color Picker Container View">
-                                <rect key="frame" x="16" y="250" width="343" height="81"/>
+                                <rect key="frame" x="16" y="240" width="343" height="111"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-COLOR-THEME-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qA-v4-gf5">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
@@ -303,7 +285,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lha-1G-1eH">
-                                        <rect key="frame" x="0.0" y="21" width="343" height="60"/>
+                                        <rect key="frame" x="0.0" y="21" width="343" height="90"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
@@ -317,7 +299,7 @@
                                     <constraint firstAttribute="trailing" secondItem="7qA-v4-gf5" secondAttribute="trailing" id="5jR-hk-ObC"/>
                                     <constraint firstItem="7qA-v4-gf5" firstAttribute="leading" secondItem="KvQ-6l-M17" secondAttribute="leading" id="CdK-X7-DcD"/>
                                     <constraint firstAttribute="trailing" secondItem="lha-1G-1eH" secondAttribute="trailing" id="DYU-3m-ZrY"/>
-                                    <constraint firstAttribute="height" constant="81" id="YGC-fi-vUZ"/>
+                                    <constraint firstAttribute="height" constant="111" id="YGC-fi-vUZ"/>
                                     <constraint firstItem="7qA-v4-gf5" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="top" id="atX-zm-qf0"/>
                                     <constraint firstItem="lha-1G-1eH" firstAttribute="leading" secondItem="KvQ-6l-M17" secondAttribute="leading" id="b99-cx-yDQ"/>
                                     <constraint firstItem="lha-1G-1eH" firstAttribute="top" secondItem="7qA-v4-gf5" secondAttribute="bottom" id="eKR-ta-8z5"/>
@@ -325,7 +307,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-1e-i1t" userLabel="Podium Mode Container View">
-                                <rect key="frame" x="16" y="332" width="343" height="182"/>
+                                <rect key="frame" x="16" y="352" width="343" height="212"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-WARNING-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BiL-9Z-SQP">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
@@ -337,10 +319,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPo-vP-d5X">
-                                        <rect key="frame" x="0.0" y="21" width="343" height="60"/>
+                                        <rect key="frame" x="0.0" y="21" width="343" height="90"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="7bx-yX-rce"/>
+                                            <constraint firstAttribute="height" constant="90" id="7bx-yX-rce"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="dataSource" destination="Cmw-cs-f0x" id="V9W-jM-fup"/>
@@ -348,7 +330,7 @@
                                         </connections>
                                     </pickerView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-FINAL-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Ojn-dk-can">
-                                        <rect key="frame" x="0.0" y="81" width="343" height="21"/>
+                                        <rect key="frame" x="0.0" y="111" width="343" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="dk2-5R-QgG"/>
                                         </constraints>
@@ -357,10 +339,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VaK-Cn-EOG">
-                                        <rect key="frame" x="0.0" y="102" width="343" height="60"/>
+                                        <rect key="frame" x="0.0" y="132" width="343" height="90"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="KPV-iW-Xaw"/>
+                                            <constraint firstAttribute="height" constant="90" id="KPV-iW-Xaw"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="dataSource" destination="Cmw-cs-f0x" id="eQx-AI-lE6"/>
@@ -376,7 +358,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Ojn-dk-can" secondAttribute="trailing" id="M9I-69-B4u"/>
                                     <constraint firstItem="VaK-Cn-EOG" firstAttribute="top" secondItem="Ojn-dk-can" secondAttribute="bottom" id="MIj-LN-be4"/>
                                     <constraint firstAttribute="trailing" secondItem="VaK-Cn-EOG" secondAttribute="trailing" id="MUL-kj-2PO"/>
-                                    <constraint firstAttribute="height" constant="182" id="Nva-dr-7V7"/>
+                                    <constraint firstAttribute="height" constant="212" id="Nva-dr-7V7"/>
                                     <constraint firstAttribute="trailing" secondItem="BiL-9Z-SQP" secondAttribute="trailing" id="PHZ-ON-w01"/>
                                     <constraint firstAttribute="trailing" secondItem="CPo-vP-d5X" secondAttribute="trailing" id="Q0K-d2-OXX"/>
                                     <constraint firstItem="BiL-9Z-SQP" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="WAa-q7-IwT"/>
@@ -385,31 +367,38 @@
                                     <constraint firstItem="Ojn-dk-can" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="muV-7o-JCr"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-MODE-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9w9-pL-jTf">
+                                <rect key="frame" x="16" y="175" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="T88-gV-WYA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Tzd-08-su5" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="6gT-BN-QWb"/>
+                            <constraint firstItem="9w9-pL-jTf" firstAttribute="top" secondItem="DqF-Ax-NFf" secondAttribute="bottom" constant="8" id="3Sf-La-EVb"/>
+                            <constraint firstItem="9w9-pL-jTf" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="6iX-DW-ZJd"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="top" secondItem="Wdv-vy-5ut" secondAttribute="bottom" constant="8" id="8V1-q1-VrB"/>
                             <constraint firstItem="DqF-Ax-NFf" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="CKP-Ji-c7S"/>
-                            <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="90" id="Ey3-Xc-sqp"/>
+                            <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="120" id="Ey3-Xc-sqp"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="FLk-8J-sEW"/>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="Fnf-Gl-gZk"/>
+                            <constraint firstItem="9w9-pL-jTf" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="GD7-mM-MmZ"/>
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="GEb-qK-Dvf"/>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="JdF-9e-1iU"/>
-                            <constraint firstItem="Wdv-vy-5ut" firstAttribute="top" secondItem="Tzd-08-su5" secondAttribute="bottom" constant="8" id="P4Q-7C-n2B"/>
-                            <constraint firstItem="Tzd-08-su5" firstAttribute="top" secondItem="ZN5-uz-PEG" secondAttribute="bottom" constant="8" id="PLD-cG-goT"/>
-                            <constraint firstItem="BLm-jr-98g" firstAttribute="leading" secondItem="Tzd-08-su5" secondAttribute="trailing" constant="8" id="QbK-nE-FY1"/>
+                            <constraint firstItem="fCL-vy-SIp" firstAttribute="top" secondItem="9w9-pL-jTf" secondAttribute="bottom" constant="8" id="Kro-bK-Epe"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="Vvm-JM-uaG"/>
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="WQl-XH-4hA"/>
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="dep-gt-6DA"/>
                             <constraint firstItem="DqF-Ax-NFf" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="kCy-8j-pim"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="lC6-yS-tCO"/>
-                            <constraint firstItem="BLm-jr-98g" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="lX7-yE-04o"/>
+                            <constraint firstItem="Wdv-vy-5ut" firstAttribute="top" secondItem="ZN5-uz-PEG" secondAttribute="bottom" constant="8" id="nGf-dq-fCP"/>
                             <constraint firstItem="DqF-Ax-NFf" firstAttribute="top" secondItem="04C-ke-GJA" secondAttribute="bottom" constant="8" id="rod-hS-hEG"/>
-                            <constraint firstItem="BLm-jr-98g" firstAttribute="centerY" secondItem="Tzd-08-su5" secondAttribute="centerY" id="rtd-j2-1Iv"/>
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="8" id="ww5-O9-uvg"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="yrH-mM-v3Q"/>
-                            <constraint firstItem="fCL-vy-SIp" firstAttribute="top" secondItem="DqF-Ax-NFf" secondAttribute="bottom" constant="8" id="z0e-8q-ey4"/>
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="z7T-I7-MIr"/>
                         </constraints>
                     </view>
@@ -432,9 +421,8 @@
                         <outlet property="colorThemePickerLabel" destination="7qA-v4-gf5" id="W07-bq-36w"/>
                         <outlet property="finalThresholdLabel" destination="Ojn-dk-can" id="jam-Y3-yJC"/>
                         <outlet property="finalThresholdTimePicker" destination="VaK-Cn-EOG" id="i7c-SA-P8h"/>
-                        <outlet property="keepDeviceAwakeLabel" destination="BLm-jr-98g" id="Tqa-tl-3Jl"/>
-                        <outlet property="keepDeviceAwakeSwitch" destination="Tzd-08-su5" id="ZAr-hE-eIm"/>
                         <outlet property="podiumModeContainerView" destination="bOd-1e-i1t" id="ECt-Zz-Rki"/>
+                        <outlet property="timerModeLabel" destination="9w9-pL-jTf" id="fVq-4T-9PM"/>
                         <outlet property="timerModeSegmentedSwitch" destination="fCL-vy-SIp" id="dKL-VY-QQ6"/>
                         <outlet property="warningThresholdLabel" destination="BiL-9Z-SQP" id="Bb7-QV-Igi"/>
                         <outlet property="warningThresholdTimePicker" destination="CPo-vP-d5X" id="4au-9O-Pzh"/>
