@@ -274,8 +274,6 @@ class LGV_Timer_StaticPrefs {
     /* ################################################################## */
     /** These are the keys we use for our persistent prefs dictionary. */
     private enum PrefsKeys: String {
-        /** If true, then timers and the stopwatch will pause if the app is in the background. */
-        case PauseInBackground = "PauseInBackground"
         /** This will be an array of dictionaries, with a list of timers. */
         case TimerList = "TimerList"
     }
@@ -399,10 +397,6 @@ class LGV_Timer_StaticPrefs {
         }
         
         if nil != self._loadedPrefs {
-            if nil == self._loadedPrefs.object(forKey: PrefsKeys.PauseInBackground.rawValue) {
-                self._loadedPrefs.setValue(NSNumber(value: false), forKey: PrefsKeys.PauseInBackground.rawValue)
-            }
-            
             if nil == self._loadedPrefs.object(forKey: PrefsKeys.TimerList.rawValue) {
                 let tempSetting:NSMutableArray = []
 
@@ -499,32 +493,6 @@ class LGV_Timer_StaticPrefs {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     If true, the countdown timers and stopwatch will pause while in the background. Default is false.
-     */
-    var pauseInBackground: Bool {
-        get {
-            var ret: Bool = false
-            
-            if self._loadPrefs() {
-                if let temp = self._loadedPrefs.object(forKey: PrefsKeys.PauseInBackground.rawValue) as? NSNumber {
-                    ret = temp.boolValue
-                }
-            }
-            
-            return ret
-        }
-        
-        set {
-            if nil != self._loadedPrefs {
-                let savedVal = NSNumber(value: newValue)
-                self._loadedPrefs.setObject(savedVal, forKey: PrefsKeys.PauseInBackground.rawValue as NSCopying)
-                self._savePrefs()
-            }
-        }
-    }
-    
-    /* ################################################################## */
-    /**
      This sets/returns a list of timers. We must have at least one timer.
      */
     var timers:[TimerSettingTuple] {
@@ -576,9 +544,7 @@ class LGV_Timer_StaticPrefs {
      */
     var description: String {
         get {
-            var ret = String(format: "pauseInBackground: %d, timers: [",
-                          self.pauseInBackground ? 1 : 0
-            )
+            var ret = "timers: ["
             
             for timer in self.timers {
                 ret += "\n" + timer.description

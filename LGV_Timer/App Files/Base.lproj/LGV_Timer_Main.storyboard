@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,6 +19,8 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="eRP-fW-XSv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -441,12 +442,14 @@
                         <viewControllerLayoutGuide type="bottom" id="36h-2E-yI8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WlI-lT-4T0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j29-iR-j9c">
-                                <rect key="frame" x="16" y="110" width="343" height="508"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j29-iR-j9c">
+                                <rect key="frame" x="16" y="0.0" width="343" height="554"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SingleTimerCell" id="ac3-fZ-O32" customClass="LGV_Timer_SettingsTimerTableCell" customModule="Timer_Time" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
@@ -456,7 +459,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOF-6u-24f" customClass="LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock" customModule="Timer_Time" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
+                                                    <rect key="frame" x="0.0" y="2" width="343" height="39.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="activeSegmentColor">
@@ -470,13 +473,10 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="cOF-6u-24f" firstAttribute="leading" secondItem="KvH-ni-liP" secondAttribute="leading" id="8XT-rG-znD"/>
-                                                <constraint firstItem="cOF-6u-24f" firstAttribute="top" secondItem="KvH-ni-liP" secondAttribute="top" id="CDi-lj-2mu"/>
-                                                <constraint firstAttribute="bottom" secondItem="cOF-6u-24f" secondAttribute="bottom" id="I5n-22-vAL"/>
-                                                <constraint firstItem="cOF-6u-24f" firstAttribute="leading" secondItem="KvH-ni-liP" secondAttribute="leading" id="XLv-5e-uin"/>
-                                                <constraint firstAttribute="bottom" secondItem="cOF-6u-24f" secondAttribute="bottom" id="kM8-BI-9T7"/>
-                                                <constraint firstAttribute="trailing" secondItem="cOF-6u-24f" secondAttribute="trailing" id="v4w-kk-zQA"/>
-                                                <constraint firstItem="cOF-6u-24f" firstAttribute="top" secondItem="KvH-ni-liP" secondAttribute="top" id="wEI-NM-VnT"/>
+                                                <constraint firstItem="cOF-6u-24f" firstAttribute="top" secondItem="KvH-ni-liP" secondAttribute="top" constant="2" id="1i6-8k-hFm"/>
+                                                <constraint firstItem="cOF-6u-24f" firstAttribute="leading" secondItem="KvH-ni-liP" secondAttribute="leading" id="2iq-8H-r44"/>
+                                                <constraint firstAttribute="trailing" secondItem="cOF-6u-24f" secondAttribute="trailing" id="K7i-OV-V1d"/>
+                                                <constraint firstAttribute="bottom" secondItem="cOF-6u-24f" secondAttribute="bottom" constant="2" id="r8X-3m-CSC"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -490,93 +490,33 @@
                                     <outlet property="delegate" destination="dZU-jO-ENB" id="PVu-Ki-eLq"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="It7-Fi-VZl">
-                                <rect key="frame" x="337" y="20" width="22" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="It7-Fi-VZl" secondAttribute="height" multiplier="1:1" id="NEP-wY-Y1Y"/>
-                                    <constraint firstAttribute="width" constant="22" id="cdN-ju-MfZ"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="infoButtonHit:" destination="dZU-jO-ENB" eventType="touchUpInside" id="5dP-Hr-WCA"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-GENERAL-SETTINGS-LABEL" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="DDr-ef-R1t">
-                                <rect key="frame" x="46" y="18.5" width="283" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="O4D-Ic-TcB"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-PAUSE-IN-BACKGROUND" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="rml-6c-Iv1">
-                                <rect key="frame" x="73" y="51.5" width="286" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="O2E-Em-WB7"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vTN-X8-NMX" userLabel="Pause In Background Switch">
-                                <rect key="frame" x="16" y="46.5" width="51" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="31" id="A0M-Wf-RSv"/>
-                                    <constraint firstAttribute="width" constant="49" id="nvu-ij-rit"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="pauseTimersInBackgroundSwitchHit:" destination="dZU-jO-ENB" eventType="valueChanged" id="00o-Jh-nga"/>
-                                </connections>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-SETTINGS-LABEL" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="WTk-aN-VpI">
-                                <rect key="frame" x="46" y="81" width="283" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="xYK-Ns-5PT"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P8b-a6-hrj">
-                                <rect key="frame" x="337" y="80" width="22" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="P8b-a6-hrj" secondAttribute="height" multiplier="1:1" id="Ugu-St-Eqr"/>
-                                    <constraint firstAttribute="width" constant="22" id="o1B-Fa-AaQ"/>
-                                </constraints>
-                                <state key="normal" image="Plus"/>
-                                <connections>
-                                    <action selector="addTimerButtonHit:" destination="dZU-jO-ENB" eventType="touchUpInside" id="Iq4-5U-h9f"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.99215686270000003" green="0.97647058819999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="It7-Fi-VZl" firstAttribute="top" secondItem="7wB-2E-9hN" secondAttribute="bottom" id="1WW-AJ-WTk"/>
-                            <constraint firstItem="rml-6c-Iv1" firstAttribute="leading" secondItem="vTN-X8-NMX" secondAttribute="trailing" constant="8" id="3Hk-Vq-IF7"/>
-                            <constraint firstItem="P8b-a6-hrj" firstAttribute="leading" secondItem="WTk-aN-VpI" secondAttribute="trailing" constant="8" id="6aS-6D-2v8"/>
-                            <constraint firstItem="DDr-ef-R1t" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" constant="30" id="9Zc-5s-Pe7"/>
-                            <constraint firstItem="vTN-X8-NMX" firstAttribute="top" secondItem="DDr-ef-R1t" secondAttribute="bottom" constant="4" id="AvV-BG-iEx"/>
-                            <constraint firstItem="rml-6c-Iv1" firstAttribute="centerY" secondItem="vTN-X8-NMX" secondAttribute="centerY" id="Cr6-gN-Hda"/>
-                            <constraint firstItem="vTN-X8-NMX" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="EcB-fR-c4c"/>
-                            <constraint firstItem="rml-6c-Iv1" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="M1j-t4-FiD"/>
-                            <constraint firstItem="P8b-a6-hrj" firstAttribute="centerY" secondItem="WTk-aN-VpI" secondAttribute="centerY" id="M6R-i1-J0A"/>
-                            <constraint firstItem="P8b-a6-hrj" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="OZ4-yL-7wj"/>
-                            <constraint firstItem="j29-iR-j9c" firstAttribute="top" secondItem="P8b-a6-hrj" secondAttribute="bottom" constant="8" id="P8K-cQ-IQ5"/>
-                            <constraint firstItem="WTk-aN-VpI" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" constant="30" id="QB5-dR-4BS"/>
-                            <constraint firstItem="j29-iR-j9c" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="W2L-3S-rWI"/>
-                            <constraint firstItem="It7-Fi-VZl" firstAttribute="centerY" secondItem="DDr-ef-R1t" secondAttribute="centerY" id="X7E-eC-Tim"/>
-                            <constraint firstItem="WTk-aN-VpI" firstAttribute="top" secondItem="vTN-X8-NMX" secondAttribute="bottom" constant="4" id="eSy-XW-ATt"/>
-                            <constraint firstItem="36h-2E-yI8" firstAttribute="top" secondItem="j29-iR-j9c" secondAttribute="bottom" id="gUh-gm-2Xu"/>
-                            <constraint firstItem="It7-Fi-VZl" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="mgB-QK-sxx"/>
-                            <constraint firstItem="It7-Fi-VZl" firstAttribute="leading" secondItem="DDr-ef-R1t" secondAttribute="trailing" constant="8" id="pKR-X6-7r4"/>
-                            <constraint firstItem="j29-iR-j9c" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="voe-CS-BfS"/>
+                            <constraint firstItem="j29-iR-j9c" firstAttribute="top" secondItem="7wB-2E-9hN" secondAttribute="bottom" id="5FI-PU-JqO"/>
+                            <constraint firstItem="j29-iR-j9c" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="DcO-1P-Sqt"/>
+                            <constraint firstItem="36h-2E-yI8" firstAttribute="top" secondItem="j29-iR-j9c" secondAttribute="bottom" id="ELE-1F-Scs"/>
+                            <constraint firstItem="j29-iR-j9c" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="jWX-Jz-cU7"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" image="Settings" id="xaE-0x-fg6"/>
+                    <navigationItem key="navigationItem" title="LGV_TIMER-SETUP-TITLE" id="7xT-8h-l1i" userLabel="LGV_TIMER-SETUP-TITLE">
+                        <barButtonItem key="leftBarButtonItem" title="Info" id="luj-0d-Mda">
+                            <connections>
+                                <action selector="infoButtonHit:" destination="dZU-jO-ENB" id="Dyn-Ny-sFs"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="qDK-vu-sEq">
+                            <connections>
+                                <action selector="addTimerButtonHit:" destination="dZU-jO-ENB" id="gbn-nI-Kri"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
-                            <color key="value" red="0.26621194948186533" green="0.26621194948186533" blue="0.26621194948186533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.26621194949999999" green="0.26621194949999999" blue="0.26621194949999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
                             <color key="value" red="0.48943490932642486" green="0.48943490932642486" blue="0.48943490932642486" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -589,18 +529,35 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="addTimerButton" destination="P8b-a6-hrj" id="weJ-Fi-wqm"/>
-                        <outlet property="generalSettingsHeaderLabel" destination="DDr-ef-R1t" id="7Fm-tv-i8d"/>
-                        <outlet property="infoButton" destination="It7-Fi-VZl" id="pEP-8j-iU1"/>
-                        <outlet property="pauseInBackgroundLabel" destination="rml-6c-Iv1" id="olh-Ac-AmT"/>
-                        <outlet property="pauseInBackgroundSwitch" destination="vTN-X8-NMX" id="g5J-aT-BCA"/>
-                        <outlet property="timerSettingsHeaderLabel" destination="WTk-aN-VpI" id="P6D-UY-C7N"/>
+                        <outlet property="navAdd" destination="qDK-vu-sEq" id="ta8-Tf-u0R"/>
+                        <outlet property="navInfo" destination="luj-0d-Mda" id="nLz-D6-jgR"/>
+                        <outlet property="navItemTitle" destination="7xT-8h-l1i" id="6sM-dV-7y9"/>
                         <outlet property="timerTableView" destination="j29-iR-j9c" id="652-Ht-ppL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RKq-cg-tjj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="512.79999999999995" y="518.59070464767615"/>
+            <point key="canvasLocation" x="1350" y="518"/>
+        </scene>
+        <!--LGV_TIMER-SETUP-TITLE-->
+        <scene sceneID="dWu-Eb-ueo">
+            <objects>
+                <navigationController id="sDn-VD-xYI" customClass="LGV_Timer_TimerSettingsNavController" customModule="Timer_Time" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" id="Y9h-rb-Dgm"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Vpb-uI-amC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.26621194949999999" green="0.26621194949999999" blue="0.26621194949999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="dZU-jO-ENB" kind="relationship" relationship="rootViewController" id="6vB-sJ-4ae"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QCV-5C-Npu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="513" y="518"/>
         </scene>
         <!--Timer Main Tab Controller-->
         <scene sceneID="8ZY-33-Rjt">
@@ -616,7 +573,7 @@
                         <color key="selectedImageTintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="dZU-jO-ENB" kind="relationship" relationship="viewControllers" id="pQf-zj-6dH"/>
+                        <segue destination="sDn-VD-xYI" kind="relationship" relationship="viewControllers" id="k2W-Sv-E7a"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W76-9w-COI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -626,7 +583,6 @@
     </scenes>
     <resources>
         <image name="Pause" width="22" height="22"/>
-        <image name="Plus" width="22" height="22"/>
         <image name="Settings" width="25" height="25"/>
         <image name="Start" width="22" height="22"/>
         <image name="Stop" width="22" height="22"/>

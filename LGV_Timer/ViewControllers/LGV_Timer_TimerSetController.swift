@@ -94,8 +94,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         self.timeSetLabel.text = self.timeSetLabel.text?.localizedVariant
         if let navController = self.navigationController as? LGV_Timer_TimerNavController {
             self.timerNumber = max(0, navController.timerNumber - 1)
-            let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-            self.tabItemColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[timers[self.timerNumber].colorTheme].textColor
         }
     }
     
@@ -104,7 +102,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      Called when the view has finished displaying.
      */
     override func viewWillAppear(_ animated: Bool) {
-        self.tabItemColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].colorTheme].textColor
         super.viewWillAppear(animated)
         
         self.timerModeSegmentedSwitch.selectedSegmentIndex = s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode.rawValue

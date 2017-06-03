@@ -19,11 +19,6 @@ class LGV_Timer_MainTabController: UITabBarController {
     
     // MARK: - Instance Properties
     /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     */
-    var globalSettingsViewController: LGV_Timer_SettingsViewController! = nil
-    
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -56,10 +51,8 @@ class LGV_Timer_MainTabController: UITabBarController {
         
         for barController in self.viewControllers! {
             if let barItem = barController.tabBarItem {
-                if type(of: barController) == LGV_Timer_SettingsViewController.self {
+                if type(of: barController) == LGV_Timer_TimerSettingsNavController.self {
                     barItem.title = barItem.title?.localizedVariant
-                    self.globalSettingsViewController = barController as! LGV_Timer_SettingsViewController
-                    self.globalSettingsViewController.mainTabController = self
                 }
             }
         }

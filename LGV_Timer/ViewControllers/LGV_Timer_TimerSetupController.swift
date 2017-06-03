@@ -63,7 +63,6 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
      Called when the view will appear.
      */
     override func viewWillAppear(_ animated: Bool) {
-        self.tabItemColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].colorTheme].textColor
         super.viewWillAppear(animated)
 
         self.warningThresholdLabel.text = self.warningThresholdLabel.text?.localizedVariant
