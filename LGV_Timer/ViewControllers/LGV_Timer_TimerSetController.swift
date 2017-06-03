@@ -18,11 +18,11 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     static let switchToSettingsSegueID = "timer-segue-to-settings"
     static let startTimerSegueID = "timer-segue-to-start-timer"
     
+    @IBOutlet weak var startButton: UIBarButtonItem!
     @IBOutlet weak var setupButton: UIBarButtonItem!
     @IBOutlet weak var timeSetLabel: UILabel!
     @IBOutlet weak var setTimePickerView: UIPickerView!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
-    @IBOutlet weak var startButtonDisplay: LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock!
     
     var timerNumber: Int = 0
     
@@ -39,17 +39,17 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     /* ################################################################## */
     /**
      */
-    @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        timers[self.timerNumber].displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
-        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+    @IBAction func startButtonHit(_ sender: Any) {
+        self.startTimer()
     }
     
     /* ################################################################## */
     /**
      */
-    @IBAction func tapOnNumbers(_ sender: Any) {
-        self.performSegue(withIdentifier: type(of:self).startTimerSegueID, sender: nil)
+    @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
+        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
+        timers[self.timerNumber].displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
+        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
     }
     
     // MARK: - Internal Instance Methods
@@ -64,14 +64,17 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     
     /* ################################################################## */
     /**
-     Bring in the setup screen.
+     Start the Timer.
+     */
+    func startTimer() {
+        self.performSegue(withIdentifier: type(of:self).startTimerSegueID, sender: nil)
+    }
+    
+    /* ################################################################## */
+    /**
      */
     func setUpDisplay() {
-        self.startButtonDisplay.hours = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].timeSet).hours
-        self.startButtonDisplay.minutes = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].timeSet).minutes
-        self.startButtonDisplay.seconds = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].timeSet).seconds
-        self.startButtonDisplay.activeSegmentColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].colorTheme].textColor!
-        self.startButtonDisplay.setNeedsDisplay()
+        self.startButton.isEnabled = 0 < s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].timeSet
     }
     
     // MARK: - Base Class Override Methods
@@ -83,13 +86,9 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-
         for segment in 0..<self.timerModeSegmentedSwitch.numberOfSegments {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
         }
-        
-        self.timerModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].displayMode.rawValue
         
         self.setupButton.title = self.setupButton.title?.localizedVariant
         self.timeSetLabel.text = self.timeSetLabel.text?.localizedVariant
@@ -107,6 +106,9 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     override func viewWillAppear(_ animated: Bool) {
         self.tabItemColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].colorTheme].textColor
         super.viewWillAppear(animated)
+        
+        self.timerModeSegmentedSwitch.selectedSegmentIndex = s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode.rawValue
+
         if let navController = self.navigationController as? LGV_Timer_TimerNavController {
             self.timerNumber = max(0, navController.timerNumber - 1)
             let timers = s_g_LGV_Timer_AppDelegatePrefs.timers

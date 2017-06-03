@@ -199,18 +199,19 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
         super.viewWillLayoutSubviews()
         
         if nil != self.stoplightContainerView {
+            let verticalPadding: CGFloat = (.Dual == s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode) ? 4 : 0
             var containerRect = self.view.bounds
             var maxWidth = (containerRect.size.width * self._stoplightMaxWidthFactor)
             
             if .Dual == s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode {
                 maxWidth = min(maxWidth, containerRect.size.height * self._stoplightDualModeHeightFactor)
-                containerRect.origin.y = containerRect.size.height - maxWidth
-                containerRect.size.height = maxWidth
+                containerRect.origin.y = containerRect.size.height - (maxWidth + (verticalPadding * 2))
+                containerRect.size.height = maxWidth + (verticalPadding * 2)
             }
             
             self.stoplightContainerView.frame = containerRect
             
-            let yPos = (containerRect.size.height / 2) - (maxWidth / 2)
+            let yPos = (containerRect.size.height / 2) - ((maxWidth / 2) + verticalPadding)
             let stopLightSize = CGSize(width: maxWidth, height: maxWidth)
             let greenPos = CGPoint(x: (containerRect.size.width / 4) - (maxWidth / 2), y: yPos)
             let yellowPos = CGPoint(x: (containerRect.size.width / 2) - (maxWidth / 2), y: yPos )

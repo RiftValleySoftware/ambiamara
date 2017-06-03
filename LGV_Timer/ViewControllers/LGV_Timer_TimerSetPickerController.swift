@@ -41,6 +41,8 @@ class LGV_Timer_TimerSetPickerController: LGV_Timer_TimerBaseViewController, UIP
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let ret = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.pickerView(pickerView, widthForComponent: component), height: self.pickerView(pickerView, rowHeightForComponent: component))))
         
+        ret.font = UIFont.systemFont(ofSize: self.pickerView(pickerView, rowHeightForComponent: component))
+        ret.adjustsFontSizeToFitWidth = true
         ret.backgroundColor = UIColor.clear
         ret.textColor = UIColor.white
         

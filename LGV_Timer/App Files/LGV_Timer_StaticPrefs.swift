@@ -416,14 +416,8 @@ class LGV_Timer_StaticPrefs {
             if nil == self._loadedPrefs.object(forKey: PrefsKeys.TimerList.rawValue) {
                 let tempSetting:NSMutableArray = []
 
-                // If we are at a starting point, we "prime the pump" with 4 timers.
+                // If we are at a starting point, we "prime the pump" with 1 timer.
                 let timerSetting = type(of: self).defaultTimer
-                tempSetting.add(type(of: self)._convertTimerToStorage(timerSetting))
-                timerSetting.colorTheme += 1
-                tempSetting.add(type(of: self)._convertTimerToStorage(timerSetting))
-                timerSetting.colorTheme += 1
-                tempSetting.add(type(of: self)._convertTimerToStorage(timerSetting))
-                timerSetting.colorTheme += 1
                 tempSetting.add(type(of: self)._convertTimerToStorage(timerSetting))
                 
                 self._loadedPrefs.setObject(tempSetting, forKey: PrefsKeys.TimerList.rawValue as NSCopying)
