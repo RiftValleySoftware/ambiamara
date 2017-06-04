@@ -76,7 +76,6 @@ import UIKit
         super.viewDidLoad()
 
         self.gradientLayer.colors = [self.gradientTopColor.cgColor, self.gradientBottomColor.cgColor]
-        
         self.gradientLayer.locations = [0.0, 1.0]
         
         self.view.layer.sublayers?.insert(self.gradientLayer, at: 0)
@@ -104,6 +103,8 @@ import UIKit
         super.viewWillAppear(animated)
         if let navController = self.navigationController {
             navController.navigationBar.barTintColor = self.gradientTopColor
+            navController.navigationBar.tintColor = self.view.tintColor
+            navController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         }
         
         if let tabController = self.tabBarController {

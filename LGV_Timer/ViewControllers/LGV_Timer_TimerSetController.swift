@@ -75,6 +75,8 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      */
     func setUpDisplay() {
         self.startButton.isEnabled = 0 < s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].timeSet
+        self.tabBarController?.viewControllers?[self.timerNumber + 1].tabBarItem.image = self.tabBarImage
+        self.tabBarController?.viewControllers?[self.timerNumber + 1].tabBarItem.selectedImage = self.tabBarImage
     }
     
     // MARK: - Base Class Override Methods
@@ -92,9 +94,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         
         self.setupButton.title = self.setupButton.title?.localizedVariant
         self.timeSetLabel.text = self.timeSetLabel.text?.localizedVariant
-        if let navController = self.navigationController as? LGV_Timer_TimerNavController {
-            self.timerNumber = max(0, navController.timerNumber - 1)
-        }
+        self.timerNumber = (self.tabBarController?.selectedIndex)! - 1
     }
     
     /* ################################################################## */
@@ -105,17 +105,14 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         super.viewWillAppear(animated)
         
         self.timerModeSegmentedSwitch.selectedSegmentIndex = s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode.rawValue
-
-        if let navController = self.navigationController as? LGV_Timer_TimerNavController {
-            self.timerNumber = max(0, navController.timerNumber - 1)
-            let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-            let timeSet = TimeTuple(timers[self.timerNumber].timeSet)
-            self.setTimePickerView.reloadAllComponents()
-            self.setTimePickerView.selectRow(timeSet.hours, inComponent: Components.Hours.rawValue, animated: true)
-            self.setTimePickerView.selectRow(timeSet.minutes, inComponent: Components.Minutes.rawValue, animated: true)
-            self.setTimePickerView.selectRow(timeSet.seconds, inComponent: Components.Seconds.rawValue, animated: true)
-            self.setUpDisplay()
-        }
+        
+        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
+        let timeSet = TimeTuple(timers[self.timerNumber].timeSet)
+        self.setTimePickerView.reloadAllComponents()
+        self.setTimePickerView.selectRow(timeSet.hours, inComponent: Components.Hours.rawValue, animated: true)
+        self.setTimePickerView.selectRow(timeSet.minutes, inComponent: Components.Minutes.rawValue, animated: true)
+        self.setTimePickerView.selectRow(timeSet.seconds, inComponent: Components.Seconds.rawValue, animated: true)
+        self.setUpDisplay()
     }
     
     /* ################################################################## */
@@ -153,6 +150,30 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         }
     }
     
+    /* ################################################################## */
+    /**
+     This supplies a dynamically-created image for the Tab Bar.
+     */
+    var tabBarImage: UIImage! {
+        get {
+            var displayedString = "";
+            let prefs = s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber]
+            let timeTuple = TimeTuple(prefs.timeSet)
+            
+            if 0 < timeTuple.hours {
+                displayedString = String(format: "%02d:%02d:%02d", timeTuple.hours, timeTuple.minutes, timeTuple.seconds)
+            } else {
+                if 0 < timeTuple.minutes {
+                    displayedString = String(format: "%02d:%02d", timeTuple.minutes, timeTuple.seconds)
+                } else {
+                    displayedString = String(format: "%02d", timeTuple.seconds)
+                }
+            }
+            
+            return LGV_Timer_TimerNavController.textAsImage(drawText: displayedString as NSString)
+        }
+    }
+    
     /// MARK: - UIPickerViewDelegate Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -168,10 +189,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         timers[self.timerNumber].timeSetPodiumWarn = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(timers[self.timerNumber].timeSet)
         timers[self.timerNumber].timeSetPodiumFinal = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(timers[self.timerNumber].timeSet)
         s_g_LGV_Timer_AppDelegatePrefs.timers = timers
-        if let navController = self.navigationController as? LGV_Timer_TimerNavController {
-            navController.tabBarItem.image = navController.tabBarImage
-            navController.tabBarItem.selectedImage = navController.tabBarImage
-        }
         self.setUpDisplay()
     }
 }

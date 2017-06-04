@@ -25,7 +25,24 @@ class LGV_Timer_TimerNavController: UINavigationController {
     // MARK: - Instance Properties
     /* ################################################################################################################################## */
     /// This has the index number for this timer instance (1-based).
-    var timerNumber: Int = 0
+    var timerNumber: Int {
+        get {
+            var ret: Int = -1
+            if let tabBarController = self.tabBarController as? LGV_Timer_MainTabController {
+                ret = 0
+                
+                for controller in tabBarController.viewControllers! {
+                    if controller == self {
+                        break
+                    }
+                    
+                    ret += 1
+                }
+            }
+            
+            return ret
+        }
+    }
     
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
@@ -35,12 +52,22 @@ class LGV_Timer_TimerNavController: UINavigationController {
      */
     var tabBarImage: UIImage! {
         get {
-            var displayedString = "ERROR";
+            var displayedString = "";
             let timerNumber = max(0, self.timerNumber - 1)
             let prefs = s_g_LGV_Timer_AppDelegatePrefs.timers[timerNumber]
-            displayedString = String(format: "%02d:%02d:%02d", TimeTuple(prefs.timeSet).hours, TimeTuple(prefs.timeSet).minutes, TimeTuple(prefs.timeSet).seconds)
+            let timeTuple = TimeTuple(prefs.timeSet)
             
-            return type(of: self)._textAsImage(drawText: displayedString as NSString)
+            if 0 < timeTuple.hours {
+                displayedString = String(format: "%02d:%02d:%02d", timeTuple.hours, timeTuple.minutes, timeTuple.seconds)
+            } else {
+                if 0 < timeTuple.minutes {
+                    displayedString = String(format: "%02d:%02d", timeTuple.minutes, timeTuple.seconds)
+                } else {
+                    displayedString = String(format: "%02d", timeTuple.seconds)
+                }
+            }
+            
+            return type(of: self).textAsImage(drawText: displayedString as NSString)
         }
     }
     
@@ -50,11 +77,7 @@ class LGV_Timer_TimerNavController: UINavigationController {
      */
     var tabBarText: String {
         get {
-            if 0 < self.timerNumber {
-                return String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, self.timerNumber)
-            } else {
-                return "LGV_TIMER-TIMER-TITLE-SINGLE".localizedVariant
-            }
+            return String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, self.timerNumber)
         }
     }
     
@@ -64,7 +87,7 @@ class LGV_Timer_TimerNavController: UINavigationController {
     /**
      Creates an image with the given text.
      */
-    private class func _textAsImage(drawText text: NSString) -> UIImage {
+    class func textAsImage(drawText text: NSString) -> UIImage {
         var ret: UIImage! = nil
         
         let imageSize = CGSize(width: s_g_maxTabIconWidth, height: s_g_maxTabIconHeight)

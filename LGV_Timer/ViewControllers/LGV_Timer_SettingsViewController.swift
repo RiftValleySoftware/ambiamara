@@ -41,18 +41,31 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      We use this method to establish all the localized strings, and restore the controls to reflect the stored state.
      */
     override func viewDidLoad() {
-        super.viewDidLoad()
         self.navItemTitle.title = self.navItemTitle.title?.localizedVariant
         self.mainTabController = self.tabBarController as! LGV_Timer_MainTabController
+        super.viewDidLoad()
+        self.gussyUpTheMoreNavigation()
     }
     
     /* ################################################################## */
     /**
      Called when the view has changed its layout.
      */
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.timerTableView.reloadData()
+    }
+    
+    // MARK: - Internal Instance Methods
+    /* ################################################################################################################################## */
+    func gussyUpTheMoreNavigation() {
+        if let navBar = self.navigationController?.navigationBar {
+            self.tabBarController?.moreNavigationController.navigationBar.tintColor = navBar.tintColor
+            self.tabBarController?.moreNavigationController.navigationBar.barStyle = navBar.barStyle
+            self.tabBarController?.moreNavigationController.navigationBar.barTintColor = navBar.barTintColor
+            self.tabBarController?.moreNavigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+            self.tabBarController?.moreNavigationController.view.tintColor = UIColor.black
+        }
     }
 
     // MARK: - IBAction Methods
@@ -72,6 +85,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         self.mainTabController.view.setNeedsLayout()
         let timerIndex = max(0, min(timers.count - 1, s_g_LGV_Timer_AppDelegatePrefs.timers.count - 1))
         self.mainTabController.selectTimer(timerIndex, pushSettings: true)
+        self.gussyUpTheMoreNavigation()
     }
     
     /* ################################################################## */
@@ -108,10 +122,12 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let ret = tableView.dequeueReusableCell(withIdentifier: "SingleTimerCell") as? LGV_Timer_SettingsTimerTableCell {
             if let clockView = ret.clockDisplay {
-                clockView.hours = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].timeSet).hours
-                clockView.minutes = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].timeSet).minutes
-                clockView.seconds = TimeTuple(s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].timeSet).seconds
-                clockView.activeSegmentColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row].colorTheme].textColor!
+                let timerPrefs = s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row]
+                let timeTuple = TimeTuple(timerPrefs.timeSet)
+                clockView.hours = timeTuple.hours
+                clockView.minutes = timeTuple.minutes
+                clockView.seconds = timeTuple.seconds
+                clockView.activeSegmentColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[timerPrefs.colorTheme].textColor!
                 clockView.setNeedsDisplay()
             }
             return ret
@@ -190,6 +206,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         tableView.isEditing = false
         tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
         self.mainTabController.view.setNeedsLayout()
+        self.gussyUpTheMoreNavigation()
     }
     
     /* ################################################################## */

@@ -91,6 +91,11 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
         if 0 == self.currentTimeInSeconds {
             self.currentTimeInSeconds = s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].timeSet
         }
+        
+        if .Podium != s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode {
+            self.timeDisplay.blinkSeparators = true
+        }
+        
         self.clockPaused = false
         self.pauseButton.image = UIImage(named: self.pauseButtonImageName)
         self.lastTimerDate = Date()
@@ -120,6 +125,11 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
             self._timer.invalidate()
             self._timer = nil
         }
+        
+        if .Podium != s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode {
+            self.timeDisplay.blinkSeparators = false
+        }
+        
         self.clockPaused = true
         self.pauseButton.image = UIImage(named: self.startButtonImageName)
         self._setUpDisplay()
@@ -234,6 +244,10 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if let navController = self.navigationController {
+            navController.navigationBar.barTintColor = self.gradientTopColor
+            navController.navigationBar.tintColor = self.view.tintColor
+        }
         LGV_Timer_AppDelegate.appDelegateObject.currentTimer = self
         UIApplication.shared.isIdleTimerDisabled = true
         self._startTimer()

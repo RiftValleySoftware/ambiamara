@@ -17,8 +17,6 @@ import UIKit
 class LGV_Timer_MainTabController: UITabBarController {
     static var s_c_pushTimerSettings: Bool = false
     
-    // MARK: - Instance Properties
-    /* ################################################################################################################################## */
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -66,8 +64,6 @@ class LGV_Timer_MainTabController: UITabBarController {
     /**
      */
     func updateTimers() {
-        var index = 1
-        
         let count = self.viewControllers!.count
         
         for _ in 1..<count {
@@ -81,13 +77,6 @@ class LGV_Timer_MainTabController: UITabBarController {
             if nil != storyboard {
                 if let timerController = storyboard!.instantiateViewController(withIdentifier: storyBoardID) as? LGV_Timer_TimerNavController {
                     self.viewControllers?.append(timerController)
-                    // For a singular timer, we don't have a timer number.
-                    if 1 == s_g_LGV_Timer_AppDelegatePrefs.timers.count {
-                        timerController.timerNumber = 0
-                    } else {
-                        timerController.timerNumber = index
-                        index += 1
-                    }
                     
                     let timerTitle = timerController.tabBarText
                     timerController.tabBarItem.title = timerTitle
