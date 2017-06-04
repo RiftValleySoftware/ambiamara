@@ -119,18 +119,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     /**
      Called when the view has finished displaying.
      */
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if LGV_Timer_MainTabController.s_c_pushTimerSettings {
-            LGV_Timer_MainTabController.s_c_pushTimerSettings = false
-            self.bringInSettingsScreen()
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     Called when the view has finished displaying.
-     */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.setUpDisplay()

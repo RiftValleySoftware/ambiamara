@@ -63,7 +63,7 @@
 		779ADCFF1ED89B600050F5E7 /* LGV_Timer_StaticPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_StaticPrefs.swift; path = "App Files/LGV_Timer_StaticPrefs.swift"; sourceTree = "<group>"; };
 		77AF8C591ED84EC100C88759 /* Let's go Digital Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Let's go Digital Regular.ttf"; path = "App Files/Let's go Digital Regular.ttf"; sourceTree = "<group>"; };
 		77B291131ED5C37C00AD3720 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		77EFB3DC1ED5C1A800BDDEFF /* Timer Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Timer Time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		77EFB3DC1ED5C1A800BDDEFF /* X-Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "X-Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,7 +169,7 @@
 		77EFB3DD1ED5C1A800BDDEFF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				77EFB3DC1ED5C1A800BDDEFF /* Timer Time.app */,
+				77EFB3DC1ED5C1A800BDDEFF /* X-Timer.app */,
 				773E064E1EDAFACD003FF9DD /* LGV_Lib_LEDDisplay_UI_Test.app */,
 			);
 			name = Products;
@@ -195,9 +195,9 @@
 			productReference = 773E064E1EDAFACD003FF9DD /* LGV_Lib_LEDDisplay_UI_Test.app */;
 			productType = "com.apple.product-type.application";
 		};
-		77EFB3DB1ED5C1A800BDDEFF /* Timer Time */ = {
+		77EFB3DB1ED5C1A800BDDEFF /* X-Timer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 77EFB3EE1ED5C1A800BDDEFF /* Build configuration list for PBXNativeTarget "Timer Time" */;
+			buildConfigurationList = 77EFB3EE1ED5C1A800BDDEFF /* Build configuration list for PBXNativeTarget "X-Timer" */;
 			buildPhases = (
 				77EFB3D81ED5C1A800BDDEFF /* Sources */,
 				77EFB3D91ED5C1A800BDDEFF /* Frameworks */,
@@ -207,9 +207,9 @@
 			);
 			dependencies = (
 			);
-			name = "Timer Time";
+			name = "X-Timer";
 			productName = LGV_Timer;
-			productReference = 77EFB3DC1ED5C1A800BDDEFF /* Timer Time.app */;
+			productReference = 77EFB3DC1ED5C1A800BDDEFF /* X-Timer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -250,7 +250,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				77EFB3DB1ED5C1A800BDDEFF /* Timer Time */,
+				77EFB3DB1ED5C1A800BDDEFF /* X-Timer */,
 				773E064D1EDAFACD003FF9DD /* LGV_Lib_LEDDisplay_UI_Test */,
 			);
 		};
@@ -499,7 +499,7 @@
 				GCC_WARN_SHADOW = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/LGV_Timer/App Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.LGV-Timer";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.X-Timer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 3.0;
@@ -515,7 +515,7 @@
 				GCC_WARN_SHADOW = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/LGV_Timer/App Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.LGV-Timer";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.X-Timer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 3.0;
@@ -543,7 +543,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		77EFB3EE1ED5C1A800BDDEFF /* Build configuration list for PBXNativeTarget "Timer Time" */ = {
+		77EFB3EE1ED5C1A800BDDEFF /* Build configuration list for PBXNativeTarget "X-Timer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				77EFB3EF1ED5C1A800BDDEFF /* Debug */,

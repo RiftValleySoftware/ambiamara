@@ -122,7 +122,6 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
      */
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        LGV_Timer_MainTabController.s_c_pushTimerSettings = false
         // Don't forget to reset when view is being removed
         LGV_Timer_AppDelegate.lockOrientation(.all)
     }
@@ -241,9 +240,6 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
         if self.colorThemePicker == pickerView {
             timers[self.timerNumber].colorTheme = row
-            if let tabBarController = self.tabBarController {
-                tabBarController.tabBar.tintColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[timers[self.timerNumber].colorTheme].textColor
-            }
         } else {
             let hours = pickerView.selectedRow(inComponent: Components.Hours.rawValue)
             let minutes = pickerView.selectedRow(inComponent: Components.Minutes.rawValue)

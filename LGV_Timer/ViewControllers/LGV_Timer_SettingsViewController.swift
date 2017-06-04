@@ -11,6 +11,7 @@ import UIKit
 
 class LGV_Timer_SettingsTimerTableCell: UITableViewCell {
     @IBOutlet weak var clockDisplay: LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock!
+    @IBOutlet weak var timerNameLabel: UILabel!
 }
 
 class LGV_Timer_TimerSettingsNavController: UINavigationController {
@@ -129,6 +130,12 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
                 clockView.seconds = timeTuple.seconds
                 clockView.activeSegmentColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[timerPrefs.colorTheme].textColor!
                 clockView.setNeedsDisplay()
+            }
+            
+            if let timerNameLabel = ret.timerNameLabel {
+                let timerPrefs = s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row]
+                timerNameLabel.textColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[timerPrefs.colorTheme].textColor!
+                timerNameLabel.text = String(format: " " + "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
             }
             return ret
         } else {
