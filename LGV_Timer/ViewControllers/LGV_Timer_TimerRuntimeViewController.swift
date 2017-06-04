@@ -12,13 +12,12 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
+class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     private let _stoplightDualModeHeightFactor: CGFloat = 0.15
     private let _stoplightMaxWidthFactor: CGFloat = 0.2
     
     private var _timer: Timer! = nil
 
-    var timerNumber: Int = 0
     var clockPaused: Bool = false
     var currentTimeInSeconds: Int = 0
     var lastTimerDate: Date! = nil
@@ -49,7 +48,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
      Bring in the setup screen.
      */
     private func _setUpDisplay() {
-        if .Podium != s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode {
+        if .Podium != self.timerObject.displayMode {
             self.timeDisplay.hours = TimeTuple(self.currentTimeInSeconds).hours
             self.timeDisplay.minutes = TimeTuple(self.currentTimeInSeconds).minutes
             self.timeDisplay.seconds = TimeTuple(self.currentTimeInSeconds).seconds
@@ -57,8 +56,8 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
         }
         
         if nil != self.stoplightContainerView {
-            let yellowThreshold = s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].timeSetPodiumWarn
-            let redThreshold = s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].timeSetPodiumFinal
+            let yellowThreshold = self.timerObject.timeSetPodiumWarn
+            let redThreshold = self.timerObject.timeSetPodiumFinal
             
             if (0 == self.currentTimeInSeconds) || self.clockPaused {
                 self.greenLight.isHighlighted = false
@@ -89,10 +88,10 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
      */
     private func _startTimer() {
         if 0 == self.currentTimeInSeconds {
-            self.currentTimeInSeconds = s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].timeSet
+            self.currentTimeInSeconds = self.timerObject.timeSet
         }
         
-        if .Podium != s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode {
+        if .Podium != self.timerObject.displayMode {
             self.timeDisplay.blinkSeparators = true
         }
         
@@ -126,7 +125,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
             self._timer = nil
         }
         
-        if .Podium != s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode {
+        if .Podium != self.timerObject.displayMode {
             self.timeDisplay.blinkSeparators = false
         }
         
@@ -173,7 +172,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
         
         let tempRect = CGRect(origin: CGPoint.zero, size: CGSize(width: 75, height: 75))
         
-        if .Digital != s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode {
+        if .Digital != self.timerObject.displayMode {
             self.stoplightContainerView = UIView(frame: tempRect)
             self.greenLight = UIImageView(frame: tempRect)
             self.yellowLight = UIImageView(frame: tempRect)
@@ -197,9 +196,9 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
             self.view.addSubview(self.stoplightContainerView)
         }
         
-        self.timeDisplay.isHidden = (.Podium == s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode)
+        self.timeDisplay.isHidden = (.Podium == self.timerObject.displayMode)
         self.pauseButton.image = UIImage(named: self.pauseButtonImageName)
-        self.timeDisplay.activeSegmentColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].colorTheme].textColor!
+        self.timeDisplay.activeSegmentColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[self.timerObject.colorTheme].textColor!
     }
     
     /* ################################################################## */
@@ -209,11 +208,11 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerBaseViewController {
         super.viewWillLayoutSubviews()
         
         if nil != self.stoplightContainerView {
-            let verticalPadding: CGFloat = (.Dual == s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode) ? 4 : 0
+            let verticalPadding: CGFloat = (.Dual == self.timerObject.displayMode) ? 4 : 0
             var containerRect = self.view.bounds
             var maxWidth = (containerRect.size.width * self._stoplightMaxWidthFactor)
             
-            if .Dual == s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode {
+            if .Dual == self.timerObject.displayMode {
                 maxWidth = min(maxWidth, containerRect.size.height * self._stoplightDualModeHeightFactor)
                 containerRect.origin.y = containerRect.size.height - (maxWidth + (verticalPadding * 2))
                 containerRect.size.height = maxWidth + (verticalPadding * 2)

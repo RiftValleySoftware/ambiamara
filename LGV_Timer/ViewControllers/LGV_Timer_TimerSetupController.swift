@@ -30,30 +30,26 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var alertModeSegmentedSwitch: UISegmentedControl!
     @IBOutlet weak var alertVolumeSlider: UISlider!
     
-    var timerNumber: Int = 0
-    
     /* ################################################################## */
     /**
      */
     func setUpPickerViews() {
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        self.podiumModeContainerView.isHidden = (timers[self.timerNumber].displayMode == .Digital)
-        self.colorPickerContainerView.isHidden = (timers[self.timerNumber].displayMode == .Podium)
-        self.colorPickerContainerLayoutTopConstraint.constant = 8 + ((timers[self.timerNumber].displayMode == .Podium) ? 0 : self.colorPickerContainerView.bounds.size.height)
+        self.podiumModeContainerView.isHidden = (self.timerObject.displayMode == .Digital)
+        self.colorPickerContainerView.isHidden = (self.timerObject.displayMode == .Podium)
+        self.colorPickerContainerLayoutTopConstraint.constant = 8 + ((self.timerObject.displayMode == .Podium) ? 0 : self.colorPickerContainerView.bounds.size.height)
     }
     
     /* ################################################################## */
     /**
      */
     func setUpAlertVolumeSlider() {
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        if (0 == timers[self.timerNumber].alertVolume) && (((timers[self.timerNumber].alertMode == .SoundOnly) || (timers[self.timerNumber].alertMode == .Both))) {
-            timers[self.timerNumber].alertMode = .Silent
-            self.alertModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].alertMode.rawValue
-            s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        if (0 == self.timerObject.alertVolume) && (((self.timerObject.alertMode == .SoundOnly) || (self.timerObject.alertMode == .Both))) {
+            self.timerObject.alertMode = .Silent
+            self.alertModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.alertMode.rawValue
+            s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
         }
-        self.alertVolumeSlider.value = Float(timers[self.timerNumber].alertVolume)
-        self.alertVolumeSlider.isEnabled = ((timers[self.timerNumber].alertMode == .SoundOnly) || (timers[self.timerNumber].alertMode == .Both))
+        self.alertVolumeSlider.value = Float(self.timerObject.alertVolume)
+        self.alertVolumeSlider.isEnabled = ((self.timerObject.alertMode == .SoundOnly) || (self.timerObject.alertMode == .Both))
     }
     
     // MARK: - Base Class Override Methods
@@ -79,9 +75,8 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
             self.alertModeSegmentedSwitch.setTitle(self.alertModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
         }
         
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        self.timerModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].displayMode.rawValue
-        self.alertModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].alertMode.rawValue
+        self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
+        self.alertModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.alertMode.rawValue
         
         self.setUpPickerViews()
         self.setUpAlertVolumeSlider()
@@ -90,16 +85,16 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         self.finalThresholdTimePicker.reloadAllComponents()
         self.colorThemePicker.reloadAllComponents()
         
-        var timeSetWarnInt = timers[self.timerNumber].timeSetPodiumWarn
+        var timeSetWarnInt = self.timerObject.timeSetPodiumWarn
         if 0 >= timeSetWarnInt {
-            timeSetWarnInt = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(timers[self.timerNumber].timeSet)
-            timers[self.timerNumber].timeSetPodiumWarn = timeSetWarnInt
+            timeSetWarnInt = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet)
+            self.timerObject.timeSetPodiumWarn = timeSetWarnInt
         }
         let timeSetWarn = TimeTuple(timeSetWarnInt)
-        var timeSetFinalInt = timers[self.timerNumber].timeSetPodiumFinal
+        var timeSetFinalInt = self.timerObject.timeSetPodiumFinal
         if 0 >= timeSetFinalInt {
-            timeSetFinalInt = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(timers[self.timerNumber].timeSet)
-            timers[self.timerNumber].timeSetPodiumFinal = timeSetFinalInt
+            timeSetFinalInt = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet)
+            self.timerObject.timeSetPodiumFinal = timeSetFinalInt
         }
         
         let timeSetFinal = TimeTuple(timeSetFinalInt)
@@ -109,11 +104,12 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         self.finalThresholdTimePicker.selectRow(timeSetFinal.hours, inComponent: Components.Hours.rawValue, animated: true)
         self.finalThresholdTimePicker.selectRow(timeSetFinal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
         self.finalThresholdTimePicker.selectRow(timeSetFinal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
-        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
         
         // This ensures that we force the display to portrait (for this screen only).
         LGV_Timer_AppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
-        self.colorThemePicker.selectRow(timers[self.timerNumber].colorTheme, inComponent: 0, animated: true)
+        self.colorThemePicker.selectRow(self.timerObject.colorTheme, inComponent: 0, animated: true)
+        self.navigationController?.navigationBar.tintColor = self.view.tintColor
     }
     
     /* ################################################################## */
@@ -132,9 +128,8 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     /**
      */
     @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        timers[self.timerNumber].displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
-        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        self.timerObject.displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
+        s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
         self.setUpPickerViews()
     }
     
@@ -142,16 +137,15 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     /**
      */
     @IBAction func alertModeChanged(_ sender: UISegmentedControl) {
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        timers[self.timerNumber].alertMode = AlertMode(rawValue: sender.selectedSegmentIndex)!
-        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
-        if (0 == timers[self.timerNumber].alertVolume) && ((.SoundOnly == timers[self.timerNumber].alertMode) || (.Both == timers[self.timerNumber].alertMode)) {
-            timers[self.timerNumber].alertVolume = 1
-            s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        self.timerObject.alertMode = AlertMode(rawValue: sender.selectedSegmentIndex)!
+        s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
+        if (0 == self.timerObject.alertVolume) && ((.SoundOnly == self.timerObject.alertMode) || (.Both == self.timerObject.alertMode)) {
+            self.timerObject.alertVolume = 1
+            s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
         } else {
-            if ((.Silent == timers[self.timerNumber].alertMode) || (.VibrateOnly == timers[self.timerNumber].alertMode)) {
-                timers[self.timerNumber].alertVolume = 0
-                s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+            if ((.Silent == self.timerObject.alertMode) || (.VibrateOnly == self.timerObject.alertMode)) {
+                self.timerObject.alertVolume = 0
+                s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
             }
         }
         self.setUpAlertVolumeSlider()
@@ -161,14 +155,13 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     /**
      */
     @IBAction func alertVolumeChanged(_ sender: UISlider) {
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        timers[self.timerNumber].alertVolume = Int(sender.value)
-        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
-        sender.value = Float(timers[self.timerNumber].alertVolume)
-        if (0 == timers[self.timerNumber].alertVolume) && (((timers[self.timerNumber].alertMode == .SoundOnly) || (timers[self.timerNumber].alertMode == .Both))) {
-            timers[self.timerNumber].alertMode = .Silent
-            self.alertModeSegmentedSwitch.selectedSegmentIndex = timers[self.timerNumber].alertMode.rawValue
-            s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        self.timerObject.alertVolume = Int(sender.value)
+        s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
+        sender.value = Float(self.timerObject.alertVolume)
+        if (0 == self.timerObject.alertVolume) && (((self.timerObject.alertMode == .SoundOnly) || (self.timerObject.alertMode == .Both))) {
+            self.timerObject.alertMode = .Silent
+            self.alertModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.alertMode.rawValue
+            s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
             self.setUpAlertVolumeSlider()
         }
     }
@@ -237,21 +230,20 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     /**
      */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
         if self.colorThemePicker == pickerView {
-            timers[self.timerNumber].colorTheme = row
+            self.timerObject.colorTheme = row
         } else {
             let hours = pickerView.selectedRow(inComponent: Components.Hours.rawValue)
             let minutes = pickerView.selectedRow(inComponent: Components.Minutes.rawValue)
             let seconds = pickerView.selectedRow(inComponent: Components.Seconds.rawValue)
             if self.warningThresholdTimePicker == pickerView {
-                if timers[self.timerNumber].timeSet > Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds)) {
-                    timers[self.timerNumber].timeSetPodiumWarn = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
+                if self.timerObject.timeSet > Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds)) {
+                    self.timerObject.timeSetPodiumWarn = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
                 } else {
-                    var maxValInt = max(0, timers[self.timerNumber].timeSet - 1)
+                    var maxValInt = max(0, self.timerObject.timeSet - 1)
                     
                     if 0 == maxValInt {
-                        maxValInt = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(timers[self.timerNumber].timeSet)
+                        maxValInt = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet)
                     }
                     
                     let maxVal = TimeTuple(maxValInt)
@@ -261,20 +253,20 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
                     pickerView.selectRow(maxVal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
                 }
             } else {
-                if (0 == timers[self.timerNumber].timeSetPodiumWarn) || (0 == timers[self.timerNumber].timeSet) || (timers[self.timerNumber].timeSetPodiumWarn > Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))) {
-                    if (0 == timers[self.timerNumber].timeSetPodiumWarn) || (0 == timers[self.timerNumber].timeSet) {
-                        timers[self.timerNumber].timeSetPodiumFinal =  0
+                if (0 == self.timerObject.timeSetPodiumWarn) || (0 == self.timerObject.timeSet) || (self.timerObject.timeSetPodiumWarn > Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))) {
+                    if (0 == self.timerObject.timeSetPodiumWarn) || (0 == self.timerObject.timeSet) {
+                        self.timerObject.timeSetPodiumFinal =  0
                         pickerView.selectRow(0, inComponent: Components.Hours.rawValue, animated: true)
                         pickerView.selectRow(0, inComponent: Components.Minutes.rawValue, animated: true)
                         pickerView.selectRow(0, inComponent: Components.Seconds.rawValue, animated: true)
                     } else {
-                        timers[self.timerNumber].timeSetPodiumFinal = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
+                        self.timerObject.timeSetPodiumFinal = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
                     }
                 } else {
-                    var maxValInt = max(0, timers[self.timerNumber].timeSetPodiumWarn - 1)
+                    var maxValInt = max(0, self.timerObject.timeSetPodiumWarn - 1)
                     
                     if 0 == maxValInt {
-                        maxValInt = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(timers[self.timerNumber].timeSet)
+                        maxValInt = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet)
                     }
                     
                     let maxVal = TimeTuple(maxValInt)
@@ -286,6 +278,6 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
             }
         }
         
-        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
     }
 }

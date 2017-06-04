@@ -29,6 +29,8 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     @IBOutlet weak var navInfo: UIBarButtonItem!
     @IBOutlet weak var navAdd: UIBarButtonItem!
     
+    private let _info_segue_id = "segue-id-info"
+    
     // MARK: - Internal Instance Properties
     /* ################################################################################################################################## */
     var mainTabController: LGV_Timer_MainTabController! = nil
@@ -78,14 +80,8 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      :param: sender The button object.
      */
     @IBAction func addTimerButtonHit(_ sender: Any) {
-        var timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        timers.append(LGV_Timer_StaticPrefs.defaultTimer)
-        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
-        self.mainTabController.updateTimers()
+        self.mainTabController.addNewTimer()
         self.timerTableView.reloadData()
-        self.mainTabController.view.setNeedsLayout()
-        let timerIndex = max(0, min(timers.count - 1, s_g_LGV_Timer_AppDelegatePrefs.timers.count - 1))
-        self.mainTabController.selectTimer(timerIndex, pushSettings: true)
         self.gussyUpTheMoreNavigation()
     }
     
@@ -96,6 +92,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      :param: sender The button object.
      */
     @IBAction func infoButtonHit(_ sender: Any) {
+        self.performSegue(withIdentifier: self._info_segue_id, sender: nil)
     }
     
     // MARK: - UITableViewDataSource Methods
@@ -137,6 +134,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
                 timerNameLabel.textColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[timerPrefs.colorTheme].textColor!
                 timerNameLabel.text = String(format: " " + "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
             }
+            
             return ret
         } else {
             return UITableViewCell()
@@ -156,7 +154,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      */
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         let timerIndex = max(0, min(indexPath.row, s_g_LGV_Timer_AppDelegatePrefs.timers.count - 1))
-        self.mainTabController.selectTimer(timerIndex, pushSettings: false)
+        self.mainTabController.selectTimer(timerIndex)
         return nil
     }
     
@@ -205,15 +203,15 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - parameter forRowAt: The indexpath of the row to be deleted.
      */
     func doADirtyDeedCheap(_ tableView: UITableView, forRowAt indexPath: IndexPath) {
-        var timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        timers.remove(at: indexPath.row)
-        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
-        s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
-        self.mainTabController.updateTimers()
-        tableView.isEditing = false
-        tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
-        self.mainTabController.view.setNeedsLayout()
-        self.gussyUpTheMoreNavigation()
+        // Just on the off chance we're in a non-traditional thread...
+        DispatchQueue.main.async(execute: {
+            self.mainTabController.deleteTimer(indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
+            tableView.isEditing = false
+            tableView.reloadData()
+            self.mainTabController.view.setNeedsLayout()
+            self.gussyUpTheMoreNavigation()
+        })
     }
     
     /* ################################################################## */

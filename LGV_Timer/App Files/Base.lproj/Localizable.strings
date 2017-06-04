@@ -35,8 +35,7 @@
 "LGV_TIMER-TIME-PICKER-SECOND-FORMAT"                   =   "%d Second";
 "LGV_TIMER-TIME-PICKER-SECONDS-FORMAT"                  =   "%d Seconds";
 
-"LGV_TIMER-SETUP-TIMER-SETTINGS-LABEL"                  =   "Timers";
-"LGV_TIMER-SETUP-ADD-TIMER-BUTTON"                      =   "Add New Timer";
+"LGV_TIMER-INFO-TITLE"                                  =   "Info";
 
 "DELETE-HEADER"                                         =   "Are You Sure?";
 "DELETE-MESSAGE-FORMAT"                                 =   "If you select \"Delete,\" it will delete Timer %d. Are you sure that you want do this?";

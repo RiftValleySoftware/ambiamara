@@ -24,8 +24,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var setTimePickerView: UIPickerView!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
     
-    var timerNumber: Int = 0
-    
     // MARK: - Internal @IBAction Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -47,9 +45,8 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     /**
      */
     @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        timers[self.timerNumber].displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
-        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        self.timerObject.displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
+        s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
     }
     
     // MARK: - Internal Instance Methods
@@ -74,9 +71,11 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     /**
      */
     func setUpDisplay() {
-        self.startButton.isEnabled = 0 < s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].timeSet
-        self.tabBarController?.viewControllers?[self.timerNumber + 1].tabBarItem.image = self.tabBarImage
-        self.tabBarController?.viewControllers?[self.timerNumber + 1].tabBarItem.selectedImage = self.tabBarImage
+        self.startButton.isEnabled = 0 < self.timerObject.timeSet
+        let timerNumber = self.timerNumber
+        let tabBarImage = self.tabBarImage
+        self.tabBarController?.viewControllers?[timerNumber].tabBarItem.image = tabBarImage
+        self.tabBarController?.viewControllers?[timerNumber].tabBarItem.selectedImage = tabBarImage
     }
     
     // MARK: - Base Class Override Methods
@@ -91,10 +90,8 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         for segment in 0..<self.timerModeSegmentedSwitch.numberOfSegments {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
         }
-        
         self.setupButton.title = self.setupButton.title?.localizedVariant
         self.timeSetLabel.text = self.timeSetLabel.text?.localizedVariant
-        self.timerNumber = (self.tabBarController?.selectedIndex)! - 1
     }
     
     /* ################################################################## */
@@ -104,10 +101,8 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.timerModeSegmentedSwitch.selectedSegmentIndex = s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber].displayMode.rawValue
-        
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
-        let timeSet = TimeTuple(timers[self.timerNumber].timeSet)
+        self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
+        let timeSet = TimeTuple(self.timerObject.timeSet)
         self.setTimePickerView.reloadAllComponents()
         self.setTimePickerView.selectRow(timeSet.hours, inComponent: Components.Hours.rawValue, animated: true)
         self.setTimePickerView.selectRow(timeSet.minutes, inComponent: Components.Minutes.rawValue, animated: true)
@@ -129,36 +124,8 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      Called when we are about to bring in the setup controller.
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationController = segue.destination as? LGV_Timer_TimerSetupController {
-            destinationController.timerNumber = self.timerNumber
-        } else {
-            if let destinationController = segue.destination as? LGV_Timer_TimerRuntimeViewController {
-                destinationController.timerNumber = self.timerNumber
-            }
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     This supplies a dynamically-created image for the Tab Bar.
-     */
-    var tabBarImage: UIImage! {
-        get {
-            var displayedString = "";
-            let prefs = s_g_LGV_Timer_AppDelegatePrefs.timers[self.timerNumber]
-            let timeTuple = TimeTuple(prefs.timeSet)
-            
-            if 0 < timeTuple.hours {
-                displayedString = String(format: "%02d:%02d:%02d", timeTuple.hours, timeTuple.minutes, timeTuple.seconds)
-            } else {
-                if 0 < timeTuple.minutes {
-                    displayedString = String(format: "%02d:%02d", timeTuple.minutes, timeTuple.seconds)
-                } else {
-                    displayedString = String(format: "%02d", timeTuple.seconds)
-                }
-            }
-            
-            return LGV_Timer_TimerNavController.textAsImage(drawText: displayedString as NSString)
+        if let destinationController = segue.destination as? LGV_Timer_TimerNavBaseController {
+            destinationController.timerObject = self.timerObject
         }
     }
     
@@ -168,15 +135,14 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     /**
      */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let timers = s_g_LGV_Timer_AppDelegatePrefs.timers
         let hours = pickerView.selectedRow(inComponent: Components.Hours.rawValue)
         let minutes = pickerView.selectedRow(inComponent: Components.Minutes.rawValue)
         let seconds = pickerView.selectedRow(inComponent: Components.Seconds.rawValue)
-        timers[self.timerNumber].timeSet = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
+        self.timerObject.timeSet = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
         // We always reset these when we change the main time.
-        timers[self.timerNumber].timeSetPodiumWarn = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(timers[self.timerNumber].timeSet)
-        timers[self.timerNumber].timeSetPodiumFinal = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(timers[self.timerNumber].timeSet)
-        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        self.timerObject.timeSetPodiumWarn = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet)
+        self.timerObject.timeSetPodiumFinal = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet)
+        s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
         self.setUpDisplay()
     }
 }

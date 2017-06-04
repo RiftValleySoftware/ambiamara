@@ -15,27 +15,6 @@ import UIKit
 /**
  */
 class LGV_Timer_MainTabController: UITabBarController {
-    // MARK: - Instance Calculated Properties
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     */
-    var timers: [LGV_Timer_TimerNavController] {
-        get {
-            var ret: [LGV_Timer_TimerNavController] = []
-            
-            if let count = self.viewControllers?.count {
-                for viewControllerIndex in 1..<count {
-                    if let viewController = self.viewControllers?[viewControllerIndex] as? LGV_Timer_TimerNavController {
-                        ret.append(viewController)
-                    }
-                }
-            }
-            
-            return ret
-        }
-    }
-    
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -45,13 +24,7 @@ class LGV_Timer_MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for barController in self.viewControllers! {
-            if let barItem = barController.tabBarItem {
-                if type(of: barController) == LGV_Timer_TimerSettingsNavController.self {
-                    barItem.title = barItem.title?.localizedVariant
-                }
-            }
-        }
+        self.viewControllers?[0].tabBarItem.title = self.viewControllers?[0].tabBarItem.title?.localizedVariant
         
         self.updateTimers()
     }
@@ -62,37 +35,67 @@ class LGV_Timer_MainTabController: UITabBarController {
     /**
      */
     func updateTimers() {
-        let count = self.viewControllers!.count
-        
-        for _ in 1..<count {
-            self.viewControllers?.remove(at: self.viewControllers!.count - 1)
+        while 1 < (self.viewControllers?.count)! {
+            self.viewControllers?.remove(at: 1)
         }
         
-        // We dynamically instantiate timer objects, based on how many we have saved.
-        for _ in s_g_LGV_Timer_AppDelegatePrefs.timers {
-            let storyBoardID = "LGV_Timer_TimerNavController"
-            let storyboard = self.storyboard
-            if nil != storyboard {
-                if let timerController = storyboard!.instantiateViewController(withIdentifier: storyBoardID) as? LGV_Timer_TimerNavController {
-                    self.viewControllers?.append(timerController)
-                    
-                    let timerTitle = timerController.tabBarText
-                    timerController.tabBarItem.title = timerTitle
-                    timerController.tabBarItem.image = timerController.tabBarImage
-                    timerController.navigationBar.topItem?.title = timerTitle
-                }
-            }
+        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+            self.addTimer(timer)
         }
-
+        
         self.customizableViewControllers = []
     }
     
     /* ################################################################## */
     /**
      */
-    func selectTimer(_ inTimerIndex: Int, pushSettings: Bool) {
+    func selectTimer(_ inTimerIndex: Int) {
         let timerIndex = 1 + inTimerIndex
         self.selectedViewController = self.viewControllers?[timerIndex]
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func deleteTimer(_ inTimerIndex: Int) {
+        s_g_LGV_Timer_AppDelegatePrefs.timers.remove(at: inTimerIndex)
+        s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
+        self.updateTimers()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func addNewTimer() {
+        var timers = s_g_LGV_Timer_AppDelegatePrefs.timers
+        let newTimer = LGV_Timer_StaticPrefs.defaultTimer
+        timers.append(newTimer)
+        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
+        s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
+        
+        self.addTimer(newTimer)
+        self.updateTimers()
+        self.selectTimer(timers.count - 1)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func addTimer(_ inTimerObject: TimerSettingTuple) {
+        let storyboard = self.storyboard
+        if nil != storyboard {
+            let storyBoardID = "LGV_Timer_TimerNavController"
+            if let timerController = storyboard!.instantiateViewController(withIdentifier: storyBoardID) as? LGV_Timer_TimerNavController {
+                timerController.timerObject = inTimerObject
+                timerController.delegate = timerController
+                let timerTitle = timerController.tabBarText
+                timerController.tabBarItem.title = timerTitle
+                timerController.tabBarItem.image = timerController.tabBarImage
+                timerController.tabBarItem.selectedImage = timerController.tabBarImage
+                timerController.navigationBar.topItem?.title = timerTitle
+                self.viewControllers?.append(timerController)
+            }
+        }
     }
 }
 
