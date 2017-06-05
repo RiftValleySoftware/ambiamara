@@ -58,6 +58,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.timerTableView.reloadData()
+        self.mainTabController.updateTimers()
     }
     
     // MARK: - Internal Instance Methods

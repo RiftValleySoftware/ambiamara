@@ -339,6 +339,11 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     override func viewWillAppear(_ animated: Bool) {
+        if nil != self._alarmTimer {
+            self._alarmTimer.invalidate()
+            self._alarmTimer = nil
+        }
+
         super.viewWillAppear(animated)
         if let navController = self.navigationController {
             navController.navigationBar.barTintColor = self.gradientTopColor
@@ -353,12 +358,12 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
         if nil != self._alarmTimer {
             self._alarmTimer.invalidate()
             self._alarmTimer = nil
         }
+        
+        super.viewWillDisappear(animated)
         
         LGV_Timer_AppDelegate.appDelegateObject.currentTimer = nil
         UIApplication.shared.isIdleTimerDisabled = false
@@ -370,14 +375,14 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     @IBAction func stopButtonHit(_ sender: Any) {
-        if nil != self._timer {
-            self._timer.invalidate()
-            self._timer = nil
-        }
-        
         if nil != self._alarmTimer {
             self._alarmTimer.invalidate()
             self._alarmTimer = nil
+        }
+        
+        if nil != self._timer {
+            self._timer.invalidate()
+            self._timer = nil
         }
         
         _ = self.navigationController?.popViewController(animated: true)
