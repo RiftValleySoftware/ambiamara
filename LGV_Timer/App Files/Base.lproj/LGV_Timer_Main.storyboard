@@ -17,7 +17,7 @@
                 <navigationController storyboardIdentifier="LGV_Timer_TimerNavController" title="Timer Navigation Controller" id="RhK-pG-4ta" customClass="LGV_Timer_TimerNavController" customModule="X_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="oDm-vU-50Y"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black" translucent="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="eRP-fW-XSv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="eRP-fW-XSv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -173,7 +173,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="iFu-N0-S8w" firstAttribute="top" secondItem="dvk-HB-53P" secondAttribute="bottom" constant="4" id="1iO-Yu-Bj2"/>
@@ -223,7 +223,7 @@
                         <viewControllerLayoutGuide type="top" id="ZN5-uz-PEG"/>
                         <viewControllerLayoutGuide type="bottom" id="Tbu-Nc-I0V"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="m5H-jP-7bL">
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="m5H-jP-7bL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -483,7 +483,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUK-xt-9d3">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUK-xt-9d3">
                                                             <rect key="frame" x="149.5" y="0.0" width="150.5" height="44"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                                             <color key="textColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -579,12 +579,89 @@
                         <viewControllerLayoutGuide type="bottom" id="zm2-PD-MOJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pCc-NV-qjF">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ClockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="o2D-gY-fZY">
+                                <rect key="frame" x="137" y="4" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="8Za-Nk-syF"/>
+                                    <constraint firstAttribute="width" constant="100" id="fW7-IV-yEs"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="250" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="LGV_TIMER-ABOUT-SHORT-BLURB" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eOk-Cp-IyJ">
+                                <rect key="frame" x="16" y="112" width="343" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" placeholder="YES" id="pcE-Jb-9u8"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oQk-9G-zSN">
+                                <rect key="frame" x="16" y="547" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="XIo-4D-wUQ"/>
+                                    <constraint firstAttribute="width" constant="48" id="gea-eI-DNU"/>
+                                </constraints>
+                                <state key="normal" image="LGVLogo"/>
+                                <connections>
+                                    <action selector="lgvButtonHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="FVI-gJ-heg"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="LGV_TIMER-ABOUT-LONG-BLURB" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DIb-rd-Jfe">
+                                <rect key="frame" x="16" y="180" width="343" height="359"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6n-9J-uZt">
+                                <rect key="frame" x="72" y="575" width="287" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="ded-35-Ffe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
+                                <state key="normal" title="LGV_TIMER-ABOUT-LGV-BLURB-2"/>
+                                <connections>
+                                    <action selector="lgvButtonHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="esd-aK-Zwv"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-ABOUT-LGV-BLURB-1" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5N-K8-kBZ">
+                                <rect key="frame" x="72" y="552" width="287" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="6m3-rw-LxK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="DIb-rd-Jfe" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="3K9-9U-EN4"/>
+                            <constraint firstItem="S6n-9J-uZt" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="5TW-LA-B8i"/>
+                            <constraint firstItem="P5N-K8-kBZ" firstAttribute="leading" secondItem="oQk-9G-zSN" secondAttribute="trailing" constant="8" id="787-rD-FJv"/>
+                            <constraint firstItem="DIb-rd-Jfe" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="7DU-DJ-HzT"/>
+                            <constraint firstItem="zm2-PD-MOJ" firstAttribute="top" secondItem="S6n-9J-uZt" secondAttribute="bottom" constant="8" id="aoB-bQ-eea"/>
+                            <constraint firstItem="eOk-Cp-IyJ" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="asO-gn-CDB"/>
+                            <constraint firstItem="o2D-gY-fZY" firstAttribute="centerX" secondItem="pCc-NV-qjF" secondAttribute="centerX" id="bAy-F8-8ce"/>
+                            <constraint firstItem="DIb-rd-Jfe" firstAttribute="top" secondItem="eOk-Cp-IyJ" secondAttribute="bottom" constant="8" id="bij-CT-cT7"/>
+                            <constraint firstItem="eOk-Cp-IyJ" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="fhu-W2-BG5"/>
+                            <constraint firstItem="S6n-9J-uZt" firstAttribute="top" secondItem="P5N-K8-kBZ" secondAttribute="bottom" constant="2" id="kf8-dl-KhR"/>
+                            <constraint firstItem="S6n-9J-uZt" firstAttribute="leading" secondItem="oQk-9G-zSN" secondAttribute="trailing" constant="8" id="mBm-U9-n83"/>
+                            <constraint firstItem="oQk-9G-zSN" firstAttribute="top" secondItem="DIb-rd-Jfe" secondAttribute="bottom" constant="8" id="mq5-cO-9Ci"/>
+                            <constraint firstItem="P5N-K8-kBZ" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="p9X-NP-Fqy"/>
+                            <constraint firstItem="oQk-9G-zSN" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="rR6-5E-ojY"/>
+                            <constraint firstItem="o2D-gY-fZY" firstAttribute="top" secondItem="re4-wU-jpH" secondAttribute="bottom" constant="4" id="rrf-bC-f0r"/>
+                            <constraint firstItem="eOk-Cp-IyJ" firstAttribute="top" secondItem="o2D-gY-fZY" secondAttribute="bottom" constant="8" id="sUr-8N-kgY"/>
+                            <constraint firstItem="zm2-PD-MOJ" firstAttribute="top" secondItem="oQk-9G-zSN" secondAttribute="bottom" constant="8" id="x3D-mk-xfP"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
                             <color key="value" red="0.26621194949999999" green="0.26621194949999999" blue="0.26621194949999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -593,17 +670,23 @@
                             <color key="value" red="0.4894349093" green="0.4894349093" blue="0.4894349093" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="lgvBlurb" destination="S6n-9J-uZt" id="heU-zR-qLr"/>
+                        <outlet property="lgvBlurb1Label" destination="P5N-K8-kBZ" id="mSg-L4-XLt"/>
+                        <outlet property="longBlurb" destination="DIb-rd-Jfe" id="1q4-mD-jy2"/>
+                        <outlet property="shortBlurb" destination="eOk-Cp-IyJ" id="CYg-dK-Esl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hzn-yg-KtJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2164" y="518"/>
+            <point key="canvasLocation" x="2164" y="517.6911544227886"/>
         </scene>
         <!--Timer List Navigation Controller-->
         <scene sceneID="dWu-Eb-ueo">
             <objects>
                 <navigationController title="Timer List Navigation Controller" id="sDn-VD-xYI" customClass="LGV_Timer_TimerSettingsNavController" customModule="X_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" id="Y9h-rb-Dgm"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Vpb-uI-amC">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="Vpb-uI-amC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -641,7 +724,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ClockIcon" width="260" height="260"/>
         <image name="Info" width="22" height="22"/>
+        <image name="LGVLogo" width="48" height="48"/>
         <image name="Pause" width="22" height="22"/>
         <image name="Settings" width="25" height="25"/>
         <image name="Start" width="22" height="22"/>
