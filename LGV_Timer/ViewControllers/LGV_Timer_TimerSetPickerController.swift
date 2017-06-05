@@ -165,7 +165,7 @@ class LGV_Timer_TimerSetPickerController: LGV_Timer_TimerNavBaseController, UIPi
         ret.font = UIFont.systemFont(ofSize: self.pickerView(pickerView, rowHeightForComponent: component))
         ret.adjustsFontSizeToFitWidth = true
         ret.backgroundColor = UIColor.clear
-        ret.textColor = UIColor.white
+        ret.textColor = self.view.tintColor
         
         if let thisComponent = Components(rawValue: component) {
             switch(thisComponent) {

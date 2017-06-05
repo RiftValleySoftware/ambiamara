@@ -8,6 +8,7 @@
 /* ###################################################################################################################################### */
 
 import UIKit
+import AudioToolbox
 
 /* ###################################################################################################################################### */
 /**
@@ -17,6 +18,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     private let _stoplightMaxWidthFactor: CGFloat = 0.2
     
     private var _timer: Timer! = nil
+    private var _alarmTimer: Timer! = nil
 
     var clockPaused: Bool = false
     var currentTimeInSeconds: Int = 0
@@ -35,6 +37,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     @IBOutlet weak var stopButton: UIBarButtonItem!
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var timeDisplay: LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock!
+    @IBOutlet weak var flasherView: UIView!
     
     var stoplightContainerView: UIView! = nil
     var redLight: UIImageView! = nil
@@ -108,10 +111,21 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     private func _startTimer() {
+        if nil != self._timer {
+            self._timer.invalidate()
+            self._timer = nil
+        }
+        
+        if nil != self._alarmTimer {
+            self._alarmTimer.invalidate()
+            self._alarmTimer = nil
+        }
+        
         if 0 == self.currentTimeInSeconds {
             self.currentTimeInSeconds = self.timerObject.timeSet
         }
         
+        self.flasherView.isHidden = true
         self.blinkSeparators = true
         self.clockPaused = false
         self.pauseButton.image = UIImage(named: self.pauseButtonImageName)
@@ -123,14 +137,62 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /* ################################################################## */
     /**
      */
+    private func _flashDisplay() {
+        self.flasherView.isHidden = !self.flasherView.isHidden
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _playAlertSound() {
+        if .Silent != self.timerObject.alertMode {
+            if let soundUrl = Bundle.main.url(forResource: String(format: "Sound-%02d", self.timerObject.soundID), withExtension: "aiff") {
+                var soundId: SystemSoundID = 0
+                
+                if .VibrateOnly != self.timerObject.alertMode {
+                    AudioServicesCreateSystemSoundID(soundUrl as CFURL, &soundId)
+
+                    AudioServicesAddSystemSoundCompletion(soundId, nil, nil, { (soundId, clientData) -> Void in
+                        AudioServicesDisposeSystemSoundID(soundId)
+                    }, nil)
+                }
+                
+                if .Both == self.timerObject.alertMode {
+                    AudioServicesPlayAlertSound(soundId)
+                } else {
+                    if .VibrateOnly == self.timerObject.alertMode {
+                        AudioServicesAddSystemSoundCompletion(kSystemSoundID_Vibrate, nil, nil, { (soundId, clientData) -> Void in
+                            AudioServicesDisposeSystemSoundID(kSystemSoundID_Vibrate)
+                        }, nil)
+                        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                    } else {
+                        AudioServicesPlaySystemSound(soundId)
+                    }
+                }
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     private func _alarm() {
         if nil != self._timer {
             self._timer.invalidate()
             self._timer = nil
         }
         
+        if nil != self._alarmTimer {
+            self._alarmTimer.invalidate()
+            self._alarmTimer = nil
+        }
+        
         self.pauseButton.image = UIImage(named: self.startButtonImageName)
         self._setUpDisplay()
+        self._flashDisplay()
+        self._playAlertSound()
+        
+        self._alarmTimer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(self.alarmCallback(_:)), userInfo: nil, repeats: true)
     }
     
     // MARK: - Internal Instance Methods
@@ -138,10 +200,23 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /* ################################################################## */
     /**
      */
+    func alarmCallback(_ inTimer: Timer) {
+        self._flashDisplay()
+        self._playAlertSound()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func pauseTimer() {
         if nil != self._timer {
             self._timer.invalidate()
             self._timer = nil
+        }
+        
+        if nil != self._alarmTimer {
+            self._alarmTimer.invalidate()
+            self._alarmTimer = nil
         }
         
         self.blinkSeparators = false
@@ -161,6 +236,11 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     func timerCallback(_ inTimer: Timer) {
+        if nil != self._alarmTimer {
+            self._alarmTimer.invalidate()
+            self._alarmTimer = nil
+        }
+
         if nil != self.lastTimerDate {
             let seconds = floor(Date().timeIntervalSince(self.lastTimerDate))
             if 0 < seconds {
@@ -212,6 +292,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self.view.addSubview(self.stoplightContainerView)
         }
         
+        self.flasherView.backgroundColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[self.timerObject.colorTheme].textColor!
         self.timeDisplay.isHidden = (.Podium == self.timerObject.displayMode)
         self.pauseButton.image = UIImage(named: self.pauseButtonImageName)
         self.timeDisplay.activeSegmentColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[self.timerObject.colorTheme].textColor!
@@ -273,6 +354,12 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
      */
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+
+        if nil != self._alarmTimer {
+            self._alarmTimer.invalidate()
+            self._alarmTimer = nil
+        }
+        
         LGV_Timer_AppDelegate.appDelegateObject.currentTimer = nil
         UIApplication.shared.isIdleTimerDisabled = false
     }
@@ -283,6 +370,16 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     @IBAction func stopButtonHit(_ sender: Any) {
+        if nil != self._timer {
+            self._timer.invalidate()
+            self._timer = nil
+        }
+        
+        if nil != self._alarmTimer {
+            self._alarmTimer.invalidate()
+            self._alarmTimer = nil
+        }
+        
         _ = self.navigationController?.popViewController(animated: true)
     }
     

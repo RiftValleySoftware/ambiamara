@@ -28,7 +28,8 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var colorThemePicker: UIPickerView!
     @IBOutlet weak var alertModeLabel: UILabel!
     @IBOutlet weak var alertModeSegmentedSwitch: UISegmentedControl!
-    @IBOutlet weak var alertVolumeSlider: UISlider!
+    @IBOutlet weak var soundSelectionLabel: UILabel!
+    @IBOutlet weak var soundSelectionSegmentedSwitch: UISegmentedControl!
     
     /* ################################################################## */
     /**
@@ -37,19 +38,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         self.podiumModeContainerView.isHidden = (self.timerObject.displayMode == .Digital)
         self.colorPickerContainerView.isHidden = (self.timerObject.displayMode == .Podium)
         self.colorPickerContainerLayoutTopConstraint.constant = 8 + ((self.timerObject.displayMode == .Podium) ? 0 : self.colorPickerContainerView.bounds.size.height)
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func setUpAlertVolumeSlider() {
-        if (0 == self.timerObject.alertVolume) && (((self.timerObject.alertMode == .SoundOnly) || (self.timerObject.alertMode == .Both))) {
-            self.timerObject.alertMode = .Silent
-            self.alertModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.alertMode.rawValue
-            s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
-        }
-        self.alertVolumeSlider.value = Float(self.timerObject.alertVolume)
-        self.alertVolumeSlider.isEnabled = ((self.timerObject.alertMode == .SoundOnly) || (self.timerObject.alertMode == .Both))
+        self.soundSelectionSegmentedSwitch.isEnabled = ((.Silent != self.timerObject.alertMode) && (.VibrateOnly != self.timerObject.alertMode))
     }
     
     // MARK: - Base Class Override Methods
@@ -66,6 +55,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         self.colorThemePickerLabel.text = self.colorThemePickerLabel.text?.localizedVariant
         self.alertModeLabel.text = self.alertModeLabel.text?.localizedVariant
         self.timerModeLabel.text = self.timerModeLabel.text?.localizedVariant
+        self.soundSelectionLabel.text = self.soundSelectionLabel.text?.localizedVariant
         
         for segment in 0..<self.timerModeSegmentedSwitch.numberOfSegments {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
@@ -75,11 +65,15 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
             self.alertModeSegmentedSwitch.setTitle(self.alertModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
         }
         
+        for segment in 0..<self.soundSelectionSegmentedSwitch.numberOfSegments {
+            self.soundSelectionSegmentedSwitch.setTitle(self.soundSelectionSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
+        }
+        
         self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
         self.alertModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.alertMode.rawValue
+        self.soundSelectionSegmentedSwitch.selectedSegmentIndex = self.timerObject.soundID
         
         self.setUpPickerViews()
-        self.setUpAlertVolumeSlider()
         
         self.warningThresholdTimePicker.reloadAllComponents()
         self.finalThresholdTimePicker.reloadAllComponents()
@@ -136,34 +130,18 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     /* ################################################################## */
     /**
      */
-    @IBAction func alertModeChanged(_ sender: UISegmentedControl) {
-        self.timerObject.alertMode = AlertMode(rawValue: sender.selectedSegmentIndex)!
+    @IBAction func soundSelectionChanged(_ sender: UISegmentedControl) {
+        self.timerObject.soundID = sender.selectedSegmentIndex
         s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
-        if (0 == self.timerObject.alertVolume) && ((.SoundOnly == self.timerObject.alertMode) || (.Both == self.timerObject.alertMode)) {
-            self.timerObject.alertVolume = 1
-            s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
-        } else {
-            if ((.Silent == self.timerObject.alertMode) || (.VibrateOnly == self.timerObject.alertMode)) {
-                self.timerObject.alertVolume = 0
-                s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
-            }
-        }
-        self.setUpAlertVolumeSlider()
     }
     
     /* ################################################################## */
     /**
      */
-    @IBAction func alertVolumeChanged(_ sender: UISlider) {
-        self.timerObject.alertVolume = Int(sender.value)
+    @IBAction func alertModeChanged(_ sender: UISegmentedControl) {
+        self.timerObject.alertMode = AlertMode(rawValue: sender.selectedSegmentIndex)!
         s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
-        sender.value = Float(self.timerObject.alertVolume)
-        if (0 == self.timerObject.alertVolume) && (((self.timerObject.alertMode == .SoundOnly) || (self.timerObject.alertMode == .Both))) {
-            self.timerObject.alertMode = .Silent
-            self.alertModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.alertMode.rawValue
-            s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
-            self.setUpAlertVolumeSlider()
-        }
+        self.setUpPickerViews()
     }
     
     /// MARK: - UIPickerViewDataSource Methods

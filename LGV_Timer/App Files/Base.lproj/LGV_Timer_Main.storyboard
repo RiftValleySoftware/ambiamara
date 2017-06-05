@@ -82,7 +82,7 @@
                                             <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-1"/>
                                             <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-2"/>
                                         </segments>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="modeSegmentedControlChanged:" destination="Y3X-jz-wfO" eventType="valueChanged" id="xKI-5l-205"/>
                                         </connections>
@@ -132,9 +132,6 @@
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
                             <color key="value" red="0.4894349093" green="0.4894349093" blue="0.4894349093" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="unselectedTabItemColor">
-                            <color key="value" red="0.99863183499999997" green="0.99906623360000002" blue="0.81957310439999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="setTimePickerView" destination="lN6-TG-yli" id="0Vp-pr-I6y"/>
@@ -172,12 +169,20 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view hidden="YES" alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRL-jt-yJr">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="iFu-N0-S8w" firstAttribute="top" secondItem="dvk-HB-53P" secondAttribute="bottom" constant="4" id="1iO-Yu-Bj2"/>
+                            <constraint firstItem="tRL-jt-yJr" firstAttribute="top" secondItem="Reo-7Y-Hne" secondAttribute="bottom" id="8Cf-8u-9yd"/>
+                            <constraint firstItem="iFu-N0-S8w" firstAttribute="top" secondItem="tRL-jt-yJr" secondAttribute="bottom" id="KVu-Cw-u6Q"/>
+                            <constraint firstItem="tRL-jt-yJr" firstAttribute="leading" secondItem="VER-Lg-FXG" secondAttribute="leading" id="SCt-Qn-WML"/>
                             <constraint firstAttribute="trailing" secondItem="dvk-HB-53P" secondAttribute="trailing" constant="4" id="T38-hd-zRb"/>
+                            <constraint firstAttribute="trailing" secondItem="tRL-jt-yJr" secondAttribute="trailing" id="WpZ-XO-3kL"/>
                             <constraint firstItem="dvk-HB-53P" firstAttribute="leading" secondItem="VER-Lg-FXG" secondAttribute="leading" constant="4" id="fIt-ng-lkP"/>
                             <constraint firstItem="dvk-HB-53P" firstAttribute="top" secondItem="Reo-7Y-Hne" secondAttribute="bottom" constant="4" id="kHn-6f-Iuk"/>
                         </constraints>
@@ -205,6 +210,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="flasherView" destination="tRL-jt-yJr" id="nee-mf-JWS"/>
                         <outlet property="navItem" destination="ItU-wd-SEv" id="PlC-44-1IL"/>
                         <outlet property="pauseButton" destination="ZYE-eU-dQi" id="jgK-S8-6ak"/>
                         <outlet property="stopButton" destination="X6M-Pd-nAJ" id="pTd-kO-Cw7"/>
@@ -248,23 +254,13 @@
                                     <segment title="LGV_TIMER-SETUP-ALERT-MODE-2"/>
                                     <segment title="LGV_TIMER-SETUP-ALERT-MODE-3"/>
                                 </segments>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="alertModeChanged:" destination="Cmw-cs-f0x" eventType="valueChanged" id="wnE-BY-iXj"/>
                                 </connections>
                             </segmentedControl>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="10" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DqF-Ax-NFf">
-                                <rect key="frame" x="14" y="137" width="347" height="31"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="minimumTrackTintColor" red="0.004673240974" green="0.76673818010000006" blue="0.043079631719999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="maximumTrackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="thumbTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="alertVolumeChanged:" destination="Cmw-cs-f0x" eventType="valueChanged" id="Azd-DD-g90"/>
-                                </connections>
-                            </slider>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fCL-vy-SIp">
-                                <rect key="frame" x="16" y="204" width="343" height="29"/>
+                                <rect key="frame" x="16" y="231" width="343" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="YYN-rh-tsk"/>
@@ -274,13 +270,13 @@
                                     <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-1"/>
                                     <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-2"/>
                                 </segments>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="modeSegmentedControlChanged:" destination="Cmw-cs-f0x" eventType="valueChanged" id="nUQ-MR-fsS"/>
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-6l-M17" userLabel="Color Picker Container View">
-                                <rect key="frame" x="16" y="240" width="343" height="111"/>
+                                <rect key="frame" x="16" y="267" width="343" height="111"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-COLOR-THEME-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qA-v4-gf5">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
@@ -314,7 +310,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-1e-i1t" userLabel="Podium Mode Container View">
-                                <rect key="frame" x="16" y="352" width="343" height="242"/>
+                                <rect key="frame" x="16" y="379" width="343" height="242"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-WARNING-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BiL-9Z-SQP">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
@@ -374,8 +370,35 @@
                                     <constraint firstItem="Ojn-dk-can" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="muV-7o-JCr"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-SOUND-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUZ-6X-TX6">
+                                <rect key="frame" x="16" y="137" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="TxB-CC-erF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ksY-w5-fgH">
+                                <rect key="frame" x="16" y="166" width="343" height="29"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="pnh-5R-Rqr"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="1"/>
+                                    <segment title="2"/>
+                                    <segment title="3"/>
+                                    <segment title="4"/>
+                                    <segment title="5"/>
+                                </segments>
+                                <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="soundSelectionChanged:" destination="Cmw-cs-f0x" eventType="valueChanged" id="cnq-M0-Io7"/>
+                                </connections>
+                            </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-MODE-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9w9-pL-jTf">
-                                <rect key="frame" x="16" y="175" width="343" height="21"/>
+                                <rect key="frame" x="16" y="202" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="T88-gV-WYA"/>
                                 </constraints>
@@ -387,24 +410,27 @@
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="9w9-pL-jTf" firstAttribute="top" secondItem="DqF-Ax-NFf" secondAttribute="bottom" constant="8" id="3Sf-La-EVb"/>
+                            <constraint firstItem="9w9-pL-jTf" firstAttribute="top" secondItem="ksY-w5-fgH" secondAttribute="bottom" constant="8" id="6Mf-bW-qpl"/>
                             <constraint firstItem="9w9-pL-jTf" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="6iX-DW-ZJd"/>
+                            <constraint firstItem="JUZ-6X-TX6" firstAttribute="top" secondItem="04C-ke-GJA" secondAttribute="bottom" constant="8" id="827-Rc-G0C"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="top" secondItem="Wdv-vy-5ut" secondAttribute="bottom" constant="8" id="8V1-q1-VrB"/>
-                            <constraint firstItem="DqF-Ax-NFf" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="CKP-Ji-c7S"/>
+                            <constraint firstItem="JUZ-6X-TX6" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="9Ke-JE-z0k"/>
+                            <constraint firstItem="JUZ-6X-TX6" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="Bdg-sV-bbC"/>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="120" id="Ey3-Xc-sqp"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="FLk-8J-sEW"/>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="Fnf-Gl-gZk"/>
                             <constraint firstItem="9w9-pL-jTf" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="GD7-mM-MmZ"/>
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="GEb-qK-Dvf"/>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="JdF-9e-1iU"/>
+                            <constraint firstItem="ksY-w5-fgH" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="KdO-Lh-RLZ"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="top" secondItem="9w9-pL-jTf" secondAttribute="bottom" constant="8" id="Kro-bK-Epe"/>
+                            <constraint firstItem="ksY-w5-fgH" firstAttribute="top" secondItem="JUZ-6X-TX6" secondAttribute="bottom" constant="8" id="OMv-pc-pnh"/>
+                            <constraint firstItem="ksY-w5-fgH" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="Vs8-SE-jRB"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="Vvm-JM-uaG"/>
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="WQl-XH-4hA"/>
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="dep-gt-6DA"/>
-                            <constraint firstItem="DqF-Ax-NFf" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="kCy-8j-pim"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="lC6-yS-tCO"/>
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="top" secondItem="ZN5-uz-PEG" secondAttribute="bottom" constant="8" id="nGf-dq-fCP"/>
-                            <constraint firstItem="DqF-Ax-NFf" firstAttribute="top" secondItem="04C-ke-GJA" secondAttribute="bottom" constant="8" id="rod-hS-hEG"/>
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="8" id="ww5-O9-uvg"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="yrH-mM-v3Q"/>
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="z7T-I7-MIr"/>
@@ -418,14 +444,10 @@
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
                             <color key="value" red="0.4894349093" green="0.4894349093" blue="0.4894349093" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="unselectedTabItemColor">
-                            <color key="value" red="0.99863183499999997" green="0.99906623360000002" blue="0.81957310439999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="alertModeLabel" destination="Wdv-vy-5ut" id="6cO-4o-TGV"/>
                         <outlet property="alertModeSegmentedSwitch" destination="04C-ke-GJA" id="qjw-GG-14T"/>
-                        <outlet property="alertVolumeSlider" destination="DqF-Ax-NFf" id="iqp-6t-kBd"/>
                         <outlet property="colorPickerContainerLayoutTopConstraint" destination="Ey3-Xc-sqp" id="uhA-WP-JOr"/>
                         <outlet property="colorPickerContainerView" destination="KvQ-6l-M17" id="gaF-Od-ed5"/>
                         <outlet property="colorThemePicker" destination="lha-1G-1eH" id="LcQ-Yu-wwh"/>
@@ -433,6 +455,8 @@
                         <outlet property="finalThresholdLabel" destination="Ojn-dk-can" id="jam-Y3-yJC"/>
                         <outlet property="finalThresholdTimePicker" destination="VaK-Cn-EOG" id="i7c-SA-P8h"/>
                         <outlet property="podiumModeContainerView" destination="bOd-1e-i1t" id="ECt-Zz-Rki"/>
+                        <outlet property="soundSelectionLabel" destination="JUZ-6X-TX6" id="d4i-Ln-hqD"/>
+                        <outlet property="soundSelectionSegmentedSwitch" destination="ksY-w5-fgH" id="Gsg-oq-rpI"/>
                         <outlet property="timerModeLabel" destination="9w9-pL-jTf" id="fVq-4T-9PM"/>
                         <outlet property="timerModeSegmentedSwitch" destination="fCL-vy-SIp" id="dKL-VY-QQ6"/>
                         <outlet property="warningThresholdLabel" destination="BiL-9Z-SQP" id="Bb7-QV-Igi"/>
@@ -577,9 +601,6 @@
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
                             <color key="value" red="0.48943490932642486" green="0.48943490932642486" blue="0.48943490932642486" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="unselectedTabItemColor">
-                            <color key="value" red="0.99863183499999997" green="0.99906623360000002" blue="0.81957310439999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="navAdd" destination="qDK-vu-sEq" id="ta8-Tf-u0R"/>
@@ -633,7 +654,7 @@
                                     <action selector="lgvButtonHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="FVI-gJ-heg"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="LGV_TIMER-ABOUT-LONG-BLURB" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DIb-rd-Jfe">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="LGV_TIMER-ABOUT-LONG-BLURB" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DIb-rd-Jfe">
                                 <rect key="frame" x="16" y="180" width="343" height="359"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

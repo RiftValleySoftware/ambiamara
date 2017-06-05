@@ -24,7 +24,8 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var setTimePickerView: UIPickerView!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
     
-    private var _changedTime: Bool = false
+    private var _oldTimer: Int = 0
+    private var _dontUpdateYet: Bool = false
     
     // MARK: - Internal @IBAction Methods
     /* ################################################################################################################################## */
@@ -58,6 +59,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      Bring in the setup screen.
      */
     func bringInSettingsScreen() {
+        self._dontUpdateYet = true
         self.performSegue(withIdentifier: type(of:self).switchToSettingsSegueID, sender: nil)
     }
     
@@ -95,6 +97,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
         }
         
+        self._oldTimer = self.timerObject.timeSet
         self.setupButton.title = self.setupButton.title?.localizedVariant
         self.timeSetLabel.text = self.timeSetLabel.text?.localizedVariant
     }
@@ -105,8 +108,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self._changedTime = false
-        
         self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
         let timeSet = TimeTuple(self.timerObject.timeSet)
         self.setTimePickerView.reloadAllComponents()
@@ -127,11 +128,13 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         } else {
             // If we force an update, it messes with the tab bar behavior a bit, so we avoid it unless we absolutely need it.
             if let tabController = self.tabBarController as? LGV_Timer_MainTabController {
-                if self._changedTime {
+                if (self._oldTimer != self.timerObject.timeSet) && !self._dontUpdateYet {
                     tabController.updateTimers()
                 }
             }
         }
+        
+        self._dontUpdateYet = false
     }
     
     /* ################################################################## */
@@ -167,7 +170,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         self.timerObject.timeSetPodiumWarn = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet)
         self.timerObject.timeSetPodiumFinal = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet)
         s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
-        self._changedTime = true
         self.setUpDisplay()
     }
 }

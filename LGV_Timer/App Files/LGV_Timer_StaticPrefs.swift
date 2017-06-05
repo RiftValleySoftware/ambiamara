@@ -196,7 +196,7 @@ class TimerSettingTuple {
     var displayMode: TimerDisplayMode   ///< This is how the timer will display
     var colorTheme: Int                 ///< This is the 0-based index for the color theme.
     var alertMode: AlertMode            ///< This determines what kind of alert the timer makes when it is complete.
-    var alertVolume: Int                ///< This is the volume of the alert (when in mode 1 or 2).
+    var soundID: Int                    ///< This will be the ID of a system sound for this timer.
     var uid: String                     ///< This will be a unique ID, assigned to the pref, so we can match it.
 
     // MARK: - Initializers
@@ -211,9 +211,10 @@ class TimerSettingTuple {
      :param: displayMode This is how the timer will display
      :param: colorTheme This is the 0-based index for the color theme.
      :param: alertMode This determines what kind of alert the timer makes when it is complete.
-     :param: alertVolume This is the volume of the alert (when in mode 1 or 2).
+     :param: soundID This is the ID of the sound to play (when in mode 1 or 2).
+     :param: uid This is a unique ID for this setting. It can be defaulted.
      */
-    init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, alertVolume: Int, uid: String!) {
+    init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, alertVolume: Int, soundID: Int, uid: String!) {
         
         self.timeSet = timeSet
         self.timeSetPodiumWarn = timeSetPodiumWarn
@@ -221,7 +222,7 @@ class TimerSettingTuple {
         self.displayMode = displayMode
         self.colorTheme = colorTheme
         self.alertMode = alertMode
-        self.alertVolume = alertVolume
+        self.soundID = soundID
         self.uid = (nil == uid) ? NSUUID().uuidString : uid
     }
     
@@ -233,14 +234,14 @@ class TimerSettingTuple {
      */
     var description: String {
         get {
-            return String(format: "timeSet: %@, timeSetPodiumWarn: %@, timeSetPodiumFinal: %d, displayMode: %@, colorTheme: %d, alertMode: %d, alertVolume: %d, uid: %@",
+            return String(format: "timeSet: %@, timeSetPodiumWarn: %@, timeSetPodiumFinal: %d, displayMode: %@, colorTheme: %d, alertMode: %d, soundID: %d, uid: %@",
                           self.timeSet.description,
                           self.timeSetPodiumWarn.description,
                           self.timeSetPodiumFinal.description,
                           self.displayMode.rawValue,
                           self.colorTheme,
                           self.alertMode.rawValue,
-                          self.alertVolume,
+                          self.soundID,
                           self.uid
             )
         }
@@ -301,7 +302,7 @@ class LGV_Timer_StaticPrefs {
         case DisplayMode        = "DisplayMode"
         case ColorTheme         = "ColorTheme"
         case AlertMode          = "AlertMode"
-        case AlertVolume        = "AlertVolume"
+        case SoundID            = "SoundID"
         case UID                = "UID"
     }
     
@@ -326,7 +327,7 @@ class LGV_Timer_StaticPrefs {
         tempSetting.setValue(NSNumber(value: inTimer.displayMode.rawValue), forKey: TimerPrefKeys.DisplayMode.rawValue)
         tempSetting.setValue(NSNumber(value: inTimer.colorTheme), forKey: TimerPrefKeys.ColorTheme.rawValue)
         tempSetting.setValue(NSNumber(value: inTimer.alertMode.rawValue), forKey: TimerPrefKeys.AlertMode.rawValue)
-        tempSetting.setValue(NSNumber(value: inTimer.alertVolume), forKey: TimerPrefKeys.AlertVolume.rawValue)
+        tempSetting.setValue(NSNumber(value: inTimer.soundID), forKey: TimerPrefKeys.SoundID.rawValue)
         tempSetting.setValue(inTimer.uid as NSString, forKey: TimerPrefKeys.UID.rawValue)
         
         return tempSetting
@@ -366,23 +367,14 @@ class LGV_Timer_StaticPrefs {
             }
         }
         
-        if let alertVolume = inTimer.object(forKey: TimerPrefKeys.AlertVolume.rawValue) as? NSNumber {
-            tempSetting.alertVolume = alertVolume.intValue
+        if let soundID = inTimer.object(forKey: TimerPrefKeys.SoundID.rawValue) as? NSNumber {
+            tempSetting.soundID = soundID.intValue
         }
         
         if let uid = inTimer.object(forKey: TimerPrefKeys.UID.rawValue) as? NSString {
             tempSetting.uid = uid as String
         } else {
             tempSetting.uid = NSUUID().uuidString
-        }
-        
-        // These just make sure that a zero volume is silent or vibrate.
-        if ((.Silent == tempSetting.alertMode) || (.VibrateOnly == tempSetting.alertMode)) {
-            tempSetting.alertVolume = 0
-        }
-        
-        if (0 == tempSetting.alertVolume) && ((.Both == tempSetting.alertMode) || (.SoundOnly == tempSetting.alertMode)) {
-            tempSetting.alertMode = .Silent
         }
 
         return tempSetting
@@ -438,7 +430,7 @@ class LGV_Timer_StaticPrefs {
      */
     static var defaultTimer: TimerSettingTuple {
         get {
-            return TimerSettingTuple(timeSet: 0, timeSetPodiumWarn: 0, timeSetPodiumFinal: 0, displayMode: .Digital, colorTheme: 0, alertMode: .Silent, alertVolume: 5, uid: nil)
+            return TimerSettingTuple(timeSet: 0, timeSetPodiumWarn: 0, timeSetPodiumFinal: 0, displayMode: .Digital, colorTheme: 0, alertMode: .Silent, alertVolume: 5, soundID: 2, uid: nil)
         }
     }
     
