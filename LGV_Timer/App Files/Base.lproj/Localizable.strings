@@ -55,7 +55,7 @@
 
 "LGV_TIMER-INFO-TITLE"                                  =   "About X-Timer";
 "LGV_TIMER-ABOUT-SHORT-BLURB"                           =   "X-Timer is short for \"eXtremely Useful Countdown Timer.\" It's a countdown timer app that has been designed from Day One to be usable and handy.";
-"LGV_TIMER-ABOUT-LONG-BLURB"                            =   "The first screen that you see is a list of the available timers.\nEach timer can be set with different characteristics, such as the color of the \"LED\" display, or even whether or not to display a time.\nOne option is \"Podium Mode,\" in which you are presented with 3 \"traffic lights\" that change from green (keep talking), to yellow (start winding it down), to red (prepare to shut up).";
+"LGV_TIMER-ABOUT-LONG-BLURB"                            =   "The first screen that you see is a list of the available timers.\nYou can create new timers by touching the \"+\" button at the top right, and delete them by swiping left over the timer.\nTimers are available for one-touch selection in the Tab Bar, on the bottom of the screen.\nEach timer can be set with different characteristics, such as the color of the \"LED\" display, or even whether or not to display a time.\nOne option is \"Podium Mode,\" in which you are presented with 3 \"traffic lights\" that change from green (keep talking), to yellow (start winding it down), to red (prepare to shut up).";
 "LGV_TIMER-ABOUT-LGV-BLURB-1"                           =   "X-Timer is a Little Green Viper Project.";
 "LGV_TIMER-ABOUT-LGV-BLURB-2"                           =   "Find out more at https://littlegreenviper.com";
 "LGV_TIMER-ABOUT-LGV-BLURB-URI"                         =   "https://littlegreenviper.com";

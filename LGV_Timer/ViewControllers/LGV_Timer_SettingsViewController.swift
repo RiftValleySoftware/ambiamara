@@ -12,6 +12,7 @@ import UIKit
 class LGV_Timer_SettingsTimerTableCell: UITableViewCell {
     @IBOutlet weak var clockDisplay: LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock!
     @IBOutlet weak var timerNameLabel: UILabel!
+    @IBOutlet weak var trafficLights: UIImageView!
 }
 
 class LGV_Timer_TimerSettingsNavController: UINavigationController {
@@ -132,7 +133,12 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
             if let timerNameLabel = ret.timerNameLabel {
                 let timerPrefs = s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row]
                 timerNameLabel.textColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[timerPrefs.colorTheme].textColor!
-                timerNameLabel.text = String(format: " " + "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
+                timerNameLabel.text = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
+            }
+            
+            if let trafficLights = ret.trafficLights {
+                let timerPrefs = s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row]
+                trafficLights.isHidden = (.Podium != timerPrefs.displayMode)
             }
             
             return ret

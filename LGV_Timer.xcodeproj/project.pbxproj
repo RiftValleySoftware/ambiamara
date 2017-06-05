@@ -137,12 +137,12 @@
 				772A13CB1ED5E8270043C58B /* LGV_Timer_MainTabController.swift */,
 				7789C3231ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift */,
 				772A13C51ED5E50C0043C58B /* LGV_Timer_SettingsViewController.swift */,
+				770FB9AF1EE4359300E3120D /* LGV_Timer_InfoViewController.swift */,
 				772BF9C31ED600B3002D1782 /* LGV_Timer_TimerNavController.swift */,
 				775AE1761EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift */,
 				7770CB2D1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift */,
 				7770CB2F1ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift */,
 				77052CD61EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift */,
-				770FB9AF1EE4359300E3120D /* LGV_Timer_InfoViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";

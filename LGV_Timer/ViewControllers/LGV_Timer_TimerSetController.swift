@@ -74,8 +74,10 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         self.startButton.isEnabled = 0 < self.timerObject.timeSet
         let timerNumber = self.timerNumber
         let tabBarImage = self.tabBarImage
-        self.tabBarController?.viewControllers?[timerNumber].tabBarItem.image = tabBarImage
-        self.tabBarController?.viewControllers?[timerNumber].tabBarItem.selectedImage = tabBarImage
+        if type(of: self.navigationController) == LGV_Timer_TimerNavController.self {
+            self.tabBarController?.viewControllers?[timerNumber].tabBarItem.image = tabBarImage
+            self.tabBarController?.viewControllers?[timerNumber].tabBarItem.selectedImage = tabBarImage
+        }
     }
     
     // MARK: - Base Class Override Methods
@@ -96,7 +98,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     
     /* ################################################################## */
     /**
-     Called when the view has finished displaying.
+     Called when the view will display.
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -108,6 +110,20 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         self.setTimePickerView.selectRow(timeSet.minutes, inComponent: Components.Minutes.rawValue, animated: true)
         self.setTimePickerView.selectRow(timeSet.seconds, inComponent: Components.Seconds.rawValue, animated: true)
         self.setUpDisplay()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the view will go away.
+     */
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let tabController = self.tabBarController as? LGV_Timer_MainTabController {
+            if let _ = self.navigationController as? LGV_Timer_TimerNavController {
+            } else {
+                tabController.updateTimers()
+            }
+        }
     }
     
     /* ################################################################## */

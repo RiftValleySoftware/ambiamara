@@ -41,6 +41,27 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     var yellowLight: UIImageView! = nil
     var greenLight: UIImageView! = nil
     
+    // MARK: - Calculated Properties
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    var blinkSeparators: Bool {
+        get {
+            if .Podium != self.timerObject.displayMode {
+                return self.timeDisplay.blinkSeparators
+            } else {
+                return false
+            }
+        }
+        
+        set {
+            if .Podium != self.timerObject.displayMode {
+                self.timeDisplay.blinkSeparators = newValue
+            }
+        }
+    }
+    
     // MARK: - Private Instance Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -91,10 +112,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self.currentTimeInSeconds = self.timerObject.timeSet
         }
         
-        if .Podium != self.timerObject.displayMode {
-            self.timeDisplay.blinkSeparators = true
-        }
-        
+        self.blinkSeparators = true
         self.clockPaused = false
         self.pauseButton.image = UIImage(named: self.pauseButtonImageName)
         self.lastTimerDate = Date()
@@ -110,6 +128,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self._timer.invalidate()
             self._timer = nil
         }
+        
         self.pauseButton.image = UIImage(named: self.startButtonImageName)
         self._setUpDisplay()
     }
@@ -125,10 +144,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self._timer = nil
         }
         
-        if .Podium != self.timerObject.displayMode {
-            self.timeDisplay.blinkSeparators = false
-        }
-        
+        self.blinkSeparators = false
         self.clockPaused = true
         self.pauseButton.image = UIImage(named: self.startButtonImageName)
         self._setUpDisplay()
