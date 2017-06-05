@@ -10,6 +10,7 @@
  */
 
 import UIKit
+import AudioToolbox
 
 /* ###################################################################################################################################### */
 /**
@@ -39,6 +40,22 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         self.colorPickerContainerView.isHidden = (self.timerObject.displayMode == .Podium)
         self.colorPickerContainerLayoutTopConstraint.constant = 8 + ((self.timerObject.displayMode == .Podium) ? 0 : self.colorPickerContainerView.bounds.size.height)
         self.soundSelectionSegmentedSwitch.isEnabled = ((.Silent != self.timerObject.alertMode) && (.VibrateOnly != self.timerObject.alertMode))
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    class private func _playAlertSound(_ inSoundID: Int) {
+        if let soundUrl = Bundle.main.url(forResource: String(format: "Sound-%02d", inSoundID), withExtension: "aiff") {
+            var soundId: SystemSoundID = 0
+            
+            AudioServicesCreateSystemSoundID(soundUrl as CFURL, &soundId)
+            
+            AudioServicesAddSystemSoundCompletion(soundId, nil, nil, { (soundId, clientData) -> Void in
+                AudioServicesDisposeSystemSoundID(soundId)
+            }, nil)
+            AudioServicesPlaySystemSound(soundId)
+        }
     }
     
     // MARK: - Base Class Override Methods
@@ -132,6 +149,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
      */
     @IBAction func soundSelectionChanged(_ sender: UISegmentedControl) {
         self.timerObject.soundID = sender.selectedSegmentIndex
+        type(of: self)._playAlertSound(self.timerObject.soundID)
         s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
     }
     
