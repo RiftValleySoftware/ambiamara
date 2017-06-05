@@ -133,7 +133,7 @@
                             <color key="value" red="0.4894349093" green="0.4894349093" blue="0.4894349093" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="unselectedTabItemColor">
-                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="value" red="0.99863183499999997" green="0.99906623360000002" blue="0.81957310439999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -419,7 +419,7 @@
                             <color key="value" red="0.4894349093" green="0.4894349093" blue="0.4894349093" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="unselectedTabItemColor">
-                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="value" red="0.99863183499999997" green="0.99906623360000002" blue="0.81957310439999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -578,7 +578,7 @@
                             <color key="value" red="0.48943490932642486" green="0.48943490932642486" blue="0.48943490932642486" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="unselectedTabItemColor">
-                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="value" red="0.99863183499999997" green="0.99906623360000002" blue="0.81957310439999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -596,7 +596,7 @@
         <!--Info-->
         <scene sceneID="MrX-RY-GB5">
             <objects>
-                <viewController title="LGV_TIMER-INFO-TITLE" hidesBottomBarWhenPushed="YES" id="PKI-7x-KlB" userLabel="Info" customClass="LGV_Timer_InfoViewController" customModule="X_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="LGV_TIMER-INFO-TITLE-FORMAT" hidesBottomBarWhenPushed="YES" id="PKI-7x-KlB" userLabel="Info" customClass="LGV_Timer_InfoViewController" customModule="X_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="re4-wU-jpH"/>
                         <viewControllerLayoutGuide type="bottom" id="zm2-PD-MOJ"/>
@@ -733,9 +733,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="selectedImageTintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
                         <segue destination="sDn-VD-xYI" kind="relationship" relationship="viewControllers" id="k2W-Sv-E7a"/>

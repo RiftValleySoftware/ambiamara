@@ -30,12 +30,6 @@ import UIKit
      */
     @IBInspectable var gradientBottomColor: UIColor = UIColor.darkGray
     
-    /* ################################################################## */
-    /**
-     This is the color for the tab bar items that are not selected.
-     */
-    @IBInspectable var unselectedTabItemColor: UIColor = UIColor.lightGray
-    
     // MARK: - Instance Properties
     /* #################################################################################################################################*/
     /* ################################################################## */
@@ -109,7 +103,7 @@ import UIKit
         
         if let tabController = self.tabBarController {
             tabController.tabBar.barTintColor = self.gradientBottomColor
-            tabController.tabBar.unselectedItemTintColor = self.unselectedTabItemColor
+            tabController.tabBar.unselectedItemTintColor = self.view.tintColor
         }
     }
 }

@@ -42,6 +42,14 @@ class LGV_Timer_MainTabController: UITabBarController {
         for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
             self.addTimer(timer)
         }
+    
+        self.moreNavigationController.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor
+        if let barStyle = self.navigationController?.navigationBar.barStyle {
+            self.moreNavigationController.navigationBar.barStyle = barStyle
+        }
+        self.moreNavigationController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
+        self.moreNavigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.moreNavigationController.view.tintColor = UIColor.black
         
         self.customizableViewControllers = []
     }

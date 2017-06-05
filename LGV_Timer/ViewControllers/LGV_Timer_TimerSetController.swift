@@ -24,6 +24,8 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var setTimePickerView: UIPickerView!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
     
+    private var _changedTime: Bool = false
+    
     // MARK: - Internal @IBAction Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -74,7 +76,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         self.startButton.isEnabled = 0 < self.timerObject.timeSet
         let timerNumber = self.timerNumber
         let tabBarImage = self.tabBarImage
-        if type(of: self.navigationController) == LGV_Timer_TimerNavController.self {
+        if let _ = self.navigationController as? LGV_Timer_TimerNavController {
             self.tabBarController?.viewControllers?[timerNumber].tabBarItem.image = tabBarImage
             self.tabBarController?.viewControllers?[timerNumber].tabBarItem.selectedImage = tabBarImage
         }
@@ -92,6 +94,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         for segment in 0..<self.timerModeSegmentedSwitch.numberOfSegments {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
         }
+        
         self.setupButton.title = self.setupButton.title?.localizedVariant
         self.timeSetLabel.text = self.timeSetLabel.text?.localizedVariant
     }
@@ -102,6 +105,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self._changedTime = false
         
         self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
         let timeSet = TimeTuple(self.timerObject.timeSet)
@@ -118,10 +122,14 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      */
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let tabController = self.tabBarController as? LGV_Timer_MainTabController {
-            if let _ = self.navigationController as? LGV_Timer_TimerNavController {
-            } else {
-                tabController.updateTimers()
+        // Don't do anything unless we're in the "More" controller. In that case, we force an update.
+        if let _ = self.navigationController as? LGV_Timer_TimerNavController {
+        } else {
+            // If we force an update, it messes with the tab bar behavior a bit, so we avoid it unless we absolutely need it.
+            if let tabController = self.tabBarController as? LGV_Timer_MainTabController {
+                if self._changedTime {
+                    tabController.updateTimers()
+                }
             }
         }
     }
@@ -159,6 +167,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         self.timerObject.timeSetPodiumWarn = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet)
         self.timerObject.timeSetPodiumFinal = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet)
         s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
+        self._changedTime = true
         self.setUpDisplay()
     }
 }

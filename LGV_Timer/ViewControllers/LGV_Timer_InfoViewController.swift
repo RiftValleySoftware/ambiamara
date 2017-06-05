@@ -25,7 +25,21 @@ class LGV_Timer_InfoViewController: LGV_Timer_TimerBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var appVersion = ""
         
+        if let plistPath = Bundle.main.path(forResource: "Info", ofType: "plist") {
+            if let plistDictionary = NSDictionary(contentsOfFile: plistPath) as? [String: Any] {
+                if let versionTemp = plistDictionary["CFBundleShortVersionString"] as? NSString {
+                    appVersion = versionTemp as String
+                }
+                
+                if let version2Temp = plistDictionary["CFBundleVersion"] as? NSString {
+                    appVersion += "." + (version2Temp as String)
+                }
+            }
+        }
+        
+        self.navigationItem.title = String(format: (self.navigationItem.title?.localizedVariant)!, appVersion)
         self.shortBlurb.text = self.shortBlurb.text.localizedVariant
         self.longBlurb.text = self.longBlurb.text.localizedVariant
         self.lgvBlurb1Label.text = self.lgvBlurb1Label.text?.localizedVariant
