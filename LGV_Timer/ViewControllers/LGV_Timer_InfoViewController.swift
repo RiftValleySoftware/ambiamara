@@ -18,11 +18,17 @@ class LGV_Timer_InfoViewController: LGV_Timer_TimerBaseViewController {
     @IBOutlet weak var lgvBlurb1Label: UILabel!
     @IBOutlet weak var lgvBlurb: UIButton!
     
+    /* ################################################################## */
+    /**
+     */
     @IBAction func lgvButtonHit(_ sender: Any) {
         let openLink = NSURL(string : "LGV_TIMER-ABOUT-LGV-BLURB-URI".localizedVariant)
         UIApplication.shared.open(openLink! as URL, options: [:], completionHandler: nil)
     }
     
+    /* ################################################################## */
+    /**
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         var appVersion = ""

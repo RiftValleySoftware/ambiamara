@@ -191,8 +191,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         self._setUpDisplay()
         self._flashDisplay()
         self._playAlertSound()
-        
-        self._alarmTimer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(self.alarmCallback(_:)), userInfo: nil, repeats: true)
+        self._alarmTimer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(self.alarmCallback(_:)), userInfo: nil, repeats: false)
     }
     
     // MARK: - Internal Instance Methods
@@ -203,6 +202,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     func alarmCallback(_ inTimer: Timer) {
         self._flashDisplay()
         self._playAlertSound()
+        self._alarmTimer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(self.alarmCallback(_:)), userInfo: nil, repeats: false)
     }
     
     /* ################################################################## */

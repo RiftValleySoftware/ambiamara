@@ -23,10 +23,9 @@ class LGV_Timer_MainTabController: UITabBarController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.viewControllers?[0].tabBarItem.title = self.viewControllers?[0].tabBarItem.title?.localizedVariant
-        
+        self.selectedIndex = 0
         self.updateTimers()
+        self.viewControllers?[0].tabBarItem.title = self.viewControllers?[0].tabBarItem.title?.localizedVariant
     }
     
     // MARK: - Internal Instance Methods

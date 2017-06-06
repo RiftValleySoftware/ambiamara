@@ -58,7 +58,6 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.timerTableView.reloadData()
-        self.mainTabController.updateTimers()
     }
     
     // MARK: - Internal Instance Methods
@@ -216,7 +215,6 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
             tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
             tableView.isEditing = false
             tableView.reloadData()
-            self.mainTabController.view.setNeedsLayout()
             self.gussyUpTheMoreNavigation()
         })
     }
