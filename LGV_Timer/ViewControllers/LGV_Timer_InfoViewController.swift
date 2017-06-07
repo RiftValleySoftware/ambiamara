@@ -38,10 +38,6 @@ class LGV_Timer_InfoViewController: LGV_Timer_TimerBaseViewController {
                 if let versionTemp = plistDictionary["CFBundleShortVersionString"] as? NSString {
                     appVersion = versionTemp as String
                 }
-                
-                if let version2Temp = plistDictionary["CFBundleVersion"] as? NSString {
-                    appVersion += "." + (version2Temp as String)
-                }
             }
         }
         

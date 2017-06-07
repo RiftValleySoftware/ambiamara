@@ -47,6 +47,10 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     // MARK: - Calculated Properties
     /* ################################################################################################################################## */
     
+    var alarmModeActive: Bool {
+        get { return nil != _alarmTimer }
+    }
+
     // MARK: - Private Instance Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -376,6 +380,29 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self.continueTimer()
         } else {
             self.pauseTimer()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func tapInView(_ sender: Any) {
+        if self.alarmModeActive {
+            if nil != self._alarmTimer {
+                self._alarmTimer.invalidate()
+                self._alarmTimer = nil
+            }
+            
+            if nil != self._timer {
+                self._timer.invalidate()
+                self._timer = nil
+            }
+            
+            self.currentTimeInSeconds = self.timerObject.timeSet
+            self.flasherView.isHidden = true
+            self.clockPaused = true
+            self.lastTimerDate = Date()
+            self._setUpDisplay()
         }
     }
 }
