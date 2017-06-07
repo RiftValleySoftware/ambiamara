@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mvc-fj-sq5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mvc-fj-sq5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -169,7 +169,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view hidden="YES" alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRL-jt-yJr">
+                            <view hidden="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRL-jt-yJr">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -310,14 +310,14 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-1e-i1t" userLabel="Podium Mode Container View">
-                                <rect key="frame" x="16" y="379" width="343" height="242"/>
+                                <rect key="frame" x="16" y="378" width="343" height="242"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-WARNING-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BiL-9Z-SQP">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="KeE-9n-F7i"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" red="1" green="0.97317665249999996" blue="0.22001092620000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -337,7 +337,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="dk2-5R-QgG"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -356,7 +356,6 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="CPo-vP-d5X" firstAttribute="top" secondItem="BiL-9Z-SQP" secondAttribute="bottom" id="4t3-Sl-Njw"/>
-                                    <constraint firstItem="BiL-9Z-SQP" firstAttribute="top" secondItem="bOd-1e-i1t" secondAttribute="top" id="79q-bM-2aU"/>
                                     <constraint firstItem="Ojn-dk-can" firstAttribute="top" secondItem="CPo-vP-d5X" secondAttribute="bottom" id="GJd-om-zNq"/>
                                     <constraint firstAttribute="trailing" secondItem="Ojn-dk-can" secondAttribute="trailing" id="M9I-69-B4u"/>
                                     <constraint firstItem="VaK-Cn-EOG" firstAttribute="top" secondItem="Ojn-dk-can" secondAttribute="bottom" id="MIj-LN-be4"/>
@@ -368,6 +367,7 @@
                                     <constraint firstItem="CPo-vP-d5X" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="WBg-MY-Br6"/>
                                     <constraint firstItem="VaK-Cn-EOG" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="X0n-ct-q7J"/>
                                     <constraint firstItem="Ojn-dk-can" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="muV-7o-JCr"/>
+                                    <constraint firstItem="BiL-9Z-SQP" firstAttribute="top" secondItem="bOd-1e-i1t" secondAttribute="top" id="q3u-D9-fzv"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-SOUND-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUZ-6X-TX6">
@@ -416,7 +416,6 @@
                             <constraint firstItem="04C-ke-GJA" firstAttribute="top" secondItem="Wdv-vy-5ut" secondAttribute="bottom" constant="8" id="8V1-q1-VrB"/>
                             <constraint firstItem="JUZ-6X-TX6" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="9Ke-JE-z0k"/>
                             <constraint firstItem="JUZ-6X-TX6" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="Bdg-sV-bbC"/>
-                            <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="120" id="Ey3-Xc-sqp"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="FLk-8J-sEW"/>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="Fnf-Gl-gZk"/>
                             <constraint firstItem="9w9-pL-jTf" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="GD7-mM-MmZ"/>
@@ -431,6 +430,7 @@
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="dep-gt-6DA"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="lC6-yS-tCO"/>
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="top" secondItem="ZN5-uz-PEG" secondAttribute="bottom" constant="8" id="nGf-dq-fCP"/>
+                            <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="bottom" id="qLW-Iy-78r"/>
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="8" id="ww5-O9-uvg"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="yrH-mM-v3Q"/>
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="z7T-I7-MIr"/>
@@ -448,7 +448,6 @@
                     <connections>
                         <outlet property="alertModeLabel" destination="Wdv-vy-5ut" id="6cO-4o-TGV"/>
                         <outlet property="alertModeSegmentedSwitch" destination="04C-ke-GJA" id="qjw-GG-14T"/>
-                        <outlet property="colorPickerContainerLayoutTopConstraint" destination="Ey3-Xc-sqp" id="uhA-WP-JOr"/>
                         <outlet property="colorPickerContainerView" destination="KvQ-6l-M17" id="gaF-Od-ed5"/>
                         <outlet property="colorThemePicker" destination="lha-1G-1eH" id="LcQ-Yu-wwh"/>
                         <outlet property="colorThemePickerLabel" destination="7qA-v4-gf5" id="W07-bq-36w"/>
@@ -654,7 +653,7 @@
                                     <action selector="lgvButtonHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="FVI-gJ-heg"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="LGV_TIMER-ABOUT-LONG-BLURB" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DIb-rd-Jfe">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="LGV_TIMER-ABOUT-LONG-BLURB" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DIb-rd-Jfe">
                                 <rect key="frame" x="16" y="180" width="343" height="359"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -686,17 +685,17 @@
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="DIb-rd-Jfe" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="3K9-9U-EN4"/>
+                            <constraint firstItem="DIb-rd-Jfe" firstAttribute="top" secondItem="eOk-Cp-IyJ" secondAttribute="bottom" constant="8" id="5DI-0q-DAO"/>
                             <constraint firstItem="S6n-9J-uZt" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="5TW-LA-B8i"/>
                             <constraint firstItem="P5N-K8-kBZ" firstAttribute="leading" secondItem="oQk-9G-zSN" secondAttribute="trailing" constant="8" id="787-rD-FJv"/>
                             <constraint firstItem="DIb-rd-Jfe" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="7DU-DJ-HzT"/>
+                            <constraint firstItem="oQk-9G-zSN" firstAttribute="top" secondItem="DIb-rd-Jfe" secondAttribute="bottom" constant="8" placeholder="YES" id="7b4-zz-6Ju"/>
                             <constraint firstItem="zm2-PD-MOJ" firstAttribute="top" secondItem="S6n-9J-uZt" secondAttribute="bottom" constant="8" id="aoB-bQ-eea"/>
                             <constraint firstItem="eOk-Cp-IyJ" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="asO-gn-CDB"/>
                             <constraint firstItem="o2D-gY-fZY" firstAttribute="centerX" secondItem="pCc-NV-qjF" secondAttribute="centerX" id="bAy-F8-8ce"/>
-                            <constraint firstItem="DIb-rd-Jfe" firstAttribute="top" secondItem="eOk-Cp-IyJ" secondAttribute="bottom" constant="8" id="bij-CT-cT7"/>
                             <constraint firstItem="eOk-Cp-IyJ" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="fhu-W2-BG5"/>
                             <constraint firstItem="S6n-9J-uZt" firstAttribute="top" secondItem="P5N-K8-kBZ" secondAttribute="bottom" constant="2" id="kf8-dl-KhR"/>
                             <constraint firstItem="S6n-9J-uZt" firstAttribute="leading" secondItem="oQk-9G-zSN" secondAttribute="trailing" constant="8" id="mBm-U9-n83"/>
-                            <constraint firstItem="oQk-9G-zSN" firstAttribute="top" secondItem="DIb-rd-Jfe" secondAttribute="bottom" constant="8" id="mq5-cO-9Ci"/>
                             <constraint firstItem="P5N-K8-kBZ" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="p9X-NP-Fqy"/>
                             <constraint firstItem="oQk-9G-zSN" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="rR6-5E-ojY"/>
                             <constraint firstItem="o2D-gY-fZY" firstAttribute="top" secondItem="re4-wU-jpH" secondAttribute="bottom" constant="4" id="rrf-bC-f0r"/>

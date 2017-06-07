@@ -19,9 +19,9 @@
 "LGV_TIMER-SETUP-TIMER-MODE-SWITCH-0"                   =   "Digital Mode";
 "LGV_TIMER-SETUP-TIMER-MODE-SWITCH-1"                   =   "Podium Mode";
 "LGV_TIMER-SETUP-TIMER-MODE-SWITCH-2"                   =   "Dual Mode";
-"LGV_TIMER-SETUP-WARNING-SET-LABEL"                     =   "Set Warning (Yellow) Time";
-"LGV_TIMER-SETUP-FINAL-SET-LABEL"                       =   "Set Final (Red) Time";
-"LGV_TIMER-SETUP-COLOR-THEME-LABEL"                     =   "Selected Color Theme";
+"LGV_TIMER-SETUP-WARNING-SET-LABEL"                     =   "Podium Warning (Yellow) Time";
+"LGV_TIMER-SETUP-FINAL-SET-LABEL"                       =   "Podium Final (Red) Time";
+"LGV_TIMER-SETUP-COLOR-THEME-LABEL"                     =   "Digital and Alarm Color";
 "LGV_TIMER-SETUP-ALERT-MODE-LABEL"                      =   "Alert Mode";
 "LGV_TIMER-SETUP-ALERT-MODE-0"                          =   "Silent";
 "LGV_TIMER-SETUP-ALERT-MODE-1"                          =   "Vibrate";
@@ -56,7 +56,7 @@
 
 "LGV_TIMER-INFO-TITLE-FORMAT"                           =   "About X-Timer V. %@";
 "LGV_TIMER-ABOUT-SHORT-BLURB"                           =   "X-Timer is short for \"eXtremely useful countdown Timer.\" It's a countdown timer app that has been designed from Day One to be usable and handy.";
-"LGV_TIMER-ABOUT-LONG-BLURB"                            =   "The first screen that you see is a list of the available timers.\nYou can create new timers by touching the \"+\" button at the top right, and delete them by swiping left over the timer.\nTimers are available for one-touch selection in the Tab Bar, on the bottom of the screen.\nEach timer can be set with different characteristics, such as the alert sound (or no sound), the color of the \"LED\" display, or even whether or not to display a time.\nOne option is \"Podium Mode,\" in which you are presented with 3 \"traffic lights\" that change from green (keep talking), to yellow (start winding it down), to red (prepare to shut up).\nThis app requires that you enable sounds in order for audible alarms to be heard. If your device does not support vibration, then the \"Vibrate\" mode will not work.";
+"LGV_TIMER-ABOUT-LONG-BLURB"                            =   "You create new timers by touching the \"+\" button at the top right, and delete them by swiping left.\nTimers are available for one-touch selection in the Tab Bar, on the bottom of the screen.\nYou start, pause and stop the timers through standard buttons in the top navigation bars.\nEach timer can be set with different characteristics, such as sounds and colors.\nAn option is \"Podium Mode,\" which presents 3 \"traffic lights\" that go from green, to yellow, to red.\nThis app requires that you turn off mute in order for audible alarms to be heard. If your device does not support vibration, then the \"Vibrate\" mode will not work.";
 "LGV_TIMER-ABOUT-LGV-BLURB-1"                           =   "X-Timer is a Little Green Viper Project.";
 "LGV_TIMER-ABOUT-LGV-BLURB-2"                           =   "Find out more at https://littlegreenviper.com";
 "LGV_TIMER-ABOUT-LGV-BLURB-URI"                         =   "https://littlegreenviper.com";

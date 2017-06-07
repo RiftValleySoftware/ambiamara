@@ -70,9 +70,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate {
     /**
      */
     func applicationWillEnterForeground(_ application: UIApplication) {
-        if nil != self.currentTimer {
-            currentTimer.blinkSeparators = true
-        }
     }
     
     /* ################################################################## */
@@ -94,9 +91,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate {
      */
     func applicationWillResignActive(_ application: UIApplication) {
         s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
-        if nil != self.currentTimer {
-            currentTimer.blinkSeparators = false
-        }
     }
 
     /* ################################################################## */
@@ -104,9 +98,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate {
      */
     func applicationDidEnterBackground(_ application: UIApplication) {
         s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
-        if nil != self.currentTimer {
-            currentTimer.blinkSeparators = false
-        }
     }
     
     /* ################################################################## */
