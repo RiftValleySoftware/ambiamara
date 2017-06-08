@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -156,11 +157,11 @@
                         <viewControllerLayoutGuide type="bottom" id="iFu-N0-S8w"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="VER-Lg-FXG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvk-HB-53P" customClass="LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock" customModule="X_Timer" customModuleProvider="target">
-                                <rect key="frame" x="4" y="68" width="367" height="595"/>
+                                <rect key="frame" x="4" y="68" width="367" height="551"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
@@ -170,7 +171,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRL-jt-yJr">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -192,19 +193,36 @@
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="ItU-wd-SEv" userLabel="LGV_TIMER-RUNNING-TIMER">
-                        <barButtonItem key="leftBarButtonItem" image="Stop" id="X6M-Pd-nAJ">
-                            <connections>
-                                <action selector="stopButtonHit:" destination="pId-dv-a9R" id="6Vg-8r-mJx"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="Pause" id="ZYE-eU-dQi">
-                            <connections>
-                                <action selector="pauseButtonHit:" destination="pId-dv-a9R" id="Cno-CX-GKA"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem image="Stop" id="X6M-Pd-nAJ">
+                                <connections>
+                                    <action selector="stopButtonHit:" destination="pId-dv-a9R" id="6Vg-8r-mJx"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem enabled="NO" title="              " width="100" id="kTF-fS-vpK" userLabel="Spacer"/>
+                            <barButtonItem image="Reset" id="wL4-iM-6HV" userLabel="Reset Button">
+                                <connections>
+                                    <action selector="resetButtonHit:" destination="pId-dv-a9R" id="Pdy-QW-Cz6"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
+                        <rightBarButtonItems>
+                            <barButtonItem image="Pause" id="ZYE-eU-dQi">
+                                <connections>
+                                    <action selector="pauseButtonHit:" destination="pId-dv-a9R" id="Cno-CX-GKA"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem enabled="NO" title="              " width="100" id="Upo-90-X3O" userLabel="Spacer"/>
+                            <barButtonItem image="End" id="9CE-DY-r7O" userLabel="End Button">
+                                <connections>
+                                    <action selector="endButtonHit:" destination="pId-dv-a9R" id="nVI-nn-D4s"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
                             <color key="value" red="0.26621194949999999" green="0.26621194949999999" blue="0.26621194949999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -214,9 +232,11 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="endButton" destination="9CE-DY-r7O" id="hSb-ba-AoD"/>
                         <outlet property="flasherView" destination="tRL-jt-yJr" id="nee-mf-JWS"/>
                         <outlet property="navItem" destination="ItU-wd-SEv" id="PlC-44-1IL"/>
                         <outlet property="pauseButton" destination="ZYE-eU-dQi" id="jgK-S8-6ak"/>
+                        <outlet property="resetButton" destination="wL4-iM-6HV" id="8hY-Ci-EMr"/>
                         <outlet property="stopButton" destination="X6M-Pd-nAJ" id="pTd-kO-Cw7"/>
                         <outlet property="timeDisplay" destination="dvk-HB-53P" id="DIV-Ce-1ls"/>
                     </connections>
@@ -777,9 +797,11 @@
     </scenes>
     <resources>
         <image name="ClockIcon" width="260" height="260"/>
+        <image name="End" width="22" height="22"/>
         <image name="Info" width="22" height="22"/>
         <image name="LGVLogo" width="48" height="48"/>
         <image name="Pause" width="22" height="22"/>
+        <image name="Reset" width="22" height="22"/>
         <image name="Settings" width="25" height="25"/>
         <image name="Start" width="22" height="22"/>
         <image name="Stop" width="22" height="22"/>
