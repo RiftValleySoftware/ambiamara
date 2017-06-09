@@ -404,15 +404,30 @@ class LGV_Timer_StaticPrefs {
                 let tempSetting:NSMutableArray = []
 
                 // If we are at a starting point, we "prime the pump" with timers.
-
-                tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
-                tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
-                tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
-                tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                var index = 0
+                let timer = type(of: self).defaultTimer
+                timer.colorTheme = index
+                tempSetting.add(type(of:self)._convertTimerToStorage(timer))
+                index += 1
+                timer.colorTheme = index
+                tempSetting.add(type(of:self)._convertTimerToStorage(timer))
+                index += 1
+                timer.colorTheme = index
+                tempSetting.add(type(of:self)._convertTimerToStorage(timer))
+                index += 1
+                timer.colorTheme = index
+                tempSetting.add(type(of:self)._convertTimerToStorage(timer))
+                index += 1
+                
                 if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {  // iPad gets 3 more.
-                    tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
-                    tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
-                    tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                    timer.colorTheme = index
+                    tempSetting.add(type(of:self)._convertTimerToStorage(timer))
+                    index += 1
+                    timer.colorTheme = index
+                    tempSetting.add(type(of:self)._convertTimerToStorage(timer))
+                    index += 1
+                    timer.colorTheme = index
+                    tempSetting.add(type(of:self)._convertTimerToStorage(timer))
                 }
 
                 self._loadedPrefs.setObject(tempSetting, forKey: PrefsKeys.TimerList.rawValue as NSCopying)
@@ -586,16 +601,7 @@ class LGV_Timer_StaticPrefs {
                 
                 // We're not allowed to have zero timers.
                 if 0 == tempSetting.count {
-                    // We add 4 timers, mostly because the Apple app reviewers aren't capable of pressing a "+" button.
                     tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
-                    tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
-                    tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
-                    tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
-                    if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {  // iPad gets 3 more.
-                        tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
-                        tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
-                        tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
-                    }
                 }
                 
                 self._loadedPrefs.setObject(tempSetting, forKey: PrefsKeys.TimerList.rawValue as NSCopying)
