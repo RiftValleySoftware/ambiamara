@@ -404,31 +404,8 @@ class LGV_Timer_StaticPrefs {
                 let tempSetting:NSMutableArray = []
 
                 // If we are at a starting point, we "prime the pump" with timers.
-                var index = 0
                 let timer = type(of: self).defaultTimer
-                timer.colorTheme = index
                 tempSetting.add(type(of:self)._convertTimerToStorage(timer))
-                index += 1
-                timer.colorTheme = index
-                tempSetting.add(type(of:self)._convertTimerToStorage(timer))
-                index += 1
-                timer.colorTheme = index
-                tempSetting.add(type(of:self)._convertTimerToStorage(timer))
-                index += 1
-                timer.colorTheme = index
-                tempSetting.add(type(of:self)._convertTimerToStorage(timer))
-                index += 1
-                
-                if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {  // iPad gets 3 more.
-                    timer.colorTheme = index
-                    tempSetting.add(type(of:self)._convertTimerToStorage(timer))
-                    index += 1
-                    timer.colorTheme = index
-                    tempSetting.add(type(of:self)._convertTimerToStorage(timer))
-                    index += 1
-                    timer.colorTheme = index
-                    tempSetting.add(type(of:self)._convertTimerToStorage(timer))
-                }
 
                 self._loadedPrefs.setObject(tempSetting, forKey: PrefsKeys.TimerList.rawValue as NSCopying)
            }
