@@ -403,10 +403,18 @@ class LGV_Timer_StaticPrefs {
             if nil == self._loadedPrefs.object(forKey: PrefsKeys.TimerList.rawValue) {
                 let tempSetting:NSMutableArray = []
 
-                // If we are at a starting point, we "prime the pump" with 1 timer.
-                let timerSetting = type(of: self).defaultTimer
-                tempSetting.add(type(of: self)._convertTimerToStorage(timerSetting))
-                
+                // If we are at a starting point, we "prime the pump" with timers.
+
+                tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {  // iPad gets 3 more.
+                    tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                    tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                    tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                }
+
                 self._loadedPrefs.setObject(tempSetting, forKey: PrefsKeys.TimerList.rawValue as NSCopying)
            }
         }
@@ -578,7 +586,16 @@ class LGV_Timer_StaticPrefs {
                 
                 // We're not allowed to have zero timers.
                 if 0 == tempSetting.count {
+                    // We add 4 timers, mostly because the Apple app reviewers aren't capable of pressing a "+" button.
                     tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                    tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                    tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                    tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                    if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {  // iPad gets 3 more.
+                        tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                        tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                        tempSetting.add(type(of:self)._convertTimerToStorage(type(of: self).defaultTimer))
+                    }
                 }
                 
                 self._loadedPrefs.setObject(tempSetting, forKey: PrefsKeys.TimerList.rawValue as NSCopying)
