@@ -101,12 +101,8 @@ class LGV_Timer_TimerListInterfaceController: WKInterfaceController, WCSessionDe
                         }
                     }
                 }
-                let gimmeMoreMessage = [LGV_Timer_Messages.s_timerListGimmeMoreInfoMessageKey:LGV_Timer_Messages.s_timerListGimmeMoreInfoMessageValue]
-                session.sendMessage(gimmeMoreMessage, replyHandler: nil)
             }
         } else {
-//            if let value = message[LGV_Timer_Messages.s_timerListGimmeMoreInfoMessageValue] as? Data {
-//            }
         }
     }
     

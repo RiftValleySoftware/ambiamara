@@ -230,16 +230,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                 session.sendMessage(responseMessage, replyHandler: nil, errorHandler: nil)
             }
         } else {
-            if let value = message[LGV_Timer_Messages.s_timerListGimmeMoreInfoMessageKey] as? String {
-                if LGV_Timer_Messages.s_timerListGimmeMoreInfoMessageValue == value {
-//                    let timerData = NSKeyedArchiver.archivedData(withRootObject: s_g_LGV_Timer_AppDelegatePrefs.timers)
-//                    let responseMessage = [LGV_Timer_Messages.s_timerListGimmeMoreInfoMessageValue:timerData]
-//                    
-//                    session.sendMessage(responseMessage, replyHandler: nil, errorHandler: nil)
-                }
-            } else {
-                type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessage:)", inMessage: "\(message)")
-            }
+            type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessage:)", inMessage: "\(message)")
         }
     }
     
