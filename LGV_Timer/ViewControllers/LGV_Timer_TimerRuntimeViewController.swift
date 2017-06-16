@@ -24,8 +24,8 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     var currentTimeInSeconds: Int = 0
     var lastTimerDate: Date! = nil
     
-    let pauseButtonImageName = "Pause"
-    let startButtonImageName = "Start"
+    let pauseButtonImageName = "Phone-Pause"
+    let startButtonImageName = "Phone-Start"
     let offStoplightImageName = "OffLight"
     let greenStoplightImageName = "GreenLight"
     let yellowStoplightImageName = "YellowLight"

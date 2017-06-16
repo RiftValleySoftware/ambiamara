@@ -12,6 +12,7 @@ import WatchKit
 class LGV_Timer_TimerListTableRowController: NSObject {
     // MARK: - IB Properties
     /* ################################################################################################################################## */
+    @IBOutlet var displayModeImage: WKInterfaceImage!
     @IBOutlet var timerNameLabel: WKInterfaceLabel!
     @IBOutlet var timerValueLabel: WKInterfaceLabel!
 }

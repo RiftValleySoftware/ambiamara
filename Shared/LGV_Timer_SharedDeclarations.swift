@@ -11,16 +11,33 @@ import Foundation
 class LGV_Timer_Messages {
     static let s_timerListHowdyMessageKey = "Howdy"
     static let s_timerListHowdyMessageValue = "HowManyTimers"
-    static let s_timerListGimmeMoreInfoMessageKey = "LemmeHaveIt"
-    static let s_timerListGimmeMoreInfoMessageValue = "TimerInfo"
+    static let s_timerListStartTimerMessageKey = "StartTimer"
+    static let s_timerListPauseTimerMessageKey = "PauseTimer"
+    static let s_timerListStopTimerMessageKey = "StopTimer"
+    static let s_timerListResetTimerMessageKey = "ResetTimer"
+    static let s_timerListFinishTimerMessageKey = "FinishTimer"
 
 }
 
 class LGV_Timer_Data_Keys {
     static let s_timerDataUIDKey = "UID"
+    static let s_timerDataTimerNameKey = "TimerName"
     static let s_timerDataTimeSetKey = "TimeSet"
     static let s_timerDataDisplayModeKey = "DisplayMode"
     static let s_timerDataColorKey = "Color"
+}
+
+/* ###################################################################################################################################### */
+/**
+ These are String class extensions that we'll use throughout the app.
+ */
+extension String {
+    /* ################################################################## */
+    /**
+     */
+    var localizedVariant: String {
+        return NSLocalizedString(self, comment: "")
+    }
 }
 
 // MARK: - Convenience Cast -

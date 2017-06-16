@@ -11,9 +11,13 @@ import Foundation
 import WatchConnectivity
 
 /* ###################################################################################################################################### */
+/**
+ This class describes the list of timers that is first presented in the Watch interface.
+ */
 class LGV_Timer_TimerListInterfaceController: WKInterfaceController, WCSessionDelegate {
     static let s_timerListTableID = "TimerListTable"
     static let s_timerListTableRowControllerID = "TimerListTableRowController"
+    static let s_timerListSingleWatchControllerID = "LGV_Timer_SingleWatchInterfaceController"
     
     // MARK: - IB Properties
     /* ################################################################################################################################## */
@@ -22,6 +26,7 @@ class LGV_Timer_TimerListInterfaceController: WKInterfaceController, WCSessionDe
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
     private var _mySession = WCSession.default()
+    private var _timerArray:[[String:Any]] = []
     
     // MARK: - Internal Instance Calculated Properties
     /* ################################################################################################################################## */
@@ -54,6 +59,7 @@ class LGV_Timer_TimerListInterfaceController: WKInterfaceController, WCSessionDe
     /**
      */
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        presentController(withNames: [type(of:self).s_timerListSingleWatchControllerID], contexts:[self._timerArray[rowIndex]])
     }
     
     // MARK: - WCSessionDelegate Protocol Methods
@@ -81,15 +87,19 @@ class LGV_Timer_TimerListInterfaceController: WKInterfaceController, WCSessionDe
         if let value = message[LGV_Timer_Messages.s_timerListHowdyMessageValue] as? Data {
             let responseArray = NSKeyedUnarchiver.unarchiveObject(with:value)
             if let timerArray = responseArray as? [[String:Any]] {
-                self.timerListTable.setNumberOfRows(timerArray.count, withRowType: type(of:self).s_timerListTableRowControllerID)
-                for row in 0..<timerArray.count {
+                self._timerArray = timerArray
+                self.timerListTable.setNumberOfRows(self._timerArray.count, withRowType: type(of:self).s_timerListTableRowControllerID)
+                for row in 0..<self._timerArray.count {
                     if let controller = self.timerListTable.rowController(at: row) as? LGV_Timer_TimerListTableRowController {
-                        let timer = timerArray[row]
-                        controller.timerNameLabel.setText("Timer \(row + 1)")
+                        let timer = self._timerArray[row]
                         if let color = timer[LGV_Timer_Data_Keys.s_timerDataColorKey] as? UIColor {
-                            print("\(color)")
                             controller.timerNameLabel.setTextColor(color)
                             controller.timerValueLabel.setTextColor(color)
+                            
+                            if let timerName = timer[LGV_Timer_Data_Keys.s_timerDataTimerNameKey] as? String {
+                                controller.timerNameLabel.setText(timerName)
+                            }
+                            
                             if let timeSetInSecondsNumber = timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber {
                                 let timeSetInSeconds = timeSetInSecondsNumber.intValue
                                 let hours = timeSetInSeconds / 3600
@@ -98,6 +108,10 @@ class LGV_Timer_TimerListInterfaceController: WKInterfaceController, WCSessionDe
                                 let displayString = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
                                 controller.timerValueLabel.setText(displayString)
                             }
+                        }
+                        
+                        if let displayMode = timer[LGV_Timer_Data_Keys.s_timerDataDisplayModeKey] as? NSNumber {
+                            controller.displayModeImage.setHidden(TimerDisplayMode.Podium.rawValue != displayMode.intValue)
                         }
                     }
                 }

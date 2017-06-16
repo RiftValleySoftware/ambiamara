@@ -120,7 +120,7 @@
                                 <action selector="setupButtonHit:" destination="Y3X-jz-wfO" id="lxs-Pr-bvR"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="Start" id="en2-R9-W73">
+                        <barButtonItem key="rightBarButtonItem" image="Phone-Start" id="en2-R9-W73">
                             <connections>
                                 <action selector="startButtonHit:" destination="Y3X-jz-wfO" id="Kcd-LX-NNI"/>
                             </connections>
@@ -196,26 +196,26 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="ItU-wd-SEv" userLabel="LGV_TIMER-RUNNING-TIMER">
                         <leftBarButtonItems>
-                            <barButtonItem image="Stop" id="X6M-Pd-nAJ">
+                            <barButtonItem image="Phone-Stop" id="X6M-Pd-nAJ">
                                 <connections>
                                     <action selector="stopButtonHit:" destination="pId-dv-a9R" id="6Vg-8r-mJx"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem enabled="NO" title="              " width="100" id="kTF-fS-vpK" userLabel="Spacer"/>
-                            <barButtonItem image="Reset" id="wL4-iM-6HV" userLabel="Reset Button">
+                            <barButtonItem image="Phone-Reset" id="wL4-iM-6HV" userLabel="Reset Button">
                                 <connections>
                                     <action selector="resetButtonHit:" destination="pId-dv-a9R" id="Pdy-QW-Cz6"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
                         <rightBarButtonItems>
-                            <barButtonItem image="Pause" id="ZYE-eU-dQi">
+                            <barButtonItem image="Phone-Start" id="ZYE-eU-dQi">
                                 <connections>
                                     <action selector="pauseButtonHit:" destination="pId-dv-a9R" id="Cno-CX-GKA"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem enabled="NO" title="              " width="100" id="Upo-90-X3O" userLabel="Spacer"/>
-                            <barButtonItem image="End" id="9CE-DY-r7O" userLabel="End Button">
+                            <barButtonItem image="Phone-End" id="9CE-DY-r7O" userLabel="End Button">
                                 <connections>
                                     <action selector="endButtonHit:" destination="pId-dv-a9R" id="nVI-nn-D4s"/>
                                 </connections>
@@ -797,14 +797,13 @@
     </scenes>
     <resources>
         <image name="ClockIcon" width="260" height="260"/>
-        <image name="End" width="22" height="22"/>
         <image name="Info" width="22" height="22"/>
         <image name="LGVLogo" width="48" height="48"/>
-        <image name="Pause" width="22" height="22"/>
-        <image name="Reset" width="22" height="22"/>
+        <image name="Phone-End" width="22" height="22"/>
+        <image name="Phone-Reset" width="22" height="22"/>
+        <image name="Phone-Start" width="22" height="22"/>
+        <image name="Phone-Stop" width="22" height="22"/>
         <image name="Settings" width="25" height="25"/>
-        <image name="Start" width="22" height="22"/>
-        <image name="Stop" width="22" height="22"/>
         <image name="TrafficLights" width="12" height="40"/>
     </resources>
 </document>

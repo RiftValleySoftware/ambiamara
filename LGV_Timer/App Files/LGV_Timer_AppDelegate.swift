@@ -12,19 +12,6 @@
 import UIKit
 import WatchConnectivity
 
-/* ###################################################################################################################################### */
-/**
- These are String class extensions that we'll use throughout the app.
- */
-extension String {
-    /* ################################################################## */
-    /**
-     */
-    var localizedVariant: String {
-        return NSLocalizedString(self, comment: "")
-    }
-}
-
 var s_g_LGV_Timer_AppDelegatePrefs = LGV_Timer_StaticPrefs.prefs
 
 @UIApplicationMain
@@ -206,11 +193,14 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
         if let value = message[LGV_Timer_Messages.s_timerListHowdyMessageKey] as? String {
             if LGV_Timer_Messages.s_timerListHowdyMessageValue == value {
                 var timerArray:[[String:Any]] = []
+                var index = 1
                 for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
                     var timerDictionary:[String:Any] = [:]
                     timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] = timer.timeSet
                     timerDictionary[LGV_Timer_Data_Keys.s_timerDataDisplayModeKey] = timer.displayMode.rawValue
                     timerDictionary[LGV_Timer_Data_Keys.s_timerDataUIDKey] = timer.uid
+                    timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimerNameKey] = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, index)
+                    index += 1
                     let colorIndex = timer.colorTheme
                     let pickerPepper = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[colorIndex]
                     // This awful hack is because colors read from IB don't seem to transmit well to Watch. Pretty sure it's an Apple bug.
