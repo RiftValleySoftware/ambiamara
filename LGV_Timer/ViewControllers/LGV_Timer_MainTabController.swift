@@ -26,6 +26,8 @@ class LGV_Timer_MainTabController: UITabBarController {
         self.selectedIndex = 0
         self.updateTimers()
         self.viewControllers?[0].tabBarItem.title = self.viewControllers?[0].tabBarItem.title?.localizedVariant
+        // Pre-load our color labels.
+        _ = s_g_LGV_Timer_AppDelegatePrefs.pickerPepperArray
     }
     
     // MARK: - Internal Instance Methods

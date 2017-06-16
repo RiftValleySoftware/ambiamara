@@ -40,6 +40,7 @@
 "DELETE-MESSAGE-FORMAT"                                 =   "If you select \"Delete,\" it will delete Timer %d. Are you sure that you want do this?";
 "DELETE-OK-BUTTON"                                      =   "Delete";
 "DELETE-CANCEL-BUTTON"                                  =   "Cancel";
+"BASIC-OK-BUTTON"                                       =   "OK";
 
 "LGV_TIMER-COLOR-THEME-RED"                             =   "Red";
 "LGV_TIMER-COLOR-THEME-BLUE"                            =   "Blue";

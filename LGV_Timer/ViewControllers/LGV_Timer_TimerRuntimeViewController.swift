@@ -287,9 +287,9 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self.view.addSubview(self.stoplightContainerView)
         }
         
-        self.flasherView.backgroundColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[self.timerObject.colorTheme].textColor!
+        self.flasherView.backgroundColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[self.timerObject.colorTheme].textColor
         self.timeDisplay.isHidden = (.Podium == self.timerObject.displayMode)
-        self.timeDisplay.activeSegmentColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[self.timerObject.colorTheme].textColor!
+        self.timeDisplay.activeSegmentColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[self.timerObject.colorTheme].textColor
         self._setUpDisplay()
     }
     
