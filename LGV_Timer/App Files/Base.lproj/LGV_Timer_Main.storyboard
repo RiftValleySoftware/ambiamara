@@ -225,10 +225,10 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
-                            <color key="value" red="0.26621194949999999" green="0.26621194949999999" blue="0.26621194949999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
-                            <color key="value" red="0.4894349093" green="0.4894349093" blue="0.4894349093" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>

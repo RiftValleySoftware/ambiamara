@@ -24,7 +24,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Let's go Digital Regular.ttf</string>
+		<string>Let&apos;s go Digital Regular.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LGV_Timer_LaunchScreen</string>
@@ -41,6 +41,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

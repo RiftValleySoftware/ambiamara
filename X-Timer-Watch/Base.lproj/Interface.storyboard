@@ -133,6 +133,7 @@
                     <connections>
                         <outlet property="endButton" destination="iJK-dZ-a44" id="k4r-Js-jF5"/>
                         <outlet property="pauseStartButton" destination="xX7-XV-vQR" id="4vw-jx-6Jp"/>
+                        <outlet property="pauseStartImage" destination="Gqv-iV-FmE" id="zdN-D5-C94"/>
                         <outlet property="resetButton" destination="6e8-Bo-mLe" id="pSL-yu-86I"/>
                         <outlet property="stopButton" destination="3Dr-VH-SO2" id="fdz-xG-kEa"/>
                         <outlet property="timeDisplay" destination="O9o-0P-t05" id="3da-nN-FVR"/>
