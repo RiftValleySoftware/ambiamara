@@ -13,134 +13,127 @@
         </array>
     </customFonts>
     <scenes>
-        <!--TimerListTable-->
+        <!--Timer Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="TimerListTable" id="AgC-eL-Hgc" customClass="LGV_Timer_TimerListInterfaceController" customModule="X_Timer_Watch" customModuleProvider="target">
+                <controller identifier="TimerListTable" id="AgC-eL-Hgc" userLabel="Timer Controller" customClass="LGV_Timer_TimerListInterfaceController" customModule="X_Timer_Watch_Extension">
                     <items>
-                        <table alignment="left" id="n2o-Lj-sX3">
+                        <group width="1" alignment="left" layout="vertical" id="0Jo-1J-8EP">
                             <items>
-                                <tableRow identifier="TimerListTableRowController" id="uVb-6x-Qlt" customClass="LGV_Timer_TimerListTableRowController" customModule="X_Timer_Watch_Extension">
-                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" spacing="4" id="slz-Nj-tLW">
-                                        <items>
-                                            <label width="1" alignment="left" text="Timer 1" id="Ofy-8G-nsj">
-                                                <fontDescription key="font" type="system" weight="semibold" pointSize="24"/>
-                                            </label>
-                                            <group width="1" alignment="left" id="ykT-0L-sVG">
+                                <table alignment="left" id="n2o-Lj-sX3">
+                                    <items>
+                                        <tableRow identifier="TimerListTableRowController" id="uVb-6x-Qlt" customClass="LGV_Timer_TimerListTableRowController" customModule="X_Timer_Watch_Extension">
+                                            <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" spacing="4" id="slz-Nj-tLW">
                                                 <items>
-                                                    <imageView width="6" height="20" alignment="left" verticalAlignment="center" hidden="YES" image="TrafficLights" id="mEC-cz-1F4"/>
-                                                    <label alignment="right" verticalAlignment="center" text="00:00:00" textAlignment="right" id="V2A-Kx-jej">
-                                                        <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="30"/>
+                                                    <label width="1" alignment="left" text="Timer 1" id="Ofy-8G-nsj">
+                                                        <fontDescription key="font" type="system" weight="semibold" pointSize="24"/>
                                                     </label>
+                                                    <group width="1" alignment="left" id="ykT-0L-sVG">
+                                                        <items>
+                                                            <imageView width="6" height="20" alignment="left" verticalAlignment="center" hidden="YES" image="TrafficLights" id="mEC-cz-1F4"/>
+                                                            <label alignment="right" verticalAlignment="center" text="00:00:00" textAlignment="right" id="V2A-Kx-jej">
+                                                                <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="30"/>
+                                                            </label>
+                                                        </items>
+                                                    </group>
                                                 </items>
                                             </group>
-                                        </items>
-                                    </group>
-                                    <connections>
-                                        <outlet property="displayModeImage" destination="mEC-cz-1F4" id="N3d-gf-zM7"/>
-                                        <outlet property="timerNameLabel" destination="Ofy-8G-nsj" id="QzD-GL-Ybp"/>
-                                        <outlet property="timerValueLabel" destination="V2A-Kx-jej" id="kgA-1Y-lBA"/>
-                                    </connections>
-                                </tableRow>
+                                            <connections>
+                                                <outlet property="displayModeImage" destination="mEC-cz-1F4" id="ud8-Cp-FLn"/>
+                                                <outlet property="timerNameLabel" destination="Ofy-8G-nsj" id="QoC-2Y-mIt"/>
+                                                <outlet property="timerValueLabel" destination="V2A-Kx-jej" id="IPc-Li-6Ex"/>
+                                            </connections>
+                                        </tableRow>
+                                    </items>
+                                </table>
+                                <group width="1" height="1" alignment="left" hidden="YES" layout="vertical" id="mqz-CS-F4f" userLabel="Timer Controls">
+                                    <items>
+                                        <group width="1" height="0.25" alignment="left" layout="vertical" id="gj4-Ib-zhv">
+                                            <items>
+                                                <label alignment="center" verticalAlignment="center" text="00:00:00" textAlignment="center" id="O9o-0P-t05">
+                                                    <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="38"/>
+                                                </label>
+                                            </items>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </group>
+                                        <group width="1" height="0.75" alignment="center" verticalAlignment="center" layout="vertical" id="bMe-qJ-bnP">
+                                            <items>
+                                                <group width="0.90000000000000002" height="50" alignment="center" id="mnq-R2-WDc">
+                                                    <items>
+                                                        <button alignment="left" verticalAlignment="center" id="3Dr-VH-SO2">
+                                                            <group key="contentGroup" width="50" height="50" alignment="left" id="L3p-XF-4fY">
+                                                                <items>
+                                                                    <imageView width="1" height="1" alignment="left" image="Watch-Stop" contentMode="center" id="G0Q-kR-E08"/>
+                                                                </items>
+                                                                <color key="backgroundColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </group>
+                                                            <connections>
+                                                                <action selector="stopButtonHit" destination="AgC-eL-Hgc" id="9l0-sD-fT3"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button alignment="right" verticalAlignment="center" id="xX7-XV-vQR">
+                                                            <group key="contentGroup" width="50" height="50" alignment="left" id="OBk-LX-421">
+                                                                <items>
+                                                                    <imageView width="1" height="1" alignment="left" image="Watch-Start" contentMode="center" id="Gqv-iV-FmE"/>
+                                                                </items>
+                                                                <color key="backgroundColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </group>
+                                                            <connections>
+                                                                <action selector="pauseStartButtonHit" destination="AgC-eL-Hgc" id="esJ-nn-Ril"/>
+                                                            </connections>
+                                                        </button>
+                                                    </items>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </group>
+                                                <group width="0.90000000000000002" height="50" alignment="center" verticalAlignment="bottom" id="ZQl-tw-wPE">
+                                                    <items>
+                                                        <button alignment="left" verticalAlignment="center" hidden="YES" id="6e8-Bo-mLe">
+                                                            <group key="contentGroup" width="50" height="50" alignment="left" id="c8p-3k-R0e">
+                                                                <items>
+                                                                    <imageView width="1" height="1" alignment="left" image="Watch-Reset" contentMode="center" id="emt-sx-Ghw"/>
+                                                                </items>
+                                                                <color key="backgroundColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </group>
+                                                            <connections>
+                                                                <action selector="resetButtonHit" destination="AgC-eL-Hgc" id="z1c-Th-Pug"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button alignment="right" verticalAlignment="center" hidden="YES" id="iJK-dZ-a44">
+                                                            <group key="contentGroup" width="50" height="50" alignment="left" id="n20-pR-fDg">
+                                                                <items>
+                                                                    <imageView width="1" height="1" alignment="left" image="Watch-End" contentMode="center" id="rIB-eK-H7b"/>
+                                                                </items>
+                                                                <color key="backgroundColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </group>
+                                                            <connections>
+                                                                <action selector="endButtonHit" destination="AgC-eL-Hgc" id="bY9-kf-XOb"/>
+                                                            </connections>
+                                                        </button>
+                                                    </items>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </group>
+                                            </items>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </group>
+                                    </items>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </group>
                             </items>
-                        </table>
+                        </group>
                     </items>
                     <connections>
-                        <outlet property="timerListTable" destination="n2o-Lj-sX3" id="nvw-Y9-360"/>
+                        <outlet property="endButton" destination="iJK-dZ-a44" id="gBc-7w-RsC"/>
+                        <outlet property="pauseStartButton" destination="xX7-XV-vQR" id="5rc-z4-cKP"/>
+                        <outlet property="pauseStartImage" destination="Gqv-iV-FmE" id="8W7-kh-agv"/>
+                        <outlet property="resetButton" destination="6e8-Bo-mLe" id="G6f-eW-meC"/>
+                        <outlet property="stopButton" destination="3Dr-VH-SO2" id="gqq-U9-aZw"/>
+                        <outlet property="timeDisplay" destination="O9o-0P-t05" id="R8y-Ta-C4u"/>
+                        <outlet property="timerControlsGroup" destination="mqz-CS-F4f" id="kXg-AM-4GE"/>
+                        <outlet property="timerListTable" destination="n2o-Lj-sX3" id="6Sr-zJ-Mdu"/>
                     </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="220" y="345"/>
-        </scene>
-        <!--LGV_Timer_SingleWatchInterfaceController-->
-        <scene sceneID="Fyh-f4-Dg3">
-            <objects>
-                <controller identifier="LGV_Timer_SingleWatchInterfaceController" contentMode="scaleAspectFit" hidesWhenLoading="NO" id="W9W-EI-QiA" customClass="LGV_Timer_SingleWatchInterfaceController" customModule="X_Timer_Watch_Extension">
-                    <items>
-                        <group width="1" height="1" alignment="left" backgroundImage="OffLight" contentMode="scaleAspectFit" layout="vertical" id="mqz-CS-F4f">
-                            <items>
-                                <group width="1" height="0.25" alignment="left" layout="vertical" id="gj4-Ib-zhv">
-                                    <items>
-                                        <label alignment="center" verticalAlignment="center" text="00:00:00" textAlignment="center" id="O9o-0P-t05">
-                                            <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="38"/>
-                                        </label>
-                                    </items>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </group>
-                                <group width="1" height="0.75" alignment="center" verticalAlignment="center" layout="vertical" id="bMe-qJ-bnP">
-                                    <items>
-                                        <group width="0.90000000000000002" height="50" alignment="center" id="mnq-R2-WDc">
-                                            <items>
-                                                <button alignment="left" verticalAlignment="center" id="3Dr-VH-SO2">
-                                                    <group key="contentGroup" width="50" height="50" alignment="left" id="L3p-XF-4fY">
-                                                        <items>
-                                                            <imageView width="1" height="1" alignment="left" image="Watch-Stop" contentMode="center" id="G0Q-kR-E08"/>
-                                                        </items>
-                                                        <color key="backgroundColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </group>
-                                                    <connections>
-                                                        <action selector="stopButtonHit" destination="W9W-EI-QiA" id="Tgz-6X-egt"/>
-                                                    </connections>
-                                                </button>
-                                                <button alignment="right" verticalAlignment="center" id="xX7-XV-vQR">
-                                                    <group key="contentGroup" width="50" height="50" alignment="left" id="OBk-LX-421">
-                                                        <items>
-                                                            <imageView width="1" height="1" alignment="left" image="Watch-Start" contentMode="center" id="Gqv-iV-FmE"/>
-                                                        </items>
-                                                        <color key="backgroundColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </group>
-                                                    <connections>
-                                                        <action selector="pauseStartButtonHit" destination="W9W-EI-QiA" id="lOw-3S-i8p"/>
-                                                    </connections>
-                                                </button>
-                                            </items>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </group>
-                                        <group width="0.90000000000000002" height="50" alignment="center" verticalAlignment="bottom" id="ZQl-tw-wPE">
-                                            <items>
-                                                <button alignment="left" verticalAlignment="center" id="6e8-Bo-mLe">
-                                                    <group key="contentGroup" width="50" height="50" alignment="left" id="c8p-3k-R0e">
-                                                        <items>
-                                                            <imageView width="1" height="1" alignment="left" image="Watch-Reset" contentMode="center" id="emt-sx-Ghw"/>
-                                                        </items>
-                                                        <color key="backgroundColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </group>
-                                                    <connections>
-                                                        <action selector="resetButtonHit" destination="W9W-EI-QiA" id="INa-ch-qbw"/>
-                                                    </connections>
-                                                </button>
-                                                <button alignment="right" verticalAlignment="center" id="iJK-dZ-a44">
-                                                    <group key="contentGroup" width="50" height="50" alignment="left" id="n20-pR-fDg">
-                                                        <items>
-                                                            <imageView width="1" height="1" alignment="left" image="Watch-End" contentMode="center" id="rIB-eK-H7b"/>
-                                                        </items>
-                                                        <color key="backgroundColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </group>
-                                                    <connections>
-                                                        <action selector="endButtonHit" destination="W9W-EI-QiA" id="1MY-eB-09I"/>
-                                                    </connections>
-                                                </button>
-                                            </items>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </group>
-                                    </items>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </group>
-                            </items>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </group>
-                    </items>
-                    <connections>
-                        <outlet property="endButton" destination="iJK-dZ-a44" id="k4r-Js-jF5"/>
-                        <outlet property="pauseStartButton" destination="xX7-XV-vQR" id="4vw-jx-6Jp"/>
-                        <outlet property="pauseStartImage" destination="Gqv-iV-FmE" id="zdN-D5-C94"/>
-                        <outlet property="resetButton" destination="6e8-Bo-mLe" id="pSL-yu-86I"/>
-                        <outlet property="stopButton" destination="3Dr-VH-SO2" id="fdz-xG-kEa"/>
-                        <outlet property="timeDisplay" destination="O9o-0P-t05" id="3da-nN-FVR"/>
-                    </connections>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="470" y="345"/>
         </scene>
     </scenes>
 </document>

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		7701354F1EF44E2C009E1393 /* X-Timer-Watch.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7701354E1EF44E2C009E1393 /* X-Timer-Watch.xcassets */; };
 		77048CED1EF419BC00F46BDF /* LGV_Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */; };
-		77048CEF1EF4209500F46BDF /* LGV_Timer_SingleWatchInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77048CEE1EF4209500F46BDF /* LGV_Timer_SingleWatchInterfaceController.swift */; };
 		77052CD71EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77052CD61EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift */; };
 		7707EC4F1EED766600CBAF1F /* LGV_Timer_WatchInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7707EC4E1EED766600CBAF1F /* LGV_Timer_WatchInterfaceController.swift */; };
 		7707EC511EED77D400CBAF1F /* LGV_Timer_TimerListTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7707EC501EED77D400CBAF1F /* LGV_Timer_TimerListTableRowController.swift */; };
@@ -97,7 +96,6 @@
 
 /* Begin PBXFileReference section */
 		7701354E1EF44E2C009E1393 /* X-Timer-Watch.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "X-Timer-Watch.xcassets"; sourceTree = "<group>"; };
-		77048CEE1EF4209500F46BDF /* LGV_Timer_SingleWatchInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_Timer_SingleWatchInterfaceController.swift; sourceTree = "<group>"; };
 		77052CD61EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerRuntimeViewController.swift; path = ViewControllers/LGV_Timer_TimerRuntimeViewController.swift; sourceTree = "<group>"; };
 		7707EC4E1EED766600CBAF1F /* LGV_Timer_WatchInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_Timer_WatchInterfaceController.swift; sourceTree = "<group>"; };
 		7707EC501EED77D400CBAF1F /* LGV_Timer_TimerListTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_Timer_TimerListTableRowController.swift; sourceTree = "<group>"; };
@@ -281,7 +279,6 @@
 				77D72A6E1EEC95A5002AD950 /* ExtensionDelegate.swift */,
 				7707EC4E1EED766600CBAF1F /* LGV_Timer_WatchInterfaceController.swift */,
 				7707EC501EED77D400CBAF1F /* LGV_Timer_TimerListTableRowController.swift */,
-				77048CEE1EF4209500F46BDF /* LGV_Timer_SingleWatchInterfaceController.swift */,
 				77D72A6A1EEC95A5002AD950 /* Supporting Files */,
 			);
 			path = "X-Timer-Watch Extension";
@@ -514,7 +511,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				77D72A6F1EEC95A5002AD950 /* ExtensionDelegate.swift in Sources */,
-				77048CEF1EF4209500F46BDF /* LGV_Timer_SingleWatchInterfaceController.swift in Sources */,
 				77048CED1EF419BC00F46BDF /* LGV_Timer_SharedDeclarations.swift in Sources */,
 				7707EC4F1EED766600CBAF1F /* LGV_Timer_WatchInterfaceController.swift in Sources */,
 				7707EC511EED77D400CBAF1F /* LGV_Timer_TimerListTableRowController.swift in Sources */,
