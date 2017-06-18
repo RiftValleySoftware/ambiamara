@@ -230,6 +230,27 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /* ################################################################## */
     /**
      */
+    func stopTimer() {
+        self.stopButtonHit(self.stopButton)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func endTimer() {
+        self.endButtonHit(self.endButton)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func resetTimer() {
+        self.resetButtonHit(self.resetButton)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func timerCallback(_ inTimer: Timer) {
         if nil != self._alarmTimer {
             self._alarmTimer.invalidate()

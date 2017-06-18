@@ -50,36 +50,54 @@ class LGV_Timer_TimerListInterfaceController: WKInterfaceController, WCSessionDe
     /* ################################################################## */
     /**
      */
+    func sendSelectMessage(timer inTimer: [String:Any]! = nil) {
+        var selectMessage = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey:""]
+        if nil != inTimer {
+            if let uid = inTimer[LGV_Timer_Data_Keys.s_timerDataUIDKey] as? String {
+                selectMessage[LGV_Timer_Messages.s_timerListSelectTimerMessageKey] = uid
+            }
+        }
+        session.sendMessage(selectMessage, replyHandler: nil)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func sendStartMessage(_ inController:LGV_Timer_SingleWatchInterfaceController, timer inTimer: [String:Any]) {
-        
+        let startMessage = [LGV_Timer_Messages.s_timerListStartTimerMessageKey:inTimer[LGV_Timer_Data_Keys.s_timerDataUIDKey] as Any]
+        session.sendMessage(startMessage, replyHandler: nil)
     }
     
     /* ################################################################## */
     /**
      */
     func sendPauseMessage(_ inController:LGV_Timer_SingleWatchInterfaceController, timer inTimer: [String:Any]) {
-        
+        let pauseMessage = [LGV_Timer_Messages.s_timerListPauseTimerMessageKey:inTimer[LGV_Timer_Data_Keys.s_timerDataUIDKey] as Any]
+        session.sendMessage(pauseMessage, replyHandler: nil)
     }
     
     /* ################################################################## */
     /**
      */
     func sendStopMessage(_ inController:LGV_Timer_SingleWatchInterfaceController, timer inTimer: [String:Any]) {
-        
+        let stopMessage = [LGV_Timer_Messages.s_timerListStopTimerMessageKey:inTimer[LGV_Timer_Data_Keys.s_timerDataUIDKey] as Any]
+        session.sendMessage(stopMessage, replyHandler: nil)
     }
     
     /* ################################################################## */
     /**
      */
     func sendEndMessage(_ inController:LGV_Timer_SingleWatchInterfaceController, timer inTimer: [String:Any]) {
-        
+        let endMessage = [LGV_Timer_Messages.s_timerListEndTimerMessageKey:inTimer[LGV_Timer_Data_Keys.s_timerDataUIDKey] as Any]
+        session.sendMessage(endMessage, replyHandler: nil)
     }
     
     /* ################################################################## */
     /**
      */
     func sendResetMessage(_ inController:LGV_Timer_SingleWatchInterfaceController, timer inTimer: [String:Any]) {
-        
+        let resetMessage = [LGV_Timer_Messages.s_timerListResetTimerMessageKey:inTimer[LGV_Timer_Data_Keys.s_timerDataUIDKey] as Any]
+        session.sendMessage(resetMessage, replyHandler: nil)
     }
     
     // MARK: - Base Class Override Methods
@@ -96,6 +114,7 @@ class LGV_Timer_TimerListInterfaceController: WKInterfaceController, WCSessionDe
     /**
      */
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        self.sendSelectMessage(timer: self._timerArray[rowIndex])
         let context:[String:Any] = [type(of:self).s_timerListContextTimerElementKey:self._timerArray[rowIndex], type(of:self).s_timerListContextControllerElementKey:self]
         pushController(withName: type(of:self).s_timerListSingleWatchControllerID, context:context)
     }

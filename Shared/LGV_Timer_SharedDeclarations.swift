@@ -11,11 +11,12 @@ import Foundation
 class LGV_Timer_Messages {
     static let s_timerListHowdyMessageKey = "Howdy"
     static let s_timerListHowdyMessageValue = "HowManyTimers"
+    static let s_timerListSelectTimerMessageKey = "SelectTimer"
     static let s_timerListStartTimerMessageKey = "StartTimer"
     static let s_timerListPauseTimerMessageKey = "PauseTimer"
     static let s_timerListStopTimerMessageKey = "StopTimer"
     static let s_timerListResetTimerMessageKey = "ResetTimer"
-    static let s_timerListFinishTimerMessageKey = "FinishTimer"
+    static let s_timerListEndTimerMessageKey = "EndTimer"
 
 }
 

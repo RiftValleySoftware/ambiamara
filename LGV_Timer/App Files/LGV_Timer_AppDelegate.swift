@@ -190,8 +190,9 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        if let value = message[LGV_Timer_Messages.s_timerListHowdyMessageKey] as? String {
-            if LGV_Timer_Messages.s_timerListHowdyMessageValue == value {
+        for key in message.keys {
+            switch key {
+            case    LGV_Timer_Messages.s_timerListHowdyMessageKey:
                 var timerArray:[[String:Any]] = []
                 var index = 1
                 for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
@@ -216,11 +217,124 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                 
                 let timerData = NSKeyedArchiver.archivedData(withRootObject: timerArray)
                 let responseMessage = [LGV_Timer_Messages.s_timerListHowdyMessageValue:timerData]
-
+                
                 session.sendMessage(responseMessage, replyHandler: nil, errorHandler: nil)
+                
+            case    LGV_Timer_Messages.s_timerListSelectTimerMessageKey:
+                if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
+                    if let uid = message[key] as? String {
+                        if let _ = LGV_Timer_StaticPrefs.prefs.getTimerPrefsForUID(uid) {
+                            let timerIndex = LGV_Timer_StaticPrefs.prefs.getIndexOfTimer(uid)
+                            DispatchQueue.main.async {
+                                tabController.selectedIndex = timerIndex + 1
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                tabController.selectedIndex = 0
+                            }
+                        }
+                    }
+                }
+                break
+                
+            case    LGV_Timer_Messages.s_timerListStartTimerMessageKey:
+                if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
+                    if let uid = message[key] as? String {
+                        if let _ = LGV_Timer_StaticPrefs.prefs.getTimerPrefsForUID(uid) {
+                            let timerIndex = LGV_Timer_StaticPrefs.prefs.getIndexOfTimer(uid)
+                            DispatchQueue.main.async {
+                                if tabController.selectedIndex == (timerIndex + 1) {
+                                    if nil != self.currentTimer {
+                                        self.currentTimer.continueTimer()
+                                    } else {
+                                        if let myController = tabController.selectedViewController as? LGV_Timer_TimerNavController {
+                                            if let selectedController = myController.topViewController as? LGV_Timer_TimerSetController {
+                                                selectedController.startTimer()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                break
+                
+            case    LGV_Timer_Messages.s_timerListPauseTimerMessageKey:
+                if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
+                    if let uid = message[key] as? String {
+                        if let _ = LGV_Timer_StaticPrefs.prefs.getTimerPrefsForUID(uid) {
+                            let timerIndex = LGV_Timer_StaticPrefs.prefs.getIndexOfTimer(uid)
+                            DispatchQueue.main.async {
+                                if tabController.selectedIndex == (timerIndex + 1) {
+                                    if nil != self.currentTimer {
+                                        self.currentTimer.pauseTimer()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                break
+
+            case    LGV_Timer_Messages.s_timerListStopTimerMessageKey:
+                if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
+                    if let uid = message[key] as? String {
+                        if let _ = LGV_Timer_StaticPrefs.prefs.getTimerPrefsForUID(uid) {
+                            let timerIndex = LGV_Timer_StaticPrefs.prefs.getIndexOfTimer(uid)
+                            DispatchQueue.main.async {
+                                if tabController.selectedIndex == (timerIndex + 1) {
+                                    if nil != self.currentTimer {
+                                        self.currentTimer.stopTimer()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                break
+
+            case    LGV_Timer_Messages.s_timerListResetTimerMessageKey:
+                if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
+                    if let uid = message[key] as? String {
+                        if let _ = LGV_Timer_StaticPrefs.prefs.getTimerPrefsForUID(uid) {
+                            let timerIndex = LGV_Timer_StaticPrefs.prefs.getIndexOfTimer(uid)
+                            DispatchQueue.main.async {
+                                if tabController.selectedIndex == (timerIndex + 1) {
+                                    if nil != self.currentTimer {
+                                        self.currentTimer.resetTimer()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                break
+
+            case    LGV_Timer_Messages.s_timerListEndTimerMessageKey:
+                if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
+                    if let uid = message[key] as? String {
+                        if let _ = LGV_Timer_StaticPrefs.prefs.getTimerPrefsForUID(uid) {
+                            let timerIndex = LGV_Timer_StaticPrefs.prefs.getIndexOfTimer(uid)
+                            DispatchQueue.main.async {
+                                if tabController.selectedIndex == (timerIndex + 1) {
+                                    if nil != self.currentTimer {
+                                        self.currentTimer.endTimer()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                break
+                
+            default:
+                if let uid = message[key] as? String {
+                    print(uid)
+                }
+                type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessage:)", inMessage: "\(message)")
+                break
             }
-        } else {
-            type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessage:)", inMessage: "\(message)")
         }
     }
     
