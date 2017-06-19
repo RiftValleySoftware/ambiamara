@@ -14,7 +14,7 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_MainTabController: UITabBarController {
+class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegate {
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -25,6 +25,7 @@ class LGV_Timer_MainTabController: UITabBarController {
         super.viewDidLoad()
         self.selectedIndex = 0
         self.updateTimers()
+        self.delegate = self
         self.viewControllers?[0].tabBarItem.title = self.viewControllers?[0].tabBarItem.title?.localizedVariant
         // Pre-load our color labels.
         _ = s_g_LGV_Timer_AppDelegatePrefs.pickerPepperArray
@@ -61,6 +62,7 @@ class LGV_Timer_MainTabController: UITabBarController {
     func selectTimer(_ inTimerIndex: Int) {
         let timerIndex = 1 + inTimerIndex
         self.selectedViewController = self.viewControllers?[timerIndex]
+        self.tabBarController(self, didSelect: self.selectedViewController!)
     }
     
     /* ################################################################## */
@@ -104,6 +106,20 @@ class LGV_Timer_MainTabController: UITabBarController {
                 timerController.navigationBar.topItem?.title = timerTitle
                 self.viewControllers?.append(timerController)
             }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if 0 < self.selectedIndex {
+            let timerIndex = self.selectedIndex - 1
+            let timerObject = LGV_Timer_StaticPrefs.prefs.timers[timerIndex]
+            let uid = timerObject.uid
+            LGV_Timer_AppDelegate.appDelegateObject.sendSelectMessage(timerUID: uid)
+        } else {
+            LGV_Timer_AppDelegate.appDelegateObject.sendSelectMessage()
         }
     }
 }

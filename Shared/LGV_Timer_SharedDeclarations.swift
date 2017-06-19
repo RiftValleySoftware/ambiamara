@@ -17,13 +17,15 @@ class LGV_Timer_Messages {
     static let s_timerListStopTimerMessageKey = "StopTimer"
     static let s_timerListResetTimerMessageKey = "ResetTimer"
     static let s_timerListEndTimerMessageKey = "EndTimer"
-
+    static let s_timerListUpdateTimerMessageKey = "UpdateTimer"
 }
 
 class LGV_Timer_Data_Keys {
     static let s_timerDataUIDKey = "UID"
     static let s_timerDataTimerNameKey = "TimerName"
     static let s_timerDataTimeSetKey = "TimeSet"
+    static let s_timerDataTimeSetWarnKey = "TimeSetWarn"
+    static let s_timerDataTimeSetFinalKey = "TimeSetFinal"
     static let s_timerDataDisplayModeKey = "DisplayMode"
     static let s_timerDataColorKey = "Color"
 }

@@ -267,6 +267,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
                     self._timer = nil
                     self._alarm()
                 } else {
+                    LGV_Timer_AppDelegate.appDelegateObject.sendUpdateMessage()
                     self.lastTimerDate = Date()
                     self._setUpDisplay()
                 }

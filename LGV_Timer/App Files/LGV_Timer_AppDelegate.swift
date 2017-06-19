@@ -157,6 +157,79 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
         s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
     }
     
+    // MARK: - WCSessionDelegate Sender Methods
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    func sendUpdateMessage() {
+        if (nil != currentTimer) && (.activated == self.session.activationState) {
+            let seconds = currentTimer.currentTimeInSeconds
+            let updateMsg = [LGV_Timer_Messages.s_timerListUpdateTimerMessageKey:seconds]
+            self.session.sendMessage(updateMsg, replyHandler: nil, errorHandler: nil)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendSelectMessage(timerUID: String = "") {
+        if .activated == self.session.activationState {
+            let selectMsg = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey:timerUID]
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendStartMessage(timerUID: String) {
+        if .activated == self.session.activationState {
+            let selectMsg = [LGV_Timer_Messages.s_timerListStartTimerMessageKey:timerUID]
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendStopMessage(timerUID: String) {
+        if .activated == self.session.activationState {
+            let selectMsg = [LGV_Timer_Messages.s_timerListStopTimerMessageKey:timerUID]
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendPauseMessage(timerUID: String) {
+        if .activated == self.session.activationState {
+            let selectMsg = [LGV_Timer_Messages.s_timerListPauseTimerMessageKey:timerUID]
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendEndMessage(timerUID: String) {
+        if .activated == self.session.activationState {
+            let selectMsg = [LGV_Timer_Messages.s_timerListEndTimerMessageKey:timerUID]
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendResetMessage(timerUID: String) {
+        if .activated == self.session.activationState {
+            let selectMsg = [LGV_Timer_Messages.s_timerListResetTimerMessageKey:timerUID]
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        }
+    }
+    
     // MARK: - WCSessionDelegate Protocol Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -198,6 +271,8 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                 for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
                     var timerDictionary:[String:Any] = [:]
                     timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] = timer.timeSet
+                    timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetWarnKey] = timer.timeSetPodiumWarn
+                    timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetFinalKey] = timer.timeSetPodiumFinal
                     timerDictionary[LGV_Timer_Data_Keys.s_timerDataDisplayModeKey] = timer.displayMode.rawValue
                     timerDictionary[LGV_Timer_Data_Keys.s_timerDataUIDKey] = timer.uid
                     timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimerNameKey] = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, index)
@@ -286,6 +361,8 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                                 if tabController.selectedIndex == (timerIndex + 1) {
                                     if nil != self.currentTimer {
                                         self.currentTimer.stopTimer()
+                                        self.currentTimer.navigationController?.popToRootViewController(animated: false)
+                                        tabController.selectedIndex = 0
                                     }
                                 }
                             }
