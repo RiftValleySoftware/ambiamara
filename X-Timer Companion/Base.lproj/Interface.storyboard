@@ -91,7 +91,45 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="283" y="35"/>
+            <point key="canvasLocation" x="322" y="69"/>
+        </scene>
+        <!--Running Timer-->
+        <scene sceneID="jaH-hQ-9O5">
+            <objects>
+                <controller identifier="RunningTimer" id="ljw-Z4-BZJ" userLabel="Running Timer" customClass="LGV_Timer_Watch_RunningTimerInterfaceController" customModule="X_Timer_Companion_Extension">
+                    <items>
+                        <button alignment="left" id="D1z-TA-HQx">
+                            <group key="contentGroup" width="1" alignment="left" id="P2i-2e-2Ml">
+                                <items>
+                                    <group width="1" height="1" alignment="left" verticalAlignment="center" layout="vertical" id="pav-ba-U5e">
+                                        <items>
+                                            <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="xNU-lg-0O4">
+                                                <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="37"/>
+                                            </label>
+                                            <group width="1" alignment="left" verticalAlignment="center" id="SmR-Mg-zB6">
+                                                <items>
+                                                    <imageView width="40" height="40" alignment="left" image="Watch-OffLight" id="lUf-Sp-uXJ" userLabel="Green Light"/>
+                                                    <imageView width="40" height="40" alignment="center" image="Watch-OffLight" id="UyE-1h-EaU" userLabel="Yellow Light"/>
+                                                    <imageView width="40" height="40" alignment="right" image="Watch-OffLight" id="tOR-a0-VVG" userLabel="Red Light"/>
+                                                </items>
+                                            </group>
+                                        </items>
+                                    </group>
+                                </items>
+                            </group>
+                        </button>
+                    </items>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="displayDigitsLabel" destination="xNU-lg-0O4" id="DCo-Wi-uuP"/>
+                        <outlet property="displayTrafficLightsGroup" destination="SmR-Mg-zB6" id="vSm-pM-4QX"/>
+                        <outlet property="greenLightImage" destination="lUf-Sp-uXJ" id="OK7-tk-iwg"/>
+                        <outlet property="redLightImage" destination="tOR-a0-VVG" id="1oD-qH-9g5"/>
+                        <outlet property="yellowLightImage" destination="UyE-1h-EaU" id="oTC-2b-ke4"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="588" y="69"/>
         </scene>
     </scenes>
     <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>

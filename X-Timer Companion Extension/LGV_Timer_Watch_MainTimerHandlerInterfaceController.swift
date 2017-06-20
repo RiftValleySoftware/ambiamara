@@ -13,6 +13,8 @@ import Foundation
 /**
  */
 class LGV_Timer_Watch_MainTimerHandlerInterfaceController: WKInterfaceController {
+    static let s_RunningTimerInterfaceID = "RunningTimer"
+    
     private var _currentTimeInSeconds: Int = 0
     private var _lastTimerDate: Date! = nil
     private var _timer: [String:Any]! = nil
