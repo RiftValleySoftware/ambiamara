@@ -128,6 +128,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         super.viewWillDisappear(animated)
         // Don't forget to reset when view is being removed
         LGV_Timer_AppDelegate.lockOrientation(.all)
+        self.navigationController?.popToRootViewController(animated: false)
     }
     
     // MARK: - @IBAction Methods

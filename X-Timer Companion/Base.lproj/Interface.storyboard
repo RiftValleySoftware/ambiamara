@@ -25,18 +25,19 @@
                                         <tableRow identifier="TimerRow" id="SvS-RB-JjR" customClass="LGV_Timer_Watch_MainInterfaceTableRowController" customModule="X_Timer_Companion_Extension">
                                             <group key="rootItem" width="1" alignment="left" layout="vertical" id="OH3-Hd-MtQ">
                                                 <items>
-                                                    <label width="1" height="0.5" alignment="left" text="Label" textAlignment="left" id="Nbg-Gi-VVz">
+                                                    <label width="1" height="0.5" alignment="left" textAlignment="left" id="Nbg-Gi-VVz">
                                                         <fontDescription key="font" type="system" weight="semibold" pointSize="20"/>
                                                     </label>
                                                     <group width="1" height="0.5" alignment="left" verticalAlignment="bottom" id="g3q-it-eGR">
                                                         <items>
-                                                            <imageView height="1" alignment="left" verticalAlignment="center" image="Watch-TrafficLights" contentMode="scaleAspectFit" id="EKt-lH-VLn"/>
-                                                            <label height="1" alignment="right" verticalAlignment="center" text="Label" id="YGz-OA-jsB">
+                                                            <imageView height="1" alignment="left" verticalAlignment="center" hidden="YES" image="Watch-TrafficLights" contentMode="scaleAspectFit" id="EKt-lH-VLn"/>
+                                                            <label height="1" alignment="right" verticalAlignment="center" id="YGz-OA-jsB">
                                                                 <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="24"/>
                                                             </label>
                                                         </items>
                                                     </group>
                                                 </items>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </group>
                                             <connections>
                                                 <outlet property="displayFormatImage" destination="EKt-lH-VLn" id="sOi-OW-yty"/>
@@ -54,6 +55,37 @@
                     </connections>
                 </controller>
             </objects>
+            <point key="canvasLocation" x="34" y="69"/>
+        </scene>
+        <!--NoApp-->
+        <scene sceneID="5A9-SJ-bWw">
+            <objects>
+                <controller identifier="NoApp" id="i4N-ut-62W" customClass="LGV_Timer_Watch_NoAppInterfaceController" customModule="X_Timer_Companion_Extension">
+                    <items>
+                        <group width="1" height="1" alignment="left" layout="vertical" id="lQa-3d-Y0M">
+                            <items>
+                                <label width="1" alignment="left" verticalAlignment="center" text="TOP" textAlignment="center" id="3kZ-LS-I8a" userLabel="TOP">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                </label>
+                                <imageView width="50" height="50" alignment="center" verticalAlignment="center" image="Clock" contentMode="scaleAspectFit" id="FU9-X5-MIv">
+                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </imageView>
+                                <label width="1" alignment="left" verticalAlignment="center" text="BOTTOM" textAlignment="center" id="1WQ-zR-wue">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                </label>
+                            </items>
+                            <color key="backgroundColor" red="0.26621194949999999" green="0.26621194949999999" blue="0.26621194949999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="timerDismissTextButtonBottomLabel" destination="1WQ-zR-wue" id="kw7-3m-puX"/>
+                        <outlet property="timerDismissTextButtonLabel" destination="3kZ-LS-I8a" id="WAd-5h-MQb"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="34" y="352"/>
         </scene>
         <!--Individual Timer-->
         <scene sceneID="xyw-HL-qjO">
@@ -108,7 +140,7 @@
                                             </label>
                                             <group width="1" alignment="left" verticalAlignment="center" id="SmR-Mg-zB6">
                                                 <items>
-                                                    <imageView width="40" height="40" alignment="left" image="Watch-OffLight" id="lUf-Sp-uXJ" userLabel="Green Light"/>
+                                                    <imageView width="40" height="40" alignment="left" image="Watch-GreenLight" id="lUf-Sp-uXJ" userLabel="Green Light"/>
                                                     <imageView width="40" height="40" alignment="center" image="Watch-OffLight" id="UyE-1h-EaU" userLabel="Yellow Light"/>
                                                     <imageView width="40" height="40" alignment="right" image="Watch-OffLight" id="tOR-a0-VVG" userLabel="Red Light"/>
                                                 </items>

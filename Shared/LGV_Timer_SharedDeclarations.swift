@@ -18,6 +18,9 @@ class LGV_Timer_Messages {
     static let s_timerListResetTimerMessageKey = "ResetTimer"
     static let s_timerListEndTimerMessageKey = "EndTimer"
     static let s_timerListUpdateTimerMessageKey = "UpdateTimer"
+    static let s_timerAppInBackgroundMessageKey = "AppInBackground"
+    static let s_timerAppInForegroundMessageKey = "AppInForeground"
+    static let s_timerRequestAppStatusMessageKey = "WhatUpDood"
 }
 
 class LGV_Timer_Data_Keys {

@@ -118,7 +118,8 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /* ################################################################## */
     /**
      */
-    func applicationWillEnterForeground(_ application: UIApplication) {
+    @objc(applicationWillEnterForeground:) func applicationWillEnterForeground(_ application: UIApplication) {
+        self.sendForegroundMessage()
     }
     
     /* ################################################################## */
@@ -140,6 +141,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func applicationWillResignActive(_ application: UIApplication) {
+        self.sendBackgroundMessage()
         s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
     }
 
@@ -147,6 +149,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func applicationDidEnterBackground(_ application: UIApplication) {
+        self.sendBackgroundMessage()
         s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
     }
     
@@ -154,6 +157,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func applicationWillTerminate(_ application: UIApplication) {
+        self.sendBackgroundMessage()
         s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
     }
     
@@ -230,12 +234,35 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
         }
     }
     
+    /* ################################################################## */
+    /**
+     */
+    func sendBackgroundMessage() {
+        if .activated == self.session.activationState {
+            let selectMsg = [LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:""]
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendForegroundMessage() {
+        if .activated == self.session.activationState {
+            let selectMsg = [LGV_Timer_Messages.s_timerAppInForegroundMessageKey:""]
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        }
+    }
+    
     // MARK: - WCSessionDelegate Protocol Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      */
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        if .background == UIApplication.shared.applicationState {
+            self.sendBackgroundMessage()
+        }
     }
     
     /* ################################################################## */
@@ -294,6 +321,13 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                 let responseMessage = [LGV_Timer_Messages.s_timerListHowdyMessageValue:timerData]
                 
                 session.sendMessage(responseMessage, replyHandler: nil, errorHandler: nil)
+                
+            case    LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:
+                if .activated == self.session.activationState {
+                    self.sendForegroundMessage()
+                } else {
+                    self.sendBackgroundMessage()
+                }
                 
             case    LGV_Timer_Messages.s_timerListSelectTimerMessageKey:
                 if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
@@ -413,56 +447,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                 break
             }
         }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessage:)", inMessage: "\(message)")
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
-        type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessageData:)", inMessage: "\(messageData)")
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
-        type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessageData:)", inMessage: "\(messageData)")
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
-        type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveUserInfo:)", inMessage: "\(userInfo)")
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
-        print("iOS App: LGV_Timer_AppDelegate.session(_:,didFinish:,error:)\n\(userInfoTransfer)\n\(String(describing: error))")
-        type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didFinish:)", inMessage: "\(userInfoTransfer)\n\(String(describing: error))")
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func session(_ session: WCSession, didReceive file: WCSessionFile) {
-        type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceive:)", inMessage: "\(file)")
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func session(_ session: WCSession, didFinish fileTransfer: WCSessionFileTransfer, error: Error?) {
-        type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didFinish:)", inMessage: "\(fileTransfer)\n\(String(describing: error))")
     }
 }
 

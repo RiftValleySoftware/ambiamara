@@ -61,3 +61,6 @@
 "LGV_TIMER-ABOUT-LGV-BLURB-1"                           =   "X-Timer is a Little Green Viper Project.";
 "LGV_TIMER-ABOUT-LGV-BLURB-2"                           =   "Find out more at https://littlegreenviper.com";
 "LGV_TIMER-ABOUT-LGV-BLURB-URI"                         =   "https://littlegreenviper.com";
+
+"LGV_TIMER-WATCH-NOT-ACTIVE-TOP-MESSAGE"                =   "The phone app";
+"LGV_TIMER-WATCH-NOT-ACTIVE-BOTTOM-MESSAGE"             =   "is not active";

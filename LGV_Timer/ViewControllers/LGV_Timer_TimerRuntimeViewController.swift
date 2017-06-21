@@ -120,6 +120,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         self.lastTimerDate = Date()
         self._timer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(self.timerCallback(_:)), userInfo: nil, repeats: true)
         self._setUpDisplay()
+        LGV_Timer_AppDelegate.appDelegateObject.sendStartMessage(timerUID: self.timerObject.uid)
     }
     
     /* ################################################################## */
@@ -175,6 +176,8 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self._alarmTimer = nil
         }
         
+        LGV_Timer_AppDelegate.appDelegateObject.sendUpdateMessage()
+
         self.clockPaused = true
         self._setUpDisplay()
         self._flashDisplay()
@@ -381,6 +384,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         }
         
         super.viewWillDisappear(animated)
+        self.navigationController?.popToRootViewController(animated: false)
         
         LGV_Timer_AppDelegate.appDelegateObject.currentTimer = nil
         UIApplication.shared.isIdleTimerDisabled = false
@@ -402,6 +406,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self._timer = nil
         }
         
+        LGV_Timer_AppDelegate.appDelegateObject.sendStopMessage(timerUID: self.timerObject.uid)
         _ = self.navigationController?.popViewController(animated: true)
     }
     
@@ -410,6 +415,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
      */
     @IBAction func endButtonHit(_ sender: Any) {
         self.currentTimeInSeconds = 0
+        LGV_Timer_AppDelegate.appDelegateObject.sendEndMessage(timerUID: self.timerObject.uid)
         self._alarm()
     }
     
@@ -429,6 +435,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         
         self.currentTimeInSeconds = self.timerObject.timeSet
         self.flasherView.isHidden = true
+        LGV_Timer_AppDelegate.appDelegateObject.sendResetMessage(timerUID: self.timerObject.uid)
         self.clockPaused = true
         self.lastTimerDate = Date()
         self._setUpDisplay()
@@ -439,8 +446,10 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
      */
     @IBAction func pauseButtonHit(_ sender: Any) {
         if self.clockPaused || (0 == self.currentTimeInSeconds) {
+            LGV_Timer_AppDelegate.appDelegateObject.sendStartMessage(timerUID: self.timerObject.uid)
             self.continueTimer()
         } else {
+            LGV_Timer_AppDelegate.appDelegateObject.sendPauseMessage(timerUID: self.timerObject.uid)
             self.pauseTimer()
         }
     }
@@ -460,6 +469,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
                 self._timer = nil
             }
             
+            LGV_Timer_AppDelegate.appDelegateObject.sendStopMessage(timerUID: self.timerObject.uid)
             self.currentTimeInSeconds = self.timerObject.timeSet
             self.flasherView.isHidden = true
             self.clockPaused = true
