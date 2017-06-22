@@ -247,6 +247,16 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /* ################################################################## */
     /**
      */
+    func sendActiveTimerMessage(timerUID: String) {
+        if .activated == self.session.activationState {
+            let selectMsg = [LGV_Timer_Messages.s_timerRequestActiveTimerUIDMessageKey:timerUID]
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func sendBackgroundMessage() {
         if .activated == self.session.activationState {
             let selectMsg = [LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:""]
@@ -270,7 +280,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        if .background == UIApplication.shared.applicationState {
+        if .active != UIApplication.shared.applicationState {
             self.sendBackgroundMessage()
         }
     }
@@ -333,8 +343,20 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                 session.sendMessage(responseMessage, replyHandler: nil, errorHandler: nil)
                 
             case    LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:
-                if .activated == self.session.activationState {
+                if .active == UIApplication.shared.applicationState {
                     self.sendForegroundMessage()
+                } else {
+                    self.sendBackgroundMessage()
+                }
+                
+            case    LGV_Timer_Messages.s_timerRequestActiveTimerUIDMessageKey:
+                if .active == UIApplication.shared.applicationState {
+                    var activeTimerUID: String = ""
+                    
+                    if nil != self.currentTimer {
+                        activeTimerUID = self.currentTimer.timerObject.uid
+                    }
+                    self.sendActiveTimerMessage(timerUID: activeTimerUID)
                 } else {
                     self.sendBackgroundMessage()
                 }
@@ -354,7 +376,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                         }
                     }
                 }
-                break
                 
             case    LGV_Timer_Messages.s_timerListStartTimerMessageKey:
                 if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
@@ -377,7 +398,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                         }
                     }
                 }
-                break
                 
             case    LGV_Timer_Messages.s_timerListPauseTimerMessageKey:
                 if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
@@ -394,7 +414,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                         }
                     }
                 }
-                break
 
             case    LGV_Timer_Messages.s_timerListStopTimerMessageKey:
                 if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
@@ -413,7 +432,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                         }
                     }
                 }
-                break
 
             case    LGV_Timer_Messages.s_timerListResetTimerMessageKey:
                 if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
@@ -430,7 +448,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                         }
                     }
                 }
-                break
 
             case    LGV_Timer_Messages.s_timerListEndTimerMessageKey:
                 if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
@@ -447,14 +464,12 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                         }
                     }
                 }
-                break
                 
             default:
                 if let uid = message[key] as? String {
                     print(uid)
                 }
                 type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessage:)", inMessage: "\(message)")
-                break
             }
         }
     }

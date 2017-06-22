@@ -22,6 +22,7 @@ class LGV_Timer_Messages {
     static let s_timerAppInBackgroundMessageKey = "AppInBackground"
     static let s_timerAppInForegroundMessageKey = "AppInForeground"
     static let s_timerRequestAppStatusMessageKey = "WhatUpDood"
+    static let s_timerRequestActiveTimerUIDMessageKey = "Whazzup"
 }
 
 class LGV_Timer_Data_Keys {

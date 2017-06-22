@@ -215,6 +215,16 @@ class LGV_Timer_Watch_MainInterfaceController: WKInterfaceController, WCSessionD
     /* ################################################################## */
     /**
      */
+    func sendActiveTimerRequestMessage() {
+        if .activated == self.session.activationState {
+            let selectMsg = [LGV_Timer_Messages.s_timerRequestActiveTimerUIDMessageKey:""]
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func getTimerIndexForUID(_ inUID: String) -> Int {
         var ret: Int = -1
         
@@ -248,13 +258,15 @@ class LGV_Timer_Watch_MainInterfaceController: WKInterfaceController, WCSessionD
      */
     func pushTimer(_ timerIndex: Int) {
         DispatchQueue.main.async {
-            if let uid = self._timers[timerIndex][LGV_Timer_Data_Keys.s_timerDataUIDKey] as? String {
-                self.sendSelectMessage(timerUID: uid)
+            if nil == self.myCurrentTimer {
+                if let uid = self._timers[timerIndex][LGV_Timer_Data_Keys.s_timerDataUIDKey] as? String {
+                    self.sendSelectMessage(timerUID: uid)
+                }
+                
+                let contextInfo:[String:Any] = [type(of: self).s_ControllerContextKey:self, type(of: self).s_TimerContextKey: self._timers[timerIndex]]
+                
+                self.presentController(withName: type(of: self).s_ModalTimerID, context: contextInfo)
             }
-            
-            let contextInfo:[String:Any] = [type(of: self).s_ControllerContextKey:self, type(of: self).s_TimerContextKey: self._timers[timerIndex]]
-            
-            self.presentController(withName: type(of: self).s_ModalTimerID, context: contextInfo)
         }
     }
     
@@ -264,8 +276,8 @@ class LGV_Timer_Watch_MainInterfaceController: WKInterfaceController, WCSessionD
     func dismissTimers() {
         DispatchQueue.main.async {
             if nil != self.myCurrentTimer {
-                if nil != self.myCurrentTimer.myCurrentTimer {
-                    self.myCurrentTimer.myCurrentTimer.dismiss()
+                if nil != self.myCurrentTimer.modalTimerScreen {
+                    self.myCurrentTimer.modalTimerScreen.dismiss()
                 }
                 self.myCurrentTimer.dismiss()
                 self.myCurrentTimer = nil
@@ -279,6 +291,8 @@ class LGV_Timer_Watch_MainInterfaceController: WKInterfaceController, WCSessionD
      */
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        self.sendSelectMessage()
+        self.myCurrentTimer = nil
         self._activateSession()
         self.updateUI()
     }
@@ -288,8 +302,6 @@ class LGV_Timer_Watch_MainInterfaceController: WKInterfaceController, WCSessionD
      */
     override func willActivate() {
         super.willActivate()
-        self.sendSelectMessage()
-        self.myCurrentTimer = nil
         self.updateUI()
     }
     
@@ -346,6 +358,7 @@ class LGV_Timer_Watch_MainInterfaceController: WKInterfaceController, WCSessionD
                         }
                     } else {
                         self.showOffTheChainScreen()
+                        self.sendStatusRequestMessage()
                     }
                     
                 case    LGV_Timer_Messages.s_timerListSelectTimerMessageKey:
@@ -353,35 +366,52 @@ class LGV_Timer_Watch_MainInterfaceController: WKInterfaceController, WCSessionD
                         if let uid = message[key] as? String {
                             let timerIndex = self.getTimerIndexForUID(uid)
                             if 0 <= timerIndex {
-                                if (nil != self.myCurrentTimer) && (uid != self.myCurrentTimer.timerUID) {
-                                    self.dismissTimers()
+                                var currentUID = ""
+                                
+                                if nil != self.myCurrentTimer {
+                                    currentUID = self.myCurrentTimer.timerUID
                                 }
                                 
-                                if nil == self.myCurrentTimer {
+                                if currentUID.isEmpty || uid.isEmpty || (uid != currentUID) {
+                                    self.dismissTimers()
                                     self.pushTimer(timerIndex)
                                 }
                             } else {
                                 self.dismissTimers()
+                                self.updateUI()
                             }
+                        } else {
+                            print("Bad UID!")
                         }
                     } else {
                         self.showOffTheChainScreen()
+                        self.sendStatusRequestMessage()
                     }
                     
                 case    LGV_Timer_Messages.s_timerListStopTimerMessageKey:
                     if !self._offTheChain {
                         if let uid = message[key] as? String {
                             if (nil != self.myCurrentTimer) && (uid == self.myCurrentTimer.timerUID) {
+                                self.myCurrentTimer.stopTimer()
+                            }
+                        }
+                    } else {
+                        self.showOffTheChainScreen()
+                        self.sendStatusRequestMessage()
+                    }
+                    
+                case    LGV_Timer_Messages.s_timerListStartTimerMessageKey:
+                    if !self._offTheChain {
+                        if let uid = message[key] as? String {
+                            let timerIndex = self.getTimerIndexForUID(uid)
+                            if 0 <= timerIndex {
+                                if (nil == self.myCurrentTimer) || (uid != self.myCurrentTimer.timerUID) {
+                                    self.dismissTimers()
+                                    self.pushTimer(timerIndex)
+                                }
+                                
                                 if nil != self.myCurrentTimer {
-                                    if nil != self.myCurrentTimer.myCurrentTimer {
-                                        self.myCurrentTimer.myCurrentTimer.dismiss()
-                                    } else {
-                                        if nil != self.myCurrentTimer {
-                                            self.myCurrentTimer.updateUI()
-                                        } else {
-                                            self.updateUI()
-                                        }
-                                    }
+                                    self.myCurrentTimer.startTimer()
                                 }
                             }
                         }
@@ -389,30 +419,51 @@ class LGV_Timer_Watch_MainInterfaceController: WKInterfaceController, WCSessionD
                         self.showOffTheChainScreen()
                     }
                     
-                case    LGV_Timer_Messages.s_timerListStartTimerMessageKey:
+                case    LGV_Timer_Messages.s_timerListAlarmMessageKey:
                     if !self._offTheChain {
                         if let uid = message[key] as? String {
                             if (nil == self.myCurrentTimer) || (uid != self.myCurrentTimer.timerUID) {
                                 self.dismissTimers()
                             }
+                            
+                            if (nil != self.myCurrentTimer) && (nil != self.myCurrentTimer.modalTimerScreen) {
+                                self.myCurrentTimer.modalTimerScreen.alarm()
+                            }
                         }
                     } else {
                         self.showOffTheChainScreen()
+                        self.sendStatusRequestMessage()
+                    }
+                    
+                case    LGV_Timer_Messages.s_timerRequestActiveTimerUIDMessageKey:
+                    if let uid = message[key] as? String {
+                        if uid.isEmpty {
+                            self.dismissTimers()
+                        } else {
+                            if (nil == self.myCurrentTimer) || (uid != self.myCurrentTimer.timerUID) {
+                                self.pushTimer(self.getTimerIndexForUID(uid))
+                            }
+                        }
+                    } else {
+                        self.dismissTimers()
                     }
                     
                 case    LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
                     self._offTheChain = false
                     if nil != self.offTheChainInterfaceController {
                         self.offTheChainInterfaceController.dismiss()
+                        self.sendActiveTimerRequestMessage()
                     }
                     self.updateUI()
-                    
+                
                 case    LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
                     self._offTheChain = true
                     self.showOffTheChainScreen()
                     
                 default:
-                    break
+                    self._offTheChain = true
+                    self.showOffTheChainScreen()
+                    self.sendStatusRequestMessage()
                 }
             }
         }

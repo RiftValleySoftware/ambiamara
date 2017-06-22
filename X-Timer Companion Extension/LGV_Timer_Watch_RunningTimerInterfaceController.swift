@@ -41,18 +41,14 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: WKInterfaceController {
                     self.displayDigitsLabel.setText(displayString)
                 }
                 
-                if 0 == inSeconds {
-                    self.alarm()
-                } else {
-                    if .Digital != displayMode {
-                        if let warnSeconds = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetWarnKey] as? NSNumber)?.intValue {
-                            if let finalSeconds = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetFinalKey] as? NSNumber)?.intValue {
-                                if (finalSeconds >= inSeconds) && (finalSeconds < inOldSeconds) {
-                                    self.final()
-                                } else {
-                                    if (warnSeconds >= inSeconds) && (warnSeconds < inOldSeconds) {
-                                        self.warning()
-                                    }
+                if .Digital != displayMode {
+                    if let warnSeconds = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetWarnKey] as? NSNumber)?.intValue {
+                        if let finalSeconds = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetFinalKey] as? NSNumber)?.intValue {
+                            if (0 < inSeconds) && (finalSeconds >= inSeconds) && (finalSeconds < inOldSeconds) {
+                                self.final()
+                            } else {
+                                if (0 < inSeconds) && (warnSeconds >= inSeconds) && (warnSeconds < inOldSeconds) {
+                                    self.warning()
                                 }
                             }
                         }
@@ -98,7 +94,7 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: WKInterfaceController {
         if let contextInfo = context as? [String:Any] {
             if let controller = contextInfo[LGV_Timer_Watch_MainInterfaceController.s_ControllerContextKey] as? LGV_Timer_Watch_MainTimerHandlerInterfaceController {
                 self.myController = controller
-                self.myController.myCurrentTimer = self
+                self.myController.modalTimerScreen = self
                 self.timer = myController.timer
                 self.timerUID = myController.timerUID
                 if let color = self.timer[LGV_Timer_Data_Keys.s_timerDataColorKey] as? UIColor {
@@ -148,9 +144,7 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: WKInterfaceController {
         super.willDisappear()
         
         if nil != self.myController {
-            if nil != self.myController.myController {
-                self.myController.myController.sendPauseMessage(timerUID: self.timerUID)
-            }
+            self.myController.modalTimerScreen = nil
         }
     }
 }

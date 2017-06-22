@@ -20,8 +20,8 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     private let _stoplightMaxWidthFactor: CGFloat = 0.2
     
     private var _timer: Timer! = nil {
-        didSet {
-            if nil != self._alarmTimer {
+        willSet {
+            if (nil != self._alarmTimer) && (nil != newValue) {
                 self._alarmTimer.invalidate()
                 self._alarmTimer = nil
             }
@@ -29,8 +29,8 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     }
     
     private var _alarmTimer: Timer! = nil {
-        didSet {
-            if nil != self._timer {
+        willSet {
+            if (nil != self._timer) && (nil != newValue) {
                 self._timer.invalidate()
                 self._timer = nil
             }
@@ -55,15 +55,17 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     var currentTimeInSeconds: Int = 0
     var lastTimerDate: Date! = nil
     var clockPaused: Bool = false {
-        didSet {
-            if nil != self._alarmTimer {
-                self._alarmTimer.invalidate()
-                self._alarmTimer = nil
-            }
-            
-            if nil != self._timer {
-                self._timer.invalidate()
-                self._timer = nil
+        willSet {
+            if newValue {
+                if nil != self._alarmTimer {
+                    self._alarmTimer.invalidate()
+                    self._alarmTimer = nil
+                }
+                
+                if nil != self._timer {
+                    self._timer.invalidate()
+                    self._timer = nil
+                }
             }
         }
     }
@@ -152,7 +154,6 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         self.lastTimerDate = Date()
         self._timer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(self.timerCallback(_:)), userInfo: nil, repeats: true)
         self._setUpDisplay()
-        LGV_Timer_AppDelegate.appDelegateObject.sendStartMessage(timerUID: self.timerObject.uid)
     }
     
     /* ################################################################## */
@@ -404,6 +405,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         }
         LGV_Timer_AppDelegate.appDelegateObject.currentTimer = self
         UIApplication.shared.isIdleTimerDisabled = true
+        LGV_Timer_AppDelegate.appDelegateObject.sendStartMessage(timerUID: self.timerObject.uid)
         self._startTimer()
     }
     
