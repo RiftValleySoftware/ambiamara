@@ -237,6 +237,16 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /* ################################################################## */
     /**
      */
+    func sendAlarmMessage(timerUID: String) {
+        if .activated == self.session.activationState {
+            let selectMsg = [LGV_Timer_Messages.s_timerListAlarmMessageKey:timerUID]
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func sendBackgroundMessage() {
         if .activated == self.session.activationState {
             let selectMsg = [LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:""]

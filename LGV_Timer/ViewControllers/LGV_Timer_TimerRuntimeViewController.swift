@@ -14,22 +14,59 @@ import AudioToolbox
 /**
  */
 class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
+    // MARK: - Private Instance Properties
+    /* ################################################################################################################################## */
     private let _stoplightDualModeHeightFactor: CGFloat = 0.15
     private let _stoplightMaxWidthFactor: CGFloat = 0.2
     
-    private var _timer: Timer! = nil
-    private var _alarmTimer: Timer! = nil
-
-    var clockPaused: Bool = false
-    var currentTimeInSeconds: Int = 0
-    var lastTimerDate: Date! = nil
+    private var _timer: Timer! = nil {
+        didSet {
+            if nil != self._alarmTimer {
+                self._alarmTimer.invalidate()
+                self._alarmTimer = nil
+            }
+        }
+    }
     
+    private var _alarmTimer: Timer! = nil {
+        didSet {
+            if nil != self._timer {
+                self._timer.invalidate()
+                self._timer = nil
+            }
+        }
+    }
+    
+    // MARK: - Internal Constant Instance Properties
+    /* ################################################################################################################################## */
     let pauseButtonImageName = "Phone-Pause"
     let startButtonImageName = "Phone-Start"
     let offStoplightImageName = "OffLight"
     let greenStoplightImageName = "GreenLight"
     let yellowStoplightImageName = "YellowLight"
     let redStoplightImageName = "RedLight"
+    
+    // MARK: - Internal Instance Properties
+    /* ################################################################################################################################## */
+    var stoplightContainerView: UIView! = nil
+    var redLight: UIImageView! = nil
+    var yellowLight: UIImageView! = nil
+    var greenLight: UIImageView! = nil
+    var currentTimeInSeconds: Int = 0
+    var lastTimerDate: Date! = nil
+    var clockPaused: Bool = false {
+        didSet {
+            if nil != self._alarmTimer {
+                self._alarmTimer.invalidate()
+                self._alarmTimer = nil
+            }
+            
+            if nil != self._timer {
+                self._timer.invalidate()
+                self._timer = nil
+            }
+        }
+    }
     
     // MARK: - IB Properties
     /* ################################################################################################################################## */
@@ -40,11 +77,6 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var timeDisplay: LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock!
     @IBOutlet weak var flasherView: UIView!
-    
-    var stoplightContainerView: UIView! = nil
-    var redLight: UIImageView! = nil
-    var yellowLight: UIImageView! = nil
-    var greenLight: UIImageView! = nil
     
     // MARK: - Calculated Properties
     /* ################################################################################################################################## */
@@ -202,6 +234,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     func alarmCallback(_ inTimer: Timer) {
         self._flashDisplay()
         self._playAlertSound()
+        LGV_Timer_AppDelegate.appDelegateObject.sendAlarmMessage(timerUID: self.timerObject.uid)
         self._alarmTimer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(self.alarmCallback(_:)), userInfo: nil, repeats: false)
     }
     

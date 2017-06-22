@@ -85,6 +85,7 @@ class LGV_Timer_Watch_MainInterfaceController: WKInterfaceController, WCSessionD
     /**
      */
     private func _activateSession() {
+        self._offTheChain = false
         if WCSession.isSupported() && (self.session.activationState != .activated) {
             self.session.delegate = self
             self.session.activate()
