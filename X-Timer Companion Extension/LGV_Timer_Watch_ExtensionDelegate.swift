@@ -9,28 +9,33 @@
 import WatchKit
 import WatchConnectivity
 
+/* ###################################################################################################################################### */
 class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
-    static var delegateObject:LGV_Timer_Watch_ExtensionDelegate! = nil
-    
-    private var _mySession = WCSession.default()
-    var timers: [[String: Any]] = []
-    private var _offTheChain:Bool = false
-    
-    var youreOnYourOwn: Bool = false
-    
     /* ################################################################################################################################## */
-    var session: WCSession {
+    static var delegateObject:LGV_Timer_Watch_ExtensionDelegate {
         get {
-            return self._mySession
+            return WKExtension.shared().delegate as! LGV_Timer_Watch_ExtensionDelegate
         }
     }
+    
+    /* ################################################################################################################################## */
+    private var _mySession = WCSession.default()
+    private var _offTheChain:Bool = true
+    
+    /* ################################################################################################################################## */
+    var timers: [[String: Any]] = []
+    var youreOnYourOwn: Bool = false
+    var firstInterfaceController: LGV_Timer_Watch_MainAppInterfaceController! = nil
+    
+    /* ################################################################################################################################## */
+    var session: WCSession {get { return self._mySession }}
+    var appDisconnected: Bool {get { return self._offTheChain }}
     
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      */
     private func _activateSession() {
-        self._offTheChain = false
         if WCSession.isSupported() && (self.session.activationState != .activated) {
             self.session.delegate = self
             self.session.activate()
@@ -154,19 +159,13 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
      */
     func dismissTimers() {
     }
-    
-    /* ################################################################## */
-    /**
-     */
-    func showOffTheChainScreen() {
-    }
 
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      */
     func applicationDidFinishLaunching() {
-        type(of: self).delegateObject = self
+        self._activateSession()
     }
 
     /* ################################################################## */
@@ -227,6 +226,17 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /* ################################################################## */
     /**
      */
+    func timerCallback(_ timer: Timer) {
+        if let timerIndex = timer.userInfo as? Int {
+            if 0 <= timerIndex {
+                DispatchQueue.main.async {self.firstInterfaceController.pushTimer(timerIndex)}
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         DispatchQueue.main.async {
             for key in message.keys {
@@ -242,7 +252,6 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                 case LGV_Timer_Messages.s_timerListUpdateTimerMessageKey:
                     if !self._offTheChain {
                     } else {
-                        self.showOffTheChainScreen()
                         self.sendStatusRequestMessage()
                     }
                     
@@ -251,12 +260,26 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                         if let uid = message[key] as? String {
                             let timerIndex = self.getTimerIndexForUID(uid)
                             if 0 <= timerIndex {
+                                var currentIndex = -2
+                                if let interfaceController = self.firstInterfaceController.myCurrentTimer {
+                                    currentIndex = interfaceController.timerIndex
+                                    let _ = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(self.timerCallback(_:)), userInfo: timerIndex, repeats: false)
+                                } else {
+                                    if currentIndex != timerIndex {
+                                        self.firstInterfaceController.popToRootController()
+                                        
+                                        if 0 <= timerIndex {
+                                            self.firstInterfaceController.pushTimer(timerIndex)
+                                        }
+                                    }
+                                }
+                            } else {
+                                self.firstInterfaceController.popToRootController()
                             }
                         } else {
                             print("Bad UID!")
                         }
                     } else {
-                        self.showOffTheChainScreen()
                         self.sendStatusRequestMessage()
                     }
                     
@@ -266,7 +289,6 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                             print(uid)
                         }
                     } else {
-                        self.showOffTheChainScreen()
                         self.sendStatusRequestMessage()
                     }
                     
@@ -277,8 +299,6 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                             if 0 <= timerIndex {
                             }
                         }
-                    } else {
-                        self.showOffTheChainScreen()
                     }
                     
                 case    LGV_Timer_Messages.s_timerListAlarmMessageKey:
@@ -287,7 +307,6 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                             print(uid)
                         }
                     } else {
-                        self.showOffTheChainScreen()
                         self.sendStatusRequestMessage()
                     }
                     
@@ -302,18 +321,49 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                     }
                     
                 case    LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
+                    if self._offTheChain {
+                        self.firstInterfaceController.popToRootController()
+                    }
                     self._offTheChain = false
-                    
+                    self.firstInterfaceController.updateUI()
+                
                 case    LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
                     self._offTheChain = true
-                    self.showOffTheChainScreen()
+                    self.firstInterfaceController.updateUI()
                     
                 default:
                     self._offTheChain = true
-                    self.showOffTheChainScreen()
                     self.sendStatusRequestMessage()
                 }
             }
         }
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    func updateUI() {
+        
+    }
 }
+
+/* ###################################################################################################################################### */
+/**
+ */
+class LGV_Timer_Watch_BaseInterfaceController: WKInterfaceController {
+    var timerUID: String = ""
+    var timerIndex: Int = -1
+    var timer:[String:Any]! = nil {
+        didSet {
+            if let uid = self.timer[LGV_Timer_Data_Keys.s_timerDataUIDKey] as? String {
+                self.timerUID = uid
+                self.timerIndex = LGV_Timer_Watch_ExtensionDelegate.delegateObject.getTimerIndexForUID(uid)
+            }
+        }
+    }
+    
+    func updateUI() {
+        
+    }
+}
+

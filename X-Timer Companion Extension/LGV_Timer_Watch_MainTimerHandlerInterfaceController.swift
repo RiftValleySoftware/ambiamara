@@ -11,14 +11,12 @@ import WatchKit
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_Watch_MainTimerHandlerInterfaceController: WKInterfaceController {
+class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseInterfaceController {
     static let s_RunningTimerInterfaceID = "RunningTimer"
     
     private var _lastTimerDate: Date! = nil
     
-    var myController: LGV_Timer_Watch_MainInterfaceController! = nil
-    var timer: [String:Any]! = nil
-    var timerUID: String = ""
+    var myController: LGV_Timer_Watch_MainAppInterfaceController! = nil
     var modalTimerScreen: LGV_Timer_Watch_RunningTimerInterfaceController! = nil
     var currentTimeInSeconds: Int = 0
     
@@ -37,7 +35,14 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: WKInterfaceController
     /* ################################################################## */
     /**
      */
-    func updateUI(inSeconds: Int! = nil) {
+    override func updateUI() {
+        self.updateUI(inSeconds: nil)
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    func updateUI(inSeconds: Int!) {
         DispatchQueue.main.async {
             let oldSeconds = self.currentTimeInSeconds
             
@@ -96,9 +101,6 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: WKInterfaceController
     /**
      */
     func pushTimer() {
-        let contextInfo:[String:Any] = [LGV_Timer_Watch_MainInterfaceController.s_ControllerContextKey:self, LGV_Timer_Watch_MainInterfaceController.s_CurrentTimeContextKey: self.currentTimeInSeconds]
-        
-        self.pushController(withName: type(of: self).s_RunningTimerInterfaceID, context: contextInfo)
     }
 
     /* ################################################################################################################################## */
@@ -109,12 +111,12 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: WKInterfaceController
         super.awake(withContext: context)
         self.modalTimerScreen = nil
         if let contextInfo = context as? [String:Any] {
-            if let controller = contextInfo[LGV_Timer_Watch_MainInterfaceController.s_ControllerContextKey] as? LGV_Timer_Watch_MainInterfaceController {
+            if let controller = contextInfo[LGV_Timer_Watch_MainAppInterfaceController.s_ControllerContextKey] as? LGV_Timer_Watch_MainAppInterfaceController {
                 self.myController = controller
                 self.myController.myCurrentTimer = self
             }
-            
-            if let timer = contextInfo[LGV_Timer_Watch_MainInterfaceController.s_TimerContextKey] as? [String:Any] {
+
+            if let timer = contextInfo[LGV_Timer_Watch_MainAppInterfaceController.s_TimerContextKey] as? [String:Any] {
                 self.timer = timer
                 if let color = self.timer[LGV_Timer_Data_Keys.s_timerDataColorKey] as? UIColor {
                     self.timeDisplayLabel.setTextColor(color)
@@ -128,10 +130,6 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: WKInterfaceController
                     let displayMode = TimerDisplayMode(rawValue: displayModeNum.intValue)
                     self.trafficLightIcon.setHidden(.Podium != displayMode)
                 }
-                
-                if let uid = self.timer[LGV_Timer_Data_Keys.s_timerDataUIDKey] as? String {
-                    self.timerUID = uid
-                }
             }
             
             self.updateUI()
@@ -144,5 +142,13 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: WKInterfaceController
     override func willActivate() {
         super.willActivate()
         self.modalTimerScreen = nil
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func willDisappear() {
+        super.willDisappear()
+        self.myController.myCurrentTimer = nil
     }
 }

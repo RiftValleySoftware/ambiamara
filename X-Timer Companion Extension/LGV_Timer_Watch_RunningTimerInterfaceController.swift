@@ -8,7 +8,7 @@
 
 import WatchKit
 
-class LGV_Timer_Watch_RunningTimerInterfaceController: WKInterfaceController {
+class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInterfaceController {
     static let s_OffLightName = "Watch-OffLight"
     static let s_GreenLightName = "Watch-GreenLight"
     static let s_YellowLightName = "Watch-YellowLight"
@@ -21,10 +21,15 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: WKInterfaceController {
     @IBOutlet var redLightImage: WKInterfaceImage!
     
     var myController: LGV_Timer_Watch_MainTimerHandlerInterfaceController! = nil
-    var timer:[String:Any] = [:]
-    var timerUID: String = ""
     
     /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    override func updateUI() {
+        self.updateUI(inSeconds: nil, inOldSeconds: nil)
+    }
+    
     /* ################################################################## */
     /**
      */
@@ -91,27 +96,27 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         if let contextInfo = context as? [String:Any] {
-            if let controller = contextInfo[LGV_Timer_Watch_MainInterfaceController.s_ControllerContextKey] as? LGV_Timer_Watch_MainTimerHandlerInterfaceController {
-                self.myController = controller
-                self.myController.modalTimerScreen = self
-                self.timer = myController.timer
-                self.timerUID = myController.timerUID
-                if let color = self.timer[LGV_Timer_Data_Keys.s_timerDataColorKey] as? UIColor {
-                    self.displayDigitsLabel.setTextColor(color)
-                }
-                
-                if let name = self.timer[LGV_Timer_Data_Keys.s_timerDataTimerNameKey] as? String {
-                    self.setTitle(name)
-                }
-                
-                if let currentTime = contextInfo[LGV_Timer_Watch_MainInterfaceController.s_CurrentTimeContextKey] as? Int {
-                    self.updateUI(inSeconds: currentTime)
-                } else {
-                    if let timeSet = self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber {
-                        self.updateUI(inSeconds: timeSet.intValue)
-                    }
-                }
-            }
+//            if let controller = contextInfo[LGV_Timer_Watch_MainInterfaceController.s_ControllerContextKey] as? LGV_Timer_Watch_MainTimerHandlerInterfaceController {
+//                self.myController = controller
+//                self.myController.modalTimerScreen = self
+//                self.timer = myController.timer
+//                self.timerUID = myController.timerUID
+//                if let color = self.timer[LGV_Timer_Data_Keys.s_timerDataColorKey] as? UIColor {
+//                    self.displayDigitsLabel.setTextColor(color)
+//                }
+//                
+//                if let name = self.timer[LGV_Timer_Data_Keys.s_timerDataTimerNameKey] as? String {
+//                    self.setTitle(name)
+//                }
+//                
+//                if let currentTime = contextInfo[LGV_Timer_Watch_MainInterfaceController.s_CurrentTimeContextKey] as? Int {
+//                    self.updateUI(inSeconds: currentTime)
+//                } else {
+//                    if let timeSet = self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber {
+//                        self.updateUI(inSeconds: timeSet.intValue)
+//                    }
+//                }
+//            }
         }
     }
     

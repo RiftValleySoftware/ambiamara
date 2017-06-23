@@ -1,8 +1,8 @@
 //
-//  LGV_Timer_Watch_MainInterfaceController.swift
-//  X-Timer Companion Extension
+//  LGV_Timer_Watch_MainAppInterfaceController.swift
+//  LGV_Timer
 //
-//  Created by Chris Marshall on 6/19/17.
+//  Created by Chris Marshall on 6/23/17.
 //  Copyright © 2017 Little Green Viper Software Development LLC. All rights reserved.
 //
 
@@ -20,7 +20,7 @@ class LGV_Timer_Watch_MainInterfaceTableRowController: NSObject {
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_Watch_MainInterfaceController: LGV_Timer_Watch_BaseInterfaceController {
+class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceController {
     static let s_TableRowID = "TimerRow"
     static let s_ModalTimerID = "IndividualTimer"
     static let s_NoAppID = "NoApp"
@@ -28,17 +28,44 @@ class LGV_Timer_Watch_MainInterfaceController: LGV_Timer_Watch_BaseInterfaceCont
     static let s_TimerContextKey = "Timer"
     static let s_CurrentTimeContextKey = "CurrentTime"
     
-    var offTheChainInterfaceController: LGV_Timer_Watch_NoAppInterfaceController! = nil
     var myCurrentTimer: LGV_Timer_Watch_MainTimerHandlerInterfaceController! = nil
-    
+
     @IBOutlet var timerDisplayTable: WKInterfaceTable!
+    @IBOutlet var topLabel: WKInterfaceLabel!
+    @IBOutlet var bottomLabel: WKInterfaceLabel!
+    @IBOutlet var noAppConnectedDisplay: WKInterfaceGroup!
     
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      */
-    override func updateUI() {
+    func pushTimer(_ timerIndex: Int) {
         DispatchQueue.main.async {
+            let contextInfo:[String:Any] = [type(of: self).s_ControllerContextKey:self, type(of: self).s_TimerContextKey: LGV_Timer_Watch_ExtensionDelegate.delegateObject.timers[timerIndex]]
+            
+            self.pushController(withName: type(of: self).s_ModalTimerID, context: contextInfo)
+        }
+    }
+    
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
+        self.topLabel.setText("LGV_TIMER-WATCH-NOT-ACTIVE-TOP-MESSAGE".localizedVariant)
+        self.bottomLabel.setText("LGV_TIMER-WATCH-NOT-ACTIVE-BOTTOM-MESSAGE".localizedVariant)
+        LGV_Timer_Watch_ExtensionDelegate.delegateObject.firstInterfaceController = self
+        self.updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func updateUI() {
+        super.updateUI()
+        DispatchQueue.main.async {
+            self.timerDisplayTable.setNumberOfRows(LGV_Timer_Watch_ExtensionDelegate.delegateObject.timers.count, withRowType: type(of: self).s_TableRowID)
             for rowIndex in 0..<LGV_Timer_Watch_ExtensionDelegate.delegateObject.timers.count {
                 if let tableRow = self.timerDisplayTable.rowController(at: rowIndex) as? LGV_Timer_Watch_MainInterfaceTableRowController {
                     let timer = LGV_Timer_Watch_ExtensionDelegate.delegateObject.timers[rowIndex]
@@ -65,60 +92,16 @@ class LGV_Timer_Watch_MainInterfaceController: LGV_Timer_Watch_BaseInterfaceCont
                     }
                 }
             }
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func pushTimer(_ timerIndex: Int) {
-        DispatchQueue.main.async {
-            if nil == self.myCurrentTimer {
-                if let uid = LGV_Timer_Watch_ExtensionDelegate.delegateObject.timers[timerIndex][LGV_Timer_Data_Keys.s_timerDataUIDKey] as? String {
-                    LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendSelectMessage(timerUID: uid)
-                }
-                
-                let contextInfo:[String:Any] = [type(of: self).s_ControllerContextKey:self, type(of: self).s_TimerContextKey: LGV_Timer_Watch_ExtensionDelegate.delegateObject.timers[timerIndex]]
-                
-                self.pushController(withName: type(of: self).s_ModalTimerID, context: contextInfo)
+            
+            if LGV_Timer_Watch_ExtensionDelegate.delegateObject.appDisconnected {
+                self.popToRootController()
+                self.noAppConnectedDisplay.setHidden(false)
+                self.timerDisplayTable.setHidden(true)
+            } else {
+                self.noAppConnectedDisplay.setHidden(true)
+                self.timerDisplayTable.setHidden(false)
             }
         }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func dismissTimers() {
-        DispatchQueue.main.async {
-            self.popToRootController()
-            self.updateUI()
-        }
-    }
-    
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     */
-    override func awake(withContext context: Any?) {
-        super.awake(withContext: context)
-        LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendSelectMessage()
-        self.myCurrentTimer = nil
-        self.updateUI()
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    override func willActivate() {
-        super.willActivate()
-        self.updateUI()
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    override func didDeactivate() {
-        super.didDeactivate()
     }
     
     /* ################################################################## */

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="i4N-ut-62W">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,91 +13,80 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Timer Watch Main Interface Controller-->
-        <scene sceneID="aou-V4-d1y">
-            <objects>
-                <controller id="AgC-eL-Hgc" customClass="LGV_Timer_Watch_MainInterfaceController" customModule="X_Timer_Companion_Extension">
-                    <items>
-                        <group width="132" height="1" alignment="center" layout="vertical" id="qSc-Ne-qWV">
-                            <items>
-                                <table alignment="left" id="2Hz-tT-z2U">
-                                    <items>
-                                        <tableRow identifier="TimerRow" id="SvS-RB-JjR" customClass="LGV_Timer_Watch_MainInterfaceTableRowController" customModule="X_Timer_Companion_Extension">
-                                            <group key="rootItem" width="1" alignment="left" layout="vertical" id="OH3-Hd-MtQ">
-                                                <items>
-                                                    <label width="1" height="0.5" alignment="left" textAlignment="left" id="Nbg-Gi-VVz">
-                                                        <fontDescription key="font" type="system" weight="semibold" pointSize="20"/>
-                                                    </label>
-                                                    <group width="1" height="0.5" alignment="left" verticalAlignment="bottom" id="g3q-it-eGR">
-                                                        <items>
-                                                            <imageView height="1" alignment="left" verticalAlignment="center" hidden="YES" image="Watch-TrafficLights" contentMode="scaleAspectFit" id="EKt-lH-VLn"/>
-                                                            <label height="1" alignment="right" verticalAlignment="center" id="YGz-OA-jsB">
-                                                                <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="24"/>
-                                                            </label>
-                                                        </items>
-                                                    </group>
-                                                </items>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </group>
-                                            <connections>
-                                                <outlet property="displayFormatImage" destination="EKt-lH-VLn" id="sOi-OW-yty"/>
-                                                <outlet property="timeDisplayLabel" destination="YGz-OA-jsB" id="fJz-DQ-5ZL"/>
-                                                <outlet property="timerNameLabel" destination="Nbg-Gi-VVz" id="v6B-NR-gwS"/>
-                                            </connections>
-                                        </tableRow>
-                                    </items>
-                                </table>
-                            </items>
-                        </group>
-                    </items>
-                    <connections>
-                        <outlet property="timerDisplayTable" destination="2Hz-tT-z2U" id="0dj-3x-AZm"/>
-                    </connections>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="34" y="69"/>
-        </scene>
-        <!--NoApp-->
+        <!--Main App Interface Controller-->
         <scene sceneID="5A9-SJ-bWw">
             <objects>
-                <controller identifier="NoApp" id="i4N-ut-62W" customClass="LGV_Timer_Watch_NoAppInterfaceController" customModule="X_Timer_Companion_Extension">
+                <controller identifier="NoApp" id="i4N-ut-62W" userLabel="Main App Interface Controller" customClass="LGV_Timer_Watch_MainAppInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
                     <items>
-                        <group width="1" height="1" alignment="left" layout="vertical" id="lQa-3d-Y0M">
+                        <group width="1" height="1" alignment="left" layout="vertical" id="lQa-3d-Y0M" userLabel="No App Connection Display">
                             <items>
-                                <label width="1" alignment="left" verticalAlignment="center" text="TOP" textAlignment="center" id="3kZ-LS-I8a" userLabel="TOP">
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
-                                </label>
-                                <imageView width="50" height="50" alignment="center" verticalAlignment="center" image="Clock" contentMode="scaleAspectFit" id="FU9-X5-MIv">
-                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </imageView>
-                                <label width="1" alignment="left" verticalAlignment="center" text="BOTTOM" textAlignment="center" id="1WQ-zR-wue">
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
-                                </label>
+                                <group width="1" height="1" alignment="left" layout="vertical" id="xtw-fM-Nda">
+                                    <items>
+                                        <label width="1" alignment="left" verticalAlignment="center" text="TOP" textAlignment="center" id="3kZ-LS-I8a" userLabel="TOP">
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                        </label>
+                                        <imageView width="50" height="50" alignment="center" verticalAlignment="center" image="Clock" contentMode="scaleAspectFit" id="FU9-X5-MIv" userLabel="App Icon">
+                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </imageView>
+                                        <label width="1" alignment="left" verticalAlignment="center" text="BOTTOM" textAlignment="center" id="1WQ-zR-wue" userLabel="BOTTOM">
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                        </label>
+                                    </items>
+                                </group>
                             </items>
                             <color key="backgroundColor" red="0.26621194949999999" green="0.26621194949999999" blue="0.26621194949999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </group>
+                        <table alignment="left" id="2Hz-tT-z2U">
+                            <items>
+                                <tableRow identifier="TimerRow" id="SvS-RB-JjR" customClass="LGV_Timer_Watch_MainInterfaceTableRowController" customModule="X_Timer_Companion_Extension">
+                                    <group key="rootItem" width="1" alignment="left" layout="vertical" id="OH3-Hd-MtQ">
+                                        <items>
+                                            <label width="1" height="0.5" alignment="left" textAlignment="left" id="Nbg-Gi-VVz">
+                                                <fontDescription key="font" type="system" weight="semibold" pointSize="20"/>
+                                            </label>
+                                            <group width="1" height="0.5" alignment="left" verticalAlignment="bottom" id="g3q-it-eGR">
+                                                <items>
+                                                    <imageView height="1" alignment="left" verticalAlignment="center" hidden="YES" image="Watch-TrafficLights" contentMode="scaleAspectFit" id="EKt-lH-VLn"/>
+                                                    <label height="1" alignment="right" verticalAlignment="center" id="YGz-OA-jsB">
+                                                        <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="24"/>
+                                                    </label>
+                                                </items>
+                                            </group>
+                                        </items>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="displayFormatImage" destination="EKt-lH-VLn" id="sOi-OW-yty"/>
+                                        <outlet property="timeDisplayLabel" destination="YGz-OA-jsB" id="fJz-DQ-5ZL"/>
+                                        <outlet property="timerNameLabel" destination="Nbg-Gi-VVz" id="v6B-NR-gwS"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
                     </items>
                     <connections>
-                        <outlet property="timerDismissTextButtonBottomLabel" destination="1WQ-zR-wue" id="kw7-3m-puX"/>
-                        <outlet property="timerDismissTextButtonLabel" destination="3kZ-LS-I8a" id="WAd-5h-MQb"/>
+                        <outlet property="bottomLabel" destination="1WQ-zR-wue" id="Z6G-Sq-HW7"/>
+                        <outlet property="noAppConnectedDisplay" destination="lQa-3d-Y0M" id="x6e-T8-6bE"/>
+                        <outlet property="timerDisplayTable" destination="2Hz-tT-z2U" id="D4b-tb-FeV"/>
+                        <outlet property="topLabel" destination="3kZ-LS-I8a" id="1uM-sk-fcf"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="34" y="352"/>
+            <point key="canvasLocation" x="-243" y="69"/>
         </scene>
-        <!--Individual Timer-->
+        <!--IndividualTimer-->
         <scene sceneID="xyw-HL-qjO">
             <objects>
-                <controller identifier="IndividualTimer" title="Individual Timer" id="fDO-Zl-Nkx" customClass="LGV_Timer_Watch_MainTimerHandlerInterfaceController" customModule="X_Timer_Companion_Extension">
+                <controller identifier="IndividualTimer" id="fDO-Zl-Nkx" customClass="LGV_Timer_Watch_MainTimerHandlerInterfaceController" customModule="X_Timer_Companion_Extension">
                     <items>
                         <group width="1" height="1" alignment="left" layout="vertical" id="ANx-Gq-hUJ" userLabel="Time Display Group">
                             <items>
                                 <group width="1" height="0.20000000000000001" alignment="left" id="MeH-oi-Jsm">
                                     <items>
                                         <imageView width="0.10000000000000001" height="1" alignment="left" verticalAlignment="center" image="Watch-TrafficLights" contentMode="scaleAspectFit" id="UKD-1y-6SI"/>
-                                        <label width="0.90000000000000002" height="1" alignment="right" verticalAlignment="center" text="Label" textAlignment="right" id="izH-Be-8ao">
+                                        <label width="0.90000000000000002" height="1" alignment="right" verticalAlignment="center" textAlignment="right" id="izH-Be-8ao">
                                             <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="34"/>
                                         </label>
                                     </items>
@@ -123,7 +112,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="322" y="69"/>
+            <point key="canvasLocation" x="36" y="50"/>
         </scene>
         <!--Running Timer-->
         <scene sceneID="jaH-hQ-9O5">
@@ -135,7 +124,7 @@
                                 <items>
                                     <group width="1" height="1" alignment="left" verticalAlignment="center" layout="vertical" id="pav-ba-U5e">
                                         <items>
-                                            <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="xNU-lg-0O4">
+                                            <label alignment="center" verticalAlignment="center" textAlignment="center" id="xNU-lg-0O4">
                                                 <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="37"/>
                                             </label>
                                             <group width="1" alignment="left" verticalAlignment="center" id="SmR-Mg-zB6">
@@ -161,7 +150,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="588" y="69"/>
+            <point key="canvasLocation" x="302" y="50"/>
         </scene>
     </scenes>
     <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
