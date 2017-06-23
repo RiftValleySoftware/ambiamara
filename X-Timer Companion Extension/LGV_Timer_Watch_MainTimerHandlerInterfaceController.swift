@@ -7,7 +7,6 @@
 //
 
 import WatchKit
-import Foundation
 
 /* ###################################################################################################################################### */
 /**
@@ -32,7 +31,6 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: WKInterfaceController
     /**
      */
     @IBAction func startButtonHit() {
-        self.myController.sendStartMessage(timerUID: self.timerUID)
         self.pushTimer()
     }
     
@@ -100,7 +98,7 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: WKInterfaceController
     func pushTimer() {
         let contextInfo:[String:Any] = [LGV_Timer_Watch_MainInterfaceController.s_ControllerContextKey:self, LGV_Timer_Watch_MainInterfaceController.s_CurrentTimeContextKey: self.currentTimeInSeconds]
         
-        presentController(withName: type(of: self).s_RunningTimerInterfaceID, context: contextInfo)
+        self.pushController(withName: type(of: self).s_RunningTimerInterfaceID, context: contextInfo)
     }
 
     /* ################################################################################################################################## */

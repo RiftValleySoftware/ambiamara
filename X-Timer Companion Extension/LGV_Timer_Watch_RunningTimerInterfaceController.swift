@@ -7,7 +7,6 @@
 //
 
 import WatchKit
-import Foundation
 
 class LGV_Timer_Watch_RunningTimerInterfaceController: WKInterfaceController {
     static let s_OffLightName = "Watch-OffLight"
