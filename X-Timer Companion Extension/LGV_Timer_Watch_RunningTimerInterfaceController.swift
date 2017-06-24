@@ -96,27 +96,18 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         if let contextInfo = context as? [String:Any] {
-//            if let controller = contextInfo[LGV_Timer_Watch_MainInterfaceController.s_ControllerContextKey] as? LGV_Timer_Watch_MainTimerHandlerInterfaceController {
-//                self.myController = controller
-//                self.myController.modalTimerScreen = self
-//                self.timer = myController.timer
-//                self.timerUID = myController.timerUID
-//                if let color = self.timer[LGV_Timer_Data_Keys.s_timerDataColorKey] as? UIColor {
-//                    self.displayDigitsLabel.setTextColor(color)
-//                }
-//                
-//                if let name = self.timer[LGV_Timer_Data_Keys.s_timerDataTimerNameKey] as? String {
-//                    self.setTitle(name)
-//                }
-//                
-//                if let currentTime = contextInfo[LGV_Timer_Watch_MainInterfaceController.s_CurrentTimeContextKey] as? Int {
-//                    self.updateUI(inSeconds: currentTime)
-//                } else {
-//                    if let timeSet = self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber {
-//                        self.updateUI(inSeconds: timeSet.intValue)
-//                    }
-//                }
-//            }
+            if let controller = contextInfo[LGV_Timer_Watch_MainAppInterfaceController.s_ControllerContextKey] as? LGV_Timer_Watch_MainTimerHandlerInterfaceController {
+                self.myController = controller
+                self.myController.modalTimerScreen = self
+            }
+            
+            if let timer = contextInfo[LGV_Timer_Watch_MainAppInterfaceController.s_TimerContextKey] as? [String:Any] {
+                self.timer = timer
+
+                if let name = self.timer[LGV_Timer_Data_Keys.s_timerDataTimerNameKey] as? String {
+                    self.setTitle(name)
+                }
+            }
         }
     }
     
