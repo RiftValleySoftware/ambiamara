@@ -94,6 +94,7 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
         if let timeSetNum = self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber {
             self.currentTimeInSeconds = timeSetNum.intValue
         }
+        
         self.pushTimer()
     }
     
@@ -101,6 +102,17 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /**
      */
     func pushTimer() {
+        DispatchQueue.main.async {
+            if nil == self.modalTimerScreen {
+                if let uid = LGV_Timer_Watch_ExtensionDelegate.delegateObject.timers[self.timerIndex][LGV_Timer_Data_Keys.s_timerDataUIDKey] as? String {
+                    LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendSelectMessage(timerUID: uid)
+                }
+                
+                let contextInfo:[String:Any] = [LGV_Timer_Watch_MainAppInterfaceController.s_ControllerContextKey:self, LGV_Timer_Watch_MainAppInterfaceController.s_TimerContextKey: self.timer, LGV_Timer_Watch_MainAppInterfaceController.s_CurrentTimeContextKey: self.currentTimeInSeconds]
+                
+                self.pushController(withName: type(of: self).s_RunningTimerInterfaceID, context: contextInfo)
+            }
+        }
     }
 
     /* ################################################################################################################################## */
