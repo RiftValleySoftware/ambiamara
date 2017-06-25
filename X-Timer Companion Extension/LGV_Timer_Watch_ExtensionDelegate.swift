@@ -313,8 +313,13 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                         if nil != self.firstInterfaceController.myCurrentTimer {
                             if nil != self.firstInterfaceController.myCurrentTimer.modalTimerScreen {
                                 self.firstInterfaceController.myCurrentTimer.modalTimerScreen.closeMe()
-                                self.firstInterfaceController.myCurrentTimer.updateUI()
                             }
+                            
+                            if let timeSet = (self.firstInterfaceController.myCurrentTimer.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber)?.intValue {
+                                self.firstInterfaceController.myCurrentTimer.currentTimeInSeconds = timeSet
+                            }
+                            
+                            self.firstInterfaceController.myCurrentTimer.updateUI(inSeconds: self.firstInterfaceController.myCurrentTimer.currentTimeInSeconds)
                         }
                     } else {
                         self.sendStatusRequestMessage()
@@ -325,31 +330,52 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                         if let uid = message[key] as? String {
                             let timerIndex = self.getTimerIndexForUID(uid)
                             if 0 <= timerIndex {
+                                var currentIndex = -2
+                                if let interfaceController = self.firstInterfaceController.myCurrentTimer {
+                                    currentIndex = interfaceController.timerIndex
+                                    if currentIndex != timerIndex {
+                                        if nil != self.firstInterfaceController.myCurrentTimer {
+                                            self.disgustingHackSemaphore = true
+                                            self.firstInterfaceController.myCurrentTimer.closeMe()
+                                        }
+                                        self.firstInterfaceController.pushTimer(timerIndex)
+                                        self.disgustingHackSemaphore = false
+                                    }
+                                    
+                                    self.firstInterfaceController.myCurrentTimer.startTimer()
+                                } else {
+                                    self.firstInterfaceController.pushTimer(timerIndex)
+                                    self.firstInterfaceController.myCurrentTimer.startTimer()
+                                }
                             }
                         }
                     }
                     
                 case    LGV_Timer_Messages.s_timerListAlarmMessageKey:
                     if !self._offTheChain {
-                        if let uid = message[key] as? String {
-                            print(uid)
+                        if let interfaceController = self.firstInterfaceController.myCurrentTimer {
+                            if nil != interfaceController.modalTimerScreen {
+                                interfaceController.modalTimerScreen.alarm()
+                            }
                         }
                     } else {
                         self.sendStatusRequestMessage()
                     }
                     
-                case    LGV_Timer_Messages.s_timerRequestActiveTimerUIDMessageKey:
-                    if let uid = message[key] as? String {
-                        if uid.isEmpty {
-                        } else {
-                        }
-                    } else {
-                    }
-                    
                 case    LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
                     if self._offTheChain {
-                        self.firstInterfaceController.popToRootController()
+                        if nil != self.firstInterfaceController.myCurrentTimer {
+                            self.disgustingHackSemaphore = true
+                            if nil != self.firstInterfaceController.myCurrentTimer.modalTimerScreen {
+                                self.firstInterfaceController.myCurrentTimer.modalTimerScreen.closeMe()
+                                self.firstInterfaceController.myCurrentTimer.closeMe()
+                            } else {
+                                self.firstInterfaceController.myCurrentTimer.closeMe()
+                            }
+                            self.disgustingHackSemaphore = false
+                        }
                     }
+                    
                     self._offTheChain = false
                     self.firstInterfaceController.updateUI()
                 

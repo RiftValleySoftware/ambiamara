@@ -91,8 +91,10 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
             self.modalTimerScreen = nil
         }
         
-        if let timeSetNum = self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber {
-            self.currentTimeInSeconds = timeSetNum.intValue
+        if let time = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber)?.intValue {
+            if !(1..<time ~= self.currentTimeInSeconds) {
+                self.currentTimeInSeconds = time
+            }
         }
         
         self.pushTimer()
@@ -131,6 +133,10 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
 
             if let timer = contextInfo[LGV_Timer_Watch_MainAppInterfaceController.s_TimerContextKey] as? [String:Any] {
                 self.timer = timer
+                if let time = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber)?.intValue {
+                    self.currentTimeInSeconds = time
+                }
+
                 if let color = self.timer[LGV_Timer_Data_Keys.s_timerDataColorKey] as? UIColor {
                     self.timeDisplayLabel.setTextColor(color)
                 }

@@ -149,15 +149,6 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
         if let color = self.timer[LGV_Timer_Data_Keys.s_timerDataColorKey] as? UIColor {
             self.displayDigitsLabel.setTextColor(color)
         }
-        
-        if let time = self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber {
-            let timeTotal = time.intValue
-            let timeInHours: Int = timeTotal / 3600
-            let timeInMinutes = (timeTotal - (timeInHours * 3600)) / 60
-            let timeInSeconds = timeTotal - ((timeInHours * 3600) + (timeInMinutes * 60))
-            let displayString = String(format: "%02d:%02d:%02d", timeInHours, timeInMinutes, timeInSeconds)
-            self.displayDigitsLabel.setText(displayString)
-        }
 
         if let displayMode = TimerDisplayMode(rawValue: ((self.timer[LGV_Timer_Data_Keys.s_timerDataDisplayModeKey] as? NSNumber)?.intValue)!) {
             switch displayMode {
@@ -177,6 +168,8 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
                 break
             }
         }
+        
+        self.updateUI(inSeconds: self.myController.currentTimeInSeconds)
     }
     
     /* ################################################################## */
@@ -187,6 +180,14 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
         
         if nil != self.myController {
             self.myController.modalTimerScreen = nil
+            if let time = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber)?.intValue {
+                let currentTime = self.myController.currentTimeInSeconds
+                if 1..<time ~= currentTime {
+                    LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendPauseMessage(timerUID: self.myController.timerUID)
+                } else {
+                    LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendStopMessage(timerUID: self.myController.timerUID)
+                }
+            }
         }
     }
 }
