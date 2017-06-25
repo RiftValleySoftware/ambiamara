@@ -30,6 +30,7 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /**
      */
     @IBAction func startButtonHit() {
+        LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendStartMessage(timerUID: self.timerUID)
         self.pushTimer()
     }
     
@@ -45,8 +46,6 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
      */
     func updateUI(inSeconds: Int!) {
         DispatchQueue.main.async {
-            let oldSeconds = self.currentTimeInSeconds
-            
             if nil != inSeconds {
                 self.currentTimeInSeconds = inSeconds
             } else {
@@ -56,7 +55,7 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
             }
             
             if nil != self.modalTimerScreen {
-                self.modalTimerScreen.updateUI(inSeconds: self.currentTimeInSeconds, inOldSeconds: oldSeconds)
+                self.modalTimerScreen.updateUI(inSeconds: self.currentTimeInSeconds)
             }
             
             let timeTotal = max(0, self.currentTimeInSeconds)

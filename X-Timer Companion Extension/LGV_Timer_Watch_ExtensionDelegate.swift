@@ -258,6 +258,13 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                     
                 case LGV_Timer_Messages.s_timerListUpdateTimerMessageKey:
                     if !self._offTheChain {
+                        if let seconds = message[key] as? Int {
+                            if nil != self.firstInterfaceController {
+                                if nil != self.firstInterfaceController.myCurrentTimer {
+                                    self.firstInterfaceController.myCurrentTimer.updateUI(inSeconds: seconds)
+                                }
+                            }
+                        }
                     } else {
                         self.sendStatusRequestMessage()
                     }
@@ -303,8 +310,11 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                     
                 case    LGV_Timer_Messages.s_timerListStopTimerMessageKey:
                     if !self._offTheChain {
-                        if let uid = message[key] as? String {
-                            print(uid)
+                        if nil != self.firstInterfaceController.myCurrentTimer {
+                            if nil != self.firstInterfaceController.myCurrentTimer.modalTimerScreen {
+                                self.firstInterfaceController.myCurrentTimer.modalTimerScreen.closeMe()
+                                self.firstInterfaceController.myCurrentTimer.updateUI()
+                            }
                         }
                     } else {
                         self.sendStatusRequestMessage()

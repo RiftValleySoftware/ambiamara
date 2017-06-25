@@ -124,7 +124,7 @@
                                 <items>
                                     <group width="1" height="1" alignment="left" verticalAlignment="center" layout="vertical" id="pav-ba-U5e">
                                         <items>
-                                            <label alignment="center" verticalAlignment="center" textAlignment="center" id="xNU-lg-0O4">
+                                            <label alignment="center" verticalAlignment="center" text="00:00:00" textAlignment="center" id="xNU-lg-0O4">
                                                 <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="37"/>
                                             </label>
                                             <group width="1" alignment="left" verticalAlignment="center" id="SmR-Mg-zB6">
@@ -142,11 +142,11 @@
                     </items>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="displayDigitsLabel" destination="xNU-lg-0O4" id="DCo-Wi-uuP"/>
+                        <outlet property="displayDigitsLabel" destination="xNU-lg-0O4" id="TXj-EG-3hP"/>
                         <outlet property="displayTrafficLightsGroup" destination="SmR-Mg-zB6" id="vSm-pM-4QX"/>
                         <outlet property="greenLightImage" destination="lUf-Sp-uXJ" id="OK7-tk-iwg"/>
-                        <outlet property="redLightImage" destination="tOR-a0-VVG" id="1oD-qH-9g5"/>
-                        <outlet property="yellowLightImage" destination="UyE-1h-EaU" id="oTC-2b-ke4"/>
+                        <outlet property="redLightImage" destination="tOR-a0-VVG" id="zaS-gj-Fvb"/>
+                        <outlet property="yellowLightImage" destination="UyE-1h-EaU" id="uhF-Tp-Miz"/>
                     </connections>
                 </controller>
             </objects>

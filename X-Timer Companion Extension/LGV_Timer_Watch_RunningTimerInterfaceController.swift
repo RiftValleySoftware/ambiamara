@@ -27,15 +27,17 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
     /**
      */
     override func updateUI() {
-        self.updateUI(inSeconds: nil, inOldSeconds: nil)
+        self.updateUI(inSeconds: nil)
     }
     
     /* ################################################################## */
     /**
      */
-    func updateUI(inSeconds: Int! = nil, inOldSeconds: Int! = nil) {
-        DispatchQueue.main.async {
-            if let displayMode = TimerDisplayMode(rawValue: ((self.timer[LGV_Timer_Data_Keys.s_timerDataDisplayModeKey] as? NSNumber)?.intValue)!) {
+    func updateUI(inSeconds: Int! = nil) {
+        let oldSeconds = self.myController.currentTimeInSeconds
+        self.myController.currentTimeInSeconds = inSeconds
+        if let displayMode = TimerDisplayMode(rawValue: ((self.timer[LGV_Timer_Data_Keys.s_timerDataDisplayModeKey] as? NSNumber)?.intValue)!) {
+            DispatchQueue.main.async {
                 if .Podium != displayMode {
                     let timeTotal = max(0, inSeconds)
                     let timeInHours: Int = timeTotal / 3600
@@ -48,12 +50,24 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
                 if .Digital != displayMode {
                     if let warnSeconds = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetWarnKey] as? NSNumber)?.intValue {
                         if let finalSeconds = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetFinalKey] as? NSNumber)?.intValue {
-                            if (0 < inSeconds) && (finalSeconds >= inSeconds) && (finalSeconds < inOldSeconds) {
-                                self.final()
-                            } else {
-                                if (0 < inSeconds) && (warnSeconds >= inSeconds) && (warnSeconds < inOldSeconds) {
-                                    self.warning()
+                            switch inSeconds {
+                            case 0:
+                                self.alarm()
+                                
+                            case 1...finalSeconds:
+                                if oldSeconds > finalSeconds {
+                                    WKInterfaceDevice.current().play(.directionDown)
                                 }
+                                self.finalLights()
+                                
+                            case (finalSeconds + 1)...warnSeconds:
+                                if oldSeconds > warnSeconds {
+                                    WKInterfaceDevice.current().play(.click)
+                                }
+                                self.warningLights()
+                                
+                            default:
+                                self.startingLights()
                             }
                         }
                     }
@@ -65,21 +79,37 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
     /* ################################################################## */
     /**
      */
-    func warning() {
-        self.greenLightImage.setImage(UIImage(named: type(of: self).s_OffLightName))
-        self.yellowLightImage.setImage(UIImage(named: type(of: self).s_YellowLightName))
-        self.redLightImage.setImage(UIImage(named: type(of: self).s_OffLightName))
-        WKInterfaceDevice.current().play(.click)
+    func startingLights() {
+        let greenName = type(of: self).s_GreenLightName
+        let offName = type(of: self).s_OffLightName
+        
+        self.greenLightImage.setImageNamed(greenName)
+        self.yellowLightImage.setImageNamed(offName)
+        self.redLightImage.setImageNamed(offName)
     }
     
     /* ################################################################## */
     /**
      */
-    func final() {
-        self.greenLightImage.setImage(UIImage(named: type(of: self).s_OffLightName))
-        self.yellowLightImage.setImage(UIImage(named: type(of: self).s_OffLightName))
-        self.redLightImage.setImage(UIImage(named: type(of: self).s_RedLightName))
-        WKInterfaceDevice.current().play(.directionDown)
+    func warningLights() {
+        let yellowName = type(of: self).s_YellowLightName
+        let offName = type(of: self).s_OffLightName
+        
+        self.greenLightImage.setImageNamed(offName)
+        self.yellowLightImage.setImageNamed(yellowName)
+        self.redLightImage.setImageNamed(offName)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func finalLights() {
+        let redName = type(of: self).s_RedLightName
+        let offName = type(of: self).s_OffLightName
+        
+        self.greenLightImage.setImageNamed(offName)
+        self.yellowLightImage.setImageNamed(offName)
+        self.redLightImage.setImageNamed(redName)
     }
     
     /* ################################################################## */
@@ -116,17 +146,34 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
      */
     override func willActivate() {
         super.willActivate()
+        if let color = self.timer[LGV_Timer_Data_Keys.s_timerDataColorKey] as? UIColor {
+            self.displayDigitsLabel.setTextColor(color)
+        }
+        
+        if let time = self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber {
+            let timeTotal = time.intValue
+            let timeInHours: Int = timeTotal / 3600
+            let timeInMinutes = (timeTotal - (timeInHours * 3600)) / 60
+            let timeInSeconds = timeTotal - ((timeInHours * 3600) + (timeInMinutes * 60))
+            let displayString = String(format: "%02d:%02d:%02d", timeInHours, timeInMinutes, timeInSeconds)
+            self.displayDigitsLabel.setText(displayString)
+        }
+
         if let displayMode = TimerDisplayMode(rawValue: ((self.timer[LGV_Timer_Data_Keys.s_timerDataDisplayModeKey] as? NSNumber)?.intValue)!) {
             switch displayMode {
             case    .Podium:
+                self.displayTrafficLightsGroup.setHidden(false)
                 self.displayDigitsLabel.setHidden(true)
                 break
                 
             case    .Digital:
+                self.displayDigitsLabel.setHidden(false)
                 self.displayTrafficLightsGroup.setHidden(true)
                 break
                 
             case    .Dual:
+                self.displayTrafficLightsGroup.setHidden(false)
+                self.displayDigitsLabel.setHidden(false)
                 break
             }
         }
