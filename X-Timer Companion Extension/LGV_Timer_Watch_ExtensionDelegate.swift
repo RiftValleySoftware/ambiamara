@@ -277,7 +277,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                                 var currentIndex = -2
                                 if let interfaceController = self.firstInterfaceController.myCurrentTimer {
                                     currentIndex = interfaceController.timerIndex
-                                    // OK. THis is sad.
+                                    // OK. This is sad.
                                     // You have to wait until the screens have actually closed before you push the new one.
                                     // The disgusting hack semaphore is to prevent the watch from telling the phone app
                                     // to reset to the Timer List, when we actually have a new timer about to be selected.
@@ -290,11 +290,12 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                                 } else {
                                     if currentIndex != timerIndex {
                                         if nil != self.firstInterfaceController.myCurrentTimer {
+                                            self.disgustingHackSemaphore = true
                                             self.firstInterfaceController.myCurrentTimer.closeMe()
                                         }
                                         
                                         if 0 <= timerIndex {
-                                            self.firstInterfaceController.pushTimer(timerIndex)
+                                            self._timerObject = Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(self.timerCallback(_:)), userInfo: timerIndex, repeats: false)
                                         }
                                     }
                                 }
@@ -325,9 +326,27 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                         self.sendStatusRequestMessage()
                     }
                     
+                case    LGV_Timer_Messages.s_timerListPauseTimerMessageKey:
+                    if !self._offTheChain {
+                        if let uid = message[key] as? String {
+                            if let interfaceController = self.firstInterfaceController.myCurrentTimer {
+                                if uid == interfaceController.timerUID {
+                                    interfaceController.pauseTimer()
+                                }
+                            }
+                        }
+                    }
+                    
                 case    LGV_Timer_Messages.s_timerListStartTimerMessageKey:
                     if !self._offTheChain {
                         if let uid = message[key] as? String {
+                            if let interfaceController = self.firstInterfaceController.myCurrentTimer {
+                                if uid == interfaceController.timerUID {
+                                    interfaceController.startTimer()
+                                    break
+                                }
+                            }
+                            
                             let timerIndex = self.getTimerIndexForUID(uid)
                             if 0 <= timerIndex {
                                 var currentIndex = -2
@@ -344,8 +363,10 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                                     
                                     self.firstInterfaceController.myCurrentTimer.startTimer()
                                 } else {
+                                    self.disgustingHackSemaphore = true
                                     self.firstInterfaceController.pushTimer(timerIndex)
                                     self.firstInterfaceController.myCurrentTimer.startTimer()
+                                    self.disgustingHackSemaphore = false
                                 }
                             }
                         }

@@ -30,8 +30,11 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /**
      */
     @IBAction func startButtonHit() {
+        self.disgustingHackSemaphore = true
+        LGV_Timer_Watch_ExtensionDelegate.delegateObject.disgustingHackSemaphore = true
         LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendStartMessage(timerUID: self.timerUID)
         self.pushTimer()
+        LGV_Timer_Watch_ExtensionDelegate.delegateObject.disgustingHackSemaphore = false
     }
     
     /* ################################################################## */
@@ -98,6 +101,16 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
         }
         
         self.pushTimer()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func pauseTimer() {
+        if nil != self.modalTimerScreen {
+            self.modalTimerScreen.pop()
+            self.modalTimerScreen = nil
+        }
     }
     
     /* ################################################################## */
@@ -171,13 +184,8 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
             self.modalTimerScreen.closeMe()
             self.modalTimerScreen = nil
         }
-        
-        if !self.disgustingHackSemaphore {
-            LGV_Timer_Watch_ExtensionDelegate.delegateObject.closingTimer(timerIndex: self.timerIndex)
-        }
-        
-        self.disgustingHackSemaphore = false
         super.willDisappear()
+        self.disgustingHackSemaphore = false
     }
     
     /* ################################################################## */

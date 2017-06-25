@@ -62,6 +62,13 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
     /* ################################################################## */
     /**
      */
+    override func didAppear() {
+        LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendSelectMessage()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     override func updateUI() {
         super.updateUI()
         DispatchQueue.main.async {
