@@ -19,6 +19,7 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     var myController: LGV_Timer_Watch_MainAppInterfaceController! = nil
     var modalTimerScreen: LGV_Timer_Watch_RunningTimerInterfaceController! = nil
     var currentTimeInSeconds: Int = 0
+    var disgustingHackSemaphore: Bool = false
     
     @IBOutlet var trafficLightIcon: WKInterfaceImage!
     @IBOutlet var timeDisplayGroup: WKInterfaceGroup!
@@ -102,6 +103,7 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /**
      */
     func pushTimer() {
+        self.disgustingHackSemaphore = true
         DispatchQueue.main.async {
             if nil == self.modalTimerScreen {
                 if let uid = LGV_Timer_Watch_ExtensionDelegate.delegateObject.timers[self.timerIndex][LGV_Timer_Data_Keys.s_timerDataUIDKey] as? String {
@@ -160,7 +162,27 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /**
      */
     override func willDisappear() {
+        if nil != self.modalTimerScreen {
+            self.modalTimerScreen.closeMe()
+            self.modalTimerScreen = nil
+        }
+        
+        if !self.disgustingHackSemaphore {
+            LGV_Timer_Watch_ExtensionDelegate.delegateObject.closingTimer(timerIndex: self.timerIndex)
+        }
+        
+        self.disgustingHackSemaphore = false
         super.willDisappear()
-        self.myController.myCurrentTimer = nil
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func closeMe() {
+        if nil != self.modalTimerScreen {
+            self.modalTimerScreen.closeMe()
+            self.modalTimerScreen = nil
+        }
+        super.closeMe()
     }
 }

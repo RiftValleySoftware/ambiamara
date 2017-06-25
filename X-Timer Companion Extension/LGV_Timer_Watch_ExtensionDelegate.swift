@@ -21,11 +21,13 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /* ################################################################################################################################## */
     private var _mySession = WCSession.default()
     private var _offTheChain:Bool = true
+    private var _timerObject: Timer! = nil
     
     /* ################################################################################################################################## */
     var timers: [[String: Any]] = []
     var youreOnYourOwn: Bool = false
     var firstInterfaceController: LGV_Timer_Watch_MainAppInterfaceController! = nil
+    var disgustingHackSemaphore: Bool = false
     
     /* ################################################################################################################################## */
     var session: WCSession {get { return self._mySession }}
@@ -47,7 +49,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func sendSelectMessage(timerUID: String = "") {
-        if !self.youreOnYourOwn {
+        if !self.youreOnYourOwn && !self.disgustingHackSemaphore {
             let selectMsg = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey:timerUID]
             self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
@@ -153,18 +155,13 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
         
         return ret
     }
-    
-    /* ################################################################## */
-    /**
-     */
-    func dismissTimers() {
-    }
 
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      */
     func applicationDidFinishLaunching() {
+        self.disgustingHackSemaphore = false
         self._activateSession()
     }
 
@@ -172,7 +169,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func applicationDidBecomeActive() {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        self.disgustingHackSemaphore = false
     }
 
     /* ################################################################## */
@@ -226,12 +223,22 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /* ################################################################## */
     /**
      */
+    func closingTimer(timerIndex: Int) {
+        self.sendSelectMessage()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func timerCallback(_ timer: Timer) {
         if let timerIndex = timer.userInfo as? Int {
             if 0 <= timerIndex {
                 DispatchQueue.main.async {self.firstInterfaceController.pushTimer(timerIndex)}
             }
         }
+        
+        self._timerObject = nil
+        self.disgustingHackSemaphore = false
     }
     
     /* ################################################################## */
@@ -263,10 +270,21 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                                 var currentIndex = -2
                                 if let interfaceController = self.firstInterfaceController.myCurrentTimer {
                                     currentIndex = interfaceController.timerIndex
-                                    let _ = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(self.timerCallback(_:)), userInfo: timerIndex, repeats: false)
+                                    // OK. THis is sad.
+                                    // You have to wait until the screens have actually closed before you push the new one.
+                                    // The disgusting hack semaphore is to prevent the watch from telling the phone app
+                                    // to reset to the Timer List, when we actually have a new timer about to be selected.
+                                    // This is gross, I know, but them's the breaks.
+                                    if nil != self.firstInterfaceController.myCurrentTimer {
+                                        self.disgustingHackSemaphore = true
+                                        self.firstInterfaceController.myCurrentTimer.closeMe()
+                                    }
+                                    self._timerObject = Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(self.timerCallback(_:)), userInfo: timerIndex, repeats: false)
                                 } else {
                                     if currentIndex != timerIndex {
-                                        self.firstInterfaceController.popToRootController()
+                                        if nil != self.firstInterfaceController.myCurrentTimer {
+                                            self.firstInterfaceController.myCurrentTimer.closeMe()
+                                        }
                                         
                                         if 0 <= timerIndex {
                                             self.firstInterfaceController.pushTimer(timerIndex)
@@ -313,11 +331,9 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                 case    LGV_Timer_Messages.s_timerRequestActiveTimerUIDMessageKey:
                     if let uid = message[key] as? String {
                         if uid.isEmpty {
-                            self.dismissTimers()
                         } else {
                         }
                     } else {
-                        self.dismissTimers()
                     }
                     
                 case    LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
@@ -338,13 +354,6 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
             }
         }
     }
-    
-    /* ################################################################## */
-    /**
-     */
-    func updateUI() {
-        
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -362,8 +371,16 @@ class LGV_Timer_Watch_BaseInterfaceController: WKInterfaceController {
         }
     }
     
-    func updateUI() {
-        
+    /* ################################################################## */
+    /**
+     */
+    func updateUI() { }
+    
+    /* ################################################################## */
+    /**
+     */
+    func closeMe() {
+        super.pop()
     }
 }
 

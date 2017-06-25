@@ -134,7 +134,6 @@
 		77CBF4071EF7F6F000B4D4C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77CBF4091EF7F6F000B4D4C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77CBF40E1EF7F6F000B4D4C6 /* X-Timer Companion Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "X-Timer Companion Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		77CBF4131EF7F6F000B4D4C6 /* LGV_Timer_Watch_MainInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Watch_MainInterfaceController.swift; sourceTree = "<group>"; };
 		77CBF4151EF7F6F000B4D4C6 /* LGV_Timer_Watch_ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Watch_ExtensionDelegate.swift; sourceTree = "<group>"; };
 		77CBF4171EF7F6F000B4D4C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77CBF4191EF7F6F000B4D4C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -269,7 +268,6 @@
 				779692731EFD23B20090D92D /* LGV_Timer_Watch_MainAppInterfaceController.swift */,
 				777628201EF840590060C085 /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift */,
 				77B0F3A91EF93317007A671B /* LGV_Timer_Watch_RunningTimerInterfaceController.swift */,
-				77CBF4131EF7F6F000B4D4C6 /* LGV_Timer_Watch_MainInterfaceController.swift */,
 				77CBF4171EF7F6F000B4D4C6 /* Assets.xcassets */,
 				77CBF4191EF7F6F000B4D4C6 /* Info.plist */,
 			);
