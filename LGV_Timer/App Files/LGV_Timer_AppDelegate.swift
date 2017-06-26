@@ -118,7 +118,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /* ################################################################## */
     /**
      */
-    @objc(applicationWillEnterForeground:) func applicationWillEnterForeground(_ application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         self.sendForegroundMessage()
     }
     
@@ -258,19 +258,26 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendBackgroundMessage() {
-        if .activated == self.session.activationState {
-            let selectMsg = [LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:""]
-            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
-        }
+        let selectMsg = [LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:""]
+        self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
     }
     
     /* ################################################################## */
     /**
      */
     func sendForegroundMessage() {
+        let selectMsg = [LGV_Timer_Messages.s_timerAppInForegroundMessageKey:""]
+        self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendAppStateMessage() {
         if .activated == self.session.activationState {
-            let selectMsg = [LGV_Timer_Messages.s_timerAppInForegroundMessageKey:""]
-            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+            self.sendForegroundMessage()
+        } else {
+            self.sendBackgroundMessage()
         }
     }
     
@@ -280,9 +287,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        if .active != UIApplication.shared.applicationState {
-            self.sendBackgroundMessage()
-        }
     }
     
     /* ################################################################## */
@@ -343,11 +347,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                 session.sendMessage(responseMessage, replyHandler: nil, errorHandler: nil)
                 
             case    LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:
-                if .active == UIApplication.shared.applicationState {
-                    self.sendForegroundMessage()
-                } else {
-                    self.sendBackgroundMessage()
-                }
+                self.sendAppStateMessage()
                 
             case    LGV_Timer_Messages.s_timerRequestActiveTimerUIDMessageKey:
                 if .active == UIApplication.shared.applicationState {
@@ -364,14 +364,20 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
             case    LGV_Timer_Messages.s_timerListSelectTimerMessageKey:
                 if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
                     if let uid = message[key] as? String {
-                        if let _ = LGV_Timer_StaticPrefs.prefs.getTimerPrefsForUID(uid) {
-                            let timerIndex = LGV_Timer_StaticPrefs.prefs.getIndexOfTimer(uid)
-                            DispatchQueue.main.async {
-                                tabController.selectedIndex = timerIndex + 1
-                            }
-                        } else {
-                            DispatchQueue.main.async {
-                                tabController.selectedIndex = 0
+                        DispatchQueue.main.async {
+                            if !uid.isEmpty {
+                                let timerIndex = LGV_Timer_StaticPrefs.prefs.getIndexOfTimer(uid) + 1
+                                DispatchQueue.main.async {
+                                    if timerIndex != tabController.selectedIndex {
+                                        if 0 < timerIndex {
+                                            tabController.selectedViewController = tabController.viewControllers?[timerIndex]
+                                        } else {
+                                            tabController.selectedViewController = tabController.viewControllers?[0]
+                                        }
+                                    }
+                                }
+                            } else {
+                                tabController.selectedViewController = tabController.viewControllers?[0]
                             }
                         }
                     }
@@ -380,17 +386,14 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
             case    LGV_Timer_Messages.s_timerListStartTimerMessageKey:
                 if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
                     if let uid = message[key] as? String {
-                        if let _ = LGV_Timer_StaticPrefs.prefs.getTimerPrefsForUID(uid) {
-                            let timerIndex = LGV_Timer_StaticPrefs.prefs.getIndexOfTimer(uid)
-                            DispatchQueue.main.async {
-                                if tabController.selectedIndex == (timerIndex + 1) {
-                                    if nil != self.currentTimer {
-                                        self.currentTimer.continueTimer()
+                        DispatchQueue.main.async {
+                            if !uid.isEmpty {
+                                if let theController = tabController.selectedViewController as? LGV_Timer_TimerNavController {
+                                    if let timerController = theController.topViewController as? LGV_Timer_TimerSetController {
+                                        timerController.startTimer()
                                     } else {
-                                        if let myController = tabController.selectedViewController as? LGV_Timer_TimerNavController {
-                                            if let selectedController = myController.topViewController as? LGV_Timer_TimerSetController {
-                                                selectedController.startTimer()
-                                            }
+                                        if let timerController = theController.topViewController as? LGV_Timer_TimerRuntimeViewController {
+                                            timerController.continueTimer()
                                         }
                                     }
                                 }
@@ -425,7 +428,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                                     if nil != self.currentTimer {
                                         self.currentTimer.stopTimer()
                                         self.currentTimer.navigationController?.popToRootViewController(animated: false)
-                                        tabController.selectedIndex = 0
                                     }
                                 }
                             }

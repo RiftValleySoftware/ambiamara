@@ -16,7 +16,7 @@
         <!--Main App Interface Controller-->
         <scene sceneID="5A9-SJ-bWw">
             <objects>
-                <controller identifier="NoApp" id="i4N-ut-62W" userLabel="Main App Interface Controller" customClass="LGV_Timer_Watch_MainAppInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
+                <controller identifier="MainScreen" id="i4N-ut-62W" userLabel="Main App Interface Controller" customClass="LGV_Timer_Watch_MainAppInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
                     <items>
                         <group width="1" height="1" alignment="left" layout="vertical" id="lQa-3d-Y0M" userLabel="No App Connection Display">
                             <items>
@@ -36,9 +36,9 @@
                                     </items>
                                 </group>
                             </items>
-                            <color key="backgroundColor" red="0.26621194949999999" green="0.26621194949999999" blue="0.26621194949999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </group>
-                        <table alignment="left" id="2Hz-tT-z2U">
+                        <table alignment="left" hidden="YES" id="2Hz-tT-z2U">
                             <items>
                                 <tableRow identifier="TimerRow" id="SvS-RB-JjR" customClass="LGV_Timer_Watch_MainInterfaceTableRowController" customModule="X_Timer_Companion_Extension">
                                     <group key="rootItem" width="1" alignment="left" layout="vertical" id="OH3-Hd-MtQ">
@@ -76,23 +76,23 @@
             </objects>
             <point key="canvasLocation" x="-243" y="69"/>
         </scene>
-        <!--IndividualTimer-->
+        <!--TimerScreen-->
         <scene sceneID="xyw-HL-qjO">
             <objects>
-                <controller identifier="IndividualTimer" id="fDO-Zl-Nkx" customClass="LGV_Timer_Watch_MainTimerHandlerInterfaceController" customModule="X_Timer_Companion_Extension">
+                <controller identifier="TimerScreen" id="fDO-Zl-Nkx" customClass="LGV_Timer_Watch_MainTimerHandlerInterfaceController" customModule="X_Timer_Companion_Extension">
                     <items>
                         <group width="1" height="1" alignment="left" layout="vertical" id="ANx-Gq-hUJ" userLabel="Time Display Group">
                             <items>
                                 <group width="1" height="0.20000000000000001" alignment="left" id="MeH-oi-Jsm">
                                     <items>
-                                        <imageView width="0.10000000000000001" height="1" alignment="left" verticalAlignment="center" image="Watch-TrafficLights" contentMode="scaleAspectFit" id="UKD-1y-6SI"/>
-                                        <label width="0.90000000000000002" height="1" alignment="right" verticalAlignment="center" textAlignment="right" id="izH-Be-8ao">
+                                        <imageView width="0.10000000000000001" height="1" alignment="left" verticalAlignment="center" hidden="YES" image="Watch-TrafficLights" contentMode="scaleAspectFit" id="UKD-1y-6SI"/>
+                                        <label width="0.90000000000000002" height="1" alignment="center" verticalAlignment="center" textAlignment="right" id="izH-Be-8ao">
                                             <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="34"/>
                                         </label>
                                     </items>
                                 </group>
-                                <button alignment="left" id="mGn-pJ-88l">
-                                    <group key="contentGroup" width="1" height="0.80000000000000004" alignment="left" id="7Cg-P5-KuJ">
+                                <button alignment="center" verticalAlignment="center" id="mGn-pJ-88l">
+                                    <group key="contentGroup" width="0.5" height="0.5" alignment="left" id="7Cg-P5-KuJ">
                                         <items>
                                             <imageView width="1" height="1" alignment="center" verticalAlignment="center" image="Watch-Start" contentMode="center" id="4jb-OO-6m2"/>
                                         </items>
@@ -120,20 +120,16 @@
                 <controller identifier="RunningTimer" id="ljw-Z4-BZJ" userLabel="Running Timer" customClass="LGV_Timer_Watch_RunningTimerInterfaceController" customModule="X_Timer_Companion_Extension">
                     <items>
                         <button alignment="left" id="D1z-TA-HQx">
-                            <group key="contentGroup" width="1" alignment="left" id="P2i-2e-2Ml">
+                            <group key="contentGroup" width="1" height="1" alignment="left" layout="vertical" id="P2i-2e-2Ml">
                                 <items>
-                                    <group width="1" height="1" alignment="left" verticalAlignment="center" layout="vertical" id="pav-ba-U5e">
+                                    <label alignment="center" verticalAlignment="center" text="00:00:00" textAlignment="center" id="xNU-lg-0O4">
+                                        <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="38"/>
+                                    </label>
+                                    <group width="1" alignment="left" verticalAlignment="center" id="SmR-Mg-zB6">
                                         <items>
-                                            <label alignment="center" verticalAlignment="center" text="00:00:00" textAlignment="center" id="xNU-lg-0O4">
-                                                <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="37"/>
-                                            </label>
-                                            <group width="1" alignment="left" verticalAlignment="center" id="SmR-Mg-zB6">
-                                                <items>
-                                                    <imageView width="40" height="40" alignment="left" image="Watch-GreenLight" id="lUf-Sp-uXJ" userLabel="Green Light"/>
-                                                    <imageView width="40" height="40" alignment="center" image="Watch-OffLight" id="UyE-1h-EaU" userLabel="Yellow Light"/>
-                                                    <imageView width="40" height="40" alignment="right" image="Watch-OffLight" id="tOR-a0-VVG" userLabel="Red Light"/>
-                                                </items>
-                                            </group>
+                                            <imageView width="40" height="40" alignment="left" image="Watch-OffLight" id="lUf-Sp-uXJ" userLabel="Green Light"/>
+                                            <imageView width="40" height="40" alignment="center" image="Watch-OffLight" id="UyE-1h-EaU" userLabel="Yellow Light"/>
+                                            <imageView width="40" height="40" alignment="right" image="Watch-OffLight" id="tOR-a0-VVG" userLabel="Red Light"/>
                                         </items>
                                     </group>
                                 </items>
@@ -141,6 +137,7 @@
                         </button>
                     </items>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <edgeInsets key="margins" left="1" right="1" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="displayDigitsLabel" destination="xNU-lg-0O4" id="TXj-EG-3hP"/>
                         <outlet property="displayTrafficLightsGroup" destination="SmR-Mg-zB6" id="vSm-pM-4QX"/>

@@ -12,14 +12,12 @@ import WatchKit
 /**
  */
 class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseInterfaceController {
-    static let s_RunningTimerInterfaceID = "RunningTimer"
-    
-    private var _lastTimerDate: Date! = nil
-    
+    static var screenID: String { get { return "TimerScreen"} }
+
     var myController: LGV_Timer_Watch_MainAppInterfaceController! = nil
     var modalTimerScreen: LGV_Timer_Watch_RunningTimerInterfaceController! = nil
     var currentTimeInSeconds: Int = 0
-    var disgustingHackSemaphore: Bool = false
+    var leaveMeAlone: Bool = false
     
     @IBOutlet var trafficLightIcon: WKInterfaceImage!
     @IBOutlet var timeDisplayGroup: WKInterfaceGroup!
@@ -30,11 +28,8 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /**
      */
     @IBAction func startButtonHit() {
-        self.disgustingHackSemaphore = true
-        LGV_Timer_Watch_ExtensionDelegate.delegateObject.disgustingHackSemaphore = true
         LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendStartMessage(timerUID: self.timerUID)
         self.pushTimer()
-        LGV_Timer_Watch_ExtensionDelegate.delegateObject.disgustingHackSemaphore = false
     }
     
     /* ################################################################## */
@@ -57,16 +52,24 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
                 }
             }
             
-            if nil != self.modalTimerScreen {
-                self.modalTimerScreen.updateUI(inSeconds: self.currentTimeInSeconds)
-            }
-            
             let timeTotal = max(0, self.currentTimeInSeconds)
             let timeInHours: Int = timeTotal / 3600
             let timeInMinutes = (timeTotal - (timeInHours * 3600)) / 60
             let timeInSeconds = timeTotal - ((timeInHours * 3600) + (timeInMinutes * 60))
             let displayString = String(format: "%02d:%02d:%02d", timeInHours, timeInMinutes, timeInSeconds)
             self.timeDisplayLabel.setText(displayString)
+            if nil != self.modalTimerScreen {
+                self.modalTimerScreen.updateUI(inSeconds: self.currentTimeInSeconds)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func alarm() {
+        if nil != self.modalTimerScreen {
+            self.modalTimerScreen.alarm()
         }
     }
     
@@ -75,8 +78,8 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
      */
     func stopTimer() {
         if nil != self.modalTimerScreen {
-            self.modalTimerScreen.pop()
-            self.modalTimerScreen = nil
+            self.leaveMeAlone = true
+            self.modalTimerScreen.dismiss()
         }
         
         if let timeSetNum = self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber {
@@ -89,11 +92,6 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /**
      */
     func startTimer() {
-        if nil != self.modalTimerScreen {
-            self.modalTimerScreen.pop()
-            self.modalTimerScreen = nil
-        }
-        
         if let time = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber)?.intValue {
             if !(1..<time ~= self.currentTimeInSeconds) {
                 self.currentTimeInSeconds = time
@@ -108,8 +106,8 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
      */
     func pauseTimer() {
         if nil != self.modalTimerScreen {
-            self.modalTimerScreen.pop()
-            self.modalTimerScreen = nil
+            self.leaveMeAlone = true
+            self.modalTimerScreen.dismiss()
         }
     }
     
@@ -117,16 +115,12 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /**
      */
     func pushTimer() {
-        self.disgustingHackSemaphore = true
         DispatchQueue.main.async {
             if nil == self.modalTimerScreen {
-                if let uid = LGV_Timer_Watch_ExtensionDelegate.delegateObject.timers[self.timerIndex][LGV_Timer_Data_Keys.s_timerDataUIDKey] as? String {
-                    LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendSelectMessage(timerUID: uid)
-                }
-                
+                self.leaveMeAlone = true
                 let contextInfo:[String:Any] = [LGV_Timer_Watch_MainAppInterfaceController.s_ControllerContextKey:self, LGV_Timer_Watch_MainAppInterfaceController.s_TimerContextKey: self.timer, LGV_Timer_Watch_MainAppInterfaceController.s_CurrentTimeContextKey: self.currentTimeInSeconds]
                 
-                self.pushController(withName: type(of: self).s_RunningTimerInterfaceID, context: contextInfo)
+                self.presentController(withName: LGV_Timer_Watch_RunningTimerInterfaceController.screenID, context: contextInfo)
             }
         }
     }
@@ -135,13 +129,22 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /* ################################################################## */
     /**
      */
+    override init() {
+        super.init()
+        LGV_Timer_Watch_ExtensionDelegate.delegateObject.timerObjects.append(self)
+        
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         self.modalTimerScreen = nil
+        self.leaveMeAlone = false
         if let contextInfo = context as? [String:Any] {
             if let controller = contextInfo[LGV_Timer_Watch_MainAppInterfaceController.s_ControllerContextKey] as? LGV_Timer_Watch_MainAppInterfaceController {
                 self.myController = controller
-                self.myController.myCurrentTimer = self
             }
 
             if let timer = contextInfo[LGV_Timer_Watch_MainAppInterfaceController.s_TimerContextKey] as? [String:Any] {
@@ -171,31 +174,23 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /* ################################################################## */
     /**
      */
-    override func willActivate() {
-        super.willActivate()
-        self.modalTimerScreen = nil
+    override func didAppear() {
+        super.didAppear()
+        LGV_Timer_Watch_ExtensionDelegate.delegateObject.currentTimer = self
+        if !self.leaveMeAlone {
+            LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendSelectMessage(timerUID: self.timerUID)
+        }
+        self.leaveMeAlone = false
     }
     
     /* ################################################################## */
     /**
      */
     override func willDisappear() {
-        if nil != self.modalTimerScreen {
-            self.modalTimerScreen.closeMe()
-            self.modalTimerScreen = nil
+        if !self.leaveMeAlone && (nil != self.modalTimerScreen) {
+            self.modalTimerScreen.dismiss()
         }
         super.willDisappear()
-        self.disgustingHackSemaphore = false
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    override func closeMe() {
-        if nil != self.modalTimerScreen {
-            self.modalTimerScreen.closeMe()
-            self.modalTimerScreen = nil
-        }
-        super.closeMe()
+        self.leaveMeAlone = false
     }
 }

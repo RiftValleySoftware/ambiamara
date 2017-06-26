@@ -14,6 +14,8 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
     static let s_YellowLightName = "Watch-YellowLight"
     static let s_RedLightName = "Watch-RedLight"
     
+    static var screenID: String { get { return "RunningTimer"} }
+    
     @IBOutlet var displayDigitsLabel: WKInterfaceLabel!
     @IBOutlet var displayTrafficLightsGroup: WKInterfaceGroup!
     @IBOutlet var greenLightImage: WKInterfaceImage!
