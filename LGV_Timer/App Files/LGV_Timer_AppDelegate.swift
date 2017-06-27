@@ -369,6 +369,14 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                                 let timerIndex = LGV_Timer_StaticPrefs.prefs.getIndexOfTimer(uid) + 1
                                 DispatchQueue.main.async {
                                     if timerIndex != tabController.selectedIndex {
+                                        // If we have another controller up and running, we terminate it with extreme prejudice.
+                                        if let theController = tabController.selectedViewController as? LGV_Timer_TimerNavController {
+                                            if let _ = theController.topViewController as? LGV_Timer_TimerRuntimeViewController {
+                                                self.currentTimer.currentTimeInSeconds = self.currentTimer.timerObject.timeSet
+                                                theController.popToRootViewController(animated: false)
+                                            }
+                                        }
+                                        
                                         if 0 < timerIndex {
                                             tabController.selectedViewController = tabController.viewControllers?[timerIndex]
                                         } else {

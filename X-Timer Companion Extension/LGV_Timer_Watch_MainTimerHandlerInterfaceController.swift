@@ -190,6 +190,11 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
         if !self.leaveMeAlone && (nil != self.modalTimerScreen) {
             self.modalTimerScreen.dismiss()
         }
+        
+        if let timeSetNum = self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber {
+            self.currentTimeInSeconds = timeSetNum.intValue
+        }
+        
         super.willDisappear()
         self.leaveMeAlone = false
     }

@@ -413,13 +413,17 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     override func viewWillDisappear(_ animated: Bool) {
+        if nil != self._timer {
+            self._timer.invalidate()
+            self._timer = nil
+        }
+        
         if nil != self._alarmTimer {
             self._alarmTimer.invalidate()
             self._alarmTimer = nil
         }
         
         super.viewWillDisappear(animated)
-        self.navigationController?.popToRootViewController(animated: false)
         
         LGV_Timer_AppDelegate.appDelegateObject.currentTimer = nil
         UIApplication.shared.isIdleTimerDisabled = false
