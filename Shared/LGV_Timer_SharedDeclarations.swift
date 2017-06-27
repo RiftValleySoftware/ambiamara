@@ -18,17 +18,20 @@ class LGV_Timer_Messages {
     static let s_timerListResetTimerMessageKey = "ResetTimer"
     static let s_timerListEndTimerMessageKey = "EndTimer"
     static let s_timerListUpdateTimerMessageKey = "UpdateTimer"
+    static let s_timerListUpdateFullTimerMessageKey = "UpdateFullTimer"
     static let s_timerListAlarmMessageKey = "W00t!"
     static let s_timerAppInBackgroundMessageKey = "AppInBackground"
     static let s_timerAppInForegroundMessageKey = "AppInForeground"
     static let s_timerRequestAppStatusMessageKey = "WhatUpDood"
     static let s_timerRequestActiveTimerUIDMessageKey = "Whazzup"
+    static let s_timerRecaclulateTimersMessageKey = "ScarfNBarf"
 }
 
 class LGV_Timer_Data_Keys {
     static let s_timerDataUIDKey = "UID"
     static let s_timerDataTimerNameKey = "TimerName"
     static let s_timerDataTimeSetKey = "TimeSet"
+    static let s_timerDataCurrentTimeKey = "CurrentTime"
     static let s_timerDataTimeSetWarnKey = "TimeSetWarn"
     static let s_timerDataTimeSetFinalKey = "TimeSetFinal"
     static let s_timerDataDisplayModeKey = "DisplayMode"

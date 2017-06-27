@@ -17,6 +17,7 @@
 		772A13E31ED5E8BA0043C58B /* LGV_Timer_Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 772A13DE1ED5E8BA0043C58B /* LGV_Timer_Main.storyboard */; };
 		772A13E41ED5E8BA0043C58B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 772A13E01ED5E8BA0043C58B /* Localizable.strings */; };
 		772A13E61ED5E8F80043C58B /* LGV_Timer_Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 772A13E51ED5E8F80043C58B /* LGV_Timer_Assets.xcassets */; };
+		772BF85D1F0299FD0094AE56 /* LGV_Timer_Complication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772BF85C1F0299FD0094AE56 /* LGV_Timer_Complication.swift */; };
 		772BF9C41ED600B3002D1782 /* LGV_Timer_TimerNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772BF9C31ED600B3002D1782 /* LGV_Timer_TimerNavController.swift */; };
 		773E06511EDAFACD003FF9DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E06501EDAFACD003FF9DD /* AppDelegate.swift */; };
 		773E06531EDAFACD003FF9DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E06521EDAFACD003FF9DD /* ViewController.swift */; };
@@ -109,6 +110,7 @@
 		772A13E51ED5E8F80043C58B /* LGV_Timer_Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = LGV_Timer_Assets.xcassets; path = "App Files/LGV_Timer_Assets.xcassets"; sourceTree = "<group>"; };
 		772A13E81ED5E99B0043C58B /* LED_Element.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LED_Element.swift; path = LGV_Timer/LGV_Lib_LEDDisplay/LED_Element.swift; sourceTree = SOURCE_ROOT; };
 		772A13E91ED5E99B0043C58B /* LGV_Lib_LEDDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Lib_LEDDisplay.swift; path = LGV_Timer/LGV_Lib_LEDDisplay/LGV_Lib_LEDDisplay.swift; sourceTree = SOURCE_ROOT; };
+		772BF85C1F0299FD0094AE56 /* LGV_Timer_Complication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Complication.swift; sourceTree = "<group>"; };
 		772BF9C31ED600B3002D1782 /* LGV_Timer_TimerNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerNavController.swift; path = ViewControllers/LGV_Timer_TimerNavController.swift; sourceTree = "<group>"; };
 		773E064E1EDAFACD003FF9DD /* LGV_Lib_LEDDisplay_UI_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGV_Lib_LEDDisplay_UI_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		773E06501EDAFACD003FF9DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				779692731EFD23B20090D92D /* LGV_Timer_Watch_MainAppInterfaceController.swift */,
 				777628201EF840590060C085 /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift */,
 				77B0F3A91EF93317007A671B /* LGV_Timer_Watch_RunningTimerInterfaceController.swift */,
+				772BF85C1F0299FD0094AE56 /* LGV_Timer_Complication.swift */,
 				77CBF4171EF7F6F000B4D4C6 /* Assets.xcassets */,
 				77CBF4191EF7F6F000B4D4C6 /* Info.plist */,
 			);
@@ -510,6 +513,7 @@
 				776B24CB1EF7F7B400CBA571 /* LGV_Timer_SharedDeclarations.swift in Sources */,
 				779692741EFD23B20090D92D /* LGV_Timer_Watch_MainAppInterfaceController.swift in Sources */,
 				77A882C51EFD81F900FEBEF6 /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift in Sources */,
+				772BF85D1F0299FD0094AE56 /* LGV_Timer_Complication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

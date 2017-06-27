@@ -166,17 +166,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /* ################################################################## */
     /**
      */
-    func sendUpdateMessage() {
-        if (nil != currentTimer) && (.activated == self.session.activationState) {
-            let seconds = currentTimer.currentTimeInSeconds
-            let updateMsg = [LGV_Timer_Messages.s_timerListUpdateTimerMessageKey:seconds]
-            self.session.sendMessage(updateMsg, replyHandler: nil, errorHandler: nil)
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
     func sendSelectMessage(timerUID: String = "") {
         if .activated == self.session.activationState {
             let selectMsg = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey:timerUID]
@@ -274,10 +263,82 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendAppStateMessage() {
-        if .activated == self.session.activationState {
+        if .active == UIApplication.shared.applicationState {
             self.sendForegroundMessage()
         } else {
             self.sendBackgroundMessage()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendRecalculateMessage() {
+        var timerArray:[[String:Any]] = []
+        var index = 1
+        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+            var timerDictionary:[String:Any] = [:]
+            timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] = timer.timeSet
+            timerDictionary[LGV_Timer_Data_Keys.s_timerDataCurrentTimeKey] = timer.timeSet
+            timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetWarnKey] = timer.timeSetPodiumWarn
+            timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetFinalKey] = timer.timeSetPodiumFinal
+            timerDictionary[LGV_Timer_Data_Keys.s_timerDataDisplayModeKey] = timer.displayMode.rawValue
+            timerDictionary[LGV_Timer_Data_Keys.s_timerDataUIDKey] = timer.uid
+            timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimerNameKey] = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, index)
+            index += 1
+            let colorIndex = timer.colorTheme
+            let pickerPepper = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[colorIndex]
+            // This awful hack is because colors read from IB don't seem to transmit well to Watch. Pretty sure it's an Apple bug.
+            if let color = pickerPepper.textColor {
+                if let destColorSpace: CGColorSpace = CGColorSpace(name: CGColorSpace.sRGB) {
+                    if let newColor = color.cgColor.converted(to: destColorSpace, intent: CGColorRenderingIntent.perceptual, options: nil) {
+                        timerDictionary[LGV_Timer_Data_Keys.s_timerDataColorKey] = UIColor(cgColor: newColor)
+                    }
+                }
+            }
+            timerArray.append(timerDictionary)
+        }
+        
+        let timerData = NSKeyedArchiver.archivedData(withRootObject: timerArray)
+        let resetMessage = [LGV_Timer_Messages.s_timerRecaclulateTimersMessageKey:timerData]
+        self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendUpdateOneTimerMessage(timerUID: String, currentTime: Int) {
+        var timerDictionary:[String:Any] = [:]
+        var index = 1
+        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+            if timer.uid == timerUID {
+                timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] = timer.timeSet
+                timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetWarnKey] = timer.timeSetPodiumWarn
+                timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetFinalKey] = timer.timeSetPodiumFinal
+                timerDictionary[LGV_Timer_Data_Keys.s_timerDataDisplayModeKey] = timer.displayMode.rawValue
+                timerDictionary[LGV_Timer_Data_Keys.s_timerDataUIDKey] = timer.uid
+                timerDictionary[LGV_Timer_Data_Keys.s_timerDataCurrentTimeKey] = currentTime
+                timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimerNameKey] = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, index)
+                index += 1
+                let colorIndex = timer.colorTheme
+                let pickerPepper = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[colorIndex]
+                // This awful hack is because colors read from IB don't seem to transmit well to Watch. Pretty sure it's an Apple bug.
+                if let color = pickerPepper.textColor {
+                    if let destColorSpace: CGColorSpace = CGColorSpace(name: CGColorSpace.sRGB) {
+                        if let newColor = color.cgColor.converted(to: destColorSpace, intent: CGColorRenderingIntent.perceptual, options: nil) {
+                            timerDictionary[LGV_Timer_Data_Keys.s_timerDataColorKey] = UIColor(cgColor: newColor)
+                        }
+                    }
+                }
+                
+                break
+            }
+        }
+        
+        if !timerDictionary.isEmpty {
+            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
+            let resetMessage = [LGV_Timer_Messages.s_timerListUpdateFullTimerMessageKey:timerData]
+            self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
         }
     }
     

@@ -136,7 +136,7 @@
                             </group>
                         </button>
                     </items>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.09215959821428571" alpha="1" colorSpace="calibratedWhite"/>
                     <edgeInsets key="margins" left="1" right="1" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="displayDigitsLabel" destination="xNU-lg-0O4" id="TXj-EG-3hP"/>

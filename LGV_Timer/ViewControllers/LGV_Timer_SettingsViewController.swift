@@ -57,6 +57,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        LGV_Timer_AppDelegate.appDelegateObject.sendSelectMessage()
         self.timerTableView.reloadData()
     }
     
@@ -82,6 +83,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      */
     @IBAction func addTimerButtonHit(_ sender: Any) {
         self.mainTabController.addNewTimer()
+        LGV_Timer_AppDelegate.appDelegateObject.sendRecalculateMessage()
         self.timerTableView.reloadData()
         self.gussyUpTheMoreNavigation()
     }
@@ -212,6 +214,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         // Just on the off chance we're in a non-traditional thread...
         DispatchQueue.main.async(execute: {
             self.mainTabController.deleteTimer(indexPath.row)
+            LGV_Timer_AppDelegate.appDelegateObject.sendRecalculateMessage()
             tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
             tableView.isEditing = false
             tableView.reloadData()

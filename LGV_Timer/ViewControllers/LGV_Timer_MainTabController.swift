@@ -62,7 +62,6 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
     func selectTimer(_ inTimerIndex: Int) {
         let timerIndex = 1 + inTimerIndex
         self.selectedViewController = self.viewControllers?[timerIndex]
-        self.tabBarController(self, didSelect: self.selectedViewController!)
     }
     
     /* ################################################################## */
@@ -106,20 +105,6 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
                 timerController.navigationBar.topItem?.title = timerTitle
                 self.viewControllers?.append(timerController)
             }
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if 0 < self.selectedIndex {
-            let timerIndex = self.selectedIndex - 1
-            let timerObject = LGV_Timer_StaticPrefs.prefs.timers[timerIndex]
-            let uid = timerObject.uid
-            LGV_Timer_AppDelegate.appDelegateObject.sendSelectMessage(timerUID: uid)
-        } else {
-            LGV_Timer_AppDelegate.appDelegateObject.sendSelectMessage()
         }
     }
 }

@@ -180,6 +180,9 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
         if !self.leaveMeAlone {
             LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendSelectMessage(timerUID: self.timerUID)
         }
+        
+        self.updateUI(inSeconds: self.currentTimeInSeconds)
+
         self.leaveMeAlone = false
     }
     
