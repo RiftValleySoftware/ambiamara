@@ -182,13 +182,8 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
         
         if nil != self.myController {
             self.myController.modalTimerScreen = nil
-            if let time = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber)?.intValue {
-                let currentTime = self.myController.currentTimeInSeconds
-                if (0 < time) && (1..<time ~= currentTime) {
-                    LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendPauseMessage(timerUID: self.myController.timerUID)
-                } else {
-                    LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendStopMessage(timerUID: self.myController.timerUID)
-                }
+            if !self.myController.leaveMeAlone {
+                LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendPauseMessage(timerUID: self.myController.timerUID)
             }
         }
     }

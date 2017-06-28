@@ -22,6 +22,7 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     @IBOutlet var trafficLightIcon: WKInterfaceImage!
     @IBOutlet var timeDisplayGroup: WKInterfaceGroup!
     @IBOutlet var timeDisplayLabel: WKInterfaceLabel!
+    @IBOutlet var startButton: WKInterfaceButton!
     
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -29,7 +30,6 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
      */
     @IBAction func startButtonHit() {
         LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendStartMessage(timerUID: self.timerUID)
-        self.pushTimer()
     }
     
     /* ################################################################## */
@@ -58,6 +58,9 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
             let timeInSeconds = timeTotal - ((timeInHours * 3600) + (timeInMinutes * 60))
             let displayString = String(format: "%02d:%02d:%02d", timeInHours, timeInMinutes, timeInSeconds)
             self.timeDisplayLabel.setText(displayString)
+            
+            self.startButton.setHidden(0 == timeTotal)
+            
             if nil != self.modalTimerScreen {
                 self.modalTimerScreen.updateUI(inSeconds: self.currentTimeInSeconds)
             }
@@ -92,12 +95,6 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /**
      */
     func startTimer() {
-        if let time = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber)?.intValue {
-            if !(1..<time ~= self.currentTimeInSeconds) {
-                self.currentTimeInSeconds = time
-            }
-        }
-        
         self.pushTimer()
     }
     

@@ -160,6 +160,27 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
         return ret
     }
     
+    /* ################################################################## */
+    /**
+     */
+    func updateTimerGivenUID(_ inUID: String, selectTimer: Bool = false) {
+        let index = self.getTimerIndexForUID(inUID)
+        
+        if 0..<self.timerObjects.count ~= index {
+            DispatchQueue.main.async {
+                let controller = self.timerObjects[index]
+                if selectTimer && (controller != self.currentTimer) {
+                    controller.becomeCurrentPage()
+                }
+                
+                if let currentTime = self.timers[index][LGV_Timer_Data_Keys.s_timerDataCurrentTimeKey] as? Int {
+                    controller.timer = self.timers[index]
+                    controller.updateUI(inSeconds: currentTime)
+                }
+            }
+        }
+    }
+    
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
@@ -262,7 +283,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                                 if 0..<self.timers.count ~= index {
                                     self.timers[index] = payload
                                     self.timerObjects[index].timer = payload
-                                    self.timerObjects[index].updateUI()
+                                    self.updateTimerGivenUID(uid)
                                 }
                             }
                         }
@@ -288,11 +309,12 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                             let index = self.getTimerIndexForUID(uid)
                             if let timerObject = self.currentTimer {
                                 if index != timerObject.timerIndex {
+                                    self.updateTimerGivenUID(timerObject.timerUID)
                                     timerObject.stopTimer()
                                 }
                             }
                             if 0 <= index {
-                                self.timerListController.pushTimer(index)
+                                self.updateTimerGivenUID(uid, selectTimer: true)
                             } else {
                                 DispatchQueue.main.async {
                                     self.timerListController.becomeCurrentPage()
@@ -312,6 +334,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                             let index = self.getTimerIndexForUID(uid)
                             if 0 <= index {
                                 self.timerObjects[index].stopTimer()
+                                self.updateTimerGivenUID(uid)
                             }
                         } else {
                             print("Bad UID!")
@@ -326,6 +349,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                             self.dontCallMeBack = true
                             let index = self.getTimerIndexForUID(uid)
                             if 0 <= index {
+                                self.updateTimerGivenUID(uid, selectTimer: true)
                                 self.timerObjects[index].pauseTimer()
                             }
                         } else {
@@ -341,7 +365,8 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                             self.dontCallMeBack = true
                             let index = self.getTimerIndexForUID(uid)
                             if 0 <= index {
-                                self.timerObjects[index].pushTimer()
+                                self.updateTimerGivenUID(uid, selectTimer: true)
+                                self.timerObjects[index].startTimer()
                             }
                         } else {
                             print("Bad UID!")
@@ -385,6 +410,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                         if let uid = message[key] as? String {
                             let index = self.getTimerIndexForUID(uid)
                             if 0 <= index {
+                                self.updateTimerGivenUID(uid, selectTimer: true)
                                 self.timerObjects[index].alarm()
                             }
                         } else {

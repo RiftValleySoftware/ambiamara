@@ -106,6 +106,7 @@
                         </group>
                     </items>
                     <connections>
+                        <outlet property="startButton" destination="mGn-pJ-88l" id="ZCE-5J-FXt"/>
                         <outlet property="timeDisplayGroup" destination="ANx-Gq-hUJ" id="ynh-yn-4Gj"/>
                         <outlet property="timeDisplayLabel" destination="izH-Be-8ao" id="4CK-FL-FE0"/>
                         <outlet property="trafficLightIcon" destination="UKD-1y-6SI" id="qFL-GN-bzM"/>
