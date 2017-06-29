@@ -9,6 +9,10 @@
 import WatchKit
 
 class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInterfaceController {
+    enum TimerMode {
+        case Green, Yellow, Red, Alarm
+    }
+    
     static let s_OffLightName = "Watch-OffLight"
     static let s_GreenLightName = "Watch-GreenLight"
     static let s_YellowLightName = "Watch-YellowLight"
@@ -24,6 +28,7 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
     @IBOutlet var overallGroup: WKInterfaceGroup!
 
     var myController: LGV_Timer_Watch_MainTimerHandlerInterfaceController! = nil
+    var oldMode: TimerMode = .Green
     
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -47,7 +52,6 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
     /**
      */
     func updateUI(inSeconds: Int! = nil) {
-        let oldSeconds = self.myController.currentTimeInSeconds
         self.myController.currentTimeInSeconds = inSeconds
         if let displayMode = TimerDisplayMode(rawValue: ((self.timer[LGV_Timer_Data_Keys.s_timerDataDisplayModeKey] as? NSNumber)?.intValue)!) {
             DispatchQueue.main.async {
@@ -65,21 +69,25 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
                         if let finalSeconds = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetFinalKey] as? NSNumber)?.intValue {
                             switch inSeconds {
                             case 0:
+                                self.oldMode = .Alarm
                                 self.alarm()
                                 
                             case 1...finalSeconds:
-                                if oldSeconds > finalSeconds {
+                                if .Red != self.oldMode {
                                     WKInterfaceDevice.current().play(.directionDown)
                                 }
+                                self.oldMode = .Red
                                 self.finalLights()
                                 
                             case (finalSeconds + 1)...warnSeconds:
-                                if oldSeconds > warnSeconds {
+                                if .Yellow != self.oldMode {
                                     WKInterfaceDevice.current().play(.click)
                                 }
+                                self.oldMode = .Yellow
                                 self.warningLights()
                                 
                             default:
+                                self.oldMode = .Green
                                 self.startingLights()
                             }
                         }
@@ -151,6 +159,7 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
      */
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        self.oldMode = .Green
         if let contextInfo = context as? [String:Any] {
             if let controller = contextInfo[LGV_Timer_Watch_MainAppInterfaceController.s_ControllerContextKey] as? LGV_Timer_Watch_MainTimerHandlerInterfaceController {
                 self.myController = controller

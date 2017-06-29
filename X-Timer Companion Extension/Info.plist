@@ -17,15 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.5.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
-	<key>CLKComplicationPrincipalClass</key>
-	<string>LGV_Timer_ComplicationDataSource</string>
+	<string>1000</string>
 	<key>CLKComplicationSupportedFamilies</key>
-	<array>
-		<string>CLKComplicationFamilyCircularSmall</string>
-	</array>
+	<array/>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
