@@ -57,6 +57,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        LGV_Timer_AppDelegate.appDelegateObject.currentTimerSet = nil
         LGV_Timer_AppDelegate.appDelegateObject.sendSelectMessage()
         self.timerTableView.reloadData()
     }

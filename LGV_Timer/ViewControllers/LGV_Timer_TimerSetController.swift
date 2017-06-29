@@ -40,6 +40,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     /**
      */
     @IBAction func startButtonHit(_ sender: Any) {
+        LGV_Timer_AppDelegate.appDelegateObject.sendStartMessage(timerUID: self.timerObject.uid)
         self.startTimer()
     }
     
@@ -117,6 +118,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
             LGV_Timer_AppDelegate.appDelegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
         }
         
+        LGV_Timer_AppDelegate.appDelegateObject.currentTimerSet = self
         self.dontBotherTheWatch = false
     }
     

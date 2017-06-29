@@ -10,7 +10,6 @@ import Foundation
 
 class LGV_Timer_Messages {
     static let s_timerListHowdyMessageKey = "Howdy"
-    static let s_timerListHowdyMessageValue = "HowManyTimers"
     static let s_timerListSelectTimerMessageKey = "SelectTimer"
     static let s_timerListStartTimerMessageKey = "StartTimer"
     static let s_timerListPauseTimerMessageKey = "PauseTimer"
@@ -25,6 +24,8 @@ class LGV_Timer_Messages {
     static let s_timerRequestAppStatusMessageKey = "WhatUpDood"
     static let s_timerRequestActiveTimerUIDMessageKey = "Whazzup"
     static let s_timerRecaclulateTimersMessageKey = "ScarfNBarf"
+
+    static let s_timerListHowdyMessageValue = "HowManyTimers"
 }
 
 class LGV_Timer_Data_Keys {

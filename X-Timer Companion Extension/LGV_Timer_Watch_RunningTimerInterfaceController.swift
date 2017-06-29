@@ -182,9 +182,7 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
         
         if nil != self.myController {
             self.myController.modalTimerScreen = nil
-            if !self.myController.leaveMeAlone {
-                LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendPauseMessage(timerUID: self.myController.timerUID)
-            }
+            LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendStopMessage(timerUID: self.myController.timerUID)
         }
     }
 }

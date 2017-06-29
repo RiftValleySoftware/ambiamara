@@ -485,10 +485,14 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
      */
     @IBAction func pauseButtonHit(_ sender: Any) {
         if self.clockPaused || (0 == self.currentTimeInSeconds) {
-            LGV_Timer_AppDelegate.appDelegateObject.sendStartMessage(timerUID: self.timerObject.uid)
+            if 0 == self.currentTimeInSeconds {
+                LGV_Timer_AppDelegate.appDelegateObject.sendStartMessage(timerUID: self.timerObject.uid)
+            } else {
+                LGV_Timer_AppDelegate.appDelegateObject.sendStartMessage(timerUID: self.timerObject.uid, currentTime: self.currentTimeInSeconds)
+            }
             self.continueTimer()
         } else {
-            LGV_Timer_AppDelegate.appDelegateObject.sendPauseMessage(timerUID: self.timerObject.uid)
+            LGV_Timer_AppDelegate.appDelegateObject.sendPauseMessage(timerUID: self.timerObject.uid, currentTime: self.currentTimeInSeconds)
             self.pauseTimer()
         }
     }

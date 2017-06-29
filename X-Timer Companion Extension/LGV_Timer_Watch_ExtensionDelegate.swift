@@ -25,7 +25,6 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     
     /* ################################################################################################################################## */
     var timers: [[String: Any]] = []
-    var dontCallMeBack: Bool = false
     var youreOnYourOwn: Bool = false
     var timerListController: LGV_Timer_Watch_MainAppInterfaceController! = nil
     var timerObjects:[LGV_Timer_Watch_MainTimerHandlerInterfaceController] = []
@@ -51,12 +50,10 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func sendSelectMessage(timerUID: String = "") {
-        if !self.youreOnYourOwn && !self.dontCallMeBack {
+        if !self.youreOnYourOwn {
             let selectMsg = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey:timerUID]
             self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
-        
-        self.dontCallMeBack = false
     }
     
     /* ################################################################## */
@@ -170,6 +167,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
             DispatchQueue.main.async {
                 let controller = self.timerObjects[index]
                 if selectTimer && (controller != self.currentTimer) {
+                    controller.dontBotherThePhone = true
                     controller.becomeCurrentPage()
                 }
                 
@@ -263,6 +261,26 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /* ################################################################## */
     /**
      */
+    func setTimerObject(_ inData: Data) -> String {
+        if let payload = NSKeyedUnarchiver.unarchiveObject(with: inData) as? [String:Any] {
+            if let uid = payload[LGV_Timer_Data_Keys.s_timerDataUIDKey] as? String {
+                let index = self.getTimerIndexForUID(uid)
+                if 0..<self.timers.count ~= index {
+                    self.timers[index] = payload
+                    self.timerObjects[index].timer = payload
+                    self.updateTimerGivenUID(uid)
+                    
+                    return uid
+               }
+            }
+        }
+        
+        return ""
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         DispatchQueue.main.async {
             for key in message.keys {
@@ -274,29 +292,13 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                             self.sendStatusRequestMessage()
                         }
                     }
-                
-                case LGV_Timer_Messages.s_timerListUpdateFullTimerMessageKey:
-                    if let messagePayload = message[key] as? Data {
-                        if let payload = NSKeyedUnarchiver.unarchiveObject(with: messagePayload) as? [String:Any] {
-                            if let uid = payload[LGV_Timer_Data_Keys.s_timerDataUIDKey] as? String {
-                                let index = self.getTimerIndexForUID(uid)
-                                if 0..<self.timers.count ~= index {
-                                    self.timers[index] = payload
-                                    self.timerObjects[index].timer = payload
-                                    self.updateTimerGivenUID(uid)
-                                }
-                            }
-                        }
-                    }
                     
                 case    LGV_Timer_Messages.s_timerRecaclulateTimersMessageKey:
                     if let messagePayload = message[key] as? Data {
                         if let payload = NSKeyedUnarchiver.unarchiveObject(with: messagePayload) as? [[String:Any]] {
                             self.timerObjects = []
                             self.timers = payload
-                            DispatchQueue.main.async {
-                                self.timerListController.becomeCurrentPage()
-                            }
+                            self.timerListController.becomeCurrentPage()
                             self._offTheChain = true
                             self.sendStatusRequestMessage()
                         }
@@ -305,7 +307,6 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                 case    LGV_Timer_Messages.s_timerListSelectTimerMessageKey:
                     if !self.appDisconnected {
                         if let uid = message[key] as? String {
-                            self.dontCallMeBack = true
                             let index = self.getTimerIndexForUID(uid)
                             if let timerObject = self.currentTimer {
                                 if index != timerObject.timerIndex {
@@ -316,9 +317,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                             if 0 <= index {
                                 self.updateTimerGivenUID(uid, selectTimer: true)
                             } else {
-                                DispatchQueue.main.async {
-                                    self.timerListController.becomeCurrentPage()
-                                }
+                                self.timerListController.becomeCurrentPage()
                             }
                         } else {
                             print("Bad UID!")
@@ -327,69 +326,6 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                         self.sendStatusRequestMessage()
                     }
                     
-                case    LGV_Timer_Messages.s_timerListStopTimerMessageKey:
-                    if !self.appDisconnected {
-                        if let uid = message[key] as? String {
-                            self.dontCallMeBack = true
-                            let index = self.getTimerIndexForUID(uid)
-                            if 0 <= index {
-                                self.timerObjects[index].stopTimer()
-                                self.updateTimerGivenUID(uid)
-                            }
-                        } else {
-                            print("Bad UID!")
-                        }
-                    } else {
-                        self.sendStatusRequestMessage()
-                    }
-                    
-                case    LGV_Timer_Messages.s_timerListPauseTimerMessageKey:
-                    if !self.appDisconnected {
-                        if let uid = message[key] as? String {
-                            self.dontCallMeBack = true
-                            let index = self.getTimerIndexForUID(uid)
-                            if 0 <= index {
-                                self.updateTimerGivenUID(uid, selectTimer: true)
-                                self.timerObjects[index].pauseTimer()
-                            }
-                        } else {
-                            print("Bad UID!")
-                        }
-                    } else {
-                        self.sendStatusRequestMessage()
-                    }
-                
-                case    LGV_Timer_Messages.s_timerListStartTimerMessageKey:
-                    if !self.appDisconnected {
-                        if let uid = message[key] as? String {
-                            self.dontCallMeBack = true
-                            let index = self.getTimerIndexForUID(uid)
-                            if 0 <= index {
-                                self.updateTimerGivenUID(uid, selectTimer: true)
-                                self.timerObjects[index].startTimer()
-                            }
-                        } else {
-                            print("Bad UID!")
-                        }
-                    } else {
-                        self.sendStatusRequestMessage()
-                    }
-                    
-                case    LGV_Timer_Messages.s_timerListResetTimerMessageKey:
-                    if !self.appDisconnected {
-                        if let uid = message[key] as? String {
-                            self.dontCallMeBack = true
-                            let index = self.getTimerIndexForUID(uid)
-                            if 0 <= index {
-                                self.timerObjects[index].stopTimer()
-                            }
-                        } else {
-                            print("Bad UID!")
-                        }
-                    } else {
-                        self.sendStatusRequestMessage()
-                    }
-
                 case    LGV_Timer_Messages.s_timerRequestActiveTimerUIDMessageKey:
                     if !self.appDisconnected {
                         if let uid = message[key] as? String {
@@ -403,13 +339,97 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                     } else {
                         self.sendStatusRequestMessage()
                     }
-                    self.dontCallMeBack = false
                     
+                case    LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
+                    if self.appDisconnected {
+                        self.timerObjects = []
+                        self.populateScreens(noTimers: false)
+                        self.sendActiveTimerRequestMessage()
+                    }
+                    
+                    self._offTheChain = false
+                    
+                case    LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
+                    self._offTheChain = true
+                    self.populateScreens(noTimers: true)
+                    
+                case LGV_Timer_Messages.s_timerListUpdateFullTimerMessageKey:
+                    if let messagePayload = message[key] as? Data {
+                        let uid = self.setTimerObject(messagePayload)
+                        
+                        if !uid.isEmpty {
+                            let index = self.getTimerIndexForUID(uid)
+                            self.timerObjects[index].timer = self.timers[index]
+                            self.timerObjects[index].updateUI()
+                        }
+                    }
+                    
+                case    LGV_Timer_Messages.s_timerListStopTimerMessageKey:
+                    if !self.appDisconnected {
+                        if let messagePayload = message[key] as? Data {
+                            let uid = self.setTimerObject(messagePayload)
+                            
+                            if !uid.isEmpty {
+                                let index = self.getTimerIndexForUID(uid)
+                                self.timerObjects[index].timer = self.timers[index]
+                                self.timerObjects[index].stopTimer()
+                            }
+                        }
+                    } else {
+                        self.sendStatusRequestMessage()
+                    }
+                    
+                case    LGV_Timer_Messages.s_timerListResetTimerMessageKey:
+                    if !self.appDisconnected {
+                        if let messagePayload = message[key] as? Data {
+                            let uid = self.setTimerObject(messagePayload)
+                            
+                            if !uid.isEmpty {
+                                let index = self.getTimerIndexForUID(uid)
+                                self.timerObjects[index].timer = self.timers[index]
+                                self.timerObjects[index].updateUI()
+                            }
+                        }
+                    } else {
+                        self.sendStatusRequestMessage()
+                    }
+                    
+                case    LGV_Timer_Messages.s_timerListStartTimerMessageKey:
+                    if !self.appDisconnected {
+                        if let messagePayload = message[key] as? Data {
+                            let uid = self.setTimerObject(messagePayload)
+                            
+                            if !uid.isEmpty {
+                                let index = self.getTimerIndexForUID(uid)
+                                self.timerObjects[index].timer = self.timers[index]
+                                self.timerObjects[index].startTimer()
+                            }
+                        }
+                    } else {
+                        self.sendStatusRequestMessage()
+                    }
+                    
+                case    LGV_Timer_Messages.s_timerListEndTimerMessageKey:
+                    if !self.appDisconnected {
+                        if let messagePayload = message[key] as? Data {
+                            let uid = self.setTimerObject(messagePayload)
+                            
+                            if !uid.isEmpty {
+                                let index = self.getTimerIndexForUID(uid)
+                                self.timerObjects[index].timer = self.timers[index]
+                                self.timerObjects[index].updateUI()
+                            }
+                        }
+                    } else {
+                        self.sendStatusRequestMessage()
+                    }
+
                 case    LGV_Timer_Messages.s_timerListAlarmMessageKey:
                     if !self.appDisconnected {
                         if let uid = message[key] as? String {
                             let index = self.getTimerIndexForUID(uid)
                             if 0 <= index {
+                                self.timerObjects[index].timer = self.timers[index]
                                 self.updateTimerGivenUID(uid, selectTimer: true)
                                 self.timerObjects[index].alarm()
                             }
@@ -419,25 +439,6 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                     } else {
                         self.sendStatusRequestMessage()
                     }
-                    
-                case    LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
-                    if self.appDisconnected {
-                        self.timerObjects = []
-                        self.populateScreens(noTimers: false)
-                        self.dontCallMeBack = true
-                        self.sendActiveTimerRequestMessage()
-                    } else {
-                        self.dontCallMeBack = false
-                    }
-                    
-                    self._offTheChain = false
-                
-                case    LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
-                    self._offTheChain = true
-                    self.populateScreens(noTimers: true)
-                    
-                case    LGV_Timer_Messages.s_timerListEndTimerMessageKey:
-                    break
                     
                 default:
                     self.sendStatusRequestMessage()
