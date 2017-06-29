@@ -331,6 +331,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                         if let uid = message[key] as? String {
                             let index = self.getTimerIndexForUID(uid)
                             if 0 <= index {
+                                self.timerObjects[index].dontBotherThePhone = true
                                 self.timerObjects[index].becomeCurrentPage()
                             }
                         } else {

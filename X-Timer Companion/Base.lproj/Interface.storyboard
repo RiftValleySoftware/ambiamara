@@ -135,6 +135,9 @@
                                     </group>
                                 </items>
                             </group>
+                            <connections>
+                                <action selector="buttonTapped" destination="ljw-Z4-BZJ" id="HgC-1B-c4j"/>
+                            </connections>
                         </button>
                     </items>
                     <color key="backgroundColor" white="0.09215959821428571" alpha="1" colorSpace="calibratedWhite"/>
@@ -143,6 +146,7 @@
                         <outlet property="displayDigitsLabel" destination="xNU-lg-0O4" id="TXj-EG-3hP"/>
                         <outlet property="displayTrafficLightsGroup" destination="SmR-Mg-zB6" id="vSm-pM-4QX"/>
                         <outlet property="greenLightImage" destination="lUf-Sp-uXJ" id="OK7-tk-iwg"/>
+                        <outlet property="overallGroup" destination="P2i-2e-2Ml" id="nQO-Ob-rmo"/>
                         <outlet property="redLightImage" destination="tOR-a0-VVG" id="zaS-gj-Fvb"/>
                         <outlet property="yellowLightImage" destination="UyE-1h-EaU" id="uhF-Tp-Miz"/>
                     </connections>

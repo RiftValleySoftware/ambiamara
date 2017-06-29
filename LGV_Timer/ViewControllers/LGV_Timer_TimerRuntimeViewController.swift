@@ -160,7 +160,11 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     private func _flashDisplay() {
-        self.flasherView.isHidden = !self.flasherView.isHidden
+        self.flasherView.isHidden = false
+        self.flasherView.alpha = 1.0
+        UIView.animate(withDuration: 0.5, animations: {
+            self.flasherView.alpha = 0.0
+        })
     }
     
     /* ################################################################## */

@@ -21,8 +21,19 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
     @IBOutlet var greenLightImage: WKInterfaceImage!
     @IBOutlet var yellowLightImage: WKInterfaceImage!
     @IBOutlet var redLightImage: WKInterfaceImage!
-    
+    @IBOutlet var overallGroup: WKInterfaceGroup!
+
     var myController: LGV_Timer_Watch_MainTimerHandlerInterfaceController! = nil
+    
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func buttonTapped() {
+        if self.myController.currentTimeInSeconds == 0 {
+            self.myController.stopTimer()
+        }
+    }
     
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -117,7 +128,20 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
     /* ################################################################## */
     /**
      */
+    func animateBackground() {
+        if let color = self.myController.timer[LGV_Timer_Data_Keys.s_timerDataColorKey] as? UIColor {
+            self.overallGroup.setBackgroundColor(color)
+            self.animate(withDuration: 0.5, animations: {
+                self.overallGroup.setBackgroundColor(UIColor.clear)
+            })
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func alarm() {
+        self.animateBackground()
         WKInterfaceDevice.current().play(.success)
     }
     
