@@ -339,6 +339,21 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /* ################################################################## */
     /**
      */
+    func sendTimerList() {
+        var timerArray:[[String:Any]] = []
+        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+            let timerDictionary = self.makeTimerDictionary(timer)
+            timerArray.append(timerDictionary)
+        }
+        
+        let timerData = NSKeyedArchiver.archivedData(withRootObject: timerArray)
+        let userInfo = [LGV_Timer_Messages.s_timerListUserInfoValue:timerData]
+        self.session.transferUserInfo(userInfo)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func sendUpdateOneTimerMessage(timerUID: String, currentTime: Int) {
         var timerDictionary:[String:Any] = [:]
         for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
@@ -350,9 +365,15 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
         
         if !timerDictionary.isEmpty {
             let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
-            let resetMessage = [LGV_Timer_Messages.s_timerListUpdateFullTimerMessageKey:timerData]
-            self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
+            let userInfo = [LGV_Timer_Messages.s_timerStatusUserInfoValue:timerData]
+            self.session.transferUserInfo(userInfo)
         }
+//        
+//        if !timerDictionary.isEmpty {
+//            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
+//            let statusMessage = [LGV_Timer_Messages.s_timerListUpdateFullTimerMessageKey:timerData]
+//            self.session.sendMessage(statusMessage, replyHandler: nil, errorHandler: nil)
+//        }
     }
     
     /* ################################################################## */

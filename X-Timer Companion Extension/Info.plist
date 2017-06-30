@@ -19,9 +19,13 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.5.0</string>
 	<key>CFBundleVersion</key>
-	<string>1000</string>
+	<string>2000</string>
+	<key>CLKComplicationPrincipalClass</key>
+	<string>LGV_Timer_ComplicationDataSource</string>
 	<key>CLKComplicationSupportedFamilies</key>
-	<array/>
+	<array>
+		<string>CLKComplicationFamilyCircularSmall</string>
+	</array>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>

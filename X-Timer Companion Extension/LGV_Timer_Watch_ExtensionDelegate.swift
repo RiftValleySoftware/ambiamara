@@ -25,7 +25,6 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     
     /* ################################################################################################################################## */
     var timers: [[String: Any]] = []
-    var youreOnYourOwn: Bool = false
     var timerListController: LGV_Timer_Watch_MainAppInterfaceController! = nil
     var timerObjects:[LGV_Timer_Watch_MainTimerHandlerInterfaceController] = []
     var currentTimer: LGV_Timer_Watch_MainTimerHandlerInterfaceController! = nil
@@ -50,7 +49,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func sendSelectMessage(timerUID: String = "") {
-        if !self.youreOnYourOwn {
+        if self.session.isReachable {
             let selectMsg = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey:timerUID]
             self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
@@ -60,7 +59,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func sendStartMessage(timerUID: String) {
-        if !self.youreOnYourOwn {
+        if self.session.isReachable {
             let selectMsg = [LGV_Timer_Messages.s_timerListStartTimerMessageKey:timerUID]
             self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
@@ -70,7 +69,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func sendStopMessage(timerUID: String) {
-        if !self.youreOnYourOwn {
+        if self.session.isReachable {
             let selectMsg = [LGV_Timer_Messages.s_timerListStopTimerMessageKey:timerUID]
             self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
@@ -80,7 +79,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func sendPauseMessage(timerUID: String) {
-        if !self.youreOnYourOwn {
+        if self.session.isReachable {
             let selectMsg = [LGV_Timer_Messages.s_timerListPauseTimerMessageKey:timerUID]
             self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
@@ -90,7 +89,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func sendEndMessage(timerUID: String) {
-        if !self.youreOnYourOwn {
+        if self.session.isReachable {
             let selectMsg = [LGV_Timer_Messages.s_timerListEndTimerMessageKey:timerUID]
             self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
@@ -100,7 +99,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func sendResetMessage(timerUID: String) {
-        if !self.youreOnYourOwn {
+        if self.session.isReachable {
             let selectMsg = [LGV_Timer_Messages.s_timerListResetTimerMessageKey:timerUID]
             self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
@@ -235,8 +234,6 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
         if activationState == .activated {
             let heloMsg = [LGV_Timer_Messages.s_timerListHowdyMessageKey:LGV_Timer_Messages.s_timerListHowdyMessageValue]
             session.sendMessage(heloMsg, replyHandler: nil, errorHandler: nil)
-        } else {
-            self.youreOnYourOwn = true
         }
     }
     
@@ -276,6 +273,21 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
         }
         
         return ""
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
+        if let messagePayload = userInfo[LGV_Timer_Messages.s_timerStatusUserInfoValue] as? Data {
+            let uid = self.setTimerObject(messagePayload)
+            
+            if !uid.isEmpty {
+                let index = self.getTimerIndexForUID(uid)
+                self.timerObjects[index].timer = self.timers[index]
+                self.timerObjects[index].updateUI()
+            }
+        }
     }
     
     /* ################################################################## */

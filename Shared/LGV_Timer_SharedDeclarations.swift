@@ -26,6 +26,8 @@ class LGV_Timer_Messages {
     static let s_timerRecaclulateTimersMessageKey = "ScarfNBarf"
 
     static let s_timerListHowdyMessageValue = "HowManyTimers"
+    static let s_timerStatusUserInfoValue = "TimerStatus"
+    static let s_timerListUserInfoValue = "TimerList"
 }
 
 class LGV_Timer_Data_Keys {
