@@ -107,6 +107,11 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if let navBar = self.navigationController?.navigationBar {
+            let titleColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[self.timerObject.colorTheme].textColor!
+            navBar.titleTextAttributes?[NSForegroundColorAttributeName] = titleColor
+        }
+        
         self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
         let timeSet = TimeTuple(self.timerObject.timeSet)
         self.setTimePickerView.reloadAllComponents()
@@ -120,6 +125,16 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         
         LGV_Timer_AppDelegate.appDelegateObject.currentTimerSet = self
         self.dontBotherTheWatch = false
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the view will go away.
+     */
+    override func viewWillDisappear(_ animated: Bool) {
+        if let navBar = self.navigationController?.navigationBar {
+            navBar.titleTextAttributes?[NSForegroundColorAttributeName] = UIColor.white
+        }
     }
     
     /* ################################################################## */
@@ -156,7 +171,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         self.timerObject.timeSetPodiumWarn = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet)
         self.timerObject.timeSetPodiumFinal = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet)
         s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
-        LGV_Timer_AppDelegate.appDelegateObject.sendUpdateOneTimerMessage(timerUID: self.timerObject.uid, currentTime: self.timerObject.timeSet)
         self.setUpDisplay()
     }
 }

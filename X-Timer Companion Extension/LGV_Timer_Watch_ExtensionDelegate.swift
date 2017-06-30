@@ -58,6 +58,22 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /* ################################################################## */
     /**
      */
+    func sendBackgroundMessage() {
+        let selectMsg = [LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:""]
+        self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendForegroundMessage() {
+        let selectMsg = [LGV_Timer_Messages.s_timerAppInForegroundMessageKey:""]
+        self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func sendStartMessage(timerUID: String) {
         if self.session.isReachable {
             let selectMsg = [LGV_Timer_Messages.s_timerListStartTimerMessageKey:timerUID]
@@ -178,6 +194,31 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
         }
     }
     
+    /* ################################################################## */
+    /**
+     */
+    func process(userInfo: [String : Any] = [:]) {
+        if let messagePayload = userInfo[LGV_Timer_Messages.s_timerStatusUserInfoValue] as? Data {
+            let uid = self.setTimerObject(messagePayload)
+            
+            if !uid.isEmpty {
+                let index = self.getTimerIndexForUID(uid)
+                self.timerObjects[index].timer = self.timers[index]
+                self.timerObjects[index].updateUI()
+            }
+        } else {
+            if let uid = userInfo[LGV_Timer_Messages.s_timerAlarmUserInfoValue] as? String {
+                let index = self.getTimerIndexForUID(uid)
+                if 0 <= index {
+                    self.timerObjects[index].timer = self.timers[index]
+                    self.updateTimerGivenUID(uid, selectTimer: true)
+                    self.timerObjects[index].alarm()
+                }
+            }
+            
+        }
+    }
+    
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
@@ -190,13 +231,14 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func applicationDidBecomeActive() {
-        self.sendStatusRequestMessage()
+        self.sendForegroundMessage()
     }
 
     /* ################################################################## */
     /**
      */
     func applicationWillResignActive() {
+        self.sendBackgroundMessage()
     }
 
     /* ################################################################## */
@@ -214,7 +256,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                 // Snapshot tasks have a unique completion call, make sure to set your expiration date
                 snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
             case let connectivityTask as WKWatchConnectivityRefreshBackgroundTask:
-                // Be sure to complete the connectivity task once you’re done.
+                self.process(userInfo: connectivityTask.userInfo as! [String : Any])
                 connectivityTask.setTaskCompleted()
             case let urlSessionTask as WKURLSessionRefreshBackgroundTask:
                 // Be sure to complete the URL session task once you’re done.
@@ -279,15 +321,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
-        if let messagePayload = userInfo[LGV_Timer_Messages.s_timerStatusUserInfoValue] as? Data {
-            let uid = self.setTimerObject(messagePayload)
-            
-            if !uid.isEmpty {
-                let index = self.getTimerIndexForUID(uid)
-                self.timerObjects[index].timer = self.timers[index]
-                self.timerObjects[index].updateUI()
-            }
-        }
+        self.process(userInfo: userInfo)
     }
     
     /* ################################################################## */

@@ -80,6 +80,20 @@ import UIKit
         }
     }
     
+    /* ################################################################################################################################## */
+    func gussyUpTheMoreNavigation() {
+        if let navBar = self.navigationController?.navigationBar {
+            self.tabBarController?.moreNavigationController.navigationBar.tintColor = navBar.tintColor
+            self.tabBarController?.moreNavigationController.navigationBar.barStyle = navBar.barStyle
+            self.tabBarController?.moreNavigationController.navigationBar.barTintColor = navBar.barTintColor
+            self.tabBarController?.moreNavigationController.view.tintColor = UIColor.black
+            let titleColor = UIColor.white
+            if let titleFont = UIFont(name: "Let's Go Digital", size: 24) {
+                self.tabBarController?.moreNavigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: titleColor, NSFontAttributeName: titleFont]
+            }
+        }
+    }
+    
     /* ################################################################## */
     /**
      Called when the layout is changed.
@@ -96,9 +110,12 @@ import UIKit
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let navController = self.navigationController {
-            navController.navigationBar.barTintColor = self.gradientTopColor
-            navController.navigationBar.tintColor = self.view.tintColor
-            navController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+            let navBar = navController.navigationBar
+            navBar.barTintColor = self.gradientTopColor
+            navBar.tintColor = self.view.tintColor
+            let titleColor = UIColor.white
+            let titleFont = UIFont(name: "Let's Go Digital", size: 24)
+            navBar.titleTextAttributes = [NSForegroundColorAttributeName: titleColor, NSFontAttributeName: titleFont!]
         }
         
         if let tabController = self.tabBarController {

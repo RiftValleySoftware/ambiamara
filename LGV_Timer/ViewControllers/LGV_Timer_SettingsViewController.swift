@@ -63,16 +63,6 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     }
     
     // MARK: - Internal Instance Methods
-    /* ################################################################################################################################## */
-    func gussyUpTheMoreNavigation() {
-        if let navBar = self.navigationController?.navigationBar {
-            self.tabBarController?.moreNavigationController.navigationBar.tintColor = navBar.tintColor
-            self.tabBarController?.moreNavigationController.navigationBar.barStyle = navBar.barStyle
-            self.tabBarController?.moreNavigationController.navigationBar.barTintColor = navBar.barTintColor
-            self.tabBarController?.moreNavigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-            self.tabBarController?.moreNavigationController.view.tintColor = UIColor.black
-        }
-    }
 
     // MARK: - IBAction Methods
     /* ################################################################################################################################## */

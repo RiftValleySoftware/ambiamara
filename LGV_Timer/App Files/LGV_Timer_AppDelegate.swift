@@ -35,6 +35,8 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     var window: UIWindow?
     var currentTimer: LGV_Timer_TimerRuntimeViewController! = nil
     var currentTimerSet: LGV_Timer_TimerSetController! = nil
+    var useUserInfo: Bool = false
+    
 
     // MARK: - Static Class Methods
     /* ################################################################################################################################## */
@@ -279,8 +281,13 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func sendAlarmMessage(timerUID: String) {
         if .activated == self.session.activationState {
-            let selectMsg = [LGV_Timer_Messages.s_timerListAlarmMessageKey:timerUID]
-            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+            if self.useUserInfo {
+                let userInfo = [LGV_Timer_Messages.s_timerAlarmUserInfoValue:timerUID]
+                self.session.transferUserInfo(userInfo)
+            } else {
+                let selectMsg = [LGV_Timer_Messages.s_timerListAlarmMessageKey:timerUID]
+                self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+            }
         }
     }
     
@@ -365,15 +372,33 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
         
         if !timerDictionary.isEmpty {
             let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
-            let userInfo = [LGV_Timer_Messages.s_timerStatusUserInfoValue:timerData]
-            self.session.transferUserInfo(userInfo)
+            let statusMessage = [LGV_Timer_Messages.s_timerListUpdateFullTimerMessageKey:timerData]
+            self.session.sendMessage(statusMessage, replyHandler: nil, errorHandler: nil)
         }
-//        
-//        if !timerDictionary.isEmpty {
-//            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
-//            let statusMessage = [LGV_Timer_Messages.s_timerListUpdateFullTimerMessageKey:timerData]
-//            self.session.sendMessage(statusMessage, replyHandler: nil, errorHandler: nil)
-//        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendTick(timerUID: String, currentTime: Int) {
+        var timerDictionary:[String:Any] = [:]
+        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+            if timer.uid == timerUID {
+                timerDictionary = self.makeTimerDictionary(timer, inCurrentTime: currentTime)
+                break
+            }
+        }
+        
+        if !timerDictionary.isEmpty {
+            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
+            if self.useUserInfo {
+                let userInfo = [LGV_Timer_Messages.s_timerStatusUserInfoValue:timerData]
+                self.session.transferUserInfo(userInfo)
+            } else {
+                let statusMessage = [LGV_Timer_Messages.s_timerListUpdateFullTimerMessageKey:timerData]
+                self.session.sendMessage(statusMessage, replyHandler: nil, errorHandler: nil)
+            }
+        }
     }
     
     /* ################################################################## */
@@ -452,6 +477,15 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
         DispatchQueue.main.async {
             for key in message.keys {
                 switch key {
+                    
+                case LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
+                    self.useUserInfo = true
+                    self.sendAppStateMessage()
+                    
+                case LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
+                    self.useUserInfo = false
+                    self.sendAppStateMessage()
+                    
                 case    LGV_Timer_Messages.s_timerListHowdyMessageKey:
                     var timerArray:[[String:Any]] = []
                     for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
