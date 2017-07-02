@@ -479,11 +479,9 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                 switch key {
                     
                 case LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
-                    self.useUserInfo = true
                     self.sendAppStateMessage()
                     
                 case LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
-                    self.useUserInfo = false
                     self.sendAppStateMessage()
                     
                 case    LGV_Timer_Messages.s_timerListHowdyMessageKey:
