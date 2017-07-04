@@ -42,7 +42,8 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
      */
     func pushTimer(_ timerIndex: Int) {
         DispatchQueue.main.async {
-            LGV_Timer_Watch_ExtensionDelegate.delegateObject.timerObjects[timerIndex].becomeCurrentPage()
+            let theTimerObject = LGV_Timer_Watch_ExtensionDelegate.delegateObject.timerObjects[timerIndex]
+            theTimerObject.becomeCurrentPage()
         }
     }
     

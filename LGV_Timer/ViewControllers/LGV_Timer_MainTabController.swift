@@ -85,6 +85,7 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
         
         self.addTimer(newTimer)
         self.updateTimers()
+        LGV_Timer_AppDelegate.appDelegateObject.sendRecalculateMessage()
         self.selectTimer(timers.count - 1)
     }
     

@@ -352,6 +352,50 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /* ################################################################## */
     /**
      */
+    func updateAllTimerObjects(inTimerList: [[String:Any]]) {
+        var index: Int = 0
+        var deleteList: [Int] = []
+        var updateList: [LGV_Timer_Watch_BaseInterfaceController] = []
+        
+        for timerObject in self.timerObjects {
+            let uid = timerObject.timerUID
+            var found: Bool = false
+            for timerData in inTimerList {
+                if let timerUID = timerData[LGV_Timer_Data_Keys.s_timerDataUIDKey] as? String {
+                    if timerUID == uid {
+                        if self.timers.count == index {
+                            self.timers.append(timerData)
+                        } else {
+                            self.timers[index] = timerData
+                        }
+                        timerObject.timer = self.timers[index]
+                        updateList.append(timerObject)
+                        found = true
+                        break
+                    }
+                }
+            }
+            
+            if !found {
+                deleteList.append(index)
+            }
+            
+            index += 1
+        }
+        
+        while let delIndex = deleteList.popLast() {
+            self.timers.remove(at: delIndex)
+            self.timerObjects.remove(at: delIndex)
+        }
+        
+        for updateObject in updateList {
+            updateObject.updateUI()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
         self.process(userInfo: userInfo)
     }
@@ -396,9 +440,13 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                 case    LGV_Timer_Messages.s_timerRecaclulateTimersMessageKey:
                     if let messagePayload = message[key] as? Data {
                         if let payload = NSKeyedUnarchiver.unarchiveObject(with: messagePayload) as? [[String:Any]] {
-                            self.timerObjects = []
-                            self.timers = payload
-                            self.timerListController.becomeCurrentPage()
+                            let oldController = self.currentTimer
+                            self.updateAllTimerObjects(inTimerList: payload)
+                            if (nil != oldController) && self.timerObjects.contains(oldController!) {
+                                oldController!.becomeCurrentPage()
+                            } else {
+                                self.timerListController.becomeCurrentPage()
+                            }
                             self._offTheChain = true
                             self.sendStatusRequestMessage()
                         }

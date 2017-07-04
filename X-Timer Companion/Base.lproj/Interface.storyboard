@@ -74,12 +74,12 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="-243" y="69"/>
+            <point key="canvasLocation" x="-241" y="50"/>
         </scene>
         <!--TimerScreen-->
         <scene sceneID="xyw-HL-qjO">
             <objects>
-                <controller identifier="TimerScreen" id="fDO-Zl-Nkx" customClass="LGV_Timer_Watch_MainTimerHandlerInterfaceController" customModule="X_Timer_Companion_Extension">
+                <controller identifier="TimerScreen" id="fDO-Zl-Nkx" customClass="LGV_Timer_Watch_MainTimerHandlerInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
                     <items>
                         <group width="1" height="1" alignment="left" layout="vertical" id="ANx-Gq-hUJ" userLabel="Time Display Group">
                             <items>
@@ -118,7 +118,7 @@
         <!--Running Timer-->
         <scene sceneID="jaH-hQ-9O5">
             <objects>
-                <controller identifier="RunningTimer" id="ljw-Z4-BZJ" userLabel="Running Timer" customClass="LGV_Timer_Watch_RunningTimerInterfaceController" customModule="X_Timer_Companion_Extension">
+                <controller identifier="RunningTimer" id="ljw-Z4-BZJ" userLabel="Running Timer" customClass="LGV_Timer_Watch_RunningTimerInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
                     <items>
                         <button alignment="left" id="D1z-TA-HQx">
                             <group key="contentGroup" width="1" height="1" alignment="left" layout="vertical" id="P2i-2e-2Ml">
