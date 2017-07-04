@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.5.0</string>
 	<key>CFBundleVersion</key>
-	<string>2001</string>
+	<string>2002</string>
 	<key>CLKComplicationPrincipalClass</key>
 	<string>LGV_Timer_ComplicationDataSource</string>
 	<key>CLKComplicationSupportedFamilies</key>
