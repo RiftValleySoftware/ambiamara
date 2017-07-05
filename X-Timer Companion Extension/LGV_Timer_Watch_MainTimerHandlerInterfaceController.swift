@@ -119,15 +119,6 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /* ################################################################## */
     /**
      */
-    override init() {
-        super.init()
-        LGV_Timer_Watch_ExtensionDelegate.delegateObject.timerObjects.append(self)
-        
-    }
-    
-    /* ################################################################## */
-    /**
-     */
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         self.modalTimerScreen = nil
@@ -157,6 +148,7 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
                 }
             }
             
+            LGV_Timer_Watch_ExtensionDelegate.delegateObject.addTimerControllerIfNotAlreadyThere(controller: self)
             self.updateUI()
         }
     }
@@ -165,16 +157,15 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /**
      */
     override func didAppear() {
-        super.didAppear()
         LGV_Timer_Watch_ExtensionDelegate.delegateObject.currentTimer = self
         
         if !self.dontBotherThePhone {
             LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendSelectMessage(timerUID: self.timerUID)
         }
         
-        self.dontBotherThePhone = false
-        
         self.updateUI(inSeconds: self.currentTimeInSeconds)
+        super.didAppear()
+        self.dontBotherThePhone = false
     }
     
     /* ################################################################## */

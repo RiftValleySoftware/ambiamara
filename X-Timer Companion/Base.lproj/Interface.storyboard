@@ -16,7 +16,7 @@
         <!--Main App Interface Controller-->
         <scene sceneID="5A9-SJ-bWw">
             <objects>
-                <controller identifier="MainScreen" id="i4N-ut-62W" userLabel="Main App Interface Controller" customClass="LGV_Timer_Watch_MainAppInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
+                <controller identifier="MainScreen" id="i4N-ut-62W" userLabel="Main App Interface Controller" customClass="LGV_Timer_Watch_MainAppInterfaceController" customModule="X_Timer_Companion_Extension">
                     <items>
                         <group width="1" height="1" alignment="left" layout="vertical" id="lQa-3d-Y0M" userLabel="No App Connection Display">
                             <items>
@@ -79,7 +79,7 @@
         <!--TimerScreen-->
         <scene sceneID="xyw-HL-qjO">
             <objects>
-                <controller identifier="TimerScreen" id="fDO-Zl-Nkx" customClass="LGV_Timer_Watch_MainTimerHandlerInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
+                <controller identifier="TimerScreen" id="fDO-Zl-Nkx" customClass="LGV_Timer_Watch_MainTimerHandlerInterfaceController" customModule="X_Timer_Companion_Extension">
                     <items>
                         <group width="1" height="1" alignment="left" layout="vertical" id="ANx-Gq-hUJ" userLabel="Time Display Group">
                             <items>
@@ -118,7 +118,7 @@
         <!--Running Timer-->
         <scene sceneID="jaH-hQ-9O5">
             <objects>
-                <controller identifier="RunningTimer" id="ljw-Z4-BZJ" userLabel="Running Timer" customClass="LGV_Timer_Watch_RunningTimerInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
+                <controller identifier="RunningTimer" id="ljw-Z4-BZJ" userLabel="Running Timer" customClass="LGV_Timer_Watch_RunningTimerInterfaceController" customModule="X_Timer_Companion_Extension">
                     <items>
                         <button alignment="left" id="D1z-TA-HQx">
                             <group key="contentGroup" width="1" height="1" alignment="left" layout="vertical" id="P2i-2e-2Ml">

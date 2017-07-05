@@ -142,16 +142,6 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /* ################################################################## */
     /**
      */
-    func sendAckMessage() {
-        if .activated == self.session.activationState {
-            let selectMsg = [LGV_Timer_Messages.s_timerConnectionAckMessageKey:""]
-            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
     func sendActiveTimerRequestMessage() {
         if .activated == self.session.activationState {
             let selectMsg = [LGV_Timer_Messages.s_timerRequestActiveTimerUIDMessageKey:""]
@@ -332,6 +322,23 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /* ################################################################## */
     /**
      */
+    func addTimerControllerIfNotAlreadyThere(controller: LGV_Timer_Watch_MainTimerHandlerInterfaceController) {
+        var found: Bool = false
+        for timerObject in self.timerObjects {
+            if timerObject == controller {
+                found = true
+                break
+            }
+        }
+        
+        if !found {
+            self.timerObjects.append(controller)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func setTimerObject(_ inData: Data) -> String {
         if let payload = NSKeyedUnarchiver.unarchiveObject(with: inData) as? [String:Any] {
             if let uid = payload[LGV_Timer_Data_Keys.s_timerDataUIDKey] as? String {
@@ -457,6 +464,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                         if let uid = message[key] as? String {
                             let index = self.getTimerIndexForUID(uid)
                             if let timerObject = self.currentTimer {
+                                timerObject.dontBotherThePhone = true
                                 if index != timerObject.timerIndex {
                                     self.updateTimerGivenUID(timerObject.timerUID)
                                     timerObject.stopTimer()
@@ -468,7 +476,6 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                                 self.timerListController.becomeCurrentPage()
                             }
                         }
-                        self.sendAckMessage()
                     } else {
                         self.sendStatusRequestMessage()
                     }
@@ -484,7 +491,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                         } else {
                             self.timerListController.becomeCurrentPage()
                         }
-                        self.sendAckMessage()
+
                     } else {
                         self.sendStatusRequestMessage()
                     }
@@ -498,8 +505,8 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                     
                 case    LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
                     self._offTheChain = true
+                    self.timerObjects = []
                     self.populateScreens(noTimers: true)
-                    self.sendAckMessage()
                     
                 case LGV_Timer_Messages.s_timerListUpdateFullTimerMessageKey:
                     if let messagePayload = message[key] as? Data {
@@ -510,7 +517,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                             self.timerObjects[index].timer = self.timers[index]
                             self.timerObjects[index].updateUI()
                         }
-                        self.sendAckMessage()
+
                     }
                     
                 case    LGV_Timer_Messages.s_timerListStopTimerMessageKey:
@@ -523,7 +530,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                                 self.timerObjects[index].timer = self.timers[index]
                                 self.timerObjects[index].stopTimer()
                             }
-                            self.sendAckMessage()
+    
                         }
                     } else {
                         self.sendStatusRequestMessage()
@@ -539,7 +546,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                                 self.timerObjects[index].timer = self.timers[index]
                                 self.timerObjects[index].updateUI()
                             }
-                            self.sendAckMessage()
+    
                         }
                     } else {
                         self.sendStatusRequestMessage()
@@ -555,7 +562,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                                 self.timerObjects[index].timer = self.timers[index]
                                 self.timerObjects[index].startTimer()
                             }
-                            self.sendAckMessage()
+    
                         }
                     } else {
                         self.sendStatusRequestMessage()
@@ -571,7 +578,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                                 self.timerObjects[index].timer = self.timers[index]
                                 self.timerObjects[index].updateUI()
                             }
-                            self.sendAckMessage()
+    
                         }
                     } else {
                         self.sendStatusRequestMessage()
@@ -586,7 +593,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                                 self.updateTimerGivenUID(uid, selectTimer: true)
                                 self.timerObjects[index].alarm()
                             }
-                            self.sendAckMessage()
+    
                         }
                     } else {
                         self.sendStatusRequestMessage()

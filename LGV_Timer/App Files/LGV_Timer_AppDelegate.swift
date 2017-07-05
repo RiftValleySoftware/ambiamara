@@ -587,9 +587,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                             }
                         }
                         
-                    case LGV_Timer_Messages.s_timerConnectionAckMessageKey:
-                        break
-                        
                     default:
                         if let uid = message[key] as? String {
                             print(uid)
