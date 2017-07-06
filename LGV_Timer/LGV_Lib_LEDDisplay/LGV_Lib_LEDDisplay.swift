@@ -165,7 +165,7 @@ import UIKit
     @IBInspectable var hours: Int = 0
     @IBInspectable var minutes: Int = 0
     @IBInspectable var seconds: Int = 0
-    @IBInspectable var separationSpace: Int = 4
+    @IBInspectable var separationSpace: Int = 8
     
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */

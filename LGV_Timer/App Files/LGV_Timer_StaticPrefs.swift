@@ -199,7 +199,8 @@ class LGV_Timer_StaticPrefs {
      */
     static var defaultTimer: TimerSettingTuple {
         get {
-            return TimerSettingTuple(timeSet: 0, timeSetPodiumWarn: 0, timeSetPodiumFinal: 0, displayMode: .Digital, colorTheme: 0, alertMode: .Silent, alertVolume: 5, soundID: 2, uid: nil)
+            let ret: TimerSettingTuple = TimerSettingTuple()
+            return ret
         }
     }
     
