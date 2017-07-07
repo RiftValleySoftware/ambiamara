@@ -109,7 +109,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         super.viewWillAppear(animated)
         if let navBar = self.navigationController?.navigationBar {
             let titleColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[self.timerObject.colorTheme].textColor!
-            navBar.titleTextAttributes?[NSForegroundColorAttributeName] = titleColor
+            navBar.titleTextAttributes?[NSAttributedStringKey.foregroundColor.rawValue] = titleColor
         }
         
         self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
@@ -133,7 +133,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      */
     override func viewWillDisappear(_ animated: Bool) {
         if let navBar = self.navigationController?.navigationBar {
-            navBar.titleTextAttributes?[NSForegroundColorAttributeName] = UIColor.white
+            navBar.titleTextAttributes?[NSAttributedStringKey.foregroundColor.rawValue] = UIColor.white
         }
     }
     

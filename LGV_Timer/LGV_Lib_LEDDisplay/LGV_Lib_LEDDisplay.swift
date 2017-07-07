@@ -165,7 +165,7 @@ import UIKit
     @IBInspectable var hours: Int = 0
     @IBInspectable var minutes: Int = 0
     @IBInspectable var seconds: Int = 0
-    @IBInspectable var separationSpace: Int = 8
+    @IBInspectable var separationSpace: Int = 12
     
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
@@ -220,7 +220,7 @@ import UIKit
     /* ################################################################## */
     /**
      */
-    func blinkCallback(_ inTimer: Timer) -> Void {
+    @objc func blinkCallback(_ inTimer: Timer) -> Void {
         self._separatorsOn = self.blinkSeparators ? !self._separatorsOn : true
         self.setNeedsDisplay()
     }

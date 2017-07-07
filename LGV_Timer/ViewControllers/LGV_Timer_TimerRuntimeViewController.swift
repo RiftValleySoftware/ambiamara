@@ -236,7 +236,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /* ################################################################## */
     /**
      */
-    func alarmCallback(_ inTimer: Timer) {
+    @objc func alarmCallback(_ inTimer: Timer) {
         self._flashDisplay()
         self._playAlertSound()
         LGV_Timer_AppDelegate.appDelegateObject.sendAlarmMessage(timerUID: self.timerObject.uid)
@@ -292,7 +292,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /* ################################################################## */
     /**
      */
-    func timerCallback(_ inTimer: Timer) {
+    @objc func timerCallback(_ inTimer: Timer) {
         if nil != self._alarmTimer {
             self._alarmTimer.invalidate()
             self._alarmTimer = nil

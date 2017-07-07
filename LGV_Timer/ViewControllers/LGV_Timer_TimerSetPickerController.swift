@@ -89,17 +89,17 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
         UIGraphicsBeginImageContextWithOptions(imageSize, false, scale)
         var fontSize: CGFloat = s_g_maxTabFontSize
         var stringSize: CGSize = CGSize.zero
-        var textFontAttributes = [
-            NSForegroundColorAttributeName: textColor,
-            NSParagraphStyleAttributeName: style
-            ] as [String : Any]
+        var textFontAttributes:[NSAttributedStringKey:Any] = [
+            NSAttributedStringKey.foregroundColor: textColor,
+            NSAttributedStringKey.paragraphStyle: style
+            ]
         
         // We decrease the font size until we have something that fits.
         while 0 < fontSize {
             if let textFont = UIFont(name: "Let's Go Digital", size: fontSize) {
-                textFontAttributes[NSFontAttributeName] = textFont
+                textFontAttributes[NSAttributedStringKey.font] = textFont
                 
-                stringSize = text.size(attributes: textFontAttributes)
+                stringSize = text.size(withAttributes: textFontAttributes)
                 
                 if (imageSize.width >= stringSize.width) && (imageSize.height >= stringSize.height) {
                     break

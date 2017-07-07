@@ -19,7 +19,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     }
     
     /* ################################################################################################################################## */
-    private var _mySession = WCSession.default()
+    private var _mySession = WCSession.default
     private var _timerObject: Timer! = nil
     private var _offTheChain:Bool = true
     

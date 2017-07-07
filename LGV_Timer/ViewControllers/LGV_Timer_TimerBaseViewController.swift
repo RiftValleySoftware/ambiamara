@@ -89,7 +89,7 @@ import UIKit
             self.tabBarController?.moreNavigationController.view.tintColor = UIColor.black
             let titleColor = UIColor.white
             if let titleFont = UIFont(name: "Let's Go Digital", size: 24) {
-                self.tabBarController?.moreNavigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: titleColor, NSFontAttributeName: titleFont]
+                self.tabBarController?.moreNavigationController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: titleColor, NSAttributedStringKey.font.rawValue: titleFont]
             }
         }
     }
@@ -115,7 +115,7 @@ import UIKit
             navBar.tintColor = self.view.tintColor
             let titleColor = UIColor.white
             let titleFont = UIFont(name: "Let's Go Digital", size: 24)
-            navBar.titleTextAttributes = [NSForegroundColorAttributeName: titleColor, NSFontAttributeName: titleFont!]
+            navBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: titleColor, NSAttributedStringKey.font.rawValue: titleFont!]
         }
         
         if let tabController = self.tabBarController {

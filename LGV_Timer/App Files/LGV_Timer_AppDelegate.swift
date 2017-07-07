@@ -98,7 +98,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
-    private var _mySession = WCSession.default()
+    private var _mySession = WCSession.default
     
     // MARK: - Internal Instance Calculated Properties
     /* ################################################################################################################################## */

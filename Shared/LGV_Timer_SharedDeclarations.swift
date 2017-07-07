@@ -518,7 +518,9 @@ class LGV_Timer_AppStatus: NSCoding, Sequence {
         get { return self._timers }
         set {
             self._timers = newValue
-            self._selectedTimer0BasedIndex = -1
+            if !(0..<self.count ~= self.selectedTimerIndex) {
+                self._selectedTimer0BasedIndex = -1
+            }
         }
     }
     
