@@ -49,7 +49,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      */
     @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
         self.timerObject.displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
-        s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.updateTimer(self.timerObject)
     }
     
     // MARK: - Internal Instance Methods
@@ -170,7 +170,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         // We always reset these when we change the main time.
         self.timerObject.timeSetPodiumWarn = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet)
         self.timerObject.timeSetPodiumFinal = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet)
-        s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.updateTimer(self.timerObject)
         self.setUpDisplay()
     }
 }

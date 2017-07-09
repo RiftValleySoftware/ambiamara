@@ -99,7 +99,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - returns the number of rows to display.
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return s_g_LGV_Timer_AppDelegatePrefs.timers.count
+        return LGV_Timer_AppDelegate.appDelegateObject.timerEngine.timers.count
     }
     
     /* ################################################################## */
@@ -114,7 +114,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let ret = tableView.dequeueReusableCell(withIdentifier: "SingleTimerCell") as? LGV_Timer_SettingsTimerTableCell {
             if let clockView = ret.clockDisplay {
-                let timerPrefs = s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row]
+                let timerPrefs = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[indexPath.row]
                 let timeTuple = TimeTuple(timerPrefs.timeSet)
                 clockView.hours = timeTuple.hours
                 clockView.minutes = timeTuple.minutes
@@ -124,13 +124,13 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
             }
             
             if let timerNameLabel = ret.timerNameLabel {
-                let timerPrefs = s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row]
+                let timerPrefs = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[indexPath.row]
                 timerNameLabel.textColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[timerPrefs.colorTheme].textColor!
                 timerNameLabel.text = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
             }
             
             if let trafficLights = ret.trafficLights {
-                let timerPrefs = s_g_LGV_Timer_AppDelegatePrefs.timers[indexPath.row]
+                let timerPrefs = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[indexPath.row]
                 trafficLights.isHidden = (.Podium != timerPrefs.displayMode)
             }
             
@@ -152,7 +152,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - returns: nil (don't let selection happen).
      */
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let timerIndex = max(0, min(indexPath.row, s_g_LGV_Timer_AppDelegatePrefs.timers.count - 1))
+        let timerIndex = max(0, min(indexPath.row, LGV_Timer_AppDelegate.appDelegateObject.timerEngine.timers.count - 1))
         self.mainTabController.selectTimer(timerIndex)
         return nil
     }
@@ -167,7 +167,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - returns: true, as long as there are more than one timers.
      */
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return 1 < s_g_LGV_Timer_AppDelegatePrefs.timers.count
+        return 1 < LGV_Timer_AppDelegate.appDelegateObject.timerEngine.timers.count
     }
     
     /* ################################################################## */

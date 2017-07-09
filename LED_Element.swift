@@ -486,9 +486,8 @@ public class LED_SeparatorDots : LED_Element {
      :param: An array of Bool, indicating which segments should be lit. There must be at least Two values.
      */
     init(_ inLitSegments: [Bool] = [true]) {
-        let dotWidth = type(of: self)._c_g_displaySize.width / 2
-        let dotHorizontalCenter = dotWidth
-        var lastPoint = CGPoint(x: dotHorizontalCenter, y: type(of: self)._c_g_displaySize.height - (dotWidth / 2))
+        let dotHorizontalCenter: CGFloat = type(of: self)._c_g_displaySize.width / 2
+        var lastPoint = CGPoint(x: dotHorizontalCenter, y: type(of: self)._c_g_displaySize.height - (type(of: self)._c_g_displaySize.width / 2))
         self._litSegments = inLitSegments   // These are the ones we want "lit".
         
         // More than one results in an evenly-distributed vertical row.
@@ -515,14 +514,14 @@ public class LED_SeparatorDots : LED_Element {
             var segments: [UIBezierPath] = []
             
             for segmentCenter in segmentCenters {
-                let dotPath = UIBezierPath(arcCenter: segmentCenter, radius: dotWidth / 2, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
+                let dotPath = UIBezierPath(arcCenter: segmentCenter, radius: type(of: self)._c_g_displaySize.width / 2, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
                 segments.append(dotPath)
             }
             
             self._segments = segments
         } else {    // One only is a single dot at the bottom.
             // If we only have one, then it goes all the way to the bottom.
-            let dotPath = UIBezierPath(arcCenter: lastPoint, radius: dotWidth / 2, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
+            let dotPath = UIBezierPath(arcCenter: lastPoint, radius: type(of: self)._c_g_displaySize.width / 2, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
             self._segments = [dotPath]
         }
     }

@@ -29,7 +29,7 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
     /// This has the index number for this timer instance (1-based).
     var timerNumber: Int {
         get {
-            return s_g_LGV_Timer_AppDelegatePrefs.getIndexOfTimer(self.timerObject.uid) + 1
+            return LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.getIndexOfTimer(self.timerObject.uid) + 1
         }
     }
     
@@ -43,7 +43,7 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
         get {
             var displayedString = "";
             let timerNumber = max(0, self.timerNumber - 1)
-            let prefs = s_g_LGV_Timer_AppDelegatePrefs.timers[timerNumber]
+            let prefs = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[timerNumber]
             let timeTuple = TimeTuple(prefs.timeSet)
             
             if 0 < timeTuple.hours {

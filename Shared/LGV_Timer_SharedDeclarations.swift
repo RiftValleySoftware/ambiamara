@@ -275,6 +275,7 @@ class TimerSettingTuple: NSCoding {
     var soundID: Int                    ///< This will be the ID of a system sound for this timer.
     var timerStatus: TimerStatus        ///< This is the current status of this timer.
     var uid: String                     ///< This will be a unique ID, assigned to the pref, so we can match it.
+    var handler: LGV_Timer_AppStatus!   ///< This is the App Status object that "owns" this instance.
     
     // MARK: - Initializers
     /* ################################################################################################################################## */
@@ -289,6 +290,7 @@ class TimerSettingTuple: NSCoding {
         self.soundID = 5
         self.timerStatus = .Stopped
         self.uid = NSUUID().uuidString
+        self.handler = nil
     }
     
     /* ################################################################## */
@@ -304,7 +306,7 @@ class TimerSettingTuple: NSCoding {
      :param: soundID This is the ID of the sound to play (when in mode 1 or 2).
      :param: uid This is a unique ID for this setting. It can be defaulted.
      */
-    init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, currentTime: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, alertVolume: Int, soundID: Int, timerStatus: TimerStatus, uid: String!) {
+    init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, currentTime: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, alertVolume: Int, soundID: Int, timerStatus: TimerStatus, uid: String!, handler: LGV_Timer_AppStatus! = nil) {
         
         self.timeSet = timeSet
         self.timeSetPodiumWarn = timeSetPodiumWarn
@@ -316,6 +318,7 @@ class TimerSettingTuple: NSCoding {
         self.soundID = soundID
         self.timerStatus = timerStatus
         self.uid = (nil == uid) ? NSUUID().uuidString : uid
+        self.handler = handler
     }
     
     // MARK: - Instance Calculated Properties
@@ -341,6 +344,48 @@ class TimerSettingTuple: NSCoding {
         }
     }
     
+    /* ################################################################## */
+    /**
+     Returns true if this is selected.
+     */
+    var selected: Bool {
+        get {
+            if nil != self.handler {
+                return self.handler!.selectedTimerUID == self.uid
+            }
+            
+            return false
+        }
+        
+        set {
+            if nil != self.handler {
+                if (self.handler!.selectedTimerUID == self.uid) && !newValue {
+                    self.handler!.selectedTimerUID = ""
+                } else {
+                    if newValue {
+                        if self.handler!.selectedTimerUID != self.uid {
+                            self.timerStatus = .Stopped
+                        }
+                        self.handler!.selectedTimerUID = self.uid
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Instance Methods
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     Delete thyself.
+     */
+    func seppuku() {
+        if nil != self.handler {
+            let myIndex = self.handler.indexOf(self)
+            self.handler.remove(at: myIndex)
+        }
+    }
+    
     // MARK: - NSCoding Protocol Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -352,6 +397,7 @@ class TimerSettingTuple: NSCoding {
         self.alertMode = .Both
         self.timerStatus = .Stopped
         self.uid = ""
+        self.handler = nil
 
         let timeSet = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.TimeSet.rawValue)
         self.timeSet = timeSet
@@ -403,6 +449,22 @@ class TimerSettingTuple: NSCoding {
         with.encode(self.timerStatus.rawValue, forKey: type(of: self).TimerStateKeys.Status.rawValue)
         with.encode(self.uid, forKey: type(of: self).TimerStateKeys.UID.rawValue)
     }
+}
+
+// MARK: - LGV_Timer_AppStatusDelegate Protocol -
+/* ###################################################################################################################################### */
+/**
+ This protocol allows observers of the status.
+ */
+protocol LGV_Timer_AppStatusDelegate {
+    func timerSetting(timerSetting: TimerSettingTuple, changedTimeSet: Int)
+    func timerSetting(timerSetting: TimerSettingTuple, changedTimeSetPodiumWarn: Int)
+    func timerSetting(timerSetting: TimerSettingTuple, changedTimeSetPodiumFinal: Int)
+    func timerSetting(timerSetting: TimerSettingTuple, changedCurrentTime: Int)
+    func timerSetting(timerSetting: TimerSettingTuple, changedDisplayMode: TimerDisplayMode)
+    func timerSetting(timerSetting: TimerSettingTuple, changedColorTheme: Int)
+    func timerSetting(timerSetting: TimerSettingTuple, changedDisplayMode: AlertMode)
+    func timerSetting(timerSetting: TimerSettingTuple, changedTimerStatus: TimerStatus)
 }
 
 // MARK: - LGV_Timer_AppStatus Class -
@@ -524,6 +586,30 @@ class LGV_Timer_AppStatus: NSCoding, Sequence {
         }
     }
     
+    // MARK: - Initializer
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    init() {
+        let _ = self.createNewTimer()
+    }
+    
+    // MARK: - Instance Methods
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    func createNewTimer() -> TimerSettingTuple {
+        let ret = TimerSettingTuple()
+        
+        ret.handler = self
+        
+        self.append(ret)
+        
+        return ret
+    }
+    
     // MARK: - Sequence Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -620,6 +706,10 @@ class LGV_Timer_AppStatus: NSCoding, Sequence {
         
         if let timers = coder.decodeObject(forKey: type(of: self).AppStateKeys.Timers.rawValue) as? [TimerSettingTuple] {
             self._timers = timers
+            
+            for timer in self.timers {
+                timer.handler = self
+            }
         }
         
         let selectedTimer0BasedIndex = coder.decodeInteger(forKey: type(of: self).AppStateKeys.SelectedTimer.rawValue)

@@ -12,8 +12,6 @@
 import UIKit
 import WatchConnectivity
 
-var s_g_LGV_Timer_AppDelegatePrefs = LGV_Timer_StaticPrefs.prefs
-
 @UIApplicationMain
 /* ###################################################################################################################################### */
 /**
@@ -37,7 +35,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     var currentTimerSet: LGV_Timer_TimerSetController! = nil
     var useUserInfo: Bool = false
     var watchDisconnected: Bool = true
-    
+    var timerEngine = LGV_Timer_TimerEngine()
 
     // MARK: - Static Class Methods
     /* ################################################################################################################################## */
@@ -108,6 +106,14 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
         }
     }
     
+    /* ################################################################## */
+    /**
+     Returns the current app status.
+     */
+    var appStatus: LGV_Timer_AppStatus {
+        get { return LGV_Timer_StaticPrefs.prefs.appStatus }
+    }
+    
     // MARK: - Internal Instance Methods
     /* ################################################################################################################################## */
     func activateSession() {
@@ -146,7 +152,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func applicationDidEnterBackground(_ application: UIApplication) {
         self.sendBackgroundMessage()
-        s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
+        self.timerEngine.prefs.savePrefs()
     }
     
     /* ################################################################## */
@@ -154,7 +160,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func applicationWillTerminate(_ application: UIApplication) {
         self.sendBackgroundMessage()
-        s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
+        self.timerEngine.prefs.savePrefs()
     }
     
     // MARK: - WCSessionDelegate Sender Methods
@@ -165,7 +171,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     func sendStartMessage(timerUID: String, currentTime: Int! = nil) {
         var timerDictionary:[String:Any] = [:]
         
-        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+        for timer in self.timerEngine.timers {
             if timer.uid == timerUID {
                 timerDictionary = self.makeTimerDictionary(timer, inCurrentTime: currentTime)
                 break
@@ -185,7 +191,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     func sendStopMessage(timerUID: String) {
         var timerDictionary:[String:Any] = [:]
         
-        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+        for timer in self.timerEngine.timers {
             if timer.uid == timerUID {
                 timerDictionary = self.makeTimerDictionary(timer)
                 break
@@ -205,7 +211,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     func sendPauseMessage(timerUID: String, currentTime: Int) {
         var timerDictionary:[String:Any] = [:]
         
-        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+        for timer in self.timerEngine.timers {
             if timer.uid == timerUID {
                 timerDictionary = self.makeTimerDictionary(timer, inCurrentTime: currentTime)
                 break
@@ -225,7 +231,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     func sendEndMessage(timerUID: String) {
         var timerDictionary:[String:Any] = [:]
 
-        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+        for timer in self.timerEngine.timers {
             if timer.uid == timerUID {
                 timerDictionary = self.makeTimerDictionary(timer)
                 break
@@ -245,7 +251,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     func sendResetMessage(timerUID: String) {
         var timerDictionary:[String:Any] = [:]
 
-        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+        for timer in self.timerEngine.timers {
             if timer.uid == timerUID {
                 timerDictionary = self.makeTimerDictionary(timer)
                 break
@@ -326,7 +332,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func sendRecalculateMessage() {
         var timerArray:[[String:Any]] = []
-        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+        for timer in self.timerEngine.timers {
             let timerDictionary = self.makeTimerDictionary(timer)
             timerArray.append(timerDictionary)
         }
@@ -341,7 +347,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func sendTimerList() {
         var timerArray:[[String:Any]] = []
-        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+        for timer in self.timerEngine.timers {
             let timerDictionary = self.makeTimerDictionary(timer)
             timerArray.append(timerDictionary)
         }
@@ -362,7 +368,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func sendUpdateOneTimerMessage(timerUID: String, currentTime: Int) {
         var timerDictionary:[String:Any] = [:]
-        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+        for timer in self.timerEngine.timers {
             if timer.uid == timerUID {
                 timerDictionary = self.makeTimerDictionary(timer, inCurrentTime: currentTime)
                 break
@@ -381,7 +387,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func sendTick(timerUID: String, currentTime: Int) {
         var timerDictionary:[String:Any] = [:]
-        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+        for timer in self.timerEngine.timers {
             if timer.uid == timerUID {
                 timerDictionary = self.makeTimerDictionary(timer, inCurrentTime: currentTime)
                 break
@@ -408,7 +414,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
         
         var index = 0
         
-        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+        for timer in self.timerEngine.timers {
             if timer.uid == inTimer.uid {
                 break
             }
@@ -495,7 +501,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                         
                     case    LGV_Timer_Messages.s_timerListHowdyMessageKey:
                         var timerArray:[[String:Any]] = []
-                        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+                        for timer in self.timerEngine.timers {
                             let timerDictionary:[String:Any] = self.makeTimerDictionary(timer)
                             timerArray.append(timerDictionary)
                         }

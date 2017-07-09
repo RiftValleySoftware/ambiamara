@@ -112,7 +112,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         self.finalThresholdTimePicker.selectRow(timeSetFinal.hours, inComponent: Components.Hours.rawValue, animated: true)
         self.finalThresholdTimePicker.selectRow(timeSetFinal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
         self.finalThresholdTimePicker.selectRow(timeSetFinal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
-        s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.updateTimer(self.timerObject)
         
         // This ensures that we force the display to portrait (for this screen only).
         LGV_Timer_AppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
@@ -139,7 +139,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
      */
     @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
         self.timerObject.displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
-        s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.updateTimer(self.timerObject)
         self.setUpPickerViews()
     }
     
@@ -149,7 +149,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     @IBAction func soundSelectionChanged(_ sender: UISegmentedControl) {
         self.timerObject.soundID = sender.selectedSegmentIndex
         type(of: self)._playAlertSound(self.timerObject.soundID)
-        s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.updateTimer(self.timerObject)
     }
     
     /* ################################################################## */
@@ -157,7 +157,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
      */
     @IBAction func alertModeChanged(_ sender: UISegmentedControl) {
         self.timerObject.alertMode = AlertMode(rawValue: sender.selectedSegmentIndex)!
-        s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.updateTimer(self.timerObject)
         self.setUpPickerViews()
     }
     
@@ -273,6 +273,6 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
             }
         }
         
-        s_g_LGV_Timer_AppDelegatePrefs.updateTimer(self.timerObject)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.updateTimer(self.timerObject)
     }
 }

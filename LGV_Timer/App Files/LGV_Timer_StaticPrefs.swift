@@ -30,6 +30,8 @@ class LGV_Timer_StaticPrefs {
     /* ################################################################## */
     /** This is the key for the prefs used by this app. */
     private static let _mainPrefsKey: String = "LGV_Timer_StaticPrefs"
+    /** This is the key for the app status prefs used by this app. */
+    private static let _appStatusPrefsKey: String = "LGV_Timer_AppStatus"
     /** This is how we enforce a SINGLETON pattern. */
     private static var _sSingletonPrefs: LGV_Timer_StaticPrefs! = nil
     /** This contains our color theme palette. */
@@ -40,7 +42,10 @@ class LGV_Timer_StaticPrefs {
     /* ################################################################## */
     /** We load the user prefs into this Dictionary object. */
     private var _loadedPrefs: NSMutableDictionary! = nil
+    /** This will contain the UILabels that are used for the color theme. */
     private var _pickerPepperArray: [UILabel] = []
+    /** This contains the application status. */
+    private var _appStatus: LGV_Timer_AppStatus = LGV_Timer_AppStatus()
     
     // MARK: - Private Enums
     /* ################################################################################################################################## */
@@ -49,6 +54,7 @@ class LGV_Timer_StaticPrefs {
     private enum PrefsKeys: String {
         /** This will be an array of dictionaries, with a list of timers. */
         case TimerList = "TimerList"
+        case AppStatus = "AppStatus"
     }
     
     // MARK: - Private Static Constants
@@ -168,6 +174,10 @@ class LGV_Timer_StaticPrefs {
             }
         }
         
+        if let temp = UserDefaults.standard.object(forKey: type(of: self)._appStatusPrefsKey) as? LGV_Timer_AppStatus {
+            self._appStatus = temp
+        }
+        
         if nil != self._loadedPrefs {
             if nil == self._loadedPrefs.object(forKey: PrefsKeys.TimerList.rawValue) {
                 let tempSetting:NSMutableArray = []
@@ -189,6 +199,7 @@ class LGV_Timer_StaticPrefs {
      */
     private func _savePrefs() {
         UserDefaults.standard.set(self._loadedPrefs, forKey: type(of: self)._mainPrefsKey)
+        UserDefaults.standard.set(self._appStatus, forKey: type(of: self)._appStatusPrefsKey)
     }
     
     // MARK: - Internal Static Calculated Properties
@@ -373,6 +384,14 @@ class LGV_Timer_StaticPrefs {
             
             return ret
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     Returns the current app status.
+     */
+    var appStatus: LGV_Timer_AppStatus {
+        get { return self._appStatus }
     }
     
     /* ################################################################## */

@@ -28,7 +28,7 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
         self.delegate = self
         self.viewControllers?[0].tabBarItem.title = self.viewControllers?[0].tabBarItem.title?.localizedVariant
         // Pre-load our color labels.
-        _ = s_g_LGV_Timer_AppDelegatePrefs.pickerPepperArray
+        _ = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.pickerPepperArray
     }
     
     // MARK: - Internal Instance Methods
@@ -41,7 +41,7 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
             self.viewControllers?.remove(at: 1)
         }
         
-        for timer in s_g_LGV_Timer_AppDelegatePrefs.timers {
+        for timer in LGV_Timer_AppDelegate.appDelegateObject.timerEngine.timers {
             self.addTimer(timer)
         }
     
@@ -68,8 +68,8 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
     /**
      */
     func deleteTimer(_ inTimerIndex: Int) {
-        s_g_LGV_Timer_AppDelegatePrefs.timers.remove(at: inTimerIndex)
-        s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.timers.remove(at: inTimerIndex)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.savePrefs()
         self.updateTimers()
     }
     
@@ -77,11 +77,11 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
     /**
      */
     func addNewTimer() {
-        var timers = s_g_LGV_Timer_AppDelegatePrefs.timers
+        var timers = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.timers
         let newTimer = LGV_Timer_StaticPrefs.defaultTimer
         timers.append(newTimer)
-        s_g_LGV_Timer_AppDelegatePrefs.timers = timers
-        s_g_LGV_Timer_AppDelegatePrefs.savePrefs()
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.timers = timers
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.savePrefs()
         
         self.addTimer(newTimer)
         self.updateTimers()
