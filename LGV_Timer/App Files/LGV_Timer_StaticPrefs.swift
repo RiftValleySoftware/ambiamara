@@ -45,7 +45,7 @@ class LGV_Timer_StaticPrefs {
     /** This will contain the UILabels that are used for the color theme. */
     private var _pickerPepperArray: [UILabel] = []
     /** This contains the application status. */
-    private var _appStatus: LGV_Timer_AppStatus = LGV_Timer_AppStatus()
+    private var _appStatus: LGV_Timer_AppStatus! = nil
     
     // MARK: - Private Enums
     /* ################################################################################################################################## */
@@ -198,7 +198,6 @@ class LGV_Timer_StaticPrefs {
      This method simply saves the main preferences Dictionary into the standard user defaults.
      */
     private func _savePrefs() {
-        UserDefaults.standard.set(self._loadedPrefs, forKey: type(of: self)._mainPrefsKey)
         UserDefaults.standard.set(self._appStatus, forKey: type(of: self)._appStatusPrefsKey)
     }
     

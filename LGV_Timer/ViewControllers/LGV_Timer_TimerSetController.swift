@@ -78,8 +78,8 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         let timerNumber = self.timerNumber
         let tabBarImage = self.tabBarImage
         if let _ = self.navigationController as? LGV_Timer_TimerNavController {
-            self.tabBarController?.viewControllers?[timerNumber].tabBarItem.image = tabBarImage
-            self.tabBarController?.viewControllers?[timerNumber].tabBarItem.selectedImage = tabBarImage
+            self.tabBarController?.viewControllers?[timerNumber + 1].tabBarItem.image = tabBarImage
+            self.tabBarController?.viewControllers?[timerNumber + 1].tabBarItem.selectedImage = tabBarImage
         }
     }
     

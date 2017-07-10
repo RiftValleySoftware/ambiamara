@@ -29,7 +29,7 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
     /// This has the index number for this timer instance (1-based).
     var timerNumber: Int {
         get {
-            return LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.getIndexOfTimer(self.timerObject.uid) + 1
+            return LGV_Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(self.timerObject)
         }
     }
     
@@ -42,7 +42,7 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
     var tabBarImage: UIImage! {
         get {
             var displayedString = "";
-            let timerNumber = max(0, self.timerNumber - 1)
+            let timerNumber = self.timerNumber
             let prefs = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[timerNumber]
             let timeTuple = TimeTuple(prefs.timeSet)
             
@@ -66,7 +66,7 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
      */
     var tabBarText: String {
         get {
-            return String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, self.timerNumber)
+            return String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, self.timerNumber + 1)
         }
     }
     

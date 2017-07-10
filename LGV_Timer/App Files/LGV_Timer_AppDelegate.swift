@@ -35,7 +35,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     var currentTimerSet: LGV_Timer_TimerSetController! = nil
     var useUserInfo: Bool = false
     var watchDisconnected: Bool = true
-    var timerEngine = LGV_Timer_TimerEngine()
+    var timerEngine: LGV_Timer_TimerEngine! = nil
 
     // MARK: - Static Class Methods
     /* ################################################################################################################################## */

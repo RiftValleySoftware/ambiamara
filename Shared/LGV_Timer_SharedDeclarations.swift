@@ -251,7 +251,7 @@ enum TimerStatus: Int {
  
  It is a class, because that means that references (as opposed to copies) will be passed around.
  */
-class TimerSettingTuple: NSCoding {
+class TimerSettingTuple: NSObject, NSCoding {
     private enum TimerStateKeys: String {
         case TimeSet            = "TimeSet"
         case TimeSetPodiumWarn  = "TimeSetPodiumWarn"
@@ -276,10 +276,11 @@ class TimerSettingTuple: NSCoding {
     var timerStatus: TimerStatus        ///< This is the current status of this timer.
     var uid: String                     ///< This will be a unique ID, assigned to the pref, so we can match it.
     var handler: LGV_Timer_AppStatus!   ///< This is the App Status object that "owns" this instance.
+    var lastTick: TimeInterval = 0.0    ///< This will be used to track the timer progress.
     
     // MARK: - Initializers
     /* ################################################################################################################################## */
-    init() {
+    override init() {
         self.timeSet = 0
         self.timeSetPodiumWarn = 0
         self.timeSetPodiumFinal = 0
@@ -290,7 +291,9 @@ class TimerSettingTuple: NSCoding {
         self.soundID = 5
         self.timerStatus = .Stopped
         self.uid = NSUUID().uuidString
+        self.lastTick = 0.0
         self.handler = nil
+        super.init()
     }
     
     /* ################################################################## */
@@ -306,7 +309,8 @@ class TimerSettingTuple: NSCoding {
      :param: soundID This is the ID of the sound to play (when in mode 1 or 2).
      :param: uid This is a unique ID for this setting. It can be defaulted.
      */
-    init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, currentTime: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, alertVolume: Int, soundID: Int, timerStatus: TimerStatus, uid: String!, handler: LGV_Timer_AppStatus! = nil) {
+    convenience init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, currentTime: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, alertVolume: Int, soundID: Int, timerStatus: TimerStatus, uid: String!, handler: LGV_Timer_AppStatus! = nil) {
+        self.init()
         
         self.timeSet = timeSet
         self.timeSetPodiumWarn = timeSetPodiumWarn
@@ -318,6 +322,7 @@ class TimerSettingTuple: NSCoding {
         self.soundID = soundID
         self.timerStatus = timerStatus
         self.uid = (nil == uid) ? NSUUID().uuidString : uid
+        self.lastTick = 0.0
         self.handler = handler
     }
     
@@ -327,20 +332,23 @@ class TimerSettingTuple: NSCoding {
     /**
      Returns the value in an easily readable format.
      */
-    var description: String {
+    override var description: String {
         get {
-            return String(format: "timeSet: %@, timeSetPodiumWarn: %@, timeSetPodiumFinal: %d, currentTime: %d displayMode: %@, colorTheme: %d, alertMode: %d, soundID: %d, timerStatus: %d uid: %@",
-                          self.timeSet.description,
-                          self.timeSetPodiumWarn.description,
-                          self.timeSetPodiumFinal.description,
-                          self.currentTime.description,
+            let ret = String(format: "timeSet: %d, timeSetPodiumWarn: %d, timeSetPodiumFinal: %d, currentTime: %d, displayMode: %d, colorTheme: %d, alertMode: %d, soundID: %d, timerStatus: %d, lastTick: %.5f, uid: %@",
+                          self.timeSet,
+                          self.timeSetPodiumWarn,
+                          self.timeSetPodiumFinal,
+                          self.currentTime,
                           self.displayMode.rawValue,
                           self.colorTheme,
                           self.alertMode.rawValue,
                           self.soundID,
                           self.timerStatus.rawValue,
+                          self.lastTick,
                           self.uid
             )
+            
+            return ret
         }
     }
     
@@ -397,6 +405,7 @@ class TimerSettingTuple: NSCoding {
         self.alertMode = .Both
         self.timerStatus = .Stopped
         self.uid = ""
+        self.lastTick = 0.0
         self.handler = nil
 
         let timeSet = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.TimeSet.rawValue)
@@ -451,12 +460,25 @@ class TimerSettingTuple: NSCoding {
     }
 }
 
+// MARK: - LGV_Timer_AppStatusDelegate Protocol -
+/* ###################################################################################################################################### */
+/**
+ This protocol allows observers of the app status.
+ */
+protocol LGV_Timer_AppStatusDelegate {
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didAddTimer: TimerSettingTuple)
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, willRemoveTimer: TimerSettingTuple)
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didRemoveTimerAtIndex: Int)
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didSelectTimer: TimerSettingTuple)
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didDeselectTimer: TimerSettingTuple)
+}
+
 // MARK: - LGV_Timer_AppStatus Class -
 /* ###################################################################################################################################### */
 /**
  This class encapsulates the entire app status.
  */
-class LGV_Timer_AppStatus: NSCoding, Sequence {
+class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     private enum AppStateKeys: String {
         case Timers         = "Timers"
         case SelectedTimer  = "SelectedTimer"
@@ -464,6 +486,8 @@ class LGV_Timer_AppStatus: NSCoding, Sequence {
     
     private var _timers:[TimerSettingTuple] = []
     private var _selectedTimer0BasedIndex:Int = -1
+    
+    var delegate: LGV_Timer_AppStatusDelegate! = nil
     
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
@@ -507,10 +531,26 @@ class LGV_Timer_AppStatus: NSCoding, Sequence {
     var selectedTimerIndex: Int {
         get { return self._selectedTimer0BasedIndex }
         set {
+            let oldTimer = self.selectedTimer
+            var newTimer: TimerSettingTuple! = nil
+            
             if 0..<self._timers.count ~= newValue {
                 self._selectedTimer0BasedIndex = newValue
+                newTimer = self.selectedTimer
             } else {
                 self._selectedTimer0BasedIndex = -1
+            }
+            
+            DispatchQueue.main.async {
+                if nil != self.delegate {
+                    if nil != oldTimer {
+                        self.delegate.appStatus(self, didDeselectTimer: oldTimer!)
+                    }
+                    
+                    if nil != newTimer {
+                        self.delegate.appStatus(self, didSelectTimer: newTimer!)
+                    }
+                }
             }
         }
     }
@@ -575,8 +615,8 @@ class LGV_Timer_AppStatus: NSCoding, Sequence {
     /* ################################################################## */
     /**
      */
-    init() {
-        let _ = self.createNewTimer()
+    init(delegate: LGV_Timer_AppStatusDelegate) {
+        self.delegate = delegate
     }
     
     // MARK: - Instance Methods
@@ -590,6 +630,12 @@ class LGV_Timer_AppStatus: NSCoding, Sequence {
         ret.handler = self
         
         self.append(ret)
+        
+        DispatchQueue.main.async {
+            if nil != self.delegate {
+                self.delegate.appStatus(self, didAddTimer: ret)
+            }
+        }
         
         return ret
     }
@@ -667,13 +713,25 @@ class LGV_Timer_AppStatus: NSCoding, Sequence {
     /**
      */
     func remove(at index: Int) {
-        if 0..<self.count ~= index {
-            self._timers.remove(at: index)
-            if index < self._selectedTimer0BasedIndex {
-                self._selectedTimer0BasedIndex -= 1
-            } else {
-                if index == self._selectedTimer0BasedIndex {
-                    self._selectedTimer0BasedIndex = -1
+        DispatchQueue.main.async {
+            if 0..<self.count ~= index {
+                let timer = self[index]
+                
+                if nil != self.delegate {
+                    self.delegate.appStatus(self, willRemoveTimer: timer)
+                }
+                
+                self._timers.remove(at: index)
+                if index < self._selectedTimer0BasedIndex {
+                    self._selectedTimer0BasedIndex -= 1
+                } else {
+                    if index == self._selectedTimer0BasedIndex {
+                        self._selectedTimer0BasedIndex = -1
+                    }
+                }
+                
+                if nil != self.delegate {
+                    self.delegate.appStatus(self, didRemoveTimerAtIndex: index)
                 }
             }
         }
@@ -686,6 +744,8 @@ class LGV_Timer_AppStatus: NSCoding, Sequence {
      Initialize from a serialized state.
      */
     required init?(coder: NSCoder) {
+        super.init()
+        
         self._timers = []
         
         if let timers = coder.decodeObject(forKey: type(of: self).AppStateKeys.Timers.rawValue) as? [TimerSettingTuple] {

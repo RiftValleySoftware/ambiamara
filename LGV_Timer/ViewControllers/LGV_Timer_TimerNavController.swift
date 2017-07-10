@@ -37,7 +37,7 @@ class LGV_Timer_TimerNavController: UINavigationController, UINavigationControll
     /// This has the index number for this timer instance (1-based).
     var timerNumber: Int {
         get {
-            return LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.getIndexOfTimer(self.timerObject.uid) + 1
+            return LGV_Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(self.timerObject.uid) + 1
         }
     }
     

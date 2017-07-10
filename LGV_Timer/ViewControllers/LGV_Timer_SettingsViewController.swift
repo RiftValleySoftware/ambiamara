@@ -202,15 +202,8 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - parameter forRowAt: The indexpath of the row to be deleted.
      */
     func doADirtyDeedCheap(_ tableView: UITableView, forRowAt indexPath: IndexPath) {
-        // Just on the off chance we're in a non-traditional thread...
-        DispatchQueue.main.async(execute: {
-            self.mainTabController.deleteTimer(indexPath.row)
-            LGV_Timer_AppDelegate.appDelegateObject.sendRecalculateMessage()
-            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
-            tableView.isEditing = false
-            tableView.reloadData()
-            self.gussyUpTheMoreNavigation()
-        })
+        tableView.isEditing = false
+        self.mainTabController.deleteTimer(indexPath.row)
     }
     
     /* ################################################################## */
