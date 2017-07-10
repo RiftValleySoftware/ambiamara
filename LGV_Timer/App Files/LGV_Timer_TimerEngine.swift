@@ -17,21 +17,27 @@ protocol LGV_Timer_TimerEngineDelegate {
     func timerSetting(timerSetting: TimerSettingTuple, changedTimeSet: Int)
     func timerSetting(timerSetting: TimerSettingTuple, changedTimeSetPodiumWarn: Int)
     func timerSetting(timerSetting: TimerSettingTuple, changedTimeSetPodiumFinal: Int)
-    func timerSetting(timerSetting: TimerSettingTuple, changedCurrentTime: Int)
     func timerSetting(timerSetting: TimerSettingTuple, changedDisplayMode: TimerDisplayMode)
     func timerSetting(timerSetting: TimerSettingTuple, changedColorTheme: Int)
     func timerSetting(timerSetting: TimerSettingTuple, changedDisplayMode: AlertMode)
-    func timerSetting(timerSetting: TimerSettingTuple, changedTimerStatus: TimerStatus)
+    
+    func timerSetting(timerSetting: TimerSettingTuple, alarm: Int)
+    func timerSetting(timerSetting: TimerSettingTuple, changedCurrentTimeFrom: Int)
+    func timerSetting(timerSetting: TimerSettingTuple, changedTimerStatusFrom: TimerStatus)
 }
 
 /* ###################################################################################################################################### */
 /**
  */
 class LGV_Timer_TimerEngine: NSObject, Sequence {
-    static let timerInterval: TimeInterval = 0.25
+    static let timerInterval: TimeInterval = 0.1
+    static let timerTickInterval: TimeInterval = 1.0
+    static let timerAlarmInterval: TimeInterval = 0.5
     
     private var _timerTicking: Bool = false
+    private var _firstTick: TimeInterval = 0.0
     private var _lastTick: TimeInterval = 0.0
+    private var _alarmCount: Int = 0
     
     var prefs = LGV_Timer_StaticPrefs.prefs
     var timer: Timer! = nil
@@ -99,7 +105,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence {
         
         set {
             if (nil == self.timer) && (0 <= self.selectedTimerIndex) {
-                self._lastTick = 0.0
+                self._lastTick = Date.timeIntervalSinceReferenceDate
                 self.timer = Timer.scheduledTimer(timeInterval: type(of: self).timerInterval, target: self, selector: #selector(self.timerCallback(_:)), userInfo: nil, repeats: true)
             } else {
                 if nil != self.timer {
@@ -116,8 +122,17 @@ class LGV_Timer_TimerEngine: NSObject, Sequence {
     var timerPaused: Bool {
         get { return self._timerTicking }
         set {
-            if 0 <= self.selectedTimerIndex {
+            if self.timerSelected {
+                if !newValue {
+                    if !self._timerTicking {
+                        self._lastTick = Date.timeIntervalSinceReferenceDate
+                    }
+                } else {
+                    self._lastTick = 0.0
+                }
                 self._timerTicking = newValue
+            } else {
+                self._timerTicking = false
             }
         }
     }
@@ -150,10 +165,10 @@ class LGV_Timer_TimerEngine: NSObject, Sequence {
                 self.startTimer()
             } else {
                 switch selectedTimer.currentTime {
-                case (selectedTimer.timeSetPodiumFinal + 1)...selectedTimer.timeSetPodiumWarn:
-                    selectedTimer.timerStatus = .WarnRun
                 case 0...selectedTimer.timeSetPodiumFinal:
                     selectedTimer.timerStatus = .FinalRun
+                case (selectedTimer.timeSetPodiumFinal + 1)...selectedTimer.timeSetPodiumWarn:
+                    selectedTimer.timerStatus = .WarnRun
                 default:
                     selectedTimer.timerStatus = .Running
                 }
@@ -167,6 +182,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence {
      */
     func startTimer() {
         if let selectedTimer = self.selectedTimer {
+            self._firstTick = Date.timeIntervalSinceReferenceDate
             selectedTimer.currentTime = selectedTimer.timeSet
             self.timerPaused = false
             selectedTimer.timerStatus = .Running
@@ -178,6 +194,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence {
      */
     func stopTimer() {
         if let selectedTimer = self.selectedTimer {
+            self._firstTick = 0.0
             selectedTimer.currentTime = selectedTimer.timeSet
             self.timerPaused = true
             selectedTimer.timerStatus = .Stopped
@@ -189,6 +206,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence {
      */
     func resetTimer() {
         if let selectedTimer = self.selectedTimer {
+            self._firstTick = 0.0
             selectedTimer.currentTime = selectedTimer.timeSet
             self.timerPaused = true
             selectedTimer.timerStatus = .Stopped
@@ -279,5 +297,50 @@ class LGV_Timer_TimerEngine: NSObject, Sequence {
     /**
      */
     @objc func timerCallback(_ inTimer: Timer) {
+        if 0.0 < self._lastTick {
+            if let selectedTimer = self.selectedTimer {
+                if .Alarm == selectedTimer.timerStatus {
+                    if type(of: self).timerAlarmInterval <= (Date.timeIntervalSinceReferenceDate - self._lastTick) {
+                        self._lastTick = Date.timeIntervalSinceReferenceDate
+                        DispatchQueue.main.async {
+                            if nil != self.delegate {
+                                self.delegate.timerSetting(timerSetting: selectedTimer, alarm: self._alarmCount)
+                            }
+                        }
+                        self._alarmCount += 1
+                    }
+                } else {
+                    if type(of: self).timerTickInterval <= (Date.timeIntervalSinceReferenceDate - self._lastTick) {
+                        self._lastTick = Date.timeIntervalSinceReferenceDate
+                        let oldTime: Int = selectedTimer.currentTime
+                        selectedTimer.currentTime = Swift.max(0, oldTime - 1)
+                        DispatchQueue.main.async {
+                            if nil != self.delegate {
+                                self.delegate.timerSetting(timerSetting: selectedTimer, changedCurrentTimeFrom: oldTime)
+                            }
+                            
+                            let oldStatus = selectedTimer.timerStatus
+                            switch selectedTimer.currentTime {
+                            case 0:
+                                self._alarmCount = 0
+                                selectedTimer.timerStatus = .Alarm
+                            case 1...selectedTimer.timeSetPodiumFinal:
+                                selectedTimer.timerStatus = .FinalRun
+                            case (selectedTimer.timeSetPodiumFinal + 1)...selectedTimer.timeSetPodiumWarn:
+                                selectedTimer.timerStatus = .WarnRun
+                            default:
+                                selectedTimer.timerStatus = .Running
+                            }
+                            
+                            if oldStatus != selectedTimer.timerStatus {
+                                if nil != self.delegate {
+                                    self.delegate.timerSetting(timerSetting: selectedTimer, changedTimerStatusFrom: oldStatus)
+                                }
+                            }
+                       }
+                    }
+                }
+            }
+        }
     }
 }
