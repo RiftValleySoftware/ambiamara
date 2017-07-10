@@ -451,22 +451,6 @@ class TimerSettingTuple: NSCoding {
     }
 }
 
-// MARK: - LGV_Timer_AppStatusDelegate Protocol -
-/* ###################################################################################################################################### */
-/**
- This protocol allows observers of the status.
- */
-protocol LGV_Timer_AppStatusDelegate {
-    func timerSetting(timerSetting: TimerSettingTuple, changedTimeSet: Int)
-    func timerSetting(timerSetting: TimerSettingTuple, changedTimeSetPodiumWarn: Int)
-    func timerSetting(timerSetting: TimerSettingTuple, changedTimeSetPodiumFinal: Int)
-    func timerSetting(timerSetting: TimerSettingTuple, changedCurrentTime: Int)
-    func timerSetting(timerSetting: TimerSettingTuple, changedDisplayMode: TimerDisplayMode)
-    func timerSetting(timerSetting: TimerSettingTuple, changedColorTheme: Int)
-    func timerSetting(timerSetting: TimerSettingTuple, changedDisplayMode: AlertMode)
-    func timerSetting(timerSetting: TimerSettingTuple, changedTimerStatus: TimerStatus)
-}
-
 // MARK: - LGV_Timer_AppStatus Class -
 /* ###################################################################################################################################### */
 /**
