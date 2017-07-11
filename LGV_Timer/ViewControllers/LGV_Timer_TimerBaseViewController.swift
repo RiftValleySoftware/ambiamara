@@ -60,6 +60,32 @@ import UIKit
         }
     }
     
+    // MARK: - IBAction Instance Methods
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func selectNextPage(_ : UIGestureRecognizer) {
+        if let myTabBarController = self.tabBarController as? LGV_Timer_MainTabController {
+            if myTabBarController.selectedIndex < ((myTabBarController.viewControllers?.count)! - 1) {
+                let nextController = myTabBarController.viewControllers?[myTabBarController.selectedIndex + 1]
+                myTabBarController.selectedViewController = nextController
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func selectPreviousPage(_ : UIGestureRecognizer) {
+        if let myTabBarController = self.tabBarController as? LGV_Timer_MainTabController {
+            if myTabBarController.selectedIndex > 0 {
+                let prevController = myTabBarController.viewControllers?[myTabBarController.selectedIndex - 1]
+                myTabBarController.selectedViewController = prevController
+            }
+        }
+    }
+    
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */

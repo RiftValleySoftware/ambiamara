@@ -153,7 +153,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      */
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         let timerIndex = max(0, min(indexPath.row, LGV_Timer_AppDelegate.appDelegateObject.timerEngine.timers.count - 1))
-        self.mainTabController.selectTimer(timerIndex)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex = timerIndex
         return nil
     }
     

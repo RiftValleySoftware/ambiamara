@@ -486,7 +486,7 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     
     private var _timers:[TimerSettingTuple] = []
     private var _selectedTimer0BasedIndex:Int = -1
-    
+        
     var delegate: LGV_Timer_AppStatusDelegate! = nil
     
     // MARK: - Instance Calculated Properties
@@ -513,14 +513,32 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
         }
         
         set {
+            if let oldTimer = self.selectedTimer {
+                if oldTimer.uid != newValue.uid {
+                    DispatchQueue.main.async {
+                        if nil != self.delegate {
+                            self.delegate.appStatus(self, didDeselectTimer: oldTimer)
+                        }
+                    }
+                }
+            }
+            
             self._selectedTimer0BasedIndex = -1
+            
             if let setValue = newValue {
                 for index in 0..<self._timers.count {
                     if self._timers[index].uid == setValue.uid {
                         self._selectedTimer0BasedIndex = index
+                        DispatchQueue.main.async {
+                            if nil != self.delegate {
+                                self.delegate.appStatus(self, didSelectTimer: self._timers[index])
+                            }
+                        }
                         break
                     }
                 }
+            } else {
+                self._selectedTimer0BasedIndex = -1
             }
         }
     }
@@ -570,15 +588,32 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
         }
         
         set {
+            if let oldTimer = self.selectedTimer {
+                if oldTimer.uid != newValue {
+                    DispatchQueue.main.async {
+                        if nil != self.delegate {
+                            self.delegate.appStatus(self, didDeselectTimer: oldTimer)
+                        }
+                    }
+                }
+            }
+            
             self._selectedTimer0BasedIndex = -1
             
             if !newValue.isEmpty {
                 for index in 0..<self._timers.count {
                     if self._timers[index].uid == newValue {
                         self._selectedTimer0BasedIndex = index
+                        DispatchQueue.main.async {
+                            if nil != self.delegate {
+                                self.delegate.appStatus(self, didSelectTimer: self._timers[index])
+                            }
+                        }
                         break
                     }
                 }
+            } else {
+                self._selectedTimer0BasedIndex = -1
             }
         }
     }

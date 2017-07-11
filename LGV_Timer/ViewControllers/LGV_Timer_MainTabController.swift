@@ -79,8 +79,6 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
     func deleteTimer(_ inTimerIndex: Int) {
         let timer = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[inTimerIndex]
         timer.seppuku()
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
-        self.updateTimers()
     }
     
     /* ################################################################## */
@@ -88,9 +86,6 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
      */
     func addNewTimer() {
         let _ = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.createNewTimer()
-        self.updateTimers()
-        LGV_Timer_AppDelegate.appDelegateObject.sendRecalculateMessage()
-        self.selectTimer(LGV_Timer_AppDelegate.appDelegateObject.timerEngine.count - 1)
     }
     
     /* ################################################################## */
@@ -124,6 +119,7 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
         #endif
         
         self.updateTimers()
+        didAddTimer.selected = true
     }
     
     /* ################################################################## */
@@ -153,6 +149,7 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
         #if DEBUG
             print("Timer Was Selected: \(didSelectTimer)")
         #endif
+        self.selectTimer(LGV_Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(didSelectTimer))
     }
     
     /* ################################################################## */

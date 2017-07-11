@@ -71,6 +71,9 @@ class LGV_Timer_TimerNavController: UINavigationController, UINavigationControll
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if self == navigationController {
             if let newViewController = viewController as? LGV_Timer_TimerSetPickerController {
+                if !self.timerObject.selected {
+                    self.timerObject.selected = true
+                }
                 newViewController.timerObject = self.timerObject
             }
         }

@@ -45,11 +45,11 @@
                         <viewControllerLayoutGuide type="bottom" id="dnv-Bg-783"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gVx-u0-GdF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="599"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EDZ-zT-xw3">
-                                <rect key="frame" x="8" y="199.5" width="359" height="200"/>
+                                <rect key="frame" x="8" y="201.5" width="359" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIME-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="AxC-XP-sOe">
                                         <rect key="frame" x="0.0" y="0.0" width="359" height="21"/>
@@ -106,12 +106,17 @@
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="EDZ-zT-xw3" firstAttribute="centerX" secondItem="gVx-u0-GdF" secondAttribute="centerX" id="67v-8T-xAh"/>
                             <constraint firstAttribute="trailing" secondItem="EDZ-zT-xw3" secondAttribute="trailing" constant="8" id="EOj-vH-2bn"/>
                             <constraint firstItem="EDZ-zT-xw3" firstAttribute="leading" secondItem="gVx-u0-GdF" secondAttribute="leading" constant="8" id="KT3-ZQ-pkn"/>
                             <constraint firstItem="EDZ-zT-xw3" firstAttribute="centerY" secondItem="gVx-u0-GdF" secondAttribute="centerY" id="uVw-Gs-4bi"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="eQc-Fb-KKi" appends="YES" id="dSp-33-ilS"/>
+                            <outletCollection property="gestureRecognizers" destination="iEu-gi-Lhz" appends="YES" id="mY8-v1-hnM"/>
+                        </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="0Qv-E8-ESq">
@@ -145,6 +150,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pMd-Al-am4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="eQc-Fb-KKi">
+                    <connections>
+                        <action selector="selectNextPage:" destination="Y3X-jz-wfO" id="MrI-7o-5lf"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="iEu-gi-Lhz">
+                    <connections>
+                        <action selector="selectPreviousPage:" destination="Y3X-jz-wfO" id="DQv-PY-g4l"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="512.79999999999995" y="1209.4452773613195"/>
         </scene>
@@ -161,7 +176,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvk-HB-53P" customClass="LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock" customModule="X_Timer" customModuleProvider="target">
-                                <rect key="frame" x="4" y="88" width="367" height="575"/>
+                                <rect key="frame" x="4" y="68" width="367" height="595"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
@@ -171,7 +186,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRL-jt-yJr">
-                                <rect key="frame" x="0.0" y="84" width="375" height="583"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -190,6 +205,8 @@
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="yTf-ci-pFF" appends="YES" id="TAY-W0-9Dc"/>
+                            <outletCollection property="gestureRecognizers" destination="fkx-C2-3lI" appends="YES" id="ble-fs-t35"/>
+                            <outletCollection property="gestureRecognizers" destination="X0b-aR-ZAO" appends="YES" id="IrR-sz-O8r"/>
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
@@ -247,6 +264,16 @@
                         <action selector="tapInView:" destination="pId-dv-a9R" id="fWb-rx-pQb"/>
                     </connections>
                 </tapGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="fkx-C2-3lI">
+                    <connections>
+                        <action selector="resetButtonHit:" destination="pId-dv-a9R" id="ki0-Je-J8u"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="X0b-aR-ZAO">
+                    <connections>
+                        <action selector="stopButtonHit:" destination="pId-dv-a9R" id="Eas-av-o6v"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="512.79999999999995" y="1917.3913043478262"/>
         </scene>
@@ -263,7 +290,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-ALERT-MODE-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wdv-vy-5ut">
-                                <rect key="frame" x="16" y="76" width="343" height="21"/>
+                                <rect key="frame" x="16" y="72" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="bUu-i1-j2w"/>
                                 </constraints>
@@ -272,7 +299,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="04C-ke-GJA">
-                                <rect key="frame" x="16" y="105" width="343" height="29"/>
+                                <rect key="frame" x="16" y="101" width="343" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="lNx-un-zo7"/>
@@ -289,7 +316,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fCL-vy-SIp">
-                                <rect key="frame" x="16" y="235" width="343" height="29"/>
+                                <rect key="frame" x="16" y="231" width="343" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="YYN-rh-tsk"/>
@@ -305,7 +332,7 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-6l-M17" userLabel="Color Picker Container View">
-                                <rect key="frame" x="16" y="271" width="343" height="111"/>
+                                <rect key="frame" x="16" y="267" width="343" height="111"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-COLOR-THEME-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qA-v4-gf5">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
@@ -339,7 +366,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-1e-i1t" userLabel="Podium Mode Container View">
-                                <rect key="frame" x="16" y="382" width="343" height="242"/>
+                                <rect key="frame" x="16" y="378" width="343" height="242"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-WARNING-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BiL-9Z-SQP">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
@@ -400,7 +427,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-SOUND-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUZ-6X-TX6">
-                                <rect key="frame" x="16" y="141" width="343" height="21"/>
+                                <rect key="frame" x="16" y="137" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="TxB-CC-erF"/>
                                 </constraints>
@@ -409,7 +436,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ksY-w5-fgH">
-                                <rect key="frame" x="16" y="170" width="343" height="29"/>
+                                <rect key="frame" x="16" y="166" width="343" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="pnh-5R-Rqr"/>
@@ -427,7 +454,7 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-MODE-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9w9-pL-jTf">
-                                <rect key="frame" x="16" y="206" width="343" height="21"/>
+                                <rect key="frame" x="16" y="202" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="T88-gV-WYA"/>
                                 </constraints>
@@ -601,12 +628,16 @@
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.99215686270000003" green="0.97647058819999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="j29-iR-j9c" firstAttribute="top" secondItem="7wB-2E-9hN" secondAttribute="bottom" constant="4" id="5FI-PU-JqO"/>
                             <constraint firstItem="j29-iR-j9c" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="DcO-1P-Sqt"/>
                             <constraint firstItem="36h-2E-yI8" firstAttribute="top" secondItem="j29-iR-j9c" secondAttribute="bottom" id="ELE-1F-Scs"/>
                             <constraint firstItem="j29-iR-j9c" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="jWX-Jz-cU7"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="fiJ-Q2-M1M" appends="YES" id="WMw-Ms-uCF"/>
+                        </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" image="Settings" id="xaE-0x-fg6"/>
@@ -639,6 +670,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RKq-cg-tjj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="fiJ-Q2-M1M">
+                    <connections>
+                        <action selector="selectNextPage:" destination="dZU-jO-ENB" id="Mgr-6j-UT3"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1349.5999999999999" y="517.6911544227886"/>
         </scene>
@@ -650,8 +686,8 @@
                         <viewControllerLayoutGuide type="top" id="re4-wU-jpH"/>
                         <viewControllerLayoutGuide type="bottom" id="zm2-PD-MOJ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="pCc-NV-qjF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="599"/>
+                    <view key="view" contentMode="scaleToFill" id="pCc-NV-qjF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ClockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="o2D-gY-fZY">
