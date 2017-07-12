@@ -119,13 +119,13 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
                 clockView.hours = timeTuple.hours
                 clockView.minutes = timeTuple.minutes
                 clockView.seconds = timeTuple.seconds
-                clockView.activeSegmentColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[timerPrefs.colorTheme].textColor!
+                clockView.activeSegmentColor = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!
                 clockView.setNeedsDisplay()
             }
             
             if let timerNameLabel = ret.timerNameLabel {
                 let timerPrefs = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[indexPath.row]
-                timerNameLabel.textColor = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[timerPrefs.colorTheme].textColor!
+                timerNameLabel.textColor = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!
                 timerNameLabel.text = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
             }
             

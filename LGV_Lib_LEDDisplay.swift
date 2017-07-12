@@ -313,9 +313,11 @@ import UIKit
         }
         
         if nil != self._secondsElementGroup {
-            type(of: self)._setDecimalValue(self._secondsElementGroup, inValue: self.seconds, inZeroFill:  ((nil != self._hoursElementGroup) || (nil != self._hoursElementGroup)) ? true : self.zeroPadding)
+            var zeroPadding = (nil != self._hoursElementGroup) ? ((0 != self.hours) ? true : self.zeroPadding) : self.zeroPadding
+            zeroPadding = (nil != self._minutesElementGroup) ? ((0 != self.minutes) ? true : zeroPadding) : zeroPadding
+            type(of: self)._setDecimalValue(self._secondsElementGroup, inValue: self.seconds, inZeroFill:   zeroPadding)
             
-            if (0 == self.minutes) && (!self.zeroPadding || (nil == self._minutesElementGroup)) && (nil != self._secondsSeparatorElementGroup) {
+            if (0 == self.minutes) && (!zeroPadding || (nil == self._minutesElementGroup)) && (nil != self._secondsSeparatorElementGroup) {
                 (self._secondsSeparatorElementGroup[0] as! LED_SeparatorDots).value = [false, false]
             }
         }

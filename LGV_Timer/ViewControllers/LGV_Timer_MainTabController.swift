@@ -26,8 +26,6 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
         self.selectedIndex = 0
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine = LGV_Timer_TimerEngine(delegate: self)
         self.viewControllers?[0].tabBarItem.title = self.viewControllers?[0].tabBarItem.title?.localizedVariant
-        // Pre-load our color labels.
-        _ = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.pickerPepperArray
         self.updateTimers()
         self.delegate = self
     }
@@ -63,6 +61,23 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
                 }
             }
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func getTimerScreen(_ timerObject: TimerSettingTuple) -> LGV_Timer_TimerSetController! {
+        let timerIndex = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(timerObject)
+        
+        if 0 <= timerIndex {
+            if let navController = self.viewControllers?[timerIndex + 1] as? LGV_Timer_TimerNavController {
+                if let viewController = navController.viewControllers[0] as? LGV_Timer_TimerSetController{
+                    return viewController
+                }
+            }
+        }
+        
+        return nil
     }
     
     /* ################################################################## */
@@ -168,6 +183,10 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
         #if DEBUG
             print("Timer (\(timerSetting)) Alarm: \(alarm)")
         #endif
+        
+        if let controller = self.getTimerScreen(timerSetting) {
+            controller.updateTimer()
+        }
     }
     
     /* ################################################################## */
@@ -176,6 +195,37 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
     func timerSetting(_ timerSetting: TimerSettingTuple, changedCurrentTimeFrom: Int) {
         #if DEBUG
             print("Timer (\(timerSetting)) Changed Current Time From: \(changedCurrentTimeFrom)")
+        #endif
+        
+        if let controller = self.getTimerScreen(timerSetting) {
+            controller.updateTimer()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedTimeSetFrom: Int) {
+        #if DEBUG
+            print("Timer (\(timerSetting)) Changed Set Time From: \(changedTimeSetFrom)")
+        #endif
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedWarnTimeFrom: Int) {
+        #if DEBUG
+            print("Timer (\(timerSetting)) Changed Warning Time From: \(changedWarnTimeFrom)")
+        #endif
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedFinalTimeFrom: Int) {
+        #if DEBUG
+            print("Timer (\(timerSetting)) Changed Final Time From: \(changedFinalTimeFrom)")
         #endif
     }
     
@@ -186,6 +236,22 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
         #if DEBUG
             print("Timer (\(timerSetting)) Changed Timer Status From: \(changedTimerStatusFrom)")
         #endif
+        
+        if let controller = self.getTimerScreen(timerSetting) {
+            if (.Running == timerSetting.timerStatus) && (.Stopped == changedTimerStatusFrom) {
+                controller.startTimer()
+            } else {
+                if .Digital != timerSetting.displayMode {
+                    if ((.WarnRun == timerSetting.timerStatus) && (.Running == changedTimerStatusFrom)) || ((.FinalRun == timerSetting.timerStatus) && (.WarnRun == changedTimerStatusFrom)) {
+                        if let runningTimer = controller.runningTimer {
+                            runningTimer.flashDisplay()
+                        }
+                    }
+                }
+                
+                controller.updateTimer()
+            }
+        }
     }
 }
 

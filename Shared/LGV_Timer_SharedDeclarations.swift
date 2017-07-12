@@ -252,6 +252,15 @@ enum TimerStatus: Int {
  It is a class, because that means that references (as opposed to copies) will be passed around.
  */
 class TimerSettingTuple: NSObject, NSCoding {
+    // MARK: - Private Static Constants
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     These are the thresholds that we apply to our timer when automatically determining the "traffic lights" for podium mode.
+     */
+    private static let _podiumModeWarningThreshold: Float  = (6 / 36)
+    private static let _podiumModeFinalThreshold: Float    = (3 / 36)
+    
     private enum TimerStateKeys: String {
         case TimeSet            = "TimeSet"
         case TimeSetPodiumWarn  = "TimeSetPodiumWarn"
@@ -265,18 +274,70 @@ class TimerSettingTuple: NSObject, NSCoding {
         case UID                = "UID"
     }
     
-    var timeSet: Int                    ///< This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
+    var handler: LGV_Timer_AppStatus!   ///< This is the App Status object that "owns" this instance.
+    var firstTick: TimeInterval = 0.0   ///< This will be used to track the timer progress.
+    var lastTick: TimeInterval = 0.0    ///< This will be used to track the timer progress.
+    
     var timeSetPodiumWarn: Int          ///< This is the number of seconds (0 - 86399) before the yellow light comes on in Podium Mode. If 0, then it is automatically calculated.
     var timeSetPodiumFinal: Int         ///< This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
-    var currentTime: Int                ///< The actual time for this timer.
     var displayMode: TimerDisplayMode   ///< This is how the timer will display
     var colorTheme: Int                 ///< This is the 0-based index for the color theme.
     var alertMode: AlertMode            ///< This determines what kind of alert the timer makes when it is complete.
     var soundID: Int                    ///< This will be the ID of a system sound for this timer.
-    var timerStatus: TimerStatus        ///< This is the current status of this timer.
     var uid: String                     ///< This will be a unique ID, assigned to the pref, so we can match it.
-    var handler: LGV_Timer_AppStatus!   ///< This is the App Status object that "owns" this instance.
-    var lastTick: TimeInterval = 0.0    ///< This will be used to track the timer progress.
+    
+    var timeSet: Int {                  ///< This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
+        didSet {
+            self.timeSetPodiumWarn = type(of: self).calcPodiumModeWarningThresholdForTimerValue(self.timeSet)
+            self.timeSetPodiumFinal = type(of: self).calcPodiumModeFinalThresholdForTimerValue(self.timeSet)
+            if (nil != self.handler) && (oldValue != self.timeSet) {
+                self.handler.sendSetTimeUpdateMessage(self, from: oldValue)
+            }
+        }
+    }
+    
+    var currentTime: Int {              ///< The actual time for this timer.
+        didSet {
+            if (nil != self.handler) && (oldValue != self.currentTime) {
+                if (.Running == self.timerStatus) || (.WarnRun == self.timerStatus) || (.FinalRun == self.timerStatus) || (.Alarm == self.timerStatus) {
+                    self.handler.sendTimeUpdateMessage(self, from: oldValue)
+                }
+            }
+        }
+    }
+    
+    var timerStatus: TimerStatus {      ///< This is the current status of this timer.
+        didSet {
+            if oldValue != self.timerStatus {
+                if (.Running == self.timerStatus) {
+                    if (.Stopped == oldValue) || (.Alarm == oldValue) {
+                        self.firstTick = Date.timeIntervalSinceReferenceDate
+                    }
+                    
+                    if (.Stopped == oldValue) || (.Alarm == oldValue) || (.Paused == oldValue) {
+                        self.lastTick = Date.timeIntervalSinceReferenceDate
+                    }
+                }
+                    
+                if (.Stopped == self.timerStatus) || (.Invalid == self.timerStatus) {
+                    self.firstTick = 0.0
+                    self.lastTick = 0.0
+                }
+                
+                if (.Stopped == self.timerStatus) || ((.Running == self.timerStatus) && ((.Stopped == oldValue) || (.Alarm == oldValue))) {
+                    self.currentTime = self.timeSet
+                }
+                
+                if (.Invalid == self.timerStatus) || (.Alarm == self.timerStatus) {
+                    self.currentTime = 0
+                }
+                
+                if nil != self.handler {
+                    self.handler.sendStatusUpdateMessage(self, from: oldValue)
+                }
+            }
+        }
+    }
     
     // MARK: - Initializers
     /* ################################################################################################################################## */
@@ -322,6 +383,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         self.soundID = soundID
         self.timerStatus = timerStatus
         self.uid = (nil == uid) ? NSUUID().uuidString : uid
+        self.firstTick = 0.0
         self.lastTick = 0.0
         self.handler = handler
     }
@@ -334,7 +396,7 @@ class TimerSettingTuple: NSObject, NSCoding {
      */
     override var description: String {
         get {
-            let ret = String(format: "timeSet: %d, timeSetPodiumWarn: %d, timeSetPodiumFinal: %d, currentTime: %d, displayMode: %d, colorTheme: %d, alertMode: %d, soundID: %d, timerStatus: %d, lastTick: %.5f, uid: %@",
+            let ret = String(format: "timeSet: %d, timeSetPodiumWarn: %d, timeSetPodiumFinal: %d, currentTime: %d, displayMode: %d, colorTheme: %d, alertMode: %d, soundID: %d, timerStatus: %d, firstTick: %.5f, lastTick: %.5f, uid: %@",
                           self.timeSet,
                           self.timeSetPodiumWarn,
                           self.timeSetPodiumFinal,
@@ -344,6 +406,7 @@ class TimerSettingTuple: NSObject, NSCoding {
                           self.alertMode.rawValue,
                           self.soundID,
                           self.timerStatus.rawValue,
+                          self.firstTick,
                           self.lastTick,
                           self.uid
             )
@@ -381,6 +444,32 @@ class TimerSettingTuple: NSObject, NSCoding {
         }
     }
     
+    // MARK: - Internal Class Methods
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This calculates the auto-calculation for the "warning," or "yellow traffic light" for the Podium Mode timer.
+     
+     :param: inTimerSet The value of the countdown timer.
+     
+     :returns: an Int, with the warning threshold.
+     */
+    class func calcPodiumModeWarningThresholdForTimerValue(_ inTimerSet: Int) -> Int {
+        return max(0, min(inTimerSet, Int(ceil(Float(inTimerSet) * self._podiumModeWarningThreshold))))
+    }
+    
+    /* ################################################################## */
+    /**
+     This calculates the auto-calculation for the "final," or "red traffic light" for the Podium Mode timer.
+     
+     :param: inTimerSet The value of the countdown timer.
+     
+     :returns: an Int, with the final threshold.
+     */
+    class func calcPodiumModeFinalThresholdForTimerValue(_ inTimerSet: Int) -> Int {
+        return max(0, min(calcPodiumModeWarningThresholdForTimerValue(inTimerSet), Int(ceil(Float(inTimerSet) * self._podiumModeFinalThreshold))))
+    }
+
     // MARK: - Instance Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -405,6 +494,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         self.alertMode = .Both
         self.timerStatus = .Stopped
         self.uid = ""
+        self.firstTick = 0.0
         self.lastTick = 0.0
         self.handler = nil
 
@@ -466,6 +556,11 @@ class TimerSettingTuple: NSObject, NSCoding {
  This protocol allows observers of the app status.
  */
 protocol LGV_Timer_AppStatusDelegate {
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerStatus: TimerSettingTuple, from: TimerStatus)
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerCurrentTime: TimerSettingTuple, from: Int)
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerWarnTime: TimerSettingTuple, from: Int)
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerFinalTime: TimerSettingTuple, from: Int)
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerTimeSet: TimerSettingTuple, from: Int)
     func appStatus(_ appStatus: LGV_Timer_AppStatus, didAddTimer: TimerSettingTuple)
     func appStatus(_ appStatus: LGV_Timer_AppStatus, willRemoveTimer: TimerSettingTuple)
     func appStatus(_ appStatus: LGV_Timer_AppStatus, didRemoveTimerAtIndex: Int)
@@ -673,6 +768,61 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
         }
         
         return ret
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendTimeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
+        DispatchQueue.main.async {
+            if nil != self.delegate {
+                self.delegate.appStatus(self, didUpdateTimerCurrentTime: inTimerObject, from: from)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendSetTimeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
+        DispatchQueue.main.async {
+            if nil != self.delegate {
+                self.delegate.appStatus(self, didUpdateTimerTimeSet: inTimerObject, from: from)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendWarnTimeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
+        DispatchQueue.main.async {
+            if nil != self.delegate {
+                self.delegate.appStatus(self, didUpdateTimerWarnTime: inTimerObject, from: from)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendFinalTimeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
+        DispatchQueue.main.async {
+            if nil != self.delegate {
+                self.delegate.appStatus(self, didUpdateTimerFinalTime: inTimerObject, from: from)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendStatusUpdateMessage(_ inTimerObject: TimerSettingTuple, from: TimerStatus) {
+        DispatchQueue.main.async {
+            if nil != self.delegate {
+                self.delegate.appStatus(self, didUpdateTimerStatus: inTimerObject, from: from)
+            }
+        }
     }
     
     // MARK: - Sequence Methods

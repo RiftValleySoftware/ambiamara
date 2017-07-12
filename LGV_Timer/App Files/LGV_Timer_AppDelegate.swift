@@ -111,7 +111,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      Returns the current app status.
      */
     var appStatus: LGV_Timer_AppStatus {
-        get { return LGV_Timer_StaticPrefs.prefs.appStatus }
+        get { return self.timerEngine.appStatus }
     }
     
     // MARK: - Internal Instance Methods
@@ -152,7 +152,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func applicationDidEnterBackground(_ application: UIApplication) {
         self.sendBackgroundMessage()
-        self.timerEngine.prefs.savePrefs()
+        self.timerEngine.savePrefs()
     }
     
     /* ################################################################## */
@@ -160,7 +160,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func applicationWillTerminate(_ application: UIApplication) {
         self.sendBackgroundMessage()
-        self.timerEngine.prefs.savePrefs()
+        self.timerEngine.savePrefs()
     }
     
     // MARK: - WCSessionDelegate Sender Methods
@@ -433,7 +433,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
         timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimerNameKey] = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, index + 1)
         index += 1
         let colorIndex = inTimer.colorTheme
-        let pickerPepper = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[colorIndex]
+        let pickerPepper = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[colorIndex]
         // This awful hack is because colors read from IB don't seem to transmit well to Watch. Pretty sure it's an Apple bug.
         if let color = pickerPepper.textColor {
             if let destColorSpace: CGColorSpace = CGColorSpace(name: CGColorSpace.sRGB) {
@@ -527,7 +527,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                         if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
                             if let uid = message[key] as? String {
                                 if !uid.isEmpty {
-                                    let timerIndex = LGV_Timer_StaticPrefs.prefs.getIndexOfTimer(uid) + 1
+                                    let timerIndex = self.timerEngine.indexOf(uid) + 1
                                     if tabController.viewControllers?[timerIndex] != tabController.selectedViewController {
                                         if 0 < timerIndex {
                                             tabController.selectedViewController = tabController.viewControllers?[timerIndex]
@@ -546,7 +546,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                     case    LGV_Timer_Messages.s_timerListStartTimerMessageKey:
                         if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
                             if let uid = message[key] as? String {
-                                let timerIndex = LGV_Timer_StaticPrefs.prefs.getIndexOfTimer(uid)
+                                let timerIndex = self.timerEngine.indexOf(uid) + 1
                                 if !uid.isEmpty {
                                     if tabController.selectedIndex == (timerIndex + 1) {
                                         if nil != self.currentTimer {
@@ -564,15 +564,13 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                     case    LGV_Timer_Messages.s_timerListPauseTimerMessageKey:
                         if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
                             if let uid = message[key] as? String {
-                                if let _ = LGV_Timer_StaticPrefs.prefs.getTimerPrefsForUID(uid) {
-                                    let timerIndex = LGV_Timer_StaticPrefs.prefs.getIndexOfTimer(uid)
-                                    if tabController.selectedIndex == (timerIndex + 1) {
-                                        if nil != self.currentTimer {
-                                            self.currentTimer.pauseTimer()
-                                        }
-                                    
-                                    self.sendStopMessage(timerUID: uid)
+                                let timerIndex = self.timerEngine.indexOf(uid) + 1
+                                if tabController.selectedIndex == (timerIndex + 1) {
+                                    if nil != self.currentTimer {
+                                        self.currentTimer.pauseTimer()
                                     }
+                                    
+                                self.sendStopMessage(timerUID: uid)
                                 }
                             }
                         }
@@ -580,16 +578,14 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                     case    LGV_Timer_Messages.s_timerListStopTimerMessageKey:
                         if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
                             if let uid = message[key] as? String {
-                                if let _ = LGV_Timer_StaticPrefs.prefs.getTimerPrefsForUID(uid) {
-                                    let timerIndex = LGV_Timer_StaticPrefs.prefs.getIndexOfTimer(uid)
-                                    if tabController.selectedIndex == (timerIndex + 1) {
-                                        if nil != self.currentTimer {
-                                            self.currentTimer.stopTimer()
-                                        }
+                                let timerIndex = self.timerEngine.indexOf(uid) + 1
+                                if tabController.selectedIndex == (timerIndex + 1) {
+                                    if nil != self.currentTimer {
+                                        self.currentTimer.stopTimer()
                                     }
-                                    
-                                    self.sendStopMessage(timerUID: uid)
                                 }
+                                
+                                self.sendStopMessage(timerUID: uid)
                             }
                         }
                         

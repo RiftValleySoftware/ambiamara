@@ -95,13 +95,13 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         
         var timeSetWarnInt = self.timerObject.timeSetPodiumWarn
         if 0 >= timeSetWarnInt {
-            timeSetWarnInt = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet)
+            timeSetWarnInt = TimerSettingTuple.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet)
             self.timerObject.timeSetPodiumWarn = timeSetWarnInt
         }
         let timeSetWarn = TimeTuple(timeSetWarnInt)
         var timeSetFinalInt = self.timerObject.timeSetPodiumFinal
         if 0 >= timeSetFinalInt {
-            timeSetFinalInt = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet)
+            timeSetFinalInt = TimerSettingTuple.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet)
             self.timerObject.timeSetPodiumFinal = timeSetFinalInt
         }
         
@@ -112,7 +112,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         self.finalThresholdTimePicker.selectRow(timeSetFinal.hours, inComponent: Components.Hours.rawValue, animated: true)
         self.finalThresholdTimePicker.selectRow(timeSetFinal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
         self.finalThresholdTimePicker.selectRow(timeSetFinal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.updateTimer(self.timerObject)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
         
         // This ensures that we force the display to portrait (for this screen only).
         LGV_Timer_AppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
@@ -128,8 +128,6 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         super.viewWillDisappear(animated)
         // Don't forget to reset when view is being removed
         LGV_Timer_AppDelegate.lockOrientation(.all)
-//        self.navigationController?.popToRootViewController(animated: false)
-        LGV_Timer_AppDelegate.appDelegateObject.sendRecalculateMessage()
     }
     
     // MARK: - @IBAction Methods
@@ -139,7 +137,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
      */
     @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
         self.timerObject.displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.updateTimer(self.timerObject)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
         self.setUpPickerViews()
     }
     
@@ -149,7 +147,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     @IBAction func soundSelectionChanged(_ sender: UISegmentedControl) {
         self.timerObject.soundID = sender.selectedSegmentIndex
         type(of: self)._playAlertSound(self.timerObject.soundID)
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.updateTimer(self.timerObject)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
     }
     
     /* ################################################################## */
@@ -157,7 +155,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
      */
     @IBAction func alertModeChanged(_ sender: UISegmentedControl) {
         self.timerObject.alertMode = AlertMode(rawValue: sender.selectedSegmentIndex)!
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.updateTimer(self.timerObject)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
         self.setUpPickerViews()
     }
     
@@ -175,7 +173,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
      */
     override func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if self.colorThemePicker == pickerView {
-            return LGV_Timer_StaticPrefs.prefs.pickerPepperArray.count
+            return LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray.count
         } else {
             return super.pickerView(pickerView, numberOfRowsInComponent: component)
         }
@@ -207,7 +205,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
             let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: height))
             let ret: UILabel = UILabel(frame: frame)
             
-            let swatchLabel = LGV_Timer_StaticPrefs.prefs.pickerPepperArray[row]
+            let swatchLabel = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[row]
             ret.text = swatchLabel.text?.localizedVariant
             ret.backgroundColor = UIColor.clear
             ret.textAlignment = swatchLabel.textAlignment
@@ -238,7 +236,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
                     var maxValInt = max(0, self.timerObject.timeSet - 1)
                     
                     if 0 == maxValInt {
-                        maxValInt = LGV_Timer_StaticPrefs.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet)
+                        maxValInt = TimerSettingTuple.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet)
                     }
                     
                     let maxVal = TimeTuple(maxValInt)
@@ -261,7 +259,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
                     var maxValInt = max(0, self.timerObject.timeSetPodiumWarn - 1)
                     
                     if 0 == maxValInt {
-                        maxValInt = LGV_Timer_StaticPrefs.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet)
+                        maxValInt = TimerSettingTuple.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet)
                     }
                     
                     let maxVal = TimeTuple(maxValInt)
@@ -273,6 +271,6 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
             }
         }
         
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.prefs.updateTimer(self.timerObject)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
     }
 }
