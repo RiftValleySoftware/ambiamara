@@ -14,7 +14,7 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegate, LGV_Timer_TimerEngineDelegate {
+class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEngineDelegate {
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -28,6 +28,7 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
         self.viewControllers?[0].tabBarItem.title = self.viewControllers?[0].tabBarItem.title?.localizedVariant
         self.updateTimers()
         self.delegate = self
+        self.isSwipeEnabled = false // We disable the swipe, because we'll be providing our own.
     }
     
     // MARK: - Internal Instance Methods
@@ -123,17 +124,6 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
                 self.viewControllers?.append(timerController)
             }
         }
-    }
-    
-    // MARK: - UITabBarControllerDelegate Protocol Methods
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     */
-    func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let ret: UIViewControllerAnimatedTransitioning? = nil
-        
-        return ret
     }
     
     // MARK: - LGV_Timer_TimerEngineDelegate Protocol Methods
