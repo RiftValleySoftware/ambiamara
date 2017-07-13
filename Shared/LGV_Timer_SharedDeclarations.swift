@@ -564,7 +564,7 @@ protocol LGV_Timer_AppStatusDelegate {
     func appStatus(_ appStatus: LGV_Timer_AppStatus, didAddTimer: TimerSettingTuple)
     func appStatus(_ appStatus: LGV_Timer_AppStatus, willRemoveTimer: TimerSettingTuple)
     func appStatus(_ appStatus: LGV_Timer_AppStatus, didRemoveTimerAtIndex: Int)
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didSelectTimer: TimerSettingTuple)
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didSelectTimer: TimerSettingTuple!)
     func appStatus(_ appStatus: LGV_Timer_AppStatus, didDeselectTimer: TimerSettingTuple)
 }
 
@@ -580,7 +580,11 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     }
     
     private var _timers:[TimerSettingTuple] = []
-    private var _selectedTimer0BasedIndex:Int = -1
+    private var _selectedTimer0BasedIndex:Int = -1 {
+        didSet {
+            print("New Timer Index: \(self._selectedTimer0BasedIndex)")
+        }
+    }
         
     var delegate: LGV_Timer_AppStatusDelegate! = nil
     
@@ -660,9 +664,7 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
                         self.delegate.appStatus(self, didDeselectTimer: oldTimer!)
                     }
                     
-                    if nil != newTimer {
-                        self.delegate.appStatus(self, didSelectTimer: newTimer!)
-                    }
+                    self.delegate.appStatus(self, didSelectTimer: newTimer)
                 }
             }
         }

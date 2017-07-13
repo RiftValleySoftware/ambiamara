@@ -32,7 +32,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     var orientationLock = UIInterfaceOrientationMask.all
     var window: UIWindow?
     var currentTimer: LGV_Timer_TimerRuntimeViewController! = nil
-    var currentTimerSet: LGV_Timer_TimerSetController! = nil
     var useUserInfo: Bool = false
     var watchDisconnected: Bool = true
     var timerEngine: LGV_Timer_TimerEngine! = nil
@@ -540,52 +539,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                                 }
                                 
                                 tabController.view.setNeedsLayout()
-                            }
-                        }
-                        
-                    case    LGV_Timer_Messages.s_timerListStartTimerMessageKey:
-                        if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
-                            if let uid = message[key] as? String {
-                                let timerIndex = self.timerEngine.indexOf(uid) + 1
-                                if !uid.isEmpty {
-                                    if tabController.selectedIndex == (timerIndex + 1) {
-                                        if nil != self.currentTimer {
-                                            self.currentTimer.continueTimer()
-                                        } else {
-                                            if nil != self.currentTimerSet {
-                                                self.currentTimerSet.startTimer()
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        
-                    case    LGV_Timer_Messages.s_timerListPauseTimerMessageKey:
-                        if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
-                            if let uid = message[key] as? String {
-                                let timerIndex = self.timerEngine.indexOf(uid) + 1
-                                if tabController.selectedIndex == (timerIndex + 1) {
-                                    if nil != self.currentTimer {
-                                        self.currentTimer.pauseTimer()
-                                    }
-                                    
-                                self.sendStopMessage(timerUID: uid)
-                                }
-                            }
-                        }
-
-                    case    LGV_Timer_Messages.s_timerListStopTimerMessageKey:
-                        if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
-                            if let uid = message[key] as? String {
-                                let timerIndex = self.timerEngine.indexOf(uid) + 1
-                                if tabController.selectedIndex == (timerIndex + 1) {
-                                    if nil != self.currentTimer {
-                                        self.currentTimer.stopTimer()
-                                    }
-                                }
-                                
-                                self.sendStopMessage(timerUID: uid)
                             }
                         }
                         

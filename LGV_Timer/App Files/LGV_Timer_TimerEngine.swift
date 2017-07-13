@@ -17,7 +17,7 @@ protocol LGV_Timer_TimerEngineDelegate {
     func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didAddTimer: TimerSettingTuple)
     func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, willRemoveTimer: TimerSettingTuple)
     func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didRemoveTimerAtIndex: Int)
-    func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didSelectTimer: TimerSettingTuple)
+    func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didSelectTimer: TimerSettingTuple!)
     func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didDeselectTimer: TimerSettingTuple)
     
     func timerSetting(_ timerSetting: TimerSettingTuple, alarm: Int)
@@ -341,6 +341,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_AppStatusDelegate {
                     }
                     
                     self.appStatus = temp2
+                    self.selectedTimerIndex = -1
                     self.appStatus.delegate = self
                 }
             }
@@ -520,7 +521,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_AppStatusDelegate {
     /* ################################################################## */
     /**
      */
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didSelectTimer: TimerSettingTuple) {
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didSelectTimer: TimerSettingTuple!) {
         if nil != self.delegate {
             self.delegate.timerEngine(self, didSelectTimer: didSelectTimer)
             self.savePrefs()

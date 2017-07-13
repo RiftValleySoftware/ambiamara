@@ -66,11 +66,9 @@ import UIKit
     /**
      */
     @IBAction func selectNextPage(_ : UIGestureRecognizer) {
-        if let myTabBarController = self.tabBarController as? LGV_Timer_MainTabController {
-            if myTabBarController.selectedIndex < ((myTabBarController.viewControllers?.count)! - 1) {
-                let nextController = myTabBarController.viewControllers?[myTabBarController.selectedIndex + 1]
-                myTabBarController.selectedViewController = nextController
-            }
+        if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex < (LGV_Timer_AppDelegate.appDelegateObject.timerEngine.count - 1) {
+            let nextIndex = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex + 1
+            LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex = nextIndex
         }
     }
     
@@ -78,11 +76,9 @@ import UIKit
     /**
      */
     @IBAction func selectPreviousPage(_ : UIGestureRecognizer) {
-        if let myTabBarController = self.tabBarController as? LGV_Timer_MainTabController {
-            if myTabBarController.selectedIndex > 0 {
-                let prevController = myTabBarController.viewControllers?[myTabBarController.selectedIndex - 1]
-                myTabBarController.selectedViewController = prevController
-            }
+        if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex >= 0 {
+            let prevIndex = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex - 1
+            LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex = prevIndex
         }
     }
     

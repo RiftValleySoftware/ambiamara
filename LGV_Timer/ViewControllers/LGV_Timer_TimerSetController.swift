@@ -146,7 +146,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
             LGV_Timer_AppDelegate.appDelegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
         }
         
-        LGV_Timer_AppDelegate.appDelegateObject.currentTimerSet = self
         self.dontBotherTheWatch = false
     }
     

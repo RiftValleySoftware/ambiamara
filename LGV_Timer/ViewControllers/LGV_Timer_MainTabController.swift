@@ -85,7 +85,9 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
      */
     func selectTimer(_ inTimerIndex: Int) {
         let timerIndex = 1 + inTimerIndex
-        self.selectedViewController = self.viewControllers?[timerIndex]
+        if self.selectedViewController != self.viewControllers?[timerIndex] {
+            self.selectedViewController = self.viewControllers?[timerIndex]
+        }
     }
     
     /* ################################################################## */
@@ -121,6 +123,17 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
                 self.viewControllers?.append(timerController)
             }
         }
+    }
+    
+    // MARK: - UITabBarControllerDelegate Protocol Methods
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let ret: UIViewControllerAnimatedTransitioning? = nil
+        
+        return ret
     }
     
     // MARK: - LGV_Timer_TimerEngineDelegate Protocol Methods
@@ -160,11 +173,18 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
     /* ################################################################## */
     /**
      */
-    func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didSelectTimer: TimerSettingTuple) {
+    func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didSelectTimer: TimerSettingTuple!) {
         #if DEBUG
             print("Timer Was Selected: \(didSelectTimer)")
         #endif
-        self.selectTimer(LGV_Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(didSelectTimer))
+        
+        var index = -1
+        
+        if nil != didSelectTimer {
+            index = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(didSelectTimer)
+        }
+        
+        self.selectTimer(index)
     }
     
     /* ################################################################## */
@@ -254,4 +274,3 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
         }
     }
 }
-
