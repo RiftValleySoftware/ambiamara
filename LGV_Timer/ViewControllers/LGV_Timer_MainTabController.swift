@@ -273,4 +273,41 @@ class LGV_Timer_MainTabController: UITabBarController, UITabBarControllerDelegat
             }
         }
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerDisplayModeFrom: TimerDisplayMode) {
+        #if DEBUG
+            print("Timer (\(timerSetting)) Changed Display Mode From: \(changedTimerDisplayModeFrom)")
+        #endif
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSoundIDFrom: Int) {
+        #if DEBUG
+            print("Timer (\(timerSetting)) Changed Sound ID From: \(changedTimerSoundIDFrom)")
+        #endif
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerAlertModeFrom: AlertMode) {
+        #if DEBUG
+            print("Timer (\(timerSetting)) Changed Alert Mode From: \(changedTimerAlertModeFrom)")
+        #endif
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerColorThemeFrom: Int) {
+        #if DEBUG
+            print("Timer (\(timerSetting)) Changed Color Theme From: \(changedTimerColorThemeFrom)")
+        #endif
+    }
 }
+

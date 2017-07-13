@@ -49,7 +49,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      */
     @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
         self.timerObject.displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
     }
     
     // MARK: - Internal Instance Methods
@@ -194,8 +193,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         let minutes = pickerView.selectedRow(inComponent: Components.Minutes.rawValue)
         let seconds = pickerView.selectedRow(inComponent: Components.Seconds.rawValue)
         self.timerObject.timeSet = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
-        // We always reset these when we change the main time.
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
         self.updateTimer()
     }
 }

@@ -275,23 +275,78 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     var handler: LGV_Timer_AppStatus!   ///< This is the App Status object that "owns" this instance.
+    var uid: String                     ///< This will be a unique ID, assigned to the pref, so we can match it.
     var firstTick: TimeInterval = 0.0   ///< This will be used to track the timer progress.
     var lastTick: TimeInterval = 0.0    ///< This will be used to track the timer progress.
     
-    var timeSetPodiumWarn: Int          ///< This is the number of seconds (0 - 86399) before the yellow light comes on in Podium Mode. If 0, then it is automatically calculated.
-    var timeSetPodiumFinal: Int         ///< This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
-    var displayMode: TimerDisplayMode   ///< This is how the timer will display
-    var colorTheme: Int                 ///< This is the 0-based index for the color theme.
-    var alertMode: AlertMode            ///< This determines what kind of alert the timer makes when it is complete.
-    var soundID: Int                    ///< This will be the ID of a system sound for this timer.
-    var uid: String                     ///< This will be a unique ID, assigned to the pref, so we can match it.
+    var displayMode: TimerDisplayMode { ///< This is how the timer will display
+        didSet {
+            if oldValue != self.displayMode {
+                if nil != self.handler {
+                    self.handler.sendDisplayModeUpdateMessage(self, from: oldValue)
+                }
+            }
+        }
+    }
+
+    var alertMode: AlertMode {          ///< This determines what kind of alert the timer makes when it is complete.
+        didSet {
+            if oldValue != self.alertMode {
+                if nil != self.handler {
+                    self.handler.sendAlertModeUpdateMessage(self, from: oldValue)
+                }
+            }
+        }
+   }
+    
+    var colorTheme: Int {               ///< This is the 0-based index for the color theme.
+        didSet {
+            if oldValue != self.colorTheme {
+                if nil != self.handler {
+                    self.handler.sendColorThemeUpdateMessage(self, from: oldValue)
+                }
+            }
+        }
+    }
+    
+    var soundID: Int {                  ///< This will be the 0-based ID of a sound for this timer.
+        didSet {
+            if oldValue != self.soundID {
+                if nil != self.handler {
+                    self.handler.sendSoundIDUpdateMessage(self, from: oldValue)
+                }
+            }
+        }
+    }
     
     var timeSet: Int {                  ///< This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
         didSet {
-            self.timeSetPodiumWarn = type(of: self).calcPodiumModeWarningThresholdForTimerValue(self.timeSet)
-            self.timeSetPodiumFinal = type(of: self).calcPodiumModeFinalThresholdForTimerValue(self.timeSet)
-            if (nil != self.handler) && (oldValue != self.timeSet) {
-                self.handler.sendSetTimeUpdateMessage(self, from: oldValue)
+            if oldValue != self.timeSet {
+                self.timeSetPodiumWarn = type(of: self).calcPodiumModeWarningThresholdForTimerValue(self.timeSet)
+                self.timeSetPodiumFinal = type(of: self).calcPodiumModeFinalThresholdForTimerValue(self.timeSet)
+                if nil != self.handler {
+                    self.handler.sendSetTimeUpdateMessage(self, from: oldValue)
+                }
+            }
+        }
+    }
+    
+    var timeSetPodiumWarn: Int {        ///< This is the number of seconds (0 - 86399) before the yellow light comes on in Podium Mode. If 0, then it is automatically calculated.
+        didSet {
+            if oldValue != self.timeSetPodiumWarn {
+                if nil != self.handler {
+                    self.handler.sendWarnTimeUpdateMessage(self, from: oldValue)
+                }
+            }
+        }
+    }
+    
+    var timeSetPodiumFinal: Int {       ///< This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
+        didSet {
+            if oldValue != self.timeSetPodiumFinal {
+                if nil != self.handler {
+                    self.handler.sendFinalTimeUpdateMessage(self, from: oldValue)
+                }
             }
         }
     }
@@ -306,7 +361,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         }
     }
     
-    var timerStatus: TimerStatus {      ///< This is the current status of this timer.
+   var timerStatus: TimerStatus {      ///< This is the current status of this timer.
         didSet {
             if oldValue != self.timerStatus {
                 if (.Running == self.timerStatus) {
@@ -557,7 +612,11 @@ class TimerSettingTuple: NSObject, NSCoding {
  */
 protocol LGV_Timer_AppStatusDelegate {
     func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerStatus: TimerSettingTuple, from: TimerStatus)
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerDisplayMode: TimerSettingTuple, from: TimerDisplayMode)
     func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerCurrentTime: TimerSettingTuple, from: Int)
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerSoundID: TimerSettingTuple, from: Int)
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerAlertMode: TimerSettingTuple, from: AlertMode)
+    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerColorTheme: TimerSettingTuple, from: Int)
     func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerWarnTime: TimerSettingTuple, from: Int)
     func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerFinalTime: TimerSettingTuple, from: Int)
     func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerTimeSet: TimerSettingTuple, from: Int)
@@ -786,6 +845,39 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     /* ################################################################## */
     /**
      */
+    func sendSoundIDUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
+        DispatchQueue.main.async {
+            if nil != self.delegate {
+                self.delegate.appStatus(self, didUpdateTimerSoundID: inTimerObject, from: from)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendAlertModeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: AlertMode) {
+        DispatchQueue.main.async {
+            if nil != self.delegate {
+                self.delegate.appStatus(self, didUpdateTimerAlertMode: inTimerObject, from: from)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendColorThemeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
+        DispatchQueue.main.async {
+            if nil != self.delegate {
+                self.delegate.appStatus(self, didUpdateTimerColorTheme: inTimerObject, from: from)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func sendSetTimeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
             if nil != self.delegate {
@@ -823,6 +915,17 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
         DispatchQueue.main.async {
             if nil != self.delegate {
                 self.delegate.appStatus(self, didUpdateTimerStatus: inTimerObject, from: from)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendDisplayModeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: TimerDisplayMode) {
+        DispatchQueue.main.async {
+            if nil != self.delegate {
+                self.delegate.appStatus(self, didUpdateTimerDisplayMode: inTimerObject, from: from)
             }
         }
     }

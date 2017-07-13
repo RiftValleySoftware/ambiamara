@@ -280,7 +280,7 @@
         <!--Timer Settings-->
         <scene sceneID="diB-ql-vKz">
             <objects>
-                <viewController title="Timer Settings" hidesBottomBarWhenPushed="YES" id="Cmw-cs-f0x" customClass="LGV_Timer_TimerSetupController" customModule="X_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Timer Settings" modalTransitionStyle="partialCurl" hidesBottomBarWhenPushed="YES" id="Cmw-cs-f0x" customClass="LGV_Timer_TimerSetupController" customModule="X_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZN5-uz-PEG"/>
                         <viewControllerLayoutGuide type="bottom" id="Tbu-Nc-I0V"/>
@@ -681,7 +681,7 @@
         <!--Info-->
         <scene sceneID="MrX-RY-GB5">
             <objects>
-                <viewController title="LGV_TIMER-INFO-TITLE-FORMAT" hidesBottomBarWhenPushed="YES" id="PKI-7x-KlB" userLabel="Info" customClass="LGV_Timer_InfoViewController" customModule="X_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="LGV_TIMER-INFO-TITLE-FORMAT" modalTransitionStyle="partialCurl" hidesBottomBarWhenPushed="YES" id="PKI-7x-KlB" userLabel="Info" customClass="LGV_Timer_InfoViewController" customModule="X_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="re4-wU-jpH"/>
                         <viewControllerLayoutGuide type="bottom" id="zm2-PD-MOJ"/>
@@ -792,7 +792,7 @@
         <!--Timer List Navigation Controller-->
         <scene sceneID="dWu-Eb-ueo">
             <objects>
-                <navigationController title="Timer List Navigation Controller" id="sDn-VD-xYI" customClass="LGV_Timer_TimerSettingsNavController" customModule="X_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController title="Timer List Navigation Controller" modalTransitionStyle="crossDissolve" id="sDn-VD-xYI" customClass="LGV_Timer_TimerSettingsNavController" customModule="X_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" id="Y9h-rb-Dgm"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Vpb-uI-amC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -812,7 +812,7 @@
         <!--Main Tab Controller-->
         <scene sceneID="8ZY-33-Rjt">
             <objects>
-                <tabBarController title="Main Tab Controller" id="mvc-fj-sq5" customClass="LGV_Timer_MainTabController" customModule="X_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController title="Main Tab Controller" modalTransitionStyle="partialCurl" id="mvc-fj-sq5" customClass="LGV_Timer_MainTabController" customModule="X_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="egp-Ba-Cka">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
