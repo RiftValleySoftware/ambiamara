@@ -15,6 +15,7 @@ import UIKit
 /**
  */
 class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEngineDelegate {
+    /// This tracks our timer setup controllers. It gives us quick access to them.
     var activeTimerSetConrollers:[LGV_Timer_TimerSetController] = []
     
     // MARK: - Base Class Override Methods
@@ -37,6 +38,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This function rebuilds the entire timer hierarchy from scratch.
      */
     func updateTimers() {
         self.activeTimerSetConrollers = []
@@ -70,6 +72,9 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     
     /* ################################################################## */
     /**
+     This adds a single timer base View Controller to our tracking list.
+     
+     :param: inTimer The timer View Controller to add.
      */
     func addTimerToList(_ inTimer:LGV_Timer_TimerSetController) {
         for timerView in self.activeTimerSetConrollers {
@@ -83,6 +88,9 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     
     /* ################################################################## */
     /**
+     This removes a timer view controller from our list.
+     
+     :param: inTimer The timer View Controller to remove.
      */
     func removeTimerFromList(_ inTimer:LGV_Timer_TimerSetController) {
         var index: Int = 0
@@ -98,6 +106,9 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     
     /* ################################################################## */
     /**
+     This fetches a timer View Controller from our tracking list, based on the timer object passed in.
+     
+     :param: timerObject The TimerSettingTuple of the View Controller.
      */
     func getTimerScreen(_ timerObject: TimerSettingTuple) -> LGV_Timer_TimerSetController! {
         for timerView in self.activeTimerSetConrollers {

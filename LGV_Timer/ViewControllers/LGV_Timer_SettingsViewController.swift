@@ -73,7 +73,6 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      */
     @IBAction func addTimerButtonHit(_ sender: Any) {
         self.mainTabController.addNewTimer()
-        LGV_Timer_AppDelegate.appDelegateObject.sendRecalculateMessage()
         self.timerTableView.reloadData()
         self.gussyUpTheMoreNavigation()
     }

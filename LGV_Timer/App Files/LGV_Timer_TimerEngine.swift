@@ -325,13 +325,9 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_AppStatusDelegate {
             if !timers.isEmpty {
                 self.timers = timers
                 UserDefaults.standard.removeObject(forKey: type(of: self)._mainPrefsKey)
+                self.selectedTimerIndex = -1
                 self.savePrefs()
-            } else {
-                self.timers = []
-                let _ = self.createNewTimer()
             }
-            
-            self.selectedTimerIndex = -1
        } else {
             if let temp = UserDefaults.standard.object(forKey: type(of: self)._appStatusPrefsKey) as? Data {
                 if let temp2 = NSKeyedUnarchiver.unarchiveObject(with: temp) as? LGV_Timer_AppStatus {
@@ -341,11 +337,17 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_AppStatusDelegate {
                     }
                     
                     self.appStatus = temp2
-                    self.selectedTimerIndex = -1
                     self.appStatus.delegate = self
                 }
             }
         }
+        
+        // We are not allowed to have zero timers.
+        if timers.isEmpty {
+            let _ = self.createNewTimer()
+        }
+        
+        self.selectedTimerIndex = -1
     }
     
     // MARK: - Instance Methods

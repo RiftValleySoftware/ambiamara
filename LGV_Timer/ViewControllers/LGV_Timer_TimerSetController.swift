@@ -145,9 +145,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         
         self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
         self.updateTimer()
-        if !self.dontBotherTheWatch {
-            LGV_Timer_AppDelegate.appDelegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
-        }
         
         self.dontBotherTheWatch = false
     }
