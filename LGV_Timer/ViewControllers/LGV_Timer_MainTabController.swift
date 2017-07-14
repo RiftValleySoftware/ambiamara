@@ -15,6 +15,8 @@ import UIKit
 /**
  */
 class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEngineDelegate {
+    var activeTimerSetConrollers:[LGV_Timer_TimerSetController] = []
+    
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -37,6 +39,8 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     /**
      */
     func updateTimers() {
+        self.activeTimerSetConrollers = []
+        
         while 1 < (self.viewControllers?.count)! {
             self.viewControllers?.remove(at: 1)
         }
@@ -67,14 +71,38 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     /* ################################################################## */
     /**
      */
-    func getTimerScreen(_ timerObject: TimerSettingTuple) -> LGV_Timer_TimerSetController! {
-        let timerIndex = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(timerObject)
+    func addTimerToList(_ inTimer:LGV_Timer_TimerSetController) {
+        for timerView in self.activeTimerSetConrollers {
+            if timerView == inTimer {
+                return
+            }
+        }
         
-        if 0 <= timerIndex {
-            if let navController = self.viewControllers?[timerIndex + 1] as? LGV_Timer_TimerNavController {
-                if let viewController = navController.viewControllers[0] as? LGV_Timer_TimerSetController{
-                    return viewController
-                }
+        self.self.activeTimerSetConrollers.append(inTimer)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func removeTimerFromList(_ inTimer:LGV_Timer_TimerSetController) {
+        var index: Int = 0
+        
+        for timerView in self.activeTimerSetConrollers {
+            if timerView == inTimer {
+                self.activeTimerSetConrollers.remove(at: index)
+                return
+            }
+            index += 1
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func getTimerScreen(_ timerObject: TimerSettingTuple) -> LGV_Timer_TimerSetController! {
+        for timerView in self.activeTimerSetConrollers {
+            if timerView.timerObject.uid == timerObject.uid {
+                return timerView
             }
         }
         

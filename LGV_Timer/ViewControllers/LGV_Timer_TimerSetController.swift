@@ -103,7 +103,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         
         if nil != self.runningTimer {
             if (.Stopped == self.timerObject.timerStatus) || (.Invalid == self.timerObject.timerStatus) {
-                self.navigationController?.popToRootViewController(animated: true)
+                self.navigationController?.popViewController(animated: true)
             } else {
                 self.runningTimer.updateTimer()
             }
@@ -119,6 +119,10 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dontBotherTheWatch = false
+        
+        if let tabber = self.tabBarController as? LGV_Timer_MainTabController {
+            tabber.addTimerToList(self)
+        }
         
         for segment in 0..<self.timerModeSegmentedSwitch.numberOfSegments {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
