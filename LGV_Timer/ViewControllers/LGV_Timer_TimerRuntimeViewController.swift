@@ -293,6 +293,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         LGV_Timer_AppDelegate.appDelegateObject.currentTimer = self
         UIApplication.shared.isIdleTimerDisabled = true
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerUID = self.timerObject.uid
+        self.timeDisplay.blinkSeparators = true
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.startTimer()
     }
     
@@ -321,6 +322,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     @IBAction func endButtonHit(_ sender: Any) {
+        self.timeDisplay.blinkSeparators = false
         self.endTimer()
     }
     
@@ -328,6 +330,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     @IBAction func resetButtonHit(_ sender: Any) {
+        self.timeDisplay.blinkSeparators = false
         self.resetTimer()
     }
     
@@ -336,8 +339,10 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
      */
     @IBAction func pauseButtonHit(_ sender: Any) {
         if .Paused == self.timerObject.timerStatus {
+            self.timeDisplay.blinkSeparators = true
             self.continueTimer()
         } else {
+            self.timeDisplay.blinkSeparators = false
             self.pauseTimer()
         }
     }
