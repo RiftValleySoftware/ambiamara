@@ -17,6 +17,7 @@ import UIKit
 class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEngineDelegate {
     /// This tracks our timer setup controllers. It gives us quick access to them.
     var activeTimerSetConrollers:[LGV_Timer_TimerSetController] = []
+    var timerEngine: LGV_Timer_TimerEngine! = nil
     
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
@@ -27,7 +28,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     override func viewDidLoad() {
         super.viewDidLoad()
         self.selectedIndex = 0
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine = LGV_Timer_TimerEngine(delegate: self)
+        self.timerEngine = LGV_Timer_TimerEngine(delegate: self)
         self.viewControllers?[0].tabBarItem.title = self.viewControllers?[0].tabBarItem.title?.localizedVariant
         self.updateTimers()
         self.delegate = self
@@ -47,7 +48,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
             self.viewControllers?.remove(at: 1)
         }
         
-        for timer in LGV_Timer_AppDelegate.appDelegateObject.timerEngine {
+        for timer in self.timerEngine {
             self.addTimer(timer)
         }
         
@@ -134,7 +135,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     /**
      */
     func deleteTimer(_ inTimerIndex: Int) {
-        let timer = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[inTimerIndex]
+        let timer = self.timerEngine[inTimerIndex]
         timer.seppuku()
     }
     
@@ -142,7 +143,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     /**
      */
     func addNewTimer() {
-        let _ = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.createNewTimer()
+        let _ = self.timerEngine.createNewTimer()
     }
     
     /* ################################################################## */
@@ -210,7 +211,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
         var index = -1
         
         if nil != didSelectTimer {
-            index = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(didSelectTimer)
+            index = self.timerEngine.indexOf(didSelectTimer)
         }
         
         self.selectTimer(index)

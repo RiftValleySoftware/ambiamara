@@ -601,6 +601,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         with.encode(self.colorTheme, forKey: type(of: self).TimerStateKeys.ColorTheme.rawValue)
         with.encode(self.alertMode.rawValue, forKey: type(of: self).TimerStateKeys.AlertMode.rawValue)
         with.encode(self.timerStatus.rawValue, forKey: type(of: self).TimerStateKeys.Status.rawValue)
+        with.encode(self.soundID, forKey: type(of: self).TimerStateKeys.SoundID.rawValue)
         with.encode(self.uid, forKey: type(of: self).TimerStateKeys.UID.rawValue)
     }
 }

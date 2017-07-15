@@ -57,7 +57,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex = -1
+        self.mainTabController.timerEngine.selectedTimerIndex = -1
         self.timerTableView.reloadData()
     }
     
@@ -97,7 +97,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - returns the number of rows to display.
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return LGV_Timer_AppDelegate.appDelegateObject.timerEngine.timers.count
+        return self.mainTabController.timerEngine.timers.count
     }
     
     /* ################################################################## */
@@ -112,23 +112,23 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let ret = tableView.dequeueReusableCell(withIdentifier: "SingleTimerCell") as? LGV_Timer_SettingsTimerTableCell {
             if let clockView = ret.clockDisplay {
-                let timerPrefs = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[indexPath.row]
+                let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
                 let timeTuple = TimeTuple(timerPrefs.timeSet)
                 clockView.hours = timeTuple.hours
                 clockView.minutes = timeTuple.minutes
                 clockView.seconds = timeTuple.seconds
-                clockView.activeSegmentColor = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!
+                clockView.activeSegmentColor = self.mainTabController.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!
                 clockView.setNeedsDisplay()
             }
             
             if let timerNameLabel = ret.timerNameLabel {
-                let timerPrefs = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[indexPath.row]
-                timerNameLabel.textColor = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!
+                let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
+                timerNameLabel.textColor = self.mainTabController.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!
                 timerNameLabel.text = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
             }
             
             if let trafficLights = ret.trafficLights {
-                let timerPrefs = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[indexPath.row]
+                let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
                 trafficLights.isHidden = (.Podium != timerPrefs.displayMode)
             }
             
@@ -150,8 +150,8 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - returns: nil (don't let selection happen).
      */
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let timerIndex = max(0, min(indexPath.row, LGV_Timer_AppDelegate.appDelegateObject.timerEngine.timers.count - 1))
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex = timerIndex
+        let timerIndex = max(0, min(indexPath.row, self.mainTabController.timerEngine.timers.count - 1))
+        self.mainTabController.timerEngine.selectedTimerIndex = timerIndex
         return nil
     }
     
@@ -165,7 +165,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - returns: true, as long as there are more than one timers.
      */
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return 1 < LGV_Timer_AppDelegate.appDelegateObject.timerEngine.timers.count
+        return 1 < self.mainTabController.timerEngine.timers.count
     }
     
     /* ################################################################## */

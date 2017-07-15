@@ -92,7 +92,7 @@ open class SwipeableTabBarController: UITabBarController {
 extension SwipeableTabBarController: UITabBarControllerDelegate {
     
     public func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    
+        
         // Get the indexes of the ViewControllers involved in the animation to determine the animation flow. 
         guard let fromVCIndex = tabBarController.viewControllers?.index(of: fromVC),
               let toVCIndex   = tabBarController.viewControllers?.index(of: toVC) else {

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-               BuildableName = "X-Timer.app"
-               BlueprintName = "X-Timer"
+               BlueprintIdentifier = "770F0EA91F19086100647341"
+               BuildableName = "X-Timer With Watch.app"
+               BlueprintName = "X-Timer With Watch"
                ReferencedContainer = "container:LGV_Timer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,9 +33,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-            BuildableName = "X-Timer.app"
-            BlueprintName = "X-Timer"
+            BlueprintIdentifier = "770F0EA91F19086100647341"
+            BuildableName = "X-Timer With Watch.app"
+            BlueprintName = "X-Timer With Watch"
             ReferencedContainer = "container:LGV_Timer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -52,28 +52,17 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "NO">
-      <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/X-Timer">
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "77CBF4011EF7F6F000B4D4C6"
-            BuildableName = "X-Timer Companion.app"
-            BlueprintName = "X-Timer Companion"
+            BlueprintIdentifier = "770F0EA91F19086100647341"
+            BuildableName = "X-Timer With Watch.app"
+            BlueprintName = "X-Timer With Watch"
             ReferencedContainer = "container:LGV_Timer.xcodeproj">
          </BuildableReference>
-      </RemoteRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "77CBF4011EF7F6F000B4D4C6"
-            BuildableName = "X-Timer Companion.app"
-            BlueprintName = "X-Timer Companion"
-            ReferencedContainer = "container:LGV_Timer.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -83,27 +72,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/X-Timer">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "77CBF4011EF7F6F000B4D4C6"
-            BuildableName = "X-Timer Companion.app"
-            BlueprintName = "X-Timer Companion"
+            BlueprintIdentifier = "770F0EA91F19086100647341"
+            BuildableName = "X-Timer With Watch.app"
+            BlueprintName = "X-Timer With Watch"
             ReferencedContainer = "container:LGV_Timer.xcodeproj">
          </BuildableReference>
-      </RemoteRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "77CBF4011EF7F6F000B4D4C6"
-            BuildableName = "X-Timer Companion.app"
-            BlueprintName = "X-Timer Companion"
-            ReferencedContainer = "container:LGV_Timer.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

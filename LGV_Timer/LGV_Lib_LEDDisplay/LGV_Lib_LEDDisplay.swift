@@ -330,7 +330,6 @@ import UIKit
         self._allElementGroup.inactiveSegments.fill()
         
         self.drawnFrame = self._allElementGroup.drawnFrame
-        
         super.draw(rect)
     }
 }

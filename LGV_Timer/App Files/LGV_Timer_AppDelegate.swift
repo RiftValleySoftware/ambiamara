@@ -34,7 +34,15 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     var currentTimer: LGV_Timer_TimerRuntimeViewController! = nil
     var useUserInfo: Bool = false
     var watchDisconnected: Bool = true
-    var timerEngine: LGV_Timer_TimerEngine! = nil
+    var timerEngine: LGV_Timer_TimerEngine! {
+        get {
+            if let rootController = self.window?.rootViewController as? LGV_Timer_MainTabController {
+                return rootController.timerEngine
+            }
+            return nil
+        }
+    }
+    
 
     // MARK: - Static Class Methods
     /* ################################################################################################################################## */
@@ -109,8 +117,14 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      Returns the current app status.
      */
-    var appStatus: LGV_Timer_AppStatus {
-        get { return self.timerEngine.appStatus }
+    var appStatus: LGV_Timer_AppStatus! {
+        get {
+            if nil != self.timerEngine {
+                return self.timerEngine.appStatus
+            } else {
+                return nil
+            }
+        }
     }
     
     // MARK: - Internal Instance Methods
@@ -150,16 +164,20 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func applicationDidEnterBackground(_ application: UIApplication) {
-        self.sendBackgroundMessage()
-        self.timerEngine.savePrefs()
+        if nil != self.timerEngine {
+            self.sendBackgroundMessage()
+            self.timerEngine.savePrefs()
+        }
     }
     
     /* ################################################################## */
     /**
      */
     func applicationWillTerminate(_ application: UIApplication) {
-        self.sendBackgroundMessage()
-        self.timerEngine.savePrefs()
+        if nil != self.timerEngine {
+            self.sendBackgroundMessage()
+            self.timerEngine.savePrefs()
+        }
     }
     
     // MARK: - WCSessionDelegate Sender Methods
@@ -168,19 +186,21 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendStartMessage(timerUID: String, currentTime: Int! = nil) {
-        var timerDictionary:[String:Any] = [:]
-        
-        for timer in self.timerEngine.timers {
-            if timer.uid == timerUID {
-                timerDictionary = self.makeTimerDictionary(timer, inCurrentTime: currentTime)
-                break
+        if nil != self.timerEngine {
+            var timerDictionary:[String:Any] = [:]
+            
+            for timer in self.timerEngine.timers {
+                if timer.uid == timerUID {
+                    timerDictionary = self.makeTimerDictionary(timer, inCurrentTime: currentTime)
+                    break
+                }
             }
-        }
-        
-        if !timerDictionary.isEmpty {
-            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
-            let resetMessage = [LGV_Timer_Messages.s_timerListStartTimerMessageKey:timerData]
-            self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
+            
+            if !timerDictionary.isEmpty {
+                let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
+                let resetMessage = [LGV_Timer_Messages.s_timerListStartTimerMessageKey:timerData]
+                self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
+            }
         }
     }
     
@@ -188,19 +208,21 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendStopMessage(timerUID: String) {
-        var timerDictionary:[String:Any] = [:]
-        
-        for timer in self.timerEngine.timers {
-            if timer.uid == timerUID {
-                timerDictionary = self.makeTimerDictionary(timer)
-                break
+        if nil != self.timerEngine {
+            var timerDictionary:[String:Any] = [:]
+            
+            for timer in self.timerEngine.timers {
+                if timer.uid == timerUID {
+                    timerDictionary = self.makeTimerDictionary(timer)
+                    break
+                }
             }
-        }
-        
-        if !timerDictionary.isEmpty {
-            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
-            let resetMessage = [LGV_Timer_Messages.s_timerListStopTimerMessageKey:timerData]
-            self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
+            
+            if !timerDictionary.isEmpty {
+                let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
+                let resetMessage = [LGV_Timer_Messages.s_timerListStopTimerMessageKey:timerData]
+                self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
+            }
         }
     }
     
@@ -208,19 +230,21 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendPauseMessage(timerUID: String, currentTime: Int) {
-        var timerDictionary:[String:Any] = [:]
-        
-        for timer in self.timerEngine.timers {
-            if timer.uid == timerUID {
-                timerDictionary = self.makeTimerDictionary(timer, inCurrentTime: currentTime)
-                break
+        if nil != self.timerEngine {
+            var timerDictionary:[String:Any] = [:]
+            
+            for timer in self.timerEngine.timers {
+                if timer.uid == timerUID {
+                    timerDictionary = self.makeTimerDictionary(timer, inCurrentTime: currentTime)
+                    break
+                }
             }
-        }
-        
-        if !timerDictionary.isEmpty {
-            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
-            let resetMessage = [LGV_Timer_Messages.s_timerListPauseTimerMessageKey:timerData]
-            self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
+            
+            if !timerDictionary.isEmpty {
+                let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
+                let resetMessage = [LGV_Timer_Messages.s_timerListPauseTimerMessageKey:timerData]
+                self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
+            }
         }
     }
     
@@ -228,19 +252,21 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendEndMessage(timerUID: String) {
-        var timerDictionary:[String:Any] = [:]
+        if nil != self.timerEngine {
+            var timerDictionary:[String:Any] = [:]
 
-        for timer in self.timerEngine.timers {
-            if timer.uid == timerUID {
-                timerDictionary = self.makeTimerDictionary(timer)
-                break
+            for timer in self.timerEngine.timers {
+                if timer.uid == timerUID {
+                    timerDictionary = self.makeTimerDictionary(timer)
+                    break
+                }
             }
-        }
-        
-        if !timerDictionary.isEmpty {
-            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
-            let resetMessage = [LGV_Timer_Messages.s_timerListEndTimerMessageKey:timerData]
-            self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
+            
+            if !timerDictionary.isEmpty {
+                let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
+                let resetMessage = [LGV_Timer_Messages.s_timerListEndTimerMessageKey:timerData]
+                self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
+            }
         }
     }
     
@@ -248,19 +274,21 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendResetMessage(timerUID: String) {
-        var timerDictionary:[String:Any] = [:]
+        if nil != self.timerEngine {
+            var timerDictionary:[String:Any] = [:]
 
-        for timer in self.timerEngine.timers {
-            if timer.uid == timerUID {
-                timerDictionary = self.makeTimerDictionary(timer)
-                break
+            for timer in self.timerEngine.timers {
+                if timer.uid == timerUID {
+                    timerDictionary = self.makeTimerDictionary(timer)
+                    break
+                }
             }
-        }
-        
-        if !timerDictionary.isEmpty {
-            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
-            let resetMessage = [LGV_Timer_Messages.s_timerListResetTimerMessageKey:timerData]
-            self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
+            
+            if !timerDictionary.isEmpty {
+                let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
+                let resetMessage = [LGV_Timer_Messages.s_timerListResetTimerMessageKey:timerData]
+                self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
+            }
         }
     }
     
@@ -330,35 +358,39 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendRecalculateMessage() {
-        var timerArray:[[String:Any]] = []
-        for timer in self.timerEngine.timers {
-            let timerDictionary = self.makeTimerDictionary(timer)
-            timerArray.append(timerDictionary)
+        if nil != self.timerEngine {
+            var timerArray:[[String:Any]] = []
+            for timer in self.timerEngine.timers {
+                let timerDictionary = self.makeTimerDictionary(timer)
+                timerArray.append(timerDictionary)
+            }
+            
+            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerArray)
+            let resetMessage = [LGV_Timer_Messages.s_timerRecaclulateTimersMessageKey:timerData]
+            self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
         }
-        
-        let timerData = NSKeyedArchiver.archivedData(withRootObject: timerArray)
-        let resetMessage = [LGV_Timer_Messages.s_timerRecaclulateTimersMessageKey:timerData]
-        self.session.sendMessage(resetMessage, replyHandler: nil, errorHandler: nil)
     }
     
     /* ################################################################## */
     /**
      */
     func sendTimerList() {
-        var timerArray:[[String:Any]] = []
-        for timer in self.timerEngine.timers {
-            let timerDictionary = self.makeTimerDictionary(timer)
-            timerArray.append(timerDictionary)
-        }
-        
-        let timerData = NSKeyedArchiver.archivedData(withRootObject: timerArray)
+        if nil != self.timerEngine {
+            var timerArray:[[String:Any]] = []
+            for timer in self.timerEngine.timers {
+                let timerDictionary = self.makeTimerDictionary(timer)
+                timerArray.append(timerDictionary)
+            }
+            
+            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerArray)
 
-        if self.useUserInfo {
-            let userInfo = [LGV_Timer_Messages.s_timerListUserInfoValue:timerData]
-            self.session.transferUserInfo(userInfo)
-        } else {
-            let statusMessage = [LGV_Timer_Messages.s_timerSendListAgainMessageKey:timerData]
-            self.session.sendMessage(statusMessage, replyHandler: nil, errorHandler: nil)
+            if self.useUserInfo {
+                let userInfo = [LGV_Timer_Messages.s_timerListUserInfoValue:timerData]
+                self.session.transferUserInfo(userInfo)
+            } else {
+                let statusMessage = [LGV_Timer_Messages.s_timerSendListAgainMessageKey:timerData]
+                self.session.sendMessage(statusMessage, replyHandler: nil, errorHandler: nil)
+            }
         }
 }
     
@@ -366,39 +398,17 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendUpdateOneTimerMessage(timerUID: String, currentTime: Int) {
-        var timerDictionary:[String:Any] = [:]
-        for timer in self.timerEngine.timers {
-            if timer.uid == timerUID {
-                timerDictionary = self.makeTimerDictionary(timer, inCurrentTime: currentTime)
-                break
+        if nil != self.timerEngine {
+            var timerDictionary:[String:Any] = [:]
+            for timer in self.timerEngine.timers {
+                if timer.uid == timerUID {
+                    timerDictionary = self.makeTimerDictionary(timer, inCurrentTime: currentTime)
+                    break
+                }
             }
-        }
-        
-        if !timerDictionary.isEmpty {
-            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
-            let statusMessage = [LGV_Timer_Messages.s_timerListUpdateFullTimerMessageKey:timerData]
-            self.session.sendMessage(statusMessage, replyHandler: nil, errorHandler: nil)
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func sendTick(timerUID: String, currentTime: Int) {
-        var timerDictionary:[String:Any] = [:]
-        for timer in self.timerEngine.timers {
-            if timer.uid == timerUID {
-                timerDictionary = self.makeTimerDictionary(timer, inCurrentTime: currentTime)
-                break
-            }
-        }
-        
-        if !timerDictionary.isEmpty {
-            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
-            if self.useUserInfo {
-                let userInfo = [LGV_Timer_Messages.s_timerStatusUserInfoValue:timerData]
-                self.session.transferUserInfo(userInfo)
-            } else {
+            
+            if !timerDictionary.isEmpty {
+                let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
                 let statusMessage = [LGV_Timer_Messages.s_timerListUpdateFullTimerMessageKey:timerData]
                 self.session.sendMessage(statusMessage, replyHandler: nil, errorHandler: nil)
             }
@@ -408,41 +418,71 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /* ################################################################## */
     /**
      */
-    func makeTimerDictionary(_ inTimer:TimerSettingTuple, inCurrentTime: Int! = nil) -> [String:Any] {
-        var timerDictionary:[String:Any] = [:]
-        
-        var index = 0
-        
-        for timer in self.timerEngine.timers {
-            if timer.uid == inTimer.uid {
-                break
+    func sendTick(timerUID: String, currentTime: Int) {
+        if nil != self.timerEngine {
+            var timerDictionary:[String:Any] = [:]
+            for timer in self.timerEngine.timers {
+                if timer.uid == timerUID {
+                    timerDictionary = self.makeTimerDictionary(timer, inCurrentTime: currentTime)
+                    break
+                }
             }
             
-            index += 1
-        }
-        
-        let currentTime = (nil != inCurrentTime) ? inCurrentTime : inTimer.timeSet
-        
-        timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] = inTimer.timeSet
-        timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetWarnKey] = inTimer.timeSetPodiumWarn
-        timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetFinalKey] = inTimer.timeSetPodiumFinal
-        timerDictionary[LGV_Timer_Data_Keys.s_timerDataDisplayModeKey] = inTimer.displayMode.rawValue
-        timerDictionary[LGV_Timer_Data_Keys.s_timerDataUIDKey] = inTimer.uid
-        timerDictionary[LGV_Timer_Data_Keys.s_timerDataCurrentTimeKey] = currentTime
-        timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimerNameKey] = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, index + 1)
-        index += 1
-        let colorIndex = inTimer.colorTheme
-        let pickerPepper = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[colorIndex]
-        // This awful hack is because colors read from IB don't seem to transmit well to Watch. Pretty sure it's an Apple bug.
-        if let color = pickerPepper.textColor {
-            if let destColorSpace: CGColorSpace = CGColorSpace(name: CGColorSpace.sRGB) {
-                if let newColor = color.cgColor.converted(to: destColorSpace, intent: CGColorRenderingIntent.perceptual, options: nil) {
-                    timerDictionary[LGV_Timer_Data_Keys.s_timerDataColorKey] = UIColor(cgColor: newColor)
+            if !timerDictionary.isEmpty {
+                let timerData = NSKeyedArchiver.archivedData(withRootObject: timerDictionary)
+                if self.useUserInfo {
+                    let userInfo = [LGV_Timer_Messages.s_timerStatusUserInfoValue:timerData]
+                    self.session.transferUserInfo(userInfo)
+                } else {
+                    let statusMessage = [LGV_Timer_Messages.s_timerListUpdateFullTimerMessageKey:timerData]
+                    self.session.sendMessage(statusMessage, replyHandler: nil, errorHandler: nil)
                 }
             }
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func makeTimerDictionary(_ inTimer:TimerSettingTuple, inCurrentTime: Int! = nil) -> [String:Any] {
+        if nil != self.timerEngine {
+            var timerDictionary:[String:Any] = [:]
+            
+            var index = 0
+            
+            for timer in self.timerEngine.timers {
+                if timer.uid == inTimer.uid {
+                    break
+                }
+                
+                index += 1
+            }
+            
+            let currentTime = (nil != inCurrentTime) ? inCurrentTime : inTimer.timeSet
+            
+            timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] = inTimer.timeSet
+            timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetWarnKey] = inTimer.timeSetPodiumWarn
+            timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimeSetFinalKey] = inTimer.timeSetPodiumFinal
+            timerDictionary[LGV_Timer_Data_Keys.s_timerDataDisplayModeKey] = inTimer.displayMode.rawValue
+            timerDictionary[LGV_Timer_Data_Keys.s_timerDataUIDKey] = inTimer.uid
+            timerDictionary[LGV_Timer_Data_Keys.s_timerDataCurrentTimeKey] = currentTime
+            timerDictionary[LGV_Timer_Data_Keys.s_timerDataTimerNameKey] = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, index + 1)
+            index += 1
+            let colorIndex = inTimer.colorTheme
+            let pickerPepper = self.timerEngine.colorLabelArray[colorIndex]
+            // This awful hack is because colors read from IB don't seem to transmit well to Watch. Pretty sure it's an Apple bug.
+            if let color = pickerPepper.textColor {
+                if let destColorSpace: CGColorSpace = CGColorSpace(name: CGColorSpace.sRGB) {
+                    if let newColor = color.cgColor.converted(to: destColorSpace, intent: CGColorRenderingIntent.perceptual, options: nil) {
+                        timerDictionary[LGV_Timer_Data_Keys.s_timerDataColorKey] = UIColor(cgColor: newColor)
+                    }
+                }
+            }
+            
+            return timerDictionary
+        }
         
-        return timerDictionary
+        return [:]
     }
     
     // MARK: - WCSessionDelegate Protocol Methods
@@ -478,75 +518,77 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        DispatchQueue.main.async {
-            if .active == UIApplication.shared.applicationState {
-                #if DEBUG
-                    print(String(describing: message))
-                #endif
-                
-                for key in message.keys {
-                    switch key {
-                    case LGV_Timer_Messages.s_timerSendListAgainMessageKey:
-                        self.sendTimerList()
-                        
-                    case LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
-                        self.sendAppStateMessage()
+        if nil != self.timerEngine {
+            DispatchQueue.main.async {
+                if .active == UIApplication.shared.applicationState {
+                    #if DEBUG
+                        print(String(describing: message))
+                    #endif
                     
-                    case LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
-                        self.sendAppStateMessage()
-                        
-                    case    LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:
-                        self.sendAppStateMessage()
-                        
-                    case    LGV_Timer_Messages.s_timerListHowdyMessageKey:
-                        var timerArray:[[String:Any]] = []
-                        for timer in self.timerEngine.timers {
-                            let timerDictionary:[String:Any] = self.makeTimerDictionary(timer)
-                            timerArray.append(timerDictionary)
-                        }
-                        
-                        let timerData = NSKeyedArchiver.archivedData(withRootObject: timerArray)
-                        let responseMessage = [LGV_Timer_Messages.s_timerListHowdyMessageValue:timerData]
-                        
-                        session.sendMessage(responseMessage, replyHandler: nil, errorHandler: nil)
-                        
-                    case    LGV_Timer_Messages.s_timerRequestActiveTimerUIDMessageKey:
-                        if .active == UIApplication.shared.applicationState {
-                            var activeTimerUID: String = ""
+                    for key in message.keys {
+                        switch key {
+                        case LGV_Timer_Messages.s_timerSendListAgainMessageKey:
+                            self.sendTimerList()
                             
-                            if nil != self.currentTimer {
-                                activeTimerUID = self.currentTimer.timerObject.uid
+                        case LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
+                            self.sendAppStateMessage()
+                            
+                        case LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
+                            self.sendAppStateMessage()
+                            
+                        case    LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:
+                            self.sendAppStateMessage()
+                            
+                        case    LGV_Timer_Messages.s_timerListHowdyMessageKey:
+                            var timerArray:[[String:Any]] = []
+                            for timer in self.timerEngine.timers {
+                                let timerDictionary:[String:Any] = self.makeTimerDictionary(timer)
+                                timerArray.append(timerDictionary)
                             }
-                            self.sendActiveTimerMessage(timerUID: activeTimerUID)
-                        } else {
-                            self.sendBackgroundMessage()
-                        }
-                        
-                    case    LGV_Timer_Messages.s_timerListSelectTimerMessageKey:
-                        if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
-                            if let uid = message[key] as? String {
-                                if !uid.isEmpty {
-                                    let timerIndex = self.timerEngine.indexOf(uid) + 1
-                                    if tabController.viewControllers?[timerIndex] != tabController.selectedViewController {
-                                        if 0 < timerIndex {
-                                            tabController.selectedViewController = tabController.viewControllers?[timerIndex]
-                                        } else {
-                                            tabController.selectedViewController = tabController.viewControllers?[0]
-                                        }
-                                    }
-                                } else {
-                                    tabController.selectedViewController = tabController.viewControllers?[0]
-                                }
+                            
+                            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerArray)
+                            let responseMessage = [LGV_Timer_Messages.s_timerListHowdyMessageValue:timerData]
+                            
+                            session.sendMessage(responseMessage, replyHandler: nil, errorHandler: nil)
+                            
+                        case    LGV_Timer_Messages.s_timerRequestActiveTimerUIDMessageKey:
+                            if .active == UIApplication.shared.applicationState {
+                                var activeTimerUID: String = ""
                                 
-                                tabController.view.setNeedsLayout()
+                                if nil != self.currentTimer {
+                                    activeTimerUID = self.currentTimer.timerObject.uid
+                                }
+                                self.sendActiveTimerMessage(timerUID: activeTimerUID)
+                            } else {
+                                self.sendBackgroundMessage()
                             }
+                            
+                        case    LGV_Timer_Messages.s_timerListSelectTimerMessageKey:
+                            if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
+                                if let uid = message[key] as? String {
+                                    if !uid.isEmpty {
+                                        let timerIndex = self.timerEngine.indexOf(uid) + 1
+                                        if tabController.viewControllers?[timerIndex] != tabController.selectedViewController {
+                                            if 0 < timerIndex {
+                                                tabController.selectedViewController = tabController.viewControllers?[timerIndex]
+                                            } else {
+                                                tabController.selectedViewController = tabController.viewControllers?[0]
+                                            }
+                                        }
+                                    } else {
+                                        tabController.selectedViewController = tabController.viewControllers?[0]
+                                    }
+                                    
+                                    tabController.view.setNeedsLayout()
+                                }
+                            }
+                            
+                        default:
+                            if let uid = message[key] as? String {
+                                print(uid)
+                            }
+                            type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessage:)", inMessage: "\(message)")
                         }
-                        
-                    default:
-                        if let uid = message[key] as? String {
-                            print(uid)
-                        }
-                        type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessage:)", inMessage: "\(message)")
                     }
                 }
             }

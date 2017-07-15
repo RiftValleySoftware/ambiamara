@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-               BuildableName = "X-Timer.app"
-               BlueprintName = "X-Timer"
+               BuildableName = "X-Timer Only.app"
+               BlueprintName = "X-Timer Only"
                ReferencedContainer = "container:LGV_Timer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,8 +34,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-            BuildableName = "X-Timer.app"
-            BlueprintName = "X-Timer"
+            BuildableName = "X-Timer Only.app"
+            BlueprintName = "X-Timer Only"
             ReferencedContainer = "container:LGV_Timer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -43,10 +43,9 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      enableAddressSanitizer = "YES"
       enableASanStackUseAfterReturn = "YES"
       enableUBSanitizer = "YES"
       language = ""
@@ -62,8 +61,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-            BuildableName = "X-Timer.app"
-            BlueprintName = "X-Timer"
+            BuildableName = "X-Timer Only.app"
+            BlueprintName = "X-Timer Only"
             ReferencedContainer = "container:LGV_Timer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -86,8 +85,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-            BuildableName = "X-Timer.app"
-            BlueprintName = "X-Timer"
+            BuildableName = "X-Timer Only.app"
+            BlueprintName = "X-Timer Only"
             ReferencedContainer = "container:LGV_Timer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
