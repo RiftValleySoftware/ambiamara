@@ -10,7 +10,7 @@
 import UIKit
 
 class LGV_Timer_SettingsTimerTableCell: UITableViewCell {
-    @IBOutlet weak var clockDisplay: LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock!
+    @IBOutlet weak var clockDisplay: UILabel!
     @IBOutlet weak var timerNameLabel: UILabel!
     @IBOutlet weak var trafficLights: UIImageView!
 }
@@ -113,11 +113,8 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         if let ret = tableView.dequeueReusableCell(withIdentifier: "SingleTimerCell") as? LGV_Timer_SettingsTimerTableCell {
             if let clockView = ret.clockDisplay {
                 let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
-                let timeTuple = TimeTuple(timerPrefs.timeSet)
-                clockView.hours = timeTuple.hours
-                clockView.minutes = timeTuple.minutes
-                clockView.seconds = timeTuple.seconds
-                clockView.activeSegmentColor = self.mainTabController.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!
+                clockView.text = TimeTuple(timerPrefs.timeSet).description
+                clockView.textColor = self.mainTabController.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!
                 clockView.setNeedsDisplay()
             }
             

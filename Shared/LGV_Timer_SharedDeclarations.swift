@@ -104,7 +104,7 @@ class TimeTuple {
     
     /* ################################################################## */
     /**
-     Public accessor fo the hours.
+     Public accessor for the hours.
      */
     var hours: Int {
         get {
@@ -118,7 +118,7 @@ class TimeTuple {
     
     /* ################################################################## */
     /**
-     Public accessor fo the minutes.
+     Public accessor for the minutes.
      */
     var minutes: Int {
         get {
@@ -132,7 +132,7 @@ class TimeTuple {
     
     /* ################################################################## */
     /**
-     Public accessor fo the seconds.
+     Public accessor for the seconds.
      */
     var seconds: Int {
         get {

@@ -112,7 +112,7 @@ import UIKit
                 elements.append(LED_SingleDigit(-2))
             }
             
-            self.elementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: self.frame.size, inSeparationSpace: CGFloat(12))
+            self.elementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: self.frame.size, inSeparationSpace: CGFloat(16))
         }
         
         super.layoutSubviews()
@@ -206,6 +206,8 @@ import UIKit
     private var _separatorsOn: Bool = true
     private var _timer: Timer! = nil
     
+    // MARK: - Instance Methods
+    /* ################################################################################################################################## */
     var drawnFrame: CGRect = CGRect.zero
     
     // MARK: - Private Class Methods
@@ -251,6 +253,16 @@ import UIKit
     @objc func blinkCallback(_ inTimer: Timer) -> Void {
         self._separatorsOn = self.blinkSeparators ? !self._separatorsOn : true
         self.setNeedsDisplay()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    deinit {
+        if nil != self._timer {
+            self._timer.invalidate()
+            self._timer = nil
+        }
     }
     
     // MARK: - Superclass Override Methods
@@ -308,7 +320,7 @@ import UIKit
         
         self._allElementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: self.frame.size, inSeparationSpace: CGFloat(self.separationSpace))
 
-        if self.blinkSeparators {
+        if (nil == self._timer) && self.blinkSeparators {
             self._timer = Timer.scheduledTimer(timeInterval: type(of: self).kTimerInterval, target: self, selector: #selector(self.blinkCallback(_:)), userInfo: nil, repeats: true)
         }
         
