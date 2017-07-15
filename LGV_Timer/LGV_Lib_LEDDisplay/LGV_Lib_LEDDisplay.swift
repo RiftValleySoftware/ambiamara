@@ -15,6 +15,34 @@ import UIKit
 /**
  */
 @IBDesignable public class LGV_Lib_LEDDisplay : UIView {
+    // MARK: - Internal Class Methods
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    class func renderElements(inactivePath: UIBezierPath, activePath: UIBezierPath, inactiveElementColor: UIColor, activeElementColor: UIColor, inSize: CGSize) -> [UIImage] {
+        var ret: [UIImage] = []
+        
+        UIGraphicsBeginImageContext(inSize);
+        inactiveElementColor.setFill()
+        inactivePath.append(activePath)
+        inactivePath.fill()
+        if let image = UIGraphicsGetImageFromCurrentImageContext() {
+            ret.append(image)
+        }
+        UIGraphicsEndImageContext();
+        
+        UIGraphicsBeginImageContext(inSize);
+        activeElementColor.setFill()
+        activePath.fill()
+        if let image = UIGraphicsGetImageFromCurrentImageContext() {
+            ret.append(image)
+        }
+        UIGraphicsEndImageContext();
+        
+        return ret
+    }
+    
     // MARK: - IB Properties
     /* ################################################################################################################################## */
     @IBInspectable var activeSegmentColor: UIColor = UIColor.green
@@ -29,10 +57,10 @@ import UIKit
      */
     override public func draw(_ rect: CGRect) {
         self.elementGroup.containerSize = self.frame.size
-        self.activeSegmentColor.setFill()
-        self.elementGroup.activeSegments.fill()
-        self.inactiveSegmentColor.setFill()
-        self.elementGroup.inactiveSegments.fill()
+        let images = type(of: self).renderElements(inactivePath: self.elementGroup.inactiveSegments, activePath: self.elementGroup.activeSegments, inactiveElementColor: self.inactiveSegmentColor, activeElementColor: self.activeSegmentColor, inSize: self.frame.size)
+        
+        images[0].draw(in: rect)
+        images[1].draw(in: rect)
     }
 }
 
@@ -324,12 +352,11 @@ import UIKit
         
         self._allElementGroup.containerSize = self.frame.size
         
-        self.activeSegmentColor.setFill()
-        self._allElementGroup.activeSegments.fill()
-        self.inactiveSegmentColor.setFill()
-        self._allElementGroup.inactiveSegments.fill()
+        let images = LGV_Lib_LEDDisplay.renderElements(inactivePath: self._allElementGroup.inactiveSegments, activePath: self._allElementGroup.activeSegments, inactiveElementColor: self.inactiveSegmentColor, activeElementColor: self.activeSegmentColor, inSize: self.frame.size)
+        
+        images[0].draw(in: rect)
+        images[1].draw(in: rect)
         
         self.drawnFrame = self._allElementGroup.drawnFrame
-        super.draw(rect)
     }
 }
