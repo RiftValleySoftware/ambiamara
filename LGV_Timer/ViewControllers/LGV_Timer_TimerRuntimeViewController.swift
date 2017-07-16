@@ -46,6 +46,11 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     @IBOutlet weak var timeDisplay: LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock!
     @IBOutlet weak var flasherView: UIView!
     
+    @IBOutlet var tapRecognizer: UITapGestureRecognizer!
+    @IBOutlet var resetSwipeRecognizer: UISwipeGestureRecognizer!
+    @IBOutlet var endSwipeRecognizer: UISwipeGestureRecognizer!
+    @IBOutlet var panRecognizer: UIPanGestureRecognizer!
+    
     // MARK: - Private Instance Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -148,6 +153,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     func pauseTimer() {
+        self.flashDisplay(UIColor.red.withAlphaComponent(0.5), duration: 0.5)
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.pauseTimer()
     }
     
@@ -155,6 +161,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     func continueTimer() {
+        self.flashDisplay(UIColor.green.withAlphaComponent(0.5), duration: 0.5)
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.continueTimer()
     }
     
@@ -162,6 +169,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     func stopTimer() {
+        self.flashDisplay(UIColor.red, duration: 0.5)
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
     }
     
@@ -176,6 +184,11 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     func resetTimer() {
+        if .Paused != self.timerObject.timerStatus {
+            self.flashDisplay(UIColor.red.withAlphaComponent(0.5), duration: 0.5)
+        } else {
+            self.flashDisplay(UIColor.white.withAlphaComponent(0.5), duration: 0.5)
+        }
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.resetTimer()
     }
     
@@ -194,11 +207,23 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /* ################################################################## */
     /**
      */
-    func flashDisplay() {
-        self.flasherView.backgroundColor = (.WarnRun == self.timerObject.timerStatus) ? UIColor.yellow : ((.FinalRun == self.timerObject.timerStatus) ? UIColor.orange : UIColor.red)
+    func flashDisplay(_ inUIColor: UIColor! = nil, duration: TimeInterval = 0.75) {
+        if nil != inUIColor {
+            self.flasherView.backgroundColor = inUIColor
+        } else {
+            switch self.timerObject.timerStatus {
+            case .WarnRun:
+                self.flasherView.backgroundColor = UIColor.yellow
+            case.FinalRun:
+                self.flasherView.backgroundColor = UIColor.orange
+            default:
+                self.flasherView.backgroundColor = UIColor.red
+            }
+        }
+        
         self.flasherView.isHidden = false
         self.flasherView.alpha = 1.0
-        UIView.animate(withDuration: 0.75, animations: {
+        UIView.animate(withDuration: duration, animations: {
             self.flasherView.alpha = 0.0
         })
     }
@@ -210,6 +235,12 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tapRecognizer.require(toFail: resetSwipeRecognizer)
+        self.tapRecognizer.require(toFail: endSwipeRecognizer)
+        self.panRecognizer.require(toFail: endSwipeRecognizer)
+        self.panRecognizer.require(toFail: resetSwipeRecognizer)
+        self.panRecognizer.require(toFail: tapRecognizer)
         
         let tempRect = CGRect(origin: CGPoint.zero, size: CGSize(width: 75, height: 75))
         
@@ -321,14 +352,22 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     @IBAction func endButtonHit(_ sender: Any) {
-        self.endTimer()
+        if .Alarm == self.timerObject.timerStatus {
+            self.resetTimer()
+        } else {
+            self.endTimer()
+        }
     }
     
     /* ################################################################## */
     /**
      */
     @IBAction func resetButtonHit(_ sender: Any) {
-        self.resetTimer()
+        if (.Paused == self.timerObject.timerStatus) && (self.timerObject.timeSet == self.timerObject.currentTime) {
+            self.stopTimer()
+        } else {
+            self.resetTimer()
+        }
     }
     
     /* ################################################################## */
@@ -351,7 +390,18 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         } else {
             if .Paused == self.timerObject.timerStatus {
                 self.continueTimer()
+            } else {
+                self.pauseTimer()
             }
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func dragTimer(_ sender: UIPanGestureRecognizer) {
+        #if DEBUG
+            print("Pan: \(sender)")
+        #endif
     }
 }

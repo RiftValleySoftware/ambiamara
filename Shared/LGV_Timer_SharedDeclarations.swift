@@ -640,11 +640,7 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     }
     
     private var _timers:[TimerSettingTuple] = []
-    private var _selectedTimer0BasedIndex:Int = -1 {
-        didSet {
-            print("New Timer Index: \(self._selectedTimer0BasedIndex)")
-        }
-    }
+    private var _selectedTimer0BasedIndex:Int = -1
         
     var delegate: LGV_Timer_AppStatusDelegate! = nil
     

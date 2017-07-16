@@ -94,6 +94,7 @@
                                     </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="AxC-XP-sOe" secondAttribute="trailing" id="0Qa-s0-hFL"/>
                                     <constraint firstItem="KwF-yY-Lrz" firstAttribute="leading" secondItem="EDZ-zT-xw3" secondAttribute="leading" constant="8" id="44l-Pk-SoY"/>
@@ -210,8 +211,8 @@
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="yTf-ci-pFF" appends="YES" id="TAY-W0-9Dc"/>
                             <outletCollection property="gestureRecognizers" destination="fkx-C2-3lI" appends="YES" id="ble-fs-t35"/>
-                            <outletCollection property="gestureRecognizers" destination="X0b-aR-ZAO" appends="YES" id="IrR-sz-O8r"/>
                             <outletCollection property="gestureRecognizers" destination="QeQ-0X-roe" appends="YES" id="bIa-HP-EqU"/>
+                            <outletCollection property="gestureRecognizers" destination="aDe-sZ-5Dk" appends="YES" id="G1V-Kh-AIF"/>
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
@@ -255,15 +256,24 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="endButton" destination="9CE-DY-r7O" id="hSb-ba-AoD"/>
+                        <outlet property="endSwipeRecognizer" destination="QeQ-0X-roe" id="cHZ-tg-NVW"/>
                         <outlet property="flasherView" destination="tRL-jt-yJr" id="nee-mf-JWS"/>
                         <outlet property="navItem" destination="ItU-wd-SEv" id="PlC-44-1IL"/>
+                        <outlet property="panRecognizer" destination="aDe-sZ-5Dk" id="vGG-cV-gNA"/>
                         <outlet property="pauseButton" destination="ZYE-eU-dQi" id="jgK-S8-6ak"/>
                         <outlet property="resetButton" destination="wL4-iM-6HV" id="8hY-Ci-EMr"/>
+                        <outlet property="resetSwipeRecognizer" destination="fkx-C2-3lI" id="FA6-Wt-S4R"/>
                         <outlet property="stopButton" destination="X6M-Pd-nAJ" id="pTd-kO-Cw7"/>
+                        <outlet property="tapRecognizer" destination="yTf-ci-pFF" id="ozw-T8-AN1"/>
                         <outlet property="timeDisplay" destination="dvk-HB-53P" id="DIV-Ce-1ls"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bp-gA-OQc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="aDe-sZ-5Dk">
+                    <connections>
+                        <action selector="dragTimer:" destination="pId-dv-a9R" id="ahe-Nx-4xK"/>
+                    </connections>
+                </panGestureRecognizer>
                 <tapGestureRecognizer id="yTf-ci-pFF">
                     <connections>
                         <action selector="tapInView:" destination="pId-dv-a9R" id="fWb-rx-pQb"/>
@@ -274,11 +284,6 @@
                         <action selector="resetButtonHit:" destination="pId-dv-a9R" id="ki0-Je-J8u"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="X0b-aR-ZAO">
-                    <connections>
-                        <action selector="stopButtonHit:" destination="pId-dv-a9R" id="Eas-av-o6v"/>
-                    </connections>
-                </pongPressGestureRecognizer>
                 <swipeGestureRecognizer direction="right" id="QeQ-0X-roe">
                     <connections>
                         <action selector="endButtonHit:" destination="pId-dv-a9R" id="if8-kT-pRf"/>

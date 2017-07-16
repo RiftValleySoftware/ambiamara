@@ -186,7 +186,6 @@ import UIKit
     @IBInspectable var activeSegmentColor: UIColor = UIColor.green
     @IBInspectable var inactiveSegmentColor: UIColor = UIColor.black
     @IBInspectable var displaySeparators: Bool = true
-    @IBInspectable var blinkSeparators: Bool = false
     @IBInspectable var zeroPadding: Bool = false
     @IBInspectable var displayHours: Bool = true
     @IBInspectable var displayMinutes: Bool = true
@@ -194,30 +193,29 @@ import UIKit
     @IBInspectable var separationSpace: Int = 16
     @IBInspectable var hours: Int = 0 {
         didSet {
-            self.setNeedsLayout()
+            if self.hours != oldValue {
+                self.setNeedsLayout()
+            }
         }
     }
     @IBInspectable var minutes: Int = 0 {
         didSet {
-            self.setNeedsLayout()
+            if self.minutes != oldValue {
+                self.setNeedsLayout()
+            }
         }
     }
     @IBInspectable var seconds: Int = 0 {
         didSet {
-            self.setNeedsLayout()
+            if self.seconds != oldValue {
+                self.setNeedsLayout()
+            }
         }
     }
     
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
-    private var _allElementGroup: LED_ElementGrouping! = nil
-    private var _hoursElementGroup: LED_ElementGrouping! = nil
-    private var _minutesElementGroup: LED_ElementGrouping! = nil
-    private var _secondsElementGroup: LED_ElementGrouping! = nil
-    private var _secondsSeparatorElementGroup: LED_ElementGrouping! = nil
-    private var _minutesSeparatorElementGroup: LED_ElementGrouping! = nil
     private var _separatorsOn: Bool = true
-    private var _timer: Timer! = nil
     private var _bottomImage: UIImageView! = nil
     private var _topImage: UIImageView! = nil
     private var _animationImages: [UIImageView] = []
@@ -261,38 +259,18 @@ import UIKit
         }
     }
     
-    // MARK: - Instance Methods
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     */
-    @objc func blinkCallback(_ inTimer: Timer) -> Void {
-        self._separatorsOn = self.blinkSeparators ? !self._separatorsOn : true
-        self.setNeedsDisplay()
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    deinit {
-        if nil != self._timer {
-            self._timer.invalidate()
-            self._timer = nil
-        }
-    }
-    
     // MARK: - Superclass Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      */
     override public func layoutSubviews() {
-        self._hoursElementGroup = nil
-        self._minutesElementGroup = nil
-        self._secondsElementGroup = nil
-        self._secondsSeparatorElementGroup = nil
-        self._minutesSeparatorElementGroup = nil
-        self._allElementGroup = nil
+        var allElementGroup: LED_ElementGrouping! = nil
+        var hoursElementGroup: LED_ElementGrouping! = nil
+        var minutesElementGroup: LED_ElementGrouping! = nil
+        var secondsElementGroup: LED_ElementGrouping! = nil
+        var secondsSeparatorElementGroup: LED_ElementGrouping! = nil
+        var minutesSeparatorElementGroup: LED_ElementGrouping! = nil
         
         if nil == self._bottomImage {
             self._bottomImage = UIImageView(frame: self.bounds)
@@ -314,84 +292,81 @@ import UIKit
         }
         
         if self.displayHours {
-            self._hoursElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
+            hoursElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
         }
         
         if self.displayMinutes {
             if self.displayHours {
-                self._minutesSeparatorElementGroup = LED_ElementGrouping(inElements: [LED_SeparatorDots([true, true])], inContainerSize: CGSize.zero, inSeparationSpace: 0)
+                minutesSeparatorElementGroup = LED_ElementGrouping(inElements: [LED_SeparatorDots([true, true])], inContainerSize: CGSize.zero, inSeparationSpace: 0)
             }
-            self._minutesElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
+            minutesElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
         }
         
         if self.displaySeconds {
             if self.displayHours || self.displayMinutes {
-                self._secondsSeparatorElementGroup = LED_ElementGrouping(inElements: [LED_SeparatorDots([true, true])], inContainerSize: CGSize.zero, inSeparationSpace: 0)
+                secondsSeparatorElementGroup = LED_ElementGrouping(inElements: [LED_SeparatorDots([true, true])], inContainerSize: CGSize.zero, inSeparationSpace: 0)
             }
-            self._secondsElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
+            secondsElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
         }
         
         var elements: [LED_Element] = []
         
-        if nil != self._hoursElementGroup {
-            elements.append(self._hoursElementGroup)
+        if nil != hoursElementGroup {
+            elements.append(hoursElementGroup)
         }
         
-        if nil != self._minutesSeparatorElementGroup {
-            elements.append(self._minutesSeparatorElementGroup)
+        if nil != minutesSeparatorElementGroup {
+            elements.append(minutesSeparatorElementGroup)
         }
         
-        if nil != self._minutesElementGroup {
-            elements.append(self._minutesElementGroup)
+        if nil != minutesElementGroup {
+            elements.append(minutesElementGroup)
         }
         
-        if nil != self._secondsSeparatorElementGroup {
-            elements.append(self._secondsSeparatorElementGroup)
+        if nil != secondsSeparatorElementGroup {
+            elements.append(secondsSeparatorElementGroup)
         }
         
-        if nil != self._secondsElementGroup {
-            elements.append(self._secondsElementGroup)
+        if nil != secondsElementGroup {
+            elements.append(secondsElementGroup)
         }
         
-        self._allElementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: self.frame.size, inSeparationSpace: CGFloat(self.separationSpace))
-
-        if (nil == self._timer) && self.blinkSeparators {
-            self._timer = Timer.scheduledTimer(timeInterval: type(of: self).kTimerInterval, target: self, selector: #selector(self.blinkCallback(_:)), userInfo: nil, repeats: true)
-        }
-        if nil != self._minutesSeparatorElementGroup {
-            (self._minutesSeparatorElementGroup[0] as! LED_SeparatorDots).value = [self._separatorsOn, self._separatorsOn]
+        allElementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: self.frame.size, inSeparationSpace: CGFloat(self.separationSpace))
+        
+        if nil != minutesSeparatorElementGroup {
+            (minutesSeparatorElementGroup[0] as! LED_SeparatorDots).value = [self._separatorsOn, self._separatorsOn]
         }
         
-        if nil != self._secondsSeparatorElementGroup {
-            (self._secondsSeparatorElementGroup[0] as! LED_SeparatorDots).value = [self._separatorsOn, self._separatorsOn]
+        if nil != secondsSeparatorElementGroup {
+            (secondsSeparatorElementGroup[0] as! LED_SeparatorDots).value = [self._separatorsOn, self._separatorsOn]
         }
         
-        if nil != self._hoursElementGroup {
-            type(of: self)._setDecimalValue(self._hoursElementGroup, inValue: self.hours, inZeroFill:  self.zeroPadding)
+        if nil != hoursElementGroup {
+            type(of: self)._setDecimalValue(hoursElementGroup, inValue: self.hours, inZeroFill:  self.zeroPadding)
         }
         
-        if nil != self._minutesElementGroup {
-            let zeroPadding = (nil != self._hoursElementGroup) ? ((0 != self.hours) ? true : self.zeroPadding) : self.zeroPadding
-            type(of: self)._setDecimalValue(self._minutesElementGroup, inValue: self.minutes, inZeroFill:  zeroPadding)
+        if nil != minutesElementGroup {
+            let zeroPadding = (nil != hoursElementGroup) ? ((0 != self.hours) ? true : self.zeroPadding) : self.zeroPadding
+            type(of: self)._setDecimalValue(minutesElementGroup, inValue: self.minutes, inZeroFill:  zeroPadding)
             
-            if (0 == self.hours) && (!self.zeroPadding || (nil == self._hoursElementGroup)) && (nil != self._minutesSeparatorElementGroup) {
-                (self._minutesSeparatorElementGroup[0] as! LED_SeparatorDots).value = [false, false]
+            if (0 == self.hours) && (!self.zeroPadding || (nil == hoursElementGroup)) && (nil != minutesSeparatorElementGroup) {
+                (minutesSeparatorElementGroup[0] as! LED_SeparatorDots).value = [false, false]
             }
         }
         
-        if nil != self._secondsElementGroup {
-            var zeroPadding = (nil != self._hoursElementGroup) ? ((0 != self.hours) ? true : self.zeroPadding) : self.zeroPadding
-            zeroPadding = (nil != self._minutesElementGroup) ? ((0 != self.minutes) ? true : zeroPadding) : zeroPadding
-            type(of: self)._setDecimalValue(self._secondsElementGroup, inValue: self.seconds, inZeroFill:   zeroPadding)
+        if nil != secondsElementGroup {
+            var zeroPadding = (nil != hoursElementGroup) ? ((0 != self.hours) ? true : self.zeroPadding) : self.zeroPadding
+            zeroPadding = (nil != minutesElementGroup) ? ((0 != self.minutes) ? true : zeroPadding) : zeroPadding
+            type(of: self)._setDecimalValue(secondsElementGroup, inValue: self.seconds, inZeroFill:   zeroPadding)
             
-            if (0 == self.minutes) && (!zeroPadding || (nil == self._minutesElementGroup)) && (nil != self._secondsSeparatorElementGroup) {
-                (self._secondsSeparatorElementGroup[0] as! LED_SeparatorDots).value = [false, false]
+            if (0 == self.minutes) && (!zeroPadding || (nil == minutesElementGroup)) && (nil != secondsSeparatorElementGroup) {
+                (secondsSeparatorElementGroup[0] as! LED_SeparatorDots).value = [false, false]
             }
         }
         
-        self.drawnFrame = self._allElementGroup.drawnFrame
+        self.drawnFrame = allElementGroup.drawnFrame
         
-        let images = LGV_Lib_LEDDisplay.renderElements(inactivePath: self._allElementGroup.inactiveSegments, activePath: self._allElementGroup.activeSegments, inactiveElementColor: self.inactiveSegmentColor, activeElementColor: self.activeSegmentColor, inSize: self.frame.size)
+        let images = LGV_Lib_LEDDisplay.renderElements(inactivePath: allElementGroup.inactiveSegments, activePath: allElementGroup.activeSegments, inactiveElementColor: self.inactiveSegmentColor, activeElementColor: self.activeSegmentColor, inSize: self.frame.size)
         
         self._bottomImage.image = images[0]
         self._topImage.image = images[1]
