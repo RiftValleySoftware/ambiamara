@@ -115,6 +115,13 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
                 let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
                 clockView.text = TimeTuple(timerPrefs.timeSet).description
                 clockView.textColor = self.mainTabController.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!
+                if .Podium == timerPrefs.displayMode {
+                    clockView.font = UIFont.boldSystemFont(ofSize: 24)
+                } else {
+                    if let titleFont = UIFont(name: "Let's Go Digital", size: 30) {
+                        clockView.font = titleFont
+                    }
+                }
                 clockView.setNeedsDisplay()
             }
             
@@ -126,7 +133,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
             
             if let trafficLights = ret.trafficLights {
                 let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
-                trafficLights.isHidden = (.Podium != timerPrefs.displayMode)
+                trafficLights.isHidden = (.Digital == timerPrefs.displayMode)
             }
             
             return ret
