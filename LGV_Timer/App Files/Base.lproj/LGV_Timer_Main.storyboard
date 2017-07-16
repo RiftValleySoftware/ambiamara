@@ -495,7 +495,7 @@
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="dep-gt-6DA"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="lC6-yS-tCO"/>
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="top" secondItem="ZN5-uz-PEG" secondAttribute="bottom" constant="8" id="nGf-dq-fCP"/>
-                            <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="bottom" id="qLW-Iy-78r"/>
+                            <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="119" id="qLW-Iy-78r"/>
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="8" id="ww5-O9-uvg"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="yrH-mM-v3Q"/>
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="z7T-I7-MIr"/>
@@ -514,11 +514,13 @@
                         <outlet property="alertModeLabel" destination="Wdv-vy-5ut" id="6cO-4o-TGV"/>
                         <outlet property="alertModeSegmentedSwitch" destination="04C-ke-GJA" id="qjw-GG-14T"/>
                         <outlet property="colorPickerContainerView" destination="KvQ-6l-M17" id="gaF-Od-ed5"/>
+                        <outlet property="colorPickerItemsHeightConstraint" destination="YGC-fi-vUZ" id="WAP-gW-LUI"/>
                         <outlet property="colorThemePicker" destination="lha-1G-1eH" id="LcQ-Yu-wwh"/>
                         <outlet property="colorThemePickerLabel" destination="7qA-v4-gf5" id="W07-bq-36w"/>
                         <outlet property="finalThresholdLabel" destination="Ojn-dk-can" id="jam-Y3-yJC"/>
                         <outlet property="finalThresholdTimePicker" destination="VaK-Cn-EOG" id="i7c-SA-P8h"/>
                         <outlet property="podiumModeContainerView" destination="bOd-1e-i1t" id="ECt-Zz-Rki"/>
+                        <outlet property="podiumModeItemsConstraint" destination="qLW-Iy-78r" id="f5k-pF-fFX"/>
                         <outlet property="soundSelectionLabel" destination="JUZ-6X-TX6" id="d4i-Ln-hqD"/>
                         <outlet property="soundSelectionSegmentedSwitch" destination="ksY-w5-fgH" id="Gsg-oq-rpI"/>
                         <outlet property="timerModeLabel" destination="9w9-pL-jTf" id="fVq-4T-9PM"/>

@@ -30,12 +30,22 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var alertModeSegmentedSwitch: UISegmentedControl!
     @IBOutlet weak var soundSelectionLabel: UILabel!
     @IBOutlet weak var soundSelectionSegmentedSwitch: UISegmentedControl!
+    @IBOutlet weak var podiumModeItemsConstraint: NSLayoutConstraint!
+    @IBOutlet weak var colorPickerItemsHeightConstraint: NSLayoutConstraint!
     
     /* ################################################################## */
     /**
      */
     func setUpPickerViews() {
-        self.podiumModeContainerView.isHidden = (self.timerObject.displayMode == .Digital)
+        self.podiumModeContainerView.isHidden = (.Digital == self.timerObject.displayMode)
+        if .Podium == self.timerObject.displayMode {
+            self.colorPickerContainerView.isHidden = true
+            self.podiumModeItemsConstraint.constant = 8
+        } else {
+            self.podiumModeItemsConstraint.constant = colorPickerItemsHeightConstraint.constant + 8
+            self.colorPickerContainerView.isHidden = false
+        }
+        
         self.soundSelectionSegmentedSwitch.isEnabled = ((.Silent != self.timerObject.alertMode) && (.VibrateOnly != self.timerObject.alertMode))
     }
     

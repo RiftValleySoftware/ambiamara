@@ -23,7 +23,7 @@
 "LGV_TIMER-SETUP-TIMER-MODE-SWITCH-2"                   =   "Dual Mode";
 "LGV_TIMER-SETUP-WARNING-SET-LABEL"                     =   "Podium Warning (Yellow) Time";
 "LGV_TIMER-SETUP-FINAL-SET-LABEL"                       =   "Podium Final (Red) Time";
-"LGV_TIMER-SETUP-COLOR-THEME-LABEL"                     =   "Digital and Alarm Color";
+"LGV_TIMER-SETUP-COLOR-THEME-LABEL"                     =   "Digital Display Color";
 "LGV_TIMER-SETUP-ALERT-MODE-LABEL"                      =   "Alert Mode";
 "LGV_TIMER-SETUP-ALERT-MODE-0"                          =   "Silent";
 "LGV_TIMER-SETUP-ALERT-MODE-1"                          =   "Vibrate";
