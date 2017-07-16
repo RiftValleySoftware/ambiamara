@@ -17,7 +17,7 @@ CHANGELIST
 - The alarm "flasher" is now animated.
 - For Podium and Dual modes, transitions to warn and final are signaled by colored flashes.
 - The Navigation Bar displayed text is now in a "digital" font.
-- The digit separators are larger, and now blink when the timer is active (in Digital and Dual modes).
+- The digit separators are larger (in Digital and Dual modes).
 - There is a bit more space between the digits (In Digital and Dual modes).
 
 ***Version 1.5.0* ** *- July 1, 2017*

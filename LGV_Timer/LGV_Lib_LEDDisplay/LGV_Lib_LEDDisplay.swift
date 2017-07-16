@@ -91,6 +91,7 @@ import UIKit
     @IBInspectable var currentVal: Int = 0
     @IBInspectable var canBeNegative: Bool = false
     @IBInspectable var zeroPadding: Bool = false
+    @IBInspectable var separationSpace: Int = 16
     
     // MARK: - Superclass Override Methods
     /* ################################################################################################################################## */
@@ -112,7 +113,7 @@ import UIKit
                 elements.append(LED_SingleDigit(-2))
             }
             
-            self.elementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: self.frame.size, inSeparationSpace: CGFloat(16))
+            self.elementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: self.frame.size, inSeparationSpace: CGFloat(self.separationSpace))
         }
         
         super.layoutSubviews()
@@ -190,10 +191,22 @@ import UIKit
     @IBInspectable var displayHours: Bool = true
     @IBInspectable var displayMinutes: Bool = true
     @IBInspectable var displaySeconds: Bool = true
-    @IBInspectable var hours: Int = 0
-    @IBInspectable var minutes: Int = 0
-    @IBInspectable var seconds: Int = 0
-    @IBInspectable var separationSpace: Int = 12
+    @IBInspectable var separationSpace: Int = 16
+    @IBInspectable var hours: Int = 0 {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    @IBInspectable var minutes: Int = 0 {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    @IBInspectable var seconds: Int = 0 {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
     
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
@@ -205,6 +218,9 @@ import UIKit
     private var _minutesSeparatorElementGroup: LED_ElementGrouping! = nil
     private var _separatorsOn: Bool = true
     private var _timer: Timer! = nil
+    private var _bottomImage: UIImageView! = nil
+    private var _topImage: UIImageView! = nil
+    private var _animationImages: [UIImageView] = []
     
     // MARK: - Instance Methods
     /* ################################################################################################################################## */
@@ -278,6 +294,25 @@ import UIKit
         self._minutesSeparatorElementGroup = nil
         self._allElementGroup = nil
         
+        if nil == self._bottomImage {
+            self._bottomImage = UIImageView(frame: self.bounds)
+            self._bottomImage.contentMode = .scaleAspectFit
+            self._bottomImage.backgroundColor = UIColor.clear
+            self.addSubview(self._bottomImage)
+        } else {
+            self._bottomImage.frame = self.bounds
+        }
+        
+        if nil == self._topImage {
+            self._topImage = UIImageView(frame: self.bounds)
+            self._topImage.animationRepeatCount = 0
+            self._topImage.contentMode = .scaleAspectFit
+            self._topImage.backgroundColor = UIColor.clear
+            self.addSubview(self._topImage)
+        } else {
+            self._topImage.frame = self.bounds
+        }
+        
         if self.displayHours {
             self._hoursElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
         }
@@ -323,14 +358,6 @@ import UIKit
         if (nil == self._timer) && self.blinkSeparators {
             self._timer = Timer.scheduledTimer(timeInterval: type(of: self).kTimerInterval, target: self, selector: #selector(self.blinkCallback(_:)), userInfo: nil, repeats: true)
         }
-        
-        super.layoutSubviews()
-    }
-
-    /* ################################################################## */
-    /**
-     */
-    override public func draw(_ rect: CGRect) {
         if nil != self._minutesSeparatorElementGroup {
             (self._minutesSeparatorElementGroup[0] as! LED_SeparatorDots).value = [self._separatorsOn, self._separatorsOn]
         }
@@ -362,13 +389,13 @@ import UIKit
             }
         }
         
-        self._allElementGroup.containerSize = self.frame.size
+        self.drawnFrame = self._allElementGroup.drawnFrame
         
         let images = LGV_Lib_LEDDisplay.renderElements(inactivePath: self._allElementGroup.inactiveSegments, activePath: self._allElementGroup.activeSegments, inactiveElementColor: self.inactiveSegmentColor, activeElementColor: self.activeSegmentColor, inSize: self.frame.size)
         
-        images[0].draw(in: rect)
-        images[1].draw(in: rect)
+        self._bottomImage.image = images[0]
+        self._topImage.image = images[1]
         
-        self.drawnFrame = self._allElementGroup.drawnFrame
+        super.layoutSubviews()
     }
 }

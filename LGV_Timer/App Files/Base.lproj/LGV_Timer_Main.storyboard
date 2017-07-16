@@ -211,6 +211,7 @@
                             <outletCollection property="gestureRecognizers" destination="yTf-ci-pFF" appends="YES" id="TAY-W0-9Dc"/>
                             <outletCollection property="gestureRecognizers" destination="fkx-C2-3lI" appends="YES" id="ble-fs-t35"/>
                             <outletCollection property="gestureRecognizers" destination="X0b-aR-ZAO" appends="YES" id="IrR-sz-O8r"/>
+                            <outletCollection property="gestureRecognizers" destination="QeQ-0X-roe" appends="YES" id="bIa-HP-EqU"/>
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
@@ -268,7 +269,7 @@
                         <action selector="tapInView:" destination="pId-dv-a9R" id="fWb-rx-pQb"/>
                     </connections>
                 </tapGestureRecognizer>
-                <swipeGestureRecognizer direction="right" id="fkx-C2-3lI">
+                <swipeGestureRecognizer direction="left" id="fkx-C2-3lI">
                     <connections>
                         <action selector="resetButtonHit:" destination="pId-dv-a9R" id="ki0-Je-J8u"/>
                     </connections>
@@ -278,6 +279,11 @@
                         <action selector="stopButtonHit:" destination="pId-dv-a9R" id="Eas-av-o6v"/>
                     </connections>
                 </pongPressGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="QeQ-0X-roe">
+                    <connections>
+                        <action selector="endButtonHit:" destination="pId-dv-a9R" id="if8-kT-pRf"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="512.79999999999995" y="1917.3913043478262"/>
         </scene>
