@@ -15,34 +15,6 @@ import UIKit
 /**
  */
 @IBDesignable public class LGV_Lib_LEDDisplay : UIView {
-    // MARK: - Internal Class Methods
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     */
-    class func renderElements(inactivePath: UIBezierPath, activePath: UIBezierPath, inactiveElementColor: UIColor, activeElementColor: UIColor, inSize: CGSize) -> [UIImage] {
-        var ret: [UIImage] = []
-        
-        UIGraphicsBeginImageContext(inSize);
-        inactiveElementColor.setFill()
-        inactivePath.append(activePath)
-        inactivePath.fill()
-        if let image = UIGraphicsGetImageFromCurrentImageContext() {
-            ret.append(image)
-        }
-        UIGraphicsEndImageContext();
-        
-        UIGraphicsBeginImageContext(inSize);
-        activeElementColor.setFill()
-        activePath.fill()
-        if let image = UIGraphicsGetImageFromCurrentImageContext() {
-            ret.append(image)
-        }
-        UIGraphicsEndImageContext();
-        
-        return ret
-    }
-    
     // MARK: - IB Properties
     /* ################################################################################################################################## */
     @IBInspectable var activeSegmentColor: UIColor = UIColor.green
@@ -74,6 +46,8 @@ import UIKit
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     Called when we need to lay out the subviews.
+     We use this to re-establish the element group.
      */
     override public func layoutSubviews() {
         self.elementGroup = nil
@@ -100,36 +74,34 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-@IBDesignable public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
-    // MARK: - Class Constant Properties
-    /* ################################################################################################################################## */
-    static let kTimerInterval: TimeInterval = 0.5
-    
+public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
     // MARK: - IB Properties
     /* ################################################################################################################################## */
-    @IBInspectable var activeSegmentColor: UIColor = UIColor.green
-    @IBInspectable var inactiveSegmentColor: UIColor = UIColor.black
-    @IBInspectable var displaySeparators: Bool = true
-    @IBInspectable var zeroPadding: Bool = false
-    @IBInspectable var displayHours: Bool = true
-    @IBInspectable var displayMinutes: Bool = true
-    @IBInspectable var displaySeconds: Bool = true
-    @IBInspectable var separationSpace: Int = 16
-    @IBInspectable var hours: Int = 0 {
+    var activeSegmentColor: UIColor = UIColor.green
+    var inactiveSegmentColor: UIColor = UIColor.black
+    var displaySeparators: Bool = true
+    var zeroPadding: Bool = false
+    var displayHours: Bool = true
+    var displayMinutes: Bool = true
+    var displaySeconds: Bool = true
+    var separationSpace: Int = 16
+    
+    // In the following three properties (the time element values), we check to see if the value has changed. If so, we force a recalculation and display.
+    var hours: Int = 0 {
         didSet {
             if self.hours != oldValue {
                 self.setNeedsLayout()
             }
         }
     }
-    @IBInspectable var minutes: Int = 0 {
+    var minutes: Int = 0 {
         didSet {
             if self.minutes != oldValue {
                 self.setNeedsLayout()
             }
         }
     }
-    @IBInspectable var seconds: Int = 0 {
+    var seconds: Int = 0 {
         didSet {
             if self.seconds != oldValue {
                 self.setNeedsLayout()
@@ -142,6 +114,8 @@ import UIKit
     private var _separatorsOn: Bool = true
     private var _animationImages: [UIImageView] = []
     private var _allElementGroup: LED_ElementGrouping! = nil
+    private var _bottomLayer: CAShapeLayer! = nil
+    private var _topLayer: CAShapeLayer! = nil
     
     // MARK: - Instance Methods
     /* ################################################################################################################################## */
@@ -151,6 +125,11 @@ import UIKit
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This will set an LED element grouping to display a value, in decimal numbering.
+     
+     :param: inGroup The LED element group that comprises one decimal number.
+     :param: inValue The value to have the group display.
+     :param: inZeroFill If true, we have leading zeroes displayed.
      */
     private class func _setDecimalValue(_ inGroup: LED_ElementGrouping, inValue: Int, inZeroFill: Bool) {
         let elements = inGroup.elements as! [LED_SingleDigit]
@@ -186,6 +165,7 @@ import UIKit
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     Called when the view needs to have its layout recalculated. Most of the work is done here.
      */
     override public func layoutSubviews() {
         var hoursElementGroup: LED_ElementGrouping! = nil
@@ -234,71 +214,82 @@ import UIKit
             elements.append(secondsElementGroup)
         }
         
-        self._allElementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: self.frame.size, inSeparationSpace: CGFloat(self.separationSpace))
-        
-        if nil != minutesSeparatorElementGroup {
-            (minutesSeparatorElementGroup[0] as! LED_SeparatorDots).value = [self._separatorsOn, self._separatorsOn]
-        }
-        
-        if nil != secondsSeparatorElementGroup {
-            (secondsSeparatorElementGroup[0] as! LED_SeparatorDots).value = [self._separatorsOn, self._separatorsOn]
-        }
-        
-        if nil != hoursElementGroup {
-            type(of: self)._setDecimalValue(hoursElementGroup, inValue: self.hours, inZeroFill:  self.zeroPadding)
-        }
-        
-        if nil != minutesElementGroup {
-            let zeroPadding = (nil != hoursElementGroup) ? ((0 != self.hours) ? true : self.zeroPadding) : self.zeroPadding
-            type(of: self)._setDecimalValue(minutesElementGroup, inValue: self.minutes, inZeroFill:  zeroPadding)
+        if var size = LGV_Timer_AppDelegate.appDelegateObject.window?.bounds.size {
+            size.height -= 40
+            size.width -= 8
             
-            if (0 == self.hours) && (!self.zeroPadding || (nil == hoursElementGroup)) && (nil != minutesSeparatorElementGroup) {
-                (minutesSeparatorElementGroup[0] as! LED_SeparatorDots).value = [false, false]
-            }
-        }
+            self._allElementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: size, inSeparationSpace: CGFloat(self.separationSpace))
         
-        if nil != secondsElementGroup {
-            var zeroPadding = (nil != hoursElementGroup) ? ((0 != self.hours) ? true : self.zeroPadding) : self.zeroPadding
-            zeroPadding = (nil != minutesElementGroup) ? ((0 != self.minutes) ? true : zeroPadding) : zeroPadding
-            type(of: self)._setDecimalValue(secondsElementGroup, inValue: self.seconds, inZeroFill:   zeroPadding)
+            if nil != minutesSeparatorElementGroup {
+                (minutesSeparatorElementGroup[0] as! LED_SeparatorDots).value = [self._separatorsOn, self._separatorsOn]
+            }
             
-            if (0 == self.minutes) && (!zeroPadding || (nil == minutesElementGroup)) && (nil != secondsSeparatorElementGroup) {
-                (secondsSeparatorElementGroup[0] as! LED_SeparatorDots).value = [false, false]
+            if nil != secondsSeparatorElementGroup {
+                (secondsSeparatorElementGroup[0] as! LED_SeparatorDots).value = [self._separatorsOn, self._separatorsOn]
             }
+            
+            if nil != hoursElementGroup {
+                type(of: self)._setDecimalValue(hoursElementGroup, inValue: self.hours, inZeroFill:  self.zeroPadding)
+            }
+            
+            if nil != minutesElementGroup {
+                let zeroPadding = (nil != hoursElementGroup) ? ((0 != self.hours) ? true : self.zeroPadding) : self.zeroPadding
+                type(of: self)._setDecimalValue(minutesElementGroup, inValue: self.minutes, inZeroFill:  zeroPadding)
+                
+                if (0 == self.hours) && (!self.zeroPadding || (nil == hoursElementGroup)) && (nil != minutesSeparatorElementGroup) {
+                    (minutesSeparatorElementGroup[0] as! LED_SeparatorDots).value = [false, false]
+                }
+            }
+            
+            if nil != secondsElementGroup {
+                var zeroPadding = (nil != hoursElementGroup) ? ((0 != self.hours) ? true : self.zeroPadding) : self.zeroPadding
+                zeroPadding = (nil != minutesElementGroup) ? ((0 != self.minutes) ? true : zeroPadding) : zeroPadding
+                type(of: self)._setDecimalValue(secondsElementGroup, inValue: self.seconds, inZeroFill:   zeroPadding)
+                
+                if (0 == self.minutes) && (!zeroPadding || (nil == minutesElementGroup)) && (nil != secondsSeparatorElementGroup) {
+                    (secondsSeparatorElementGroup[0] as! LED_SeparatorDots).value = [false, false]
+                }
+            }
+            
+            self.drawnFrame = self._allElementGroup.drawnFrame
         }
-        
-        self.drawnFrame = self._allElementGroup.drawnFrame
         
         super.layoutSubviews()
     }
     
     /* ################################################################## */
     /**
+     In this drawing routine, we take each of the layers (the bottom, "inactive mask" layer, and the top, "active" layer),
+     and render them, with a brief animation that makes a little "flare," as seen in the old gas elements.
+     
+     :param: rect the rectangle in which to render the display (ignored).
      */
     override public func draw(_ rect: CGRect) {
-        if nil != self.layer.sublayers {
-            for layer in self.layer.sublayers! {
-                layer.removeFromSuperlayer()
-            }
+        let activePath = self._allElementGroup.activeSegments
+        
+        if nil != self._bottomLayer {
+            self._bottomLayer.removeFromSuperlayer()
         }
         
+        self._bottomLayer = CAShapeLayer()
         let inactivePath = self._allElementGroup.inactiveSegments
-        let activePath = self._allElementGroup.activeSegments
         inactivePath.append(activePath)
-        let bottomLayer = CAShapeLayer()
-        bottomLayer.path = inactivePath.cgPath
-        let topLayer = CAShapeLayer()
-        topLayer.path = activePath.cgPath
+        self._bottomLayer.path = inactivePath.cgPath
+        self._bottomLayer.strokeColor = UIColor.clear.cgColor
+        self._bottomLayer.fillColor = self.inactiveSegmentColor.cgColor
+        self.layer.addSublayer(self._bottomLayer)
         
-        bottomLayer.strokeColor = UIColor.clear.cgColor
-        bottomLayer.fillColor = self.inactiveSegmentColor.cgColor
-        topLayer.strokeColor = UIColor.clear.cgColor
-        topLayer.fillColor = self.activeSegmentColor.cgColor
+        if nil != self._topLayer {
+            self._topLayer.removeFromSuperlayer()
+        }
         
-        self.layer.addSublayer(bottomLayer)
+        self._topLayer = CAShapeLayer()
+        self._topLayer.strokeColor = UIColor.clear.cgColor
+        self._topLayer.fillColor = self.activeSegmentColor.cgColor
+        self._topLayer.path = activePath.cgPath
         
         let animation1 = CABasicAnimation(keyPath: "opacity")
-        animation1.fromValue = 0.0
+        animation1.fromValue = 0.5
         animation1.toValue = 1.0
         animation1.duration = 0.05
         
@@ -312,9 +303,9 @@ import UIKit
         
         animGroup.animations = [animation1, animation2]
         
-        topLayer.add(animGroup, forKey: "opacity")
-        topLayer.opacity = 0.85
+        self._topLayer.add(animGroup, forKey: "opacity")
+        self._topLayer.opacity = 0.85
         
-        self.layer.addSublayer(topLayer)
+        self.layer.addSublayer(self._topLayer)
     }
 }

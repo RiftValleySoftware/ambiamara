@@ -22,3 +22,4 @@ CHANGELIST
 - The running timer screen now has a set of gesture recognizers associated with it. You can now tap in the running timer view to pause or continue the timer, and swipes will reset, stop or end the timer.
 - The timer list now indicates what the display mode is (better than the simple lights for Podium Mode).
 - The display of the digital elements now has a slight animation to simulate "analog" behavior.
+- The digital display now is a bit more maximized, and behaves better.

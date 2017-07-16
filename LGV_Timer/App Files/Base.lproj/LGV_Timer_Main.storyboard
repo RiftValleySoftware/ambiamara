@@ -171,7 +171,7 @@
         <!--Timer Runtime-->
         <scene sceneID="hTo-Uo-hbx">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="pId-dv-a9R" userLabel="Timer Runtime" customClass="LGV_Timer_TimerRuntimeViewController" customModule="X_Timer_Only" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="pId-dv-a9R" userLabel="Timer Runtime" customClass="LGV_Timer_TimerRuntimeViewController" customModule="X_Timer_Only" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Reo-7Y-Hne"/>
                         <viewControllerLayoutGuide type="bottom" id="iFu-N0-S8w"/>
@@ -184,11 +184,6 @@
                                 <rect key="frame" x="4" y="88" width="367" height="575"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="inactiveSegmentColor">
-                                        <color key="value" white="1" alpha="0.10186509684507042" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRL-jt-yJr">
                                 <rect key="frame" x="0.0" y="84" width="375" height="583"/>
@@ -214,7 +209,6 @@
                             <outletCollection property="gestureRecognizers" destination="QeQ-0X-roe" appends="YES" id="bIa-HP-EqU"/>
                         </connections>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="ItU-wd-SEv" userLabel="LGV_TIMER-RUNNING-TIMER">
                         <leftBarButtonItems>
@@ -284,7 +278,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="512.79999999999995" y="1917.3913043478262"/>
+            <point key="canvasLocation" x="513" y="2025"/>
         </scene>
         <!--Timer Settings-->
         <scene sceneID="diB-ql-vKz">

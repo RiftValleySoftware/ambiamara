@@ -271,6 +271,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         
         self.timeDisplay.isHidden = (.Podium == self.timerObject.displayMode)
         self.timeDisplay.activeSegmentColor = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].textColor
+        self.timeDisplay.inactiveSegmentColor = UIColor.white.withAlphaComponent(0.1)
         self.updateTimer()
     }
     
