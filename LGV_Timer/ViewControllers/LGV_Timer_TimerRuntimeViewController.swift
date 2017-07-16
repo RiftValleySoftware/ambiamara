@@ -45,11 +45,11 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var timeDisplay: LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock!
     @IBOutlet weak var flasherView: UIView!
+    @IBOutlet weak var navBarItem: UINavigationItem!
     
     @IBOutlet var tapRecognizer: UITapGestureRecognizer!
     @IBOutlet var resetSwipeRecognizer: UISwipeGestureRecognizer!
     @IBOutlet var endSwipeRecognizer: UISwipeGestureRecognizer!
-    @IBOutlet var panRecognizer: UIPanGestureRecognizer!
     
     // MARK: - Private Instance Methods
     /* ################################################################################################################################## */
@@ -154,6 +154,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
      */
     func pauseTimer() {
         self.flashDisplay(UIColor.red.withAlphaComponent(0.5), duration: 0.5)
+        self.navBarItem.title = NSLocalizedString("LGV_TIMER-PAUSED", comment: "")
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.pauseTimer()
     }
     
@@ -161,6 +162,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     func continueTimer() {
+        self.navBarItem.title = ""
         self.flashDisplay(UIColor.green.withAlphaComponent(0.5), duration: 0.5)
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.continueTimer()
     }
@@ -177,6 +179,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     func endTimer() {
+        self.navBarItem.title = ""
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.endTimer()
     }
     
@@ -189,6 +192,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         } else {
             self.flashDisplay(UIColor.white.withAlphaComponent(0.5), duration: 0.5)
         }
+        self.navBarItem.title = NSLocalizedString("LGV_TIMER-PAUSED", comment: "")
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.resetTimer()
     }
     
@@ -238,9 +242,6 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         
         self.tapRecognizer.require(toFail: resetSwipeRecognizer)
         self.tapRecognizer.require(toFail: endSwipeRecognizer)
-        self.panRecognizer.require(toFail: endSwipeRecognizer)
-        self.panRecognizer.require(toFail: resetSwipeRecognizer)
-        self.panRecognizer.require(toFail: tapRecognizer)
         
         let tempRect = CGRect(origin: CGPoint.zero, size: CGSize(width: 75, height: 75))
         
@@ -394,14 +395,5 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
                 self.pauseTimer()
             }
         }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBAction func dragTimer(_ sender: UIPanGestureRecognizer) {
-        #if DEBUG
-            print("Pan: \(sender)")
-        #endif
     }
 }

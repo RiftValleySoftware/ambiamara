@@ -212,7 +212,6 @@
                             <outletCollection property="gestureRecognizers" destination="yTf-ci-pFF" appends="YES" id="TAY-W0-9Dc"/>
                             <outletCollection property="gestureRecognizers" destination="fkx-C2-3lI" appends="YES" id="ble-fs-t35"/>
                             <outletCollection property="gestureRecognizers" destination="QeQ-0X-roe" appends="YES" id="bIa-HP-EqU"/>
-                            <outletCollection property="gestureRecognizers" destination="aDe-sZ-5Dk" appends="YES" id="G1V-Kh-AIF"/>
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
@@ -258,8 +257,8 @@
                         <outlet property="endButton" destination="9CE-DY-r7O" id="hSb-ba-AoD"/>
                         <outlet property="endSwipeRecognizer" destination="QeQ-0X-roe" id="cHZ-tg-NVW"/>
                         <outlet property="flasherView" destination="tRL-jt-yJr" id="nee-mf-JWS"/>
+                        <outlet property="navBarItem" destination="ItU-wd-SEv" id="MhC-Ev-wWS"/>
                         <outlet property="navItem" destination="ItU-wd-SEv" id="PlC-44-1IL"/>
-                        <outlet property="panRecognizer" destination="aDe-sZ-5Dk" id="vGG-cV-gNA"/>
                         <outlet property="pauseButton" destination="ZYE-eU-dQi" id="jgK-S8-6ak"/>
                         <outlet property="resetButton" destination="wL4-iM-6HV" id="8hY-Ci-EMr"/>
                         <outlet property="resetSwipeRecognizer" destination="fkx-C2-3lI" id="FA6-Wt-S4R"/>
@@ -269,11 +268,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bp-gA-OQc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="aDe-sZ-5Dk">
-                    <connections>
-                        <action selector="dragTimer:" destination="pId-dv-a9R" id="ahe-Nx-4xK"/>
-                    </connections>
-                </panGestureRecognizer>
                 <tapGestureRecognizer id="yTf-ci-pFF">
                     <connections>
                         <action selector="tapInView:" destination="pId-dv-a9R" id="fWb-rx-pQb"/>

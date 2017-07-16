@@ -49,19 +49,6 @@ import UIKit
     @IBInspectable var inactiveSegmentColor: UIColor = UIColor.black
     
     var elementGroup: LED_ElementGrouping! = nil
-    
-    // MARK: - Superclass Override Methods
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     */
-    override public func draw(_ rect: CGRect) {
-        self.elementGroup.containerSize = self.frame.size
-        let images = type(of: self).renderElements(inactivePath: self.elementGroup.inactiveSegments, activePath: self.elementGroup.activeSegments, inactiveElementColor: self.inactiveSegmentColor, activeElementColor: self.activeSegmentColor, inSize: self.frame.size)
-        
-        images[0].draw(in: rect)
-        images[1].draw(in: rect)
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -69,16 +56,6 @@ import UIKit
  */
 @IBDesignable public class LGV_Lib_LEDDisplaySeparator : LGV_Lib_LEDDisplay {
     @IBInspectable var numDots: Int = 0
-    
-    // MARK: - Superclass Override Methods
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     */
-    override public func draw(_ rect: CGRect) {
-        self.elementGroup = LED_ElementGrouping([(type: .Separator, value: self.numDots)])
-        super.draw(rect)
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -117,59 +94,6 @@ import UIKit
         }
         
         super.layoutSubviews()
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    override public func draw(_ rect: CGRect) {
-        if nil != self.elementGroup {
-            let elements = self.elementGroup.elements as! [LED_SingleDigit]
-            
-            var value = min(self.currentVal, self.maxVal)
-            
-            if self.canBeNegative {
-                value = max(-self.maxVal, value)
-            } else {
-                value = max(0, value)
-            }
-            
-            let neg = 0 > value
-            value = abs(value)
-            
-            var index = self.elementGroup.count - 1
-            
-            while 0 < value {
-                var digitValue = value
-                if 9 < digitValue {
-                    digitValue -= (10 * Int(value / 10))
-                }
-                elements[index].value = digitValue
-                value /= 10
-                index -= 1
-            }
-            
-            if self.zeroPadding {
-                while 0 <= index {
-                    elements[index].value = 0
-                    index -= 1
-                }
-                if self.canBeNegative {
-                    elements[0].value = neg ? -1 : -2
-                }
-            } else {
-                if self.canBeNegative && neg {
-                    elements[index].value = -1
-                    index -= 1
-                }
-                while 0 <= index {
-                    elements[index].value = -2
-                    index -= 1
-                }
-            }
-            
-            super.draw(rect)
-        }
     }
 }
 
@@ -216,9 +140,8 @@ import UIKit
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
     private var _separatorsOn: Bool = true
-    private var _bottomImage: UIImageView! = nil
-    private var _topImage: UIImageView! = nil
     private var _animationImages: [UIImageView] = []
+    private var _allElementGroup: LED_ElementGrouping! = nil
     
     // MARK: - Instance Methods
     /* ################################################################################################################################## */
@@ -265,31 +188,11 @@ import UIKit
     /**
      */
     override public func layoutSubviews() {
-        var allElementGroup: LED_ElementGrouping! = nil
         var hoursElementGroup: LED_ElementGrouping! = nil
         var minutesElementGroup: LED_ElementGrouping! = nil
         var secondsElementGroup: LED_ElementGrouping! = nil
         var secondsSeparatorElementGroup: LED_ElementGrouping! = nil
         var minutesSeparatorElementGroup: LED_ElementGrouping! = nil
-        
-        if nil == self._bottomImage {
-            self._bottomImage = UIImageView(frame: self.bounds)
-            self._bottomImage.contentMode = .scaleAspectFit
-            self._bottomImage.backgroundColor = UIColor.clear
-            self.addSubview(self._bottomImage)
-        } else {
-            self._bottomImage.frame = self.bounds
-        }
-        
-        if nil == self._topImage {
-            self._topImage = UIImageView(frame: self.bounds)
-            self._topImage.animationRepeatCount = 0
-            self._topImage.contentMode = .scaleAspectFit
-            self._topImage.backgroundColor = UIColor.clear
-            self.addSubview(self._topImage)
-        } else {
-            self._topImage.frame = self.bounds
-        }
         
         if self.displayHours {
             hoursElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
@@ -331,7 +234,7 @@ import UIKit
             elements.append(secondsElementGroup)
         }
         
-        allElementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: self.frame.size, inSeparationSpace: CGFloat(self.separationSpace))
+        self._allElementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: self.frame.size, inSeparationSpace: CGFloat(self.separationSpace))
         
         if nil != minutesSeparatorElementGroup {
             (minutesSeparatorElementGroup[0] as! LED_SeparatorDots).value = [self._separatorsOn, self._separatorsOn]
@@ -364,13 +267,54 @@ import UIKit
             }
         }
         
-        self.drawnFrame = allElementGroup.drawnFrame
-        
-        let images = LGV_Lib_LEDDisplay.renderElements(inactivePath: allElementGroup.inactiveSegments, activePath: allElementGroup.activeSegments, inactiveElementColor: self.inactiveSegmentColor, activeElementColor: self.activeSegmentColor, inSize: self.frame.size)
-        
-        self._bottomImage.image = images[0]
-        self._topImage.image = images[1]
+        self.drawnFrame = self._allElementGroup.drawnFrame
         
         super.layoutSubviews()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override public func draw(_ rect: CGRect) {
+        if nil != self.layer.sublayers {
+            for layer in self.layer.sublayers! {
+                layer.removeFromSuperlayer()
+            }
+        }
+        
+        let inactivePath = self._allElementGroup.inactiveSegments
+        let activePath = self._allElementGroup.activeSegments
+        inactivePath.append(activePath)
+        let bottomLayer = CAShapeLayer()
+        bottomLayer.path = inactivePath.cgPath
+        let topLayer = CAShapeLayer()
+        topLayer.path = activePath.cgPath
+        
+        bottomLayer.strokeColor = UIColor.clear.cgColor
+        bottomLayer.fillColor = self.inactiveSegmentColor.cgColor
+        topLayer.strokeColor = UIColor.clear.cgColor
+        topLayer.fillColor = self.activeSegmentColor.cgColor
+        
+        self.layer.addSublayer(bottomLayer)
+        
+        let animation1 = CABasicAnimation(keyPath: "opacity")
+        animation1.fromValue = 0.0
+        animation1.toValue = 1.0
+        animation1.duration = 0.05
+        
+        let animation2 = CABasicAnimation(keyPath: "opacity")
+        animation2.beginTime = 0.05
+        animation2.fromValue = 1.0
+        animation2.toValue = 0.85
+        animation2.duration = 0.1
+        
+        let animGroup: CAAnimationGroup = CAAnimationGroup()
+        
+        animGroup.animations = [animation1, animation2]
+        
+        topLayer.add(animGroup, forKey: "opacity")
+        topLayer.opacity = 0.85
+        
+        self.layer.addSublayer(topLayer)
     }
 }

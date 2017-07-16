@@ -14,6 +14,8 @@
 
 "LGV_TIMER-SET-LABEL"                                   =   "Set Timer";
 
+"LGV_TIMER-PAUSED"                                      =   "X";
+
 "LGV_TIMER-SETUP-TIME-SET-LABEL"                        =   "Set Start Time";
 "LGV_TIMER-SETUP-TIMER-MODE-LABEL"                      =   "Timer Mode";
 "LGV_TIMER-SETUP-TIMER-MODE-SWITCH-0"                   =   "Digital Mode";
