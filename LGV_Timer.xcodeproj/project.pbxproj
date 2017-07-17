@@ -845,7 +845,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = P53V4JS928;
 				IBSC_MODULE = X_Timer_Companion_Extension;
 				INFOPLIST_FILE = "X-Timer Companion/Info.plist";
@@ -863,7 +863,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = P53V4JS928;
 				IBSC_MODULE = X_Timer_Companion_Extension;
 				INFOPLIST_FILE = "X-Timer Companion/Info.plist";
