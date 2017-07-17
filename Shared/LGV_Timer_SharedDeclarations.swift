@@ -6,8 +6,17 @@
 //  Copyright © 2017 Little Green Viper Software Development LLC. All rights reserved.
 //
 
+/* ###################################################################################################################################### */
+/**
+ This file contains declarations and classes that are shared between the phone app and the companion Watch app.
+ */
+
 import Foundation
 
+// MARK: - Various Strings, Used in Messaging -
+/* ###################################################################################################################################### */
+/**
+ */
 class LGV_Timer_Messages {
     static let s_timerListHowdyMessageKey = "Howdy"
     static let s_timerListSelectTimerMessageKey = "SelectTimer"
@@ -32,6 +41,8 @@ class LGV_Timer_Messages {
     static let s_timerAlarmUserInfoValue = "Alarm"
 }
 
+/**
+ */
 class LGV_Timer_Data_Keys {
     static let s_timerDataUIDKey = "UID"
     static let s_timerDataTimerNameKey = "TimerName"

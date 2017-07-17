@@ -1,89 +1,20 @@
 //
-//  LGV_Lib_LEDDisplay.swift
-//  LGV_Lib_LEDDisplay
+//  LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift
 //
 //  Created by Chris Marshall on 5/23/17.
 //  Copyright © 2017 Little Green Viper Software Development LLC. All rights reserved.
 //
-/* ###################################################################################################################################### */
-/**
- */
-
 import UIKit
-
 /* ###################################################################################################################################### */
 /**
- */
-@IBDesignable public class LGV_Lib_LEDDisplay : UIView {
-    // MARK: - IB Properties
-    /* ################################################################################################################################## */
-    @IBInspectable var activeSegmentColor: UIColor = UIColor.green
-    @IBInspectable var inactiveSegmentColor: UIColor = UIColor.black
-    
-    var elementGroup: LED_ElementGrouping! = nil
-}
-
-/* ###################################################################################################################################### */
-/**
- */
-@IBDesignable public class LGV_Lib_LEDDisplaySeparator : LGV_Lib_LEDDisplay {
-    @IBInspectable var numDots: Int = 0
-}
-
-/* ###################################################################################################################################### */
-/**
- */
-@IBDesignable public class LGV_Lib_LEDDisplayDigitalDecimal : LGV_Lib_LEDDisplay {
-    // MARK: - IB Properties
-    /* ################################################################################################################################## */
-    @IBInspectable var maxVal: Int = 0
-    @IBInspectable var currentVal: Int = 0
-    @IBInspectable var canBeNegative: Bool = false
-    @IBInspectable var zeroPadding: Bool = false
-    @IBInspectable var separationSpace: Int = 16
-    
-    // MARK: - Superclass Override Methods
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     Called when we need to lay out the subviews.
-     We use this to re-establish the element group.
-     */
-    override public func layoutSubviews() {
-        self.elementGroup = nil
-        
-        if 0 <= self.maxVal {
-            var value = self.maxVal
-            var elements: [LED_Element] = [LED_SingleDigit(-2)]
-            while 9 < value {
-                elements.append(LED_SingleDigit(-2))
-                value /= 10
-            }
-
-            if self.canBeNegative {
-                elements.append(LED_SingleDigit(-2))
-            }
-            
-            self.elementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: self.frame.size, inSeparationSpace: CGFloat(self.separationSpace))
-        }
-        
-        super.layoutSubviews()
-    }
-}
-
-/* ###################################################################################################################################### */
-/**
+ This class instantiates a bunch of LED Elements into a "Digital Clock," to be displayed to cover most of the screen.
  */
 public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
-    // MARK: - IB Properties
+    // MARK: - Instance Properties
     /* ################################################################################################################################## */
     var activeSegmentColor: UIColor = UIColor.green
     var inactiveSegmentColor: UIColor = UIColor.black
-    var displaySeparators: Bool = true
     var zeroPadding: Bool = false
-    var displayHours: Bool = true
-    var displayMinutes: Bool = true
-    var displaySeconds: Bool = true
     var separationSpace: Int = 16
     
     // In the following three properties (the time element values), we check to see if the value has changed. If so, we force a recalculation and display.
@@ -111,15 +42,11 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
     
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
-    private var _separatorsOn: Bool = true
-    private var _animationImages: [UIImageView] = []
-    private var _allElementGroup: LED_ElementGrouping! = nil
-    private var _bottomLayer: CAShapeLayer! = nil
-    private var _topLayer: CAShapeLayer! = nil
+    private var _separatorsOn: Bool = true                      ///< Whether or not the separators bewteen digit groups are shown.
+    private var _allElementGroup: LED_ElementGrouping! = nil    ///< Used to pass the calculated paths to the draw method.
+    private var _bottomLayer: CAShapeLayer! = nil               ///< Tracks the outline shapes for the segments (inactive)
+    private var _topLayer: CAShapeLayer! = nil                  ///< Tracks the active ("lit") segment shapes.
     
-    // MARK: - Instance Methods
-    /* ################################################################################################################################## */
-    var drawnFrame: CGRect = CGRect.zero
     
     // MARK: - Private Class Methods
     /* ################################################################################################################################## */
@@ -166,6 +93,10 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
     /* ################################################################## */
     /**
      Called when the view needs to have its layout recalculated. Most of the work is done here.
+     
+     What we do, is establish the drawing UIBezierPaths for the inactive and active elements, then pass them to the draw method.
+     The draw method then creates CALayers, and displays them, along with a brief animation, simulating a "gas flicker," as
+     seen in old-time gas digital displays.
      */
     override public func layoutSubviews() {
         var hoursElementGroup: LED_ElementGrouping! = nil
@@ -174,23 +105,13 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
         var secondsSeparatorElementGroup: LED_ElementGrouping! = nil
         var minutesSeparatorElementGroup: LED_ElementGrouping! = nil
         
-        if self.displayHours {
-            hoursElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
-        }
+        hoursElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
         
-        if self.displayMinutes {
-            if self.displayHours {
-                minutesSeparatorElementGroup = LED_ElementGrouping(inElements: [LED_SeparatorDots([true, true])], inContainerSize: CGSize.zero, inSeparationSpace: 0)
-            }
-            minutesElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
-        }
-        
-        if self.displaySeconds {
-            if self.displayHours || self.displayMinutes {
-                secondsSeparatorElementGroup = LED_ElementGrouping(inElements: [LED_SeparatorDots([true, true])], inContainerSize: CGSize.zero, inSeparationSpace: 0)
-            }
-            secondsElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
-        }
+        minutesSeparatorElementGroup = LED_ElementGrouping(inElements: [LED_SeparatorDots([true, true])], inContainerSize: CGSize.zero, inSeparationSpace: 0)
+        minutesElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
+
+        secondsSeparatorElementGroup = LED_ElementGrouping(inElements: [LED_SeparatorDots([true, true])], inContainerSize: CGSize.zero, inSeparationSpace: 0)
+        secondsElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
         
         var elements: [LED_Element] = []
         
@@ -250,8 +171,6 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
                     (secondsSeparatorElementGroup[0] as! LED_SeparatorDots).value = [false, false]
                 }
             }
-            
-            self.drawnFrame = self._allElementGroup.drawnFrame
         }
         
         super.layoutSubviews()

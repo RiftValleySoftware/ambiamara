@@ -909,6 +909,9 @@ public class LED_ElementGrouping : LED_Element, Sequence {
     /* ################################################################## */
     /**
      Get one of the elements, by index.
+     
+     :param: index The 0-based index of the element sought.
+     :returns: The LED Element requested.
      */
     public subscript(_ index: Int) -> LED_Element! {
         if (0 <= index) && (index < self._containedElemnts.count) {
