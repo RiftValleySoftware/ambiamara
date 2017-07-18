@@ -23,6 +23,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var timeSetLabel: UILabel!
     @IBOutlet weak var setTimePickerView: UIPickerView!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
+    @IBOutlet weak var bigStartButton: UIButton!
     
     var dontBotherTheWatch: Bool = false
     var runningTimer: LGV_Timer_TimerRuntimeViewController! = nil
@@ -75,6 +76,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     private func _setUpDisplay() {
         if nil != self.startButton {
             self.startButton.isEnabled = 0 < self.timerObject.timeSet
+            self.bigStartButton.isHidden = 0 >= self.timerObject.timeSet
         }
         
         let timerNumber = self.timerNumber

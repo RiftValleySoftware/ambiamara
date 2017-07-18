@@ -11,7 +11,6 @@
 		770F0EBC1F19087A00647341 /* LED_Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A51F1804940054474D /* LED_Element.swift */; };
 		770F0EBD1F19087A00647341 /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A61F1804940054474D /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift */; };
 		770F0EBE1F19088100647341 /* LGV_Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */; };
-		770F0EBF1F19088900647341 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 772A13E01ED5E8BA0043C58B /* Localizable.strings */; };
 		770F0EC01F19089300647341 /* SwipeableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A81F1804BB0054474D /* SwipeableTabBarController.swift */; };
 		770F0EC11F19089300647341 /* SwipeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A91F1804BB0054474D /* SwipeAnimation.swift */; };
 		770F0EC21F19089300647341 /* SwipeAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228AA1F1804BB0054474D /* SwipeAnimationType.swift */; };
@@ -29,26 +28,41 @@
 		770F0ECE1F1908A200647341 /* LGV_Timer_TimerSetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2D1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift */; };
 		770F0ECF1F1908A200647341 /* LGV_Timer_TimerSetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2F1ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift */; };
 		770F0ED01F1908A200647341 /* LGV_Timer_TimerRuntimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77052CD61EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift */; };
-		770F0ED11F1908B000647341 /* LGV_Timer_Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 772A13DE1ED5E8BA0043C58B /* LGV_Timer_Main.storyboard */; };
-		770F0ED21F1908B000647341 /* LGV_Timer_LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 772A13DC1ED5E8BA0043C58B /* LGV_Timer_LaunchScreen.storyboard */; };
-		770F0ED31F1908B000647341 /* LGV_Timer_ColorThemes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 777DE4E81EDF224400B1805A /* LGV_Timer_ColorThemes.xib */; };
-		770F0ED41F1908B400647341 /* LGV_Timer_Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 772A13E51ED5E8F80043C58B /* LGV_Timer_Assets.xcassets */; };
-		770F0ED51F1908B900647341 /* Sound-00.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77D2BB201EE5A531004B8098 /* Sound-00.aiff */; };
-		770F0ED61F1908B900647341 /* Sound-01.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77D2BB211EE5A531004B8098 /* Sound-01.aiff */; };
-		770F0ED71F1908B900647341 /* Sound-02.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77D2BB221EE5A531004B8098 /* Sound-02.aiff */; };
-		770F0ED81F1908B900647341 /* Sound-03.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77D2BB231EE5A531004B8098 /* Sound-03.aiff */; };
-		770F0ED91F1908B900647341 /* Sound-04.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77D2BB241EE5A531004B8098 /* Sound-04.aiff */; };
-		770F0EDC1F19098E00647341 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77AF8C591ED84EC100C88759 /* Let's go Digital Regular.ttf */; };
 		770F0EDF1F1909CB00647341 /* X-Timer Companion.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 77CBF4021EF7F6F000B4D4C6 /* X-Timer Companion.app */; };
 		770FB9B01EE4359300E3120D /* LGV_Timer_InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770FB9AF1EE4359300E3120D /* LGV_Timer_InfoViewController.swift */; };
 		771974DE1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */; };
+		772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */; };
+		772459C61F1E1D01006CA335 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */; };
+		772459C71F1E1D02006CA335 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */; };
+		772459C81F1E1D10006CA335 /* LGV_Timer_Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 772459C11F1E1CD7006CA335 /* LGV_Timer_Assets.xcassets */; };
+		772459C91F1E1D11006CA335 /* LGV_Timer_Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 772459C11F1E1CD7006CA335 /* LGV_Timer_Assets.xcassets */; };
+		772459CA1F1E1D17006CA335 /* Sound-00.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BB1F1E1CD7006CA335 /* Sound-00.aiff */; };
+		772459CB1F1E1D17006CA335 /* Sound-01.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BC1F1E1CD7006CA335 /* Sound-01.aiff */; };
+		772459CC1F1E1D17006CA335 /* Sound-02.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BD1F1E1CD7006CA335 /* Sound-02.aiff */; };
+		772459CD1F1E1D17006CA335 /* Sound-03.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BE1F1E1CD7006CA335 /* Sound-03.aiff */; };
+		772459CE1F1E1D17006CA335 /* Sound-04.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BF1F1E1CD7006CA335 /* Sound-04.aiff */; };
+		772459CF1F1E1D18006CA335 /* Sound-00.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BB1F1E1CD7006CA335 /* Sound-00.aiff */; };
+		772459D01F1E1D18006CA335 /* Sound-01.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BC1F1E1CD7006CA335 /* Sound-01.aiff */; };
+		772459D11F1E1D18006CA335 /* Sound-02.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BD1F1E1CD7006CA335 /* Sound-02.aiff */; };
+		772459D21F1E1D18006CA335 /* Sound-03.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BE1F1E1CD7006CA335 /* Sound-03.aiff */; };
+		772459D31F1E1D18006CA335 /* Sound-04.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BF1F1E1CD7006CA335 /* Sound-04.aiff */; };
+		772459D41F1E1D1F006CA335 /* LGV_Timer_ColorThemes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772459C21F1E1CD7006CA335 /* LGV_Timer_ColorThemes.xib */; };
+		772459D51F1E1D1F006CA335 /* LGV_Timer_LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 772459C31F1E1CD7006CA335 /* LGV_Timer_LaunchScreen.storyboard */; };
+		772459D61F1E1D1F006CA335 /* LGV_Timer_Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 772459C41F1E1CD7006CA335 /* LGV_Timer_Main.storyboard */; };
+		772459D71F1E1D20006CA335 /* LGV_Timer_ColorThemes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772459C21F1E1CD7006CA335 /* LGV_Timer_ColorThemes.xib */; };
+		772459D81F1E1D20006CA335 /* LGV_Timer_LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 772459C31F1E1CD7006CA335 /* LGV_Timer_LaunchScreen.storyboard */; };
+		772459D91F1E1D20006CA335 /* LGV_Timer_Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 772459C41F1E1CD7006CA335 /* LGV_Timer_Main.storyboard */; };
+		772459E21F1E1E37006CA335 /* Sound-00.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BB1F1E1CD7006CA335 /* Sound-00.aiff */; };
+		772459E31F1E1E37006CA335 /* Sound-01.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BC1F1E1CD7006CA335 /* Sound-01.aiff */; };
+		772459E41F1E1E37006CA335 /* Sound-02.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BD1F1E1CD7006CA335 /* Sound-02.aiff */; };
+		772459E51F1E1E37006CA335 /* Sound-03.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BE1F1E1CD7006CA335 /* Sound-03.aiff */; };
+		772459E61F1E1E37006CA335 /* Sound-04.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BF1F1E1CD7006CA335 /* Sound-04.aiff */; };
+		772459EA1F1E1E52006CA335 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 772459E81F1E1E52006CA335 /* Localizable.strings */; };
+		772459EB1F1E1E52006CA335 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 772459E81F1E1E52006CA335 /* Localizable.strings */; };
+		772459EC1F1E1E52006CA335 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 772459E81F1E1E52006CA335 /* Localizable.strings */; };
 		772A13C61ED5E50C0043C58B /* LGV_Timer_SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13C51ED5E50C0043C58B /* LGV_Timer_SettingsViewController.swift */; };
 		772A13CC1ED5E8270043C58B /* LGV_Timer_MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13CB1ED5E8270043C58B /* LGV_Timer_MainTabController.swift */; };
 		772A13D81ED5E8840043C58B /* LGV_Timer_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13D41ED5E8840043C58B /* LGV_Timer_AppDelegate.swift */; };
-		772A13E21ED5E8BA0043C58B /* LGV_Timer_LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 772A13DC1ED5E8BA0043C58B /* LGV_Timer_LaunchScreen.storyboard */; };
-		772A13E31ED5E8BA0043C58B /* LGV_Timer_Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 772A13DE1ED5E8BA0043C58B /* LGV_Timer_Main.storyboard */; };
-		772A13E41ED5E8BA0043C58B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 772A13E01ED5E8BA0043C58B /* Localizable.strings */; };
-		772A13E61ED5E8F80043C58B /* LGV_Timer_Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 772A13E51ED5E8F80043C58B /* LGV_Timer_Assets.xcassets */; };
 		772BF85D1F0299FD0094AE56 /* LGV_Timer_Complication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772BF85C1F0299FD0094AE56 /* LGV_Timer_Complication.swift */; };
 		772BF9C41ED600B3002D1782 /* LGV_Timer_TimerNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772BF9C31ED600B3002D1782 /* LGV_Timer_TimerNavController.swift */; };
 		775228AE1F1804C90054474D /* SwipeableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A81F1804BB0054474D /* SwipeableTabBarController.swift */; };
@@ -61,27 +75,18 @@
 		775228B51F1805120054474D /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A61F1804940054474D /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift */; };
 		775AE1771EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775AE1761EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift */; };
 		776B24CB1EF7F7B400CBA571 /* LGV_Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */; };
-		776B24CC1EF7F7B900CBA571 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 772A13E01ED5E8BA0043C58B /* Localizable.strings */; };
-		776B24CD1EF7F7BD00CBA571 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77AF8C591ED84EC100C88759 /* Let's go Digital Regular.ttf */; };
 		7770CB2E1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2D1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift */; };
 		7770CB301ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2F1ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift */; };
-		777DE4EA1EDF224400B1805A /* LGV_Timer_ColorThemes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 777DE4E81EDF224400B1805A /* LGV_Timer_ColorThemes.xib */; };
 		7789C3241ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7789C3231ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift */; };
 		779692741EFD23B20090D92D /* LGV_Timer_Watch_MainAppInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779692731EFD23B20090D92D /* LGV_Timer_Watch_MainAppInterfaceController.swift */; };
 		77A882C51EFD81F900FEBEF6 /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777628201EF840590060C085 /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift */; };
 		77A882C61EFD824900FEBEF6 /* LGV_Timer_Watch_RunningTimerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B0F3A91EF93317007A671B /* LGV_Timer_Watch_RunningTimerInterfaceController.swift */; };
-		77AF8C5A1ED84EC100C88759 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77AF8C591ED84EC100C88759 /* Let's go Digital Regular.ttf */; };
 		77BB98E11F12838F0062B14A /* LGV_Timer_TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB98E01F12838F0062B14A /* LGV_Timer_TimerEngine.swift */; };
 		77CBF4061EF7F6F000B4D4C6 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77CBF4041EF7F6F000B4D4C6 /* Interface.storyboard */; };
 		77CBF4081EF7F6F000B4D4C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77CBF4071EF7F6F000B4D4C6 /* Assets.xcassets */; };
 		77CBF40F1EF7F6F000B4D4C6 /* X-Timer Companion Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 77CBF40E1EF7F6F000B4D4C6 /* X-Timer Companion Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		77CBF4161EF7F6F000B4D4C6 /* LGV_Timer_Watch_ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CBF4151EF7F6F000B4D4C6 /* LGV_Timer_Watch_ExtensionDelegate.swift */; };
 		77CBF4181EF7F6F000B4D4C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77CBF4171EF7F6F000B4D4C6 /* Assets.xcassets */; };
-		77D2BB251EE5A531004B8098 /* Sound-00.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77D2BB201EE5A531004B8098 /* Sound-00.aiff */; };
-		77D2BB261EE5A531004B8098 /* Sound-01.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77D2BB211EE5A531004B8098 /* Sound-01.aiff */; };
-		77D2BB271EE5A531004B8098 /* Sound-02.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77D2BB221EE5A531004B8098 /* Sound-02.aiff */; };
-		77D2BB281EE5A531004B8098 /* Sound-03.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77D2BB231EE5A531004B8098 /* Sound-03.aiff */; };
-		77D2BB291EE5A531004B8098 /* Sound-04.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77D2BB241EE5A531004B8098 /* Sound-04.aiff */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,15 +135,22 @@
 		77052CD61EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerRuntimeViewController.swift; path = ViewControllers/LGV_Timer_TimerRuntimeViewController.swift; sourceTree = "<group>"; };
 		770F0EAA1F19086100647341 /* X-Timer With Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "X-Timer With Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		770FB9AF1EE4359300E3120D /* LGV_Timer_InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_InfoViewController.swift; path = ViewControllers/LGV_Timer_InfoViewController.swift; sourceTree = "<group>"; };
-		771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_SharedDeclarations.swift; path = Shared/LGV_Timer_SharedDeclarations.swift; sourceTree = "<group>"; };
+		771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_SharedDeclarations.swift; path = ../Shared/LGV_Timer_SharedDeclarations.swift; sourceTree = "<group>"; };
+		772459BB1F1E1CD7006CA335 /* Sound-00.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-00.aiff"; sourceTree = "<group>"; };
+		772459BC1F1E1CD7006CA335 /* Sound-01.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-01.aiff"; sourceTree = "<group>"; };
+		772459BD1F1E1CD7006CA335 /* Sound-02.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-02.aiff"; sourceTree = "<group>"; };
+		772459BE1F1E1CD7006CA335 /* Sound-03.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-03.aiff"; sourceTree = "<group>"; };
+		772459BF1F1E1CD7006CA335 /* Sound-04.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-04.aiff"; sourceTree = "<group>"; };
+		772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Let's go Digital Regular.ttf"; sourceTree = "<group>"; };
+		772459C11F1E1CD7006CA335 /* LGV_Timer_Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LGV_Timer_Assets.xcassets; sourceTree = "<group>"; };
+		772459C21F1E1CD7006CA335 /* LGV_Timer_ColorThemes.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LGV_Timer_ColorThemes.xib; sourceTree = "<group>"; };
+		772459C31F1E1CD7006CA335 /* LGV_Timer_LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LGV_Timer_LaunchScreen.storyboard; sourceTree = "<group>"; };
+		772459C41F1E1CD7006CA335 /* LGV_Timer_Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LGV_Timer_Main.storyboard; sourceTree = "<group>"; };
+		772459ED1F1E1E6A006CA335 /* global */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = global; path = ../global.lproj/Localizable.strings; sourceTree = "<group>"; };
 		772A13C51ED5E50C0043C58B /* LGV_Timer_SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_SettingsViewController.swift; path = ViewControllers/LGV_Timer_SettingsViewController.swift; sourceTree = "<group>"; };
 		772A13CB1ED5E8270043C58B /* LGV_Timer_MainTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_MainTabController.swift; path = ViewControllers/LGV_Timer_MainTabController.swift; sourceTree = "<group>"; };
 		772A13D41ED5E8840043C58B /* LGV_Timer_AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_AppDelegate.swift; path = "App Files/LGV_Timer_AppDelegate.swift"; sourceTree = "<group>"; };
 		772A13D91ED5E8950043C58B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "App Files/Info.plist"; sourceTree = "<group>"; };
-		772A13DD1ED5E8BA0043C58B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "App Files/Base.lproj/LGV_Timer_LaunchScreen.storyboard"; sourceTree = "<group>"; };
-		772A13DF1ED5E8BA0043C58B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "App Files/Base.lproj/LGV_Timer_Main.storyboard"; sourceTree = "<group>"; };
-		772A13E11ED5E8BA0043C58B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = "App Files/Base.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		772A13E51ED5E8F80043C58B /* LGV_Timer_Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = LGV_Timer_Assets.xcassets; path = "App Files/LGV_Timer_Assets.xcassets"; sourceTree = "<group>"; };
 		772BF85C1F0299FD0094AE56 /* LGV_Timer_Complication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Complication.swift; sourceTree = "<group>"; };
 		772BF9C31ED600B3002D1782 /* LGV_Timer_TimerNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerNavController.swift; path = ViewControllers/LGV_Timer_TimerNavController.swift; sourceTree = "<group>"; };
 		773E06601EDAFAEB003FF9DD /* TestDisplay.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TestDisplay.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -154,10 +166,8 @@
 		7770CB2D1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerSetController.swift; path = ViewControllers/LGV_Timer_TimerSetController.swift; sourceTree = "<group>"; };
 		7770CB2F1ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerSetupController.swift; path = ViewControllers/LGV_Timer_TimerSetupController.swift; sourceTree = "<group>"; };
 		777628201EF840590060C085 /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift; sourceTree = "<group>"; };
-		777DE4E91EDF224400B1805A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "App Files/Base.lproj/LGV_Timer_ColorThemes.xib"; sourceTree = "<group>"; };
 		7789C3231ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerBaseViewController.swift; path = ViewControllers/LGV_Timer_TimerBaseViewController.swift; sourceTree = "<group>"; };
 		779692731EFD23B20090D92D /* LGV_Timer_Watch_MainAppInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Watch_MainAppInterfaceController.swift; sourceTree = "<group>"; };
-		77AF8C591ED84EC100C88759 /* Let's go Digital Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Let's go Digital Regular.ttf"; path = "LGV_Timer/App Files/Let's go Digital Regular.ttf"; sourceTree = "<group>"; };
 		77B0F3A91EF93317007A671B /* LGV_Timer_Watch_RunningTimerInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Watch_RunningTimerInterfaceController.swift; sourceTree = "<group>"; };
 		77B291131ED5C37C00AD3720 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		77BB98E01F12838F0062B14A /* LGV_Timer_TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerEngine.swift; path = "App Files/LGV_Timer_TimerEngine.swift"; sourceTree = "<group>"; };
@@ -169,11 +179,6 @@
 		77CBF4151EF7F6F000B4D4C6 /* LGV_Timer_Watch_ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Watch_ExtensionDelegate.swift; sourceTree = "<group>"; };
 		77CBF4171EF7F6F000B4D4C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77CBF4191EF7F6F000B4D4C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		77D2BB201EE5A531004B8098 /* Sound-00.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-00.aiff"; sourceTree = "<group>"; };
-		77D2BB211EE5A531004B8098 /* Sound-01.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-01.aiff"; sourceTree = "<group>"; };
-		77D2BB221EE5A531004B8098 /* Sound-02.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-02.aiff"; sourceTree = "<group>"; };
-		77D2BB231EE5A531004B8098 /* Sound-03.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-03.aiff"; sourceTree = "<group>"; };
-		77D2BB241EE5A531004B8098 /* Sound-04.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-04.aiff"; sourceTree = "<group>"; };
 		77EFB3DC1ED5C1A800BDDEFF /* X-Timer Only.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "X-Timer Only.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -188,10 +193,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		772459B71F1E1CD7006CA335 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				772459E81F1E1E52006CA335 /* Localizable.strings */,
+				772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */,
+				772459BA1F1E1CD7006CA335 /* Beep Sounds */,
+				772459C11F1E1CD7006CA335 /* LGV_Timer_Assets.xcassets */,
+				772459C41F1E1CD7006CA335 /* LGV_Timer_Main.storyboard */,
+				772459C21F1E1CD7006CA335 /* LGV_Timer_ColorThemes.xib */,
+				772459C31F1E1CD7006CA335 /* LGV_Timer_LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		772459BA1F1E1CD7006CA335 /* Beep Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				772459BB1F1E1CD7006CA335 /* Sound-00.aiff */,
+				772459BC1F1E1CD7006CA335 /* Sound-01.aiff */,
+				772459BD1F1E1CD7006CA335 /* Sound-02.aiff */,
+				772459BE1F1E1CD7006CA335 /* Sound-03.aiff */,
+				772459BF1F1E1CD7006CA335 /* Sound-04.aiff */,
+			);
+			path = "Beep Sounds";
+			sourceTree = "<group>";
+		};
 		772A13E71ED5E95A0043C58B /* App Files */ = {
 			isa = PBXGroup;
 			children = (
 				772A13D91ED5E8950043C58B /* Info.plist */,
+				771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */,
 				772A13D41ED5E8840043C58B /* LGV_Timer_AppDelegate.swift */,
 				77BB98E01F12838F0062B14A /* LGV_Timer_TimerEngine.swift */,
 			);
@@ -209,18 +241,6 @@
 				775228AD1F1804BB0054474D /* UIKit+Extensions.swift */,
 			);
 			path = SwipeableTabBarController;
-			sourceTree = "<group>";
-		};
-		775ACED81ED5C25A0097FF5C /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				772A13DE1ED5E8BA0043C58B /* LGV_Timer_Main.storyboard */,
-				772A13DC1ED5E8BA0043C58B /* LGV_Timer_LaunchScreen.storyboard */,
-				777DE4E81EDF224400B1805A /* LGV_Timer_ColorThemes.xib */,
-				772A13E51ED5E8F80043C58B /* LGV_Timer_Assets.xcassets */,
-				77D2BB1F1EE5A531004B8098 /* Beep Sounds */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		775ACED91ED5C26C0097FF5C /* ViewControllers */ = {
@@ -244,20 +264,10 @@
 			children = (
 				772A13E71ED5E95A0043C58B /* App Files */,
 				775ACED91ED5C26C0097FF5C /* ViewControllers */,
+				772459B71F1E1CD7006CA335 /* Resources */,
 				775228A71F1804BB0054474D /* SwipeableTabBarController */,
-				775ACED81ED5C25A0097FF5C /* Resources */,
 			);
 			path = LGV_Timer;
-			sourceTree = "<group>";
-		};
-		778D87281EF405D6004D848D /* Shared Between Watch and Phone */ = {
-			isa = PBXGroup;
-			children = (
-				771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */,
-				772A13E01ED5E8BA0043C58B /* Localizable.strings */,
-				77AF8C591ED84EC100C88759 /* Let's go Digital Regular.ttf */,
-			);
-			name = "Shared Between Watch and Phone";
 			sourceTree = "<group>";
 		};
 		77CBF4031EF7F6F000B4D4C6 /* X-Timer Companion */ = {
@@ -294,25 +304,11 @@
 			name = "LED Display Classes";
 			sourceTree = "<group>";
 		};
-		77D2BB1F1EE5A531004B8098 /* Beep Sounds */ = {
-			isa = PBXGroup;
-			children = (
-				77D2BB201EE5A531004B8098 /* Sound-00.aiff */,
-				77D2BB211EE5A531004B8098 /* Sound-01.aiff */,
-				77D2BB221EE5A531004B8098 /* Sound-02.aiff */,
-				77D2BB231EE5A531004B8098 /* Sound-03.aiff */,
-				77D2BB241EE5A531004B8098 /* Sound-04.aiff */,
-			);
-			name = "Beep Sounds";
-			path = "App Files/Beep Sounds";
-			sourceTree = "<group>";
-		};
 		77EFB3D31ED5C1A800BDDEFF = {
 			isa = PBXGroup;
 			children = (
 				77B291131ED5C37C00AD3720 /* README.md */,
 				77CD9AA81F0FCD8100EB4134 /* LED Display Classes */,
-				778D87281EF405D6004D848D /* Shared Between Watch and Phone */,
 				775ACEDA1ED5C2BA0097FF5C /* LGV_Timer */,
 				77CBF4031EF7F6F000B4D4C6 /* X-Timer Companion */,
 				77CBF4121EF7F6F000B4D4C6 /* X-Timer Companion Extension */,
@@ -443,6 +439,7 @@
 			knownRegions = (
 				en,
 				Base,
+				global,
 			);
 			mainGroup = 77EFB3D31ED5C1A800BDDEFF;
 			productRefGroup = 77EFB3DD1ED5C1A800BDDEFF /* Products */;
@@ -462,17 +459,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				770F0ED41F1908B400647341 /* LGV_Timer_Assets.xcassets in Resources */,
-				770F0ED81F1908B900647341 /* Sound-03.aiff in Resources */,
-				770F0ED71F1908B900647341 /* Sound-02.aiff in Resources */,
-				770F0EDC1F19098E00647341 /* Let's go Digital Regular.ttf in Resources */,
-				770F0ED51F1908B900647341 /* Sound-00.aiff in Resources */,
-				770F0ED21F1908B000647341 /* LGV_Timer_LaunchScreen.storyboard in Resources */,
-				770F0ED61F1908B900647341 /* Sound-01.aiff in Resources */,
-				770F0EBF1F19088900647341 /* Localizable.strings in Resources */,
-				770F0ED91F1908B900647341 /* Sound-04.aiff in Resources */,
-				770F0ED11F1908B000647341 /* LGV_Timer_Main.storyboard in Resources */,
-				770F0ED31F1908B000647341 /* LGV_Timer_ColorThemes.xib in Resources */,
+				772459D91F1E1D20006CA335 /* LGV_Timer_Main.storyboard in Resources */,
+				772459D11F1E1D18006CA335 /* Sound-02.aiff in Resources */,
+				772459EB1F1E1E52006CA335 /* Localizable.strings in Resources */,
+				772459C61F1E1D01006CA335 /* Let's go Digital Regular.ttf in Resources */,
+				772459D31F1E1D18006CA335 /* Sound-04.aiff in Resources */,
+				772459D01F1E1D18006CA335 /* Sound-01.aiff in Resources */,
+				772459D71F1E1D20006CA335 /* LGV_Timer_ColorThemes.xib in Resources */,
+				772459C91F1E1D11006CA335 /* LGV_Timer_Assets.xcassets in Resources */,
+				772459CF1F1E1D18006CA335 /* Sound-00.aiff in Resources */,
+				772459D21F1E1D18006CA335 /* Sound-03.aiff in Resources */,
+				772459D81F1E1D20006CA335 /* LGV_Timer_LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,8 +478,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				77CBF4081EF7F6F000B4D4C6 /* Assets.xcassets in Resources */,
-				776B24CD1EF7F7BD00CBA571 /* Let's go Digital Regular.ttf in Resources */,
-				776B24CC1EF7F7B900CBA571 /* Localizable.strings in Resources */,
+				772459E61F1E1E37006CA335 /* Sound-04.aiff in Resources */,
+				772459E41F1E1E37006CA335 /* Sound-02.aiff in Resources */,
+				772459E51F1E1E37006CA335 /* Sound-03.aiff in Resources */,
+				772459EC1F1E1E52006CA335 /* Localizable.strings in Resources */,
+				772459E21F1E1E37006CA335 /* Sound-00.aiff in Resources */,
+				772459C71F1E1D02006CA335 /* Let's go Digital Regular.ttf in Resources */,
+				772459E31F1E1E37006CA335 /* Sound-01.aiff in Resources */,
 				77CBF4061EF7F6F000B4D4C6 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,17 +501,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77D2BB251EE5A531004B8098 /* Sound-00.aiff in Resources */,
-				77D2BB261EE5A531004B8098 /* Sound-01.aiff in Resources */,
-				77D2BB271EE5A531004B8098 /* Sound-02.aiff in Resources */,
-				77D2BB281EE5A531004B8098 /* Sound-03.aiff in Resources */,
-				77D2BB291EE5A531004B8098 /* Sound-04.aiff in Resources */,
-				77AF8C5A1ED84EC100C88759 /* Let's go Digital Regular.ttf in Resources */,
-				772A13E21ED5E8BA0043C58B /* LGV_Timer_LaunchScreen.storyboard in Resources */,
-				772A13E31ED5E8BA0043C58B /* LGV_Timer_Main.storyboard in Resources */,
-				777DE4EA1EDF224400B1805A /* LGV_Timer_ColorThemes.xib in Resources */,
-				772A13E41ED5E8BA0043C58B /* Localizable.strings in Resources */,
-				772A13E61ED5E8F80043C58B /* LGV_Timer_Assets.xcassets in Resources */,
+				772459D61F1E1D1F006CA335 /* LGV_Timer_Main.storyboard in Resources */,
+				772459CC1F1E1D17006CA335 /* Sound-02.aiff in Resources */,
+				772459EA1F1E1E52006CA335 /* Localizable.strings in Resources */,
+				772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */,
+				772459CE1F1E1D17006CA335 /* Sound-04.aiff in Resources */,
+				772459CB1F1E1D17006CA335 /* Sound-01.aiff in Resources */,
+				772459D41F1E1D1F006CA335 /* LGV_Timer_ColorThemes.xib in Resources */,
+				772459C81F1E1D10006CA335 /* LGV_Timer_Assets.xcassets in Resources */,
+				772459CA1F1E1D17006CA335 /* Sound-00.aiff in Resources */,
+				772459CD1F1E1D17006CA335 /* Sound-03.aiff in Resources */,
+				772459D51F1E1D1F006CA335 /* LGV_Timer_LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,37 +601,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		772A13DC1ED5E8BA0043C58B /* LGV_Timer_LaunchScreen.storyboard */ = {
+		772459E81F1E1E52006CA335 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				772A13DD1ED5E8BA0043C58B /* Base */,
-			);
-			name = LGV_Timer_LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		772A13DE1ED5E8BA0043C58B /* LGV_Timer_Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				772A13DF1ED5E8BA0043C58B /* Base */,
-			);
-			name = LGV_Timer_Main.storyboard;
-			sourceTree = "<group>";
-		};
-		772A13E01ED5E8BA0043C58B /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				772A13E11ED5E8BA0043C58B /* Base */,
+				772459ED1F1E1E6A006CA335 /* global */,
 			);
 			name = Localizable.strings;
-			path = LGV_Timer;
-			sourceTree = "<group>";
-		};
-		777DE4E81EDF224400B1805A /* LGV_Timer_ColorThemes.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				777DE4E91EDF224400B1805A /* Base */,
-			);
-			name = LGV_Timer_ColorThemes.xib;
 			sourceTree = "<group>";
 		};
 		77CBF4041EF7F6F000B4D4C6 /* Interface.storyboard */ = {

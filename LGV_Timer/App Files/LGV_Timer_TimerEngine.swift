@@ -659,22 +659,20 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_AppStatusDelegate {
     /**
      */
     @objc func timerCallback(_ inTimer: Timer) {
-        if let selectedTimer = self.selectedTimer {
-            if (.Invalid != selectedTimer.timerStatus) && (.Stopped != selectedTimer.timerStatus) && (.Paused != selectedTimer.timerStatus) {
-                if .Alarm == selectedTimer.timerStatus {
-                    if type(of: self).timerAlarmInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
-                        self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
-                        DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            if let selectedTimer = self.selectedTimer {
+                if (.Invalid != selectedTimer.timerStatus) && (.Stopped != selectedTimer.timerStatus) && (.Paused != selectedTimer.timerStatus) {
+                    if .Alarm == selectedTimer.timerStatus {
+                        if type(of: self).timerAlarmInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
+                            self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
                             if nil != self.delegate {
                                 self.delegate.timerSetting(selectedTimer, alarm: self._alarmCount)
                             }
+                            self._alarmCount += 1
                         }
-                        self._alarmCount += 1
-                    }
-                } else {
-                    if type(of: self).timerTickInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
-                        self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
-                        DispatchQueue.main.async {
+                    } else {
+                        if type(of: self).timerTickInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
+                            self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
                             selectedTimer.currentTime = Swift.max(0, selectedTimer.currentTime - 1)
                             switch selectedTimer.currentTime {
                             case 0:
@@ -687,7 +685,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_AppStatusDelegate {
                             default:
                                 selectedTimer.timerStatus = .Running
                             }
-                       }
+                        }
                     }
                 }
             }

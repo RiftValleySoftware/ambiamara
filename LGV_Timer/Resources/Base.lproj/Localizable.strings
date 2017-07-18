@@ -1,0 +1,68 @@
+/* 
+  Localizable.strings
+  LGV_Timer
+
+  Created by Chris Marshall on 5/24/17.
+  Copyright © 2017 Little Green Viper Software Development LLC. All rights reserved.
+*/
+/* ###################################################################################################################################### */
+/**
+ */
+"LGV_TIMER-SETUP-TITLE"                                 =   "Timer List";
+"LGV_TIMER-TIMER-TITLE-FORMAT"                          =   "Timer %d";
+"LGV_TIMER-TIMER-SETUP-TITLE"                           =   "Timer Setup";
+
+"LGV_TIMER-SET-LABEL"                                   =   "Set Timer";
+
+"LGV_TIMER-PAUSED"                                      =   "X";
+
+"LGV_TIMER-SETUP-TIME-SET-LABEL"                        =   "Set Start Time";
+"LGV_TIMER-SETUP-TIMER-MODE-LABEL"                      =   "Timer Mode";
+"LGV_TIMER-SETUP-TIMER-MODE-SWITCH-0"                   =   "Digital Mode";
+"LGV_TIMER-SETUP-TIMER-MODE-SWITCH-1"                   =   "Podium Mode";
+"LGV_TIMER-SETUP-TIMER-MODE-SWITCH-2"                   =   "Dual Mode";
+"LGV_TIMER-SETUP-WARNING-SET-LABEL"                     =   "Podium Warning (Yellow) Time";
+"LGV_TIMER-SETUP-FINAL-SET-LABEL"                       =   "Podium Final (Red) Time";
+"LGV_TIMER-SETUP-COLOR-THEME-LABEL"                     =   "Digital Display Color";
+"LGV_TIMER-SETUP-ALERT-MODE-LABEL"                      =   "Alert Mode";
+"LGV_TIMER-SETUP-ALERT-MODE-0"                          =   "Silent";
+"LGV_TIMER-SETUP-ALERT-MODE-1"                          =   "Vibrate";
+"LGV_TIMER-SETUP-ALERT-MODE-2"                          =   "Sound";
+"LGV_TIMER-SETUP-ALERT-MODE-3"                          =   "Both";
+"LGV_TIMER-SETUP-TIMER-SOUND-LABEL"                     =   "Alert Sound";
+
+"LGV_TIMER-TIME-PICKER-HOUR-FORMAT"                     =   "%d Hour";
+"LGV_TIMER-TIME-PICKER-HOURS-FORMAT"                    =   "%d Hours";
+"LGV_TIMER-TIME-PICKER-MINUTE-FORMAT"                   =   "%d Minute";
+"LGV_TIMER-TIME-PICKER-MINUTES-FORMAT"                  =   "%d Minutes";
+"LGV_TIMER-TIME-PICKER-SECOND-FORMAT"                   =   "%d Second";
+"LGV_TIMER-TIME-PICKER-SECONDS-FORMAT"                  =   "%d Seconds";
+
+"DELETE-HEADER"                                         =   "Are You Sure?";
+"DELETE-MESSAGE-FORMAT"                                 =   "If you select \"Delete,\" it will delete Timer %d. Are you sure that you want do this?";
+"DELETE-OK-BUTTON"                                      =   "Delete";
+"DELETE-CANCEL-BUTTON"                                  =   "Cancel";
+"BASIC-OK-BUTTON"                                       =   "OK";
+
+"LGV_TIMER-COLOR-THEME-RED"                             =   "Red";
+"LGV_TIMER-COLOR-THEME-BLUE"                            =   "Blue";
+"LGV_TIMER-COLOR-THEME-GREEN"                           =   "Green";
+"LGV_TIMER-COLOR-THEME-YELLOW"                          =   "Yellow";
+"LGV_TIMER-COLOR-THEME-PURPLE"                          =   "Purple";
+"LGV_TIMER-COLOR-THEME-CYAN"                            =   "Cyan";
+"LGV_TIMER-COLOR-THEME-MAGENTA"                         =   "Magenta";
+"LGV_TIMER-COLOR-THEME-WHITE"                           =   "White";
+"LGV_TIMER-COLOR-THEME-GRAY"                            =   "Gray";
+"LGV_TIMER-COLOR-THEME-BURGUNDY"                        =   "Burgundy";
+"LGV_TIMER-COLOR-THEME-GOLDENROD"                       =   "Goldenrod";
+"LGV_TIMER-COLOR-THEME-SKYBLUE"                         =   "Sky Blue";
+
+"LGV_TIMER-INFO-TITLE-FORMAT"                           =   "About X-Timer V. %@";
+"LGV_TIMER-ABOUT-SHORT-BLURB"                           =   "X-Timer is short for \"eXtremely useful countdown Timer.\" It's a countdown timer app that has been designed from Day One to be usable and handy.";
+"LGV_TIMER-ABOUT-LONG-BLURB"                            =   "You create new timers by touching the \"+\" button at the top right, and delete them by swiping left.\nTimers are available for one-touch selection in the Tab Bar, on the bottom of the screen.\nYou start, pause and stop the timers through standard buttons in the top navigation bars.\nEach timer can be set with different characteristics, such as sounds and colors.\nAn option is \"Podium Mode,\" which presents 3 \"traffic lights\" that go from green, to yellow, to red.\nThis app requires that you turn off mute in order for audible alarms to be heard. If your device does not support vibration, then the \"Vibrate\" mode will not work.";
+"LGV_TIMER-ABOUT-LGV-BLURB-1"                           =   "X-Timer is a Little Green Viper Project.";
+"LGV_TIMER-ABOUT-LGV-BLURB-2"                           =   "Find out more at https://littlegreenviper.com";
+"LGV_TIMER-ABOUT-LGV-BLURB-URI"                         =   "https://littlegreenviper.com";
+
+"LGV_TIMER-WATCH-NOT-ACTIVE-TOP-MESSAGE"                =   "The phone app";
+"LGV_TIMER-WATCH-NOT-ACTIVE-BOTTOM-MESSAGE"             =   "is not active";
