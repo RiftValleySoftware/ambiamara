@@ -16,6 +16,7 @@ import Foundation
 // MARK: - Various Strings, Used in Messaging -
 /* ###################################################################################################################################### */
 /**
+ These are the main message keys between the app and the Watch.
  */
 class LGV_Timer_Messages {
     static let s_timerListHowdyMessageKey = "Howdy"
@@ -42,6 +43,7 @@ class LGV_Timer_Messages {
 }
 
 /**
+ These are the data keys for each timer object.
  */
 class LGV_Timer_Data_Keys {
     static let s_timerDataUIDKey = "UID"
