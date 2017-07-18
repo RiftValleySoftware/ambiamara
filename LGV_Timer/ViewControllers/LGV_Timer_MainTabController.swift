@@ -42,30 +42,32 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
      This function rebuilds the entire timer hierarchy from scratch.
      */
     func updateTimers() {
-        self.activeTimerSetConrollers = []
-        
-        while 1 < (self.viewControllers?.count)! {
-            self.viewControllers?.remove(at: 1)
-        }
-        
-        for timer in self.timerEngine {
-            self.addTimer(timer)
-        }
-        
-        self.moreNavigationController.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor
-        if let barStyle = self.navigationController?.navigationBar.barStyle {
-            self.moreNavigationController.navigationBar.barStyle = barStyle
-        }
-        self.moreNavigationController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
-        self.moreNavigationController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
-        self.moreNavigationController.view.tintColor = UIColor.black
-        
-        self.customizableViewControllers = []
-        
-        if let timerListNavController = self.viewControllers?[0] as? LGV_Timer_TimerSettingsNavController {
-            if let timerSettingsController = timerListNavController.viewControllers[0] as? LGV_Timer_SettingsViewController {
-                if nil != timerSettingsController.timerTableView {
-                    timerSettingsController.timerTableView.reloadData()
+        DispatchQueue.main.async {
+            self.activeTimerSetConrollers = []
+            
+            while 1 < (self.viewControllers?.count)! {
+                self.viewControllers?.remove(at: 1)
+            }
+            
+            for timer in self.timerEngine {
+                self.addTimer(timer)
+            }
+            
+            self.moreNavigationController.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor
+            if let barStyle = self.navigationController?.navigationBar.barStyle {
+                self.moreNavigationController.navigationBar.barStyle = barStyle
+            }
+            self.moreNavigationController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
+            self.moreNavigationController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
+            self.moreNavigationController.view.tintColor = UIColor.black
+            
+            self.customizableViewControllers = []
+            
+            if let timerListNavController = self.viewControllers?[0] as? LGV_Timer_TimerSettingsNavController {
+                if let timerSettingsController = timerListNavController.viewControllers[0] as? LGV_Timer_SettingsViewController {
+                    if nil != timerSettingsController.timerTableView {
+                        timerSettingsController.timerTableView.reloadData()
+                    }
                 }
             }
         }
@@ -126,8 +128,10 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
      */
     func selectTimer(_ inTimerIndex: Int) {
         let timerIndex = 1 + inTimerIndex
-        if self.selectedViewController != self.viewControllers?[timerIndex] {
-            self.selectedViewController = self.viewControllers?[timerIndex]
+        DispatchQueue.main.async {
+            if self.selectedViewController != self.viewControllers?[timerIndex] {
+                self.selectedViewController = self.viewControllers?[timerIndex]
+            }
         }
     }
     

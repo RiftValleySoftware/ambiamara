@@ -404,6 +404,7 @@
 		77EFB3D41ED5C1A800BDDEFF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = LGV_Timer_;
 				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Little Green Viper Software Development LLC";

@@ -117,10 +117,10 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      Returns the current app status.
      */
-    var appStatus: LGV_Timer_AppStatus! {
+    var appState: LGV_Timer_State! {
         get {
             if nil != self.timerEngine {
-                return self.timerEngine.appStatus
+                return self.timerEngine.appState
             } else {
                 return nil
             }

@@ -287,7 +287,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         case UID                = "UID"
     }
     
-    var handler: LGV_Timer_AppStatus!   ///< This is the App Status object that "owns" this instance.
+    var handler: LGV_Timer_State!   ///< This is the App Status object that "owns" this instance.
     var uid: String                     ///< This will be a unique ID, assigned to the pref, so we can match it.
     var firstTick: TimeInterval = 0.0   ///< This will be used to track the timer progress.
     var lastTick: TimeInterval = 0.0    ///< This will be used to track the timer progress.
@@ -438,7 +438,7 @@ class TimerSettingTuple: NSObject, NSCoding {
      :param: soundID This is the ID of the sound to play (when in mode 1 or 2).
      :param: uid This is a unique ID for this setting. It can be defaulted.
      */
-    convenience init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, currentTime: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, alertVolume: Int, soundID: Int, timerStatus: TimerStatus, uid: String!, handler: LGV_Timer_AppStatus! = nil) {
+    convenience init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, currentTime: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, alertVolume: Int, soundID: Int, timerStatus: TimerStatus, uid: String!, handler: LGV_Timer_State! = nil) {
         self.init()
         
         self.timeSet = timeSet
@@ -625,20 +625,20 @@ class TimerSettingTuple: NSObject, NSCoding {
  This protocol allows observers of the app status.
  */
 protocol LGV_Timer_AppStatusDelegate {
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerStatus: TimerSettingTuple, from: TimerStatus)
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerDisplayMode: TimerSettingTuple, from: TimerDisplayMode)
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerCurrentTime: TimerSettingTuple, from: Int)
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerSoundID: TimerSettingTuple, from: Int)
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerAlertMode: TimerSettingTuple, from: AlertMode)
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerColorTheme: TimerSettingTuple, from: Int)
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerWarnTime: TimerSettingTuple, from: Int)
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerFinalTime: TimerSettingTuple, from: Int)
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didUpdateTimerTimeSet: TimerSettingTuple, from: Int)
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didAddTimer: TimerSettingTuple)
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, willRemoveTimer: TimerSettingTuple)
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didRemoveTimerAtIndex: Int)
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didSelectTimer: TimerSettingTuple!)
-    func appStatus(_ appStatus: LGV_Timer_AppStatus, didDeselectTimer: TimerSettingTuple)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerStatus: TimerSettingTuple, from: TimerStatus)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerDisplayMode: TimerSettingTuple, from: TimerDisplayMode)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerCurrentTime: TimerSettingTuple, from: Int)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerSoundID: TimerSettingTuple, from: Int)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerAlertMode: TimerSettingTuple, from: AlertMode)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerColorTheme: TimerSettingTuple, from: Int)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerWarnTime: TimerSettingTuple, from: Int)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerFinalTime: TimerSettingTuple, from: Int)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerTimeSet: TimerSettingTuple, from: Int)
+    func appState(_ appState: LGV_Timer_State, didAddTimer: TimerSettingTuple)
+    func appState(_ appState: LGV_Timer_State, willRemoveTimer: TimerSettingTuple)
+    func appState(_ appState: LGV_Timer_State, didRemoveTimerAtIndex: Int)
+    func appState(_ appState: LGV_Timer_State, didSelectTimer: TimerSettingTuple!)
+    func appState(_ appState: LGV_Timer_State, didDeselectTimer: TimerSettingTuple)
 }
 
 // MARK: - LGV_Timer_AppStatus Class -
@@ -646,7 +646,7 @@ protocol LGV_Timer_AppStatusDelegate {
 /**
  This class encapsulates the entire app status.
  */
-class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
+class LGV_Timer_State: NSObject, NSCoding, Sequence {
     private enum AppStateKeys: String {
         case Timers         = "Timers"
         case SelectedTimer  = "SelectedTimer"
@@ -681,32 +681,30 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
         }
         
         set {
-            if let oldTimer = self.selectedTimer {
-                if oldTimer.uid != newValue.uid {
-                    DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                if let oldTimer = self.selectedTimer {
+                    if oldTimer.uid != newValue.uid {
                         if nil != self.delegate {
-                            self.delegate.appStatus(self, didDeselectTimer: oldTimer)
+                            self.delegate.appState(self, didDeselectTimer: oldTimer)
                         }
                     }
                 }
-            }
-            
-            self._selectedTimer0BasedIndex = -1
-            
-            if let setValue = newValue {
-                for index in 0..<self._timers.count {
-                    if self._timers[index].uid == setValue.uid {
-                        self._selectedTimer0BasedIndex = index
-                        DispatchQueue.main.async {
-                            if nil != self.delegate {
-                                self.delegate.appStatus(self, didSelectTimer: self._timers[index])
-                            }
-                        }
-                        break
-                    }
-                }
-            } else {
+                
                 self._selectedTimer0BasedIndex = -1
+                
+                if let setValue = newValue {
+                    for index in 0..<self._timers.count {
+                        if self._timers[index].uid == setValue.uid {
+                            self._selectedTimer0BasedIndex = index
+                            if nil != self.delegate {
+                                self.delegate.appState(self, didSelectTimer: self._timers[index])
+                            }
+                            break
+                        }
+                    }
+                } else {
+                    self._selectedTimer0BasedIndex = -1
+                }
             }
         }
     }
@@ -717,23 +715,23 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     var selectedTimerIndex: Int {
         get { return self._selectedTimer0BasedIndex }
         set {
-            let oldTimer = self.selectedTimer
-            var newTimer: TimerSettingTuple! = nil
-            
-            if 0..<self._timers.count ~= newValue {
-                self._selectedTimer0BasedIndex = newValue
-                newTimer = self.selectedTimer
-            } else {
-                self._selectedTimer0BasedIndex = -1
-            }
-            
             DispatchQueue.main.async {
+                let oldTimer = self.selectedTimer
+                var newTimer: TimerSettingTuple! = nil
+                
+                if 0..<self._timers.count ~= newValue {
+                    self._selectedTimer0BasedIndex = newValue
+                    newTimer = self.selectedTimer
+                } else {
+                    self._selectedTimer0BasedIndex = -1
+                }
+                
                 if nil != self.delegate {
                     if nil != oldTimer {
-                        self.delegate.appStatus(self, didDeselectTimer: oldTimer!)
+                        self.delegate.appState(self, didDeselectTimer: oldTimer!)
                     }
                     
-                    self.delegate.appStatus(self, didSelectTimer: newTimer)
+                    self.delegate.appState(self, didSelectTimer: newTimer)
                 }
             }
         }
@@ -754,32 +752,30 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
         }
         
         set {
-            if let oldTimer = self.selectedTimer {
-                if oldTimer.uid != newValue {
-                    DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                if let oldTimer = self.selectedTimer {
+                    if oldTimer.uid != newValue {
                         if nil != self.delegate {
-                            self.delegate.appStatus(self, didDeselectTimer: oldTimer)
+                            self.delegate.appState(self, didDeselectTimer: oldTimer)
                         }
                     }
                 }
-            }
-            
-            self._selectedTimer0BasedIndex = -1
-            
-            if !newValue.isEmpty {
-                for index in 0..<self._timers.count {
-                    if self._timers[index].uid == newValue {
-                        self._selectedTimer0BasedIndex = index
-                        DispatchQueue.main.async {
-                            if nil != self.delegate {
-                                self.delegate.appStatus(self, didSelectTimer: self._timers[index])
-                            }
-                        }
-                        break
-                    }
-                }
-            } else {
+                
                 self._selectedTimer0BasedIndex = -1
+                
+                if !newValue.isEmpty {
+                    for index in 0..<self._timers.count {
+                        if self._timers[index].uid == newValue {
+                            self._selectedTimer0BasedIndex = index
+                            if nil != self.delegate {
+                                self.delegate.appState(self, didSelectTimer: self._timers[index])
+                            }
+                            break
+                        }
+                    }
+                } else {
+                    self._selectedTimer0BasedIndex = -1
+                }
             }
         }
     }
@@ -804,9 +800,11 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     var timers: [TimerSettingTuple] {
         get { return self._timers }
         set {
-            self._timers = newValue
-            if !(0..<self.count ~= self.selectedTimerIndex) {
-                self._selectedTimer0BasedIndex = -1
+            DispatchQueue.main.async {
+                self._timers = newValue
+                if !(0..<self.count ~= self.selectedTimerIndex) {
+                    self._selectedTimer0BasedIndex = -1
+                }
             }
         }
     }
@@ -830,11 +828,11 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
         
         ret.handler = self
         
-        self.append(ret)
-        
         DispatchQueue.main.async {
+            self.append(ret)
+            
             if nil != self.delegate {
-                self.delegate.appStatus(self, didAddTimer: ret)
+                self.delegate.appState(self, didAddTimer: ret)
             }
         }
         
@@ -847,7 +845,7 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     func sendTimeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
             if nil != self.delegate {
-                self.delegate.appStatus(self, didUpdateTimerCurrentTime: inTimerObject, from: from)
+                self.delegate.appState(self, didUpdateTimerCurrentTime: inTimerObject, from: from)
             }
         }
     }
@@ -858,7 +856,7 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     func sendSoundIDUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
             if nil != self.delegate {
-                self.delegate.appStatus(self, didUpdateTimerSoundID: inTimerObject, from: from)
+                self.delegate.appState(self, didUpdateTimerSoundID: inTimerObject, from: from)
             }
         }
     }
@@ -869,7 +867,7 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     func sendAlertModeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: AlertMode) {
         DispatchQueue.main.async {
             if nil != self.delegate {
-                self.delegate.appStatus(self, didUpdateTimerAlertMode: inTimerObject, from: from)
+                self.delegate.appState(self, didUpdateTimerAlertMode: inTimerObject, from: from)
             }
         }
     }
@@ -880,7 +878,7 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     func sendColorThemeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
             if nil != self.delegate {
-                self.delegate.appStatus(self, didUpdateTimerColorTheme: inTimerObject, from: from)
+                self.delegate.appState(self, didUpdateTimerColorTheme: inTimerObject, from: from)
             }
         }
     }
@@ -891,7 +889,7 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     func sendSetTimeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
             if nil != self.delegate {
-                self.delegate.appStatus(self, didUpdateTimerTimeSet: inTimerObject, from: from)
+                self.delegate.appState(self, didUpdateTimerTimeSet: inTimerObject, from: from)
             }
         }
     }
@@ -902,7 +900,7 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     func sendWarnTimeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
             if nil != self.delegate {
-                self.delegate.appStatus(self, didUpdateTimerWarnTime: inTimerObject, from: from)
+                self.delegate.appState(self, didUpdateTimerWarnTime: inTimerObject, from: from)
             }
         }
     }
@@ -913,7 +911,7 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     func sendFinalTimeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
             if nil != self.delegate {
-                self.delegate.appStatus(self, didUpdateTimerFinalTime: inTimerObject, from: from)
+                self.delegate.appState(self, didUpdateTimerFinalTime: inTimerObject, from: from)
             }
         }
     }
@@ -924,7 +922,7 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     func sendStatusUpdateMessage(_ inTimerObject: TimerSettingTuple, from: TimerStatus) {
         DispatchQueue.main.async {
             if nil != self.delegate {
-                self.delegate.appStatus(self, didUpdateTimerStatus: inTimerObject, from: from)
+                self.delegate.appState(self, didUpdateTimerStatus: inTimerObject, from: from)
             }
         }
     }
@@ -935,7 +933,7 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     func sendDisplayModeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: TimerDisplayMode) {
         DispatchQueue.main.async {
             if nil != self.delegate {
-                self.delegate.appStatus(self, didUpdateTimerDisplayMode: inTimerObject, from: from)
+                self.delegate.appState(self, didUpdateTimerDisplayMode: inTimerObject, from: from)
             }
         }
     }
@@ -1006,7 +1004,9 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
     /**
      */
     func append(_ inObject: TimerSettingTuple) {
-        self._timers.append(inObject)
+        DispatchQueue.main.async {
+            self._timers.append(inObject)
+        }
     }
     
     /* ################################################################## */
@@ -1018,7 +1018,7 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
                 let timer = self[index]
                 
                 if nil != self.delegate {
-                    self.delegate.appStatus(self, willRemoveTimer: timer)
+                    self.delegate.appState(self, willRemoveTimer: timer)
                 }
                 
                 self._timers.remove(at: index)
@@ -1031,7 +1031,7 @@ class LGV_Timer_AppStatus: NSObject, NSCoding, Sequence {
                 }
                 
                 if nil != self.delegate {
-                    self.delegate.appStatus(self, didRemoveTimerAtIndex: index)
+                    self.delegate.appState(self, didRemoveTimerAtIndex: index)
                 }
             }
         }
