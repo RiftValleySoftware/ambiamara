@@ -247,7 +247,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_AppStatusDelegate {
             tempSetting.uid = NSUUID().uuidString
         }
         
-        tempSetting.timerStatus = (0 < tempSetting.timeSet) ? .Stopped : .Invalid
+        tempSetting.timerStatus = .Stopped
         
         return tempSetting
     }
@@ -301,6 +301,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_AppStatusDelegate {
      */
     private func _loadPrefs() {
         self.appState = LGV_Timer_State(delegate: self)
+        
         if let loadedPrefs = UserDefaults.standard.object(forKey: type(of: self)._mainPrefsKey) as? NSDictionary {
             var timers: [TimerSettingTuple] = []
             
@@ -318,28 +319,27 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_AppStatusDelegate {
                 self.timers = timers
                 UserDefaults.standard.removeObject(forKey: type(of: self)._mainPrefsKey)
                 self.selectedTimerIndex = -1
-                self.savePrefs()
             }
        } else {
             if let temp = UserDefaults.standard.object(forKey: type(of: self)._appStatePrefsKey) as? Data {
                 if let temp2 = NSKeyedUnarchiver.unarchiveObject(with: temp) as? LGV_Timer_State {
-                    for timer in temp2.timers {
-                        timer.timerStatus = (0 < timer.timeSet) ? .Stopped : .Invalid
-                        timer.handler = temp2
-                    }
-                    
                     self.appState = temp2
                     self.appState.delegate = self
+                    for timer in self.appState.timers {
+                        timer.timerStatus = .Stopped
+                        timer.handler = self.appState
+                    }
                 }
             }
         }
         
         // We are not allowed to have zero timers.
-        if timers.isEmpty {
+        if self.timers.isEmpty {
             let _ = self.createNewTimer()
         }
         
         self.selectedTimerIndex = -1
+        self.savePrefs()
     }
     
     // MARK: - Instance Methods
@@ -653,7 +653,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_AppStatusDelegate {
     @objc func timerCallback(_ inTimer: Timer) {
         DispatchQueue.main.async {
             if let selectedTimer = self.selectedTimer {
-                if (.Invalid != selectedTimer.timerStatus) && (.Stopped != selectedTimer.timerStatus) && (.Paused != selectedTimer.timerStatus) {
+                if (.Stopped != selectedTimer.timerStatus) && (.Paused != selectedTimer.timerStatus) {
                     if .Alarm == selectedTimer.timerStatus {
                         if type(of: self).timerAlarmInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
                             self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
@@ -666,15 +666,19 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_AppStatusDelegate {
                         if type(of: self).timerTickInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
                             self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
                             selectedTimer.currentTime = Swift.max(0, selectedTimer.currentTime - 1)
-                            switch selectedTimer.currentTime {
-                            case 0:
-                                self._alarmCount = 0
-                                selectedTimer.timerStatus = .Alarm
-                            case 1...selectedTimer.timeSetPodiumFinal:
-                                selectedTimer.timerStatus = .FinalRun
-                            case (selectedTimer.timeSetPodiumFinal + 1)...selectedTimer.timeSetPodiumWarn:
-                                selectedTimer.timerStatus = .WarnRun
-                            default:
+                            if 0 < selectedTimer.timeSetPodiumFinal {
+                                switch selectedTimer.currentTime {
+                                case 0:
+                                    self._alarmCount = 0
+                                    selectedTimer.timerStatus = .Alarm
+                                case 1...selectedTimer.timeSetPodiumFinal:
+                                    selectedTimer.timerStatus = .FinalRun
+                                case (selectedTimer.timeSetPodiumFinal + 1)...selectedTimer.timeSetPodiumWarn:
+                                    selectedTimer.timerStatus = .WarnRun
+                                default:
+                                    selectedTimer.timerStatus = .Running
+                                }
+                            } else {
                                 selectedTimer.timerStatus = .Running
                             }
                         }

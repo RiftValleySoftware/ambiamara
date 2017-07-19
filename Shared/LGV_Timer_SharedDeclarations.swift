@@ -335,11 +335,14 @@ class TimerSettingTuple: NSObject, NSCoding {
     var timeSet: Int {                  ///< This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
         didSet {
             if oldValue != self.timeSet {
-                self.timeSetPodiumWarn = type(of: self).calcPodiumModeWarningThresholdForTimerValue(self.timeSet)
-                self.timeSetPodiumFinal = type(of: self).calcPodiumModeFinalThresholdForTimerValue(self.timeSet)
                 if nil != self.handler {
                     self.handler.sendSetTimeUpdateMessage(self, from: oldValue)
                 }
+            }
+            
+            if self.timeSet <= self.timeSetPodiumWarn {
+                self.timeSetPodiumWarn = type(of: self).calcPodiumModeWarningThresholdForTimerValue(self.timeSet)
+                self.timeSetPodiumFinal = type(of: self).calcPodiumModeFinalThresholdForTimerValue(self.timeSet)
             }
         }
     }
@@ -387,7 +390,7 @@ class TimerSettingTuple: NSObject, NSCoding {
                     }
                 }
                     
-                if (.Stopped == self.timerStatus) || (.Invalid == self.timerStatus) {
+                if .Stopped == self.timerStatus {
                     self.firstTick = 0.0
                     self.lastTick = 0.0
                 }
@@ -396,7 +399,7 @@ class TimerSettingTuple: NSObject, NSCoding {
                     self.currentTime = self.timeSet
                 }
                 
-                if (.Invalid == self.timerStatus) || (.Alarm == self.timerStatus) {
+                if .Alarm == self.timerStatus {
                     self.currentTime = 0
                 }
                 

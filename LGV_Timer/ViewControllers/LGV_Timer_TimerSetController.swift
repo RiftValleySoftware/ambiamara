@@ -104,7 +104,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         self._setUpDisplay()
         
         if nil != self.runningTimer {
-            if (.Stopped == self.timerObject.timerStatus) || (.Invalid == self.timerObject.timerStatus) {
+            if .Stopped == self.timerObject.timerStatus {
                 self.navigationController?.popViewController(animated: true)
             } else {
                 self.runningTimer.updateTimer()
