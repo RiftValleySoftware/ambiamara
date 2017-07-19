@@ -210,13 +210,13 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
         let animation1 = CABasicAnimation(keyPath: "opacity")
         animation1.fromValue = 0.5
         animation1.toValue = 1.0
-        animation1.duration = 0.05
+        animation1.duration = 0.025
         
         let animation2 = CABasicAnimation(keyPath: "opacity")
-        animation2.beginTime = 0.05
+        animation2.beginTime = 0.025
         animation2.fromValue = 1.0
         animation2.toValue = 0.85
-        animation2.duration = 0.1
+        animation2.duration = 0.15
         
         let animGroup: CAAnimationGroup = CAAnimationGroup()
         

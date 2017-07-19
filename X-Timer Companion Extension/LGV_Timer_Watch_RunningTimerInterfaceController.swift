@@ -67,28 +67,38 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
                 if .Digital != displayMode {
                     if let warnSeconds = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetWarnKey] as? NSNumber)?.intValue {
                         if let finalSeconds = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetFinalKey] as? NSNumber)?.intValue {
-                            switch inSeconds {
-                            case 0:
-                                self.oldMode = .Alarm
-                                self.alarm()
-                                
-                            case 1...finalSeconds:
-                                if .Red != self.oldMode {
-                                    WKInterfaceDevice.current().play(.directionDown)
+                            if (0 < warnSeconds) && (0 < finalSeconds) {
+                                switch inSeconds {
+                                case 0:
+                                    self.oldMode = .Alarm
+                                    self.alarm()
+                                    
+                                case 1...finalSeconds:
+                                    if .Red != self.oldMode {
+                                        WKInterfaceDevice.current().play(.directionDown)
+                                    }
+                                    self.oldMode = .Red
+                                    self.finalLights()
+                                    
+                                case (finalSeconds + 1)...warnSeconds:
+                                    if .Yellow != self.oldMode {
+                                        WKInterfaceDevice.current().play(.click)
+                                    }
+                                    self.oldMode = .Yellow
+                                    self.warningLights()
+                                    
+                                default:
+                                    self.oldMode = .Green
+                                    self.startingLights()
                                 }
-                                self.oldMode = .Red
-                                self.finalLights()
-                                
-                            case (finalSeconds + 1)...warnSeconds:
-                                if .Yellow != self.oldMode {
-                                    WKInterfaceDevice.current().play(.click)
+                            } else {
+                                if 0 == inSeconds {
+                                    self.oldMode = .Alarm
+                                    self.alarm()
+                                } else {
+                                    self.oldMode = .Green
+                                    self.startingLights()
                                 }
-                                self.oldMode = .Yellow
-                                self.warningLights()
-                                
-                            default:
-                                self.oldMode = .Green
-                                self.startingLights()
                             }
                         }
                     }
