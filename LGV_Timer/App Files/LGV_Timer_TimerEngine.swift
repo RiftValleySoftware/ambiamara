@@ -378,12 +378,16 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_AppStatusDelegate {
             if 0 >= selectedTimer.currentTime {
                 self.startTimer()
             } else {
-                switch selectedTimer.currentTime {
-                case 0...selectedTimer.timeSetPodiumFinal:
-                    selectedTimer.timerStatus = .FinalRun
-                case (selectedTimer.timeSetPodiumFinal + 1)...selectedTimer.timeSetPodiumWarn:
-                    selectedTimer.timerStatus = .WarnRun
-                default:
+                if (0 < selectedTimer.timeSetPodiumWarn) && (0 < selectedTimer.timeSetPodiumWarn) {
+                    switch selectedTimer.currentTime {
+                    case 0...selectedTimer.timeSetPodiumFinal:
+                        selectedTimer.timerStatus = .FinalRun
+                    case (selectedTimer.timeSetPodiumFinal + 1)...selectedTimer.timeSetPodiumWarn:
+                        selectedTimer.timerStatus = .WarnRun
+                    default:
+                        selectedTimer.timerStatus = .Running
+                    }
+                } else {
                     selectedTimer.timerStatus = .Running
                 }
             }
