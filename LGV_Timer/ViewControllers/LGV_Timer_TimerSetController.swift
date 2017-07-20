@@ -83,8 +83,10 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         let tabBarImage = self.tabBarImage
         
         if let _ = self.navigationController as? LGV_Timer_TimerNavController {
-            self.tabBarController?.viewControllers?[timerNumber + 1].tabBarItem.image = tabBarImage
-            self.tabBarController?.viewControllers?[timerNumber + 1].tabBarItem.selectedImage = tabBarImage
+            if (self.tabBarController?.viewControllers?.count)! > timerNumber + 1 {
+                self.tabBarController?.viewControllers?[timerNumber + 1].tabBarItem.image = tabBarImage
+                self.tabBarController?.viewControllers?[timerNumber + 1].tabBarItem.selectedImage = tabBarImage
+            }
         }
     }
     
@@ -130,7 +132,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
         }
         
-        self.setupButton.title = self.setupButton.title?.localizedVariant
+        self.setupButton.title = String(format: (self.setupButton.title?.localizedVariant)!, self.timerNumber + 1)
         self.timeSetLabel.text = self.timeSetLabel.text?.localizedVariant
     }
     

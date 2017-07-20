@@ -582,6 +582,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_AppStatusDelegate {
     /**
      */
     subscript(_ index: Int) -> TimerSettingTuple {
+        assert(index < self.appState.timers.count)
         return self.appState[index]
     }
     

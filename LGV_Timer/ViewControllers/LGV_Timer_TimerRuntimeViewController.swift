@@ -316,6 +316,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     override func viewWillAppear(_ animated: Bool) {
+        UIApplication.shared.isIdleTimerDisabled = true
         super.viewWillAppear(animated)
         
         if let navController = self.navigationController {
@@ -324,7 +325,6 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         }
         
         LGV_Timer_AppDelegate.appDelegateObject.currentTimer = self
-        UIApplication.shared.isIdleTimerDisabled = true
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerUID = self.timerObject.uid
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.startTimer()
     }

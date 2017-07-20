@@ -43,20 +43,24 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
         get {
             var displayedString = "";
             let timerNumber = self.timerNumber
-            let prefs = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[timerNumber]
-            let timeTuple = TimeTuple(prefs.timeSet)
-            
-            if 0 < timeTuple.hours {
-                displayedString = String(format: "%02d:%02d:%02d", timeTuple.hours, timeTuple.minutes, timeTuple.seconds)
-            } else {
-                if 0 < timeTuple.minutes {
-                    displayedString = String(format: "%02d:%02d", timeTuple.minutes, timeTuple.seconds)
+            if (0 <= self.timerNumber) && (LGV_Timer_AppDelegate.appDelegateObject.timerEngine.count > self.timerNumber) {
+                let prefs = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[timerNumber]
+                let timeTuple = TimeTuple(prefs.timeSet)
+                
+                if 0 < timeTuple.hours {
+                    displayedString = String(format: "%02d:%02d:%02d", timeTuple.hours, timeTuple.minutes, timeTuple.seconds)
                 } else {
-                    displayedString = String(format: "%02d", timeTuple.seconds)
+                    if 0 < timeTuple.minutes {
+                        displayedString = String(format: "%02d:%02d", timeTuple.minutes, timeTuple.seconds)
+                    } else {
+                        displayedString = String(format: "%02d", timeTuple.seconds)
+                    }
                 }
+                
+                return type(of: self).textAsImage(drawText: displayedString as NSString)
+            } else {
+                return UIImage(named: "Settings")
             }
-            
-            return type(of: self).textAsImage(drawText: displayedString as NSString)
         }
     }
     

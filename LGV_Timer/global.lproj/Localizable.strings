@@ -10,7 +10,7 @@
  */
 "LGV_TIMER-SETUP-TITLE"                                 =   "Timer List";
 "LGV_TIMER-TIMER-TITLE-FORMAT"                          =   "Timer %d";
-"LGV_TIMER-TIMER-SETUP-TITLE"                           =   "Timer Setup";
+"LGV_TIMER-TIMER-SETUP-TITLE"                           =   "Timer %d Setup";
 
 "LGV_TIMER-SET-LABEL"                                   =   "Set Timer";
 

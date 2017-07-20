@@ -295,7 +295,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
             if (.Running == timerSetting.timerStatus) && (.Stopped == changedTimerStatusFrom) {
                 controller.startTimer()
             } else {
-                if .Digital != timerSetting.displayMode {
+                if .Dual == timerSetting.displayMode {
                     if ((.WarnRun == timerSetting.timerStatus) && (.Running == changedTimerStatusFrom)) || ((.FinalRun == timerSetting.timerStatus) && (.WarnRun == changedTimerStatusFrom)) {
                         if let runningTimer = controller.runningTimer {
                             runningTimer.flashDisplay()
