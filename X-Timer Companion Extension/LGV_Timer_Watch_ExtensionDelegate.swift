@@ -273,19 +273,19 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
             switch task {
             case let backgroundTask as WKApplicationRefreshBackgroundTask:
                 // Be sure to complete the background task once you’re done.
-                backgroundTask.setTaskCompleted()
+                backgroundTask.setTaskCompletedWithSnapshot(true)
             case let snapshotTask as WKSnapshotRefreshBackgroundTask:
                 // Snapshot tasks have a unique completion call, make sure to set your expiration date
                 snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
             case let connectivityTask as WKWatchConnectivityRefreshBackgroundTask:
                 self.process(userInfo: connectivityTask.userInfo as! [String : Any])
-                connectivityTask.setTaskCompleted()
+                connectivityTask.setTaskCompletedWithSnapshot(true)
             case let urlSessionTask as WKURLSessionRefreshBackgroundTask:
                 // Be sure to complete the URL session task once you’re done.
-                urlSessionTask.setTaskCompleted()
+                urlSessionTask.setTaskCompletedWithSnapshot(true)
             default:
                 // make sure to complete unhandled task types
-                task.setTaskCompleted()
+                task.setTaskCompletedWithSnapshot(true)
             }
         }
     }
@@ -305,18 +305,17 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func populateScreens(noTimers: Bool) {
-        var screenIDs:[String] = [LGV_Timer_Watch_MainAppInterfaceController.screenID]
-        var contexts:[[String:Any]] = [[:]]
+        var namesAndContexts: [(name: String, context: AnyObject)] = []
         
         if !noTimers {
             for timer in self.timers {
-                screenIDs.append(LGV_Timer_Watch_MainTimerHandlerInterfaceController.screenID)
-                let contextObject = [LGV_Timer_Watch_MainAppInterfaceController.s_ControllerContextKey:self,LGV_Timer_Watch_MainAppInterfaceController.s_TimerContextKey:timer] as [String : Any]
-                contexts.append(contextObject)
+                let nameAndContext: (name: String, context: AnyObject) = (name: LGV_Timer_Watch_MainTimerHandlerInterfaceController.screenID,
+                                                                          context: [LGV_Timer_Watch_MainAppInterfaceController.s_ControllerContextKey:self,LGV_Timer_Watch_MainAppInterfaceController.s_TimerContextKey:timer] as AnyObject)
+                namesAndContexts.append(nameAndContext)
             }
         }
         
-        WKInterfaceController.reloadRootControllers(withNames: screenIDs, contexts: contexts)
+        WKInterfaceController.reloadRootControllers(withNamesAndContexts: namesAndContexts)
     }
     
     /* ################################################################## */

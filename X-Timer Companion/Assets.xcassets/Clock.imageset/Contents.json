@@ -1,0 +1,22 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "images" : [
+    {
+      "idiom" : "watch",
+      "filename" : "Clock~watch.pdf"
+    },
+    {
+      "idiom" : "watch",
+      "filename" : "Clock~watch.pdf",
+      "screenWidth" : "<=145"
+    },
+    {
+      "idiom" : "watch",
+      "filename" : "Clock~watch.pdf",
+      "screenWidth" : ">145"
+    }
+  ]
+}

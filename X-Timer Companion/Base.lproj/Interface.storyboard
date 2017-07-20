@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="i4N-ut-62W">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13122.19" systemVersion="16G29" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="i4N-ut-62W">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="12029"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13034"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Let's go Digital Regular.ttf">
@@ -18,26 +18,6 @@
             <objects>
                 <controller identifier="MainScreen" id="i4N-ut-62W" userLabel="Main App Interface Controller" customClass="LGV_Timer_Watch_MainAppInterfaceController" customModule="X_Timer_Companion_Extension">
                     <items>
-                        <group width="1" height="1" alignment="left" layout="vertical" id="lQa-3d-Y0M" userLabel="No App Connection Display">
-                            <items>
-                                <group width="1" height="1" alignment="left" layout="vertical" id="xtw-fM-Nda">
-                                    <items>
-                                        <label width="1" alignment="left" verticalAlignment="center" text="TOP" textAlignment="center" id="3kZ-LS-I8a" userLabel="TOP">
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
-                                        </label>
-                                        <imageView width="50" height="50" alignment="center" verticalAlignment="center" image="Clock" contentMode="scaleAspectFit" id="FU9-X5-MIv" userLabel="App Icon">
-                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </imageView>
-                                        <label width="1" alignment="left" verticalAlignment="center" text="BOTTOM" textAlignment="center" id="1WQ-zR-wue" userLabel="BOTTOM">
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
-                                        </label>
-                                    </items>
-                                </group>
-                            </items>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </group>
                         <table alignment="left" hidden="YES" id="2Hz-tT-z2U">
                             <items>
                                 <tableRow identifier="TimerRow" id="SvS-RB-JjR" customClass="LGV_Timer_Watch_MainInterfaceTableRowController" customModule="X_Timer_Companion_Extension">
@@ -65,6 +45,26 @@
                                 </tableRow>
                             </items>
                         </table>
+                        <group width="1" height="120" alignment="center" layout="vertical" id="lQa-3d-Y0M" userLabel="No App Connection Display">
+                            <items>
+                                <group width="1" height="1" alignment="left" layout="vertical" id="xtw-fM-Nda">
+                                    <items>
+                                        <label width="1" alignment="left" verticalAlignment="center" text="TOP" textAlignment="center" id="3kZ-LS-I8a" userLabel="TOP">
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                        </label>
+                                        <imageView width="50" height="50" alignment="center" verticalAlignment="center" image="Clock" contentMode="scaleAspectFit" id="FU9-X5-MIv" userLabel="App Icon">
+                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </imageView>
+                                        <label width="1" alignment="left" verticalAlignment="center" text="BOTTOM" textAlignment="center" id="1WQ-zR-wue" userLabel="BOTTOM">
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                        </label>
+                                    </items>
+                                </group>
+                            </items>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </group>
                     </items>
                     <connections>
                         <outlet property="bottomLabel" destination="1WQ-zR-wue" id="Z6G-Sq-HW7"/>
