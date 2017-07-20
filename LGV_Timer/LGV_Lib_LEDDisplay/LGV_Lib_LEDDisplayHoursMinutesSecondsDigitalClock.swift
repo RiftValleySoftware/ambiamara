@@ -163,7 +163,7 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
      */
     private func _generateHexOverlayImage(_ fillShape: UIBezierPath) -> UIImage {
         let path = CGMutablePath()
-        let sHexagonWidth = CGFloat(10)
+        let sHexagonWidth = CGFloat(fillShape.bounds.size.height / 15)
         let radius: CGFloat = sHexagonWidth / 2
         
         let hexPath: CGMutablePath = type(of: self)._getHexPath(radius)

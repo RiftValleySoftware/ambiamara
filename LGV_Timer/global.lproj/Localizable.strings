@@ -56,6 +56,9 @@
 "LGV_TIMER-COLOR-THEME-BURGUNDY"                        =   "Burgundy";
 "LGV_TIMER-COLOR-THEME-GOLDENROD"                       =   "Goldenrod";
 "LGV_TIMER-COLOR-THEME-SKYBLUE"                         =   "Sky Blue";
+"LGV_TIMER-COLOR-THEME-TEAL"                            =   "Teal";
+"LGV_TIMER-COLOR-THEME-ORANGE"                          =   "Orange";
+"LGV_TIMER-COLOR-THEME-LIME-GREEN"                      =   "Lime Green";
 
 "LGV_TIMER-INFO-TITLE-FORMAT"                           =   "About X-Timer V. %@";
 "LGV_TIMER-ABOUT-SHORT-BLURB"                           =   "X-Timer is short for \"eXtremely useful countdown Timer.\" It's a countdown timer app that has been designed from Day One to be usable and handy.";
