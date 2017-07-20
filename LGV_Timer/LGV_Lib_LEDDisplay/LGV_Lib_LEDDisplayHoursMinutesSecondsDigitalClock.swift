@@ -6,6 +6,11 @@
 //
 import UIKit
 
+// MARK: - Class Extensions
+/* ###################################################################################################################################### */
+/**
+ This makes it easier to convert between Degrees and Radians.
+ */
 extension CGFloat {
     func radians() -> CGFloat {
         let b = CGFloat(Double.pi) * (self/180)
@@ -54,8 +59,8 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
     private var _allElementGroup: LED_ElementGrouping! = nil    ///< Used to pass the calculated paths to the draw method.
     private var _bottomLayer: CAShapeLayer! = nil               ///< Tracks the outline shapes for the segments (inactive)
     private var _topLayer: CAShapeLayer! = nil                  ///< Tracks the active ("lit") segment shapes.
-    private var _gridLayer: CAShapeLayer! = nil                 ///< Tracks the hex grid, used to simulate a fluorescent display.
-    
+    private var _displayView: UIView! = nil                     ///< This will contain the "LED Display."
+    private var _gridImageView: UIImageView! = nil              ///< This will contain a "grid" that makes the display look like an old-time fluorescent display.
     
     // MARK: - Private Class Methods
     /* ################################################################################################################################## */
@@ -99,8 +104,14 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
     
     /* ################################################################## */
     /**
+     This creates an array of CGPoint, based on a 0,0 origin, that describe
+     a hexagon, on its "side" (point facing up).
+     
+     :param: inHowBig The radius, in display units.
+     
+     :returns: an array of [CGPoint], that can be used to describe a path.
      */
-    static func pointySideUpHexagon(_ inHowBig: CGFloat)->[CGPoint] {
+    private class func _pointySideUpHexagon(_ inHowBig: CGFloat)->[CGPoint] {
         let angle = CGFloat(60).radians()
         let cx = CGFloat(inHowBig) // x origin
         let cy = CGFloat(inHowBig) // y origin
@@ -127,10 +138,15 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
     
     /* ################################################################## */
     /**
+     This returns a CGMutablePath, describing a "pointy side up" hexagon.
+     
+     :param: inHowBig The radius, in display units.
+     
+     :returns: A mutable CGPath, describing a "pointy side up" hexagon.
      */
-    static func getHexPath(_ inHowBig: CGFloat) -> CGMutablePath {
+    private class func _getHexPath(_ inHowBig: CGFloat) -> CGMutablePath {
         let path = CGMutablePath()
-        let points = self.pointySideUpHexagon(inHowBig)
+        let points = self._pointySideUpHexagon(inHowBig)
         let cpg = points[0]
         path.move(to: cpg)
         for p in points {
@@ -140,17 +156,17 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
         return path
     }
     
+    // MARK: - Private Instance Methods
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      */
-    static func generateHexOverlay(_ fillShape: UIBezierPath, frame: CGRect, layer: CAShapeLayer! = nil) -> CAShapeLayer {
-        let ret = (nil != layer) ? layer! : CAShapeLayer()
-        
+    private func _generateHexOverlayImage(_ fillShape: UIBezierPath) -> UIImage {
         let path = CGMutablePath()
-        let sHexagonWidth = fillShape.bounds.size.height / 50
+        let sHexagonWidth = CGFloat(10)
         let radius: CGFloat = sHexagonWidth / 2
         
-        let hexPath: CGMutablePath = self.getHexPath(radius)
+        let hexPath: CGMutablePath = type(of: self)._getHexPath(radius)
         let oneHexWidth = hexPath.boundingBox.size.width
         let oneHexHeight = hexPath.boundingBox.size.height
         
@@ -158,10 +174,10 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
         var nudgeX: CGFloat = 0
         let nudgeY: CGFloat = radius + ((oneHexHeight - oneHexWidth) * 2)
         
-        var yOffset: CGFloat = frame.origin.y
-        while yOffset < fillShape.bounds.size.height + frame.origin.y {
-            var xOffset = frame.origin.x + nudgeX
-            while xOffset < fillShape.bounds.size.width + frame.origin.x {
+        var yOffset: CGFloat = 0
+        while yOffset < fillShape.bounds.size.height {
+            var xOffset = nudgeX
+            while xOffset < fillShape.bounds.size.width {
                 let transform = CGAffineTransform(translationX: xOffset, y: yOffset)
                 path.addPath(hexPath, transform: transform)
                 xOffset += oneHexWidth
@@ -171,15 +187,19 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
             yOffset += nudgeY
         }
         
-        let mask = CAShapeLayer()
-        mask.path = fillShape.cgPath
-        ret.mask = mask
-        ret.path = path
-        ret.strokeColor = UIColor.black.withAlphaComponent(0.75).cgColor
-        ret.fillColor = UIColor.clear.cgColor
-        ret.lineWidth = 0.25
+        UIGraphicsBeginImageContextWithOptions(fillShape.bounds.size, false, 0.0)
+        if let drawingContext = UIGraphicsGetCurrentContext() {
+            drawingContext.addPath(path)
+            drawingContext.setLineWidth(0.125)
+            drawingContext.setStrokeColor(UIColor.black.withAlphaComponent(0.75).cgColor)
+            drawingContext.setFillColor(UIColor.clear.cgColor)
+            drawingContext.strokePath()
+        }
         
-        return ret
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image!
     }
     
     // MARK: - Superclass Override Methods
@@ -267,43 +287,34 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
             }
         }
         
+        if nil == self._displayView {
+            self._displayView = UIView(frame: self.bounds)
+            self.addSubview(self._displayView)
+        }
+        
+        if nil == self._gridImageView {
+            self._gridImageView = UIImageView(frame: self.bounds)
+            self._gridImageView.backgroundColor = UIColor.clear
+            self._gridImageView.contentMode = .scaleAspectFill
+            self.addSubview(self._gridImageView)
+       }
+        
         let activePath = self._allElementGroup.activeSegments
         let inactivePath = self._allElementGroup.inactiveSegments
         inactivePath.append(activePath)
         
-        if nil == self._bottomLayer {
-            self._bottomLayer = CAShapeLayer()
-            self._bottomLayer.path = inactivePath.cgPath
-            self._bottomLayer.strokeColor = UIColor.clear.cgColor
-            self._bottomLayer.fillColor = self.inactiveSegmentColor.cgColor
-            self.layer.addSublayer(self._bottomLayer)
-        } else {
-            self._bottomLayer.path = inactivePath.cgPath
-        }
+        self._gridImageView.frame.origin = inactivePath.bounds.origin
+        self._gridImageView.frame.size = inactivePath.bounds.size
+        self._gridImageView.image = self._generateHexOverlayImage(inactivePath)
         
-        if nil != self._topLayer {
-            self._topLayer.removeFromSuperlayer()
-        }
+        let mask = CAShapeLayer()
+        mask.path = inactivePath.cgPath
+        var origin = CGPoint.zero
+        origin.y -= inactivePath.bounds.origin.y
+        origin.x -= inactivePath.bounds.origin.x
         
-        if nil == self._topLayer {
-            self._topLayer = CAShapeLayer()
-            self._topLayer.strokeColor = UIColor.clear.cgColor
-            self._topLayer.fillColor = self.activeSegmentColor.cgColor
-            self._topLayer.path = activePath.cgPath
-            
-            self.layer.addSublayer(self._topLayer)
-        } else {
-            self._topLayer.path = activePath.cgPath
-        }
-        
-        let shapeRect = inactivePath.bounds
-        if nil == self._gridLayer {
-            self._gridLayer = type(of: self).generateHexOverlay(inactivePath, frame: shapeRect)
-            
-            self.layer.addSublayer(self._gridLayer)
-        } else {
-            _ = type(of: self).generateHexOverlay(inactivePath, frame: shapeRect, layer: self._gridLayer)
-        }
+        mask.frame.origin = origin
+        self._gridImageView.layer.mask = mask
         
         super.layoutSubviews()
     }
@@ -316,9 +327,47 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
      :param: rect the rectangle in which to render the display (ignored).
      */
     override public func draw(_ rect: CGRect) {
-        self._topLayer.path = self._allElementGroup.activeSegments.cgPath
-        if let context = UIGraphicsGetCurrentContext() {
-            self._topLayer.render(in: context)
+        let activePath = self._allElementGroup.activeSegments
+        
+        if nil != self._bottomLayer {
+            self._bottomLayer.removeFromSuperlayer()
         }
+        
+        self._bottomLayer = CAShapeLayer()
+        let inactivePath = self._allElementGroup.inactiveSegments
+        inactivePath.append(activePath)
+        self._bottomLayer.path = inactivePath.cgPath
+        self._bottomLayer.strokeColor = UIColor.clear.cgColor
+        self._bottomLayer.fillColor = self.inactiveSegmentColor.cgColor
+        self._displayView.layer.addSublayer(self._bottomLayer)
+        
+        if nil != self._topLayer {
+            self._topLayer.removeFromSuperlayer()
+        }
+        
+        self._topLayer = CAShapeLayer()
+        self._topLayer.strokeColor = UIColor.clear.cgColor
+        self._topLayer.fillColor = self.activeSegmentColor.cgColor
+        self._topLayer.path = activePath.cgPath
+        
+        let animation1 = CABasicAnimation(keyPath: "opacity")
+        animation1.fromValue = 0.5
+        animation1.toValue = 1.0
+        animation1.duration = 0.1
+        
+        let animation2 = CABasicAnimation(keyPath: "opacity")
+        animation2.beginTime = 0.1
+        animation2.fromValue = 1.0
+        animation2.toValue = 0.85
+        animation2.duration = 0.15
+        
+        let animGroup: CAAnimationGroup = CAAnimationGroup()
+        
+        animGroup.animations = [animation1, animation2]
+        
+        self._topLayer.add(animGroup, forKey: "opacity")
+        self._topLayer.opacity = 0.85
+        
+        self._displayView.layer.addSublayer(self._topLayer)
     }
 }

@@ -58,14 +58,14 @@ class View: UIView {
         get {
             let path = CGMutablePath()
             let sHexagonWidth = self.bounds.size.height / 50
-            var radius: CGFloat = sHexagonWidth / 2
+            let radius: CGFloat = sHexagonWidth / 2
             
             let hexPath: CGMutablePath = getHexPath(radius)
             let oneHexWidth = hexPath.boundingBox.size.width
             let oneHexHeight = hexPath.boundingBox.size.height
             
             var nudgeX: CGFloat = 0
-            var nudgeY: CGFloat = radius + ((oneHexHeight - oneHexWidth) * 2)
+            let nudgeY: CGFloat = radius + ((oneHexHeight - oneHexWidth) * 2)
             
             var yOffset: CGFloat = 0
             while yOffset < self.bounds.size.height {

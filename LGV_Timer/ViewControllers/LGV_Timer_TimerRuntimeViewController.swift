@@ -18,6 +18,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /* ################################################################################################################################## */
     private let _stoplightDualModeHeightFactor: CGFloat = 0.15
     private let _stoplightMaxWidthFactor: CGFloat = 0.2
+    private var _originalValue: Int = 0                         ///< Tracks the last value, so we make sure we don't "blink" until we're supposed to.
     
     // MARK: - Internal Constant Instance Properties
     /* ################################################################################################################################## */
@@ -73,10 +74,13 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         
         if .Podium != self.timerObject.displayMode {
             if nil != self.timeDisplay {
-                self.timeDisplay.hours = TimeTuple(self.timerObject.currentTime).hours
-                self.timeDisplay.minutes = TimeTuple(self.timerObject.currentTime).minutes
-                self.timeDisplay.seconds = TimeTuple(self.timerObject.currentTime).seconds
-                self.timeDisplay.setNeedsDisplay()
+                if self._originalValue != self.timerObject.currentTime {
+                    self._originalValue = self.timerObject.currentTime
+                    self.timeDisplay.hours = TimeTuple(self.timerObject.currentTime).hours
+                    self.timeDisplay.minutes = TimeTuple(self.timerObject.currentTime).minutes
+                    self.timeDisplay.seconds = TimeTuple(self.timerObject.currentTime).seconds
+                    self.timeDisplay.setNeedsDisplay()
+                }
             }
         }
         
@@ -308,6 +312,8 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self.yellowLight.frame = yellowFrame
             self.redLight.frame = redFrame
         }
+        
+        self._originalValue = 0
         
         self.updateTimer()
     }
