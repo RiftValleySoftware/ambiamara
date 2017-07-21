@@ -627,7 +627,7 @@ class TimerSettingTuple: NSObject, NSCoding {
 /**
  This protocol allows observers of the app status.
  */
-protocol LGV_Timer_AppStatusDelegate {
+protocol LGV_Timer_StateDelegate {
     func appState(_ appState: LGV_Timer_State, didUpdateTimerStatus: TimerSettingTuple, from: TimerStatus)
     func appState(_ appState: LGV_Timer_State, didUpdateTimerDisplayMode: TimerSettingTuple, from: TimerDisplayMode)
     func appState(_ appState: LGV_Timer_State, didUpdateTimerCurrentTime: TimerSettingTuple, from: Int)
@@ -644,7 +644,7 @@ protocol LGV_Timer_AppStatusDelegate {
     func appState(_ appState: LGV_Timer_State, didDeselectTimer: TimerSettingTuple)
 }
 
-// MARK: - LGV_Timer_AppStatus Class -
+// MARK: - LGV_Timer_State Class -
 /* ###################################################################################################################################### */
 /**
  This class encapsulates the entire app status.
@@ -658,7 +658,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     private var _timers:[TimerSettingTuple] = []
     private var _selectedTimer0BasedIndex:Int = -1
         
-    var delegate: LGV_Timer_AppStatusDelegate! = nil
+    var delegate: LGV_Timer_StateDelegate! = nil
     
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
@@ -817,7 +817,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     /* ################################################################## */
     /**
      */
-    init(delegate: LGV_Timer_AppStatusDelegate) {
+    init(delegate: LGV_Timer_StateDelegate) {
         self.delegate = delegate
     }
     

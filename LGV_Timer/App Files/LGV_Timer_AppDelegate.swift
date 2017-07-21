@@ -527,61 +527,11 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                     
                     for key in message.keys {
                         switch key {
-                        case LGV_Timer_Messages.s_timerSendListAgainMessageKey:
-                            self.sendTimerList()
-                            
                         case LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
-                            self.sendAppStateMessage()
-                            
-                        case LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
-                            self.sendAppStateMessage()
+                            break
                             
                         case    LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:
                             self.sendAppStateMessage()
-                            
-                        case    LGV_Timer_Messages.s_timerListHowdyMessageKey:
-                            var timerArray:[[String:Any]] = []
-                            for timer in self.timerEngine.timers {
-                                let timerDictionary:[String:Any] = self.makeTimerDictionary(timer)
-                                timerArray.append(timerDictionary)
-                            }
-                            
-                            let timerData = NSKeyedArchiver.archivedData(withRootObject: timerArray)
-                            let responseMessage = [LGV_Timer_Messages.s_timerListHowdyMessageValue:timerData]
-                            
-                            session.sendMessage(responseMessage, replyHandler: nil, errorHandler: nil)
-                            
-                        case    LGV_Timer_Messages.s_timerRequestActiveTimerUIDMessageKey:
-                            if .active == UIApplication.shared.applicationState {
-                                var activeTimerUID: String = ""
-                                
-                                if nil != self.currentTimer {
-                                    activeTimerUID = self.currentTimer.timerObject.uid
-                                }
-                                self.sendActiveTimerMessage(timerUID: activeTimerUID)
-                            } else {
-                                self.sendBackgroundMessage()
-                            }
-                            
-                        case    LGV_Timer_Messages.s_timerListSelectTimerMessageKey:
-                            if let tabController = self.window?.rootViewController as? LGV_Timer_MainTabController {
-                                if let uid = message[key] as? String {
-                                    if !uid.isEmpty {
-                                        let timerIndex = self.timerEngine.indexOf(uid) + 1
-                                        if tabController.viewControllers?[timerIndex] != tabController.selectedViewController {
-                                            if 0 < timerIndex {
-                                                tabController.selectedViewController = tabController.viewControllers?[timerIndex]
-                                            } else {
-                                                tabController.selectedViewController = tabController.viewControllers?[0]
-                                            }
-                                        }
-                                    } else {
-                                        tabController.selectedViewController = tabController.viewControllers?[0]
-                                    }
-                                    
-                                    tabController.view.setNeedsLayout()
-                                }
-                            }
                             
                         default:
                             if let uid = message[key] as? String {

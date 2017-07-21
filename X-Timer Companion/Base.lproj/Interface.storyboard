@@ -45,15 +45,15 @@
                                 </tableRow>
                             </items>
                         </table>
-                        <group width="1" height="120" alignment="center" layout="vertical" id="lQa-3d-Y0M" userLabel="No App Connection Display">
+                        <group width="1" height="1" alignment="center" layout="vertical" id="lQa-3d-Y0M" userLabel="No App Connection Display">
                             <items>
-                                <group width="1" height="1" alignment="left" layout="vertical" id="xtw-fM-Nda">
+                                <group width="1" height="1" heightAdjustment="-18" alignment="left" layout="vertical" id="xtw-fM-Nda">
                                     <items>
                                         <label width="1" alignment="left" verticalAlignment="center" text="TOP" textAlignment="center" id="3kZ-LS-I8a" userLabel="TOP">
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
                                         </label>
-                                        <imageView width="50" height="50" alignment="center" verticalAlignment="center" image="Clock" contentMode="scaleAspectFit" id="FU9-X5-MIv" userLabel="App Icon">
+                                        <imageView width="44" height="44" alignment="center" verticalAlignment="center" image="Watch-Clock" contentMode="scaleAspectFit" id="FU9-X5-MIv" userLabel="App Icon">
                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </imageView>
                                         <label width="1" alignment="left" verticalAlignment="center" text="BOTTOM" textAlignment="center" id="1WQ-zR-wue" userLabel="BOTTOM">

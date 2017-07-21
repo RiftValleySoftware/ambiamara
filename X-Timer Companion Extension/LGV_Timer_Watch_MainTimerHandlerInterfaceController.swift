@@ -121,61 +121,19 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
      */
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        self.modalTimerScreen = nil
-        self.dontBotherThePhone = false
-        if let contextInfo = context as? [String:Any] {
-            if let controller = contextInfo[LGV_Timer_Watch_MainAppInterfaceController.s_ControllerContextKey] as? LGV_Timer_Watch_MainAppInterfaceController {
-                self.myController = controller
-            }
-
-            if let timer = contextInfo[LGV_Timer_Watch_MainAppInterfaceController.s_TimerContextKey] as? [String:Any] {
-                self.timer = timer
-                if let time = (self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber)?.intValue {
-                    self.currentTimeInSeconds = time
-                }
-
-                if let color = self.timer[LGV_Timer_Data_Keys.s_timerDataColorKey] as? UIColor {
-                    self.timeDisplayLabel.setTextColor(color)
-                }
-                
-                if let name = self.timer[LGV_Timer_Data_Keys.s_timerDataTimerNameKey] as? String {
-                    self.setTitle(name)
-                }
-                
-                if let displayModeNum = self.timer[LGV_Timer_Data_Keys.s_timerDataDisplayModeKey] as? NSNumber {
-                    let displayMode = TimerDisplayMode(rawValue: displayModeNum.intValue)
-                    self.trafficLightIcon.setHidden(.Podium != displayMode)
-                }
-            }
-            
-            LGV_Timer_Watch_ExtensionDelegate.delegateObject.addTimerControllerIfNotAlreadyThere(controller: self)
-            self.updateUI()
-        }
     }
     
     /* ################################################################## */
     /**
      */
     override func didAppear() {
-        LGV_Timer_Watch_ExtensionDelegate.delegateObject.currentTimer = self
-        
-        if !self.dontBotherThePhone {
-            LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendSelectMessage(timerUID: self.timerUID)
-        }
-        
-        self.updateUI(inSeconds: self.currentTimeInSeconds)
         super.didAppear()
-        self.dontBotherThePhone = false
     }
     
     /* ################################################################## */
     /**
      */
     override func willDisappear() {
-        if let timeSetNum = self.timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber {
-            self.currentTimeInSeconds = timeSetNum.intValue
-        }
-        
         super.willDisappear()
     }
 }

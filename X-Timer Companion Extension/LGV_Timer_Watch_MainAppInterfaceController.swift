@@ -42,8 +42,6 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
      */
     func pushTimer(_ timerIndex: Int) {
         DispatchQueue.main.async {
-            let theTimerObject = LGV_Timer_Watch_ExtensionDelegate.delegateObject.timerObjects[timerIndex]
-            theTimerObject.becomeCurrentPage()
         }
     }
     
@@ -63,8 +61,6 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
     /**
      */
     override func didAppear() {
-        LGV_Timer_Watch_ExtensionDelegate.delegateObject.currentTimer = nil
-        LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendSelectMessage()
     }
     
     /* ################################################################## */
@@ -73,41 +69,8 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
     override func updateUI() {
         super.updateUI()
         DispatchQueue.main.async {
-            if LGV_Timer_Watch_ExtensionDelegate.delegateObject.appDisconnected {
-                self.noAppConnectedDisplay.setHidden(false)
-                self.timerDisplayTable.setHidden(true)
-            } else {
-                self.noAppConnectedDisplay.setHidden(true)
-                self.timerDisplayTable.setHidden(false)
-                
-                self.timerDisplayTable.setNumberOfRows(LGV_Timer_Watch_ExtensionDelegate.delegateObject.timers.count, withRowType: type(of: self).s_TableRowID)
-                for rowIndex in 0..<LGV_Timer_Watch_ExtensionDelegate.delegateObject.timers.count {
-                    if let tableRow = self.timerDisplayTable.rowController(at: rowIndex) as? LGV_Timer_Watch_MainInterfaceTableRowController {
-                        let timer = LGV_Timer_Watch_ExtensionDelegate.delegateObject.timers[rowIndex]
-                        if let color = timer[LGV_Timer_Data_Keys.s_timerDataColorKey] as? UIColor {
-                            tableRow.timerNameLabel.setTextColor(color)
-                            tableRow.timeDisplayLabel.setTextColor(color)
-                            if let timerName = timer[LGV_Timer_Data_Keys.s_timerDataTimerNameKey] as? String {
-                                tableRow.timerNameLabel.setText(timerName)
-                            }
-                        }
-                        
-                        if let time = timer[LGV_Timer_Data_Keys.s_timerDataTimeSetKey] as? NSNumber {
-                            let timeTotal = time.intValue
-                            let timeInHours: Int = timeTotal / 3600
-                            let timeInMinutes = (timeTotal - (timeInHours * 3600)) / 60
-                            let timeInSeconds = timeTotal - ((timeInHours * 3600) + (timeInMinutes * 60))
-                            let displayString = String(format: "%02d:%02d:%02d", timeInHours, timeInMinutes, timeInSeconds)
-                            tableRow.timeDisplayLabel.setText(displayString)
-                        }
-                        
-                        if let displayModeNum = timer[LGV_Timer_Data_Keys.s_timerDataDisplayModeKey] as? NSNumber {
-                            let displayMode = TimerDisplayMode(rawValue: displayModeNum.intValue)
-                            tableRow.displayFormatImage.setHidden(.Podium != displayMode)
-                        }
-                    }
-                }
-            }
+            self.noAppConnectedDisplay.setHidden(false)
+            self.timerDisplayTable.setHidden(true)
         }
     }
     

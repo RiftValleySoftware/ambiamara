@@ -35,7 +35,7 @@ protocol LGV_Timer_TimerEngineDelegate {
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_AppStatusDelegate {
+class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     static let timerInterval: TimeInterval = 0.1
     static let timerTickInterval: TimeInterval = 1.0
     static let timerAlarmInterval: TimeInterval = 1.0
