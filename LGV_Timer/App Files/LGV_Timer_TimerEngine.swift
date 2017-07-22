@@ -200,7 +200,27 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
             return self._colorLabelArray
         }
     }
-
+    
+    /* ################################################################## */
+    /**
+     Returns the color for the indexed color theme.
+     */
+    func getIndexedColorThemeColor(_ index: Int) -> UIColor {
+        var ret: UIColor
+        
+        let label = self.colorLabelArray[index]
+        
+        ret = label.textColor
+        
+        if let destColorSpace: CGColorSpace = CGColorSpace(name: CGColorSpace.sRGB) {
+            if let newColor = ret.cgColor.converted(to: destColorSpace, intent: CGColorRenderingIntent.perceptual, options: nil) {
+                ret = UIColor(cgColor: newColor)
+            }
+        }
+        
+        return ret
+    }
+    
     // MARK: - Private Class Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -309,6 +329,8 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
                 for index in 0..<temp.count {
                     if let arrayElement = temp[index] as? NSDictionary {
                         let temp: TimerSettingTuple = type(of:self)._convertStorageToTimer(arrayElement)
+                        temp.timerStatus = .Stopped
+                        temp.storedColor = self.getIndexedColorThemeColor(temp.colorTheme)
                         temp.handler = self.appState
                         timers.append(temp)
                     }
@@ -327,6 +349,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
                     self.appState.delegate = self
                     for timer in self.appState.timers {
                         timer.timerStatus = .Stopped
+                        timer.storedColor = self.getIndexedColorThemeColor(timer.colorTheme)
                         timer.handler = self.appState
                     }
                 }
@@ -335,8 +358,9 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         
         // We are not allowed to have zero timers.
         if self.timers.isEmpty {
-            let _ = self.createNewTimer()
-        }
+            let temp = self.createNewTimer()
+            temp.storedColor = self.getIndexedColorThemeColor(temp.colorTheme)
+       }
         
         self.selectedTimerIndex = -1
         self.savePrefs()

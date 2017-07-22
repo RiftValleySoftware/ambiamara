@@ -159,6 +159,31 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     func process(userInfo: [String : Any] = [:]) {
     }
     
+    /* ################################################################## */
+    /**
+     */
+    func populateScreens(noTimers: Bool) {
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func addTimerControllerIfNotAlreadyThere(controller: LGV_Timer_Watch_MainTimerHandlerInterfaceController) {
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func setTimerObject(_ inData: Data) -> String {
+        return ""
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func updateAllTimerObjects(inTimerList: [[String:Any]]) {
+    }
+    
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
@@ -251,31 +276,6 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /* ################################################################## */
     /**
      */
-    func populateScreens(noTimers: Bool) {
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func addTimerControllerIfNotAlreadyThere(controller: LGV_Timer_Watch_MainTimerHandlerInterfaceController) {
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func setTimerObject(_ inData: Data) -> String {
-        return ""
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func updateAllTimerObjects(inTimerList: [[String:Any]]) {
-    }
-    
-    /* ################################################################## */
-    /**
-     */
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
         self.process(userInfo: userInfo)
     }
@@ -291,8 +291,10 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
             
             for key in message.keys {
                 switch key {
-                case    LGV_Timer_Messages.s_timerStatusUserInfoValue:
-                    break
+                case    LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:
+                   if let messageData = message[key] as? [String:Any] {
+                    self.appStatus = LGV_Timer_State(dictionary: messageData)
+                    }
                     
                 default:
                     break

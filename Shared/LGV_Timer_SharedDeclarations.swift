@@ -40,6 +40,7 @@ class LGV_Timer_Messages {
     static let s_timerStatusUserInfoValue = "TimerStatus"
     static let s_timerListUserInfoValue = "TimerList"
     static let s_timerAlarmUserInfoValue = "Alarm"
+    static let s_timerAppInForegroundMessageValue = "AppData"
 }
 
 /**
@@ -287,10 +288,12 @@ class TimerSettingTuple: NSObject, NSCoding {
         case UID                = "UID"
     }
     
-    var handler: LGV_Timer_State!   ///< This is the App Status object that "owns" this instance.
-    var uid: String                     ///< This will be a unique ID, assigned to the pref, so we can match it.
+    var handler: LGV_Timer_State! = nil ///< This is the App Status object that "owns" this instance.
     var firstTick: TimeInterval = 0.0   ///< This will be used to track the timer progress.
     var lastTick: TimeInterval = 0.0    ///< This will be used to track the timer progress.
+    var storedColor: AnyObject! = nil   ///< This is the color from the color theme, and is used to transmit the color to the watch.
+    
+    var uid: String                     ///< This will be a unique ID, assigned to the pref, so we can match it.
     
     var displayMode: TimerDisplayMode { ///< This is how the timer will display
         didSet {
@@ -410,9 +413,88 @@ class TimerSettingTuple: NSObject, NSCoding {
         }
     }
     
+    // MARK: - Instance Calculated Properties
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    var dictionary:[String:Any] {
+        get {
+            var ret:[String:Any] = [:]
+            
+            ret["uid"] = self.uid
+            ret["timerStatus"] = self.timerStatus.rawValue
+            ret["displayMode"] = self.displayMode.rawValue
+            ret["alertMode"] = self.alertMode.rawValue
+            ret["colorTheme"] = self.colorTheme
+            ret["timeSet"] = self.timeSet
+            ret["timeSetPodiumWarn"] = self.timeSetPodiumWarn
+            ret["timeSetPodiumFinal"] = self.timeSetPodiumFinal
+            ret["currentTime"] = self.currentTime
+            let data = NSMutableData()
+            let archiver = NSKeyedArchiver(forWritingWith: data)
+            archiver.encode(self.storedColor, forKey: "storedColor")
+            archiver.finishEncoding()
+            ret["storedColor"] = data
+            
+            return ret
+        }
+        
+        set {
+            if let uid = newValue["uid"] as? String {
+                self.uid = uid
+            }
+            
+            if let timerStatus = newValue["timerStatus"] as? Int {
+                self.timerStatus = TimerStatus(rawValue: timerStatus)!
+            }
+            
+            if let displayMode = newValue["displayMode"] as? Int {
+                self.displayMode = TimerDisplayMode(rawValue: displayMode)!
+            }
+            
+            if let alertMode = newValue["alertMode"] as? Int {
+                self.alertMode = AlertMode(rawValue: alertMode)!
+            }
+            
+            if let colorTheme = newValue["colorTheme"] as? Int {
+                self.colorTheme = colorTheme
+            }
+            
+            if let timeSet = newValue["timeSet"] as? Int {
+                self.timeSet = timeSet
+            }
+            
+            if let timeSetPodiumWarn = newValue["timeSetPodiumWarn"] as? Int {
+                self.timeSetPodiumWarn = timeSetPodiumWarn
+            }
+            
+            if let timeSetPodiumFinal = newValue["timeSetPodiumFinal"] as? Int {
+                self.timeSetPodiumFinal = timeSetPodiumFinal
+            }
+            
+            if let currentTime = newValue["currentTime"] as? Int {
+                self.currentTime = currentTime
+            }
+            
+            if let storedColor = newValue["storedColor"] as? Data {
+                let unarchiver = NSKeyedUnarchiver(forReadingWith: storedColor)
+                if let storedColor = unarchiver.decodeObject(forKey: "storedColor") {
+                    self.storedColor = storedColor as AnyObject
+                }
+                unarchiver.finishDecoding()
+            }
+        }
+    }
+    
     // MARK: - Initializers
     /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
     override init() {
+        self.uid = NSUUID().uuidString
+        self.handler = nil
         self.timeSet = 0
         self.timeSetPodiumWarn = 0
         self.timeSetPodiumFinal = 0
@@ -422,9 +504,8 @@ class TimerSettingTuple: NSObject, NSCoding {
         self.alertMode = .Silent
         self.soundID = 5
         self.timerStatus = .Stopped
-        self.uid = NSUUID().uuidString
+        self.firstTick = 0.0
         self.lastTick = 0.0
-        self.handler = nil
         super.init()
     }
     
@@ -440,10 +521,10 @@ class TimerSettingTuple: NSObject, NSCoding {
      :param: alertMode This determines what kind of alert the timer makes when it is complete.
      :param: soundID This is the ID of the sound to play (when in mode 1 or 2).
      :param: uid This is a unique ID for this setting. It can be defaulted.
+     :param: handler This is the "owner" of this instance. Default is nil.
      */
     convenience init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, currentTime: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, alertVolume: Int, soundID: Int, timerStatus: TimerStatus, uid: String!, handler: LGV_Timer_State! = nil) {
         self.init()
-        
         self.timeSet = timeSet
         self.timeSetPodiumWarn = timeSetPodiumWarn
         self.timeSetPodiumFinal = timeSetPodiumFinal
@@ -454,8 +535,19 @@ class TimerSettingTuple: NSObject, NSCoding {
         self.soundID = soundID
         self.timerStatus = timerStatus
         self.uid = (nil == uid) ? NSUUID().uuidString : uid
-        self.firstTick = 0.0
-        self.lastTick = 0.0
+        self.handler = handler
+    }
+    
+    /* ################################################################## */
+    /**
+     Initialize from a stored dictionary.
+     
+     :param: dictionary This is a Dictionary that contains the state.
+     :param: handler This is the "owner" of this instance. Default is nil.
+     */
+    convenience init(dictionary:[String:Any], handler: LGV_Timer_State! = nil) {
+        self.init()
+        self.dictionary = dictionary
         self.handler = handler
     }
     
@@ -540,7 +632,22 @@ class TimerSettingTuple: NSObject, NSCoding {
     class func calcPodiumModeFinalThresholdForTimerValue(_ inTimerSet: Int) -> Int {
         return max(0, min(calcPodiumModeWarningThresholdForTimerValue(inTimerSet), Int(ceil(Float(inTimerSet) * self._podiumModeFinalThreshold))))
     }
-
+    
+    // MARK: - Static Operator Overloads
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     Equatable operator. Simply compares the UIDs
+     
+     :param: left The left timer object.
+     :param: right The right timer object.
+     
+     :returns: true, if the UIDs match.
+     */
+    static func ==(left: TimerSettingTuple, right: TimerSettingTuple) -> Bool {
+        return left.uid == right.uid
+    }
+    
     // MARK: - Instance Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -803,11 +910,62 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     var timers: [TimerSettingTuple] {
         get { return self._timers }
         set {
-            DispatchQueue.main.async {
-                self._timers = newValue
-                if !(0..<self.count ~= self.selectedTimerIndex) {
-                    self._selectedTimer0BasedIndex = -1
+            self._timers = newValue
+            if !(0..<self.count ~= self.selectedTimerIndex) {
+                self._selectedTimer0BasedIndex = -1
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    var dictionary:[String:Any] {
+        get {
+            var ret:[String:Any] = [:]
+            ret["selectedTimerIndex"] = self.selectedTimerIndex
+            var timerArray: [[String:Any]] = []
+            for timer in self.timers {
+                let timerDictionary = timer.dictionary
+                timerArray.append(timerDictionary)
+            }
+            ret["timers"] = timerArray
+            return ret
+        }
+        
+        set {
+            if let selectedTimerIndex = newValue["selectedTimerIndex"] as? Int {
+                self.selectedTimerIndex = selectedTimerIndex
+            }
+            
+            if let timerArray = newValue["timers"] as? [[String:Any]] {
+                // We do this really strange dance in order to prevent timer objects from being removed or orphaned.
+                // This array simply makes sure we get rid of timers we don't have in the new list, add new ones, and set existing timers to new settings.
+                var newTimerArray: [TimerSettingTuple] = []
+                
+                // We append any new timer objects that we didn't already have, and set existing objects to their new values. We put existing objects where we want them in the new order.
+                for timerDictionary in timerArray {
+                    if let uid = timerDictionary["uid"] as? String {
+                        var found: Bool = false
+                        
+                        // See if we already have this object. If so, we set it to the new value, and append it now.
+                        for timerObject in self.timers {
+                            if timerObject.uid == uid {
+                                timerObject.dictionary = timerDictionary
+                                newTimerArray.append(timerObject)
+                                found = true
+                                break
+                            }
+                        }
+                        
+                        // If we didn't find it, we append a new instance.
+                        if !found {
+                            newTimerArray.append(TimerSettingTuple(dictionary: timerDictionary, handler: self))
+                        }
+                    }
                 }
+                
+                self.timers = newTimerArray
             }
         }
     }
@@ -818,6 +976,19 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     /**
      */
     init(delegate: LGV_Timer_StateDelegate) {
+        self.delegate = delegate
+    }
+    
+    /* ################################################################## */
+    /**
+     Initialize from a stored dictionary.
+     
+     :param: dictionary This is a Dictionary that contains the state.
+     :param: delegate This is the "owner" of this instance. Default is nil.
+     */
+    init(dictionary:[String:Any], delegate: LGV_Timer_StateDelegate! = nil) {
+        super.init()
+        self.dictionary = dictionary
         self.delegate = delegate
     }
     

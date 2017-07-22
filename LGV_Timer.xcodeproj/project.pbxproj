@@ -317,12 +317,12 @@
 		77F86DF21F213408003BDD73 /* X-Timer Companion Extension */ = {
 			isa = PBXGroup;
 			children = (
-				773865441F2142D400293BBF /* LGV_Timer_Complication.swift */,
 				77F86DF51F213408003BDD73 /* LGV_Timer_Watch_ExtensionDelegate.swift */,
 				773865461F2142D400293BBF /* LGV_Timer_Watch_MainAppInterfaceController.swift */,
 				773865431F2142D400293BBF /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift */,
 				773865421F2142D400293BBF /* LGV_Timer_Watch_RunningTimerInterfaceController.swift */,
 				77F86DF71F213408003BDD73 /* LGV_Timer_Watch_NotificationController.swift */,
+				773865441F2142D400293BBF /* LGV_Timer_Complication.swift */,
 				77F86DF91F213408003BDD73 /* Assets.xcassets */,
 				77F86DFB1F213408003BDD73 /* Info.plist */,
 				77F86DFC1F213408003BDD73 /* PushNotificationPayload.apns */,

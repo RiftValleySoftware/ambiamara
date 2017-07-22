@@ -351,14 +351,14 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
         self._topLayer.path = activePath.cgPath
         
         let animation1 = CABasicAnimation(keyPath: "opacity")
-        animation1.fromValue = 0.5
+        animation1.fromValue = 0.75
         animation1.toValue = 1.0
         animation1.duration = 0.1
         
         let animation2 = CABasicAnimation(keyPath: "opacity")
         animation2.beginTime = 0.1
         animation2.fromValue = 1.0
-        animation2.toValue = 0.85
+        animation2.toValue = 0.9
         animation2.duration = 0.15
         
         let animGroup: CAAnimationGroup = CAAnimationGroup()
@@ -366,7 +366,7 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
         animGroup.animations = [animation1, animation2]
         
         self._topLayer.add(animGroup, forKey: "opacity")
-        self._topLayer.opacity = 0.85
+        self._topLayer.opacity = 0.9
         
         self._displayView.layer.addSublayer(self._topLayer)
     }
