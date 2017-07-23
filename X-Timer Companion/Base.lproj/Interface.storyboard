@@ -13,38 +13,11 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Main App Interface Controller-->
+        <!--Default No Connection Interface Controller-->
         <scene sceneID="5A9-SJ-bWw">
             <objects>
-                <controller identifier="MainScreen" id="i4N-ut-62W" userLabel="Main App Interface Controller" customClass="LGV_Timer_Watch_MainAppInterfaceController" customModule="X_Timer_Companion_Extension">
+                <controller identifier="DefaultScreen" id="i4N-ut-62W" userLabel="Default No Connection Interface Controller" customClass="LGV_Timer_Watch_DefaultInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
                     <items>
-                        <table alignment="left" id="2Hz-tT-z2U">
-                            <items>
-                                <tableRow identifier="TimerRow" id="SvS-RB-JjR" customClass="LGV_Timer_Watch_MainInterfaceTableRowController" customModule="X_Timer_Companion_Extension">
-                                    <group key="rootItem" width="1" height="30" alignment="left" id="OH3-Hd-MtQ">
-                                        <items>
-                                            <label height="1" alignment="left" verticalAlignment="center" text="00:00:00" textAlignment="right" id="YGz-OA-jsB">
-                                                <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="14"/>
-                                            </label>
-                                            <group width="10" alignment="center" verticalAlignment="center" id="gXa-6q-7SA">
-                                                <items>
-                                                    <imageView height="26" alignment="center" verticalAlignment="center" image="Watch-TrafficLights" contentMode="scaleAspectFit" id="EKt-lH-VLn"/>
-                                                </items>
-                                            </group>
-                                            <label height="1" alignment="right" text="Timer 0" textAlignment="left" id="Nbg-Gi-VVz">
-                                                <fontDescription key="font" type="system" weight="semibold" pointSize="14"/>
-                                            </label>
-                                        </items>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </group>
-                                    <connections>
-                                        <outlet property="displayFormatImage" destination="EKt-lH-VLn" id="sOi-OW-yty"/>
-                                        <outlet property="timeDisplayLabel" destination="YGz-OA-jsB" id="fJz-DQ-5ZL"/>
-                                        <outlet property="timerNameLabel" destination="Nbg-Gi-VVz" id="v6B-NR-gwS"/>
-                                    </connections>
-                                </tableRow>
-                            </items>
-                        </table>
                         <group width="1" height="1" alignment="center" layout="vertical" id="lQa-3d-Y0M" userLabel="No App Connection Display">
                             <items>
                                 <group width="1" height="1" heightAdjustment="-18" alignment="left" layout="vertical" id="xtw-fM-Nda">
@@ -68,18 +41,16 @@
                     </items>
                     <connections>
                         <outlet property="bottomLabel" destination="1WQ-zR-wue" id="Z6G-Sq-HW7"/>
-                        <outlet property="noAppConnectedDisplay" destination="lQa-3d-Y0M" id="x6e-T8-6bE"/>
-                        <outlet property="timerDisplayTable" destination="2Hz-tT-z2U" id="D4b-tb-FeV"/>
                         <outlet property="topLabel" destination="3kZ-LS-I8a" id="1uM-sk-fcf"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="-241" y="50"/>
+            <point key="canvasLocation" x="-463" y="50"/>
         </scene>
         <!--TimerScreen-->
         <scene sceneID="xyw-HL-qjO">
             <objects>
-                <controller identifier="TimerScreen" id="fDO-Zl-Nkx" customClass="LGV_Timer_Watch_MainTimerHandlerInterfaceController" customModule="X_Timer_Companion_Extension">
+                <controller identifier="TimerScreen" id="fDO-Zl-Nkx" customClass="LGV_Timer_Watch_MainTimerHandlerInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
                     <items>
                         <group width="1" height="1" alignment="left" layout="vertical" id="ANx-Gq-hUJ" userLabel="Time Display Group">
                             <items>
@@ -118,7 +89,7 @@
         <!--Running Timer-->
         <scene sceneID="jaH-hQ-9O5">
             <objects>
-                <controller identifier="RunningTimer" id="ljw-Z4-BZJ" userLabel="Running Timer" customClass="LGV_Timer_Watch_RunningTimerInterfaceController" customModule="X_Timer_Companion_Extension">
+                <controller identifier="RunningTimer" id="ljw-Z4-BZJ" userLabel="Running Timer" customClass="LGV_Timer_Watch_RunningTimerInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
                     <items>
                         <button alignment="left" id="D1z-TA-HQx">
                             <group key="contentGroup" width="1" height="1" alignment="left" layout="vertical" id="P2i-2e-2Ml">
@@ -153,6 +124,46 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="302" y="50"/>
+        </scene>
+        <!--Main App Interface Controller-->
+        <scene sceneID="FpA-vt-mpP">
+            <objects>
+                <controller identifier="MainScreen" id="3Sd-X2-mbg" userLabel="Main App Interface Controller" customClass="LGV_Timer_Watch_MainAppInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
+                    <items>
+                        <table alignment="center" id="cEz-xX-eyc">
+                            <items>
+                                <tableRow identifier="TimerRow" id="fz6-J5-Bz0" customClass="LGV_Timer_Watch_MainInterfaceTableRowController" customModule="X_Timer_Companion_Extension">
+                                    <group key="rootItem" width="1" height="30" alignment="left" id="w2E-Wh-mYI">
+                                        <items>
+                                            <label height="1" alignment="left" verticalAlignment="center" text="00:00:00" textAlignment="right" id="iAM-NI-Rq9">
+                                                <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="14"/>
+                                            </label>
+                                            <group width="10" alignment="center" verticalAlignment="center" id="i7D-C0-X1h">
+                                                <items>
+                                                    <imageView height="26" alignment="center" verticalAlignment="center" image="Watch-TrafficLights" contentMode="scaleAspectFit" id="hBR-ef-xXx"/>
+                                                </items>
+                                            </group>
+                                            <label height="1" alignment="right" text="Timer 0" textAlignment="left" id="FLK-LF-K6K">
+                                                <fontDescription key="font" type="system" weight="semibold" pointSize="14"/>
+                                            </label>
+                                        </items>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="displayFormatImage" destination="hBR-ef-xXx" id="kFX-Dp-rf8"/>
+                                        <outlet property="timeDisplayLabel" destination="iAM-NI-Rq9" id="ZHC-9y-vud"/>
+                                        <outlet property="timerNameLabel" destination="FLK-LF-K6K" id="84p-4x-8gd"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="timerDisplayTable" destination="cEz-xX-eyc" id="JLI-LG-Ez1"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="-206" y="50"/>
         </scene>
     </scenes>
     <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>

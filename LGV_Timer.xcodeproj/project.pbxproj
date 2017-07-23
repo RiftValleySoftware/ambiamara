@@ -65,6 +65,7 @@
 		7738654A1F21430600293BBF /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773865431F2142D400293BBF /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift */; };
 		7738654B1F21430600293BBF /* LGV_Timer_Watch_RunningTimerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773865421F2142D400293BBF /* LGV_Timer_Watch_RunningTimerInterfaceController.swift */; };
 		7738654C1F21430600293BBF /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = 77F86DFC1F213408003BDD73 /* PushNotificationPayload.apns */; };
+		774CF7F11F25128200604977 /* LGV_Timer_Watch_DefaultInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774CF7F01F25114600604977 /* LGV_Timer_Watch_DefaultInterfaceController.swift */; };
 		775228AE1F1804C90054474D /* SwipeableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A81F1804BB0054474D /* SwipeableTabBarController.swift */; };
 		775228AF1F1804C90054474D /* SwipeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A91F1804BB0054474D /* SwipeAnimation.swift */; };
 		775228B01F1804C90054474D /* SwipeAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228AA1F1804BB0054474D /* SwipeAnimationType.swift */; };
@@ -156,6 +157,7 @@
 		773865441F2142D400293BBF /* LGV_Timer_Complication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Complication.swift; sourceTree = "<group>"; };
 		773865461F2142D400293BBF /* LGV_Timer_Watch_MainAppInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Watch_MainAppInterfaceController.swift; sourceTree = "<group>"; };
 		773E06601EDAFAEB003FF9DD /* TestDisplay.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TestDisplay.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		774CF7F01F25114600604977 /* LGV_Timer_Watch_DefaultInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Watch_DefaultInterfaceController.swift; sourceTree = "<group>"; };
 		775228A51F1804940054474D /* LED_Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LED_Element.swift; path = LGV_Timer/LGV_Lib_LEDDisplay/LED_Element.swift; sourceTree = "<group>"; };
 		775228A61F1804940054474D /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift; path = LGV_Timer/LGV_Lib_LEDDisplay/LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift; sourceTree = "<group>"; };
 		775228A81F1804BB0054474D /* SwipeableTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableTabBarController.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				77F86DF51F213408003BDD73 /* LGV_Timer_Watch_ExtensionDelegate.swift */,
+				774CF7F01F25114600604977 /* LGV_Timer_Watch_DefaultInterfaceController.swift */,
 				773865461F2142D400293BBF /* LGV_Timer_Watch_MainAppInterfaceController.swift */,
 				773865431F2142D400293BBF /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift */,
 				773865421F2142D400293BBF /* LGV_Timer_Watch_RunningTimerInterfaceController.swift */,
@@ -578,6 +581,7 @@
 				7738654B1F21430600293BBF /* LGV_Timer_Watch_RunningTimerInterfaceController.swift in Sources */,
 				77F86DF81F213408003BDD73 /* LGV_Timer_Watch_NotificationController.swift in Sources */,
 				773865481F21430600293BBF /* LGV_Timer_Complication.swift in Sources */,
+				774CF7F11F25128200604977 /* LGV_Timer_Watch_DefaultInterfaceController.swift in Sources */,
 				7738653E1F21351A00293BBF /* LGV_Timer_SharedDeclarations.swift in Sources */,
 				77F86DF61F213408003BDD73 /* LGV_Timer_Watch_ExtensionDelegate.swift in Sources */,
 				773865491F21430600293BBF /* LGV_Timer_Watch_MainAppInterfaceController.swift in Sources */,

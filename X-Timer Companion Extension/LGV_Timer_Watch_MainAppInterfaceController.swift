@@ -32,9 +32,6 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
     var myCurrentTimer: LGV_Timer_Watch_MainTimerHandlerInterfaceController! = nil
 
     @IBOutlet var timerDisplayTable: WKInterfaceTable!
-    @IBOutlet var topLabel: WKInterfaceLabel!
-    @IBOutlet var bottomLabel: WKInterfaceLabel!
-    @IBOutlet var noAppConnectedDisplay: WKInterfaceGroup!
     
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -52,8 +49,6 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         LGV_Timer_Watch_ExtensionDelegate.delegateObject.timerListController = self
-        self.topLabel.setText("LGV_TIMER-WATCH-NOT-ACTIVE-TOP-MESSAGE".localizedVariant)
-        self.bottomLabel.setText("LGV_TIMER-WATCH-NOT-ACTIVE-BOTTOM-MESSAGE".localizedVariant)
         self.updateUI()
     }
     
@@ -75,8 +70,6 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
             if let delegateObject = LGV_Timer_Watch_ExtensionDelegate.delegateObject {
                 let weHaveTimers = (nil != delegateObject.appStatus) && (0 < delegateObject.appStatus.count)
                 
-                self.noAppConnectedDisplay.setHidden(weHaveTimers)
-                self.timerDisplayTable.setHidden(!weHaveTimers)
                 if weHaveTimers {
                     let numTimers = delegateObject.appStatus.count
                     self.timerDisplayTable.setNumberOfRows(numTimers, withRowType: type(of: self).s_TableRowID)

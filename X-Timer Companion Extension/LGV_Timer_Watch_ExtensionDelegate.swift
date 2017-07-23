@@ -182,9 +182,23 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func updateAllTimerObjects() {
-        if nil != self.timerListController {
-            self.timerListController.updateUI()
-        }
+        if nil != self.appStatus {
+            var namesArray:[String] = [LGV_Timer_Watch_MainAppInterfaceController.screenID]
+            var contexts:[Any] = [""]
+            
+            for timer in self.appStatus {
+                namesArray.append(LGV_Timer_Watch_MainTimerHandlerInterfaceController.screenID)
+                contexts.append(timer)
+            }
+            
+            WKInterfaceController.reloadRootControllers(withNames: namesArray, contexts: contexts)
+            
+            if nil != self.timerListController {
+                self.timerListController.updateUI()
+            }
+        } else {
+            WKInterfaceController.reloadRootControllers(withNames: [LGV_Timer_Watch_DefaultInterfaceController.screenID], contexts: [])
+       }
     }
     
     /* ################################################################################################################################## */
