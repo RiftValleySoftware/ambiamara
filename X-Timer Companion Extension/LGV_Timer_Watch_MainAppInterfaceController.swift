@@ -61,6 +61,9 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
     /**
      */
     override func didAppear() {
+        if let delegateObject = LGV_Timer_Watch_ExtensionDelegate.delegateObject {
+            delegateObject.timerListController = self
+        }
     }
     
     /* ################################################################## */
@@ -69,8 +72,46 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
     override func updateUI() {
         super.updateUI()
         DispatchQueue.main.async {
-            self.noAppConnectedDisplay.setHidden(false)
-            self.timerDisplayTable.setHidden(true)
+            if let delegateObject = LGV_Timer_Watch_ExtensionDelegate.delegateObject {
+                let weHaveTimers = (nil != delegateObject.appStatus) && (0 < delegateObject.appStatus.count)
+                
+                self.noAppConnectedDisplay.setHidden(weHaveTimers)
+                self.timerDisplayTable.setHidden(!weHaveTimers)
+                if weHaveTimers {
+                    let numTimers = delegateObject.appStatus.count
+                    self.timerDisplayTable.setNumberOfRows(numTimers, withRowType: type(of: self).s_TableRowID)
+                    for index in 0..<numTimers {
+                        if let rowObject = self.timerDisplayTable.rowController(at: index) as? LGV_Timer_Watch_MainInterfaceTableRowController {
+                            let timerObject = delegateObject.appStatus[index]
+                            rowObject.timerNameLabel.setText(String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, index + 1))
+                            rowObject.displayFormatImage.setHidden(.Digital == timerObject.displayMode)
+                            if .Podium != timerObject.displayMode {
+                                if let color = timerObject.storedColor as? UIColor {
+                                    rowObject.timerNameLabel.setTextColor(color)
+                                    rowObject.timeDisplayLabel.setTextColor(color)
+                                }
+                            } else {
+                                rowObject.timerNameLabel.setTextColor(UIColor.white)
+                                rowObject.timeDisplayLabel.setTextColor(UIColor.white)
+                            }
+                            
+                            let timeTuple = TimeTuple(timerObject.timeSet)
+                            let timeStringContents = String(format: "%02d:%02d:%02d", timeTuple.hours, timeTuple.minutes, timeTuple.seconds)
+                            var timeString:NSAttributedString! = nil
+                            
+                            if .Podium != timerObject.displayMode {
+                                if let titleFont = UIFont(name: "LetsgoDigital-Regular", size: 14) {
+                                    timeString = NSAttributedString(string: timeStringContents, attributes: [NSAttributedStringKey.font:titleFont])
+                                }
+                            } else {
+                                timeString = NSAttributedString(string: timeStringContents, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12)])
+                            }
+                            
+                            rowObject.timeDisplayLabel.setAttributedText(timeString)
+                        }
+                    }
+                }
+            }
         }
     }
     

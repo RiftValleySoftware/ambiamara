@@ -181,7 +181,10 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /* ################################################################## */
     /**
      */
-    func updateAllTimerObjects(inTimerList: [[String:Any]]) {
+    func updateAllTimerObjects() {
+        if nil != self.timerListController {
+            self.timerListController.updateUI()
+        }
     }
     
     /* ################################################################################################################################## */
@@ -294,8 +297,13 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                 case    LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:
                    if let messageData = message[key] as? [String:Any] {
                     self.appStatus = LGV_Timer_State(dictionary: messageData)
+                    self.updateAllTimerObjects()
                     }
                     
+                case    LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
+                    self.appStatus = nil
+                    self.updateAllTimerObjects()
+
                 default:
                     break
                 }

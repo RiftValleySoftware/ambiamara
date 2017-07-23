@@ -32,5 +32,9 @@
 	</dict>
 	<key>WKExtensionDelegateClassName</key>
 	<string>$(PRODUCT_MODULE_NAME).LGV_Timer_Watch_ExtensionDelegate</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Let&apos;s go Digital Regular.ttf</string>
+	</array>
 </dict>
 </plist>

@@ -31,6 +31,7 @@
 		770F0ED01F1908A200647341 /* LGV_Timer_TimerRuntimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77052CD61EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift */; };
 		770FB9B01EE4359300E3120D /* LGV_Timer_InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770FB9AF1EE4359300E3120D /* LGV_Timer_InfoViewController.swift */; };
 		771974DE1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */; };
+		771AF0DB1F24D56500616CE5 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */; };
 		772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */; };
 		772459C61F1E1D01006CA335 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */; };
 		772459C81F1E1D10006CA335 /* LGV_Timer_Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 772459C11F1E1CD7006CA335 /* LGV_Timer_Assets.xcassets */; };
@@ -507,6 +508,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77F86DFA1F213408003BDD73 /* Assets.xcassets in Resources */,
+				771AF0DB1F24D56500616CE5 /* Let's go Digital Regular.ttf in Resources */,
 				770DCE961F2278E4006201FE /* Localizable.strings in Resources */,
 				7738654C1F21430600293BBF /* PushNotificationPayload.apns in Resources */,
 			);

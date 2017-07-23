@@ -18,22 +18,22 @@
             <objects>
                 <controller identifier="MainScreen" id="i4N-ut-62W" userLabel="Main App Interface Controller" customClass="LGV_Timer_Watch_MainAppInterfaceController" customModule="X_Timer_Companion_Extension">
                     <items>
-                        <table alignment="left" hidden="YES" id="2Hz-tT-z2U">
+                        <table alignment="left" id="2Hz-tT-z2U">
                             <items>
                                 <tableRow identifier="TimerRow" id="SvS-RB-JjR" customClass="LGV_Timer_Watch_MainInterfaceTableRowController" customModule="X_Timer_Companion_Extension">
-                                    <group key="rootItem" width="1" alignment="left" layout="vertical" id="OH3-Hd-MtQ">
+                                    <group key="rootItem" width="1" height="30" alignment="left" id="OH3-Hd-MtQ">
                                         <items>
-                                            <label width="1" height="0.5" alignment="left" textAlignment="left" id="Nbg-Gi-VVz">
-                                                <fontDescription key="font" type="system" weight="semibold" pointSize="20"/>
+                                            <label height="1" alignment="left" verticalAlignment="center" text="00:00:00" textAlignment="right" id="YGz-OA-jsB">
+                                                <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="14"/>
                                             </label>
-                                            <group width="1" height="0.5" alignment="left" verticalAlignment="bottom" id="g3q-it-eGR">
+                                            <group width="10" alignment="center" verticalAlignment="center" id="gXa-6q-7SA">
                                                 <items>
-                                                    <imageView height="1" alignment="left" verticalAlignment="center" hidden="YES" image="Watch-TrafficLights" contentMode="scaleAspectFit" id="EKt-lH-VLn"/>
-                                                    <label height="1" alignment="right" verticalAlignment="center" id="YGz-OA-jsB">
-                                                        <fontDescription key="font" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="24"/>
-                                                    </label>
+                                                    <imageView height="26" alignment="center" verticalAlignment="center" image="Watch-TrafficLights" contentMode="scaleAspectFit" id="EKt-lH-VLn"/>
                                                 </items>
                                             </group>
+                                            <label height="1" alignment="right" text="Timer 0" textAlignment="left" id="Nbg-Gi-VVz">
+                                                <fontDescription key="font" type="system" weight="semibold" pointSize="14"/>
+                                            </label>
                                         </items>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </group>
