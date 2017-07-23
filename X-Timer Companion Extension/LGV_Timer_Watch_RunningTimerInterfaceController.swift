@@ -36,6 +36,14 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
     /* ################################################################## */
     /**
      */
+    func updateTimer(_ inTime: Int) {
+        self.timerObject.currentTime = inTime
+        self.updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func startingLights() {
         let greenName = type(of: self).s_GreenLightName
         let offName = type(of: self).s_OffLightName
@@ -84,6 +92,11 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
             self.timerObject = contextTuple.timerObject
             self.controllerObject = contextTuple.controllerObject
             self.controllerObject.modalTimerScreen = self
+            self.displayDigitsLabel.setHidden(.Podium == self.timerObject.displayMode)
+            self.displayTrafficLightsGroup.setHidden(.Digital == self.timerObject.displayMode)
+            if let color = self.timerObject.storedColor as? UIColor {
+                self.displayDigitsLabel.setTextColor(color)
+            }
             self.updateUI()
         }
     }
@@ -92,6 +105,30 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
     /**
      */
     override func updateUI() {
+        if .Podium != self.timerObject.displayMode {
+            let timeTuple = TimeTuple(self.timerObject.currentTime)
+            let timeStringContents = String(format: "%02d:%02d:%02d", timeTuple.hours, timeTuple.minutes, timeTuple.seconds)
+            self.displayDigitsLabel.setText(timeStringContents)
+        }
+        
+        if .Digital != self.timerObject.displayMode {
+            if (0 < self.timerObject.timeSet) && (0 < self.timerObject.timeSetPodiumFinal) && (self.timerObject.timeSetPodiumFinal < self.timerObject.timeSetPodiumWarn) {
+                switch self.timerObject.currentTime {
+                case 0:
+                    self.alarm()
+                    break
+                    
+                case 1...self.timerObject.timeSetPodiumFinal:
+                    self.finalLights()
+                    
+                case self.timerObject.timeSetPodiumFinal + 1...self.timerObject.timeSetPodiumWarn:
+                    self.warningLights()
+                    
+                default:
+                    self.startingLights()
+                }
+            }
+        }
     }
     
 }

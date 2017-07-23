@@ -57,6 +57,15 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
             self.presentController(withName: LGV_Timer_Watch_RunningTimerInterfaceController.screenID, context: contextTuple)
         }
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    func updateTimer(_ inTime: Int) {
+        if nil != self.modalTimerScreen {
+            self.modalTimerScreen.updateTimer(inTime)
+        }
+    }
 
     /* ################################################################################################################################## */
     /* ################################################################## */

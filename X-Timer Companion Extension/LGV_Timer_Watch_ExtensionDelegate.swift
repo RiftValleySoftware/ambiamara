@@ -318,7 +318,34 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                 case    LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
                     self.appStatus = nil
                     self.updateAllTimerObjects()
-
+                    
+                case    LGV_Timer_Messages.s_timerListSelectTimerMessageKey:
+                    if (nil != self.appStatus) && (nil != self.timerListController) {
+                        if let uid = message[key] as? String {
+                            if !uid.isEmpty {
+                                let index = self.appStatus.indexOf(uid)
+                                
+                                if 0 <= index {
+                                    self.appStatus.selectedTimerIndex = index
+                                    self.timerListController.pushTimer(index)
+                                }
+                            } else {
+                                self.timerListController.becomeCurrentPage()
+                            }
+                        } else {
+                            self.timerListController.becomeCurrentPage()
+                        }
+                    }
+                    
+                case    LGV_Timer_Messages.s_timerSendTickMessageKey:
+                    if (nil != self.appStatus) && (0 <= self.appStatus.selectedTimerIndex) {
+                        if let currentTime = message[key] as? Int {
+                            let selectedController = self.timerControllers[self.appStatus.selectedTimerIndex]
+                            
+                            selectedController.updateTimer(currentTime)
+                        }
+                    }
+                    
                 default:
                     break
                 }

@@ -165,6 +165,8 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func applicationDidEnterBackground(_ application: UIApplication) {
         if nil != self.timerEngine {
+            self.timerEngine.stopTimer()
+            self.timerEngine.selectedTimerIndex = -1
             self.sendBackgroundMessage()
             self.timerEngine.savePrefs()
         }
@@ -276,8 +278,10 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /* ################################################################## */
     /**
      */
-    func sendTick(timerUID: String, currentTime: Int) {
+    func sendTick() {
         if nil != self.timerEngine {
+            let selectMsg = [LGV_Timer_Messages.s_timerSendTickMessageKey:self.appState.selectedTimer.currentTime]
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
     }
     

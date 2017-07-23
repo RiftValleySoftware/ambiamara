@@ -35,7 +35,8 @@ class LGV_Timer_Messages {
     static let s_timerRequestActiveTimerUIDMessageKey = "Whazzup"
     static let s_timerRecaclulateTimersMessageKey = "ScarfNBarf"
     static let s_timerSendListAgainMessageKey = "SayWhut"
-
+    static let s_timerSendTickMessageKey = "Tick"
+    
     static let s_timerListHowdyMessageValue = "HowManyTimers"
     static let s_timerStatusUserInfoValue = "TimerStatus"
     static let s_timerListUserInfoValue = "TimerList"

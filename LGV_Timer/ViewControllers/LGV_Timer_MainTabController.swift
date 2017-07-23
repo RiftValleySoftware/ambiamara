@@ -253,6 +253,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
         
         if let controller = self.getTimerScreen(timerSetting) {
             controller.updateTimer()
+            LGV_Timer_AppDelegate.appDelegateObject.sendTick()
         }
     }
     

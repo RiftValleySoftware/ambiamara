@@ -149,10 +149,11 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         
         self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
         self.updateTimer()
-        
-        self.dontBotherTheWatch = false
+        if nil != self.timerObject {
+            LGV_Timer_AppDelegate.appDelegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
+        }
     }
-    
+        
     /* ################################################################## */
     /**
      Called when the view will go away.

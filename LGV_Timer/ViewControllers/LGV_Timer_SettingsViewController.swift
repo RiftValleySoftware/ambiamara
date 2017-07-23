@@ -59,8 +59,10 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         super.viewWillAppear(animated)
         self.mainTabController.timerEngine.selectedTimerIndex = -1
         self.timerTableView.reloadData()
+        
+        LGV_Timer_AppDelegate.appDelegateObject.sendSelectMessage()
     }
-    
+        
     // MARK: - Internal Instance Methods
 
     // MARK: - IBAction Methods
