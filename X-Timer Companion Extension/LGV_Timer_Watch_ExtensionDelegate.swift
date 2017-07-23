@@ -29,6 +29,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /* ################################################################################################################################## */
     var appStatus: LGV_Timer_State! = nil
     var timerListController: LGV_Timer_Watch_MainAppInterfaceController! = nil
+    var timerControllers:[LGV_Timer_Watch_MainTimerHandlerInterfaceController] = []
     
     /* ################################################################################################################################## */
     var session: WCSession {get { return self._mySession }}
@@ -330,16 +331,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
 /**
  */
 class LGV_Timer_Watch_BaseInterfaceController: WKInterfaceController {
-    var timerUID: String = ""
-    var timerIndex: Int = -1
-    var timer:[String:Any]! = nil {
-        didSet {
-            if let uid = self.timer[LGV_Timer_Data_Keys.s_timerDataUIDKey] as? String {
-                self.timerUID = uid
-                self.timerIndex = LGV_Timer_Watch_ExtensionDelegate.delegateObject.getTimerIndexForUID(uid)
-            }
-        }
-    }
+    var timerObject: TimerSettingTuple! = nil
     
     /* ################################################################## */
     /**

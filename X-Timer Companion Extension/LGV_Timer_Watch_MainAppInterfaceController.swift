@@ -38,8 +38,7 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
     /**
      */
     func pushTimer(_ timerIndex: Int) {
-        DispatchQueue.main.async {
-        }
+        LGV_Timer_Watch_ExtensionDelegate.delegateObject.timerControllers[timerIndex].becomeCurrentPage()
     }
     
     /* ################################################################################################################################## */
@@ -66,6 +65,7 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
      */
     override func updateUI() {
         super.updateUI()
+        LGV_Timer_Watch_ExtensionDelegate.delegateObject.timerControllers = []
         DispatchQueue.main.async {
             if let delegateObject = LGV_Timer_Watch_ExtensionDelegate.delegateObject {
                 let weHaveTimers = (nil != delegateObject.appStatus) && (0 < delegateObject.appStatus.count)
