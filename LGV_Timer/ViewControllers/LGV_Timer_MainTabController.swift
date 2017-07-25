@@ -130,6 +130,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
         let timerIndex = 1 + inTimerIndex
         DispatchQueue.main.async {
             if self.selectedViewController != self.viewControllers?[timerIndex] {
+                LGV_Timer_AppDelegate.appDelegateObject.ignoreSelectMessageFromWatch = true
                 self.selectedViewController = self.viewControllers?[timerIndex]
             }
         }

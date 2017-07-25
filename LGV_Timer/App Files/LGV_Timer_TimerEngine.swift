@@ -460,7 +460,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         }
     }
     
-    // MARK: - LGV_Timer_AppStatusDelegate Methods
+    // MARK: - LGV_Timer_StateDelegate Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**

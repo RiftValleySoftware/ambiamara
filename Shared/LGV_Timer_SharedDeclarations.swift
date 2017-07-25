@@ -1128,10 +1128,12 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     func indexOf(_ inUID: String) -> Int {
         var ret: Int = -1
         
-        for index in 0..<self._timers.count {
-            if self._timers[index].uid == inUID {
-                ret = index
-                break
+        if !inUID.isEmpty {
+            for index in 0..<self._timers.count {
+                if self._timers[index].uid == inUID {
+                    ret = index
+                    break
+                }
             }
         }
         

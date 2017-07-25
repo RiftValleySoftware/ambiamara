@@ -30,7 +30,8 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
     static var screenID: String { get { return "MainScreen"} }
     
     var myCurrentTimer: LGV_Timer_Watch_MainTimerHandlerInterfaceController! = nil
-
+    var dontSendAnEvent: Bool = false
+    
     @IBOutlet var timerDisplayTable: WKInterfaceTable!
     
     /* ################################################################################################################################## */
@@ -48,6 +49,7 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         LGV_Timer_Watch_ExtensionDelegate.delegateObject.timerListController = self
+        self.dontSendAnEvent = true
         self.updateUI()
     }
     
@@ -57,6 +59,11 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
     override func didAppear() {
         if let delegateObject = LGV_Timer_Watch_ExtensionDelegate.delegateObject {
             delegateObject.timerListController = self
+            if !self.dontSendAnEvent {
+                delegateObject.sendSelectMessage()
+            }
+            self.dontSendAnEvent = false
+            delegateObject.ignoreSelectMessageFromPhone = false
         }
     }
     

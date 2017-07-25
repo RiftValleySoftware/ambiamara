@@ -104,6 +104,15 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
     /* ################################################################## */
     /**
      */
+    override func willDisappear() {
+        self.controllerObject.dontSendAnEvent = true
+        self.controllerObject.modalTimerScreen = nil
+        super.willDisappear()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     override func updateUI() {
         if .Podium != self.timerObject.displayMode {
             let timeTuple = TimeTuple(self.timerObject.currentTime)

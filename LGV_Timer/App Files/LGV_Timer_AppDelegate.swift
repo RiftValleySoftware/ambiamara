@@ -34,10 +34,24 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     var currentTimer: LGV_Timer_TimerRuntimeViewController! = nil
     var useUserInfo: Bool = false
     var watchDisconnected: Bool = true
-    var timerEngine: LGV_Timer_TimerEngine! {
+    var timerListController: LGV_Timer_SettingsViewController! = nil
+    var ignoreSelectMessageFromWatch: Bool = false
+    
+    // MARK: - Instance Calculated Properties
+    /* ################################################################################################################################## */
+    var mainTabController: LGV_Timer_MainTabController! {
         get {
             if let rootController = self.window?.rootViewController as? LGV_Timer_MainTabController {
-                return rootController.timerEngine
+                return rootController
+            }
+            return nil
+        }
+    }
+    
+    var timerEngine: LGV_Timer_TimerEngine! {
+        get {
+            if nil != self.mainTabController {
+                return self.mainTabController.timerEngine
             }
             return nil
         }
@@ -228,6 +242,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendSelectMessage(timerUID: String = "") {
+        self.ignoreSelectMessageFromWatch = true
         if .activated == self.session.activationState {
             let selectMsg = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey:timerUID]
             self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
@@ -328,10 +343,20 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                     
                     for key in message.keys {
                         switch key {
+                        case LGV_Timer_Messages.s_timerListSelectTimerMessageKey:
+                            if !self.ignoreSelectMessageFromWatch {
+                                if (nil != self.timerEngine) && (nil != self.mainTabController) {
+                                    if let uid = message[key] as? String {
+                                        let index = self.timerEngine.indexOf(uid)
+                                        self.timerEngine.selectedTimerIndex = index
+                                    }
+                                }
+                            }
+                            
                         case LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
                             break
                             
-                        case    LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:
+                        case    LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
                             self.sendAppStateMessage()
                             
                         default:

@@ -16,6 +16,7 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     typealias TimerPushContextTuple = (timerObject: TimerSettingTuple, controllerObject: LGV_Timer_Watch_MainTimerHandlerInterfaceController)
     
     var modalTimerScreen: LGV_Timer_Watch_RunningTimerInterfaceController! = nil
+    var dontSendAnEvent: Bool = false
     
     @IBOutlet var trafficLightIcon: WKInterfaceImage!
     @IBOutlet var timeDisplayGroup: WKInterfaceGroup!
@@ -40,6 +41,9 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /**
      */
     func stopTimer() {
+        if nil != self.modalTimerScreen {
+            self.modalTimerScreen.dismiss()
+        }
     }
     
     /* ################################################################## */
@@ -82,6 +86,20 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /* ################################################################## */
     /**
      */
+    override func didAppear() {
+        super.didAppear()
+        if let delegateObject = LGV_Timer_Watch_ExtensionDelegate.delegateObject {
+            if !self.dontSendAnEvent {
+                delegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
+                delegateObject.ignoreSelectMessageFromPhone = false
+            }
+            self.dontSendAnEvent = false
+       }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     override func updateUI() {
         self.trafficLightIcon.setHidden(.Digital == self.timerObject.displayMode)
         if .Podium != self.timerObject.displayMode {
@@ -101,7 +119,7 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
                 timeString = NSAttributedString(string: timeStringContents, attributes: [NSAttributedStringKey.font:titleFont])
             }
         } else {
-            timeString = NSAttributedString(string: timeStringContents, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 32)])
+            timeString = NSAttributedString(string: timeStringContents, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 30)])
         }
         
         self.timeDisplayLabel.setAttributedText(timeString)

@@ -47,6 +47,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     override func viewDidLoad() {
         self.navItemTitle.title = self.navItemTitle.title?.localizedVariant
         self.mainTabController = self.tabBarController as! LGV_Timer_MainTabController
+        LGV_Timer_AppDelegate.appDelegateObject.timerListController = self
         super.viewDidLoad()
         self.gussyUpTheMoreNavigation()
     }
@@ -59,7 +60,6 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         super.viewWillAppear(animated)
         self.mainTabController.timerEngine.selectedTimerIndex = -1
         self.timerTableView.reloadData()
-        
         LGV_Timer_AppDelegate.appDelegateObject.sendSelectMessage()
     }
         

@@ -37,7 +37,7 @@ import UIKit
      This is a gradient that is displayed across the background, from top to bottom, using the two colors specified in the IB properties.
      */
     let gradientLayer = CAGradientLayer()
-    
+
     // MARK: - Instance Calculated Properties
     /* #################################################################################################################################*/
     /* ################################################################## */
@@ -144,5 +144,14 @@ import UIKit
             tabController.tabBar.barTintColor = self.gradientBottomColor
             tabController.tabBar.unselectedItemTintColor = self.view.tintColor
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the has appeared.
+     */
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        LGV_Timer_AppDelegate.appDelegateObject.ignoreSelectMessageFromWatch = false
     }
 }

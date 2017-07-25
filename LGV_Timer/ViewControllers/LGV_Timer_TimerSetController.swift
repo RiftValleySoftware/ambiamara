@@ -25,7 +25,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
     @IBOutlet weak var bigStartButton: UIButton!
     
-    var dontBotherTheWatch: Bool = false
     var runningTimer: LGV_Timer_TimerRuntimeViewController! = nil
     
     // MARK: - Internal @IBAction Methods
@@ -122,7 +121,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.dontBotherTheWatch = false
         
         if let tabber = self.tabBarController as? LGV_Timer_MainTabController {
             tabber.addTimerToList(self)
@@ -178,7 +176,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      Called when we are about to bring in the setup controller.
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.dontBotherTheWatch = true
         if let destinationController = segue.destination as? LGV_Timer_TimerRuntimeViewController {
             destinationController.myHandler = self
             self.runningTimer = destinationController
