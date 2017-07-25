@@ -24,6 +24,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var setTimePickerView: UIPickerView!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
     @IBOutlet weak var bigStartButton: UIButton!
+    @IBOutlet weak var timeDisplayLabel: UILabel!
     
     var runningTimer: LGV_Timer_TimerRuntimeViewController! = nil
     
@@ -49,6 +50,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      */
     @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
         self.timerObject.displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
+        self.updateTimer()
     }
     
     // MARK: - Internal Instance Methods
@@ -61,6 +63,22 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         self.performSegue(withIdentifier: type(of:self).switchToSettingsSegueID, sender: nil)
     }
     
+    /* ################################################################## */
+    /**
+     Update the time set label.
+     */
+    func updateTimeDisplayLabel() {
+        self.timeDisplayLabel.text = TimeTuple(self.timerObject.timeSet).description
+        self.timeDisplayLabel.textColor = (.Podium == self.timerObject.displayMode ? UIColor.white : LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].textColor!)
+        if .Podium == self.timerObject.displayMode {
+            self.timeDisplayLabel.font = UIFont.boldSystemFont(ofSize: 44)
+        } else {
+            if let titleFont = UIFont(name: "Let's Go Digital", size: 42) {
+                self.timeDisplayLabel.font = titleFont
+            }
+        }
+        self.timeDisplayLabel.setNeedsDisplay()
+    }
     /* ################################################################## */
     /**
      Start the Timer.
@@ -87,6 +105,8 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
                 self.tabBarController?.viewControllers?[timerNumber + 1].tabBarItem.selectedImage = tabBarImage
             }
         }
+        
+        self.updateTimeDisplayLabel()
     }
     
     /* ################################################################## */
