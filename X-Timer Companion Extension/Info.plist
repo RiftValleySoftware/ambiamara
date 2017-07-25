@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>X-Timer Companion Extension</string>
+	<string>X-Timer Watch Extension</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -30,11 +30,11 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
-	<key>WKExtensionDelegateClassName</key>
-	<string>$(PRODUCT_MODULE_NAME).LGV_Timer_Watch_ExtensionDelegate</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Let&apos;s go Digital Regular.ttf</string>
+		<string>Let's go Digital Regular.ttf</string>
 	</array>
+	<key>WKExtensionDelegateClassName</key>
+	<string>$(PRODUCT_MODULE_NAME).LGV_Timer_Watch_ExtensionDelegate</string>
 </dict>
 </plist>

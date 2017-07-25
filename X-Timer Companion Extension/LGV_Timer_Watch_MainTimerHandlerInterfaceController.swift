@@ -91,7 +91,6 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
         if let delegateObject = LGV_Timer_Watch_ExtensionDelegate.delegateObject {
             if !self.dontSendAnEvent {
                 delegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
-                delegateObject.ignoreSelectMessageFromPhone = false
             }
             self.dontSendAnEvent = false
        }

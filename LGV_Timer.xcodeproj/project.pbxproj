@@ -8,64 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		77052CD71EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77052CD61EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift */; };
-		770DCE961F2278E4006201FE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 772459E81F1E1E52006CA335 /* Localizable.strings */; };
-		770F0EBC1F19087A00647341 /* LED_Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A51F1804940054474D /* LED_Element.swift */; };
-		770F0EBD1F19087A00647341 /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A61F1804940054474D /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift */; };
-		770F0EBE1F19088100647341 /* LGV_Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */; };
-		770F0EC01F19089300647341 /* SwipeableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A81F1804BB0054474D /* SwipeableTabBarController.swift */; };
-		770F0EC11F19089300647341 /* SwipeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A91F1804BB0054474D /* SwipeAnimation.swift */; };
-		770F0EC21F19089300647341 /* SwipeAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228AA1F1804BB0054474D /* SwipeAnimationType.swift */; };
-		770F0EC31F19089300647341 /* SwipeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228AB1F1804BB0054474D /* SwipeInteractor.swift */; };
-		770F0EC41F19089300647341 /* SwipeTransitioningProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228AC1F1804BB0054474D /* SwipeTransitioningProtocol.swift */; };
-		770F0EC51F19089300647341 /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228AD1F1804BB0054474D /* UIKit+Extensions.swift */; };
-		770F0EC61F19089900647341 /* LGV_Timer_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13D41ED5E8840043C58B /* LGV_Timer_AppDelegate.swift */; };
-		770F0EC71F19089900647341 /* LGV_Timer_TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB98E01F12838F0062B14A /* LGV_Timer_TimerEngine.swift */; };
-		770F0EC81F1908A200647341 /* LGV_Timer_MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13CB1ED5E8270043C58B /* LGV_Timer_MainTabController.swift */; };
-		770F0EC91F1908A200647341 /* LGV_Timer_TimerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7789C3231ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift */; };
-		770F0ECA1F1908A200647341 /* LGV_Timer_SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13C51ED5E50C0043C58B /* LGV_Timer_SettingsViewController.swift */; };
-		770F0ECB1F1908A200647341 /* LGV_Timer_InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770FB9AF1EE4359300E3120D /* LGV_Timer_InfoViewController.swift */; };
-		770F0ECC1F1908A200647341 /* LGV_Timer_TimerNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772BF9C31ED600B3002D1782 /* LGV_Timer_TimerNavController.swift */; };
-		770F0ECD1F1908A200647341 /* LGV_Timer_TimerSetPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775AE1761EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift */; };
-		770F0ECE1F1908A200647341 /* LGV_Timer_TimerSetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2D1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift */; };
-		770F0ECF1F1908A200647341 /* LGV_Timer_TimerSetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2F1ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift */; };
-		770F0ED01F1908A200647341 /* LGV_Timer_TimerRuntimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77052CD61EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift */; };
 		770FB9B01EE4359300E3120D /* LGV_Timer_InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770FB9AF1EE4359300E3120D /* LGV_Timer_InfoViewController.swift */; };
 		771974DE1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */; };
-		771AF0DB1F24D56500616CE5 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */; };
 		772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */; };
-		772459C61F1E1D01006CA335 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */; };
 		772459C81F1E1D10006CA335 /* LGV_Timer_Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 772459C11F1E1CD7006CA335 /* LGV_Timer_Assets.xcassets */; };
-		772459C91F1E1D11006CA335 /* LGV_Timer_Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 772459C11F1E1CD7006CA335 /* LGV_Timer_Assets.xcassets */; };
 		772459CA1F1E1D17006CA335 /* Sound-00.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BB1F1E1CD7006CA335 /* Sound-00.aiff */; };
 		772459CB1F1E1D17006CA335 /* Sound-01.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BC1F1E1CD7006CA335 /* Sound-01.aiff */; };
 		772459CC1F1E1D17006CA335 /* Sound-02.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BD1F1E1CD7006CA335 /* Sound-02.aiff */; };
 		772459CD1F1E1D17006CA335 /* Sound-03.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BE1F1E1CD7006CA335 /* Sound-03.aiff */; };
 		772459CE1F1E1D17006CA335 /* Sound-04.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BF1F1E1CD7006CA335 /* Sound-04.aiff */; };
-		772459CF1F1E1D18006CA335 /* Sound-00.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BB1F1E1CD7006CA335 /* Sound-00.aiff */; };
-		772459D01F1E1D18006CA335 /* Sound-01.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BC1F1E1CD7006CA335 /* Sound-01.aiff */; };
-		772459D11F1E1D18006CA335 /* Sound-02.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BD1F1E1CD7006CA335 /* Sound-02.aiff */; };
-		772459D21F1E1D18006CA335 /* Sound-03.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BE1F1E1CD7006CA335 /* Sound-03.aiff */; };
-		772459D31F1E1D18006CA335 /* Sound-04.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BF1F1E1CD7006CA335 /* Sound-04.aiff */; };
 		772459D41F1E1D1F006CA335 /* LGV_Timer_ColorThemes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772459C21F1E1CD7006CA335 /* LGV_Timer_ColorThemes.xib */; };
 		772459D51F1E1D1F006CA335 /* LGV_Timer_LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 772459C31F1E1CD7006CA335 /* LGV_Timer_LaunchScreen.storyboard */; };
 		772459D61F1E1D1F006CA335 /* LGV_Timer_Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 772459C41F1E1CD7006CA335 /* LGV_Timer_Main.storyboard */; };
-		772459D71F1E1D20006CA335 /* LGV_Timer_ColorThemes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772459C21F1E1CD7006CA335 /* LGV_Timer_ColorThemes.xib */; };
-		772459D81F1E1D20006CA335 /* LGV_Timer_LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 772459C31F1E1CD7006CA335 /* LGV_Timer_LaunchScreen.storyboard */; };
-		772459D91F1E1D20006CA335 /* LGV_Timer_Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 772459C41F1E1CD7006CA335 /* LGV_Timer_Main.storyboard */; };
 		772459EA1F1E1E52006CA335 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 772459E81F1E1E52006CA335 /* Localizable.strings */; };
-		772459EB1F1E1E52006CA335 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 772459E81F1E1E52006CA335 /* Localizable.strings */; };
 		772A13C61ED5E50C0043C58B /* LGV_Timer_SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13C51ED5E50C0043C58B /* LGV_Timer_SettingsViewController.swift */; };
 		772A13CC1ED5E8270043C58B /* LGV_Timer_MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13CB1ED5E8270043C58B /* LGV_Timer_MainTabController.swift */; };
 		772A13D81ED5E8840043C58B /* LGV_Timer_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13D41ED5E8840043C58B /* LGV_Timer_AppDelegate.swift */; };
 		772BF9C41ED600B3002D1782 /* LGV_Timer_TimerNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772BF9C31ED600B3002D1782 /* LGV_Timer_TimerNavController.swift */; };
-		7738653E1F21351A00293BBF /* LGV_Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */; };
-		773865401F21353E00293BBF /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */; };
-		773865481F21430600293BBF /* LGV_Timer_Complication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773865441F2142D400293BBF /* LGV_Timer_Complication.swift */; };
-		773865491F21430600293BBF /* LGV_Timer_Watch_MainAppInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773865461F2142D400293BBF /* LGV_Timer_Watch_MainAppInterfaceController.swift */; };
-		7738654A1F21430600293BBF /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773865431F2142D400293BBF /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift */; };
-		7738654B1F21430600293BBF /* LGV_Timer_Watch_RunningTimerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773865421F2142D400293BBF /* LGV_Timer_Watch_RunningTimerInterfaceController.swift */; };
-		7738654C1F21430600293BBF /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = 77F86DFC1F213408003BDD73 /* PushNotificationPayload.apns */; };
-		774CF7F11F25128200604977 /* LGV_Timer_Watch_DefaultInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774CF7F01F25114600604977 /* LGV_Timer_Watch_DefaultInterfaceController.swift */; };
 		775228AE1F1804C90054474D /* SwipeableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A81F1804BB0054474D /* SwipeableTabBarController.swift */; };
 		775228AF1F1804C90054474D /* SwipeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A91F1804BB0054474D /* SwipeAnimation.swift */; };
 		775228B01F1804C90054474D /* SwipeAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228AA1F1804BB0054474D /* SwipeAnimationType.swift */; };
@@ -75,64 +34,73 @@
 		775228B41F1805120054474D /* LED_Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A51F1804940054474D /* LED_Element.swift */; };
 		775228B51F1805120054474D /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A61F1804940054474D /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift */; };
 		775AE1771EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775AE1761EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift */; };
+		776662561F279EF300A296A3 /* X-Timer (Watch) Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 776662551F279EF300A296A3 /* X-Timer (Watch) Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		776662631F279EF300A296A3 /* X-Timer (Watch).app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 776662491F279EF300A296A3 /* X-Timer (Watch).app */; };
+		7766626C1F279F0900A296A3 /* LGV_Timer_Watch_ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F86DF51F213408003BDD73 /* LGV_Timer_Watch_ExtensionDelegate.swift */; };
+		7766626D1F279F0900A296A3 /* LGV_Timer_Watch_DefaultInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774CF7F01F25114600604977 /* LGV_Timer_Watch_DefaultInterfaceController.swift */; };
+		7766626E1F279F0900A296A3 /* LGV_Timer_Watch_MainAppInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773865461F2142D400293BBF /* LGV_Timer_Watch_MainAppInterfaceController.swift */; };
+		7766626F1F279F0900A296A3 /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773865431F2142D400293BBF /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift */; };
+		776662701F279F0900A296A3 /* LGV_Timer_Watch_RunningTimerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773865421F2142D400293BBF /* LGV_Timer_Watch_RunningTimerInterfaceController.swift */; };
+		776662711F279F0900A296A3 /* LGV_Timer_Watch_NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F86DF71F213408003BDD73 /* LGV_Timer_Watch_NotificationController.swift */; };
+		776662721F279F0900A296A3 /* LGV_Timer_Complication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773865441F2142D400293BBF /* LGV_Timer_Complication.swift */; };
+		776662731F279F0900A296A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77F86DF91F213408003BDD73 /* Assets.xcassets */; };
+		776662741F279F0900A296A3 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = 77F86DFC1F213408003BDD73 /* PushNotificationPayload.apns */; };
+		776662751F279F2000A296A3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77F86DE41F213408003BDD73 /* Interface.storyboard */; };
+		776662761F279F2500A296A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77F86DE71F213408003BDD73 /* Assets.xcassets */; };
+		776662771F279F3500A296A3 /* LGV_Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */; };
+		776662781F279F3D00A296A3 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */; };
+		776662791F279F3E00A296A3 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */; };
+		7766627A1F27A03B00A296A3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 772459E81F1E1E52006CA335 /* Localizable.strings */; };
 		7770CB2E1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2D1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift */; };
 		7770CB301ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2F1ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift */; };
 		7789C3241ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7789C3231ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift */; };
 		77BB98E11F12838F0062B14A /* LGV_Timer_TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB98E01F12838F0062B14A /* LGV_Timer_TimerEngine.swift */; };
-		77F86DE61F213408003BDD73 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77F86DE41F213408003BDD73 /* Interface.storyboard */; };
-		77F86DE81F213408003BDD73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77F86DE71F213408003BDD73 /* Assets.xcassets */; };
-		77F86DEF1F213408003BDD73 /* X-Timer Companion Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 77F86DEE1F213408003BDD73 /* X-Timer Companion Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		77F86DF61F213408003BDD73 /* LGV_Timer_Watch_ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F86DF51F213408003BDD73 /* LGV_Timer_Watch_ExtensionDelegate.swift */; };
-		77F86DF81F213408003BDD73 /* LGV_Timer_Watch_NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F86DF71F213408003BDD73 /* LGV_Timer_Watch_NotificationController.swift */; };
-		77F86DFA1F213408003BDD73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77F86DF91F213408003BDD73 /* Assets.xcassets */; };
-		77F86DFF1F213408003BDD73 /* X-Timer Companion.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 77F86DE21F213408003BDD73 /* X-Timer Companion.app */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		77F86DF01F213408003BDD73 /* PBXContainerItemProxy */ = {
+		776662571F279EF300A296A3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 77EFB3D41ED5C1A800BDDEFF /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 77F86DED1F213408003BDD73;
-			remoteInfo = "X-Timer Companion Extension";
+			remoteGlobalIDString = 776662541F279EF300A296A3;
+			remoteInfo = "X-Timer (Watch) Extension";
 		};
-		77F86DFD1F213408003BDD73 /* PBXContainerItemProxy */ = {
+		776662611F279EF300A296A3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 77EFB3D41ED5C1A800BDDEFF /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 77F86DE11F213408003BDD73;
-			remoteInfo = "X-Timer Companion";
+			remoteGlobalIDString = 776662481F279EF300A296A3;
+			remoteInfo = "X-Timer (Watch)";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		770F0EDD1F1909B000647341 /* Embed Watch Content */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
-			files = (
-				77F86DFF1F213408003BDD73 /* X-Timer Companion.app in Embed Watch Content */,
-			);
-			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		77F86E051F213408003BDD73 /* Embed App Extensions */ = {
+		776662671F279EF300A296A3 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				77F86DEF1F213408003BDD73 /* X-Timer Companion Extension.appex in Embed App Extensions */,
+				776662561F279EF300A296A3 /* X-Timer (Watch) Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7766626B1F279EF300A296A3 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				776662631F279EF300A296A3 /* X-Timer (Watch).app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		77052CD61EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerRuntimeViewController.swift; path = ViewControllers/LGV_Timer_TimerRuntimeViewController.swift; sourceTree = "<group>"; };
-		770F0EAA1F19086100647341 /* X-Timer With Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "X-Timer With Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		770FB9AF1EE4359300E3120D /* LGV_Timer_InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_InfoViewController.swift; path = ViewControllers/LGV_Timer_InfoViewController.swift; sourceTree = "<group>"; };
 		771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_SharedDeclarations.swift; path = ../Shared/LGV_Timer_SharedDeclarations.swift; sourceTree = "<group>"; };
 		772459BB1F1E1CD7006CA335 /* Sound-00.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-00.aiff"; sourceTree = "<group>"; };
@@ -167,17 +135,17 @@
 		775AE1761EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerSetPickerController.swift; path = ViewControllers/LGV_Timer_TimerSetPickerController.swift; sourceTree = "<group>"; };
 		7765B6881F261F2500050469 /* Honeycomb.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Honeycomb.playground; path = LGV_Timer/LGV_Lib_LEDDisplay/Honeycomb.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7765B6891F261F2600050469 /* TestDisplay.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = TestDisplay.playground; path = LGV_Timer/LGV_Lib_LEDDisplay/TestDisplay.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		776662491F279EF300A296A3 /* X-Timer (Watch).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "X-Timer (Watch).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		776662551F279EF300A296A3 /* X-Timer (Watch) Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "X-Timer (Watch) Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7770CB2D1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerSetController.swift; path = ViewControllers/LGV_Timer_TimerSetController.swift; sourceTree = "<group>"; };
 		7770CB2F1ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerSetupController.swift; path = ViewControllers/LGV_Timer_TimerSetupController.swift; sourceTree = "<group>"; };
 		7789C3231ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerBaseViewController.swift; path = ViewControllers/LGV_Timer_TimerBaseViewController.swift; sourceTree = "<group>"; };
 		77B291131ED5C37C00AD3720 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		77BB98E01F12838F0062B14A /* LGV_Timer_TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerEngine.swift; path = "App Files/LGV_Timer_TimerEngine.swift"; sourceTree = "<group>"; };
 		77EFB3DC1ED5C1A800BDDEFF /* X-Timer Only.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "X-Timer Only.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		77F86DE21F213408003BDD73 /* X-Timer Companion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "X-Timer Companion.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		77F86DE51F213408003BDD73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		77F86DE71F213408003BDD73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77F86DE91F213408003BDD73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		77F86DEE1F213408003BDD73 /* X-Timer Companion Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "X-Timer Companion Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		77F86DF51F213408003BDD73 /* LGV_Timer_Watch_ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Watch_ExtensionDelegate.swift; sourceTree = "<group>"; };
 		77F86DF71F213408003BDD73 /* LGV_Timer_Watch_NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Watch_NotificationController.swift; sourceTree = "<group>"; };
 		77F86DF91F213408003BDD73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -186,7 +154,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		77F86DEB1F213408003BDD73 /* Frameworks */ = {
+		776662521F279EF300A296A3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -300,9 +268,8 @@
 			isa = PBXGroup;
 			children = (
 				77EFB3DC1ED5C1A800BDDEFF /* X-Timer Only.app */,
-				770F0EAA1F19086100647341 /* X-Timer With Watch.app */,
-				77F86DE21F213408003BDD73 /* X-Timer Companion.app */,
-				77F86DEE1F213408003BDD73 /* X-Timer Companion Extension.appex */,
+				776662491F279EF300A296A3 /* X-Timer (Watch).app */,
+				776662551F279EF300A296A3 /* X-Timer (Watch) Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -337,73 +304,57 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		770F0EA91F19086100647341 /* X-Timer With Watch */ = {
+		776662481F279EF300A296A3 /* X-Timer (Watch) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 770F0EB91F19086100647341 /* Build configuration list for PBXNativeTarget "X-Timer With Watch" */;
+			buildConfigurationList = 776662681F279EF300A296A3 /* Build configuration list for PBXNativeTarget "X-Timer (Watch)" */;
 			buildPhases = (
-				770F0EA61F19086100647341 /* Sources */,
-				770F0EA81F19086100647341 /* Resources */,
-				770F0EDD1F1909B000647341 /* Embed Watch Content */,
+				776662471F279EF300A296A3 /* Resources */,
+				776662671F279EF300A296A3 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				77F86DFE1F213408003BDD73 /* PBXTargetDependency */,
+				776662581F279EF300A296A3 /* PBXTargetDependency */,
 			);
-			name = "X-Timer With Watch";
-			productName = "X-Timer With Watch";
-			productReference = 770F0EAA1F19086100647341 /* X-Timer With Watch.app */;
-			productType = "com.apple.product-type.application";
+			name = "X-Timer (Watch)";
+			productName = "X-Timer (Watch)";
+			productReference = 776662491F279EF300A296A3 /* X-Timer (Watch).app */;
+			productType = "com.apple.product-type.application.watchapp2";
 		};
-		77EFB3DB1ED5C1A800BDDEFF /* X-Timer Only */ = {
+		776662541F279EF300A296A3 /* X-Timer (Watch) Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 77EFB3EE1ED5C1A800BDDEFF /* Build configuration list for PBXNativeTarget "X-Timer Only" */;
+			buildConfigurationList = 776662641F279EF300A296A3 /* Build configuration list for PBXNativeTarget "X-Timer (Watch) Extension" */;
+			buildPhases = (
+				776662511F279EF300A296A3 /* Sources */,
+				776662521F279EF300A296A3 /* Frameworks */,
+				776662531F279EF300A296A3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "X-Timer (Watch) Extension";
+			productName = "X-Timer (Watch) Extension";
+			productReference = 776662551F279EF300A296A3 /* X-Timer (Watch) Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+		77EFB3DB1ED5C1A800BDDEFF /* X-Timer (Phone) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 77EFB3EE1ED5C1A800BDDEFF /* Build configuration list for PBXNativeTarget "X-Timer (Phone)" */;
 			buildPhases = (
 				77EFB3D81ED5C1A800BDDEFF /* Sources */,
 				77EFB3DA1ED5C1A800BDDEFF /* Resources */,
+				7766626B1F279EF300A296A3 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				776662621F279EF300A296A3 /* PBXTargetDependency */,
 			);
-			name = "X-Timer Only";
+			name = "X-Timer (Phone)";
 			productName = LGV_Timer;
 			productReference = 77EFB3DC1ED5C1A800BDDEFF /* X-Timer Only.app */;
 			productType = "com.apple.product-type.application";
-		};
-		77F86DE11F213408003BDD73 /* X-Timer Companion */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 77F86E061F213408003BDD73 /* Build configuration list for PBXNativeTarget "X-Timer Companion" */;
-			buildPhases = (
-				77F86DE01F213408003BDD73 /* Resources */,
-				77F86E051F213408003BDD73 /* Embed App Extensions */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				77F86DF11F213408003BDD73 /* PBXTargetDependency */,
-			);
-			name = "X-Timer Companion";
-			productName = "X-Timer Companion";
-			productReference = 77F86DE21F213408003BDD73 /* X-Timer Companion.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		77F86DED1F213408003BDD73 /* X-Timer Companion Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 77F86E041F213408003BDD73 /* Build configuration list for PBXNativeTarget "X-Timer Companion Extension" */;
-			buildPhases = (
-				77F86DEA1F213408003BDD73 /* Sources */,
-				77F86DEB1F213408003BDD73 /* Frameworks */,
-				77F86DEC1F213408003BDD73 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "X-Timer Companion Extension";
-			productName = "X-Timer Companion Extension";
-			productReference = 77F86DEE1F213408003BDD73 /* X-Timer Companion Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -416,7 +367,10 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Little Green Viper Software Development LLC";
 				TargetAttributes = {
-					770F0EA91F19086100647341 = {
+					776662481F279EF300A296A3 = {
+						CreatedOnToolsVersion = 9.0;
+					};
+					776662541F279EF300A296A3 = {
 						CreatedOnToolsVersion = 9.0;
 					};
 					77EFB3DB1ED5C1A800BDDEFF = {
@@ -428,12 +382,6 @@
 								enabled = 0;
 							};
 						};
-					};
-					77F86DE11F213408003BDD73 = {
-						CreatedOnToolsVersion = 9.0;
-					};
-					77F86DED1F213408003BDD73 = {
-						CreatedOnToolsVersion = 9.0;
 					};
 				};
 			};
@@ -451,30 +399,32 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				77EFB3DB1ED5C1A800BDDEFF /* X-Timer Only */,
-				770F0EA91F19086100647341 /* X-Timer With Watch */,
-				77F86DE11F213408003BDD73 /* X-Timer Companion */,
-				77F86DED1F213408003BDD73 /* X-Timer Companion Extension */,
+				77EFB3DB1ED5C1A800BDDEFF /* X-Timer (Phone) */,
+				776662481F279EF300A296A3 /* X-Timer (Watch) */,
+				776662541F279EF300A296A3 /* X-Timer (Watch) Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		770F0EA81F19086100647341 /* Resources */ = {
+		776662471F279EF300A296A3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				772459D91F1E1D20006CA335 /* LGV_Timer_Main.storyboard in Resources */,
-				772459D11F1E1D18006CA335 /* Sound-02.aiff in Resources */,
-				772459EB1F1E1E52006CA335 /* Localizable.strings in Resources */,
-				772459C61F1E1D01006CA335 /* Let's go Digital Regular.ttf in Resources */,
-				772459D31F1E1D18006CA335 /* Sound-04.aiff in Resources */,
-				772459D01F1E1D18006CA335 /* Sound-01.aiff in Resources */,
-				772459D71F1E1D20006CA335 /* LGV_Timer_ColorThemes.xib in Resources */,
-				772459C91F1E1D11006CA335 /* LGV_Timer_Assets.xcassets in Resources */,
-				772459CF1F1E1D18006CA335 /* Sound-00.aiff in Resources */,
-				772459D21F1E1D18006CA335 /* Sound-03.aiff in Resources */,
-				772459D81F1E1D20006CA335 /* LGV_Timer_LaunchScreen.storyboard in Resources */,
+				776662751F279F2000A296A3 /* Interface.storyboard in Resources */,
+				776662761F279F2500A296A3 /* Assets.xcassets in Resources */,
+				776662781F279F3D00A296A3 /* Let's go Digital Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		776662531F279EF300A296A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				776662731F279F0900A296A3 /* Assets.xcassets in Resources */,
+				7766627A1F27A03B00A296A3 /* Localizable.strings in Resources */,
+				776662741F279F0900A296A3 /* PushNotificationPayload.apns in Resources */,
+				776662791F279F3E00A296A3 /* Let's go Digital Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,54 +446,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		77F86DE01F213408003BDD73 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				77F86DE81F213408003BDD73 /* Assets.xcassets in Resources */,
-				773865401F21353E00293BBF /* Let's go Digital Regular.ttf in Resources */,
-				77F86DE61F213408003BDD73 /* Interface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		77F86DEC1F213408003BDD73 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				77F86DFA1F213408003BDD73 /* Assets.xcassets in Resources */,
-				771AF0DB1F24D56500616CE5 /* Let's go Digital Regular.ttf in Resources */,
-				770DCE961F2278E4006201FE /* Localizable.strings in Resources */,
-				7738654C1F21430600293BBF /* PushNotificationPayload.apns in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		770F0EA61F19086100647341 /* Sources */ = {
+		776662511F279EF300A296A3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				770F0EBE1F19088100647341 /* LGV_Timer_SharedDeclarations.swift in Sources */,
-				770F0EC01F19089300647341 /* SwipeableTabBarController.swift in Sources */,
-				770F0EC11F19089300647341 /* SwipeAnimation.swift in Sources */,
-				770F0EC21F19089300647341 /* SwipeAnimationType.swift in Sources */,
-				770F0EC31F19089300647341 /* SwipeInteractor.swift in Sources */,
-				770F0EC41F19089300647341 /* SwipeTransitioningProtocol.swift in Sources */,
-				770F0EC51F19089300647341 /* UIKit+Extensions.swift in Sources */,
-				770F0EBC1F19087A00647341 /* LED_Element.swift in Sources */,
-				770F0EBD1F19087A00647341 /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift in Sources */,
-				770F0ECF1F1908A200647341 /* LGV_Timer_TimerSetupController.swift in Sources */,
-				770F0ECB1F1908A200647341 /* LGV_Timer_InfoViewController.swift in Sources */,
-				770F0EC61F19089900647341 /* LGV_Timer_AppDelegate.swift in Sources */,
-				770F0EC91F1908A200647341 /* LGV_Timer_TimerBaseViewController.swift in Sources */,
-				770F0ECA1F1908A200647341 /* LGV_Timer_SettingsViewController.swift in Sources */,
-				770F0ECC1F1908A200647341 /* LGV_Timer_TimerNavController.swift in Sources */,
-				770F0ED01F1908A200647341 /* LGV_Timer_TimerRuntimeViewController.swift in Sources */,
-				770F0EC81F1908A200647341 /* LGV_Timer_MainTabController.swift in Sources */,
-				770F0ECE1F1908A200647341 /* LGV_Timer_TimerSetController.swift in Sources */,
-				770F0EC71F19089900647341 /* LGV_Timer_TimerEngine.swift in Sources */,
-				770F0ECD1F1908A200647341 /* LGV_Timer_TimerSetPickerController.swift in Sources */,
+				776662711F279F0900A296A3 /* LGV_Timer_Watch_NotificationController.swift in Sources */,
+				776662771F279F3500A296A3 /* LGV_Timer_SharedDeclarations.swift in Sources */,
+				776662701F279F0900A296A3 /* LGV_Timer_Watch_RunningTimerInterfaceController.swift in Sources */,
+				7766626C1F279F0900A296A3 /* LGV_Timer_Watch_ExtensionDelegate.swift in Sources */,
+				776662721F279F0900A296A3 /* LGV_Timer_Complication.swift in Sources */,
+				7766626D1F279F0900A296A3 /* LGV_Timer_Watch_DefaultInterfaceController.swift in Sources */,
+				7766626E1F279F0900A296A3 /* LGV_Timer_Watch_MainAppInterfaceController.swift in Sources */,
+				7766626F1F279F0900A296A3 /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,33 +491,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		77F86DEA1F213408003BDD73 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7738654B1F21430600293BBF /* LGV_Timer_Watch_RunningTimerInterfaceController.swift in Sources */,
-				77F86DF81F213408003BDD73 /* LGV_Timer_Watch_NotificationController.swift in Sources */,
-				773865481F21430600293BBF /* LGV_Timer_Complication.swift in Sources */,
-				774CF7F11F25128200604977 /* LGV_Timer_Watch_DefaultInterfaceController.swift in Sources */,
-				7738653E1F21351A00293BBF /* LGV_Timer_SharedDeclarations.swift in Sources */,
-				77F86DF61F213408003BDD73 /* LGV_Timer_Watch_ExtensionDelegate.swift in Sources */,
-				773865491F21430600293BBF /* LGV_Timer_Watch_MainAppInterfaceController.swift in Sources */,
-				7738654A1F21430600293BBF /* LGV_Timer_Watch_MainTimerHandlerInterfaceController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		77F86DF11F213408003BDD73 /* PBXTargetDependency */ = {
+		776662581F279EF300A296A3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 77F86DED1F213408003BDD73 /* X-Timer Companion Extension */;
-			targetProxy = 77F86DF01F213408003BDD73 /* PBXContainerItemProxy */;
+			target = 776662541F279EF300A296A3 /* X-Timer (Watch) Extension */;
+			targetProxy = 776662571F279EF300A296A3 /* PBXContainerItemProxy */;
 		};
-		77F86DFE1F213408003BDD73 /* PBXTargetDependency */ = {
+		776662621F279EF300A296A3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 77F86DE11F213408003BDD73 /* X-Timer Companion */;
-			targetProxy = 77F86DFD1F213408003BDD73 /* PBXContainerItemProxy */;
+			target = 776662481F279EF300A296A3 /* X-Timer (Watch) */;
+			targetProxy = 776662611F279EF300A296A3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -624,42 +526,84 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		770F0EBA1F19086100647341 /* Debug */ = {
+		776662651F279EF300A296A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = P53V4JS928;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "$(SRCROOT)/LGV_Timer/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.X-Timer";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "$(SRCROOT)/X-Timer Companion Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.X-Timer.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
 		};
-		770F0EBB1F19086100647341 /* Release */ = {
+		776662661F279EF300A296A3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = P53V4JS928;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/X-Timer Companion Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.X-Timer.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
+		776662691F279EF300A296A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = P53V4JS928;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "$(SRCROOT)/LGV_Timer/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.X-Timer";
+				IBSC_MODULE = X_Timer__Watch__Extension;
+				INFOPLIST_FILE = "$(SRCROOT)/X-Timer Companion/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.X-Timer.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		7766626A1F279EF300A296A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = P53V4JS928;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IBSC_MODULE = X_Timer__Watch__Extension;
+				INFOPLIST_FILE = "$(SRCROOT)/X-Timer Companion/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.X-Timer.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
@@ -815,101 +759,24 @@
 			};
 			name = Release;
 		};
-		77F86E001F213408003BDD73 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = P53V4JS928;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				IBSC_MODULE = X_Timer_Companion_Extension;
-				INFOPLIST_FILE = "X-Timer Companion/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.X-Timer.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
-			};
-			name = Debug;
-		};
-		77F86E011F213408003BDD73 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = P53V4JS928;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				IBSC_MODULE = X_Timer_Companion_Extension;
-				INFOPLIST_FILE = "X-Timer Companion/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.X-Timer.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
-			};
-			name = Release;
-		};
-		77F86E021F213408003BDD73 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				DEVELOPMENT_TEAM = P53V4JS928;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "X-Timer Companion Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.X-Timer.watchkitapp.watchkitextension";
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
-			};
-			name = Debug;
-		};
-		77F86E031F213408003BDD73 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				DEVELOPMENT_TEAM = P53V4JS928;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "X-Timer Companion Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.X-Timer.watchkitapp.watchkitextension";
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		770F0EB91F19086100647341 /* Build configuration list for PBXNativeTarget "X-Timer With Watch" */ = {
+		776662641F279EF300A296A3 /* Build configuration list for PBXNativeTarget "X-Timer (Watch) Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				770F0EBA1F19086100647341 /* Debug */,
-				770F0EBB1F19086100647341 /* Release */,
+				776662651F279EF300A296A3 /* Debug */,
+				776662661F279EF300A296A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+		};
+		776662681F279EF300A296A3 /* Build configuration list for PBXNativeTarget "X-Timer (Watch)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				776662691F279EF300A296A3 /* Debug */,
+				7766626A1F279EF300A296A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		77EFB3D71ED5C1A800BDDEFF /* Build configuration list for PBXProject "LGV_Timer" */ = {
 			isa = XCConfigurationList;
@@ -920,29 +787,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		77EFB3EE1ED5C1A800BDDEFF /* Build configuration list for PBXNativeTarget "X-Timer Only" */ = {
+		77EFB3EE1ED5C1A800BDDEFF /* Build configuration list for PBXNativeTarget "X-Timer (Phone)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				77EFB3EF1ED5C1A800BDDEFF /* Debug */,
 				77EFB3F01ED5C1A800BDDEFF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		77F86E041F213408003BDD73 /* Build configuration list for PBXNativeTarget "X-Timer Companion Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				77F86E021F213408003BDD73 /* Debug */,
-				77F86E031F213408003BDD73 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		77F86E061F213408003BDD73 /* Build configuration list for PBXNativeTarget "X-Timer Companion" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				77F86E001F213408003BDD73 /* Debug */,
-				77F86E011F213408003BDD73 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

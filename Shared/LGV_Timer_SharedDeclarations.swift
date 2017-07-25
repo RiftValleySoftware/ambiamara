@@ -19,7 +19,6 @@ import Foundation
  These are the main message keys between the app and the Watch.
  */
 class LGV_Timer_Messages {
-    static let s_timerListHowdyMessageKey = "Howdy"
     static let s_timerListSelectTimerMessageKey = "SelectTimer"
     static let s_timerListStartTimerMessageKey = "StartTimer"
     static let s_timerListPauseTimerMessageKey = "PauseTimer"

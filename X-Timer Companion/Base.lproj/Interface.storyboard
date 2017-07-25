@@ -16,7 +16,7 @@
         <!--Default No Connection Interface Controller-->
         <scene sceneID="5A9-SJ-bWw">
             <objects>
-                <controller identifier="DefaultScreen" id="i4N-ut-62W" userLabel="Default No Connection Interface Controller" customClass="LGV_Timer_Watch_DefaultInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
+                <controller identifier="DefaultScreen" id="i4N-ut-62W" userLabel="Default No Connection Interface Controller" customClass="LGV_Timer_Watch_DefaultInterfaceController" customModule="X_Timer__Watch_" customModuleProvider="target">
                     <items>
                         <group width="1" height="1" alignment="center" layout="vertical" id="lQa-3d-Y0M" userLabel="No App Connection Display">
                             <items>
@@ -50,7 +50,7 @@
         <!--TimerScreen-->
         <scene sceneID="xyw-HL-qjO">
             <objects>
-                <controller identifier="TimerScreen" id="fDO-Zl-Nkx" customClass="LGV_Timer_Watch_MainTimerHandlerInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
+                <controller identifier="TimerScreen" id="fDO-Zl-Nkx" customClass="LGV_Timer_Watch_MainTimerHandlerInterfaceController" customModule="X_Timer__Watch_" customModuleProvider="target">
                     <items>
                         <group width="1" height="1" alignment="left" layout="vertical" id="ANx-Gq-hUJ" userLabel="Time Display Group">
                             <items>
@@ -89,7 +89,7 @@
         <!--Running Timer-->
         <scene sceneID="jaH-hQ-9O5">
             <objects>
-                <controller identifier="RunningTimer" id="ljw-Z4-BZJ" userLabel="Running Timer" customClass="LGV_Timer_Watch_RunningTimerInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
+                <controller identifier="RunningTimer" id="ljw-Z4-BZJ" userLabel="Running Timer" customClass="LGV_Timer_Watch_RunningTimerInterfaceController" customModule="X_Timer__Watch_" customModuleProvider="target">
                     <items>
                         <button alignment="left" id="D1z-TA-HQx">
                             <group key="contentGroup" width="1" height="1" alignment="left" layout="vertical" id="P2i-2e-2Ml">
@@ -128,11 +128,11 @@
         <!--Main App Interface Controller-->
         <scene sceneID="FpA-vt-mpP">
             <objects>
-                <controller identifier="MainScreen" id="3Sd-X2-mbg" userLabel="Main App Interface Controller" customClass="LGV_Timer_Watch_MainAppInterfaceController" customModule="X_Timer_Companion" customModuleProvider="target">
+                <controller identifier="MainScreen" id="3Sd-X2-mbg" userLabel="Main App Interface Controller" customClass="LGV_Timer_Watch_MainAppInterfaceController" customModule="X_Timer__Watch_" customModuleProvider="target">
                     <items>
                         <table alignment="center" id="cEz-xX-eyc">
                             <items>
-                                <tableRow identifier="TimerRow" id="fz6-J5-Bz0" customClass="LGV_Timer_Watch_MainInterfaceTableRowController" customModule="X_Timer_Companion_Extension">
+                                <tableRow identifier="TimerRow" id="fz6-J5-Bz0" customClass="LGV_Timer_Watch_MainInterfaceTableRowController" customModule="X_Timer__Watch_" customModuleProvider="target">
                                     <group key="rootItem" width="1" height="30" alignment="left" id="w2E-Wh-mYI">
                                         <items>
                                             <label height="1" alignment="left" verticalAlignment="center" text="00:00:00" textAlignment="right" id="iAM-NI-Rq9">

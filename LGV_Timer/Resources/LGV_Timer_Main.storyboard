@@ -139,9 +139,9 @@
                                 <rect key="frame" x="16" y="0.0" width="343" height="201.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGx-XA-7vt">
-                                        <rect key="frame" x="0.0" y="85.5" width="343" height="30"/>
+                                        <rect key="frame" x="0.0" y="80.5" width="343" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="0bW-lX-eiU"/>
+                                            <constraint firstAttribute="height" constant="40" id="0bW-lX-eiU"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -611,10 +611,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hkG-c8-9wK" userLabel="Container View">
-                                                    <rect key="frame" x="21.5" y="0.0" width="300" height="44"/>
+                                                    <rect key="frame" x="46.5" y="0.0" width="250" height="44"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LIP-Nv-Co1" userLabel="Label View">
-                                                            <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="250" height="44"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTb-8q-JAj" userLabel="Time Display Label">
                                                                     <rect key="frame" x="-0.5" y="0.0" width="110" height="44"/>
@@ -622,13 +622,13 @@
                                                                         <constraint firstAttribute="width" constant="110" id="HxL-aT-Veu"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="30"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUK-xt-9d3">
-                                                                    <rect key="frame" x="130" y="0.0" width="170" height="44"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIMER 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUK-xt-9d3">
+                                                                    <rect key="frame" x="130" y="0.0" width="120" height="44"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                                                    <color key="textColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TrafficLights" translatesAutoresizingMaskIntoConstraints="NO" id="U3D-3Q-xvD">
@@ -658,7 +658,7 @@
                                                     <constraints>
                                                         <constraint firstItem="LIP-Nv-Co1" firstAttribute="top" secondItem="hkG-c8-9wK" secondAttribute="top" id="1kb-xh-Ce4"/>
                                                         <constraint firstItem="LIP-Nv-Co1" firstAttribute="leading" secondItem="hkG-c8-9wK" secondAttribute="leading" id="5K3-HN-qiG"/>
-                                                        <constraint firstAttribute="width" constant="300" id="FRz-f4-Nkd"/>
+                                                        <constraint firstAttribute="width" constant="250" id="FRz-f4-Nkd"/>
                                                         <constraint firstAttribute="trailing" secondItem="LIP-Nv-Co1" secondAttribute="trailing" id="Qac-LZ-onc"/>
                                                         <constraint firstAttribute="bottom" secondItem="LIP-Nv-Co1" secondAttribute="bottom" id="rWU-xu-wLK"/>
                                                     </constraints>
@@ -699,7 +699,7 @@
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" image="Settings" id="xaE-0x-fg6"/>
+                    <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" image="Settings" selectedImage="Settings" id="xaE-0x-fg6"/>
                     <navigationItem key="navigationItem" title="LGV_TIMER-SETUP-TITLE" id="7xT-8h-l1i" userLabel="LGV_TIMER-SETUP-TITLE">
                         <barButtonItem key="leftBarButtonItem" image="Info" id="luj-0d-Mda">
                             <connections>

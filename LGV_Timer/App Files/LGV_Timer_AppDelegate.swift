@@ -243,8 +243,14 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func sendSelectMessage(timerUID: String = "") {
         self.ignoreSelectMessageFromWatch = true
+        #if DEBUG
+            print("Turning On Ignore Select From Watch.")
+        #endif
         if .activated == self.session.activationState {
             let selectMsg = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey:timerUID]
+            #if DEBUG
+                print("Phone Sending Message: " + String(describing: selectMsg))
+            #endif
             self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
     }
@@ -255,38 +261,10 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     func sendAlarmMessage(timerUID: String) {
         if .activated == self.session.activationState {
             let selectMsg = [LGV_Timer_Messages.s_timerListAlarmMessageKey:timerUID]
-            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func sendBackgroundMessage() {
-        let selectMsg = [LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:""]
-        self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func sendForegroundMessage() {
-        for timer in self.appState {    // Make sure the timer color theme is up to date.
-            timer.storedColor = self.timerEngine.getIndexedColorThemeColor(timer.colorTheme)
-        }
-        
-        let selectMsg = [LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:self.appState.dictionary]
-        self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func sendAppStateMessage() {
-        if .active == UIApplication.shared.applicationState {
-            self.sendForegroundMessage()
-        } else {
-            self.sendBackgroundMessage()
+            #if DEBUG
+                print("Phone Sending Message: " + String(describing: selectMsg))
+            #endif
+           self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
     }
     
@@ -296,6 +274,43 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     func sendTick() {
         if nil != self.timerEngine {
             let selectMsg = [LGV_Timer_Messages.s_timerSendTickMessageKey:self.appState.selectedTimer.currentTime]
+            #if DEBUG
+                print("Phone Sending Message: " + String(describing: selectMsg))
+            #endif
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    func sendBackgroundMessage() {
+        let selectMsg = [LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:""]
+        #if DEBUG
+            print("Phone Sending Message: " + String(describing: selectMsg))
+        #endif
+        self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func sendForegroundMessage() {
+        if nil != self.appState {
+            for timer in self.appState {    // Make sure the timer color theme is up to date.
+                timer.storedColor = self.timerEngine.getIndexedColorThemeColor(timer.colorTheme)
+            }
+            
+            let selectMsg = [LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:self.appState.dictionary]
+            #if DEBUG
+                print("Phone Sending Message: " + String(describing: selectMsg))
+            #endif
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        } else {
+            let selectMsg = [LGV_Timer_Messages.s_timerAppInForegroundMessageKey:""]
+            #if DEBUG
+                print("Phone Sending Message: " + String(describing: selectMsg))
+            #endif
             self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
     }
@@ -306,7 +321,9 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        self.sendAppStateMessage()
+        if .activated == activationState {
+            self.sendForegroundMessage()
+        }
     }
     
     /* ################################################################## */
@@ -338,7 +355,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
             DispatchQueue.main.async {
                 if .active == UIApplication.shared.applicationState {
                     #if DEBUG
-                        print(String(describing: message))
+                        print("Phone Received Message: " + String(describing: message))
                     #endif
                     
                     for key in message.keys {
@@ -351,13 +368,17 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                                         self.timerEngine.selectedTimerIndex = index
                                     }
                                 }
+                            } else {
+                                #if DEBUG
+                                    print("Select From Watch Ignored.")
+                                #endif
                             }
+                            
+                        case LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
+                            self.sendForegroundMessage()
                             
                         case LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
                             break
-                            
-                        case    LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
-                            self.sendAppStateMessage()
                             
                         default:
                             if let uid = message[key] as? String {

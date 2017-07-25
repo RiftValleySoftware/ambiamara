@@ -152,6 +152,9 @@ import UIKit
      */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        #if DEBUG
+            print("Turning Off Ignore Select From Watch.")
+        #endif
         LGV_Timer_AppDelegate.appDelegateObject.ignoreSelectMessageFromWatch = false
     }
 }
