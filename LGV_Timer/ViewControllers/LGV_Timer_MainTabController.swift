@@ -133,7 +133,6 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
                 #if DEBUG
                     print("Turning On Ignore Select From Watch.")
                 #endif
-                LGV_Timer_AppDelegate.appDelegateObject.ignoreSelectMessageFromWatch = true
                 self.selectedViewController = self.viewControllers?[timerIndex]
             }
         }

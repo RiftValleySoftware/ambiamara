@@ -145,16 +145,4 @@ import UIKit
             tabController.tabBar.unselectedItemTintColor = self.view.tintColor
         }
     }
-    
-    /* ################################################################## */
-    /**
-     Called when the has appeared.
-     */
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        #if DEBUG
-            print("Turning Off Ignore Select From Watch.")
-        #endif
-        LGV_Timer_AppDelegate.appDelegateObject.ignoreSelectMessageFromWatch = false
-    }
 }
