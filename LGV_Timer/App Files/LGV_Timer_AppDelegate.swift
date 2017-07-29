@@ -117,12 +117,16 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
-    private var _mySession = WCSession.default
+    private var _mySession: WCSession! = nil
     
     // MARK: - Internal Instance Calculated Properties
     /* ################################################################################################################################## */
-    var session: WCSession {
+    var session: WCSession! {
         get {
+            if nil == self._mySession {
+                 self._mySession = WCSession.default
+            }
+            
             return self._mySession
         }
     }
@@ -202,7 +206,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendStartMessage(timerUID: String, currentTime: Int! = nil) {
-        if nil != self.timerEngine {
+        if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
             let selectMsg = [LGV_Timer_Messages.s_timerListStartTimerMessageKey:timerUID]
             #if DEBUG
                 print("Phone Sending Message: " + String(describing: selectMsg))
@@ -215,7 +219,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendStopMessage(timerUID: String) {
-        if nil != self.timerEngine {
+        if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
             let selectMsg = [LGV_Timer_Messages.s_timerListStopTimerMessageKey:timerUID]
             #if DEBUG
                 print("Phone Sending Message: " + String(describing: selectMsg))
@@ -228,24 +232,26 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendSelectMessage(timerUID: String = "") {
-        #if DEBUG
-            print("Incrementing Ignore Select From Watch from \(self.ignoreSelectMessageFromWatch).")
-        #endif
-        self.ignoreSelectMessageFromWatch += 1
-        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { (_ inTimer: Timer) in
+        if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
             #if DEBUG
-                if 0 < self.ignoreSelectMessageFromWatch {
-                    print("Selection is \(self.ignoreSelectMessageFromWatch). Resetting it to 0.")
-                }
+                print("Incrementing Ignore Select From Watch from \(self.ignoreSelectMessageFromWatch).")
             #endif
-            self.ignoreSelectMessageFromWatch = 0
-        })
-        if .activated == self.session.activationState {
-            let selectMsg = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey:timerUID]
-            #if DEBUG
-                print("Phone Sending Message: " + String(describing: selectMsg))
-            #endif
-            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+            self.ignoreSelectMessageFromWatch += 1
+            Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { (_ inTimer: Timer) in
+                #if DEBUG
+                    if 0 < self.ignoreSelectMessageFromWatch {
+                        print("Selection is \(self.ignoreSelectMessageFromWatch). Resetting it to 0.")
+                    }
+                #endif
+                self.ignoreSelectMessageFromWatch = 0
+            })
+            if .activated == self.session.activationState {
+                let selectMsg = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey:timerUID]
+                #if DEBUG
+                    print("Phone Sending Message: " + String(describing: selectMsg))
+                #endif
+                self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+            }
         }
     }
     
@@ -253,7 +259,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendAlarmMessage(timerUID: String) {
-        if .activated == self.session.activationState {
+        if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
             let selectMsg = [LGV_Timer_Messages.s_timerListAlarmMessageKey:timerUID]
             #if DEBUG
                 print("Phone Sending Message: " + String(describing: selectMsg))
@@ -266,7 +272,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendTick() {
-        if nil != self.timerEngine {
+        if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
             let selectMsg = [LGV_Timer_Messages.s_timerSendTickMessageKey:self.appState.selectedTimer.currentTime]
             #if DEBUG
                 print("Phone Sending Message: " + String(describing: selectMsg))
@@ -279,33 +285,37 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sendBackgroundMessage() {
-        let selectMsg = [LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:""]
-        #if DEBUG
-            print("Phone Sending Message: " + String(describing: selectMsg))
-        #endif
-        self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
+            let selectMsg = [LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:""]
+            #if DEBUG
+                print("Phone Sending Message: " + String(describing: selectMsg))
+            #endif
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+        }
     }
     
     /* ################################################################## */
     /**
      */
     func sendForegroundMessage() {
-        if nil != self.appState {
-            for timer in self.appState {    // Make sure the timer color theme is up to date.
-                timer.storedColor = self.timerEngine.getIndexedColorThemeColor(timer.colorTheme)
+        if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
+            if nil != self.appState {
+                for timer in self.appState {    // Make sure the timer color theme is up to date.
+                    timer.storedColor = self.timerEngine.getIndexedColorThemeColor(timer.colorTheme)
+                }
+                
+                let selectMsg = [LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:self.appState.dictionary]
+                #if DEBUG
+                    print("Phone Sending Message: " + String(describing: selectMsg))
+                #endif
+                self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+            } else {
+                let selectMsg = [LGV_Timer_Messages.s_timerAppInForegroundMessageKey:""]
+                #if DEBUG
+                    print("Phone Sending Message: " + String(describing: selectMsg))
+                #endif
+                self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
             }
-            
-            let selectMsg = [LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:self.appState.dictionary]
-            #if DEBUG
-                print("Phone Sending Message: " + String(describing: selectMsg))
-            #endif
-            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
-        } else {
-            let selectMsg = [LGV_Timer_Messages.s_timerAppInForegroundMessageKey:""]
-            #if DEBUG
-                print("Phone Sending Message: " + String(describing: selectMsg))
-            #endif
-            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
     }
     

@@ -265,6 +265,8 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         
         if .Digital != self.timerObject.displayMode {
             self.stoplightContainerView = UIView(frame: tempRect)
+            self.stoplightContainerView.isUserInteractionEnabled = false
+            
             self.greenLight = UIImageView(frame: tempRect)
             self.yellowLight = UIImageView(frame: tempRect)
             self.redLight = UIImageView(frame: tempRect)
