@@ -16,8 +16,6 @@
 
 "LGV_TIMER-SET-LABEL"                                   =   "Set Timer";
 
-"LGV_TIMER-PAUSED"                                      =   "X";
-
 "LGV_TIMER-SETUP-TIME-SET-LABEL"                        =   "Set Start Time";
 "LGV_TIMER-SETUP-TIMER-MODE-LABEL"                      =   "Timer Mode";
 "LGV_TIMER-SETUP-TIMER-MODE-SWITCH-0"                   =   "Digital Mode";
@@ -47,22 +45,22 @@
 "BASIC-OK-BUTTON"                                       =   "OK";
 "BASIC-DONE-BUTTON"                                     =   "DONE";
 
-"LGV_TIMER-COLOR-THEME-RED"                             =   "Red";
-"LGV_TIMER-COLOR-THEME-BLUE"                            =   "Blue";
-"LGV_TIMER-COLOR-THEME-GREEN"                           =   "Green";
-"LGV_TIMER-COLOR-THEME-YELLOW"                          =   "Yellow";
-"LGV_TIMER-COLOR-THEME-PURPLE"                          =   "Purple";
-"LGV_TIMER-COLOR-THEME-CYAN"                            =   "Cyan";
-"LGV_TIMER-COLOR-THEME-MAGENTA"                         =   "Magenta";
-"LGV_TIMER-COLOR-THEME-WHITE"                           =   "White";
-"LGV_TIMER-COLOR-THEME-GRAY"                            =   "Gray";
-"LGV_TIMER-COLOR-THEME-BURGUNDY"                        =   "Burgundy";
-"LGV_TIMER-COLOR-THEME-GOLDENROD"                       =   "Goldenrod";
-"LGV_TIMER-COLOR-THEME-SKYBLUE"                         =   "Sky Blue";
-"LGV_TIMER-COLOR-THEME-TEAL"                            =   "Teal";
-"LGV_TIMER-COLOR-THEME-ORANGE"                          =   "Orange";
-"LGV_TIMER-COLOR-THEME-LIME-GREEN"                      =   "Lime Green";
-"LGV_TIMER-COLOR-THEME-LIME-BLACK"                      =   "Black";
+"LGV_TIMER-COLOR-THEME-RED"                             =   "Red Digital Display Color";
+"LGV_TIMER-COLOR-THEME-BLUE"                            =   "Blue Digital Display Color";
+"LGV_TIMER-COLOR-THEME-GREEN"                           =   "Green Digital Display Color";
+"LGV_TIMER-COLOR-THEME-YELLOW"                          =   "Yellow Digital Display Color";
+"LGV_TIMER-COLOR-THEME-PURPLE"                          =   "Purple Digital Display Color";
+"LGV_TIMER-COLOR-THEME-CYAN"                            =   "Cyan Digital Display Color";
+"LGV_TIMER-COLOR-THEME-MAGENTA"                         =   "Magenta Digital Display Color";
+"LGV_TIMER-COLOR-THEME-WHITE"                           =   "White Digital Display Color";
+"LGV_TIMER-COLOR-THEME-GRAY"                            =   "Gray Digital Display Color";
+"LGV_TIMER-COLOR-THEME-BURGUNDY"                        =   "Burgundy Digital Display Color";
+"LGV_TIMER-COLOR-THEME-GOLDENROD"                       =   "Goldenrod Digital Display Color";
+"LGV_TIMER-COLOR-THEME-SKYBLUE"                         =   "Sky Blue Digital Display Color";
+"LGV_TIMER-COLOR-THEME-TEAL"                            =   "Teal Digital Display Color";
+"LGV_TIMER-COLOR-THEME-ORANGE"                          =   "Orange Digital Display Color";
+"LGV_TIMER-COLOR-THEME-LIME-GREEN"                      =   "Lime Green Digital Display Color";
+"LGV_TIMER-COLOR-THEME-LIME-BLACK"                      =   "Black Digital Display Color";
 
 "LGV_TIMER-INFO-TITLE-FORMAT"                           =   "About X-Timer V. %@";
 "LGV_TIMER-ABOUT-LONG-BLURB"                            =   "X-Timer is short for \"eXtremely useful countdown Timer.\"\nIt's a countdown timer app that has been designed from Day One to be usable and handy.\nYou can create as many preset timers as you want, assigning each one a color, running mode, and preset time.\nOnce they are set, each timer is just one touch away.\nYou can also control the timers through the use of gestures.";

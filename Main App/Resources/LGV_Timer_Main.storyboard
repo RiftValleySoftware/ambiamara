@@ -50,7 +50,7 @@
                         <viewControllerLayoutGuide type="bottom" id="dnv-Bg-783"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gVx-u0-GdF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="599"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EDZ-zT-xw3" userLabel="Picker View Container">
@@ -101,7 +101,7 @@
                                 <rect key="frame" x="0.0" y="381.5" width="375" height="221.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b7B-d7-lBc">
-                                        <rect key="frame" x="157" y="76.5" width="60" height="69"/>
+                                        <rect key="frame" x="157" y="77" width="60" height="69"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="b7B-d7-lBc" secondAttribute="height" multiplier="20:23" id="A12-wW-kg0"/>
@@ -128,7 +128,7 @@
                                 <rect key="frame" x="16" y="0.0" width="343" height="221.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGx-XA-7vt">
-                                        <rect key="frame" x="0.0" y="91" width="343" height="40"/>
+                                        <rect key="frame" x="0.0" y="91.5" width="343" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="0bW-lX-eiU"/>
                                         </constraints>
@@ -271,7 +271,7 @@
                                                     <action selector="stopButtonHit:" destination="pId-dv-a9R" id="6Vg-8r-mJx"/>
                                                 </connections>
                                             </barButtonItem>
-                                            <barButtonItem enabled="NO" title="              " width="100" id="kTF-fS-vpK" userLabel="Spacer"/>
+                                            <barButtonItem width="60" id="9CI-JB-27r" userLabel="Spacer"/>
                                             <barButtonItem image="Phone-Reset" id="wL4-iM-6HV" userLabel="Reset Button">
                                                 <connections>
                                                     <action selector="resetButtonHit:" destination="pId-dv-a9R" id="Pdy-QW-Cz6"/>
@@ -284,7 +284,7 @@
                                                     <action selector="pauseButtonHit:" destination="pId-dv-a9R" id="Cno-CX-GKA"/>
                                                 </connections>
                                             </barButtonItem>
-                                            <barButtonItem enabled="NO" title="              " width="100" id="Upo-90-X3O" userLabel="Spacer"/>
+                                            <barButtonItem width="60" id="ZOk-cS-mPj" userLabel="Spacer"/>
                                             <barButtonItem image="Phone-End" id="9CE-DY-r7O" userLabel="End Button">
                                                 <connections>
                                                     <action selector="endButtonHit:" destination="pId-dv-a9R" id="nVI-nn-D4s"/>
@@ -311,7 +311,7 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
                             <color key="value" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -408,19 +408,10 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-6l-M17" userLabel="Color Picker Container View">
-                                <rect key="frame" x="16" y="223" width="343" height="111"/>
+                                <rect key="frame" x="16" y="223" width="343" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-COLOR-THEME-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qA-v4-gf5">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="hzs-1r-dih"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lha-1G-1eH">
-                                        <rect key="frame" x="0.0" y="21" width="343" height="90"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="60"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
@@ -431,18 +422,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="7qA-v4-gf5" secondAttribute="trailing" id="5jR-hk-ObC"/>
-                                    <constraint firstItem="7qA-v4-gf5" firstAttribute="leading" secondItem="KvQ-6l-M17" secondAttribute="leading" id="CdK-X7-DcD"/>
                                     <constraint firstAttribute="trailing" secondItem="lha-1G-1eH" secondAttribute="trailing" id="DYU-3m-ZrY"/>
-                                    <constraint firstAttribute="height" constant="111" id="YGC-fi-vUZ"/>
-                                    <constraint firstItem="7qA-v4-gf5" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="top" id="atX-zm-qf0"/>
+                                    <constraint firstAttribute="height" constant="60" id="YGC-fi-vUZ"/>
                                     <constraint firstItem="lha-1G-1eH" firstAttribute="leading" secondItem="KvQ-6l-M17" secondAttribute="leading" id="b99-cx-yDQ"/>
-                                    <constraint firstItem="lha-1G-1eH" firstAttribute="top" secondItem="7qA-v4-gf5" secondAttribute="bottom" id="eKR-ta-8z5"/>
+                                    <constraint firstItem="lha-1G-1eH" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="top" id="cRK-y6-MOF"/>
                                     <constraint firstAttribute="bottom" secondItem="lha-1G-1eH" secondAttribute="bottom" id="k70-Zk-Lui"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-1e-i1t" userLabel="Podium Mode Container View">
-                                <rect key="frame" x="16" y="334" width="343" height="242"/>
+                                <rect key="frame" x="16" y="295" width="343" height="242"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-WARNING-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BiL-9Z-SQP">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
@@ -576,7 +564,7 @@
                             <constraint firstItem="04C-ke-GJA" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="lC6-yS-tCO"/>
                             <constraint firstItem="cf6-o5-MMZ" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="mG9-ju-GDL"/>
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="top" secondItem="ZN5-uz-PEG" secondAttribute="bottom" constant="8" id="nGf-dq-fCP"/>
-                            <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="119" id="qLW-Iy-78r"/>
+                            <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="80" id="qLW-Iy-78r"/>
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="8" id="ww5-O9-uvg"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="yrH-mM-v3Q"/>
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="z7T-I7-MIr"/>
@@ -597,7 +585,6 @@
                         <outlet property="colorPickerContainerView" destination="KvQ-6l-M17" id="gaF-Od-ed5"/>
                         <outlet property="colorPickerItemsHeightConstraint" destination="YGC-fi-vUZ" id="WAP-gW-LUI"/>
                         <outlet property="colorThemePicker" destination="lha-1G-1eH" id="LcQ-Yu-wwh"/>
-                        <outlet property="colorThemePickerLabel" destination="7qA-v4-gf5" id="W07-bq-36w"/>
                         <outlet property="doneButton" destination="cf6-o5-MMZ" id="Zxb-eg-6wx"/>
                         <outlet property="finalThresholdLabel" destination="Ojn-dk-can" id="jam-Y3-yJC"/>
                         <outlet property="finalThresholdTimePicker" destination="VaK-Cn-EOG" id="i7c-SA-P8h"/>
@@ -624,7 +611,7 @@
                         <viewControllerLayoutGuide type="bottom" id="36h-2E-yI8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WlI-lT-4T0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j29-iR-j9c">
@@ -827,7 +814,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ClockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="o2D-gY-fZY">
-                                <rect key="frame" x="137" y="49" width="100" height="100"/>
+                                <rect key="frame" x="137.5" y="49" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="8Za-Nk-syF"/>
                                     <constraint firstAttribute="width" constant="100" id="fW7-IV-yEs"/>

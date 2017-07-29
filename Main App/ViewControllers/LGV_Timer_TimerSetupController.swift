@@ -24,7 +24,6 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var finalThresholdLabel: UILabel!
     @IBOutlet weak var finalThresholdTimePicker: UIPickerView!
     @IBOutlet weak var colorPickerContainerView: UIView!
-    @IBOutlet weak var colorThemePickerLabel: UILabel!
     @IBOutlet weak var colorThemePicker: UIPickerView!
     @IBOutlet weak var alertModeLabel: UILabel!
     @IBOutlet weak var alertModeSegmentedSwitch: UISegmentedControl!
@@ -77,7 +76,6 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
 
         self.warningThresholdLabel.text = self.warningThresholdLabel.text?.localizedVariant
         self.finalThresholdLabel.text = self.finalThresholdLabel.text?.localizedVariant
-        self.colorThemePickerLabel.text = self.colorThemePickerLabel.text?.localizedVariant
         self.alertModeLabel.text = self.alertModeLabel.text?.localizedVariant
         self.timerModeLabel.text = self.timerModeLabel.text?.localizedVariant
         self.soundSelectionLabel.text = self.soundSelectionLabel.text?.localizedVariant

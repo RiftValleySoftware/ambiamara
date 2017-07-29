@@ -159,10 +159,6 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
      */
     func pauseTimer() {
         self.flashDisplay(UIColor.red.withAlphaComponent(0.5), duration: 0.5)
-        if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
-            self.navBarItem.title = NSLocalizedString("LGV_TIMER-PAUSED", comment: "")
-        }
-        
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.pauseTimer()
     }
     
@@ -205,10 +201,6 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self.flashDisplay(UIColor.red.withAlphaComponent(0.5), duration: 0.5)
         } else {
             self.flashDisplay(UIColor.white.withAlphaComponent(0.5), duration: 0.5)
-        }
-        
-        if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
-            self.navBarItem.title = NSLocalizedString("LGV_TIMER-PAUSED", comment: "")
         }
         
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.resetTimer()
