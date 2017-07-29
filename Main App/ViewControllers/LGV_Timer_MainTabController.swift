@@ -58,7 +58,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
                 self.moreNavigationController.navigationBar.barStyle = barStyle
             }
             self.moreNavigationController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
-            self.moreNavigationController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
+            self.moreNavigationController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
             self.moreNavigationController.view.tintColor = UIColor.black
             
             self.customizableViewControllers = []

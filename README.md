@@ -28,4 +28,3 @@ CHANGELIST
 - The digital display now is a bit more maximized, and behaves better during rotations and resizes.
 - Added an option to hide the NavBar in a running timer, so it can be controlled entirely by gestures, with no visible controls.
 - Added more color themes for Digital/Dual modes.
-

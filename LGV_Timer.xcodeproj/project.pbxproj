@@ -229,16 +229,26 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
-		775ACEDA1ED5C2BA0097FF5C /* LGV_Timer */ = {
+		775ACEDA1ED5C2BA0097FF5C /* Main App */ = {
 			isa = PBXGroup;
 			children = (
-				772A13D91ED5E8950043C58B /* Info.plist */,
 				772A13E71ED5E95A0043C58B /* App Files */,
 				775ACED91ED5C26C0097FF5C /* ViewControllers */,
 				772459B71F1E1CD7006CA335 /* Resources */,
+				772A13D91ED5E8950043C58B /* Info.plist */,
+				77CD9AA81F0FCD8100EB4134 /* LED Display Classes */,
 				775228A71F1804BB0054474D /* SwipeableTabBarController */,
 			);
-			path = LGV_Timer;
+			path = "Main App";
+			sourceTree = "<group>";
+		};
+		778015F61F2D2E3900A0A10C /* Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				77F86DE31F213408003BDD73 /* X-Timer Companion */,
+				77F86DF21F213408003BDD73 /* X-Timer Companion Extension */,
+			);
+			path = "Watch App";
 			sourceTree = "<group>";
 		};
 		77CD9AA81F0FCD8100EB4134 /* LED Display Classes */ = {
@@ -250,16 +260,15 @@
 				775228A61F1804940054474D /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift */,
 			);
 			name = "LED Display Classes";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		77EFB3D31ED5C1A800BDDEFF = {
 			isa = PBXGroup;
 			children = (
 				77B291131ED5C37C00AD3720 /* README.md */,
-				77CD9AA81F0FCD8100EB4134 /* LED Display Classes */,
-				775ACEDA1ED5C2BA0097FF5C /* LGV_Timer */,
-				77F86DE31F213408003BDD73 /* X-Timer Companion */,
-				77F86DF21F213408003BDD73 /* X-Timer Companion Extension */,
+				775ACEDA1ED5C2BA0097FF5C /* Main App */,
+				778015F61F2D2E3900A0A10C /* Watch App */,
 				77EFB3DD1ED5C1A800BDDEFF /* Products */,
 			);
 			sourceTree = "<group>";

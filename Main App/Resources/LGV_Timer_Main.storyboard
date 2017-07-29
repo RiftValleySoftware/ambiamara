@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mvc-fj-sq5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mvc-fj-sq5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13147.4"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -50,7 +50,7 @@
                         <viewControllerLayoutGuide type="bottom" id="dnv-Bg-783"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gVx-u0-GdF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="599"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EDZ-zT-xw3" userLabel="Picker View Container">
@@ -624,7 +624,7 @@
                         <viewControllerLayoutGuide type="bottom" id="36h-2E-yI8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WlI-lT-4T0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j29-iR-j9c">
@@ -705,10 +705,10 @@
                                 <rect key="frame" x="16" y="510" width="343" height="44"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="klv-6l-eUf" userLabel="Internal Switch Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
+                                        <rect key="frame" x="11" y="0.0" width="320" height="44"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UYf-Ns-jkU">
-                                                <rect key="frame" x="0.0" y="7" width="51" height="31"/>
+                                                <rect key="frame" x="8" y="7" width="51" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="49" id="UHl-7i-E7z"/>
                                                     <constraint firstAttribute="height" constant="31" id="enX-S2-Kfe"/>
@@ -719,12 +719,8 @@
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F73-gO-P4S" userLabel="Show Controls Button">
-                                                <rect key="frame" x="57" y="0.0" width="337" height="44"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="337" placeholder="YES" id="tPv-I3-VoC"/>
-                                                </constraints>
+                                                <rect key="frame" x="65" y="0.0" width="247" height="44"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <state key="normal" title="LGV_TIMER-ABOUT-SHOWCONTROLS-BUTTON"/>
                                                 <connections>
                                                     <action selector="showControlsButtonHit:" destination="dZU-jO-ENB" eventType="touchUpInside" id="HQy-nP-RD7"/>
                                                 </connections>
@@ -732,12 +728,14 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="343" id="CfT-dg-gaV"/>
+                                            <constraint firstAttribute="trailing" secondItem="F73-gO-P4S" secondAttribute="trailing" constant="8" id="2QM-wt-tzr"/>
+                                            <constraint firstAttribute="width" constant="320" placeholder="YES" id="CfT-dg-gaV"/>
                                             <constraint firstItem="F73-gO-P4S" firstAttribute="leading" secondItem="UYf-Ns-jkU" secondAttribute="trailing" constant="8" id="RFj-5M-EOQ"/>
                                             <constraint firstAttribute="bottom" secondItem="F73-gO-P4S" secondAttribute="bottom" id="Zw4-Rn-AEf"/>
                                             <constraint firstItem="F73-gO-P4S" firstAttribute="top" secondItem="klv-6l-eUf" secondAttribute="top" id="ff9-Gb-4W8"/>
-                                            <constraint firstItem="UYf-Ns-jkU" firstAttribute="leading" secondItem="klv-6l-eUf" secondAttribute="leading" id="q6i-4g-cGq"/>
+                                            <constraint firstItem="UYf-Ns-jkU" firstAttribute="leading" secondItem="klv-6l-eUf" secondAttribute="leading" constant="8" id="q6i-4g-cGq"/>
                                             <constraint firstItem="UYf-Ns-jkU" firstAttribute="centerY" secondItem="klv-6l-eUf" secondAttribute="centerY" id="uzb-1c-47G"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="320" id="xsC-tj-OeZ"/>
                                         </constraints>
                                     </view>
                                 </subviews>

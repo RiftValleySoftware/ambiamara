@@ -52,13 +52,35 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         LGV_Timer_AppDelegate.appDelegateObject.timerListController = self
         super.viewDidLoad()
         self.gussyUpTheMoreNavigation()
-        self.showControlsButton.setTitle(self.showControlsButton.title(for: UIControlState.normal)?.localizedVariant, for: UIControlState.normal)
+        
         self.showControlsSwitch.isOn = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer
     }
     
     /* ################################################################## */
     /**
      Called when the view has changed its layout.
+     */
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let titleString = "LGV_TIMER-ABOUT-SHOWCONTROLS-BUTTON".localizedVariant
+        
+        let viewBounds = self.view.bounds
+        
+        if 480 > viewBounds.size.width {
+            let font = UIFont.systemFont(ofSize: 14)
+            let attributedTitle = NSAttributedString(string: titleString, attributes:[NSAttributedStringKey.font: font])
+            self.showControlsButton.setAttributedTitle(attributedTitle, for: UIControlState.normal)
+        } else {
+            let font = UIFont.systemFont(ofSize: 20)
+            let attributedTitle = NSAttributedString(string: titleString, attributes:[NSAttributedStringKey.font: font])
+            self.showControlsButton.setAttributedTitle(attributedTitle, for: UIControlState.normal)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the view is about to appear.
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

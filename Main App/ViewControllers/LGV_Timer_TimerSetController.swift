@@ -171,7 +171,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      */
     override func viewWillDisappear(_ animated: Bool) {
         if let navBar = self.navigationController?.navigationBar {
-            navBar.titleTextAttributes?[NSAttributedStringKey.foregroundColor.rawValue] = UIColor.white
+            navBar.titleTextAttributes?[NSAttributedStringKey.foregroundColor] = UIColor.white
         }
     }
     
