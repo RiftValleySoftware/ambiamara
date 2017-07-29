@@ -298,8 +298,12 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
         if let controller = self.getTimerScreen(timerSetting) {
             if (.Running == timerSetting.timerStatus) && (.Stopped == changedTimerStatusFrom) {
                 controller.startTimer()
+                LGV_Timer_AppDelegate.appDelegateObject.sendStartMessage(timerUID: timerSetting.uid)
             } else {
-                if .Dual == timerSetting.displayMode {
+                if (.Stopped == timerSetting.timerStatus) && ((.Alarm == changedTimerStatusFrom) || (.Running == changedTimerStatusFrom) || (.FinalRun == timerSetting.timerStatus) || (.WarnRun == changedTimerStatusFrom)) {
+                    LGV_Timer_AppDelegate.appDelegateObject.sendStopMessage(timerUID: timerSetting.uid)
+                }
+               if .Dual == timerSetting.displayMode {
                     if ((.WarnRun == timerSetting.timerStatus) && (.Running == changedTimerStatusFrom)) || ((.FinalRun == timerSetting.timerStatus) && (.WarnRun == changedTimerStatusFrom)) {
                         if let runningTimer = controller.runningTimer {
                             runningTimer.flashDisplay()

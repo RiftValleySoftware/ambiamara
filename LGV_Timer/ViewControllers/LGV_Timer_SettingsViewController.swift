@@ -29,6 +29,8 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     @IBOutlet weak var navItemTitle: UINavigationItem!
     @IBOutlet weak var navInfo: UIBarButtonItem!
     @IBOutlet weak var navAdd: UIBarButtonItem!
+    @IBOutlet weak var showControlsSwitch: UISwitch!
+    @IBOutlet weak var showControlsButton: UIButton!
     
     private let _info_segue_id = "segue-id-info"
     
@@ -50,6 +52,8 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         LGV_Timer_AppDelegate.appDelegateObject.timerListController = self
         super.viewDidLoad()
         self.gussyUpTheMoreNavigation()
+        self.showControlsButton.setTitle(self.showControlsButton.title(for: UIControlState.normal)?.localizedVariant, for: UIControlState.normal)
+        self.showControlsSwitch.isOn = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer
     }
     
     /* ################################################################## */
@@ -67,6 +71,29 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
 
     // MARK: - IBAction Methods
     /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     Called when the swictch is changed to display the timer controls in a running timer.
+     
+     :param: sender The switch object.
+     */
+    @IBAction func changedShowControlsSwitch(_ sender: UISwitch) {
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer = sender.isOn
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the button that acts as a label for the switch is hit. This toggles the switch.
+     
+     :param: sender The button object.
+     */
+    @IBAction func showControlsButtonHit(_ sender: Any) {
+        self.showControlsSwitch.setOn(!self.showControlsSwitch.isOn, animated: true)
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer = self.showControlsSwitch.isOn
+        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
+    }
+    
     /* ################################################################## */
     /**
      This is called when the "Add Timer" button is hit, requesting a new timer be created.

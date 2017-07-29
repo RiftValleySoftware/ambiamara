@@ -47,7 +47,8 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     @IBOutlet weak var timeDisplay: LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock!
     @IBOutlet weak var flasherView: UIView!
     @IBOutlet weak var navBarItem: UINavigationItem!
-    
+    @IBOutlet weak var myNavigationBar: UINavigationBar!
+
     @IBOutlet var tapRecognizer: UITapGestureRecognizer!
     @IBOutlet var resetSwipeRecognizer: UISwipeGestureRecognizer!
     @IBOutlet var endSwipeRecognizer: UISwipeGestureRecognizer!
@@ -158,7 +159,10 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
      */
     func pauseTimer() {
         self.flashDisplay(UIColor.red.withAlphaComponent(0.5), duration: 0.5)
-        self.navBarItem.title = NSLocalizedString("LGV_TIMER-PAUSED", comment: "")
+        if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
+            self.navBarItem.title = NSLocalizedString("LGV_TIMER-PAUSED", comment: "")
+        }
+        
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.pauseTimer()
     }
     
@@ -166,7 +170,10 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     func continueTimer() {
-        self.navBarItem.title = ""
+        if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
+            self.navBarItem.title = ""
+        }
+        
         self.flashDisplay(UIColor.green.withAlphaComponent(0.5), duration: 0.5)
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.continueTimer()
     }
@@ -183,7 +190,10 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     func endTimer() {
-        self.navBarItem.title = ""
+        if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
+            self.navBarItem.title = ""
+        }
+        
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.endTimer()
     }
     
@@ -196,7 +206,11 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         } else {
             self.flashDisplay(UIColor.white.withAlphaComponent(0.5), duration: 0.5)
         }
-        self.navBarItem.title = NSLocalizedString("LGV_TIMER-PAUSED", comment: "")
+        
+        if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
+            self.navBarItem.title = NSLocalizedString("LGV_TIMER-PAUSED", comment: "")
+        }
+        
         LGV_Timer_AppDelegate.appDelegateObject.timerEngine.resetTimer()
     }
     
@@ -325,9 +339,13 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         UIApplication.shared.isIdleTimerDisabled = true
         super.viewWillAppear(animated)
         
-        if let navController = self.navigationController {
-            navController.navigationBar.barTintColor = self.gradientTopColor
-            navController.navigationBar.tintColor = self.view.tintColor
+        if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
+            self.myNavigationBar.tintColor = self.view.tintColor
+            self.myNavigationBar.backgroundColor = UIColor.clear
+            self.myNavigationBar.barTintColor = UIColor.clear
+            self.myNavigationBar.isHidden = false
+        } else {
+            self.myNavigationBar.isHidden = true
         }
         
         LGV_Timer_AppDelegate.appDelegateObject.currentTimer = self
@@ -340,6 +358,9 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
      */
     override func viewWillDisappear(_ animated: Bool) {
         self.myHandler.runningTimer = nil
+        if let navController = self.navigationController {
+            navController.navigationBar.isHidden = false
+        }
         
         super.viewWillDisappear(animated)
         

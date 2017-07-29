@@ -13,10 +13,18 @@ import UIKit
 /**
  */
 class LGV_Timer_InfoViewController: LGV_Timer_TimerBaseViewController {
-    @IBOutlet weak var shortBlurb: UITextView!
     @IBOutlet weak var longBlurb: UITextView!
     @IBOutlet weak var lgvBlurb1Label: UILabel!
     @IBOutlet weak var lgvBlurb: UIButton!
+    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func doneButtonHit(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     /* ################################################################## */
     /**
@@ -41,11 +49,11 @@ class LGV_Timer_InfoViewController: LGV_Timer_TimerBaseViewController {
             }
         }
         
-        self.navigationItem.title = String(format: (self.navigationItem.title?.localizedVariant)!, appVersion)
-        self.shortBlurb.text = self.shortBlurb.text.localizedVariant
+        self.titleLabel.text = String(format: (self.titleLabel?.text?.localizedVariant)!, appVersion)
         self.longBlurb.text = self.longBlurb.text.localizedVariant
+        self.doneButton.setTitle(self.doneButton.title(for: .normal)?.localizedVariant, for: .normal)
+        
         self.lgvBlurb1Label.text = self.lgvBlurb1Label.text?.localizedVariant
-        let buttonTitle = self.lgvBlurb.title(for: UIControlState.normal)?.localizedVariant
-        self.lgvBlurb.setTitle(buttonTitle, for: UIControlState.normal)
+        self.lgvBlurb.setTitle(self.lgvBlurb.title(for: UIControlState.normal)?.localizedVariant, for: UIControlState.normal)
     }
 }

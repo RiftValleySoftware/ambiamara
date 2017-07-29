@@ -35,7 +35,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     var useUserInfo: Bool = false
     var watchDisconnected: Bool = true
     var timerListController: LGV_Timer_SettingsViewController! = nil
-    var ignoreSelectMessageFromWatch: Bool = false
+    var ignoreSelectMessageFromWatch: Int = 0
     
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
@@ -163,7 +163,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        self.activateSession()
+//        self.activateSession()
         return true
     }
     
@@ -203,6 +203,11 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func sendStartMessage(timerUID: String, currentTime: Int! = nil) {
         if nil != self.timerEngine {
+            let selectMsg = [LGV_Timer_Messages.s_timerListStartTimerMessageKey:timerUID]
+            #if DEBUG
+                print("Phone Sending Message: " + String(describing: selectMsg))
+            #endif
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
     }
     
@@ -211,30 +216,11 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func sendStopMessage(timerUID: String) {
         if nil != self.timerEngine {
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func sendPauseMessage(timerUID: String, currentTime: Int) {
-        if nil != self.timerEngine {
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func sendEndMessage(timerUID: String) {
-        if nil != self.timerEngine {
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func sendResetMessage(timerUID: String) {
-        if nil != self.timerEngine {
+            let selectMsg = [LGV_Timer_Messages.s_timerListStopTimerMessageKey:timerUID]
+            #if DEBUG
+                print("Phone Sending Message: " + String(describing: selectMsg))
+            #endif
+            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
     }
     
@@ -243,9 +229,17 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func sendSelectMessage(timerUID: String = "") {
         #if DEBUG
-            print("Turning On Ignore Select From Watch.")
+            print("Incrementing Ignore Select From Watch from \(self.ignoreSelectMessageFromWatch).")
         #endif
-        self.ignoreSelectMessageFromWatch = true
+        self.ignoreSelectMessageFromWatch += 1
+        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { (_ inTimer: Timer) in
+            #if DEBUG
+                if 0 < self.ignoreSelectMessageFromWatch {
+                    print("Selection is \(self.ignoreSelectMessageFromWatch). Resetting it to 0.")
+                }
+            #endif
+            self.ignoreSelectMessageFromWatch = 0
+        })
         if .activated == self.session.activationState {
             let selectMsg = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey:timerUID]
             #if DEBUG
@@ -361,7 +355,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                     for key in message.keys {
                         switch key {
                         case LGV_Timer_Messages.s_timerListSelectTimerMessageKey:
-                            if !self.ignoreSelectMessageFromWatch {
+                            if 0 == self.ignoreSelectMessageFromWatch {
                                 if (nil != self.timerEngine) && (nil != self.mainTabController) {
                                     if let uid = message[key] as? String {
                                         let index = self.timerEngine.indexOf(uid)
@@ -370,16 +364,34 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                                 }
                             } else {
                                 #if DEBUG
-                                    print("Select From Watch Ignored. Turning Off Ignore Select From Watch.")
+                                    print("Select From Watch Ignored. Decrementing Ignore Select From Watch from \(self.ignoreSelectMessageFromWatch).")
                                 #endif
-                                self.ignoreSelectMessageFromWatch = false
+                                self.ignoreSelectMessageFromWatch -= 1
+                            }
+                            
+                        case LGV_Timer_Messages.s_timerListStopTimerMessageKey:
+                            self.timerEngine.stopTimer()
+                            
+                        case LGV_Timer_Messages.s_timerListStartTimerMessageKey:
+                            if (nil != self.timerEngine) && (nil != self.mainTabController) {
+                                if let uid = message[key] as? String {
+                                    let index = self.timerEngine.indexOf(uid)
+                                    self.timerEngine.selectedTimerIndex = index
+                                }
+                                
+                                if let controller = self.mainTabController.getTimerScreen(self.timerEngine.selectedTimer) {
+                                    controller.startTimer()
+                                }
                             }
                             
                         case LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
                             self.sendForegroundMessage()
                             
                         case LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:
-                            self.ignoreSelectMessageFromWatch = false
+                            #if DEBUG
+                                print("Phone app is in background. Resetting ignore from \(self.ignoreSelectMessageFromWatch).")
+                            #endif
+                            self.ignoreSelectMessageFromWatch = 0
 
                         default:
                             if let uid = message[key] as? String {

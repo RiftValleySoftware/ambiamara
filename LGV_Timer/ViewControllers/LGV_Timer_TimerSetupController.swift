@@ -32,6 +32,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var soundSelectionSegmentedSwitch: UISegmentedControl!
     @IBOutlet weak var podiumModeItemsConstraint: NSLayoutConstraint!
     @IBOutlet weak var colorPickerItemsHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var doneButton: UIButton!
     
     /* ################################################################## */
     /**
@@ -80,6 +81,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         self.alertModeLabel.text = self.alertModeLabel.text?.localizedVariant
         self.timerModeLabel.text = self.timerModeLabel.text?.localizedVariant
         self.soundSelectionLabel.text = self.soundSelectionLabel.text?.localizedVariant
+        self.doneButton.setTitle(self.doneButton.title(for: UIControlState.normal)?.localizedVariant, for: UIControlState.normal)
         
         for segment in 0..<self.timerModeSegmentedSwitch.numberOfSegments {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
@@ -165,6 +167,13 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     @IBAction func alertModeChanged(_ sender: UISegmentedControl) {
         self.timerObject.alertMode = AlertMode(rawValue: sender.selectedSegmentIndex)!
         self.setUpPickerViews()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func doneButtonHit(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     /// MARK: - UIPickerViewDataSource Methods

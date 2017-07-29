@@ -760,10 +760,12 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     private enum AppStateKeys: String {
         case Timers         = "Timers"
         case SelectedTimer  = "SelectedTimer"
+        case ShowControls   = "ShowControls"
     }
     
     private var _timers:[TimerSettingTuple] = []
     private var _selectedTimer0BasedIndex:Int = -1
+    private var _showControlsInRunningTimer: Bool = true
         
     var delegate: LGV_Timer_StateDelegate! = nil
     
@@ -774,6 +776,19 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      */
     var timerSelected: Bool {
         get { return 0 <= self.selectedTimerIndex }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    var showControlsInRunningTimer: Bool {
+        get {
+            return self._showControlsInRunningTimer
+        }
+        
+        set {
+            self._showControlsInRunningTimer = newValue
+        }
     }
     
     /* ################################################################## */
@@ -1232,8 +1247,19 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
             }
         }
         
-        let selectedTimer0BasedIndex = coder.decodeInteger(forKey: type(of: self).AppStateKeys.SelectedTimer.rawValue)
-        self._selectedTimer0BasedIndex = selectedTimer0BasedIndex
+        if coder.containsValue(forKey: type(of: self).AppStateKeys.SelectedTimer.rawValue) {
+            let selectedTimer0BasedIndex = coder.decodeInteger(forKey: type(of: self).AppStateKeys.SelectedTimer.rawValue)
+            self._selectedTimer0BasedIndex = selectedTimer0BasedIndex
+        } else {
+            self._selectedTimer0BasedIndex = -1
+        }
+        
+        if coder.containsValue(forKey: type(of: self).AppStateKeys.ShowControls.rawValue) {
+            let showControls = coder.decodeBool(forKey: type(of: self).AppStateKeys.ShowControls.rawValue)
+            self._showControlsInRunningTimer = showControls
+        } else {
+            self._showControlsInRunningTimer = true
+        }
     }
     
     /* ################################################################## */
@@ -1243,5 +1269,6 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     func encode(with: NSCoder) {
         with.encode(self._timers, forKey: type(of: self).AppStateKeys.Timers.rawValue)
         with.encode(self._selectedTimer0BasedIndex, forKey: type(of: self).AppStateKeys.SelectedTimer.rawValue)
+        with.encode(self._showControlsInRunningTimer, forKey: type(of: self).AppStateKeys.ShowControls.rawValue)
     }
 }

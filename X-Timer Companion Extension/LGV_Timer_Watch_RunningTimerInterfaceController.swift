@@ -104,6 +104,14 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
     /* ################################################################## */
     /**
      */
+    override func didAppear() {
+        super.didAppear()
+        self.updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     override func willDisappear() {
         self.controllerObject.dontSendAnEvent = true
         self.controllerObject.modalTimerScreen = nil
@@ -139,5 +147,4 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
             }
         }
     }
-    
 }

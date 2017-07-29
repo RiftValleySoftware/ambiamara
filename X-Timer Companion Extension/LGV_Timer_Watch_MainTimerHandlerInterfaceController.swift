@@ -50,6 +50,7 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     /**
      */
     func startTimer() {
+        self.pushTimer()
     }
     
     /* ################################################################## */
@@ -58,6 +59,7 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
     func pushTimer() {
         DispatchQueue.main.async {
             let contextTuple = TimerPushContextTuple(self.timerObject, controllerObject: self)
+            LGV_Timer_Watch_ExtensionDelegate.delegateObject.sendStartMessage(timerUID: self.timerObject.uid)
             self.presentController(withName: LGV_Timer_Watch_RunningTimerInterfaceController.screenID, context: contextTuple)
         }
     }
@@ -91,6 +93,8 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
         if let delegateObject = LGV_Timer_Watch_ExtensionDelegate.delegateObject {
             if !self.dontSendAnEvent {
                 delegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
+            } else {
+                delegateObject.sendStopMessage(timerUID: self.timerObject.uid)
             }
             self.dontSendAnEvent = false
        }

@@ -142,7 +142,7 @@
 		7789C3231ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerBaseViewController.swift; path = ViewControllers/LGV_Timer_TimerBaseViewController.swift; sourceTree = "<group>"; };
 		77B291131ED5C37C00AD3720 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		77BB98E01F12838F0062B14A /* LGV_Timer_TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerEngine.swift; path = "App Files/LGV_Timer_TimerEngine.swift"; sourceTree = "<group>"; };
-		77EFB3DC1ED5C1A800BDDEFF /* X-Timer Only.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "X-Timer Only.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		77EFB3DC1ED5C1A800BDDEFF /* X-Timer Only.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "X-Timer Only.app"; path = "X-Timer (Phone).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		77F86DE51F213408003BDD73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		77F86DE71F213408003BDD73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77F86DE91F213408003BDD73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -769,6 +769,7 @@
 				776662661F279EF300A296A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		776662681F279EF300A296A3 /* Build configuration list for PBXNativeTarget "X-Timer (Watch)" */ = {
 			isa = XCConfigurationList;
@@ -777,6 +778,7 @@
 				7766626A1F279EF300A296A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		77EFB3D71ED5C1A800BDDEFF /* Build configuration list for PBXProject "LGV_Timer" */ = {
 			isa = XCConfigurationList;

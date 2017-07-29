@@ -20,7 +20,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     
     @IBOutlet weak var startButton: UIBarButtonItem!
     @IBOutlet weak var setupButton: UIBarButtonItem!
-    @IBOutlet weak var timeSetLabel: UILabel!
     @IBOutlet weak var setTimePickerView: UIPickerView!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
     @IBOutlet weak var bigStartButton: UIButton!
@@ -126,7 +125,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         
         if nil != self.runningTimer {
             if .Stopped == self.timerObject.timerStatus {
-                self.navigationController?.popViewController(animated: true)
+                self.navigationController?.dismiss(animated: true, completion: nil)
             } else {
                 self.runningTimer.updateTimer()
             }
@@ -151,7 +150,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         }
         
         self.setupButton.title = String(format: (self.setupButton.title?.localizedVariant)!, self.timerNumber + 1)
-        self.timeSetLabel.text = self.timeSetLabel.text?.localizedVariant
     }
     
     /* ################################################################## */
@@ -160,11 +158,6 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let navBar = self.navigationController?.navigationBar {
-            let titleColor = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].textColor!
-            navBar.titleTextAttributes?[NSAttributedStringKey.foregroundColor.rawValue] = titleColor
-        }
-        
         self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
         self.updateTimer()
         if nil != self.timerObject {
