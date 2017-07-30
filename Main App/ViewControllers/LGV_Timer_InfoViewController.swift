@@ -18,6 +18,15 @@ class LGV_Timer_InfoViewController: LGV_Timer_TimerBaseViewController {
     @IBOutlet weak var lgvBlurb: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var instructionsLinkButton: UIButton!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func instructionsLinkHit(_ sender: UIButton) {
+        let openLink = NSURL(string: (sender.title(for: UIControlState.normal)?.localizedVariant)!)
+        UIApplication.shared.open(openLink! as URL, options: [:], completionHandler: nil)
+    }
     
     /* ################################################################## */
     /**
@@ -52,7 +61,8 @@ class LGV_Timer_InfoViewController: LGV_Timer_TimerBaseViewController {
         self.titleLabel.text = String(format: (self.titleLabel?.text?.localizedVariant)!, appVersion)
         self.longBlurb.text = self.longBlurb.text.localizedVariant
         self.doneButton.setTitle(self.doneButton.title(for: .normal)?.localizedVariant, for: .normal)
-        
+        self.instructionsLinkButton.setTitle(self.instructionsLinkButton.title(for: .normal)?.localizedVariant, for: .normal)
+
         self.lgvBlurb1Label.text = self.lgvBlurb1Label.text?.localizedVariant
         self.lgvBlurb.setTitle(self.lgvBlurb.title(for: UIControlState.normal)?.localizedVariant, for: UIControlState.normal)
     }

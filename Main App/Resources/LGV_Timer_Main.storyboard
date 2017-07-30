@@ -20,7 +20,7 @@
         <!--Timer Navigation Controller-->
         <scene sceneID="lXU-0R-r9G">
             <objects>
-                <navigationController storyboardIdentifier="LGV_Timer_TimerNavController" title="Timer Navigation Controller" id="RhK-pG-4ta" customClass="LGV_Timer_TimerNavController" customModule="X_Timer__Phone_" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LGV_Timer_TimerNavController" title="Timer Navigation Controller" id="RhK-pG-4ta" customClass="LGV_Timer_TimerNavController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="oDm-vU-50Y"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="eRP-fW-XSv">
@@ -44,7 +44,7 @@
         <!--Timer Set and Start-->
         <scene sceneID="7Ku-yx-4MG">
             <objects>
-                <viewController title="Timer Set and Start" id="Y3X-jz-wfO" customClass="LGV_Timer_TimerSetController" customModule="X_Timer__Phone_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Timer Set and Start" id="Y3X-jz-wfO" customClass="LGV_Timer_TimerSetController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="R7j-jR-eh3"/>
                         <viewControllerLayoutGuide type="bottom" id="dnv-Bg-783"/>
@@ -217,7 +217,7 @@
         <!--Timer Runtime-->
         <scene sceneID="hTo-Uo-hbx">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="pId-dv-a9R" userLabel="Timer Runtime" customClass="LGV_Timer_TimerRuntimeViewController" customModule="X_Timer__Phone_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="pId-dv-a9R" userLabel="Timer Runtime" customClass="LGV_Timer_TimerRuntimeViewController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Reo-7Y-Hne"/>
                         <viewControllerLayoutGuide type="bottom" id="iFu-N0-S8w"/>
@@ -229,7 +229,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yh-KU-1zx" userLabel="Display Container">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
-                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvk-HB-53P" customClass="LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock" customModule="X_Timer__Phone_" customModuleProvider="target">
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvk-HB-53P" customClass="LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target">
                                         <rect key="frame" x="4" y="0.0" width="367" height="647"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
@@ -356,7 +356,7 @@
         <!--Timer Settings-->
         <scene sceneID="diB-ql-vKz">
             <objects>
-                <viewController title="Timer Settings" id="Cmw-cs-f0x" customClass="LGV_Timer_TimerSetupController" customModule="X_Timer__Phone_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Timer Settings" id="Cmw-cs-f0x" customClass="LGV_Timer_TimerSetupController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZN5-uz-PEG"/>
                         <viewControllerLayoutGuide type="bottom" id="Tbu-Nc-I0V"/>
@@ -605,7 +605,7 @@
         <!--Timer List-->
         <scene sceneID="B0X-9f-pVT">
             <objects>
-                <viewController title="Main Timer Settings" id="dZU-jO-ENB" userLabel="Timer List" customClass="LGV_Timer_SettingsViewController" customModule="X_Timer__Phone_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Main Timer Settings" id="dZU-jO-ENB" userLabel="Timer List" customClass="LGV_Timer_SettingsViewController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7wB-2E-9hN"/>
                         <viewControllerLayoutGuide type="bottom" id="36h-2E-yI8"/>
@@ -620,7 +620,7 @@
                                 <color key="separatorColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SingleTimerCell" id="ac3-fZ-O32" customClass="LGV_Timer_SettingsTimerTableCell" customModule="X_Timer__Phone_" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SingleTimerCell" id="ac3-fZ-O32" customClass="LGV_Timer_SettingsTimerTableCell" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ac3-fZ-O32" id="KvH-ni-liP">
@@ -795,7 +795,7 @@
         <!--Info-->
         <scene sceneID="MrX-RY-GB5">
             <objects>
-                <viewController title="LGV_TIMER-INFO-TITLE-FORMAT" modalTransitionStyle="partialCurl" hidesBottomBarWhenPushed="YES" id="PKI-7x-KlB" userLabel="Info" customClass="LGV_Timer_InfoViewController" customModule="X_Timer__Phone_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="LGV_TIMER-INFO-TITLE-FORMAT" modalTransitionStyle="partialCurl" hidesBottomBarWhenPushed="YES" id="PKI-7x-KlB" userLabel="Info" customClass="LGV_Timer_InfoViewController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="re4-wU-jpH"/>
                         <viewControllerLayoutGuide type="bottom" id="zm2-PD-MOJ"/>
@@ -804,7 +804,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-INFO-TITLE-FORMAT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sO5-o8-Fyk">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-INFO-TITLE-FORMAT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="sO5-o8-Fyk">
                                 <rect key="frame" x="16" y="20" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="b7y-oQ-tvx"/>
@@ -821,11 +821,15 @@
                                 </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="LGV_TIMER-ABOUT-LONG-BLURB" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DIb-rd-Jfe">
-                                <rect key="frame" x="16" y="157" width="343" height="390"/>
+                                <rect key="frame" x="16" y="157" width="343" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" placeholder="YES" id="L4E-zq-lBO"/>
+                                </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XyZ-cP-eu8">
                                 <rect key="frame" x="16" y="555" width="343" height="48"/>
@@ -870,15 +874,31 @@
                                     <action selector="lgvButtonHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="esd-aK-Zwv"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSL-0i-CJN">
+                                <rect key="frame" x="16" y="217" width="343" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ujL-9a-PdP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="18"/>
+                                <state key="normal" title="LGV_TIMER-ABOUT-LGV-INSTRUCTIONS-URI"/>
+                                <connections>
+                                    <action selector="instructionsLinkHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="OYw-LR-zPa"/>
+                                    <action selector="lgvButtonHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="4Nl-1A-bOv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="sSL-0i-CJN" secondAttribute="trailing" id="5FK-w5-l0v"/>
                             <constraint firstItem="S6n-9J-uZt" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="5TW-LA-B8i"/>
                             <constraint firstItem="P5N-K8-kBZ" firstAttribute="leading" secondItem="oQk-9G-zSN" secondAttribute="trailing" constant="8" id="787-rD-FJv"/>
+                            <constraint firstItem="sSL-0i-CJN" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="Bhx-eg-p3c"/>
                             <constraint firstItem="XyZ-cP-eu8" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="FeB-om-qAP"/>
+                            <constraint firstItem="sSL-0i-CJN" firstAttribute="centerX" secondItem="pCc-NV-qjF" secondAttribute="centerX" id="FnD-bV-fcU"/>
                             <constraint firstItem="sO5-o8-Fyk" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="PF5-51-baS"/>
                             <constraint firstItem="XyZ-cP-eu8" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="PJE-jF-nCO"/>
+                            <constraint firstItem="sSL-0i-CJN" firstAttribute="top" secondItem="DIb-rd-Jfe" secondAttribute="bottom" id="PYr-Xh-KJt"/>
                             <constraint firstItem="oQk-9G-zSN" firstAttribute="top" secondItem="XyZ-cP-eu8" secondAttribute="bottom" constant="8" id="VJQ-uR-2YV"/>
                             <constraint firstItem="zm2-PD-MOJ" firstAttribute="top" secondItem="S6n-9J-uZt" secondAttribute="bottom" constant="8" id="aoB-bQ-eea"/>
                             <constraint firstItem="o2D-gY-fZY" firstAttribute="centerX" secondItem="pCc-NV-qjF" secondAttribute="centerX" id="bAy-F8-8ce"/>
@@ -886,7 +906,6 @@
                             <constraint firstItem="DIb-rd-Jfe" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="gXu-0H-oJz"/>
                             <constraint firstItem="S6n-9J-uZt" firstAttribute="top" secondItem="P5N-K8-kBZ" secondAttribute="bottom" constant="2" id="kf8-dl-KhR"/>
                             <constraint firstItem="S6n-9J-uZt" firstAttribute="leading" secondItem="oQk-9G-zSN" secondAttribute="trailing" constant="8" id="mBm-U9-n83"/>
-                            <constraint firstItem="XyZ-cP-eu8" firstAttribute="top" secondItem="DIb-rd-Jfe" secondAttribute="bottom" constant="8" id="mN4-GO-OKV"/>
                             <constraint firstItem="sO5-o8-Fyk" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="ncS-Ps-pbh"/>
                             <constraint firstItem="DIb-rd-Jfe" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="oaa-Zd-LeW"/>
                             <constraint firstItem="P5N-K8-kBZ" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="p9X-NP-Fqy"/>
@@ -908,6 +927,7 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="doneButton" destination="XyZ-cP-eu8" id="3Cx-Pq-hGX"/>
+                        <outlet property="instructionsLinkButton" destination="sSL-0i-CJN" id="tT5-1M-o61"/>
                         <outlet property="lgvBlurb" destination="S6n-9J-uZt" id="heU-zR-qLr"/>
                         <outlet property="lgvBlurb1Label" destination="P5N-K8-kBZ" id="mSg-L4-XLt"/>
                         <outlet property="longBlurb" destination="DIb-rd-Jfe" id="1q4-mD-jy2"/>
@@ -921,7 +941,7 @@
         <!--Timer List Navigation Controller-->
         <scene sceneID="dWu-Eb-ueo">
             <objects>
-                <navigationController title="Timer List Navigation Controller" modalTransitionStyle="crossDissolve" id="sDn-VD-xYI" customClass="LGV_Timer_TimerSettingsNavController" customModule="X_Timer__Phone_" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController title="Timer List Navigation Controller" modalTransitionStyle="crossDissolve" id="sDn-VD-xYI" customClass="LGV_Timer_TimerSettingsNavController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" id="Y9h-rb-Dgm"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Vpb-uI-amC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -941,7 +961,7 @@
         <!--Main Tab Controller-->
         <scene sceneID="8ZY-33-Rjt">
             <objects>
-                <tabBarController title="Main Tab Controller" modalTransitionStyle="partialCurl" id="mvc-fj-sq5" customClass="LGV_Timer_MainTabController" customModule="X_Timer__Phone_" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController title="Main Tab Controller" modalTransitionStyle="partialCurl" id="mvc-fj-sq5" customClass="LGV_Timer_MainTabController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="egp-Ba-Cka">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
