@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-               BuildableName = "X-Timer (Phone).app"
-               BlueprintName = "X-Timer (Phone)"
+               BuildableName = "An Excellent Countdown Timer.app"
+               BlueprintName = "An Excellent Countdown Timer"
                ReferencedContainer = "container:LGV_Timer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,8 +34,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-            BuildableName = "X-Timer (Phone).app"
-            BlueprintName = "X-Timer (Phone)"
+            BuildableName = "An Excellent Countdown Timer.app"
+            BlueprintName = "An Excellent Countdown Timer"
             ReferencedContainer = "container:LGV_Timer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,14 +56,14 @@
       stopOnEveryUBSanitizerIssue = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "NO"
-      notificationPayloadFile = "X-Timer Companion Extension/PushNotificationPayload.apns">
+      notificationPayloadFile = "Watch App/X-Timer Companion Extension/PushNotificationPayload.apns">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-            BuildableName = "X-Timer (Phone).app"
-            BlueprintName = "X-Timer (Phone)"
+            BuildableName = "An Excellent Countdown Timer.app"
+            BlueprintName = "An Excellent Countdown Timer"
             ReferencedContainer = "container:LGV_Timer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -86,8 +86,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-            BuildableName = "X-Timer (Phone).app"
-            BlueprintName = "X-Timer (Phone)"
+            BuildableName = "An Excellent Countdown Timer.app"
+            BlueprintName = "An Excellent Countdown Timer"
             ReferencedContainer = "container:LGV_Timer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
