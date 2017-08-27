@@ -57,7 +57,6 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
         }
     }
     
-
     // MARK: - Static Class Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -166,10 +165,10 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /* ################################################################## */
     /**
      */
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+//    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 //        self.activateSession()
-        return true
-    }
+//        return true
+//    }
     
     /* ################################################################## */
     /**
