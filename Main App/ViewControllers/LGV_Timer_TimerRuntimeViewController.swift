@@ -212,6 +212,11 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     func updateTimer() {
         self._setUpDisplay()
         
+        self.timeDisplay.isHidden = (.Podium == self.timerObject.displayMode) || (.Alarm == self.timerObject.timerStatus)
+        if nil != self.stoplightContainerView {
+            self.stoplightContainerView.isHidden = (.Alarm == self.timerObject.timerStatus)
+        }
+
         if .Alarm == self.timerObject.timerStatus {
             self.flashDisplay()
             self._playAlertSound()
@@ -222,24 +227,26 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     /**
      */
     func flashDisplay(_ inUIColor: UIColor! = nil, duration: TimeInterval = 0.75) {
-        if nil != inUIColor {
-            self.flasherView.backgroundColor = inUIColor
-        } else {
-            switch self.timerObject.timerStatus {
-            case .WarnRun:
-                self.flasherView.backgroundColor = UIColor.yellow
-            case.FinalRun:
-                self.flasherView.backgroundColor = UIColor.orange
-            default:
-                self.flasherView.backgroundColor = UIColor.red
+        DispatchQueue.main.async {
+            if nil != inUIColor {
+                self.flasherView.backgroundColor = inUIColor
+            } else {
+                switch self.timerObject.timerStatus {
+                case .WarnRun:
+                    self.flasherView.backgroundColor = UIColor.yellow
+                case.FinalRun:
+                    self.flasherView.backgroundColor = UIColor.orange
+                default:
+                    self.flasherView.backgroundColor = UIColor.red
+                }
             }
+            
+            self.flasherView.isHidden = false
+            self.flasherView.alpha = 1.0
+            UIView.animate(withDuration: duration, animations: {
+                self.flasherView.alpha = 0.0
+            })
         }
-        
-        self.flasherView.isHidden = false
-        self.flasherView.alpha = 1.0
-        UIView.animate(withDuration: duration, animations: {
-            self.flasherView.alpha = 0.0
-        })
     }
 
     // MARK: - Base Class Override Methods
@@ -281,7 +288,6 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self.view.addSubview(self.stoplightContainerView)
         }
         
-        self.timeDisplay.isHidden = (.Podium == self.timerObject.displayMode)
         self.timeDisplay.activeSegmentColor = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].textColor
         self.timeDisplay.inactiveSegmentColor = UIColor.white.withAlphaComponent(0.1)
         self.updateTimer()
@@ -320,7 +326,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self.yellowLight.frame = yellowFrame
             self.redLight.frame = redFrame
         }
-        
+
         self._originalValue = 0
         
         self.updateTimer()
