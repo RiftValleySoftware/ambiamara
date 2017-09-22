@@ -9,6 +9,8 @@ This uses elements of [the excellent SwipeableTabBarController, by Marcos Grisel
 
 CHANGELIST
 ----------
+***Version 2.0.1* ** *- TBD*
+
 ***Version 2.0* ** *- September 19, 2017*
 
 - The internal timer engine is now a centralized, atomic unit that handles the entire model layer. This is a significant internal change that is not immediately apparent.
