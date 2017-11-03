@@ -4,6 +4,7 @@
 //
 //  Created by Chris Marshall on 6/13/17.
 //  Copyright © 2017 Little Green Viper Software Development LLC. All rights reserved.
+//  This is proprietary code. Copying and reuse are not allowed. It is being opened to provide sample code.
 //
 
 /* ###################################################################################################################################### */
@@ -64,6 +65,7 @@ class LGV_Timer_Data_Keys {
 extension String {
     /* ################################################################## */
     /**
+     This allows us to easily localize. Simply use this to apply any localization.
      */
     var localizedVariant: String {
         return NSLocalizedString(self, comment: "")
@@ -212,7 +214,7 @@ class TimeTuple {
     /**
      Initialize from total seconds.
      
-     :param: The number of seconds as an Int, from 0 - 86399.
+     :param: _ The number of seconds as an Int, from 0 - 86399.
      */
     init(_ inSeconds:Int) {
         let temp = min(86399, max(0, inSeconds))
@@ -262,19 +264,20 @@ enum TimerStatus: Int {
 /* ###################################################################################################################################### */
 /**
  This is the basic element that describes one timer.
- 
- It is a class, because that means that references (as opposed to copies) will be passed around.
  */
 class TimerSettingTuple: NSObject, NSCoding {
     // MARK: - Private Static Constants
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     These are the thresholds that we apply to our timer when automatically determining the "traffic lights" for podium mode.
+     These are the default thresholds that we apply to our timer when automatically determining the "traffic lights" for podium mode.
      */
     private static let _podiumModeWarningThreshold: Float  = (6 / 36)
     private static let _podiumModeFinalThreshold: Float    = (3 / 36)
     
+    /* ################################################################## */
+    /**
+     */
     private enum TimerStateKeys: String {
         case TimeSet            = "TimeSet"
         case TimeSetPodiumWarn  = "TimeSetPodiumWarn"
@@ -666,6 +669,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     /* ################################################################## */
     /**
      Initialize from a serialized state.
+     
+     :param: coder The coder containing the state
      */
     required init?(coder: NSCoder) {
         self.displayMode = .Dual
@@ -714,6 +719,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     /* ################################################################## */
     /**
      Serialize the object state.
+     
+     :param: with The coder we'll be setting the state into.
      */
     func encode(with: NSCoder) {
         with.encode(self.timeSet, forKey: type(of: self).TimerStateKeys.TimeSet.rawValue)

@@ -3,6 +3,7 @@
 //
 //  Created by Chris Marshall on 5/23/17.
 //  Copyright © 2017 Little Green Viper Software Development LLC. All rights reserved.
+//  This is proprietary code. Copying and reuse are not allowed. It is being opened to provide sample code.
 //
 import UIKit
 
@@ -160,6 +161,7 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This class generates an overlay image of a faint "hex grid" that allows us to simulate an old-fashioned "fluorescent" display.
      */
     private func _generateHexOverlayImage(_ fillShape: UIBezierPath) -> UIImage {
         let path = CGMutablePath()

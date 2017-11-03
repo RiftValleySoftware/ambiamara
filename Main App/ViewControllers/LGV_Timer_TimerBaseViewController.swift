@@ -4,6 +4,7 @@
 //
 //  Created by Chris Marshall on 5/24/17.
 //  Copyright © 2017 Little Green Viper Software Development LLC. All rights reserved.
+//  This is proprietary code. Copying and reuse are not allowed. It is being opened to provide sample code.
 //
 /* ###################################################################################################################################### */
 /**
@@ -64,6 +65,9 @@ import UIKit
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     Called to select the succeeding Tab
+     
+     :param: _ The gesture recognizer that triggered this (ignored)
      */
     @IBAction func selectNextPage(_ : UIGestureRecognizer) {
         if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex < (LGV_Timer_AppDelegate.appDelegateObject.timerEngine.count - 1) {
@@ -74,6 +78,9 @@ import UIKit
     
     /* ################################################################## */
     /**
+     Called to select the preceeding Tab
+     
+     :param: _ The gesture recognizer that triggered this (ignored)
      */
     @IBAction func selectPreviousPage(_ : UIGestureRecognizer) {
         if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex >= 0 {
@@ -87,6 +94,8 @@ import UIKit
     /* ################################################################## */
     /**
      Called when the view has finished loading.
+     
+     Paints the rear gradient layer.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,6 +112,9 @@ import UIKit
     }
     
     /* ################################################################################################################################## */
+    /**
+     This function applies the app styling to the "More..." view.
+     */
     func gussyUpTheMoreNavigation() {
         if let navBar = self.navigationController?.navigationBar {
             self.tabBarController?.moreNavigationController.navigationBar.tintColor = navBar.tintColor
@@ -116,6 +128,8 @@ import UIKit
     /* ################################################################## */
     /**
      Called when the layout is changed.
+     
+     Resets the gradient layer frame to fill the screen.
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -125,6 +139,10 @@ import UIKit
     /* ################################################################## */
     /**
      Called when the will appear.
+     
+     Sets the app styling to navBar and TabBar.
+     
+     :param: animated ignored by this function, but passed to the superclass.
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

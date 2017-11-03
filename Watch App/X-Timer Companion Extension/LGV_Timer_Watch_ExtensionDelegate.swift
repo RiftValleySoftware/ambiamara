@@ -4,12 +4,15 @@
 //
 //  Created by Chris Marshall on 6/19/17.
 //  Copyright © 2017 Little Green Viper Software Development LLC. All rights reserved.
+//  This is proprietary code. Copying and reuse are not allowed. It is being opened to provide sample code.
 //
 
 import WatchKit
 import WatchConnectivity
 
 /* ###################################################################################################################################### */
+/**
+ */
 class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate, LGV_Timer_StateDelegate {
     /* ################################################################################################################################## */
     static let timerInterval: TimeInterval = 0.25

@@ -4,11 +4,14 @@
 //
 //  Created by Chris Marshall on 6/27/17.
 //  Copyright © 2017 Little Green Viper Software Development LLC. All rights reserved.
+//  This is proprietary code. Copying and reuse are not allowed. It is being opened to provide sample code.
 //
 
 import ClockKit
 
 /* ###################################################################################################################################### */
+/**
+ */
 class LGV_Timer_ComplicationDataSource: NSObject, CLKComplicationDataSource {
     /* ################################################################################################################################## */
     /* ################################################################## */

@@ -4,10 +4,8 @@
 //
 //  Created by Chris Marshall on 5/24/17.
 //  Copyright © 2017 Little Green Viper Software Development LLC. All rights reserved.
+//  This is proprietary code. Copying and reuse are not allowed. It is being opened to provide sample code.
 //
-/* ###################################################################################################################################### */
-/**
- */
 
 import UIKit
 import WatchConnectivity
@@ -15,6 +13,7 @@ import WatchConnectivity
 @UIApplicationMain
 /* ###################################################################################################################################### */
 /**
+ This is the main application delegate class for the timer app.
  */
 class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     // MARK: - Static Calculated Properties
@@ -29,16 +28,20 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
 
     // MARK: - Instance Properties
     /* ################################################################################################################################## */
-    var orientationLock = UIInterfaceOrientationMask.all
-    var window: UIWindow?
-    var currentTimer: LGV_Timer_TimerRuntimeViewController! = nil
-    var useUserInfo: Bool = false
-    var watchDisconnected: Bool = true
-    var timerListController: LGV_Timer_SettingsViewController! = nil
-    var ignoreSelectMessageFromWatch: Int = 0
+    var orientationLock = UIInterfaceOrientationMask.all    ///< Used to force orientation for the individual timer settings page.
+    var window: UIWindow?   ///< The app window object.
+    var currentTimer: LGV_Timer_TimerRuntimeViewController! = nil   ///< If a timer is up, we keep it here for easy access.
+    var useUserInfo: Bool = false   ///< The loaded prefs.
+    var watchDisconnected: Bool = true  ///< If the watch app is not connected, this is true.
+    var timerListController: LGV_Timer_SettingsViewController! = nil    ///< This is set (for convenience) if the timer settings page is up.
+    var ignoreSelectMessageFromWatch: Int = 0   ///< This is a semaphore for preventing multiple signals from the watch.
     
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     Accessor for the main Tab controller.
+     */
     var mainTabController: LGV_Timer_MainTabController! {
         get {
             if let rootController = self.window?.rootViewController as? LGV_Timer_MainTabController {
@@ -48,6 +51,10 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
         }
     }
     
+    /* ################################################################## */
+    /**
+     Accessor for the main timer engine.
+     */
     var timerEngine: LGV_Timer_TimerEngine! {
         get {
             if nil != self.mainTabController {
@@ -61,6 +68,9 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This will force the screen to ignore the accelerometer setting.
+     
+     - parameter orientation: The orientation that should be locked.
      */
     class func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
         if let delegate = UIApplication.shared.delegate as? LGV_Timer_AppDelegate {
@@ -70,6 +80,10 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     
     /* ################################################################## */
     /**
+     This will force the screen to ignore the accelerometer setting and force the screen into that orientation.
+     
+     - parameter orientation: The orientation that should be locked.
+     - parameter andRotateTo: The orientation that should be forced.
      */
     class func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation:UIInterfaceOrientation) {
         self.lockOrientation(orientation)
@@ -164,6 +178,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     
     /* ################################################################## */
     /**
+     Commented out, as we are not using the companion app.
      */
 //    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 //        self.activateSession()

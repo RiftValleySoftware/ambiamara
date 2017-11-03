@@ -4,10 +4,14 @@
 //
 //  Created by Chris Marshall on 6/20/17.
 //  Copyright © 2017 Little Green Viper Software Development LLC. All rights reserved.
+//  This is proprietary code. Copying and reuse are not allowed. It is being opened to provide sample code.
 //
 
 import WatchKit
 
+/* ###################################################################################################################################### */
+/**
+ */
 class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInterfaceController {
     static var screenID: String { get { return "RunningTimer"} }
     
