@@ -200,9 +200,9 @@ class TimeTuple {
     /**
      Initialize just like a tuple.
      
-     :param: hours The number of hours, as an Int, from 0 - 23.
-     :param: minutes The number of minutes, as an Int, from 0 - 59.
-     :param: seconds The number of seconds, as an Int, from 0 - 59.
+     - parameter hours: The number of hours, as an Int, from 0 - 23.
+     - parameter minutes: The number of minutes, as an Int, from 0 - 59.
+     - parameter seconds: The number of seconds, as an Int, from 0 - 59.
      */
     init(hours: Int, minutes: Int, seconds: Int) {
         self._hours = max(0, min(23, hours))
@@ -214,7 +214,7 @@ class TimeTuple {
     /**
      Initialize from total seconds.
      
-     :param: _ The number of seconds as an Int, from 0 - 86399.
+     - parameter inSeconds: The number of seconds as an Int, from 0 - 86399.
      */
     init(_ inSeconds:Int) {
         let temp = min(86399, max(0, inSeconds))
@@ -277,6 +277,7 @@ class TimerSettingTuple: NSObject, NSCoding {
     
     /* ################################################################## */
     /**
+     This enum contains all the various timer state Dictionary keys.
      */
     private enum TimerStateKeys: String {
         case TimeSet            = "TimeSet"
@@ -296,8 +297,10 @@ class TimerSettingTuple: NSObject, NSCoding {
     var lastTick: TimeInterval = 0.0    ///< This will be used to track the timer progress.
     var storedColor: AnyObject! = nil   ///< This is the color from the color theme, and is used to transmit the color to the watch.
     
+    /* ################################################################## */
     var uid: String                     ///< This will be a unique ID, assigned to the pref, so we can match it.
     
+    /* ################################################################## */
     var displayMode: TimerDisplayMode { ///< This is how the timer will display
         didSet {
             if oldValue != self.displayMode {
@@ -308,6 +311,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         }
     }
 
+    /* ################################################################## */
     var alertMode: AlertMode {          ///< This determines what kind of alert the timer makes when it is complete.
         didSet {
             if oldValue != self.alertMode {
@@ -318,6 +322,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         }
    }
     
+    /* ################################################################## */
     var colorTheme: Int {               ///< This is the 0-based index for the color theme.
         didSet {
             if oldValue != self.colorTheme {
@@ -328,6 +333,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         }
     }
     
+    /* ################################################################## */
     var soundID: Int {                  ///< This will be the 0-based ID of a sound for this timer.
         didSet {
             if oldValue != self.soundID {
@@ -338,6 +344,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         }
     }
     
+    /* ################################################################## */
     var timeSet: Int {                  ///< This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
         didSet {
             if oldValue != self.timeSet {
@@ -353,6 +360,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         }
     }
     
+    /* ################################################################## */
     var timeSetPodiumWarn: Int {        ///< This is the number of seconds (0 - 86399) before the yellow light comes on in Podium Mode. If 0, then it is automatically calculated.
         didSet {
             if oldValue != self.timeSetPodiumWarn {
@@ -363,6 +371,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         }
     }
     
+    /* ################################################################## */
     var timeSetPodiumFinal: Int {       ///< This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
         didSet {
             if oldValue != self.timeSetPodiumFinal {
@@ -373,6 +382,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         }
     }
     
+    /* ################################################################## */
     var currentTime: Int {              ///< The actual time for this timer.
         didSet {
             if (nil != self.handler) && (oldValue != self.currentTime) {
@@ -383,6 +393,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         }
     }
     
+    /* ################################################################## */
    var timerStatus: TimerStatus {      ///< This is the current status of this timer.
         didSet {
             if oldValue != self.timerStatus {
@@ -422,6 +433,7 @@ class TimerSettingTuple: NSObject, NSCoding {
     /**
      */
     var dictionary:[String:Any] {
+        /* ################################################################## */
         get {
             var ret:[String:Any] = [:]
             
@@ -443,6 +455,7 @@ class TimerSettingTuple: NSObject, NSCoding {
             return ret
         }
         
+        /* ################################################################## */
         set {
             if let uid = newValue["uid"] as? String {
                 self.uid = uid
@@ -516,15 +529,15 @@ class TimerSettingTuple: NSObject, NSCoding {
     /**
      Initialize just like a tuple.
      
-     :param: timeSet This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
-     :param: timeSetPodiumWarn This is the number of seconds (0 - 86399) before the yellow light comes on in Podium Mode. If 0, then it is automatically calculated.
-     :param: timeSetPodiumFinal This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
-     :param: displayMode This is how the timer will display
-     :param: colorTheme This is the 0-based index for the color theme.
-     :param: alertMode This determines what kind of alert the timer makes when it is complete.
-     :param: soundID This is the ID of the sound to play (when in mode 1 or 2).
-     :param: uid This is a unique ID for this setting. It can be defaulted.
-     :param: handler This is the "owner" of this instance. Default is nil.
+     - parameter timeSet: This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
+     - parameter timeSetPodiumWarn: This is the number of seconds (0 - 86399) before the yellow light comes on in Podium Mode. If 0, then it is automatically calculated.
+     - parameter timeSetPodiumFinal: This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
+     - parameter displayMode: This is how the timer will display
+     - parameter colorTheme: This is the 0-based index for the color theme.
+     - parameter alertMode: This determines what kind of alert the timer makes when it is complete.
+     - parameter soundID: This is the ID of the sound to play (when in mode 1 or 2).
+     - parameter uid: This is a unique ID for this setting. It can be defaulted.
+     - parameter handler: This is the "owner" of this instance. Default is nil.
      */
     convenience init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, currentTime: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, alertVolume: Int, soundID: Int, timerStatus: TimerStatus, uid: String!, handler: LGV_Timer_State! = nil) {
         self.init()
@@ -545,8 +558,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     /**
      Initialize from a stored dictionary.
      
-     :param: dictionary This is a Dictionary that contains the state.
-     :param: handler This is the "owner" of this instance. Default is nil.
+     - parameter dictionary: This is a Dictionary that contains the state.
+     - parameter handler: This is the "owner" of this instance. Default is nil.
      */
     convenience init(dictionary:[String:Any], handler: LGV_Timer_State! = nil) {
         self.init()
@@ -616,9 +629,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     /**
      This calculates the auto-calculation for the "warning," or "yellow traffic light" for the Podium Mode timer.
      
-     :param: inTimerSet The value of the countdown timer.
+     - parameter inTimerSet: The value of the countdown timer.
      
-     :returns: an Int, with the warning threshold.
+     - returns: an Int, with the warning threshold.
      */
     class func calcPodiumModeWarningThresholdForTimerValue(_ inTimerSet: Int) -> Int {
         return max(0, min(inTimerSet, Int(ceil(Float(inTimerSet) * self._podiumModeWarningThreshold))))
@@ -628,9 +641,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     /**
      This calculates the auto-calculation for the "final," or "red traffic light" for the Podium Mode timer.
      
-     :param: inTimerSet The value of the countdown timer.
+     - parameter inTimerSet: The value of the countdown timer.
      
-     :returns: an Int, with the final threshold.
+     - returns: an Int, with the final threshold.
      */
     class func calcPodiumModeFinalThresholdForTimerValue(_ inTimerSet: Int) -> Int {
         return max(0, min(calcPodiumModeWarningThresholdForTimerValue(inTimerSet), Int(ceil(Float(inTimerSet) * self._podiumModeFinalThreshold))))
@@ -642,10 +655,10 @@ class TimerSettingTuple: NSObject, NSCoding {
     /**
      Equatable operator. Simply compares the UIDs
      
-     :param: left The left timer object.
-     :param: right The right timer object.
+     - parameter left: The left timer object.
+     - parameter right: The right timer object.
      
-     :returns: true, if the UIDs match.
+     - returns: true, if the UIDs match.
      */
     static func ==(left: TimerSettingTuple, right: TimerSettingTuple) -> Bool {
         return left.uid == right.uid
@@ -670,7 +683,7 @@ class TimerSettingTuple: NSObject, NSCoding {
     /**
      Initialize from a serialized state.
      
-     :param: coder The coder containing the state
+     - parameter coder: The coder containing the state
      */
     required init?(coder: NSCoder) {
         self.displayMode = .Dual
@@ -720,7 +733,7 @@ class TimerSettingTuple: NSObject, NSCoding {
     /**
      Serialize the object state.
      
-     :param: with The coder we'll be setting the state into.
+     - parameter with: The coder we'll be setting the state into.
      */
     func encode(with: NSCoder) {
         with.encode(self.timeSet, forKey: type(of: self).TimerStateKeys.TimeSet.rawValue)
@@ -1005,8 +1018,8 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     /**
      Initialize from a stored dictionary.
      
-     :param: dictionary This is a Dictionary that contains the state.
-     :param: delegate This is the "owner" of this instance. Default is nil.
+     - parameter dictionary: This is a Dictionary that contains the state.
+     - parameter delegate: This is the "owner" of this instance. Default is nil.
      */
     init(dictionary:[String:Any], delegate: LGV_Timer_StateDelegate! = nil) {
         super.init()
@@ -1240,6 +1253,8 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     /* ################################################################## */
     /**
      Initialize from a serialized state.
+     
+     - parameter coder: The coder we'll be getting the state from.
      */
     required init?(coder: NSCoder) {
         super.init()
@@ -1272,6 +1287,8 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     /* ################################################################## */
     /**
      Serialize the object state.
+     
+     - parameter with: The coder we'll be setting the state into.
      */
     func encode(with: NSCoder) {
         with.encode(self._timers, forKey: type(of: self).AppStateKeys.Timers.rawValue)

@@ -101,6 +101,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This simply returns true, if a timer is currently selected.
      */
     var timerSelected: Bool {
         get { return self.appState.timerSelected }
@@ -108,6 +109,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     This returns the currently selected timer (or nil, if no timer is selected).
      */
     var selectedTimer: TimerSettingTuple! {
         get { return self.appState.selectedTimer }
@@ -115,6 +117,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     This returns (or changes) the 0-based index of the selected timer.
      */
     var selectedTimerIndex: Int {
         get { return self.appState.selectedTimerIndex }
@@ -123,6 +126,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     This returns the UID of the selected timer object.
      */
     var selectedTimerUID: String {
         get { return self.appState.selectedTimerUID }
@@ -131,6 +135,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     This returns true, if we have no timers (We should always have at least one, but belt and suspenders).
      */
     var isEmpty: Bool {
         get { return self.appState.isEmpty }
@@ -138,6 +143,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     This returns the array of timer objects.
      */
     var timers:[TimerSettingTuple] {
         get { return self.appState.timers }
@@ -146,6 +152,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     This returns how many timers we have.
      */
     var count: Int {
         get { return self.appState.count }
@@ -153,6 +160,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     This return true, if we currently have a ticking timer.
      */
     var timerActive: Bool {
         get { return nil != self.timer }
@@ -171,6 +179,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     This returns the actual elapsed time (in a standard interval) since the timer started.
      */
     var actualTimeSinceStart: TimeInterval {
         get {
@@ -226,6 +235,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This creates a timer tuple from the persistent stored data sent in.
      */
     private class func _convertStorageToTimer(_ inTimer: NSDictionary) -> TimerSettingTuple {
         let tempSetting:TimerSettingTuple = self.defaultTimer
@@ -284,6 +294,9 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     We instantiate this with a delegate -always
+     
+     - parameter delegate: The delegate object.
      */
     init(delegate: LGV_Timer_TimerEngineDelegate) {
         super.init()
@@ -294,6 +307,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     We make sure we clean up after ourselves.
      */
     deinit {
         self.timerActive = false
@@ -371,6 +385,9 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This is a factory for creating a new timer object.
+     
+     - returns: a new timer object, instantiated with a zero time, and default characteristics.
      */
     func createNewTimer() -> TimerSettingTuple {
         let timer = self.appState.createNewTimer()
@@ -388,6 +405,8 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     Just what it says on the tin.
+     Does nothing if no timer is selected.
      */
     func pauseTimer() {
         if let selectedTimer = self.selectedTimer {
@@ -397,6 +416,8 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     This will either start, or continue, the selected timer.
+     Does nothing if no timer is selected.
      */
     func continueTimer() {
         if let selectedTimer = self.selectedTimer {
@@ -421,6 +442,8 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     This starts a selected timer from scratch.
+     Does nothing if no timer is selected.
      */
     func startTimer() {
         if let selectedTimer = self.selectedTimer {
@@ -430,6 +453,8 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     Stops a running selected timer.
+     Does nothing if no timer is selected.
      */
     func stopTimer() {
         if let selectedTimer = self.selectedTimer {
@@ -439,6 +464,8 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     This resets the selected timer, and returns it to "paused" mode.
+     Does nothing if no timer is selected.
      */
     func resetTimer() {
         if let selectedTimer = self.selectedTimer {
@@ -453,6 +480,8 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     This forces a timer to "finish," and enter alarm mode.
+     Does nothing if no timer is selected.
      */
     func endTimer() {
         if let selectedTimer = self.selectedTimer {

@@ -187,13 +187,18 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     
     /* ################################################################## */
     /**
+     Commented out, as we are not using the companion app.
      */
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        self.sendForegroundMessage()
-    }
+//    func applicationWillEnterForeground(_ application: UIApplication) {
+//        self.sendForegroundMessage()
+//    }
 
     /* ################################################################## */
     /**
+     Called when the app goes into the background.
+     This will ensure the current timer state is saved.
+     
+     - parameter application: The application object.
      */
     func applicationDidEnterBackground(_ application: UIApplication) {
         if nil != self.timerEngine {
@@ -206,6 +211,10 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     
     /* ################################################################## */
     /**
+     Called when the app will terminate.
+     This will ensure the current timer state is saved.
+     
+     - parameter application: The application object.
      */
     func applicationWillTerminate(_ application: UIApplication) {
         if nil != self.timerEngine {
@@ -214,7 +223,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
         }
     }
     
-    // MARK: - WCSessionDelegate Sender Methods
+    // MARK: - WCSessionDelegate Sender Methods - WILL NOT BE USED, BECAUSE WE AREN'T ENABLING THE WATCH APP.
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**

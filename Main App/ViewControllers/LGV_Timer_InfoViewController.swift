@@ -40,7 +40,7 @@ class LGV_Timer_InfoViewController: LGV_Timer_TimerBaseViewController {
     /**
      */
     @IBAction func lgvButtonHit(_ sender: Any) {
-        let openLink = NSURL(string : "LGV_TIMER-ABOUT-LGV-INSTRUCTIONS-URI".localizedVariant)
+        let openLink = NSURL(string : "LGV_TIMER-ABOUT-LGV-BLURB-URI".localizedVariant)
         UIApplication.shared.open(openLink! as URL, options: [:], completionHandler: nil)
     }
     

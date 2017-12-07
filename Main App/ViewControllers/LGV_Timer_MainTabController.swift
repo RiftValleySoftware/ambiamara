@@ -78,7 +78,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     /**
      This adds a single timer base View Controller to our tracking list.
      
-     :param: inTimer The timer View Controller to add.
+     - parameter inTimer: The timer View Controller to add.
      */
     func addTimerToList(_ inTimer:LGV_Timer_TimerSetController) {
         for timerView in self.activeTimerSetConrollers {
@@ -94,7 +94,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     /**
      This removes a timer view controller from our list.
      
-     :param: inTimer The timer View Controller to remove.
+     - parameter inTimer: The timer View Controller to remove.
      */
     func removeTimerFromList(_ inTimer:LGV_Timer_TimerSetController) {
         var index: Int = 0
@@ -112,7 +112,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     /**
      This fetches a timer View Controller from our tracking list, based on the timer object passed in.
      
-     :param: timerObject The TimerSettingTuple of the View Controller.
+     - parameter timerObject: The TimerSettingTuple of the View Controller.
      */
     func getTimerScreen(_ timerObject: TimerSettingTuple) -> LGV_Timer_TimerSetController! {
         for timerView in self.activeTimerSetConrollers {
