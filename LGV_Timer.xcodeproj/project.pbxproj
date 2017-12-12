@@ -24,12 +24,6 @@
 		7738FA391F2D313F00655E28 /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7738FA381F2D313E00655E28 /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift */; };
 		7738FA3A1F2D313F00655E28 /* LED_Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7738FA371F2D313E00655E28 /* LED_Element.swift */; };
 		773980A61F6964820019A541 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 773980A21F6963A00019A541 /* Localizable.strings */; };
-		775228AE1F1804C90054474D /* SwipeableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A81F1804BB0054474D /* SwipeableTabBarController.swift */; };
-		775228AF1F1804C90054474D /* SwipeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228A91F1804BB0054474D /* SwipeAnimation.swift */; };
-		775228B01F1804C90054474D /* SwipeAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228AA1F1804BB0054474D /* SwipeAnimationType.swift */; };
-		775228B11F1804C90054474D /* SwipeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228AB1F1804BB0054474D /* SwipeInteractor.swift */; };
-		775228B21F1804C90054474D /* SwipeTransitioningProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228AC1F1804BB0054474D /* SwipeTransitioningProtocol.swift */; };
-		775228B31F1804C90054474D /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775228AD1F1804BB0054474D /* UIKit+Extensions.swift */; };
 		775AE1771EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775AE1761EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift */; };
 		7770CB2E1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2D1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift */; };
 		7770CB301ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2F1ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift */; };
@@ -38,6 +32,7 @@
 		77AF00B41F69623800D35EF1 /* LGV_Timer_LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77AF00B61F69623800D35EF1 /* LGV_Timer_LaunchScreen.storyboard */; };
 		77AF00B71F69624E00D35EF1 /* LGV_Timer_Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77AF00B91F69624E00D35EF1 /* LGV_Timer_Main.storyboard */; };
 		77BB98E11F12838F0062B14A /* LGV_Timer_TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB98E01F12838F0062B14A /* LGV_Timer_TimerEngine.swift */; };
+		E9B278019885827314C65EA6 /* Pods_An_Excellent_Countdown_Timer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB00C4E44EF61FD5CD71BAA9 /* Pods_An_Excellent_Countdown_Timer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,6 +49,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2F088DE0452F2465A4662EAD /* Pods-An Excellent Countdown Timer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-An Excellent Countdown Timer.release.xcconfig"; path = "Pods/Target Support Files/Pods-An Excellent Countdown Timer/Pods-An Excellent Countdown Timer.release.xcconfig"; sourceTree = "<group>"; };
 		77052CD61EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerRuntimeViewController.swift; path = ViewControllers/LGV_Timer_TimerRuntimeViewController.swift; sourceTree = "<group>"; };
 		770FB9AF1EE4359300E3120D /* LGV_Timer_InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_InfoViewController.swift; path = ViewControllers/LGV_Timer_InfoViewController.swift; sourceTree = "<group>"; };
 		771974DD1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_SharedDeclarations.swift; path = ../Shared/LGV_Timer_SharedDeclarations.swift; sourceTree = "<group>"; };
@@ -79,16 +75,11 @@
 		7738FA381F2D313E00655E28 /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift; path = "Main App/LGV_Lib_LEDDisplay/LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift"; sourceTree = "<group>"; };
 		773980A71F6964960019A541 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = ../Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		774CF7F01F25114600604977 /* LGV_Timer_Watch_DefaultInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Watch_DefaultInterfaceController.swift; sourceTree = "<group>"; };
-		775228A81F1804BB0054474D /* SwipeableTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableTabBarController.swift; sourceTree = "<group>"; };
-		775228A91F1804BB0054474D /* SwipeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeAnimation.swift; sourceTree = "<group>"; };
-		775228AA1F1804BB0054474D /* SwipeAnimationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeAnimationType.swift; sourceTree = "<group>"; };
-		775228AB1F1804BB0054474D /* SwipeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeInteractor.swift; sourceTree = "<group>"; };
-		775228AC1F1804BB0054474D /* SwipeTransitioningProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTransitioningProtocol.swift; sourceTree = "<group>"; };
-		775228AD1F1804BB0054474D /* UIKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Extensions.swift"; sourceTree = "<group>"; };
 		775AE1761EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerSetPickerController.swift; path = ViewControllers/LGV_Timer_TimerSetPickerController.swift; sourceTree = "<group>"; };
 		7770CB2D1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerSetController.swift; path = ViewControllers/LGV_Timer_TimerSetController.swift; sourceTree = "<group>"; };
 		7770CB2F1ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerSetupController.swift; path = ViewControllers/LGV_Timer_TimerSetupController.swift; sourceTree = "<group>"; };
 		7789C3231ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerBaseViewController.swift; path = ViewControllers/LGV_Timer_TimerBaseViewController.swift; sourceTree = "<group>"; };
+		77A27EDC1FE0451900DF70CD /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		77AF00B21F69622F00D35EF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LGV_Timer_ColorThemes.xib; sourceTree = "<group>"; };
 		77AF00B51F69623800D35EF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LGV_Timer_LaunchScreen.storyboard; sourceTree = "<group>"; };
 		77AF00B81F69624E00D35EF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LGV_Timer_Main.storyboard; sourceTree = "<group>"; };
@@ -104,9 +95,30 @@
 		77F86DFB1F213408003BDD73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77F86DFC1F213408003BDD73 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		77FE5A8F1F2D322A00593B93 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		BC62B86A43C730806EAC0B0D /* Pods-An Excellent Countdown Timer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-An Excellent Countdown Timer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-An Excellent Countdown Timer/Pods-An Excellent Countdown Timer.debug.xcconfig"; sourceTree = "<group>"; };
+		DB00C4E44EF61FD5CD71BAA9 /* Pods_An_Excellent_Countdown_Timer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_An_Excellent_Countdown_Timer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		69021CE8125F0E7E8CC08B11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9B278019885827314C65EA6 /* Pods_An_Excellent_Countdown_Timer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
+		5A57DC52651BD22704330C20 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DB00C4E44EF61FD5CD71BAA9 /* Pods_An_Excellent_Countdown_Timer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		772459B71F1E1CD7006CA335 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,19 +156,6 @@
 			name = "App Files";
 			sourceTree = "<group>";
 		};
-		775228A71F1804BB0054474D /* SwipeableTabBarController */ = {
-			isa = PBXGroup;
-			children = (
-				775228A81F1804BB0054474D /* SwipeableTabBarController.swift */,
-				775228A91F1804BB0054474D /* SwipeAnimation.swift */,
-				775228AA1F1804BB0054474D /* SwipeAnimationType.swift */,
-				775228AB1F1804BB0054474D /* SwipeInteractor.swift */,
-				775228AC1F1804BB0054474D /* SwipeTransitioningProtocol.swift */,
-				775228AD1F1804BB0054474D /* UIKit+Extensions.swift */,
-			);
-			path = SwipeableTabBarController;
-			sourceTree = "<group>";
-		};
 		775ACED91ED5C26C0097FF5C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,7 +180,6 @@
 				772459B71F1E1CD7006CA335 /* Resources */,
 				772A13D91ED5E8950043C58B /* Info.plist */,
 				77CD9AA81F0FCD8100EB4134 /* LED Display Classes */,
-				775228A71F1804BB0054474D /* SwipeableTabBarController */,
 			);
 			path = "Main App";
 			sourceTree = "<group>";
@@ -211,9 +209,12 @@
 			isa = PBXGroup;
 			children = (
 				77B291131ED5C37C00AD3720 /* README.md */,
+				77A27EDC1FE0451900DF70CD /* Podfile */,
 				775ACEDA1ED5C2BA0097FF5C /* Main App */,
 				778015F61F2D2E3900A0A10C /* Watch App */,
 				77EFB3DD1ED5C1A800BDDEFF /* Products */,
+				793FF5DA5F755A90B96DCF44 /* Pods */,
+				5A57DC52651BD22704330C20 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -252,6 +253,15 @@
 			path = "X-Timer Companion Extension";
 			sourceTree = "<group>";
 		};
+		793FF5DA5F755A90B96DCF44 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BC62B86A43C730806EAC0B0D /* Pods-An Excellent Countdown Timer.debug.xcconfig */,
+				2F088DE0452F2465A4662EAD /* Pods-An Excellent Countdown Timer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -259,9 +269,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77EFB3EE1ED5C1A800BDDEFF /* Build configuration list for PBXNativeTarget "An Excellent Countdown Timer" */;
 			buildPhases = (
+				608EB34B1C5EAA281E5A3BF0 /* [CP] Check Pods Manifest.lock */,
 				77EFB3D81ED5C1A800BDDEFF /* Sources */,
 				77EFB3DA1ED5C1A800BDDEFF /* Resources */,
 				7766626B1F279EF300A296A3 /* Embed Watch Content */,
+				69021CE8125F0E7E8CC08B11 /* Frameworks */,
+				7C917423013C0279A76624D1 /* [CP] Embed Pods Frameworks */,
+				AEC0B4A36EB83034C1AFB3E8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -335,18 +349,69 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		608EB34B1C5EAA281E5A3BF0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-An Excellent Countdown Timer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7C917423013C0279A76624D1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-An Excellent Countdown Timer/Pods-An Excellent Countdown Timer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeableTabBarController.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-An Excellent Countdown Timer/Pods-An Excellent Countdown Timer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AEC0B4A36EB83034C1AFB3E8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-An Excellent Countdown Timer/Pods-An Excellent Countdown Timer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		77EFB3D81ED5C1A800BDDEFF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				7770CB301ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift in Sources */,
-				775228B01F1804C90054474D /* SwipeAnimationType.swift in Sources */,
 				77BB98E11F12838F0062B14A /* LGV_Timer_TimerEngine.swift in Sources */,
-				775228B11F1804C90054474D /* SwipeInteractor.swift in Sources */,
 				7738FA3A1F2D313F00655E28 /* LED_Element.swift in Sources */,
 				772A13D81ED5E8840043C58B /* LGV_Timer_AppDelegate.swift in Sources */,
-				775228AF1F1804C90054474D /* SwipeAnimation.swift in Sources */,
 				7738FA391F2D313F00655E28 /* LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift in Sources */,
 				772A13CC1ED5E8270043C58B /* LGV_Timer_MainTabController.swift in Sources */,
 				77052CD71EE0DAAD00DA2E8C /* LGV_Timer_TimerRuntimeViewController.swift in Sources */,
@@ -356,10 +421,7 @@
 				775AE1771EDDDF1D00B168A7 /* LGV_Timer_TimerSetPickerController.swift in Sources */,
 				770FB9B01EE4359300E3120D /* LGV_Timer_InfoViewController.swift in Sources */,
 				772BF9C41ED600B3002D1782 /* LGV_Timer_TimerNavController.swift in Sources */,
-				775228B31F1804C90054474D /* UIKit+Extensions.swift in Sources */,
 				771974DE1EF02FD2002C8F62 /* LGV_Timer_SharedDeclarations.swift in Sources */,
-				775228B21F1804C90054474D /* SwipeTransitioningProtocol.swift in Sources */,
-				775228AE1F1804C90054474D /* SwipeableTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +592,7 @@
 		};
 		77EFB3EF1ED5C1A800BDDEFF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC62B86A43C730806EAC0B0D /* Pods-An Excellent Countdown Timer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = P53V4JS928;
@@ -547,6 +610,7 @@
 		};
 		77EFB3F01ED5C1A800BDDEFF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F088DE0452F2465A4662EAD /* Pods-An Excellent Countdown Timer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = P53V4JS928;

@@ -21,7 +21,7 @@ This uses elements of [the excellent SwipeableTabBarController, by Marcos Grisel
 
 CHANGELIST
 ----------
-***Version 2.0.1* ** *- TBD*
+***Version 2.1.0* ** *- TBD*
 
 - Updated the README and the code headers with additional info, prior to opening the app.
 - Updated some commenting in the code. Equivalent of cleaning up the dorm room before the parents visit.

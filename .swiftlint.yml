@@ -1,0 +1,32 @@
+disabled_rules:
+- identifier_name
+- nesting
+- function_parameter_count
+- trailing_whitespace
+
+opt_in_rules:
+- control_statement
+- empty_count
+- trailing_newline
+- colon
+- comma
+
+excluded:
+- Pods
+- Project/R.generated.swift
+
+file_length:
+- 1500 # warning
+- 3000 # error
+
+type_body_length:
+- 400 # warning
+- 500 # error
+
+line_length:
+- 400 # warning
+- 500 # error
+
+cyclomatic_complexity:
+- 13 # warning
+- 15 # error
