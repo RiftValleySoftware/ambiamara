@@ -3,6 +3,8 @@ disabled_rules:
 - nesting
 - function_parameter_count
 - trailing_whitespace
+- type_name
+- function_body_length
 
 opt_in_rules:
 - control_statement

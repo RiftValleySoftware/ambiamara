@@ -69,7 +69,7 @@ import UIKit
      
      :param: _ The gesture recognizer that triggered this (ignored)
      */
-    @IBAction func selectNextPage(_ : UIGestureRecognizer) {
+    @IBAction func selectNextPage(_: UIGestureRecognizer) {
         if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex < (LGV_Timer_AppDelegate.appDelegateObject.timerEngine.count - 1) {
             let nextIndex = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex + 1
             LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex = nextIndex
@@ -82,7 +82,7 @@ import UIKit
      
      :param: _ The gesture recognizer that triggered this (ignored)
      */
-    @IBAction func selectPreviousPage(_ : UIGestureRecognizer) {
+    @IBAction func selectPreviousPage(_: UIGestureRecognizer) {
         if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex >= 0 {
             let prevIndex = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex - 1
             LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex = prevIndex

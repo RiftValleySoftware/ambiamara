@@ -59,7 +59,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
             
             AudioServicesCreateSystemSoundID(soundUrl as CFURL, &soundId)
             
-            AudioServicesAddSystemSoundCompletion(soundId, nil, nil, { (soundId, clientData) -> Void in
+            AudioServicesAddSystemSoundCompletion(soundId, nil, nil, { (soundId, _) -> Void in
                 AudioServicesDisposeSystemSoundID(soundId)
             }, nil)
             AudioServicesPlaySystemSound(soundId)
@@ -181,7 +181,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     /**
      */
     override func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return (self.colorThemePicker == pickerView) ? 1 : super.numberOfComponents(in: pickerView)
+        return (self.colorThemePicker == pickerView) ? 1: super.numberOfComponents(in: pickerView)
     }
     
     /* ################################################################## */
@@ -201,14 +201,14 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     /**
      */
     override func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return pickerView.bounds.size.height / ((self.colorThemePicker == pickerView) ? 3.0 : 4.0)
+        return pickerView.bounds.size.height / ((self.colorThemePicker == pickerView) ? 3.0: 4.0)
     }
     
     /* ################################################################## */
     /**
      */
     override func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return (self.colorThemePicker == pickerView) ? pickerView.bounds.size.width : super.pickerView(pickerView, widthForComponent: component)
+        return (self.colorThemePicker == pickerView) ? pickerView.bounds.size.width: super.pickerView(pickerView, widthForComponent: component)
     }
     
     /* ################################################################## */

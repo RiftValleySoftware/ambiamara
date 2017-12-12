@@ -62,7 +62,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
      */
     private func _setUpDisplay() {
         if nil != self.pauseButton {
-            self.pauseButton.image = UIImage(named: .Paused == self.timerObject.timerStatus ? self.startButtonImageName : self.pauseButtonImageName)
+            self.pauseButton.image = UIImage(named: .Paused == self.timerObject.timerStatus ? self.startButtonImageName: self.pauseButtonImageName)
             self.pauseButton.isEnabled = (0 < self.timerObject.currentTime)
         }
         
@@ -74,49 +74,45 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self.endButton.isEnabled = (0 < self.timerObject.currentTime)
         }
         
-        if .Podium != self.timerObject.displayMode {
-            if nil != self.timeDisplay {
-                if self._originalValue != self.timerObject.currentTime {
-                    self._originalValue = self.timerObject.currentTime
-                    self.timeDisplay.hours = TimeTuple(self.timerObject.currentTime).hours
-                    self.timeDisplay.minutes = TimeTuple(self.timerObject.currentTime).minutes
-                    self.timeDisplay.seconds = TimeTuple(self.timerObject.currentTime).seconds
-                    self.timeDisplay.setNeedsDisplay()
-                }
+        if .Podium != self.timerObject.displayMode && nil != self.timeDisplay {
+            if self._originalValue != self.timerObject.currentTime {
+                self._originalValue = self.timerObject.currentTime
+                self.timeDisplay.hours = TimeTuple(self.timerObject.currentTime).hours
+                self.timeDisplay.minutes = TimeTuple(self.timerObject.currentTime).minutes
+                self.timeDisplay.seconds = TimeTuple(self.timerObject.currentTime).seconds
+                self.timeDisplay.setNeedsDisplay()
             }
         }
         
-        if .Digital != self.timerObject.displayMode {
-            if nil != self.stoplightContainerView {
-                switch self.timerObject.timerStatus {
-                case .Paused:
-                    self.greenLight.isHighlighted = false
-                    self.yellowLight.isHighlighted = false
-                    self.redLight.isHighlighted = false
-                    
-                case .Running:
-                    self.greenLight.isHighlighted = true
-                    self.yellowLight.isHighlighted = false
-                    self.redLight.isHighlighted = false
-                    
-                case .WarnRun:
-                    self.greenLight.isHighlighted = false
-                    self.yellowLight.isHighlighted = true
-                    self.redLight.isHighlighted = false
-                    
-                case .FinalRun:
-                    self.greenLight.isHighlighted = false
-                    self.yellowLight.isHighlighted = false
-                    self.redLight.isHighlighted = true
-                    
-                case .Alarm:
-                    self.greenLight.isHighlighted = false
-                    self.yellowLight.isHighlighted = false
-                    self.redLight.isHighlighted = false
-                    
-                default:
-                    break
-                }
+        if .Digital != self.timerObject.displayMode && nil != self.stoplightContainerView {
+            switch self.timerObject.timerStatus {
+            case .Paused:
+                self.greenLight.isHighlighted = false
+                self.yellowLight.isHighlighted = false
+                self.redLight.isHighlighted = false
+                
+            case .Running:
+                self.greenLight.isHighlighted = true
+                self.yellowLight.isHighlighted = false
+                self.redLight.isHighlighted = false
+                
+            case .WarnRun:
+                self.greenLight.isHighlighted = false
+                self.yellowLight.isHighlighted = true
+                self.redLight.isHighlighted = false
+                
+            case .FinalRun:
+                self.greenLight.isHighlighted = false
+                self.yellowLight.isHighlighted = false
+                self.redLight.isHighlighted = true
+                
+            case .Alarm:
+                self.greenLight.isHighlighted = false
+                self.yellowLight.isHighlighted = false
+                self.redLight.isHighlighted = false
+                
+            default:
+                break
             }
         }
     }
@@ -132,7 +128,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
                 if .VibrateOnly != self.timerObject.alertMode {
                     AudioServicesCreateSystemSoundID(soundUrl as CFURL, &soundId)
 
-                    AudioServicesAddSystemSoundCompletion(soundId, nil, nil, { (soundId, clientData) -> Void in
+                    AudioServicesAddSystemSoundCompletion(soundId, nil, nil, { (soundId, _) -> Void in
                         AudioServicesDisposeSystemSoundID(soundId)
                     }, nil)
                 }
@@ -141,7 +137,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
                     AudioServicesPlayAlertSound(soundId)
                 } else {
                     if .VibrateOnly == self.timerObject.alertMode {
-                        AudioServicesAddSystemSoundCompletion(kSystemSoundID_Vibrate, nil, nil, { (soundId, clientData) -> Void in
+                        AudioServicesAddSystemSoundCompletion(kSystemSoundID_Vibrate, nil, nil, { (_, _) -> Void in
                             AudioServicesDisposeSystemSoundID(kSystemSoundID_Vibrate)
                         }, nil)
                         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
@@ -301,7 +297,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         super.viewWillLayoutSubviews()
         
         if nil != self.stoplightContainerView {
-            let verticalPadding: CGFloat = (.Dual == self.timerObject.displayMode) ? 4 : 0
+            let verticalPadding: CGFloat = (.Dual == self.timerObject.displayMode) ? 4: 0
             var containerRect = self.view.bounds
             var maxWidth = (containerRect.size.width * self._stoplightMaxWidthFactor)
             

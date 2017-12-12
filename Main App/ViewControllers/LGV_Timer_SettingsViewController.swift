@@ -49,7 +49,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      */
     override func viewDidLoad() {
         self.navItemTitle.title = self.navItemTitle.title?.localizedVariant
-        self.mainTabController = self.tabBarController as! LGV_Timer_MainTabController
+        self.mainTabController = self.tabBarController as? LGV_Timer_MainTabController
         LGV_Timer_AppDelegate.appDelegateObject.timerListController = self
         super.viewDidLoad()
         self.gussyUpTheMoreNavigation()
@@ -70,11 +70,11 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         
         if 480 > viewBounds.size.width {
             let font = UIFont.systemFont(ofSize: 14)
-            let attributedTitle = NSAttributedString(string: titleString, attributes:[NSAttributedStringKey.font: font])
+            let attributedTitle = NSAttributedString(string: titleString, attributes: [NSAttributedStringKey.font: font])
             self.showControlsButton.setAttributedTitle(attributedTitle, for: UIControlState.normal)
         } else {
             let font = UIFont.systemFont(ofSize: 20)
-            let attributedTitle = NSAttributedString(string: titleString, attributes:[NSAttributedStringKey.font: font])
+            let attributedTitle = NSAttributedString(string: titleString, attributes: [NSAttributedStringKey.font: font])
             self.showControlsButton.setAttributedTitle(attributedTitle, for: UIControlState.normal)
         }
     }
@@ -166,7 +166,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
             if let clockView = ret.clockDisplay {
                 let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
                 clockView.text = TimeTuple(timerPrefs.timeSet).description
-                clockView.textColor = (.Podium == timerPrefs.displayMode ? UIColor.white : self.mainTabController.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!)
+                clockView.textColor = (.Podium == timerPrefs.displayMode ? UIColor.white: self.mainTabController.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!)
                 if .Podium == timerPrefs.displayMode {
                     clockView.font = UIFont.boldSystemFont(ofSize: 24)
                 } else {
@@ -179,7 +179,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
             
             if let timerNameLabel = ret.timerNameLabel {
                 let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
-                timerNameLabel.textColor = (.Podium == timerPrefs.displayMode ? UIColor.white : self.mainTabController.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!)
+                timerNameLabel.textColor = (.Podium == timerPrefs.displayMode ? UIColor.white: self.mainTabController.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!)
                 timerNameLabel.text = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
             }
             
@@ -233,7 +233,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - parameter forRowAt: The indexpath of the row to be deleted.
      */
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.delete) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
             let alertController = UIAlertController(title: "DELETE-HEADER".localizedVariant, message: String(format: "DELETE-MESSAGE-FORMAT".localizedVariant, indexPath.row + 1), preferredStyle: .alert)
             
             let deleteAction = UIAlertAction(title: "DELETE-OK-BUTTON".localizedVariant, style: UIAlertActionStyle.destructive, handler: {(_: UIAlertAction) in self.doADirtyDeedCheap(tableView, forRowAt: indexPath)})

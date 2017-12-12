@@ -13,7 +13,7 @@ import WatchKit
 /**
  */
 class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInterfaceController {
-    static var screenID: String { get { return "RunningTimer"} }
+    static var screenID: String { return "RunningTimer" }
     
     static let s_OffLightName = "Watch-OffLight"
     static let s_GreenLightName = "Watch-GreenLight"
@@ -137,7 +137,6 @@ class LGV_Timer_Watch_RunningTimerInterfaceController: LGV_Timer_Watch_BaseInter
                 switch self.timerObject.currentTime {
                 case 0:
                     self.alarm()
-                    break
                     
                 case 1...self.timerObject.timeSetPodiumFinal:
                     self.finalLights()

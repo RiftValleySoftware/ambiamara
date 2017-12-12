@@ -28,7 +28,7 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
     static let s_TimerContextKey = "Timer"
     static let s_CurrentTimeContextKey = "CurrentTime"
     
-    static var screenID: String { get { return "MainScreen"} }
+    static var screenID: String { return "MainScreen" }
     
     var myCurrentTimer: LGV_Timer_Watch_MainTimerHandlerInterfaceController! = nil
     
@@ -91,14 +91,14 @@ class LGV_Timer_Watch_MainAppInterfaceController: LGV_Timer_Watch_BaseInterfaceC
                         
                         let timeTuple = TimeTuple(timerObject.timeSet)
                         let timeStringContents = String(format: "%02d:%02d:%02d", timeTuple.hours, timeTuple.minutes, timeTuple.seconds)
-                        var timeString:NSAttributedString! = nil
+                        var timeString: NSAttributedString! = nil
                         
                         if .Podium != timerObject.displayMode {
                             if let titleFont = UIFont(name: "LetsgoDigital-Regular", size: 16) {
-                                timeString = NSAttributedString(string: timeStringContents, attributes: [NSAttributedStringKey.font:titleFont])
+                                timeString = NSAttributedString(string: timeStringContents, attributes: [NSAttributedStringKey.font: titleFont])
                             }
                         } else {
-                            timeString = NSAttributedString(string: timeStringContents, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14)])
+                            timeString = NSAttributedString(string: timeStringContents, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)])
                         }
                         
                         rowObject.timeDisplayLabel.setAttributedText(timeString)

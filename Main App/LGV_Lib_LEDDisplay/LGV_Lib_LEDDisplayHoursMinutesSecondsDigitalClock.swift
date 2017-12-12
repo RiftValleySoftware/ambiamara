@@ -23,7 +23,7 @@ extension CGFloat {
 /**
  This class instantiates a bunch of LED Elements into a "Digital Clock," to be displayed to cover most of the screen.
  */
-public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
+public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock: UIView {
     // MARK: - Instance Properties
     /* ################################################################################################################################## */
     var activeSegmentColor: UIColor = UIColor.green
@@ -74,31 +74,31 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
      :param: inZeroFill If true, we have leading zeroes displayed.
      */
     private class func _setDecimalValue(_ inGroup: LED_ElementGrouping, inValue: Int, inZeroFill: Bool) {
-        let elements = inGroup.elements as! [LED_SingleDigit]
-        
-        var value = abs(inValue)
-        
-        var index = elements.count - 1
-        
-        while 0 < value {
-            var digitValue = value
-            if 9 < digitValue {
-                digitValue -= (10 * Int(value / 10))
-            }
-            elements[index].value = digitValue
-            value /= 10
-            index -= 1
-        }
-        
-        if inZeroFill {
-            while 0 <= index {
-                elements[index].value = 0
+        if let elements = inGroup.elements as? [LED_SingleDigit] {
+            var value = abs(inValue)
+            
+            var index = elements.count - 1
+            
+            while 0 < value {
+                var digitValue = value
+                if 9 < digitValue {
+                    digitValue -= (10 * Int(value / 10))
+                }
+                elements[index].value = digitValue
+                value /= 10
                 index -= 1
             }
-        } else {
-            while 0 <= index {
-                elements[index].value = -2
-                index -= 1
+            
+            if inZeroFill {
+                while 0 <= index {
+                    elements[index].value = 0
+                    index -= 1
+                }
+            } else {
+                while 0 <= index {
+                    elements[index].value = -2
+                    index -= 1
+                }
             }
         }
     }
@@ -112,14 +112,14 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
      
      :returns: an array of [CGPoint], that can be used to describe a path.
      */
-    private class func _pointySideUpHexagon(_ inHowBig: CGFloat)->[CGPoint] {
+    private class func _pointySideUpHexagon(_ inHowBig: CGFloat) -> [CGPoint] {
         let angle = CGFloat(60).radians()
         let cx = CGFloat(inHowBig) // x origin
         let cy = CGFloat(inHowBig) // y origin
         let r = CGFloat(inHowBig) // radius of circle
         var points = [CGPoint]()
-        var minX:CGFloat = inHowBig * 2
-        var maxX:CGFloat = 0
+        var minX: CGFloat = inHowBig * 2
+        var maxX: CGFloat = 0
         for i in 0...6 {
             let x = cx + r * cos(angle * CGFloat(i) - CGFloat(30).radians())
             let y = cy + r * sin(angle * CGFloat(i) - CGFloat(30).radians())
@@ -185,7 +185,7 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
                 xOffset += oneHexWidth
             }
             
-            nudgeX = (0 < nudgeX) ? 0 : halfWidth
+            nudgeX = (0 < nudgeX) ? 0: halfWidth
             yOffset += nudgeY
         }
         
@@ -258,37 +258,45 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
             self._allElementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: size, inSeparationSpace: CGFloat(self.separationSpace))
         
             if nil != minutesSeparatorElementGroup {
-                (minutesSeparatorElementGroup[0] as! LED_SeparatorDots).value = [self._separatorsOn, self._separatorsOn]
+                (minutesSeparatorElementGroup[0] as? LED_SeparatorDots)?.value = [self._separatorsOn, self._separatorsOn]
             }
             
             if nil != secondsSeparatorElementGroup {
-                (secondsSeparatorElementGroup[0] as! LED_SeparatorDots).value = [self._separatorsOn, self._separatorsOn]
+                (secondsSeparatorElementGroup[0] as? LED_SeparatorDots)?.value = [self._separatorsOn, self._separatorsOn]
             }
             
             if nil != hoursElementGroup {
-                type(of: self)._setDecimalValue(hoursElementGroup, inValue: self.hours, inZeroFill:  self.zeroPadding)
+                type(of: self)._setDecimalValue(hoursElementGroup, inValue: self.hours, inZeroFill: self.zeroPadding)
             }
             
             if nil != minutesElementGroup {
-                let zeroPadding = (nil != hoursElementGroup) ? ((0 != self.hours) ? true : self.zeroPadding) : self.zeroPadding
-                type(of: self)._setDecimalValue(minutesElementGroup, inValue: self.minutes, inZeroFill:  zeroPadding)
+                let zeroPadding = (nil != hoursElementGroup) ? ((0 != self.hours) ? true: self.zeroPadding): self.zeroPadding
+                type(of: self)._setDecimalValue(minutesElementGroup, inValue: self.minutes, inZeroFill: zeroPadding)
                 
                 if (0 == self.hours) && (!self.zeroPadding || (nil == hoursElementGroup)) && (nil != minutesSeparatorElementGroup) {
-                    (minutesSeparatorElementGroup[0] as! LED_SeparatorDots).value = [false, false]
+                    (minutesSeparatorElementGroup[0] as? LED_SeparatorDots)?.value = [false, false]
                 }
             }
             
             if nil != secondsElementGroup {
-                var zeroPadding = (nil != hoursElementGroup) ? ((0 != self.hours) ? true : self.zeroPadding) : self.zeroPadding
-                zeroPadding = (nil != minutesElementGroup) ? ((0 != self.minutes) ? true : zeroPadding) : zeroPadding
-                type(of: self)._setDecimalValue(secondsElementGroup, inValue: self.seconds, inZeroFill:   zeroPadding)
+                var zeroPadding = (nil != hoursElementGroup) ? ((0 != self.hours) ? true: self.zeroPadding): self.zeroPadding
+                zeroPadding = (nil != minutesElementGroup) ? ((0 != self.minutes) ? true: zeroPadding): zeroPadding
+                type(of: self)._setDecimalValue(secondsElementGroup, inValue: self.seconds, inZeroFill: zeroPadding)
                 
                 if (0 == self.minutes) && (!zeroPadding || (nil == minutesElementGroup)) && (nil != secondsSeparatorElementGroup) {
-                    (secondsSeparatorElementGroup[0] as! LED_SeparatorDots).value = [false, false]
+                    (secondsSeparatorElementGroup[0] as? LED_SeparatorDots)?.value = [false, false]
                 }
             }
+            
+            self.layoutSubviewsPart2()
         }
-        
+    }
+    
+    /* ################################################################## */
+    /**
+     This is just here to reduce CC.
+     */
+    func layoutSubviewsPart2() {
         if nil == self._displayView {
             self._displayView = UIView(frame: self.bounds)
             self.addSubview(self._displayView)
@@ -299,7 +307,7 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
             self._gridImageView.backgroundColor = UIColor.clear
             self._gridImageView.contentMode = .scaleAspectFill
             self.addSubview(self._gridImageView)
-       }
+        }
         
         let activePath = self._allElementGroup.activeSegments
         let inactivePath = self._allElementGroup.inactiveSegments
@@ -320,7 +328,7 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock : UIView {
         
         super.layoutSubviews()
     }
-    
+
     /* ################################################################## */
     /**
      In this drawing routine, we take each of the layers (the bottom, "inactive mask" layer, and the top, "active" layer),

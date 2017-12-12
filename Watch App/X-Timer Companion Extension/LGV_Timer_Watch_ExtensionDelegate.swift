@@ -18,15 +18,13 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     static let timerInterval: TimeInterval = 0.25
     
     /* ################################################################################################################################## */
-    static var delegateObject:LGV_Timer_Watch_ExtensionDelegate! {
-        get {
-            let sharedExt = WKExtension.shared()
-            if let delegate = sharedExt.delegate as? LGV_Timer_Watch_ExtensionDelegate {
-                return delegate
-            }
-            
-            return nil
+    static var delegateObject: LGV_Timer_Watch_ExtensionDelegate! {
+        let sharedExt = WKExtension.shared()
+        if let delegate = sharedExt.delegate as? LGV_Timer_Watch_ExtensionDelegate {
+            return delegate
         }
+        
+        return nil
     }
     
     /* ################################################################################################################################## */
@@ -35,8 +33,8 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /* ################################################################################################################################## */
     var appStatus: LGV_Timer_State! = nil
     var timerListController: LGV_Timer_Watch_MainAppInterfaceController! = nil
-    var timerControllers:[LGV_Timer_Watch_MainTimerHandlerInterfaceController] = []
-    var currentTimer:LGV_Timer_Watch_MainTimerHandlerInterfaceController! = nil
+    var timerControllers: [LGV_Timer_Watch_MainTimerHandlerInterfaceController] = []
+    var currentTimer: LGV_Timer_Watch_MainTimerHandlerInterfaceController! = nil
     var ignoreSelectMessageFromPhone: Int = 0
     
     /* ################################################################################################################################## */
@@ -71,7 +69,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                 #endif
                 self.ignoreSelectMessageFromPhone = 0
             })
-            let selectMsg = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey:timerUID]
+            let selectMsg = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey: timerUID]
             #if DEBUG
                 print("Watch Sending Message: " + String(describing: selectMsg))
             #endif
@@ -83,7 +81,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func sendBackgroundMessage() {
-        let selectMsg = [LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:""]
+        let selectMsg = [LGV_Timer_Messages.s_timerAppInBackgroundMessageKey: ""]
         #if DEBUG
             print("Watch Sending Message: " + String(describing: selectMsg))
         #endif
@@ -94,7 +92,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /**
      */
     func sendForegroundMessage() {
-        let selectMsg = [LGV_Timer_Messages.s_timerAppInForegroundMessageKey:""]
+        let selectMsg = [LGV_Timer_Messages.s_timerAppInForegroundMessageKey: ""]
         #if DEBUG
             print("Watch Sending Message: " + String(describing: selectMsg))
         #endif
@@ -106,7 +104,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
      */
     func sendStartMessage(timerUID: String) {
         if self.session.isReachable {
-            let selectMsg = [LGV_Timer_Messages.s_timerListStartTimerMessageKey:timerUID]
+            let selectMsg = [LGV_Timer_Messages.s_timerListStartTimerMessageKey: timerUID]
             #if DEBUG
                 print("Watch Sending Message: " + String(describing: selectMsg))
             #endif
@@ -119,7 +117,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
      */
     func sendStopMessage(timerUID: String) {
         if self.session.isReachable {
-            let selectMsg = [LGV_Timer_Messages.s_timerListStopTimerMessageKey:timerUID]
+            let selectMsg = [LGV_Timer_Messages.s_timerListStopTimerMessageKey: timerUID]
             #if DEBUG
                 print("Watch Sending Message: " + String(describing: selectMsg))
             #endif
@@ -152,7 +150,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /* ################################################################## */
     /**
      */
-    func process(userInfo: [String : Any] = [:]) {
+    func process(userInfo: [String: Any] = [:]) {
     }
     
     /* ################################################################## */
@@ -179,8 +177,8 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
      */
     func updateAllTimerObjects() {
         if nil != self.appStatus {
-            var namesArray:[String] = [LGV_Timer_Watch_MainAppInterfaceController.screenID]
-            var contexts:[Any] = [""]
+            var namesArray: [String] = [LGV_Timer_Watch_MainAppInterfaceController.screenID]
+            var contexts: [Any] = [""]
             
             for timer in self.appStatus {
                 namesArray.append(LGV_Timer_Watch_MainTimerHandlerInterfaceController.screenID)
@@ -243,7 +241,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                 // Snapshot tasks have a unique completion call, make sure to set your expiration date
                 snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
             case let connectivityTask as WKWatchConnectivityRefreshBackgroundTask:
-                self.process(userInfo: connectivityTask.userInfo as! [String : Any])
+                self.process(userInfo: connectivityTask.userInfo as? [String: Any])
                 if #available(watchOSApplicationExtension 4.0, *) {
                     connectivityTask.setTaskCompletedWithSnapshot(true)
                 } else {
@@ -311,7 +309,7 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
     /* ################################################################## */
     /**
      */
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+    func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         DispatchQueue.main.async {
             #if DEBUG
                 print("Watch Received Message: " + String(describing: message))
@@ -344,30 +342,11 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
                     }
                     
                 case    LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:
-                    if let messageData = message[key] as? [String:Any] {
-                        #if DEBUG
-                            print("Resettting Ignore Select From Phone to 0.")
-                        #endif
-                        self.ignoreSelectMessageFromPhone = 0
-                        self.appStatus = LGV_Timer_State(dictionary: messageData)
-                        self.updateAllTimerObjects()
-                        self.appStatus.delegate = self
-                    }
+                    self.handleAppStatusMessage(message, key)
                     
                 case    LGV_Timer_Messages.s_timerListSelectTimerMessageKey:
-                    if 0 == self.ignoreSelectMessageFromPhone {
-                        if nil != self.appStatus {
-                            if let uid = message[key] as? String {
-                                self.appStatus.selectedTimerIndex = self.appStatus.indexOf(uid)
-                            }
-                        }
-                    } else {
-                        #if DEBUG
-                            print("Select From Phone Ignored. Decrementing Ignore Select From Phone from \(self.ignoreSelectMessageFromPhone).")
-                        #endif
-                        self.ignoreSelectMessageFromPhone -= 1
-                    }
-                    
+                    self.handleSelectMessage(message, key)
+
                 default:
                     break
                 }
@@ -375,6 +354,39 @@ class LGV_Timer_Watch_ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessio
         }
     }
     
+    /* ################################################################## */
+    /**
+     */
+    func handleAppStatusMessage(_ message: [String: Any], _ key: String) {
+        if let messageData = message[key] as? [String: Any] {
+            #if DEBUG
+                print("Resettting Ignore Select From Phone to 0.")
+            #endif
+            self.ignoreSelectMessageFromPhone = 0
+            self.appStatus = LGV_Timer_State(dictionary: messageData)
+            self.updateAllTimerObjects()
+            self.appStatus.delegate = self
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func handleSelectMessage(_ message: [String: Any], _ key: String) {
+        if 0 == self.ignoreSelectMessageFromPhone {
+            if nil != self.appStatus {
+                if let uid = message[key] as? String {
+                    self.appStatus.selectedTimerIndex = self.appStatus.indexOf(uid)
+                }
+            }
+        } else {
+            #if DEBUG
+                print("Select From Phone Ignored. Decrementing Ignore Select From Phone from \(self.ignoreSelectMessageFromPhone).")
+            #endif
+            self.ignoreSelectMessageFromPhone -= 1
+        }
+    }
+
     // MARK: - LGV_Timer_StateDelegate Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -495,4 +507,3 @@ class LGV_Timer_Watch_BaseInterfaceController: WKInterfaceController {
      */
     func updateUI() { }
 }
-

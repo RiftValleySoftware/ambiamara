@@ -13,7 +13,7 @@ import WatchKit
 /**
  */
 class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseInterfaceController {
-    static var screenID: String { get { return "TimerScreen"} }
+    static var screenID: String { return "TimerScreen" }
     typealias TimerPushContextTuple = (timerObject: TimerSettingTuple, controllerObject: LGV_Timer_Watch_MainTimerHandlerInterfaceController)
     
     var modalTimerScreen: LGV_Timer_Watch_RunningTimerInterfaceController! = nil
@@ -116,14 +116,14 @@ class LGV_Timer_Watch_MainTimerHandlerInterfaceController: LGV_Timer_Watch_BaseI
         
         let timeTuple = TimeTuple(self.timerObject.timeSet)
         let timeStringContents = String(format: "%02d:%02d:%02d", timeTuple.hours, timeTuple.minutes, timeTuple.seconds)
-        var timeString:NSAttributedString! = nil
+        var timeString: NSAttributedString! = nil
         
         if .Podium != self.timerObject.displayMode {
             if let titleFont = UIFont(name: "LetsgoDigital-Regular", size: 34) {
-                timeString = NSAttributedString(string: timeStringContents, attributes: [NSAttributedStringKey.font:titleFont])
+                timeString = NSAttributedString(string: timeStringContents, attributes: [NSAttributedStringKey.font: titleFont])
             }
         } else {
-            timeString = NSAttributedString(string: timeStringContents, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 30)])
+            timeString = NSAttributedString(string: timeStringContents, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 30)])
         }
         
         self.timeDisplayLabel.setAttributedText(timeString)

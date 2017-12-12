@@ -29,9 +29,7 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
     
     /// This has the index number for this timer instance (1-based).
     var timerNumber: Int {
-        get {
-            return LGV_Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(self.timerObject)
-        }
+        return LGV_Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(self.timerObject)
     }
     
     // MARK: - Instance Calculated Properties
@@ -41,27 +39,25 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
      This supplies a dynamically-created image for the Tab Bar.
      */
     var tabBarImage: UIImage! {
-        get {
-            var displayedString = "";
-            let timerNumber = self.timerNumber
-            if (0 <= self.timerNumber) && (LGV_Timer_AppDelegate.appDelegateObject.timerEngine.count > self.timerNumber) {
-                let prefs = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[timerNumber]
-                let timeTuple = TimeTuple(prefs.timeSet)
-                
-                if 0 < timeTuple.hours {
-                    displayedString = String(format: "%02d:%02d:%02d", timeTuple.hours, timeTuple.minutes, timeTuple.seconds)
-                } else {
-                    if 0 < timeTuple.minutes {
-                        displayedString = String(format: "%02d:%02d", timeTuple.minutes, timeTuple.seconds)
-                    } else {
-                        displayedString = String(format: "%02d", timeTuple.seconds)
-                    }
-                }
-                
-                return type(of: self).textAsImage(drawText: displayedString as NSString)
+        var displayedString = ""
+        let timerNumber = self.timerNumber
+        if (0 <= self.timerNumber) && (LGV_Timer_AppDelegate.appDelegateObject.timerEngine.count > self.timerNumber) {
+            let prefs = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[timerNumber]
+            let timeTuple = TimeTuple(prefs.timeSet)
+            
+            if 0 < timeTuple.hours {
+                displayedString = String(format: "%02d:%02d:%02d", timeTuple.hours, timeTuple.minutes, timeTuple.seconds)
             } else {
-                return UIImage(named: "Settings")
+                if 0 < timeTuple.minutes {
+                    displayedString = String(format: "%02d:%02d", timeTuple.minutes, timeTuple.seconds)
+                } else {
+                    displayedString = String(format: "%02d", timeTuple.seconds)
+                }
             }
+            
+            return type(of: self).textAsImage(drawText: displayedString as NSString)
+        } else {
+            return UIImage(named: "Settings")
         }
     }
     
@@ -70,9 +66,7 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
      This supplies a dynamically-created title for the Tab Bar.
      */
     var tabBarText: String {
-        get {
-            return String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, self.timerNumber + 1)
-        }
+        return String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, self.timerNumber + 1)
     }
     
     // MARK: - Private Class Methods
@@ -85,7 +79,7 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
         var ret: UIImage! = nil
         
         let imageSize = CGSize(width: s_g_maxTabIconWidth, height: s_g_maxTabIconHeight)
-        let nudge: CGFloat = 1.1;
+        let nudge: CGFloat = 1.1
         let textColor = UIColor.gray
         let style = NSMutableParagraphStyle()
         style.alignment = NSTextAlignment.center
@@ -94,7 +88,7 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
         UIGraphicsBeginImageContextWithOptions(imageSize, false, scale)
         var fontSize: CGFloat = s_g_maxTabFontSize
         var stringSize: CGSize = CGSize.zero
-        var textFontAttributes:[NSAttributedStringKey:Any] = [
+        var textFontAttributes: [NSAttributedStringKey: Any] = [
             NSAttributedStringKey.foregroundColor: textColor,
             NSAttributedStringKey.paragraphStyle: style
             ]
@@ -173,7 +167,7 @@ class LGV_Timer_TimerSetPickerController: LGV_Timer_TimerNavBaseController, UIPi
         ret.textColor = self.view.tintColor
         
         if let thisComponent = Components(rawValue: component) {
-            switch(thisComponent) {
+            switch thisComponent {
             case .Hours:
                 if 0 == row {
                 } else {
@@ -223,7 +217,7 @@ class LGV_Timer_TimerSetPickerController: LGV_Timer_TimerNavBaseController, UIPi
         var ret: Int = 0
         
         if let thisComponent = Components(rawValue: component) {
-            switch(thisComponent) {
+            switch thisComponent {
             case .Hours:
                 ret = 24
             default:
@@ -234,4 +228,3 @@ class LGV_Timer_TimerSetPickerController: LGV_Timer_TimerNavBaseController, UIPi
         return ret
     }
 }
-

@@ -14,7 +14,7 @@ import UIKit
 /**
  This protocol allows observers of the engine.
  */
-protocol LGV_Timer_TimerEngineDelegate {
+protocol LGV_Timer_TimerEngineDelegate: class {
     func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didAddTimer: TimerSettingTuple)
     func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, willRemoveTimer: TimerSettingTuple)
     func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didRemoveTimerAtIndex: Int)
@@ -63,14 +63,14 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /* ################################################################## */
     /** These are the keys we use for our timer prefs dictionary. */
     enum TimerPrefKeys: String {
-        case TimeSet            = "TimeSet"
-        case TimeSetPodiumWarn  = "TimeSetPodiumWarn"
-        case TimeSetPodiumFinal = "TimeSetPodiumFinal"
-        case DisplayMode        = "DisplayMode"
-        case ColorTheme         = "ColorTheme"
-        case AlertMode          = "AlertMode"
-        case SoundID            = "SoundID"
-        case UID                = "UID"
+        case TimeSet
+        case TimeSetPodiumWarn
+        case TimeSetPodiumFinal
+        case DisplayMode
+        case ColorTheme
+        case AlertMode
+        case SoundID
+        case UID
     }
     
     // MARK: - Internal Static Calculated Properties
@@ -80,10 +80,8 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This returns one default configurasion timer "tuple" object.
      */
     static var defaultTimer: TimerSettingTuple {
-        get {
-            let ret: TimerSettingTuple = TimerSettingTuple()
-            return ret
-        }
+        let ret: TimerSettingTuple = TimerSettingTuple()
+        return ret
     }
     
     // MARK: - Private Instance Properties
@@ -95,7 +93,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /* ################################################################################################################################## */
     var appState: LGV_Timer_State! = nil
     var timer: Timer! = nil
-    var delegate: LGV_Timer_TimerEngineDelegate! = nil
+    weak var delegate: LGV_Timer_TimerEngineDelegate! = nil
     
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
@@ -104,7 +102,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This simply returns true, if a timer is currently selected.
      */
     var timerSelected: Bool {
-        get { return self.appState.timerSelected }
+        return self.appState.timerSelected
     }
     
     /* ################################################################## */
@@ -112,7 +110,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This returns the currently selected timer (or nil, if no timer is selected).
      */
     var selectedTimer: TimerSettingTuple! {
-        get { return self.appState.selectedTimer }
+        return self.appState.selectedTimer
     }
     
     /* ################################################################## */
@@ -138,14 +136,14 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This returns true, if we have no timers (We should always have at least one, but belt and suspenders).
      */
     var isEmpty: Bool {
-        get { return self.appState.isEmpty }
+        return self.appState.isEmpty
     }
     
     /* ################################################################## */
     /**
      This returns the array of timer objects.
      */
-    var timers:[TimerSettingTuple] {
+    var timers: [TimerSettingTuple] {
         get { return self.appState.timers }
         set { self.appState.timers = newValue }
     }
@@ -155,7 +153,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This returns how many timers we have.
      */
     var count: Int {
-        get { return self.appState.count }
+        return self.appState.count
     }
     
     /* ################################################################## */
@@ -182,12 +180,10 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This returns the actual elapsed time (in a standard interval) since the timer started.
      */
     var actualTimeSinceStart: TimeInterval {
-        get {
-            if self.timerSelected && (0.0 < self._firstTick) {
-                return Date.timeIntervalSinceReferenceDate - self._firstTick
-            } else {
-                return 0.0
-            }
+        if self.timerSelected && (0.0 < self._firstTick) {
+            return Date.timeIntervalSinceReferenceDate - self._firstTick
+        } else {
+            return 0.0
         }
     }
     
@@ -196,19 +192,17 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      Returns the color palettes.
      */
     var colorLabelArray: [UILabel] {
-        get {
-            if self._colorLabelArray.isEmpty {
-                if let view = UINib(nibName: type(of: self)._sviewBundleName, bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? UIView {
-                    for subView in view.subviews {
-                        if let label = subView as? UILabel {
-                            self._colorLabelArray.append(label)
-                        }
+        if self._colorLabelArray.isEmpty {
+            if let view = UINib(nibName: type(of: self)._sviewBundleName, bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? UIView {
+                for subView in view.subviews {
+                    if let label = subView as? UILabel {
+                        self._colorLabelArray.append(label)
                     }
                 }
             }
-            
-            return self._colorLabelArray
         }
+        
+        return self._colorLabelArray
     }
     
     /* ################################################################## */
@@ -238,7 +232,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This creates a timer tuple from the persistent stored data sent in.
      */
     private class func _convertStorageToTimer(_ inTimer: NSDictionary) -> TimerSettingTuple {
-        let tempSetting:TimerSettingTuple = self.defaultTimer
+        let tempSetting: TimerSettingTuple = self.defaultTimer
         
         if let timeSet = inTimer.object(forKey: TimerPrefKeys.TimeSet.rawValue) as? NSNumber {
             tempSetting.timeSet = timeSet.intValue
@@ -315,14 +309,12 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         self.savePrefs()
         var index = 0
         
-        for timer in self.timers {
-            if nil != self.delegate {
-                DispatchQueue.main.async {
-                    self.delegate.timerEngine(self, willRemoveTimer: timer)
-                    self.delegate.timerEngine(self, didRemoveTimerAtIndex: index)
-                }
-                index += 1
+        for timer in self.timers where nil != self.delegate {
+            DispatchQueue.main.async {
+                self.delegate.timerEngine(self, willRemoveTimer: timer)
+                self.delegate.timerEngine(self, didRemoveTimerAtIndex: index)
             }
+            index += 1
         }
     }
     
@@ -343,7 +335,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
             if let temp = loadedPrefs.object(forKey: type(of: self)._oldPrefsKey) as? NSArray {
                 for index in 0..<temp.count {
                     if let arrayElement = temp[index] as? NSDictionary {
-                        let temp: TimerSettingTuple = type(of:self)._convertStorageToTimer(arrayElement)
+                        let temp: TimerSettingTuple = type(of: self)._convertStorageToTimer(arrayElement)
                         temp.timerStatus = .Stopped
                         temp.storedColor = self.getIndexedColorThemeColor(temp.colorTheme)
                         temp.handler = self.appState
@@ -675,7 +667,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         var nextIndex = 0
         
         // Return a "bottom-up" iterator for the list.
-        return AnyIterator() {
+        return AnyIterator {
             if nextIndex == self.count {
                 return nil
             }

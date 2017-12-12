@@ -23,7 +23,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      This is a quick way to get this object instance (it's a SINGLETON), cast as the correct class.
      */
     static var appDelegateObject: LGV_Timer_AppDelegate {
-        get { return UIApplication.shared.delegate as! LGV_Timer_AppDelegate }
+        return (UIApplication.shared.delegate as? LGV_Timer_AppDelegate)!
     }
 
     // MARK: - Instance Properties
@@ -43,12 +43,10 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      Accessor for the main Tab controller.
      */
     var mainTabController: LGV_Timer_MainTabController! {
-        get {
-            if let rootController = self.window?.rootViewController as? LGV_Timer_MainTabController {
-                return rootController
-            }
-            return nil
+        if let rootController = self.window?.rootViewController as? LGV_Timer_MainTabController {
+            return rootController
         }
+        return nil
     }
     
     /* ################################################################## */
@@ -56,12 +54,10 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      Accessor for the main timer engine.
      */
     var timerEngine: LGV_Timer_TimerEngine! {
-        get {
-            if nil != self.mainTabController {
-                return self.mainTabController.timerEngine
-            }
-            return nil
+        if nil != self.mainTabController {
+            return self.mainTabController.timerEngine
         }
+        return nil
     }
     
     // MARK: - Static Class Methods
@@ -85,7 +81,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      - parameter orientation: The orientation that should be locked.
      - parameter andRotateTo: The orientation that should be forced.
      */
-    class func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation:UIInterfaceOrientation) {
+    class func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation: UIInterfaceOrientation) {
         self.lockOrientation(orientation)
         UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
     }
@@ -135,13 +131,11 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     // MARK: - Internal Instance Calculated Properties
     /* ################################################################################################################################## */
     var session: WCSession! {
-        get {
-            if nil == self._mySession {
-                 self._mySession = WCSession.default
-            }
-            
-            return self._mySession
+        if nil == self._mySession {
+             self._mySession = WCSession.default
         }
+        
+        return self._mySession
     }
     
     /* ################################################################## */
@@ -149,12 +143,10 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      Returns the current app status.
      */
     var appState: LGV_Timer_State! {
-        get {
-            if nil != self.timerEngine {
-                return self.timerEngine.appState
-            } else {
-                return nil
-            }
+        if nil != self.timerEngine {
+            return self.timerEngine.appState
+        } else {
+            return nil
         }
     }
     
@@ -230,7 +222,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func sendStartMessage(timerUID: String, currentTime: Int! = nil) {
         if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
-            let selectMsg = [LGV_Timer_Messages.s_timerListStartTimerMessageKey:timerUID]
+            let selectMsg = [LGV_Timer_Messages.s_timerListStartTimerMessageKey: timerUID]
             #if DEBUG
                 print("Phone Sending Message: " + String(describing: selectMsg))
             #endif
@@ -243,7 +235,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func sendStopMessage(timerUID: String) {
         if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
-            let selectMsg = [LGV_Timer_Messages.s_timerListStopTimerMessageKey:timerUID]
+            let selectMsg = [LGV_Timer_Messages.s_timerListStopTimerMessageKey: timerUID]
             #if DEBUG
                 print("Phone Sending Message: " + String(describing: selectMsg))
             #endif
@@ -269,7 +261,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                 self.ignoreSelectMessageFromWatch = 0
             })
             if .activated == self.session.activationState {
-                let selectMsg = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey:timerUID]
+                let selectMsg = [LGV_Timer_Messages.s_timerListSelectTimerMessageKey: timerUID]
                 #if DEBUG
                     print("Phone Sending Message: " + String(describing: selectMsg))
                 #endif
@@ -283,7 +275,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func sendAlarmMessage(timerUID: String) {
         if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
-            let selectMsg = [LGV_Timer_Messages.s_timerListAlarmMessageKey:timerUID]
+            let selectMsg = [LGV_Timer_Messages.s_timerListAlarmMessageKey: timerUID]
             #if DEBUG
                 print("Phone Sending Message: " + String(describing: selectMsg))
             #endif
@@ -296,7 +288,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func sendTick() {
         if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
-            let selectMsg = [LGV_Timer_Messages.s_timerSendTickMessageKey:self.appState.selectedTimer.currentTime]
+            let selectMsg = [LGV_Timer_Messages.s_timerSendTickMessageKey: self.appState.selectedTimer.currentTime]
             #if DEBUG
                 print("Phone Sending Message: " + String(describing: selectMsg))
             #endif
@@ -309,7 +301,7 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
      */
     func sendBackgroundMessage() {
         if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
-            let selectMsg = [LGV_Timer_Messages.s_timerAppInBackgroundMessageKey:""]
+            let selectMsg = [LGV_Timer_Messages.s_timerAppInBackgroundMessageKey: ""]
             #if DEBUG
                 print("Phone Sending Message: " + String(describing: selectMsg))
             #endif
@@ -327,13 +319,13 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                     timer.storedColor = self.timerEngine.getIndexedColorThemeColor(timer.colorTheme)
                 }
                 
-                let selectMsg = [LGV_Timer_Messages.s_timerRequestAppStatusMessageKey:self.appState.dictionary]
+                let selectMsg = [LGV_Timer_Messages.s_timerRequestAppStatusMessageKey: self.appState.dictionary]
                 #if DEBUG
                     print("Phone Sending Message: " + String(describing: selectMsg))
                 #endif
                 self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
             } else {
-                let selectMsg = [LGV_Timer_Messages.s_timerAppInForegroundMessageKey:""]
+                let selectMsg = [LGV_Timer_Messages.s_timerAppInForegroundMessageKey: ""]
                 #if DEBUG
                     print("Phone Sending Message: " + String(describing: selectMsg))
                 #endif
@@ -357,27 +349,27 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
     /**
      */
     func sessionDidBecomeInactive(_ session: WCSession) {
-        type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.sessionDidBecomeInactive", inMessage: "")
+        type(of: self).displayAlert("iOS App: LGV_Timer_AppDelegate.sessionDidBecomeInactive", inMessage: "")
     }
     
     /* ################################################################## */
     /**
      */
     func sessionDidDeactivate(_ session: WCSession) {
-        type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.sessionDidDeactivate", inMessage: "")
+        type(of: self).displayAlert("iOS App: LGV_Timer_AppDelegate.sessionDidDeactivate", inMessage: "")
     }
     
     /* ################################################################## */
     /**
      */
-    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]){
-        type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveApplicationContext:)", inMessage: "\(applicationContext)")
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
+        type(of: self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveApplicationContext:)", inMessage: "\(applicationContext)")
     }
     
     /* ################################################################## */
     /**
      */
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+    func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         if nil != self.timerEngine {
             DispatchQueue.main.async {
                 if .active == UIApplication.shared.applicationState {
@@ -388,35 +380,14 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                     for key in message.keys {
                         switch key {
                         case LGV_Timer_Messages.s_timerListSelectTimerMessageKey:
-                            if 0 == self.ignoreSelectMessageFromWatch {
-                                if (nil != self.timerEngine) && (nil != self.mainTabController) {
-                                    if let uid = message[key] as? String {
-                                        let index = self.timerEngine.indexOf(uid)
-                                        self.timerEngine.selectedTimerIndex = index
-                                    }
-                                }
-                            } else {
-                                #if DEBUG
-                                    print("Select From Watch Ignored. Decrementing Ignore Select From Watch from \(self.ignoreSelectMessageFromWatch).")
-                                #endif
-                                self.ignoreSelectMessageFromWatch -= 1
-                            }
+                            self.handleTimerListSelectMessage(message, key)
                             
                         case LGV_Timer_Messages.s_timerListStopTimerMessageKey:
                             self.timerEngine.stopTimer()
                             
                         case LGV_Timer_Messages.s_timerListStartTimerMessageKey:
-                            if (nil != self.timerEngine) && (nil != self.mainTabController) {
-                                if let uid = message[key] as? String {
-                                    let index = self.timerEngine.indexOf(uid)
-                                    self.timerEngine.selectedTimerIndex = index
-                                }
-                                
-                                if let controller = self.mainTabController.getTimerScreen(self.timerEngine.selectedTimer) {
-                                    controller.startTimer()
-                                }
-                            }
-                            
+                            self.handleTimerListStartMessage(message, key)
+
                         case LGV_Timer_Messages.s_timerAppInForegroundMessageKey:
                             self.sendForegroundMessage()
                             
@@ -430,12 +401,46 @@ class LGV_Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelega
                             if let uid = message[key] as? String {
                                 print(uid)
                             }
-                            type(of:self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessage:)", inMessage: "\(message)")
+                            type(of: self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessage:)", inMessage: "\(message)")
                         }
                     }
                 }
             }
         }
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    func handleTimerListSelectMessage(_ message: [String: Any], _ key: String) {
+        if 0 == self.ignoreSelectMessageFromWatch {
+            if (nil != self.timerEngine) && (nil != self.mainTabController) {
+                if let uid = message[key] as? String {
+                    let index = self.timerEngine.indexOf(uid)
+                    self.timerEngine.selectedTimerIndex = index
+                }
+            }
+        } else {
+            #if DEBUG
+                print("Select From Watch Ignored. Decrementing Ignore Select From Watch from \(self.ignoreSelectMessageFromWatch).")
+            #endif
+            self.ignoreSelectMessageFromWatch -= 1
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func handleTimerListStartMessage(_ message: [String: Any], _ key: String) {
+        if (nil != self.timerEngine) && (nil != self.mainTabController) {
+            if let uid = message[key] as? String {
+                let index = self.timerEngine.indexOf(uid)
+                self.timerEngine.selectedTimerIndex = index
+            }
+            
+            if let controller = self.mainTabController.getTimerScreen(self.timerEngine.selectedTimer) {
+                controller.startTimer()
+            }
+        }
+    }
 }
-

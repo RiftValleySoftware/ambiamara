@@ -18,7 +18,7 @@ import SwipeableTabBarController
  */
 class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEngineDelegate {
     /// This tracks our timer setup controllers. It gives us quick access to them.
-    var activeTimerSetConrollers:[LGV_Timer_TimerSetController] = []
+    var activeTimerSetConrollers: [LGV_Timer_TimerSetController] = []
     var timerEngine: LGV_Timer_TimerEngine! = nil
     
     // MARK: - Base Class Override Methods
@@ -81,11 +81,9 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
      
      - parameter inTimer: The timer View Controller to add.
      */
-    func addTimerToList(_ inTimer:LGV_Timer_TimerSetController) {
-        for timerView in self.activeTimerSetConrollers {
-            if timerView == inTimer {
-                return
-            }
+    func addTimerToList(_ inTimer: LGV_Timer_TimerSetController) {
+        for timerView in self.activeTimerSetConrollers where timerView == inTimer {
+            return
         }
         
         self.self.activeTimerSetConrollers.append(inTimer)
@@ -97,7 +95,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
      
      - parameter inTimer: The timer View Controller to remove.
      */
-    func removeTimerFromList(_ inTimer:LGV_Timer_TimerSetController) {
+    func removeTimerFromList(_ inTimer: LGV_Timer_TimerSetController) {
         var index: Int = 0
         
         for timerView in self.activeTimerSetConrollers {
@@ -116,10 +114,8 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
      - parameter timerObject: The TimerSettingTuple of the View Controller.
      */
     func getTimerScreen(_ timerObject: TimerSettingTuple) -> LGV_Timer_TimerSetController! {
-        for timerView in self.activeTimerSetConrollers {
-            if timerView.timerObject.uid == timerObject.uid {
-                return timerView
-            }
+        for timerView in self.activeTimerSetConrollers where timerView.timerObject.uid == timerObject.uid {
+            return timerView
         }
         
         return nil
@@ -152,7 +148,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     /**
      */
     func addNewTimer() {
-        let _ = self.timerEngine.createNewTimer()
+        _ = self.timerEngine.createNewTimer()
     }
     
     /* ################################################################## */
@@ -354,4 +350,3 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
         #endif
     }
 }
-

@@ -27,6 +27,9 @@ CHANGELIST
 - Updated some commenting in the code. Equivalent of cleaning up the dorm room before the parents visit.
 - The LGV link now goes to the main LGV site, and not the X-Timer 
 - Updated to Xcode 9.2 settings.
+- The Swipeable Tab Bar Controller is now a Cocoapod.
+- Added SwiftLint.
+- Cleaned up the project to satisfy SwiftLint.
 
 ***Version 2.0* ** *- September 19, 2017*
 

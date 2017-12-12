@@ -189,9 +189,7 @@ class TimeTuple {
      Returns the value in an easily readable format.
      */
     var description: String {
-        get {
-            return String(format: "%02d:%02d:%02d", self._hours, self._minutes, self._seconds)
-        }
+        return String(format: "%02d:%02d:%02d", self._hours, self._minutes, self._seconds)
     }
     
     // MARK: - Initializers
@@ -216,7 +214,7 @@ class TimeTuple {
      
      - parameter inSeconds: The number of seconds as an Int, from 0 - 86399.
      */
-    init(_ inSeconds:Int) {
+    init(_ inSeconds: Int) {
         let temp = min(86399, max(0, inSeconds))
         
         self._hours = max(0, Int(temp / 3600))
@@ -280,16 +278,16 @@ class TimerSettingTuple: NSObject, NSCoding {
      This enum contains all the various timer state Dictionary keys.
      */
     private enum TimerStateKeys: String {
-        case TimeSet            = "TimeSet"
-        case TimeSetPodiumWarn  = "TimeSetPodiumWarn"
-        case TimeSetPodiumFinal = "TimeSetPodiumFinal"
-        case CurrentTime        = "CurrentTime"
-        case DisplayMode        = "DisplayMode"
-        case ColorTheme         = "ColorTheme"
-        case AlertMode          = "AlertMode"
-        case SoundID            = "SoundID"
-        case Status             = "Status"
-        case UID                = "UID"
+        case TimeSet
+        case TimeSetPodiumWarn
+        case TimeSetPodiumFinal
+        case CurrentTime
+        case DisplayMode
+        case ColorTheme
+        case AlertMode
+        case SoundID
+        case Status
+        case UID
     }
     
     var handler: LGV_Timer_State! = nil ///< This is the App Status object that "owns" this instance.
@@ -397,7 +395,7 @@ class TimerSettingTuple: NSObject, NSCoding {
    var timerStatus: TimerStatus {      ///< This is the current status of this timer.
         didSet {
             if oldValue != self.timerStatus {
-                if (.Running == self.timerStatus) {
+                if .Running == self.timerStatus {
                     if (.Stopped == oldValue) || (.Alarm == oldValue) {
                         self.firstTick = Date.timeIntervalSinceReferenceDate
                     }
@@ -432,10 +430,10 @@ class TimerSettingTuple: NSObject, NSCoding {
     /* ################################################################## */
     /**
      */
-    var dictionary:[String:Any] {
+    var dictionary: [String: Any] {
         /* ################################################################## */
         get {
-            var ret:[String:Any] = [:]
+            var ret: [String: Any] = [:]
             
             ret["uid"] = self.uid
             ret["timerStatus"] = self.timerStatus.rawValue
@@ -550,7 +548,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         self.alertMode = alertMode
         self.soundID = soundID
         self.timerStatus = timerStatus
-        self.uid = (nil == uid) ? NSUUID().uuidString : uid
+        self.uid = (nil == uid) ? NSUUID().uuidString: uid
         self.handler = handler
     }
     
@@ -561,7 +559,7 @@ class TimerSettingTuple: NSObject, NSCoding {
      - parameter dictionary: This is a Dictionary that contains the state.
      - parameter handler: This is the "owner" of this instance. Default is nil.
      */
-    convenience init(dictionary:[String:Any], handler: LGV_Timer_State! = nil) {
+    convenience init(dictionary: [String: Any], handler: LGV_Timer_State! = nil) {
         self.init()
         self.dictionary = dictionary
         self.handler = handler
@@ -574,24 +572,22 @@ class TimerSettingTuple: NSObject, NSCoding {
      Returns the value in an easily readable format.
      */
     override var description: String {
-        get {
-            let ret = String(format: "timeSet: %d, timeSetPodiumWarn: %d, timeSetPodiumFinal: %d, currentTime: %d, displayMode: %d, colorTheme: %d, alertMode: %d, soundID: %d, timerStatus: %d, firstTick: %.5f, lastTick: %.5f, uid: %@",
-                          self.timeSet,
-                          self.timeSetPodiumWarn,
-                          self.timeSetPodiumFinal,
-                          self.currentTime,
-                          self.displayMode.rawValue,
-                          self.colorTheme,
-                          self.alertMode.rawValue,
-                          self.soundID,
-                          self.timerStatus.rawValue,
-                          self.firstTick,
-                          self.lastTick,
-                          self.uid
-            )
-            
-            return ret
-        }
+        let ret = String(format: "timeSet: %d, timeSetPodiumWarn: %d, timeSetPodiumFinal: %d, currentTime: %d, displayMode: %d, colorTheme: %d, alertMode: %d, soundID: %d, timerStatus: %d, firstTick: %.5f, lastTick: %.5f, uid: %@",
+                      self.timeSet,
+                      self.timeSetPodiumWarn,
+                      self.timeSetPodiumFinal,
+                      self.currentTime,
+                      self.displayMode.rawValue,
+                      self.colorTheme,
+                      self.alertMode.rawValue,
+                      self.soundID,
+                      self.timerStatus.rawValue,
+                      self.firstTick,
+                      self.lastTick,
+                      self.uid
+        )
+        
+        return ret
     }
     
     /* ################################################################## */
@@ -660,7 +656,7 @@ class TimerSettingTuple: NSObject, NSCoding {
      
      - returns: true, if the UIDs match.
      */
-    static func ==(left: TimerSettingTuple, right: TimerSettingTuple) -> Bool {
+    static func == (left: TimerSettingTuple, right: TimerSettingTuple) -> Bool {
         return left.uid == right.uid
     }
     
@@ -754,7 +750,7 @@ class TimerSettingTuple: NSObject, NSCoding {
 /**
  This protocol allows observers of the app status.
  */
-protocol LGV_Timer_StateDelegate {
+protocol LGV_Timer_StateDelegate: class {
     func appState(_ appState: LGV_Timer_State, didUpdateTimerStatus: TimerSettingTuple, from: TimerStatus)
     func appState(_ appState: LGV_Timer_State, didUpdateTimerDisplayMode: TimerSettingTuple, from: TimerDisplayMode)
     func appState(_ appState: LGV_Timer_State, didUpdateTimerCurrentTime: TimerSettingTuple, from: Int)
@@ -778,16 +774,16 @@ protocol LGV_Timer_StateDelegate {
  */
 class LGV_Timer_State: NSObject, NSCoding, Sequence {
     private enum AppStateKeys: String {
-        case Timers         = "Timers"
-        case SelectedTimer  = "SelectedTimer"
-        case ShowControls   = "ShowControls"
+        case Timers
+        case SelectedTimer
+        case ShowControls
     }
     
-    private var _timers:[TimerSettingTuple] = []
-    private var _selectedTimer0BasedIndex:Int = -1
+    private var _timers: [TimerSettingTuple] = []
+    private var _selectedTimer0BasedIndex: Int = -1
     private var _showControlsInRunningTimer: Bool = true
         
-    var delegate: LGV_Timer_StateDelegate! = nil
+    weak var delegate: LGV_Timer_StateDelegate! = nil
     
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
@@ -795,20 +791,15 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     /**
      */
     var timerSelected: Bool {
-        get { return 0 <= self.selectedTimerIndex }
+        return 0 <= self.selectedTimerIndex
     }
     
     /* ################################################################## */
     /**
      */
     var showControlsInRunningTimer: Bool {
-        get {
-            return self._showControlsInRunningTimer
-        }
-        
-        set {
-            self._showControlsInRunningTimer = newValue
-        }
+        get { return self._showControlsInRunningTimer }
+        set { self._showControlsInRunningTimer = newValue }
     }
     
     /* ################################################################## */
@@ -838,14 +829,10 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
                 self._selectedTimer0BasedIndex = -1
                 
                 if let setValue = newValue {
-                    for index in 0..<self._timers.count {
-                        if self._timers[index].uid == setValue.uid {
-                            self._selectedTimer0BasedIndex = index
-                            if nil != self.delegate {
-                                self.delegate.appState(self, didSelectTimer: self._timers[index])
-                            }
-                            break
-                        }
+                    for index in 0..<self._timers.count where self._timers[index].uid == setValue.uid {
+                        self._selectedTimer0BasedIndex = index
+                        if nil != self.delegate { self.delegate.appState(self, didSelectTimer: self._timers[index]) }
+                        break
                     }
                 } else {
                     self._selectedTimer0BasedIndex = -1
@@ -909,14 +896,12 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
                 self._selectedTimer0BasedIndex = -1
                 
                 if !newValue.isEmpty {
-                    for index in 0..<self._timers.count {
-                        if self._timers[index].uid == newValue {
-                            self._selectedTimer0BasedIndex = index
-                            if nil != self.delegate {
-                                self.delegate.appState(self, didSelectTimer: self._timers[index])
-                            }
-                            break
+                    for index in 0..<self._timers.count where self._timers[index].uid == newValue {
+                        self._selectedTimer0BasedIndex = index
+                        if nil != self.delegate {
+                            self.delegate.appState(self, didSelectTimer: self._timers[index])
                         }
+                        break
                     }
                 } else {
                     self._selectedTimer0BasedIndex = -1
@@ -929,14 +914,14 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     /**
      */
     var isEmpty: Bool {
-        get { return 0 < self.count }
+        return 0 < self.count
     }
     
     /* ################################################################## */
     /**
      */
     var count: Int {
-        get { return self._timers.count }
+        return self._timers.count
     }
     
     /* ################################################################## */
@@ -955,11 +940,11 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     /* ################################################################## */
     /**
      */
-    var dictionary:[String:Any] {
+    var dictionary: [String: Any] {
         get {
-            var ret:[String:Any] = [:]
+            var ret: [String: Any] = [:]
             ret["selectedTimerIndex"] = self.selectedTimerIndex
-            var timerArray: [[String:Any]] = []
+            var timerArray: [[String: Any]] = []
             for timer in self.timers {
                 let timerDictionary = timer.dictionary
                 timerArray.append(timerDictionary)
@@ -973,7 +958,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
                 self.selectedTimerIndex = selectedTimerIndex
             }
             
-            if let timerArray = newValue["timers"] as? [[String:Any]] {
+            if let timerArray = newValue["timers"] as? [[String: Any]] {
                 // We do this really strange dance in order to prevent timer objects from being removed or orphaned.
                 // This array simply makes sure we get rid of timers we don't have in the new list, add new ones, and set existing timers to new settings.
                 var newTimerArray: [TimerSettingTuple] = []
@@ -984,13 +969,11 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
                         var found: Bool = false
                         
                         // See if we already have this object. If so, we set it to the new value, and append it now.
-                        for timerObject in self.timers {
-                            if timerObject.uid == uid {
-                                timerObject.dictionary = timerDictionary
-                                newTimerArray.append(timerObject)
-                                found = true
-                                break
-                            }
+                        for timerObject in self.timers where timerObject.uid == uid {
+                            timerObject.dictionary = timerDictionary
+                            newTimerArray.append(timerObject)
+                            found = true
+                            break
                         }
                         
                         // If we didn't find it, we append a new instance.
@@ -1021,7 +1004,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - parameter dictionary: This is a Dictionary that contains the state.
      - parameter delegate: This is the "owner" of this instance. Default is nil.
      */
-    init(dictionary:[String:Any], delegate: LGV_Timer_StateDelegate! = nil) {
+    init(dictionary: [String: Any], delegate: LGV_Timer_StateDelegate! = nil) {
         super.init()
         self.dictionary = dictionary
         self.delegate = delegate
@@ -1163,11 +1146,9 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         var ret: Int = -1
         
         if !inUID.isEmpty {
-            for index in 0..<self._timers.count {
-                if self._timers[index].uid == inUID {
-                    ret = index
-                    break
-                }
+            for index in 0..<self._timers.count where self._timers[index].uid == inUID {
+                ret = index
+                break
             }
         }
         
@@ -1202,7 +1183,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         var nextIndex = 0
         
         // Return a "bottom-up" iterator for the list.
-        return AnyIterator() {
+        return AnyIterator {
             if nextIndex == self._timers.count {
                 return nil
             }

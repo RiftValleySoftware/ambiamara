@@ -13,7 +13,7 @@ import WatchKit
 /**
  */
 class LGV_Timer_Watch_DefaultInterfaceController: WKInterfaceController {
-    static var screenID: String { get { return "DefaultScreen"} }
+    static var screenID: String { return "DefaultScreen" }
     
     @IBOutlet var topLabel: WKInterfaceLabel!
     @IBOutlet var bottomLabel: WKInterfaceLabel!
