@@ -79,7 +79,7 @@
 		7770CB2D1ED6153500ED1F9A /* LGV_Timer_TimerSetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerSetController.swift; path = ViewControllers/LGV_Timer_TimerSetController.swift; sourceTree = "<group>"; };
 		7770CB2F1ED6156300ED1F9A /* LGV_Timer_TimerSetupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerSetupController.swift; path = ViewControllers/LGV_Timer_TimerSetupController.swift; sourceTree = "<group>"; };
 		7789C3231ED61CEF009EAB3D /* LGV_Timer_TimerBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_Timer_TimerBaseViewController.swift; path = ViewControllers/LGV_Timer_TimerBaseViewController.swift; sourceTree = "<group>"; };
-		77A27EDC1FE0451900DF70CD /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		77A27EDC1FE0451900DF70CD /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		77AF00B21F69622F00D35EF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LGV_Timer_ColorThemes.xib; sourceTree = "<group>"; };
 		77AF00B51F69623800D35EF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LGV_Timer_LaunchScreen.storyboard; sourceTree = "<group>"; };
 		77AF00B81F69624E00D35EF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LGV_Timer_Main.storyboard; sourceTree = "<group>"; };

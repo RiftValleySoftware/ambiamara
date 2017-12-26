@@ -30,6 +30,7 @@ CHANGELIST
 - The Swipeable Tab Bar Controller is now a Cocoapod.
 - Added SwiftLint.
 - Cleaned up the project to satisfy SwiftLint.
+- Added Reveal Framework.
 
 ***Version 2.0* ** *- September 19, 2017*
 
