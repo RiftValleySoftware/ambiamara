@@ -14,12 +14,12 @@ import UIKit
 /**
  This protocol allows observers of the engine.
  */
-protocol LGV_Timer_TimerEngineDelegate: class {
-    func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didAddTimer: TimerSettingTuple)
-    func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, willRemoveTimer: TimerSettingTuple)
-    func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didRemoveTimerAtIndex: Int)
-    func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didSelectTimer: TimerSettingTuple!)
-    func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didDeselectTimer: TimerSettingTuple)
+protocol TimerEngineDelegate: class {
+    func timerEngine(_ timerEngine: TimerEngine, didAddTimer: TimerSettingTuple)
+    func timerEngine(_ timerEngine: TimerEngine, willRemoveTimer: TimerSettingTuple)
+    func timerEngine(_ timerEngine: TimerEngine, didRemoveTimerAtIndex: Int)
+    func timerEngine(_ timerEngine: TimerEngine, didSelectTimer: TimerSettingTuple!)
+    func timerEngine(_ timerEngine: TimerEngine, didDeselectTimer: TimerSettingTuple)
     
     func timerSetting(_ timerSetting: TimerSettingTuple, alarm: Int)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedCurrentTimeFrom: Int)
@@ -36,13 +36,13 @@ protocol LGV_Timer_TimerEngineDelegate: class {
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
+class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     static let timerInterval: TimeInterval = 0.1
     static let timerTickInterval: TimeInterval = 1.0
     static let timerAlarmInterval: TimeInterval = 1.0
     
     /** This contains our color theme palette. */
-    private static let _sviewBundleName = "LGV_Timer_ColorThemes"
+    private static let _sviewBundleName = "ColorThemes"
     
     // MARK: - Private Static Properties
     /* ################################################################################################################################## */
@@ -91,9 +91,9 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     // MARK: - Instance Properties
     /* ################################################################################################################################## */
-    var appState: LGV_Timer_State! = nil
-    var timer: Timer! = nil
-    weak var delegate: LGV_Timer_TimerEngineDelegate! = nil
+    weak var delegate: TimerEngineDelegate!
+    var appState: LGV_Timer_State!
+    var timer: Timer!
     
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
@@ -292,7 +292,7 @@ class LGV_Timer_TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      
      - parameter delegate: The delegate object.
      */
-    init(delegate: LGV_Timer_TimerEngineDelegate) {
+    init(delegate: TimerEngineDelegate) {
         super.init()
         self.delegate = delegate
         self._loadPrefs()

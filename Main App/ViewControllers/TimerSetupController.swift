@@ -16,7 +16,7 @@ import AudioToolbox
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
+class TimerSetupController: TimerSetPickerController {
     @IBOutlet weak var timerModeLabel: UILabel!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
     @IBOutlet weak var podiumModeContainerView: UIView!
@@ -125,7 +125,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
         self.finalThresholdTimePicker.selectRow(timeSetFinal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
         
         // This ensures that we force the display to portrait (for this screen only).
-        LGV_Timer_AppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
+        Timer_AppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
         self.colorThemePicker.selectRow(self.timerObject.colorTheme, inComponent: 0, animated: true)
         self.navigationItem.title = String(format: ("LGV_TIMER-TIMER-SETUP-TITLE".localizedVariant), self.timerNumber + 1)
         
@@ -139,7 +139,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Don't forget to reset when view is being removed
-        LGV_Timer_AppDelegate.lockOrientation(.all)
+        Timer_AppDelegate.lockOrientation(.all)
     }
     
     // MARK: - @IBAction Methods
@@ -189,7 +189,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
      */
     override func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if self.colorThemePicker == pickerView {
-            return LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray.count
+            return Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray.count
         } else {
             return super.pickerView(pickerView, numberOfRowsInComponent: component)
         }
@@ -221,7 +221,7 @@ class LGV_Timer_TimerSetupController: LGV_Timer_TimerSetPickerController {
             let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: height))
             let ret: UILabel = UILabel(frame: frame)
             
-            let swatchLabel = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[row]
+            let swatchLabel = Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[row]
             ret.text = swatchLabel.text?.localizedVariant
             ret.backgroundColor = UIColor.clear
             ret.textAlignment = swatchLabel.textAlignment

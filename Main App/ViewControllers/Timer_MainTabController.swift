@@ -16,10 +16,10 @@ import SwipeableTabBarController
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEngineDelegate {
+class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     /// This tracks our timer setup controllers. It gives us quick access to them.
-    var activeTimerSetConrollers: [LGV_Timer_TimerSetController] = []
-    var timerEngine: LGV_Timer_TimerEngine! = nil
+    var activeTimerSetConrollers: [TimerSetController] = []
+    var timerEngine: TimerEngine! = nil
     
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
@@ -30,7 +30,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     override func viewDidLoad() {
         super.viewDidLoad()
         self.selectedIndex = 0
-        self.timerEngine = LGV_Timer_TimerEngine(delegate: self)
+        self.timerEngine = TimerEngine(delegate: self)
         self.viewControllers?[0].tabBarItem.title = self.viewControllers?[0].tabBarItem.title?.localizedVariant
         self.updateTimers()
         self.delegate = self
@@ -65,8 +65,8 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
             
             self.customizableViewControllers = []
             
-            if let timerListNavController = self.viewControllers?[0] as? LGV_Timer_TimerSettingsNavController {
-                if let timerSettingsController = timerListNavController.viewControllers[0] as? LGV_Timer_SettingsViewController {
+            if let timerListNavController = self.viewControllers?[0] as? TimerSettingsNavController {
+                if let timerSettingsController = timerListNavController.viewControllers[0] as? Timer_SettingsViewController {
                     if nil != timerSettingsController.timerTableView {
                         timerSettingsController.timerTableView.reloadData()
                     }
@@ -81,7 +81,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
      
      - parameter inTimer: The timer View Controller to add.
      */
-    func addTimerToList(_ inTimer: LGV_Timer_TimerSetController) {
+    func addTimerToList(_ inTimer: TimerSetController) {
         for timerView in self.activeTimerSetConrollers where timerView == inTimer {
             return
         }
@@ -95,7 +95,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
      
      - parameter inTimer: The timer View Controller to remove.
      */
-    func removeTimerFromList(_ inTimer: LGV_Timer_TimerSetController) {
+    func removeTimerFromList(_ inTimer: TimerSetController) {
         var index: Int = 0
         
         for timerView in self.activeTimerSetConrollers {
@@ -113,7 +113,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
      
      - parameter timerObject: The TimerSettingTuple of the View Controller.
      */
-    func getTimerScreen(_ timerObject: TimerSettingTuple) -> LGV_Timer_TimerSetController! {
+    func getTimerScreen(_ timerObject: TimerSettingTuple) -> TimerSetController! {
         for timerView in self.activeTimerSetConrollers where timerView.timerObject.uid == timerObject.uid {
             return timerView
         }
@@ -158,7 +158,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
         let storyboard = self.storyboard
         if nil != storyboard {
             let storyBoardID = "LGV_Timer_TimerNavController"
-            if let timerController = storyboard!.instantiateViewController(withIdentifier: storyBoardID) as? LGV_Timer_TimerNavController {
+            if let timerController = storyboard!.instantiateViewController(withIdentifier: storyBoardID) as? TimerNavController {
                 timerController.timerObject = inTimerObject
                 timerController.delegate = timerController
                 let timerTitle = timerController.tabBarText
@@ -176,7 +176,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     /* ################################################################## */
     /**
      */
-    func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didAddTimer: TimerSettingTuple) {
+    func timerEngine(_ timerEngine: TimerEngine, didAddTimer: TimerSettingTuple) {
         #if DEBUG
             print("Timer Added: \(didAddTimer)")
         #endif
@@ -188,7 +188,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     /* ################################################################## */
     /**
      */
-    func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, willRemoveTimer: TimerSettingTuple) {
+    func timerEngine(_ timerEngine: TimerEngine, willRemoveTimer: TimerSettingTuple) {
         #if DEBUG
             print("Timer Will Be Removed: \(willRemoveTimer)")
         #endif
@@ -197,7 +197,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     /* ################################################################## */
     /**
      */
-    func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didRemoveTimerAtIndex: Int) {
+    func timerEngine(_ timerEngine: TimerEngine, didRemoveTimerAtIndex: Int) {
         #if DEBUG
             print("Timer at index \(didRemoveTimerAtIndex) was removed.")
         #endif
@@ -208,9 +208,9 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     /* ################################################################## */
     /**
      */
-    func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didSelectTimer: TimerSettingTuple!) {
+    func timerEngine(_ timerEngine: TimerEngine, didSelectTimer: TimerSettingTuple!) {
         #if DEBUG
-            print("Timer Was Selected: \(didSelectTimer)")
+        print("Timer Was Selected: \(String(describing: didSelectTimer))")
         #endif
         
         var index = -1
@@ -225,7 +225,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
     /* ################################################################## */
     /**
      */
-    func timerEngine(_ timerEngine: LGV_Timer_TimerEngine, didDeselectTimer: TimerSettingTuple) {
+    func timerEngine(_ timerEngine: TimerEngine, didDeselectTimer: TimerSettingTuple) {
         #if DEBUG
             print("Timer Was Deselected: \(didDeselectTimer)")
         #endif
@@ -254,7 +254,7 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
         
         if let controller = self.getTimerScreen(timerSetting) {
             controller.updateTimer()
-            LGV_Timer_AppDelegate.appDelegateObject.sendTick()
+            Timer_AppDelegate.appDelegateObject.sendTick()
         }
     }
     
@@ -296,10 +296,10 @@ class LGV_Timer_MainTabController: SwipeableTabBarController, LGV_Timer_TimerEng
         if let controller = self.getTimerScreen(timerSetting) {
             if (.Running == timerSetting.timerStatus) && (.Stopped == changedTimerStatusFrom) {
                 controller.startTimer()
-                LGV_Timer_AppDelegate.appDelegateObject.sendStartMessage(timerUID: timerSetting.uid)
+                Timer_AppDelegate.appDelegateObject.sendStartMessage(timerUID: timerSetting.uid)
             } else {
                 if (.Stopped == timerSetting.timerStatus) && ((.Alarm == changedTimerStatusFrom) || (.Running == changedTimerStatusFrom) || (.FinalRun == timerSetting.timerStatus) || (.WarnRun == changedTimerStatusFrom)) {
-                    LGV_Timer_AppDelegate.appDelegateObject.sendStopMessage(timerUID: timerSetting.uid)
+                    Timer_AppDelegate.appDelegateObject.sendStopMessage(timerUID: timerSetting.uid)
                 }
                if .Dual == timerSetting.displayMode {
                     if ((.WarnRun == timerSetting.timerStatus) && (.Running == changedTimerStatusFrom)) || ((.FinalRun == timerSetting.timerStatus) && (.WarnRun == changedTimerStatusFrom)) {

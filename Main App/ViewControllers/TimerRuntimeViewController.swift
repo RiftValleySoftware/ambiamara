@@ -14,7 +14,7 @@ import AudioToolbox
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
+class TimerRuntimeViewController: TimerNavBaseController {
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
     private let _stoplightDualModeHeightFactor: CGFloat = 0.15
@@ -36,7 +36,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     var redLight: UIImageView! = nil
     var yellowLight: UIImageView! = nil
     var greenLight: UIImageView! = nil
-    var myHandler: LGV_Timer_TimerSetController! = nil
+    var myHandler: TimerSetController! = nil
     
     // MARK: - IB Properties
     /* ################################################################################################################################## */
@@ -45,7 +45,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
     @IBOutlet weak var resetButton: UIBarButtonItem!
     @IBOutlet weak var endButton: UIBarButtonItem!
     @IBOutlet weak var navItem: UINavigationItem!
-    @IBOutlet weak var timeDisplay: LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock!
+    @IBOutlet weak var timeDisplay: LED_ClockView!
     @IBOutlet weak var flasherView: UIView!
     @IBOutlet weak var navBarItem: UINavigationItem!
     @IBOutlet weak var myNavigationBar: UINavigationBar!
@@ -156,19 +156,19 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
      */
     func pauseTimer() {
         self.flashDisplay(UIColor.red.withAlphaComponent(0.5), duration: 0.5)
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.pauseTimer()
+        Timer_AppDelegate.appDelegateObject.timerEngine.pauseTimer()
     }
     
     /* ################################################################## */
     /**
      */
     func continueTimer() {
-        if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
+        if Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
             self.navBarItem.title = ""
         }
         
         self.flashDisplay(UIColor.green.withAlphaComponent(0.5), duration: 0.5)
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.continueTimer()
+        Timer_AppDelegate.appDelegateObject.timerEngine.continueTimer()
     }
     
     /* ################################################################## */
@@ -176,18 +176,18 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
      */
     func stopTimer() {
         self.flashDisplay(UIColor.red, duration: 0.5)
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
+        Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
     }
     
     /* ################################################################## */
     /**
      */
     func endTimer() {
-        if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
+        if Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
             self.navBarItem.title = ""
         }
         
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.endTimer()
+        Timer_AppDelegate.appDelegateObject.timerEngine.endTimer()
     }
     
     /* ################################################################## */
@@ -200,7 +200,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self.flashDisplay(UIColor.white.withAlphaComponent(0.5), duration: 0.5)
         }
         
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.resetTimer()
+        Timer_AppDelegate.appDelegateObject.timerEngine.resetTimer()
     }
     
     /* ################################################################## */
@@ -285,7 +285,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self.view.addSubview(self.stoplightContainerView)
         }
         
-        self.timeDisplay.activeSegmentColor = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].textColor
+        self.timeDisplay.activeSegmentColor = Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].textColor
         self.timeDisplay.inactiveSegmentColor = UIColor.white.withAlphaComponent(0.1)
         self.updateTimer()
     }
@@ -336,7 +336,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         UIApplication.shared.isIdleTimerDisabled = true
         super.viewWillAppear(animated)
         
-        if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
+        if Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
             self.myNavigationBar.tintColor = self.view.tintColor
             self.myNavigationBar.backgroundColor = UIColor.clear
             self.myNavigationBar.barTintColor = UIColor.clear
@@ -345,9 +345,9 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
             self.myNavigationBar.isHidden = true
         }
         
-        LGV_Timer_AppDelegate.appDelegateObject.currentTimer = self
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerUID = self.timerObject.uid
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.startTimer()
+        Timer_AppDelegate.appDelegateObject.currentTimer = self
+        Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerUID = self.timerObject.uid
+        Timer_AppDelegate.appDelegateObject.timerEngine.startTimer()
     }
     
     /* ################################################################## */
@@ -361,7 +361,7 @@ class LGV_Timer_TimerRuntimeViewController: LGV_Timer_TimerNavBaseController {
         
         super.viewWillDisappear(animated)
         
-        LGV_Timer_AppDelegate.appDelegateObject.currentTimer = nil
+        Timer_AppDelegate.appDelegateObject.currentTimer = nil
         UIApplication.shared.isIdleTimerDisabled = false
     }
     

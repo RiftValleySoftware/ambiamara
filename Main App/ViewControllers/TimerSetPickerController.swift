@@ -15,7 +15,7 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
+class TimerNavBaseController: TimerBaseViewController {
     // MARK: - Class Constants
     /* ################################################################################################################################## */
     /// These specify the bounds of the tab bar icons (We draw our own custom ones).
@@ -29,7 +29,7 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
     
     /// This has the index number for this timer instance (1-based).
     var timerNumber: Int {
-        return LGV_Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(self.timerObject)
+        return Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(self.timerObject)
     }
     
     // MARK: - Instance Calculated Properties
@@ -41,8 +41,8 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
     var tabBarImage: UIImage! {
         var displayedString = ""
         let timerNumber = self.timerNumber
-        if (0 <= self.timerNumber) && (LGV_Timer_AppDelegate.appDelegateObject.timerEngine.count > self.timerNumber) {
-            let prefs = LGV_Timer_AppDelegate.appDelegateObject.timerEngine[timerNumber]
+        if (0 <= self.timerNumber) && (Timer_AppDelegate.appDelegateObject.timerEngine.count > self.timerNumber) {
+            let prefs = Timer_AppDelegate.appDelegateObject.timerEngine[timerNumber]
             let timeTuple = TimeTuple(prefs.timeSet)
             
             if 0 < timeTuple.hours {
@@ -131,7 +131,7 @@ class LGV_Timer_TimerNavBaseController: LGV_Timer_TimerBaseViewController {
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_TimerSetPickerController: LGV_Timer_TimerNavBaseController, UIPickerViewDelegate, UIPickerViewDataSource {
+class TimerSetPickerController: TimerNavBaseController, UIPickerViewDelegate, UIPickerViewDataSource {
     enum Components: Int {
         case Hours = 0, Minutes, Seconds
     }

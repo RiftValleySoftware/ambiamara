@@ -19,7 +19,7 @@ import Foundation
 /**
  These are the main message keys between the app and the Watch.
  */
-class LGV_Timer_Messages {
+class Timer_Messages {
     static let s_timerListSelectTimerMessageKey = "SelectTimer"
     static let s_timerListStartTimerMessageKey = "StartTimer"
     static let s_timerListPauseTimerMessageKey = "PauseTimer"
@@ -47,7 +47,7 @@ class LGV_Timer_Messages {
 /**
  These are the data keys for each timer object.
  */
-class LGV_Timer_Data_Keys {
+class Timer_Data_Keys {
     static let s_timerDataUIDKey = "UID"
     static let s_timerDataTimerNameKey = "TimerName"
     static let s_timerDataTimeSetKey = "TimeSet"

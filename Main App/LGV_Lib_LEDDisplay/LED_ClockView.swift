@@ -23,7 +23,7 @@ extension CGFloat {
 /**
  This class instantiates a bunch of LED Elements into a "Digital Clock," to be displayed to cover most of the screen.
  */
-public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock: UIView {
+public class LED_ClockView: UIView {
     // MARK: - Instance Properties
     /* ################################################################################################################################## */
     var activeSegmentColor: UIColor = UIColor.green
@@ -251,7 +251,7 @@ public class LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock: UIView {
             elements.append(secondsElementGroup)
         }
         
-        if var size = LGV_Timer_AppDelegate.appDelegateObject.window?.bounds.size {
+        if var size = Timer_AppDelegate.appDelegateObject.window?.bounds.size {
             size.height -= 40
             size.width -= 8
             

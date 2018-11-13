@@ -1,5 +1,5 @@
 //
-//  LGV_Timer_SettingsViewController.swift
+//  Timer_SettingsViewController.swift
 //  LGV_Timer
 //
 //  Created by Chris Marshall on 5/24/17.
@@ -10,20 +10,20 @@
 
 import UIKit
 
-class LGV_Timer_SettingsTimerTableCell: UITableViewCell {
+class SettingsTimerTableCell: UITableViewCell {
     @IBOutlet weak var clockDisplay: UILabel!
     @IBOutlet weak var timerNameLabel: UILabel!
     @IBOutlet weak var trafficLights: UIImageView!
 }
 
-class LGV_Timer_TimerSettingsNavController: UINavigationController {
+class TimerSettingsNavController: UINavigationController {
 }
 
 /* ###################################################################################################################################### */
 /**
  This is the main controller class for the "global" settings tab screen.
  */
-class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITableViewDelegate, UITableViewDataSource {
+class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: - IB Properties
     /* ################################################################################################################################## */
     @IBOutlet weak var timerTableView: UITableView!
@@ -37,7 +37,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
     
     // MARK: - Internal Instance Properties
     /* ################################################################################################################################## */
-    var mainTabController: LGV_Timer_MainTabController! = nil
+    var mainTabController: Timer_MainTabController! = nil
     
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
@@ -49,12 +49,12 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      */
     override func viewDidLoad() {
         self.navItemTitle.title = self.navItemTitle.title?.localizedVariant
-        self.mainTabController = self.tabBarController as? LGV_Timer_MainTabController
-        LGV_Timer_AppDelegate.appDelegateObject.timerListController = self
+        self.mainTabController = self.tabBarController as? Timer_MainTabController
+        Timer_AppDelegate.appDelegateObject.timerListController = self
         super.viewDidLoad()
         self.gussyUpTheMoreNavigation()
         
-        self.showControlsSwitch.isOn = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer
+        self.showControlsSwitch.isOn = Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer
     }
     
     /* ################################################################## */
@@ -87,7 +87,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
         super.viewWillAppear(animated)
         self.mainTabController.timerEngine.selectedTimerIndex = -1
         self.timerTableView.reloadData()
-        LGV_Timer_AppDelegate.appDelegateObject.sendSelectMessage()
+        Timer_AppDelegate.appDelegateObject.sendSelectMessage()
     }
         
     // MARK: - Internal Instance Methods
@@ -101,8 +101,8 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      :param: sender The switch object.
      */
     @IBAction func changedShowControlsSwitch(_ sender: UISwitch) {
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer = sender.isOn
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
+        Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer = sender.isOn
+        Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
     }
     
     /* ################################################################## */
@@ -113,8 +113,8 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      */
     @IBAction func showControlsButtonHit(_ sender: Any) {
         self.showControlsSwitch.setOn(!self.showControlsSwitch.isOn, animated: true)
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer = self.showControlsSwitch.isOn
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
+        Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer = self.showControlsSwitch.isOn
+        Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
     }
     
     /* ################################################################## */
@@ -162,7 +162,7 @@ class LGV_Timer_SettingsViewController: LGV_Timer_TimerBaseViewController, UITab
      - returns a nice, shiny cell (or sets the state of a reused one).
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let ret = tableView.dequeueReusableCell(withIdentifier: "SingleTimerCell") as? LGV_Timer_SettingsTimerTableCell {
+        if let ret = tableView.dequeueReusableCell(withIdentifier: "SingleTimerCell") as? SettingsTimerTableCell {
             if let clockView = ret.clockDisplay {
                 let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
                 clockView.text = TimeTuple(timerPrefs.timeSet).description

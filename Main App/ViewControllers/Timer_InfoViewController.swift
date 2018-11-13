@@ -13,7 +13,7 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_InfoViewController: LGV_Timer_TimerBaseViewController {
+class Timer_InfoViewController: TimerBaseViewController {
     @IBOutlet weak var longBlurb: UITextView!
     @IBOutlet weak var lgvBlurb1Label: UILabel!
     @IBOutlet weak var lgvBlurb: UIButton!

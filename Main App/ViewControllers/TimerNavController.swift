@@ -15,7 +15,7 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_TimerNavController: UINavigationController, UINavigationControllerDelegate {
+class TimerNavController: UINavigationController, UINavigationControllerDelegate {
     private var _timerObject: TimerSettingTuple! = nil
     
     /* ################################################################## */
@@ -28,7 +28,7 @@ class LGV_Timer_TimerNavController: UINavigationController, UINavigationControll
         
         set {
             self._timerObject = newValue
-            if let controller = self.topViewController as? LGV_Timer_TimerNavBaseController {
+            if let controller = self.topViewController as? TimerNavBaseController {
                 controller.timerObject = self._timerObject
             }
         }
@@ -37,14 +37,14 @@ class LGV_Timer_TimerNavController: UINavigationController, UINavigationControll
     /* ################################################################################################################################## */
     /// This has the index number for this timer instance (1-based).
     var timerNumber: Int {
-        return LGV_Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(self.timerObject.uid) + 1
+        return Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(self.timerObject.uid) + 1
     }
     
     /* ################################################################## */
     /**
      */
     var tabBarText: String {
-        if let topController = self.topViewController as? LGV_Timer_TimerNavBaseController {
+        if let topController = self.topViewController as? TimerNavBaseController {
             return topController.tabBarText
         }
         return ""
@@ -54,7 +54,7 @@ class LGV_Timer_TimerNavController: UINavigationController, UINavigationControll
     /**
      */
     var tabBarImage: UIImage {
-        if let topController = self.topViewController as? LGV_Timer_TimerNavBaseController {
+        if let topController = self.topViewController as? TimerNavBaseController {
             return topController.tabBarImage
         }
         return UIImage()
@@ -65,7 +65,7 @@ class LGV_Timer_TimerNavController: UINavigationController, UINavigationControll
      */
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if self == navigationController {
-            if let newViewController = viewController as? LGV_Timer_TimerSetPickerController {
+            if let newViewController = viewController as? TimerSetPickerController {
                 if !self.timerObject.selected {
                     self.timerObject.selected = true
                 }

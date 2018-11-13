@@ -15,7 +15,7 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
+class TimerSetController: TimerSetPickerController {
     static let switchToSettingsSegueID = "timer-segue-to-settings"
     static let startTimerSegueID = "timer-segue-to-start-timer"
     
@@ -26,7 +26,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     @IBOutlet weak var bigStartButton: UIButton!
     @IBOutlet weak var timeDisplayLabel: UILabel!
     
-    var runningTimer: LGV_Timer_TimerRuntimeViewController! = nil
+    var runningTimer: TimerRuntimeViewController! = nil
     
     // MARK: - Internal @IBAction Methods
     /* ################################################################################################################################## */
@@ -42,7 +42,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     /**
      */
     @IBAction func startButtonHit(_ sender: Any) {
-        LGV_Timer_AppDelegate.appDelegateObject.timerEngine.startTimer()
+        Timer_AppDelegate.appDelegateObject.timerEngine.startTimer()
     }
     
     /* ################################################################## */
@@ -69,7 +69,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      */
     func updateTimeDisplayLabel() {
         self.timeDisplayLabel.text = TimeTuple(self.timerObject.timeSet).description
-        self.timeDisplayLabel.textColor = (.Podium == self.timerObject.displayMode ? UIColor.white: LGV_Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].textColor!)
+        self.timeDisplayLabel.textColor = (.Podium == self.timerObject.displayMode ? UIColor.white: Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].textColor!)
         if .Podium == self.timerObject.displayMode {
             self.timeDisplayLabel.font = UIFont.boldSystemFont(ofSize: 42)
         } else {
@@ -99,7 +99,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         let timerNumber = self.timerNumber
         let tabBarImage = self.tabBarImage
         
-        if nil != self.navigationController as? LGV_Timer_TimerNavController {
+        if nil != self.navigationController as? TimerNavController {
             if (self.tabBarController?.viewControllers?.count)! > timerNumber + 1 {
                 self.tabBarController?.viewControllers?[timerNumber + 1].tabBarItem.image = tabBarImage
                 self.tabBarController?.viewControllers?[timerNumber + 1].tabBarItem.selectedImage = tabBarImage
@@ -142,7 +142,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let tabber = self.tabBarController as? LGV_Timer_MainTabController {
+        if let tabber = self.tabBarController as? Timer_MainTabController {
             tabber.addTimerToList(self)
         }
         
@@ -162,7 +162,7 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
         self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
         self.updateTimer()
         if nil != self.timerObject {
-            LGV_Timer_AppDelegate.appDelegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
+            Timer_AppDelegate.appDelegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
         }
     }
         
@@ -190,12 +190,12 @@ class LGV_Timer_TimerSetController: LGV_Timer_TimerSetPickerController {
      Called when we are about to bring in the setup controller.
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationController = segue.destination as? LGV_Timer_TimerRuntimeViewController {
+        if let destinationController = segue.destination as? TimerRuntimeViewController {
             destinationController.myHandler = self
             self.runningTimer = destinationController
         }
         
-        if let destinationController = segue.destination as? LGV_Timer_TimerNavBaseController {
+        if let destinationController = segue.destination as? TimerNavBaseController {
             destinationController.timerObject = self.timerObject
         }
     }

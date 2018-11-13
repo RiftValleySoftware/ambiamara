@@ -16,7 +16,7 @@ import UIKit
 /**
  This is a base class for view controllers used in the app.
  */
-@IBDesignable class LGV_Timer_TimerBaseViewController: UIViewController {
+@IBDesignable class TimerBaseViewController: UIViewController {
     // MARK: - IB Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -70,9 +70,9 @@ import UIKit
      :param: _ The gesture recognizer that triggered this (ignored)
      */
     @IBAction func selectNextPage(_: UIGestureRecognizer) {
-        if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex < (LGV_Timer_AppDelegate.appDelegateObject.timerEngine.count - 1) {
-            let nextIndex = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex + 1
-            LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex = nextIndex
+        if Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex < (Timer_AppDelegate.appDelegateObject.timerEngine.count - 1) {
+            let nextIndex = Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex + 1
+            Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex = nextIndex
         }
     }
     
@@ -83,9 +83,9 @@ import UIKit
      :param: _ The gesture recognizer that triggered this (ignored)
      */
     @IBAction func selectPreviousPage(_: UIGestureRecognizer) {
-        if LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex >= 0 {
-            let prevIndex = LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex - 1
-            LGV_Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex = prevIndex
+        if Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex >= 0 {
+            let prevIndex = Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex - 1
+            Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex = prevIndex
         }
     }
     
@@ -106,7 +106,7 @@ import UIKit
         self.view.layer.sublayers?.insert(self.gradientLayer, at: 0)
         
         // The nav item for timers is set by the bar manager.
-        if (type(of: self) != LGV_Timer_TimerNavController.self) && (nil != self.navigationItem.title) {
+        if (type(of: self) != TimerNavController.self) && (nil != self.navigationItem.title) {
             self.navigationItem.title = self.navigationItem.title!.localizedVariant
         }
     }
