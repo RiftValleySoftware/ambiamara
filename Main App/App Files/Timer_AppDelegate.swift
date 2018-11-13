@@ -115,7 +115,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
             if nil != presentedBy {
                 let alertController = UIAlertController(title: inTitle.localizedVariant, message: inMessage.localizedVariant, preferredStyle: .alert)
                 
-                let okAction = UIAlertAction(title: "BASIC-OK-BUTTON".localizedVariant, style: UIAlertActionStyle.cancel, handler: nil)
+                let okAction = UIAlertAction(title: "BASIC-OK-BUTTON".localizedVariant, style: UIAlertAction.Style.cancel, handler: nil)
                 
                 alertController.addAction(okAction)
                 

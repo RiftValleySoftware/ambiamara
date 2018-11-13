@@ -70,12 +70,12 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
         
         if 480 > viewBounds.size.width {
             let font = UIFont.systemFont(ofSize: 14)
-            let attributedTitle = NSAttributedString(string: titleString, attributes: [NSAttributedStringKey.font: font])
-            self.showControlsButton.setAttributedTitle(attributedTitle, for: UIControlState.normal)
+            let attributedTitle = NSAttributedString(string: titleString, attributes: [NSAttributedString.Key.font: font])
+            self.showControlsButton.setAttributedTitle(attributedTitle, for: UIControl.State.normal)
         } else {
             let font = UIFont.systemFont(ofSize: 20)
-            let attributedTitle = NSAttributedString(string: titleString, attributes: [NSAttributedStringKey.font: font])
-            self.showControlsButton.setAttributedTitle(attributedTitle, for: UIControlState.normal)
+            let attributedTitle = NSAttributedString(string: titleString, attributes: [NSAttributedString.Key.font: font])
+            self.showControlsButton.setAttributedTitle(attributedTitle, for: UIControl.State.normal)
         }
     }
     
@@ -232,15 +232,15 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
      - parameter commit: The action to perform.
      - parameter forRowAt: The indexpath of the row to be deleted.
      */
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.delete {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
             let alertController = UIAlertController(title: "DELETE-HEADER".localizedVariant, message: String(format: "DELETE-MESSAGE-FORMAT".localizedVariant, indexPath.row + 1), preferredStyle: .alert)
             
-            let deleteAction = UIAlertAction(title: "DELETE-OK-BUTTON".localizedVariant, style: UIAlertActionStyle.destructive, handler: {(_: UIAlertAction) in self.doADirtyDeedCheap(tableView, forRowAt: indexPath)})
+            let deleteAction = UIAlertAction(title: "DELETE-OK-BUTTON".localizedVariant, style: UIAlertAction.Style.destructive, handler: {(_: UIAlertAction) in self.doADirtyDeedCheap(tableView, forRowAt: indexPath)})
             
             alertController.addAction(deleteAction)
             
-            let cancelAction = UIAlertAction(title: "DELETE-CANCEL-BUTTON".localizedVariant, style: UIAlertActionStyle.default, handler: {(_: UIAlertAction) in self.dontDoADirtyDeedCheap(tableView)})
+            let cancelAction = UIAlertAction(title: "DELETE-CANCEL-BUTTON".localizedVariant, style: UIAlertAction.Style.default, handler: {(_: UIAlertAction) in self.dontDoADirtyDeedCheap(tableView)})
             
             alertController.addAction(cancelAction)
             

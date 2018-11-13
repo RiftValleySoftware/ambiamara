@@ -25,8 +25,8 @@ class Timer_InfoViewController: TimerBaseViewController {
     /**
      */
     @IBAction func instructionsLinkHit(_ sender: UIButton) {
-        let openLink = NSURL(string: (sender.title(for: UIControlState.normal)?.localizedVariant)!)
-        UIApplication.shared.open(openLink! as URL, options: [:], completionHandler: nil)
+        let openLink = NSURL(string: (sender.title(for: UIControl.State.normal)?.localizedVariant)!)
+        UIApplication.shared.open(openLink! as URL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
     }
     
     /* ################################################################## */
@@ -41,7 +41,7 @@ class Timer_InfoViewController: TimerBaseViewController {
      */
     @IBAction func lgvButtonHit(_ sender: Any) {
         let openLink = NSURL(string: "LGV_TIMER-ABOUT-LGV-BLURB-URI".localizedVariant)
-        UIApplication.shared.open(openLink! as URL, options: [:], completionHandler: nil)
+        UIApplication.shared.open(openLink! as URL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
     }
     
     /* ################################################################## */
@@ -65,6 +65,11 @@ class Timer_InfoViewController: TimerBaseViewController {
         self.instructionsLinkButton.setTitle(self.instructionsLinkButton.title(for: .normal)?.localizedVariant, for: .normal)
 
         self.lgvBlurb1Label.text = self.lgvBlurb1Label.text?.localizedVariant
-        self.lgvBlurb.setTitle(self.lgvBlurb.title(for: UIControlState.normal)?.localizedVariant, for: UIControlState.normal)
+        self.lgvBlurb.setTitle(self.lgvBlurb.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+private func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

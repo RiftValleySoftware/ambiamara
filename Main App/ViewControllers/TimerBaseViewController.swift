@@ -121,7 +121,7 @@ import UIKit
             self.tabBarController?.moreNavigationController.navigationBar.barStyle = navBar.barStyle
             self.tabBarController?.moreNavigationController.navigationBar.barTintColor = navBar.barTintColor
             self.tabBarController?.moreNavigationController.view.tintColor = UIColor.black
-            self.tabBarController?.moreNavigationController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+            self.tabBarController?.moreNavigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         }
     }
     
@@ -150,7 +150,7 @@ import UIKit
             let navBar = navController.navigationBar
             navBar.barTintColor = self.gradientTopColor
             navBar.tintColor = self.view.tintColor
-            navBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+            navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         }
         
         if let tabController = self.tabBarController {

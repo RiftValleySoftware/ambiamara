@@ -298,7 +298,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
         
         if nil != self.stoplightContainerView {
             let verticalPadding: CGFloat = (.Dual == self.timerObject.displayMode) ? 4: 0
-            var containerRect = self.view.bounds
+            var containerRect = self.view.bounds.inset(by: self.view.safeAreaInsets)
             var maxWidth = (containerRect.size.width * self._stoplightMaxWidthFactor)
             
             if .Dual == self.timerObject.displayMode {

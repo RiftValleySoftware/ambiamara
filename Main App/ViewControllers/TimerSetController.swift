@@ -172,7 +172,7 @@ class TimerSetController: TimerSetPickerController {
      */
     override func viewWillDisappear(_ animated: Bool) {
         if let navBar = self.navigationController?.navigationBar {
-            navBar.titleTextAttributes?[NSAttributedStringKey.foregroundColor] = UIColor.white
+            navBar.titleTextAttributes?[NSAttributedString.Key.foregroundColor] = UIColor.white
         }
     }
     

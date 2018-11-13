@@ -11,7 +11,6 @@
  */
 
 import UIKit
-import SwipeableTabBarController
 
 /* ###################################################################################################################################### */
 /**
@@ -60,7 +59,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
                 self.moreNavigationController.navigationBar.barStyle = barStyle
             }
             self.moreNavigationController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
-            self.moreNavigationController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+            self.moreNavigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
             self.moreNavigationController.view.tintColor = UIColor.black
             
             self.customizableViewControllers = []

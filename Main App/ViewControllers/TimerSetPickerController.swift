@@ -88,15 +88,15 @@ class TimerNavBaseController: TimerBaseViewController {
         UIGraphicsBeginImageContextWithOptions(imageSize, false, scale)
         var fontSize: CGFloat = s_g_maxTabFontSize
         var stringSize: CGSize = CGSize.zero
-        var textFontAttributes: [NSAttributedStringKey: Any] = [
-            NSAttributedStringKey.foregroundColor: textColor,
-            NSAttributedStringKey.paragraphStyle: style
+        var textFontAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.foregroundColor: textColor,
+            NSAttributedString.Key.paragraphStyle: style
             ]
         
         // We decrease the font size until we have something that fits.
         while 0 < fontSize {
             if let textFont = UIFont(name: "Let's Go Digital", size: fontSize) {
-                textFontAttributes[NSAttributedStringKey.font] = textFont
+                textFontAttributes[NSAttributedString.Key.font] = textFont
                 
                 stringSize = text.size(withAttributes: textFontAttributes)
                 

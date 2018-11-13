@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mvc-fj-sq5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mvc-fj-sq5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -17,7 +18,7 @@
         <!--Timer Navigation Controller-->
         <scene sceneID="lXU-0R-r9G">
             <objects>
-                <navigationController storyboardIdentifier="LGV_Timer_TimerNavController" title="Timer Navigation Controller" id="RhK-pG-4ta" customClass="TimerNavController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LGV_Timer_TimerNavController" title="Timer Navigation Controller" id="RhK-pG-4ta" customClass="TimerNavController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="oDm-vU-50Y"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="eRP-fW-XSv">
@@ -41,11 +42,7 @@
         <!--Timer Set and Start-->
         <scene sceneID="7Ku-yx-4MG">
             <objects>
-                <viewController title="Timer Set and Start" id="Y3X-jz-wfO" customClass="TimerSetController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="R7j-jR-eh3"/>
-                        <viewControllerLayoutGuide type="bottom" id="dnv-Bg-783"/>
-                    </layoutGuides>
+                <viewController title="Timer Set and Start" id="Y3X-jz-wfO" customClass="TimerSetController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gVx-u0-GdF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -147,19 +144,20 @@
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="EDZ-zT-xw3" firstAttribute="centerX" secondItem="gVx-u0-GdF" secondAttribute="centerX" id="67v-8T-xAh"/>
-                            <constraint firstAttribute="trailing" secondItem="BUz-mL-rSv" secondAttribute="trailing" id="73e-HW-1pG"/>
+                            <constraint firstItem="EDZ-zT-xw3" firstAttribute="centerX" secondItem="CY8-aN-Qtm" secondAttribute="centerX" id="67v-8T-xAh"/>
+                            <constraint firstItem="CY8-aN-Qtm" firstAttribute="trailing" secondItem="BUz-mL-rSv" secondAttribute="trailing" id="73e-HW-1pG"/>
                             <constraint firstItem="pRN-X9-V6N" firstAttribute="trailing" secondItem="gVx-u0-GdF" secondAttribute="trailingMargin" id="B4D-9j-ifQ"/>
-                            <constraint firstAttribute="trailing" secondItem="EDZ-zT-xw3" secondAttribute="trailing" constant="8" id="EOj-vH-2bn"/>
-                            <constraint firstItem="EDZ-zT-xw3" firstAttribute="leading" secondItem="gVx-u0-GdF" secondAttribute="leading" constant="8" id="KT3-ZQ-pkn"/>
+                            <constraint firstItem="CY8-aN-Qtm" firstAttribute="trailing" secondItem="EDZ-zT-xw3" secondAttribute="trailing" constant="8" id="EOj-vH-2bn"/>
+                            <constraint firstItem="EDZ-zT-xw3" firstAttribute="leading" secondItem="CY8-aN-Qtm" secondAttribute="leading" constant="8" id="KT3-ZQ-pkn"/>
                             <constraint firstItem="BUz-mL-rSv" firstAttribute="top" secondItem="EDZ-zT-xw3" secondAttribute="bottom" id="Mdp-qG-liN"/>
                             <constraint firstItem="EDZ-zT-xw3" firstAttribute="top" secondItem="pRN-X9-V6N" secondAttribute="bottom" id="S5J-cC-yK2"/>
-                            <constraint firstItem="pRN-X9-V6N" firstAttribute="top" secondItem="R7j-jR-eh3" secondAttribute="bottom" id="Ua2-UW-Scl"/>
+                            <constraint firstItem="pRN-X9-V6N" firstAttribute="top" secondItem="CY8-aN-Qtm" secondAttribute="top" id="Ua2-UW-Scl"/>
                             <constraint firstItem="pRN-X9-V6N" firstAttribute="leading" secondItem="gVx-u0-GdF" secondAttribute="leadingMargin" id="lhq-Ng-BKy"/>
-                            <constraint firstItem="BUz-mL-rSv" firstAttribute="leading" secondItem="gVx-u0-GdF" secondAttribute="leading" id="qDG-NE-YSX"/>
+                            <constraint firstItem="BUz-mL-rSv" firstAttribute="leading" secondItem="CY8-aN-Qtm" secondAttribute="leading" id="qDG-NE-YSX"/>
                             <constraint firstAttribute="bottom" secondItem="BUz-mL-rSv" secondAttribute="bottom" id="qRX-JC-lae"/>
                             <constraint firstItem="EDZ-zT-xw3" firstAttribute="centerY" secondItem="gVx-u0-GdF" secondAttribute="centerY" id="uVw-Gs-4bi"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="CY8-aN-Qtm"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="eQc-Fb-KKi" appends="YES" id="dSp-33-ilS"/>
                             <outletCollection property="gestureRecognizers" destination="iEu-gi-Lhz" appends="YES" id="mY8-v1-hnM"/>
@@ -214,11 +212,7 @@
         <!--Timer Runtime-->
         <scene sceneID="hTo-Uo-hbx">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="pId-dv-a9R" userLabel="Timer Runtime" customClass="TimerRuntimeViewController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Reo-7Y-Hne"/>
-                        <viewControllerLayoutGuide type="bottom" id="iFu-N0-S8w"/>
-                    </layoutGuides>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="pId-dv-a9R" userLabel="Timer Runtime" customClass="TimerRuntimeViewController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VER-Lg-FXG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -226,7 +220,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yh-KU-1zx" userLabel="Display Container">
                                 <rect key="frame" x="0.0" y="20" width="375" height="603"/>
                                 <subviews>
-                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvk-HB-53P" customClass="LED_ClockView" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target">
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvk-HB-53P" customClass="LED_ClockView" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
                                         <rect key="frame" x="4" y="0.0" width="367" height="603"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
@@ -296,14 +290,15 @@
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="1yh-KU-1zx" firstAttribute="top" secondItem="Reo-7Y-Hne" secondAttribute="bottom" id="J9s-Zx-z0f"/>
-                            <constraint firstItem="Pl8-D1-u7N" firstAttribute="leading" secondItem="VER-Lg-FXG" secondAttribute="leading" id="RKT-Ee-btk"/>
-                            <constraint firstItem="Pl8-D1-u7N" firstAttribute="top" secondItem="Reo-7Y-Hne" secondAttribute="bottom" id="UPM-ZN-kKu"/>
-                            <constraint firstAttribute="trailing" secondItem="Pl8-D1-u7N" secondAttribute="trailing" id="UWg-aq-kNZ"/>
-                            <constraint firstAttribute="trailing" secondItem="1yh-KU-1zx" secondAttribute="trailing" id="d8N-mj-jPr"/>
-                            <constraint firstAttribute="bottom" secondItem="1yh-KU-1zx" secondAttribute="bottom" id="e6O-sj-42J"/>
-                            <constraint firstItem="1yh-KU-1zx" firstAttribute="leading" secondItem="VER-Lg-FXG" secondAttribute="leading" id="hBo-w4-k9J"/>
+                            <constraint firstItem="1yh-KU-1zx" firstAttribute="top" secondItem="IRq-1K-51o" secondAttribute="top" id="J9s-Zx-z0f"/>
+                            <constraint firstItem="Pl8-D1-u7N" firstAttribute="leading" secondItem="IRq-1K-51o" secondAttribute="leading" id="RKT-Ee-btk"/>
+                            <constraint firstItem="Pl8-D1-u7N" firstAttribute="top" secondItem="IRq-1K-51o" secondAttribute="top" id="UPM-ZN-kKu"/>
+                            <constraint firstItem="IRq-1K-51o" firstAttribute="trailing" secondItem="Pl8-D1-u7N" secondAttribute="trailing" id="UWg-aq-kNZ"/>
+                            <constraint firstItem="IRq-1K-51o" firstAttribute="trailing" secondItem="1yh-KU-1zx" secondAttribute="trailing" id="d8N-mj-jPr"/>
+                            <constraint firstItem="IRq-1K-51o" firstAttribute="bottom" secondItem="1yh-KU-1zx" secondAttribute="bottom" id="e6O-sj-42J"/>
+                            <constraint firstItem="1yh-KU-1zx" firstAttribute="leading" secondItem="IRq-1K-51o" secondAttribute="leading" id="hBo-w4-k9J"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="IRq-1K-51o"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
@@ -353,11 +348,7 @@
         <!--Timer Settings-->
         <scene sceneID="diB-ql-vKz">
             <objects>
-                <viewController title="Timer Settings" id="Cmw-cs-f0x" customClass="TimerSetupController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ZN5-uz-PEG"/>
-                        <viewControllerLayoutGuide type="bottom" id="Tbu-Nc-I0V"/>
-                    </layoutGuides>
+                <viewController title="Timer Settings" id="Cmw-cs-f0x" customClass="TimerSetupController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="m5H-jP-7bL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -543,7 +534,7 @@
                             <constraint firstItem="JUZ-6X-TX6" firstAttribute="top" secondItem="04C-ke-GJA" secondAttribute="bottom" constant="8" id="827-Rc-G0C"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="top" secondItem="Wdv-vy-5ut" secondAttribute="bottom" constant="8" id="8V1-q1-VrB"/>
                             <constraint firstItem="JUZ-6X-TX6" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="9Ke-JE-z0k"/>
-                            <constraint firstItem="Tbu-Nc-I0V" firstAttribute="top" secondItem="cf6-o5-MMZ" secondAttribute="bottom" constant="20" id="Afp-Lp-bkq"/>
+                            <constraint firstItem="usg-pJ-xv3" firstAttribute="bottom" secondItem="cf6-o5-MMZ" secondAttribute="bottom" constant="20" id="Afp-Lp-bkq"/>
                             <constraint firstItem="JUZ-6X-TX6" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="Bdg-sV-bbC"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="FLk-8J-sEW"/>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="Fnf-Gl-gZk"/>
@@ -560,12 +551,13 @@
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="dep-gt-6DA"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="lC6-yS-tCO"/>
                             <constraint firstItem="cf6-o5-MMZ" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="mG9-ju-GDL"/>
-                            <constraint firstItem="Wdv-vy-5ut" firstAttribute="top" secondItem="ZN5-uz-PEG" secondAttribute="bottom" constant="8" id="nGf-dq-fCP"/>
+                            <constraint firstItem="Wdv-vy-5ut" firstAttribute="top" secondItem="usg-pJ-xv3" secondAttribute="top" constant="8" id="nGf-dq-fCP"/>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="80" id="qLW-Iy-78r"/>
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="8" id="ww5-O9-uvg"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="yrH-mM-v3Q"/>
                             <constraint firstItem="Wdv-vy-5ut" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="z7T-I7-MIr"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="usg-pJ-xv3"/>
                     </view>
                     <navigationItem key="navigationItem" title="LGV_TIMER-TIMER-SETUP-TITLE" id="bR4-hy-Vgz"/>
                     <userDefinedRuntimeAttributes>
@@ -602,11 +594,7 @@
         <!--Timer List-->
         <scene sceneID="B0X-9f-pVT">
             <objects>
-                <viewController title="Main Timer Settings" id="dZU-jO-ENB" userLabel="Timer List" customClass="Timer_SettingsViewController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7wB-2E-9hN"/>
-                        <viewControllerLayoutGuide type="bottom" id="36h-2E-yI8"/>
-                    </layoutGuides>
+                <viewController title="Main Timer Settings" id="dZU-jO-ENB" userLabel="Timer List" customClass="Timer_SettingsViewController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WlI-lT-4T0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -617,7 +605,7 @@
                                 <color key="separatorColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SingleTimerCell" id="ac3-fZ-O32" customClass="SettingsTimerTableCell" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SingleTimerCell" id="ac3-fZ-O32" customClass="SettingsTimerTableCell" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ac3-fZ-O32" id="KvH-ni-liP">
@@ -625,23 +613,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="LIP-Nv-Co1" userLabel="Label View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTb-8q-JAj" userLabel="Time Display Label">
-                                                            <rect key="frame" x="0.0" y="0.0" width="153.5" height="44"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="157.5" height="44"/>
                                                             <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="30"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TrafficLights" translatesAutoresizingMaskIntoConstraints="NO" id="U3D-3Q-xvD">
-                                                            <rect key="frame" x="161.5" y="0.0" width="12" height="44"/>
+                                                            <rect key="frame" x="165.5" y="0.0" width="12" height="44"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="12" id="rer-G0-HVV"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIMER 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUK-xt-9d3">
-                                                            <rect key="frame" x="181.5" y="0.0" width="153.5" height="44"/>
+                                                            <rect key="frame" x="185.5" y="0.0" width="157.5" height="44"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -736,14 +724,15 @@
                         <color key="tintColor" red="0.99215686270000003" green="0.97647058819999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="36h-2E-yI8" firstAttribute="top" secondItem="1gs-61-NM5" secondAttribute="bottom" id="0h2-y1-1gV"/>
+                            <constraint firstItem="CiD-N0-VIX" firstAttribute="bottom" secondItem="1gs-61-NM5" secondAttribute="bottom" id="0h2-y1-1gV"/>
                             <constraint firstItem="1gs-61-NM5" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="KIE-pc-DXS"/>
                             <constraint firstItem="j29-iR-j9c" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="PCX-b0-BZs"/>
-                            <constraint firstItem="j29-iR-j9c" firstAttribute="top" secondItem="7wB-2E-9hN" secondAttribute="bottom" constant="4" id="eBE-7z-eJd"/>
+                            <constraint firstItem="j29-iR-j9c" firstAttribute="top" secondItem="CiD-N0-VIX" secondAttribute="top" constant="4" id="eBE-7z-eJd"/>
                             <constraint firstItem="j29-iR-j9c" firstAttribute="trailing" secondItem="WlI-lT-4T0" secondAttribute="trailingMargin" id="rHD-hD-cbi"/>
                             <constraint firstItem="1gs-61-NM5" firstAttribute="leading" secondItem="WlI-lT-4T0" secondAttribute="leadingMargin" id="rr7-1C-BGp"/>
                             <constraint firstItem="1gs-61-NM5" firstAttribute="top" secondItem="j29-iR-j9c" secondAttribute="bottom" constant="8" id="sk3-Me-C2u"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="CiD-N0-VIX"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="fiJ-Q2-M1M" appends="YES" id="WMw-Ms-uCF"/>
                         </connections>
@@ -792,11 +781,7 @@
         <!--Info-->
         <scene sceneID="MrX-RY-GB5">
             <objects>
-                <viewController title="LGV_TIMER-INFO-TITLE-FORMAT" modalTransitionStyle="partialCurl" hidesBottomBarWhenPushed="YES" id="PKI-7x-KlB" userLabel="Info" customClass="Timer_InfoViewController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="re4-wU-jpH"/>
-                        <viewControllerLayoutGuide type="bottom" id="zm2-PD-MOJ"/>
-                    </layoutGuides>
+                <viewController title="LGV_TIMER-INFO-TITLE-FORMAT" modalTransitionStyle="partialCurl" hidesBottomBarWhenPushed="YES" id="PKI-7x-KlB" userLabel="Info" customClass="Timer_InfoViewController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pCc-NV-qjF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -810,13 +795,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ClockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="o2D-gY-fZY">
-                                <rect key="frame" x="137.5" y="49" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="8Za-Nk-syF"/>
-                                    <constraint firstAttribute="width" constant="100" id="fW7-IV-yEs"/>
-                                </constraints>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="LGV_TIMER-ABOUT-LONG-BLURB" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DIb-rd-Jfe">
                                 <rect key="frame" x="16" y="157" width="343" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -883,6 +861,22 @@
                                     <action selector="lgvButtonHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="4Nl-1A-bOv"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="agq-yz-VPb" customClass="TheGreatRiftValleyDrawing" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
+                                <rect key="frame" x="137.5" y="49" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="621-RJ-byG"/>
+                                    <constraint firstAttribute="width" secondItem="agq-yz-VPb" secondAttribute="height" multiplier="1:1" id="QNT-N5-wgl"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="baseColor">
+                                        <color key="value" red="0.0" green="0.0" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="moonColor">
+                                        <color key="value" red="1" green="1" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -890,27 +884,28 @@
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="sSL-0i-CJN" secondAttribute="trailing" id="5FK-w5-l0v"/>
                             <constraint firstItem="S6n-9J-uZt" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="5TW-LA-B8i"/>
                             <constraint firstItem="P5N-K8-kBZ" firstAttribute="leading" secondItem="oQk-9G-zSN" secondAttribute="trailing" constant="8" id="787-rD-FJv"/>
+                            <constraint firstItem="agq-yz-VPb" firstAttribute="top" secondItem="sO5-o8-Fyk" secondAttribute="bottom" constant="8" id="BTI-g2-n7A"/>
                             <constraint firstItem="sSL-0i-CJN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="Bhx-eg-p3c"/>
                             <constraint firstItem="XyZ-cP-eu8" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="FeB-om-qAP"/>
-                            <constraint firstItem="sSL-0i-CJN" firstAttribute="centerX" secondItem="pCc-NV-qjF" secondAttribute="centerX" id="FnD-bV-fcU"/>
+                            <constraint firstItem="sSL-0i-CJN" firstAttribute="centerX" secondItem="dLT-vZ-n7i" secondAttribute="centerX" id="FnD-bV-fcU"/>
                             <constraint firstItem="sO5-o8-Fyk" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="PF5-51-baS"/>
                             <constraint firstItem="XyZ-cP-eu8" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="PJE-jF-nCO"/>
                             <constraint firstItem="sSL-0i-CJN" firstAttribute="top" secondItem="DIb-rd-Jfe" secondAttribute="bottom" id="PYr-Xh-KJt"/>
                             <constraint firstItem="oQk-9G-zSN" firstAttribute="top" secondItem="XyZ-cP-eu8" secondAttribute="bottom" constant="8" id="VJQ-uR-2YV"/>
-                            <constraint firstItem="zm2-PD-MOJ" firstAttribute="top" secondItem="S6n-9J-uZt" secondAttribute="bottom" constant="8" id="aoB-bQ-eea"/>
-                            <constraint firstItem="o2D-gY-fZY" firstAttribute="centerX" secondItem="pCc-NV-qjF" secondAttribute="centerX" id="bAy-F8-8ce"/>
-                            <constraint firstItem="o2D-gY-fZY" firstAttribute="top" secondItem="sO5-o8-Fyk" secondAttribute="bottom" constant="8" id="dhh-YP-gyd"/>
+                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="bottom" secondItem="S6n-9J-uZt" secondAttribute="bottom" constant="8" id="aoB-bQ-eea"/>
                             <constraint firstItem="DIb-rd-Jfe" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="gXu-0H-oJz"/>
+                            <constraint firstItem="agq-yz-VPb" firstAttribute="centerX" secondItem="dLT-vZ-n7i" secondAttribute="centerX" id="hm2-az-vbW"/>
                             <constraint firstItem="S6n-9J-uZt" firstAttribute="top" secondItem="P5N-K8-kBZ" secondAttribute="bottom" constant="2" id="kf8-dl-KhR"/>
                             <constraint firstItem="S6n-9J-uZt" firstAttribute="leading" secondItem="oQk-9G-zSN" secondAttribute="trailing" constant="8" id="mBm-U9-n83"/>
                             <constraint firstItem="sO5-o8-Fyk" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="ncS-Ps-pbh"/>
                             <constraint firstItem="DIb-rd-Jfe" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="oaa-Zd-LeW"/>
                             <constraint firstItem="P5N-K8-kBZ" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="p9X-NP-Fqy"/>
+                            <constraint firstItem="DIb-rd-Jfe" firstAttribute="top" secondItem="agq-yz-VPb" secondAttribute="bottom" constant="8" id="qxL-vo-cWJ"/>
                             <constraint firstItem="oQk-9G-zSN" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="rR6-5E-ojY"/>
-                            <constraint firstItem="sO5-o8-Fyk" firstAttribute="top" secondItem="re4-wU-jpH" secondAttribute="bottom" id="v1Y-Gt-WkC"/>
-                            <constraint firstItem="DIb-rd-Jfe" firstAttribute="top" secondItem="o2D-gY-fZY" secondAttribute="bottom" constant="8" id="wm9-Tb-6Kv"/>
-                            <constraint firstItem="zm2-PD-MOJ" firstAttribute="top" secondItem="oQk-9G-zSN" secondAttribute="bottom" constant="8" id="x3D-mk-xfP"/>
+                            <constraint firstItem="sO5-o8-Fyk" firstAttribute="top" secondItem="dLT-vZ-n7i" secondAttribute="top" id="v1Y-Gt-WkC"/>
+                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="bottom" secondItem="oQk-9G-zSN" secondAttribute="bottom" constant="8" id="x3D-mk-xfP"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="dLT-vZ-n7i"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -938,7 +933,7 @@
         <!--Timer List Navigation Controller-->
         <scene sceneID="dWu-Eb-ueo">
             <objects>
-                <navigationController title="Timer List Navigation Controller" modalTransitionStyle="crossDissolve" id="sDn-VD-xYI" customClass="TimerSettingsNavController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController title="Timer List Navigation Controller" modalTransitionStyle="crossDissolve" id="sDn-VD-xYI" customClass="TimerSettingsNavController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" id="Y9h-rb-Dgm"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Vpb-uI-amC">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -958,7 +953,7 @@
         <!--Main Tab Controller-->
         <scene sceneID="8ZY-33-Rjt">
             <objects>
-                <tabBarController title="Main Tab Controller" modalTransitionStyle="partialCurl" id="mvc-fj-sq5" customClass="Timer_MainTabController" customModule="An_Excellent_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController title="Main Tab Controller" modalTransitionStyle="partialCurl" id="mvc-fj-sq5" customClass="Timer_MainTabController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="egp-Ba-Cka">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
@@ -978,7 +973,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ClockIcon" width="240" height="240"/>
         <image name="Info" width="22" height="22"/>
         <image name="LGVLogo" width="48" height="48"/>
         <image name="Phone-End" width="22" height="22"/>

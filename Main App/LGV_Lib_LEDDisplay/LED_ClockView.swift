@@ -251,7 +251,7 @@ public class LED_ClockView: UIView {
             elements.append(secondsElementGroup)
         }
         
-        if var size = Timer_AppDelegate.appDelegateObject.window?.bounds.size {
+        if var size = Timer_AppDelegate.appDelegateObject.window?.bounds.inset(by: Timer_AppDelegate.appDelegateObject.window?.safeAreaInsets ?? UIEdgeInsets()).size {
             size.height -= 40
             size.width -= 8
             
