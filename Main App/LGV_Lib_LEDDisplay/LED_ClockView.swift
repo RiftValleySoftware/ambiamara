@@ -1,10 +1,13 @@
-//
-//  LGV_Lib_LEDDisplayHoursMinutesSecondsDigitalClock.swift
-//
-//  Created by Chris Marshall on 5/23/17.
-//  Copyright © 2017 Little Green Viper Software Development LLC. All rights reserved.
-//  This is proprietary code. Copying and reuse are not allowed. It is being opened to provide sample code.
-//
+/**
+ © Copyright 2018, The Great Rift Valley Software Company. All rights reserved.
+ 
+ This code is proprietary and confidential code,
+ It is NOT to be reused or combined into any application,
+ unless done so, specifically under written license from The Great Rift Valley Software Company.
+ 
+ The Great Rift Valley Software Company: https://riftvalleysoftware.com
+ */
+
 import UIKit
 
 // MARK: - Class Extensions

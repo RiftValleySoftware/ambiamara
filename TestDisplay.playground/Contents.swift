@@ -1,12 +1,13 @@
-import UIKit
+/**
+ © Copyright 2018, The Great Rift Valley Software Company. All rights reserved.
+ 
+ This code is proprietary and confidential code,
+ It is NOT to be reused or combined into any application,
+ unless done so, specifically under written license from The Great Rift Valley Software Company.
+ 
+ The Great Rift Valley Software Company: https://riftvalleysoftware.com
+ */
 
-//
-//  LED_Element.swift
-//  LGV_Lib_LEDDisplay
-//
-//  Created by Chris Marshall on 5/19/17.
-//  Copyright © 2017 Little Green Viper Software Development LLC. All rights reserved.
-//
 /* ###################################################################################################################################### */
 /**
  This file implements a "baseline" LED digit display functionality.
@@ -51,7 +52,7 @@ import UIKit
  This class is a Sequence Protocol class. It can be iterated.
  */
 
-import Foundation
+import UIKit
 
 /* ###################################################################################################################################### */
 /**

@@ -806,43 +806,17 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XyZ-cP-eu8">
-                                <rect key="frame" x="16" y="555" width="343" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="eeJ-7q-Avp"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="BASIC-DONE-BUTTON"/>
-                                <connections>
-                                    <action selector="doneButtonHit:" destination="Cmw-cs-f0x" eventType="touchUpInside" id="8cP-qa-g1q"/>
-                                    <action selector="doneButtonHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="P9W-rx-CWI"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oQk-9G-zSN">
-                                <rect key="frame" x="16" y="611" width="48" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="XIo-4D-wUQ"/>
-                                    <constraint firstAttribute="width" constant="48" id="gea-eI-DNU"/>
-                                </constraints>
-                                <state key="normal" image="LGVLogo"/>
-                                <connections>
-                                    <action selector="lgvButtonHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="FVI-gJ-heg"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-ABOUT-LGV-BLURB-1" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5N-K8-kBZ">
-                                <rect key="frame" x="72" y="616" width="287" height="21"/>
+                                <rect key="frame" x="76" y="599" width="283" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="6m3-rw-LxK"/>
+                                    <constraint firstAttribute="height" constant="30" id="4NS-wY-j3f"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6n-9J-uZt">
-                                <rect key="frame" x="72" y="639" width="287" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="ded-35-Ffe"/>
-                                </constraints>
+                                <rect key="frame" x="76" y="629" width="283" height="30"/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
                                 <state key="normal" title="LGV_TIMER-ABOUT-LGV-BLURB-2"/>
                                 <connections>
@@ -850,11 +824,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSL-0i-CJN">
-                                <rect key="frame" x="16" y="217" width="343" height="30"/>
+                                <rect key="frame" x="58.5" y="217" width="258" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ujL-9a-PdP"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
                                 <state key="normal" title="LGV_TIMER-ABOUT-LGV-INSTRUCTIONS-URI"/>
                                 <connections>
                                     <action selector="instructionsLinkHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="OYw-LR-zPa"/>
@@ -870,40 +844,69 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="baseColor">
-                                        <color key="value" red="0.0" green="0.0" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="value" red="0.1058823529" green="0.45882352939999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="moonColor">
-                                        <color key="value" red="1" green="1" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eqp-Wp-hSe" customClass="TheGreatRiftValleyDrawing" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
+                                <rect key="frame" x="8" y="599" width="60" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="eqp-Wp-hSe" secondAttribute="height" multiplier="1:1" id="Kb3-ct-Gak"/>
+                                    <constraint firstAttribute="width" constant="60" id="LxD-Hr-gzY"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="baseColor">
+                                        <color key="value" red="0.13373107149999999" green="0.2286122344" blue="0.85953691710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="moonColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XyZ-cP-eu8">
+                                <rect key="frame" x="16" y="543" width="343" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="eeJ-7q-Avp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="BASIC-DONE-BUTTON"/>
+                                <connections>
+                                    <action selector="doneButtonHit:" destination="Cmw-cs-f0x" eventType="touchUpInside" id="8cP-qa-g1q"/>
+                                    <action selector="doneButtonHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="P9W-rx-CWI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="P5N-K8-kBZ" firstAttribute="leading" secondItem="eqp-Wp-hSe" secondAttribute="trailing" constant="8" id="2ij-IB-O33"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="sSL-0i-CJN" secondAttribute="trailing" id="5FK-w5-l0v"/>
-                            <constraint firstItem="S6n-9J-uZt" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="5TW-LA-B8i"/>
-                            <constraint firstItem="P5N-K8-kBZ" firstAttribute="leading" secondItem="oQk-9G-zSN" secondAttribute="trailing" constant="8" id="787-rD-FJv"/>
+                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="trailing" secondItem="P5N-K8-kBZ" secondAttribute="trailing" constant="16" id="956-uT-UJ9"/>
+                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="bottom" secondItem="S6n-9J-uZt" secondAttribute="bottom" constant="8" id="AXz-qr-6U6"/>
                             <constraint firstItem="agq-yz-VPb" firstAttribute="top" secondItem="sO5-o8-Fyk" secondAttribute="bottom" constant="8" id="BTI-g2-n7A"/>
                             <constraint firstItem="sSL-0i-CJN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="Bhx-eg-p3c"/>
                             <constraint firstItem="XyZ-cP-eu8" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="FeB-om-qAP"/>
                             <constraint firstItem="sSL-0i-CJN" firstAttribute="centerX" secondItem="dLT-vZ-n7i" secondAttribute="centerX" id="FnD-bV-fcU"/>
+                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="trailing" secondItem="S6n-9J-uZt" secondAttribute="trailing" constant="16" id="MYU-jv-86l"/>
                             <constraint firstItem="sO5-o8-Fyk" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="PF5-51-baS"/>
                             <constraint firstItem="XyZ-cP-eu8" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="PJE-jF-nCO"/>
                             <constraint firstItem="sSL-0i-CJN" firstAttribute="top" secondItem="DIb-rd-Jfe" secondAttribute="bottom" id="PYr-Xh-KJt"/>
-                            <constraint firstItem="oQk-9G-zSN" firstAttribute="top" secondItem="XyZ-cP-eu8" secondAttribute="bottom" constant="8" id="VJQ-uR-2YV"/>
-                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="bottom" secondItem="S6n-9J-uZt" secondAttribute="bottom" constant="8" id="aoB-bQ-eea"/>
+                            <constraint firstItem="eqp-Wp-hSe" firstAttribute="leading" secondItem="dLT-vZ-n7i" secondAttribute="leading" constant="8" id="a7t-U8-RdZ"/>
+                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="bottom" secondItem="eqp-Wp-hSe" secondAttribute="bottom" constant="8" id="gUh-9K-vC0"/>
                             <constraint firstItem="DIb-rd-Jfe" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="gXu-0H-oJz"/>
                             <constraint firstItem="agq-yz-VPb" firstAttribute="centerX" secondItem="dLT-vZ-n7i" secondAttribute="centerX" id="hm2-az-vbW"/>
-                            <constraint firstItem="S6n-9J-uZt" firstAttribute="top" secondItem="P5N-K8-kBZ" secondAttribute="bottom" constant="2" id="kf8-dl-KhR"/>
-                            <constraint firstItem="S6n-9J-uZt" firstAttribute="leading" secondItem="oQk-9G-zSN" secondAttribute="trailing" constant="8" id="mBm-U9-n83"/>
+                            <constraint firstItem="S6n-9J-uZt" firstAttribute="top" secondItem="P5N-K8-kBZ" secondAttribute="bottom" id="jyo-vZ-ir0"/>
                             <constraint firstItem="sO5-o8-Fyk" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="ncS-Ps-pbh"/>
                             <constraint firstItem="DIb-rd-Jfe" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="oaa-Zd-LeW"/>
-                            <constraint firstItem="P5N-K8-kBZ" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="p9X-NP-Fqy"/>
+                            <constraint firstItem="P5N-K8-kBZ" firstAttribute="top" secondItem="XyZ-cP-eu8" secondAttribute="bottom" constant="8" id="ovK-59-Ax4"/>
+                            <constraint firstItem="P5N-K8-kBZ" firstAttribute="top" secondItem="eqp-Wp-hSe" secondAttribute="top" id="pec-Gf-VpL"/>
                             <constraint firstItem="DIb-rd-Jfe" firstAttribute="top" secondItem="agq-yz-VPb" secondAttribute="bottom" constant="8" id="qxL-vo-cWJ"/>
-                            <constraint firstItem="oQk-9G-zSN" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="rR6-5E-ojY"/>
+                            <constraint firstItem="S6n-9J-uZt" firstAttribute="leading" secondItem="eqp-Wp-hSe" secondAttribute="trailing" constant="8" id="rig-CM-Kxh"/>
                             <constraint firstItem="sO5-o8-Fyk" firstAttribute="top" secondItem="dLT-vZ-n7i" secondAttribute="top" id="v1Y-Gt-WkC"/>
-                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="bottom" secondItem="oQk-9G-zSN" secondAttribute="bottom" constant="8" id="x3D-mk-xfP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dLT-vZ-n7i"/>
                     </view>
@@ -974,7 +977,6 @@
     </scenes>
     <resources>
         <image name="Info" width="22" height="22"/>
-        <image name="LGVLogo" width="48" height="48"/>
         <image name="Phone-End" width="22" height="22"/>
         <image name="Phone-Reset" width="22" height="22"/>
         <image name="Phone-Start" width="22" height="22"/>

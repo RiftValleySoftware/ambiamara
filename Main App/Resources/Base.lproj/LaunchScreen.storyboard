@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,10 +14,6 @@
         <scene sceneID="EHf-IW-A2E">
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,12 +32,13 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="MkP-lI-0bj" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="228-fV-Czd"/>
-                            <constraint firstItem="MkP-lI-0bj" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="763-ke-ERo"/>
-                            <constraint firstItem="CWD-SK-yaX" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="-20" id="JzU-ba-Yqs"/>
-                            <constraint firstItem="CWD-SK-yaX" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="MDi-wt-UrU"/>
-                            <constraint firstAttribute="trailing" secondItem="CWD-SK-yaX" secondAttribute="trailing" id="N79-1N-xh4"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="CWD-SK-yaX" secondAttribute="bottom" id="ehX-9m-NS3"/>
+                            <constraint firstItem="MkP-lI-0bj" firstAttribute="centerX" secondItem="fGb-N6-vhw" secondAttribute="centerX" id="763-ke-ERo"/>
+                            <constraint firstItem="CWD-SK-yaX" firstAttribute="top" secondItem="fGb-N6-vhw" secondAttribute="top" constant="-20" id="JzU-ba-Yqs"/>
+                            <constraint firstItem="CWD-SK-yaX" firstAttribute="leading" secondItem="fGb-N6-vhw" secondAttribute="leading" id="MDi-wt-UrU"/>
+                            <constraint firstItem="fGb-N6-vhw" firstAttribute="trailing" secondItem="CWD-SK-yaX" secondAttribute="trailing" id="N79-1N-xh4"/>
+                            <constraint firstItem="fGb-N6-vhw" firstAttribute="bottom" secondItem="CWD-SK-yaX" secondAttribute="bottom" id="ehX-9m-NS3"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="fGb-N6-vhw"/>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
