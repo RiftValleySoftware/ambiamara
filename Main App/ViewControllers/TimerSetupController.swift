@@ -14,6 +14,7 @@
 
 import UIKit
 import AudioToolbox
+import AVKit
 
 /* ###################################################################################################################################### */
 /**
@@ -35,7 +36,55 @@ class TimerSetupController: TimerSetPickerController {
     @IBOutlet weak var podiumModeItemsConstraint: NSLayoutConstraint!
     @IBOutlet weak var colorPickerItemsHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var doneButton: UIButton!
+    var audioPlayer: AVAudioPlayer!
     
+    /* ################################################################## */
+    /**
+     */
+    private func _playAlertSound(_ inSoundID: Int) {
+            if let soundUrl = Bundle.main.url(forResource: String(format: "Sound-%02d", inSoundID), withExtension: "aiff") {
+                self.stopAudioPlayer()
+                self.playThisSound(soundUrl)
+            }
+    }
+    
+    /* ################################################################## */
+    /**
+     This plays any sound, using a given URL.
+     
+     - parameter inSoundURL: This is the URI to the sound resource.
+     */
+    func playThisSound(_ inSoundURL: URL) {
+        do {
+            if nil == self.audioPlayer {
+                try self.audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
+            }
+            self.audioPlayer?.play()
+        } catch {
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     If the audio player is going, this pauses it. Nothing happens if no audio player is going.
+     */
+    func pauseAudioPlayer() {
+        if nil != self.audioPlayer {
+            self.audioPlayer?.pause()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This terminates the audio player. Nothing happens if no audio player is going.
+     */
+    func stopAudioPlayer() {
+        if nil != self.audioPlayer {
+            self.audioPlayer?.stop()
+            self.audioPlayer = nil
+        }
+    }
+
     /* ################################################################## */
     /**
      */
@@ -50,22 +99,6 @@ class TimerSetupController: TimerSetPickerController {
         }
         
         self.soundSelectionSegmentedSwitch.isEnabled = ((.Silent != self.timerObject.alertMode) && (.VibrateOnly != self.timerObject.alertMode))
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    class private func _playAlertSound(_ inSoundID: Int) {
-        if let soundUrl = Bundle.main.url(forResource: String(format: "Sound-%02d", inSoundID), withExtension: "aiff") {
-            var soundId: SystemSoundID = 0
-            
-            AudioServicesCreateSystemSoundID(soundUrl as CFURL, &soundId)
-            
-            AudioServicesAddSystemSoundCompletion(soundId, nil, nil, { (soundId, _) -> Void in
-                AudioServicesDisposeSystemSoundID(soundId)
-            }, nil)
-            AudioServicesPlaySystemSound(soundId)
-        }
     }
     
     // MARK: - Base Class Override Methods
@@ -159,7 +192,7 @@ class TimerSetupController: TimerSetPickerController {
      */
     @IBAction func soundSelectionChanged(_ sender: UISegmentedControl) {
         self.timerObject.soundID = sender.selectedSegmentIndex
-        type(of: self)._playAlertSound(self.timerObject.soundID)
+        self._playAlertSound(self.timerObject.soundID)
     }
     
     /* ################################################################## */
@@ -174,9 +207,22 @@ class TimerSetupController: TimerSetPickerController {
     /**
      */
     @IBAction func doneButtonHit(_ sender: Any) {
+        self.stopAudioPlayer()
         self.dismiss(animated: true, completion: nil)
     }
     
+    /* ################################################################## */
+    /**
+     This terminates the audio player if it's playing. Nothing happens if no audio player is going.
+     
+     - parameter: ignored (We want to be able to call as an event handler).
+     */
+    @IBAction func soundBarHit(_: Any! = nil) {
+        if nil != self.audioPlayer {
+            self.stopAudioPlayer()
+        }
+    }
+
     /// MARK: - UIPickerViewDataSource Methods
     /* ################################################################################################################################## */
     /* ################################################################## */

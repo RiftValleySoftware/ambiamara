@@ -12,6 +12,7 @@
 
 import UIKit
 import AudioToolbox
+import AVKit
 
 /* ###################################################################################################################################### */
 /**
@@ -39,7 +40,8 @@ class TimerRuntimeViewController: TimerNavBaseController {
     var yellowLight: UIImageView! = nil
     var greenLight: UIImageView! = nil
     var myHandler: TimerSetController! = nil
-    
+    var audioPlayer: AVAudioPlayer!
+
     // MARK: - IB Properties
     /* ################################################################################################################################## */
     @IBOutlet weak var pauseButton: UIBarButtonItem!
@@ -125,32 +127,56 @@ class TimerRuntimeViewController: TimerNavBaseController {
     private func _playAlertSound() {
         if .Silent != self.timerObject.alertMode {
             if let soundUrl = Bundle.main.url(forResource: String(format: "Sound-%02d", self.timerObject.soundID), withExtension: "aiff") {
-                var soundId: SystemSoundID = 0
                 
-                if .VibrateOnly != self.timerObject.alertMode {
-                    AudioServicesCreateSystemSoundID(soundUrl as CFURL, &soundId)
-
-                    AudioServicesAddSystemSoundCompletion(soundId, nil, nil, { (soundId, _) -> Void in
-                        AudioServicesDisposeSystemSoundID(soundId)
-                    }, nil)
+                if .Both == self.timerObject.alertMode || .VibrateOnly != self.timerObject.alertMode {
+                    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
                 }
                 
-                if .Both == self.timerObject.alertMode {
-                    AudioServicesPlayAlertSound(soundId)
-                } else {
-                    if .VibrateOnly == self.timerObject.alertMode {
-                        AudioServicesAddSystemSoundCompletion(kSystemSoundID_Vibrate, nil, nil, { (_, _) -> Void in
-                            AudioServicesDisposeSystemSoundID(kSystemSoundID_Vibrate)
-                        }, nil)
-                        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                    } else {
-                        AudioServicesPlaySystemSound(soundId)
-                    }
+                if nil == self.audioPlayer {
+                    self.playThisSound(soundUrl)
                 }
             }
         }
     }
     
+    /* ################################################################## */
+    /**
+     This plays any sound, using a given URL.
+     
+     - parameter inSoundURL: This is the URI to the sound resource.
+     */
+    func playThisSound(_ inSoundURL: URL) {
+        do {
+            if nil == self.audioPlayer {
+                try self.audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
+                self.audioPlayer?.numberOfLoops = -1   // Repeat indefinitely
+            }
+            self.audioPlayer?.play()
+        } catch {
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     If the audio player is going, this pauses it. Nothing happens if no audio player is going.
+     */
+    func pauseAudioPlayer() {
+        if nil != self.audioPlayer {
+            self.audioPlayer?.pause()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This terminates the audio player. Nothing happens if no audio player is going.
+     */
+    func stopAudioPlayer() {
+        if nil != self.audioPlayer {
+            self.audioPlayer?.stop()
+            self.audioPlayer = nil
+        }
+    }
+
     // MARK: - Internal Instance Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -178,6 +204,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
      */
     func stopTimer() {
         self.flashDisplay(UIColor.red, duration: 0.5)
+        self.stopAudioPlayer()
         Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
     }
     
@@ -189,6 +216,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
             self.navBarItem.title = ""
         }
         
+        self.stopAudioPlayer()
         Timer_AppDelegate.appDelegateObject.timerEngine.endTimer()
     }
     
@@ -196,6 +224,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
     /**
      */
     func resetTimer() {
+        self.stopAudioPlayer()
         if .Paused != self.timerObject.timerStatus {
             self.flashDisplay(UIColor.red.withAlphaComponent(0.5), duration: 0.5)
         } else {

@@ -420,7 +420,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
             if 0 >= selectedTimer.currentTime {
                 self.startTimer()
             } else {
-                if (0 < selectedTimer.timeSetPodiumWarn) && (0 < selectedTimer.timeSetPodiumWarn) {
+                if (0 < selectedTimer.timeSetPodiumWarn) && (0 < selectedTimer.timeSetPodiumWarn) && (selectedTimer.timeSetPodiumWarn > selectedTimer.timeSetPodiumWarn) {
                     switch selectedTimer.currentTime {
                     case 0...selectedTimer.timeSetPodiumFinal:
                         selectedTimer.timerStatus = .FinalRun
@@ -721,7 +721,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
                         if type(of: self).timerTickInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
                             self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
                             selectedTimer.currentTime = Swift.max(0, selectedTimer.currentTime - 1)
-                            if (0 < selectedTimer.timeSetPodiumWarn) && (0 < selectedTimer.timeSetPodiumFinal) {
+                            if (0 < selectedTimer.timeSetPodiumWarn) && (0 < selectedTimer.timeSetPodiumFinal) && (selectedTimer.timeSetPodiumWarn > selectedTimer.timeSetPodiumFinal) {
                                 switch selectedTimer.currentTime {
                                 case 0:
                                     self._alarmCount = 0

@@ -13,11 +13,6 @@
 		771974DE1EF02FD2002C8F62 /* Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771974DD1EF02FD2002C8F62 /* Timer_SharedDeclarations.swift */; };
 		772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */; };
 		772459C81F1E1D10006CA335 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 772459C11F1E1CD7006CA335 /* Assets.xcassets */; };
-		772459CA1F1E1D17006CA335 /* Sound-00.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BB1F1E1CD7006CA335 /* Sound-00.aiff */; };
-		772459CB1F1E1D17006CA335 /* Sound-01.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BC1F1E1CD7006CA335 /* Sound-01.aiff */; };
-		772459CC1F1E1D17006CA335 /* Sound-02.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BD1F1E1CD7006CA335 /* Sound-02.aiff */; };
-		772459CD1F1E1D17006CA335 /* Sound-03.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BE1F1E1CD7006CA335 /* Sound-03.aiff */; };
-		772459CE1F1E1D17006CA335 /* Sound-04.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 772459BF1F1E1CD7006CA335 /* Sound-04.aiff */; };
 		772A13C61ED5E50C0043C58B /* Timer_SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13C51ED5E50C0043C58B /* Timer_SettingsViewController.swift */; };
 		772A13CC1ED5E8270043C58B /* Timer_MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13CB1ED5E8270043C58B /* Timer_MainTabController.swift */; };
 		772A13D81ED5E8840043C58B /* Timer_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13D41ED5E8840043C58B /* Timer_AppDelegate.swift */; };
@@ -37,6 +32,14 @@
 		D427963E219B50F90012F705 /* SwipeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279638219B50F90012F705 /* SwipeAnimation.swift */; };
 		D427963F219B50F90012F705 /* SwipeableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279639219B50F90012F705 /* SwipeableTabBarController.swift */; };
 		D4CF37C8219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */; };
+		D4D2639F219C91340057D1A3 /* Sound-02.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D2639A219C91340057D1A3 /* Sound-02.aiff */; };
+		D4D263A0219C91340057D1A3 /* Sound-06.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D2639B219C91340057D1A3 /* Sound-06.aiff */; };
+		D4D263A1219C91340057D1A3 /* Sound-07.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D2639C219C91340057D1A3 /* Sound-07.aiff */; };
+		D4D263A2219C91340057D1A3 /* Sound-01.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D2639D219C91340057D1A3 /* Sound-01.aiff */; };
+		D4D263A3219C91340057D1A3 /* Sound-00.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D2639E219C91340057D1A3 /* Sound-00.aiff */; };
+		D4D263A5219C9C070057D1A3 /* Sound-05.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D263A4219C9C070057D1A3 /* Sound-05.aiff */; };
+		D4D263A7219C9C7B0057D1A3 /* Sound-04.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D263A6219C9C7B0057D1A3 /* Sound-04.aiff */; };
+		D4D263A9219C9CDD0057D1A3 /* Sound-03.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D263A8219C9CDD0057D1A3 /* Sound-03.aiff */; };
 		D4FE3794219B6D180031E105 /* LED_Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE3792219B6D180031E105 /* LED_Element.swift */; };
 		D4FE3795219B6D180031E105 /* LED_ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE3793219B6D180031E105 /* LED_ClockView.swift */; };
 /* End PBXBuildFile section */
@@ -59,11 +62,6 @@
 		77052CD61EE0DAAD00DA2E8C /* TimerRuntimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimerRuntimeViewController.swift; path = ViewControllers/TimerRuntimeViewController.swift; sourceTree = "<group>"; };
 		770FB9AF1EE4359300E3120D /* Timer_InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timer_InfoViewController.swift; path = ViewControllers/Timer_InfoViewController.swift; sourceTree = "<group>"; };
 		771974DD1EF02FD2002C8F62 /* Timer_SharedDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timer_SharedDeclarations.swift; path = ../Shared/Timer_SharedDeclarations.swift; sourceTree = "<group>"; };
-		772459BB1F1E1CD7006CA335 /* Sound-00.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-00.aiff"; sourceTree = "<group>"; };
-		772459BC1F1E1CD7006CA335 /* Sound-01.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-01.aiff"; sourceTree = "<group>"; };
-		772459BD1F1E1CD7006CA335 /* Sound-02.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-02.aiff"; sourceTree = "<group>"; };
-		772459BE1F1E1CD7006CA335 /* Sound-03.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-03.aiff"; sourceTree = "<group>"; };
-		772459BF1F1E1CD7006CA335 /* Sound-04.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-04.aiff"; sourceTree = "<group>"; };
 		772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Let's go Digital Regular.ttf"; sourceTree = "<group>"; };
 		772459C11F1E1CD7006CA335 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		772A13C51ED5E50C0043C58B /* Timer_SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timer_SettingsViewController.swift; path = ViewControllers/Timer_SettingsViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +101,14 @@
 		D4279638219B50F90012F705 /* SwipeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeAnimation.swift; sourceTree = "<group>"; };
 		D4279639219B50F90012F705 /* SwipeableTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeableTabBarController.swift; sourceTree = "<group>"; };
 		D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TheGreatRiftValleyDrawing.swift; path = ViewControllers/TheGreatRiftValleyDrawing.swift; sourceTree = "<group>"; };
+		D4D2639A219C91340057D1A3 /* Sound-02.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-02.aiff"; sourceTree = "<group>"; };
+		D4D2639B219C91340057D1A3 /* Sound-06.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-06.aiff"; sourceTree = "<group>"; };
+		D4D2639C219C91340057D1A3 /* Sound-07.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-07.aiff"; sourceTree = "<group>"; };
+		D4D2639D219C91340057D1A3 /* Sound-01.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-01.aiff"; sourceTree = "<group>"; };
+		D4D2639E219C91340057D1A3 /* Sound-00.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-00.aiff"; sourceTree = "<group>"; };
+		D4D263A4219C9C070057D1A3 /* Sound-05.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-05.aiff"; sourceTree = "<group>"; };
+		D4D263A6219C9C7B0057D1A3 /* Sound-04.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-04.aiff"; sourceTree = "<group>"; };
+		D4D263A8219C9CDD0057D1A3 /* Sound-03.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-03.aiff"; sourceTree = "<group>"; };
 		D4F242C2219B501900D809EB /* SwipeableTabBarController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwipeableTabBarController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F242C4219B506C00D809EB /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "Pods/Reveal-SDK/RevealServer-19/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		D4FE3792219B6D180031E105 /* LED_Element.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LED_Element.swift; path = "Main App/LEDDisplay/LED_Element.swift"; sourceTree = "<group>"; };
@@ -141,22 +147,10 @@
 				77AF00B61F69623800D35EF1 /* LaunchScreen.storyboard */,
 				773980A21F6963A00019A541 /* Localizable.strings */,
 				772459C11F1E1CD7006CA335 /* Assets.xcassets */,
+				D4D26399219C91340057D1A3 /* Sounds */,
 				D4065C32219B62A500B76DD4 /* Fonts */,
-				772459BA1F1E1CD7006CA335 /* Beep Sounds */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		772459BA1F1E1CD7006CA335 /* Beep Sounds */ = {
-			isa = PBXGroup;
-			children = (
-				772459BB1F1E1CD7006CA335 /* Sound-00.aiff */,
-				772459BC1F1E1CD7006CA335 /* Sound-01.aiff */,
-				772459BD1F1E1CD7006CA335 /* Sound-02.aiff */,
-				772459BE1F1E1CD7006CA335 /* Sound-03.aiff */,
-				772459BF1F1E1CD7006CA335 /* Sound-04.aiff */,
-			);
-			path = "Beep Sounds";
 			sourceTree = "<group>";
 		};
 		772A13E71ED5E95A0043C58B /* App Files */ = {
@@ -305,6 +299,21 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		D4D26399219C91340057D1A3 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				D4D2639E219C91340057D1A3 /* Sound-00.aiff */,
+				D4D2639D219C91340057D1A3 /* Sound-01.aiff */,
+				D4D2639A219C91340057D1A3 /* Sound-02.aiff */,
+				D4D263A8219C9CDD0057D1A3 /* Sound-03.aiff */,
+				D4D263A6219C9C7B0057D1A3 /* Sound-04.aiff */,
+				D4D263A4219C9C070057D1A3 /* Sound-05.aiff */,
+				D4D2639B219C91340057D1A3 /* Sound-06.aiff */,
+				D4D2639C219C91340057D1A3 /* Sound-07.aiff */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -376,14 +385,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				77AF00B71F69624E00D35EF1 /* Main.storyboard in Resources */,
-				772459CC1F1E1D17006CA335 /* Sound-02.aiff in Resources */,
+				D4D263A2219C91340057D1A3 /* Sound-01.aiff in Resources */,
+				D4D263A0219C91340057D1A3 /* Sound-06.aiff in Resources */,
 				773980A61F6964820019A541 /* Localizable.strings in Resources */,
+				D4D263A1219C91340057D1A3 /* Sound-07.aiff in Resources */,
 				772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */,
-				772459CE1F1E1D17006CA335 /* Sound-04.aiff in Resources */,
-				772459CB1F1E1D17006CA335 /* Sound-01.aiff in Resources */,
+				D4D263A9219C9CDD0057D1A3 /* Sound-03.aiff in Resources */,
+				D4D263A5219C9C070057D1A3 /* Sound-05.aiff in Resources */,
+				D4D263A7219C9C7B0057D1A3 /* Sound-04.aiff in Resources */,
 				772459C81F1E1D10006CA335 /* Assets.xcassets in Resources */,
-				772459CA1F1E1D17006CA335 /* Sound-00.aiff in Resources */,
-				772459CD1F1E1D17006CA335 /* Sound-03.aiff in Resources */,
+				D4D263A3219C91340057D1A3 /* Sound-00.aiff in Resources */,
+				D4D2639F219C91340057D1A3 /* Sound-02.aiff in Resources */,
 				77AF00B41F69623800D35EF1 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
