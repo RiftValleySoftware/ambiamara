@@ -89,6 +89,8 @@ public protocol LED_Element {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Main Class
+/* ###################################################################################################################################### */
 /**
  This class represents a single LED digit.
  It will create paths that represent the digit, from -1 to 15. -1 is just the center segment (minus sign), and 10 - 15 are A, b, C, d E, F
@@ -100,8 +102,8 @@ public protocol LED_Element {
  If you give it a value of -2, then nothing is displayed.
  */
 public class LED_SingleDigit: LED_Element {
+    /* ################################################################## */
     // MARK: - Class Enums
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /// These are indexes, used to make it a bit more apparent what segment is being sought.
     enum SegmentIndexes {
@@ -114,8 +116,8 @@ public class LED_SingleDigit: LED_Element {
         case kCenterSegment         ///< center segment
     }
     
+    /* ################################################################## */
     // MARK: - Private Class Constants
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /// These provide the indexes for selected values
     private static let _c_g_segmentSelection: [[SegmentIndexes]] = [
@@ -179,8 +181,8 @@ public class LED_SingleDigit: LED_Element {
     /// This is the size of the entire drawing area.
     private static let _c_g_displaySize = CGSize(width: 250, height: 492)
     
+    /* ################################################################## */
     // MARK: - Private Instance Constants
-    /* ################################################################################################################################## */
     /* ################################################################## */
     private let _topSegment: UIBezierPath!
     private let _topLeftSegment: UIBezierPath!
@@ -191,13 +193,13 @@ public class LED_SingleDigit: LED_Element {
     private let _centerSegment: UIBezierPath!
     private var _value: Int
     
+    /* ################################################################## */
     // MARK: - Initializer
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Instantiates each of the segments.
      
-     :param: A value, from -2 to 15 (-2 is nothing. -1 is the minus sign).
+     - parameter A: value, from -2 to 15 (-2 is nothing. -1 is the minus sign).
      */
     init(_ inValue: Int) {
         self._topSegment = type(of: self)._newSegmentShape(inSegment: .kTopSegment)
@@ -210,8 +212,8 @@ public class LED_SingleDigit: LED_Element {
         self._value = max(-2, min(15, inValue))
     }
     
+    /* ################################################################## */
     // MARK: - Public Instance Calculated Properties
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Public accessor for the value of this digit (-1 through 15).
@@ -221,8 +223,8 @@ public class LED_SingleDigit: LED_Element {
         set { self._value = max(-2, min(15, newValue)) }
     }
     
+    /* ################################################################## */
     // MARK: - LED_Element Protocol Calculated Properties
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Get the bounding box of this segment.
@@ -352,15 +354,15 @@ public class LED_SingleDigit: LED_Element {
         return ret
     }
     
+    /* ################################################################## */
     // MARK: - Private Class Functions
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Creates a path containing a segment shape.
      
-     :param: inSegment This indicates which segment we want (Will affect rotation and selection of shape).
+     - parameter inSegment: This indicates which segment we want (Will affect rotation and selection of shape).
      
-     :returns: a new path, in the shape of the requested segment
+     - returns: a new path, in the shape of the requested segment
      */
     private class func _newSegmentShape(inSegment: SegmentIndexes) -> UIBezierPath! {
         let ret: UIBezierPath! = UIBezierPath()
@@ -414,15 +416,15 @@ public class LED_SingleDigit: LED_Element {
         return ret
     }
     
+    /* ################################################################## */
     // MARK: - Private Instance Functions
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Returns true, if the segment is selected for the current value.
      
-     :param: inSegment This indicates which segment we want to test.
+     - parameter inSegment: This indicates which segment we want to test.
      
-     :returns: true, if the segment is selected, false, otherwise
+     - returns: true, if the segment is selected, false, otherwise
      */
     private func _isSegmentSelected(_ inSegment: SegmentIndexes) -> Bool {
         var ret: Bool = false
@@ -445,26 +447,27 @@ public class LED_SingleDigit: LED_Element {
  you can change the value (an array of Bool), to change the "lit" segments at runtime.
  */
 public class LED_SeparatorDots: LED_Element {
+    /* ################################################################## */
     // MARK: - Private Class Constants
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /// This is the size of the entire drawing area.
     private static let _c_g_displaySize = CGSize(width: 50, height: 492)
     
+    /* ################################################################## */
     // MARK: - Private Instance Properties
-    /* ################################################################################################################################## */
+    /* ################################################################## */
     /// This contains all our segments (dots).
     private let _segments: [UIBezierPath]
     /// This is which segments are lit.
     private var _litSegments: [Bool]
     
+    /* ################################################################## */
     // MARK: - Initializer
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Instantiates each of the segments.
      
-     :param: An array of Bool, indicating which segments should be lit. There must be at least Two values.
+     - parameter An: array of Bool, indicating which segments should be lit. There must be at least Two values.
      */
     init(_ inLitSegments: [Bool] = [true]) {
         let dotHorizontalCenter: CGFloat = type(of: self)._c_g_displaySize.width / 2
@@ -507,8 +510,8 @@ public class LED_SeparatorDots: LED_Element {
         }
     }
     
+    /* ################################################################## */
     // MARK: - Public Instance Calculated Properties
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Get the number of dots.
@@ -526,8 +529,8 @@ public class LED_SeparatorDots: LED_Element {
         set { self._litSegments = newValue }
     }
     
+    /* ################################################################## */
     // MARK: - LED_Element Protocol Calculated Properties
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Get the drawing size of this element.
@@ -611,15 +614,15 @@ public class LED_ElementGrouping: LED_Element, Sequence {
     private var _separationSpace: CGFloat
     private var _offsetPoint: CGPoint = CGPoint.zero
     
+    /* ################################################################## */
     // MARK: - Initializers
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This is the "technical" inititializer.
      
-     :param: inElements This is an array of LED_Element objects, and is set without any interpretation. This cannot be changed after instantiation.
-     :param: inContainerSize This is a CGSize that represents the destination context. If it is CGSize.zero, then the default for the elements will be used. This can be changed.
-     :param: inSeparationSpace This is how many units (in destination context) will separate each of the elements (only applied if more than one element). This can be changed.
+     - parameter inElements: This is an array of LED_Element objects, and is set without any interpretation. This cannot be changed after instantiation.
+     - parameter inContainerSize: This is a CGSize that represents the destination context. If it is CGSize.zero, then the default for the elements will be used. This can be changed.
+     - parameter inSeparationSpace: This is how many units (in destination context) will separate each of the elements (only applied if more than one element). This can be changed.
      */
     init(inElements: [LED_Element], inContainerSize: CGSize, inSeparationSpace: CGFloat) {
         self._containedElemnts = inElements
@@ -631,9 +634,9 @@ public class LED_ElementGrouping: LED_Element, Sequence {
     /**
      This is an inititializer that will instantiate the two basic elements, according to a "map" handed in.
      
-     :param: inElements This is an array of ElementLayout tuples. It is interpreted for the types of instances to create. This cannot be changed after instantiation.
-     :param: inContainerSize This is a CGSize that represents the destination context. If it is CGSize.zero, then the default for the elements will be used. This can be changed. Default is CGSize.zero (Use element default).
-     :param: inSeparationSpace This is how many units (in destination context) will separate each of the elements (only applied if more than one element). This can be changed. Default is 12.
+     - parameter inElements: This is an array of ElementLayout tuples. It is interpreted for the types of instances to create. This cannot be changed after instantiation.
+     - parameter inContainerSize: This is a CGSize that represents the destination context. If it is CGSize.zero, then the default for the elements will be used. This can be changed. Default is CGSize.zero (Use element default).
+     - parameter inSeparationSpace: This is how many units (in destination context) will separate each of the elements (only applied if more than one element). This can be changed. Default is 12.
      */
     convenience init(_ inElementLayout: [ElementLayout], inContainerSize: CGSize = CGSize.zero, inSeparationSpace: CGFloat = 12) {
         var elements: [LED_Element] = []
@@ -660,8 +663,8 @@ public class LED_ElementGrouping: LED_Element, Sequence {
         self.init(inElements: elements, inContainerSize: inContainerSize, inSeparationSpace: inSeparationSpace)
     }
     
+    /* ################################################################## */
     // MARK: - Private Instance Calculated Properties
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This returns a size that exactly fits all the contained elements with no spacing and no scaling.
@@ -719,8 +722,8 @@ public class LED_ElementGrouping: LED_Element, Sequence {
         return ret
     }
     
+    /* ################################################################## */
     // MARK: - Public Instance Calculated Properties
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Get/set the display size for rendering.
@@ -767,8 +770,8 @@ public class LED_ElementGrouping: LED_Element, Sequence {
         return self._containedElemnts
     }
     
+    /* ################################################################## */
     // MARK: - LED_Element Protocol Calculated Properties
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Get the drawing size of this element.
@@ -865,14 +868,14 @@ public class LED_ElementGrouping: LED_Element, Sequence {
         return ret
     }
     
+    /* ################################################################## */
     // MARK: - Subscript for Accessing Elements
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Get one of the elements, by index.
      
-     :param: index The 0-based index of the element sought.
-     :returns: The LED Element requested.
+     - parameter index: The 0-based index of the element sought.
+     - returns: The LED Element requested.
      */
     public subscript(_ index: Int) -> LED_Element! {
         if (0 <= index) && (index < self._containedElemnts.count) {
@@ -882,15 +885,15 @@ public class LED_ElementGrouping: LED_Element, Sequence {
         }
     }
     
+    /* ################################################################## */
     // MARK: Sequence Protocol Methods
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Create an iterator for this instance.
      
      This iterator follows the order of the array, starting from element 0, and working up to the end.
      
-     :returns: an iterator for the contained elements.
+     - returns: an iterator for the contained elements.
      */
     public func makeIterator() -> AnyIterator<LED_Element> {
         var index = 0

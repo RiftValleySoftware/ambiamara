@@ -10,7 +10,67 @@
 
 import UIKit
 
+/* ###################################################################################################################################### */
 // MARK: - Class Extensions
+/* ###################################################################################################################################### */
+/**
+ */
+extension UIColor {
+    /* ################################################################## */
+    /**
+     This just allows us to get an HSB color from a standard UIColor.
+     From here: https://stackoverflow.com/a/30713456/879365
+     
+     - returns: A tuple, containing the HSBA color.
+     */
+    var hsba:(h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat) {
+        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        if self.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
+            return (h: h, s: s, b: b, a: a)
+        }
+        return (h: 0, s: 0, b: 0, a: 0)
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns true, if the color is grayscale (or black or white).
+     */
+    var isGrayscale: Bool {
+        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        if !self.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
+            return true
+        }
+        return h == 0 && s == 0
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns true, if the color is clear.
+     */
+    var isClear: Bool {
+        var white: CGFloat = 0, h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        if !self.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
+            return 0.0 == a
+        } else if self.getWhite(&white, alpha: &a) {
+            return 0.0 == a
+        }
+        
+        return false
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns the white level of the color.
+     */
+    var whiteLevel: CGFloat {
+        var white: CGFloat = 0, alpha: CGFloat = 0
+        if self.getWhite(&white, alpha: &alpha) {
+            return white
+        }
+        return 0
+    }
+}
+
 /* ###################################################################################################################################### */
 /**
  This makes it easier to convert between Degrees and Radians.
@@ -22,6 +82,8 @@ extension CGFloat {
     }
 }
 
+/* ###################################################################################################################################### */
+// MARK: - Main Class
 /* ###################################################################################################################################### */
 /**
  This class instantiates a bunch of LED Elements into a "Digital Clock," to be displayed to cover most of the screen.
@@ -57,24 +119,25 @@ public class LED_ClockView: UIView {
         }
     }
     
+    /* ################################################################## */
     // MARK: - Private Instance Properties
-    /* ################################################################################################################################## */
+    /* ################################################################## */
     private var _separatorsOn: Bool = true                      ///< Whether or not the separators bewteen digit groups are shown.
     private var _allElementGroup: LED_ElementGrouping! = nil    ///< Used to pass the calculated paths to the draw method.
     private var _bottomLayer: CAShapeLayer! = nil               ///< Tracks the outline shapes for the segments (inactive)
-    private var _topLayer: CAShapeLayer! = nil                  ///< Tracks the active ("lit") segment shapes.
+    private var _topLayer: CAGradientLayer! = nil                  ///< Tracks the active ("lit") segment shapes.
     private var _displayView: UIView! = nil                     ///< This will contain the "LED Display."
     private var _gridImageView: UIImageView! = nil              ///< This will contain a "grid" that makes the display look like an old-time fluorescent display.
     
+    /* ################################################################## */
     // MARK: - Private Class Methods
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This will set an LED element grouping to display a value, in decimal numbering.
      
-     :param: inGroup The LED element group that comprises one decimal number.
-     :param: inValue The value to have the group display.
-     :param: inZeroFill If true, we have leading zeroes displayed.
+     - parameter inGroup: The LED element group that comprises one decimal number.
+     - parameter inValue: The value to have the group display.
+     - parameter inZeroFill: If true, we have leading zeroes displayed.
      */
     private class func _setDecimalValue(_ inGroup: LED_ElementGrouping, inValue: Int, inZeroFill: Bool) {
         if let elements = inGroup.elements as? [LED_SingleDigit] {
@@ -111,9 +174,9 @@ public class LED_ClockView: UIView {
      This creates an array of CGPoint, based on a 0,0 origin, that describe
      a hexagon, on its "side" (point facing up).
      
-     :param: inHowBig The radius, in display units.
+     - parameter inHowBig: The radius, in display units.
      
-     :returns: an array of [CGPoint], that can be used to describe a path.
+     - returns: an array of [CGPoint], that can be used to describe a path.
      */
     private class func _pointySideUpHexagon(_ inHowBig: CGFloat) -> [CGPoint] {
         let angle = CGFloat(60).radians()
@@ -144,9 +207,9 @@ public class LED_ClockView: UIView {
     /**
      This returns a CGMutablePath, describing a "pointy side up" hexagon.
      
-     :param: inHowBig The radius, in display units.
+     - parameter inHowBig: The radius, in display units.
      
-     :returns: A mutable CGPath, describing a "pointy side up" hexagon.
+     - returns: A mutable CGPath, describing a "pointy side up" hexagon.
      */
     private class func _getHexPath(_ inHowBig: CGFloat) -> CGMutablePath {
         let path = CGMutablePath()
@@ -160,8 +223,8 @@ public class LED_ClockView: UIView {
         return path
     }
     
+    /* ################################################################## */
     // MARK: - Private Instance Methods
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This class generates an overlay image of a faint "hex grid" that allows us to simulate an old-fashioned "fluorescent" display.
@@ -207,8 +270,8 @@ public class LED_ClockView: UIView {
         return image!
     }
     
+    /* ################################################################## */
     // MARK: - Superclass Override Methods
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Called when the view needs to have its layout recalculated. Most of the work is done here.
@@ -336,8 +399,9 @@ public class LED_ClockView: UIView {
     /**
      In this drawing routine, we take each of the layers (the bottom, "inactive mask" layer, and the top, "active" layer),
      and render them, with a brief animation that makes a little "flare," as seen in the old gas elements.
+     We also render the "lit" segments with a brightness gradient.
      
-     :param: rect the rectangle in which to render the display (ignored).
+     - parameter rect: the rectangle in which to render the display (ignored).
      */
     override public func draw(_ rect: CGRect) {
         let activePath = self._allElementGroup.activeSegments
@@ -358,11 +422,27 @@ public class LED_ClockView: UIView {
             self._topLayer.removeFromSuperlayer()
         }
         
-        self._topLayer = CAShapeLayer()
-        self._topLayer.strokeColor = UIColor.clear.cgColor
-        self._topLayer.fillColor = self.activeSegmentColor.cgColor
-        self._topLayer.path = activePath.cgPath
+        self._topLayer = CAGradientLayer()
+        var fillEndColor: UIColor = UIColor.clear
+        var fillStartColor: UIColor = UIColor.clear
         
+        if self.activeSegmentColor.isGrayscale {
+            fillEndColor = UIColor(white: self.activeSegmentColor.whiteLevel, alpha: 1.0)
+            fillStartColor = UIColor(white: max(0, self.activeSegmentColor.whiteLevel - 0.5), alpha: 1.0)
+        } else {
+            fillEndColor = UIColor(hue: self.activeSegmentColor.hsba.h, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+            fillStartColor = UIColor(hue: self.activeSegmentColor.hsba.h, saturation: 1.0, brightness: 0.5, alpha: 1.0)
+        }
+        
+        self._topLayer.colors = [fillStartColor.cgColor, fillEndColor.cgColor]
+        self._topLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
+        self._topLayer.endPoint = CGPoint(x: 0.5, y: 0)
+        self._topLayer.frame = self.bounds
+
+        let shape = CAShapeLayer()
+        shape.path = activePath.cgPath
+        self._topLayer.mask = shape
+
         let animation1 = CABasicAnimation(keyPath: "opacity")
         animation1.fromValue = 0.75
         animation1.toValue = 1.0
