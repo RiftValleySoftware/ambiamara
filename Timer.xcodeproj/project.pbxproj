@@ -27,7 +27,6 @@
 		7770CB2E1ED6153500ED1F9A /* TimerSetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2D1ED6153500ED1F9A /* TimerSetController.swift */; };
 		7770CB301ED6156300ED1F9A /* TimerSetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2F1ED6156300ED1F9A /* TimerSetupController.swift */; };
 		7789C3241ED61CEF009EAB3D /* TimerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7789C3231ED61CEF009EAB3D /* TimerBaseViewController.swift */; };
-		77AF00B11F69622F00D35EF1 /* ColorThemes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77AF00B31F69622F00D35EF1 /* ColorThemes.xib */; };
 		77AF00B41F69623800D35EF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77AF00B61F69623800D35EF1 /* LaunchScreen.storyboard */; };
 		77AF00B71F69624E00D35EF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77AF00B91F69624E00D35EF1 /* Main.storyboard */; };
 		77BB98E11F12838F0062B14A /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB98E01F12838F0062B14A /* TimerEngine.swift */; };
@@ -82,7 +81,6 @@
 		7770CB2D1ED6153500ED1F9A /* TimerSetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimerSetController.swift; path = ViewControllers/TimerSetController.swift; sourceTree = "<group>"; };
 		7770CB2F1ED6156300ED1F9A /* TimerSetupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimerSetupController.swift; path = ViewControllers/TimerSetupController.swift; sourceTree = "<group>"; };
 		7789C3231ED61CEF009EAB3D /* TimerBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimerBaseViewController.swift; path = ViewControllers/TimerBaseViewController.swift; sourceTree = "<group>"; };
-		77AF00B21F69622F00D35EF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ColorThemes.xib; sourceTree = "<group>"; };
 		77AF00B51F69623800D35EF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		77AF00B81F69624E00D35EF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		77BB98E01F12838F0062B14A /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimerEngine.swift; path = "App Files/TimerEngine.swift"; sourceTree = "<group>"; };
@@ -140,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				77AF00B91F69624E00D35EF1 /* Main.storyboard */,
-				77AF00B31F69622F00D35EF1 /* ColorThemes.xib */,
 				77AF00B61F69623800D35EF1 /* LaunchScreen.storyboard */,
 				773980A21F6963A00019A541 /* Localizable.strings */,
 				772459C11F1E1CD7006CA335 /* Assets.xcassets */,
@@ -384,7 +381,6 @@
 				772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */,
 				772459CE1F1E1D17006CA335 /* Sound-04.aiff in Resources */,
 				772459CB1F1E1D17006CA335 /* Sound-01.aiff in Resources */,
-				77AF00B11F69622F00D35EF1 /* ColorThemes.xib in Resources */,
 				772459C81F1E1D10006CA335 /* Assets.xcassets in Resources */,
 				772459CA1F1E1D17006CA335 /* Sound-00.aiff in Resources */,
 				772459CD1F1E1D17006CA335 /* Sound-03.aiff in Resources */,
@@ -471,14 +467,6 @@
 				773980A71F6964960019A541 /* Base */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		77AF00B31F69622F00D35EF1 /* ColorThemes.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				77AF00B21F69622F00D35EF1 /* Base */,
-			);
-			name = ColorThemes.xib;
 			sourceTree = "<group>";
 		};
 		77AF00B61F69623800D35EF1 /* LaunchScreen.storyboard */ = {
