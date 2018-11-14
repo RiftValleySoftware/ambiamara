@@ -21,8 +21,15 @@ This uses elements of [the excellent SwipeableTabBarController, by Marcos Grisel
 
 CHANGELIST
 ----------
-***Version 2.1.0* ** *- TBD*
 
+
+***Version 1.0.0.2000 (of Rift Valley Countdown Timer)* ** *- November 14, 2018*
+
+- This has been transferred over to Rift Valley, and will be sold as a different app.
+- Added a number of more sounds.
+- Changed the color selection to a continuous set of graduated hues.
+- Changed the audio player to a real looped AV player.
+- Moved the Swipeable Bar Controller and the LED displays into the regular code, as opposed to having them as dependencies.
 - Updated the README and the code headers with additional info, prior to opening the app.
 - Updated some commenting in the code. Equivalent of cleaning up the dorm room before the parents visit.
 - The LGV link now goes to the main LGV site, and not the X-Timer 
