@@ -165,24 +165,24 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let ret = tableView.dequeueReusableCell(withIdentifier: "SingleTimerCell") as? SettingsTimerTableCell {
-            if let clockView = ret.clockDisplay {
+            if let clockView = ret.clockDisplay, let timerNameLabel = ret.timerNameLabel {
                 let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
                 clockView.text = TimeTuple(timerPrefs.timeSet).description
-                clockView.textColor = (.Podium == timerPrefs.displayMode ? UIColor.white: self.mainTabController.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!)
                 if .Podium == timerPrefs.displayMode {
+                    clockView.textColor = UIColor.white
+                    timerNameLabel.textColor = UIColor.white
                     clockView.font = UIFont.boldSystemFont(ofSize: 24)
                 } else {
+                    if let backgroundColor = self.mainTabController.timerEngine.colorLabelArray[timerPrefs.colorTheme].backgroundColor {
+                        clockView.textColor = backgroundColor
+                        timerNameLabel.textColor = backgroundColor
+                    }
                     if let titleFont = UIFont(name: "Let's Go Digital", size: 30) {
                         clockView.font = titleFont
                     }
                 }
-                clockView.setNeedsDisplay()
-            }
-            
-            if let timerNameLabel = ret.timerNameLabel {
-                let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
-                timerNameLabel.textColor = (.Podium == timerPrefs.displayMode ? UIColor.white: self.mainTabController.timerEngine.colorLabelArray[timerPrefs.colorTheme].textColor!)
                 timerNameLabel.text = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
+                clockView.setNeedsDisplay()
             }
             
             if let trafficLights = ret.trafficLights {

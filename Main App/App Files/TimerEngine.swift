@@ -193,12 +193,16 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      */
     var colorLabelArray: [UILabel] {
         if self._colorLabelArray.isEmpty {
-            if let view = UINib(nibName: type(of: self)._sviewBundleName, bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? UIView {
-                for subView in view.subviews {
-                    if let label = subView as? UILabel {
-                        self._colorLabelArray.append(label)
-                    }
-                }
+            // The first index is white.
+            let label = UILabel()
+            label.backgroundColor = UIColor.white
+            self._colorLabelArray = [label]
+            // We generate a series of colors, fully saturated, from red (orangeish) to red (purpleish).
+            for hue: CGFloat in stride(from: 0.0, to: 1.0, by: 0.05) {
+                let color = UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+                let label = UILabel()
+                label.backgroundColor = color
+                self._colorLabelArray.append(label)
             }
         }
         

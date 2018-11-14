@@ -786,129 +786,77 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-INFO-TITLE-FORMAT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="sO5-o8-Fyk">
-                                <rect key="frame" x="16" y="20" width="343" height="21"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="agq-yz-VPb" customClass="TheGreatRiftValleyDrawing" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
+                                <rect key="frame" x="137.5" y="20" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="b7y-oQ-tvx"/>
+                                    <constraint firstAttribute="width" constant="100" id="jnU-2Q-8XH"/>
+                                    <constraint firstAttribute="width" secondItem="agq-yz-VPb" secondAttribute="height" multiplier="1:1" id="lZW-qg-jpI"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="baseColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="moonColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="lgvButtonHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="9Oi-q0-Nqd"/>
+                                </connections>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-INFO-CORPORATE-BLURB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyi-Sb-0Gd">
+                                <rect key="frame" x="16" y="128" width="343" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="tXb-i4-iiC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-INFO-TITLE-FORMAT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="sO5-o8-Fyk">
+                                <rect key="frame" x="16" y="154" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="GlE-P5-iZQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="LGV_TIMER-ABOUT-LONG-BLURB" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DIb-rd-Jfe">
-                                <rect key="frame" x="16" y="157" width="343" height="60"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" placeholder="YES" id="L4E-zq-lBO"/>
-                                </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" text="LGV_TIMER-ABOUT-TEXT" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8bv-Ws-8kF">
+                                <rect key="frame" x="16" y="183" width="343" height="468"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Eaq-vT-Hyr" appends="YES" id="6io-0N-hJ8"/>
+                                </connections>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-ABOUT-LGV-BLURB-1" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5N-K8-kBZ">
-                                <rect key="frame" x="76" y="599" width="283" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="4NS-wY-j3f"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6n-9J-uZt">
-                                <rect key="frame" x="76" y="629" width="283" height="30"/>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
-                                <state key="normal" title="LGV_TIMER-ABOUT-LGV-BLURB-2"/>
-                                <connections>
-                                    <action selector="lgvButtonHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="esd-aK-Zwv"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSL-0i-CJN">
-                                <rect key="frame" x="58.5" y="217" width="258" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="ujL-9a-PdP"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
-                                <state key="normal" title="LGV_TIMER-ABOUT-LGV-INSTRUCTIONS-URI"/>
-                                <connections>
-                                    <action selector="instructionsLinkHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="OYw-LR-zPa"/>
-                                    <action selector="lgvButtonHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="4Nl-1A-bOv"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="agq-yz-VPb" customClass="TheGreatRiftValleyDrawing" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
-                                <rect key="frame" x="137.5" y="49" width="100" height="100"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="621-RJ-byG"/>
-                                    <constraint firstAttribute="width" secondItem="agq-yz-VPb" secondAttribute="height" multiplier="1:1" id="QNT-N5-wgl"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="baseColor">
-                                        <color key="value" red="0.1058823529" green="0.45882352939999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="moonColor">
-                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eqp-Wp-hSe" customClass="TheGreatRiftValleyDrawing" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
-                                <rect key="frame" x="8" y="599" width="60" height="60"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="eqp-Wp-hSe" secondAttribute="height" multiplier="1:1" id="Kb3-ct-Gak"/>
-                                    <constraint firstAttribute="width" constant="60" id="LxD-Hr-gzY"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="baseColor">
-                                        <color key="value" red="0.13373107149999999" green="0.2286122344" blue="0.85953691710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="moonColor">
-                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XyZ-cP-eu8">
-                                <rect key="frame" x="16" y="543" width="343" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="eeJ-7q-Avp"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="BASIC-DONE-BUTTON"/>
-                                <connections>
-                                    <action selector="doneButtonHit:" destination="Cmw-cs-f0x" eventType="touchUpInside" id="8cP-qa-g1q"/>
-                                    <action selector="doneButtonHit:" destination="PKI-7x-KlB" eventType="touchUpInside" id="P9W-rx-CWI"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="P5N-K8-kBZ" firstAttribute="leading" secondItem="eqp-Wp-hSe" secondAttribute="trailing" constant="8" id="2ij-IB-O33"/>
-                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="sSL-0i-CJN" secondAttribute="trailing" id="5FK-w5-l0v"/>
-                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="trailing" secondItem="P5N-K8-kBZ" secondAttribute="trailing" constant="16" id="956-uT-UJ9"/>
-                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="bottom" secondItem="S6n-9J-uZt" secondAttribute="bottom" constant="8" id="AXz-qr-6U6"/>
-                            <constraint firstItem="agq-yz-VPb" firstAttribute="top" secondItem="sO5-o8-Fyk" secondAttribute="bottom" constant="8" id="BTI-g2-n7A"/>
-                            <constraint firstItem="sSL-0i-CJN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="Bhx-eg-p3c"/>
-                            <constraint firstItem="XyZ-cP-eu8" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="FeB-om-qAP"/>
-                            <constraint firstItem="sSL-0i-CJN" firstAttribute="centerX" secondItem="dLT-vZ-n7i" secondAttribute="centerX" id="FnD-bV-fcU"/>
-                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="trailing" secondItem="S6n-9J-uZt" secondAttribute="trailing" constant="16" id="MYU-jv-86l"/>
-                            <constraint firstItem="sO5-o8-Fyk" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="PF5-51-baS"/>
-                            <constraint firstItem="XyZ-cP-eu8" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="PJE-jF-nCO"/>
-                            <constraint firstItem="sSL-0i-CJN" firstAttribute="top" secondItem="DIb-rd-Jfe" secondAttribute="bottom" id="PYr-Xh-KJt"/>
-                            <constraint firstItem="eqp-Wp-hSe" firstAttribute="leading" secondItem="dLT-vZ-n7i" secondAttribute="leading" constant="8" id="a7t-U8-RdZ"/>
-                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="bottom" secondItem="eqp-Wp-hSe" secondAttribute="bottom" constant="8" id="gUh-9K-vC0"/>
-                            <constraint firstItem="DIb-rd-Jfe" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="gXu-0H-oJz"/>
-                            <constraint firstItem="agq-yz-VPb" firstAttribute="centerX" secondItem="dLT-vZ-n7i" secondAttribute="centerX" id="hm2-az-vbW"/>
-                            <constraint firstItem="S6n-9J-uZt" firstAttribute="top" secondItem="P5N-K8-kBZ" secondAttribute="bottom" id="jyo-vZ-ir0"/>
-                            <constraint firstItem="sO5-o8-Fyk" firstAttribute="trailing" secondItem="pCc-NV-qjF" secondAttribute="trailingMargin" id="ncS-Ps-pbh"/>
-                            <constraint firstItem="DIb-rd-Jfe" firstAttribute="leading" secondItem="pCc-NV-qjF" secondAttribute="leadingMargin" id="oaa-Zd-LeW"/>
-                            <constraint firstItem="P5N-K8-kBZ" firstAttribute="top" secondItem="XyZ-cP-eu8" secondAttribute="bottom" constant="8" id="ovK-59-Ax4"/>
-                            <constraint firstItem="P5N-K8-kBZ" firstAttribute="top" secondItem="eqp-Wp-hSe" secondAttribute="top" id="pec-Gf-VpL"/>
-                            <constraint firstItem="DIb-rd-Jfe" firstAttribute="top" secondItem="agq-yz-VPb" secondAttribute="bottom" constant="8" id="qxL-vo-cWJ"/>
-                            <constraint firstItem="S6n-9J-uZt" firstAttribute="leading" secondItem="eqp-Wp-hSe" secondAttribute="trailing" constant="8" id="rig-CM-Kxh"/>
-                            <constraint firstItem="sO5-o8-Fyk" firstAttribute="top" secondItem="dLT-vZ-n7i" secondAttribute="top" id="v1Y-Gt-WkC"/>
+                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="bottom" secondItem="8bv-Ws-8kF" secondAttribute="bottom" constant="16" id="BWD-Zj-RTL"/>
+                            <constraint firstItem="agq-yz-VPb" firstAttribute="top" secondItem="dLT-vZ-n7i" secondAttribute="top" id="Eib-2n-KgG"/>
+                            <constraint firstItem="xyi-Sb-0Gd" firstAttribute="top" secondItem="agq-yz-VPb" secondAttribute="bottom" constant="8" id="Kfu-ZD-3NE"/>
+                            <constraint firstItem="8bv-Ws-8kF" firstAttribute="leading" secondItem="dLT-vZ-n7i" secondAttribute="leading" constant="16" id="LNs-rO-aLY"/>
+                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="trailing" secondItem="sO5-o8-Fyk" secondAttribute="trailing" constant="16" id="MMw-n9-L5w"/>
+                            <constraint firstItem="sO5-o8-Fyk" firstAttribute="leading" secondItem="dLT-vZ-n7i" secondAttribute="leading" constant="16" id="UQj-6F-Dws"/>
+                            <constraint firstItem="agq-yz-VPb" firstAttribute="centerX" secondItem="pCc-NV-qjF" secondAttribute="centerX" id="XzI-dQ-H60"/>
+                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="trailing" secondItem="xyi-Sb-0Gd" secondAttribute="trailing" constant="16" id="Zm7-W7-9qB"/>
+                            <constraint firstItem="8bv-Ws-8kF" firstAttribute="top" secondItem="sO5-o8-Fyk" secondAttribute="bottom" constant="8" id="a8K-Aa-AF7"/>
+                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="trailing" secondItem="8bv-Ws-8kF" secondAttribute="trailing" constant="16" id="oDH-iw-dY7"/>
+                            <constraint firstItem="sO5-o8-Fyk" firstAttribute="top" secondItem="xyi-Sb-0Gd" secondAttribute="bottom" constant="8" id="t0E-ab-880"/>
+                            <constraint firstItem="xyi-Sb-0Gd" firstAttribute="leading" secondItem="dLT-vZ-n7i" secondAttribute="leading" constant="16" id="tTX-f3-c16"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dLT-vZ-n7i"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="c3P-vL-uUt" appends="YES" id="wDE-Zc-3Gm"/>
+                        </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -921,15 +869,22 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="doneButton" destination="XyZ-cP-eu8" id="3Cx-Pq-hGX"/>
-                        <outlet property="instructionsLinkButton" destination="sSL-0i-CJN" id="tT5-1M-o61"/>
-                        <outlet property="lgvBlurb" destination="S6n-9J-uZt" id="heU-zR-qLr"/>
-                        <outlet property="lgvBlurb1Label" destination="P5N-K8-kBZ" id="mSg-L4-XLt"/>
-                        <outlet property="longBlurb" destination="DIb-rd-Jfe" id="1q4-mD-jy2"/>
+                        <outlet property="corporateBlurb" destination="xyi-Sb-0Gd" id="6y3-5w-GWm"/>
+                        <outlet property="lgvText" destination="8bv-Ws-8kF" id="F2Q-0N-653"/>
                         <outlet property="titleLabel" destination="sO5-o8-Fyk" id="sQE-FI-f9F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hzn-yg-KtJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="c3P-vL-uUt">
+                    <connections>
+                        <action selector="doneButtonHit:" destination="PKI-7x-KlB" id="2s8-oS-QrS"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Eaq-vT-Hyr">
+                    <connections>
+                        <action selector="doneButtonHit:" destination="PKI-7x-KlB" id="yjI-AA-vGG"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2164" y="517.6911544227886"/>
         </scene>

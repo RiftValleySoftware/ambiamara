@@ -71,7 +71,10 @@ class TimerSetController: TimerSetPickerController {
      */
     func updateTimeDisplayLabel() {
         self.timeDisplayLabel.text = TimeTuple(self.timerObject.timeSet).description
-        self.timeDisplayLabel.textColor = (.Podium == self.timerObject.displayMode ? UIColor.white: Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].textColor!)
+        if let backgroundColor = Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].backgroundColor {
+            self.timeDisplayLabel.textColor = (.Podium == self.timerObject.displayMode ? UIColor.white : backgroundColor)
+        }
+        
         if .Podium == self.timerObject.displayMode {
             self.timeDisplayLabel.font = UIFont.boldSystemFont(ofSize: 42)
         } else {

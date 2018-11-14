@@ -62,11 +62,12 @@
 "LGV_TIMER-COLOR-THEME-LIME-GREEN"                      =   "Lime Green Digital Display Color";
 "LGV_TIMER-COLOR-THEME-LIME-BLACK"                      =   "Black Digital Display Color";
 
-"LGV_TIMER-INFO-TITLE-FORMAT"                           =   "The Great Rift Valley Countdown Timer (V. %@)";
-"LGV_TIMER-ABOUT-LONG-BLURB"                            =   "Detailed Instructions and Description Available At:";
+"LGV_TIMER-INFO-CORPORATE-BLURB"                        =   "The Great Rift Valley Software Company";
+"LGV_TIMER-INFO-TITLE-FORMAT"                           =   "Countdown Timer (V. %@)";
+"LGV_TIMER-ABOUT-TEXT"                                  =   "When I have something to say, I'll say it here.";
 "LGV_TIMER-ABOUT-LGV-INSTRUCTIONS-URI"                  =   "https://riftvalleysoftware.com/countdown-timer";
 "LGV_TIMER-ABOUT-LGV-BLURB-1"                           =   "This is a Great Rift Valley Software Company Project.";
-"LGV_TIMER-ABOUT-LGV-BLURB-2"                           =   "LGV Web Site: https://riftvalleysoftware.com";
+"LGV_TIMER-ABOUT-LGV-BLURB-2"                           =   "Web Site: https://riftvalleysoftware.com";
 "LGV_TIMER-ABOUT-LGV-BLURB-URI"                         =   "https://riftvalleysoftware.com";
 
 "LGV_TIMER-WATCH-NOT-ACTIVE-TOP-MESSAGE"                =   "The phone app";

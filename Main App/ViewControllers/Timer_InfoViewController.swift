@@ -16,20 +16,9 @@ import UIKit
 /**
  */
 class Timer_InfoViewController: TimerBaseViewController {
-    @IBOutlet weak var longBlurb: UITextView!
-    @IBOutlet weak var lgvBlurb1Label: UILabel!
-    @IBOutlet weak var lgvBlurb: UIButton!
-    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var corporateBlurb: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var instructionsLinkButton: UIButton!
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBAction func instructionsLinkHit(_ sender: UIButton) {
-        let openLink = NSURL(string: (sender.title(for: UIControl.State.normal)?.localizedVariant)!)
-        UIApplication.shared.open(openLink! as URL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-    }
+    @IBOutlet weak var lgvText: UITextView!
     
     /* ################################################################## */
     /**
@@ -61,13 +50,9 @@ class Timer_InfoViewController: TimerBaseViewController {
             }
         }
         
+        self.corporateBlurb.text = self.corporateBlurb.text?.localizedVariant
         self.titleLabel.text = String(format: (self.titleLabel?.text?.localizedVariant)!, appVersion)
-        self.longBlurb.text = self.longBlurb.text.localizedVariant
-        self.doneButton.setTitle(self.doneButton.title(for: .normal)?.localizedVariant, for: .normal)
-        self.instructionsLinkButton.setTitle(self.instructionsLinkButton.title(for: .normal)?.localizedVariant, for: .normal)
-
-        self.lgvBlurb1Label.text = self.lgvBlurb1Label.text?.localizedVariant
-        self.lgvBlurb.setTitle(self.lgvBlurb.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
+        self.lgvText.text = self.lgvText.text.localizedVariant
     }
 }
 

@@ -224,13 +224,14 @@ class TimerSetupController: TimerSetPickerController {
             let ret: UILabel = UILabel(frame: frame)
             
             let swatchLabel = Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[row]
-            ret.text = swatchLabel.text?.localizedVariant
-            ret.backgroundColor = UIColor.clear
-            ret.textAlignment = swatchLabel.textAlignment
-            ret.font = swatchLabel.font
-            ret.adjustsFontSizeToFitWidth = true
-            ret.textColor = swatchLabel.textColor
-            
+            ret.text = "LGV_TIMER-SETUP-COLOR-THEME-LABEL".localizedVariant
+            ret.textColor = UIColor.black
+            ret.backgroundColor = swatchLabel.backgroundColor
+            ret.textAlignment = .center
+            if let titleFont = UIFont(name: "Let's Go Digital", size: 20) {
+                ret.font = titleFont
+            }
+
             return ret
         } else {
             return super.pickerView(pickerView, viewForRow: row, forComponent: component, reusing: view)

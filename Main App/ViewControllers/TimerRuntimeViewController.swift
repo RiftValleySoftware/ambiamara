@@ -287,7 +287,10 @@ class TimerRuntimeViewController: TimerNavBaseController {
             self.view.addSubview(self.stoplightContainerView)
         }
         
-        self.timeDisplay.activeSegmentColor = Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].textColor
+        if let backgroundColor = Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].backgroundColor {
+            self.timeDisplay.activeSegmentColor = backgroundColor
+        }
+        
         self.timeDisplay.inactiveSegmentColor = UIColor.white.withAlphaComponent(0.1)
         self.updateTimer()
     }
