@@ -434,9 +434,14 @@ public class LED_ClockView: UIView {
             fillStartColor = UIColor(hue: self.activeSegmentColor.hsba.h, saturation: 1.0, brightness: 0.5, alpha: 1.0)
         }
         
+        // This just makes sure we get the full benefit of the gradient.
+        let shapeSize = activePath.cgPath.boundingBoxOfPath.size
+        let top = (shapeSize.height / self.bounds.size.height) / 2
+        let bottom = 1.0 - top
+        
         self._topLayer.colors = [fillStartColor.cgColor, fillEndColor.cgColor]
-        self._topLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
-        self._topLayer.endPoint = CGPoint(x: 0.5, y: 0)
+        self._topLayer.startPoint = CGPoint(x: 0.5, y: bottom)
+        self._topLayer.endPoint = CGPoint(x: 0.5, y: top)
         self._topLayer.frame = self.bounds
 
         let shape = CAShapeLayer()
