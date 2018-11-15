@@ -1,5 +1,5 @@
 INTRODUCTION
-============
+=
 This is a basic countdown timer app. It was designed specifically for public speakers.
 
 This app is [publicly available on the Apple App Store](https://itunes.apple.com/us/app/x-timer/id1244827875?mt=8). It is an [Apple iOS-only](https://www.apple.com/ios) app, written in [Swift](https://www.apple.com/swift/).
@@ -15,13 +15,16 @@ The app features a nascent (unused) Apple Watch app. It was determined that the 
 **NOTE:** The code is highly structured, but documentation is more sparse than open-source code, as only one person (the author) needs to review it, so we use descriptive method and property names.
 
 THIRD-PARTY CODE
-================
+=
 
 This uses elements of [the excellent SwipeableTabBarController, by Marcos Griselli](https://github.com/marcosgriselli/SwipeableTabBarController) to handle an animated tab transition.
 
 CHANGELIST
-----------
+-
 
+***Version 1.0.0.2001 (of Rift Valley Countdown Timer)* ** *- November 15, 2018*
+
+- Minor cosmetic fix. The corporate string in the about screen needed to autoshrink.
 
 ***Version 1.0.0.2000 (of Rift Valley Countdown Timer)* ** *- November 14, 2018*
 
