@@ -1,5 +1,6 @@
 ***Version 1.0.0.2002 (of Rift Valley Countdown Timer)* ** *- TBD*
 
+- The app name displays better now.
 - Minor cosmetic fix to make the gradient display a bit better.
 
 ***Version 1.0.0.2001 (of Rift Valley Countdown Timer)* ** *- November 15, 2018*

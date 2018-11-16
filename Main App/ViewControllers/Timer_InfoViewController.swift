@@ -40,18 +40,22 @@ class Timer_InfoViewController: TimerBaseViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        var appName = ""
         var appVersion = ""
-        
+
         if let plistPath = Bundle.main.path(forResource: "Info", ofType: "plist") {
             if let plistDictionary = NSDictionary(contentsOfFile: plistPath) as? [String: Any] {
                 if let versionTemp = plistDictionary["CFBundleShortVersionString"] as? NSString {
                     appVersion = versionTemp as String
                 }
+                if let versionTemp = plistDictionary["CFBundleDisplayName"] as? NSString {
+                    appName = versionTemp as String
+                }
             }
         }
-        
+
         self.corporateBlurb.text = self.corporateBlurb.text?.localizedVariant
-        self.titleLabel.text = String(format: (self.titleLabel?.text?.localizedVariant)!, appVersion)
+        self.titleLabel.text = appName + " " + appVersion
         self.lgvText.text = self.lgvText.text.localizedVariant
     }
 }

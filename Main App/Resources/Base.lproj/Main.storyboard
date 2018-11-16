@@ -799,10 +799,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="agq-yz-VPb" customClass="TheGreatRiftValleyDrawing" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
-                                <rect key="frame" x="110" y="20" width="100" height="100"/>
+                                <rect key="frame" x="96" y="20" width="128" height="128"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="jnU-2Q-8XH"/>
+                                    <constraint firstAttribute="width" constant="128" id="jnU-2Q-8XH"/>
                                     <constraint firstAttribute="width" secondItem="agq-yz-VPb" secondAttribute="height" multiplier="1:1" id="lZW-qg-jpI"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -818,25 +818,25 @@
                                 </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-INFO-CORPORATE-BLURB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="xyi-Sb-0Gd">
-                                <rect key="frame" x="16" y="128" width="288" height="18"/>
+                                <rect key="frame" x="16" y="156" width="288" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="tXb-i4-iiC"/>
+                                    <constraint firstAttribute="height" constant="30" id="tXb-i4-iiC"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-INFO-TITLE-FORMAT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="sO5-o8-Fyk">
-                                <rect key="frame" x="16" y="154" width="288" height="21"/>
+                                <rect key="frame" x="16" y="194" width="288" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="GlE-P5-iZQ"/>
+                                    <constraint firstAttribute="height" constant="30" id="GlE-P5-iZQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" text="LGV_TIMER-ABOUT-TEXT" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8bv-Ws-8kF">
-                                <rect key="frame" x="16" y="183" width="288" height="369"/>
+                                <rect key="frame" x="8" y="232" width="304" height="328"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -852,16 +852,16 @@
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="bottom" secondItem="8bv-Ws-8kF" secondAttribute="bottom" constant="16" id="BWD-Zj-RTL"/>
+                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="bottom" secondItem="8bv-Ws-8kF" secondAttribute="bottom" constant="8" id="BWD-Zj-RTL"/>
                             <constraint firstItem="agq-yz-VPb" firstAttribute="top" secondItem="dLT-vZ-n7i" secondAttribute="top" id="Eib-2n-KgG"/>
                             <constraint firstItem="xyi-Sb-0Gd" firstAttribute="top" secondItem="agq-yz-VPb" secondAttribute="bottom" constant="8" id="Kfu-ZD-3NE"/>
-                            <constraint firstItem="8bv-Ws-8kF" firstAttribute="leading" secondItem="dLT-vZ-n7i" secondAttribute="leading" constant="16" id="LNs-rO-aLY"/>
+                            <constraint firstItem="8bv-Ws-8kF" firstAttribute="leading" secondItem="dLT-vZ-n7i" secondAttribute="leading" constant="8" id="LNs-rO-aLY"/>
                             <constraint firstItem="dLT-vZ-n7i" firstAttribute="trailing" secondItem="sO5-o8-Fyk" secondAttribute="trailing" constant="16" id="MMw-n9-L5w"/>
                             <constraint firstItem="sO5-o8-Fyk" firstAttribute="leading" secondItem="dLT-vZ-n7i" secondAttribute="leading" constant="16" id="UQj-6F-Dws"/>
                             <constraint firstItem="agq-yz-VPb" firstAttribute="centerX" secondItem="pCc-NV-qjF" secondAttribute="centerX" id="XzI-dQ-H60"/>
                             <constraint firstItem="dLT-vZ-n7i" firstAttribute="trailing" secondItem="xyi-Sb-0Gd" secondAttribute="trailing" constant="16" id="Zm7-W7-9qB"/>
                             <constraint firstItem="8bv-Ws-8kF" firstAttribute="top" secondItem="sO5-o8-Fyk" secondAttribute="bottom" constant="8" id="a8K-Aa-AF7"/>
-                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="trailing" secondItem="8bv-Ws-8kF" secondAttribute="trailing" constant="16" id="oDH-iw-dY7"/>
+                            <constraint firstItem="dLT-vZ-n7i" firstAttribute="trailing" secondItem="8bv-Ws-8kF" secondAttribute="trailing" constant="8" id="oDH-iw-dY7"/>
                             <constraint firstItem="sO5-o8-Fyk" firstAttribute="top" secondItem="xyi-Sb-0Gd" secondAttribute="bottom" constant="8" id="t0E-ab-880"/>
                             <constraint firstItem="xyi-Sb-0Gd" firstAttribute="leading" secondItem="dLT-vZ-n7i" secondAttribute="leading" constant="16" id="tTX-f3-c16"/>
                         </constraints>
@@ -898,7 +898,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2164" y="517.6911544227886"/>
+            <point key="canvasLocation" x="2163.75" y="517.6056338028169"/>
         </scene>
         <!--Timer List Navigation Controller-->
         <scene sceneID="dWu-Eb-ueo">
