@@ -1,3 +1,7 @@
+***Version 1.0.0.2003* ** *(November 16, 2018)*
+
+- Sounds play, even when silent is on.
+
 ***Version 1.0.0.2002* ** *(November 16, 2018)*
 
 - The app name displays better now.

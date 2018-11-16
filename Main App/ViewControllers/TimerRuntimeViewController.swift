@@ -148,6 +148,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
     func playThisSound(_ inSoundURL: URL) {
         do {
             if nil == self.audioPlayer {
+                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
                 try self.audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
                 self.audioPlayer?.numberOfLoops = -1   // Repeat indefinitely
             }
