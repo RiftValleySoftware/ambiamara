@@ -1,3 +1,7 @@
+***Version 1.0.0.2004* ** *(TBD)*
+
+- New app icon.
+
 ***Version 1.0.0.2003* ** *(November 16, 2018)*
 
 - Sounds play, even when silent is on.
