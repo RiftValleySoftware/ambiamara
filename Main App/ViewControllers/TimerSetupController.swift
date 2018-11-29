@@ -54,6 +54,7 @@ class TimerSetupController: TimerSetPickerController {
         self.finalThresholdLabel.text = self.finalThresholdLabel.text?.localizedVariant
         self.doneButton.setTitle(self.doneButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
         self.alarmSetupButton.setTitle(self.alarmSetupButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
+        self.timerModeLabel.text = self.timerModeLabel.text?.localizedVariant
         
         for segment in 0..<self.timerModeSegmentedSwitch.numberOfSegments {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)

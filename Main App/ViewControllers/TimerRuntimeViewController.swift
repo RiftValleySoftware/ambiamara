@@ -125,16 +125,22 @@ class TimerRuntimeViewController: TimerNavBaseController {
     /**
      */
     private func _playAlertSound() {
-        if .Silent != self.timerObject.alertMode {
-            if let soundUrl = Bundle.main.url(forResource: String(format: "Sound-%02d", self.timerObject.soundID), withExtension: "aiff") {
+        if nil == self.audioPlayer {
+            var soundUrl: URL!
+            
+            switch self.timerObject.soundMode {
+            case .Sound:
+                soundUrl = URL(string: Timer_AppDelegate.appDelegateObject.timerEngine.soundSelection[self.timerObject.soundID])
                 
-                if .Both == self.timerObject.alertMode || .VibrateOnly != self.timerObject.alertMode {
-                    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-                }
-                
-                if nil == self.audioPlayer {
-                    self.playThisSound(soundUrl)
-                }
+            case.Music:
+                soundUrl = URL(string: self.timerObject.songURLString)
+
+            default:
+                break
+            }
+            
+            if nil != soundUrl {
+                self.playThisSound(soundUrl)
             }
         }
     }

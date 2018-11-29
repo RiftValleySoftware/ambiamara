@@ -45,6 +45,11 @@
 "BASIC-OK-BUTTON"                                       =   "OK";
 "BASIC-DONE-BUTTON"                                     =   "DONE";
 "LOCAL-VIBRATE-BEEP-SWITCH"                             =   "VIBRATE";
+"LOCAL-NO-MUSIC-LABEL"                                  =   "No Music Available";
+
+"ERROR_HEADER_MEDIA"                                    =   "DEVICE MEDIA ERROR";
+"ERROR_TEXT_MEDIA_PERMISSION_DENIED"                    =   "You are not allowed to read any media from this device.";
+"ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER"               =   "There was a technical problem creating the sound player.";
 
 "SET-UP-ALARM-MODE"                                     =   "Set Alarm Mode";
 
@@ -57,3 +62,13 @@
 
 "LGV_TIMER-WATCH-NOT-ACTIVE-TOP-MESSAGE"                =   "The phone app";
 "LGV_TIMER-WATCH-NOT-ACTIVE-BOTTOM-MESSAGE"             =   "is not active";
+
+"annoying-alarm.mp3"                                    =   "Classic Alarm";
+"electronic-buzz.mp3"                                   =   "Strident Beeps";
+"fast-beep.mp3"                                         =   "Subtle Ringing";
+"high-fast-beeps.mp3"                                   =   "Fast Subtle Beeps";
+"single-beep.mp3"                                       =   "Basic Beeps";
+"crazy-bird.mp3"                                        =   "Crazy Bird";
+"escalation.mp3"                                        =   "Escalating Alarm";
+"videogame-beeps-high-frequency.mp3"                    =   "High-Frequency Electronic";
+"videogame-beeps-lower-frequency.mp3"                   =   "Low-Frequency Electronic";

@@ -98,6 +98,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     weak var delegate: TimerEngineDelegate!
     var appState: LGV_Timer_State!
     var timer: Timer!
+    var soundSelection: [String] = []
     
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
@@ -346,7 +347,9 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      */
     private func _loadPrefs() {
         self.appState = LGV_Timer_State(delegate: self)
-        
+        // Pick up our beeper sounds.
+        self.soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil)
+
         if let loadedPrefs = UserDefaults.standard.object(forKey: type(of: self)._mainPrefsKey) as? NSDictionary {
             var timers: [TimerSettingTuple] = []
             

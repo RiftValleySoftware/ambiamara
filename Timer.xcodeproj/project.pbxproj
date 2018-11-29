@@ -31,15 +31,16 @@
 		D427963D219B50F90012F705 /* SwipeTransitioningProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279637219B50F90012F705 /* SwipeTransitioningProtocol.swift */; };
 		D427963E219B50F90012F705 /* SwipeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279638219B50F90012F705 /* SwipeAnimation.swift */; };
 		D427963F219B50F90012F705 /* SwipeableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279639219B50F90012F705 /* SwipeableTabBarController.swift */; };
+		D48C0A4221B096C9007AC2DC /* videogame-beeps-lower-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3921B096C8007AC2DC /* videogame-beeps-lower-frequency.mp3 */; };
+		D48C0A4321B096C9007AC2DC /* videogame-beeps-high-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3A21B096C8007AC2DC /* videogame-beeps-high-frequency.mp3 */; };
+		D48C0A4421B096C9007AC2DC /* single-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3B21B096C8007AC2DC /* single-beep.mp3 */; };
+		D48C0A4521B096C9007AC2DC /* electronic-buzz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3C21B096C8007AC2DC /* electronic-buzz.mp3 */; };
+		D48C0A4621B096C9007AC2DC /* high-fast-beeps.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3D21B096C8007AC2DC /* high-fast-beeps.mp3 */; };
+		D48C0A4721B096C9007AC2DC /* crazy-bird.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3E21B096C8007AC2DC /* crazy-bird.mp3 */; };
+		D48C0A4821B096C9007AC2DC /* annoying-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3F21B096C8007AC2DC /* annoying-alarm.mp3 */; };
+		D48C0A4921B096C9007AC2DC /* fast-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A4021B096C8007AC2DC /* fast-beep.mp3 */; };
+		D48C0A4A21B096C9007AC2DC /* escalation.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A4121B096C8007AC2DC /* escalation.mp3 */; };
 		D4CF37C8219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */; };
-		D4D2639F219C91340057D1A3 /* Sound-02.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D2639A219C91340057D1A3 /* Sound-02.aiff */; };
-		D4D263A0219C91340057D1A3 /* Sound-06.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D2639B219C91340057D1A3 /* Sound-06.aiff */; };
-		D4D263A1219C91340057D1A3 /* Sound-07.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D2639C219C91340057D1A3 /* Sound-07.aiff */; };
-		D4D263A2219C91340057D1A3 /* Sound-01.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D2639D219C91340057D1A3 /* Sound-01.aiff */; };
-		D4D263A3219C91340057D1A3 /* Sound-00.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D2639E219C91340057D1A3 /* Sound-00.aiff */; };
-		D4D263A5219C9C070057D1A3 /* Sound-05.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D263A4219C9C070057D1A3 /* Sound-05.aiff */; };
-		D4D263A7219C9C7B0057D1A3 /* Sound-04.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D263A6219C9C7B0057D1A3 /* Sound-04.aiff */; };
-		D4D263A9219C9CDD0057D1A3 /* Sound-03.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D263A8219C9CDD0057D1A3 /* Sound-03.aiff */; };
 		D4D722E821B0326B0062035B /* Timer_SetupSoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */; };
 		D4D722EA21B036070062035B /* SoundTestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E921B036070062035B /* SoundTestButton.swift */; };
 		D4FE3794219B6D180031E105 /* LED_Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE3792219B6D180031E105 /* LED_Element.swift */; };
@@ -102,15 +103,16 @@
 		D4279637219B50F90012F705 /* SwipeTransitioningProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeTransitioningProtocol.swift; sourceTree = "<group>"; };
 		D4279638219B50F90012F705 /* SwipeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeAnimation.swift; sourceTree = "<group>"; };
 		D4279639219B50F90012F705 /* SwipeableTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeableTabBarController.swift; sourceTree = "<group>"; };
+		D48C0A3921B096C8007AC2DC /* videogame-beeps-lower-frequency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "videogame-beeps-lower-frequency.mp3"; sourceTree = "<group>"; };
+		D48C0A3A21B096C8007AC2DC /* videogame-beeps-high-frequency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "videogame-beeps-high-frequency.mp3"; sourceTree = "<group>"; };
+		D48C0A3B21B096C8007AC2DC /* single-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "single-beep.mp3"; sourceTree = "<group>"; };
+		D48C0A3C21B096C8007AC2DC /* electronic-buzz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "electronic-buzz.mp3"; sourceTree = "<group>"; };
+		D48C0A3D21B096C8007AC2DC /* high-fast-beeps.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "high-fast-beeps.mp3"; sourceTree = "<group>"; };
+		D48C0A3E21B096C8007AC2DC /* crazy-bird.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "crazy-bird.mp3"; sourceTree = "<group>"; };
+		D48C0A3F21B096C8007AC2DC /* annoying-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "annoying-alarm.mp3"; sourceTree = "<group>"; };
+		D48C0A4021B096C8007AC2DC /* fast-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "fast-beep.mp3"; sourceTree = "<group>"; };
+		D48C0A4121B096C8007AC2DC /* escalation.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = escalation.mp3; sourceTree = "<group>"; };
 		D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TheGreatRiftValleyDrawing.swift; path = ViewControllers/TheGreatRiftValleyDrawing.swift; sourceTree = "<group>"; };
-		D4D2639A219C91340057D1A3 /* Sound-02.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-02.aiff"; sourceTree = "<group>"; };
-		D4D2639B219C91340057D1A3 /* Sound-06.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-06.aiff"; sourceTree = "<group>"; };
-		D4D2639C219C91340057D1A3 /* Sound-07.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-07.aiff"; sourceTree = "<group>"; };
-		D4D2639D219C91340057D1A3 /* Sound-01.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-01.aiff"; sourceTree = "<group>"; };
-		D4D2639E219C91340057D1A3 /* Sound-00.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-00.aiff"; sourceTree = "<group>"; };
-		D4D263A4219C9C070057D1A3 /* Sound-05.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-05.aiff"; sourceTree = "<group>"; };
-		D4D263A6219C9C7B0057D1A3 /* Sound-04.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-04.aiff"; sourceTree = "<group>"; };
-		D4D263A8219C9CDD0057D1A3 /* Sound-03.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-03.aiff"; sourceTree = "<group>"; };
 		D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Timer_SetupSoundsViewController.swift; path = ViewControllers/Timer_SetupSoundsViewController.swift; sourceTree = "<group>"; };
 		D4D722E921B036070062035B /* SoundTestButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundTestButton.swift; path = ViewControllers/SoundTestButton.swift; sourceTree = "<group>"; };
 		D4F242C2219B501900D809EB /* SwipeableTabBarController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwipeableTabBarController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,11 +149,11 @@
 		772459B71F1E1CD7006CA335 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D48C0A3821B096C8007AC2DC /* Sounds */,
 				77AF00B91F69624E00D35EF1 /* Main.storyboard */,
 				77AF00B61F69623800D35EF1 /* LaunchScreen.storyboard */,
 				773980A21F6963A00019A541 /* Localizable.strings */,
 				772459C11F1E1CD7006CA335 /* Assets.xcassets */,
-				D4D26399219C91340057D1A3 /* Sounds */,
 				D4065C32219B62A500B76DD4 /* Fonts */,
 			);
 			path = Resources;
@@ -305,17 +307,18 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		D4D26399219C91340057D1A3 /* Sounds */ = {
+		D48C0A3821B096C8007AC2DC /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				D4D2639E219C91340057D1A3 /* Sound-00.aiff */,
-				D4D2639D219C91340057D1A3 /* Sound-01.aiff */,
-				D4D2639A219C91340057D1A3 /* Sound-02.aiff */,
-				D4D263A8219C9CDD0057D1A3 /* Sound-03.aiff */,
-				D4D263A6219C9C7B0057D1A3 /* Sound-04.aiff */,
-				D4D263A4219C9C070057D1A3 /* Sound-05.aiff */,
-				D4D2639B219C91340057D1A3 /* Sound-06.aiff */,
-				D4D2639C219C91340057D1A3 /* Sound-07.aiff */,
+				D48C0A3921B096C8007AC2DC /* videogame-beeps-lower-frequency.mp3 */,
+				D48C0A3A21B096C8007AC2DC /* videogame-beeps-high-frequency.mp3 */,
+				D48C0A3B21B096C8007AC2DC /* single-beep.mp3 */,
+				D48C0A3C21B096C8007AC2DC /* electronic-buzz.mp3 */,
+				D48C0A3D21B096C8007AC2DC /* high-fast-beeps.mp3 */,
+				D48C0A3E21B096C8007AC2DC /* crazy-bird.mp3 */,
+				D48C0A3F21B096C8007AC2DC /* annoying-alarm.mp3 */,
+				D48C0A4021B096C8007AC2DC /* fast-beep.mp3 */,
+				D48C0A4121B096C8007AC2DC /* escalation.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -390,18 +393,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D48C0A4621B096C9007AC2DC /* high-fast-beeps.mp3 in Resources */,
+				D48C0A4421B096C9007AC2DC /* single-beep.mp3 in Resources */,
 				77AF00B71F69624E00D35EF1 /* Main.storyboard in Resources */,
-				D4D263A2219C91340057D1A3 /* Sound-01.aiff in Resources */,
-				D4D263A0219C91340057D1A3 /* Sound-06.aiff in Resources */,
 				773980A61F6964820019A541 /* Localizable.strings in Resources */,
-				D4D263A1219C91340057D1A3 /* Sound-07.aiff in Resources */,
 				772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */,
-				D4D263A9219C9CDD0057D1A3 /* Sound-03.aiff in Resources */,
-				D4D263A5219C9C070057D1A3 /* Sound-05.aiff in Resources */,
-				D4D263A7219C9C7B0057D1A3 /* Sound-04.aiff in Resources */,
+				D48C0A4821B096C9007AC2DC /* annoying-alarm.mp3 in Resources */,
+				D48C0A4721B096C9007AC2DC /* crazy-bird.mp3 in Resources */,
+				D48C0A4321B096C9007AC2DC /* videogame-beeps-high-frequency.mp3 in Resources */,
+				D48C0A4921B096C9007AC2DC /* fast-beep.mp3 in Resources */,
+				D48C0A4A21B096C9007AC2DC /* escalation.mp3 in Resources */,
+				D48C0A4221B096C9007AC2DC /* videogame-beeps-lower-frequency.mp3 in Resources */,
+				D48C0A4521B096C9007AC2DC /* electronic-buzz.mp3 in Resources */,
 				772459C81F1E1D10006CA335 /* Assets.xcassets in Resources */,
-				D4D263A3219C91340057D1A3 /* Sound-00.aiff in Resources */,
-				D4D2639F219C91340057D1A3 /* Sound-02.aiff in Resources */,
 				77AF00B41F69623800D35EF1 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
