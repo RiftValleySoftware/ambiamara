@@ -353,37 +353,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-ALERT-MODE-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wdv-vy-5ut">
-                                <rect key="frame" x="16" y="28" width="288" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo6-5G-Rn0">
+                                <rect key="frame" x="16" y="20" width="288" height="48"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="bUu-i1-j2w"/>
+                                    <constraint firstAttribute="height" constant="48" id="YWb-XM-9kw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="SET-UP-ALARM-MODE"/>
+                                <connections>
+                                    <segue destination="avR-jN-gqo" kind="presentation" id="JeV-v1-POm"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-MODE-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9w9-pL-jTf">
+                                <rect key="frame" x="16" y="68" width="288" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="hMc-U2-HVd"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="04C-ke-GJA">
-                                <rect key="frame" x="16" y="57" width="288" height="29"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="lNx-un-zo7"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="LGV_TIMER-SETUP-ALERT-MODE-0"/>
-                                    <segment title="LGV_TIMER-SETUP-ALERT-MODE-1"/>
-                                    <segment title="LGV_TIMER-SETUP-ALERT-MODE-2"/>
-                                    <segment title="LGV_TIMER-SETUP-ALERT-MODE-3"/>
-                                </segments>
-                                <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="alertModeChanged:" destination="Cmw-cs-f0x" eventType="valueChanged" id="wnE-BY-iXj"/>
-                                </connections>
-                            </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fCL-vy-SIp">
-                                <rect key="frame" x="16" y="187" width="288" height="29"/>
+                                <rect key="frame" x="16" y="89" width="288" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="YYN-rh-tsk"/>
+                                    <constraint firstAttribute="height" constant="28" id="RUh-o5-VWb"/>
                                 </constraints>
                                 <segments>
                                     <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-0"/>
@@ -396,10 +390,10 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-6l-M17" userLabel="Color Picker Container View">
-                                <rect key="frame" x="16" y="223" width="288" height="60"/>
+                                <rect key="frame" x="16" y="125" width="288" height="100"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lha-1G-1eH">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="100"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
@@ -410,30 +404,30 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="lha-1G-1eH" secondAttribute="trailing" id="DYU-3m-ZrY"/>
-                                    <constraint firstAttribute="height" constant="60" id="YGC-fi-vUZ"/>
-                                    <constraint firstItem="lha-1G-1eH" firstAttribute="leading" secondItem="KvQ-6l-M17" secondAttribute="leading" id="b99-cx-yDQ"/>
-                                    <constraint firstItem="lha-1G-1eH" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="top" id="cRK-y6-MOF"/>
-                                    <constraint firstAttribute="bottom" secondItem="lha-1G-1eH" secondAttribute="bottom" id="k70-Zk-Lui"/>
+                                    <constraint firstAttribute="trailing" secondItem="lha-1G-1eH" secondAttribute="trailing" id="5ra-kG-Adk"/>
+                                    <constraint firstAttribute="height" constant="100" id="BA4-94-fpQ"/>
+                                    <constraint firstItem="lha-1G-1eH" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="top" id="LMc-vj-5HK"/>
+                                    <constraint firstItem="lha-1G-1eH" firstAttribute="leading" secondItem="KvQ-6l-M17" secondAttribute="leading" id="cLT-Gi-EfF"/>
+                                    <constraint firstAttribute="bottom" secondItem="lha-1G-1eH" secondAttribute="bottom" id="llQ-l3-qkC"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-1e-i1t" userLabel="Podium Mode Container View">
-                                <rect key="frame" x="16" y="295" width="288" height="242"/>
+                                <rect key="frame" x="16" y="225" width="288" height="202"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-WARNING-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BiL-9Z-SQP">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="KeE-9n-F7i"/>
+                                            <constraint firstAttribute="height" constant="21" id="iSP-uf-oid"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" red="1" green="0.97317665249999996" blue="0.22001092620000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPo-vP-d5X">
-                                        <rect key="frame" x="0.0" y="21" width="288" height="90"/>
+                                        <rect key="frame" x="0.0" y="21" width="288" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="90" id="7bx-yX-rce"/>
+                                            <constraint firstAttribute="height" constant="80" id="s9N-nG-z9G"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="dataSource" destination="Cmw-cs-f0x" id="V9W-jM-fup"/>
@@ -441,19 +435,19 @@
                                         </connections>
                                     </pickerView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-FINAL-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Ojn-dk-can">
-                                        <rect key="frame" x="0.0" y="111" width="288" height="21"/>
+                                        <rect key="frame" x="0.0" y="101" width="288" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="dk2-5R-QgG"/>
+                                            <constraint firstAttribute="height" constant="21" id="RIb-xC-Q8D"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VaK-Cn-EOG">
-                                        <rect key="frame" x="0.0" y="132" width="288" height="90"/>
+                                        <rect key="frame" x="0.0" y="122" width="288" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="90" id="KPV-iW-Xaw"/>
+                                            <constraint firstAttribute="height" constant="80" id="W3t-EX-zgk"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="dataSource" destination="Cmw-cs-f0x" id="eQx-AI-lE6"/>
@@ -463,69 +457,31 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="CPo-vP-d5X" firstAttribute="top" secondItem="BiL-9Z-SQP" secondAttribute="bottom" id="4t3-Sl-Njw"/>
-                                    <constraint firstItem="Ojn-dk-can" firstAttribute="top" secondItem="CPo-vP-d5X" secondAttribute="bottom" id="GJd-om-zNq"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ojn-dk-can" secondAttribute="trailing" id="M9I-69-B4u"/>
-                                    <constraint firstItem="VaK-Cn-EOG" firstAttribute="top" secondItem="Ojn-dk-can" secondAttribute="bottom" id="MIj-LN-be4"/>
-                                    <constraint firstAttribute="trailing" secondItem="VaK-Cn-EOG" secondAttribute="trailing" id="MUL-kj-2PO"/>
-                                    <constraint firstAttribute="height" constant="242" id="Nva-dr-7V7"/>
-                                    <constraint firstAttribute="trailing" secondItem="BiL-9Z-SQP" secondAttribute="trailing" id="PHZ-ON-w01"/>
-                                    <constraint firstAttribute="trailing" secondItem="CPo-vP-d5X" secondAttribute="trailing" id="Q0K-d2-OXX"/>
-                                    <constraint firstItem="BiL-9Z-SQP" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="WAa-q7-IwT"/>
-                                    <constraint firstItem="CPo-vP-d5X" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="WBg-MY-Br6"/>
-                                    <constraint firstItem="VaK-Cn-EOG" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="X0n-ct-q7J"/>
-                                    <constraint firstItem="Ojn-dk-can" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="muV-7o-JCr"/>
-                                    <constraint firstItem="BiL-9Z-SQP" firstAttribute="top" secondItem="bOd-1e-i1t" secondAttribute="top" id="q3u-D9-fzv"/>
+                                    <constraint firstItem="VaK-Cn-EOG" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="2M3-qD-HOL"/>
+                                    <constraint firstItem="VaK-Cn-EOG" firstAttribute="top" secondItem="Ojn-dk-can" secondAttribute="bottom" id="4VY-NQ-IHr"/>
+                                    <constraint firstAttribute="height" constant="202" id="5kw-sq-vhT"/>
+                                    <constraint firstAttribute="trailing" secondItem="CPo-vP-d5X" secondAttribute="trailing" id="6jz-px-QPF"/>
+                                    <constraint firstItem="BiL-9Z-SQP" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="939-Uy-0yc"/>
+                                    <constraint firstItem="Ojn-dk-can" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="CjV-Yh-oXs"/>
+                                    <constraint firstItem="CPo-vP-d5X" firstAttribute="top" secondItem="BiL-9Z-SQP" secondAttribute="bottom" id="FPF-ck-86q"/>
+                                    <constraint firstItem="CPo-vP-d5X" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="Zsh-4V-YuC"/>
+                                    <constraint firstAttribute="trailing" secondItem="VaK-Cn-EOG" secondAttribute="trailing" id="j0E-6j-333"/>
+                                    <constraint firstItem="VaK-Cn-EOG" firstAttribute="top" secondItem="Ojn-dk-can" secondAttribute="bottom" id="p3T-mw-IOS"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ojn-dk-can" secondAttribute="trailing" id="qO7-2w-pse"/>
+                                    <constraint firstItem="Ojn-dk-can" firstAttribute="top" secondItem="CPo-vP-d5X" secondAttribute="bottom" id="tQu-6y-Na1"/>
+                                    <constraint firstAttribute="trailing" secondItem="BiL-9Z-SQP" secondAttribute="trailing" id="vRf-6d-aKk"/>
+                                    <constraint firstItem="BiL-9Z-SQP" firstAttribute="top" secondItem="bOd-1e-i1t" secondAttribute="top" id="yxa-MY-DaQ"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-SOUND-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUZ-6X-TX6">
-                                <rect key="frame" x="16" y="93" width="288" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="TxB-CC-erF"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ksY-w5-fgH">
-                                <rect key="frame" x="16" y="122" width="288" height="29"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="pnh-5R-Rqr"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="1"/>
-                                    <segment title="2"/>
-                                    <segment title="3"/>
-                                    <segment title="4"/>
-                                    <segment title="5"/>
-                                    <segment title="6"/>
-                                    <segment title="7"/>
-                                    <segment title="8"/>
-                                </segments>
-                                <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="soundSelectionChanged:" destination="Cmw-cs-f0x" eventType="valueChanged" id="cnq-M0-Io7"/>
-                                </connections>
-                            </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-MODE-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9w9-pL-jTf">
-                                <rect key="frame" x="16" y="158" width="288" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="T88-gV-WYA"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cf6-o5-MMZ">
-                                <rect key="frame" x="16" y="512" width="288" height="48"/>
+                                <rect key="frame" x="8" y="512" width="304" height="48"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="G8u-10-Jf7"/>
+                                    <constraint firstAttribute="height" constant="48" id="Jxu-Gd-q5P"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="BASIC-DONE-BUTTON"/>
                                 <connections>
-                                    <action selector="doneButtonHit:" destination="Cmw-cs-f0x" eventType="touchUpInside" id="SAe-JL-KeG"/>
+                                    <action selector="doneButtonHit:" destination="Cmw-cs-f0x" eventType="touchUpInside" id="AAy-8j-Fy9"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -533,38 +489,26 @@
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="9w9-pL-jTf" firstAttribute="top" secondItem="ksY-w5-fgH" secondAttribute="bottom" constant="8" id="6Mf-bW-qpl"/>
-                            <constraint firstItem="9w9-pL-jTf" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="6iX-DW-ZJd"/>
-                            <constraint firstItem="JUZ-6X-TX6" firstAttribute="top" secondItem="04C-ke-GJA" secondAttribute="bottom" constant="8" id="827-Rc-G0C"/>
-                            <constraint firstItem="04C-ke-GJA" firstAttribute="top" secondItem="Wdv-vy-5ut" secondAttribute="bottom" constant="8" id="8V1-q1-VrB"/>
-                            <constraint firstItem="JUZ-6X-TX6" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="9Ke-JE-z0k"/>
-                            <constraint firstItem="usg-pJ-xv3" firstAttribute="bottom" secondItem="cf6-o5-MMZ" secondAttribute="bottom" constant="8" id="Afp-Lp-bkq"/>
-                            <constraint firstItem="JUZ-6X-TX6" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="Bdg-sV-bbC"/>
-                            <constraint firstItem="04C-ke-GJA" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="FLk-8J-sEW"/>
-                            <constraint firstItem="bOd-1e-i1t" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="Fnf-Gl-gZk"/>
-                            <constraint firstItem="9w9-pL-jTf" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="GD7-mM-MmZ"/>
-                            <constraint firstItem="KvQ-6l-M17" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="GEb-qK-Dvf"/>
-                            <constraint firstItem="bOd-1e-i1t" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="JdF-9e-1iU"/>
-                            <constraint firstItem="ksY-w5-fgH" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="KdO-Lh-RLZ"/>
-                            <constraint firstItem="fCL-vy-SIp" firstAttribute="top" secondItem="9w9-pL-jTf" secondAttribute="bottom" constant="8" id="Kro-bK-Epe"/>
-                            <constraint firstItem="ksY-w5-fgH" firstAttribute="top" secondItem="JUZ-6X-TX6" secondAttribute="bottom" constant="8" id="OMv-pc-pnh"/>
-                            <constraint firstItem="cf6-o5-MMZ" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="ONL-71-31i"/>
-                            <constraint firstItem="ksY-w5-fgH" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="Vs8-SE-jRB"/>
-                            <constraint firstItem="fCL-vy-SIp" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="Vvm-JM-uaG"/>
-                            <constraint firstItem="KvQ-6l-M17" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="WQl-XH-4hA"/>
-                            <constraint firstItem="Wdv-vy-5ut" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="dep-gt-6DA"/>
-                            <constraint firstItem="04C-ke-GJA" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="lC6-yS-tCO"/>
-                            <constraint firstItem="cf6-o5-MMZ" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="mG9-ju-GDL"/>
-                            <constraint firstItem="Wdv-vy-5ut" firstAttribute="top" secondItem="usg-pJ-xv3" secondAttribute="top" constant="8" id="nGf-dq-fCP"/>
-                            <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="80" id="qLW-Iy-78r"/>
-                            <constraint firstItem="KvQ-6l-M17" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="8" id="ww5-O9-uvg"/>
-                            <constraint firstItem="fCL-vy-SIp" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="yrH-mM-v3Q"/>
-                            <constraint firstItem="Wdv-vy-5ut" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="z7T-I7-MIr"/>
+                            <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="bottom" id="5an-AK-5J5"/>
+                            <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="mo6-5G-Rn0" secondAttribute="trailing" constant="16" id="6ec-xN-9EC"/>
+                            <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="9w9-pL-jTf" secondAttribute="trailing" constant="16" id="HAG-oY-yFE"/>
+                            <constraint firstItem="mo6-5G-Rn0" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="NA7-Ka-qqh"/>
+                            <constraint firstItem="9w9-pL-jTf" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="Ohp-Vo-SF2"/>
+                            <constraint firstItem="KvQ-6l-M17" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="Pwm-Cm-Hw1"/>
+                            <constraint firstItem="fCL-vy-SIp" firstAttribute="top" secondItem="9w9-pL-jTf" secondAttribute="bottom" id="QRO-aD-vLh"/>
+                            <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="KvQ-6l-M17" secondAttribute="trailing" constant="16" id="aqk-K5-IFD"/>
+                            <constraint firstItem="usg-pJ-xv3" firstAttribute="bottom" secondItem="cf6-o5-MMZ" secondAttribute="bottom" constant="8" id="cNn-dV-t2O"/>
+                            <constraint firstItem="bOd-1e-i1t" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="dEZ-r6-kTV"/>
+                            <constraint firstItem="KvQ-6l-M17" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="8" id="dTA-SZ-uaK"/>
+                            <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="bOd-1e-i1t" secondAttribute="trailing" constant="16" id="f6P-eK-WDI"/>
+                            <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="cf6-o5-MMZ" secondAttribute="trailing" constant="8" id="h6n-Td-mcB"/>
+                            <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="fCL-vy-SIp" secondAttribute="trailing" constant="16" id="oQQ-ds-5dh"/>
+                            <constraint firstItem="9w9-pL-jTf" firstAttribute="top" secondItem="mo6-5G-Rn0" secondAttribute="bottom" id="qIs-Nb-8b2"/>
+                            <constraint firstItem="fCL-vy-SIp" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="tQf-WR-EGN"/>
+                            <constraint firstItem="mo6-5G-Rn0" firstAttribute="top" secondItem="usg-pJ-xv3" secondAttribute="top" id="tWD-a5-3nL"/>
+                            <constraint firstItem="cf6-o5-MMZ" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="8" id="zE5-GV-8N1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="usg-pJ-xv3"/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="dbn-a0-g1z" appends="YES" id="RgZ-1I-ULS"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="LGV_TIMER-TIMER-SETUP-TITLE" id="bR4-hy-Vgz"/>
                     <userDefinedRuntimeAttributes>
@@ -576,18 +520,13 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="alertModeLabel" destination="Wdv-vy-5ut" id="6cO-4o-TGV"/>
-                        <outlet property="alertModeSegmentedSwitch" destination="04C-ke-GJA" id="qjw-GG-14T"/>
+                        <outlet property="alarmSetupButton" destination="mo6-5G-Rn0" id="ND0-4T-8Bw"/>
                         <outlet property="colorPickerContainerView" destination="KvQ-6l-M17" id="gaF-Od-ed5"/>
-                        <outlet property="colorPickerItemsHeightConstraint" destination="YGC-fi-vUZ" id="WAP-gW-LUI"/>
                         <outlet property="colorThemePicker" destination="lha-1G-1eH" id="LcQ-Yu-wwh"/>
                         <outlet property="doneButton" destination="cf6-o5-MMZ" id="Zxb-eg-6wx"/>
                         <outlet property="finalThresholdLabel" destination="Ojn-dk-can" id="jam-Y3-yJC"/>
                         <outlet property="finalThresholdTimePicker" destination="VaK-Cn-EOG" id="i7c-SA-P8h"/>
                         <outlet property="podiumModeContainerView" destination="bOd-1e-i1t" id="ECt-Zz-Rki"/>
-                        <outlet property="podiumModeItemsConstraint" destination="qLW-Iy-78r" id="f5k-pF-fFX"/>
-                        <outlet property="soundSelectionLabel" destination="JUZ-6X-TX6" id="d4i-Ln-hqD"/>
-                        <outlet property="soundSelectionSegmentedSwitch" destination="ksY-w5-fgH" id="Gsg-oq-rpI"/>
                         <outlet property="timerModeLabel" destination="9w9-pL-jTf" id="fVq-4T-9PM"/>
                         <outlet property="timerModeSegmentedSwitch" destination="fCL-vy-SIp" id="dKL-VY-QQ6"/>
                         <outlet property="warningThresholdLabel" destination="BiL-9Z-SQP" id="Bb7-QV-Igi"/>
@@ -595,13 +534,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C3L-OZ-3lH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="dbn-a0-g1z">
-                    <connections>
-                        <action selector="soundBarHit:" destination="Cmw-cs-f0x" id="yIl-su-dtw"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1349.5999999999999" y="1208.5457271364319"/>
+            <point key="canvasLocation" x="1348.125" y="1208.4507042253522"/>
         </scene>
         <!--Timer List-->
         <scene sceneID="B0X-9f-pVT">
@@ -923,6 +857,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="d5d-Sn-tOF"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="LOCAL-VIBRATE-BEEP-SWITCH"/>
                                 <connections>
                                     <action selector="vibrateButtonHit:" destination="avR-jN-gqo" eventType="touchUpInside" id="6GJ-V6-XyW"/>
@@ -1080,7 +1015,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="BASIC-DONE-BUTTON"/>
                                 <connections>
-                                    <action selector="doneButtonHit:" destination="avR-jN-gqo" eventType="touchUpInside" id="DBW-Yf-KQW"/>
+                                    <action selector="doneButtonHit:" destination="avR-jN-gqo" eventType="touchUpInside" id="2Nt-wT-drr"/>
                                 </connections>
                             </button>
                         </subviews>

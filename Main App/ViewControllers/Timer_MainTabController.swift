@@ -347,10 +347,19 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
      */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerAlertModeFrom: AlertMode) {
         #if DEBUG
-            print("Timer (\(timerSetting)) Changed Alert Mode From: \(changedTimerAlertModeFrom)")
+        print("Timer (\(timerSetting)) Changed Alert Mode From: \(changedTimerAlertModeFrom)")
         #endif
     }
-    
+
+    /* ################################################################## */
+    /**
+     */
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSoundModeFrom: SoundMode) {
+        #if DEBUG
+        print("Timer (\(timerSetting)) Changed Sound Mode From: \(changedTimerSoundModeFrom)")
+        #endif
+    }
+
     /* ################################################################## */
     /**
      */

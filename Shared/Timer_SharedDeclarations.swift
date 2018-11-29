@@ -350,6 +350,16 @@ enum AlertMode: Int {
 
 /* ################################################################## */
 /**
+ These are the three final alert modes we have for our countdown timer.
+ */
+enum SoundMode: Int {
+    case Sound  = 0
+    case Music  = 1
+    case Silent = 2
+}
+
+/* ################################################################## */
+/**
  These are the various states a timer can be in.
  */
 enum TimerStatus: Int {
@@ -389,6 +399,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         case DisplayMode
         case ColorTheme
         case AlertMode
+        case SoundMode
         case SoundID
         case SongURLString
         case Status
@@ -423,8 +434,19 @@ class TimerSettingTuple: NSObject, NSCoding {
                 }
             }
         }
-   }
-    
+    }
+
+    /* ################################################################## */
+    var soundMode: SoundMode {          ///< This determines what kind of sound the timer makes when it makes sounds.
+        didSet {
+            if oldValue != self.soundMode {
+                if nil != self.handler {
+                    self.handler.sendSoundModeUpdateMessage(self, from: oldValue)
+                }
+            }
+        }
+    }
+
     /* ################################################################## */
     var colorTheme: Int {               ///< This is the 0-based index for the color theme.
         didSet {
@@ -554,6 +576,8 @@ class TimerSettingTuple: NSObject, NSCoding {
             ret["timerStatus"] = self.timerStatus.rawValue
             ret["displayMode"] = self.displayMode.rawValue
             ret["alertMode"] = self.alertMode.rawValue
+            ret["soundMode"] = self.soundMode.rawValue
+            ret["songURLString"] = self.songURLString
             ret["colorTheme"] = self.colorTheme
             ret["timeSet"] = self.timeSet
             ret["timeSetPodiumWarn"] = self.timeSetPodiumWarn
@@ -586,6 +610,14 @@ class TimerSettingTuple: NSObject, NSCoding {
                 self.alertMode = AlertMode(rawValue: alertMode)!
             }
             
+            if let songURLString = newValue["songURLString"] as? String {
+                self.songURLString = songURLString
+            }
+
+            if let soundMode = newValue["soundMode"] as? Int {
+                self.soundMode = SoundMode(rawValue: soundMode)!
+            }
+
             if let colorTheme = newValue["colorTheme"] as? Int {
                 self.colorTheme = colorTheme
             }
@@ -631,6 +663,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         self.displayMode = .Dual
         self.colorTheme = 0
         self.alertMode = .Silent
+        self.soundMode = .Silent
         self.soundID = 5
         self.songURLString = ""
         self.timerStatus = .Stopped
@@ -649,12 +682,13 @@ class TimerSettingTuple: NSObject, NSCoding {
      - parameter displayMode: This is how the timer will display
      - parameter colorTheme: This is the 0-based index for the color theme.
      - parameter alertMode: This determines what kind of alert the timer makes when it is complete.
+     - parameter soundMode: This determines what kind of sound the timer makes when it makes sounds.
      - parameter soundID: This is the ID of the sound to play (when in mode 1 or 2).
      - parameter songURLString: This is a String, containing a music URL (when in mode 1 or 2).
      - parameter uid: This is a unique ID for this setting. It can be defaulted.
      - parameter handler: This is the "owner" of this instance. Default is nil.
      */
-    convenience init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, currentTime: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, alertVolume: Int, soundID: Int, songURLString: String, timerStatus: TimerStatus, uid: String!, handler: LGV_Timer_State! = nil) {
+    convenience init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, currentTime: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, soundMode: SoundMode, alertVolume: Int, soundID: Int, songURLString: String, timerStatus: TimerStatus, uid: String!, handler: LGV_Timer_State! = nil) {
         self.init()
         self.timeSet = timeSet
         self.timeSetPodiumWarn = timeSetPodiumWarn
@@ -663,6 +697,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         self.displayMode = displayMode
         self.colorTheme = colorTheme
         self.alertMode = alertMode
+        self.soundMode = soundMode
         self.soundID = soundID
         self.songURLString = songURLString
         self.timerStatus = timerStatus
@@ -690,7 +725,7 @@ class TimerSettingTuple: NSObject, NSCoding {
      Returns the value in an easily readable format.
      */
     override var description: String {
-        let ret = String(format: "timeSet: %d, timeSetPodiumWarn: %d, timeSetPodiumFinal: %d, currentTime: %d, displayMode: %d, colorTheme: %d, alertMode: %d, soundID: %d, timerStatus: %d, firstTick: %.5f, lastTick: %.5f, uid: %@",
+        let ret = String(format: "timeSet: %d, timeSetPodiumWarn: %d, timeSetPodiumFinal: %d, currentTime: %d, displayMode: %d, colorTheme: %d, alertMode: %d, soundMode: %d, songURLString: %@, soundID: %d, timerStatus: %d, firstTick: %.5f, lastTick: %.5f, uid: %@",
                       self.timeSet,
                       self.timeSetPodiumWarn,
                       self.timeSetPodiumFinal,
@@ -698,6 +733,8 @@ class TimerSettingTuple: NSObject, NSCoding {
                       self.displayMode.rawValue,
                       self.colorTheme,
                       self.alertMode.rawValue,
+                      self.soundMode.rawValue,
+                      self.songURLString,
                       self.soundID,
                       self.timerStatus.rawValue,
                       self.firstTick,
@@ -803,6 +840,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         self.songURLString = ""
         self.displayMode = .Dual
         self.alertMode = .Both
+        self.soundMode = .Sound
         self.timerStatus = .Stopped
         self.uid = ""
         self.firstTick = 0.0
@@ -832,6 +870,10 @@ class TimerSettingTuple: NSObject, NSCoding {
             self.alertMode = alertMode
         }
         
+        if let soundMode = SoundMode(rawValue: coder.decodeInteger(forKey: type(of: self).TimerStateKeys.SoundMode.rawValue)) {
+            self.soundMode = soundMode
+        }
+
         let soundID = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.SoundID.rawValue)
         self.soundID = soundID
         
@@ -862,6 +904,8 @@ class TimerSettingTuple: NSObject, NSCoding {
         with.encode(self.displayMode.rawValue, forKey: type(of: self).TimerStateKeys.DisplayMode.rawValue)
         with.encode(self.colorTheme, forKey: type(of: self).TimerStateKeys.ColorTheme.rawValue)
         with.encode(self.alertMode.rawValue, forKey: type(of: self).TimerStateKeys.AlertMode.rawValue)
+        with.encode(self.soundMode.rawValue, forKey: type(of: self).TimerStateKeys.SoundMode.rawValue)
+        with.encode(self.songURLString, forKey: type(of: self).TimerStateKeys.SongURLString.rawValue)
         with.encode(self.timerStatus.rawValue, forKey: type(of: self).TimerStateKeys.Status.rawValue)
         with.encode(self.soundID, forKey: type(of: self).TimerStateKeys.SoundID.rawValue)
         with.encode(self.uid, forKey: type(of: self).TimerStateKeys.UID.rawValue)
@@ -880,6 +924,7 @@ protocol LGV_Timer_StateDelegate: class {
     func appState(_ appState: LGV_Timer_State, didUpdateTimerSoundID: TimerSettingTuple, from: Int)
     func appState(_ appState: LGV_Timer_State, didUpdateTimerSongURL: TimerSettingTuple, from: String)
     func appState(_ appState: LGV_Timer_State, didUpdateTimerAlertMode: TimerSettingTuple, from: AlertMode)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerSoundMode: TimerSettingTuple, from: SoundMode)
     func appState(_ appState: LGV_Timer_State, didUpdateTimerColorTheme: TimerSettingTuple, from: Int)
     func appState(_ appState: LGV_Timer_State, didUpdateTimerWarnTime: TimerSettingTuple, from: Int)
     func appState(_ appState: LGV_Timer_State, didUpdateTimerFinalTime: TimerSettingTuple, from: Int)
@@ -1188,7 +1233,16 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
             self.delegate?.appState(self, didUpdateTimerAlertMode: inTimerObject, from: from)
         }
     }
-    
+
+    /* ################################################################## */
+    /**
+     */
+    func sendSoundModeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: SoundMode) {
+        DispatchQueue.main.async {
+            self.delegate?.appState(self, didUpdateTimerSoundMode: inTimerObject, from: from)
+        }
+    }
+
     /* ################################################################## */
     /**
      */

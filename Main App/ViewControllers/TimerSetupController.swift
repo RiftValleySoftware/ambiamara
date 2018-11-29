@@ -29,77 +29,16 @@ class TimerSetupController: TimerSetPickerController {
     @IBOutlet weak var finalThresholdTimePicker: UIPickerView!
     @IBOutlet weak var colorPickerContainerView: UIView!
     @IBOutlet weak var colorThemePicker: UIPickerView!
-    @IBOutlet weak var alertModeLabel: UILabel!
-    @IBOutlet weak var alertModeSegmentedSwitch: UISegmentedControl!
-    @IBOutlet weak var soundSelectionLabel: UILabel!
-    @IBOutlet weak var soundSelectionSegmentedSwitch: UISegmentedControl!
     @IBOutlet weak var podiumModeItemsConstraint: NSLayoutConstraint!
-    @IBOutlet weak var colorPickerItemsHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var doneButton: UIButton!
-    var audioPlayer: AVAudioPlayer!
-    
-    /* ################################################################## */
-    /**
-     */
-    private func _playAlertSound(_ inSoundID: Int) {
-            if let soundUrl = Bundle.main.url(forResource: String(format: "Sound-%02d", inSoundID), withExtension: "aiff") {
-                self.stopAudioPlayer()
-                self.playThisSound(soundUrl)
-            }
-    }
-    
-    /* ################################################################## */
-    /**
-     This plays any sound, using a given URL.
-     
-     - parameter inSoundURL: This is the URI to the sound resource.
-     */
-    func playThisSound(_ inSoundURL: URL) {
-        do {
-            if nil == self.audioPlayer {
-                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
-                try self.audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
-            }
-            self.audioPlayer?.play()
-        } catch {
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     If the audio player is going, this pauses it. Nothing happens if no audio player is going.
-     */
-    func pauseAudioPlayer() {
-        if nil != self.audioPlayer {
-            self.audioPlayer?.pause()
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     This terminates the audio player. Nothing happens if no audio player is going.
-     */
-    func stopAudioPlayer() {
-        if nil != self.audioPlayer {
-            self.audioPlayer?.stop()
-            self.audioPlayer = nil
-        }
-    }
+    @IBOutlet weak var alarmSetupButton: UIButton!
 
     /* ################################################################## */
     /**
      */
     func setUpPickerViews() {
         self.podiumModeContainerView.isHidden = (.Digital == self.timerObject.displayMode)
-        if .Podium == self.timerObject.displayMode {
-            self.colorPickerContainerView.isHidden = true
-            self.podiumModeItemsConstraint.constant = 8
-        } else {
-            self.podiumModeItemsConstraint.constant = colorPickerItemsHeightConstraint.constant + 8
-            self.colorPickerContainerView.isHidden = false
-        }
-        
-        self.soundSelectionSegmentedSwitch.isEnabled = ((.Silent != self.timerObject.alertMode) && (.VibrateOnly != self.timerObject.alertMode))
+        self.colorPickerContainerView.isHidden = (.Podium == self.timerObject.displayMode)
     }
     
     // MARK: - Base Class Override Methods
@@ -113,26 +52,14 @@ class TimerSetupController: TimerSetPickerController {
 
         self.warningThresholdLabel.text = self.warningThresholdLabel.text?.localizedVariant
         self.finalThresholdLabel.text = self.finalThresholdLabel.text?.localizedVariant
-        self.alertModeLabel.text = self.alertModeLabel.text?.localizedVariant
-        self.timerModeLabel.text = self.timerModeLabel.text?.localizedVariant
-        self.soundSelectionLabel.text = self.soundSelectionLabel.text?.localizedVariant
         self.doneButton.setTitle(self.doneButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
+        self.alarmSetupButton.setTitle(self.alarmSetupButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
         
         for segment in 0..<self.timerModeSegmentedSwitch.numberOfSegments {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
         }
         
-        for segment in 0..<self.alertModeSegmentedSwitch.numberOfSegments {
-            self.alertModeSegmentedSwitch.setTitle(self.alertModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
-        }
-        
-        for segment in 0..<self.soundSelectionSegmentedSwitch.numberOfSegments {
-            self.soundSelectionSegmentedSwitch.setTitle(self.soundSelectionSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
-        }
-        
         self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
-        self.alertModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.alertMode.rawValue
-        self.soundSelectionSegmentedSwitch.selectedSegmentIndex = self.timerObject.soundID
         
         self.setUpPickerViews()
         
@@ -178,6 +105,16 @@ class TimerSetupController: TimerSetPickerController {
         Timer_AppDelegate.lockOrientation(.all)
     }
     
+    /* ################################################################## */
+    /**
+     Called when we are about to bring in the setup controller.
+     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationController = segue.destination as? Timer_SetupSoundsViewController {
+            destinationController.timerObject = self.timerObject
+        }
+    }
+
     // MARK: - @IBAction Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -191,37 +128,8 @@ class TimerSetupController: TimerSetPickerController {
     /* ################################################################## */
     /**
      */
-    @IBAction func soundSelectionChanged(_ sender: UISegmentedControl) {
-        self.timerObject.soundID = sender.selectedSegmentIndex
-        self._playAlertSound(self.timerObject.soundID)
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBAction func alertModeChanged(_ sender: UISegmentedControl) {
-        self.timerObject.alertMode = AlertMode(rawValue: sender.selectedSegmentIndex)!
-        self.setUpPickerViews()
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBAction func doneButtonHit(_ sender: Any) {
-        self.stopAudioPlayer()
+    @IBAction func doneButtonHit(_: Any! = nil) {
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    /* ################################################################## */
-    /**
-     This terminates the audio player if it's playing. Nothing happens if no audio player is going.
-     
-     - parameter: ignored (We want to be able to call as an event handler).
-     */
-    @IBAction func soundBarHit(_: Any! = nil) {
-        if nil != self.audioPlayer {
-            self.stopAudioPlayer()
-        }
     }
 
     /// MARK: - UIPickerViewDataSource Methods
