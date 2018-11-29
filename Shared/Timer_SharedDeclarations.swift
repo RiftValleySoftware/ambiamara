@@ -390,6 +390,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         case ColorTheme
         case AlertMode
         case SoundID
+        case SongURLString
         case Status
         case UID
     }
@@ -441,6 +442,16 @@ class TimerSettingTuple: NSObject, NSCoding {
             if oldValue != self.soundID {
                 if nil != self.handler {
                     self.handler.sendSoundIDUpdateMessage(self, from: oldValue)
+                }
+            }
+        }
+    }
+    
+    var songURLString: String {
+        didSet {
+            if oldValue != self.songURLString {
+                if nil != self.handler {
+                    self.handler.sendSongURLUpdateMessage(self, from: oldValue)
                 }
             }
         }
@@ -621,6 +632,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         self.colorTheme = 0
         self.alertMode = .Silent
         self.soundID = 5
+        self.songURLString = ""
         self.timerStatus = .Stopped
         self.firstTick = 0.0
         self.lastTick = 0.0
@@ -638,10 +650,11 @@ class TimerSettingTuple: NSObject, NSCoding {
      - parameter colorTheme: This is the 0-based index for the color theme.
      - parameter alertMode: This determines what kind of alert the timer makes when it is complete.
      - parameter soundID: This is the ID of the sound to play (when in mode 1 or 2).
+     - parameter songURLString: This is a String, containing a music URL (when in mode 1 or 2).
      - parameter uid: This is a unique ID for this setting. It can be defaulted.
      - parameter handler: This is the "owner" of this instance. Default is nil.
      */
-    convenience init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, currentTime: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, alertVolume: Int, soundID: Int, timerStatus: TimerStatus, uid: String!, handler: LGV_Timer_State! = nil) {
+    convenience init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, currentTime: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, alertVolume: Int, soundID: Int, songURLString: String, timerStatus: TimerStatus, uid: String!, handler: LGV_Timer_State! = nil) {
         self.init()
         self.timeSet = timeSet
         self.timeSetPodiumWarn = timeSetPodiumWarn
@@ -651,6 +664,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         self.colorTheme = colorTheme
         self.alertMode = alertMode
         self.soundID = soundID
+        self.songURLString = songURLString
         self.timerStatus = timerStatus
         self.uid = (nil == uid) ? NSUUID().uuidString: uid
         self.handler = handler
@@ -786,6 +800,7 @@ class TimerSettingTuple: NSObject, NSCoding {
      - parameter coder: The coder containing the state
      */
     required init?(coder: NSCoder) {
+        self.songURLString = ""
         self.displayMode = .Dual
         self.alertMode = .Both
         self.timerStatus = .Stopped
@@ -820,6 +835,10 @@ class TimerSettingTuple: NSObject, NSCoding {
         let soundID = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.SoundID.rawValue)
         self.soundID = soundID
         
+        if let songURLString = coder.decodeObject(forKey: type(of: self).TimerStateKeys.SongURLString.rawValue) as? String {
+            self.songURLString = songURLString
+        }
+
         if let timerStatus = TimerStatus(rawValue: coder.decodeInteger(forKey: type(of: self).TimerStateKeys.Status.rawValue)) {
             self.timerStatus = timerStatus
         }
@@ -859,6 +878,7 @@ protocol LGV_Timer_StateDelegate: class {
     func appState(_ appState: LGV_Timer_State, didUpdateTimerDisplayMode: TimerSettingTuple, from: TimerDisplayMode)
     func appState(_ appState: LGV_Timer_State, didUpdateTimerCurrentTime: TimerSettingTuple, from: Int)
     func appState(_ appState: LGV_Timer_State, didUpdateTimerSoundID: TimerSettingTuple, from: Int)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerSongURL: TimerSettingTuple, from: String)
     func appState(_ appState: LGV_Timer_State, didUpdateTimerAlertMode: TimerSettingTuple, from: AlertMode)
     func appState(_ appState: LGV_Timer_State, didUpdateTimerColorTheme: TimerSettingTuple, from: Int)
     func appState(_ appState: LGV_Timer_State, didUpdateTimerWarnTime: TimerSettingTuple, from: Int)
@@ -1127,9 +1147,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         DispatchQueue.main.async {
             self.append(ret)
             
-            if nil != self.delegate {
-                self.delegate.appState(self, didAddTimer: ret)
-            }
+            self.delegate?.appState(self, didAddTimer: ret)
         }
         
         return ret
@@ -1140,9 +1158,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      */
     func sendTimeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
-            if nil != self.delegate {
-                self.delegate.appState(self, didUpdateTimerCurrentTime: inTimerObject, from: from)
-            }
+            self.delegate?.appState(self, didUpdateTimerCurrentTime: inTimerObject, from: from)
         }
     }
     
@@ -1151,20 +1167,25 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      */
     func sendSoundIDUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
-            if nil != self.delegate {
-                self.delegate.appState(self, didUpdateTimerSoundID: inTimerObject, from: from)
-            }
+            self.delegate?.appState(self, didUpdateTimerSoundID: inTimerObject, from: from)
         }
     }
     
     /* ################################################################## */
     /**
      */
+    func sendSongURLUpdateMessage(_ inTimerObject: TimerSettingTuple, from: String) {
+        DispatchQueue.main.async {
+            self.delegate?.appState(self, didUpdateTimerSongURL: inTimerObject, from: from)
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     */
     func sendAlertModeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: AlertMode) {
         DispatchQueue.main.async {
-            if nil != self.delegate {
-                self.delegate.appState(self, didUpdateTimerAlertMode: inTimerObject, from: from)
-            }
+            self.delegate?.appState(self, didUpdateTimerAlertMode: inTimerObject, from: from)
         }
     }
     
@@ -1173,9 +1194,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      */
     func sendColorThemeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
-            if nil != self.delegate {
-                self.delegate.appState(self, didUpdateTimerColorTheme: inTimerObject, from: from)
-            }
+            self.delegate?.appState(self, didUpdateTimerColorTheme: inTimerObject, from: from)
         }
     }
     
@@ -1184,9 +1203,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      */
     func sendSetTimeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
-            if nil != self.delegate {
-                self.delegate.appState(self, didUpdateTimerTimeSet: inTimerObject, from: from)
-            }
+            self.delegate?.appState(self, didUpdateTimerTimeSet: inTimerObject, from: from)
         }
     }
     
@@ -1195,9 +1212,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      */
     func sendWarnTimeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
-            if nil != self.delegate {
-                self.delegate.appState(self, didUpdateTimerWarnTime: inTimerObject, from: from)
-            }
+            self.delegate?.appState(self, didUpdateTimerWarnTime: inTimerObject, from: from)
         }
     }
     
@@ -1206,9 +1221,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      */
     func sendFinalTimeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
-            if nil != self.delegate {
-                self.delegate.appState(self, didUpdateTimerFinalTime: inTimerObject, from: from)
-            }
+            self.delegate?.appState(self, didUpdateTimerFinalTime: inTimerObject, from: from)
         }
     }
     
@@ -1217,9 +1230,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      */
     func sendStatusUpdateMessage(_ inTimerObject: TimerSettingTuple, from: TimerStatus) {
         DispatchQueue.main.async {
-            if nil != self.delegate {
-                self.delegate.appState(self, didUpdateTimerStatus: inTimerObject, from: from)
-            }
+            self.delegate?.appState(self, didUpdateTimerStatus: inTimerObject, from: from)
         }
     }
     
@@ -1228,15 +1239,13 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      */
     func sendDisplayModeUpdateMessage(_ inTimerObject: TimerSettingTuple, from: TimerDisplayMode) {
         DispatchQueue.main.async {
-            if nil != self.delegate {
-                self.delegate.appState(self, didUpdateTimerDisplayMode: inTimerObject, from: from)
-            }
+            self.delegate?.appState(self, didUpdateTimerDisplayMode: inTimerObject, from: from)
         }
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Sequence Methods
     /* ################################################################################################################################## */
-    /* ################################################################## */
     /**
      */
     subscript(_ index: Int) -> TimerSettingTuple {
@@ -1333,9 +1342,9 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         }
     }
     
+    /* ################################################################################################################################## */
     // MARK: - NSCoding Protocol Methods
     /* ################################################################################################################################## */
-    /* ################################################################## */
     /**
      Initialize from a serialized state.
      

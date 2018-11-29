@@ -29,6 +29,7 @@ protocol TimerEngineDelegate: class {
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerStatusFrom: TimerStatus)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerDisplayModeFrom: TimerDisplayMode)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSoundIDFrom: Int)
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSongURLFrom: String)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerAlertModeFrom: AlertMode)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerColorThemeFrom: Int)
 }
@@ -70,6 +71,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         case ColorTheme
         case AlertMode
         case SoundID
+        case SongURLString
         case UID
     }
     
@@ -270,6 +272,10 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
             tempSetting.soundID = soundID.intValue
         }
         
+        if let songURLString = inTimer.object(forKey: TimerPrefKeys.SongURLString.rawValue) as? String {
+            tempSetting.songURLString = songURLString
+        }
+
         if let uid = inTimer.object(forKey: TimerPrefKeys.UID.rawValue) as? NSString {
             tempSetting.uid = uid as String
         } else {
@@ -558,6 +564,16 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         self.savePrefs()
     }
     
+    /* ################################################################## */
+    /**
+     */
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerSongURL: TimerSettingTuple, from: String) {
+        if nil != self.delegate {
+            self.delegate.timerSetting(didUpdateTimerSongURL, changedTimerSongURLFrom: from)
+        }
+        self.savePrefs()
+    }
+
     /* ################################################################## */
     /**
      */

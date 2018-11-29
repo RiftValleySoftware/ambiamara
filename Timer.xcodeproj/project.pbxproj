@@ -40,6 +40,8 @@
 		D4D263A5219C9C070057D1A3 /* Sound-05.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D263A4219C9C070057D1A3 /* Sound-05.aiff */; };
 		D4D263A7219C9C7B0057D1A3 /* Sound-04.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D263A6219C9C7B0057D1A3 /* Sound-04.aiff */; };
 		D4D263A9219C9CDD0057D1A3 /* Sound-03.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D4D263A8219C9CDD0057D1A3 /* Sound-03.aiff */; };
+		D4D722E821B0326B0062035B /* Timer_SetupSoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */; };
+		D4D722EA21B036070062035B /* SoundTestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E921B036070062035B /* SoundTestButton.swift */; };
 		D4FE3794219B6D180031E105 /* LED_Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE3792219B6D180031E105 /* LED_Element.swift */; };
 		D4FE3795219B6D180031E105 /* LED_ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE3793219B6D180031E105 /* LED_ClockView.swift */; };
 /* End PBXBuildFile section */
@@ -109,6 +111,8 @@
 		D4D263A4219C9C070057D1A3 /* Sound-05.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-05.aiff"; sourceTree = "<group>"; };
 		D4D263A6219C9C7B0057D1A3 /* Sound-04.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-04.aiff"; sourceTree = "<group>"; };
 		D4D263A8219C9CDD0057D1A3 /* Sound-03.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Sound-03.aiff"; sourceTree = "<group>"; };
+		D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Timer_SetupSoundsViewController.swift; path = ViewControllers/Timer_SetupSoundsViewController.swift; sourceTree = "<group>"; };
+		D4D722E921B036070062035B /* SoundTestButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundTestButton.swift; path = ViewControllers/SoundTestButton.swift; sourceTree = "<group>"; };
 		D4F242C2219B501900D809EB /* SwipeableTabBarController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwipeableTabBarController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F242C4219B506C00D809EB /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "Pods/Reveal-SDK/RevealServer-19/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		D4FE3792219B6D180031E105 /* LED_Element.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LED_Element.swift; path = "Main App/LEDDisplay/LED_Element.swift"; sourceTree = "<group>"; };
@@ -174,8 +178,10 @@
 				775AE1761EDDDF1D00B168A7 /* TimerSetPickerController.swift */,
 				7770CB2D1ED6153500ED1F9A /* TimerSetController.swift */,
 				7770CB2F1ED6156300ED1F9A /* TimerSetupController.swift */,
+				D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */,
 				77052CD61EE0DAAD00DA2E8C /* TimerRuntimeViewController.swift */,
 				D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */,
+				D4D722E921B036070062035B /* SoundTestButton.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -446,8 +452,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4D722E821B0326B0062035B /* Timer_SetupSoundsViewController.swift in Sources */,
 				7770CB301ED6156300ED1F9A /* TimerSetupController.swift in Sources */,
 				77BB98E11F12838F0062B14A /* TimerEngine.swift in Sources */,
+				D4D722EA21B036070062035B /* SoundTestButton.swift in Sources */,
 				D4FE3795219B6D180031E105 /* LED_ClockView.swift in Sources */,
 				D427963A219B50F90012F705 /* UIKit+Extensions.swift in Sources */,
 				D4FE3794219B6D180031E105 /* LED_Element.swift in Sources */,

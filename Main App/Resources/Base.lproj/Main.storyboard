@@ -518,7 +518,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cf6-o5-MMZ">
-                                <rect key="frame" x="16" y="500" width="288" height="48"/>
+                                <rect key="frame" x="16" y="512" width="288" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="G8u-10-Jf7"/>
                                 </constraints>
@@ -538,7 +538,7 @@
                             <constraint firstItem="JUZ-6X-TX6" firstAttribute="top" secondItem="04C-ke-GJA" secondAttribute="bottom" constant="8" id="827-Rc-G0C"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="top" secondItem="Wdv-vy-5ut" secondAttribute="bottom" constant="8" id="8V1-q1-VrB"/>
                             <constraint firstItem="JUZ-6X-TX6" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="9Ke-JE-z0k"/>
-                            <constraint firstItem="usg-pJ-xv3" firstAttribute="bottom" secondItem="cf6-o5-MMZ" secondAttribute="bottom" constant="20" id="Afp-Lp-bkq"/>
+                            <constraint firstItem="usg-pJ-xv3" firstAttribute="bottom" secondItem="cf6-o5-MMZ" secondAttribute="bottom" constant="8" id="Afp-Lp-bkq"/>
                             <constraint firstItem="JUZ-6X-TX6" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="Bdg-sV-bbC"/>
                             <constraint firstItem="04C-ke-GJA" firstAttribute="leading" secondItem="m5H-jP-7bL" secondAttribute="leadingMargin" id="FLk-8J-sEW"/>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="trailing" secondItem="m5H-jP-7bL" secondAttribute="trailingMargin" id="Fnf-Gl-gZk"/>
@@ -900,6 +900,251 @@
             </objects>
             <point key="canvasLocation" x="2163.75" y="517.6056338028169"/>
         </scene>
+        <!--Timer Setup Sounds View Controller-->
+        <scene sceneID="90U-Nz-OnS">
+            <objects>
+                <viewController id="avR-jN-gqo" customClass="Timer_SetupSoundsViewController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HLm-Em-6mF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OlQ-fV-h36">
+                                <rect key="frame" x="8" y="20" width="49" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="47" id="3I9-de-HjA"/>
+                                    <constraint firstAttribute="height" constant="31" id="dIZ-yB-9vq"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="vibrateSwitchHit:" destination="avR-jN-gqo" eventType="valueChanged" id="EoQ-VI-TcY"/>
+                                </connections>
+                            </switch>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PMB-fq-wfY">
+                                <rect key="frame" x="63" y="20" width="249" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="d5d-Sn-tOF"/>
+                                </constraints>
+                                <state key="normal" title="LOCAL-VIBRATE-BEEP-SWITCH"/>
+                                <connections>
+                                    <action selector="vibrateButtonHit:" destination="avR-jN-gqo" eventType="touchUpInside" id="6GJ-V6-XyW"/>
+                                </connections>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0YC-uY-IAy">
+                                <rect key="frame" x="8" y="59" width="304" height="41"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="1UL-fy-hyw"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="" image="Speaker"/>
+                                    <segment title="" image="Music"/>
+                                    <segment title="" image="Nothing"/>
+                                </segments>
+                                <connections>
+                                    <action selector="soundModeSegmentedSwitchHit:" destination="avR-jN-gqo" eventType="valueChanged" id="nbl-r2-KfN"/>
+                                </connections>
+                            </segmentedControl>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Bu-Fw-FZa" userLabel="No Music Label View">
+                                <rect key="frame" x="8" y="99" width="304" height="413"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-NO-MUSIC-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7L-1V-QXv">
+                                        <rect key="frame" x="0.0" y="191.5" width="304" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="XSa-Ci-E5Y"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="s7L-1V-QXv" firstAttribute="centerY" secondItem="0Bu-Fw-FZa" secondAttribute="centerY" id="0Zw-F4-xsa"/>
+                                    <constraint firstItem="s7L-1V-QXv" firstAttribute="leading" secondItem="0Bu-Fw-FZa" secondAttribute="leading" id="3RV-1I-EYF"/>
+                                    <constraint firstAttribute="trailing" secondItem="s7L-1V-QXv" secondAttribute="trailing" id="SGb-Dl-CXz"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hrn-NJ-meW" userLabel="Artist-Sound Select View">
+                                <rect key="frame" x="8" y="99" width="304" height="120"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vgq-bW-AeN">
+                                        <rect key="frame" x="0.0" y="0.0" width="304" height="120"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="avR-jN-gqo" id="0gq-BU-teJ"/>
+                                            <outlet property="delegate" destination="avR-jN-gqo" id="xat-xZ-7FT"/>
+                                        </connections>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Vgq-bW-AeN" secondAttribute="trailing" id="P4L-W6-EeT"/>
+                                    <constraint firstAttribute="height" constant="120" id="aAl-7m-YHh"/>
+                                    <constraint firstItem="Vgq-bW-AeN" firstAttribute="leading" secondItem="hrn-NJ-meW" secondAttribute="leading" id="dtq-Te-b7g"/>
+                                    <constraint firstItem="Vgq-bW-AeN" firstAttribute="top" secondItem="hrn-NJ-meW" secondAttribute="top" id="pc3-mB-ztd"/>
+                                    <constraint firstAttribute="bottom" secondItem="Vgq-bW-AeN" secondAttribute="bottom" id="yeO-iV-Nut"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WYl-wR-sZA" userLabel="Song Select Picker Container View">
+                                <rect key="frame" x="8" y="219" width="304" height="120"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pRz-r6-5TC">
+                                        <rect key="frame" x="0.0" y="0.0" width="304" height="120"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="avR-jN-gqo" id="kKI-3A-WjY"/>
+                                            <outlet property="delegate" destination="avR-jN-gqo" id="ERt-t8-vBi"/>
+                                        </connections>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="pRz-r6-5TC" firstAttribute="leading" secondItem="WYl-wR-sZA" secondAttribute="leading" id="F8q-Kt-MxN"/>
+                                    <constraint firstItem="pRz-r6-5TC" firstAttribute="top" secondItem="WYl-wR-sZA" secondAttribute="top" id="Iro-zb-wTH"/>
+                                    <constraint firstAttribute="height" constant="120" id="nfO-Kt-BZW"/>
+                                    <constraint firstAttribute="bottom" secondItem="pRz-r6-5TC" secondAttribute="bottom" id="qQs-Z5-XT3"/>
+                                    <constraint firstAttribute="trailing" secondItem="pRz-r6-5TC" secondAttribute="trailing" id="tdB-an-GH4"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icb-vL-3zB" userLabel="Test Sound Button Container View">
+                                <rect key="frame" x="8" y="219" width="304" height="293"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2wp-vs-RMZ" customClass="SoundTestButton" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
+                                        <rect key="frame" x="127" y="121.5" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="2wp-vs-RMZ" secondAttribute="height" multiplier="1:1" id="QlH-fz-llO"/>
+                                            <constraint firstAttribute="width" constant="50" id="ldP-66-9c4"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="NO"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isMusic" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="soundTestButtonHit:" destination="avR-jN-gqo" eventType="touchUpInside" id="0OD-N7-SBD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="2wp-vs-RMZ" firstAttribute="centerY" secondItem="icb-vL-3zB" secondAttribute="centerY" id="TaL-0d-orH"/>
+                                    <constraint firstItem="2wp-vs-RMZ" firstAttribute="centerX" secondItem="icb-vL-3zB" secondAttribute="centerX" id="kC2-bX-8gr"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdT-fG-3D9" userLabel="Music Test Button Container View">
+                                <rect key="frame" x="8" y="339" width="304" height="173"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KkI-hg-1Rx" customClass="SoundTestButton" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
+                                        <rect key="frame" x="127" y="61.5" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="lJy-R8-E3U"/>
+                                            <constraint firstAttribute="width" secondItem="KkI-hg-1Rx" secondAttribute="height" multiplier="1:1" id="qI8-8A-m8C"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isMusic" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="musicTestButtonHit:" destination="avR-jN-gqo" eventType="touchUpInside" id="Mei-ko-8D8"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="KkI-hg-1Rx" firstAttribute="centerX" secondItem="CdT-fG-3D9" secondAttribute="centerX" id="38E-BS-WhP"/>
+                                    <constraint firstItem="KkI-hg-1Rx" firstAttribute="centerY" secondItem="CdT-fG-3D9" secondAttribute="centerY" id="RnT-tz-pYC"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BbL-Ed-DcR">
+                                <rect key="frame" x="8" y="99" width="304" height="413"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="CmC-ty-3Sv">
+                                        <rect key="frame" x="133.5" y="188" width="37" height="37"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="CmC-ty-3Sv" secondAttribute="height" multiplier="1:1" id="3vJ-z2-wE9"/>
+                                            <constraint firstAttribute="width" constant="37" id="FCa-iY-0XP"/>
+                                        </constraints>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="CmC-ty-3Sv" firstAttribute="centerY" secondItem="BbL-Ed-DcR" secondAttribute="centerY" id="1Qk-zp-f3E"/>
+                                    <constraint firstItem="CmC-ty-3Sv" firstAttribute="centerX" secondItem="BbL-Ed-DcR" secondAttribute="centerX" id="deA-Iu-iYJ"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dX0-Lz-MmC">
+                                <rect key="frame" x="0.0" y="512" width="320" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="of3-37-yuz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="BASIC-DONE-BUTTON"/>
+                                <connections>
+                                    <action selector="doneButtonHit:" destination="avR-jN-gqo" eventType="touchUpInside" id="DBW-Yf-KQW"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="1" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="wpe-dP-nhC" firstAttribute="trailing" secondItem="hrn-NJ-meW" secondAttribute="trailing" constant="8" id="7CJ-10-vQZ"/>
+                            <constraint firstItem="CdT-fG-3D9" firstAttribute="leading" secondItem="HLm-Em-6mF" secondAttribute="leading" constant="8" id="A1M-Pa-f0V"/>
+                            <constraint firstItem="0Bu-Fw-FZa" firstAttribute="top" secondItem="0YC-uY-IAy" secondAttribute="bottom" id="CBb-js-6L3"/>
+                            <constraint firstItem="PMB-fq-wfY" firstAttribute="top" secondItem="wpe-dP-nhC" secondAttribute="top" id="Ca4-67-Jae"/>
+                            <constraint firstItem="dX0-Lz-MmC" firstAttribute="top" secondItem="0Bu-Fw-FZa" secondAttribute="bottom" id="DI7-qw-7XM"/>
+                            <constraint firstItem="dX0-Lz-MmC" firstAttribute="top" secondItem="CdT-fG-3D9" secondAttribute="bottom" id="E8J-pl-sA3"/>
+                            <constraint firstItem="0YC-uY-IAy" firstAttribute="trailing" secondItem="wpe-dP-nhC" secondAttribute="trailing" constant="-8" id="FFY-zO-Oa5"/>
+                            <constraint firstItem="dX0-Lz-MmC" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" id="GXT-MD-dmD"/>
+                            <constraint firstItem="OlQ-fV-h36" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" constant="8" id="JRp-m5-S1g"/>
+                            <constraint firstItem="BbL-Ed-DcR" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" constant="8" id="Jni-xL-f1C"/>
+                            <constraint firstItem="wpe-dP-nhC" firstAttribute="trailing" secondItem="PMB-fq-wfY" secondAttribute="trailing" constant="8" id="JwR-O5-Y2i"/>
+                            <constraint firstItem="wpe-dP-nhC" firstAttribute="trailing" secondItem="WYl-wR-sZA" secondAttribute="trailing" constant="8" id="Oe2-Jx-x1R"/>
+                            <constraint firstItem="wpe-dP-nhC" firstAttribute="trailing" secondItem="dX0-Lz-MmC" secondAttribute="trailing" id="RIt-PG-T9a"/>
+                            <constraint firstItem="wpe-dP-nhC" firstAttribute="trailing" secondItem="BbL-Ed-DcR" secondAttribute="trailing" constant="8" id="Sdp-mh-665"/>
+                            <constraint firstItem="hrn-NJ-meW" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" constant="8" id="StA-Bu-LF7"/>
+                            <constraint firstAttribute="trailing" secondItem="icb-vL-3zB" secondAttribute="trailing" constant="8" id="UCP-WA-gr6"/>
+                            <constraint firstItem="icb-vL-3zB" firstAttribute="leading" secondItem="HLm-Em-6mF" secondAttribute="leading" constant="8" id="VEW-RD-4d0"/>
+                            <constraint firstItem="hrn-NJ-meW" firstAttribute="top" secondItem="0YC-uY-IAy" secondAttribute="bottom" id="XWB-hY-hil"/>
+                            <constraint firstItem="0YC-uY-IAy" firstAttribute="top" secondItem="OlQ-fV-h36" secondAttribute="bottom" constant="8" id="Yj9-7j-eMv"/>
+                            <constraint firstItem="dX0-Lz-MmC" firstAttribute="top" secondItem="BbL-Ed-DcR" secondAttribute="bottom" id="Z35-ua-8ZP"/>
+                            <constraint firstItem="WYl-wR-sZA" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" constant="8" id="ZDt-xc-ieH"/>
+                            <constraint firstItem="BbL-Ed-DcR" firstAttribute="top" secondItem="0YC-uY-IAy" secondAttribute="bottom" id="cee-00-hjH"/>
+                            <constraint firstItem="OlQ-fV-h36" firstAttribute="top" secondItem="wpe-dP-nhC" secondAttribute="top" id="esO-RD-8ri"/>
+                            <constraint firstItem="0Bu-Fw-FZa" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" constant="8" id="gvr-Uf-8GR"/>
+                            <constraint firstItem="0Bu-Fw-FZa" firstAttribute="trailing" secondItem="wpe-dP-nhC" secondAttribute="trailing" constant="-8" id="iZx-vy-Sic"/>
+                            <constraint firstItem="CdT-fG-3D9" firstAttribute="top" secondItem="WYl-wR-sZA" secondAttribute="bottom" id="jo8-3M-I1C"/>
+                            <constraint firstItem="PMB-fq-wfY" firstAttribute="leading" secondItem="OlQ-fV-h36" secondAttribute="trailing" constant="8" id="n9D-gL-t2y"/>
+                            <constraint firstAttribute="trailing" secondItem="CdT-fG-3D9" secondAttribute="trailing" constant="8" id="nfN-yr-Mhx"/>
+                            <constraint firstItem="icb-vL-3zB" firstAttribute="top" secondItem="hrn-NJ-meW" secondAttribute="bottom" id="tLh-0C-eft"/>
+                            <constraint firstItem="WYl-wR-sZA" firstAttribute="top" secondItem="hrn-NJ-meW" secondAttribute="bottom" id="vtw-uh-b7K"/>
+                            <constraint firstItem="dX0-Lz-MmC" firstAttribute="top" secondItem="icb-vL-3zB" secondAttribute="bottom" id="xiV-yu-zBf"/>
+                            <constraint firstItem="0YC-uY-IAy" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" constant="8" id="y0R-Uz-eeO"/>
+                            <constraint firstItem="dX0-Lz-MmC" firstAttribute="bottom" secondItem="wpe-dP-nhC" secondAttribute="bottom" constant="-8" id="zkB-0o-LJR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wpe-dP-nhC"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityContainerView" destination="BbL-Ed-DcR" id="OYD-XO-NFh"/>
+                        <outlet property="artistSoundSelectPicker" destination="Vgq-bW-AeN" id="DlN-SB-PwY"/>
+                        <outlet property="artistSoundSelectPickerContainerView" destination="hrn-NJ-meW" id="JCm-Jn-EAg"/>
+                        <outlet property="doneButton" destination="dX0-Lz-MmC" id="w8X-YT-DIY"/>
+                        <outlet property="musicTestButton" destination="KkI-hg-1Rx" id="p6v-bC-MRJ"/>
+                        <outlet property="musicTestButtonContainerView" destination="CdT-fG-3D9" id="OMG-IG-G0A"/>
+                        <outlet property="noMusicLabel" destination="s7L-1V-QXv" id="gbH-F2-UrE"/>
+                        <outlet property="noMusicLabelView" destination="0Bu-Fw-FZa" id="g6x-aK-2eX"/>
+                        <outlet property="songSelectPicker" destination="pRz-r6-5TC" id="bmG-9y-2P3"/>
+                        <outlet property="songSelectPickerContainerView" destination="WYl-wR-sZA" id="nQi-RG-SsG"/>
+                        <outlet property="soundModeSegmentedSwitch" destination="0YC-uY-IAy" id="XX0-th-lIx"/>
+                        <outlet property="testSoundButton" destination="2wp-vs-RMZ" id="3yI-Rw-PIl"/>
+                        <outlet property="testSoundButtonContainerView" destination="icb-vL-3zB" id="Hvh-aY-8eW"/>
+                        <outlet property="vibrateButton" destination="PMB-fq-wfY" id="cpl-mJ-JKQ"/>
+                        <outlet property="vibrateSwitch" destination="OlQ-fV-h36" id="NJd-JC-ZJr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DSR-Ka-t0I" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2163.75" y="1207.3943661971832"/>
+        </scene>
         <!--Timer List Navigation Controller-->
         <scene sceneID="dWu-Eb-ueo">
             <objects>
@@ -944,11 +1189,14 @@
     </scenes>
     <resources>
         <image name="Info" width="22" height="22"/>
+        <image name="Music" width="26" height="21"/>
+        <image name="Nothing" width="26" height="26"/>
         <image name="Phone-End" width="22" height="22"/>
         <image name="Phone-Reset" width="22" height="22"/>
         <image name="Phone-Start" width="22" height="22"/>
         <image name="Phone-Stop" width="22" height="22"/>
         <image name="Settings" width="25" height="25"/>
+        <image name="Speaker" width="26" height="26"/>
         <image name="StartButton" width="60" height="69"/>
         <image name="StartButton-Disabled" width="60" height="69"/>
         <image name="TrafficLights" width="12" height="40"/>
