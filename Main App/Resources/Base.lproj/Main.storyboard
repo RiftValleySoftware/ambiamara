@@ -178,10 +178,10 @@
                     </navigationItem>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
-                            <color key="value" red="0.26621194949999999" green="0.26621194949999999" blue="0.26621194949999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.0" green="0.0060920210260000003" blue="0.73128643130000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
-                            <color key="value" red="0.4894349093" green="0.4894349093" blue="0.4894349093" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.067454350859999998" green="0.11919723040000001" blue="0.47245385359999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -306,10 +306,10 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
-                            <color key="value" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.014992052216497281" green="0.02666233527385467" blue="0.11245142484352344" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
-                            <color key="value" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.034703524762889001" green="0.061717835493828387" blue="0.26030197536165811" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -353,19 +353,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo6-5G-Rn0">
-                                <rect key="frame" x="16" y="20" width="288" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="YWb-XM-9kw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="SET-UP-ALARM-MODE"/>
-                                <connections>
-                                    <segue destination="avR-jN-gqo" kind="presentation" id="JeV-v1-POm"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-MODE-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9w9-pL-jTf">
-                                <rect key="frame" x="16" y="80" width="288" height="21"/>
+                                <rect key="frame" x="16" y="20" width="288" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="hMc-U2-HVd"/>
                                 </constraints>
@@ -374,7 +363,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fCL-vy-SIp">
-                                <rect key="frame" x="16" y="101" width="288" height="29"/>
+                                <rect key="frame" x="16" y="41" width="288" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="RUh-o5-VWb"/>
@@ -390,7 +379,7 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-6l-M17" userLabel="Color Picker Container View">
-                                <rect key="frame" x="16" y="141" width="288" height="129"/>
+                                <rect key="frame" x="16" y="81" width="288" height="129"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lha-1G-1eH">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="129"/>
@@ -424,7 +413,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-1e-i1t" userLabel="Podium Mode Container View">
-                                <rect key="frame" x="16" y="270" width="288" height="202"/>
+                                <rect key="frame" x="16" y="210" width="288" height="202"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPo-vP-d5X">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="80"/>
@@ -484,6 +473,28 @@
                                     <constraint firstItem="BiL-9Z-SQP" firstAttribute="top" secondItem="bOd-1e-i1t" secondAttribute="top" id="yxa-MY-DaQ"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSd-xp-cyv">
+                                <rect key="frame" x="16" y="412" width="288" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo6-5G-Rn0">
+                                        <rect key="frame" x="0.0" y="26" width="288" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="BlD-kg-dAA"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <state key="normal" title="SET-UP-ALARM-MODE"/>
+                                        <connections>
+                                            <segue destination="avR-jN-gqo" kind="presentation" id="JeV-v1-POm"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="mo6-5G-Rn0" firstAttribute="centerY" secondItem="QSd-xp-cyv" secondAttribute="centerY" id="CWU-2V-Dqk"/>
+                                    <constraint firstAttribute="trailing" secondItem="mo6-5G-Rn0" secondAttribute="trailing" id="Meb-yb-NnQ"/>
+                                    <constraint firstItem="mo6-5G-Rn0" firstAttribute="leading" secondItem="QSd-xp-cyv" secondAttribute="leading" id="gQv-lQ-g0x"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cf6-o5-MMZ">
                                 <rect key="frame" x="8" y="512" width="304" height="48"/>
                                 <constraints>
@@ -496,14 +507,14 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="bottom" id="5an-AK-5J5"/>
-                            <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="mo6-5G-Rn0" secondAttribute="trailing" constant="16" id="6ec-xN-9EC"/>
+                            <constraint firstItem="QSd-xp-cyv" firstAttribute="top" secondItem="bOd-1e-i1t" secondAttribute="bottom" id="EP2-me-OvQ"/>
+                            <constraint firstItem="QSd-xp-cyv" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="Egf-bB-70T"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="9w9-pL-jTf" secondAttribute="trailing" constant="16" id="HAG-oY-yFE"/>
-                            <constraint firstItem="mo6-5G-Rn0" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="NA7-Ka-qqh"/>
                             <constraint firstItem="9w9-pL-jTf" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="Ohp-Vo-SF2"/>
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="Pwm-Cm-Hw1"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="top" secondItem="9w9-pL-jTf" secondAttribute="bottom" id="QRO-aD-vLh"/>
@@ -514,20 +525,21 @@
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="12" id="fnb-cX-Eqm"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="cf6-o5-MMZ" secondAttribute="trailing" constant="8" id="h6n-Td-mcB"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="fCL-vy-SIp" secondAttribute="trailing" constant="16" id="oQQ-ds-5dh"/>
-                            <constraint firstItem="9w9-pL-jTf" firstAttribute="top" secondItem="mo6-5G-Rn0" secondAttribute="bottom" constant="12" id="qIs-Nb-8b2"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="tQf-WR-EGN"/>
-                            <constraint firstItem="mo6-5G-Rn0" firstAttribute="top" secondItem="usg-pJ-xv3" secondAttribute="top" id="tWD-a5-3nL"/>
+                            <constraint firstItem="cf6-o5-MMZ" firstAttribute="top" secondItem="QSd-xp-cyv" secondAttribute="bottom" id="uLb-dD-mAn"/>
+                            <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="QSd-xp-cyv" secondAttribute="trailing" constant="16" id="x34-24-nUe"/>
                             <constraint firstItem="cf6-o5-MMZ" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="8" id="zE5-GV-8N1"/>
+                            <constraint firstItem="9w9-pL-jTf" firstAttribute="top" secondItem="usg-pJ-xv3" secondAttribute="top" id="zj1-J9-fee"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="usg-pJ-xv3"/>
                     </view>
                     <navigationItem key="navigationItem" title="LGV_TIMER-TIMER-SETUP-TITLE" id="bR4-hy-Vgz"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
-                            <color key="value" red="0.26621194949999999" green="0.26621194949999999" blue="0.26621194949999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.0" green="0.0060920210260000003" blue="0.73128643130000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
-                            <color key="value" red="0.4894349093" green="0.4894349093" blue="0.4894349093" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.067454350859999998" green="0.11919723040000001" blue="0.47245385359999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -643,6 +655,7 @@
                                                     <constraint firstAttribute="width" constant="49" id="UHl-7i-E7z"/>
                                                     <constraint firstAttribute="height" constant="31" id="enX-S2-Kfe"/>
                                                 </constraints>
+                                                <color key="onTintColor" red="1" green="1" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <color key="thumbTintColor" red="1" green="1" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="changedShowControlsSwitch:" destination="dZU-jO-ENB" eventType="valueChanged" id="wFa-da-DIY"/>
@@ -711,10 +724,10 @@
                     </navigationItem>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
-                            <color key="value" red="0.26621194949999999" green="0.26621194949999999" blue="0.26621194949999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.0" green="0.0060920210260000003" blue="0.73128643130000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
-                            <color key="value" red="0.48943490932642486" green="0.48943490932642486" blue="0.48943490932642486" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.067454350859999998" green="0.11919723040000001" blue="0.47245385359999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -820,10 +833,10 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
-                            <color key="value" red="0.26621194949999999" green="0.26621194949999999" blue="0.26621194949999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.0" green="0.0060920210260000003" blue="0.73128643130000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
-                            <color key="value" red="0.4894349093" green="0.4894349093" blue="0.4894349093" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="value" red="0.067454350859999998" green="0.11919723040000001" blue="0.47245385359999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -1033,7 +1046,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="1" green="1" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="wpe-dP-nhC" firstAttribute="trailing" secondItem="hrn-NJ-meW" secondAttribute="trailing" constant="8" id="7CJ-10-vQZ"/>
@@ -1072,6 +1085,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wpe-dP-nhC"/>
                     </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
+                            <color key="value" red="0.0" green="0.006092021025941639" blue="0.73128643134715032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
+                            <color key="value" red="0.067454350859660533" green="0.11919723042366896" blue="0.47245385362849746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="activityContainerView" destination="BbL-Ed-DcR" id="OYD-XO-NFh"/>
                         <outlet property="artistSoundSelectPicker" destination="Vgq-bW-AeN" id="DlN-SB-PwY"/>

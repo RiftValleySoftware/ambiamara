@@ -222,8 +222,8 @@
 		77EFB3D31ED5C1A800BDDEFF = {
 			isa = PBXGroup;
 			children = (
-				D4279632219B50F90012F705 /* SwipeableTabBarController */,
 				775ACEDA1ED5C2BA0097FF5C /* Main App */,
+				D4279632219B50F90012F705 /* SwipeableTabBarController */,
 				778015F61F2D2E3900A0A10C /* Watch App */,
 				77EFB3DD1ED5C1A800BDDEFF /* Products */,
 				793FF5DA5F755A90B96DCF44 /* Pods */,

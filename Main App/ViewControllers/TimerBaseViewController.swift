@@ -18,7 +18,8 @@ import UIKit
 /**
  This is a base class for view controllers used in the app.
  */
-@IBDesignable class TimerBaseViewController: UIViewController {
+@IBDesignable
+class TimerBaseViewController: UIViewController {
     // MARK: - IB Properties
     /* ################################################################################################################################## */
     /* ################################################################## */

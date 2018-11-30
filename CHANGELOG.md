@@ -1,6 +1,9 @@
 ***Version 1.0.0.2004* ** *(TBD)*
 
 - New app icon.
+- The sound mode now works like the alam clock, with a selection of sounds and music.
+- Broke sound selection into a second-level modal screen.
+- Backgrounds are now blue.
 
 ***Version 1.0.0.2003* ** *(November 16, 2018)*
 
