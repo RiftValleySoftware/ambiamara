@@ -31,7 +31,7 @@ class TimerSetupController: TimerSetPickerController {
     @IBOutlet weak var colorThemePicker: UIPickerView!
     @IBOutlet weak var podiumModeItemsConstraint: NSLayoutConstraint!
     @IBOutlet weak var doneButton: UIButton!
-    @IBOutlet weak var alarmSetupButton: UIButton!
+    @IBOutlet weak var alarmSetupButton: TimerSoundModeButton!
     @IBOutlet weak var colorDisplayLabel: UILabel!
     
     /* ################################################################## */
@@ -54,7 +54,6 @@ class TimerSetupController: TimerSetPickerController {
         self.warningThresholdLabel.text = self.warningThresholdLabel.text?.localizedVariant
         self.finalThresholdLabel.text = self.finalThresholdLabel.text?.localizedVariant
         self.doneButton.setTitle(self.doneButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
-        self.alarmSetupButton.setTitle(self.alarmSetupButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
         self.timerModeLabel.text = self.timerModeLabel.text?.localizedVariant
         self.colorDisplayLabel.text = self.colorDisplayLabel.text?.localizedVariant
         
@@ -96,6 +95,10 @@ class TimerSetupController: TimerSetPickerController {
         self.navigationItem.title = String(format: ("LGV_TIMER-TIMER-SETUP-TITLE".localizedVariant), self.timerNumber + 1)
         
         self.navigationController?.navigationBar.tintColor = self.view.tintColor
+        
+        self.alarmSetupButton.isMusicOn = .Music == self.timerObject.soundMode
+        self.alarmSetupButton.isSoundOn = .Sound == self.timerObject.soundMode
+        self.alarmSetupButton.isVibrateOn = (.VibrateOnly == self.timerObject.alertMode || .Both == self.timerObject.alertMode)
     }
     
     /* ################################################################## */

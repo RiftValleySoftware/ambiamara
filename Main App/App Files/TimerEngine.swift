@@ -350,7 +350,8 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         self.appState = LGV_Timer_State(delegate: self)
         // Pick up our beeper sounds.
         self.soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil)
-
+        self.soundSelection.sort()
+        
         if let loadedPrefs = UserDefaults.standard.object(forKey: type(of: self)._mainPrefsKey) as? NSDictionary {
             var timers: [TimerSettingTuple] = []
             

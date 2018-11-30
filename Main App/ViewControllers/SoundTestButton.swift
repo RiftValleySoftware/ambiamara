@@ -277,29 +277,19 @@ class SoundTestButton: UIButton {
         
         path.apply(transform)
         
-        // Now, we fill the icon with a gradient, based upon our tint color.
-        var lineEndColor: UIColor
-        var lineStartColor: UIColor
-        
-        var brightness: CGFloat = self.isHighlighted || self.isSelected ? 0.75 : 1.0
+        var brightness: CGFloat = self.isHighlighted || self.isSelected ? 0.5 : 1.0
         
         if !self.isEnabled {
             self.tintColor = UIColor(white: 1.0, alpha: 1.0)
             brightness = 0.5
         }
         
-        if self.tintColor.isGrayscale {
-            lineEndColor = UIColor(white: self.tintColor.whiteLevel * brightness, alpha: 1.0)
-            lineStartColor = UIColor(white: max(0, (self.tintColor.whiteLevel * brightness) - 0.1), alpha: 1.0)
-        } else {
-            lineEndColor = UIColor(hue: self.tintColor.hsba.h, saturation: 1.0, brightness: brightness, alpha: 1.0)
-            lineStartColor = UIColor(hue: self.tintColor.hsba.h, saturation: 1.0, brightness: brightness - 0.1, alpha: 1.0)
-        }
+        let backgroundColor = self.tintColor.withAlphaComponent(brightness)
         
         self._gradientLayer?.removeFromSuperlayer()
         
         self._gradientLayer = CAGradientLayer()
-        self._gradientLayer.colors = [lineStartColor.cgColor, lineEndColor.cgColor]
+        self._gradientLayer.colors = [backgroundColor.cgColor, backgroundColor.cgColor]
         self._gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
         self._gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
         self._gradientLayer.frame = self.bounds

@@ -373,7 +373,7 @@
                                     <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-1"/>
                                     <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-2"/>
                                 </segments>
-                                <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="1" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="modeSegmentedControlChanged:" destination="Cmw-cs-f0x" eventType="valueChanged" id="nUQ-MR-fsS"/>
                                 </connections>
@@ -476,13 +476,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSd-xp-cyv">
                                 <rect key="frame" x="16" y="412" width="288" height="100"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo6-5G-Rn0">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo6-5G-Rn0" customClass="TimerSoundModeButton" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="26" width="288" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="BlD-kg-dAA"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <state key="normal" title="SET-UP-ALARM-MODE"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isVibrateOn" value="NO"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isMusicOn" value="NO"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSoundOn" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <segue destination="avR-jN-gqo" kind="presentation" id="JeV-v1-POm"/>
                                         </connections>
@@ -508,7 +511,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="1" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="bottom" id="5an-AK-5J5"/>
