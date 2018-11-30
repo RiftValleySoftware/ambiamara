@@ -17,22 +17,9 @@
 
 "LGV_TIMER-ABOUT-SHOWCONTROLS-BUTTON"                   =   "Show Timer Controls in Running Timer";
 
-"LGV_TIMER-SET-LABEL"                                   =   "Set Timer";
-
-"LGV_TIMER-SETUP-TIME-SET-LABEL"                        =   "Set Start Time";
-"LGV_TIMER-SETUP-TIMER-MODE-LABEL"                      =   "Timer Mode";
-"LGV_TIMER-SETUP-TIMER-MODE-SWITCH-0"                   =   "Digital Mode";
-"LGV_TIMER-SETUP-TIMER-MODE-SWITCH-1"                   =   "Podium Mode";
-"LGV_TIMER-SETUP-TIMER-MODE-SWITCH-2"                   =   "Dual Mode";
 "LGV_TIMER-SETUP-WARNING-SET-LABEL"                     =   "Podium Warning (Yellow) Time";
 "LGV_TIMER-SETUP-FINAL-SET-LABEL"                       =   "Podium Final (Red) Time";
 "LGV_TIMER-SETUP-COLOR-THEME-LABEL"                     =   "Digital Display Color";
-"LGV_TIMER-SETUP-ALERT-MODE-LABEL"                      =   "Alert Mode";
-"LGV_TIMER-SETUP-ALERT-MODE-0"                          =   "Silent";
-"LGV_TIMER-SETUP-ALERT-MODE-1"                          =   "Vibrate";
-"LGV_TIMER-SETUP-ALERT-MODE-2"                          =   "Sound";
-"LGV_TIMER-SETUP-ALERT-MODE-3"                          =   "Both";
-"LGV_TIMER-SETUP-TIMER-SOUND-LABEL"                     =   "Alert Sound";
 
 "LGV_TIMER-TIME-PICKER-HOUR-FORMAT"                     =   "%d Hour";
 "LGV_TIMER-TIME-PICKER-HOURS-FORMAT"                    =   "%d Hours";
@@ -54,17 +41,9 @@
 "ERROR_TEXT_MEDIA_PERMISSION_DENIED"                    =   "You are not allowed to read any media from this device.";
 "ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER"               =   "There was a technical problem creating the sound player.";
 
-"SET-UP-ALARM-MODE"                                     =   "Set Alarm Mode";
-
 "LGV_TIMER-INFO-CORPORATE-BLURB"                        =   "The Great Rift Valley Software Company";
 "LGV_TIMER-ABOUT-TEXT"                                  =   "When I have something to say, I'll say it here.";
-"LGV_TIMER-ABOUT-LGV-INSTRUCTIONS-URI"                  =   "https://riftvalleysoftware.com/countdown-timer";
-"LGV_TIMER-ABOUT-LGV-BLURB-1"                           =   "This is a Great Rift Valley Software Company Project.";
-"LGV_TIMER-ABOUT-LGV-BLURB-2"                           =   "Web Site: https://riftvalleysoftware.com";
-"LGV_TIMER-ABOUT-LGV-BLURB-URI"                         =   "https://riftvalleysoftware.com";
-
-"LGV_TIMER-WATCH-NOT-ACTIVE-TOP-MESSAGE"                =   "The phone app";
-"LGV_TIMER-WATCH-NOT-ACTIVE-BOTTOM-MESSAGE"             =   "is not active";
+"LGV_TIMER-ABOUT-LGV-BLURB-URI"                         =   "https://riftvalleysoftware.com";   // DO NOT CHANGE THIS FOR LOCALIZATION
 
 "00-low-beep.mp3"                                       =   "Low Simple Beeps";
 "01-medium-beep.mp3"                                    =   "Medium Simple Beeps";

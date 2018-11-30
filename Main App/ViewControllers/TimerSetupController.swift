@@ -20,7 +20,6 @@ import AVKit
 /**
  */
 class TimerSetupController: TimerSetPickerController {
-    @IBOutlet weak var timerModeLabel: UILabel!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
     @IBOutlet weak var podiumModeContainerView: UIView!
     @IBOutlet weak var warningThresholdLabel: UILabel!
@@ -54,12 +53,7 @@ class TimerSetupController: TimerSetPickerController {
         self.warningThresholdLabel.text = self.warningThresholdLabel.text?.localizedVariant
         self.finalThresholdLabel.text = self.finalThresholdLabel.text?.localizedVariant
         self.doneButton.setTitle(self.doneButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
-        self.timerModeLabel.text = self.timerModeLabel.text?.localizedVariant
         self.colorDisplayLabel.text = self.colorDisplayLabel.text?.localizedVariant
-        
-        for segment in 0..<self.timerModeSegmentedSwitch.numberOfSegments {
-            self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
-        }
         
         self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
         

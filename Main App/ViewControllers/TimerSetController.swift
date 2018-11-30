@@ -151,10 +151,6 @@ class TimerSetController: TimerSetPickerController {
             tabber.addTimerToList(self)
         }
         
-        for segment in 0..<self.timerModeSegmentedSwitch.numberOfSegments {
-            self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
-        }
-        
         self.setupButton.title = String(format: (self.setupButton.title?.localizedVariant)!, self.timerNumber + 1)
     }
     

@@ -538,6 +538,11 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
                     self.timerObject.songURLString = songURL
                 }
             }
+        } else if songSelectPicker == inPickerView {
+            let songURL = self.findSongURL(artistIndex: self.artistSoundSelectPicker.selectedRow(inComponent: 0), songIndex: self.songSelectPicker.selectedRow(inComponent: 0))
+            if !songURL.isEmpty {
+                self.timerObject.songURLString = songURL
+            }
         }
     }
 }

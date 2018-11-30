@@ -51,7 +51,7 @@
                                 <rect key="frame" x="8" y="147.5" width="304" height="160"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lN6-TG-yli">
-                                        <rect key="frame" x="8" y="12" width="288" height="120"/>
+                                        <rect key="frame" x="8" y="0.0" width="288" height="120"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="LZp-IT-uLN"/>
@@ -63,15 +63,15 @@
                                         </connections>
                                     </pickerView>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="KwF-yY-Lrz">
-                                        <rect key="frame" x="8" y="132" width="288" height="29"/>
+                                        <rect key="frame" x="8" y="120" width="288" height="41"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="5jF-tO-rC1"/>
+                                            <constraint firstAttribute="height" constant="40" id="5jF-tO-rC1"/>
                                         </constraints>
                                         <segments>
-                                            <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-0"/>
-                                            <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-1"/>
-                                            <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-2"/>
+                                            <segment title="" image="TimerModeImages-Digits"/>
+                                            <segment title="" image="TimerModeImages-Lights"/>
+                                            <segment title="" image="TimerModeImages-Both"/>
                                         </segments>
                                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -353,25 +353,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-MODE-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9w9-pL-jTf">
-                                <rect key="frame" x="16" y="20" width="288" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="hMc-U2-HVd"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fCL-vy-SIp">
-                                <rect key="frame" x="16" y="41" width="288" height="29"/>
+                                <rect key="frame" x="16" y="20" width="288" height="41"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="RUh-o5-VWb"/>
+                                    <constraint firstAttribute="height" constant="40" id="RUh-o5-VWb"/>
                                 </constraints>
                                 <segments>
-                                    <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-0"/>
-                                    <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-1"/>
-                                    <segment title="LGV_TIMER-SETUP-TIMER-MODE-SWITCH-2"/>
+                                    <segment title="" image="TimerModeImages-Digits"/>
+                                    <segment title="" image="TimerModeImages-Lights"/>
+                                    <segment title="" image="TimerModeImages-Both"/>
                                 </segments>
                                 <color key="tintColor" red="1" green="1" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -379,7 +370,7 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-6l-M17" userLabel="Color Picker Container View">
-                                <rect key="frame" x="16" y="81" width="288" height="129"/>
+                                <rect key="frame" x="16" y="72" width="288" height="129"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lha-1G-1eH">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="129"/>
@@ -413,7 +404,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-1e-i1t" userLabel="Podium Mode Container View">
-                                <rect key="frame" x="16" y="210" width="288" height="202"/>
+                                <rect key="frame" x="16" y="201" width="288" height="202"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPo-vP-d5X">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="80"/>
@@ -474,10 +465,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSd-xp-cyv">
-                                <rect key="frame" x="16" y="412" width="288" height="100"/>
+                                <rect key="frame" x="16" y="403" width="288" height="109"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo6-5G-Rn0" customClass="TimerSoundModeButton" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="26" width="288" height="48"/>
+                                        <rect key="frame" x="0.0" y="30.5" width="288" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="BlD-kg-dAA"/>
                                         </constraints>
@@ -517,10 +508,7 @@
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="bottom" id="5an-AK-5J5"/>
                             <constraint firstItem="QSd-xp-cyv" firstAttribute="top" secondItem="bOd-1e-i1t" secondAttribute="bottom" id="EP2-me-OvQ"/>
                             <constraint firstItem="QSd-xp-cyv" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="Egf-bB-70T"/>
-                            <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="9w9-pL-jTf" secondAttribute="trailing" constant="16" id="HAG-oY-yFE"/>
-                            <constraint firstItem="9w9-pL-jTf" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="Ohp-Vo-SF2"/>
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="Pwm-Cm-Hw1"/>
-                            <constraint firstItem="fCL-vy-SIp" firstAttribute="top" secondItem="9w9-pL-jTf" secondAttribute="bottom" id="QRO-aD-vLh"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="KvQ-6l-M17" secondAttribute="trailing" constant="16" id="aqk-K5-IFD"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="bottom" secondItem="cf6-o5-MMZ" secondAttribute="bottom" constant="8" id="cNn-dV-t2O"/>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="dEZ-r6-kTV"/>
@@ -528,11 +516,11 @@
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="12" id="fnb-cX-Eqm"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="cf6-o5-MMZ" secondAttribute="trailing" constant="8" id="h6n-Td-mcB"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="fCL-vy-SIp" secondAttribute="trailing" constant="16" id="oQQ-ds-5dh"/>
+                            <constraint firstItem="fCL-vy-SIp" firstAttribute="top" secondItem="usg-pJ-xv3" secondAttribute="top" id="rUw-G0-AOG"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="tQf-WR-EGN"/>
                             <constraint firstItem="cf6-o5-MMZ" firstAttribute="top" secondItem="QSd-xp-cyv" secondAttribute="bottom" id="uLb-dD-mAn"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="QSd-xp-cyv" secondAttribute="trailing" constant="16" id="x34-24-nUe"/>
                             <constraint firstItem="cf6-o5-MMZ" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="8" id="zE5-GV-8N1"/>
-                            <constraint firstItem="9w9-pL-jTf" firstAttribute="top" secondItem="usg-pJ-xv3" secondAttribute="top" id="zj1-J9-fee"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="usg-pJ-xv3"/>
                     </view>
@@ -554,7 +542,6 @@
                         <outlet property="finalThresholdLabel" destination="Ojn-dk-can" id="jam-Y3-yJC"/>
                         <outlet property="finalThresholdTimePicker" destination="VaK-Cn-EOG" id="i7c-SA-P8h"/>
                         <outlet property="podiumModeContainerView" destination="bOd-1e-i1t" id="ECt-Zz-Rki"/>
-                        <outlet property="timerModeLabel" destination="9w9-pL-jTf" id="fVq-4T-9PM"/>
                         <outlet property="timerModeSegmentedSwitch" destination="fCL-vy-SIp" id="dKL-VY-QQ6"/>
                         <outlet property="warningThresholdLabel" destination="BiL-9Z-SQP" id="Bb7-QV-Igi"/>
                         <outlet property="warningThresholdTimePicker" destination="CPo-vP-d5X" id="4au-9O-Pzh"/>
@@ -1172,6 +1159,9 @@
         <image name="Speaker" width="26" height="26"/>
         <image name="StartButton" width="60" height="69"/>
         <image name="StartButton-Disabled" width="60" height="69"/>
+        <image name="TimerModeImages-Both" width="66" height="26"/>
+        <image name="TimerModeImages-Digits" width="83" height="26"/>
+        <image name="TimerModeImages-Lights" width="104" height="26"/>
         <image name="TrafficLights" width="12" height="40"/>
     </resources>
 </document>
