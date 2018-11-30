@@ -248,7 +248,7 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         self.soundModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.soundMode.rawValue
         self.artistSoundSelectPickerContainerView.isHidden = .Silent == self.timerObject.soundMode || (.Music == self.timerObject.soundMode && (Timer_AppDelegate.appDelegateObject.songs.isEmpty || Timer_AppDelegate.appDelegateObject.artists.isEmpty))
         self.songSelectPickerContainerView.isHidden = .Music != self.timerObject.soundMode || Timer_AppDelegate.appDelegateObject.songs.isEmpty || Timer_AppDelegate.appDelegateObject.artists.isEmpty
-        self.noMusicLabelView.isHidden = !(.Music == self.timerObject.soundMode && (Timer_AppDelegate.appDelegateObject.songs.isEmpty || Timer_AppDelegate.appDelegateObject.artists.isEmpty))
+        self.noMusicLabelView.isHidden = !self.activityContainerView.isHidden || !(.Music == self.timerObject.soundMode && (Timer_AppDelegate.appDelegateObject.songs.isEmpty || Timer_AppDelegate.appDelegateObject.artists.isEmpty))
         self.artistSoundSelectPicker.reloadComponent(0)
         self.artistSoundSelectPicker.selectRow(self.timerObject.soundID, inComponent: 0, animated: true)
         self.songSelectPicker.reloadComponent(0)
@@ -320,6 +320,9 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
      */
     @IBAction func soundTestButtonHit(_ inSender: SoundTestButton) {
         if !inSender.isOn {
+            if .VibrateOnly == self.timerObject.alertMode || .Both == self.timerObject.alertMode {
+                AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+            }
             if nil == self.audioPlayer {
                 var soundUrl: URL!
                 
@@ -366,6 +369,7 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         case SoundMode.Music.rawValue:
             self.timerObject.alertMode = self.vibrateSwitch.isOn ? .Both : .SoundOnly
             self.timerObject.soundMode = .Music
+            self.startSpinner()
             self.loadMediaLibrary()
 
         case SoundMode.Silent.rawValue:

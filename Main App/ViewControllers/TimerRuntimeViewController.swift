@@ -255,6 +255,9 @@ class TimerRuntimeViewController: TimerNavBaseController {
         if .Alarm == self.timerObject.timerStatus {
             self.flashDisplay()
             self._playAlertSound()
+            if .VibrateOnly == self.timerObject.alertMode || .Both == self.timerObject.alertMode {
+                AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+            }
         }
     }
     
