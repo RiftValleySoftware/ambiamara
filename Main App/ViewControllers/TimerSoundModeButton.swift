@@ -16,9 +16,6 @@ import UIKit
 
 @IBDesignable
 class TimerSoundModeButton: UIButton {
-    /// This will hold the filled control.
-    private var _gradientLayer: CAGradientLayer!
-
     @IBInspectable var isVibrateOn: Bool = false {
         didSet {
             self.setNeedsDisplay()
@@ -107,14 +104,7 @@ class TimerSoundModeButton: UIButton {
         }
         
         let backgroundColor = self.tintColor.withAlphaComponent(brightness)
-
-        self._gradientLayer?.removeFromSuperlayer()
-        self._gradientLayer = CAGradientLayer()
-        self._gradientLayer.colors = [backgroundColor.cgColor, backgroundColor.cgColor]
-        self._gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
-        self._gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
-        self._gradientLayer.frame = self.bounds
-        self.layer.insertSublayer(self._gradientLayer, at: 0)
+        self.layer.backgroundColor = backgroundColor.cgColor
 
         // What we do here, is get images that represent our current modes.
         var imageArray: [UIImage] = []

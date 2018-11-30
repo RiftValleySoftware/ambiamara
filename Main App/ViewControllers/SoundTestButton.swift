@@ -18,12 +18,6 @@ import UIKit
 @IBDesignable
 class SoundTestButton: UIButton {
     /* ################################################################## */
-    // MARK: - Private Instance Properties
-    /* ################################################################## */
-    /// This will hold the filled icon.
-    private var _gradientLayer: CAGradientLayer!
-    
-    /* ################################################################## */
     // MARK: - Instance IB Properties
     /* ################################################################## */
     /// This is the on/off state of the control. Changing it forces a redraw.
@@ -286,18 +280,10 @@ class SoundTestButton: UIButton {
         
         let backgroundColor = self.tintColor.withAlphaComponent(brightness)
         
-        self._gradientLayer?.removeFromSuperlayer()
-        
-        self._gradientLayer = CAGradientLayer()
-        self._gradientLayer.colors = [backgroundColor.cgColor, backgroundColor.cgColor]
-        self._gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
-        self._gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
-        self._gradientLayer.frame = self.bounds
+        self.layer.backgroundColor = backgroundColor.cgColor
         
         let shape = CAShapeLayer()
         shape.path = path.cgPath
-        self._gradientLayer.mask = shape
-        
-        self.layer.addSublayer(self._gradientLayer)
+        self.layer.mask = shape
     }
 }
