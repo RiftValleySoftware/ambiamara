@@ -170,11 +170,6 @@
                                 <action selector="setupButtonHit:" destination="Y3X-jz-wfO" id="lxs-Pr-bvR"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="Phone-Start" id="en2-R9-W73">
-                            <connections>
-                                <action selector="startButtonHit:" destination="Y3X-jz-wfO" id="Kcd-LX-NNI"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
@@ -188,7 +183,6 @@
                         <outlet property="bigStartButton" destination="b7B-d7-lBc" id="sOm-Qa-zwt"/>
                         <outlet property="setTimePickerView" destination="lN6-TG-yli" id="0Vp-pr-I6y"/>
                         <outlet property="setupButton" destination="2m3-Kd-jYo" id="NfH-I2-rKy"/>
-                        <outlet property="startButton" destination="en2-R9-W73" id="mUx-Xp-0BQ"/>
                         <outlet property="timeDisplayLabel" destination="mGx-XA-7vt" id="dZZ-kt-bDb"/>
                         <outlet property="timerModeSegmentedSwitch" destination="KwF-yY-Lrz" id="4u7-Li-vRN"/>
                         <segue destination="Cmw-cs-f0x" kind="presentation" identifier="timer-segue-to-settings" id="hgl-6b-v60"/>

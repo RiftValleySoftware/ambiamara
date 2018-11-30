@@ -13,7 +13,7 @@
  */
 "LGV_TIMER-SETUP-TITLE"                                 =   "Timer List";
 "LGV_TIMER-TIMER-TITLE-FORMAT"                          =   "Timer %d";
-"LGV_TIMER-TIMER-SETUP-TITLE"                           =   "Timer %d Settings";
+"LGV_TIMER-TIMER-SETUP-TITLE"                           =   "Settings";
 
 "LGV_TIMER-ABOUT-SHOWCONTROLS-BUTTON"                   =   "Show Timer Controls in Running Timer";
 

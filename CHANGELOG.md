@@ -1,9 +1,10 @@
-***Version 1.0.0.2004* ** *(TBD)*
+***Version 1.0.0.2006* ** *(November 30, 2018)*
 
 - New app icon.
 - The sound mode now works like the alarm clock, with a selection of sounds and music.
 - Broke sound selection into a second-level modal screen.
 - Backgrounds are now blue.
+- Added icons for the timer modes, and removed the navbar play arrow, as it was confusing.
 
 ***Version 1.0.0.2003* ** *(November 16, 2018)*
 

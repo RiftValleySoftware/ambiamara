@@ -21,7 +21,6 @@ class TimerSetController: TimerSetPickerController {
     static let switchToSettingsSegueID = "timer-segue-to-settings"
     static let startTimerSegueID = "timer-segue-to-start-timer"
     
-    @IBOutlet weak var startButton: UIBarButtonItem!
     @IBOutlet weak var setupButton: UIBarButtonItem!
     @IBOutlet weak var setTimePickerView: UIPickerView!
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
@@ -96,10 +95,7 @@ class TimerSetController: TimerSetPickerController {
     /**
      */
     private func _setUpDisplay() {
-        if nil != self.startButton {
-            self.startButton.isEnabled = 0 < self.timerObject.timeSet
-            self.bigStartButton.isHidden = 0 >= self.timerObject.timeSet
-        }
+        self.bigStartButton.isHidden = 0 >= self.timerObject.timeSet
         
         let timerNumber = self.timerNumber
         let tabBarImage = self.tabBarImage
@@ -151,7 +147,7 @@ class TimerSetController: TimerSetPickerController {
             tabber.addTimerToList(self)
         }
         
-        self.setupButton.title = String(format: (self.setupButton.title?.localizedVariant)!, self.timerNumber + 1)
+        self.setupButton.title = self.setupButton.title?.localizedVariant
     }
     
     /* ################################################################## */

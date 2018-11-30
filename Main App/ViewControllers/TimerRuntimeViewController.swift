@@ -382,8 +382,8 @@ class TimerRuntimeViewController: TimerNavBaseController {
         
         if Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
             self.myNavigationBar.tintColor = self.view.tintColor
-            self.myNavigationBar.backgroundColor = UIColor.clear
-            self.myNavigationBar.barTintColor = UIColor.clear
+            self.myNavigationBar.backgroundColor = UIColor.black
+            self.myNavigationBar.barTintColor = UIColor.black
             self.myNavigationBar.isHidden = false
         } else {
             self.myNavigationBar.isHidden = true
