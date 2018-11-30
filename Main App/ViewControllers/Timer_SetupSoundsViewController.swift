@@ -428,8 +428,12 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         super.viewDidLoad()
     }
     
+    /* ################################################################## */
+    /**
+     */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        Timer_AppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
         if SoundMode.Music.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex {
             self.loadMediaLibrary()
         }

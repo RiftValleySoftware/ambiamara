@@ -426,17 +426,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-1e-i1t" userLabel="Podium Mode Container View">
                                 <rect key="frame" x="16" y="270" width="288" height="202"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-WARNING-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BiL-9Z-SQP">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="iSP-uf-oid"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" red="1" green="0.97317665249999996" blue="0.22001092620000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPo-vP-d5X">
-                                        <rect key="frame" x="0.0" y="21" width="288" height="80"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="s9N-nG-z9G"/>
@@ -446,17 +437,17 @@
                                             <outlet property="delegate" destination="Cmw-cs-f0x" id="al8-ex-JRS"/>
                                         </connections>
                                     </pickerView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-FINAL-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Ojn-dk-can">
-                                        <rect key="frame" x="0.0" y="101" width="288" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-WARNING-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BiL-9Z-SQP">
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="RIb-xC-Q8D"/>
+                                            <constraint firstAttribute="height" constant="21" id="iSP-uf-oid"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VaK-Cn-EOG">
-                                        <rect key="frame" x="0.0" y="122" width="288" height="80"/>
+                                        <rect key="frame" x="0.0" y="80" width="288" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="W3t-EX-zgk"/>
@@ -466,19 +457,27 @@
                                             <outlet property="delegate" destination="Cmw-cs-f0x" id="hOr-hx-OqL"/>
                                         </connections>
                                     </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-FINAL-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Ojn-dk-can">
+                                        <rect key="frame" x="0.0" y="80" width="288" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="RIb-xC-Q8D"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="VaK-Cn-EOG" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="2M3-qD-HOL"/>
-                                    <constraint firstItem="VaK-Cn-EOG" firstAttribute="top" secondItem="Ojn-dk-can" secondAttribute="bottom" id="4VY-NQ-IHr"/>
                                     <constraint firstAttribute="height" constant="202" id="5kw-sq-vhT"/>
                                     <constraint firstAttribute="trailing" secondItem="CPo-vP-d5X" secondAttribute="trailing" id="6jz-px-QPF"/>
                                     <constraint firstItem="BiL-9Z-SQP" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="939-Uy-0yc"/>
                                     <constraint firstItem="Ojn-dk-can" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="CjV-Yh-oXs"/>
-                                    <constraint firstItem="CPo-vP-d5X" firstAttribute="top" secondItem="BiL-9Z-SQP" secondAttribute="bottom" id="FPF-ck-86q"/>
+                                    <constraint firstItem="CPo-vP-d5X" firstAttribute="top" secondItem="BiL-9Z-SQP" secondAttribute="top" id="FPF-ck-86q"/>
                                     <constraint firstItem="CPo-vP-d5X" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="Zsh-4V-YuC"/>
                                     <constraint firstAttribute="trailing" secondItem="VaK-Cn-EOG" secondAttribute="trailing" id="j0E-6j-333"/>
-                                    <constraint firstItem="VaK-Cn-EOG" firstAttribute="top" secondItem="Ojn-dk-can" secondAttribute="bottom" id="p3T-mw-IOS"/>
+                                    <constraint firstItem="VaK-Cn-EOG" firstAttribute="top" secondItem="Ojn-dk-can" secondAttribute="top" id="p3T-mw-IOS"/>
                                     <constraint firstAttribute="trailing" secondItem="Ojn-dk-can" secondAttribute="trailing" id="qO7-2w-pse"/>
                                     <constraint firstItem="Ojn-dk-can" firstAttribute="top" secondItem="CPo-vP-d5X" secondAttribute="bottom" id="tQu-6y-Na1"/>
                                     <constraint firstAttribute="trailing" secondItem="BiL-9Z-SQP" secondAttribute="trailing" id="vRf-6d-aKk"/>
