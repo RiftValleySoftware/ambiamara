@@ -1,3 +1,5 @@
+***Version 1.0.0.2007* ** *(TBD)*
+
 ***Version 1.0.0.2006* ** *(November 30, 2018)*
 
 - New app icon.

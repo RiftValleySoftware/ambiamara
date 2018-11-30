@@ -485,17 +485,14 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
                 label.textAlignment = .center
                 label.textColor = self.view.tintColor
                 label.backgroundColor = UIColor.clear
-                var text = ""
                 
                 if SoundMode.Sound.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex {
                     if let soundUri = URL(string: Timer_AppDelegate.appDelegateObject.timerEngine.soundSelection[row].urlEncodedString ?? "")?.lastPathComponent {
-                        text = soundUri.localizedVariant
+                        label.text = soundUri.localizedVariant
                     }
                 } else if SoundMode.Music.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex {
-                    text = Timer_AppDelegate.appDelegateObject.artists[row]
+                    label.text = Timer_AppDelegate.appDelegateObject.artists[row]
                 }
-                
-                label.text = text
                 
                 ret.addSubview(label)
             } else if self.songSelectPicker == inPickerView {
@@ -503,13 +500,16 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
                 if let songs = Timer_AppDelegate.appDelegateObject.songs[artistName] {
                     let selectedRow = max(0, min(songs.count - 1, row))
                     let song = songs[selectedRow]
+                    
                     let label = UILabel(frame: frame)
                     label.font = UIFont.systemFont(ofSize: 20)
                     label.adjustsFontSizeToFitWidth = true
                     label.textAlignment = .center
                     label.textColor = self.view.tintColor
                     label.backgroundColor = UIColor.clear
+                    
                     label.text = song.songTitle
+                    
                     ret.addSubview(label)
                 }
             }

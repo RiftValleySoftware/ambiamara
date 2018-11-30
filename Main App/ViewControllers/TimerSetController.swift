@@ -117,7 +117,6 @@ class TimerSetController: TimerSetPickerController {
         let timeSet = TimeTuple(self.timerObject.timeSet)
         
         if nil != self.setTimePickerView {
-            self.setTimePickerView.reloadAllComponents()
             self.setTimePickerView.selectRow(timeSet.hours, inComponent: Components.Hours.rawValue, animated: true)
             self.setTimePickerView.selectRow(timeSet.minutes, inComponent: Components.Minutes.rawValue, animated: true)
             self.setTimePickerView.selectRow(timeSet.seconds, inComponent: Components.Seconds.rawValue, animated: true)
@@ -147,6 +146,7 @@ class TimerSetController: TimerSetPickerController {
             tabber.addTimerToList(self)
         }
         
+        self.setTimePickerView.setValue(self.view.tintColor, forKey: "textColor")
         self.setupButton.title = self.setupButton.title?.localizedVariant
     }
     
