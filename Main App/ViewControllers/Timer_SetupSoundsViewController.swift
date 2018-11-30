@@ -20,35 +20,6 @@ import AVKit
 /**
  */
 class Timer_SetupSoundsViewController: TimerSetPickerController {
-    /* ################################################################## */
-    /**
-     This struct will contain information about a song in our media library.
-     */
-    struct SongInfo {
-        var songTitle: String
-        var artistName: String
-        var albumTitle: String
-        var resourceURI: String!
-        
-        var description: String {
-            var ret: String = ""
-            
-            if !songTitle.isEmpty {
-                ret = songTitle
-            } else if !albumTitle.isEmpty {
-                ret = albumTitle
-            } else if !artistName.isEmpty {
-                ret = artistName
-            }
-            
-            return ret
-        }
-    }
-
-    /// This contains information about music items.
-    var songs: [String: [SongInfo]] = [:]
-    /// This is an index of the keys (artists) for the songs Dictionary.
-    var artists: [String] = []
     /// This contains our audio player.
     var audioPlayer: AVAudioPlayer!
     /// This is a simple semaphore to indicate that we are in the process of loading music.
@@ -79,14 +50,11 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
      - parameter forceReload: If true (default is false), then the entire music library will be reloaded, even if we already have it.
      */
     func loadMediaLibrary(forceReload inForceReload: Bool = false) {
-        if self.artists.isEmpty || inForceReload { // If we are already loaded up, we don't need to do this (unless forced).
+       if Timer_AppDelegate.appDelegateObject.artists.isEmpty || inForceReload { // If we are already loaded up, we don't need to do this (unless forced).
             self.isLoadin = false
             self.vibrateButton.isEnabled = false
             self.vibrateButton.isEnabled = false
             self.soundModeSegmentedSwitch.isEnabled = false
-            DispatchQueue.main.async {
-                self.startSpinner()
-            }
             if .authorized == MPMediaLibrary.authorizationStatus() {    // Already authorized? Head on in!
                 self.loadUpOnMusic()
             } else {    // May I see your ID, sir?
@@ -131,6 +99,7 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
             self.soundModeSegmentedSwitch.isEnabled = true
             self.stopSpinner()
             self.setUpUIElements()
+            self.selectSong()
         }
     }
     
@@ -141,9 +110,9 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
      - parameter inSongs: The list of songs we read in, as media items.
      */
     func loadSongData(_ inSongs: [MPMediaItemCollection]) {
-        var songList: [SongInfo] = []
-        self.songs = [:]
-        self.artists = []
+        var songList: [Timer_AppDelegate.SongInfo] = []
+        Timer_AppDelegate.appDelegateObject.songs = [:]
+        Timer_AppDelegate.appDelegateObject.artists = []
         
         // We just read in every damn song we have, then we set up an "index" Dictionary that sorts by artist name, then each artist element has a list of songs.
         // We sort the artists and songs alphabetically. Primitive, but sufficient.
@@ -153,7 +122,7 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
             // Each song is a media element, so we read the various parts that matter to us.
             for song in albumInfo {
                 // Anything we don't know is filled with "Unknown XXX".
-                var songInfo: SongInfo = SongInfo(songTitle: "LOCAL-UNKNOWN-SONG".localizedVariant, artistName: "LOCAL-UNKNOWN-ARTIST".localizedVariant, albumTitle: "LOCAL-UNKNOWN-ALBUM".localizedVariant, resourceURI: nil)
+                var songInfo: Timer_AppDelegate.SongInfo = Timer_AppDelegate.SongInfo(songTitle: "LOCAL-UNKNOWN-SONG".localizedVariant, artistName: "LOCAL-UNKNOWN-ARTIST".localizedVariant, albumTitle: "LOCAL-UNKNOWN-ALBUM".localizedVariant, resourceURI: nil)
                 
                 if let songTitle = song.value( forProperty: MPMediaItemPropertyTitle ) as? String {
                     songInfo.songTitle = songTitle.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
@@ -179,24 +148,24 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         
         // We just create a big fat, honkin' Dictionary of songs; sorted by the artist name for each song.
         for song in songList {
-            if nil == self.songs[song.artistName] {
-                self.songs[song.artistName] = []
+            if nil == Timer_AppDelegate.appDelegateObject.songs[song.artistName] {
+                Timer_AppDelegate.appDelegateObject.songs[song.artistName] = []
             }
-            self.songs[song.artistName]?.append(song)
+            Timer_AppDelegate.appDelegateObject.songs[song.artistName]?.append(song)
         }
         
         // We create the index, and sort the songs and keys.
-        for artist in self.songs.keys {
-            if var sortedSongs = self.songs[artist] {
+        for artist in Timer_AppDelegate.appDelegateObject.songs.keys {
+            if var sortedSongs = Timer_AppDelegate.appDelegateObject.songs[artist] {
                 sortedSongs.sort(by: { a, b in
                     return a.songTitle < b.songTitle
                 })
-                self.songs[artist] = sortedSongs
+                Timer_AppDelegate.appDelegateObject.songs[artist] = sortedSongs
             }
-            self.artists.append(artist)    // This will be our artist key array.
+            Timer_AppDelegate.appDelegateObject.artists.append(artist)    // This will be our artist key array.
         }
         
-        self.artists.sort()
+        Timer_AppDelegate.appDelegateObject.artists.sort()
     }
 
     /* ################################################################## */
@@ -208,11 +177,22 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
     func playThisSound(_ inSoundURL: URL) {
         do {
             if nil == self.audioPlayer {
-                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
                 try self.audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
+                self.audioPlayer?.numberOfLoops = -1   // Repeat indefinitely
             }
-            self.audioPlayer?.play()
+            self.continueAudioPlayer()
         } catch {
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     If the audio player is not going, this continues it. Nothing happens if no audio player is stopped.
+     */
+    func continueAudioPlayer() {
+        if nil != self.audioPlayer {
+            self.audioPlayer?.play()
         }
     }
     
@@ -225,7 +205,7 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
             self.audioPlayer?.pause()
         }
     }
-    
+
     /* ################################################################## */
     /**
      This terminates the audio player. Nothing happens if no audio player is going.
@@ -234,6 +214,8 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         if nil != self.audioPlayer {
             self.audioPlayer?.stop()
             self.audioPlayer = nil
+            self.testSoundButton.isOn = true
+            self.musicTestButton.isOn = true
         }
     }
     
@@ -245,6 +227,7 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         self.songSelectPickerContainerView.isHidden = true
         self.testSoundButtonContainerView.isHidden = true
         self.musicTestButtonContainerView.isHidden = true
+        self.noMusicLabelView.isHidden = true
         self.activityContainerView.isHidden = false
     }
     
@@ -259,35 +242,115 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
     /**
      */
     func setUpUIElements() {
-        self.activityContainerView.isHidden = true
         self.vibrateSwitch.isHidden = "iPad" == UIDevice.current.model   // Hide these on iPads, which don't do vibrate.
         self.vibrateButton.isHidden = self.vibrateSwitch.isHidden
         self.vibrateSwitch.isOn = ("iPad" != UIDevice.current.model) && (self.timerObject.alertMode == .VibrateOnly) || (self.timerObject.alertMode == .Both)
         self.soundModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.soundMode.rawValue
-        self.artistSoundSelectPickerContainerView.isHidden = .Silent == self.timerObject.soundMode || (.Music == self.timerObject.soundMode && (self.songs.isEmpty || self.artists.isEmpty))
-        self.songSelectPickerContainerView.isHidden = .Music != self.timerObject.soundMode || self.songs.isEmpty || self.artists.isEmpty
-        self.noMusicLabelView.isHidden = !(.Music == self.timerObject.soundMode && (self.songs.isEmpty || self.artists.isEmpty))
+        self.artistSoundSelectPickerContainerView.isHidden = .Silent == self.timerObject.soundMode || (.Music == self.timerObject.soundMode && (Timer_AppDelegate.appDelegateObject.songs.isEmpty || Timer_AppDelegate.appDelegateObject.artists.isEmpty))
+        self.songSelectPickerContainerView.isHidden = .Music != self.timerObject.soundMode || Timer_AppDelegate.appDelegateObject.songs.isEmpty || Timer_AppDelegate.appDelegateObject.artists.isEmpty
+        self.noMusicLabelView.isHidden = !(.Music == self.timerObject.soundMode && (Timer_AppDelegate.appDelegateObject.songs.isEmpty || Timer_AppDelegate.appDelegateObject.artists.isEmpty))
         self.artistSoundSelectPicker.reloadComponent(0)
         self.artistSoundSelectPicker.selectRow(self.timerObject.soundID, inComponent: 0, animated: true)
         self.songSelectPicker.reloadComponent(0)
-    }
-
-    /* ################################################################## */
-    /**
-     */
-    @IBAction func soundTestButtonHit(_ sender: SoundTestButton) {
+        self.testSoundButtonContainerView.isHidden = .Sound != self.timerObject.soundMode
+        self.musicTestButtonContainerView.isHidden = .Music != self.timerObject.soundMode || Timer_AppDelegate.appDelegateObject.artists.isEmpty
     }
     
     /* ################################################################## */
     /**
      */
-    @IBAction func musicTestButtonHit(_ sender: SoundTestButton) {
+    func findSongURL(artistIndex: Int, songIndex: Int) -> String {
+        var ret = ""
+        
+        if !Timer_AppDelegate.appDelegateObject.artists.isEmpty, !Timer_AppDelegate.appDelegateObject.songs.isEmpty {
+            let artistName = Timer_AppDelegate.appDelegateObject.artists[artistIndex]
+            if let songInfo = Timer_AppDelegate.appDelegateObject.songs[artistName], 0 <= songIndex, songIndex < Timer_AppDelegate.appDelegateObject.songs.count {
+                ret = songInfo[songIndex].resourceURI
+            }
+        }
+        
+        return ret
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func findSongInfo(_ inURL: String = "") -> (artistIndex: Int, songIndex: Int) {
+        for artistInfo in Timer_AppDelegate.appDelegateObject.songs {
+            var songIndex: Int = 0
+            for song in artistInfo.value {
+                if inURL == song.resourceURI {
+                    if let artistIndex = Timer_AppDelegate.appDelegateObject.artists.firstIndex(of: song.artistName) {
+                        return (artistIndex: Int(artistIndex), songIndex: songIndex)
+                    }
+                }
+                songIndex += 1
+            }
+        }
+        
+        return (artistIndex: 0, songIndex: 0)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func selectSong() {
+        DispatchQueue.main.async {
+            if .authorized == MPMediaLibrary.authorizationStatus() {
+                self.soundModeSegmentedSwitch.setEnabled(true, forSegmentAt: SoundMode.Music.rawValue)
+                self.timerObject.soundMode = .Music
+                let indexes = self.findSongInfo(self.timerObject.songURLString)
+                self.artistSoundSelectPicker.selectRow(indexes.artistIndex, inComponent: 0, animated: true)
+                self.songSelectPicker.reloadComponent(0)
+                self.songSelectPicker.selectRow(indexes.songIndex, inComponent: 0, animated: true)
+                self.pickerView(self.songSelectPicker, didSelectRow: self.songSelectPicker.selectedRow(inComponent: 0), inComponent: 0)
+            } else {
+                self.soundModeSegmentedSwitch.setEnabled(.denied != MPMediaLibrary.authorizationStatus(), forSegmentAt: SoundMode.Music.rawValue)
+                if !self.soundModeSegmentedSwitch.isEnabledForSegment(at: SoundMode.Music.rawValue) && (.Music == self.timerObject.soundMode) {
+                    self.soundModeSegmentedSwitch.selectedSegmentIndex = SoundMode.Silent.rawValue
+                } else {
+                    self.soundModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.soundMode.rawValue
+                }
+            }
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func soundTestButtonHit(_ inSender: SoundTestButton) {
+        if !inSender.isOn {
+            if nil == self.audioPlayer {
+                var soundUrl: URL!
+                
+                switch self.timerObject.soundMode {
+                case .Sound:
+                    soundUrl = URL(string: Timer_AppDelegate.appDelegateObject.timerEngine.soundSelection[self.timerObject.soundID].urlEncodedString ?? "")
+                    
+                case.Music:
+                    soundUrl = URL(string: self.timerObject.songURLString)
+                    
+                default:
+                    break
+                }
+                
+                if nil != soundUrl {
+                    self.playThisSound(soundUrl)
+                }
+            } else {
+                self.continueAudioPlayer()
+            }
+        } else {
+            inSender.isOn = true
+            self.pauseAudioPlayer()
+        }
     }
     
     /* ################################################################## */
     /**
      */
     @IBAction func doneButtonHit(_: Any! = nil) {
+        self.stopAudioPlayer()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -313,6 +376,7 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
             break
         }
         
+        self.stopAudioPlayer()
         self.setUpUIElements()
     }
     
@@ -334,6 +398,7 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
             break
         }
         
+        self.stopAudioPlayer()
         self.setUpUIElements()
     }
     
@@ -349,11 +414,21 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
     /**
      */
     override func viewDidLoad() {
-        super.viewDidLoad()
         self.vibrateButton.setTitle(self.vibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.doneButton.setTitle(self.doneButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
         self.noMusicLabel.text = self.noMusicLabel.text?.localizedVariant
         self.setUpUIElements()
+        if SoundMode.Music == self.timerObject.soundMode {
+            self.startSpinner()
+        }
+        super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if SoundMode.Music.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex {
+            self.loadMediaLibrary()
+        }
     }
     
     /* ################################################################## */
@@ -374,11 +449,11 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
             if SoundMode.Sound.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex {
                 return Timer_AppDelegate.appDelegateObject.timerEngine.soundSelection.count
             } else if SoundMode.Music.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex {
-                return self.artists.count
+                return Timer_AppDelegate.appDelegateObject.artists.count
             }
-        } else if !self.artists.isEmpty, !self.songs.isEmpty, SoundMode.Music.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex, self.songSelectPicker == inPickerView {
-            let artistName = self.artists[self.artistSoundSelectPicker.selectedRow(inComponent: 0)]
-            if let songList = self.songs[artistName] {
+        } else if !Timer_AppDelegate.appDelegateObject.artists.isEmpty, !Timer_AppDelegate.appDelegateObject.songs.isEmpty, SoundMode.Music.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex, self.songSelectPicker == inPickerView {
+            let artistName = Timer_AppDelegate.appDelegateObject.artists[self.artistSoundSelectPicker.selectedRow(inComponent: 0)]
+            if let songList = Timer_AppDelegate.appDelegateObject.songs[artistName] {
                 return songList.count
             }
         }
@@ -405,18 +480,19 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
                 var text = ""
                 
                 if SoundMode.Sound.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex {
-                    let pathString = URL(fileURLWithPath: Timer_AppDelegate.appDelegateObject.timerEngine.soundSelection[row]).lastPathComponent
-                    text = pathString.localizedVariant
+                    if let soundUri = URL(string: Timer_AppDelegate.appDelegateObject.timerEngine.soundSelection[row].urlEncodedString ?? "")?.lastPathComponent {
+                        text = soundUri.localizedVariant
+                    }
                 } else if SoundMode.Music.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex {
-                    text = self.artists[row]
+                    text = Timer_AppDelegate.appDelegateObject.artists[row]
                 }
                 
                 label.text = text
                 
                 ret.addSubview(label)
             } else if self.songSelectPicker == inPickerView {
-                let artistName = self.artists[self.artistSoundSelectPicker.selectedRow(inComponent: 0)]
-                if let songs = self.songs[artistName] {
+                let artistName = Timer_AppDelegate.appDelegateObject.artists[self.artistSoundSelectPicker.selectedRow(inComponent: 0)]
+                if let songs = Timer_AppDelegate.appDelegateObject.songs[artistName] {
                     let selectedRow = max(0, min(songs.count - 1, row))
                     let song = songs[selectedRow]
                     let label = UILabel(frame: frame)
@@ -442,8 +518,18 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
      - parameter inPickerView: The UIPickerView being queried.
      */
     func pickerView(_ inPickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.stopAudioPlayer()
         if self.artistSoundSelectPicker == inPickerView {
-            self.timerObject.soundID = row
+            if SoundMode.Sound.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex {
+                self.timerObject.soundID = row
+            } else if SoundMode.Music.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex {
+                self.songSelectPicker.reloadComponent(0)
+                self.songSelectPicker.selectRow(0, inComponent: 0, animated: true)
+                let songURL = self.findSongURL(artistIndex: self.artistSoundSelectPicker.selectedRow(inComponent: 0), songIndex: 0)
+                if !songURL.isEmpty {
+                    self.timerObject.songURLString = songURL
+                }
+            }
         }
     }
 }

@@ -365,7 +365,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-TIMER-MODE-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9w9-pL-jTf">
-                                <rect key="frame" x="16" y="68" width="288" height="21"/>
+                                <rect key="frame" x="16" y="80" width="288" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="hMc-U2-HVd"/>
                                 </constraints>
@@ -374,7 +374,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fCL-vy-SIp">
-                                <rect key="frame" x="16" y="89" width="288" height="29"/>
+                                <rect key="frame" x="16" y="101" width="288" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="RUh-o5-VWb"/>
@@ -390,10 +390,10 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-6l-M17" userLabel="Color Picker Container View">
-                                <rect key="frame" x="16" y="125" width="288" height="100"/>
+                                <rect key="frame" x="16" y="141" width="288" height="129"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lha-1G-1eH">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="129"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
@@ -401,18 +401,30 @@
                                             <outlet property="delegate" destination="Cmw-cs-f0x" id="XPJ-30-mXQ"/>
                                         </connections>
                                     </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-COLOR-THEME-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RGc-PT-dR1">
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="EU9-JD-43L"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="RGc-PT-dR1" secondAttribute="trailing" id="05e-5C-icX"/>
                                     <constraint firstAttribute="trailing" secondItem="lha-1G-1eH" secondAttribute="trailing" id="5ra-kG-Adk"/>
-                                    <constraint firstAttribute="height" constant="100" id="BA4-94-fpQ"/>
-                                    <constraint firstItem="lha-1G-1eH" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="top" id="LMc-vj-5HK"/>
+                                    <constraint firstAttribute="height" constant="129" id="BA4-94-fpQ"/>
+                                    <constraint firstItem="lha-1G-1eH" firstAttribute="top" secondItem="RGc-PT-dR1" secondAttribute="top" id="Mft-Vw-SPL"/>
                                     <constraint firstItem="lha-1G-1eH" firstAttribute="leading" secondItem="KvQ-6l-M17" secondAttribute="leading" id="cLT-Gi-EfF"/>
                                     <constraint firstAttribute="bottom" secondItem="lha-1G-1eH" secondAttribute="bottom" id="llQ-l3-qkC"/>
+                                    <constraint firstItem="RGc-PT-dR1" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="top" id="se0-9z-dIg"/>
+                                    <constraint firstItem="RGc-PT-dR1" firstAttribute="leading" secondItem="KvQ-6l-M17" secondAttribute="leading" id="yQC-xJ-iWB"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-1e-i1t" userLabel="Podium Mode Container View">
-                                <rect key="frame" x="16" y="225" width="288" height="202"/>
+                                <rect key="frame" x="16" y="270" width="288" height="202"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-WARNING-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BiL-9Z-SQP">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="21"/>
@@ -499,11 +511,11 @@
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="KvQ-6l-M17" secondAttribute="trailing" constant="16" id="aqk-K5-IFD"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="bottom" secondItem="cf6-o5-MMZ" secondAttribute="bottom" constant="8" id="cNn-dV-t2O"/>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="dEZ-r6-kTV"/>
-                            <constraint firstItem="KvQ-6l-M17" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="8" id="dTA-SZ-uaK"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="bOd-1e-i1t" secondAttribute="trailing" constant="16" id="f6P-eK-WDI"/>
+                            <constraint firstItem="KvQ-6l-M17" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="12" id="fnb-cX-Eqm"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="cf6-o5-MMZ" secondAttribute="trailing" constant="8" id="h6n-Td-mcB"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="fCL-vy-SIp" secondAttribute="trailing" constant="16" id="oQQ-ds-5dh"/>
-                            <constraint firstItem="9w9-pL-jTf" firstAttribute="top" secondItem="mo6-5G-Rn0" secondAttribute="bottom" id="qIs-Nb-8b2"/>
+                            <constraint firstItem="9w9-pL-jTf" firstAttribute="top" secondItem="mo6-5G-Rn0" secondAttribute="bottom" constant="12" id="qIs-Nb-8b2"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="tQf-WR-EGN"/>
                             <constraint firstItem="mo6-5G-Rn0" firstAttribute="top" secondItem="usg-pJ-xv3" secondAttribute="top" id="tWD-a5-3nL"/>
                             <constraint firstItem="cf6-o5-MMZ" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="8" id="zE5-GV-8N1"/>
@@ -521,6 +533,7 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="alarmSetupButton" destination="mo6-5G-Rn0" id="ND0-4T-8Bw"/>
+                        <outlet property="colorDisplayLabel" destination="RGc-PT-dR1" id="ike-IJ-mbT"/>
                         <outlet property="colorPickerContainerView" destination="KvQ-6l-M17" id="gaF-Od-ed5"/>
                         <outlet property="colorThemePicker" destination="lha-1G-1eH" id="LcQ-Yu-wwh"/>
                         <outlet property="doneButton" destination="cf6-o5-MMZ" id="Zxb-eg-6wx"/>
@@ -953,7 +966,7 @@
                                             <constraint firstAttribute="width" constant="50" id="ldP-66-9c4"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="NO"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="YES"/>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isMusic" value="NO"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -982,7 +995,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="musicTestButtonHit:" destination="avR-jN-gqo" eventType="touchUpInside" id="Mei-ko-8D8"/>
+                                            <action selector="soundTestButtonHit:" destination="avR-jN-gqo" eventType="touchUpInside" id="DJ3-z7-AEt"/>
                                         </connections>
                                     </button>
                                 </subviews>

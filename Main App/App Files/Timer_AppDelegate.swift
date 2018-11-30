@@ -20,6 +20,31 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This struct will contain information about a song in our media library.
+     */
+    struct SongInfo {
+        var songTitle: String
+        var artistName: String
+        var albumTitle: String
+        var resourceURI: String!
+        
+        var description: String {
+            var ret: String = ""
+            
+            if !songTitle.isEmpty {
+                ret = songTitle
+            } else if !albumTitle.isEmpty {
+                ret = albumTitle
+            } else if !artistName.isEmpty {
+                ret = artistName
+            }
+            
+            return ret
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      This is a quick way to get this object instance (it's a SINGLETON), cast as the correct class.
      */
     static var appDelegateObject: Timer_AppDelegate {
@@ -35,7 +60,11 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     var watchDisconnected: Bool = true  ///< If the watch app is not connected, this is true.
     var timerListController: Timer_SettingsViewController! = nil    ///< This is set (for convenience) if the timer settings page is up.
     var ignoreSelectMessageFromWatch: Int = 0   ///< This is a semaphore for preventing multiple signals from the watch.
-    
+    /// This contains information about music items. We keep these here, so they stay loaded up between timers.
+    var songs: [String: [SongInfo]] = [:]
+    /// This is an index of the keys (artists) for the songs Dictionary.
+    var artists: [String] = []
+
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
     /* ################################################################## */

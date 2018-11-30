@@ -32,7 +32,8 @@ class TimerSetupController: TimerSetPickerController {
     @IBOutlet weak var podiumModeItemsConstraint: NSLayoutConstraint!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var alarmSetupButton: UIButton!
-
+    @IBOutlet weak var colorDisplayLabel: UILabel!
+    
     /* ################################################################## */
     /**
      */
@@ -55,6 +56,7 @@ class TimerSetupController: TimerSetPickerController {
         self.doneButton.setTitle(self.doneButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
         self.alarmSetupButton.setTitle(self.alarmSetupButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
         self.timerModeLabel.text = self.timerModeLabel.text?.localizedVariant
+        self.colorDisplayLabel.text = self.colorDisplayLabel.text?.localizedVariant
         
         for segment in 0..<self.timerModeSegmentedSwitch.numberOfSegments {
             self.timerModeSegmentedSwitch.setTitle(self.timerModeSegmentedSwitch.titleForSegment(at: segment)?.localizedVariant, forSegmentAt: segment)
@@ -177,17 +179,8 @@ class TimerSetupController: TimerSetPickerController {
             let width = self.pickerView(pickerView, widthForComponent: component)
             let height = self.pickerView(pickerView, rowHeightForComponent: component)
             let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: height))
-            let ret: UILabel = UILabel(frame: frame)
-            
-            let swatchLabel = Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[row]
-            ret.text = "LGV_TIMER-SETUP-COLOR-THEME-LABEL".localizedVariant
-            ret.textColor = UIColor.black
-            ret.backgroundColor = swatchLabel.backgroundColor
-            ret.textAlignment = .center
-            if let titleFont = UIFont(name: "Let's Go Digital", size: 20) {
-                ret.font = titleFont
-            }
-
+            let ret = UIView(frame: frame)
+            ret.backgroundColor = Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[row].backgroundColor
             return ret
         } else {
             return super.pickerView(pickerView, viewForRow: row, forComponent: component, reusing: view)

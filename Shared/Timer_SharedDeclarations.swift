@@ -82,6 +82,23 @@ extension String {
         guard let first = first else { return "" }
         return String(first).uppercased() + dropFirst()
     }
+    
+    /* ################################################################## */
+    /**
+     The following calculated property comes from this: http://stackoverflow.com/a/27736118/879365
+     
+     This extension function cleans up a URI string.
+     
+     - returns: a string, cleaned for URI.
+     */
+    var urlEncodedString: String? {
+        let customAllowedSet =  CharacterSet.urlQueryAllowed
+        if let ret = self.addingPercentEncoding(withAllowedCharacters: customAllowedSet) {
+            return ret
+        } else {
+            return ""
+        }
+    }
 }
 
 /* ###################################################################################################################################### */

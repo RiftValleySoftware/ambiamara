@@ -130,8 +130,8 @@ class TimerRuntimeViewController: TimerNavBaseController {
             
             switch self.timerObject.soundMode {
             case .Sound:
-                soundUrl = URL(string: Timer_AppDelegate.appDelegateObject.timerEngine.soundSelection[self.timerObject.soundID])
-                
+                soundUrl = URL(string: Timer_AppDelegate.appDelegateObject.timerEngine.soundSelection[self.timerObject.soundID].urlEncodedString ?? "")
+
             case.Music:
                 soundUrl = URL(string: self.timerObject.songURLString)
 
