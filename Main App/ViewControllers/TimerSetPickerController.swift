@@ -59,7 +59,7 @@ class TimerNavBaseController: TimerBaseViewController {
             
             return type(of: self).textAsImage(drawText: displayedString as NSString)
         } else {
-            return UIImage(named: "Settings")
+            return UIImage(named: "List")
         }
     }
     

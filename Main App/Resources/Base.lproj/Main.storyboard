@@ -25,7 +25,7 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -73,7 +73,6 @@
                                             <segment title="" image="TimerModeImages-Lights"/>
                                             <segment title="" image="TimerModeImages-Both"/>
                                         </segments>
-                                        <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="modeSegmentedControlChanged:" destination="Y3X-jz-wfO" eventType="valueChanged" id="xKI-5l-205"/>
                                         </connections>
@@ -102,6 +101,7 @@
                                             <constraint firstAttribute="width" constant="60" placeholder="YES" id="JvZ-8q-MiL"/>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="69" id="kSh-na-Dmt"/>
                                         </constraints>
+                                        <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="StartButton"/>
                                         <state key="disabled" image="StartButton-Disabled"/>
                                         <connections>
@@ -141,7 +141,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="EDZ-zT-xw3" firstAttribute="centerX" secondItem="CY8-aN-Qtm" secondAttribute="centerX" id="67v-8T-xAh"/>
@@ -281,7 +281,7 @@
                             </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="1yh-KU-1zx" firstAttribute="top" secondItem="IRq-1K-51o" secondAttribute="top" id="J9s-Zx-z0f"/>
@@ -358,7 +358,7 @@
                                     <segment title="" image="TimerModeImages-Lights"/>
                                     <segment title="" image="TimerModeImages-Both"/>
                                 </segments>
-                                <color key="tintColor" red="1" green="1" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="modeSegmentedControlChanged:" destination="Cmw-cs-f0x" eventType="valueChanged" id="nUQ-MR-fsS"/>
                                 </connections>
@@ -398,14 +398,11 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-1e-i1t" userLabel="Podium Mode Container View">
-                                <rect key="frame" x="16" y="201" width="288" height="202"/>
+                                <rect key="frame" x="16" y="201" width="288" height="240"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPo-vP-d5X">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="80"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="120"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="s9N-nG-z9G"/>
-                                        </constraints>
                                         <connections>
                                             <outlet property="dataSource" destination="Cmw-cs-f0x" id="V9W-jM-fup"/>
                                             <outlet property="delegate" destination="Cmw-cs-f0x" id="al8-ex-JRS"/>
@@ -421,18 +418,15 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VaK-Cn-EOG">
-                                        <rect key="frame" x="0.0" y="80" width="288" height="80"/>
+                                        <rect key="frame" x="0.0" y="120" width="288" height="120"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="W3t-EX-zgk"/>
-                                        </constraints>
                                         <connections>
                                             <outlet property="dataSource" destination="Cmw-cs-f0x" id="eQx-AI-lE6"/>
                                             <outlet property="delegate" destination="Cmw-cs-f0x" id="hOr-hx-OqL"/>
                                         </connections>
                                     </pickerView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-SETUP-FINAL-SET-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Ojn-dk-can">
-                                        <rect key="frame" x="0.0" y="80" width="288" height="21"/>
+                                        <rect key="frame" x="0.0" y="120" width="288" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="RIb-xC-Q8D"/>
                                         </constraints>
@@ -443,12 +437,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" priority="999" constant="240" id="0lo-q7-12K"/>
                                     <constraint firstItem="VaK-Cn-EOG" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="2M3-qD-HOL"/>
-                                    <constraint firstAttribute="height" constant="202" id="5kw-sq-vhT"/>
+                                    <constraint firstItem="CPo-vP-d5X" firstAttribute="height" secondItem="bOd-1e-i1t" secondAttribute="height" multiplier="0.5" id="2S5-iT-drZ"/>
                                     <constraint firstAttribute="trailing" secondItem="CPo-vP-d5X" secondAttribute="trailing" id="6jz-px-QPF"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="240" id="8lx-Jn-R0f"/>
                                     <constraint firstItem="BiL-9Z-SQP" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="939-Uy-0yc"/>
                                     <constraint firstItem="Ojn-dk-can" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="CjV-Yh-oXs"/>
                                     <constraint firstItem="CPo-vP-d5X" firstAttribute="top" secondItem="BiL-9Z-SQP" secondAttribute="top" id="FPF-ck-86q"/>
+                                    <constraint firstItem="VaK-Cn-EOG" firstAttribute="height" secondItem="bOd-1e-i1t" secondAttribute="height" multiplier="0.5" id="UIV-Tz-eov"/>
                                     <constraint firstItem="CPo-vP-d5X" firstAttribute="leading" secondItem="bOd-1e-i1t" secondAttribute="leading" id="Zsh-4V-YuC"/>
                                     <constraint firstAttribute="trailing" secondItem="VaK-Cn-EOG" secondAttribute="trailing" id="j0E-6j-333"/>
                                     <constraint firstItem="VaK-Cn-EOG" firstAttribute="top" secondItem="Ojn-dk-can" secondAttribute="top" id="p3T-mw-IOS"/>
@@ -459,10 +456,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSd-xp-cyv">
-                                <rect key="frame" x="16" y="403" width="288" height="109"/>
+                                <rect key="frame" x="16" y="441" width="288" height="71"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo6-5G-Rn0" customClass="TimerSoundModeButton" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="30.5" width="288" height="48"/>
+                                        <rect key="frame" x="0.0" y="11.5" width="288" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="BlD-kg-dAA"/>
                                         </constraints>
@@ -496,7 +493,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" red="1" green="1" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="bottom" id="5an-AK-5J5"/>
@@ -639,8 +636,8 @@
                                                     <constraint firstAttribute="width" constant="49" id="UHl-7i-E7z"/>
                                                     <constraint firstAttribute="height" constant="31" id="enX-S2-Kfe"/>
                                                 </constraints>
-                                                <color key="onTintColor" red="1" green="1" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <color key="thumbTintColor" red="1" green="1" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="onTintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="thumbTintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="changedShowControlsSwitch:" destination="dZU-jO-ENB" eventType="valueChanged" id="wFa-da-DIY"/>
                                                 </connections>
@@ -676,7 +673,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" red="0.99215686270000003" green="0.97647058819999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="CiD-N0-VIX" firstAttribute="bottom" secondItem="1gs-61-NM5" secondAttribute="bottom" id="0h2-y1-1gV"/>
@@ -693,14 +690,16 @@
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" image="Settings" selectedImage="List" id="xaE-0x-fg6"/>
+                    <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" image="List" selectedImage="List" id="xaE-0x-fg6"/>
                     <navigationItem key="navigationItem" title="LGV_TIMER-SETUP-TITLE" id="7xT-8h-l1i" userLabel="LGV_TIMER-SETUP-TITLE">
                         <barButtonItem key="leftBarButtonItem" image="Info" id="luj-0d-Mda">
+                            <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="infoButtonHit:" destination="dZU-jO-ENB" id="Dyn-Ny-sFs"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qDK-vu-sEq">
+                            <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="addTimerButtonHit:" destination="dZU-jO-ENB" id="gbn-nI-Kri"/>
                             </connections>
@@ -750,10 +749,10 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="baseColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="value" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="moonColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="value" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -792,7 +791,7 @@
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="dLT-vZ-n7i" firstAttribute="bottom" secondItem="8bv-Ws-8kF" secondAttribute="bottom" constant="8" id="BWD-Zj-RTL"/>
@@ -857,8 +856,8 @@
                                     <constraint firstAttribute="width" constant="47" id="3I9-de-HjA"/>
                                     <constraint firstAttribute="height" constant="31" id="dIZ-yB-9vq"/>
                                 </constraints>
-                                <color key="onTintColor" red="1" green="1" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="thumbTintColor" red="1" green="1" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="onTintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="thumbTintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="vibrateSwitchHit:" destination="avR-jN-gqo" eventType="valueChanged" id="EoQ-VI-TcY"/>
                                 </connections>
@@ -1031,7 +1030,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" red="1" green="1" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wpe-dP-nhC" firstAttribute="trailing" secondItem="hrn-NJ-meW" secondAttribute="trailing" constant="8" id="7CJ-10-vQZ"/>
                             <constraint firstItem="CdT-fG-3D9" firstAttribute="leading" secondItem="HLm-Em-6mF" secondAttribute="leading" constant="8" id="A1M-Pa-f0V"/>
@@ -1108,7 +1107,7 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <connections>
@@ -1124,13 +1123,13 @@
             <objects>
                 <tabBarController title="Main Tab Controller" modalTransitionStyle="partialCurl" id="mvc-fj-sq5" customClass="Timer_MainTabController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="egp-Ba-Cka">
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="egp-Ba-Cka">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="sDn-VD-xYI" kind="relationship" relationship="viewControllers" id="k2W-Sv-E7a"/>

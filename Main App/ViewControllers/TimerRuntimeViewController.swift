@@ -444,7 +444,9 @@ class TimerRuntimeViewController: TimerNavBaseController {
     /**
      */
     @IBAction func pauseButtonHit(_ sender: Any) {
-        if .Paused == self.timerObject.timerStatus {
+        if .Podium == self.timerObject.displayMode {
+            self.resetTimer()
+        } else if .Paused == self.timerObject.timerStatus {
             self.continueTimer()
         } else {
             self.pauseTimer()
@@ -460,6 +462,8 @@ class TimerRuntimeViewController: TimerNavBaseController {
         } else {
             if .Paused == self.timerObject.timerStatus {
                 self.continueTimer()
+            } else if (.Podium == self.timerObject.displayMode) && (.Stopped != self.timerObject.timerStatus) {
+                self.resetTimer()
             } else {
                 self.pauseTimer()
             }

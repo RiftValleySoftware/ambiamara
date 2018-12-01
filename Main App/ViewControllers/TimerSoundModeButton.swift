@@ -39,6 +39,14 @@ class TimerSoundModeButton: UIButton {
     /* ################################################################## */
     /**
      */
+    override func layoutSubviews() {
+        super.layoutSubviews()
+//        self.setNeedsDisplay()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     override func touchesBegan(_ inTouches: Set<UITouch>, with inEvent: UIEvent?) {
         if let touchLocation = inTouches.first?.location(in: self) {
             if self.bounds.contains(touchLocation) {
