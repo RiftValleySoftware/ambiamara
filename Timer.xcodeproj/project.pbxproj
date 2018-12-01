@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03200049D759B6BEC73F2270 /* Pods_Rift_Valley_Countdown_Timer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95A4CF40AC49D132081FAE6F /* Pods_Rift_Valley_Countdown_Timer.framework */; };
 		77052CD71EE0DAAD00DA2E8C /* TimerRuntimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77052CD61EE0DAAD00DA2E8C /* TimerRuntimeViewController.swift */; };
 		770FB9B01EE4359300E3120D /* Timer_InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770FB9AF1EE4359300E3120D /* Timer_InfoViewController.swift */; };
 		771974DE1EF02FD2002C8F62 /* Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771974DD1EF02FD2002C8F62 /* Timer_SharedDeclarations.swift */; };
@@ -54,6 +53,7 @@
 		D48C0A4821B096C9007AC2DC /* 10-annoying-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3F21B096C8007AC2DC /* 10-annoying-alarm.mp3 */; };
 		D48C0A4921B096C9007AC2DC /* 04-fast-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A4021B096C8007AC2DC /* 04-fast-beep.mp3 */; };
 		D48C0A4A21B096C9007AC2DC /* 06-escalation.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A4121B096C8007AC2DC /* 06-escalation.mp3 */; };
+		D4AD260E21B31B4800BD5D46 /* 22-thanks-for-sharing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4AD260D21B31B4800BD5D46 /* 22-thanks-for-sharing.mp3 */; };
 		D4CF37C8219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */; };
 		D4D722E821B0326B0062035B /* Timer_SetupSoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */; };
 		D4D722EA21B036070062035B /* SoundTestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E921B036070062035B /* SoundTestButton.swift */; };
@@ -140,6 +140,7 @@
 		D48C0A3F21B096C8007AC2DC /* 10-annoying-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "10-annoying-alarm.mp3"; sourceTree = "<group>"; };
 		D48C0A4021B096C8007AC2DC /* 04-fast-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "04-fast-beep.mp3"; sourceTree = "<group>"; };
 		D48C0A4121B096C8007AC2DC /* 06-escalation.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "06-escalation.mp3"; sourceTree = "<group>"; };
+		D4AD260D21B31B4800BD5D46 /* 22-thanks-for-sharing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "22-thanks-for-sharing.mp3"; sourceTree = "<group>"; };
 		D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TheGreatRiftValleyDrawing.swift; path = ViewControllers/TheGreatRiftValleyDrawing.swift; sourceTree = "<group>"; };
 		D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Timer_SetupSoundsViewController.swift; path = ViewControllers/Timer_SetupSoundsViewController.swift; sourceTree = "<group>"; };
 		D4D722E921B036070062035B /* SoundTestButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundTestButton.swift; path = ViewControllers/SoundTestButton.swift; sourceTree = "<group>"; };
@@ -150,17 +151,6 @@
 		DB00C4E44EF61FD5CD71BAA9 /* Pods_An_Excellent_Countdown_Timer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_An_Excellent_Countdown_Timer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0453DE50B89874627A1D280 /* Pods-Rift Valley Countdown Timer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rift Valley Countdown Timer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rift Valley Countdown Timer/Pods-Rift Valley Countdown Timer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		6FF767214FAD1A152E6DA19F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				03200049D759B6BEC73F2270 /* Pods_Rift_Valley_Countdown_Timer.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		5A57DC52651BD22704330C20 /* Frameworks */ = {
@@ -361,6 +351,7 @@
 				D433BB9321B1898C001C79F6 /* 19-classic-phone.mp3 */,
 				D433BB9621B1898D001C79F6 /* 20-antique-car-horn.mp3 */,
 				D433BB9F21B18AF4001C79F6 /* 21-alarm-klaxon.mp3 */,
+				D4AD260D21B31B4800BD5D46 /* 22-thanks-for-sharing.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -372,12 +363,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77EFB3EE1ED5C1A800BDDEFF /* Build configuration list for PBXNativeTarget "Rift Valley Countdown Timer" */;
 			buildPhases = (
-				1956CB80D61D473A4A1657C2 /* [CP] Check Pods Manifest.lock */,
 				771335521FE0472D00BB7D03 /* SwiftLint */,
 				77EFB3D81ED5C1A800BDDEFF /* Sources */,
 				77EFB3DA1ED5C1A800BDDEFF /* Resources */,
 				7766626B1F279EF300A296A3 /* Embed Watch Content */,
-				6FF767214FAD1A152E6DA19F /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -435,61 +424,40 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D433BB9C21B1898D001C79F6 /* 16-snoring-1.mp3 in Resources */,
-				D48C0A4621B096C9007AC2DC /* 05-high-fast-beeps.mp3 in Resources */,
-				D433BB9B21B1898D001C79F6 /* 15-shut-up-2.mp3 in Resources */,
-				D433BB9D21B1898D001C79F6 /* 20-antique-car-horn.mp3 in Resources */,
-				D433BB9921B1898D001C79F6 /* 18-antique-phone.mp3 in Resources */,
 				D433BB8E21B18165001C79F6 /* 00-low-beep.mp3 in Resources */,
 				D433BB9021B18165001C79F6 /* 01-medium-beep.mp3 in Resources */,
-				D48C0A4421B096C9007AC2DC /* 09-single-beep.mp3 in Resources */,
-				77AF00B71F69624E00D35EF1 /* Main.storyboard in Resources */,
-				D433BB9A21B1898D001C79F6 /* 19-classic-phone.mp3 in Resources */,
-				D433BB9E21B1898D001C79F6 /* 17-car-horn.mp3 in Resources */,
-				773980A61F6964820019A541 /* Localizable.strings in Resources */,
 				D433BB8D21B18165001C79F6 /* 02-high-beep.mp3 in Resources */,
-				772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */,
-				D48C0A4821B096C9007AC2DC /* 10-annoying-alarm.mp3 in Resources */,
-				D48C0A4721B096C9007AC2DC /* 12-crazy-bird.mp3 in Resources */,
-				D48C0A4321B096C9007AC2DC /* 08-videogame-beeps-high-frequency.mp3 in Resources */,
-				D48C0A4921B096C9007AC2DC /* 04-fast-beep.mp3 in Resources */,
-				D433BB9821B1898D001C79F6 /* 14-shut-up-1.mp3 in Resources */,
-				D433BB8C21B18165001C79F6 /* 11-bells.mp3 in Resources */,
-				D48C0A4A21B096C9007AC2DC /* 06-escalation.mp3 in Resources */,
-				D433BB8F21B18165001C79F6 /* 13-rooster.mp3 in Resources */,
-				D48C0A4221B096C9007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 in Resources */,
 				D48C0A4521B096C9007AC2DC /* 03-electronic-buzz.mp3 in Resources */,
-				772459C81F1E1D10006CA335 /* Assets.xcassets in Resources */,
-				77AF00B41F69623800D35EF1 /* LaunchScreen.storyboard in Resources */,
+				D48C0A4921B096C9007AC2DC /* 04-fast-beep.mp3 in Resources */,
+				D48C0A4621B096C9007AC2DC /* 05-high-fast-beeps.mp3 in Resources */,
+				D48C0A4A21B096C9007AC2DC /* 06-escalation.mp3 in Resources */,
+				D48C0A4221B096C9007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 in Resources */,
+				D48C0A4321B096C9007AC2DC /* 08-videogame-beeps-high-frequency.mp3 in Resources */,
+				D48C0A4421B096C9007AC2DC /* 09-single-beep.mp3 in Resources */,
+				D48C0A4821B096C9007AC2DC /* 10-annoying-alarm.mp3 in Resources */,
+				D433BB8C21B18165001C79F6 /* 11-bells.mp3 in Resources */,
+				D48C0A4721B096C9007AC2DC /* 12-crazy-bird.mp3 in Resources */,
+				D433BB8F21B18165001C79F6 /* 13-rooster.mp3 in Resources */,
+				D433BB9821B1898D001C79F6 /* 14-shut-up-1.mp3 in Resources */,
+				D433BB9B21B1898D001C79F6 /* 15-shut-up-2.mp3 in Resources */,
+				D433BB9C21B1898D001C79F6 /* 16-snoring-1.mp3 in Resources */,
+				D433BB9E21B1898D001C79F6 /* 17-car-horn.mp3 in Resources */,
+				D433BB9921B1898D001C79F6 /* 18-antique-phone.mp3 in Resources */,
+				D433BB9A21B1898D001C79F6 /* 19-classic-phone.mp3 in Resources */,
+				D433BB9D21B1898D001C79F6 /* 20-antique-car-horn.mp3 in Resources */,
 				D433BBA021B18AF4001C79F6 /* 21-alarm-klaxon.mp3 in Resources */,
+				D4AD260E21B31B4800BD5D46 /* 22-thanks-for-sharing.mp3 in Resources */,
+				772459C81F1E1D10006CA335 /* Assets.xcassets in Resources */,
+				772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */,
+				77AF00B41F69623800D35EF1 /* LaunchScreen.storyboard in Resources */,
+				77AF00B71F69624E00D35EF1 /* Main.storyboard in Resources */,
+				773980A61F6964820019A541 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1956CB80D61D473A4A1657C2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Rift Valley Countdown Timer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		771335521FE0472D00BB7D03 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
