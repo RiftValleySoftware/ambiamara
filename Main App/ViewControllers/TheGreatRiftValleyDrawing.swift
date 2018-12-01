@@ -656,25 +656,20 @@ class TheGreatRiftValleyDrawing: UIControl {
         if self.baseColor.isGrayscale {
             lineEndColor = UIColor(white: 1.6 - self.baseColor.whiteLevel, alpha: 1.0)
             lineStartColor = UIColor(white: 1.5 - self.baseColor.whiteLevel, alpha: 1.0)
+        } else if !self.moonColor.isClear {
+            lineEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 0.4, alpha: 1.0)
+            lineStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 0.3, alpha: 1.0)
         } else {
-            lineEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 0.4, alpha: 1.0)
-            lineStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 0.3, alpha: 1.0)
+            lineEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 1.0, alpha: 1.0)
+            lineStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 0.9, alpha: 1.0)
         }
         
-        if self.moonColor.isClear { // Clear moon, means we switch the color up to 11.
-            if self.baseColor.isGrayscale {
-                lineEndColor = UIColor(white: self.baseColor.whiteLevel, alpha: 1.0)
-                lineStartColor = UIColor(white: max(0, self.baseColor.whiteLevel - 0.1), alpha: 1.0)
-            } else {
-                lineEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-                lineStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 0.9, alpha: 1.0)
-            }
-        } else if self.moonColor.isGrayscale {  // Otherwise, we mute the main color, and amp up the moon.
-            fillEndColor = UIColor(white: self.baseColor.whiteLevel, alpha: 1.0)
-            fillStartColor = UIColor(white: max(0, self.baseColor.whiteLevel - 0.1), alpha: 1.0)
-        } else {
-            fillEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-            fillStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 0.9, alpha: 1.0)
+        if !self.moonColor.isClear, self.moonColor.isGrayscale {  // Otherwise, we mute the main color, and amp up the moon.
+            fillEndColor = UIColor(white: self.moonColor.whiteLevel, alpha: 1.0)
+            fillStartColor = UIColor(white: max(0, self.moonColor.whiteLevel - 0.1), alpha: 1.0)
+        } else if !self.moonColor.isClear {
+            fillEndColor = UIColor(hue: self.moonColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 1.0, alpha: 1.0)
+            fillStartColor = UIColor(hue: self.moonColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 0.9, alpha: 1.0)
         }
         
         self._gradientLayer = CAGradientLayer()
