@@ -165,7 +165,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="0Qv-E8-ESq">
-                        <barButtonItem key="leftBarButtonItem" title="LGV_TIMER-TIMER-SETUP-TITLE" id="2m3-Kd-jYo">
+                        <barButtonItem key="leftBarButtonItem" image="Settings" id="2m3-Kd-jYo">
                             <connections>
                                 <action selector="setupButtonHit:" destination="Y3X-jz-wfO" id="lxs-Pr-bvR"/>
                             </connections>
@@ -208,19 +208,19 @@
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="pId-dv-a9R" userLabel="Timer Runtime" customClass="TimerRuntimeViewController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VER-Lg-FXG">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yh-KU-1zx" userLabel="Display Container">
-                                <rect key="frame" x="0.0" y="20" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <subviews>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvk-HB-53P" customClass="LED_ClockView" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
-                                        <rect key="frame" x="4" y="0.0" width="312" height="504"/>
+                                        <rect key="frame" x="4" y="0.0" width="312" height="548"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                     </view>
                                     <view hidden="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRL-jt-yJr">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
@@ -241,13 +241,13 @@
                                     <outletCollection property="gestureRecognizers" destination="QeQ-0X-roe" appends="YES" id="dWK-X2-b4J"/>
                                 </connections>
                             </view>
-                            <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="Pl8-D1-u7N">
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pl8-D1-u7N">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Zw4-yL-9k9"/>
                                 </constraints>
-                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
                                     <navigationItem id="ItU-wd-SEv" userLabel="LGV_TIMER-RUNNING-TIMER">
                                         <leftBarButtonItems>
@@ -280,7 +280,7 @@
                                 </items>
                             </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
@@ -297,13 +297,13 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
-                            <color key="value" red="0.014992052216497281" green="0.02666233527385467" blue="0.11245142484352344" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientBottomColor">
-                            <color key="value" red="0.034703524762889001" green="0.061717835493828387" blue="0.26030197536165811" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -693,7 +693,7 @@
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" image="Settings" selectedImage="Settings" id="xaE-0x-fg6"/>
+                    <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" image="Settings" selectedImage="List" id="xaE-0x-fg6"/>
                     <navigationItem key="navigationItem" title="LGV_TIMER-SETUP-TITLE" id="7xT-8h-l1i" userLabel="LGV_TIMER-SETUP-TITLE">
                         <barButtonItem key="leftBarButtonItem" image="Info" id="luj-0d-Mda">
                             <connections>
@@ -1143,6 +1143,7 @@
     </scenes>
     <resources>
         <image name="Info" width="22" height="22"/>
+        <image name="List" width="26" height="26"/>
         <image name="Music" width="26" height="21"/>
         <image name="Nothing" width="26" height="26"/>
         <image name="Phone-End" width="22" height="22"/>

@@ -147,7 +147,6 @@ class TimerSetController: TimerSetPickerController {
         }
         
         self.setTimePickerView.setValue(self.view.tintColor, forKey: "textColor")
-        self.setupButton.title = self.setupButton.title?.localizedVariant
     }
     
     /* ################################################################## */
