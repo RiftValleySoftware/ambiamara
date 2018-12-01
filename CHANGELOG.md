@@ -1,4 +1,8 @@
-***Version 1.0.0.2007* ** *(TBD)*
+***Version 1.0.0.2007* ** *(December 1, 2018)*
+
+- Changed the timer list icon, and moved the gear icon up to where it should be.
+- Added a new robotic voice.
+- Various "polishing the fenders" stuff. Tweaking colors and display relationships, etc.
 
 ***Version 1.0.0.2006* ** *(November 30, 2018)*
 
