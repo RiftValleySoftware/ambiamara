@@ -1,6 +1,7 @@
 ***Version 1.0.0.2008* ** *(December 2, 2018)*
 - Tweaked the branded button in the info screen
 - Tweaked "Thanks for Sharing."
+- Localized the resources, and added placeholders for localization.
 
 ***Version 1.0.0.2007* ** *(December 1, 2018)*
 - Changed the timer list icon, and moved the gear icon up to where it should be.
