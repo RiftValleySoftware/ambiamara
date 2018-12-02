@@ -1,5 +1,7 @@
 ***Version 1.0.0.2008* ** *(TBD)*
-- Tweaked the branded button in the info screen.ersion 1.0.0.2007* ** *(December 1, 2018)*
+- Tweaked the branded button in the info screen
+
+***Version 1.0.0.2007* ** *(December 1, 2018)*
 - Changed the timer list icon, and moved the gear icon up to where it should be.
 - Added a new robotic voice.
 - Various "polishing the fenders" stuff. Tweaking colors and display relationships, etc.
