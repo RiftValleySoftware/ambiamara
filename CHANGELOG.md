@@ -1,4 +1,4 @@
-***Version 1.0.0.2008* ** *(TBD)*
+***Version 1.0.0.2008* ** *(December 2, 2018)*
 - Tweaked the branded button in the info screen
 - Tweaked "Thanks for Sharing."
 
