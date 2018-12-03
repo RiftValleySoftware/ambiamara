@@ -11,39 +11,46 @@
 /* ###################################################################################################################################### */
 /**
  */
-"LGV_TIMER-SETUP-TITLE"                                 =   "Timer List";
-"LGV_TIMER-TIMER-TITLE-FORMAT"                          =   "Timer %d";
-"LGV_TIMER-TIMER-SETUP-TITLE"                           =   "Settings";
+/* INFO STRING */
 
-"LGV_TIMER-ABOUT-SHOWCONTROLS-BUTTON"                   =   "Show Timer Controls in Running Timer";
+"INFO_PRIVACY_REQUEST"                                  =   "Play music as an alarm";   // This is the string we use to ask permission to get ath the user's music collection.
 
-"LGV_TIMER-SETUP-WARNING-SET-LABEL"                     =   "Podium Warning (Yellow) Time";
-"LGV_TIMER-SETUP-FINAL-SET-LABEL"                       =   "Podium Final (Red) Time";
-"LGV_TIMER-SETUP-COLOR-THEME-LABEL"                     =   "Digital Display Color";
+/* TABS */
 
-"LGV_TIMER-TIME-PICKER-HOUR-FORMAT"                     =   "%d Hour";
-"LGV_TIMER-TIME-PICKER-HOURS-FORMAT"                    =   "%d Hours";
-"LGV_TIMER-TIME-PICKER-MINUTE-FORMAT"                   =   "%d Minute";
-"LGV_TIMER-TIME-PICKER-MINUTES-FORMAT"                  =   "%d Minutes";
-"LGV_TIMER-TIME-PICKER-SECOND-FORMAT"                   =   "%d Second";
-"LGV_TIMER-TIME-PICKER-SECONDS-FORMAT"                  =   "%d Seconds";
+"LGV_TIMER-SETUP-TITLE"                                 =   "Timer List";   // The tab title for the main timer list tab.
+"LGV_TIMER-TIMER-TITLE-FORMAT"                          =   "Timer %d";     // A Format for each timer tab title. The "%d" is replaced by the integer index of the timer (1-based).
 
-"DELETE-HEADER"                                         =   "Are You Sure?";
-"DELETE-MESSAGE-FORMAT"                                 =   "If you select \"Delete,\" it will delete Timer %d. Are you sure that you want do this?";
-"DELETE-OK-BUTTON"                                      =   "Delete";
-"DELETE-CANCEL-BUTTON"                                  =   "Cancel";
-"BASIC-OK-BUTTON"                                       =   "OK";
-"BASIC-DONE-BUTTON"                                     =   "DONE";
-"LOCAL-VIBRATE-BEEP-SWITCH"                             =   "VIBRATE";
-"LOCAL-NO-MUSIC-LABEL"                                  =   "No Music Available";
+/* TIMER LIST SCREEN */
 
-"ERROR_HEADER_MEDIA"                                    =   "DEVICE MEDIA ERROR";
-"ERROR_TEXT_MEDIA_PERMISSION_DENIED"                    =   "You are not allowed to read any media from this device.";
-"ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER"               =   "There was a technical problem creating the sound player.";
+"LGV_TIMER-ABOUT-SHOWCONTROLS-BUTTON"                   =   "Show Timer Controls in Running Timer"; // This is the text for the button next to the running controls switch in the timer list screen.
 
-"LGV_TIMER-INFO-CORPORATE-BLURB"                        =   "The Great Rift Valley Software Company";
-"LGV_TIMER-ABOUT-TEXT"                                  =   "When I have something to say, I'll say it here.";
-"LGV_TIMER-ABOUT-LGV-BLURB-URI"                         =   "https://riftvalleysoftware.com";   // DO NOT CHANGE THIS FOR LOCALIZATION
+/* TIMER LIST DELETE CONFIRMATION */
+
+"DELETE-HEADER"                                         =   "Are You Sure?";    // The header.
+"DELETE-MESSAGE-FORMAT"                                 =   "If you select \"Delete,\" it will delete Timer %d. Are you sure that you want do this?";   // The explanatory text.
+"DELETE-OK-BUTTON"                                      =   "Delete";   // The Delete Button
+"DELETE-CANCEL-BUTTON"                                  =   "Cancel";   // The cancel button.
+
+/* TIMER SETTINGS SCREEN */
+
+"LGV_TIMER-SETUP-WARNING-SET-LABEL"                     =   "Podium Warning (Yellow) Time"; // The title for the warning time picker in the settings screen.
+"LGV_TIMER-SETUP-FINAL-SET-LABEL"                       =   "Podium Final (Red) Time";      // The title for the final time picker in the settings screen.
+"LGV_TIMER-SETUP-COLOR-THEME-LABEL"                     =   "Digital Display Color";        // The title for the display color picker in the timer settings screen.
+
+"LGV_TIMER-TIME-PICKER-HOUR-FORMAT"                     =   "%d Hour";      // The picker uses custom components, instead of a standard system picker. If there is only one hour, this is used.
+"LGV_TIMER-TIME-PICKER-HOURS-FORMAT"                    =   "%d Hours";     // The picker uses custom components, instead of a standard system picker. If more than one hour, this is used.
+"LGV_TIMER-TIME-PICKER-MINUTE-FORMAT"                   =   "%d Minute";    // The picker uses custom components, instead of a standard system picker. If there is only one minute, this is used.
+"LGV_TIMER-TIME-PICKER-MINUTES-FORMAT"                  =   "%d Minutes";   // The picker uses custom components, instead of a standard system picker. If more than one minute, this is used.
+"LGV_TIMER-TIME-PICKER-SECOND-FORMAT"                   =   "%d Second";    // The picker uses custom components, instead of a standard system picker. If there is only one second, this is used.
+"LGV_TIMER-TIME-PICKER-SECONDS-FORMAT"                  =   "%d Seconds";   // The picker uses custom components, instead of a standard system picker. If more than one second, this is used.
+
+/* ALARM SETUP SCREEN */
+
+"LOCAL-VIBRATE-BEEP-SWITCH"                             =   "VIBRATE";  // This is the text for the button next to the vibrate switch. Hidden for iPad.
+"LOCAL-NO-MUSIC-LABEL"                                  =   "No Music Available";   // This is displayed if there is no music available for selection.
+"BASIC-DONE-BUTTON"                                     =   "DONE"; // The done button (used in both the timer settings and alarm settings screens).
+
+/* SOUND NAMES */
 
 "00-low-beep.mp3"                                       =   "Low Simple Beeps";
 "01-medium-beep.mp3"                                    =   "Medium Simple Beeps";
@@ -59,12 +66,26 @@
 "11-bells.mp3"                                          =   "Church Bells";
 "12-crazy-bird.mp3"                                     =   "Crazy Bird";
 "13-rooster.mp3"                                        =   "Rooster";
-"14-shut-up-1.mp3"                                      =   "Shut Up (Obnoxious Man)";
-"15-shut-up-2.mp3"                                      =   "Shut Up (Woman)";
 "16-snoring-1.mp3"                                      =   "Snoring";
 "17-car-horn.mp3"                                       =   "Car Horn";
 "18-antique-phone.mp3"                                  =   "Antique Phone Ringing";
 "19-classic-phone.mp3"                                  =   "Classic Phone Ringing";
 "20-antique-car-horn.mp3"                               =   "Antique Car Horn";
 "21-alarm-klaxon.mp3"                                   =   "Alarm Klaxon";
-"22-thanks-for-sharing.mp3"                             =   "Thanks for Sharing (Robotic)";
+
+"14-shut-up-1.mp3"                                      =   "Shut Up (Obnoxious Man)";      // ONLY USED FOR ENGLISH
+"15-shut-up-2.mp3"                                      =   "Shut Up (Woman)";              // ONLY USED FOR ENGLISH
+"22-thanks-for-sharing.mp3"                             =   "Thanks for Sharing (Robotic)"; // ONLY USED FOR ENGLISH
+
+/* ERROR DIALOG */
+
+"ERROR_HEADER_MEDIA"                                    =   "DEVICE MEDIA ERROR";   // The header for media error alerts.
+"ERROR_TEXT_MEDIA_PERMISSION_DENIED"                    =   "You are not allowed to read any media from this device.";  // No permission alert text.
+"ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER"               =   "There was a technical problem creating the sound player."; // Unknown technical error alert text.
+"BASIC-OK-BUTTON"                                       =   "OK";   // Alert OK button.
+
+/* INFO SCREEN */
+
+"LGV_TIMER-ABOUT-LGV-BLURB-URI"                         =   "https://riftvalleysoftware.com";           // DO NOT CHANGE THIS FOR LOCALIZATION
+"LGV_TIMER-INFO-CORPORATE-BLURB"                        =   "The Great Rift Valley Software Company";   // DO NOT CHANGE THIS FOR LOCALIZATION
+"LGV_TIMER-ABOUT-TEXT"                                  =   "When I have something to say, I'll say it here.";

@@ -94,7 +94,6 @@ class TimerSetupController: TimerSetPickerController {
         // This ensures that we force the display to portrait (for this screen only).
         Timer_AppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
         self.colorThemePicker.selectRow(self.timerObject.colorTheme, inComponent: 0, animated: true)
-        self.navigationItem.title = String(format: ("LGV_TIMER-TIMER-SETUP-TITLE".localizedVariant), self.timerNumber + 1)
         
         self.navigationController?.navigationBar.tintColor = self.view.tintColor
         
