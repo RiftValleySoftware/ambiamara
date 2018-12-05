@@ -86,6 +86,4 @@
 
 /* INFO SCREEN */
 
-"LGV_TIMER-ABOUT-LGV-BLURB-URI"                         =   "https://riftvalleysoftware.com";           // DO NOT CHANGE THIS FOR LOCALIZATION
-"LGV_TIMER-INFO-CORPORATE-BLURB"                        =   "The Great Rift Valley Software Company";   // DO NOT CHANGE THIS FOR LOCALIZATION
 "LGV_TIMER-ABOUT-TEXT"                                  =   "When I have something to say, I'll say it here.";

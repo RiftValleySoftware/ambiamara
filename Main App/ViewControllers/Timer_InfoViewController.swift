@@ -16,6 +16,11 @@ import UIKit
 /**
  */
 class Timer_InfoViewController: TimerBaseViewController {
+    /// This is the URI for the corporation. It is not localized.
+    let corporateURI =   "https://riftvalleysoftware.com"
+    /// This is the name of the corporation. It is not localized.
+    let corporateName =   "The Great Rift Valley Software Company"
+    
     @IBOutlet weak var corporateBlurb: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var lgvText: UITextView!
@@ -31,7 +36,7 @@ class Timer_InfoViewController: TimerBaseViewController {
     /**
      */
     @IBAction func lgvButtonHit(_ sender: Any) {
-        let openLink = NSURL(string: "LGV_TIMER-ABOUT-LGV-BLURB-URI".localizedVariant)
+        let openLink = NSURL(string: self.corporateURI)
         UIApplication.shared.open(openLink! as URL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
     }
     
@@ -54,7 +59,7 @@ class Timer_InfoViewController: TimerBaseViewController {
             }
         }
 
-        self.corporateBlurb.text = self.corporateBlurb.text?.localizedVariant
+        self.corporateBlurb.text = self.corporateName
         self.titleLabel.text = appName + " " + appVersion
         self.lgvText.text = self.lgvText.text.localizedVariant
     }
