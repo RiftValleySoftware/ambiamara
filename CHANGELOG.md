@@ -1,6 +1,7 @@
 ***Version 1.0.0.2009* ** *(TBD)*
 - Updated the info button icon.
 - Removed unused strings from the localizable files.
+- Added the "Fetching Music" label.
 
 ***Version 1.0.0.2008* ** *(December 2, 2018)*
 - Tweaked the branded button in the info screen

@@ -40,6 +40,7 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
     @IBOutlet weak var musicTestButtonContainerView: UIView!
     @IBOutlet weak var musicTestButton: SoundTestButton!
     @IBOutlet weak var activityContainerView: UIView!
+    @IBOutlet weak var fetchingMusicLabel: UILabel!
     
     /* ################################################################## */
     // MARK: - Media Methods
@@ -421,6 +422,8 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         self.vibrateButton.setTitle(self.vibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.doneButton.setTitle(self.doneButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
         self.noMusicLabel.text = self.noMusicLabel.text?.localizedVariant
+        self.fetchingMusicLabel.text = self.fetchingMusicLabel.text?.localizedVariant
+        
         self.setUpUIElements()
         if SoundMode.Music == self.timerObject.soundMode {
             self.startSpinner()

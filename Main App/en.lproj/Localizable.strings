@@ -49,6 +49,7 @@
 "LOCAL-VIBRATE-BEEP-SWITCH"                             =   "VIBRATE";  // This is the text for the button next to the vibrate switch. Hidden for iPad.
 "LOCAL-NO-MUSIC-LABEL"                                  =   "No Music Available";   // This is displayed if there is no music available for selection.
 "BASIC-DONE-BUTTON"                                     =   "DONE"; // The done button (used in both the timer settings and alarm settings screens).
+"LOCAL-MUSIC-LOOKUP-LABEL"                              =   "Fetching Your Music Library";  // This is displayed while the throbber is up, while the music is being fetched.
 
 /* SOUND NAMES */
 

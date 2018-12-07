@@ -1007,11 +1007,23 @@
                                             <constraint firstAttribute="width" constant="37" id="FCa-iY-0XP"/>
                                         </constraints>
                                     </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-MUSIC-LOOKUP-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="9Lb-xK-FKe">
+                                        <rect key="frame" x="0.0" y="227" width="304" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="rXd-my-QBh"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="CmC-ty-3Sv" firstAttribute="centerY" secondItem="BbL-Ed-DcR" secondAttribute="centerY" id="1Qk-zp-f3E"/>
+                                    <constraint firstAttribute="trailing" secondItem="9Lb-xK-FKe" secondAttribute="trailing" id="2h2-CR-h8h"/>
                                     <constraint firstItem="CmC-ty-3Sv" firstAttribute="centerX" secondItem="BbL-Ed-DcR" secondAttribute="centerX" id="deA-Iu-iYJ"/>
+                                    <constraint firstItem="9Lb-xK-FKe" firstAttribute="top" secondItem="CmC-ty-3Sv" secondAttribute="bottom" constant="8" id="ncy-fy-AGh"/>
+                                    <constraint firstItem="9Lb-xK-FKe" firstAttribute="leading" secondItem="BbL-Ed-DcR" secondAttribute="leading" id="umc-OE-Kya"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dX0-Lz-MmC">
@@ -1078,6 +1090,7 @@
                         <outlet property="artistSoundSelectPicker" destination="Vgq-bW-AeN" id="DlN-SB-PwY"/>
                         <outlet property="artistSoundSelectPickerContainerView" destination="hrn-NJ-meW" id="JCm-Jn-EAg"/>
                         <outlet property="doneButton" destination="dX0-Lz-MmC" id="w8X-YT-DIY"/>
+                        <outlet property="fetchingMusicLabel" destination="9Lb-xK-FKe" id="Gy4-8a-eDr"/>
                         <outlet property="musicTestButton" destination="KkI-hg-1Rx" id="p6v-bC-MRJ"/>
                         <outlet property="musicTestButtonContainerView" destination="CdT-fG-3D9" id="OMG-IG-G0A"/>
                         <outlet property="noMusicLabel" destination="s7L-1V-QXv" id="gbH-F2-UrE"/>
