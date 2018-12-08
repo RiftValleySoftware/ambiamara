@@ -23,12 +23,52 @@ class TimerSetController: TimerSetPickerController {
     
     @IBOutlet weak var setupButton: UIBarButtonItem!
     @IBOutlet weak var setTimePickerView: UIPickerView!
-    @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
+    @IBOutlet weak var nextTimerButton: UIButton!
     @IBOutlet weak var bigStartButton: UIButton!
     @IBOutlet weak var timeDisplayLabel: UILabel!
+    @IBOutlet weak var nextTimerSelectionContainer: UIView!
+    @IBOutlet weak var nextTimerPickerView: UIPickerView!
     
     var runningTimer: TimerRuntimeViewController! = nil
     
+    /* ################################################################################################################################## */
+    // MARK: - Private Instance Methods
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    private func _setUpDisplay() {
+        self.bigStartButton.isHidden = 0 >= self.timerObject.timeSet
+        
+        let timerNumber = self.timerNumber
+        let tabBarImage = self.tabBarImage
+        
+        if nil != self.navigationController as? TimerNavController {
+            if (self.tabBarController?.viewControllers?.count)! > timerNumber + 1 {
+                self.tabBarController?.viewControllers?[timerNumber + 1].tabBarItem.image = tabBarImage
+                self.tabBarController?.viewControllers?[timerNumber + 1].tabBarItem.selectedImage = tabBarImage
+            }
+        }
+        
+        if 1 < Timer_AppDelegate.appDelegateObject.timerEngine.timers.count {
+            self.nextTimerButton.isHidden = false
+            let nextID = self.timerObject.succeedingTimerID
+            
+            if 0 <= nextID {
+                self.nextTimerButton.setTitle(String(format: "NEXT-TIMER-TIMER-FORMAT".localizedVariant, nextID + 1), for: .normal)
+                self.nextTimerPickerView.selectRow(nextID + 1, inComponent: 0, animated: false)
+            } else {
+                self.nextTimerButton.setTitle("NEXT-TIMER-NONE".localizedVariant, for: .normal)
+                self.nextTimerPickerView.selectRow(0, inComponent: 0, animated: false)
+            }
+        } else {
+            self.nextTimerButton.isHidden = true
+        }
+
+        self.updateTimeDisplayLabel()
+    }
+
+    /* ################################################################################################################################## */
     // MARK: - Internal @IBAction Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -49,11 +89,14 @@ class TimerSetController: TimerSetPickerController {
     /* ################################################################## */
     /**
      */
-    @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
-        self.timerObject.displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
+    @IBAction func nextTimerButtonHit(_ sender: UIButton) {
+        self.nextTimerSelectionContainer.isHidden = false
+        self.setTimePickerView.isHidden = true
+        
         self.updateTimer()
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Internal Instance Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -94,25 +137,6 @@ class TimerSetController: TimerSetPickerController {
     /* ################################################################## */
     /**
      */
-    private func _setUpDisplay() {
-        self.bigStartButton.isHidden = 0 >= self.timerObject.timeSet
-        
-        let timerNumber = self.timerNumber
-        let tabBarImage = self.tabBarImage
-        
-        if nil != self.navigationController as? TimerNavController {
-            if (self.tabBarController?.viewControllers?.count)! > timerNumber + 1 {
-                self.tabBarController?.viewControllers?[timerNumber + 1].tabBarItem.image = tabBarImage
-                self.tabBarController?.viewControllers?[timerNumber + 1].tabBarItem.selectedImage = tabBarImage
-            }
-        }
-        
-        self.updateTimeDisplayLabel()
-    }
-    
-    /* ################################################################## */
-    /**
-     */
     func updateTimer() {
         let timeSet = TimeTuple(self.timerObject.timeSet)
         
@@ -133,6 +157,7 @@ class TimerSetController: TimerSetPickerController {
         }
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -155,11 +180,13 @@ class TimerSetController: TimerSetPickerController {
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
         self.updateTimer()
         if nil != self.timerObject {
             Timer_AppDelegate.appDelegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
         }
+        
+        self.nextTimerSelectionContainer.isHidden = true
+        self.setTimePickerView.isHidden = false
     }
         
     /* ################################################################## */
@@ -196,16 +223,90 @@ class TimerSetController: TimerSetPickerController {
         }
     }
     
+    /* ################################################################################################################################## */
     /// MARK: - UIPickerViewDelegate Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let hours = pickerView.selectedRow(inComponent: Components.Hours.rawValue)
-        let minutes = pickerView.selectedRow(inComponent: Components.Minutes.rawValue)
-        let seconds = pickerView.selectedRow(inComponent: Components.Seconds.rawValue)
-        self.timerObject.timeSet = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
-        self.updateTimer()
+        if pickerView == self.nextTimerPickerView {
+            let pickerIndex = pickerView.selectedRow(inComponent: 0) - 1
+            
+            if pickerIndex != Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex {  // We do nothing if this is the selected timer.
+                self.timerObject.succeedingTimerID = pickerIndex
+                
+                self.nextTimerSelectionContainer.isHidden = true
+                self.setTimePickerView.isHidden = false
+                
+                self.updateTimer()
+            }
+        } else {
+            let hours = pickerView.selectedRow(inComponent: Components.Hours.rawValue)
+            let minutes = pickerView.selectedRow(inComponent: Components.Minutes.rawValue)
+            let seconds = pickerView.selectedRow(inComponent: Components.Seconds.rawValue)
+            self.timerObject.timeSet = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
+            
+            self.updateTimer()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        if pickerView == self.nextTimerPickerView {
+            return 1
+        }
+        return super.numberOfComponents(in: pickerView)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        if pickerView == self.nextTimerPickerView {
+            return pickerView.bounds.size.width
+        }
+        
+        return super.pickerView(pickerView, widthForComponent: component)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == self.nextTimerPickerView {
+            return Timer_AppDelegate.appDelegateObject.timerEngine.timers.count + 1
+        }
+        
+        return super.pickerView(pickerView, numberOfRowsInComponent: component)
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    override func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        if pickerView == self.nextTimerPickerView {
+            let ret = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.pickerView(pickerView, widthForComponent: component), height: self.pickerView(pickerView, rowHeightForComponent: component))))
+            
+            ret.font = UIFont.systemFont(ofSize: self.pickerView(pickerView, rowHeightForComponent: component))
+            ret.adjustsFontSizeToFitWidth = true
+            ret.backgroundColor = UIColor.clear
+            ret.textColor = self.view.tintColor
+
+            if 0 == row {
+                ret.text = "NO-TIMER".localizedVariant
+            } else {
+                ret.text = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, row)
+                if row - 1 == Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex {
+                    ret.textColor = self.view.tintColor.withAlphaComponent(0.5)
+                }
+            }
+            
+            return ret
+        }
+        
+        return super.pickerView(pickerView, viewForRow: row, forComponent: component, reusing: view)
     }
 }

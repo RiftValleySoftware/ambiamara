@@ -34,7 +34,7 @@ protocol TimerEngineDelegate: class {
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSongURLFrom: String)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerAlertModeFrom: AlertMode)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSoundModeFrom: SoundMode)
-    func timerSetting(_ timerSetting: TimerSettingTuple, changedSucceedingTimerIDFrom: Int!)
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedSucceedingTimerIDFrom: Int)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerColorThemeFrom: Int)
 }
 
@@ -141,28 +141,6 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
             return index
         }
         set { self.appState.selectedTimerIndex = newValue }
-    }
-    
-    /* ################################################################## */
-    /**
-     This returns the index of a succeeding timer. It will be 0-based, and will be nil, if there is not next timer or the index is invalid.
-     This is read-only.
-     */
-    var nextTimerID: Int! {
-        let index = self.appState.selectedTimerIndex
-        if index >= self.timers.count || 0 > index {
-            return nil
-        }
-        
-        if let nextIndex = self.timers[index].succeedingTimerID {
-            if nextIndex >= self.timers.count || 0 > nextIndex {
-                return nil
-            }
-        
-            return nextIndex
-        }
-        
-        return nil
     }
 
     /* ################################################################## */
@@ -636,7 +614,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /* ################################################################## */
     /**
      */
-    func appState(_ appState: LGV_Timer_State, didUpdateSucceedingTimerID: TimerSettingTuple, from: Int!) {
+    func appState(_ appState: LGV_Timer_State, didUpdateSucceedingTimerID: TimerSettingTuple, from: Int) {
         self.delegate?.timerSetting(didUpdateSucceedingTimerID, changedSucceedingTimerIDFrom: from)
         self.savePrefs()
     }

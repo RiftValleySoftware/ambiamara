@@ -31,6 +31,12 @@
 "DELETE-OK-BUTTON"                                      =   "Delete";   // The Delete Button
 "DELETE-CANCEL-BUTTON"                                  =   "Cancel";   // The cancel button.
 
+/* TIMER SCREEN */
+
+"NO-TIMER"                                              =   "No Following Timer";           // This is displayed in the following timer pickerView for no timer.
+"NEXT-TIMER-NONE"                                       =   "Select A Following Timer";     // This is displayed when there is no timer selected as the next one.
+"NEXT-TIMER-TIMER-FORMAT"                               =   "Next Timer: Timer %d";         // This is displayed when there is a timer selected as the next one.
+
 /* TIMER SETTINGS SCREEN */
 
 "LGV_TIMER-SETUP-WARNING-SET-LABEL"                     =   "Podium Warning (Yellow) Time"; // The title for the warning time picker in the settings screen.

@@ -8,23 +8,22 @@
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  */
 
-/* ###################################################################################################################################### */
-/**
- */
-
 import UIKit
 
 /* ###################################################################################################################################### */
 /**
  */
 class TimerNavBaseController: TimerBaseViewController {
+    /* ################################################################################################################################## */
     // MARK: - Class Constants
     /* ################################################################################################################################## */
     /// These specify the bounds of the tab bar icons (We draw our own custom ones).
     static let s_g_maxTabIconWidth: CGFloat = 48
     static let s_g_maxTabIconHeight: CGFloat = 32
     static let s_g_maxTabFontSize: CGFloat = 32
-    
+    static let s_g_pickerElementPaddingInDisplayUnits: CGFloat = 4
+    static let s_g_pickerElementHeightDivisor: CGFloat = 4
+
     /* ################################################################################################################################## */
     /// This contains a reference to our timer object.
     var timerObject: TimerSettingTuple! = nil
@@ -34,6 +33,7 @@ class TimerNavBaseController: TimerBaseViewController {
         return Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(self.timerObject)
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -71,6 +71,7 @@ class TimerNavBaseController: TimerBaseViewController {
         return String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, self.timerNumber + 1)
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Private Class Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -138,23 +139,21 @@ class TimerSetPickerController: TimerNavBaseController, UIPickerViewDelegate, UI
         case Hours = 0, Minutes, Seconds
     }
     
-    // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
-    
     /// MARK: - UIPickerViewDelegate Methods
     /* ################################################################################################################################## */    
     /* ################################################################## */
     /**
      */
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return pickerView.bounds.size.height / 4.0
+        return pickerView.bounds.size.height / type(of: self).s_g_pickerElementHeightDivisor
     }
     
     /* ################################################################## */
     /**
      */
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return pickerView.bounds.size.width / 3.0
+        return (pickerView.bounds.size.width / 3.0) - type(of: self).s_g_pickerElementPaddingInDisplayUnits
     }
     
     /* ################################################################## */
@@ -203,6 +202,7 @@ class TimerSetPickerController: TimerNavBaseController, UIPickerViewDelegate, UI
         return ret
     }
     
+    /* ################################################################################################################################## */
     /// MARK: - UIPickerViewDataSource Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
