@@ -10,6 +10,7 @@
 
 import UIKit
 
+/* ################################################################################################################################## */
 // MARK: - LGV_Timer_TimerEngineDelegate Protocol -
 /* ###################################################################################################################################### */
 /**
@@ -33,6 +34,7 @@ protocol TimerEngineDelegate: class {
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSongURLFrom: String)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerAlertModeFrom: AlertMode)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSoundModeFrom: SoundMode)
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedSucceedingTimerIDFrom: Int!)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerColorThemeFrom: Int)
 }
 
@@ -47,6 +49,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /** This contains our color theme palette. */
     private static let _sviewBundleName = "ColorThemes"
     
+    /* ################################################################################################################################## */
     // MARK: - Private Static Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -61,6 +64,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     private var _firstTick: TimeInterval = 0.0
     private var _alarmCount: Int = 0
     
+    /* ################################################################################################################################## */
     // MARK: - Internal Enums
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -75,9 +79,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         case SoundMode
         case SoundID
         case SongURLString
+        case SucceedingTimerID
         case UID
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Internal Static Calculated Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -89,6 +95,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         return ret
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
     /** This will contain the UILabels that are used for the color theme. */
@@ -101,6 +108,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     var timer: Timer!
     var soundSelection: [String] = []
     
+    /* ################################################################################################################################## */
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -121,13 +129,42 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
-     This returns (or changes) the 0-based index of the selected timer.
+     This returns (or changes) the 0-based index of the selected timer. It will be nil if the timer index is out of range.
      */
-    var selectedTimerIndex: Int {
-        get { return self.appState.selectedTimerIndex }
+    var selectedTimerIndex: Int! {
+        get {
+            let index = self.appState.selectedTimerIndex
+            if index >= self.timers.count || 0 > index {
+                return nil
+            }
+            
+            return index
+        }
         set { self.appState.selectedTimerIndex = newValue }
     }
     
+    /* ################################################################## */
+    /**
+     This returns the index of a succeeding timer. It will be 0-based, and will be nil, if there is not next timer or the index is invalid.
+     This is read-only.
+     */
+    var nextTimerID: Int! {
+        let index = self.appState.selectedTimerIndex
+        if index >= self.timers.count || 0 > index {
+            return nil
+        }
+        
+        if let nextIndex = self.timers[index].succeedingTimerID {
+            if nextIndex >= self.timers.count || 0 > nextIndex {
+                return nil
+            }
+        
+            return nextIndex
+        }
+        
+        return nil
+    }
+
     /* ################################################################## */
     /**
      This returns the UID of the selected timer object.
@@ -214,27 +251,8 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         
         return self._colorLabelArray
     }
-    
-    /* ################################################################## */
-    /**
-     Returns the color for the indexed color theme.
-     */
-    func getIndexedColorThemeColor(_ index: Int) -> UIColor {
-        var ret: UIColor
-        
-        let label = self.colorLabelArray[index]
-        
-        ret = label.textColor
-        
-        if let destColorSpace: CGColorSpace = CGColorSpace(name: CGColorSpace.sRGB) {
-            if let newColor = ret.cgColor.converted(to: destColorSpace, intent: CGColorRenderingIntent.perceptual, options: nil) {
-                ret = UIColor(cgColor: newColor)
-            }
-        }
-        
-        return ret
-    }
-    
+
+    /* ################################################################################################################################## */
     // MARK: - Private Class Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -286,6 +304,10 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
             tempSetting.songURLString = songURLString
         }
 
+        if let succeedingTimerID = inTimer.object(forKey: TimerPrefKeys.SucceedingTimerID.rawValue) as? NSNumber {
+            tempSetting.succeedingTimerID = succeedingTimerID.intValue
+        }
+
         if let uid = inTimer.object(forKey: TimerPrefKeys.UID.rawValue) as? NSString {
             tempSetting.uid = uid as String
         } else {
@@ -297,6 +319,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         return tempSetting
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Initializers and Deinitializer
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -338,6 +361,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         }
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Private Instance Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -396,8 +420,29 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         self.savePrefs()
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Instance Methods
     /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     Returns the color for the indexed color theme.
+     */
+    func getIndexedColorThemeColor(_ index: Int) -> UIColor {
+        var ret: UIColor
+        
+        let label = self.colorLabelArray[index]
+        
+        ret = label.textColor
+        
+        if let destColorSpace: CGColorSpace = CGColorSpace(name: CGColorSpace.sRGB) {
+            if let newColor = ret.cgColor.converted(to: destColorSpace, intent: CGColorRenderingIntent.perceptual, options: nil) {
+                ret = UIColor(cgColor: newColor)
+            }
+        }
+        
+        return ret
+    }
+    
     /* ################################################################## */
     /**
      This is a factory for creating a new timer object.
@@ -505,15 +550,14 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         }
     }
     
+    /* ################################################################################################################################## */
     // MARK: - LGV_Timer_StateDelegate Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerStatus: TimerSettingTuple, from: TimerStatus) {
-        if nil != self.delegate {
-            self.delegate.timerSetting(didUpdateTimerStatus, changedTimerStatusFrom: from)
-        }
+        self.delegate?.timerSetting(didUpdateTimerStatus, changedTimerStatusFrom: from)
         self.savePrefs()
     }
     
@@ -521,9 +565,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /**
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerDisplayMode: TimerSettingTuple, from: TimerDisplayMode) {
-        if nil != self.delegate {
-            self.delegate.timerSetting(didUpdateTimerDisplayMode, changedTimerDisplayModeFrom: from)
-        }
+        self.delegate?.timerSetting(didUpdateTimerDisplayMode, changedTimerDisplayModeFrom: from)
         self.savePrefs()
     }
     
@@ -531,9 +573,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /**
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerCurrentTime: TimerSettingTuple, from: Int) {
-        if nil != self.delegate {
-            self.delegate.timerSetting(didUpdateTimerCurrentTime, changedCurrentTimeFrom: from)
-        }
+        self.delegate?.timerSetting(didUpdateTimerCurrentTime, changedCurrentTimeFrom: from)
         self.savePrefs()
     }
     
@@ -541,9 +581,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /**
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerWarnTime: TimerSettingTuple, from: Int) {
-        if nil != self.delegate {
-            self.delegate.timerSetting(didUpdateTimerWarnTime, changedWarnTimeFrom: from)
-        }
+        self.delegate?.timerSetting(didUpdateTimerWarnTime, changedWarnTimeFrom: from)
         self.savePrefs()
     }
     
@@ -551,9 +589,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /**
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerFinalTime: TimerSettingTuple, from: Int) {
-        if nil != self.delegate {
-            self.delegate.timerSetting(didUpdateTimerFinalTime, changedFinalTimeFrom: from)
-        }
+        self.delegate?.timerSetting(didUpdateTimerFinalTime, changedFinalTimeFrom: from)
         self.savePrefs()
     }
     
@@ -561,9 +597,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /**
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerTimeSet: TimerSettingTuple, from: Int) {
-        if nil != self.delegate {
-            self.delegate.timerSetting(didUpdateTimerTimeSet, changedTimeSetFrom: from)
-        }
+        self.delegate?.timerSetting(didUpdateTimerTimeSet, changedTimeSetFrom: from)
         self.savePrefs()
     }
     
@@ -571,9 +605,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /**
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerSoundID: TimerSettingTuple, from: Int) {
-        if nil != self.delegate {
-            self.delegate.timerSetting(didUpdateTimerSoundID, changedTimerSoundIDFrom: from)
-        }
+        self.delegate?.timerSetting(didUpdateTimerSoundID, changedTimerSoundIDFrom: from)
         self.savePrefs()
     }
     
@@ -581,9 +613,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /**
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerSongURL: TimerSettingTuple, from: String) {
-        if nil != self.delegate {
-            self.delegate.timerSetting(didUpdateTimerSongURL, changedTimerSongURLFrom: from)
-        }
+        self.delegate?.timerSetting(didUpdateTimerSongURL, changedTimerSongURLFrom: from)
         self.savePrefs()
     }
 
@@ -591,9 +621,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /**
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerAlertMode: TimerSettingTuple, from: AlertMode) {
-        if nil != self.delegate {
-            self.delegate.timerSetting(didUpdateTimerAlertMode, changedTimerAlertModeFrom: from)
-        }
+        self.delegate?.timerSetting(didUpdateTimerAlertMode, changedTimerAlertModeFrom: from)
         self.savePrefs()
     }
 
@@ -601,9 +629,15 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /**
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerSoundMode: TimerSettingTuple, from: SoundMode) {
-        if nil != self.delegate {
-            self.delegate.timerSetting(didUpdateTimerSoundMode, changedTimerSoundModeFrom: from)
-        }
+        self.delegate?.timerSetting(didUpdateTimerSoundMode, changedTimerSoundModeFrom: from)
+        self.savePrefs()
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    func appState(_ appState: LGV_Timer_State, didUpdateSucceedingTimerID: TimerSettingTuple, from: Int!) {
+        self.delegate?.timerSetting(didUpdateSucceedingTimerID, changedSucceedingTimerIDFrom: from)
         self.savePrefs()
     }
 
@@ -611,9 +645,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /**
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerColorTheme: TimerSettingTuple, from: Int) {
-        if nil != self.delegate {
-            self.delegate.timerSetting(didUpdateTimerColorTheme, changedTimerColorThemeFrom: from)
-        }
+        self.delegate?.timerSetting(didUpdateTimerColorTheme, changedTimerColorThemeFrom: from)
         self.savePrefs()
     }
     
@@ -621,9 +653,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /**
      */
     func appState(_ appState: LGV_Timer_State, didAddTimer: TimerSettingTuple) {
-        if nil != self.delegate {
-            self.delegate.timerEngine(self, didAddTimer: didAddTimer)
-        }
+        self.delegate?.timerEngine(self, didAddTimer: didAddTimer)
         self.savePrefs()
     }
     
@@ -631,18 +661,14 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /**
      */
     func appState(_ appState: LGV_Timer_State, willRemoveTimer: TimerSettingTuple) {
-        if nil != self.delegate {
-            self.delegate.timerEngine(self, willRemoveTimer: willRemoveTimer)
-        }
+        self.delegate?.timerEngine(self, willRemoveTimer: willRemoveTimer)
     }
     
     /* ################################################################## */
     /**
      */
     func appState(_ appState: LGV_Timer_State, didRemoveTimerAtIndex: Int) {
-        if nil != self.delegate {
-            self.delegate.timerEngine(self, didRemoveTimerAtIndex: didRemoveTimerAtIndex)
-        }
+        self.delegate?.timerEngine(self, didRemoveTimerAtIndex: didRemoveTimerAtIndex)
         self.savePrefs()
     }
     
@@ -650,9 +676,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /**
      */
     func appState(_ appState: LGV_Timer_State, didSelectTimer: TimerSettingTuple!) {
-        if nil != self.delegate {
-            self.delegate.timerEngine(self, didSelectTimer: didSelectTimer)
-       }
+        self.delegate?.timerEngine(self, didSelectTimer: didSelectTimer)
         self.savePrefs()
     }
     
@@ -660,11 +684,10 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /**
      */
     func appState(_ appState: LGV_Timer_State, didDeselectTimer: TimerSettingTuple) {
-        if nil != self.delegate {
-            self.delegate.timerEngine(self, didDeselectTimer: didDeselectTimer)
-        }
+        self.delegate?.timerEngine(self, didDeselectTimer: didDeselectTimer)
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Sequence Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -739,6 +762,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         self.appState.remove(at: index)
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Callback Methods
     /* ################################################################################################################################## */
     /* ################################################################## */

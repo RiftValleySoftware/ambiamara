@@ -336,6 +336,15 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     /* ################################################################## */
     /**
      */
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedSucceedingTimerIDFrom: Int!) {
+        #if DEBUG
+        print("Timer (\(timerSetting)) Changed Next Timer ID From: \(String(describing: changedSucceedingTimerIDFrom))")
+        #endif
+    }
+
+    /* ################################################################## */
+    /**
+     */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSongURLFrom: String) {
         #if DEBUG
         print("Timer (\(timerSetting)) Changed Song URL From: \(changedTimerSongURLFrom)")
