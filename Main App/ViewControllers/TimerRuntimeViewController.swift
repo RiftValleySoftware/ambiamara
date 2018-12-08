@@ -450,11 +450,11 @@ class TimerRuntimeViewController: TimerNavBaseController {
     /* ################################################################## */
     /**
      */
-    @IBAction func pauseButtonHit(_ sender: Any) {
-        if .Podium == self.timerObject.displayMode {
-            self.resetTimer()
-        } else if .Paused == self.timerObject.timerStatus {
+    @IBAction func pauseButtonHit(_ sender: Any! = nil) {
+        if .Paused == self.timerObject.timerStatus {
             self.continueTimer()
+        } else if (.Podium == self.timerObject.displayMode) && (.Stopped != self.timerObject.timerStatus) {
+            self.resetTimer()
         } else {
             self.pauseTimer()
         }
@@ -471,13 +471,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
                 myTabController.timerEngine.selectedTimerIndex = Timer_AppDelegate.appDelegateObject.appState.nextTimer
             }
         } else {
-            if .Paused == self.timerObject.timerStatus {
-                self.continueTimer()
-            } else if (.Podium == self.timerObject.displayMode) && (.Stopped != self.timerObject.timerStatus) {
-                self.resetTimer()
-            } else {
-                self.pauseTimer()
-            }
+            self.pauseButtonHit()
         }
     }
 }

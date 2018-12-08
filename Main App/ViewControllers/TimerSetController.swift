@@ -28,6 +28,7 @@ class TimerSetController: TimerSetPickerController {
     @IBOutlet weak var timeDisplayLabel: UILabel!
     @IBOutlet weak var nextTimerSelectionContainer: UIView!
     @IBOutlet weak var nextTimerPickerView: UIPickerView!
+    @IBOutlet weak var trafficLightsImageView: UIImageView!
     
     var runningTimer: TimerRuntimeViewController! = nil
     
@@ -200,6 +201,7 @@ class TimerSetController: TimerSetPickerController {
         self.nextTimerSelectionContainer.isHidden = true
         self.setTimePickerView.isHidden = false
         self.nextTimerButton.addTarget(self, action: #selector(type(of: self).nextTimerButtonHit(_:)), for: .touchUpInside)
+        self.trafficLightsImageView.isHidden = .Digital == self.timerObject.displayMode
     }
         
     /* ################################################################## */
