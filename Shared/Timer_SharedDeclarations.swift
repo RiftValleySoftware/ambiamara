@@ -1126,6 +1126,21 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     /* ################################################################## */
     /**
      */
+    var nextTimer: Int {
+        if 0 <= self._selectedTimer0BasedIndex && self._selectedTimer0BasedIndex < self.timers.count {
+            let nextIndex = self.selectedTimer.succeedingTimerID
+            
+            if nextIndex < self.timers.count {
+                return Swift.max(-1, nextIndex)
+            }
+        }
+        
+        return -1
+    }
+
+    /* ################################################################## */
+    /**
+     */
     var isEmpty: Bool {
         return 0 < self.count
     }
@@ -1237,7 +1252,6 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         
         DispatchQueue.main.async {
             self.append(ret)
-            
             self.delegate?.appState(self, didAddTimer: ret)
         }
         

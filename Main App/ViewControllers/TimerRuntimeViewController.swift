@@ -415,6 +415,13 @@ class TimerRuntimeViewController: TimerNavBaseController {
     /**
      */
     @IBAction func stopButtonHit(_ sender: Any) {
+        if .Alarm == self.timerObject.timerStatus {
+            self.resetTimer()
+            if 0 <= self.timerObject.succeedingTimerID, let myTabController = Timer_AppDelegate.appDelegateObject.mainTabController {
+                Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
+                myTabController.timerEngine.selectedTimerIndex = self.timerObject.succeedingTimerID
+            }
+        }
         self.stopTimer()
     }
     
@@ -459,6 +466,10 @@ class TimerRuntimeViewController: TimerNavBaseController {
     @IBAction func tapInView(_ sender: Any) {
         if .Alarm == self.timerObject.timerStatus {
             self.resetTimer()
+            if 0 <= self.timerObject.succeedingTimerID, let myTabController = Timer_AppDelegate.appDelegateObject.mainTabController {
+                Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
+                myTabController.timerEngine.selectedTimerIndex = self.timerObject.succeedingTimerID
+            }
         } else {
             if .Paused == self.timerObject.timerStatus {
                 self.continueTimer()

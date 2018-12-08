@@ -22,7 +22,7 @@ excluded:
 - Main App/SwipeableTabBarController
 
 file_length:
-- 1500 # warning
+- 1520 # warning
 - 3000 # error
 
 type_body_length:

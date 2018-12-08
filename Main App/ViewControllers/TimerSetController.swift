@@ -65,6 +65,7 @@ class TimerSetController: TimerSetPickerController {
             self.nextTimerButton.isHidden = true
         }
 
+        self.nextTimerPickerView.reloadComponent(0)
         self.updateTimeDisplayLabel()
     }
 
@@ -298,9 +299,11 @@ class TimerSetController: TimerSetPickerController {
             if 0 == row {
                 ret.text = "NO-TIMER".localizedVariant
             } else {
-                ret.text = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, row)
                 if row - 1 == Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex {
                     ret.textColor = self.view.tintColor.withAlphaComponent(0.5)
+                    ret.text = "CANT-SELECT".localizedVariant
+                } else {
+                    ret.text = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, row)
                 }
             }
             

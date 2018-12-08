@@ -95,10 +95,10 @@
                                             <outlet property="delegate" destination="Y3X-jz-wfO" id="Fdh-I4-b9l"/>
                                         </connections>
                                     </pickerView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D3u-jq-DKi">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D3u-jq-DKi">
                                         <rect key="frame" x="8" y="0.0" width="288" height="191"/>
                                         <subviews>
-                                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSb-5d-O0F">
+                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSb-5d-O0F">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="191"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="Y3X-jz-wfO" id="Sfx-EY-JwF"/>
