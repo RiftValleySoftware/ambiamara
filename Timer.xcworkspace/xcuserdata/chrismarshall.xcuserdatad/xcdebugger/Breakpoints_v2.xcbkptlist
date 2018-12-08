@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Shared/Timer_SharedDeclarations.swift"
-            timestampString = "565988638.329015"
+            timestampString = "565992439.066124"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "950"
-            endingLineNumber = "950"
+            startingLineNumber = "953"
+            endingLineNumber = "953"
             landmarkName = "encode(with:)"
             landmarkType = "7">
          </BreakpointContent>

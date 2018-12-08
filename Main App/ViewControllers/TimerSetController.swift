@@ -58,9 +58,10 @@ class TimerSetController: TimerSetPickerController {
                 self.nextTimerButton.setTitle(String(format: "NEXT-TIMER-TIMER-FORMAT".localizedVariant, nextID + 1), for: .normal)
                 self.nextTimerPickerView.selectRow(nextID + 1, inComponent: 0, animated: false)
             } else {
-                self.nextTimerButton.setTitle("NEXT-TIMER-NONE".localizedVariant, for: .normal)
+                self.nextTimerButton.setTitle("NO-TIMER".localizedVariant, for: .normal)
                 self.nextTimerPickerView.selectRow(0, inComponent: 0, animated: false)
             }
+            self.nextTimerButton.titleLabel?.text = self.nextTimerButton.title(for: .normal)
         } else {
             self.nextTimerButton.isHidden = true
         }
@@ -95,6 +96,16 @@ class TimerSetController: TimerSetPickerController {
         self.setTimePickerView.isHidden = true
         
         self.updateTimer()
+        self.nextTimerButton.addTarget(self, action: #selector(type(of: self).setSelectedNextTimer(_:)), for: .touchUpInside)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func setSelectedNextTimer(_ : Any! = nil) {
+        self.nextTimerSelectionContainer.isHidden = true
+        self.setTimePickerView.isHidden = false
+        self.nextTimerButton.addTarget(self, action: #selector(type(of: self).nextTimerButtonHit(_:)), for: .touchUpInside)
     }
     
     /* ################################################################################################################################## */
@@ -188,6 +199,7 @@ class TimerSetController: TimerSetPickerController {
         
         self.nextTimerSelectionContainer.isHidden = true
         self.setTimePickerView.isHidden = false
+        self.nextTimerButton.addTarget(self, action: #selector(type(of: self).nextTimerButtonHit(_:)), for: .touchUpInside)
     }
         
     /* ################################################################## */
@@ -236,9 +248,6 @@ class TimerSetController: TimerSetPickerController {
             
             if pickerIndex != Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex {  // We do nothing if this is the selected timer.
                 self.timerObject.succeedingTimerID = pickerIndex
-                
-                self.nextTimerSelectionContainer.isHidden = true
-                self.setTimePickerView.isHidden = false
                 
                 self.updateTimer()
             }
@@ -291,18 +300,20 @@ class TimerSetController: TimerSetPickerController {
         if pickerView == self.nextTimerPickerView {
             let ret = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.pickerView(pickerView, widthForComponent: component), height: self.pickerView(pickerView, rowHeightForComponent: component))))
             
-            ret.font = UIFont.systemFont(ofSize: self.pickerView(pickerView, rowHeightForComponent: component))
             ret.adjustsFontSizeToFitWidth = true
             ret.backgroundColor = UIColor.clear
             ret.textColor = self.view.tintColor
 
             if 0 == row {
+                ret.font = UIFont.systemFont(ofSize: self.pickerView(pickerView, rowHeightForComponent: component))
                 ret.text = "NO-TIMER".localizedVariant
             } else {
                 if row - 1 == Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex {
+                    ret.font = UIFont.italicSystemFont(ofSize: self.pickerView(pickerView, rowHeightForComponent: component))
                     ret.textColor = self.view.tintColor.withAlphaComponent(0.5)
                     ret.text = "CANT-SELECT".localizedVariant
                 } else {
+                    ret.font = UIFont.systemFont(ofSize: self.pickerView(pickerView, rowHeightForComponent: component))
                     ret.text = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, row)
                 }
             }

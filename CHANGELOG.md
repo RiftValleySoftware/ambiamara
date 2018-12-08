@@ -1,7 +1,8 @@
-***Version 1.0.0.2009* ** *(TBD)*
+***Version 1.0.0.2009* ** *(December 8, 2018)*
 - Updated the info button icon.
 - Removed unused strings from the localizable files.
 - Added the "Fetching Music" label.
+- Fairly major new feature: You can now "cascade" timers, so another timer is selected upon completion of one timer.
 
 ***Version 1.0.0.2008* ** *(December 2, 2018)*
 - Tweaked the branded button in the info screen

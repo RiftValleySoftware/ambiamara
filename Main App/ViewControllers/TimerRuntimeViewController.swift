@@ -417,9 +417,9 @@ class TimerRuntimeViewController: TimerNavBaseController {
     @IBAction func stopButtonHit(_ sender: Any) {
         if .Alarm == self.timerObject.timerStatus {
             self.resetTimer()
-            if 0 <= self.timerObject.succeedingTimerID, let myTabController = Timer_AppDelegate.appDelegateObject.mainTabController {
+            if 0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer, let myTabController = Timer_AppDelegate.appDelegateObject.mainTabController {
                 Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
-                myTabController.timerEngine.selectedTimerIndex = self.timerObject.succeedingTimerID
+                myTabController.timerEngine.selectedTimerIndex = Timer_AppDelegate.appDelegateObject.appState.nextTimer
             }
         }
         self.stopTimer()
@@ -466,9 +466,9 @@ class TimerRuntimeViewController: TimerNavBaseController {
     @IBAction func tapInView(_ sender: Any) {
         if .Alarm == self.timerObject.timerStatus {
             self.resetTimer()
-            if 0 <= self.timerObject.succeedingTimerID, let myTabController = Timer_AppDelegate.appDelegateObject.mainTabController {
+            if 0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer, let myTabController = Timer_AppDelegate.appDelegateObject.mainTabController {
                 Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
-                myTabController.timerEngine.selectedTimerIndex = self.timerObject.succeedingTimerID
+                myTabController.timerEngine.selectedTimerIndex = Timer_AppDelegate.appDelegateObject.appState.nextTimer
             }
         } else {
             if .Paused == self.timerObject.timerStatus {

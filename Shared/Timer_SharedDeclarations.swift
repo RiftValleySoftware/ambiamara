@@ -885,9 +885,12 @@ class TimerSettingTuple: NSObject, NSCoding {
         self.firstTick = 0.0
         self.lastTick = 0.0
         self.handler = nil
+        self.succeedingTimerID = -1
 
-        let succeedingTimerID = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.SucceedingTimerID.rawValue)
-        self.succeedingTimerID = succeedingTimerID
+        if coder.containsValue(forKey: TimerStateKeys.SucceedingTimerID.rawValue) {
+            let succeedingTimerID = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.SucceedingTimerID.rawValue)
+            self.succeedingTimerID = succeedingTimerID
+        }
         
         let timeSet = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.TimeSet.rawValue)
         self.timeSet = timeSet

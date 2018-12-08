@@ -34,7 +34,6 @@
 /* TIMER SCREEN */
 
 "NO-TIMER"                                              =   "No Following Timer";           // This is displayed in the following timer pickerView for no timer.
-"NEXT-TIMER-NONE"                                       =   "Select A Following Timer";     // This is displayed when there is no timer selected as the next one.
 "NEXT-TIMER-TIMER-FORMAT"                               =   "Next Timer: Timer %d";         // This is displayed when there is a timer selected as the next one.
 "CANT-SELECT"                                           =   "UNAVAILABLE";                  // This is displayed in the picker for the current timer.
 
