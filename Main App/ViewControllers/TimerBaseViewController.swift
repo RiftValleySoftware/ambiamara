@@ -73,9 +73,12 @@ class TimerBaseViewController: UIViewController {
      :param: _ The gesture recognizer that triggered this (ignored)
      */
     @IBAction func selectNextPage(_: UIGestureRecognizer) {
-        if Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex < (Timer_AppDelegate.appDelegateObject.timerEngine.count - 1) {
-            let nextIndex = Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex + 1
-            Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex = nextIndex
+        if let selectedIndex = Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex {
+            if selectedIndex < (Timer_AppDelegate.appDelegateObject.timerEngine.count - 1) {
+                Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex += 1
+            }
+        } else {
+            Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex = 0
         }
     }
     

@@ -2,6 +2,7 @@
 - Fixed an issue where there was inconsistent behavior between touching the pause/play button, and tapping in the screen for Podium Mode (the behavior should be the same).
 - Added "traffic lights" to the main display, to indicate the timer mode (now the segmented switch is gone, we need to let the user easily see the mode).
 - Fixed a bug, where pressing the "Vibrate" switch would reset the music menu.
+- Fixed a bug, where swiping left in the timer list would cause a crash.
 
 ***Version 1.0.0.2009* ** *(December 8, 2018)*
 - Updated the info button icon.
