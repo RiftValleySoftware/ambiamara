@@ -402,9 +402,6 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         default:
             break
         }
-        
-        self.stopAudioPlayer()
-        self.setUpUIElements()
     }
     
     /* ################################################################## */
