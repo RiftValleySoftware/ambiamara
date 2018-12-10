@@ -1452,7 +1452,13 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
                     self.delegate.appState(self, willRemoveTimer: timer)
                 }
                 
+                // This removes us from any other timers' succeeding timer, and will decrement ones that point after it.
+                for lilTimer in self where index..<self.count ~= lilTimer.succeedingTimerID {
+                    lilTimer.succeedingTimerID = lilTimer.succeedingTimerID == index ? -1 : lilTimer.succeedingTimerID - 1
+                }
+                
                 self._timers.remove(at: index)
+
                 if index < self._selectedTimer0BasedIndex {
                     self._selectedTimer0BasedIndex -= 1
                 } else {

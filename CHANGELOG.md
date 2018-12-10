@@ -1,3 +1,6 @@
+***Version 1.0.0.2011* ** *(TBD)*
+- Fixed a cosmetic bug in the Timer Setup Screen, where the succeeding timer could show an incorrect timer, if that timer had been deleted.
+
 ***Version 1.0.0.2010* ** *(December 8, 2018)*
 - Fixed an issue where there was inconsistent behavior between touching the pause/play button, and tapping in the screen for Podium Mode (the behavior should be the same).
 - Added "traffic lights" to the main display, to indicate the timer mode (now the segmented switch is gone, we need to let the user easily see the mode).
