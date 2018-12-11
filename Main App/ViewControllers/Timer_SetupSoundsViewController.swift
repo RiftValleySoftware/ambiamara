@@ -451,6 +451,17 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
 
         self.soundModeSegmentedSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-LABEL".localizedVariant
         self.soundModeSegmentedSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-HINT".localizedVariant
+        
+        let sortedViews = self.soundModeSegmentedSwitch.subviews.sorted(by: { $0.frame.origin.x < $1.frame.origin.x })
+        
+        sortedViews[0].accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-SOUND-LABEL".localizedVariant
+        sortedViews[0].accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-SOUND-HINT".localizedVariant
+        
+        sortedViews[1].accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-MUSIC-LABEL".localizedVariant
+        sortedViews[1].accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-MUSIC-HINT".localizedVariant
+        
+        sortedViews[2].accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-SILENCE-LABEL".localizedVariant
+        sortedViews[2].accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-SILENCE-HINT".localizedVariant
 
         self.testSoundButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TEST-SOUND-BUTTON-LABEL".localizedVariant
         self.testSoundButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TEST-SOUND-BUTTON-HINT".localizedVariant

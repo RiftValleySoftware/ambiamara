@@ -155,6 +155,17 @@ class TimerSetupController: TimerSetPickerController {
         self.timerModeSegmentedSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SEGMENTED-LABEL".localizedVariant
         self.timerModeSegmentedSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SEGMENTED-HINT".localizedVariant
         
+        let sortedViews = self.timerModeSegmentedSwitch.subviews.sorted(by: { $0.frame.origin.x < $1.frame.origin.x })
+        
+        sortedViews[0].accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL".localizedVariant
+        sortedViews[0].accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-HINT".localizedVariant
+        
+        sortedViews[1].accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL".localizedVariant
+        sortedViews[1].accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-HINT".localizedVariant
+        
+        sortedViews[2].accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant
+        sortedViews[2].accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-HINT".localizedVariant
+
         self.colorThemePicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-LABEL".localizedVariant
         self.colorThemePicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-HINT".localizedVariant
         
@@ -165,10 +176,10 @@ class TimerSetupController: TimerSetPickerController {
         self.finalThresholdTimePicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-HINT".localizedVariant
         
         self.alarmSetupButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-LABEL".localizedVariant
-        self.alarmSetupButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-HINT".localizedVariant
+        self.alarmSetupButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-HINT".localizedVariant
         
         self.doneButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-LABEL".localizedVariant
-        self.doneButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-HINT".localizedVariant
+        self.doneButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-HINT".localizedVariant
     }
 
     /// MARK: - UIPickerViewDataSource Methods

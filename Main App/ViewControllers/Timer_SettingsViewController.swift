@@ -203,7 +203,7 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
                 ret.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant
                 ret.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-HINT".localizedVariant
             }
-            
+
             return ret
         } else {
             return UITableViewCell()
@@ -298,7 +298,7 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
         
         self.timerTableView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-LABEL".localizedVariant
         self.timerTableView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-HINT".localizedVariant
-        
+
         self.showControlsSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SWITCH-LABEL".localizedVariant
         self.showControlsSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SWITCH-HINT".localizedVariant
         
