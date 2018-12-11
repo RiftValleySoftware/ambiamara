@@ -16,7 +16,6 @@
 		772A13CC1ED5E8270043C58B /* Timer_MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13CB1ED5E8270043C58B /* Timer_MainTabController.swift */; };
 		772A13D81ED5E8840043C58B /* Timer_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13D41ED5E8840043C58B /* Timer_AppDelegate.swift */; };
 		772BF9C41ED600B3002D1782 /* TimerNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772BF9C31ED600B3002D1782 /* TimerNavController.swift */; };
-		773980A61F6964820019A541 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 773980A21F6963A00019A541 /* Localizable.strings */; };
 		775AE1771EDDDF1D00B168A7 /* TimerSetPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775AE1761EDDDF1D00B168A7 /* TimerSetPickerController.swift */; };
 		7770CB2E1ED6153500ED1F9A /* TimerSetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2D1ED6153500ED1F9A /* TimerSetController.swift */; };
 		7770CB301ED6156300ED1F9A /* TimerSetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770CB2F1ED6156300ED1F9A /* TimerSetupController.swift */; };
@@ -42,6 +41,7 @@
 		D433BB9E21B1898D001C79F6 /* 17-car-horn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D433BB9721B1898D001C79F6 /* 17-car-horn.mp3 */; };
 		D433BBA021B18AF4001C79F6 /* 21-alarm-klaxon.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D433BB9F21B18AF4001C79F6 /* 21-alarm-klaxon.mp3 */; };
 		D433BBA221B18D09001C79F6 /* TimerSoundModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D433BBA121B18D09001C79F6 /* TimerSoundModeButton.swift */; };
+		D451AD9A21C0382E00E3DE28 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 773980A21F6963A00019A541 /* Localizable.strings */; };
 		D48C0A4221B096C9007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3921B096C8007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 */; };
 		D48C0A4321B096C9007AC2DC /* 08-videogame-beeps-high-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3A21B096C8007AC2DC /* 08-videogame-beeps-high-frequency.mp3 */; };
 		D48C0A4421B096C9007AC2DC /* 09-single-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3B21B096C8007AC2DC /* 09-single-beep.mp3 */; };
@@ -444,6 +444,7 @@
 				D48ED40021B475BC00ADB8F8 /* 14-shut-up-1.mp3 in Resources */,
 				D48ED3FD21B475AE00ADB8F8 /* 15-shut-up-2.mp3 in Resources */,
 				D433BB9C21B1898D001C79F6 /* 16-snoring-1.mp3 in Resources */,
+				D451AD9A21C0382E00E3DE28 /* Localizable.strings in Resources */,
 				D433BB9E21B1898D001C79F6 /* 17-car-horn.mp3 in Resources */,
 				D433BB9921B1898D001C79F6 /* 18-antique-phone.mp3 in Resources */,
 				D433BB9A21B1898D001C79F6 /* 19-classic-phone.mp3 in Resources */,
@@ -454,7 +455,6 @@
 				772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */,
 				77AF00B41F69623800D35EF1 /* LaunchScreen.storyboard in Resources */,
 				77AF00B71F69624E00D35EF1 /* Main.storyboard in Resources */,
-				773980A61F6964820019A541 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

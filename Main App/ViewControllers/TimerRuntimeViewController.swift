@@ -409,6 +409,30 @@ class TimerRuntimeViewController: TimerNavBaseController {
         UIApplication.shared.isIdleTimerDisabled = false
     }
     
+    /* ################################################################################################################################## */
+    /**
+     This method adds all the accessibility stuff.
+     */
+    override func addAccessibilityStuff() {
+        self.view.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SCREEN-LABEL".localizedVariant
+        self.view.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SCREEN-HINT".localizedVariant
+        
+        self.flasherView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ALARM-LABEL".localizedVariant
+        self.flasherView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ALARM-HINT".localizedVariant
+        
+        self.stopButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-STOP-BUTTON-LABEL".localizedVariant
+        self.stopButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-STOP-BUTTON-HINT".localizedVariant
+        
+        self.resetButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-REWIND-BUTTON-LABEL".localizedVariant
+        self.resetButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-REWIND-BUTTON-HINT".localizedVariant
+        
+        self.endButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-END-BUTTON-LABEL".localizedVariant
+        self.endButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-END-BUTTON-HINT".localizedVariant
+        
+        self.pauseButton.accessibilityLabel = (.Running == self.timerObject.timerStatus ? "LGV_TIMER-ACCESSIBILITY-PAUSE-BUTTON-LABEL" : "LGV_TIMER-ACCESSIBILITY-START-BUTTON-LABEL").localizedVariant
+        self.pauseButton.accessibilityHint = (.Running == self.timerObject.timerStatus ? "LGV_TIMER-ACCESSIBILITY-PAUSE-BUTTON-HINT" : "LGV_TIMER-ACCESSIBILITY-START-BUTTON-HINT").localizedVariant
+    }
+
     // MARK: - IB Action Methods
     /* ################################################################################################################################## */
     /* ################################################################## */

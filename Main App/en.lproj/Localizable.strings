@@ -94,3 +94,111 @@
 /* INFO SCREEN */
 
 "LGV_TIMER-ABOUT-TEXT"                                  =   "When I have something to say, I'll say it here.";
+
+/* ACCESSIBILITY */
+
+/* TIMER LIST SCREEN */
+
+"LGV_TIMER-ACCESSIBILITY-INFO-LABEL"                    =   "Open the \"About This App\" Button";
+"LGV_TIMER-ACCESSIBILITY-INFO-HINT"                     =   "If you select this button, the information screen for the app will be shown.";
+"LGV_TIMER-ACCESSIBILITY-ADD-LABEL"                     =   "Adds A New Timer Button";
+"LGV_TIMER-ACCESSIBILITY-ADD-HINT"                      =   "If you select this, a new default timer will be added to the end of the list, and its setup screen will be selected.";
+
+"LGV_TIMER-ACCESSIBILITY-TABLE-LABEL"                   =   "List of All Available Timers";
+"LGV_TIMER-ACCESSIBILITY-TABLE-HINT"                    =   "Each row of this table represents a single timer. You can select a timer by tapping that row, or delete a timer by left-swiping the row.";
+
+"LGV_TIMER-ACCESSIBILITY-SWITCH-LABEL"                  =   "Show Controls Above Running Timer";
+"LGV_TIMER-ACCESSIBILITY-SWITCH-HINT"                   =   "If this switch is on, then each timer, when running, will display a row of controls above it with buttons that will control it. If they are not shown, then the timer must be controlled by gestures.";
+
+/* Labels for each row -dependent upon mode. These will also be displayed in the other screens. */
+
+"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL"        =   "Podium Mode Timer";
+"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-HINT"         =   "This timer will simply display three \"traffic lights\" that will switch from green (leftmost) to yellow (center), to red (rightmost) as the timer counts down. A flash will occur at each transition.";
+"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL"       =   "Digital Mode Timer";
+"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-HINT"        =   "This timer will display a simple digital readout, in the selected color.";
+"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL"       =   "Dual Mode Timer";
+"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-HINT"        =   "This timer will display a digital readout, in the selected color. Underneath the readout will be three \"traffic lights.\" that will switch from green (leftmost) to yellow (center), to red (rightmost) as the timer counts down. A flash will occur at each transition.";
+
+/* TIMER SET SCREEN */
+
+"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL"         =   "Timer Settings Button";
+"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-HINT"          =   "Tapping this button will bring in a screen that will allow you to set up this timer.";
+
+"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL"         =   "Timer Settings Button";
+"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-HINT"          =   "Tapping this button will bring in a screen that will allow you to set up this timer.";
+
+"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL"         =   "Timer Settings Button";
+"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-HINT"          =   "Tapping this button will bring in a screen that will allow you to set up this timer.";
+
+"LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-LABEL"       =   "Next Timer Picker View";
+"LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-HINT"        =   "This allows you to select a timer that will be selected immediately after you stop the alarm. The next timer's Set Timer screen will appear, and you will be able to start that timer.";
+
+"LGV_TIMER-ACCESSIBILITY-SET-TIME-PICKER-LABEL"         =   "Set Time Picker View";
+"LGV_TIMER-ACCESSIBILITY-SET-TIME-PICKER-HINT"          =   "This picker view has three columns: Hours (leftmost), Minutes (center) and Seconds (rightmost). Use these to select the starting time for the countdown. You can select up to 23:59:59 (Twenty-three hours, fifty-nine minutes and fifty-nine seconds).";
+
+"LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-LABEL"      =   "Start Timer Button";
+"LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-HINT"       =   "Tapping this button will start the timer. A screen will appear with the display required for the selected timer mode. The timer will immediately start counting down.";
+
+/* TIMER SETTINGS SCREEN */
+
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-LABEL"               =   "Timer Mode Selection Switch";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-HINT"                =   "This is a segmented switch with three segments. The leftmost segment is Digital Mode, and the timer will display a simple digital display during countdown. The center segment is Podium Mode, where three simple \"traffic lights\" are displayed during the countdown. The rightmost segment is Dual Mode, where the \"traffic lights\" are displayed below the digital display.";
+"LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-LABEL"            =   "Digital Display Color Picker";
+"LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-HINT"             =   "This picker has a column of colors. You can select a color, and that is what will be used for Digital and Dual Mode displays. It will not be available for Podium Mode.";
+
+"LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-LABEL"    =   "Set Warning Time Picker View";
+"LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-HINT"     =   "This picker view has three columns: Hours (leftmost), Minutes (center) and Seconds (rightmost). Use these to select the \"warning\" time for the countdown. You can select up to 23:59:59 (Twenty-three hours, fifty-nine minutes and fifty-nine seconds).";
+
+"LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-LABEL"   =   "Set Final Time Picker View";
+"LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-HINT"    =   "This picker view has three columns: Hours (leftmost), Minutes (center) and Seconds (rightmost). Use these to select the \"final\" time for the countdown. You can select up to 23:59:59 (Twenty-three hours, fifty-nine minutes and fifty-nine seconds).";
+
+"LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-LABEL"      =   "Set Alarm Button";
+"LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-HINT"       =   "This button will display images that will indicate the current alarm sound/vibration mode. If you tap this button, a screen will appear that allows you to set the sound and vibration state of the alarm.";
+
+"LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-LABEL"             =   "Done Button";
+"LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-HINT"              =   "If you tap this button, this screen will be dismissed.";
+
+/* ALARM SETUP SCREEN */
+
+"LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-LABEL"          =   "Vibrate On Alarm Switch";
+"LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-HINT"           =   "If this switch is on, then the phone will vibrate as the alarm sounds.";
+
+"LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-LABEL"       =   "Play Sound Segmented Switch";
+"LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-HINT"        =   "This is a segmented switch that will allow you to select from a collection of preset sounds (leftmost segment), a song from your music library (center segment), or no sound at all (rightmost segment) when the alarm goes off.";
+
+"LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-LABEL"     =   "Select A Sound";
+"LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-HINT"      =   "Select one of several preset sounds to play when the alarm goes off.";
+
+"LGV_TIMER-ACCESSIBILITY-ARTIST-SELECT-PICKER-LABEL"    =   "Select An Artist From Your Music Library";
+"LGV_TIMER-ACCESSIBILITY-ARTIST-SELECT-PICKER-HINT"     =   "Select an artist from your music library. When you select an artist the picker below this one will display their songs.";
+"LGV_TIMER-ACCESSIBILITY-SONG-SELECT-PICKER-LABEL"      =   "Select A Song by the Above Artist";
+"LGV_TIMER-ACCESSIBILITY-SONG-SELECT-PICKER-HINT"       =   "Select a song from the artist in the picker above this one.";
+
+"LGV_TIMER-ACCESSIBILITY-TEST-SOUND-BUTTON-LABEL"       =   "Test Sound";
+"LGV_TIMER-ACCESSIBILITY-TEST-SOUND-BUTTON-HINT"        =   "Touching this button will start the selected sound playing in a loop. Touch it again to stop the sound from playing.";
+
+"LGV_TIMER-ACCESSIBILITY-TEST-SONG-BUTTON-LABEL"        =   "Test Song";
+"LGV_TIMER-ACCESSIBILITY-TEST-SONG-BUTTON-HINT"         =   "Touching this button will start the selected song playing in a loop. Touch it again to stop the song from playing.";
+
+/* RUNNING TIMER SCREEN */
+
+"LGV_TIMER-ACCESSIBILITY-STOP-BUTTON-LABEL"             =   "Stop Timer";
+"LGV_TIMER-ACCESSIBILITY-STOP-BUTTON-HINT"              =   "Touching this button will stop the timer and dismiss this screen.";
+
+"LGV_TIMER-ACCESSIBILITY-REWIND-BUTTON-LABEL"           =   "Rewind Timer";
+"LGV_TIMER-ACCESSIBILITY-REWIND-BUTTON-HINT"            =   "Touching this button will stop the timer and rewind to the beginning. It will not dismiss the screen.";
+
+"LGV_TIMER-ACCESSIBILITY-END-BUTTON-LABEL"              =   "End Timer";
+"LGV_TIMER-ACCESSIBILITY-END-BUTTON-HINT"               =   "Touching this button will finish the timer and start the alarm. It will not dismiss the screen.";
+
+"LGV_TIMER-ACCESSIBILITY-PAUSE-BUTTON-LABEL"            =   "Pause Timer";
+"LGV_TIMER-ACCESSIBILITY-PAUSE-BUTTON-HINT"             =   "Tapping this will pause the timer. If we are in Podium Mode, it will also rewind the timer to the start.";
+
+"LGV_TIMER-ACCESSIBILITY-START-BUTTON-LABEL"            =   "Start Or Continue Timer";
+"LGV_TIMER-ACCESSIBILITY-START-BUTTON-HINT"             =   "Tapping this will start or continue a paused timer.";
+
+"LGV_TIMER-ACCESSIBILITY-SCREEN-LABEL"                  =   "Running Timer Screen";
+"LGV_TIMER-ACCESSIBILITY-SCREEN-HINT"                   =   "This is the running timer screen. It can be controlled by gestures. Left-swipe to reset the timer, or dismiss this screen (if the timer is already reset). Right-swipe to immediately send the timer into alarm mode. Tap to pause or continue the timer.";
+
+"LGV_TIMER-ACCESSIBILITY-ALARM-LABEL"                   =   "Alarm Is Going Off";
+"LGV_TIMER-ACCESSIBILITY-ALARM-HINT"                    =   "The alarm is going off. Tap anywhere in the screen to stop it.";

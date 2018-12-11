@@ -164,6 +164,7 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
      - returns a nice, shiny cell (or sets the state of a reused one).
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        assert(self.mainTabController.timerEngine.count > indexPath.row && 0 <= indexPath.row)
         if let ret = tableView.dequeueReusableCell(withIdentifier: "SingleTimerCell") as? SettingsTimerTableCell {
             if let clockView = ret.clockDisplay, let timerNameLabel = ret.timerNameLabel {
                 let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
@@ -188,6 +189,19 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
             if let trafficLights = ret.trafficLights {
                 let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
                 trafficLights.isHidden = (.Digital == timerPrefs.displayMode)
+            }
+            
+            // Add accessibility strings.
+            switch self.mainTabController.timerEngine[indexPath.row].displayMode {
+            case .Podium:
+                ret.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL".localizedVariant
+                ret.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-HINT".localizedVariant
+            case .Digital:
+                ret.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL".localizedVariant
+                ret.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-HINT".localizedVariant
+            case .Dual:
+                ret.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant
+                ret.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-HINT".localizedVariant
             }
             
             return ret
@@ -270,5 +284,25 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
      */
     func dontDoADirtyDeedCheap(_ tableView: UITableView) {
         tableView.isEditing = false
+    }
+    
+    /* ################################################################################################################################## */
+    /**
+     This method adds all the accessibility stuff.
+     */
+    override func addAccessibilityStuff() {
+        self.navInfo.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-INFO-LABEL".localizedVariant
+        self.navInfo.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-INFO-HINT".localizedVariant
+        self.navAdd.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ADD-LABEL".localizedVariant
+        self.navAdd.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ADD-HINT".localizedVariant
+        
+        self.timerTableView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-LABEL".localizedVariant
+        self.timerTableView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-HINT".localizedVariant
+        
+        self.showControlsSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SWITCH-LABEL".localizedVariant
+        self.showControlsSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SWITCH-HINT".localizedVariant
+        
+        self.showControlsButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SWITCH-LABEL".localizedVariant
+        self.showControlsButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SWITCH-HINT".localizedVariant
     }
 }

@@ -115,20 +115,8 @@ class TimerBaseViewController: UIViewController {
         if (type(of: self) != TimerNavController.self) && (nil != self.navigationItem.title) {
             self.navigationItem.title = self.navigationItem.title!.localizedVariant
         }
-    }
-    
-    /* ################################################################################################################################## */
-    /**
-     This function applies the app styling to the "More..." view.
-     */
-    func gussyUpTheMoreNavigation() {
-        if let navBar = self.navigationController?.navigationBar {
-            self.tabBarController?.moreNavigationController.navigationBar.tintColor = navBar.tintColor
-            self.tabBarController?.moreNavigationController.navigationBar.barStyle = navBar.barStyle
-            self.tabBarController?.moreNavigationController.navigationBar.barTintColor = navBar.barTintColor
-            self.tabBarController?.moreNavigationController.view.tintColor = UIColor.black
-            self.tabBarController?.moreNavigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        }
+        
+        self.addAccessibilityStuff()
     }
     
     /* ################################################################## */
@@ -163,5 +151,27 @@ class TimerBaseViewController: UIViewController {
             tabController.tabBar.barTintColor = self.gradientBottomColor
             tabController.tabBar.unselectedItemTintColor = self.view.tintColor
         }
+    }
+    
+    /* ################################################################################################################################## */
+    /**
+     This method applies the app styling to the "More..." view.
+     */
+    func gussyUpTheMoreNavigation() {
+        if let navBar = self.navigationController?.navigationBar {
+            self.tabBarController?.moreNavigationController.navigationBar.tintColor = navBar.tintColor
+            self.tabBarController?.moreNavigationController.navigationBar.barStyle = navBar.barStyle
+            self.tabBarController?.moreNavigationController.navigationBar.barTintColor = navBar.barTintColor
+            self.tabBarController?.moreNavigationController.view.tintColor = UIColor.black
+            self.tabBarController?.moreNavigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        }
+    }
+    
+    /* ################################################################################################################################## */
+    /**
+     This method adds all the accessibility stuff. It is meant to be overridden.
+     */
+    func addAccessibilityStuff() {
+        // This is meant to be overridden.
     }
 }

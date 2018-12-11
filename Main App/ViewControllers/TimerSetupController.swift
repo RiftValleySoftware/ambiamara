@@ -146,6 +146,30 @@ class TimerSetupController: TimerSetPickerController {
     @IBAction func doneButtonHit(_: Any! = nil) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    /* ################################################################################################################################## */
+    /**
+     This method adds all the accessibility stuff.
+     */
+    override func addAccessibilityStuff() {
+        self.timerModeSegmentedSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SEGMENTED-LABEL".localizedVariant
+        self.timerModeSegmentedSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SEGMENTED-HINT".localizedVariant
+        
+        self.colorThemePicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-LABEL".localizedVariant
+        self.colorThemePicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-HINT".localizedVariant
+        
+        self.warningThresholdTimePicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-LABEL".localizedVariant
+        self.warningThresholdTimePicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-HINT".localizedVariant
+        
+        self.finalThresholdTimePicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-LABEL".localizedVariant
+        self.finalThresholdTimePicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-HINT".localizedVariant
+        
+        self.alarmSetupButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-LABEL".localizedVariant
+        self.alarmSetupButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-HINT".localizedVariant
+        
+        self.doneButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-LABEL".localizedVariant
+        self.doneButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-HINT".localizedVariant
+    }
 
     /// MARK: - UIPickerViewDataSource Methods
     /* ################################################################################################################################## */

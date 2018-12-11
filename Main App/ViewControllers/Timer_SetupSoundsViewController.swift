@@ -439,6 +439,44 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         }
     }
     
+    /* ################################################################################################################################## */
+    /**
+     This method adds all the accessibility stuff.
+     */
+    override func addAccessibilityStuff() {
+        self.vibrateSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-LABEL".localizedVariant
+        self.vibrateSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-HINT".localizedVariant
+        self.vibrateButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-LABEL".localizedVariant
+        self.vibrateButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-HINT".localizedVariant
+
+        self.soundModeSegmentedSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-LABEL".localizedVariant
+        self.soundModeSegmentedSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-HINT".localizedVariant
+
+        self.testSoundButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TEST-SOUND-BUTTON-LABEL".localizedVariant
+        self.testSoundButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TEST-SOUND-BUTTON-HINT".localizedVariant
+
+        self.musicTestButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TEST-SONG-BUTTON-LABEL".localizedVariant
+        self.musicTestButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TEST-SONG-BUTTON-HINT".localizedVariant
+        
+        switch self.timerObject.soundMode {
+        case .Sound:
+            self.artistSoundSelectPicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-LABEL".localizedVariant
+            self.artistSoundSelectPicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-HINT".localizedVariant
+
+        case .Music:
+            self.artistSoundSelectPicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ARTIST-SELECT-PICKER-LABEL".localizedVariant
+            self.artistSoundSelectPicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ARTIST-SELECT-PICKER-HINT".localizedVariant
+            self.songSelectPicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SONG-SELECT-PICKER-LABEL".localizedVariant
+            self.songSelectPicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SONG-SELECT-PICKER-HINT".localizedVariant
+
+        case .Silent:
+            break
+       }
+        
+        self.doneButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-LABEL".localizedVariant
+        self.doneButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-HINT".localizedVariant
+    }
+
     /* ################################################################## */
     /**
      */
