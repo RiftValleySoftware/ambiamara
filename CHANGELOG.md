@@ -1,4 +1,4 @@
-***Version 1.0.0.2011* ** *(TBD)*
+***Version 1.0.0.2011* ** *(December 11, 2018)*
 - Fixed a cosmetic bug in the Timer Setup Screen, where the succeeding timer could show an incorrect timer, if that timer had been deleted.
 - Added accessibility stuff.
 
