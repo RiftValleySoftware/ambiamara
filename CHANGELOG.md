@@ -1,4 +1,5 @@
 ***Version 1.0.0.2015* ** *(TBD)*
+- Accessibility fixes.
 
 ***Version 1.0.0.2014* ** *(December 13, 2018)*
 - Added support for audible ticks.

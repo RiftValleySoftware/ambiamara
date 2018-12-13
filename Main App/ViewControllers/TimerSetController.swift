@@ -343,6 +343,9 @@ class TimerSetController: TimerSetPickerController {
         
         self.setTimePickerView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-TIME-PICKER-LABEL".localizedVariant
         self.setTimePickerView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-TIME-PICKER-HINT".localizedVariant
+        
+        self.nextTimerButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-LABEL".localizedVariant
+        self.nextTimerButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-HINT".localizedVariant
 
         self.nextTimerPickerView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-LABEL".localizedVariant
         self.nextTimerPickerView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-HINT".localizedVariant
