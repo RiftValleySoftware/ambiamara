@@ -247,8 +247,6 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
     func setUpUIElements() {
         self.vibrateSwitch.isHidden = "iPad" == UIDevice.current.model   // Hide these on iPads, which don't do vibrate.
         self.vibrateButton.isHidden = self.vibrateSwitch.isHidden
-        self.audibleTicksSwitch.isHidden = .Digital == self.timerObject.displayMode   // Hide these if we are in Digital Mode, which does not have transitions.
-        self.audibleTicksSwitchButton.isHidden = .Digital == self.timerObject.displayMode
         self.vibrateSwitch.isOn = ("iPad" != UIDevice.current.model) && (self.timerObject.alertMode == .VibrateOnly) || (self.timerObject.alertMode == .Both)
         self.audibleTicksSwitch.isOn = self.timerObject.audibleTicks
         self.soundModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.soundMode.rawValue

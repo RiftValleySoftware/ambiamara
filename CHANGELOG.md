@@ -1,4 +1,4 @@
-***Version 1.0.0.2013* ** *(December 13, 2018)*
+***Version 1.0.0.2014* ** *(December 13, 2018)*
 - Added support for audible ticks.
 
 ***Version 1.0.0.2012* ** *(December 11, 2018)*
