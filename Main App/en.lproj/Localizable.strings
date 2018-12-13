@@ -11,6 +11,14 @@
 /* ###################################################################################################################################### */
 /**
  */
+/* GENERAL STUFF */
+"TIME-HOUR"                                             =   "1 Hour";
+"TIME-HOURS-FORMAT"                                     =   "%d Hours";
+"TIME-MINUTE"                                           =   "1 Minute";
+"TIME-MINUTES-FORMAT"                                   =   "%d Minutes";
+"TIME-SECOND"                                           =   "1 Second";
+"TIME-SECONDS-FORMAT"                                   =   "%d Seconds";
+
 /* INFO STRING */
 
 "INFO_PRIVACY_REQUEST"                                  =   "Play music as an alarm";   // This is the string we use to ask permission to get ath the user's music collection.

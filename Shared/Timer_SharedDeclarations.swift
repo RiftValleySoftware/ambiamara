@@ -206,6 +206,7 @@ extension Int {
     }
 }
 
+/* ###################################################################################################################################### */
 // MARK: - TimeTuple Class -
 /* ###################################################################################################################################### */
 /**
@@ -314,6 +315,7 @@ class TimeTuple {
         return String(format: "%02d:%02d:%02d", self._hours, self._minutes, self._seconds)
     }
     
+    /* ###################################################################################################################################### */
     // MARK: - Initializers
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -390,7 +392,8 @@ enum TimerStatus: Int {
     case Alarm          = 6 ///< The timer is in an alarm state, which means that currentTime is 0.
 }
 
-// MARK: - TimerSettingTuple Class -
+/* ###################################################################################################################################### */
+// MARK: - TimerSettingClass Class -
 /* ###################################################################################################################################### */
 /**
  This is the basic element that describes one timer.
@@ -425,14 +428,15 @@ class TimerSettingTuple: NSObject, NSCoding {
         case Status
         case UID
     }
-    
+
+    /* ################################################################################################################################## */
+    // MARK: - Instance Properties
+    /* ################################################################################################################################## */
     var handler: LGV_Timer_State! = nil ///< This is the App Status object that "owns" this instance.
     var firstTick: TimeInterval = 0.0   ///< This will be used to track the timer progress.
     var lastTick: TimeInterval = 0.0    ///< This will be used to track the timer progress.
     var storedColor: AnyObject! = nil   ///< This is the color from the color theme, and is used to transmit the color to the watch.
-    
-    /* ################################################################## */
-    var uid: String                     ///< This will be a unique ID, assigned to the pref, so we can match it.
+    var uid: String = ""                ///< This will be a unique ID, assigned to the pref, so we can match it.
     
     /* ################################################################## */
     var displayMode: TimerDisplayMode { ///< This is how the timer will display
@@ -444,7 +448,7 @@ class TimerSettingTuple: NSObject, NSCoding {
             }
         }
     }
-
+    
     /* ################################################################## */
     var alertMode: AlertMode {          ///< This determines what kind of alert the timer makes when it is complete.
         didSet {
@@ -455,7 +459,7 @@ class TimerSettingTuple: NSObject, NSCoding {
             }
         }
     }
-
+    
     /* ################################################################## */
     var soundMode: SoundMode {          ///< This determines what kind of sound the timer makes when it makes sounds.
         didSet {
@@ -466,7 +470,7 @@ class TimerSettingTuple: NSObject, NSCoding {
             }
         }
     }
-
+    
     /* ################################################################## */
     var colorTheme: Int {               ///< This is the 0-based index for the color theme.
         didSet {
@@ -510,7 +514,7 @@ class TimerSettingTuple: NSObject, NSCoding {
             }
         }
     }
-
+    
     /* ################################################################## */
     var songURLString: String {         ///< This is the URI of a selected song to play as an alarm.
         didSet {
@@ -572,7 +576,7 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-   var timerStatus: TimerStatus {      ///< This is the current status of this timer.
+    var timerStatus: TimerStatus {      ///< This is the current status of this timer.
         didSet {
             if oldValue != self.timerStatus {
                 if .Running == self.timerStatus {
@@ -584,7 +588,7 @@ class TimerSettingTuple: NSObject, NSCoding {
                         self.lastTick = Date.timeIntervalSinceReferenceDate
                     }
                 }
-                    
+                
                 if .Stopped == self.timerStatus {
                     self.firstTick = 0.0
                     self.lastTick = 0.0
@@ -605,8 +609,73 @@ class TimerSettingTuple: NSObject, NSCoding {
         }
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
+    /* ################################################################## */
+    var currentSpeakableTime: String {  ///< The actual time for this timer, as a long, spoken text string.
+        var ret = [String]()
+        
+        let hours = Int(self.timeSet / (60 * 60))
+        let minutes = Int(self.timeSet / (60)) - (hours * 60)
+        let seconds = Int(self.timeSet) - (minutes * 60) - (hours * 60 * 60)
+        
+        if 0 < hours {
+            if 1 == hours {
+                ret.append("TIME-HOUR".localizedVariant)
+            } else {
+                ret.append(String(format: "TIME-HOURS-FORMAT".localizedVariant, hours))
+            }
+        }
+        
+        if 0 < minutes {
+            if 1 == minutes {
+                ret.append("TIME-MINUTE".localizedVariant)
+            } else {
+                ret.append(String(format: "TIME-MINUTES-FORMAT".localizedVariant, minutes))
+            }
+        }
+        
+        if 0 < seconds {
+            if 1 == seconds {
+                ret.append("TIME-SECOND".localizedVariant)
+            } else {
+                ret.append(String(format: "TIME-SECONDS-FORMAT".localizedVariant, seconds))
+            }
+        }
+        
+        return ret.joined(separator: " ")
+    }
+    
+    /* ################################################################## */
+    var currentQuickSpeakableTime: String {  ///< The actual time for this timer, as a numerical only, spoken text string.
+        var ret = [String]()
+        
+        let hours = Int(self.timeSet / (60 * 60))
+        let minutes = Int(self.timeSet / (60)) - (hours * 60)
+        let seconds = Int(self.timeSet) - (minutes * 60) - (hours * 60 * 60)
+        
+        if 9 < hours {  // Make sure we speak two digits.
+            ret.append(String(hours))
+        } else {
+            ret.append("0" + String(hours))
+        }
+        
+        if 9 < minutes {  // Make sure we speak two digits.
+            ret.append(String(minutes))
+        } else {
+            ret.append("0" + String(minutes))
+        }
+        
+        if 9 < seconds {
+            ret.append(String(seconds))
+        } else {
+            ret.append("0" + String(seconds))
+        }
+
+        return ret.joined(separator: " ")
+    }
+    
     /* ################################################################## */
     /**
      */
@@ -833,6 +902,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         }
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Internal Class Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -859,6 +929,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         return max(0, min(calcPodiumModeWarningThresholdForTimerValue(inTimerSet), Int(ceil(Float(inTimerSet) * self._podiumModeFinalThreshold))))
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Static Operator Overloads
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -887,6 +958,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         }
     }
     
+    /* ################################################################################################################################## */
     // MARK: - NSCoding Protocol Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -986,6 +1058,7 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
 }
 
+/* ################################################################################################################################## */
 // MARK: - LGV_Timer_AppStatusDelegate Protocol -
 /* ###################################################################################################################################### */
 /**
@@ -1012,6 +1085,7 @@ protocol LGV_Timer_StateDelegate: class {
     func appState(_ appState: LGV_Timer_State, didDeselectTimer: TimerSettingTuple)
 }
 
+/* ################################################################################################################################## */
 // MARK: - LGV_Timer_State Class -
 /* ###################################################################################################################################### */
 /**
@@ -1030,6 +1104,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         
     weak var delegate: LGV_Timer_StateDelegate! = nil
     
+    /* ################################################################################################################################## */
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
     /* ################################################################## */

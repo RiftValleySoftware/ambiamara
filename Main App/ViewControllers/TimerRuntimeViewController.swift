@@ -276,6 +276,8 @@ class TimerRuntimeViewController: TimerNavBaseController {
     func updateTimer() {
         self._setUpDisplay()
         
+        self.timeDisplay.accessibilityLabel = self.timerObject.currentSpeakableTime
+
         self.timeDisplay.isHidden = (.Podium == self.timerObject.displayMode) || (.Alarm == self.timerObject.timerStatus)
         if nil != self.stoplightContainerView {
             self.stoplightContainerView.isHidden = (.Alarm == self.timerObject.timerStatus)
@@ -451,7 +453,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
      */
     override func addAccessibilityStuff() {
         self.view.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SCREEN-LABEL".localizedVariant
-        self.view.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SCREEN-HINT".localizedVariant
+        self.view.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SCREEN-HINT".localizedVariant
         
         self.flasherView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ALARM-LABEL".localizedVariant
         self.flasherView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ALARM-HINT".localizedVariant

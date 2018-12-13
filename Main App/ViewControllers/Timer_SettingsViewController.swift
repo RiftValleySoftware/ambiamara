@@ -183,7 +183,7 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
                     }
                 }
                 timerNameLabel.text = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
-                ret.accessibilityLabel = timerNameLabel.text
+                ret.accessibilityLabel = (timerNameLabel.text ?? "") + " (" + timerPrefs.currentSpeakableTime + ")"
                 clockView.setNeedsDisplay()
             }
             

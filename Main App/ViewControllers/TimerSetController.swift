@@ -188,6 +188,8 @@ class TimerSetController: TimerSetPickerController {
         super.viewDidLoad()
         
         if let tabber = self.tabBarController as? Timer_MainTabController {
+            self.accessibilityLabel = self.timerObject.currentSpeakableTime
+            self.tabBarItem.accessibilityLabel = self.timerObject.currentSpeakableTime
             tabber.addTimerToList(self)
         }
         

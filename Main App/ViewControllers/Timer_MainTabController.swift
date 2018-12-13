@@ -350,7 +350,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
      */
     func timerSetting(_ timerSetting: TimerSettingTuple, tick inTimes: Int) {
         #if DEBUG
-        print("Timer (\(timerSetting)) Tick: \(tick ? "true" : "false")")
+        print("Timer (\(timerSetting)) Tick: \(inTimes)")
         #endif
         if let controller = self.getTimerScreen(timerSetting) {
             if timerSetting.audibleTicks {
