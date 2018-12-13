@@ -183,6 +183,7 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
                     }
                 }
                 timerNameLabel.text = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
+                ret.accessibilityLabel = timerNameLabel.text
                 clockView.setNeedsDisplay()
             }
             
@@ -194,13 +195,13 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
             // Add accessibility strings.
             switch self.mainTabController.timerEngine[indexPath.row].displayMode {
             case .Podium:
-                ret.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL".localizedVariant
+                ret.accessibilityLabel = (ret.accessibilityLabel ?? "") + " " + "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL".localizedVariant
                 ret.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-HINT".localizedVariant
             case .Digital:
-                ret.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL".localizedVariant
+                ret.accessibilityLabel = (ret.accessibilityLabel ?? "") + " " + "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL".localizedVariant
                 ret.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-HINT".localizedVariant
             case .Dual:
-                ret.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant
+                ret.accessibilityLabel = (ret.accessibilityLabel ?? "") + " " + "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant
                 ret.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-HINT".localizedVariant
             }
 
