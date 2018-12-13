@@ -276,7 +276,8 @@ class TimerRuntimeViewController: TimerNavBaseController {
     func updateTimer() {
         self._setUpDisplay()
         
-        self.timeDisplay.accessibilityLabel = self.timerObject.currentSpeakableTime
+        self.timeDisplay.accessibilityLabel = self.timerObject.currentQuickSpeakableTime
+        self.timeDisplay.isAccessibilityElement = true
 
         self.timeDisplay.isHidden = (.Podium == self.timerObject.displayMode) || (.Alarm == self.timerObject.timerStatus)
         if nil != self.stoplightContainerView {

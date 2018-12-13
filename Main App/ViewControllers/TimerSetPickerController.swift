@@ -71,6 +71,15 @@ class TimerNavBaseController: TimerBaseViewController {
         return String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, self.timerNumber + 1)
     }
     
+    /* ################################################################## */
+    /**
+     This adds the accessibility title.
+     */
+    override func viewDidLoad() {
+        self.navigationItem.title?.accessibilityHint = self.timerObject.setSpeakableTime
+        super.viewDidLoad()
+    }
+    
     /* ################################################################################################################################## */
     // MARK: - Private Class Methods
     /* ################################################################################################################################## */
@@ -134,7 +143,7 @@ class TimerNavBaseController: TimerBaseViewController {
 /* ###################################################################################################################################### */
 /**
  */
-class TimerSetPickerController: TimerNavBaseController, UIPickerViewDelegate, UIPickerViewDataSource {
+class TimerSetPickerController: TimerNavBaseController, UIPickerViewDelegate, UIPickerViewDataSource, UIPickerViewAccessibilityDelegate {
     enum Components: Int {
         case Hours = 0, Minutes, Seconds
     }
@@ -208,22 +217,45 @@ class TimerSetPickerController: TimerNavBaseController, UIPickerViewDelegate, UI
     /* ################################################################## */
     /**
      */
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in _: UIPickerView) -> Int {
         return 3
     }
     
     /* ################################################################## */
     /**
      */
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int {
         var ret: Int = 0
         
-        if let thisComponent = Components(rawValue: component) {
+        if let thisComponent = Components(rawValue: inComponent) {
             switch thisComponent {
             case .Hours:
                 ret = 24
             default:
                 ret = 60
+            }
+        }
+        
+        return ret
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inComponent: Int) -> String? {
+        var ret: String?
+        
+        let value = inPickerView.selectedRow(inComponent: inComponent)
+        ret = String(value) + " "
+        
+        if let thisComponent = Components(rawValue: inComponent) {
+            switch thisComponent {
+            case .Hours:
+                ret = ret! + "LGV_TIMER-ACCESSIBILITY-PICKER-HOURS-LABEL".localizedVariant
+            case .Minutes:
+                ret = ret! + "LGV_TIMER-ACCESSIBILITY-PICKER-MINUTES-LABEL".localizedVariant
+            default:
+                ret = ret! + "LGV_TIMER-ACCESSIBILITY-PICKER-SECONDS-LABEL".localizedVariant
             }
         }
         

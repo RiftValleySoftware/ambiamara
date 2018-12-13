@@ -613,7 +613,7 @@ class TimerSettingTuple: NSObject, NSCoding {
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
-    var currentSpeakableTime: String {  ///< The actual time for this timer, as a long, spoken text string.
+    var setSpeakableTime: String {  ///< The actual time for this timer, as a long, spoken text string.
         var ret = [String]()
         
         let hours = Int(self.timeSet / (60 * 60))
@@ -651,25 +651,27 @@ class TimerSettingTuple: NSObject, NSCoding {
     var currentQuickSpeakableTime: String {  ///< The actual time for this timer, as a numerical only, spoken text string.
         var ret = [String]()
         
-        let hours = Int(self.timeSet / (60 * 60))
-        let minutes = Int(self.timeSet / (60)) - (hours * 60)
-        let seconds = Int(self.timeSet) - (minutes * 60) - (hours * 60 * 60)
+        let currTime = self.currentTime - 1 // We do this, because we lose a second while talking.
         
-        if 9 < hours {  // Make sure we speak two digits.
+        let hours = Int(currTime / (60 * 60))
+        let minutes = Int(currTime / (60)) - (hours * 60)
+        let seconds = Int(currTime) - (minutes * 60) - (hours * 60 * 60)
+        
+        if 0 < hours {
             ret.append(String(hours))
-        } else {
-            ret.append("0" + String(hours))
         }
         
-        if 9 < minutes {  // Make sure we speak two digits.
-            ret.append(String(minutes))
-        } else {
-            ret.append("0" + String(minutes))
+        if 0 < hours || 0 < minutes {
+            if 9 < minutes || 0 == hours {  // Make sure we speak two digits.
+                ret.append(String(minutes))
+            } else if 0 < hours {
+                ret.append("0" + String(minutes))
+            }
         }
         
-        if 9 < seconds {
+        if 9 < seconds || (0 == hours && 0 == minutes) {
             ret.append(String(seconds))
-        } else {
+        } else if 0 < hours || 0 < minutes {
             ret.append("0" + String(seconds))
         }
 

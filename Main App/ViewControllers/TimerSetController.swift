@@ -188,8 +188,6 @@ class TimerSetController: TimerSetPickerController {
         super.viewDidLoad()
         
         if let tabber = self.tabBarController as? Timer_MainTabController {
-            self.accessibilityLabel = self.timerObject.currentSpeakableTime
-            self.tabBarItem.accessibilityLabel = self.timerObject.currentSpeakableTime
             tabber.addTimerToList(self)
         }
         
@@ -340,6 +338,10 @@ class TimerSetController: TimerSetPickerController {
      This method adds all the accessibility stuff.
      */
     override func addAccessibilityStuff() {
+        self.view.accessibilityLabel = (self.navigationItem.title ?? "") + " (" + self.timerObject.setSpeakableTime + ")"
+        self.accessibilityLabel = (self.navigationItem.title ?? "") + " (" + self.timerObject.setSpeakableTime + ")"
+        self.navigationItem.accessibilityLabel = (self.navigationItem.title ?? "") + " (" + self.timerObject.setSpeakableTime + ")"
+
         self.setupButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL".localizedVariant
         self.setupButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-HINT".localizedVariant
         
@@ -357,19 +359,19 @@ class TimerSetController: TimerSetPickerController {
 
         switch self.timerObject.displayMode {
         case .Podium:
-            self.timeDisplayLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL".localizedVariant
+            self.timeDisplayLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
             self.timeDisplayLabel.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-HINT".localizedVariant
-            self.trafficLightsImageView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL".localizedVariant
+            self.trafficLightsImageView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
             self.trafficLightsImageView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-HINT".localizedVariant
         case .Digital:
-            self.timeDisplayLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL".localizedVariant
+            self.timeDisplayLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
             self.timeDisplayLabel.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-HINT".localizedVariant
-            self.trafficLightsImageView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL".localizedVariant
+            self.trafficLightsImageView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
             self.trafficLightsImageView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-HINT".localizedVariant
         case .Dual:
-            self.timeDisplayLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant
+            self.timeDisplayLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
             self.timeDisplayLabel.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-HINT".localizedVariant
-            self.trafficLightsImageView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant
+            self.trafficLightsImageView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
             self.trafficLightsImageView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-HINT".localizedVariant
         }
     }

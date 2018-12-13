@@ -19,7 +19,7 @@ import UIKit
  */
 class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     /// This tracks our timer setup controllers. It gives us quick access to them.
-    var activeTimerSetConrollers: [TimerSetController] = []
+    var activeTimerSetControllers: [TimerSetController] = []
     var timerEngine: TimerEngine! = nil
     
     /* ################################################################################################################################## */
@@ -48,7 +48,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
      */
     func updateTimers() {
         DispatchQueue.main.async {
-            self.activeTimerSetConrollers = []
+            self.activeTimerSetControllers = []
             
             while 1 < (self.viewControllers?.count)! {
                 self.viewControllers?.remove(at: 1)
@@ -85,11 +85,11 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
      - parameter inTimer: The timer View Controller to add.
      */
     func addTimerToList(_ inTimer: TimerSetController) {
-        for timerView in self.activeTimerSetConrollers where timerView == inTimer {
+        for timerView in self.activeTimerSetControllers where timerView == inTimer {
             return
         }
         
-        self.self.activeTimerSetConrollers.append(inTimer)
+        self.activeTimerSetControllers.append(inTimer)
     }
     
     /* ################################################################## */
@@ -101,9 +101,9 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     func removeTimerFromList(_ inTimer: TimerSetController) {
         var index: Int = 0
         
-        for timerView in self.activeTimerSetConrollers {
+        for timerView in self.activeTimerSetControllers {
             if timerView == inTimer {
-                self.activeTimerSetConrollers.remove(at: index)
+                self.activeTimerSetControllers.remove(at: index)
                 return
             }
             index += 1
@@ -117,7 +117,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
      - parameter timerObject: The TimerSettingTuple of the View Controller.
      */
     func getTimerScreen(_ timerObject: TimerSettingTuple) -> TimerSetController! {
-        for timerView in self.activeTimerSetConrollers where timerView.timerObject.uid == timerObject.uid {
+        for timerView in self.activeTimerSetControllers where timerView.timerObject.uid == timerObject.uid {
             return timerView
         }
         

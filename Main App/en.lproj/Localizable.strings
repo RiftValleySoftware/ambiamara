@@ -130,6 +130,10 @@
 
 /* TIMER SET SCREEN */
 
+"LGV_TIMER-ACCESSIBILITY-PICKER-HOURS-LABEL"            =   "Hours. Between 0 and 23 hours";
+"LGV_TIMER-ACCESSIBILITY-PICKER-MINUTES-LABEL"          =   "Minutes. Between 0 and 59 minutes";
+"LGV_TIMER-ACCESSIBILITY-PICKER-SECONDS-LABEL"          =   "Seconds. Between 0 and 59 seconds";
+
 "LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL"         =   "Timer Settings";
 "LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-HINT"          =   "Tapping this button will bring in a screen that will allow you to set up this timer.";
 

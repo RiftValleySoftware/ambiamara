@@ -114,6 +114,7 @@ class TimerBaseViewController: UIViewController {
         // The nav item for timers is set by the bar manager.
         if (type(of: self) != TimerNavController.self) && (nil != self.navigationItem.title) {
             self.navigationItem.title = self.navigationItem.title!.localizedVariant
+            self.navigationItem.title?.isAccessibilityElement = true
         }
         
         self.addAccessibilityStuff()
