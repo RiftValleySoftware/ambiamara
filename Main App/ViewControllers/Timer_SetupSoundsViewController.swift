@@ -41,6 +41,8 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
     @IBOutlet weak var musicTestButton: SoundTestButton!
     @IBOutlet weak var activityContainerView: UIView!
     @IBOutlet weak var fetchingMusicLabel: UILabel!
+    @IBOutlet weak var audibleTicksSwitch: UISwitch!
+    @IBOutlet weak var audibleTicksSwitchButton: UIButton!
     
     /* ################################################################## */
     // MARK: - Media Methods
@@ -246,6 +248,7 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         self.vibrateSwitch.isHidden = "iPad" == UIDevice.current.model   // Hide these on iPads, which don't do vibrate.
         self.vibrateButton.isHidden = self.vibrateSwitch.isHidden
         self.vibrateSwitch.isOn = ("iPad" != UIDevice.current.model) && (self.timerObject.alertMode == .VibrateOnly) || (self.timerObject.alertMode == .Both)
+        self.audibleTicksSwitch.isOn = self.timerObject.audibleTicks
         self.soundModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.soundMode.rawValue
         self.artistSoundSelectPickerContainerView.isHidden = .Silent == self.timerObject.soundMode || (.Music == self.timerObject.soundMode && (Timer_AppDelegate.appDelegateObject.songs.isEmpty || Timer_AppDelegate.appDelegateObject.artists.isEmpty))
         self.songSelectPickerContainerView.isHidden = .Music != self.timerObject.soundMode || Timer_AppDelegate.appDelegateObject.songs.isEmpty || Timer_AppDelegate.appDelegateObject.artists.isEmpty
@@ -316,6 +319,21 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         }
     }
 
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func audibleTicksSwitchHit(_ sender: UISwitch) {
+        self.timerObject.audibleTicks = sender.isOn
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func audibleTicksButtonHit(_ sender: Any) {
+        self.audibleTicksSwitch.isOn = !self.audibleTicksSwitch.isOn
+        self.audibleTicksSwitch.sendActions(for: .valueChanged)
+    }
+    
     /* ################################################################## */
     /**
      */
@@ -418,6 +436,7 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
     override func viewDidLoad() {
         self.vibrateButton.setTitle(self.vibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.doneButton.setTitle(self.doneButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
+        self.audibleTicksSwitchButton.setTitle(self.audibleTicksSwitchButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
         self.noMusicLabel.text = self.noMusicLabel.text?.localizedVariant
         self.fetchingMusicLabel.text = self.fetchingMusicLabel.text?.localizedVariant
         

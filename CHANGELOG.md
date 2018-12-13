@@ -1,5 +1,8 @@
+***Version 1.0.0.2014* ** *(TBD)*
+- Added support for audible ticks.
+
 ***Version 1.0.0.2012* ** *(December 11, 2018)*
-- There were some bugs in the new accessibility labels and hints. These are bing addressed by this release.
+- There were some bugs in the new accessibility labels and hints. These are being addressed by this release.
 
 ***Version 1.0.0.2011* ** *(December 11, 2018)*
 - Fixed a cosmetic bug in the Timer Setup Screen, where the succeeding timer could show an incorrect timer, if that timer had been deleted.

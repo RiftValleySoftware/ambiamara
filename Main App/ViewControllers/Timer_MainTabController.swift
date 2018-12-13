@@ -344,6 +344,15 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
         print("Timer (\(timerSetting)) Changed Next Timer ID From: \(changedSucceedingTimerIDFrom)")
         #endif
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedAudibleTicksFrom: Bool) {
+        #if DEBUG
+        print("Timer (\(timerSetting)) Changed Audible Ticks From: \(changedAudibleTicksFrom ? "true" : "false")")
+        #endif
+    }
 
     /* ################################################################## */
     /**

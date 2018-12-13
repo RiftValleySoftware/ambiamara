@@ -925,10 +925,10 @@
                                 </connections>
                             </segmentedControl>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Bu-Fw-FZa" userLabel="No Music Label View">
-                                <rect key="frame" x="8" y="111" width="304" height="401"/>
+                                <rect key="frame" x="8" y="111" width="304" height="354"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-NO-MUSIC-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7L-1V-QXv">
-                                        <rect key="frame" x="0.0" y="185.5" width="304" height="30"/>
+                                        <rect key="frame" x="0.0" y="162" width="304" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="XSa-Ci-E5Y"/>
@@ -988,10 +988,10 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icb-vL-3zB" userLabel="Test Sound Button Container View">
-                                <rect key="frame" x="8" y="231" width="304" height="281"/>
+                                <rect key="frame" x="8" y="231" width="304" height="234"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2wp-vs-RMZ" customClass="SoundTestButton" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
-                                        <rect key="frame" x="127" y="115.5" width="50" height="50"/>
+                                        <rect key="frame" x="127" y="92" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="2wp-vs-RMZ" secondAttribute="height" multiplier="1:1" id="QlH-fz-llO"/>
                                             <constraint firstAttribute="width" constant="50" id="ldP-66-9c4"/>
@@ -1013,10 +1013,10 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdT-fG-3D9" userLabel="Music Test Button Container View">
-                                <rect key="frame" x="8" y="351" width="304" height="161"/>
+                                <rect key="frame" x="8" y="351" width="304" height="114"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KkI-hg-1Rx" customClass="SoundTestButton" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
-                                        <rect key="frame" x="127" y="55.5" width="50" height="50"/>
+                                        <rect key="frame" x="127" y="32" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="lJy-R8-E3U"/>
                                             <constraint firstAttribute="width" secondItem="KkI-hg-1Rx" secondAttribute="height" multiplier="1:1" id="qI8-8A-m8C"/>
@@ -1037,17 +1037,17 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BbL-Ed-DcR">
-                                <rect key="frame" x="8" y="111" width="304" height="401"/>
+                                <rect key="frame" x="8" y="111" width="304" height="354"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="CmC-ty-3Sv">
-                                        <rect key="frame" x="133.5" y="182" width="37" height="37"/>
+                                        <rect key="frame" x="133.5" y="158.5" width="37" height="37"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="CmC-ty-3Sv" secondAttribute="height" multiplier="1:1" id="3vJ-z2-wE9"/>
                                             <constraint firstAttribute="width" constant="37" id="FCa-iY-0XP"/>
                                         </constraints>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-MUSIC-LOOKUP-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="9Lb-xK-FKe">
-                                        <rect key="frame" x="0.0" y="227" width="304" height="21"/>
+                                        <rect key="frame" x="0.0" y="203.5" width="304" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="rXd-my-QBh"/>
                                         </constraints>
@@ -1076,20 +1076,43 @@
                                     <action selector="doneButtonHit:" destination="avR-jN-gqo" eventType="touchUpInside" id="2Nt-wT-drr"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sS3-tg-sjd">
+                                <rect key="frame" x="63" y="473" width="249" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="LGV_TIMER-AUDIBLE-TICKS-BUTTON"/>
+                                <connections>
+                                    <action selector="audibleTicksButtonHit:" destination="avR-jN-gqo" eventType="touchUpInside" id="lw9-97-ksO"/>
+                                </connections>
+                            </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bN2-mr-HYf">
+                                <rect key="frame" x="8" y="473" width="49" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="47" id="HGS-Yb-RMq"/>
+                                    <constraint firstAttribute="height" constant="31" id="dYK-te-TOf"/>
+                                </constraints>
+                                <color key="onTintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="thumbTintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="audibleTicksSwitchHit:" destination="avR-jN-gqo" eventType="valueChanged" id="Xyb-NA-KWN"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="sS3-tg-sjd" firstAttribute="centerY" secondItem="bN2-mr-HYf" secondAttribute="centerY" id="0L8-C1-2Zc"/>
                             <constraint firstItem="wpe-dP-nhC" firstAttribute="trailing" secondItem="hrn-NJ-meW" secondAttribute="trailing" constant="8" id="7CJ-10-vQZ"/>
                             <constraint firstItem="CdT-fG-3D9" firstAttribute="leading" secondItem="HLm-Em-6mF" secondAttribute="leading" constant="8" id="A1M-Pa-f0V"/>
+                            <constraint firstItem="sS3-tg-sjd" firstAttribute="leading" secondItem="bN2-mr-HYf" secondAttribute="trailing" constant="8" id="BqR-2A-xPh"/>
                             <constraint firstItem="0Bu-Fw-FZa" firstAttribute="top" secondItem="0YC-uY-IAy" secondAttribute="bottom" id="CBb-js-6L3"/>
-                            <constraint firstItem="dX0-Lz-MmC" firstAttribute="top" secondItem="0Bu-Fw-FZa" secondAttribute="bottom" id="DI7-qw-7XM"/>
-                            <constraint firstItem="dX0-Lz-MmC" firstAttribute="top" secondItem="CdT-fG-3D9" secondAttribute="bottom" id="E8J-pl-sA3"/>
+                            <constraint firstItem="wpe-dP-nhC" firstAttribute="trailing" secondItem="sS3-tg-sjd" secondAttribute="trailing" constant="8" id="DLw-qd-0kL"/>
                             <constraint firstItem="0YC-uY-IAy" firstAttribute="trailing" secondItem="wpe-dP-nhC" secondAttribute="trailing" constant="-8" id="FFY-zO-Oa5"/>
+                            <constraint firstItem="bN2-mr-HYf" firstAttribute="top" secondItem="BbL-Ed-DcR" secondAttribute="bottom" constant="8" id="GJU-FH-QDT"/>
                             <constraint firstItem="dX0-Lz-MmC" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" id="GXT-MD-dmD"/>
                             <constraint firstItem="OlQ-fV-h36" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" constant="8" id="JRp-m5-S1g"/>
                             <constraint firstItem="BbL-Ed-DcR" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" constant="8" id="Jni-xL-f1C"/>
                             <constraint firstItem="wpe-dP-nhC" firstAttribute="trailing" secondItem="PMB-fq-wfY" secondAttribute="trailing" constant="8" id="JwR-O5-Y2i"/>
+                            <constraint firstItem="sS3-tg-sjd" firstAttribute="height" secondItem="bN2-mr-HYf" secondAttribute="height" id="N7z-LN-gVK"/>
                             <constraint firstItem="wpe-dP-nhC" firstAttribute="trailing" secondItem="WYl-wR-sZA" secondAttribute="trailing" constant="8" id="Oe2-Jx-x1R"/>
                             <constraint firstItem="wpe-dP-nhC" firstAttribute="trailing" secondItem="dX0-Lz-MmC" secondAttribute="trailing" id="RIt-PG-T9a"/>
                             <constraint firstItem="PMB-fq-wfY" firstAttribute="centerY" secondItem="OlQ-fV-h36" secondAttribute="centerY" id="RYT-qI-Ros"/>
@@ -1097,11 +1120,14 @@
                             <constraint firstItem="hrn-NJ-meW" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" constant="8" id="StA-Bu-LF7"/>
                             <constraint firstAttribute="trailing" secondItem="icb-vL-3zB" secondAttribute="trailing" constant="8" id="UCP-WA-gr6"/>
                             <constraint firstItem="icb-vL-3zB" firstAttribute="leading" secondItem="HLm-Em-6mF" secondAttribute="leading" constant="8" id="VEW-RD-4d0"/>
+                            <constraint firstItem="bN2-mr-HYf" firstAttribute="top" secondItem="CdT-fG-3D9" secondAttribute="bottom" constant="8" id="XJR-t6-1Et"/>
                             <constraint firstItem="hrn-NJ-meW" firstAttribute="top" secondItem="0YC-uY-IAy" secondAttribute="bottom" id="XWB-hY-hil"/>
                             <constraint firstItem="0YC-uY-IAy" firstAttribute="top" secondItem="OlQ-fV-h36" secondAttribute="bottom" constant="12" id="Yj9-7j-eMv"/>
-                            <constraint firstItem="dX0-Lz-MmC" firstAttribute="top" secondItem="BbL-Ed-DcR" secondAttribute="bottom" id="Z35-ua-8ZP"/>
                             <constraint firstItem="WYl-wR-sZA" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" constant="8" id="ZDt-xc-ieH"/>
+                            <constraint firstItem="bN2-mr-HYf" firstAttribute="top" secondItem="0Bu-Fw-FZa" secondAttribute="bottom" constant="8" id="ZtT-Sp-Ffl"/>
+                            <constraint firstItem="dX0-Lz-MmC" firstAttribute="top" secondItem="bN2-mr-HYf" secondAttribute="bottom" constant="8" id="aRz-PE-y51"/>
                             <constraint firstItem="BbL-Ed-DcR" firstAttribute="top" secondItem="0YC-uY-IAy" secondAttribute="bottom" id="cee-00-hjH"/>
+                            <constraint firstItem="bN2-mr-HYf" firstAttribute="top" secondItem="icb-vL-3zB" secondAttribute="bottom" constant="8" id="da0-BV-eBT"/>
                             <constraint firstItem="OlQ-fV-h36" firstAttribute="top" secondItem="wpe-dP-nhC" secondAttribute="top" constant="8" id="esO-RD-8ri"/>
                             <constraint firstItem="0Bu-Fw-FZa" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" constant="8" id="gvr-Uf-8GR"/>
                             <constraint firstItem="0Bu-Fw-FZa" firstAttribute="trailing" secondItem="wpe-dP-nhC" secondAttribute="trailing" constant="-8" id="iZx-vy-Sic"/>
@@ -1110,7 +1136,7 @@
                             <constraint firstAttribute="trailing" secondItem="CdT-fG-3D9" secondAttribute="trailing" constant="8" id="nfN-yr-Mhx"/>
                             <constraint firstItem="icb-vL-3zB" firstAttribute="top" secondItem="hrn-NJ-meW" secondAttribute="bottom" id="tLh-0C-eft"/>
                             <constraint firstItem="WYl-wR-sZA" firstAttribute="top" secondItem="hrn-NJ-meW" secondAttribute="bottom" id="vtw-uh-b7K"/>
-                            <constraint firstItem="dX0-Lz-MmC" firstAttribute="top" secondItem="icb-vL-3zB" secondAttribute="bottom" id="xiV-yu-zBf"/>
+                            <constraint firstItem="bN2-mr-HYf" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" constant="8" id="vxX-oN-VJD"/>
                             <constraint firstItem="0YC-uY-IAy" firstAttribute="leading" secondItem="wpe-dP-nhC" secondAttribute="leading" constant="8" id="y0R-Uz-eeO"/>
                             <constraint firstItem="dX0-Lz-MmC" firstAttribute="bottom" secondItem="wpe-dP-nhC" secondAttribute="bottom" constant="-8" id="zkB-0o-LJR"/>
                         </constraints>
@@ -1128,6 +1154,8 @@
                         <outlet property="activityContainerView" destination="BbL-Ed-DcR" id="OYD-XO-NFh"/>
                         <outlet property="artistSoundSelectPicker" destination="Vgq-bW-AeN" id="DlN-SB-PwY"/>
                         <outlet property="artistSoundSelectPickerContainerView" destination="hrn-NJ-meW" id="JCm-Jn-EAg"/>
+                        <outlet property="audibleTicksSwitch" destination="bN2-mr-HYf" id="rnp-FX-4nQ"/>
+                        <outlet property="audibleTicksSwitchButton" destination="sS3-tg-sjd" id="C8V-SY-hqd"/>
                         <outlet property="doneButton" destination="dX0-Lz-MmC" id="w8X-YT-DIY"/>
                         <outlet property="fetchingMusicLabel" destination="9Lb-xK-FKe" id="Gy4-8a-eDr"/>
                         <outlet property="musicTestButton" destination="KkI-hg-1Rx" id="p6v-bC-MRJ"/>

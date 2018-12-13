@@ -192,11 +192,11 @@
 		775ACED91ED5C26C0097FF5C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				772BF9C31ED600B3002D1782 /* TimerNavController.swift */,
 				772A13CB1ED5E8270043C58B /* Timer_MainTabController.swift */,
 				7789C3231ED61CEF009EAB3D /* TimerBaseViewController.swift */,
 				772A13C51ED5E50C0043C58B /* Timer_SettingsViewController.swift */,
 				770FB9AF1EE4359300E3120D /* Timer_InfoViewController.swift */,
-				772BF9C31ED600B3002D1782 /* TimerNavController.swift */,
 				775AE1761EDDDF1D00B168A7 /* TimerSetPickerController.swift */,
 				7770CB2D1ED6153500ED1F9A /* TimerSetController.swift */,
 				7770CB2F1ED6156300ED1F9A /* TimerSetupController.swift */,

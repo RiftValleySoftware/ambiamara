@@ -35,6 +35,7 @@ protocol TimerEngineDelegate: class {
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerAlertModeFrom: AlertMode)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSoundModeFrom: SoundMode)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedSucceedingTimerIDFrom: Int)
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedAudibleTicksFrom: Bool)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerColorThemeFrom: Int)
 }
 
@@ -80,6 +81,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         case SoundID
         case SongURLString
         case SucceedingTimerID
+        case AudibleTicks
         case UID
     }
     
@@ -284,6 +286,10 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
 
         if let succeedingTimerID = inTimer.object(forKey: TimerPrefKeys.SucceedingTimerID.rawValue) as? NSNumber {
             tempSetting.succeedingTimerID = succeedingTimerID.intValue
+        }
+
+        if let audibleTicks = inTimer.object(forKey: TimerPrefKeys.AudibleTicks.rawValue) as? NSNumber {
+            tempSetting.audibleTicks = audibleTicks.boolValue
         }
 
         if let uid = inTimer.object(forKey: TimerPrefKeys.UID.rawValue) as? NSString {
@@ -616,6 +622,14 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      */
     func appState(_ appState: LGV_Timer_State, didUpdateSucceedingTimerID: TimerSettingTuple, from: Int) {
         self.delegate?.timerSetting(didUpdateSucceedingTimerID, changedSucceedingTimerIDFrom: from)
+        self.savePrefs()
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    func appState(_ appState: LGV_Timer_State, didUpdateAudibleTicks: TimerSettingTuple, from: Bool) {
+        self.delegate?.timerSetting(didUpdateAudibleTicks, changedAudibleTicksFrom: from)
         self.savePrefs()
     }
 
