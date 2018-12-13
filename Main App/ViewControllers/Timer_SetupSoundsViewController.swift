@@ -247,6 +247,8 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
     func setUpUIElements() {
         self.vibrateSwitch.isHidden = "iPad" == UIDevice.current.model   // Hide these on iPads, which don't do vibrate.
         self.vibrateButton.isHidden = self.vibrateSwitch.isHidden
+        self.audibleTicksSwitch.isHidden = .Digital == self.timerObject.displayMode   // Hide these if we are in Digital Mode, which does not have transitions.
+        self.audibleTicksSwitchButton.isHidden = .Digital == self.timerObject.displayMode
         self.vibrateSwitch.isOn = ("iPad" != UIDevice.current.model) && (self.timerObject.alertMode == .VibrateOnly) || (self.timerObject.alertMode == .Both)
         self.audibleTicksSwitch.isOn = self.timerObject.audibleTicks
         self.soundModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.soundMode.rawValue
@@ -464,10 +466,15 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
      */
     override func addAccessibilityStuff() {
         self.vibrateSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-LABEL".localizedVariant
-        self.vibrateSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-HINT".localizedVariant
+        self.vibrateSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-HINT".localizedVariant
         self.vibrateButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-LABEL".localizedVariant
-        self.vibrateButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-HINT".localizedVariant
-
+        self.vibrateButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-HINT".localizedVariant
+        
+        self.audibleTicksSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-AUDIBLE-TICKS-SWITCH-LABEL".localizedVariant
+        self.audibleTicksSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-AUDIBLE-TICKS-SWITCH-HINT".localizedVariant
+        self.audibleTicksSwitchButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-AUDIBLE-TICKS-SWITCH-LABEL".localizedVariant
+        self.audibleTicksSwitchButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-AUDIBLE-TICKS-SWITCH-HINT".localizedVariant
+        
         self.soundModeSegmentedSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-LABEL".localizedVariant
         self.soundModeSegmentedSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-HINT".localizedVariant
         

@@ -22,6 +22,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
     /* ################################################################################################################################## */
     private let _stoplightDualModeHeightFactor: CGFloat = 0.15
     private let _stoplightMaxWidthFactor: CGFloat = 0.2
+    private let _tickVolume: Float = 0.005
     private var _originalValue: Int = 0                         ///< Tracks the last value, so we make sure we don't "blink" until we're supposed to.
     
     // MARK: - Internal Constant Instance Properties
@@ -41,6 +42,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
     var greenLight: UIImageView! = nil
     var myHandler: TimerSetController! = nil
     var audioPlayer: AVAudioPlayer!
+    var tickPlayer: AVAudioPlayer!
 
     // MARK: - IB Properties
     /* ################################################################################################################################## */
@@ -131,10 +133,10 @@ class TimerRuntimeViewController: TimerNavBaseController {
             switch self.timerObject.soundMode {
             case .Sound:
                 soundUrl = URL(string: Timer_AppDelegate.appDelegateObject.timerEngine.soundSelection[self.timerObject.soundID].urlEncodedString ?? "")
-
+                
             case.Music:
                 soundUrl = URL(string: self.timerObject.songURLString)
-
+                
             default:
                 break
             }
@@ -147,19 +149,46 @@ class TimerRuntimeViewController: TimerNavBaseController {
     
     /* ################################################################## */
     /**
+     */
+    private func _playTickSound(times inTimes: Int = 1) {
+        if nil == self.audioPlayer, self.timerObject.audibleTicks {
+            let soundUrl: URL! = URL(string: Timer_AppDelegate.appDelegateObject.timerEngine.tickURI.urlEncodedString ?? "")
+            
+            if nil != soundUrl {
+                self.playThisSound(soundUrl, times: inTimes)
+            }
+        }
+    }
+
+    /* ################################################################## */
+    /**
      This plays any sound, using a given URL.
      
      - parameter inSoundURL: This is the URI to the sound resource.
+     - parameter times: Optional Int that specifies how many times the sound will play. Default is infinite loop.
      */
-    func playThisSound(_ inSoundURL: URL) {
-        do {
-            if nil == self.audioPlayer {
-                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
-                try self.audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
-                self.audioPlayer?.numberOfLoops = -1   // Repeat indefinitely
+    func playThisSound(_ inSoundURL: URL, times inTimes: Int = 0) {
+        if 0 < inTimes {   // Just this once...
+            DispatchQueue.main.async {
+                do {
+                    try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
+                    try self.tickPlayer = AVAudioPlayer(contentsOf: inSoundURL)
+                    self.tickPlayer?.volume = self._tickVolume
+                    self.tickPlayer?.numberOfLoops = inTimes
+                    self.tickPlayer?.play()
+                } catch {
+                }
             }
-            self.audioPlayer?.play()
-        } catch {
+        } else {
+            do {
+                if nil == self.audioPlayer {
+                    try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
+                    try self.audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
+                    self.audioPlayer?.numberOfLoops = -1   // Repeat indefinitely
+                }
+                self.audioPlayer?.play()
+            } catch {
+            }
         }
     }
     
@@ -251,7 +280,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
         if nil != self.stoplightContainerView {
             self.stoplightContainerView.isHidden = (.Alarm == self.timerObject.timerStatus)
         }
-
+        
         if .Alarm == self.timerObject.timerStatus {
             self.flashDisplay()
             self._playAlertSound()
@@ -261,6 +290,13 @@ class TimerRuntimeViewController: TimerNavBaseController {
         }
     }
     
+    /* ################################################################## */
+    /**
+     */
+    func tick(times inTimes: Int = 1) {
+        self._playTickSound(times: inTimes)
+    }
+
     /* ################################################################## */
     /**
      */

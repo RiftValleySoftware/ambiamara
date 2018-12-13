@@ -210,4 +210,4 @@
 "LGV_TIMER-ACCESSIBILITY-ALARM-LABEL"                   =   "Alarm Is Going Off";
 "LGV_TIMER-ACCESSIBILITY-ALARM-HINT"                    =   "The alarm is going off. Tap anywhere in the screen to stop it.";
 "LGV_TIMER-ACCESSIBILITY-AUDIBLE-TICKS-SWITCH-LABEL"    =   "Enable Audible Ticks";
-"LGV_TIMER-ACCESSIBILITY-AUDIBLE-TICKS-SWITCH-HINT"     =   "If you enable this switch, then each transition of a second will be marked by an audible \"tick\" sound, as well as each of the state transitions.";
+"LGV_TIMER-ACCESSIBILITY-AUDIBLE-TICKS-SWITCH-HINT"     =   "If you enable this switch, and the time is in Podium or Dual Mode, then each transition of a second will be marked by an audible \"tick\" sound. When you are in \"Warning\" mode, there will be two ticks, and when you are in \"Final\" mode, there will be three ticks.";

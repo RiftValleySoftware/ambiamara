@@ -24,6 +24,7 @@ protocol TimerEngineDelegate: class {
     func timerEngine(_ timerEngine: TimerEngine, didDeselectTimer: TimerSettingTuple)
     
     func timerSetting(_ timerSetting: TimerSettingTuple, alarm: Int)
+    func timerSetting(_ timerSetting: TimerSettingTuple, tick: Int)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedCurrentTimeFrom: Int)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimeSetFrom: Int)
     func timerSetting(_ timerSetting: TimerSettingTuple, changedWarnTimeFrom: Int)
@@ -109,6 +110,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     var appState: LGV_Timer_State!
     var timer: Timer!
     var soundSelection: [String] = []
+    var tickURI: String = ""
     
     /* ################################################################################################################################## */
     // MARK: - Instance Calculated Properties
@@ -359,6 +361,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         // Pick up our beeper sounds.
         self.soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil)
         self.soundSelection.sort()
+        self.tickURI = Bundle.main.path(forResource: "tick", ofType: "aiff", inDirectory: nil, forLocalization: nil) ?? ""
         
         if let loadedPrefs = UserDefaults.standard.object(forKey: type(of: self)._mainPrefsKey) as? NSDictionary {
             var timers: [TimerSettingTuple] = []
@@ -782,11 +785,14 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
                                     self._alarmCount = 0
                                     selectedTimer.timerStatus = .Alarm
                                 case 1...selectedTimer.timeSetPodiumFinal:
+                                    self.delegate?.timerSetting(self.selectedTimer, tick: (.Digital == selectedTimer.displayMode ? 1 : 3))
                                     selectedTimer.timerStatus = .FinalRun
                                 case (selectedTimer.timeSetPodiumFinal + 1)...selectedTimer.timeSetPodiumWarn:
+                                    self.delegate?.timerSetting(self.selectedTimer, tick: (.Digital == selectedTimer.displayMode ? 1 : 2))
                                     selectedTimer.timerStatus = .WarnRun
                                 default:
                                     selectedTimer.timerStatus = .Running
+                                    self.delegate?.timerSetting(self.selectedTimer, tick: 1)
                                 }
                             } else {
                                 if 0 == selectedTimer.currentTime {

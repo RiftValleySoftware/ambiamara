@@ -23,6 +23,7 @@
 		77AF00B41F69623800D35EF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77AF00B61F69623800D35EF1 /* LaunchScreen.storyboard */; };
 		77AF00B71F69624E00D35EF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77AF00B91F69624E00D35EF1 /* Main.storyboard */; };
 		77BB98E11F12838F0062B14A /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB98E01F12838F0062B14A /* TimerEngine.swift */; };
+		D41ECAD321C2AFCA00E48FA4 /* tick.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D41ECAD221C2AFCA00E48FA4 /* tick.aiff */; };
 		D427963A219B50F90012F705 /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279634219B50F90012F705 /* UIKit+Extensions.swift */; };
 		D427963B219B50F90012F705 /* SwipeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279635219B50F90012F705 /* SwipeInteractor.swift */; };
 		D427963C219B50F90012F705 /* SwipeAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279636219B50F90012F705 /* SwipeAnimationType.swift */; };
@@ -107,6 +108,7 @@
 		78BA64C6A1ADB18A61F7EE29 /* Pods-Rift Valley Countdown Timer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rift Valley Countdown Timer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rift Valley Countdown Timer/Pods-Rift Valley Countdown Timer.release.xcconfig"; sourceTree = "<group>"; };
 		95A4CF40AC49D132081FAE6F /* Pods_Rift_Valley_Countdown_Timer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rift_Valley_Countdown_Timer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC62B86A43C730806EAC0B0D /* Pods-An Excellent Countdown Timer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-An Excellent Countdown Timer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-An Excellent Countdown Timer/Pods-An Excellent Countdown Timer.debug.xcconfig"; sourceTree = "<group>"; };
+		D41ECAD221C2AFCA00E48FA4 /* tick.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = tick.aiff; sourceTree = "<group>"; };
 		D4279634219B50F90012F705 /* UIKit+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Extensions.swift"; sourceTree = "<group>"; };
 		D4279635219B50F90012F705 /* SwipeInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeInteractor.swift; sourceTree = "<group>"; };
 		D4279636219B50F90012F705 /* SwipeAnimationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeAnimationType.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 		D48C0A3821B096C8007AC2DC /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				D41ECAD221C2AFCA00E48FA4 /* tick.aiff */,
 				D433BB8921B18165001C79F6 /* 00-low-beep.mp3 */,
 				D433BB8B21B18165001C79F6 /* 01-medium-beep.mp3 */,
 				D433BB8821B18165001C79F6 /* 02-high-beep.mp3 */,
@@ -442,6 +445,7 @@
 				D48C0A4721B096C9007AC2DC /* 12-crazy-bird.mp3 in Resources */,
 				D433BB8F21B18165001C79F6 /* 13-rooster.mp3 in Resources */,
 				D48ED40021B475BC00ADB8F8 /* 14-shut-up-1.mp3 in Resources */,
+				D41ECAD321C2AFCA00E48FA4 /* tick.aiff in Resources */,
 				D48ED3FD21B475AE00ADB8F8 /* 15-shut-up-2.mp3 in Resources */,
 				D433BB9C21B1898D001C79F6 /* 16-snoring-1.mp3 in Resources */,
 				D451AD9A21C0382E00E3DE28 /* Localizable.strings in Resources */,
