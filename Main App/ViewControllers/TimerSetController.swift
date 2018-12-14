@@ -209,6 +209,8 @@ class TimerSetController: TimerSetPickerController {
         self.setTimePickerView.isHidden = false
         self.nextTimerButton.addTarget(self, action: #selector(type(of: self).nextTimerButtonHit(_:)), for: .touchUpInside)
         self.trafficLightsImageView.isHidden = .Digital == self.timerObject.displayMode
+        
+        UIAccessibility.post(notification: .layoutChanged, argument: self.timeDisplayLabel)
     }
         
     /* ################################################################## */

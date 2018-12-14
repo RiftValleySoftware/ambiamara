@@ -90,6 +90,8 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
         self.mainTabController.timerEngine.selectedTimerIndex = -1
         self.timerTableView.reloadData()
         Timer_AppDelegate.appDelegateObject.sendSelectMessage()
+        
+        UIAccessibility.post(notification: .layoutChanged, argument: self.timerTableView)
     }
         
     // MARK: - Internal Instance Methods

@@ -100,6 +100,8 @@ class TimerSetupController: TimerSetPickerController {
         self.alarmSetupButton.isMusicOn = .Music == self.timerObject.soundMode
         self.alarmSetupButton.isSoundOn = .Sound == self.timerObject.soundMode
         self.alarmSetupButton.isVibrateOn = (.VibrateOnly == self.timerObject.alertMode || .Both == self.timerObject.alertMode)
+        
+        UIAccessibility.post(notification: .layoutChanged, argument: self.timerModeSegmentedSwitch)
     }
     
     /* ################################################################## */

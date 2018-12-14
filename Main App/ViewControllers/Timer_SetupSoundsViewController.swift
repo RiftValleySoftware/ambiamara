@@ -456,6 +456,8 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         if SoundMode.Music.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex {
             self.loadMediaLibrary()
         }
+        
+        UIAccessibility.post(notification: .layoutChanged, argument: self.soundModeSegmentedSwitch)
     }
     
     /* ################################################################################################################################## */

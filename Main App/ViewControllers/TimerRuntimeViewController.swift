@@ -431,6 +431,8 @@ class TimerRuntimeViewController: TimerNavBaseController {
         Timer_AppDelegate.appDelegateObject.currentTimer = self
         Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerUID = self.timerObject.uid
         Timer_AppDelegate.appDelegateObject.timerEngine.startTimer()
+        
+        UIAccessibility.post(notification: .layoutChanged, argument: self.timeDisplay)
     }
     
     /* ################################################################## */
