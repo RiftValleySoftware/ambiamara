@@ -1,6 +1,5 @@
-***Version 1.0.0.2015* ** *(TBD)*
+***Version 1.0.0.2015* ** *(December14, 2018)*
 - Accessibility fixes.
-- Added the timer set time and 
 
 ***Version 1.0.0.2014* ** *(December 13, 2018)*
 - Added support for audible ticks.

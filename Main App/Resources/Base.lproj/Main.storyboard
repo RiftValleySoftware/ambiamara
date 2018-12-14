@@ -256,6 +256,10 @@
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvk-HB-53P" customClass="LED_ClockView" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
                                         <rect key="frame" x="4" y="0.0" width="312" height="548"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" image="YES" updatesFrequently="YES"/>
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                         <gestureRecognizers/>
                                     </view>
                                     <view hidden="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRL-jt-yJr">
@@ -886,6 +890,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0YC-uY-IAy">
+                                <rect key="frame" x="8" y="71" width="304" height="41"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="1UL-fy-hyw"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="" image="Speaker"/>
+                                    <segment title="" image="Music"/>
+                                    <segment title="" image="Nothing"/>
+                                </segments>
+                                <connections>
+                                    <action selector="soundModeSegmentedSwitchHit:" destination="avR-jN-gqo" eventType="valueChanged" id="nbl-r2-KfN"/>
+                                </connections>
+                            </segmentedControl>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OlQ-fV-h36">
                                 <rect key="frame" x="8" y="28" width="49" height="31"/>
                                 <constraints>
@@ -909,21 +928,6 @@
                                     <action selector="vibrateButtonHit:" destination="avR-jN-gqo" eventType="touchUpInside" id="6GJ-V6-XyW"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0YC-uY-IAy">
-                                <rect key="frame" x="8" y="71" width="304" height="41"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="1UL-fy-hyw"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="" image="Speaker"/>
-                                    <segment title="" image="Music"/>
-                                    <segment title="" image="Nothing"/>
-                                </segments>
-                                <connections>
-                                    <action selector="soundModeSegmentedSwitchHit:" destination="avR-jN-gqo" eventType="valueChanged" id="nbl-r2-KfN"/>
-                                </connections>
-                            </segmentedControl>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Bu-Fw-FZa" userLabel="No Music Label View">
                                 <rect key="frame" x="8" y="111" width="304" height="354"/>
                                 <subviews>
