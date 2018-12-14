@@ -209,8 +209,6 @@ class TimerSetController: TimerSetPickerController {
         self.setTimePickerView.isHidden = false
         self.nextTimerButton.addTarget(self, action: #selector(type(of: self).nextTimerButtonHit(_:)), for: .touchUpInside)
         self.trafficLightsImageView.isHidden = .Digital == self.timerObject.displayMode
-        
-        UIAccessibility.post(notification: .layoutChanged, argument: self.timeDisplayLabel)
     }
         
     /* ################################################################## */
@@ -340,6 +338,8 @@ class TimerSetController: TimerSetPickerController {
      This method adds all the accessibility stuff.
      */
     override func addAccessibilityStuff() {
+        super.addAccessibilityStuff()
+        
         self.view.accessibilityLabel = (self.navigationItem.title ?? "") + " (" + self.timerObject.setSpeakableTime + ")"
         self.accessibilityLabel = (self.navigationItem.title ?? "") + " (" + self.timerObject.setSpeakableTime + ")"
         self.navigationItem.accessibilityLabel = (self.navigationItem.title ?? "") + " (" + self.timerObject.setSpeakableTime + ")"
@@ -376,5 +376,7 @@ class TimerSetController: TimerSetPickerController {
             self.trafficLightsImageView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
             self.trafficLightsImageView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-HINT".localizedVariant
         }
+        
+        UIAccessibility.post(notification: .layoutChanged, argument: self.timeDisplayLabel)
     }
 }

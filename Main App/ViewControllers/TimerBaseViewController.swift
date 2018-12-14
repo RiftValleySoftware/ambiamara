@@ -116,8 +116,6 @@ class TimerBaseViewController: UIViewController {
             self.navigationItem.title = self.navigationItem.title!.localizedVariant
             self.navigationItem.title?.isAccessibilityElement = true
         }
-        
-        self.addAccessibilityStuff()
     }
     
     /* ################################################################## */
@@ -152,6 +150,8 @@ class TimerBaseViewController: UIViewController {
             tabController.tabBar.barTintColor = self.gradientBottomColor
             tabController.tabBar.unselectedItemTintColor = self.view.tintColor
         }
+        
+        self.addAccessibilityStuff()
     }
     
     /* ################################################################################################################################## */

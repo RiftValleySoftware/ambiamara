@@ -90,8 +90,6 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
         self.mainTabController.timerEngine.selectedTimerIndex = -1
         self.timerTableView.reloadData()
         Timer_AppDelegate.appDelegateObject.sendSelectMessage()
-        
-        UIAccessibility.post(notification: .layoutChanged, argument: self.timerTableView)
     }
         
     // MARK: - Internal Instance Methods
@@ -294,6 +292,8 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
      This method adds all the accessibility stuff.
      */
     override func addAccessibilityStuff() {
+        super.addAccessibilityStuff()
+        
         self.navInfo.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-INFO-LABEL".localizedVariant
         self.navInfo.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-INFO-HINT".localizedVariant
         self.navAdd.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ADD-LABEL".localizedVariant
@@ -307,5 +307,7 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
         
         self.showControlsButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SWITCH-LABEL".localizedVariant
         self.showControlsButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SWITCH-HINT".localizedVariant
+        
+        UIAccessibility.post(notification: .layoutChanged, argument: self.timerTableView)
     }
 }

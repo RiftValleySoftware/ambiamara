@@ -277,7 +277,6 @@ class TimerRuntimeViewController: TimerNavBaseController {
         self._setUpDisplay()
         
         self.timeDisplay.accessibilityLabel = self.timerObject.currentQuickSpeakableTime
-        self.timeDisplay.isAccessibilityElement = true
 
         self.timeDisplay.isHidden = (.Podium == self.timerObject.displayMode) || (.Alarm == self.timerObject.timerStatus)
         if nil != self.stoplightContainerView {
@@ -431,8 +430,6 @@ class TimerRuntimeViewController: TimerNavBaseController {
         Timer_AppDelegate.appDelegateObject.currentTimer = self
         Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerUID = self.timerObject.uid
         Timer_AppDelegate.appDelegateObject.timerEngine.startTimer()
-        
-        UIAccessibility.post(notification: .layoutChanged, argument: self.timeDisplay)
     }
     
     /* ################################################################## */
@@ -455,6 +452,8 @@ class TimerRuntimeViewController: TimerNavBaseController {
      This method adds all the accessibility stuff.
      */
     override func addAccessibilityStuff() {
+        super.addAccessibilityStuff()
+        
         self.view.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SCREEN-LABEL".localizedVariant
         self.view.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SCREEN-HINT".localizedVariant
         
@@ -472,6 +471,11 @@ class TimerRuntimeViewController: TimerNavBaseController {
         
         self.pauseButton.accessibilityLabel = (.Running == self.timerObject.timerStatus ? "LGV_TIMER-ACCESSIBILITY-PAUSE-BUTTON-LABEL" : "LGV_TIMER-ACCESSIBILITY-START-BUTTON-LABEL").localizedVariant
         self.pauseButton.accessibilityHint = (.Running == self.timerObject.timerStatus ? "LGV_TIMER-ACCESSIBILITY-PAUSE-BUTTON-HINT" : "LGV_TIMER-ACCESSIBILITY-START-BUTTON-HINT").localizedVariant
+
+        self.timeDisplay.isAccessibilityElement = true
+        self.timeDisplay.accessibilityLabel = self.timerObject.currentQuickSpeakableTime
+
+        UIAccessibility.post(notification: .layoutChanged, argument: self.timeDisplay)
     }
 
     // MARK: - IB Action Methods

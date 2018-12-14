@@ -456,8 +456,6 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         if SoundMode.Music.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex {
             self.loadMediaLibrary()
         }
-        
-        UIAccessibility.post(notification: .layoutChanged, argument: self.soundModeSegmentedSwitch)
     }
     
     /* ################################################################################################################################## */
@@ -465,6 +463,8 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
      This method adds all the accessibility stuff.
      */
     override func addAccessibilityStuff() {
+        super.addAccessibilityStuff()
+        
         self.vibrateSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-LABEL".localizedVariant
         self.vibrateSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-HINT".localizedVariant
         self.vibrateButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-LABEL".localizedVariant
@@ -512,6 +512,8 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         
         self.doneButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-LABEL".localizedVariant
         self.doneButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-HINT".localizedVariant
+        
+        UIAccessibility.post(notification: .layoutChanged, argument: self.soundModeSegmentedSwitch)
     }
 
     /* ################################################################## */

@@ -636,12 +636,10 @@ class TimerSettingTuple: NSObject, NSCoding {
             }
         }
         
-        if 0 < seconds {
-            if 1 == seconds {
-                ret.append("TIME-SECOND".localizedVariant)
-            } else {
-                ret.append(String(format: "TIME-SECONDS-FORMAT".localizedVariant, seconds))
-            }
+        if 1 == seconds {
+            ret.append("TIME-SECOND".localizedVariant)
+        } else if 0 == hours && 0 == minutes {
+            ret.append(String(format: "TIME-SECONDS-FORMAT".localizedVariant, seconds))
         }
         
         return ret.joined(separator: " ")
@@ -671,7 +669,7 @@ class TimerSettingTuple: NSObject, NSCoding {
         
         if 9 < seconds || (0 == hours && 0 == minutes) {
             ret.append(String(seconds))
-        } else if 0 < hours || 0 < minutes {
+        } else {
             ret.append("0" + String(seconds))
         }
 

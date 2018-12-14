@@ -100,8 +100,6 @@ class TimerSetupController: TimerSetPickerController {
         self.alarmSetupButton.isMusicOn = .Music == self.timerObject.soundMode
         self.alarmSetupButton.isSoundOn = .Sound == self.timerObject.soundMode
         self.alarmSetupButton.isVibrateOn = (.VibrateOnly == self.timerObject.alertMode || .Both == self.timerObject.alertMode)
-        
-        UIAccessibility.post(notification: .layoutChanged, argument: self.timerModeSegmentedSwitch)
     }
     
     /* ################################################################## */
@@ -154,6 +152,8 @@ class TimerSetupController: TimerSetPickerController {
      This method adds all the accessibility stuff.
      */
     override func addAccessibilityStuff() {
+        super.addAccessibilityStuff()
+        
         self.timerModeSegmentedSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SEGMENTED-LABEL".localizedVariant
         self.timerModeSegmentedSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SEGMENTED-HINT".localizedVariant
         
@@ -182,6 +182,8 @@ class TimerSetupController: TimerSetPickerController {
         
         self.doneButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-LABEL".localizedVariant
         self.doneButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-HINT".localizedVariant
+        
+        UIAccessibility.post(notification: .layoutChanged, argument: self.timerModeSegmentedSwitch)
     }
 
     /// MARK: - UIPickerViewDataSource Methods
