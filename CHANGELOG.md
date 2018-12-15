@@ -1,4 +1,6 @@
-***Version 1.0.0.2016* ** *(TBD)*
+***Version 1.0.0.2016* ** *(December15, 2018)*
+- Added support for high-contrast display.
+- More refined voiceover cues.
 
 ***Version 1.0.0.2015* ** *(December14, 2018)*
 - Accessibility fixes.
