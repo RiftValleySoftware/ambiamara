@@ -129,6 +129,12 @@ class TimerBaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // If the user is running high contrast, we give it to them.
+        if UIAccessibility.isDarkerSystemColorsEnabled && !(self is TimerRuntimeViewController) {
+            self.gradientTopColor = UIColor.darkGray
+            self.gradientBottomColor = UIColor.black
+        }
+        
         self.gradientLayer.colors = [self.gradientTopColor.cgColor, self.gradientBottomColor.cgColor]
         self.gradientLayer.locations = [0.0, 1.0]
         

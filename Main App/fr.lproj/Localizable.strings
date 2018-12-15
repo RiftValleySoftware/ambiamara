@@ -134,8 +134,7 @@
 "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-LABEL"       =   "Next Timer";
 "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-HINT"        =   "This allows you to select a timer that will be selected immediately after you stop the alarm. The next timer's Set Timer screen will appear, and you will be able to start that timer.";
 
-"LGV_TIMER-ACCESSIBILITY-SET-TIME-PICKER-LABEL"         =   "Set Time";
-"LGV_TIMER-ACCESSIBILITY-SET-TIME-PICKER-HINT"          =   "This picker view has three columns: Hours (leftmost), Minutes (center) and Seconds (rightmost). Use these to select the starting time for the countdown. You can select up to 23:59:59 (Twenty-three hours, fifty-nine minutes and fifty-nine seconds).";
+"LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-COLUMN-LABEL"    =   "This allows you to choose another timer to be selected upon stopping the alarm for this timer. You can select no following timer, or one of the other timers.";
 
 "LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-LABEL"      =   "Start Timer";
 "LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-HINT"       =   "Tapping this button will start the timer. A screen will appear with the display required for the selected timer mode. The timer will immediately start counting down.";
@@ -148,10 +147,10 @@
 "LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-HINT"             =   "This picker has a column of colors. You can select a color, and that is what will be used for Digital and Dual Mode displays. It will not be available for Podium Mode.";
 
 "LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-LABEL"    =   "Set Warning Time";
-"LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-HINT"     =   "This picker view has three columns: Hours (leftmost), Minutes (center) and Seconds (rightmost). Use these to select the \"warning\" time for the countdown. You can select up to 23:59:59 (Twenty-three hours, fifty-nine minutes and fifty-nine seconds).";
+"LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-HINT"     =   "The picker below has three columns: Hours (leftmost), Minutes (center) and Seconds (rightmost). Use these to select the \"warning\" time for the countdown. You can select up to 23:59:59.";
 
 "LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-LABEL"   =   "Set Final Time";
-"LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-HINT"    =   "This picker view has three columns: Hours (leftmost), Minutes (center) and Seconds (rightmost). Use these to select the \"final\" time for the countdown. You can select up to 23:59:59 (Twenty-three hours, fifty-nine minutes and fifty-nine seconds).";
+"LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-HINT"    =   "The picker below has three columns: Hours (leftmost), Minutes (center) and Seconds (rightmost). Use these to select the \"final\" time for the countdown. You can select up to 23:59:59.";
 
 "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-LABEL"      =   "Set Alarm";
 "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-HINT"       =   "This button will display images that will indicate the current alarm sound/vibration mode. If you tap this button, a screen will appear that allows you to set the sound and vibration state of the alarm.";

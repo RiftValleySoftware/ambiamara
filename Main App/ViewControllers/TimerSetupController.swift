@@ -100,6 +100,9 @@ class TimerSetupController: TimerSetPickerController {
         self.alarmSetupButton.isMusicOn = .Music == self.timerObject.soundMode
         self.alarmSetupButton.isSoundOn = .Sound == self.timerObject.soundMode
         self.alarmSetupButton.isVibrateOn = (.VibrateOnly == self.timerObject.alertMode || .Both == self.timerObject.alertMode)
+        self.colorThemePicker.reloadAllComponents()
+        self.warningThresholdTimePicker.reloadAllComponents()
+        self.finalThresholdTimePicker.reloadAllComponents()
     }
     
     /* ################################################################## */
@@ -168,14 +171,11 @@ class TimerSetupController: TimerSetPickerController {
         sortedViews[2].accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant
         sortedViews[2].accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-HINT".localizedVariant
 
-        self.colorThemePicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-LABEL".localizedVariant
-        self.colorThemePicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-HINT".localizedVariant
+        self.warningThresholdLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-LABEL".localizedVariant
+        self.warningThresholdLabel.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-HINT".localizedVariant
         
-        self.warningThresholdTimePicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-LABEL".localizedVariant
-        self.warningThresholdTimePicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-HINT".localizedVariant
-        
-        self.finalThresholdTimePicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-LABEL".localizedVariant
-        self.finalThresholdTimePicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-HINT".localizedVariant
+        self.finalThresholdLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-LABEL".localizedVariant
+        self.finalThresholdLabel.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-HINT".localizedVariant
         
         self.alarmSetupButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-LABEL".localizedVariant
         self.alarmSetupButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-HINT".localizedVariant
@@ -299,6 +299,17 @@ class TimerSetupController: TimerSetPickerController {
                     pickerView.selectRow(maxVal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
                 }
             }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inComponent: Int) -> String? {
+        if 1 == inPickerView.numberOfComponents {
+            return "LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-LABEL".localizedVariant + ", " + "LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-HINT".localizedVariant
+        } else {
+            return super.pickerView(inPickerView, accessibilityLabelForComponent: inComponent)
         }
     }
 }

@@ -14,6 +14,18 @@ import UIKit
 /**
  */
 class TimerNavBaseController: TimerBaseViewController {
+    class InvertedMaskLabel: UILabel {
+        override func drawText(in rect: CGRect) {
+            guard let gc = UIGraphicsGetCurrentContext() else { return }
+            gc.saveGState()
+            UIColor.white.setFill()
+            UIRectFill(rect)
+            gc.setBlendMode(.clear)
+            super.drawText(in: rect)
+            gc.restoreGState()
+        }
+    }
+
     /* ################################################################################################################################## */
     // MARK: - Class Constants
     /* ################################################################################################################################## */
@@ -169,12 +181,11 @@ class TimerSetPickerController: TimerNavBaseController, UIPickerViewDelegate, UI
     /**
      */
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let ret = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.pickerView(pickerView, widthForComponent: component), height: self.pickerView(pickerView, rowHeightForComponent: component))))
+        let ret = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.pickerView(pickerView, widthForComponent: component), height: self.pickerView(pickerView, rowHeightForComponent: component))))
         
-        ret.font = UIFont.systemFont(ofSize: self.pickerView(pickerView, rowHeightForComponent: component))
-        ret.adjustsFontSizeToFitWidth = true
-        ret.backgroundColor = UIColor.clear
-        ret.textColor = self.view.tintColor
+        ret.backgroundColor = UIAccessibility.isDarkerSystemColorsEnabled ? self.view.tintColor : UIColor.clear
+        
+        var text = ""
         
         if let thisComponent = Components(rawValue: component) {
             switch thisComponent {
@@ -182,30 +193,53 @@ class TimerSetPickerController: TimerNavBaseController, UIPickerViewDelegate, UI
                 if 0 == row {
                 } else {
                     if 1 == row {
-                        ret.text = String(format: "LGV_TIMER-TIME-PICKER-HOUR-FORMAT".localizedVariant, row)
+                        text = String(format: "LGV_TIMER-TIME-PICKER-HOUR-FORMAT".localizedVariant, row)
                     } else {
-                        ret.text = String(format: "LGV_TIMER-TIME-PICKER-HOURS-FORMAT".localizedVariant, row)
+                        text = String(format: "LGV_TIMER-TIME-PICKER-HOURS-FORMAT".localizedVariant, row)
                     }
                 }
             case .Minutes:
                 if 0 == row {
                 } else {
                     if 1 == row {
-                        ret.text = String(format: "LGV_TIMER-TIME-PICKER-MINUTE-FORMAT".localizedVariant, row)
+                        text = String(format: "LGV_TIMER-TIME-PICKER-MINUTE-FORMAT".localizedVariant, row)
                     } else {
-                        ret.text = String(format: "LGV_TIMER-TIME-PICKER-MINUTES-FORMAT".localizedVariant, row)
+                        text = String(format: "LGV_TIMER-TIME-PICKER-MINUTES-FORMAT".localizedVariant, row)
                     }
                 }
             case .Seconds:
                 if 0 == row {
                 } else {
                     if 1 == row {
-                        ret.text = String(format: "LGV_TIMER-TIME-PICKER-SECOND-FORMAT".localizedVariant, row)
+                        text = String(format: "LGV_TIMER-TIME-PICKER-SECOND-FORMAT".localizedVariant, row)
                     } else {
-                        ret.text = String(format: "LGV_TIMER-TIME-PICKER-SECONDS-FORMAT".localizedVariant, row)
+                        text = String(format: "LGV_TIMER-TIME-PICKER-SECONDS-FORMAT".localizedVariant, row)
                     }
                 }
             }
+        }
+
+        if UIAccessibility.isDarkerSystemColorsEnabled {
+            let invertedLabel = InvertedMaskLabel(frame: ret.bounds)
+            invertedLabel.font = UIFont.systemFont(ofSize: self.pickerView(pickerView, rowHeightForComponent: component))
+            invertedLabel.adjustsFontSizeToFitWidth = true
+            invertedLabel.textAlignment = .center
+            invertedLabel.baselineAdjustment = .alignCenters
+            invertedLabel.text = text
+            
+            ret.mask = invertedLabel
+        } else {
+            let label = UILabel(frame: ret.bounds)
+            
+            label.font = UIFont.systemFont(ofSize: self.pickerView(pickerView, rowHeightForComponent: component))
+            label.adjustsFontSizeToFitWidth = true
+            label.textAlignment = .center
+            label.baselineAdjustment = .alignCenters
+            label.backgroundColor = UIColor.clear
+            label.textColor = self.view.tintColor
+            label.text = text
+            
+            ret.addSubview(label)
         }
         
         return ret

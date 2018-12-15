@@ -20,6 +20,9 @@ import AVKit
 /**
  */
 class Timer_SetupSoundsViewController: TimerSetPickerController {
+    /// This is the size of our label text.
+    let labelTextSize: CGFloat = 20
+    
     /// This contains our audio player.
     var audioPlayer: AVAudioPlayer!
     /// This is a simple semaphore to indicate that we are in the process of loading music.
@@ -456,6 +459,8 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         if SoundMode.Music.rawValue == self.soundModeSegmentedSwitch.selectedSegmentIndex {
             self.loadMediaLibrary()
         }
+        self.artistSoundSelectPicker.reloadAllComponents()
+        self.songSelectPicker.reloadAllComponents()
     }
     
     /* ################################################################################################################################## */
@@ -555,11 +560,13 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: inPickerView.bounds.size.width, height: self.pickerView(inPickerView, rowHeightForComponent: component)))
         let ret = inView ?? UIView(frame: frame)    // See if we can reuse an old view.
         if nil == inView {
+            ret.backgroundColor = UIColor.clear
             if self.artistSoundSelectPicker == inPickerView {
                 let label = UILabel(frame: frame)
-                label.font = UIFont.systemFont(ofSize: 20)
+                label.font = UIFont.systemFont(ofSize: self.labelTextSize)
                 label.adjustsFontSizeToFitWidth = true
                 label.textAlignment = .center
+                label.baselineAdjustment = .alignCenters
                 label.textColor = self.view.tintColor
                 label.backgroundColor = UIColor.clear
                 
@@ -571,7 +578,18 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
                     label.text = Timer_AppDelegate.appDelegateObject.artists[row]
                 }
                 
-                ret.addSubview(label)
+                if UIAccessibility.isDarkerSystemColorsEnabled {
+                    let invertedLabel = InvertedMaskLabel(frame: label.bounds)
+                    invertedLabel.font = UIFont.systemFont(ofSize: self.labelTextSize)
+                    invertedLabel.adjustsFontSizeToFitWidth = true
+                    invertedLabel.textAlignment = .center
+                    invertedLabel.baselineAdjustment = .alignCenters
+                    invertedLabel.text = label.text
+                    ret.backgroundColor = self.view.tintColor
+                    ret.mask = invertedLabel
+                } else {
+                    ret.addSubview(label)
+                }
             } else if self.songSelectPicker == inPickerView {
                 let artistName = Timer_AppDelegate.appDelegateObject.artists[self.artistSoundSelectPicker.selectedRow(inComponent: 0)]
                 if let songs = Timer_AppDelegate.appDelegateObject.songs[artistName] {
@@ -587,10 +605,21 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
                     
                     label.text = song.songTitle
                     
-                    ret.addSubview(label)
+                    if UIAccessibility.isDarkerSystemColorsEnabled {
+                        let invertedLabel = InvertedMaskLabel(frame: label.bounds)
+                        invertedLabel.font = UIFont.systemFont(ofSize: self.labelTextSize)
+                        invertedLabel.adjustsFontSizeToFitWidth = true
+                        invertedLabel.textAlignment = .center
+                        invertedLabel.baselineAdjustment = .alignCenters
+                        invertedLabel.text = label.text
+                        ret.backgroundColor = self.view.tintColor
+                        ret.mask = label
+                    } else {
+                        ret.addSubview(label)
+                    }
                 }
             }
-            ret.backgroundColor = UIColor.clear
+            
         }
         
         return ret
