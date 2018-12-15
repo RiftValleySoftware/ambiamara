@@ -1,8 +1,11 @@
-***Version 1.0.0.2016* ** *(December15, 2018)*
+***Version 1.0.0.2017* ** *(December 15, 2018)*
+- Fixed a crash (my bad) when you open the info screen.
+
+***Version 1.0.0.2016* ** *(December 15, 2018)*
 - Added support for high-contrast display.
 - More refined voiceover cues.
 
-***Version 1.0.0.2015* ** *(December14, 2018)*
+***Version 1.0.0.2015* ** *(December 14, 2018)*
 - Accessibility fixes.
 
 ***Version 1.0.0.2014* ** *(December 13, 2018)*

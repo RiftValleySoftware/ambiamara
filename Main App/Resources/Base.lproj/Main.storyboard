@@ -869,7 +869,6 @@
                         <outlet property="corporateBlurb" destination="xyi-Sb-0Gd" id="6y3-5w-GWm"/>
                         <outlet property="labelForTitle" destination="sO5-o8-Fyk" id="orx-1y-9n8"/>
                         <outlet property="lgvText" destination="8bv-Ws-8kF" id="F2Q-0N-653"/>
-                        <outlet property="titleLabel" destination="sO5-o8-Fyk" id="sQE-FI-f9F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hzn-yg-KtJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
