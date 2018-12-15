@@ -69,6 +69,20 @@ class TimerSetController: TimerSetPickerController {
 
         self.nextTimerPickerView.reloadComponent(0)
         self.updateTimeDisplayLabel()
+        
+        var nextTimer: String = ""
+        let row = self.timerObject.succeedingTimerID + 1
+        if 0 == row {
+            nextTimer = "NO-TIMER".localizedVariant
+        } else {
+            if row - 1 == Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex {
+                nextTimer = "CANT-SELECT".localizedVariant
+            } else {
+                nextTimer = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, row)
+            }
+        }
+        
+        self.nextTimerButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-LABEL".localizedVariant + " " + nextTimer
     }
 
     /* ################################################################################################################################## */
@@ -347,20 +361,6 @@ class TimerSetController: TimerSetPickerController {
         
         self.setTimePickerView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-TIME-PICKER-LABEL".localizedVariant
         self.setTimePickerView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-TIME-PICKER-HINT".localizedVariant
-        
-        var nextTimer: String = ""
-        let row = self.timerObject.succeedingTimerID + 1
-        if 0 == row {
-            nextTimer = "NO-TIMER".localizedVariant
-        } else {
-            if row - 1 == Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex {
-                nextTimer = "CANT-SELECT".localizedVariant
-            } else {
-                nextTimer = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, row)
-            }
-        }
-
-        self.nextTimerButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-LABEL".localizedVariant + " " + nextTimer
         self.nextTimerButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-HINT".localizedVariant
 
         self.nextTimerPickerView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-LABEL".localizedVariant
