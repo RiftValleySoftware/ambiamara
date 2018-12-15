@@ -257,7 +257,7 @@
                                         <rect key="frame" x="4" y="0.0" width="312" height="548"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
-                                            <accessibilityTraits key="traits" image="YES" updatesFrequently="YES"/>
+                                            <accessibilityTraits key="traits" updatesFrequently="YES"/>
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
                                         <gestureRecognizers/>
@@ -265,6 +265,9 @@
                                     <view hidden="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRL-jt-yJr">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -864,6 +867,7 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="corporateBlurb" destination="xyi-Sb-0Gd" id="6y3-5w-GWm"/>
+                        <outlet property="labelForTitle" destination="sO5-o8-Fyk" id="orx-1y-9n8"/>
                         <outlet property="lgvText" destination="8bv-Ws-8kF" id="F2Q-0N-653"/>
                         <outlet property="titleLabel" destination="sO5-o8-Fyk" id="sQE-FI-f9F"/>
                     </connections>

@@ -209,6 +209,7 @@ class TimerSetController: TimerSetPickerController {
         self.setTimePickerView.isHidden = false
         self.nextTimerButton.addTarget(self, action: #selector(type(of: self).nextTimerButtonHit(_:)), for: .touchUpInside)
         self.trafficLightsImageView.isHidden = .Digital == self.timerObject.displayMode
+        self.titleLabel.text = self.navigationItem.title ?? ""
     }
         
     /* ################################################################## */
@@ -339,18 +340,27 @@ class TimerSetController: TimerSetPickerController {
      */
     override func addAccessibilityStuff() {
         super.addAccessibilityStuff()
+        let title = self.navigationItem.title ?? ""
         
-        self.view.accessibilityLabel = (self.navigationItem.title ?? "") + " (" + self.timerObject.setSpeakableTime + ")"
-        self.accessibilityLabel = (self.navigationItem.title ?? "") + " (" + self.timerObject.setSpeakableTime + ")"
-        self.navigationItem.accessibilityLabel = (self.navigationItem.title ?? "") + " (" + self.timerObject.setSpeakableTime + ")"
-
         self.setupButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL".localizedVariant
         self.setupButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-HINT".localizedVariant
         
         self.setTimePickerView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-TIME-PICKER-LABEL".localizedVariant
         self.setTimePickerView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-TIME-PICKER-HINT".localizedVariant
         
-        self.nextTimerButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-LABEL".localizedVariant
+        var nextTimer: String = ""
+        let row = self.timerObject.succeedingTimerID + 1
+        if 0 == row {
+            nextTimer = "NO-TIMER".localizedVariant
+        } else {
+            if row - 1 == Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex {
+                nextTimer = "CANT-SELECT".localizedVariant
+            } else {
+                nextTimer = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, row)
+            }
+        }
+
+        self.nextTimerButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-LABEL".localizedVariant + " " + nextTimer
         self.nextTimerButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-HINT".localizedVariant
 
         self.nextTimerPickerView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-LABEL".localizedVariant
@@ -365,16 +375,19 @@ class TimerSetController: TimerSetPickerController {
             self.timeDisplayLabel.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-HINT".localizedVariant
             self.trafficLightsImageView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
             self.trafficLightsImageView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-HINT".localizedVariant
+            self.titleLabel.accessibilityLabel = title + " " + "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
         case .Digital:
             self.timeDisplayLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
             self.timeDisplayLabel.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-HINT".localizedVariant
             self.trafficLightsImageView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
             self.trafficLightsImageView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-HINT".localizedVariant
+            self.titleLabel.accessibilityLabel = title + " " + "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
         case .Dual:
             self.timeDisplayLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
             self.timeDisplayLabel.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-HINT".localizedVariant
             self.trafficLightsImageView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
             self.trafficLightsImageView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-HINT".localizedVariant
+            self.titleLabel.accessibilityLabel = title + " " + "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant + " (" + self.timerObject.setSpeakableTime + ")"
         }
         
         UIAccessibility.post(notification: .layoutChanged, argument: self.timeDisplayLabel)

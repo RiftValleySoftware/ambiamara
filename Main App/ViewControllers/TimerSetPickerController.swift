@@ -245,17 +245,35 @@ class TimerSetPickerController: TimerNavBaseController, UIPickerViewDelegate, UI
     func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inComponent: Int) -> String? {
         var ret: String?
         
-        let value = inPickerView.selectedRow(inComponent: inComponent)
-        ret = String(value) + " "
+        let row = inPickerView.selectedRow(inComponent: inComponent)
+        ret = ""
         
         if let thisComponent = Components(rawValue: inComponent) {
             switch thisComponent {
             case .Hours:
-                ret = ret! + "LGV_TIMER-ACCESSIBILITY-PICKER-HOURS-LABEL".localizedVariant
+                let initialText = "LGV_TIMER-ACCESSIBILITY-PICKER-HOURS-TITLE-LABEL".localizedVariant
+                
+                if 1 == row {
+                    ret = initialText + String(format: "LGV_TIMER-TIME-PICKER-HOUR-FORMAT".localizedVariant, row)
+                } else {
+                    ret = initialText + String(format: "LGV_TIMER-TIME-PICKER-HOURS-FORMAT".localizedVariant, row)
+                }
             case .Minutes:
-                ret = ret! + "LGV_TIMER-ACCESSIBILITY-PICKER-MINUTES-LABEL".localizedVariant
+                let initialText = "LGV_TIMER-ACCESSIBILITY-PICKER-MINUTES-TITLE-LABEL".localizedVariant
+                
+                if 1 == row {
+                    ret = initialText + String(format: "LGV_TIMER-TIME-PICKER-MINUTE-FORMAT".localizedVariant, row)
+                } else {
+                    ret = initialText + String(format: "LGV_TIMER-TIME-PICKER-MINUTES-FORMAT".localizedVariant, row)
+                }
             default:
-                ret = ret! + "LGV_TIMER-ACCESSIBILITY-PICKER-SECONDS-LABEL".localizedVariant
+                let initialText = "LGV_TIMER-ACCESSIBILITY-PICKER-SECONDS-TITLE-LABEL".localizedVariant
+                
+                if 1 == row {
+                    ret = initialText + String(format: "LGV_TIMER-TIME-PICKER-SECOND-FORMAT".localizedVariant, row)
+                } else {
+                    ret = initialText + String(format: "LGV_TIMER-TIME-PICKER-SECONDS-FORMAT".localizedVariant, row)
+                }
             }
         }
         

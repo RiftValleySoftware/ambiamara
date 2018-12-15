@@ -22,7 +22,7 @@ class Timer_InfoViewController: TimerBaseViewController {
     let corporateName =   "The Great Rift Valley Software Company"
     
     @IBOutlet weak var corporateBlurb: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var labelForTitle: UILabel!
     @IBOutlet weak var lgvText: UITextView!
     
     /* ################################################################## */

@@ -167,6 +167,8 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
         assert(self.mainTabController.timerEngine.count > indexPath.row && 0 <= indexPath.row)
         if let ret = tableView.dequeueReusableCell(withIdentifier: "SingleTimerCell") as? SettingsTimerTableCell {
             if let clockView = ret.clockDisplay, let timerNameLabel = ret.timerNameLabel {
+                let timerName = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
+                
                 let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
                 clockView.text = TimeTuple(timerPrefs.timeSet).description
                 if .Podium == timerPrefs.displayMode {
@@ -182,8 +184,9 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
                         clockView.font = titleFont
                     }
                 }
-                timerNameLabel.text = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
-                ret.accessibilityLabel = (timerNameLabel.text ?? "") + " (" + timerPrefs.setSpeakableTime + ")"
+                
+                timerNameLabel.text = timerName
+                ret.accessibilityLabel = timerName + " (" + timerPrefs.setSpeakableTime + ")"
                 clockView.setNeedsDisplay()
             }
             

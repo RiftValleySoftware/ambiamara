@@ -20,6 +20,25 @@ import UIKit
  */
 @IBDesignable
 class TimerBaseViewController: UIViewController {
+    /* ################################################################################################################################## */
+    // MARK: - Instance Constant Properties
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This is the initial size for our header label.
+     */
+    let headerFontSize: CGFloat = 20
+    
+    /* ################################################################################################################################## */
+    // MARK: - Instance Properties
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This is a label that is used to replace the Navigation title. We replace it for accessibility reasons.
+     */
+    var titleLabel: UILabel!
+
+    /* ################################################################################################################################## */
     // MARK: - IB Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -34,6 +53,7 @@ class TimerBaseViewController: UIViewController {
      */
     @IBInspectable var gradientBottomColor: UIColor = UIColor.darkGray
     
+    /* ################################################################################################################################## */
     // MARK: - Instance Properties
     /* #################################################################################################################################*/
     /* ################################################################## */
@@ -42,6 +62,7 @@ class TimerBaseViewController: UIViewController {
      */
     let gradientLayer = CAGradientLayer()
 
+    /* ################################################################################################################################## */
     // MARK: - Instance Calculated Properties
     /* #################################################################################################################################*/
     /* ################################################################## */
@@ -64,6 +85,7 @@ class TimerBaseViewController: UIViewController {
         }
     }
     
+    /* ################################################################################################################################## */
     // MARK: - IBAction Instance Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -95,6 +117,7 @@ class TimerBaseViewController: UIViewController {
         }
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -113,8 +136,13 @@ class TimerBaseViewController: UIViewController {
         
         // The nav item for timers is set by the bar manager.
         if (type(of: self) != TimerNavController.self) && (nil != self.navigationItem.title) {
-            self.navigationItem.title = self.navigationItem.title!.localizedVariant
-            self.navigationItem.title?.isAccessibilityElement = true
+            self.titleLabel = UILabel()
+            self.titleLabel.font = UIFont.boldSystemFont(ofSize: self.headerFontSize)
+            self.titleLabel.textColor = UIColor.white
+            self.titleLabel.adjustsFontSizeToFitWidth = true
+            self.titleLabel.text = self.navigationItem.title!.localizedVariant
+            self.titleLabel.isAccessibilityElement = true
+            self.navigationItem.titleView = self.titleLabel
         }
     }
     
