@@ -60,7 +60,7 @@ class Timer_InfoViewController: TimerBaseViewController {
         }
 
         self.corporateBlurb.text = self.corporateName
-        self.titleLabel.text = appName + " " + appVersion
+        self.labelForTitle.text = appName + " " + appVersion
         self.lgvText.text = self.lgvText.text.localizedVariant
     }
 }

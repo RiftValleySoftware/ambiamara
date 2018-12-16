@@ -1,3 +1,6 @@
+***Version 1.0.0.2018* ** *(TBD)*
+- Fixed a localization bug in the info screen.
+
 ***Version 1.0.0.2017* ** *(December 15, 2018)*
 - Fixed a crash (my bad) when you open the info screen.
 
