@@ -1,5 +1,7 @@
 ***Version 1.0.0.2018* ** *(TBD)*
 - Fixed a localization bug in the info screen.
+- Disable "Audible Ticks" while fetching music.
+- Fixed a bug, where the vibrate switch wasn't being properly disabled while fetching music.
 
 ***Version 1.0.0.2017* ** *(December 15, 2018)*
 - Fixed a crash (my bad) when you open the info screen.

@@ -58,8 +58,10 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
     func loadMediaLibrary(forceReload inForceReload: Bool = false) {
        if Timer_AppDelegate.appDelegateObject.artists.isEmpty || inForceReload { // If we are already loaded up, we don't need to do this (unless forced).
             self.isLoadin = false
+            self.vibrateSwitch.isEnabled = false
             self.vibrateButton.isEnabled = false
-            self.vibrateButton.isEnabled = false
+            self.audibleTicksSwitch.isEnabled = false
+            self.audibleTicksSwitchButton.isEnabled = false
             self.soundModeSegmentedSwitch.isEnabled = false
             if .authorized == MPMediaLibrary.authorizationStatus() {    // Already authorized? Head on in!
                 self.loadUpOnMusic()
@@ -100,8 +102,10 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
     func dunLoadin() {
         DispatchQueue.main.async {
             self.isLoadin = false
+            self.vibrateSwitch.isEnabled = true
             self.vibrateButton.isEnabled = true
-            self.vibrateButton.isEnabled = true
+            self.audibleTicksSwitch.isEnabled = true
+            self.audibleTicksSwitchButton.isEnabled = true
             self.soundModeSegmentedSwitch.isEnabled = true
             self.stopSpinner()
             self.setUpUIElements()
