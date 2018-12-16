@@ -242,7 +242,6 @@ class TimerSetController: TimerSetPickerController {
      Called when the view will display.
      */
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         self.updateTimer()
         if nil != self.timerObject {
             Timer_AppDelegate.appDelegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
@@ -254,6 +253,7 @@ class TimerSetController: TimerSetPickerController {
         self.trafficLightsImageView.isHidden = .Digital == self.timerObject.displayMode
         self.titleLabel.text = self.navigationItem.title ?? ""
         self.setTimePickerView.reloadAllComponents()
+        super.viewWillAppear(animated)
     }
         
     /* ################################################################## */
@@ -431,6 +431,10 @@ class TimerSetController: TimerSetPickerController {
         self.bigStartButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-LABEL".localizedVariant
         self.bigStartButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-HINT".localizedVariant
         
-        UIAccessibility.post(notification: .layoutChanged, argument: self.timeDisplayLabel)
+        self.view.accessibilityElements = [self.titleLabel, self.timeDisplayLabel, self.setTimePickerView, self.nextTimerButton, self.nextTimerPickerView, self.bigStartButton, self.setupButton]
+
+        if let firstElement = self.view.accessibilityElements?[0] as? UIView {
+            UIAccessibility.post(notification: .layoutChanged, argument: firstElement)
+        }
     }
 }

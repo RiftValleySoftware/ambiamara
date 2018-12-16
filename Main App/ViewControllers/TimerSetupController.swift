@@ -48,8 +48,6 @@ class TimerSetupController: TimerSetPickerController {
      Called when the view will appear.
      */
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
         // Make sure that our red is always less than our yellow.
         var maxValInt = Swift.max(0, Swift.min(self.timerObject.timeSetPodiumFinal, self.timerObject.timeSetPodiumWarn - 1))
         if 0 == maxValInt {
@@ -103,6 +101,8 @@ class TimerSetupController: TimerSetPickerController {
         self.colorThemePicker.reloadAllComponents()
         self.warningThresholdTimePicker.reloadAllComponents()
         self.finalThresholdTimePicker.reloadAllComponents()
+        
+        super.viewWillAppear(animated)
     }
     
     /* ################################################################## */
@@ -159,27 +159,41 @@ class TimerSetupController: TimerSetPickerController {
         
         self.timerModeSegmentedSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SEGMENTED-LABEL".localizedVariant
         self.timerModeSegmentedSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SEGMENTED-HINT".localizedVariant
-        
-        let sortedViews = self.timerModeSegmentedSwitch.subviews.sorted(by: { $0.frame.origin.x < $1.frame.origin.x })
-        
-        sortedViews[0].accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL".localizedVariant
-        sortedViews[0].accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-HINT".localizedVariant
-        
-        sortedViews[1].accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL".localizedVariant
-        sortedViews[1].accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-HINT".localizedVariant
-        
-        sortedViews[2].accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL".localizedVariant
-        sortedViews[2].accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-HINT".localizedVariant
 
+        for segment in self.timerModeSegmentedSwitch.subviews {
+            segment.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SEGMENTED-LABEL".localizedVariant
+            segment.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SEGMENTED-HINT".localizedVariant
+        }
+        
         self.warningThresholdLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-LABEL".localizedVariant
         self.warningThresholdLabel.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-HINT".localizedVariant
         
         self.finalThresholdLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-LABEL".localizedVariant
         self.finalThresholdLabel.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-HINT".localizedVariant
         
-        self.alarmSetupButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-LABEL".localizedVariant
         self.alarmSetupButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-HINT".localizedVariant
         
+        var accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-LABEL".localizedVariant
+
+        switch self.timerObject.soundMode {
+        case .Sound:
+            accessibilityLabel += "LGV_TIMER-ACCESSIBILITY-SOUND-SET".localizedVariant
+        case .Music:
+            accessibilityLabel += "LGV_TIMER-ACCESSIBILITY-SONG-SET".localizedVariant
+        case .Silent:
+            accessibilityLabel += "LGV_TIMER-ACCESSIBILITY-SILENT-SET".localizedVariant
+        }
+        
+        if .VibrateOnly == self.timerObject.alertMode || .Both == self.timerObject.alertMode {
+            accessibilityLabel += "LGV_TIMER-ACCESSIBILITY-VIBRATE-SET".localizedVariant
+        }
+        
+        if self.timerObject.audibleTicks {
+            accessibilityLabel += "LGV_TIMER-ACCESSIBILITY-TICKS-SET".localizedVariant
+        }
+        
+        self.alarmSetupButton.accessibilityLabel = accessibilityLabel
+
         self.doneButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-LABEL".localizedVariant
         self.doneButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-HINT".localizedVariant
         

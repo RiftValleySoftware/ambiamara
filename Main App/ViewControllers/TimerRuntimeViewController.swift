@@ -416,7 +416,6 @@ class TimerRuntimeViewController: TimerNavBaseController {
      */
     override func viewWillAppear(_ animated: Bool) {
         UIApplication.shared.isIdleTimerDisabled = true
-        super.viewWillAppear(animated)
         
         if Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
             self.myNavigationBar.tintColor = self.view.tintColor
@@ -430,6 +429,8 @@ class TimerRuntimeViewController: TimerNavBaseController {
         Timer_AppDelegate.appDelegateObject.currentTimer = self
         Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerUID = self.timerObject.uid
         Timer_AppDelegate.appDelegateObject.timerEngine.startTimer()
+        
+        super.viewWillAppear(animated)
     }
     
     /* ################################################################## */
@@ -475,6 +476,8 @@ class TimerRuntimeViewController: TimerNavBaseController {
         self.timeDisplay.isAccessibilityElement = true
         self.timeDisplay.accessibilityLabel = self.timerObject.currentQuickSpeakableTime
 
+        self.view.accessibilityElements = [self.timeDisplay, self.stopButton, self.resetButton, self.endButton, self.pauseButton, self.flasherView]
+        
         UIAccessibility.post(notification: .layoutChanged, argument: self.timeDisplay)
     }
 

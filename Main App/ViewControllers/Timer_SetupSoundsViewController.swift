@@ -389,19 +389,29 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
     @IBAction func soundModeSegmentedSwitchHit(_ sender: UISegmentedControl) {
         switch self.soundModeSegmentedSwitch.selectedSegmentIndex {
         case SoundMode.Sound.rawValue:
+            self.artistSoundSelectPicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-LABEL".localizedVariant
+            self.artistSoundSelectPicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-HINT".localizedVariant
             self.timerObject.alertMode = self.vibrateSwitch.isOn ? .Both : .SoundOnly
             self.timerObject.soundMode = .Sound
+            self.artistSoundSelectPicker.isAccessibilityElement = true
+            self.songSelectPicker.isAccessibilityElement = false
 
         case SoundMode.Music.rawValue:
+            self.artistSoundSelectPicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ARTIST-SELECT-PICKER-LABEL".localizedVariant
+            self.artistSoundSelectPicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ARTIST-SELECT-PICKER-HINT".localizedVariant
             self.timerObject.alertMode = self.vibrateSwitch.isOn ? .Both : .SoundOnly
             self.timerObject.soundMode = .Music
             self.startSpinner()
             self.loadMediaLibrary()
+            self.artistSoundSelectPicker.isAccessibilityElement = true
+            self.songSelectPicker.isAccessibilityElement = true
 
         case SoundMode.Silent.rawValue:
             self.timerObject.alertMode = self.vibrateSwitch.isOn ? .VibrateOnly : .Silent
             self.timerObject.soundMode = .Silent
-            
+            self.artistSoundSelectPicker.isAccessibilityElement = false
+            self.songSelectPicker.isAccessibilityElement = false
+
         default:
             break
         }
@@ -487,16 +497,10 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         self.soundModeSegmentedSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-LABEL".localizedVariant
         self.soundModeSegmentedSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-HINT".localizedVariant
         
-        let sortedViews = self.soundModeSegmentedSwitch.subviews.sorted(by: { $0.frame.origin.x < $1.frame.origin.x })
-        
-        sortedViews[0].accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-SOUND-LABEL".localizedVariant
-        sortedViews[0].accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-SOUND-HINT".localizedVariant
-        
-        sortedViews[1].accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-MUSIC-LABEL".localizedVariant
-        sortedViews[1].accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-MUSIC-HINT".localizedVariant
-        
-        sortedViews[2].accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-SILENCE-LABEL".localizedVariant
-        sortedViews[2].accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-SILENCE-HINT".localizedVariant
+        for segment in self.soundModeSegmentedSwitch.subviews {
+            segment.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-LABEL".localizedVariant
+            segment.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-HINT".localizedVariant
+        }
 
         self.testSoundButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TEST-SOUND-BUTTON-LABEL".localizedVariant
         self.testSoundButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TEST-SOUND-BUTTON-HINT".localizedVariant
@@ -504,23 +508,11 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         self.musicTestButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TEST-SONG-BUTTON-LABEL".localizedVariant
         self.musicTestButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TEST-SONG-BUTTON-HINT".localizedVariant
         
-        switch self.timerObject.soundMode {
-        case .Sound:
-            self.artistSoundSelectPicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-LABEL".localizedVariant
-            self.artistSoundSelectPicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-HINT".localizedVariant
-
-        case .Music:
-            self.artistSoundSelectPicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ARTIST-SELECT-PICKER-LABEL".localizedVariant
-            self.artistSoundSelectPicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ARTIST-SELECT-PICKER-HINT".localizedVariant
-            self.songSelectPicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SONG-SELECT-PICKER-LABEL".localizedVariant
-            self.songSelectPicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SONG-SELECT-PICKER-HINT".localizedVariant
-
-        case .Silent:
-            break
-       }
-        
         self.doneButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-LABEL".localizedVariant
         self.doneButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-HINT".localizedVariant
+        
+        self.songSelectPicker.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SONG-SELECT-PICKER-LABEL".localizedVariant
+        self.songSelectPicker.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SONG-SELECT-PICKER-HINT".localizedVariant
         
         UIAccessibility.post(notification: .layoutChanged, argument: self.soundModeSegmentedSwitch)
     }
@@ -653,6 +645,21 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
             if !songURL.isEmpty {
                 self.timerObject.songURLString = songURL
             }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inComponent: Int) -> String? {
+        if self.artistSoundSelectPicker == inPickerView {
+            if self.timerObject.soundMode == .Sound {
+                return "LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-LABEL".localizedVariant + ", " + "LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-HINT".localizedVariant
+            } else {
+                return "LGV_TIMER-ACCESSIBILITY-ARTIST-SELECT-PICKER-LABEL".localizedVariant + ", " + "LGV_TIMER-ACCESSIBILITY-ARTIST-SELECT-PICKER-HINT".localizedVariant
+            }
+        } else {
+            return "LGV_TIMER-ACCESSIBILITY-SONG-SELECT-PICKER-LABEL".localizedVariant + ", " + "LGV_TIMER-ACCESSIBILITY-SONG-SELECT-PICKER-HINT".localizedVariant
         }
     }
 }
