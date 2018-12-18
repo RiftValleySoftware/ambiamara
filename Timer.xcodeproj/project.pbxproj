@@ -97,7 +97,7 @@
 		7770CB2F1ED6156300ED1F9A /* TimerSetupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimerSetupController.swift; path = ViewControllers/TimerSetupController.swift; sourceTree = "<group>"; };
 		7789C3231ED61CEF009EAB3D /* TimerBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimerBaseViewController.swift; path = ViewControllers/TimerBaseViewController.swift; sourceTree = "<group>"; };
 		77BB98E01F12838F0062B14A /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimerEngine.swift; path = "App Files/TimerEngine.swift"; sourceTree = "<group>"; };
-		77EFB3DC1ED5C1A800BDDEFF /* Rift Valley Countdown Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rift Valley Countdown Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		77EFB3DC1ED5C1A800BDDEFF /* AagoMi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AagoMi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77F86DE71F213408003BDD73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77F86DE91F213408003BDD73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77F86DF51F213408003BDD73 /* LGV_Timer_Watch_ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_Timer_Watch_ExtensionDelegate.swift; sourceTree = "<group>"; };
@@ -257,7 +257,7 @@
 		77EFB3DD1ED5C1A800BDDEFF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				77EFB3DC1ED5C1A800BDDEFF /* Rift Valley Countdown Timer.app */,
+				77EFB3DC1ED5C1A800BDDEFF /* AagoMi.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -364,9 +364,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		77EFB3DB1ED5C1A800BDDEFF /* Rift Valley Countdown Timer */ = {
+		77EFB3DB1ED5C1A800BDDEFF /* AagoMi */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 77EFB3EE1ED5C1A800BDDEFF /* Build configuration list for PBXNativeTarget "Rift Valley Countdown Timer" */;
+			buildConfigurationList = 77EFB3EE1ED5C1A800BDDEFF /* Build configuration list for PBXNativeTarget "AagoMi" */;
 			buildPhases = (
 				771335521FE0472D00BB7D03 /* SwiftLint */,
 				77EFB3D81ED5C1A800BDDEFF /* Sources */,
@@ -377,9 +377,9 @@
 			);
 			dependencies = (
 			);
-			name = "Rift Valley Countdown Timer";
+			name = AagoMi;
 			productName = LGV_Timer;
-			productReference = 77EFB3DC1ED5C1A800BDDEFF /* Rift Valley Countdown Timer.app */;
+			productReference = 77EFB3DC1ED5C1A800BDDEFF /* AagoMi.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -420,7 +420,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				77EFB3DB1ED5C1A800BDDEFF /* Rift Valley Countdown Timer */,
+				77EFB3DB1ED5C1A800BDDEFF /* AagoMi */,
 			);
 		};
 /* End PBXProject section */
@@ -714,7 +714,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Main App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "${inherited}";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.countdown-timer";
+				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.aagomi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 4.2;
@@ -733,7 +733,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Main App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.countdown-timer";
+				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.aagomi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 4.2;
@@ -752,7 +752,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		77EFB3EE1ED5C1A800BDDEFF /* Build configuration list for PBXNativeTarget "Rift Valley Countdown Timer" */ = {
+		77EFB3EE1ED5C1A800BDDEFF /* Build configuration list for PBXNativeTarget "AagoMi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				77EFB3EF1ED5C1A800BDDEFF /* Debug */,

@@ -1,3 +1,6 @@
+***Version 1.0.0.2019* ** *(TBD)*
+- Renamed the app to "AagoMi".
+
 ***Version 1.0.0.2018* ** *(December 16, 2018)*
 - Fixed a localization bug in the info screen.
 - More accessibility work.

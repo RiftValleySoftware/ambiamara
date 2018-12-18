@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-               BuildableName = "Rift Valley Countdown Timer.app"
-               BlueprintName = "Rift Valley Countdown Timer"
+               BuildableName = "AagoMi.app"
+               BlueprintName = "AagoMi"
                ReferencedContainer = "container:Timer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-            BuildableName = "Rift Valley Countdown Timer.app"
-            BlueprintName = "Rift Valley Countdown Timer"
+            BuildableName = "AagoMi.app"
+            BlueprintName = "AagoMi"
             ReferencedContainer = "container:Timer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-            BuildableName = "Rift Valley Countdown Timer.app"
-            BlueprintName = "Rift Valley Countdown Timer"
+            BuildableName = "AagoMi.app"
+            BlueprintName = "AagoMi"
             ReferencedContainer = "container:Timer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +75,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "77EFB3DB1ED5C1A800BDDEFF"
-            BuildableName = "Rift Valley Countdown Timer.app"
-            BlueprintName = "Rift Valley Countdown Timer"
+            BuildableName = "AagoMi.app"
+            BlueprintName = "AagoMi"
             ReferencedContainer = "container:Timer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
