@@ -18,7 +18,7 @@
         <!--Timer Navigation Controller-->
         <scene sceneID="lXU-0R-r9G">
             <objects>
-                <navigationController storyboardIdentifier="LGV_Timer_TimerNavController" title="Timer Navigation Controller" id="RhK-pG-4ta" customClass="TimerNavController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LGV_Timer_TimerNavController" title="Timer Navigation Controller" id="RhK-pG-4ta" customClass="TimerNavController" customModule="AaGomi" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="oDm-vU-50Y"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="eRP-fW-XSv">
@@ -42,7 +42,7 @@
         <!--Timer Set and Start-->
         <scene sceneID="7Ku-yx-4MG">
             <objects>
-                <viewController title="Timer Set and Start" id="Y3X-jz-wfO" customClass="TimerSetController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Timer Set and Start" id="Y3X-jz-wfO" customClass="TimerSetController" customModule="AaGomi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gVx-u0-GdF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -245,7 +245,7 @@
         <!--Timer Runtime-->
         <scene sceneID="hTo-Uo-hbx">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="pId-dv-a9R" userLabel="Timer Runtime" customClass="TimerRuntimeViewController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="pId-dv-a9R" userLabel="Timer Runtime" customClass="TimerRuntimeViewController" customModule="AaGomi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VER-Lg-FXG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -253,7 +253,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yh-KU-1zx" userLabel="Display Container">
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <subviews>
-                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvk-HB-53P" customClass="LED_ClockView" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvk-HB-53P" customClass="LED_ClockView" customModule="AaGomi" customModuleProvider="target">
                                         <rect key="frame" x="4" y="0.0" width="312" height="548"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
@@ -388,7 +388,7 @@
         <!--Timer Settings-->
         <scene sceneID="diB-ql-vKz">
             <objects>
-                <viewController title="Timer Settings" id="Cmw-cs-f0x" customClass="TimerSetupController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Timer Settings" id="Cmw-cs-f0x" customClass="TimerSetupController" customModule="AaGomi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="m5H-jP-7bL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -504,7 +504,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSd-xp-cyv">
                                 <rect key="frame" x="16" y="441" width="288" height="71"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo6-5G-Rn0" customClass="TimerSoundModeButton" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo6-5G-Rn0" customClass="TimerSoundModeButton" customModule="AaGomi" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="11.5" width="288" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="BlD-kg-dAA"/>
@@ -591,7 +591,7 @@
         <!--Timer List-->
         <scene sceneID="B0X-9f-pVT">
             <objects>
-                <viewController title="Main Timer Settings" id="dZU-jO-ENB" userLabel="Timer List" customClass="Timer_SettingsViewController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Main Timer Settings" id="dZU-jO-ENB" userLabel="Timer List" customClass="Timer_SettingsViewController" customModule="AaGomi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WlI-lT-4T0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -602,7 +602,7 @@
                                 <color key="separatorColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SingleTimerCell" id="ac3-fZ-O32" customClass="SettingsTimerTableCell" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SingleTimerCell" id="ac3-fZ-O32" customClass="SettingsTimerTableCell" customModule="AaGomi" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="288" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ac3-fZ-O32" id="KvH-ni-liP">
@@ -781,12 +781,12 @@
         <!--Info-->
         <scene sceneID="MrX-RY-GB5">
             <objects>
-                <viewController title="LGV_TIMER-INFO-TITLE-FORMAT" modalTransitionStyle="partialCurl" hidesBottomBarWhenPushed="YES" id="PKI-7x-KlB" userLabel="Info" customClass="Timer_InfoViewController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="LGV_TIMER-INFO-TITLE-FORMAT" modalTransitionStyle="partialCurl" hidesBottomBarWhenPushed="YES" id="PKI-7x-KlB" userLabel="Info" customClass="Timer_InfoViewController" customModule="AaGomi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pCc-NV-qjF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="agq-yz-VPb" customClass="TheGreatRiftValleyDrawing" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="agq-yz-VPb" customClass="TheGreatRiftValleyDrawing" customModule="AaGomi" customModuleProvider="target">
                                 <rect key="frame" x="96" y="20" width="128" height="128"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -888,7 +888,7 @@
         <!--Timer Setup Sounds View Controller-->
         <scene sceneID="90U-Nz-OnS">
             <objects>
-                <viewController id="avR-jN-gqo" customClass="Timer_SetupSoundsViewController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="avR-jN-gqo" customClass="Timer_SetupSoundsViewController" customModule="AaGomi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HLm-Em-6mF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -997,7 +997,7 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icb-vL-3zB" userLabel="Test Sound Button Container View">
                                 <rect key="frame" x="8" y="231" width="304" height="234"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2wp-vs-RMZ" customClass="SoundTestButton" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2wp-vs-RMZ" customClass="SoundTestButton" customModule="AaGomi" customModuleProvider="target">
                                         <rect key="frame" x="127" y="92" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="2wp-vs-RMZ" secondAttribute="height" multiplier="1:1" id="QlH-fz-llO"/>
@@ -1022,7 +1022,7 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdT-fG-3D9" userLabel="Music Test Button Container View">
                                 <rect key="frame" x="8" y="351" width="304" height="114"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KkI-hg-1Rx" customClass="SoundTestButton" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KkI-hg-1Rx" customClass="SoundTestButton" customModule="AaGomi" customModuleProvider="target">
                                         <rect key="frame" x="127" y="32" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="lJy-R8-E3U"/>
@@ -1185,7 +1185,7 @@
         <!--Timer List Navigation Controller-->
         <scene sceneID="dWu-Eb-ueo">
             <objects>
-                <navigationController title="Timer List Navigation Controller" modalTransitionStyle="crossDissolve" id="sDn-VD-xYI" customClass="TimerSettingsNavController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController title="Timer List Navigation Controller" modalTransitionStyle="crossDissolve" id="sDn-VD-xYI" customClass="TimerSettingsNavController" customModule="AaGomi" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" id="Y9h-rb-Dgm"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Vpb-uI-amC">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
@@ -1205,7 +1205,7 @@
         <!--Main Tab Controller-->
         <scene sceneID="8ZY-33-Rjt">
             <objects>
-                <tabBarController title="Main Tab Controller" modalTransitionStyle="partialCurl" id="mvc-fj-sq5" customClass="Timer_MainTabController" customModule="Rift_Valley_Countdown_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController title="Main Tab Controller" modalTransitionStyle="partialCurl" id="mvc-fj-sq5" customClass="Timer_MainTabController" customModule="AaGomi" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="egp-Ba-Cka">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>

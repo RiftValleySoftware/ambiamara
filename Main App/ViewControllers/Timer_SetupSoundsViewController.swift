@@ -494,12 +494,12 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         self.audibleTicksSwitchButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-AUDIBLE-TICKS-SWITCH-LABEL".localizedVariant
         self.audibleTicksSwitchButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-AUDIBLE-TICKS-SWITCH-HINT".localizedVariant
         
-        self.soundModeSegmentedSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-LABEL".localizedVariant
-        self.soundModeSegmentedSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-HINT".localizedVariant
-        
-        for segment in self.soundModeSegmentedSwitch.subviews {
-            segment.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-LABEL".localizedVariant
-            segment.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-HINT".localizedVariant
+        for trailer in ["Speaker", "Music", "Nothing"].enumerated() {
+            let imageName = trailer.element
+            if let image = UIImage(named: imageName) {
+                image.accessibilityLabel = ("LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-" + trailer.element + "-LABEL").localizedVariant
+                self.soundModeSegmentedSwitch.setImage(image, forSegmentAt: trailer.offset)
+            }
         }
 
         self.testSoundButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TEST-SOUND-BUTTON-LABEL".localizedVariant

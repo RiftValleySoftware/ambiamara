@@ -1,3 +1,6 @@
+***Version 1.0.0.2020* ** *(TBD)*
+- More work on setting up accessibility.
+
 ***Version 1.0.0.2019* ** *(December 18, 2019)*
 - Renamed the app to "AaGomi".
 

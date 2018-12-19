@@ -156,13 +156,13 @@ class TimerSetupController: TimerSetPickerController {
      */
     override func addAccessibilityStuff() {
         super.addAccessibilityStuff()
-        
-        self.timerModeSegmentedSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SEGMENTED-LABEL".localizedVariant
-        self.timerModeSegmentedSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SEGMENTED-HINT".localizedVariant
 
-        for segment in self.timerModeSegmentedSwitch.subviews {
-            segment.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SEGMENTED-LABEL".localizedVariant
-            segment.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SEGMENTED-HINT".localizedVariant
+        for trailer in ["Digits", "Lights", "Both"].enumerated() {
+            let imageName = "TimerModeImages-" + trailer.element
+            if let image = UIImage(named: imageName) {
+                image.accessibilityLabel = ("LGV_TIMER-ACCESSIBILITY-SEGMENTED-TIMER-MODE-" + trailer.element + "-LABEL").localizedVariant
+                self.timerModeSegmentedSwitch.setImage(image, forSegmentAt: trailer.offset)
+            }
         }
         
         self.warningThresholdLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-LABEL".localizedVariant

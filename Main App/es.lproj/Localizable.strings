@@ -141,8 +141,10 @@
 
 /* TIMER SETTINGS SCREEN */
 
-"LGV_TIMER-ACCESSIBILITY-SEGMENTED-LABEL"               =   "Timer Mode Selection";
-"LGV_TIMER-ACCESSIBILITY-SEGMENTED-HINT"                =   "This is a segmented switch with three segments. The leftmost segment is Digital Mode, and the timer will display a simple digital display during countdown. The center segment is Podium Mode, where three simple \"traffic lights\" are displayed during the countdown. The rightmost segment is Dual Mode, where the \"traffic lights\" are displayed below the digital display.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-TIMER-MODE-Digits-LABEL" =   "Digital Mode. The timer will display a simple digital display during countdown.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-TIMER-MODE-Lights-LABEL" =   "Podium Mode. The timer will display three simple \"traffic lights\" during the countdown.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-TIMER-MODE-Both-LABEL"   =   "Dual Mode. The timer will display digits during the countdown, and underneath the digits, will be three simple \"traffic lights.\"";
+
 "LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-LABEL"            =   "Digital Display Color";
 "LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-HINT"             =   "This picker has a column of colors. You can select a color, and that is what will be used for Digital and Dual Mode displays. It will not be available for Podium Mode.";
 
@@ -169,8 +171,9 @@
 "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-LABEL"          =   "Vibrate On Alarm";
 "LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-HINT"           =   "If this switch is on, then the phone will vibrate as the alarm sounds.";
 
-"LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-LABEL"       =   "Play Sound";
-"LGV_TIMER-ACCESSIBILITY-SOUND-MODE-SWITCH-HINT"        =   "This is a segmented switch that will allow you to select from a collection of preset sounds (leftmost segment), a song from your music library (center segment), or no sound at all (rightmost segment) when the alarm goes off.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Speaker-LABEL"    =   "Play Selected Sound. Upon completion, the timer will play a sound that you will select in the picker below.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Music-LABEL"      =   "Play Selected Song. Upon completion, the timer will play a song that you select from your music library, using the pickers below.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Nothing-LABEL"    =   "Silent. There will be no audible alarm upon timer completion.";
 
 "LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-LABEL"     =   "Select A Sound";
 "LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-HINT"      =   "Select one of several preset sounds to play when the alarm goes off.";
