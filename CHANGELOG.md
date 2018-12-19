@@ -1,7 +1,8 @@
-***Version 1.0.0.2020* ** *(TBD)*
+***Version 1.0.0.2020* ** *(December 19, 2018)*
 - More work on setting up accessibility.
+- Changed name again, to "AmbiaMara"
 
-***Version 1.0.0.2019* ** *(December 18, 2019)*
+***Version 1.0.0.2019* ** *(December 18, 2018)*
 - Renamed the app to "AaGomi".
 
 ***Version 1.0.0.2018* ** *(December 16, 2018)*
