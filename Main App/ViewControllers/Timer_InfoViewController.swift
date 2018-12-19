@@ -53,7 +53,7 @@ class Timer_InfoViewController: TimerBaseViewController {
                 if let versionTemp = plistDictionary["CFBundleShortVersionString"] as? NSString {
                     appVersion = versionTemp as String
                 }
-                if let versionTemp = plistDictionary["CFBundleDisplayName"] as? NSString {
+                if let versionTemp = plistDictionary["CFBundleName"] as? NSString {
                     appName = versionTemp as String
                 }
             }

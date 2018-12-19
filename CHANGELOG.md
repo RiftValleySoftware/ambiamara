@@ -1,3 +1,6 @@
+***Version 1.0.0.2021* ** *(TBD)*
+- Changed the source of the display name in the info screen.
+
 ***Version 1.0.0.2020* ** *(December 19, 2018)*
 - More work on setting up accessibility.
 - Changed name again, to "AmbiaMara"
