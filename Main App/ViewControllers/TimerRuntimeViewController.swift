@@ -173,7 +173,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
                 do {
                     try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
                     try self.tickPlayer = AVAudioPlayer(contentsOf: inSoundURL)
-                    self.tickPlayer?.volume = self._tickVolume
+                    self.tickPlayer?.volume = self._tickVolume * Float(inTimes)
                     self.tickPlayer?.numberOfLoops = inTimes
                     self.tickPlayer?.play()
                 } catch {

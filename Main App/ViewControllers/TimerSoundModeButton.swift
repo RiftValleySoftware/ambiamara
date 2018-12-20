@@ -34,6 +34,12 @@ class TimerSoundModeButton: UIButton {
         }
     }
     
+    @IBInspectable var isTicksOn: Bool = false {
+        didSet {
+            self.setNeedsDisplay()
+        }
+    }
+
     /* ################################################################## */
     // MARK: - Instance Superclass Overrides
     /* ################################################################## */
@@ -121,7 +127,7 @@ class TimerSoundModeButton: UIButton {
             if let tempImage = UIImage(named: "VibrateIcon")?.withRenderingMode(.alwaysTemplate) {
                 imageArray.append(tempImage)
             }
-        } else if !self.isMusicOn, !self.isSoundOn {
+        } else if !self.isMusicOn, !self.isSoundOn, !self.isTicksOn {
             if let tempImage = UIImage(named: "Nothing")?.withRenderingMode(.alwaysTemplate) {
                 imageArray.append(tempImage)
             }
@@ -137,6 +143,12 @@ class TimerSoundModeButton: UIButton {
             }
         }
         
+        if self.isTicksOn {
+            if let tempImage = UIImage(named: "Ticks")?.withRenderingMode(.alwaysTemplate) {
+                imageArray.append(tempImage)
+            }
+        }
+
         if 0 < imageArray.count {
             var width: CGFloat = imageArray[0].size.width
             var height: CGFloat = imageArray[0].size.height
