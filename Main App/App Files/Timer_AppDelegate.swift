@@ -197,7 +197,21 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return self.orientationLock
     }
-    
+
+    /* ################################################################## */
+    /**
+     Called when the app goes into the background.
+     This will ensure the current timer state is saved.
+     
+     - parameter application: The application object.
+     */
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        if nil != self.timerEngine {
+            self.sendBackgroundMessage()
+            self.timerEngine.savePrefs()
+        }
+    }
+
     /* ################################################################## */
     /**
      Commented out, as we are not using the companion app.
@@ -214,22 +228,6 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
 //    func applicationWillEnterForeground(_ application: UIApplication) {
 //        self.sendForegroundMessage()
 //    }
-
-    /* ################################################################## */
-    /**
-     Called when the app goes into the background.
-     This will ensure the current timer state is saved.
-     
-     - parameter application: The application object.
-     */
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        if nil != self.timerEngine {
-            self.timerEngine.stopTimer()
-            self.timerEngine.selectedTimerIndex = -1
-            self.sendBackgroundMessage()
-            self.timerEngine.savePrefs()
-        }
-    }
     
     /* ################################################################## */
     /**

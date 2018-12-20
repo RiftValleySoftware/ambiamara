@@ -24,19 +24,19 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashLogo" translatesAutoresizingMaskIntoConstraints="NO" id="MkP-lI-0bj">
                                 <rect key="frame" x="57.5" y="203.5" width="260" height="260"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="260" id="pw3-SE-HEb"/>
-                                    <constraint firstAttribute="height" constant="260" id="zuY-DQ-lLL"/>
+                                    <constraint firstAttribute="width" constant="260" id="XqH-bn-gwC"/>
+                                    <constraint firstAttribute="width" secondItem="MkP-lI-0bj" secondAttribute="height" multiplier="1:1" id="Yd4-6s-Js4"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="MkP-lI-0bj" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="228-fV-Czd"/>
-                            <constraint firstItem="MkP-lI-0bj" firstAttribute="centerX" secondItem="fGb-N6-vhw" secondAttribute="centerX" id="763-ke-ERo"/>
-                            <constraint firstItem="CWD-SK-yaX" firstAttribute="top" secondItem="fGb-N6-vhw" secondAttribute="top" constant="-20" id="JzU-ba-Yqs"/>
-                            <constraint firstItem="CWD-SK-yaX" firstAttribute="leading" secondItem="fGb-N6-vhw" secondAttribute="leading" id="MDi-wt-UrU"/>
-                            <constraint firstItem="fGb-N6-vhw" firstAttribute="trailing" secondItem="CWD-SK-yaX" secondAttribute="trailing" id="N79-1N-xh4"/>
-                            <constraint firstItem="fGb-N6-vhw" firstAttribute="bottom" secondItem="CWD-SK-yaX" secondAttribute="bottom" id="ehX-9m-NS3"/>
+                            <constraint firstItem="MkP-lI-0bj" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Ec9-vu-sm7"/>
+                            <constraint firstItem="CWD-SK-yaX" firstAttribute="bottom" secondItem="fGb-N6-vhw" secondAttribute="bottom" id="H8x-Y6-EUw"/>
+                            <constraint firstItem="CWD-SK-yaX" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="hnW-H6-eiM"/>
+                            <constraint firstItem="CWD-SK-yaX" firstAttribute="trailing" secondItem="fGb-N6-vhw" secondAttribute="trailing" id="tHg-HR-Af6"/>
+                            <constraint firstItem="MkP-lI-0bj" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ydi-12-oYj"/>
+                            <constraint firstItem="CWD-SK-yaX" firstAttribute="leading" secondItem="fGb-N6-vhw" secondAttribute="leading" id="yst-Ox-wol"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fGb-N6-vhw"/>
                     </view>
