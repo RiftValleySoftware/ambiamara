@@ -4,6 +4,7 @@
 - The window no longer goes to the timer list when the app backgrounds (but the timer will pause).
 - The splash screen looks better.
 - Added an image for audible ticks in the sound mode button.
+- I now disable the Music segment if the app is denied or restricted.
 
 ***Version 1.0.0.2020* ** *(December 19, 2018)*
 - More work on setting up accessibility.

@@ -9,6 +9,7 @@
 */
 
 import UIKit
+import MediaPlayer
 
 /* ################################################################################################################################## */
 // MARK: - LGV_Timer_TimerEngineDelegate Protocol -
@@ -401,8 +402,14 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         if self.timers.isEmpty {
             let temp = self.createNewTimer()
             temp.storedColor = self.getIndexedColorThemeColor(temp.colorTheme)
-       }
+        }
         
+        // If we are in restricted media mode, then we don't allow any of our timers to be in Music mode.
+        if .denied == MPMediaLibrary.authorizationStatus() || .restricted == MPMediaLibrary.authorizationStatus() {
+            for timer in self.timers where .Music == timer.soundMode {  // Only ones that are set to Music get changed.
+                timer.soundMode = .Silent
+            }
+        }
         self.selectedTimerIndex = -1
         self.savePrefs()
     }

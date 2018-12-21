@@ -34,5 +34,5 @@ line_length:
 - 500 # error
 
 cyclomatic_complexity:
-- 15 # warning
-- 16 # error
+- 17 # warning
+- 20 # error

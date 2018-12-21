@@ -256,6 +256,15 @@ class Timer_SetupSoundsViewController: TimerSetPickerController {
         self.vibrateButton.isHidden = self.vibrateSwitch.isHidden
         self.vibrateSwitch.isOn = ("iPad" != UIDevice.current.model) && (self.timerObject.alertMode == .VibrateOnly) || (self.timerObject.alertMode == .Both)
         self.audibleTicksSwitch.isOn = self.timerObject.audibleTicks
+        if .denied == MPMediaLibrary.authorizationStatus() || .restricted == MPMediaLibrary.authorizationStatus() {
+            if .Music == self.timerObject.soundMode {   // Make sure that we don't have a disabled segment selected.
+                self.timerObject.soundMode = .Silent
+            }
+            self.soundModeSegmentedSwitch.setEnabled(false, forSegmentAt: 1)
+        } else {
+            self.soundModeSegmentedSwitch.setEnabled(true, forSegmentAt: 1)
+        }
+        
         self.soundModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.soundMode.rawValue
         self.artistSoundSelectPickerContainerView.isHidden = .Silent == self.timerObject.soundMode || (.Music == self.timerObject.soundMode && (Timer_AppDelegate.appDelegateObject.songs.isEmpty || Timer_AppDelegate.appDelegateObject.artists.isEmpty))
         self.songSelectPickerContainerView.isHidden = .Music != self.timerObject.soundMode || Timer_AppDelegate.appDelegateObject.songs.isEmpty || Timer_AppDelegate.appDelegateObject.artists.isEmpty

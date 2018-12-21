@@ -158,18 +158,28 @@ class TimerSoundModeButton: UIButton {
                 height = Swift.max(height, imageArray[1].size.height)
             }
             
+            if 2 < imageArray.count {
+                width += (8 + imageArray[2].size.width)
+                height = Swift.max(height, imageArray[2].size.height)
+            }
+
             let imageFrame = CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: height))
-            // At this point, imageArray now contains up to two images. One will be either the vibrate icon, or the nothing icon (if silent). The other will be either nothing, the music note image, or the speaker image.
+            // At this point, imageArray now contains up to three images. One will be either the vibrate icon, or the nothing icon (if silent). The other will be the ticks icon (if silent), the music note image, or the speaker image. If the audible ticks switch is on, the third could be the ticks icon.
             UIGraphicsBeginImageContextWithOptions(imageFrame.size, false, 0.0)
             
             let imageRect = CGRect(origin: CGPoint(x: 0, y: imageFrame.midY - (imageArray[0].size.height / 2)), size: imageArray[0].size)
             imageArray[0].draw(in: imageRect)
             
-            if 2 == imageArray.count {
+            if 2 <= imageArray.count {
                 let imageRect = CGRect(origin: CGPoint(x: imageArray[0].size.width + 8, y: imageFrame.midY - (imageArray[1].size.height / 2)), size: imageArray[1].size)
                 imageArray[1].draw(in: imageRect)
             }
             
+            if 3 == imageArray.count {
+                let imageRect = CGRect(origin: CGPoint(x: imageArray[0].size.width + 8 + imageArray[1].size.width + 8, y: imageFrame.midY - (imageArray[2].size.height / 2)), size: imageArray[2].size)
+                imageArray[2].draw(in: imageRect)
+            }
+
             if let combinedImage = UIGraphicsGetImageFromCurrentImageContext() {
                 UIGraphicsEndImageContext()
                 
