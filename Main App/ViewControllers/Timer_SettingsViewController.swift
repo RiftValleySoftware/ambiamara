@@ -25,7 +25,8 @@ class TimerSettingsNavController: UINavigationController {
 /**
  This is the main controller class for the "global" settings tab screen.
  */
-class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate, UITableViewDataSource {
+class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelegate, UITableViewDataSource {
+    /* ################################################################################################################################## */
     // MARK: - IB Properties
     /* ################################################################################################################################## */
     @IBOutlet weak var timerTableView: UITableView!
@@ -37,10 +38,12 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
     
     private let _info_segue_id = "segue-id-info"
     
+    /* ################################################################################################################################## */
     // MARK: - Internal Instance Properties
     /* ################################################################################################################################## */
     var mainTabController: Timer_MainTabController! = nil
     
+    /* ################################################################################################################################## */
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -91,9 +94,8 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
         self.timerTableView.reloadData()
         Timer_AppDelegate.appDelegateObject.sendSelectMessage()
     }
-        
-    // MARK: - Internal Instance Methods
 
+    /* ################################################################################################################################## */
     // MARK: - IBAction Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -141,6 +143,7 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
         self.performSegue(withIdentifier: self._info_segue_id, sender: nil)
     }
     
+    /* ################################################################################################################################## */
     // MARK: - UITableViewDataSource Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -214,6 +217,7 @@ class Timer_SettingsViewController: TimerBaseViewController, UITableViewDelegate
         }
     }
     
+    /* ################################################################################################################################## */
     // MARK: - UITableViewDelegate Methods
     /* ################################################################################################################################## */
     /* ################################################################## */

@@ -15,7 +15,7 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-class Timer_InfoViewController: TimerBaseViewController {
+class Timer_InfoViewController: A_TimerBaseViewController {
     /// This is the URI for the corporation. It is not localized.
     let corporateURI =   "https://riftvalleysoftware.com"
     /// This is the name of the corporation. It is not localized.

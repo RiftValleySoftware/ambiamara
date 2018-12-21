@@ -13,7 +13,7 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-class TimerNavBaseController: TimerBaseViewController {
+class A_TimerNavBaseController: A_TimerBaseViewController {
     class InvertedMaskLabel: UILabel {
         override func drawText(in rect: CGRect) {
             guard let gc = UIGraphicsGetCurrentContext() else { return }
@@ -155,7 +155,7 @@ class TimerNavBaseController: TimerBaseViewController {
 /* ###################################################################################################################################### */
 /**
  */
-class TimerSetPickerController: TimerNavBaseController, UIPickerViewDelegate, UIPickerViewDataSource, UIPickerViewAccessibilityDelegate {
+class A_TimerSetPickerController: A_TimerNavBaseController, UIPickerViewDelegate, UIPickerViewDataSource, UIPickerViewAccessibilityDelegate {
     enum Components: Int {
         case Hours = 0, Minutes, Seconds
     }

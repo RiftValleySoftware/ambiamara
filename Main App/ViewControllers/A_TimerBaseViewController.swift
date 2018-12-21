@@ -16,10 +16,10 @@ import UIKit
 
 /* ###################################################################################################################################### */
 /**
- This is a base class for view controllers used in the app.
+ This is an abstract base class for view controllers used in the app.
  */
 @IBDesignable
-class TimerBaseViewController: UIViewController {
+class A_TimerBaseViewController: UIViewController {
     /* ################################################################################################################################## */
     // MARK: - Instance Constant Properties
     /* ################################################################################################################################## */

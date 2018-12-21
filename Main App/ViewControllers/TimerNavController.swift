@@ -30,7 +30,7 @@ class TimerNavController: UINavigationController, UINavigationControllerDelegate
         
         set {
             self._timerObject = newValue
-            if let controller = self.topViewController as? TimerNavBaseController {
+            if let controller = self.topViewController as? A_TimerNavBaseController {
                 controller.timerObject = self._timerObject
             }
         }
@@ -46,7 +46,7 @@ class TimerNavController: UINavigationController, UINavigationControllerDelegate
     /**
      */
     var tabBarText: String {
-        if let topController = self.topViewController as? TimerNavBaseController {
+        if let topController = self.topViewController as? A_TimerNavBaseController {
             return topController.tabBarText
         }
         return ""
@@ -56,7 +56,7 @@ class TimerNavController: UINavigationController, UINavigationControllerDelegate
     /**
      */
     var tabBarImage: UIImage {
-        if let topController = self.topViewController as? TimerNavBaseController {
+        if let topController = self.topViewController as? A_TimerNavBaseController {
             return topController.tabBarImage
         }
         return UIImage()
@@ -67,7 +67,7 @@ class TimerNavController: UINavigationController, UINavigationControllerDelegate
      */
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if self == navigationController {
-            if let newViewController = viewController as? TimerSetPickerController {
+            if let newViewController = viewController as? A_TimerSetPickerController {
                 if !self.timerObject.selected {
                     self.timerObject.selected = true
                 }

@@ -17,7 +17,7 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-class TimerSetController: TimerSetPickerController {
+class TimerSetController: A_TimerSetPickerController {
     static let switchToSettingsSegueID = "timer-segue-to-settings"
     static let startTimerSegueID = "timer-segue-to-start-timer"
     
@@ -285,7 +285,7 @@ class TimerSetController: TimerSetPickerController {
             self.runningTimer = destinationController
         }
         
-        if let destinationController = segue.destination as? TimerNavBaseController {
+        if let destinationController = segue.destination as? A_TimerNavBaseController {
             destinationController.timerObject = self.timerObject
         }
     }

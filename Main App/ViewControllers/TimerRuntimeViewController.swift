@@ -17,7 +17,8 @@ import AVKit
 /* ###################################################################################################################################### */
 /**
  */
-class TimerRuntimeViewController: TimerNavBaseController {
+class TimerRuntimeViewController: A_TimerNavBaseController {
+    /* ################################################################################################################################## */
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
     private let _stoplightDualModeHeightFactor: CGFloat = 0.15
@@ -25,6 +26,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
     private let _tickVolume: Float = 0.005
     private var _originalValue: Int = 0                         ///< Tracks the last value, so we make sure we don't "blink" until we're supposed to.
     
+    /* ################################################################################################################################## */
     // MARK: - Internal Constant Instance Properties
     /* ################################################################################################################################## */
     let pauseButtonImageName = "Phone-Pause"
@@ -34,6 +36,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
     let yellowStoplightImageName = "YellowLight"
     let redStoplightImageName = "RedLight"
     
+    /* ################################################################################################################################## */
     // MARK: - Internal Instance Properties
     /* ################################################################################################################################## */
     var stoplightContainerView: UIView! = nil
@@ -44,6 +47,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
     var audioPlayer: AVAudioPlayer!
     var tickPlayer: AVAudioPlayer!
 
+    /* ################################################################################################################################## */
     // MARK: - IB Properties
     /* ################################################################################################################################## */
     @IBOutlet weak var pauseButton: UIBarButtonItem!
@@ -60,6 +64,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
     @IBOutlet var resetSwipeRecognizer: UISwipeGestureRecognizer!
     @IBOutlet var endSwipeRecognizer: UISwipeGestureRecognizer!
     
+    /* ################################################################################################################################## */
     // MARK: - Private Instance Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -213,6 +218,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
         }
     }
 
+    /* ################################################################################################################################## */
     // MARK: - Internal Instance Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -325,6 +331,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
         }
     }
 
+    /* ################################################################################################################################## */
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -481,6 +488,7 @@ class TimerRuntimeViewController: TimerNavBaseController {
         UIAccessibility.post(notification: .layoutChanged, argument: self.timeDisplay)
     }
 
+    /* ################################################################################################################################## */
     // MARK: - IB Action Methods
     /* ################################################################################################################################## */
     /* ################################################################## */

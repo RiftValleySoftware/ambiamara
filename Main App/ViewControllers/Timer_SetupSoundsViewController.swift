@@ -19,7 +19,7 @@ import AVKit
 /* ###################################################################################################################################### */
 /**
  */
-class Timer_SetupSoundsViewController: TimerSetPickerController {
+class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     /// This is the size of our label text.
     let labelTextSize: CGFloat = 20
     

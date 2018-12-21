@@ -19,7 +19,7 @@ import AVKit
 /* ###################################################################################################################################### */
 /**
  */
-class TimerSetupController: TimerSetPickerController {
+class TimerSetupController: A_TimerSetPickerController {
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
     @IBOutlet weak var podiumModeContainerView: UIView!
     @IBOutlet weak var warningThresholdLabel: UILabel!
@@ -41,6 +41,7 @@ class TimerSetupController: TimerSetPickerController {
         self.colorPickerContainerView.isHidden = (.Podium == self.timerObject.displayMode)
     }
     
+    /* ################################################################################################################################## */
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -134,6 +135,7 @@ class TimerSetupController: TimerSetPickerController {
         }
     }
 
+    /* ################################################################################################################################## */
     // MARK: - @IBAction Methods
     /* ################################################################################################################################## */
     /* ################################################################## */

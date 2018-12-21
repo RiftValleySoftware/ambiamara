@@ -43,6 +43,7 @@ protocol TimerEngineDelegate: class {
 
 /* ###################################################################################################################################### */
 /**
+ This class is the "heart" of the timer. It contains the timer state, settings, and stored prefs for all the timers.
  */
 class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     static let timerInterval: TimeInterval = 0.1
@@ -56,12 +57,8 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     // MARK: - Private Static Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
-    /** This is the key for the prefs used by this app. */
-    private static let _mainPrefsKey: String = "LGV_Timer_StaticPrefs"
     /** This is the key for the app status prefs used by this app. */
-    private static let _appStatePrefsKey: String = "LGV_Timer_AppState"
-    /** This is the key for the app status prefs used by this app. */
-    private static let _oldPrefsKey: String = "TimerList"
+    private static let _appStatePrefsKey: String = "AmbiaMara_AppState"
     
     private var _timerTicking: Bool = false
     private var _firstTick: TimeInterval = 0.0
@@ -362,39 +359,16 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         // Pick up our beeper sounds.
         self.soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil)
         self.soundSelection.sort()
-        self.tickURI = Bundle.main.path(forResource: "tick", ofType: "aiff", inDirectory: nil, forLocalization: nil) ?? ""
+        // Pick up the audible ticks sound.
+        self.tickURI = Bundle.main.path(forResource: "tick", ofType: "aiff") ?? ""
         
-        if let loadedPrefs = UserDefaults.standard.object(forKey: type(of: self)._mainPrefsKey) as? NSDictionary {
-            var timers: [TimerSettingTuple] = []
-            
-            if let temp = loadedPrefs.object(forKey: type(of: self)._oldPrefsKey) as? NSArray {
-                for index in 0..<temp.count {
-                    if let arrayElement = temp[index] as? NSDictionary {
-                        let temp: TimerSettingTuple = type(of: self)._convertStorageToTimer(arrayElement)
-                        temp.timerStatus = .Stopped
-                        temp.storedColor = self.getIndexedColorThemeColor(temp.colorTheme)
-                        temp.handler = self.appState
-                        timers.append(temp)
-                    }
-                }
-            }
-            
-            if !timers.isEmpty {
-                self.timers = timers
-                UserDefaults.standard.removeObject(forKey: type(of: self)._mainPrefsKey)
-                self.selectedTimerIndex = -1
-            }
-       } else {
-            if let temp = UserDefaults.standard.object(forKey: type(of: self)._appStatePrefsKey) as? Data {
-                if let temp2 = NSKeyedUnarchiver.unarchiveObject(with: temp) as? LGV_Timer_State {
-                    self.appState = temp2
-                    self.appState.delegate = self
-                    for timer in self.appState.timers {
-                        timer.timerStatus = .Stopped
-                        timer.storedColor = self.getIndexedColorThemeColor(timer.colorTheme)
-                        timer.handler = self.appState
-                    }
-                }
+        if let temp = UserDefaults.standard.object(forKey: type(of: self)._appStatePrefsKey) as? Data, let temp2 = NSKeyedUnarchiver.unarchiveObject(with: temp) as? LGV_Timer_State {
+            self.appState = temp2
+            self.appState.delegate = self
+            for timer in self.timers {
+                timer.timerStatus = .Stopped
+                timer.storedColor = self.getIndexedColorThemeColor(timer.colorTheme)
+                timer.handler = self.appState
             }
         }
         
@@ -410,8 +384,9 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
                 timer.soundMode = .Silent
             }
         }
-        self.selectedTimerIndex = -1
-        self.savePrefs()
+        
+        self.selectedTimerIndex = -1    // Start in the Timer List tab.
+        self.savePrefs()    // Make sure that we save in the proper format.
     }
     
     /* ################################################################################################################################## */
