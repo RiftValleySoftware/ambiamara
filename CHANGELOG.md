@@ -1,4 +1,4 @@
-***Version 1.0.0.2021* ** *(TBD)*
+***Version 1.0.0.2021* ** *(December 21, 2018)*
 - Changed the source of the display name in the info screen.
 - I removed the stop timer when going in the background, so that means the timer pauses in the background.
 - The window no longer goes to the timer list when the app backgrounds (but the timer will pause).
