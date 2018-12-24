@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 305 305" style="enable-background:new 0 0 305 305;" xml:space="preserve">
+	 viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:url(#SVGID_1_);}
-	.st1{fill:none;}
-	.st2{fill:#FFFFFF;}
-	.st3{fill:#FFFFFF;stroke:#FFFFFF;stroke-width:2;stroke-miterlimit:10;}
-	.st4{font-family:'LetsgoDigital-Regular';}
-	.st5{font-size:68.3276px;}
+	.st0{clip-path:url(#Mask_1_);}
+	.st1{fill:url(#SVGID_1_);}
+	.st2{fill:none;}
+	.st3{fill:#FFFFFF;}
+	.st4{fill:#FFFFFF;stroke:#FFFFFF;stroke-width:2;stroke-miterlimit:10;}
+	.st5{font-family:'LetsgoDigital-Regular';}
+	.st6{font-size:229.4015px;}
 </style>
-<g id="Background">
-	
-		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="152.5" y1="-693" x2="152.5" y2="-388" gradientTransform="matrix(1 0 0 -1 0 -388)">
-		<stop  offset="0" style="stop-color:#020094"/>
-		<stop  offset="1" style="stop-color:#2A3EFF"/>
-	</linearGradient>
-	<rect class="st0" width="305" height="305"/>
-</g>
-<g id="Logo">
-	<path id="Moon_Fill_1_" class="st1" d="M190.7,199.5L214,164c0,0,7.2,5.4,11.8,5.4c5,0,11.4-5.4,11.4-5.4l31.3,48.5
-		c9.2-17.9,14.1-37.5,14.1-58.9c0-72.1-58.4-130.4-130.3-130.4S22.3,81.2,22.3,153.2c0,54.7,33.9,101.4,81.7,120.6l68.2-106.6
-		L190.7,199.5z"/>
-	<path id="MoonAndMountains" class="st2" d="M284,153.6c0-72.7-59.1-131.7-131.6-131.7c-35.2,0-68.2,13.6-93,38.4
-		C34.7,85,21,118,21,153.2c0,26.7,8,52.5,23.2,74.3c14.7,21.3,35.3,37.8,59.3,47.5l1,0.4l15.3-23.8c17.7-26.4,45.6-66.7,52-69
-		c3.3-0.2,6.9,7.3,16.6,20.4l-52.6,80.1h0.1c12.8-18.6,71.5-103.2,80.1-109.6c3.5,1.4,6.8,2.8,9.8,2.8c2.9,0,5.2-1.1,9.4-2.8
-		c5.9,4.9,19.7,20.5,33.5,42.1c2.1-3.9,3.9-8.1,5.5-12.3C280.7,187.7,284,170.9,284,153.6z M237.6,162l-1.1,1c-0.1,0.1-6.2,5-10.6,5
-		c-3.4,0-9.1-3.7-11-5.1l-1.1-0.9l-22.9,34.9l-18.5-32.3l-68.9,107.5c-23.2-9.5-42.9-25.5-57.1-46.1c-14.8-21.5-22.7-46.7-22.7-72.8
-		c0-34.5,13.4-66.9,37.6-91.1s56.6-37.6,91.1-37.6c71.1,0,129,57.9,129,129.1c0,19.9-4.3,38.8-13,56.3L237.6,162z"/>
-	<g id="Lights">
-		<circle class="st3" cx="102.6" cy="146.6" r="13"/>
-		<circle class="st3" cx="152.5" cy="144.9" r="13"/>
-		<circle class="st3" cx="202.3" cy="144.9" r="13"/>
+<g>
+	<defs>
+		<path id="Mask" d="M844,1024H180C80.6,1024,0,943.4,0,844V180C0,80.6,80.6,0,180,0h664c99.4,0,180,80.6,180,180v664
+			C1024,943.4,943.4,1024,844,1024z"/>
+	</defs>
+	<clipPath id="Mask_1_">
+		<use xlink:href="#Mask"  style="overflow:visible;"/>
+	</clipPath>
+	<g id="Background" class="st0">
+		
+			<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="512" y1="2436" x2="512" y2="1412" gradientTransform="matrix(1 0 0 1 0 -1412)">
+			<stop  offset="0" style="stop-color:#020094"/>
+			<stop  offset="1" style="stop-color:#2A3EFF"/>
+		</linearGradient>
+		<rect class="st1" width="1024" height="1024"/>
 	</g>
-	<text transform="matrix(1 0 0 1 40.1632 128.7079)" class="st2 st4 st5">01:23:45</text>
+	<g id="Logo" class="st0">
+		<path id="Moon_Fill_1_" class="st2" d="M640.3,669.8l78.2-119.2c0,0,24.2,18.1,39.6,18.1c16.8,0,38.3-18.1,38.3-18.1l105.1,162.8
+			c30.9-60.1,47.3-125.9,47.3-197.7c0-242.1-196.1-437.8-437.5-437.8S74.9,272.6,74.9,514.4c0,183.6,113.8,340.4,274.3,404.9
+			l229-357.9L640.3,669.8z"/>
+		<path id="MoonAndMountains" class="st3" d="M953.5,515.7c0-244.1-198.4-442.2-441.8-442.2c-118.2,0-229,45.7-312.2,128.9
+			C116.5,285.4,70.5,396.2,70.5,514.4c0,89.6,26.9,176.3,77.9,249.5c49.4,71.5,118.5,126.9,199.1,159.5l3.4,1.3l51.4-79.9
+			c59.4-88.6,153.1-223.9,174.6-231.7c11.1-0.7,23.2,24.5,55.7,68.5L455.9,950.5h0.3c43-62.4,240.1-346.5,268.9-368
+			c11.8,4.7,22.8,9.4,32.9,9.4c9.7,0,17.5-3.7,31.6-9.4c19.8,16.5,66.1,68.8,112.5,141.3c7.1-13.1,13.1-27.2,18.5-41.3
+			C942.4,630.2,953.5,573.8,953.5,515.7z M797.7,543.9l-3.7,3.4c-0.3,0.3-20.8,16.8-35.6,16.8c-11.4,0-30.6-12.4-36.9-17.1l-3.7-3
+			l-76.9,117.2l-62.1-108.4L347.5,913.5c-77.9-31.9-144-85.6-191.7-154.8C106.1,686.6,79.6,602,79.6,514.4
+			c0-115.8,45-224.6,126.2-305.9s190-126.2,305.9-126.2c238.7,0,433.1,194.4,433.1,433.4c0,66.8-14.4,130.3-43.6,189L797.7,543.9z"
+			/>
+		<g id="Lights">
+			<circle class="st4" cx="344.5" cy="492.2" r="43.6"/>
+			<circle class="st4" cx="512" cy="486.5" r="43.6"/>
+			<circle class="st4" cx="679.2" cy="486.5" r="43.6"/>
+		</g>
+		<text transform="matrix(1 0 0 1 134.8438 432.123)" class="st3 st5 st6">01:23:45</text>
+	</g>
 </g>
 </svg>
