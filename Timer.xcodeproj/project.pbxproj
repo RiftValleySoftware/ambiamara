@@ -56,6 +56,7 @@
 		D48ED3FD21B475AE00ADB8F8 /* 15-shut-up-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED3FF21B475AE00ADB8F8 /* 15-shut-up-2.mp3 */; };
 		D48ED40021B475BC00ADB8F8 /* 14-shut-up-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED40221B475BC00ADB8F8 /* 14-shut-up-1.mp3 */; };
 		D4CF37C8219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */; };
+		D4D71E3121D574D400ACBB47 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D71E3321D574D400ACBB47 /* InfoPlist.strings */; };
 		D4D722E821B0326B0062035B /* Timer_SetupSoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */; };
 		D4D722EA21B036070062035B /* SoundTestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E921B036070062035B /* SoundTestButton.swift */; };
 		D4FE3794219B6D180031E105 /* LED_Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE3792219B6D180031E105 /* LED_Element.swift */; };
@@ -146,6 +147,10 @@
 		D48ED41321B477DB00ADB8F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D48ED41421B477DB00ADB8F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TheGreatRiftValleyDrawing.swift; path = ViewControllers/TheGreatRiftValleyDrawing.swift; sourceTree = "<group>"; };
+		D4D71E3221D574D400ACBB47 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D4D71E3421D574D600ACBB47 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D4D71E3521D5757100ACBB47 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D4D71E3621D5757200ACBB47 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = ../de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Timer_SetupSoundsViewController.swift; path = ViewControllers/Timer_SetupSoundsViewController.swift; sourceTree = "<group>"; };
 		D4D722E921B036070062035B /* SoundTestButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundTestButton.swift; path = ViewControllers/SoundTestButton.swift; sourceTree = "<group>"; };
 		D4F242C2219B501900D809EB /* SwipeableTabBarController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwipeableTabBarController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +176,7 @@
 		772459B71F1E1CD7006CA335 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D4D71E3321D574D400ACBB47 /* InfoPlist.strings */,
 				D48C0A3821B096C8007AC2DC /* Sounds */,
 				77AF00B91F69624E00D35EF1 /* Main.storyboard */,
 				77AF00B61F69623800D35EF1 /* LaunchScreen.storyboard */,
@@ -430,6 +436,7 @@
 				fr,
 				es,
 				Base,
+				de,
 			);
 			mainGroup = 77EFB3D31ED5C1A800BDDEFF;
 			productRefGroup = 77EFB3DD1ED5C1A800BDDEFF /* Products */;
@@ -465,6 +472,7 @@
 				D48ED3FD21B475AE00ADB8F8 /* 15-shut-up-2.mp3 in Resources */,
 				D433BB9C21B1898D001C79F6 /* 16-snoring-1.mp3 in Resources */,
 				D451AD9A21C0382E00E3DE28 /* Localizable.strings in Resources */,
+				D4D71E3121D574D400ACBB47 /* InfoPlist.strings in Resources */,
 				D433BB9E21B1898D001C79F6 /* 17-car-horn.mp3 in Resources */,
 				D433BB9921B1898D001C79F6 /* 18-antique-phone.mp3 in Resources */,
 				D433BB9A21B1898D001C79F6 /* 19-classic-phone.mp3 in Resources */,
@@ -538,6 +546,7 @@
 				D48ED40421B4766200ADB8F8 /* es */,
 				D48ED40921B476E800ADB8F8 /* fr */,
 				D48ED40A21B4774A00ADB8F8 /* en */,
+				D4D71E3621D5757200ACBB47 /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -588,6 +597,16 @@
 				D48ED40121B475BC00ADB8F8 /* en */,
 			);
 			name = "14-shut-up-1.mp3";
+			sourceTree = "<group>";
+		};
+		D4D71E3321D574D400ACBB47 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4D71E3221D574D400ACBB47 /* fr */,
+				D4D71E3421D574D600ACBB47 /* es */,
+				D4D71E3521D5757100ACBB47 /* de */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

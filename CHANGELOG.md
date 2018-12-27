@@ -1,5 +1,7 @@
 ***Version 1.0.0.2022* ** *(TBD)*
 - I reset the stored prefs key. This means that previously stored prefs will be ignored, and you'll need to start fresh.
+- Added A placeholder for German localization.
+- Added the localizable InfoPlist.strings file.
 
 ***Version 1.0.0.2021* ** *(December 21, 2018)*
 - Changed the source of the display name in the info screen.
