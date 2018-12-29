@@ -1,7 +1,8 @@
-***Version 1.0.0.2022* ** *(TBD)*
+***Version 1.0.0.2022* ** *(December 29, 2018)*
 - I reset the stored prefs key. This means that previously stored prefs will be ignored, and you'll need to start fresh.
 - Added A placeholder for German localization.
 - Added the localizable InfoPlist.strings file.
+- Added faint "cathode wires" to the LED display to reinforce the "vacuum fluorescent" appearance.
 
 ***Version 1.0.0.2021* ** *(December 21, 2018)*
 - Changed the source of the display name in the info screen.

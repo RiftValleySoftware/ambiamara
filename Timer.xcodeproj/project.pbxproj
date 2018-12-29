@@ -200,6 +200,7 @@
 		775ACED91ED5C26C0097FF5C /* Views and Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				77CD9AA81F0FCD8100EB4134 /* LED Display Classes */,
 				D4AAEA2A21CD477100CEC802 /* Abstract Classes */,
 				D4AAEA2B21CD479300CEC802 /* Buttons and Controls */,
 				772BF9C31ED600B3002D1782 /* TimerNavController.swift */,
@@ -220,7 +221,6 @@
 				772A13E71ED5E95A0043C58B /* App Files */,
 				775ACED91ED5C26C0097FF5C /* Views and Controllers */,
 				772459B71F1E1CD7006CA335 /* Resources */,
-				77CD9AA81F0FCD8100EB4134 /* LED Display Classes */,
 				772A13D91ED5E8950043C58B /* Info.plist */,
 			);
 			path = "Main App";

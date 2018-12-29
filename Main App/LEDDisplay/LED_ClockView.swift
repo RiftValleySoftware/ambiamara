@@ -89,8 +89,9 @@ extension CGFloat {
  This class instantiates a bunch of LED Elements into a "Digital Clock," to be displayed to cover most of the screen.
  */
 public class LED_ClockView: UIView {
+    /* ################################################################## */
     // MARK: - Instance Properties
-    /* ################################################################################################################################## */
+    /* ################################################################## */
     var activeSegmentColor: UIColor = UIColor.green
     var inactiveSegmentColor: UIColor = UIColor.black
     var zeroPadding: Bool = false
@@ -120,12 +121,17 @@ public class LED_ClockView: UIView {
     }
     
     /* ################################################################## */
+    // MARK: - Private Constant Properties
+    /* ################################################################## */
+    private let _numberOfLines: Int = 3 ///< This is the number of horizontal lines that appear across the display (simulates the cathode wires in vacuum fluorescent displays).
+    
+    /* ################################################################## */
     // MARK: - Private Instance Properties
     /* ################################################################## */
     private var _separatorsOn: Bool = true                      ///< Whether or not the separators bewteen digit groups are shown.
     private var _allElementGroup: LED_ElementGrouping! = nil    ///< Used to pass the calculated paths to the draw method.
     private var _bottomLayer: CAShapeLayer! = nil               ///< Tracks the outline shapes for the segments (inactive)
-    private var _topLayer: CAGradientLayer! = nil                  ///< Tracks the active ("lit") segment shapes.
+    private var _topLayer: CAGradientLayer! = nil               ///< Tracks the active ("lit") segment shapes.
     private var _displayView: UIView! = nil                     ///< This will contain the "LED Display."
     private var _gridImageView: UIImageView! = nil              ///< This will contain a "grid" that makes the display look like an old-time fluorescent display.
     
@@ -254,7 +260,7 @@ public class LED_ClockView: UIView {
             nudgeX = (0 < nudgeX) ? 0: halfWidth
             yOffset += nudgeY
         }
-        
+
         UIGraphicsBeginImageContextWithOptions(fillShape.bounds.size, false, 0.0)
         if let drawingContext = UIGraphicsGetCurrentContext() {
             drawingContext.addPath(path)
@@ -264,6 +270,28 @@ public class LED_ClockView: UIView {
             drawingContext.strokePath()
         }
         
+        // See if we will be drawing any "cathode wires".
+        if 0 < self._numberOfLines {
+            let path = CGMutablePath()
+            let verticalspacing = fillShape.bounds.size.height / CGFloat(self._numberOfLines + 1)   // The extra 1, is because there are "implicit" lines at the top and bottom.
+            
+            var y: CGFloat = verticalspacing
+            
+            while y < fillShape.bounds.size.height {
+                if y != (fillShape.bounds.size.height / 2) {    // We do not draw a line through the center.
+                    path.move(to: CGPoint(x: 0, y: y))
+                    path.addLine(to: CGPoint(x: fillShape.bounds.size.width, y: y))
+                }
+                y += verticalspacing
+            }
+            
+            if let drawingContext = UIGraphicsGetCurrentContext() {
+                drawingContext.addPath(path)
+                drawingContext.setStrokeColor(UIColor.white.withAlphaComponent(0.75).cgColor)
+                drawingContext.strokePath()
+            }
+        }
+
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
@@ -382,15 +410,6 @@ public class LED_ClockView: UIView {
         self._gridImageView.frame.origin = inactivePath.bounds.origin
         self._gridImageView.frame.size = inactivePath.bounds.size
         self._gridImageView.image = self._generateHexOverlayImage(inactivePath)
-        
-        let mask = CAShapeLayer()
-        mask.path = inactivePath.cgPath
-        var origin = CGPoint.zero
-        origin.y -= inactivePath.bounds.origin.y
-        origin.x -= inactivePath.bounds.origin.x
-        
-        mask.frame.origin = origin
-        self._gridImageView.layer.mask = mask
         
         super.layoutSubviews()
     }
