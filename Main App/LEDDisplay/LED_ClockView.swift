@@ -287,6 +287,7 @@ public class LED_ClockView: UIView {
             
             if let drawingContext = UIGraphicsGetCurrentContext() {
                 drawingContext.addPath(path)
+                drawingContext.setLineWidth(0.0625)
                 drawingContext.setStrokeColor(UIColor.white.withAlphaComponent(0.75).cgColor)
                 drawingContext.strokePath()
             }
