@@ -1,5 +1,6 @@
 ***Version 1.0.0.2023* ** *(TBD)*
 - Reduced the prominence of the new "cathode wires."
+- Increased the number of "cathode wires" to 4.
 
 ***Version 1.0.0.2022* ** *(December 29, 2018)*
 - I reset the stored prefs key. This means that previously stored prefs will be ignored, and you'll need to start fresh.

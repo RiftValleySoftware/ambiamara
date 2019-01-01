@@ -123,7 +123,7 @@ public class LED_ClockView: UIView {
     /* ################################################################## */
     // MARK: - Private Constant Properties
     /* ################################################################## */
-    private let _numberOfLines: Int = 3 ///< This is the number of horizontal lines that appear across the display (simulates the cathode wires in vacuum fluorescent displays).
+    private let _numberOfLines: Int = 4 ///< This is the number of horizontal lines that appear across the display (simulates the cathode wires in vacuum fluorescent displays).
     
     /* ################################################################## */
     // MARK: - Private Instance Properties
@@ -278,16 +278,14 @@ public class LED_ClockView: UIView {
             var y: CGFloat = verticalspacing
             
             while y < fillShape.bounds.size.height {
-                if y != (fillShape.bounds.size.height / 2) {    // We do not draw a line through the center.
-                    path.move(to: CGPoint(x: 0, y: y))
-                    path.addLine(to: CGPoint(x: fillShape.bounds.size.width, y: y))
-                }
+                path.move(to: CGPoint(x: 0, y: y))
+                path.addLine(to: CGPoint(x: fillShape.bounds.size.width, y: y))
                 y += verticalspacing
             }
             
             if let drawingContext = UIGraphicsGetCurrentContext() {
                 drawingContext.addPath(path)
-                drawingContext.setLineWidth(0.0625)
+                drawingContext.setLineWidth(0.1)
                 drawingContext.setStrokeColor(UIColor.white.withAlphaComponent(0.75).cgColor)
                 drawingContext.strokePath()
             }
