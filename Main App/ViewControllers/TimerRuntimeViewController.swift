@@ -290,6 +290,8 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
         }
         
         if .Alarm == self.timerObject.timerStatus {
+            UIApplication.shared.isIdleTimerDisabled = false // Toggle this to "wake" the touch sensor. The system can put it into a "resting" mode, so two touches are required.
+            UIApplication.shared.isIdleTimerDisabled = true
             self.flashDisplay()
             self._playAlertSound()
             if .VibrateOnly == self.timerObject.alertMode || .Both == self.timerObject.alertMode {

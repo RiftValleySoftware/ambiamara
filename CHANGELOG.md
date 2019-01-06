@@ -1,6 +1,7 @@
 ***Version 1.0.0.2023* ** *(TBD)*
 - Reduced the prominence of the new "cathode wires."
 - Increased the number of "cathode wires" to 4.
+- Added a bit of code to ensure that the touch sensor is "woken up" when the alarm sounds. After extended periods of time, the system can "sleep" the touch sensor, so it requires two taps.
 
 ***Version 1.0.0.2022* ** *(December 29, 2018)*
 - I reset the stored prefs key. This means that previously stored prefs will be ignored, and you'll need to start fresh.
