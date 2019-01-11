@@ -1,3 +1,6 @@
+***Version 1.0.0.2024* ** *TBD*
+- The Home Bar now hides on X-phones.
+
 ***Version 1.0.0.2023* ** *(January 8, 2019)*
 - Reduced the prominence of the new "cathode wires."
 - Increased the number of "cathode wires" to 4.

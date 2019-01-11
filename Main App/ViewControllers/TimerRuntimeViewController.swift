@@ -219,6 +219,17 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     }
 
     /* ################################################################################################################################## */
+    // MARK: - Instance Override Calculated Properties
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     - returns true, indicating that X-phones should hide the Home Bar.
+     */
+    override var prefersHomeIndicatorAutoHidden: Bool {
+        return true
+    }
+
+    /* ################################################################################################################################## */
     // MARK: - Internal Instance Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -378,6 +389,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
         }
         
         self.timeDisplay.inactiveSegmentColor = UIColor.white.withAlphaComponent(0.1)
+        self.setNeedsUpdateOfHomeIndicatorAutoHidden()
         self.updateTimer()
     }
     
