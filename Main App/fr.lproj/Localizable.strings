@@ -98,7 +98,7 @@
 
 /* INFO SCREEN */
 
-"LGV_TIMER-ABOUT-TEXT"                                  =   "When I have something to say, I'll say it here.";
+"LGV_TIMER-ABOUT-TEXT"                                  =   "AmbiaMara is the ultimate countdown timer.\nIt has three modes: Digital (numbers only), Podium (three simple \"traffic lights\"), and Dual (both digits and \"traffic lights\").\nAdd timers by touching the \"+\" in the top, right of the Timer List, and delete them by left-swiping the timer in the list.";
 
 /* ACCESSIBILITY */
 

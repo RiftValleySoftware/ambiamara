@@ -1,5 +1,7 @@
-***Version 1.0.0.2024* ** *TBD*
+***Version 1.0.0.2024* ** *(January 8, 2019)*
 - The Home Bar now hides on X-phones.
+- Added the initial info text.
+- Changed the haptics on the brightness sliders to give fewer "ticks.""
 
 ***Version 1.0.0.2023* ** *(January 8, 2019)*
 - Reduced the prominence of the new "cathode wires."
