@@ -452,6 +452,8 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
         Timer_AppDelegate.appDelegateObject.timerEngine.startTimer()
         
         super.viewWillAppear(animated)
+    
+        Timer_AppDelegate.recordOriginalBrightness()    // This will record any original brightness, and force our screen brightness to maximum during presentation.
     }
     
     /* ################################################################## */
@@ -465,6 +467,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
         
         super.viewWillDisappear(animated)
         
+        Timer_AppDelegate.restoreOriginalBrightness()   // Restore whatever brightness was set before.
         Timer_AppDelegate.appDelegateObject.currentTimer = nil
         UIApplication.shared.isIdleTimerDisabled = false
     }

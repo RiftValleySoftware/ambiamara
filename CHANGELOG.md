@@ -1,3 +1,7 @@
+***Version 1.0.0.3000* ** *(TBD)*
+- Now force the brightness all the way up for a running timer.
+- Made the background of the launch screen the same color as the gradient bottom.
+
 ***Version 1.0.0.2024* ** *(January 8, 2019)*
 - The Home Bar now hides on X-phones.
 - Added the initial info text.

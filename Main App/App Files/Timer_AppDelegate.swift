@@ -18,6 +18,24 @@ import WatchConnectivity
  */
 class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /* ################################################################################################################################## */
+    // MARK: - Static Constants
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This is the brightness we want our screen to be when the timer is running.
+     */
+    static let runningScreenBrightness: CGFloat = 1.0
+    
+    /* ################################################################################################################################## */
+    // MARK: - Static Properties
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This is a special variable that holds the screen brightness level from just before we first change it from the app. We will use this to restore the original screen brightness.
+     */
+    static var originalScreenBrightness: CGFloat!
+    
+    /* ################################################################################################################################## */
     // MARK: - Static Calculated Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -158,6 +176,34 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
         }
     }
     
+    /* ################################################################## */
+    /**
+     If the brightness level has not already been recorded, we do so now.
+     */
+    class func recordOriginalBrightness() {
+        if nil == self.originalScreenBrightness {
+            self.originalScreenBrightness = UIScreen.main.brightness
+            assert(0 <= self.originalScreenBrightness && 1.0 >= self.originalScreenBrightness)
+        }
+        
+        // If the app had backgrounded while a timer was up, we'll need to force maximum brightness again.
+        if nil != self.appDelegateObject.currentTimer {
+            UIScreen.main.brightness = self.runningScreenBrightness
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This restores our recorded brightness level to the screen.
+     */
+    class func restoreOriginalBrightness() {
+        if nil != self.originalScreenBrightness {
+            assert(0 <= self.originalScreenBrightness && 1.0 >= self.originalScreenBrightness)
+            UIScreen.main.brightness = self.originalScreenBrightness
+            self.originalScreenBrightness = nil
+        }
+    }
+
     /* ################################################################################################################################## */
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
@@ -198,11 +244,45 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /* ################################################################################################################################## */
     // MARK: - UIApplicationDelegate Protocol Methods
     /* ################################################################################################################################## */
+
     /* ################################################################## */
     /**
+     We record our screen brightness, here.
+     
+     - parameter: ignored
      */
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        return self.orientationLock
+    func applicationDidFinishLaunching(_: UIApplication) {
+        type(of: self).recordOriginalBrightness()
+    }
+    
+    /* ################################################################## */
+    /**
+     We record our screen brightness, here.
+     
+     - parameter: ignored
+     */
+    func applicationDidBecomeActive(_: UIApplication) {
+        type(of: self).recordOriginalBrightness()
+    }
+
+    /* ################################################################## */
+    /**
+     We record our screen brightness, here.
+     
+     - parameter: ignored
+     */
+    func applicationWillEnterForeground(_: UIApplication) {
+        type(of: self).recordOriginalBrightness()
+    }
+    
+    /* ################################################################## */
+    /**
+     We restore the screen to its original recorded level.
+     
+     - parameter: ignored
+     */
+    func applicationWillResignActive(_: UIApplication) {
+        type(of: self).restoreOriginalBrightness()
     }
 
     /* ################################################################## */
@@ -210,13 +290,25 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      Called when the app goes into the background.
      This will ensure the current timer state is saved.
      
-     - parameter application: The application object.
+     - parameter: ignored
      */
-    func applicationDidEnterBackground(_ application: UIApplication) {
+    func applicationDidEnterBackground(_: UIApplication) {
+        type(of: self).restoreOriginalBrightness()
         if nil != self.timerEngine {
             self.sendBackgroundMessage()
             self.timerEngine.savePrefs()
         }
+    }
+
+    /* ################################################################## */
+    /**
+     This is used to lock the orientation while the timer editor is up.
+     
+     - parameter: ignored
+     - parameter supportedInterfaceOrientationsFor: ignored
+     */
+    func application(_: UIApplication, supportedInterfaceOrientationsFor: UIWindow?) -> UIInterfaceOrientationMask {
+        return self.orientationLock
     }
 
     /* ################################################################## */
