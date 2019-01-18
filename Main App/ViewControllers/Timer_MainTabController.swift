@@ -305,15 +305,16 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
                 if (.Stopped == timerSetting.timerStatus) && ((.Alarm == changedTimerStatusFrom) || (.Running == changedTimerStatusFrom) || (.FinalRun == timerSetting.timerStatus) || (.WarnRun == changedTimerStatusFrom)) {
                     Timer_AppDelegate.appDelegateObject.sendStopMessage(timerUID: timerSetting.uid)
                 }
-               if .Dual == timerSetting.displayMode {
+                
+                controller.updateTimer()
+
+                if .Dual == timerSetting.displayMode {
                     if ((.WarnRun == timerSetting.timerStatus) && (.Running == changedTimerStatusFrom)) || ((.FinalRun == timerSetting.timerStatus) && (.WarnRun == changedTimerStatusFrom)) {
                         if let runningTimer = controller.runningTimer {
                             runningTimer.flashDisplay()
                         }
                     }
                 }
-                
-                controller.updateTimer()
             }
         }
     }
