@@ -1,3 +1,6 @@
+***Version 1.0.0.3000* ** *(TBD)*
+- Some basic refactoring to ensure that the main thread is used, and that we use optional chaining for delegate calls.
+
 ***Version 1.0.0.2025* ** *(January 17, 2019)*
 - Now force the brightness all the way up for a running timer.
 - Made the background of the launch screen the same color as the gradient bottom.

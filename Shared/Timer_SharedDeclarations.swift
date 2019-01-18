@@ -1141,12 +1141,10 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         }
         
         set {
-            DispatchQueue.main.async {
-                if let oldTimer = self.selectedTimer {
-                    if oldTimer.uid != newValue.uid {
-                        if nil != self.delegate {
-                            self.delegate.appState(self, didDeselectTimer: oldTimer)
-                        }
+            if let oldTimer = self.selectedTimer {
+                if oldTimer.uid != newValue.uid {
+                    DispatchQueue.main.async {
+                        self.delegate?.appState(self, didDeselectTimer: oldTimer)
                     }
                 }
                 
@@ -1155,7 +1153,9 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
                 if let setValue = newValue {
                     for index in 0..<self._timers.count where self._timers[index].uid == setValue.uid {
                         self._selectedTimer0BasedIndex = index
-                        if nil != self.delegate { self.delegate.appState(self, didSelectTimer: self._timers[index]) }
+                        DispatchQueue.main.async {
+                            self.delegate?.appState(self, didSelectTimer: self._timers[index])
+                        }
                         break
                     }
                 } else {
@@ -1171,24 +1171,24 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     var selectedTimerIndex: Int {
         get { return self._selectedTimer0BasedIndex }
         set {
+            let oldTimer = self.selectedTimer
+            var newTimer: TimerSettingTuple! = nil
+            
+            if 0..<self._timers.count ~= newValue {
+                self._selectedTimer0BasedIndex = newValue
+                newTimer = self.selectedTimer
+            } else {
+                self._selectedTimer0BasedIndex = -1
+            }
+            
+            if nil != oldTimer {
+                DispatchQueue.main.async {
+                    self.delegate?.appState(self, didDeselectTimer: oldTimer!)
+                }
+            }
+            
             DispatchQueue.main.async {
-                let oldTimer = self.selectedTimer
-                var newTimer: TimerSettingTuple! = nil
-                
-                if 0..<self._timers.count ~= newValue {
-                    self._selectedTimer0BasedIndex = newValue
-                    newTimer = self.selectedTimer
-                } else {
-                    self._selectedTimer0BasedIndex = -1
-                }
-                
-                if nil != self.delegate {
-                    if nil != oldTimer {
-                        self.delegate.appState(self, didDeselectTimer: oldTimer!)
-                    }
-                    
-                    self.delegate.appState(self, didSelectTimer: newTimer)
-                }
+                self.delegate?.appState(self, didSelectTimer: newTimer)
             }
         }
     }
@@ -1208,28 +1208,26 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         }
         
         set {
-            DispatchQueue.main.async {
-                if let oldTimer = self.selectedTimer {
-                    if oldTimer.uid != newValue {
-                        if nil != self.delegate {
-                            self.delegate.appState(self, didDeselectTimer: oldTimer)
-                        }
+            if let oldTimer = self.selectedTimer {
+                if oldTimer.uid != newValue {
+                    DispatchQueue.main.async {
+                        self.delegate?.appState(self, didDeselectTimer: oldTimer)
                     }
                 }
-                
+            }
+            
+            self._selectedTimer0BasedIndex = -1
+            
+            if !newValue.isEmpty {
+                for index in 0..<self._timers.count where self._timers[index].uid == newValue {
+                    self._selectedTimer0BasedIndex = index
+                    DispatchQueue.main.async {
+                        self.delegate?.appState(self, didSelectTimer: self._timers[index])
+                    }
+                    break
+                }
+            } else {
                 self._selectedTimer0BasedIndex = -1
-                
-                if !newValue.isEmpty {
-                    for index in 0..<self._timers.count where self._timers[index].uid == newValue {
-                        self._selectedTimer0BasedIndex = index
-                        if nil != self.delegate {
-                            self.delegate.appState(self, didSelectTimer: self._timers[index])
-                        }
-                        break
-                    }
-                } else {
-                    self._selectedTimer0BasedIndex = -1
-                }
             }
         }
     }
@@ -1361,8 +1359,8 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         
         ret.handler = self
         
+        self.append(ret)
         DispatchQueue.main.async {
-            self.append(ret)
             self.delegate?.appState(self, didAddTimer: ret)
         }
         
@@ -1565,8 +1563,8 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
             if 0..<self.count ~= index {
                 let timer = self[index]
                 
-                if nil != self.delegate {
-                    self.delegate.appState(self, willRemoveTimer: timer)
+                DispatchQueue.main.async {
+                    self.delegate?.appState(self, willRemoveTimer: timer)
                 }
                 
                 // This removes us from any other timers' succeeding timer, and will decrement ones that point after it.
@@ -1584,8 +1582,8 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
                     }
                 }
                 
-                if nil != self.delegate {
-                    self.delegate.appState(self, didRemoveTimerAtIndex: index)
+                DispatchQueue.main.async {
+                    self.delegate?.appState(self, didRemoveTimerAtIndex: index)
                 }
             }
         }
