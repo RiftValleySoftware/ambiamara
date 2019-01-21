@@ -7,222 +7,222 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  */
-
 /* ###################################################################################################################################### */
 /**
  */
 /* GENERAL STUFF */
-"TIME-HOUR"                                             =   "1 Hour";
-"TIME-HOURS-FORMAT"                                     =   "%d Hours";
-"TIME-MINUTE"                                           =   "1 Minute";
-"TIME-MINUTES-FORMAT"                                   =   "%d Minutes";
-"TIME-SECOND"                                           =   "1 Second";
-"TIME-SECONDS-FORMAT"                                   =   "%d Seconds";
+
+"TIME-HOUR" = "1 Stunde";
+"TIME-HOURS-FORMAT" = "%d Stunden";
+"TIME-MINUTE" = "1 Minute";
+"TIME-MINUTES-FORMAT" = "%d Minuten";
+"TIME-SECOND" = "1 Sekunde";
+"TIME-SECONDS-FORMAT" = "%d Sekunden";
 
 /* INFO STRING */
 
-"NSAppleMusicUsageDescription"                          =   "Play music as an alarm";   // This is the string we use to ask permission to get ath the user's music collection.
+"NSAppleMusicUsageDescription" = "Musik als Alarm abspielen"; // This is the string we use to ask permission to get ath the user's music collection.
 
 /* TABS */
 
-"LGV_TIMER-SETUP-TITLE"                                 =   "Timer List";   // The tab title for the main timer list tab.
-"LGV_TIMER-TIMER-TITLE-FORMAT"                          =   "Timer %d";     // A Format for each timer tab title. The "%d" is replaced by the integer index of the timer (1-based).
+"LGV_TIMER-SETUP-TITLE" = "Timer-Liste"; // The tab title for the main timer list tab.
+"LGV_TIMER-TIMER-TITLE-FORMAT" = "Timer %d"; // A Format for each timer tab title. The "%d" is replaced by the integer index of the timer (1-based).
 
 /* TIMER LIST SCREEN */
 
-"LGV_TIMER-ABOUT-SHOWCONTROLS-BUTTON"                   =   "Show Timer Controls in Running Timer"; // This is the text for the button next to the running controls switch in the timer list screen.
+"LGV_TIMER-ABOUT-SHOWCONTROLS-BUTTON" = "Timer-Steuerelemente im laufenden Timer anzeigen"; // This is the text for the button next to the running controls switch in the timer list screen.
 
 /* TIMER LIST DELETE CONFIRMATION */
 
-"DELETE-HEADER"                                         =   "Are You Sure?";    // The header.
-"DELETE-MESSAGE-FORMAT"                                 =   "If you select \"Delete,\" it will delete Timer %d. Are you sure that you want do this?";   // The explanatory text.
-"DELETE-OK-BUTTON"                                      =   "Delete";   // The Delete Button
-"DELETE-CANCEL-BUTTON"                                  =   "Cancel";   // The cancel button.
+"DELETE-HEADER" = "Sind Sie sicher?"; // The header.
+"DELETE-MESSAGE-FORMAT" = "Wenn Sie „Löschen“ auswählen, wird Timer %d gelöscht. Sind Sie sicher, dass Sie dies tun möchten?"; // The explanatory text.
+"DELETE-OK-BUTTON" = "Löschen"; // The Delete Button
+"DELETE-CANCEL-BUTTON" = "Abbrechen"; // The cancel button.
 
 /* TIMER SCREEN */
 
-"NO-TIMER"                                              =   "No Following Timer";           // This is displayed in the following timer pickerView for no timer.
-"NEXT-TIMER-TIMER-FORMAT"                               =   "Next Timer: Timer %d";         // This is displayed when there is a timer selected as the next one.
-"CANT-SELECT"                                           =   "UNAVAILABLE";                  // This is displayed in the picker for the current timer.
+"NO-TIMER" = "Kein folgender Timer"; // This is displayed in the following timer pickerView for no timer.
+"NEXT-TIMER-TIMER-FORMAT" = "Nächster Timer: Timer %d"; // This is displayed when there is a timer selected as the next one.
+"CANT-SELECT" = "NICHT VERFÜGBAR"; // This is displayed in the picker for the current timer.
 
 /* TIMER SETTINGS SCREEN */
 
-"LGV_TIMER-SETUP-WARNING-SET-LABEL"                     =   "Podium Warning (Yellow) Time"; // The title for the warning time picker in the settings screen.
-"LGV_TIMER-SETUP-FINAL-SET-LABEL"                       =   "Podium Final (Red) Time";      // The title for the final time picker in the settings screen.
-"LGV_TIMER-SETUP-COLOR-THEME-LABEL"                     =   "Digital Display Color";        // The title for the display color picker in the timer settings screen.
+"LGV_TIMER-SETUP-WARNING-SET-LABEL" = "Podium – Warnzeit (Gelb)"; // The title for the warning time picker in the settings screen.
+"LGV_TIMER-SETUP-FINAL-SET-LABEL" = "Podium – Endzeit (Rot)"; // The title for the final time picker in the settings screen.
+"LGV_TIMER-SETUP-COLOR-THEME-LABEL" = "Farbe der Digitalanzeige"; // The title for the display color picker in the timer settings screen.
 
-"LGV_TIMER-TIME-PICKER-HOUR-FORMAT"                     =   "%d Hour";      // The picker uses custom components, instead of a standard system picker. If there is only one hour, this is used.
-"LGV_TIMER-TIME-PICKER-HOURS-FORMAT"                    =   "%d Hours";     // The picker uses custom components, instead of a standard system picker. If more than one hour, this is used.
-"LGV_TIMER-TIME-PICKER-MINUTE-FORMAT"                   =   "%d Minute";    // The picker uses custom components, instead of a standard system picker. If there is only one minute, this is used.
-"LGV_TIMER-TIME-PICKER-MINUTES-FORMAT"                  =   "%d Minutes";   // The picker uses custom components, instead of a standard system picker. If more than one minute, this is used.
-"LGV_TIMER-TIME-PICKER-SECOND-FORMAT"                   =   "%d Second";    // The picker uses custom components, instead of a standard system picker. If there is only one second, this is used.
-"LGV_TIMER-TIME-PICKER-SECONDS-FORMAT"                  =   "%d Seconds";   // The picker uses custom components, instead of a standard system picker. If more than one second, this is used.
+"LGV_TIMER-TIME-PICKER-HOUR-FORMAT" = "%d Stunde"; // The picker uses custom components, instead of a standard system picker. If there is only one hour, this is used.
+"LGV_TIMER-TIME-PICKER-HOURS-FORMAT" = "%d Stunden"; // The picker uses custom components, instead of a standard system picker. If more than one hour, this is used.
+"LGV_TIMER-TIME-PICKER-MINUTE-FORMAT" = "%d Minute"; // The picker uses custom components, instead of a standard system picker. If there is only one minute, this is used.
+"LGV_TIMER-TIME-PICKER-MINUTES-FORMAT" = "%d Minuten"; // The picker uses custom components, instead of a standard system picker. If more than one minute, this is used.
+"LGV_TIMER-TIME-PICKER-SECOND-FORMAT" = "%d Sekunde"; // The picker uses custom components, instead of a standard system picker. If there is only one second, this is used.
+"LGV_TIMER-TIME-PICKER-SECONDS-FORMAT" = "%d Sekunden"; // The picker uses custom components, instead of a standard system picker. If more than one second, this is used.
 
 /* ALARM SETUP SCREEN */
 
-"LOCAL-VIBRATE-BEEP-SWITCH"                             =   "VIBRATE";  // This is the text for the button next to the vibrate switch. Hidden for iPad.
-"LOCAL-NO-MUSIC-LABEL"                                  =   "No Music Available";   // This is displayed if there is no music available for selection.
-"BASIC-DONE-BUTTON"                                     =   "DONE"; // The done button (used in both the timer settings and alarm settings screens).
-"LOCAL-MUSIC-LOOKUP-LABEL"                              =   "Fetching Your Music Library";  // This is displayed while the throbber is up, while the music is being fetched.
-"LGV_TIMER-AUDIBLE-TICKS-BUTTON"                        =   "AUDIBLE TICKS";    // This is the text for the button and switch that select whether or not an audible "tick" sound occurs for a running timer.
+"LOCAL-VIBRATE-BEEP-SWITCH" = "VIBRIEREN"; // This is the text for the button next to the vibrate switch. Hidden for iPad.
+"LOCAL-NO-MUSIC-LABEL" = "Keine Musik verfügbar"; // This is displayed if there is no music available for selection.
+"BASIC-DONE-BUTTON" = "FERTIG"; // The done button (used in both the timer settings and alarm settings screens).
+"LOCAL-MUSIC-LOOKUP-LABEL" = "Ihre Musikbibliothek wird abgerufen"; // This is displayed while the throbber is up, while the music is being fetched.
+"LGV_TIMER-AUDIBLE-TICKS-BUTTON" = "HÖRBARE TICKS"; // This is the text for the button and switch that select whether or not an audible "tick" sound occurs for a running timer.
 
 /* SOUND NAMES */
 
-"00-low-beep.mp3"                                       =   "Low Simple Beeps";
-"01-medium-beep.mp3"                                    =   "Medium Simple Beeps";
-"02-high-beep.mp3"                                      =   "High Simple Beeps";
-"03-electronic-buzz.mp3"                                =   "Strident Beeps";
-"04-fast-beep.mp3"                                      =   "Subtle Ringing";
-"05-high-fast-beeps.mp3"                                =   "Fast Subtle Beeps";
-"06-escalation.mp3"                                     =   "Escalating Alarm";
-"07-videogame-beeps-lower-frequency.mp3"                =   "Low-Frequency Electronic";
-"08-videogame-beeps-high-frequency.mp3"                 =   "High-Frequency Electronic";
-"09-single-beep.mp3"                                    =   "Basic Beeps";
-"10-annoying-alarm.mp3"                                 =   "Classic Alarm";
-"11-bells.mp3"                                          =   "Church Bells";
-"12-crazy-bird.mp3"                                     =   "Crazy Bird";
-"13-rooster.mp3"                                        =   "Rooster";
-"16-snoring-1.mp3"                                      =   "Snoring";
-"17-car-horn.mp3"                                       =   "Car Horn";
-"18-antique-phone.mp3"                                  =   "Antique Phone Ringing";
-"19-classic-phone.mp3"                                  =   "Classic Phone Ringing";
-"20-antique-car-horn.mp3"                               =   "Antique Car Horn";
-"21-alarm-klaxon.mp3"                                   =   "Alarm Klaxon";
+"00-low-beep.mp3" = "Niedrige einfache Pieptöne";
+"01-medium-beep.mp3" = "Mittlere einfache Pieptöne";
+"02-high-beep.mp3" = "Hohe einfache Pieptöne";
+"03-electronic-buzz.mp3" = "Schrilles Piepen";
+"04-fast-beep.mp3" = "Dezentes Klingeln";
+"05-high-fast-beeps.mp3" = "Schnelles dezentes Piepen";
+"06-escalation.mp3" = "Eskalierender Alarm";
+"07-videogame-beeps-lower-frequency.mp3" = "Elektronisch – Niederfrequenz";
+"08-videogame-beeps-high-frequency.mp3" = "Elektronisch – Hochfrequenz";
+"09-single-beep.mp3" = "Einfaches Piepen";
+"10-annoying-alarm.mp3" = "Klassischer Wecker";
+"11-bells.mp3" = "Kirchenglocken";
+"12-crazy-bird.mp3" = "Verrückter Vogel";
+"13-rooster.mp3" = "Hahn";
+"16-snoring-1.mp3" = "Schnarchen";
+"17-car-horn.mp3" = "Autohupe";
+"18-antique-phone.mp3" = "Klingeln eines antiken Telefons";
+"19-classic-phone.mp3" = "Klassisches Telefonklingeln";
+"20-antique-car-horn.mp3" = "Antike Autohupe";
+"21-alarm-klaxon.mp3" = "Signalhorn";
 
-"14-shut-up-1.mp3"                                      =   "Shut Up (Obnoxious Man)";      // ONLY USED FOR ENGLISH
-"15-shut-up-2.mp3"                                      =   "Shut Up (Woman)";              // ONLY USED FOR ENGLISH
-"22-thanks-for-sharing.mp3"                             =   "Thanks for Sharing (Robotic)"; // ONLY USED FOR ENGLISH
+"14-shut-up-1.mp3" = "Halt die Klappe (widerlicher Mann)"; // ONLY USED FOR ENGLISH
+"15-shut-up-2.mp3" = "Halt die Klappe (Frau)"; // ONLY USED FOR ENGLISH
+"22-thanks-for-sharing.mp3" = "Danke fürs Teilen (Roboter)"; // ONLY USED FOR ENGLISH
 
 /* ERROR DIALOG */
 
-"ERROR_HEADER_MEDIA"                                    =   "DEVICE MEDIA ERROR";   // The header for media error alerts.
-"ERROR_TEXT_MEDIA_PERMISSION_DENIED"                    =   "You are not allowed to read any media from this device.";  // No permission alert text.
-"ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER"               =   "There was a technical problem creating the sound player."; // Unknown technical error alert text.
-"BASIC-OK-BUTTON"                                       =   "OK";   // Alert OK button.
+"ERROR_HEADER_MEDIA" = "GERÄTEMEDIENFEHLER"; // The header for media error alerts.
+"ERROR_TEXT_MEDIA_PERMISSION_DENIED" = "Sie dürfen keine Medien von diesem Gerät lesen."; // No permission alert text.
+"ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER" = "Es gab ein technisches Problem mit der Erstellung des Sound-Players."; // Unknown technical error alert text.
+"BASIC-OK-BUTTON" = "OK"; // Alert OK button.
 
 /* INFO SCREEN */
 
-"LGV_TIMER-ABOUT-TEXT"                                  =   "AmbiaMara is the ultimate countdown timer.\nIt has three modes: Digital (numbers only), Podium (three simple \"traffic lights\"), and Dual (both digits and \"traffic lights\").\nAdd timers by touching the \"+\" in the top, right of the Timer List, and delete them by left-swiping the timer in the list.";
+"LGV_TIMER-ABOUT-TEXT" = "AmbiaMara ist der ultimative Countdown-Timer.\nEr hat drei Modi: Digital (nur Zahlen), Podium (drei einfache „Ampeln“) und Dual (sowohl Ziffern als auch „Ampeln“).\nSie fügen Timer hinzu, indem Sie das „+“ oben rechts in der Timer-Liste berühren, und löschen sie, indem Sie den Timer in der Liste nach links wischen.";
 
 /* ACCESSIBILITY */
-
 /* TIMER LIST SCREEN */
 
-"LGV_TIMER-ACCESSIBILITY-INFO-LABEL"                    =   "Open \"About This App\"";
-"LGV_TIMER-ACCESSIBILITY-INFO-HINT"                     =   "If you select this button, the information screen for the app will be shown.";
-"LGV_TIMER-ACCESSIBILITY-ADD-LABEL"                     =   "Create A New Timer";
-"LGV_TIMER-ACCESSIBILITY-ADD-HINT"                      =   "If you select this, a new default timer will be added to the end of the list, and its setup screen will be selected.";
 
-"LGV_TIMER-ACCESSIBILITY-TABLE-LABEL"                   =   "List of All Available Timers";
-"LGV_TIMER-ACCESSIBILITY-TABLE-HINT"                    =   "Each row of this table represents a single timer. You can select a timer by tapping that row, or delete a timer by left-swiping the row.";
+"LGV_TIMER-ACCESSIBILITY-INFO-LABEL" = "„Infos zu dieser App“ öffnen";
+"LGV_TIMER-ACCESSIBILITY-INFO-HINT" = "Wenn Sie diese Schaltfläche auswählen, wird der Informationsbildschirm zur App angezeigt.";
+"LGV_TIMER-ACCESSIBILITY-ADD-LABEL" = "Einen neuen Timer erstellen";
+"LGV_TIMER-ACCESSIBILITY-ADD-HINT" = "Wenn Sie diese Option auswählen, wird am Ende dieser Liste ein neuer Standardtimer hinzugefügt und der zugehörige Setup-Bildschirm ausgewählt.";
 
-"LGV_TIMER-ACCESSIBILITY-SWITCH-LABEL"                  =   "Show Controls Above Running Timer";
-"LGV_TIMER-ACCESSIBILITY-SWITCH-HINT"                   =   "If this switch is on, then each timer, when running, will display a row of controls above it with buttons that will control it. If they are not shown, then the timer must be controlled by gestures.";
+"LGV_TIMER-ACCESSIBILITY-TABLE-LABEL" = "Liste aller verfügbaren Timer";
+"LGV_TIMER-ACCESSIBILITY-TABLE-HINT" = "Jede Zeile dieser Tabelle stellt einen einzelnen Timer dar. Sie können einen Timer auswählen, indem Sie auf diese Zeile tippen, oder einen Timer löschen, indem Sie die Zeile nach links wischen.";
+
+"LGV_TIMER-ACCESSIBILITY-SWITCH-LABEL" = "Steuerelemente oberhalb des laufenden Timers anzeigen";
+"LGV_TIMER-ACCESSIBILITY-SWITCH-HINT" = "Wenn dieser Schalter eingeschaltet ist, zeigt jeder Timer, wenn er läuft, eine Reihe von Steuerelementen mit Schaltflächen darüber an. Werden sie nicht angezeigt, muss der Timer durch Gesten gesteuert werden.";
 
 /* Labels for each row -dependent upon mode. These will also be displayed in the other screens. */
 
-"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL"        =   "Podium Mode Timer";
-"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-HINT"         =   "This timer will simply display three \"traffic lights\" that will switch from green (leftmost) to yellow (center), to red (rightmost) as the timer counts down. A flash will occur at each transition.";
-"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL"       =   "Digital Mode Timer";
-"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-HINT"        =   "This timer will display a simple digital readout, in the selected color.";
-"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL"          =   "Dual Mode Timer";
-"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-HINT"           =   "This timer will display a digital readout, in the selected color. Underneath the readout will be three \"traffic lights.\" that will switch from green (leftmost) to yellow (center), to red (rightmost) as the timer counts down. A flash will occur at each transition.";
+"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL" = "Podiumsmodus-Timer";
+"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-HINT" = "Dieser Timer zeigt einfach drei „Ampeln“ an, die von grün (ganz links) zu gelb (Mitte) und rot (ganz rechts) wechseln, wenn der Timer herunterzählt. Bei jedem Übergang leuchtet der Bildschirm auf.";
+"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-LABEL" = "Digitalmodus-Timer";
+"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DIGITAL-HINT" = "Dieser Timer zeigt eine einfache digitale Anzeige in der ausgewählten Farbe an.";
+"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-LABEL" = "Dualmodus-Timer";
+"LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-HINT" = "Dieser Timer zeigt eine digitale Anzeige in der ausgewählten Farbe an. Unter der Anzeige befinden sich drei „Ampeln“, die von grün (ganz links) zu gelb (Mitte), zu rot (ganz rechts) wechseln, wenn der Timer herunterzählt. Bei jedem Übergang leuchtet der Bildschirm auf.";
 
 /* TIMER SET SCREEN */
 
-"LGV_TIMER-ACCESSIBILITY-PICKER-HOURS-TITLE-LABEL"      =   "Set Hours. Currently at ";
-"LGV_TIMER-ACCESSIBILITY-PICKER-MINUTES-TITLE-LABEL"    =   "Set Minutes. Currently at ";
-"LGV_TIMER-ACCESSIBILITY-PICKER-SECONDS-TITLE-LABEL"    =   "Set Seconds. Currently at ";
+"LGV_TIMER-ACCESSIBILITY-PICKER-HOURS-TITLE-LABEL" = "Stunden einstellen. Aktuell bei ";
+"LGV_TIMER-ACCESSIBILITY-PICKER-MINUTES-TITLE-LABEL" = "Minuten einstellen. Aktuell bei ";
+"LGV_TIMER-ACCESSIBILITY-PICKER-SECONDS-TITLE-LABEL" = "Sekunden einstellen. Aktuell bei ";
 
-"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL"         =   "Timer Settings";
-"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-HINT"          =   "Tapping this button will bring in a screen that will allow you to set up this timer.";
+"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL" = "Timer-Einstellungen";
+"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-HINT" = "Wenn Sie auf diese Schaltfläche tippen, wird ein Bildschirm angezeigt, mit dem Sie diesen Timer einrichten können.";
 
-"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL"         =   "Timer Settings";
-"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-HINT"          =   "Tapping this button will bring in a screen that will allow you to set up this timer.";
+"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL" = "Timer-Einstellungen";
+"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-HINT" = "Wenn Sie auf diese Schaltfläche tippen, wird ein Bildschirm angezeigt, mit dem Sie diesen Timer einrichten können.";
 
-"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL"         =   "Timer Settings";
-"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-HINT"          =   "Tapping this button will bring in a screen that will allow you to set up this timer.";
+"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL" = "Timer-Einstellungen";
+"LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-HINT" = "Wenn Sie auf diese Schaltfläche tippen, wird ein Bildschirm angezeigt, mit dem Sie diesen Timer einrichten können.";
 
-"LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-LABEL"       =   "Next Timer";
-"LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-HINT"        =   "This allows you to select a timer that will be selected immediately after you stop the alarm. The next timer's Set Timer screen will appear, and you will be able to start that timer.";
+"LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-LABEL" = "Nächster Timer";
+"LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-HINT" = "Hier können Sie einen Timer auswählen, der unmittelbar nach dem Stoppen des Alarms ausgewählt wird. Der Bildschirm „Timer einstellen“ des nächsten Timers wird angezeigt und Sie können diesen Timer starten.";
 
-"LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-COLUMN-LABEL"    =   "This allows you to choose another timer to be selected upon stopping the alarm for this timer. You can select no following timer, or one of the other timers.";
+"LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-COLUMN-LABEL" = "Dies ermöglicht es Ihnen, einen anderen Timer auszuwählen, der beim Stoppen des Alarms für diesen Timer ausgewählt werden soll. Sie können keinen folgenden Timer oder einen der anderen Timer auswählen.";
 
-"LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-LABEL"      =   "Start Timer";
-"LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-HINT"       =   "Tapping this button will start the timer. A screen will appear with the display required for the selected timer mode. The timer will immediately start counting down.";
+"LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-LABEL" = "Timer starten";
+"LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-HINT" = "Wenn Sie auf diese Schaltfläche tippen, wird der Timer gestartet. Es erscheint dann ein Bildschirm mit der erforderlichen Anzeige für den ausgewählten Timer. Der Timer beginnt sofort mit dem Countdown.";
 
 /* TIMER SETTINGS SCREEN */
 
-"LGV_TIMER-ACCESSIBILITY-SEGMENTED-TIMER-MODE-Digits-LABEL" =   "Digital Mode. The timer will display a simple digital display during countdown.";
-"LGV_TIMER-ACCESSIBILITY-SEGMENTED-TIMER-MODE-Lights-LABEL" =   "Podium Mode. The timer will display three simple \"traffic lights\" during the countdown.";
-"LGV_TIMER-ACCESSIBILITY-SEGMENTED-TIMER-MODE-Both-LABEL"   =   "Dual Mode. The timer will display digits during the countdown, and underneath the digits, will be three simple \"traffic lights.\"";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-TIMER-MODE-Digits-LABEL" = "Digitalmodus. Der Timer zeigt während des Countdowns eine einfache Digitalanzeige an.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-TIMER-MODE-Lights-LABEL" = "Podiumsmodus. Der Timer zeigt drei einfache „Ampeln“ während des Countdowns an.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-TIMER-MODE-Both-LABEL" = "Dualmodus. Der Timer zeigt Ziffern während des Countdowns an und unterhalb der Ziffern werden drei einfache „Ampeln“ angezeigt";
 
-"LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-LABEL"            =   "Digital Display Color";
-"LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-HINT"             =   "This picker has a column of colors. You can select a color, and that is what will be used for Digital and Dual Mode displays. It will not be available for Podium Mode.";
+"LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-LABEL" = "Farbe der Digitalanzeige";
+"LGV_TIMER-ACCESSIBILITY-COLOR-PICKER-HINT" = "Dieses Element dient der Farbauswahl. Sie können eine Farbe auswählen, die dann für die Anzeigen des Digital- und Dualmodus verwendet werden. Für den Podiumsmodus wird sie aber nicht verfügbar sein.";
 
-"LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-LABEL"    =   "Set Warning Time";
-"LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-HINT"     =   "The picker below has three columns: Hours (leftmost), Minutes (center) and Seconds (rightmost). Use these to select the \"warning\" time for the countdown. You can select up to 23:59:59.";
+"LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-LABEL" = "Warnzeit festlegen";
+"LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-HINT" = "Die folgende Auswahl hat drei Spalten: Stunden (ganz links), Minuten (Mitte) und Sekunden (ganz rechts). Verwenden Sie diese, um die Warnzeit für den Countdown auszuwählen. Sie können maximal 23:59:59 auswählen.";
 
-"LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-LABEL"   =   "Set Final Time";
-"LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-HINT"    =   "The picker below has three columns: Hours (leftmost), Minutes (center) and Seconds (rightmost). Use these to select the \"final\" time for the countdown. You can select up to 23:59:59.";
+"LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-LABEL" = "Endzeit festlegen";
+"LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-HINT" = "Die folgende Auswahl hat drei Spalten: Stunden (ganz links), Minuten (Mitte) und Sekunden (ganz rechts). Verwenden Sie diese, um die Endzeit für den Countdown auszuwählen. Sie können maximal 23:59:59 auswählen.";
 
-"LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-LABEL"      =   "Sound Setup";
-"LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-HINT"       =   "This button will display images that will indicate the current alarm sound/vibration mode. If you tap this button, a screen will appear that allows you to set the sound and vibration state of the alarm.";
+"LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-LABEL" = "Ton-Setup";
+"LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-HINT" = "Diese Schaltfläche zeigt durch Symbole den aktuellen Alarmton-/Vibrationsmodus an. Wenn Sie auf diese Schaltfläche tippen, wird ein Bildschirm zum Einstellen des Alarmton- und Vibrationsmodus angezeigt.";
 
-"LGV_TIMER-ACCESSIBILITY-SOUND-SET"                     =   "The alarm will play a sound on alarm.";
-"LGV_TIMER-ACCESSIBILITY-SONG-SET"                      =   "The alarm will play a song on alarm.";
-"LGV_TIMER-ACCESSIBILITY-SILENT-SET"                    =   "The alarm will be silent on alarm.";
-"LGV_TIMER-ACCESSIBILITY-VIBRATE-SET"                   =   "The phone will vibrate on alarm.";
-"LGV_TIMER-ACCESSIBILITY-TICKS-SET"                     =   "You will hear audible ticks.";
+"LGV_TIMER-ACCESSIBILITY-SOUND-SET" = "Der Alarm spielt bei Alarmauslösung einen Ton ab.";
+"LGV_TIMER-ACCESSIBILITY-SONG-SET" = "Der Alarm spielt bei Alarmauslösung einen Titel.";
+"LGV_TIMER-ACCESSIBILITY-SILENT-SET" = "Der Alarm wird bei Alarmauslösung stumm geschaltet.";
+"LGV_TIMER-ACCESSIBILITY-VIBRATE-SET" = "Das Telefon vibriert bei Alarmauslösung.";
+"LGV_TIMER-ACCESSIBILITY-TICKS-SET" = "Sie werden hörbare Ticks hören.";
 
-"LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-LABEL"             =   "Done";
-"LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-HINT"              =   "If you tap this button, this screen will be dismissed.";
+"LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-LABEL" = "Fertig";
+"LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-HINT" = "Wenn Sie auf diese Schaltfläche tippen, wird dieser Bildschirm geschlossen.";
 
 /* ALARM SETUP SCREEN */
 
-"LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-LABEL"          =   "Vibrate On Alarm";
-"LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-HINT"           =   "If this switch is on, then the phone will vibrate as the alarm sounds.";
+"LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-LABEL" = "Bei Alarm vibrieren";
+"LGV_TIMER-ACCESSIBILITY-VIBRATE-SWITCH-HINT" = "Bei Aktivierung vibriert das Telefon, wenn der Alarm ertönt.";
 
-"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Speaker-LABEL"    =   "Play Selected Sound. Upon completion, the timer will play a sound that you will select in the picker below.";
-"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Music-LABEL"      =   "Play Selected Song. Upon completion, the timer will play a song that you select from your music library, using the pickers below.";
-"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Nothing-LABEL"    =   "Silent. There will be no audible alarm upon timer completion.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Speaker-LABEL" = "Ausgewählten Ton wiedergeben. Nach Ablauf spielt der Timer einen Ton ab, den Sie im Auswahlfeld unten auswählen.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Music-LABEL" = "Ausgewählten Titel wiedergeben. Nach Ablauf spielt der Timer einen Titel, den Sie unten über die Auswahlfelder aus Ihrer Musikbibliothek ausgewählt haben.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Nothing-LABEL" = "Lautlos. Nach Ablauf des Timers wird es keinen hörbaren Alarm geben.";
 
-"LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-LABEL"     =   "Select A Sound";
-"LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-HINT"      =   "Select one of several preset sounds to play when the alarm goes off.";
+"LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-LABEL" = "Ton auswählen";
+"LGV_TIMER-ACCESSIBILITY-SOUND-SELECT-PICKER-HINT" = "Wählen Sie einen von mehreren voreingestellten Tönen aus, die wiedergegeben werden sollen, wenn der Alarm ausgelöst wird.";
 
-"LGV_TIMER-ACCESSIBILITY-ARTIST-SELECT-PICKER-LABEL"    =   "Select An Artist From Your Music Library";
-"LGV_TIMER-ACCESSIBILITY-ARTIST-SELECT-PICKER-HINT"     =   "Select an artist from your music library. When you select an artist the picker below this one will display their songs.";
-"LGV_TIMER-ACCESSIBILITY-SONG-SELECT-PICKER-LABEL"      =   "Select A Song by the Above Artist";
-"LGV_TIMER-ACCESSIBILITY-SONG-SELECT-PICKER-HINT"       =   "Select a song from the artist in the picker above this one.";
+"LGV_TIMER-ACCESSIBILITY-ARTIST-SELECT-PICKER-LABEL" = "Einen Künstler aus Ihrer Musikbibliothek auswählen";
+"LGV_TIMER-ACCESSIBILITY-ARTIST-SELECT-PICKER-HINT" = "Einen Künstler aus Ihrer Musikbibliothek auswählen. Wenn Sie einen Künstler auswählen, werden im Auswahlfeld darunter die zugehörigen Titel angezeigt.";
+"LGV_TIMER-ACCESSIBILITY-SONG-SELECT-PICKER-LABEL" = "Einen Titel des obigen Künstlers auswählen";
+"LGV_TIMER-ACCESSIBILITY-SONG-SELECT-PICKER-HINT" = "Wählen Sie einen Titel des Künstlers im Auswahlfeld über diesem.";
 
-"LGV_TIMER-ACCESSIBILITY-TEST-SOUND-BUTTON-LABEL"       =   "Test Sound";
-"LGV_TIMER-ACCESSIBILITY-TEST-SOUND-BUTTON-HINT"        =   "Touching this button will start the selected sound playing in a loop. Touch it again to stop the sound from playing.";
+"LGV_TIMER-ACCESSIBILITY-TEST-SOUND-BUTTON-LABEL" = "Ton testen";
+"LGV_TIMER-ACCESSIBILITY-TEST-SOUND-BUTTON-HINT" = "Wenn Sie diese Schaltfläche berühren, wird der ausgewählte Ton in einer Schleife wiedergegeben. Berühren Sie sie erneut, um das Abspielen des Tons zu stoppen.";
 
-"LGV_TIMER-ACCESSIBILITY-TEST-SONG-BUTTON-LABEL"        =   "Test Song";
-"LGV_TIMER-ACCESSIBILITY-TEST-SONG-BUTTON-HINT"         =   "Touching this button will start the selected song playing in a loop. Touch it again to stop the song from playing.";
+"LGV_TIMER-ACCESSIBILITY-TEST-SONG-BUTTON-LABEL" = "Titel testen";
+"LGV_TIMER-ACCESSIBILITY-TEST-SONG-BUTTON-HINT" = "Wenn Sie diese Schaltfläche berühren, wird der ausgewählte Titel in einer Schleife wiedergegeben. Berühren Sie sie erneut, um das Abspielen des Titels zu stoppen.";
 
-"LGV_TIMER-ACCESSIBILITY-AUDIBLE-TICKS-SWITCH-LABEL"    =   "Enable Audible Ticks";
-"LGV_TIMER-ACCESSIBILITY-AUDIBLE-TICKS-SWITCH-HINT"     =   "If you enable this switch, then each second will be marked by an subtle \"tick\" sound. In Podium or Dual Mode, you will hear two ticks when you are in \"Warning\" mode, and three ticks when you are in \"Final\" mode.";
+"LGV_TIMER-ACCESSIBILITY-AUDIBLE-TICKS-SWITCH-LABEL" = "Hörbare Ticks aktivieren";
+"LGV_TIMER-ACCESSIBILITY-AUDIBLE-TICKS-SWITCH-HINT" = "Wenn Sie diesen Schalter aktivieren, wird jede Sekunde durch einen dezente „Tick“-Ton markiert. Im Podiums- oder Dualmodus hören Sie zwei Ticks, wenn Sie sich im Warnmodus befinden, und drei Ticks wenn Sie sich im Endmodus befinden.";
 
 /* RUNNING TIMER SCREEN */
 
-"LGV_TIMER-ACCESSIBILITY-STOP-BUTTON-LABEL"             =   "Stop Timer";
-"LGV_TIMER-ACCESSIBILITY-STOP-BUTTON-HINT"              =   "Touching this button will stop the timer and dismiss this screen.";
+"LGV_TIMER-ACCESSIBILITY-STOP-BUTTON-LABEL" = "Timer stoppen";
+"LGV_TIMER-ACCESSIBILITY-STOP-BUTTON-HINT" = "Wenn Sie diese Schaltfläche berühren, wird der Timer gestoppt und dieser Bildschirm geschlossen.";
 
-"LGV_TIMER-ACCESSIBILITY-REWIND-BUTTON-LABEL"           =   "Rewind Timer";
-"LGV_TIMER-ACCESSIBILITY-REWIND-BUTTON-HINT"            =   "Touching this button will stop the timer and rewind to the beginning. It will not dismiss the screen.";
+"LGV_TIMER-ACCESSIBILITY-REWIND-BUTTON-LABEL" = "Timer zurückspulen";
+"LGV_TIMER-ACCESSIBILITY-REWIND-BUTTON-HINT" = "Wenn Sie diese Schaltfläche berühren, wird der Timer angehalten und zum Anfang zurückgespult. Der Bildschirm wird nicht geschlossen.";
 
-"LGV_TIMER-ACCESSIBILITY-END-BUTTON-LABEL"              =   "End Timer";
-"LGV_TIMER-ACCESSIBILITY-END-BUTTON-HINT"               =   "Touching this button will finish the timer and start the alarm. It will not dismiss the screen.";
+"LGV_TIMER-ACCESSIBILITY-END-BUTTON-LABEL" = "Timer beenden";
+"LGV_TIMER-ACCESSIBILITY-END-BUTTON-HINT" = "Wenn Sie diese Schaltfläche berühren, wird der Timer beendet und der Alarm gestartet. Der Bildschirm wird nicht geschlossen.";
 
-"LGV_TIMER-ACCESSIBILITY-PAUSE-BUTTON-LABEL"            =   "Pause Timer";
-"LGV_TIMER-ACCESSIBILITY-PAUSE-BUTTON-HINT"             =   "Tapping this will pause the timer. If we are in Podium Mode, it will also rewind the timer to the start.";
+"LGV_TIMER-ACCESSIBILITY-PAUSE-BUTTON-LABEL" = "Timer pausieren";
+"LGV_TIMER-ACCESSIBILITY-PAUSE-BUTTON-HINT" = "Wenn Sie darauf tippen, wird der Timer pausiert. Wenn der Podiumsmodus aktiv ist, wird ferner der Timer zum Start zurückgespult.";
 
-"LGV_TIMER-ACCESSIBILITY-START-BUTTON-LABEL"            =   "Start Or Continue Timer";
-"LGV_TIMER-ACCESSIBILITY-START-BUTTON-HINT"             =   "Tapping this will start or continue a paused timer.";
+"LGV_TIMER-ACCESSIBILITY-START-BUTTON-LABEL" = "Timer starten oder fortsetzen";
+"LGV_TIMER-ACCESSIBILITY-START-BUTTON-HINT" = "Wenn Sie darauf tippen, wird ein pausierter Timer gestartet oder fortgesetzt.";
 
-"LGV_TIMER-ACCESSIBILITY-SCREEN-LABEL"                  =   "Running Timer Screen";
-"LGV_TIMER-ACCESSIBILITY-SCREEN-HINT"                   =   "This is the running timer screen. It can be controlled by gestures. Left-swipe to reset the timer, or dismiss this screen (if the timer is already reset). Right-swipe to immediately send the timer into alarm mode. Tap to pause or continue the timer.";
+"LGV_TIMER-ACCESSIBILITY-SCREEN-LABEL" = "Bildschirm „Laufender Timer“";
+"LGV_TIMER-ACCESSIBILITY-SCREEN-HINT" = "Dies ist der Bildschirm mit dem laufenden Timer. Er kann durch Gesten gesteuert werden. Wischen Sie nach links, um den Timer zurückzusetzen oder schließen Sie diesen Bildschirm (wenn der Timer bereits zurückgesetzt wurde). Wischen Sie nach rechts, um den Timer sofort in den Alarmmodus zu versetzen. Tippen Sie, um den Timer zu pausieren oder fortzusetzen.";
 
-"LGV_TIMER-ACCESSIBILITY-ALARM-LABEL"                   =   "Alarm Is Going Off";
-"LGV_TIMER-ACCESSIBILITY-ALARM-HINT"                    =   "The alarm is going off. Tap anywhere in the screen to stop it.";
+"LGV_TIMER-ACCESSIBILITY-ALARM-LABEL" = "Alarm ausgelöst";
+"LGV_TIMER-ACCESSIBILITY-ALARM-HINT" = "Der Alarm wurde ausgelöst. Tippen Sie auf den Bildschirm, um ihn zu stoppen.";
