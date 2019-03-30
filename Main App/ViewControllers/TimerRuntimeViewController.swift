@@ -500,7 +500,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
         self.timeDisplay.isAccessibilityElement = true
         self.timeDisplay.accessibilityLabel = self.timerObject.currentQuickSpeakableTime
 
-        self.view.accessibilityElements = [self.timeDisplay, self.stopButton, self.resetButton, self.endButton, self.pauseButton, self.flasherView]
+        self.view.accessibilityElements = [self.timeDisplay as Any, self.stopButton as Any, self.resetButton as Any, self.endButton as Any, self.pauseButton as Any, self.flasherView as Any]
         
         UIAccessibility.post(notification: .layoutChanged, argument: self.timeDisplay)
     }

@@ -431,7 +431,7 @@ class TimerSetController: A_TimerSetPickerController {
         self.bigStartButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-LABEL".localizedVariant
         self.bigStartButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-HINT".localizedVariant
         
-        self.view.accessibilityElements = [self.titleLabel, self.timeDisplayLabel, self.setTimePickerView, self.nextTimerButton, self.nextTimerPickerView, self.bigStartButton, self.setupButton]
+        self.view.accessibilityElements = [self.titleLabel as Any, self.timeDisplayLabel as Any, self.setTimePickerView as Any, self.nextTimerButton as Any, self.nextTimerPickerView as Any, self.bigStartButton as Any, self.setupButton as Any]
 
         if let firstElement = self.view.accessibilityElements?[0] as? UIView {
             UIAccessibility.post(notification: .layoutChanged, argument: firstElement)

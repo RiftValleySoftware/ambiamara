@@ -428,7 +428,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This method simply saves the main preferences Dictionary into the standard user defaults.
      */
     func savePrefs() {
-        let appData = NSKeyedArchiver.archivedData(withRootObject: self.appState)
+        let appData = NSKeyedArchiver.archivedData(withRootObject: self.appState as Any)
         UserDefaults.standard.set(appData, forKey: type(of: self)._appStatePrefsKey)
     }
     

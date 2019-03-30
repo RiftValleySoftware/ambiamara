@@ -1,3 +1,6 @@
+***Version 1.0.1.3000* ** *(TBD)*
+- Converted project to Swift 5.
+
 ***Version 1.0.0.3000* ** *(January 21, 2019)*
 - Some basic refactoring to ensure that the main thread is used, and that we use optional chaining for delegate calls.
 - Minor typo fix in the accessibility strings.
