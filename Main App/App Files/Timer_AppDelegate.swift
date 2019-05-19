@@ -11,11 +11,11 @@
 import UIKit
 import WatchConnectivity
 
-@UIApplicationMain
 /* ###################################################################################################################################### */
 /**
  This is the main application delegate class for the timer app.
  */
+@UIApplicationMain
 class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /* ################################################################################################################################## */
     // MARK: - Static Constants
@@ -43,11 +43,16 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      This struct will contain information about a song in our media library.
      */
     struct SongInfo {
+        /// The title for the song.
         var songTitle: String
+        /// The name of the artist
         var artistName: String
+        /// The name of any album
         var albumTitle: String
+        /// The URI to the song
         var resourceURI: String!
         
+        /// This is a calculated property that returns a song description, based upon whatever information is available.
         var description: String {
             var ret: String = ""
             
@@ -74,13 +79,20 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /* ################################################################################################################################## */
     // MARK: - Instance Properties
     /* ################################################################################################################################## */
-    var orientationLock = UIInterfaceOrientationMask.all    ///< Used to force orientation for the individual timer settings page.
-    var window: UIWindow?   ///< The app window object.
-    var currentTimer: TimerRuntimeViewController! = nil   ///< If a timer is up, we keep it here for easy access.
-    var useUserInfo: Bool = false   ///< The loaded prefs.
-    var watchDisconnected: Bool = true  ///< If the watch app is not connected, this is true.
-    var timerListController: Timer_SettingsViewController! = nil    ///< This is set (for convenience) if the timer settings page is up.
-    var ignoreSelectMessageFromWatch: Int = 0   ///< This is a semaphore for preventing multiple signals from the watch.
+    /// Used to force orientation for the individual timer settings page.
+    var orientationLock = UIInterfaceOrientationMask.all
+    /// The app window object.
+    var window: UIWindow?
+    /// If a timer is up, we keep it here for easy access.
+    var currentTimer: TimerRuntimeViewController! = nil
+    /// The loaded prefs.
+    var useUserInfo: Bool = false
+    /// If the watch app is not connected, this is true.
+    var watchDisconnected: Bool = true
+    /// This is set (for convenience) if the timer settings page is up.
+    var timerListController: Timer_SettingsViewController! = nil
+    /// This is a semaphore for preventing multiple signals from the watch.
+    var ignoreSelectMessageFromWatch: Int = 0
     /// This contains information about music items. We keep these here, so they stay loaded up between timers.
     var songs: [String: [SongInfo]] = [:]
     /// This is an index of the keys (artists) for the songs Dictionary.
@@ -207,10 +219,12 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /* ################################################################################################################################## */
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
+    /// This will be the watch connection session (UNUSED)
     private var _mySession: WCSession! = nil
     
     // MARK: - Internal Instance Calculated Properties
     /* ################################################################################################################################## */
+    /// Accessor for the session
     var session: WCSession! {
         if nil == self._mySession {
              self._mySession = WCSession.default
@@ -234,6 +248,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /* ################################################################################################################################## */
     // MARK: - Internal Instance Methods
     /* ################################################################################################################################## */
+    /// Activates a session
     func activateSession() {
         if WCSession.isSupported() && (self._mySession.activationState != .activated) {
             self._mySession.delegate = self
@@ -443,8 +458,8 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     func sendForegroundMessage() {
         if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
             if nil != self.appState {
-                for timer in self.appState {    // Make sure the timer color theme is up to date.
-                    timer.storedColor = self.timerEngine.getIndexedColorThemeColor(timer.colorTheme)
+                self.appState.forEach {    // Make sure the timer color theme is up to date.
+                    $0.storedColor = self.timerEngine.getIndexedColorThemeColor($0.colorTheme)
                 }
                 
                 let selectMsg = [Timer_Messages.s_timerRequestAppStatusMessageKey: self.appState.dictionary]
@@ -506,16 +521,16 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
                         print("Phone Received Message: " + String(describing: message))
                     #endif
                     
-                    for key in message.keys {
-                        switch key {
+                    message.keys.forEach {
+                        switch $0 {
                         case Timer_Messages.s_timerListSelectTimerMessageKey:
-                            self.handleTimerListSelectMessage(message, key)
+                            self.handleTimerListSelectMessage(message, $0)
                             
                         case Timer_Messages.s_timerListStopTimerMessageKey:
                             self.timerEngine.stopTimer()
                             
                         case Timer_Messages.s_timerListStartTimerMessageKey:
-                            self.handleTimerListStartMessage(message, key)
+                            self.handleTimerListStartMessage(message, $0)
 
                         case Timer_Messages.s_timerAppInForegroundMessageKey:
                             self.sendForegroundMessage()
@@ -527,9 +542,11 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
                             self.ignoreSelectMessageFromWatch = 0
 
                         default:
-                            if let uid = message[key] as? String {
-                                print(uid)
-                            }
+                            #if DEBUG
+                                if let uid = message[$0] as? String {
+                                    print(uid)
+                                }
+                            #endif
                             type(of: self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessage:)", inMessage: "\(message)")
                         }
                     }

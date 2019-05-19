@@ -12,12 +12,23 @@
 
 import UIKit
 
+/* ###################################################################################################################################### */
+/**
+ This is a controller that genericizes the labels
+ */
 class SettingsTimerTableCell: UITableViewCell {
+    /// The label that displays the clock time
     @IBOutlet weak var clockDisplay: UILabel!
+    /// The label that displays the name of the timer
     @IBOutlet weak var timerNameLabel: UILabel!
+    /// The little traffic lights image that may be displayed
     @IBOutlet weak var trafficLights: UIImageView!
 }
 
+/* ###################################################################################################################################### */
+/**
+ Really just a placeholder
+ */
 class TimerSettingsNavController: UINavigationController {
 }
 
@@ -29,18 +40,25 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
     /* ################################################################################################################################## */
     // MARK: - IB Properties
     /* ################################################################################################################################## */
+    /// The timer list is shown here
     @IBOutlet weak var timerTableView: UITableView!
+    /// The title item for our navitem
     @IBOutlet weak var navItemTitle: UINavigationItem!
+    /// The info bar button item
     @IBOutlet weak var navInfo: UIBarButtonItem!
+    /// The plus button
     @IBOutlet weak var navAdd: UIBarButtonItem!
+    /// The switch for showing the controls
     @IBOutlet weak var showControlsSwitch: UISwitch!
+    /// The button label for that switch
     @IBOutlet weak var showControlsButton: UIButton!
-    
+    /// The ID of the info segue
     private let _info_segue_id = "segue-id-info"
     
     /* ################################################################################################################################## */
     // MARK: - Internal Instance Properties
     /* ################################################################################################################################## */
+    /// The main tab controller
     var mainTabController: Timer_MainTabController! = nil
     
     /* ################################################################################################################################## */
@@ -102,7 +120,7 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
     /**
      Called when the swictch is changed to display the timer controls in a running timer.
      
-     :param: sender The switch object.
+     - parameter sender: The switch object.
      */
     @IBAction func changedShowControlsSwitch(_ sender: UISwitch) {
         Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer = sender.isOn
@@ -113,7 +131,7 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
     /**
      Called when the button that acts as a label for the switch is hit. This toggles the switch.
      
-     :param: sender The button object.
+     - parameter sender: The button object.
      */
     @IBAction func showControlsButtonHit(_ sender: Any) {
         self.showControlsSwitch.setOn(!self.showControlsSwitch.isOn, animated: true)
@@ -125,7 +143,7 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
     /**
      This is called when the "Add Timer" button is hit, requesting a new timer be created.
      
-     :param: sender The button object.
+     - parameter sender: The button object.
      */
     @IBAction func addTimerButtonHit(_ sender: Any) {
         self.mainTabController.addNewTimer()
@@ -137,7 +155,7 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
     /**
      This is called when the info button is hit, requesting that we bring in the information screen.
      
-     :param: sender The button object.
+     - parameter sender: The button object.
      */
     @IBAction func infoButtonHit(_ sender: Any) {
         self.performSegue(withIdentifier: self._info_segue_id, sender: nil)

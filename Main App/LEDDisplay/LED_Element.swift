@@ -107,13 +107,20 @@ public class LED_SingleDigit: LED_Element {
     /* ################################################################## */
     /// These are indexes, used to make it a bit more apparent what segment is being sought.
     enum SegmentIndexes {
-        case kTopSegment            ///< top segment
-        case kTopLeftSegment        ///< top left segment
-        case kTopRightSegment       ///< top right segment
-        case kBottomLeftSegment     ///< bottom left segment
-        case kBottomRightSegment    ///< bottom right segment
-        case kBottomSegment         ///< bottom Segment
-        case kCenterSegment         ///< center segment
+        /// top segment
+        case kTopSegment
+        /// top left segment
+        case kTopLeftSegment
+        /// top right segment
+        case kTopRightSegment
+        /// bottom left segment
+        case kBottomLeftSegment
+        /// bottom right segment
+        case kBottomRightSegment
+        /// bottom Segment
+        case kBottomSegment
+        /// center segment
+        case kCenterSegment
     }
     
     /* ################################################################## */
@@ -168,13 +175,13 @@ public class LED_SingleDigit: LED_Element {
     /* ################################################################## */
     /// This array of points dictates the layout of the display.
     private static let _c_g_viewOffsets: [SegmentIndexes: CGPoint] = [
-        .kTopSegment: CGPoint(x: 8, y: 0),               ///< top segment
-        .kTopLeftSegment: CGPoint(x: 0, y: 8),           ///< top left segment
-        .kTopRightSegment: CGPoint(x: 192, y: 8),        ///< top right segment
-        .kBottomLeftSegment: CGPoint(x: 0, y: 250),      ///< bottom left segment
-        .kBottomRightSegment: CGPoint(x: 192, y: 250),   ///< bottom right segment
-        .kBottomSegment: CGPoint(x: 8, y: 434),          ///< bottom Segment
-        .kCenterSegment: CGPoint(x: 8, y: 212)           ///< center segment
+        .kTopSegment: CGPoint(x: 8, y: 0),               /// top segment
+        .kTopLeftSegment: CGPoint(x: 0, y: 8),           /// top left segment
+        .kTopRightSegment: CGPoint(x: 192, y: 8),        /// top right segment
+        .kBottomLeftSegment: CGPoint(x: 0, y: 250),      /// bottom left segment
+        .kBottomRightSegment: CGPoint(x: 192, y: 250),   /// bottom right segment
+        .kBottomSegment: CGPoint(x: 8, y: 434),          /// bottom Segment
+        .kCenterSegment: CGPoint(x: 8, y: 212)           /// center segment
     ]
     
     /* ################################################################## */
@@ -184,13 +191,21 @@ public class LED_SingleDigit: LED_Element {
     /* ################################################################## */
     // MARK: - Private Instance Constants
     /* ################################################################## */
+    /// The bezier path for the top segment
     private let _topSegment: UIBezierPath!
+    /// The bezier path for the top, left segment
     private let _topLeftSegment: UIBezierPath!
+    /// The bezier path for the bottom, left segment
     private let _bottomLeftSegment: UIBezierPath!
+    /// The bezier path for the top, right segment
     private let _topRightSegment: UIBezierPath!
+    /// The bezier path for the bottom, right segment
     private let _bottomRightSegment: UIBezierPath!
+    /// The bezier path for the bottom segment
     private let _bottomSegment: UIBezierPath!
+    /// The bezier path for the center segment
     private let _centerSegment: UIBezierPath!
+    /// The value of this digit
     private var _value: Int
     
     /* ################################################################## */
@@ -279,8 +294,8 @@ public class LED_SingleDigit: LED_Element {
         
         let selectedSegments = type(of: self)._c_g_segmentSelection[self._value + 2]
         // Include the segments that we're using.
-        for segmentPathIndex in selectedSegments {
-            switch segmentPathIndex {
+        selectedSegments.forEach {
+            switch $0 {
             case .kCenterSegment:
                 ret.append(self._centerSegment)
             case .kTopSegment:
@@ -496,9 +511,10 @@ public class LED_SeparatorDots: LED_Element {
             // Now that we have all the centers, it's time to make us some paths.
             
             var segments: [UIBezierPath] = []
+            let width = type(of: self)._c_g_displaySize.width
             
-            for segmentCenter in segmentCenters {
-                let dotPath = UIBezierPath(arcCenter: segmentCenter, radius: type(of: self)._c_g_displaySize.width / 2, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
+            segmentCenters.forEach {
+                let dotPath = UIBezierPath(arcCenter: $0, radius: width / 2, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
                 segments.append(dotPath)
             }
             
@@ -546,8 +562,8 @@ public class LED_SeparatorDots: LED_Element {
     public var allSegments: UIBezierPath {
         let ret: UIBezierPath = UIBezierPath()
         
-        for segment in self._segments {
-            ret.append(segment)
+        self._segments.forEach {
+            ret.append($0)
         }
         
         return ret
@@ -560,14 +576,8 @@ public class LED_SeparatorDots: LED_Element {
     public var activeSegments: UIBezierPath {
         let ret: UIBezierPath = UIBezierPath()
         
-        var index = 0
-        
-        for segment in self._segments {
-            if self._litSegments[index] {
-                ret.append(segment)
-            }
-            
-            index += 1
+        for i in self._segments.enumerated() where self._litSegments[i.offset] {
+            ret.append(i.element)
         }
         
         return ret
@@ -580,16 +590,10 @@ public class LED_SeparatorDots: LED_Element {
     public var inactiveSegments: UIBezierPath {
         let ret: UIBezierPath = UIBezierPath()
         
-        var index = 0
-        
-        for segment in self._segments {
-            if !self._litSegments[index] {
-                ret.append(segment)
-            }
-            
-            index += 1
+        for i in self._segments.enumerated() where !self._litSegments[i.offset] {
+            ret.append(i.element)
         }
-        
+
         return ret
     }
 }
@@ -602,16 +606,24 @@ public class LED_SeparatorDots: LED_Element {
  Groups handle layout as right to left (Least Significant to Most Significant). Element 0 will be rightmost.
  */
 public class LED_ElementGrouping: LED_Element, Sequence {
+    /// The element types
     public enum ElementTypes {
+        /// This is a standard hex digit
         case StandardDigit
+        /// This is a separator (dots)
         case Separator
     }
     
+    /// This describes the layout
     public typealias ElementLayout = (type: ElementTypes, value: Int)
     
+    /// This is the elements in this set
     private let _containedElemnts: [LED_Element]
+    /// This is the size of the container
     private var _containerSize: CGSize
+    /// This is how much space there is between elements
     private var _separationSpace: CGFloat
+    /// The offset of the elements
     private var _offsetPoint: CGPoint = CGPoint.zero
     
     /* ################################################################## */
@@ -641,11 +653,11 @@ public class LED_ElementGrouping: LED_Element, Sequence {
     convenience init(_ inElementLayout: [ElementLayout], inContainerSize: CGSize = CGSize.zero, inSeparationSpace: CGFloat = 12) {
         var elements: [LED_Element] = []
         
-        for elementLayout in inElementLayout {
+        inElementLayout.forEach {
             var element: LED_Element
-            let value = elementLayout.value
+            let value = $0.value
             
-            if .StandardDigit == elementLayout.type {
+            if .StandardDigit == $0.type {
                 element = LED_SingleDigit(value)
             } else {
                 var dots: [Bool] = []
@@ -673,9 +685,9 @@ public class LED_ElementGrouping: LED_Element, Sequence {
         var containedX: CGFloat = 0
         var containedY: CGFloat = 0
         
-        for element in self._containedElemnts {
-            containedX += element.drawingSize.width
-            containedY = Swift.max(containedY, element.drawingSize.height)
+        self._containedElemnts.forEach {
+            containedX += $0.drawingSize.width
+            containedY = Swift.max(containedY, $0.drawingSize.height)
         }
         
         return CGSize(width: containedX, height: containedY)
@@ -801,10 +813,10 @@ public class LED_ElementGrouping: LED_Element, Sequence {
         let scalingFactor = self._scalingFactor
         let separator = self._separationSpace / scalingFactor.x
         
-        for element in self._containedElemnts {
+        self._containedElemnts.forEach {
             let positionTransform = CGAffineTransform(translationX: xPos, y: 0)
-            xPos += (element.drawingSize.width + separator)
-            let elementPath = element.allSegments
+            xPos += ($0.drawingSize.width + separator)
+            let elementPath = $0.allSegments
             elementPath.apply(positionTransform)
             ret.append(elementPath)
         }
@@ -827,10 +839,10 @@ public class LED_ElementGrouping: LED_Element, Sequence {
         let scalingFactor = self._scalingFactor
         let separator = self._separationSpace / scalingFactor.x
         
-        for element in self._containedElemnts {
+        self._containedElemnts.forEach {
             let positionTransform = CGAffineTransform(translationX: xPos, y: 0)
-            xPos += (element.drawingSize.width + separator)
-            let elementPath = element.activeSegments
+            xPos += ($0.drawingSize.width + separator)
+            let elementPath = $0.activeSegments
             elementPath.apply(positionTransform)
             ret.append(elementPath)
         }
@@ -853,10 +865,10 @@ public class LED_ElementGrouping: LED_Element, Sequence {
         let scalingFactor = self._scalingFactor
         let separator = self._separationSpace / scalingFactor.x
         
-        for element in self._containedElemnts {
+        self._containedElemnts.forEach {
             let positionTransform = CGAffineTransform(translationX: xPos, y: 0)
-            xPos += (element.drawingSize.width + separator)
-            let elementPath = element.inactiveSegments
+            xPos += ($0.drawingSize.width + separator)
+            let elementPath = $0.inactiveSegments
             elementPath.apply(positionTransform)
             ret.append(elementPath)
         }

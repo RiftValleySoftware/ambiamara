@@ -20,6 +20,9 @@
          location = "group:CHANGELOG.md">
       </FileRef>
       <FileRef
+         location = "group:jazzy.sh">
+      </FileRef>
+      <FileRef
          location = "group:Main App/LEDDisplay/Honeycomb.playground">
       </FileRef>
    </Group>

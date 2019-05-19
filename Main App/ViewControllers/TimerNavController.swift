@@ -16,12 +16,15 @@ import UIKit
 
 /* ###################################################################################################################################### */
 /**
+ This is a class that implements a View Controller for your standard timer.
  */
 class TimerNavController: UINavigationController, UINavigationControllerDelegate {
+    /// This is the actual timer that we are associating with this controller
     private var _timerObject: TimerSettingTuple! = nil
     
     /* ################################################################## */
     /**
+     - returns: The associated timer object (accessor)
      */
     var timerObject: TimerSettingTuple! {
         get {
@@ -37,13 +40,14 @@ class TimerNavController: UINavigationController, UINavigationControllerDelegate
     }
     
     /* ################################################################################################################################## */
-    /// This has the index number for this timer instance (1-based).
+    /// - returns: the index number for this timer instance (1-based).
     var timerNumber: Int {
         return Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(self.timerObject.uid) + 1
     }
     
     /* ################################################################## */
     /**
+     - returns: The text for the tab bar icon/item
      */
     var tabBarText: String {
         if let topController = self.topViewController as? A_TimerNavBaseController {
@@ -54,6 +58,7 @@ class TimerNavController: UINavigationController, UINavigationControllerDelegate
     
     /* ################################################################## */
     /**
+     - returns: an image to display in the tab bar
      */
     var tabBarImage: UIImage {
         if let topController = self.topViewController as? A_TimerNavBaseController {
@@ -64,6 +69,7 @@ class TimerNavController: UINavigationController, UINavigationControllerDelegate
     
     /* ################################################################## */
     /**
+     - returns: The navigation controller for this view controller.
      */
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if self == navigationController {

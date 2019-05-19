@@ -21,12 +21,18 @@ class Timer_InfoViewController: A_TimerBaseViewController {
     /// This is the name of the corporation. It is not localized.
     let corporateName =   "The Great Rift Valley Software Company"
     
+    /// The label with the "corporate blurb" text
     @IBOutlet weak var corporateBlurb: UILabel!
+    /// The label for the title text
     @IBOutlet weak var labelForTitle: UILabel!
-    @IBOutlet weak var lgvText: UITextView!
+    /// The label for the corporate ID text
+    @IBOutlet weak var rvsText: UITextView!
     
     /* ################################################################## */
     /**
+     Called when the done button is hit.
+     
+     - parameter sender: ignored
      */
     @IBAction func doneButtonHit(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -34,14 +40,23 @@ class Timer_InfoViewController: A_TimerBaseViewController {
     
     /* ################################################################## */
     /**
+     Called when the corporate button is hit
+     
+     - parameter sender: ignored
      */
-    @IBAction func lgvButtonHit(_ sender: Any) {
+    @IBAction func rvsButtonHit(_ sender: Any) {
+        /// Helper function inserted by Swift 4.2 migrator.
+        func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+            return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
+        }
+        
         let openLink = NSURL(string: self.corporateURI)
         UIApplication.shared.open(openLink! as URL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
     }
     
     /* ################################################################## */
     /**
+     Called upon the view load completion
      */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,11 +76,6 @@ class Timer_InfoViewController: A_TimerBaseViewController {
 
         self.corporateBlurb.text = self.corporateName
         self.labelForTitle.text = appName + " " + appVersion
-        self.lgvText.text = self.lgvText.text.localizedVariant
+        self.rvsText.text = self.rvsText.text.localizedVariant
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-private func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

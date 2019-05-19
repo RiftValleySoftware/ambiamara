@@ -14,6 +14,7 @@ import UIKit
 // MARK: - Class Extensions
 /* ###################################################################################################################################### */
 /**
+ This allows us to deal with HSB colors, and detect grayscale and clear
  */
 extension UIColor {
     /* ################################################################## */
@@ -33,7 +34,7 @@ extension UIColor {
     
     /* ################################################################## */
     /**
-     - returns true, if the color is grayscale (or black or white).
+     - returns: true, if the color is grayscale (or black or white).
      */
     var isGrayscale: Bool {
         var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
@@ -45,7 +46,7 @@ extension UIColor {
     
     /* ################################################################## */
     /**
-     - returns true, if the color is clear.
+     - returns: true, if the color is clear.
      */
     var isClear: Bool {
         var white: CGFloat = 0, h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
@@ -60,7 +61,7 @@ extension UIColor {
     
     /* ################################################################## */
     /**
-     - returns the white level of the color.
+     - returns: the white level of the color.
      */
     var whiteLevel: CGFloat {
         var white: CGFloat = 0, alpha: CGFloat = 0
@@ -76,7 +77,10 @@ extension UIColor {
  This makes it easier to convert between Degrees and Radians.
  */
 extension CGFloat {
-    func radians() -> CGFloat {
+    /**
+     - returns: a float (in degrees), as Radians
+     */
+    var radians: CGFloat {
         let b = CGFloat(Double.pi) * (self/180)
         return b
     }
@@ -92,12 +96,17 @@ public class LED_ClockView: UIView {
     /* ################################################################## */
     // MARK: - Instance Properties
     /* ################################################################## */
+    /// This is the color we want as the base for our "lit" segments
     var activeSegmentColor: UIColor = UIColor.green
+    /// This is the color for the "dead" segments
     var inactiveSegmentColor: UIColor = UIColor.black
+    /// True, if our numbers will be zero-padded
     var zeroPadding: Bool = false
+    /// The number of display units between digits.
     var separationSpace: Int = 16
     
     // In the following three properties (the time element values), we check to see if the value has changed. If so, we force a recalculation and display.
+    /// The hours
     var hours: Int = 0 {
         didSet {
             if self.hours != oldValue {
@@ -105,6 +114,7 @@ public class LED_ClockView: UIView {
             }
         }
     }
+    /// The minutes
     var minutes: Int = 0 {
         didSet {
             if self.minutes != oldValue {
@@ -112,6 +122,7 @@ public class LED_ClockView: UIView {
             }
         }
     }
+    /// The seconds
     var seconds: Int = 0 {
         didSet {
             if self.seconds != oldValue {
@@ -123,17 +134,24 @@ public class LED_ClockView: UIView {
     /* ################################################################## */
     // MARK: - Private Constant Properties
     /* ################################################################## */
-    private let _numberOfLines: Int = 4 ///< This is the number of horizontal lines that appear across the display (simulates the cathode wires in vacuum fluorescent displays).
+    /// This is the number of horizontal lines that appear across the display (simulates the cathode wires in vacuum fluorescent displays).
+    private let _numberOfLines: Int = 4
     
     /* ################################################################## */
     // MARK: - Private Instance Properties
     /* ################################################################## */
-    private var _separatorsOn: Bool = true                      ///< Whether or not the separators bewteen digit groups are shown.
-    private var _allElementGroup: LED_ElementGrouping! = nil    ///< Used to pass the calculated paths to the draw method.
-    private var _bottomLayer: CAShapeLayer! = nil               ///< Tracks the outline shapes for the segments (inactive)
-    private var _topLayer: CAGradientLayer! = nil               ///< Tracks the active ("lit") segment shapes.
-    private var _displayView: UIView! = nil                     ///< This will contain the "LED Display."
-    private var _gridImageView: UIImageView! = nil              ///< This will contain a "grid" that makes the display look like an old-time fluorescent display.
+    /// Whether or not the separators bewteen digit groups are shown.
+    private var _separatorsOn: Bool = true
+    /// Used to pass the calculated paths to the draw method.
+    private var _allElementGroup: LED_ElementGrouping! = nil
+    /// Tracks the outline shapes for the segments (inactive)
+    private var _bottomLayer: CAShapeLayer! = nil
+    /// Tracks the active ("lit") segment shapes.
+    private var _topLayer: CAGradientLayer! = nil
+    /// This will contain the "LED Display."
+    private var _displayView: UIView! = nil
+    /// This will contain a "grid" that makes the display look like an old-time fluorescent display.
+    private var _gridImageView: UIImageView! = nil
     
     /* ################################################################## */
     // MARK: - Private Class Methods
@@ -185,7 +203,7 @@ public class LED_ClockView: UIView {
      - returns: an array of [CGPoint], that can be used to describe a path.
      */
     private class func _pointySideUpHexagon(_ inHowBig: CGFloat) -> [CGPoint] {
-        let angle = CGFloat(60).radians()
+        let angle = CGFloat(60).radians
         let cx = CGFloat(inHowBig) // x origin
         let cy = CGFloat(inHowBig) // y origin
         let r = CGFloat(inHowBig) // radius of circle
@@ -193,17 +211,15 @@ public class LED_ClockView: UIView {
         var minX: CGFloat = inHowBig * 2
         var maxX: CGFloat = 0
         for i in 0...6 {
-            let x = cx + r * cos(angle * CGFloat(i) - CGFloat(30).radians())
-            let y = cy + r * sin(angle * CGFloat(i) - CGFloat(30).radians())
+            let x = cx + r * cos(angle * CGFloat(i) - CGFloat(30).radians)
+            let y = cy + r * sin(angle * CGFloat(i) - CGFloat(30).radians)
             minX = min(minX, x)
             maxX = max(maxX, x)
             points.append(CGPoint(x: x, y: y))
         }
         
-        var index = 0
-        for point in points {
-            points[index] = CGPoint(x: point.x - minX, y: point.y)
-            index += 1
+        for i in points.enumerated() {
+            points[i.offset] = CGPoint(x: i.element.x - minX, y: i.element.y)
         }
         
         return points
@@ -222,8 +238,8 @@ public class LED_ClockView: UIView {
         let points = self._pointySideUpHexagon(inHowBig)
         let cpg = points[0]
         path.move(to: cpg)
-        for p in points {
-            path.addLine(to: p)
+        points.forEach {
+            path.addLine(to: $0)
         }
         path.closeSubpath()
         return path

@@ -18,18 +18,29 @@ import UIKit
 /**
  */
 class TimerSetController: A_TimerSetPickerController {
+    /// Segue ID  to go to settings
     static let switchToSettingsSegueID = "timer-segue-to-settings"
+    /// Segue ID to start the timer
     static let startTimerSegueID = "timer-segue-to-start-timer"
     
+    /// The buton to go into settings
     @IBOutlet weak var setupButton: UIBarButtonItem!
+    /// The picker view to set the timer time
     @IBOutlet weak var setTimePickerView: UIPickerView!
+    /// The button that exposes the "next timer" picker
     @IBOutlet weak var nextTimerButton: UIButton!
+    /// The big start button below the picker
     @IBOutlet weak var bigStartButton: UIButton!
+    /// The label that displays the current set time
     @IBOutlet weak var timeDisplayLabel: UILabel!
+    /// The container for the next timer selection picker
     @IBOutlet weak var nextTimerSelectionContainer: UIView!
+    /// The picker view for the next timer selection
     @IBOutlet weak var nextTimerPickerView: UIPickerView!
+    /// The little "traffic lights" image in the label, if we are in Poudium or Dual mode
     @IBOutlet weak var trafficLightsImageView: UIImageView!
     
+    /// The actual running timer controller
     var runningTimer: TimerRuntimeViewController! = nil
     
     /* ################################################################################################################################## */
@@ -37,6 +48,7 @@ class TimerSetController: A_TimerSetPickerController {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     Sets up the display to its current state
      */
     private func _setUpDisplay() {
         self.bigStartButton.isHidden = 0 >= self.timerObject.timeSet
@@ -98,6 +110,9 @@ class TimerSetController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     Called when the start button is hit
+     
+     - parameter sender: ignored
      */
     @IBAction func startButtonHit(_ sender: Any) {
         Timer_AppDelegate.appDelegateObject.timerEngine.startTimer()
@@ -105,6 +120,9 @@ class TimerSetController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     Called when the "next timer setup" button is hit.
+     
+     - parameter sender: ignored
      */
     @IBAction func nextTimerButtonHit(_ sender: UIButton) {
         self.nextTimerSelectionContainer.isHidden = false
@@ -118,6 +136,9 @@ class TimerSetController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     Called to select the next timer
+     
+     - parameter: ignored (optional, so it can be called without parameters)
      */
     @IBAction func setSelectedNextTimer(_ : Any! = nil) {
         self.nextTimerSelectionContainer.isHidden = true
@@ -192,6 +213,7 @@ class TimerSetController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     Update the timer to the current state
      */
     func updateTimer() {
         let timeSet = TimeTuple(self.timerObject.timeSet)
@@ -215,6 +237,7 @@ class TimerSetController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     Called to "tick" the timer
      */
     func tick(times inTimes: Int = 1) {
         self.runningTimer?.tick(times: inTimes)
@@ -289,12 +312,40 @@ class TimerSetController: A_TimerSetPickerController {
             destinationController.timerObject = self.timerObject
         }
     }
-    
+
+    /* ################################################################################################################################## */
+    /**
+     This method adds all the accessibility stuff.
+     */
+    override func addAccessibilityStuff() {
+        super.addAccessibilityStuff()
+        
+        self.setupButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL".localizedVariant
+        self.setupButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-HINT".localizedVariant
+        
+        self.nextTimerPickerView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-LABEL".localizedVariant
+        self.nextTimerPickerView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-HINT".localizedVariant
+        
+        self.bigStartButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-LABEL".localizedVariant
+        self.bigStartButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-HINT".localizedVariant
+        
+        self.view.accessibilityElements = [self.titleLabel as Any, self.timeDisplayLabel as Any, self.setTimePickerView as Any, self.nextTimerButton as Any, self.nextTimerPickerView as Any, self.bigStartButton as Any, self.setupButton as Any]
+        
+        if let firstElement = self.view.accessibilityElements?[0] as? UIView {
+            UIAccessibility.post(notification: .layoutChanged, argument: firstElement)
+        }
+    }
+
     /* ################################################################################################################################## */
     /// MARK: - UIPickerViewDelegate Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     Called when  row is selected in the time or next timer picker
+
+     - parameter pickerView: The UIPickerView calling this
+     - parameter didSelectRow: The 0-based row index that was selected
+     - parameter inComponent: The 0-based component index that was selected
      */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == self.nextTimerPickerView {
@@ -317,6 +368,9 @@ class TimerSetController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     - parameter in: The UIPickerView calling this
+     
+     - returns: 1, if the picker is the next timer picker, or 3, if it is the time set picker
      */
     override func numberOfComponents(in pickerView: UIPickerView) -> Int {
         if pickerView == self.nextTimerPickerView {
@@ -327,6 +381,9 @@ class TimerSetController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     - parameter pickerView: The UIPickerView calling this
+     - parameter widthForComponent: The 0-based index of the component.
+     - returns: the width, in display units, of the referenced picker component
      */
     override func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         if pickerView == self.nextTimerPickerView {
@@ -338,6 +395,9 @@ class TimerSetController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     - parameter: The UIPickerView calling this (ignored)
+     - parameter numberOfRowsInComponent: The 0-based index of the component.
+     - returns either 24 (hours) or 60 (minutes and seconds)
      */
     override func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == self.nextTimerPickerView {
@@ -349,6 +409,11 @@ class TimerSetController: A_TimerSetPickerController {
 
     /* ################################################################## */
     /**
+     - parameter pickerView: The UIPickerView calling this
+     - parameter viewForRow: The 0-based index of the row.
+     - parameter forComponent: The 0-based index of the component.
+     - parameter reusing: Any view being reused (ignored)
+     - returns: a UIView, containing the picker cell.
      */
     override func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         if pickerView == self.nextTimerPickerView {
@@ -406,35 +471,15 @@ class TimerSetController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     - parameter: The UIPickerView calling this (ignored)
+     - parameter accessibilityLabelForComponent: The 0-based index of the component.
+     - returns: The accessibility label for the given component.
      */
     override func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inComponent: Int) -> String? {
         if 1 == inPickerView.numberOfComponents {
             return "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-COLUMN-LABEL".localizedVariant
         } else {
             return super.pickerView(inPickerView, accessibilityLabelForComponent: inComponent)
-        }
-    }
-
-    /* ################################################################################################################################## */
-    /**
-     This method adds all the accessibility stuff.
-     */
-    override func addAccessibilityStuff() {
-        super.addAccessibilityStuff()
-
-        self.setupButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL".localizedVariant
-        self.setupButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-HINT".localizedVariant
-
-        self.nextTimerPickerView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-LABEL".localizedVariant
-        self.nextTimerPickerView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-NEXT-TIMER-PICKER-HINT".localizedVariant
-        
-        self.bigStartButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-LABEL".localizedVariant
-        self.bigStartButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TIMER-START-BUTTON-HINT".localizedVariant
-        
-        self.view.accessibilityElements = [self.titleLabel as Any, self.timeDisplayLabel as Any, self.setTimePickerView as Any, self.nextTimerButton as Any, self.nextTimerPickerView as Any, self.bigStartButton as Any, self.setupButton as Any]
-
-        if let firstElement = self.view.accessibilityElements?[0] as? UIView {
-            UIAccessibility.post(notification: .layoutChanged, argument: firstElement)
         }
     }
 }

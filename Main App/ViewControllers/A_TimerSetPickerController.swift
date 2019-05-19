@@ -12,9 +12,16 @@ import UIKit
 
 /* ###################################################################################################################################### */
 /**
+ This is an abstract (not really, as Swift doesn't actually support abstract) base class for our various view controllers.
  */
 class A_TimerNavBaseController: A_TimerBaseViewController {
+    /// This is a special class for an "inverted color" label.
     class InvertedMaskLabel: UILabel {
+        /**
+         Called to draw the label
+         
+         - parameter in: The rect in which to draw.
+         */
         override func drawText(in rect: CGRect) {
             guard let gc = UIGraphicsGetCurrentContext() else { return }
             gc.saveGState()
@@ -30,10 +37,15 @@ class A_TimerNavBaseController: A_TimerBaseViewController {
     // MARK: - Class Constants
     /* ################################################################################################################################## */
     /// These specify the bounds of the tab bar icons (We draw our own custom ones).
+    /// The maximum tab icon width, in display units
     static let s_g_maxTabIconWidth: CGFloat = 48
+    /// The maximum tab icon height, in display units
     static let s_g_maxTabIconHeight: CGFloat = 32
+    /// The maximum tab font size
     static let s_g_maxTabFontSize: CGFloat = 32
+    /// The picker element padding, in display units
     static let s_g_pickerElementPaddingInDisplayUnits: CGFloat = 4
+    /// The divisor to be used when separating picker elements
     static let s_g_pickerElementHeightDivisor: CGFloat = 4
 
     /* ################################################################################################################################## */
@@ -154,10 +166,17 @@ class A_TimerNavBaseController: A_TimerBaseViewController {
 
 /* ###################################################################################################################################### */
 /**
+ This is a special version of the controller that handles a time picker.
  */
 class A_TimerSetPickerController: A_TimerNavBaseController, UIPickerViewDelegate, UIPickerViewDataSource, UIPickerViewAccessibilityDelegate {
+    /// The enum for the various components of the displayed time
     enum Components: Int {
-        case Hours = 0, Minutes, Seconds
+        /// Hours
+        case Hours = 0
+        /// Minutes
+        case Minutes
+        /// Seconds
+        case Seconds
     }
     
     /* ################################################################################################################################## */
@@ -165,6 +184,9 @@ class A_TimerSetPickerController: A_TimerNavBaseController, UIPickerViewDelegate
     /* ################################################################################################################################## */    
     /* ################################################################## */
     /**
+     - parameter pickerView: The UIPickerView calling this
+     - parameter rowHeightForComponent: The 0-based index of the component.
+     - returns: the height, in display units, of the referenced picker component rows
      */
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return pickerView.bounds.size.height / type(of: self).s_g_pickerElementHeightDivisor
@@ -172,6 +194,9 @@ class A_TimerSetPickerController: A_TimerNavBaseController, UIPickerViewDelegate
     
     /* ################################################################## */
     /**
+     - parameter pickerView: The UIPickerView calling this
+     - parameter widthForComponent: The 0-based index of the component.
+     - returns: the width, in display units, of the referenced picker component
      */
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         return (pickerView.bounds.size.width / 3.0) - type(of: self).s_g_pickerElementPaddingInDisplayUnits
@@ -179,6 +204,11 @@ class A_TimerSetPickerController: A_TimerNavBaseController, UIPickerViewDelegate
     
     /* ################################################################## */
     /**
+     - parameter pickerView: The UIPickerView calling this
+     - parameter viewForRow: The 0-based index of the row.
+     - parameter forComponent: The 0-based index of the component.
+     - parameter reusing: Any view being reused (ignored)
+     - returns: a UIView, containing the picker cell.
      */
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let ret = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.pickerView(pickerView, widthForComponent: component), height: self.pickerView(pickerView, rowHeightForComponent: component))))
@@ -250,6 +280,9 @@ class A_TimerSetPickerController: A_TimerNavBaseController, UIPickerViewDelegate
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     - parameter: The UIPickerView calling this (ignored)
+     
+     - returns: 3 (always)
      */
     func numberOfComponents(in _: UIPickerView) -> Int {
         return 3
@@ -257,6 +290,9 @@ class A_TimerSetPickerController: A_TimerNavBaseController, UIPickerViewDelegate
     
     /* ################################################################## */
     /**
+     - parameter: The UIPickerView calling this (ignored)
+     - parameter numberOfRowsInComponent: The 0-based index of the component.
+     - returns either 24 (hours) or 60 (minutes and seconds)
      */
     func pickerView(_: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int {
         var ret: Int = 0
@@ -275,6 +311,9 @@ class A_TimerSetPickerController: A_TimerNavBaseController, UIPickerViewDelegate
     
     /* ################################################################## */
     /**
+     - parameter: The UIPickerView calling this (ignored)
+     - parameter accessibilityLabelForComponent: The 0-based index of the component.
+     - returns: The accessibility label for the given component.
      */
     func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inComponent: Int) -> String? {
         var ret: String?

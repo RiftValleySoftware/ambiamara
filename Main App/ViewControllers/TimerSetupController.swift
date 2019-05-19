@@ -18,23 +18,37 @@ import AVKit
 
 /* ###################################################################################################################################### */
 /**
+ This is the view controller for the main timer settings screen.
  */
 class TimerSetupController: A_TimerSetPickerController {
+    /// The timer mode segmented controller
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl!
+    /// The container for the podium mode controls
     @IBOutlet weak var podiumModeContainerView: UIView!
+    /// The label for the warning threshold picker
     @IBOutlet weak var warningThresholdLabel: UILabel!
+    /// The picker for the warning threshold time
     @IBOutlet weak var warningThresholdTimePicker: UIPickerView!
+    /// The label for the final threshold picker
     @IBOutlet weak var finalThresholdLabel: UILabel!
+    /// The final threshold picker
     @IBOutlet weak var finalThresholdTimePicker: UIPickerView!
+    /// The container for the color selection picker
     @IBOutlet weak var colorPickerContainerView: UIView!
+    /// The picker for selecting a color theme
     @IBOutlet weak var colorThemePicker: UIPickerView!
+    /// The constraint that pushes the podium mode stuff below the color picker
     @IBOutlet weak var podiumModeItemsConstraint: NSLayoutConstraint!
+    /// The dismiss/done button
     @IBOutlet weak var doneButton: UIButton!
+    /// The setup button that brings in the alarm settings screen
     @IBOutlet weak var alarmSetupButton: TimerSoundModeButton!
+    /// The label for the color display
     @IBOutlet weak var colorDisplayLabel: UILabel!
     
     /* ################################################################## */
     /**
+     This just sets up the picker views to the current settings
      */
     func setUpPickerViews() {
         self.podiumModeContainerView.isHidden = (.Digital == self.timerObject.displayMode)
@@ -109,6 +123,7 @@ class TimerSetupController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     Called when the view is about to lay out its subviews. We use it to set the alarm setup button.
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -140,6 +155,9 @@ class TimerSetupController: A_TimerSetPickerController {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     Called when the mode segmented control changes
+     
+     - parameter sender: ignored
      */
     @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
         self.timerObject.displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
@@ -148,6 +166,9 @@ class TimerSetupController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     Called when the done button is hit.
+     
+     - parameter: ignored. Optional, so this can be called with no parameter.
      */
     @IBAction func doneButtonHit(_: Any! = nil) {
         self.dismiss(animated: true, completion: nil)
@@ -203,6 +224,7 @@ class TimerSetupController: A_TimerSetPickerController {
         UIAccessibility.post(notification: .layoutChanged, argument: self.timerModeSegmentedSwitch)
     }
 
+    /* ################################################################################################################################## */
     /// MARK: - UIPickerViewDataSource Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -223,10 +245,14 @@ class TimerSetupController: A_TimerSetPickerController {
         }
     }
     
+    /* ################################################################################################################################## */
     /// MARK: - UIPickerViewDelegate Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     - parameter pickerView: The UIPickerView calling this
+     - parameter rowHeightForComponent: The 0-based index of the component.
+     - returns: the height, in display units, of the referenced picker component rows
      */
     override func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return pickerView.bounds.size.height / ((self.colorThemePicker == pickerView) ? 3.0: 4.0)
@@ -234,6 +260,9 @@ class TimerSetupController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     - parameter pickerView: The UIPickerView calling this
+     - parameter widthForComponent: The 0-based index of the component.
+     - returns: the width, in display units, of the referenced picker component
      */
     override func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         return (self.colorThemePicker == pickerView) ? pickerView.bounds.size.width: super.pickerView(pickerView, widthForComponent: component)
@@ -241,6 +270,11 @@ class TimerSetupController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     - parameter pickerView: The UIPickerView calling this
+     - parameter viewForRow: The 0-based index of the row.
+     - parameter forComponent: The 0-based index of the component.
+     - parameter reusing: Any view being reused (ignored)
+     - returns: a UIView, containing the picker cell.
      */
     override func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         if self.colorThemePicker == pickerView {
@@ -257,6 +291,11 @@ class TimerSetupController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     This is called when a picker row is selected, and sets the value for that picker.
+     
+     - parameter inPickerView: The UIPickerView being queried.
+     - parameter inRow: The 0-based row index being selected.
+     - parameter inComponent: The 0-based component index being selected.
      */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if self.colorThemePicker == pickerView {
@@ -321,6 +360,9 @@ class TimerSetupController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     - parameter: The UIPickerView calling this (ignored)
+     - parameter accessibilityLabelForComponent: The 0-based index of the component.
+     - returns: The accessibility label for the given component.
      */
     override func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inComponent: Int) -> String? {
         if 1 == inPickerView.numberOfComponents {

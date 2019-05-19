@@ -105,13 +105,13 @@ public class LED_SingleDigit: LED_Element {
     /* ################################################################## */
     /// These are indexes, used to make it a bit more apparent what segment is being sought.
     enum SegmentIndexes {
-        case kTopSegment            ///< top segment
-        case kTopLeftSegment        ///< top left segment
-        case kTopRightSegment       ///< top right segment
-        case kBottomLeftSegment     ///< bottom left segment
-        case kBottomRightSegment    ///< bottom right segment
-        case kBottomSegment         ///< bottom Segment
-        case kCenterSegment         ///< center segment
+        case kTopSegment            /// top segment
+        case kTopLeftSegment        /// top left segment
+        case kTopRightSegment       /// top right segment
+        case kBottomLeftSegment     /// bottom left segment
+        case kBottomRightSegment    /// bottom right segment
+        case kBottomSegment         /// bottom Segment
+        case kCenterSegment         /// center segment
     }
     
     // MARK: - Private Class Constants
@@ -166,13 +166,13 @@ public class LED_SingleDigit: LED_Element {
     /* ################################################################## */
     /// This array of points dictates the layout of the display.
     private static let _c_g_viewOffsets: [SegmentIndexes: CGPoint] = [
-        .kTopSegment: CGPoint(x: 8, y: 0),               ///< top segment
-        .kTopLeftSegment: CGPoint(x: 0, y: 8),           ///< top left segment
-        .kTopRightSegment: CGPoint(x: 192, y: 8),        ///< top right segment
-        .kBottomLeftSegment: CGPoint(x: 0, y: 250),      ///< bottom left segment
-        .kBottomRightSegment: CGPoint(x: 192, y: 250),   ///< bottom right segment
-        .kBottomSegment: CGPoint(x: 8, y: 434),          ///< bottom Segment
-        .kCenterSegment: CGPoint(x: 8, y: 212)           ///< center segment
+        .kTopSegment: CGPoint(x: 8, y: 0),               /// top segment
+        .kTopLeftSegment: CGPoint(x: 0, y: 8),           /// top left segment
+        .kTopRightSegment: CGPoint(x: 192, y: 8),        /// top right segment
+        .kBottomLeftSegment: CGPoint(x: 0, y: 250),      /// bottom left segment
+        .kBottomRightSegment: CGPoint(x: 192, y: 250),   /// bottom right segment
+        .kBottomSegment: CGPoint(x: 8, y: 434),          /// bottom Segment
+        .kCenterSegment: CGPoint(x: 8, y: 212)           /// center segment
     ]
     
     /* ################################################################## */

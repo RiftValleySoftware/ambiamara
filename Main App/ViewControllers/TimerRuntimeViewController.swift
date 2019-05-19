@@ -21,47 +21,76 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     /* ################################################################################################################################## */
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
+    /// The height, as a multiplier, of the dual mode "traffic lights" section
     private let _stoplightDualModeHeightFactor: CGFloat = 0.15
+    /// The maximum width, as a multiplier, of the podium mode "traffic lights" section
     private let _stoplightMaxWidthFactor: CGFloat = 0.2
+    /// The volume as a multiplier, of each audible "tick."
     private let _tickVolume: Float = 0.005
-    private var _originalValue: Int = 0                         ///< Tracks the last value, so we make sure we don't "blink" until we're supposed to.
+    /// Tracks the last value, so we make sure we don't "blink" until we're supposed to.
+    private var _originalValue: Int = 0
     
     /* ################################################################################################################################## */
     // MARK: - Internal Constant Instance Properties
     /* ################################################################################################################################## */
+    /// The name of the pause button image.
     let pauseButtonImageName = "Phone-Pause"
+    /// The name of the start button image.
     let startButtonImageName = "Phone-Start"
+    /// The name of the "unlit" podium mode traffic light image.
     let offStoplightImageName = "OffLight"
+    /// The name of the "green" podium mode traffic light image.
     let greenStoplightImageName = "GreenLight"
+    /// The name of the "yellow" podium mode traffic light image.
     let yellowStoplightImageName = "YellowLight"
+    /// The name of the "red" podium mode traffic light image.
     let redStoplightImageName = "RedLight"
     
     /* ################################################################################################################################## */
     // MARK: - Internal Instance Properties
     /* ################################################################################################################################## */
+    /// The container view for the podium/dual mode lights
     var stoplightContainerView: UIView! = nil
+    /// The red light image
     var redLight: UIImageView! = nil
+    /// The yellow light image
     var yellowLight: UIImageView! = nil
+    /// The green light image
     var greenLight: UIImageView! = nil
+    /// The controller that controls this
     var myHandler: TimerSetController! = nil
+    /// The audio player that handles songs and sounds
     var audioPlayer: AVAudioPlayer!
+    /// The audio player that handles each tick
     var tickPlayer: AVAudioPlayer!
 
     /* ################################################################################################################################## */
     // MARK: - IB Properties
     /* ################################################################################################################################## */
+    /// The pause button in the control bar
     @IBOutlet weak var pauseButton: UIBarButtonItem!
+    /// The stop button in the control bar
     @IBOutlet weak var stopButton: UIBarButtonItem!
+    /// The reset button in the control bar
     @IBOutlet weak var resetButton: UIBarButtonItem!
+    /// The "fast-forward-to-end" button in the control bar
     @IBOutlet weak var endButton: UIBarButtonItem!
+    /// The navigation item for this instance
     @IBOutlet weak var navItem: UINavigationItem!
+    /// The time display
     @IBOutlet weak var timeDisplay: LED_ClockView!
+    /// The view that displays the flashing lights
     @IBOutlet weak var flasherView: UIView!
+    /// The navigation bar item for this instance
     @IBOutlet weak var navBarItem: UINavigationItem!
+    /// The navigation bar for this instance
     @IBOutlet weak var myNavigationBar: UINavigationBar!
 
+    /// The gesture recognizer for single taps
     @IBOutlet var tapRecognizer: UITapGestureRecognizer!
+    /// The gesture recognizer for left-swipes
     @IBOutlet var resetSwipeRecognizer: UISwipeGestureRecognizer!
+    /// The gesture recognizer for right-swipes
     @IBOutlet var endSwipeRecognizer: UISwipeGestureRecognizer!
     
     /* ################################################################################################################################## */

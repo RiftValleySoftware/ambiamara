@@ -20,6 +20,7 @@ import UIKit
 class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     /// This tracks our timer setup controllers. It gives us quick access to them.
     var activeTimerSetControllers: [TimerSetController] = []
+    /// The "haert" of the timer.
     var timerEngine: TimerEngine! = nil
     
     /* ################################################################################################################################## */
@@ -54,8 +55,8 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
                 self.viewControllers?.remove(at: 1)
             }
             
-            for timer in self.timerEngine {
-                self.addTimer(timer)
+            self.timerEngine.forEach {
+                self.addTimer($0)
             }
             
             self.moreNavigationController.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor
@@ -99,14 +100,9 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
      - parameter inTimer: The timer View Controller to remove.
      */
     func removeTimerFromList(_ inTimer: TimerSetController) {
-        var index: Int = 0
-        
-        for timerView in self.activeTimerSetControllers {
-            if timerView == inTimer {
-                self.activeTimerSetControllers.remove(at: index)
-                return
-            }
-            index += 1
+        for i in self.activeTimerSetControllers.enumerated() where i.element == inTimer {
+            self.activeTimerSetControllers.remove(at: i.offset)
+            break
         }
     }
     
@@ -179,6 +175,10 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     Called when we add a new timer.
+     
+     - parameter timerEngine: The TimerEngine instance that is calling this.
+     - parameter didAddTimer: The timer setting that was added.
      */
     func timerEngine(_ timerEngine: TimerEngine, didAddTimer: TimerSettingTuple) {
         #if DEBUG
@@ -191,6 +191,10 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     
     /* ################################################################## */
     /**
+     Called just before we remove a timer from the timer engine.
+     
+     - parameter timerEngine: The TimerEngine instance that is calling this.
+     - parameter willRemoveTimer: The timer instance that will be removed.
      */
     func timerEngine(_ timerEngine: TimerEngine, willRemoveTimer: TimerSettingTuple) {
         #if DEBUG
@@ -200,6 +204,10 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     
     /* ################################################################## */
     /**
+     Called just after we removed a timer from the timer engine.
+     
+     - parameter timerEngine: The TimerEngine instance that is calling this.
+     - parameter didRemoveTimerAtIndex: The index of the timer that was removed.
      */
     func timerEngine(_ timerEngine: TimerEngine, didRemoveTimerAtIndex: Int) {
         #if DEBUG
@@ -211,6 +219,10 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     
     /* ################################################################## */
     /**
+     Called when we select a timer.
+     
+     - parameter timerEngine: The TimerEngine instance that is calling this.
+     - parameter didSelectTimer: The timer instance that was selected. It can be nil, if no timer was selected.
      */
     func timerEngine(_ timerEngine: TimerEngine, didSelectTimer: TimerSettingTuple!) {
         #if DEBUG
@@ -228,6 +240,10 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     
     /* ################################################################## */
     /**
+     Called when we deselect a timer.
+     
+     - parameter timerEngine: The TimerEngine instance that is calling this.
+     - parameter didSelectTimer: The timer instance that was deselected.
      */
     func timerEngine(_ timerEngine: TimerEngine, didDeselectTimer: TimerSettingTuple) {
         #if DEBUG
@@ -237,6 +253,10 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     
     /* ################################################################## */
     /**
+     Called when a timer alarm goes off.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter alarm: The index of the triggered alarm.
      */
     func timerSetting(_ timerSetting: TimerSettingTuple, alarm: Int) {
         #if DEBUG
@@ -250,6 +270,28 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     
     /* ################################################################## */
     /**
+     Called when a timer "ticks."
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter tick: The number of ticks to be made (for when we are in a final mode).
+     */
+    func timerSetting(_ timerSetting: TimerSettingTuple, tick inTimes: Int) {
+        #if DEBUG
+        print("Timer (\(timerSetting)) Tick: \(inTimes)")
+        #endif
+        if let controller = self.getTimerScreen(timerSetting) {
+            if timerSetting.audibleTicks {
+                controller.tick(times: inTimes)
+            }
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     Called when a timer time changes (ticks).
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedCurrentTimeFrom: The time (in epoch seconds) that was the original time.
      */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedCurrentTimeFrom: Int) {
         #if DEBUG
@@ -264,6 +306,10 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     
     /* ################################################################## */
     /**
+     Called when a timer set time is changed.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimeSetFrom: The time (in epoch seconds) that was the original set time.
      */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimeSetFrom: Int) {
         #if DEBUG
@@ -273,6 +319,10 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     
     /* ################################################################## */
     /**
+     Called when a timer warning time is changed.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedWarnTimeFrom: The time (in epoch seconds) that was the original warning time.
      */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedWarnTimeFrom: Int) {
         #if DEBUG
@@ -282,6 +332,10 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     
     /* ################################################################## */
     /**
+     Called when a timer final time is changed.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedWarnTimeFrom: The time (in epoch seconds) that was the original final time.
      */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedFinalTimeFrom: Int) {
         #if DEBUG
@@ -291,6 +345,10 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     
     /* ################################################################## */
     /**
+     Called when a timer status changes (normal, warning, final, alarm).
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerStatusFrom: The original status.
      */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerStatusFrom: TimerStatus) {
         #if DEBUG
@@ -321,6 +379,10 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     
     /* ################################################################## */
     /**
+     Called when a timer display mode changes (podium, digital, dual).
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerDisplayModeFrom: The original mode.
      */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerDisplayModeFrom: TimerDisplayMode) {
         #if DEBUG
@@ -330,47 +392,23 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     
     /* ################################################################## */
     /**
+     Called when a timer sound ID changes.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerSoundIDFrom: The original sound ID.
      */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSoundIDFrom: Int) {
         #if DEBUG
-        print("Timer (\(timerSetting)) Changed Sound ID From: \(changedTimerSoundIDFrom)")
+            print("Timer (\(timerSetting)) Changed Sound ID From: \(changedTimerSoundIDFrom)")
         #endif
     }
-    
+ 
     /* ################################################################## */
     /**
-     */
-    func timerSetting(_ timerSetting: TimerSettingTuple, changedSucceedingTimerIDFrom: Int) {
-        #if DEBUG
-        print("Timer (\(timerSetting)) Changed Next Timer ID From: \(changedSucceedingTimerIDFrom)")
-        #endif
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func timerSetting(_ timerSetting: TimerSettingTuple, tick inTimes: Int) {
-        #if DEBUG
-        print("Timer (\(timerSetting)) Tick: \(inTimes)")
-        #endif
-        if let controller = self.getTimerScreen(timerSetting) {
-            if timerSetting.audibleTicks {
-                controller.tick(times: inTimes)
-            }
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func timerSetting(_ timerSetting: TimerSettingTuple, changedAudibleTicksFrom: Bool) {
-        #if DEBUG
-        print("Timer (\(timerSetting)) Changed Audible Ticks From: \(changedAudibleTicksFrom ? "true" : "false")")
-        #endif
-    }
-
-    /* ################################################################## */
-    /**
+     Called when a timer's song URL changes.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerSongURLFrom: The original song URL.
      */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSongURLFrom: String) {
         #if DEBUG
@@ -380,24 +418,62 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
 
     /* ################################################################## */
     /**
+     Called when a timer's next timer ID changes.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedSucceedingTimerIDFrom: The original succeeding timer ID.
+     */
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedSucceedingTimerIDFrom: Int) {
+        #if DEBUG
+            print("Timer (\(timerSetting)) Changed Next Timer ID From: \(changedSucceedingTimerIDFrom)")
+        #endif
+    }
+
+    /* ################################################################## */
+    /**
+     Called when a timer's alert mode (sound, song, silent) changes.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerAlertModeFrom: The original alert mode.
      */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerAlertModeFrom: AlertMode) {
         #if DEBUG
-        print("Timer (\(timerSetting)) Changed Alert Mode From: \(changedTimerAlertModeFrom)")
+            print("Timer (\(timerSetting)) Changed Alert Mode From: \(changedTimerAlertModeFrom)")
         #endif
     }
 
     /* ################################################################## */
     /**
+     Called when a timer's sound mode (sound, vibrate, silent) changes.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerSoundModeFrom: The original sound mode.
      */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSoundModeFrom: SoundMode) {
         #if DEBUG
-        print("Timer (\(timerSetting)) Changed Sound Mode From: \(changedTimerSoundModeFrom)")
+            print("Timer (\(timerSetting)) Changed Sound Mode From: \(changedTimerSoundModeFrom)")
         #endif
     }
 
     /* ################################################################## */
     /**
+     Called when a timer's audible ticks setting changes.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedAudibleTicksFrom: The original audible ticks setting.
+     */
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedAudibleTicksFrom: Bool) {
+        #if DEBUG
+            print("Timer (\(timerSetting)) Changed Audible Ticks From: \(changedAudibleTicksFrom ? "true" : "false")")
+        #endif
+    }
+
+    /* ################################################################## */
+    /**
+     Called when a timer's color theme changes.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerColorThemeFrom: The original color theme setting.
      */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerColorThemeFrom: Int) {
         #if DEBUG

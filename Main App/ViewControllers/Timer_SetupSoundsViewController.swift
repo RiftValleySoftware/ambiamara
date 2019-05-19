@@ -18,6 +18,7 @@ import AVKit
 
 /* ###################################################################################################################################### */
 /**
+ This controller handles setting sounds
  */
 class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     /// This is the size of our label text.
@@ -28,23 +29,41 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     /// This is a simple semaphore to indicate that we are in the process of loading music.
     var isLoadin: Bool = false
 
+    /// The vibrate switch
     @IBOutlet weak var vibrateSwitch: UISwitch!
+    /// The vibrate text button
     @IBOutlet weak var vibrateButton: UIButton!
+    /// The segmented control for the sound mode
     @IBOutlet weak var soundModeSegmentedSwitch: UISegmentedControl!
+    /// The dismiss/done button
     @IBOutlet weak var doneButton: UIButton!
+    /// The view containing the label that is displayed when there is no music available
     @IBOutlet weak var noMusicLabelView: UIView!
+    /// The label that is displayed when there is no music available
     @IBOutlet weak var noMusicLabel: UILabel!
+    /// The container for the artist selection picker
     @IBOutlet weak var artistSoundSelectPickerContainerView: UIView!
+    /// The artist selection picker view
     @IBOutlet weak var artistSoundSelectPicker: UIPickerView!
+    /// The song selection picker container
     @IBOutlet weak var songSelectPickerContainerView: UIView!
+    /// The song selection picker view
     @IBOutlet weak var songSelectPicker: UIPickerView!
+    /// The test sound button container
     @IBOutlet weak var testSoundButtonContainerView: UIView!
+    /// The test sound button
     @IBOutlet weak var testSoundButton: SoundTestButton!
+    /// The container for the music test button
     @IBOutlet weak var musicTestButtonContainerView: UIView!
+    /// The music test button
     @IBOutlet weak var musicTestButton: SoundTestButton!
+    /// The activity indicator container view
     @IBOutlet weak var activityContainerView: UIView!
+    /// The fecthing music label
     @IBOutlet weak var fetchingMusicLabel: UILabel!
+    /// The switch for audible ticks
     @IBOutlet weak var audibleTicksSwitch: UISwitch!
+    /// The button for the audible ticks switch
     @IBOutlet weak var audibleTicksSwitchButton: UIButton!
     
     /* ################################################################## */
@@ -126,11 +145,9 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
         
         // We just read in every damn song we have, then we set up an "index" Dictionary that sorts by artist name, then each artist element has a list of songs.
         // We sort the artists and songs alphabetically. Primitive, but sufficient.
-        for album in inSongs {
-            let albumInfo = album.items
-            
+        inSongs.forEach {
             // Each song is a media element, so we read the various parts that matter to us.
-            for song in albumInfo {
+            for song in $0.items {
                 // Anything we don't know is filled with "Unknown XXX".
                 var songInfo: Timer_AppDelegate.SongInfo = Timer_AppDelegate.SongInfo(songTitle: "LOCAL-UNKNOWN-SONG".localizedVariant, artistName: "LOCAL-UNKNOWN-ARTIST".localizedVariant, albumTitle: "LOCAL-UNKNOWN-ALBUM".localizedVariant, resourceURI: nil)
                 
@@ -157,22 +174,22 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
         }
         
         // We just create a big fat, honkin' Dictionary of songs; sorted by the artist name for each song.
-        for song in songList {
-            if nil == Timer_AppDelegate.appDelegateObject.songs[song.artistName] {
-                Timer_AppDelegate.appDelegateObject.songs[song.artistName] = []
+        songList.forEach {
+            if nil == Timer_AppDelegate.appDelegateObject.songs[$0.artistName] {
+                Timer_AppDelegate.appDelegateObject.songs[$0.artistName] = []
             }
-            Timer_AppDelegate.appDelegateObject.songs[song.artistName]?.append(song)
+            Timer_AppDelegate.appDelegateObject.songs[$0.artistName]?.append($0)
         }
         
         // We create the index, and sort the songs and keys.
-        for artist in Timer_AppDelegate.appDelegateObject.songs.keys {
-            if var sortedSongs = Timer_AppDelegate.appDelegateObject.songs[artist] {
+        Timer_AppDelegate.appDelegateObject.songs.keys.forEach {
+            if var sortedSongs = Timer_AppDelegate.appDelegateObject.songs[$0] {
                 sortedSongs.sort(by: { a, b in
                     return a.songTitle < b.songTitle
                 })
-                Timer_AppDelegate.appDelegateObject.songs[artist] = sortedSongs
+                Timer_AppDelegate.appDelegateObject.songs[$0] = sortedSongs
             }
-            Timer_AppDelegate.appDelegateObject.artists.append(artist)    // This will be our artist key array.
+            Timer_AppDelegate.appDelegateObject.artists.append($0)    // This will be our artist key array.
         }
         
         Timer_AppDelegate.appDelegateObject.artists.sort()
@@ -193,6 +210,9 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
             }
             self.continueAudioPlayer()
         } catch {
+            #if DEBUG
+                print("ERROR! Attempt to play sound failed: \(String(describing: error))")
+            #endif
         }
     }
     
@@ -635,6 +655,8 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
      This is called when a picker row is selected, and sets the value for that picker.
      
      - parameter inPickerView: The UIPickerView being queried.
+     - parameter inRow: The 0-based row index being selected.
+     - parameter inComponent: The 0-based component index being selected.
      */
     func pickerView(_ inPickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.stopAudioPlayer()

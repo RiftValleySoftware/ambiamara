@@ -21,27 +21,47 @@ import UIKit
  These are the main message keys between the app and the Watch.
  */
 class Timer_Messages {
+    /// Select a timer
     static let s_timerListSelectTimerMessageKey = "SelectTimer"
+    /// Start a timer
     static let s_timerListStartTimerMessageKey = "StartTimer"
+    /// Pause a timer
     static let s_timerListPauseTimerMessageKey = "PauseTimer"
+    /// Stop a timer
     static let s_timerListStopTimerMessageKey = "StopTimer"
+    /// Reset a timer to start
     static let s_timerListResetTimerMessageKey = "ResetTimer"
+    /// Force a timer to end
     static let s_timerListEndTimerMessageKey = "EndTimer"
+    /// Update a timer to current state
     static let s_timerListUpdateTimerMessageKey = "UpdateTimer"
+    /// Update a timer completely
     static let s_timerListUpdateFullTimerMessageKey = "UpdateFullTimer"
+    /// List the alarms
     static let s_timerListAlarmMessageKey = "W00t!"
+    /// App is going into background
     static let s_timerAppInBackgroundMessageKey = "AppInBackground"
+    /// App is coming into foreground
     static let s_timerAppInForegroundMessageKey = "AppInForeground"
+    /// Ask for app status
     static let s_timerRequestAppStatusMessageKey = "WhatUpDood"
+    /// Ask for status of active timer
     static let s_timerRequestActiveTimerUIDMessageKey = "Whazzup"
+    /// Recalculate the timer messages
     static let s_timerRecaclulateTimersMessageKey = "ScarfNBarf"
+    /// Resend the timer list
     static let s_timerSendListAgainMessageKey = "SayWhut"
+    /// Send a new tick
     static let s_timerSendTickMessageKey = "Tick"
-    
+    /// Ask how many timers there are
     static let s_timerListHowdyMessageValue = "HowManyTimers"
+    /// Ask for timer status
     static let s_timerStatusUserInfoValue = "TimerStatus"
+    /// Ask for timer list
     static let s_timerListUserInfoValue = "TimerList"
+    /// Ask for alarm data
     static let s_timerAlarmUserInfoValue = "Alarm"
+    /// The app is in the forground
     static let s_timerAppInForegroundMessageValue = "AppData"
 }
 
@@ -49,13 +69,21 @@ class Timer_Messages {
  These are the data keys for each timer object.
  */
 class Timer_Data_Keys {
+    /// A unique ID
     static let s_timerDataUIDKey = "UID"
+    /// The name of the timer
     static let s_timerDataTimerNameKey = "TimerName"
+    /// The timer setting
     static let s_timerDataTimeSetKey = "TimeSet"
+    /// The current time
     static let s_timerDataCurrentTimeKey = "CurrentTime"
+    /// Set the warning threshold
     static let s_timerDataTimeSetWarnKey = "TimeSetWarn"
+    /// Set the final threshold
     static let s_timerDataTimeSetFinalKey = "TimeSetFinal"
+    /// Display the mode
     static let s_timerDataDisplayModeKey = "DisplayMode"
+    /// Display the color
     static let s_timerDataColorKey = "Color"
 }
 
@@ -191,9 +219,12 @@ extension Int {
 class TimeTuple {
     // MARK: - Private Instance Properties
     /* ################################################################################################################################## */
-    private var _hours: Int     ///< The number of hours in this instance, from 0 - 23
-    private var _minutes: Int   ///< The number of minutes in this instance, from 0 - 59
-    private var _seconds: Int   ///< The number of seconds in this instance, from 0 - 59
+    /// The number of hours in this instance, from 0 - 23
+    private var _hours: Int
+    /// The number of minutes in this instance, from 0 - 59
+    private var _minutes: Int
+    /// The number of seconds in this instance, from 0 - 59
+    private var _seconds: Int
     
     // MARK: - Internal Calculated Properties
     /* ################################################################################################################################## */
@@ -326,9 +357,12 @@ class TimeTuple {
  These are the three display modes we have for our countdown timer.
  */
 enum TimerDisplayMode: Int {
-    case Digital    = 0 ///< Display only digits.
-    case Podium     = 1 ///< Display only "podium lights."
-    case Dual       = 2 ///< Display both.
+    /// Display only digits.
+    case Digital    = 0
+    /// Display only "podium lights."
+    case Podium     = 1
+    /// Display both.
+    case Dual       = 2
 }
 
 /* ################################################################## */
@@ -336,9 +370,13 @@ enum TimerDisplayMode: Int {
  These are the three final alert modes we have for our countdown timer.
  */
 enum AlertMode: Int {
+    /// Silent mode
     case Silent         = 0
+    /// Vibrate only mode
     case VibrateOnly    = 1
+    /// Sound only mode
     case SoundOnly      = 2
+    /// Both sound and vibrate mode
     case Both           = 3
 }
 
@@ -347,8 +385,11 @@ enum AlertMode: Int {
  These are the three final alert modes we have for our countdown timer.
  */
 enum SoundMode: Int {
+    /// Play a preset sound
     case Sound  = 0
+    /// Play a selected song
     case Music  = 1
+    /// Silent
     case Silent = 2
 }
 
@@ -357,13 +398,20 @@ enum SoundMode: Int {
  These are the various states a timer can be in.
  */
 enum TimerStatus: Int {
-    case Invalid        = 0 ///< This is set for a timeSet value of 0.
-    case Stopped        = 1 ///< This means the timer is not running, and currentTime is timeSet.
-    case Paused         = 2 ///< The timer is paused, and the currentTime is less than timeSet.
-    case Running        = 3 ///< The timer is running "green," which means that currentTime is greater than timeSetWarn.
-    case WarnRun        = 4 ///< The timer is running "yellow," which means that currentTime is less than, or equal to timeSetWarn.
-    case FinalRun       = 5 ///< The timer is running "red," which means that currentTime is less than, or equal to timeSetFinal.
-    case Alarm          = 6 ///< The timer is in an alarm state, which means that currentTime is 0.
+    /// This is set for a timeSet value of 0.
+    case Invalid        = 0
+    /// This means the timer is not running, and currentTime is timeSet.
+    case Stopped        = 1
+    /// The timer is paused, and the currentTime is less than timeSet.
+    case Paused         = 2
+    /// The timer is running "green," which means that currentTime is greater than timeSetWarn.
+    case Running        = 3
+    /// The timer is running "yellow," which means that currentTime is less than, or equal to timeSetWarn.
+    case WarnRun        = 4
+    /// The timer is running "red," which means that currentTime is less than, or equal to timeSetFinal.
+    case FinalRun       = 5
+    /// The timer is in an alarm state, which means that currentTime is 0.
+    case Alarm          = 6
 }
 
 /* ###################################################################################################################################### */
@@ -379,7 +427,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     /**
      These are the default thresholds that we apply to our timer when automatically determining the "traffic lights" for podium mode.
      */
+    /// A preset warning threshold
     private static let _podiumModeWarningThreshold: Float  = (6 / 36)
+    /// A preset final threshold (half the warning)
     private static let _podiumModeFinalThreshold: Float    = (3 / 36)
     
     /* ################################################################## */
@@ -387,33 +437,53 @@ class TimerSettingTuple: NSObject, NSCoding {
      This enum contains all the various timer state Dictionary keys.
      */
     private enum TimerStateKeys: String {
+        /// Time is being set
         case TimeSet
+        /// Warning time is being set
         case TimeSetPodiumWarn
+        /// Final time is being set
         case TimeSetPodiumFinal
+        /// The current time is being changed
         case CurrentTime
+        /// The display mode is being changed
         case DisplayMode
+        /// The color theme is being changed
         case ColorTheme
+        /// The alert mode is being changed
         case AlertMode
+        /// The sound mode is being changed
         case SoundMode
+        /// The sound ID is being changed
         case SoundID
+        /// The song URL is being changed
         case SongURLString
+        /// The next timer is being changed
         case SucceedingTimerID
+        /// The audible ticks mode is being changed
         case AudibleTicks
+        /// The status is being  changed
         case Status
+        /// The UID is being changed
         case UID
     }
 
     /* ################################################################################################################################## */
     // MARK: - Instance Properties
     /* ################################################################################################################################## */
-    var handler: LGV_Timer_State! = nil ///< This is the App Status object that "owns" this instance.
-    var firstTick: TimeInterval = 0.0   ///< This will be used to track the timer progress.
-    var lastTick: TimeInterval = 0.0    ///< This will be used to track the timer progress.
-    var storedColor: AnyObject! = nil   ///< This is the color from the color theme, and is used to transmit the color to the watch.
-    var uid: String = ""                ///< This will be a unique ID, assigned to the pref, so we can match it.
+    /// This is the App Status object that "owns" this instance.
+    var handler: LGV_Timer_State! = nil
+    /// This will be used to track the timer progress.
+    var firstTick: TimeInterval = 0.0
+    /// This will be used to track the timer progress.
+    var lastTick: TimeInterval = 0.0
+    /// This is the color from the color theme, and is used to transmit the color to the watch.
+    var storedColor: AnyObject! = nil
+    /// This will be a unique ID, assigned to the pref, so we can match it.
+    var uid: String = ""
     
     /* ################################################################## */
-    var displayMode: TimerDisplayMode { ///< This is how the timer will display
+    /// This is how the timer will display
+    var displayMode: TimerDisplayMode {
         didSet {
             if oldValue != self.displayMode {
                 if nil != self.handler {
@@ -424,7 +494,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    var alertMode: AlertMode {          ///< This determines what kind of alert the timer makes when it is complete.
+    /// This determines what kind of alert the timer makes when it is complete.
+    var alertMode: AlertMode {
         didSet {
             if oldValue != self.alertMode {
                 if nil != self.handler {
@@ -435,7 +506,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    var soundMode: SoundMode {          ///< This determines what kind of sound the timer makes when it makes sounds.
+    /// This determines what kind of sound the timer makes when it makes sounds.
+    var soundMode: SoundMode {
         didSet {
             if oldValue != self.soundMode {
                 if nil != self.handler {
@@ -446,7 +518,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    var colorTheme: Int {               ///< This is the 0-based index for the color theme.
+    /// This is the 0-based index for the color theme.
+    var colorTheme: Int {
         didSet {
             if oldValue != self.colorTheme {
                 if nil != self.handler {
@@ -457,7 +530,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    var soundID: Int {                  ///< This will be the 0-based ID of a sound for this timer.
+    /// This will be the 0-based ID of a sound for this timer.
+    var soundID: Int {
         didSet {
             if oldValue != self.soundID {
                 if nil != self.handler {
@@ -468,7 +542,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    var succeedingTimerID: Int {       ///< This will be the 0-based ID of a following timer for this. -1, if no succeeding timer.
+    /// This will be the 0-based ID of a following timer for this. -1, if no succeeding timer.
+    var succeedingTimerID: Int {
         didSet {
             if oldValue != self.succeedingTimerID {
                 if nil != self.handler {
@@ -479,7 +554,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    var audibleTicks: Bool {       ///< This will be a boolean value that is true if the timer is to make audible ticks and transition noises.
+    /// This will be a boolean value that is true if the timer is to make audible ticks and transition noises.
+    var audibleTicks: Bool {
         didSet {
             if oldValue != self.audibleTicks {
                 if nil != self.handler {
@@ -490,7 +566,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    var songURLString: String {         ///< This is the URI of a selected song to play as an alarm.
+    /// This is the URI of a selected song to play as an alarm.
+    var songURLString: String {
         didSet {
             if oldValue != self.songURLString {
                 if nil != self.handler {
@@ -501,7 +578,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    var timeSet: Int {                  ///< This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
+    /// This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
+    var timeSet: Int {
         didSet {
             if oldValue != self.timeSet {
                 if nil != self.handler {
@@ -517,7 +595,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    var timeSetPodiumWarn: Int {        ///< This is the number of seconds (0 - 86399) before the yellow light comes on in Podium Mode. If 0, then it is automatically calculated.
+    /// This is the number of seconds (0 - 86399) before the yellow light comes on in Podium Mode. If 0, then it is automatically calculated.
+    var timeSetPodiumWarn: Int {
         didSet {
             if oldValue != self.timeSetPodiumWarn {
                 if nil != self.handler {
@@ -528,7 +607,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    var timeSetPodiumFinal: Int {       ///< This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
+    /// This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
+    var timeSetPodiumFinal: Int {
         didSet {
             if oldValue != self.timeSetPodiumFinal {
                 if nil != self.handler {
@@ -539,7 +619,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    var currentTime: Int {              ///< The actual time for this timer.
+    /// The actual time for this timer.
+    var currentTime: Int {
         didSet {
             if (nil != self.handler) && (oldValue != self.currentTime) {
                 if (.Running == self.timerStatus) || (.WarnRun == self.timerStatus) || (.FinalRun == self.timerStatus) || (.Alarm == self.timerStatus) {
@@ -550,7 +631,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    var timerStatus: TimerStatus {      ///< This is the current status of this timer.
+    /// This is the current status of this timer.
+    var timerStatus: TimerStatus {
         didSet {
             if oldValue != self.timerStatus {
                 if .Running == self.timerStatus {
@@ -587,7 +669,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     // MARK: - Instance Calculated Properties
     /* ################################################################################################################################## */
     /* ################################################################## */
-    var setSpeakableTime: String {  ///< The actual time for this timer, as a long, spoken text string.
+    /// The actual time for this timer, as a long, spoken text string.
+    var setSpeakableTime: String {
         var ret = [String]()
         
         let hours = Int(self.timeSet / (60 * 60))
@@ -620,7 +703,8 @@ class TimerSettingTuple: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    var currentQuickSpeakableTime: String {  ///< The actual time for this timer, as a numerical only, spoken text string.
+    /// The actual time for this timer, as a numerical only, spoken text string.
+    var currentQuickSpeakableTime: String {
         var ret = [String]()
         
         let currTime = self.currentTime - 1 // We do this, because we lose a second while talking.
@@ -750,6 +834,7 @@ class TimerSettingTuple: NSObject, NSCoding {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     Default initializer
      */
     override init() {
         self.uid = NSUUID().uuidString
@@ -1256,8 +1341,8 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
             var ret: [String: Any] = [:]
             ret["selectedTimerIndex"] = self.selectedTimerIndex
             var timerArray: [[String: Any]] = []
-            for timer in self.timers {
-                let timerDictionary = timer.dictionary
+            self.timers.forEach {
+                let timerDictionary = $0.dictionary
                 timerArray.append(timerDictionary)
             }
             ret["timers"] = timerArray
@@ -1275,13 +1360,13 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
                 var newTimerArray: [TimerSettingTuple] = []
                 
                 // We append any new timer objects that we didn't already have, and set existing objects to their new values. We put existing objects where we want them in the new order.
-                for timerDictionary in timerArray {
-                    if let uid = timerDictionary["uid"] as? String {
+                timerArray.forEach {
+                    if let uid = $0["uid"] as? String {
                         var found: Bool = false
                         
                         // See if we already have this object. If so, we set it to the new value, and append it now.
                         for timerObject in self.timers where timerObject.uid == uid {
-                            timerObject.dictionary = timerDictionary
+                            timerObject.dictionary = $0
                             newTimerArray.append(timerObject)
                             found = true
                             break
@@ -1289,7 +1374,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
                         
                         // If we didn't find it, we append a new instance.
                         if !found {
-                            newTimerArray.append(TimerSettingTuple(dictionary: timerDictionary, handler: self))
+                            newTimerArray.append(TimerSettingTuple(dictionary: $0, handler: self))
                         }
                     }
                 }
@@ -1579,8 +1664,8 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         if let timers = coder.decodeObject(forKey: type(of: self).AppStateKeys.Timers.rawValue) as? [TimerSettingTuple] {
             self._timers = timers
             
-            for timer in self.timers {
-                timer.handler = self
+            self.timers.forEach {
+                $0.handler = self
             }
         }
         

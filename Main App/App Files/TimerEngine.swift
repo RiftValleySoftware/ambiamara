@@ -18,26 +18,184 @@ import MediaPlayer
  This protocol allows observers of the engine.
  */
 protocol TimerEngineDelegate: class {
+    /* ################################################################## */
+    /**
+     Called when we add a new timer.
+     
+     - parameter timerEngine: The TimerEngine instance that is calling this.
+     - parameter didAddTimer: The timer setting that was added.
+     */
     func timerEngine(_ timerEngine: TimerEngine, didAddTimer: TimerSettingTuple)
+
+    /* ################################################################## */
+    /**
+     Called just before we remove a timer from the timer engine.
+     
+     - parameter timerEngine: The TimerEngine instance that is calling this.
+     - parameter willRemoveTimer: The timer instance that will be removed.
+     */
     func timerEngine(_ timerEngine: TimerEngine, willRemoveTimer: TimerSettingTuple)
+
+    /* ################################################################## */
+    /**
+     Called just after we removed a timer from the timer engine.
+     
+     - parameter timerEngine: The TimerEngine instance that is calling this.
+     - parameter didRemoveTimerAtIndex: The index of the timer that was removed.
+     */
     func timerEngine(_ timerEngine: TimerEngine, didRemoveTimerAtIndex: Int)
+
+    /* ################################################################## */
+    /**
+     Called when we select a timer.
+     
+     - parameter timerEngine: The TimerEngine instance that is calling this.
+     - parameter didSelectTimer: The timer instance that was selected. It can be nil, if no timer was selected.
+     */
     func timerEngine(_ timerEngine: TimerEngine, didSelectTimer: TimerSettingTuple!)
+
+    /* ################################################################## */
+    /**
+     Called when we deselect a timer.
+     
+     - parameter timerEngine: The TimerEngine instance that is calling this.
+     - parameter didSelectTimer: The timer instance that was deselected.
+     */
     func timerEngine(_ timerEngine: TimerEngine, didDeselectTimer: TimerSettingTuple)
-    
+
+    /* ################################################################## */
+    /**
+     Called when a timer alarm goes off.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter alarm: The index of the triggered alarm.
+     */
     func timerSetting(_ timerSetting: TimerSettingTuple, alarm: Int)
+
+    /* ################################################################## */
+    /**
+     Called when a timer time changes (ticks).
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedCurrentTimeFrom: The time (in epoch seconds) that was the original time.
+     */
     func timerSetting(_ timerSetting: TimerSettingTuple, tick: Int)
+
+    /* ################################################################## */
+    /**
+     Called when a timer set time is changed.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimeSetFrom: The time (in epoch seconds) that was the original set time.
+     */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedCurrentTimeFrom: Int)
+
+    /* ################################################################## */
+    /**
+     Called when a timer warning time is changed.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedWarnTimeFrom: The time (in epoch seconds) that was the original warning time.
+     */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimeSetFrom: Int)
+
+    /* ################################################################## */
+    /**
+     Called when a timer final time is changed.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedWarnTimeFrom: The time (in epoch seconds) that was the original final time.
+     */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedWarnTimeFrom: Int)
+
+    /* ################################################################## */
+    /**
+     Called when a timer status changes (normal, warning, final, alarm).
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerStatusFrom: The original status.
+     */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedFinalTimeFrom: Int)
+
+    /* ################################################################## */
+    /**
+     Called when a timer display mode changes (podium, digital, dual).
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerDisplayModeFrom: The original mode.
+     */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerStatusFrom: TimerStatus)
+
+    /* ################################################################## */
+    /**
+     Called when a timer display mode changes (podium, digital, dual).
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerDisplayModeFrom: The original mode.
+     */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerDisplayModeFrom: TimerDisplayMode)
+
+    /* ################################################################## */
+    /**
+     Called when a timer sound ID changes.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerSoundIDFrom: The original sound ID.
+     */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSoundIDFrom: Int)
+
+    /* ################################################################## */
+    /**
+     Called when a timer's song URL changes.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerSongURLFrom: The original song URL.
+     */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSongURLFrom: String)
-    func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerAlertModeFrom: AlertMode)
-    func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSoundModeFrom: SoundMode)
+
+    /* ################################################################## */
+    /**
+     Called when a timer's next timer ID changes.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedSucceedingTimerIDFrom: The original succeeding timer ID.
+     */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedSucceedingTimerIDFrom: Int)
+
+    /* ################################################################## */
+    /**
+     Called when a timer's alert mode (sound, song, silent) changes.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerAlertModeFrom: The original alert mode.
+     */
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerAlertModeFrom: AlertMode)
+
+    /* ################################################################## */
+    /**
+     Called when a timer's sound mode (sound, vibrate, silent) changes.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerSoundModeFrom: The original sound mode.
+     */
+    func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerSoundModeFrom: SoundMode)
+
+    /* ################################################################## */
+    /**
+     Called when a timer's audible ticks setting changes.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedAudibleTicksFrom: The original audible ticks setting.
+     */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedAudibleTicksFrom: Bool)
+
+    /* ################################################################## */
+    /**
+     Called when a timer's color theme changes.
+     
+     - parameter timerSetting: The Timer setting that is affected by this call.
+     - parameter changedTimerColorThemeFrom: The original color theme setting.
+     */
     func timerSetting(_ timerSetting: TimerSettingTuple, changedTimerColorThemeFrom: Int)
 }
 
@@ -46,8 +204,11 @@ protocol TimerEngineDelegate: class {
  This class is the "heart" of the timer. It contains the timer state, settings, and stored prefs for all the timers.
  */
 class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
+    /// We increment by tenths of a second.
     static let timerInterval: TimeInterval = 0.1
+    /// Each "tick" is 1 second.
     static let timerTickInterval: TimeInterval = 1.0
+    /// The alarm repeats every second.
     static let timerAlarmInterval: TimeInterval = 1.0
     
     /** This contains our color theme palette. */
@@ -60,8 +221,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /** This is the key for the app status prefs used by this app. */
     private static let _appStatePrefsKey: String = "AmbiaMara_AppState"
     
+    /// This is true, if the timer is "ticking" (running).
     private var _timerTicking: Bool = false
+    /// The time of the first tick
     private var _firstTick: TimeInterval = 0.0
+    /// The number of times the alarm has "rung."
     private var _alarmCount: Int = 0
     
     /* ################################################################################################################################## */
@@ -70,17 +234,29 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /* ################################################################## */
     /** These are the keys we use for our timer prefs dictionary. */
     enum TimerPrefKeys: String {
+        /// The set time
         case TimeSet
+        /// The set time for timer warning.
         case TimeSetPodiumWarn
+        /// The set time for timer final.
         case TimeSetPodiumFinal
+        /// The timer display mode (podium, digital, dual)
         case DisplayMode
+        /// The index of the selected color theme.
         case ColorTheme
+        /// The alert mode (silent, vibrate, sound)
         case AlertMode
+        /// The sound mode (music, sound, silent)
         case SoundMode
+        /// The ID of a selected sound
         case SoundID
+        /// The URL of a selected song
         case SongURLString
+        /// The ID of a "next timer."
         case SucceedingTimerID
+        /// True, if the timer has audible "ticks."
         case AudibleTicks
+        /// A unique ID for the setting.
         case UID
     }
     
@@ -104,10 +280,15 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     // MARK: - Instance Properties
     /* ################################################################################################################################## */
+    /// This is any delegate for this engine. It is a weak reference, in order to inhibit reference loops.
     weak var delegate: TimerEngineDelegate!
+    /// This is the current application state. It is the "heart" of the timer.
     var appState: LGV_Timer_State!
+    /// This is the current selected timer.
     var timer: Timer!
+    /// This aggregates our available sounds.
     var soundSelection: [String] = []
+    /// This is the URI to the selected "tick" sound.
     var tickURI: String = ""
     
     /* ################################################################################################################################## */
@@ -365,10 +546,10 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         if let temp = UserDefaults.standard.object(forKey: type(of: self)._appStatePrefsKey) as? Data, let temp2 = NSKeyedUnarchiver.unarchiveObject(with: temp) as? LGV_Timer_State {
             self.appState = temp2
             self.appState.delegate = self
-            for timer in self.timers {
-                timer.timerStatus = .Stopped
-                timer.storedColor = self.getIndexedColorThemeColor(timer.colorTheme)
-                timer.handler = self.appState
+            self.timers.forEach {
+                $0.timerStatus = .Stopped
+                $0.storedColor = self.getIndexedColorThemeColor($0.colorTheme)
+                $0.handler = self.appState
             }
         }
         

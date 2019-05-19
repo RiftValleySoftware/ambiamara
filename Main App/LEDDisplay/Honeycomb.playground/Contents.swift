@@ -12,7 +12,7 @@ import UIKit
 import PlaygroundSupport
 
 extension CGFloat {
-    func radians() -> CGFloat {
+    func radians -> CGFloat {
         let b = CGFloat(Double.pi) * (self/180)
         return b
     }
@@ -22,7 +22,7 @@ extension CGFloat {
 /**
  */
 func pointySideUpHexagon(_ inHowBig: CGFloat = 100) -> [CGPoint] {
-    let angle = CGFloat(60).radians()
+    let angle = CGFloat(60).radians
     let cx = CGFloat(inHowBig) // x origin
     let cy = CGFloat(inHowBig) // y origin
     let r = CGFloat(inHowBig) // radius of circle
@@ -30,8 +30,8 @@ func pointySideUpHexagon(_ inHowBig: CGFloat = 100) -> [CGPoint] {
     var minX: CGFloat = inHowBig * 2
     var maxX: CGFloat = 0
     for i in 0...6 {
-        let x = cx + r * cos(angle * CGFloat(i) - CGFloat(30).radians())
-        let y = cy + r * sin(angle * CGFloat(i) - CGFloat(30).radians())
+        let x = cx + r * cos(angle * CGFloat(i) - CGFloat(30).radians)
+        let y = cy + r * sin(angle * CGFloat(i) - CGFloat(30).radians)
         minX = min(minX, x)
         maxX = max(maxX, x)
         points.append(CGPoint(x: x, y: y))
