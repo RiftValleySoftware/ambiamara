@@ -29,8 +29,8 @@
 "LGV_TIMER-TIMER-TITLE-FORMAT" = "Temporizador %d"; // A Format for each timer tab title. The "%d" is replaced by the integer index of the timer (1-based).
 
 /* TIMER LIST SCREEN */
-
-"LGV_TIMER-ABOUT-SHOWCONTROLS-BUTTON" = "Mostrar controles del temporizador en el temporizador en curso"; // This is the text for the button next to the running controls switch in the timer list screen.
+// Shorthened to simply "Show Timer Controls."
+"LGV_TIMER-ABOUT-SHOWCONTROLS-BUTTON" = "Mostrar controles del temporizador"; // en el temporizador en curso"; // This is the text for the button next to the running controls switch in the timer list screen.
 
 /* TIMER LIST DELETE CONFIRMATION */
 

@@ -42,7 +42,6 @@
 		D433BB9E21B1898D001C79F6 /* 17-car-horn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D433BB9721B1898D001C79F6 /* 17-car-horn.mp3 */; };
 		D433BBA021B18AF4001C79F6 /* 21-alarm-klaxon.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D433BB9F21B18AF4001C79F6 /* 21-alarm-klaxon.mp3 */; };
 		D433BBA221B18D09001C79F6 /* TimerSoundModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D433BBA121B18D09001C79F6 /* TimerSoundModeButton.swift */; };
-		D451AD9A21C0382E00E3DE28 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 773980A21F6963A00019A541 /* Localizable.strings */; };
 		D48C0A4221B096C9007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3921B096C8007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 */; };
 		D48C0A4321B096C9007AC2DC /* 08-videogame-beeps-high-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3A21B096C8007AC2DC /* 08-videogame-beeps-high-frequency.mp3 */; };
 		D48C0A4421B096C9007AC2DC /* 09-single-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3B21B096C8007AC2DC /* 09-single-beep.mp3 */; };
@@ -55,6 +54,7 @@
 		D48ED3FA21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED3FC21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 */; };
 		D48ED3FD21B475AE00ADB8F8 /* 15-shut-up-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED3FF21B475AE00ADB8F8 /* 15-shut-up-2.mp3 */; };
 		D48ED40021B475BC00ADB8F8 /* 14-shut-up-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED40221B475BC00ADB8F8 /* 14-shut-up-1.mp3 */; };
+		D4AAAB222293509800938489 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4AAAB202293509800938489 /* Localizable.strings */; };
 		D4CF37C8219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */; };
 		D4D71E3121D574D400ACBB47 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D71E3321D574D400ACBB47 /* InfoPlist.strings */; };
 		D4D722E821B0326B0062035B /* Timer_SetupSoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */; };
@@ -140,17 +140,17 @@
 		D48ED3FB21B475A400ADB8F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = en; path = "en.lproj/22-thanks-for-sharing.mp3"; sourceTree = "<group>"; };
 		D48ED3FE21B475AE00ADB8F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = en; path = "en.lproj/15-shut-up-2.mp3"; sourceTree = "<group>"; };
 		D48ED40121B475BC00ADB8F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = en; path = "en.lproj/14-shut-up-1.mp3"; sourceTree = "<group>"; };
-		D48ED40421B4766200ADB8F8 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = ../es.lproj/Localizable.strings; sourceTree = "<group>"; };
-		D48ED40921B476E800ADB8F8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = ../fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		D48ED40A21B4774A00ADB8F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ../en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D48ED41221B477DA00ADB8F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		D48ED41321B477DB00ADB8F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D48ED41421B477DB00ADB8F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D4AAAB212293509800938489 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D4AAAB23229350A000938489 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D4AAAB24229350A300938489 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D4AAAB25229350A500938489 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TheGreatRiftValleyDrawing.swift; path = ViewControllers/TheGreatRiftValleyDrawing.swift; sourceTree = "<group>"; };
 		D4D71E3221D574D400ACBB47 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D4D71E3421D574D600ACBB47 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D4D71E3521D5757100ACBB47 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D4D71E3621D5757200ACBB47 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = ../de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Timer_SetupSoundsViewController.swift; path = ViewControllers/Timer_SetupSoundsViewController.swift; sourceTree = "<group>"; };
 		D4D722E921B036070062035B /* SoundTestButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundTestButton.swift; path = ViewControllers/SoundTestButton.swift; sourceTree = "<group>"; };
 		D4F242C2219B501900D809EB /* SwipeableTabBarController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwipeableTabBarController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,11 +176,11 @@
 		772459B71F1E1CD7006CA335 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D4AAAB202293509800938489 /* Localizable.strings */,
 				D4D71E3321D574D400ACBB47 /* InfoPlist.strings */,
 				D48C0A3821B096C8007AC2DC /* Sounds */,
 				77AF00B91F69624E00D35EF1 /* Main.storyboard */,
 				77AF00B61F69623800D35EF1 /* LaunchScreen.storyboard */,
-				773980A21F6963A00019A541 /* Localizable.strings */,
 				772459C11F1E1CD7006CA335 /* Assets.xcassets */,
 				D4065C32219B62A500B76DD4 /* Fonts */,
 			);
@@ -471,7 +471,6 @@
 				D41ECAD321C2AFCA00E48FA4 /* tick.aiff in Resources */,
 				D48ED3FD21B475AE00ADB8F8 /* 15-shut-up-2.mp3 in Resources */,
 				D433BB9C21B1898D001C79F6 /* 16-snoring-1.mp3 in Resources */,
-				D451AD9A21C0382E00E3DE28 /* Localizable.strings in Resources */,
 				D4D71E3121D574D400ACBB47 /* InfoPlist.strings in Resources */,
 				D433BB9E21B1898D001C79F6 /* 17-car-horn.mp3 in Resources */,
 				D433BB9921B1898D001C79F6 /* 18-antique-phone.mp3 in Resources */,
@@ -479,6 +478,7 @@
 				D433BB9D21B1898D001C79F6 /* 20-antique-car-horn.mp3 in Resources */,
 				D433BBA021B18AF4001C79F6 /* 21-alarm-klaxon.mp3 in Resources */,
 				D48ED3FA21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 in Resources */,
+				D4AAAB222293509800938489 /* Localizable.strings in Resources */,
 				772459C81F1E1D10006CA335 /* Assets.xcassets in Resources */,
 				772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */,
 				77AF00B41F69623800D35EF1 /* LaunchScreen.storyboard in Resources */,
@@ -540,17 +540,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		773980A21F6963A00019A541 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D48ED40421B4766200ADB8F8 /* es */,
-				D48ED40921B476E800ADB8F8 /* fr */,
-				D48ED40A21B4774A00ADB8F8 /* en */,
-				D4D71E3621D5757200ACBB47 /* de */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
 		77AF00B61F69623800D35EF1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -597,6 +586,17 @@
 				D48ED40121B475BC00ADB8F8 /* en */,
 			);
 			name = "14-shut-up-1.mp3";
+			sourceTree = "<group>";
+		};
+		D4AAAB202293509800938489 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4AAAB212293509800938489 /* Base */,
+				D4AAAB23229350A000938489 /* fr */,
+				D4AAAB24229350A300938489 /* es */,
+				D4AAAB25229350A500938489 /* de */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		D4D71E3321D574D400ACBB47 /* InfoPlist.strings */ = {
