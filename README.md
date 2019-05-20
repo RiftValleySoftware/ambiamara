@@ -36,6 +36,10 @@ THIRD-PARTY CODE
 =
 This uses elements of [the excellent SwipeableTabBarController, by Marcos Griselli](https://github.com/marcosgriselli/SwipeableTabBarController) to handle an animated swipeable tab transition, like Android gives you.
 
+LICENSE
+=
+This app is **NOT** licensed for reuse. It is hoped that the open-source nature of the app will help folks to learn about what I can do, and give them some confidence in the app.
+
 LOCALIZATION
 =
 Localization was commissioned from the folks at [Babble-on](https://www.ibabbleon.com).
