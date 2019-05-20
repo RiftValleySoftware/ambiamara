@@ -10,6 +10,10 @@ This app is [publicly available on the Apple App Store](https://itunes.apple.com
 
 [This is the basic instruction page for AmbiaMara](https://riftvalleysoftware.com/work/ios-apps/ambiamara/)
 
+[This page is the detailed documentation page for the AmbiaMara Codebase](https://riftvalleysoftware.com/AmbiaMara-Docs/)
+
+[This is the Codebase for the AmbiaMara App](https://github.com/RiftValleySoftware/ambiamara)
+
 This app requires iOS devices (iPhones, iPads and iPods), running iOS 10 or greater.
 
 AmbiaMara is a proprietary-code application, and the code is not licensed for reuse. The code is provided as open-source, for purposes of auditing and demonstration of [The Great Rift valley Software Company](https://riftvalleysoftware.com) coding style.
