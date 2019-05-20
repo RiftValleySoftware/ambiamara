@@ -705,6 +705,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     Called when the timer status changes
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didUpdateTimerStatus: The timer setting tuple that was affected.
+     - parameter from: The original state before the change.
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerStatus: TimerSettingTuple, from: TimerStatus) {
         DispatchQueue.main.async {
@@ -715,6 +720,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     Called when the timer mode changes
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didUpdateTimerDisplayMode: The timer setting tuple that was affected.
+     - parameter from: The original state before the change.
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerDisplayMode: TimerSettingTuple, from: TimerDisplayMode) {
         DispatchQueue.main.async {
@@ -725,6 +735,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     Called when the timer current time changes
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didUpdateTimerCurrentTime: The timer setting tuple that was affected.
+     - parameter from: The original time before the change.
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerCurrentTime: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
@@ -735,6 +750,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     Called when the timer warning time setting is changed
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didUpdateTimerWarnTime: The timer setting tuple that was affected.
+     - parameter from: The original time before the change.
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerWarnTime: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
@@ -745,6 +765,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     Called when the timer final time setting is changed
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didUpdateTimerFinalTime: The timer setting tuple that was affected.
+     - parameter from: The original time before the change.
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerFinalTime: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
@@ -755,6 +780,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     Called when the timer starting time setting is changed
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didUpdateTimerTimeSet: The timer setting tuple that was affected.
+     - parameter from: The original time before the change.
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerTimeSet: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
@@ -765,6 +795,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     Called when the timer sound ID setting is changed
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didUpdateTimerSoundID: The timer setting tuple that was affected.
+     - parameter from: The original ID before the change.
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerSoundID: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
@@ -775,6 +810,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     Called when the timer song URL setting is changed
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didUpdateTimerSongURL: The timer setting tuple that was affected.
+     - parameter from: The original URL (as a String) before the change.
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerSongURL: TimerSettingTuple, from: String) {
         DispatchQueue.main.async {
@@ -785,6 +825,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
 
     /* ################################################################## */
     /**
+     Called when the timer alert mode setting is changed
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didUpdateTimerAlertMode: The timer setting tuple that was affected.
+     - parameter from: The original mode before the change.
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerAlertMode: TimerSettingTuple, from: AlertMode) {
         DispatchQueue.main.async {
@@ -795,6 +840,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
 
     /* ################################################################## */
     /**
+     Called when the timer sound mode setting is changed
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didUpdateTimerSoundMode: The timer setting tuple that was affected.
+     - parameter from: The original mode before the change.
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerSoundMode: TimerSettingTuple, from: SoundMode) {
         DispatchQueue.main.async {
@@ -805,6 +855,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
 
     /* ################################################################## */
     /**
+     Called when the next timer ID setting is changed
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didUpdateSucceedingTimerID: The timer setting tuple that was affected.
+     - parameter from: The original ID before the change.
      */
     func appState(_ appState: LGV_Timer_State, didUpdateSucceedingTimerID: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
@@ -815,6 +870,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
 
     /* ################################################################## */
     /**
+     Called when the audible ticks setting is changed
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didUpdateAudibleTicks: The timer setting tuple that was affected.
+     - parameter from: The original state before the change.
      */
     func appState(_ appState: LGV_Timer_State, didUpdateAudibleTicks: TimerSettingTuple, from: Bool) {
         DispatchQueue.main.async {
@@ -825,6 +885,11 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
 
     /* ################################################################## */
     /**
+     Called when the color theme setting is changed
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didUpdateTimerColorTheme: The timer setting tuple that was affected.
+     - parameter from: The original state before the change.
      */
     func appState(_ appState: LGV_Timer_State, didUpdateTimerColorTheme: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
@@ -832,9 +897,13 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         }
         self.savePrefs()
     }
-    
+
     /* ################################################################## */
     /**
+     Called when a timer is added
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didAddTimer: The timer setting tuple that was affected.
      */
     func appState(_ appState: LGV_Timer_State, didAddTimer: TimerSettingTuple) {
         DispatchQueue.main.async {
@@ -845,6 +914,10 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     Called when a timer is about to be removed
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didAddTimer: The timer setting tuple that will be removed.
      */
     func appState(_ appState: LGV_Timer_State, willRemoveTimer: TimerSettingTuple) {
         DispatchQueue.main.async {
@@ -854,6 +927,10 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     Called when a timer was removed
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didRemoveTimerAtIndex: The 0-based index of the imer that was removed.
      */
     func appState(_ appState: LGV_Timer_State, didRemoveTimerAtIndex: Int) {
         DispatchQueue.main.async {
@@ -864,6 +941,10 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     Called when a timer was selected
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didSelectTimer: The timer setting tuple that was affected. It is optional, as it is possible to select no timer.
      */
     func appState(_ appState: LGV_Timer_State, didSelectTimer: TimerSettingTuple!) {
         DispatchQueue.main.async {
@@ -874,6 +955,10 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     Called when a timer was deselected
+     
+     - parameter appState: The instance that called this delegate method.
+     - parameter didSelectTimer: The timer setting tuple that was affected.
      */
     func appState(_ appState: LGV_Timer_State, didDeselectTimer: TimerSettingTuple) {
         DispatchQueue.main.async {
@@ -886,35 +971,53 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     - parameter index: The 0-based index of the requested element.
+     - returns: The tuple at the given subscript.
      */
     subscript(_ index: Int) -> TimerSettingTuple {
         assert(index < self.appState.timers.count)
         return self.appState[index]
     }
-    
+
     /* ################################################################## */
     /**
+     Get the index of an element by its UUID
+     
+     - parameter inUID: The UUID of the element we're looking for.
+     - returns: The 0-based index of the given element.
      */
     func indexOf(_ inUID: String) -> Int {
         return self.appState.indexOf(inUID)
     }
-    
+
     /* ################################################################## */
     /**
+     Get the index of an element
+     
+     - parameter inObject: The element we're looking for.
+     - returns: The 0-based index of the given element.
      */
     func indexOf(_ inObject: TimerSettingTuple) -> Int {
         return self.appState.indexOf(inObject)
     }
-    
+
     /* ################################################################## */
     /**
+     See if our settings contain an object.
+     
+     - parameter inObject: The element we're looking for.
+     - returns: true, if the settings array contains the given object.
      */
     func contains(_ inObject: TimerSettingTuple) -> Bool {
         return self.appState.contains(inObject)
     }
-    
+
     /* ################################################################## */
     /**
+     See if our settings contain an object by its UUID.
+     
+     - parameter inUID: The UUID of the element we're looking for.
+     - returns: true, if the settings array contains the given object.
      */
     func contains(_ inUID: String) -> Bool {
         return self.appState.contains(inUID)
@@ -922,6 +1025,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     - returns: A new, initialized iterator of the settings.
      */
     func makeIterator() -> AnyIterator<TimerSettingTuple> {
         var nextIndex = 0
@@ -932,12 +1036,15 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
                 return nil
             }
             nextIndex += 1
-            return self[nextIndex - 1]
+            return self.appState[nextIndex - 1]
         }
     }
     
     /* ################################################################## */
     /**
+     Append a new object to the end of our array.
+     
+     - parameter inObject: The object we're appending.
      */
     func append(_ inObject: TimerSettingTuple) {
         self.appState.append(inObject)
@@ -945,6 +1052,9 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     
     /* ################################################################## */
     /**
+     Remove an object at the given 0-based index.
+     
+     - parameter at: The 0-based index of the object to be removed.
      */
     func remove(at index: Int) {
         DispatchQueue.main.async {
@@ -961,6 +1071,9 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This is the callback that is made by the repeating timer.
+     
+     - parameter inTimer: The Timer object that is calling this.
      */
     @objc func timerCallback(_ inTimer: Timer) {
         if let selectedTimer = self.selectedTimer {

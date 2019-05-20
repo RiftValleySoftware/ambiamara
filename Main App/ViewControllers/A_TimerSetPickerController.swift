@@ -69,7 +69,7 @@ class A_TimerNavBaseController: A_TimerBaseViewController {
         let timerNumber = self.timerNumber
         if (0 <= self.timerNumber) && (Timer_AppDelegate.appDelegateObject.timerEngine.count > self.timerNumber) {
             let prefs = Timer_AppDelegate.appDelegateObject.timerEngine[timerNumber]
-            let timeTuple = TimeTuple(prefs.timeSet)
+            let timeTuple = TimeInstance(prefs.timeSet)
             
             if 0 < timeTuple.hours {
                 displayedString = String(format: "%02d:%02d:%02d", timeTuple.hours, timeTuple.minutes, timeTuple.seconds)

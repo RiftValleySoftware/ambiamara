@@ -117,9 +117,9 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
         if .Podium != self.timerObject.displayMode && nil != self.timeDisplay {
             if self._originalValue != self.timerObject.currentTime {
                 self._originalValue = self.timerObject.currentTime
-                self.timeDisplay.hours = TimeTuple(self.timerObject.currentTime).hours
-                self.timeDisplay.minutes = TimeTuple(self.timerObject.currentTime).minutes
-                self.timeDisplay.seconds = TimeTuple(self.timerObject.currentTime).seconds
+                self.timeDisplay.hours = TimeInstance(self.timerObject.currentTime).hours
+                self.timeDisplay.minutes = TimeInstance(self.timerObject.currentTime).minutes
+                self.timeDisplay.seconds = TimeInstance(self.timerObject.currentTime).seconds
                 self.timeDisplay.setNeedsDisplay()
             }
         }

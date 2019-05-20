@@ -165,7 +165,7 @@ class TimerSetController: A_TimerSetPickerController {
      Update the time set label.
      */
     func updateTimeDisplayLabel() {
-        self.timeDisplayLabel.text = TimeTuple(self.timerObject.timeSet).description
+        self.timeDisplayLabel.text = TimeInstance(self.timerObject.timeSet).description
         if let backgroundColor = Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].backgroundColor {
             self.timeDisplayLabel.textColor = (.Podium == self.timerObject.displayMode ? UIColor.white : backgroundColor)
         }
@@ -216,7 +216,7 @@ class TimerSetController: A_TimerSetPickerController {
      Update the timer to the current state
      */
     func updateTimer() {
-        let timeSet = TimeTuple(self.timerObject.timeSet)
+        let timeSet = TimeInstance(self.timerObject.timeSet)
         
         if nil != self.setTimePickerView {
             self.setTimePickerView.selectRow(timeSet.hours, inComponent: Components.Hours.rawValue, animated: true)
@@ -360,7 +360,7 @@ class TimerSetController: A_TimerSetPickerController {
             let hours = pickerView.selectedRow(inComponent: Components.Hours.rawValue)
             let minutes = pickerView.selectedRow(inComponent: Components.Minutes.rawValue)
             let seconds = pickerView.selectedRow(inComponent: Components.Seconds.rawValue)
-            self.timerObject.timeSet = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
+            self.timerObject.timeSet = Int(TimeInstance(hours: hours, minutes: minutes, seconds: seconds))
             
             self.updateTimer()
         }

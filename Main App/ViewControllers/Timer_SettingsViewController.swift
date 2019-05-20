@@ -191,7 +191,7 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
                 let timerName = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
                 
                 let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
-                clockView.text = TimeTuple(timerPrefs.timeSet).description
+                clockView.text = TimeInstance(timerPrefs.timeSet).description
                 if .Podium == timerPrefs.displayMode {
                     clockView.textColor = UIColor.white
                     timerNameLabel.textColor = UIColor.white

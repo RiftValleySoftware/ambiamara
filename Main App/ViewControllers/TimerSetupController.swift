@@ -89,14 +89,14 @@ class TimerSetupController: A_TimerSetPickerController {
             timeSetWarnInt = TimerSettingTuple.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet)
             self.timerObject.timeSetPodiumWarn = timeSetWarnInt
         }
-        let timeSetWarn = TimeTuple(timeSetWarnInt)
+        let timeSetWarn = TimeInstance(timeSetWarnInt)
         var timeSetFinalInt = self.timerObject.timeSetPodiumFinal
         if 0 >= timeSetFinalInt {
             timeSetFinalInt = TimerSettingTuple.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet)
             self.timerObject.timeSetPodiumFinal = timeSetFinalInt
         }
         
-        let timeSetFinal = TimeTuple(timeSetFinalInt)
+        let timeSetFinal = TimeInstance(timeSetFinalInt)
         self.warningThresholdTimePicker.selectRow(timeSetWarn.hours, inComponent: Components.Hours.rawValue, animated: true)
         self.warningThresholdTimePicker.selectRow(timeSetWarn.minutes, inComponent: Components.Minutes.rawValue, animated: true)
         self.warningThresholdTimePicker.selectRow(timeSetWarn.seconds, inComponent: Components.Seconds.rawValue, animated: true)
@@ -305,15 +305,15 @@ class TimerSetupController: A_TimerSetPickerController {
             let minutes = pickerView.selectedRow(inComponent: Components.Minutes.rawValue)
             let seconds = pickerView.selectedRow(inComponent: Components.Seconds.rawValue)
             if self.warningThresholdTimePicker == pickerView {
-                if self.timerObject.timeSet > Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds)) {
-                    self.timerObject.timeSetPodiumWarn = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
+                if self.timerObject.timeSet > Int(TimeInstance(hours: hours, minutes: minutes, seconds: seconds)) {
+                    self.timerObject.timeSetPodiumWarn = Int(TimeInstance(hours: hours, minutes: minutes, seconds: seconds))
                     var maxValInt = Swift.max(0, Swift.min(self.timerObject.timeSetPodiumFinal, self.timerObject.timeSetPodiumWarn - 1))
                     if 0 == maxValInt {
                         maxValInt = Swift.min(TimerSettingTuple.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet), self.timerObject.timeSetPodiumWarn - 1)
                     }
                     
                     self.timerObject.timeSetPodiumFinal = maxValInt
-                    let maxVal = TimeTuple(maxValInt)
+                    let maxVal = TimeInstance(maxValInt)
                     
                     self.finalThresholdTimePicker.selectRow(maxVal.hours, inComponent: Components.Hours.rawValue, animated: true)
                     self.finalThresholdTimePicker.selectRow(maxVal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
@@ -325,21 +325,21 @@ class TimerSetupController: A_TimerSetPickerController {
                         maxValInt = Swift.min(TimerSettingTuple.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet), self.timerObject.timeSetPodiumWarn - 1)
                     }
                     
-                    let maxVal = TimeTuple(maxValInt)
+                    let maxVal = TimeInstance(maxValInt)
                     
                     pickerView.selectRow(maxVal.hours, inComponent: Components.Hours.rawValue, animated: true)
                     pickerView.selectRow(maxVal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
                     pickerView.selectRow(maxVal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
                 }
             } else {
-                if (0 == self.timerObject.timeSetPodiumWarn) || (0 == self.timerObject.timeSet) || (self.timerObject.timeSetPodiumWarn > Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))) {
+                if (0 == self.timerObject.timeSetPodiumWarn) || (0 == self.timerObject.timeSet) || (self.timerObject.timeSetPodiumWarn > Int(TimeInstance(hours: hours, minutes: minutes, seconds: seconds))) {
                     if (0 == self.timerObject.timeSetPodiumWarn) || (0 == self.timerObject.timeSet) {
                         self.timerObject.timeSetPodiumFinal =  0
                         pickerView.selectRow(0, inComponent: Components.Hours.rawValue, animated: true)
                         pickerView.selectRow(0, inComponent: Components.Minutes.rawValue, animated: true)
                         pickerView.selectRow(0, inComponent: Components.Seconds.rawValue, animated: true)
                     } else {
-                        self.timerObject.timeSetPodiumFinal = Int(TimeTuple(hours: hours, minutes: minutes, seconds: seconds))
+                        self.timerObject.timeSetPodiumFinal = Int(TimeInstance(hours: hours, minutes: minutes, seconds: seconds))
                     }
                 } else {
                     var maxValInt = Swift.max(0, self.timerObject.timeSetPodiumWarn - 1)
@@ -348,7 +348,7 @@ class TimerSetupController: A_TimerSetPickerController {
                         maxValInt = Swift.min(TimerSettingTuple.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet), self.timerObject.timeSetPodiumWarn - 1)
                     }
                     
-                    let maxVal = TimeTuple(maxValInt)
+                    let maxVal = TimeInstance(maxValInt)
                     
                     pickerView.selectRow(maxVal.hours, inComponent: Components.Hours.rawValue, animated: true)
                     pickerView.selectRow(maxVal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
