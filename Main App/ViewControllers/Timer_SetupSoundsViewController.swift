@@ -26,8 +26,6 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     
     /// This contains our audio player.
     var audioPlayer: AVAudioPlayer!
-    /// This is a simple semaphore to indicate that we are in the process of loading music.
-    var isLoadin: Bool = false
 
     /// The vibrate switch
     @IBOutlet weak var vibrateSwitch: UISwitch!
@@ -76,7 +74,6 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
      */
     func loadMediaLibrary(forceReload inForceReload: Bool = false) {
        if Timer_AppDelegate.appDelegateObject.artists.isEmpty || inForceReload { // If we are already loaded up, we don't need to do this (unless forced).
-            self.isLoadin = false
             self.vibrateSwitch.isEnabled = false
             self.vibrateButton.isEnabled = false
             self.audibleTicksSwitch.isEnabled = false
@@ -86,13 +83,13 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
                 self.loadUpOnMusic()
             } else {    // May I see your ID, sir?
                 MPMediaLibrary.requestAuthorization { [unowned self] status in
-                    switch status {
-                    case.authorized:
-                        self.loadUpOnMusic()
-                        
-                    default:
-                        Timer_AppDelegate.displayAlert("ERROR_HEADER_MEDIA", inMessage: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
-                        self.dunLoadin()
+                    DispatchQueue.main.async {  // Make sure that we're in the main thread, as GUI will happen.
+                        if case .authorized = status {  // Lift the velvet rope...
+                            self.loadUpOnMusic()
+                        } else {    // Call in the bouncers...
+                            Timer_AppDelegate.displayAlert("ERROR_HEADER_MEDIA", inMessage: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
+                            self.dunLoadin()
+                        }
                     }
                 }
             }
@@ -107,10 +104,8 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
      */
     func loadUpOnMusic() {
         if let songItems: [MPMediaItemCollection] = MPMediaQuery.songs().collections {
-            DispatchQueue.main.async {
-                self.loadSongData(songItems)
-                self.dunLoadin()
-            }
+            self.loadSongData(songItems)
+            self.dunLoadin()    // We don't want to set up the GUI until we have loaded the music.
         }
     }
     
@@ -119,17 +114,14 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
      This is called after the music has been loaded. It sets up the Alarm Editor.
      */
     func dunLoadin() {
-        DispatchQueue.main.async {
-            self.isLoadin = false
-            self.vibrateSwitch.isEnabled = true
-            self.vibrateButton.isEnabled = true
-            self.audibleTicksSwitch.isEnabled = true
-            self.audibleTicksSwitchButton.isEnabled = true
-            self.soundModeSegmentedSwitch.isEnabled = true
-            self.stopSpinner()
-            self.setUpUIElements()
-            self.selectSong()
-        }
+        self.vibrateSwitch.isEnabled = true
+        self.vibrateButton.isEnabled = true
+        self.audibleTicksSwitch.isEnabled = true
+        self.audibleTicksSwitchButton.isEnabled = true
+        self.soundModeSegmentedSwitch.isEnabled = true
+        self.stopSpinner()
+        self.setUpUIElements()
+        self.selectSong()
     }
     
     /* ################################################################## */
