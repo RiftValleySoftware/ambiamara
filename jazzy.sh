@@ -14,5 +14,6 @@ jazzy   --github_url https://github.com/RiftValleySoftware/ambiamara\
         --copyright [©2019\ The\ Great\ Rift\ Valley\ Software\ Company]\(https://riftvalleysoftware.com\) \
         -x CODE_SIGNING_ALLOWED=NO
 cp icon.png docs/icon.png
+cp .nojekyll docs/.nojekyll
 cp img/*.* docs/img/
 cd "${CWD}"
