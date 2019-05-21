@@ -1,0 +1,3119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TimerEngine Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/TimerEngine" class="dashAnchor"></a>
+
+    <a title="TimerEngine Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          AmbiaMara Docs
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/ambiamara">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">AmbiaMara Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      TimerEngine Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/A_TimerBaseViewController.html">A_TimerBaseViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/A_TimerNavBaseController.html">A_TimerNavBaseController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/A_TimerNavBaseController/InvertedMaskLabel.html">– InvertedMaskLabel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/A_TimerSetPickerController.html">A_TimerSetPickerController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/A_TimerSetPickerController/Components.html">– Components</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LED_ClockView.html">LED_ClockView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LED_ElementGrouping.html">LED_ElementGrouping</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LED_ElementGrouping/ElementTypes.html">– ElementTypes</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LED_SeparatorDots.html">LED_SeparatorDots</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LED_SingleDigit.html">LED_SingleDigit</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LED_SingleDigit/SegmentIndexes.html">– SegmentIndexes</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_Timer_State/AppStateKeys.html">– AppStateKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/SettingsTimerTableCell.html">SettingsTimerTableCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/SoundTestButton.html">SoundTestButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimeInstance.html">TimeInstance</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerEngine.html">TimerEngine</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerEngine/TimerPrefKeys.html">– TimerPrefKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerNavController.html">TimerNavController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerRuntimeViewController.html">TimerRuntimeViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerSetController.html">TimerSetController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerSettingTuple/TimerStateKeys.html">– TimerStateKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes.html#/c:@M@AmbiaMara@objc(cs)TimerSettingsNavController">TimerSettingsNavController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerSetupController.html">TimerSetupController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Timer_AppDelegate.html">Timer_AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Timer_AppDelegate/SongInfo.html">– SongInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Timer_Data_Keys.html">Timer_Data_Keys</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Timer_InfoViewController.html">Timer_InfoViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Timer_MainTabController.html">Timer_MainTabController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Timer_Messages.html">Timer_Messages</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Timer_SettingsViewController.html">Timer_SettingsViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Timer_SetupSoundsViewController.html">Timer_SetupSoundsViewController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/AlertMode.html">AlertMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SoundMode.html">SoundMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/TimerDisplayMode.html">TimerDisplayMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/TimerStatus.html">TimerStatus</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/CGFloat.html">CGFloat</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIColor.html">UIColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIImage.html">UIImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIView.html">UIView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LED_Element.html">LED_Element</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_Timer_StateDelegate.html">LGV_Timer_StateDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/TimerEngineDelegate.html">TimerEngineDelegate</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>TimerEngine</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">TimerEngine</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">Sequence</span><span class="p">,</span> <span class="kt"><a href="../Protocols/LGV_Timer_StateDelegate.html">LGV_Timer_StateDelegate</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>This class is the <q>heart</q> of the timer. It contains the timer state, settings, and stored prefs for all the timers.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC13timerIntervalSdvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/timerInterval" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC13timerIntervalSdvpZ">timerInterval</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>We increment by tenths of a second.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">timerInterval</span><span class="p">:</span> <span class="kt">TimeInterval</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC17timerTickIntervalSdvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/timerTickInterval" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC17timerTickIntervalSdvpZ">timerTickInterval</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Each <q>tick</q> is 1 second.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">timerTickInterval</span><span class="p">:</span> <span class="kt">TimeInterval</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC18timerAlarmIntervalSdvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/timerAlarmInterval" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC18timerAlarmIntervalSdvpZ">timerAlarmInterval</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The alarm repeats every second.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">timerAlarmInterval</span><span class="p">:</span> <span class="kt">TimeInterval</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC16_sviewBundleName33_F7CC5841E3066C13444B22357CDA263BLLSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/_sviewBundleName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC16_sviewBundleName33_F7CC5841E3066C13444B22357CDA263BLLSSvpZ">_sviewBundleName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This contains our color theme palette.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">_sviewBundleName</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Private%20Static%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Private Static Properties" class="dashAnchor"></a>
+                <a href="#/Private%20Static%20Properties">
+                  <h3 class="section-name">Private Static Properties</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC17_appStatePrefsKey33_F7CC5841E3066C13444B22357CDA263BLLSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/_appStatePrefsKey" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC17_appStatePrefsKey33_F7CC5841E3066C13444B22357CDA263BLLSSvpZ">_appStatePrefsKey</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the key for the app status prefs used by this app.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">_appStatePrefsKey</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC13_timerTicking33_F7CC5841E3066C13444B22357CDA263BLLSbvp"></a>
+                    <a name="//apple_ref/swift/Property/_timerTicking" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC13_timerTicking33_F7CC5841E3066C13444B22357CDA263BLLSbvp">_timerTicking</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is true, if the timer is <q>ticking</q> (running).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">_timerTicking</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC10_firstTick33_F7CC5841E3066C13444B22357CDA263BLLSdvp"></a>
+                    <a name="//apple_ref/swift/Property/_firstTick" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC10_firstTick33_F7CC5841E3066C13444B22357CDA263BLLSdvp">_firstTick</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The time of the first tick</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">_firstTick</span><span class="p">:</span> <span class="kt">TimeInterval</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC11_alarmCount33_F7CC5841E3066C13444B22357CDA263BLLSivp"></a>
+                    <a name="//apple_ref/swift/Property/_alarmCount" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC11_alarmCount33_F7CC5841E3066C13444B22357CDA263BLLSivp">_alarmCount</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The number of times the alarm has <q>rung.</q></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">_alarmCount</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Internal%20Enums"></a>
+                <a name="//apple_ref/swift/Section/Internal Enums" class="dashAnchor"></a>
+                <a href="#/Internal%20Enums">
+                  <h3 class="section-name">Internal Enums</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC0C8PrefKeysO"></a>
+                    <a name="//apple_ref/swift/Enum/TimerPrefKeys" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC0C8PrefKeysO">TimerPrefKeys</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>These are the keys we use for our timer prefs dictionary.</p>
+
+                        <a href="../Classes/TimerEngine/TimerPrefKeys.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">TimerPrefKeys</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Internal%20Static%20Calculated%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Internal Static Calculated Properties" class="dashAnchor"></a>
+                <a href="#/Internal%20Static%20Calculated%20Properties">
+                  <h3 class="section-name">Internal Static Calculated Properties</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC07defaultC0AA0C12SettingTupleCvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/defaultTimer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC07defaultC0AA0C12SettingTupleCvpZ">defaultTimer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This returns one default configurasion timer <q>tuple</q> object.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">defaultTimer</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Private%20Instance%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Private Instance Properties" class="dashAnchor"></a>
+                <a href="#/Private%20Instance%20Properties">
+                  <h3 class="section-name">Private Instance Properties</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC16_colorLabelArray33_F7CC5841E3066C13444B22357CDA263BLLSaySo7UILabelCGvp"></a>
+                    <a name="//apple_ref/swift/Property/_colorLabelArray" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC16_colorLabelArray33_F7CC5841E3066C13444B22357CDA263BLLSaySo7UILabelCGvp">_colorLabelArray</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This will contain the UILabels that are used for the color theme.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">_colorLabelArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">UILabel</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Instance Properties" class="dashAnchor"></a>
+                <a href="#/Instance%20Properties">
+                  <h3 class="section-name">Instance Properties</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8delegateAA0cD8Delegate_pSgvp"></a>
+                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8delegateAA0cD8Delegate_pSgvp">delegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is any delegate for this engine. It is a weak reference, in order to inhibit reference loops.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/TimerEngineDelegate.html">TimerEngineDelegate</a></span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appStateAA04LGV_c1_F0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/appState" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appStateAA04LGV_c1_F0CSgvp">appState</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the current application state. It is the <q>heart</q> of the timer.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC5timerSo7NSTimerCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/timer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC5timerSo7NSTimerCSgvp">timer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the current selected timer.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">timer</span><span class="p">:</span> <span class="kt">Timer</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC14soundSelectionSaySSGvp"></a>
+                    <a name="//apple_ref/swift/Property/soundSelection" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC14soundSelectionSaySSGvp">soundSelection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This aggregates our available sounds.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">soundSelection</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC7tickURISSvp"></a>
+                    <a name="//apple_ref/swift/Property/tickURI" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC7tickURISSvp">tickURI</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the URI to the selected <q>tick</q> sound.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">tickURI</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Calculated%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Instance Calculated Properties" class="dashAnchor"></a>
+                <a href="#/Instance%20Calculated%20Properties">
+                  <h3 class="section-name">Instance Calculated Properties</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC13timerSelectedSbvp"></a>
+                    <a name="//apple_ref/swift/Property/timerSelected" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC13timerSelectedSbvp">timerSelected</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This simply returns true, if a timer is currently selected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">timerSelected</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC08selectedC0AA0C12SettingTupleCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/selectedTimer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC08selectedC0AA0C12SettingTupleCSgvp">selectedTimer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This returns the currently selected timer (or nil, if no timer is selected).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">selectedTimer</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC08selectedC5IndexSiSgvp"></a>
+                    <a name="//apple_ref/swift/Property/selectedTimerIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC08selectedC5IndexSiSgvp">selectedTimerIndex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This returns (or changes) the 0-based index of the selected timer. It will be nil if the timer index is out of range.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">selectedTimerIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC08selectedC3UIDSSvp"></a>
+                    <a name="//apple_ref/swift/Property/selectedTimerUID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC08selectedC3UIDSSvp">selectedTimerUID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This returns the UID of the selected timer object.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">selectedTimerUID</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC7isEmptySbvp"></a>
+                    <a name="//apple_ref/swift/Property/isEmpty" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC7isEmptySbvp">isEmpty</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This returns true, if we have no timers (We should always have at least one, but belt and suspenders).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isEmpty</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC6timersSayAA0C12SettingTupleCGvp"></a>
+                    <a name="//apple_ref/swift/Property/timers" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC6timersSayAA0C12SettingTupleCGvp">timers</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This returns the array of timer objects.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">timers</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC5countSivp"></a>
+                    <a name="//apple_ref/swift/Property/count" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC5countSivp">count</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This returns how many timers we have.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">count</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC11timerActiveSbvp"></a>
+                    <a name="//apple_ref/swift/Property/timerActive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC11timerActiveSbvp">timerActive</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This return true, if we currently have a ticking timer.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">timerActive</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC20actualTimeSinceStartSdvp"></a>
+                    <a name="//apple_ref/swift/Property/actualTimeSinceStart" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC20actualTimeSinceStartSdvp">actualTimeSinceStart</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This returns the actual elapsed time (in a standard interval) since the timer started.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">actualTimeSinceStart</span><span class="p">:</span> <span class="kt">TimeInterval</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC15colorLabelArraySaySo7UILabelCGvp"></a>
+                    <a name="//apple_ref/swift/Property/colorLabelArray" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC15colorLabelArraySaySo7UILabelCGvp">colorLabelArray</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the color palettes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">colorLabelArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">UILabel</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Private%20Class%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Private Class Methods" class="dashAnchor"></a>
+                <a href="#/Private%20Class%20Methods">
+                  <h3 class="section-name">Private Class Methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC017_convertStorageToC033_F7CC5841E3066C13444B22357CDA263BLLyAA0C12SettingTupleCSo12NSDictionaryCFZ"></a>
+                    <a name="//apple_ref/swift/Method/_convertStorageToTimer(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC017_convertStorageToC033_F7CC5841E3066C13444B22357CDA263BLLyAA0C12SettingTupleCSo12NSDictionaryCFZ">_convertStorageToTimer(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This creates a timer tuple from the persistent stored data sent in.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">_convertStorageToTimer</span><span class="p">(</span><span class="n">_</span> <span class="nv">inTimer</span><span class="p">:</span> <span class="kt">NSDictionary</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initializers%20and%20Deinitializer"></a>
+                <a name="//apple_ref/swift/Section/Initializers and Deinitializer" class="dashAnchor"></a>
+                <a href="#/Initializers%20and%20Deinitializer">
+                  <h3 class="section-name">Initializers and Deinitializer</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@AmbiaMara@objc(cs)TimerEngine(im)init"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@AmbiaMara@objc(cs)TimerEngine(im)init">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>We declare this private to keep the class from being initialized without a delegate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">override</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8delegateAcA0cD8Delegate_p_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(delegate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8delegateAcA0cD8Delegate_p_tcfc">init(delegate:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>We instantiate this with a delegate -always</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/TimerEngineDelegate.html">TimerEngineDelegate</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>delegate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The delegate object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@AmbiaMara@objc(cs)TimerEngine(im)dealloc"></a>
+                    <a name="//apple_ref/swift/Method/deinit" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@AmbiaMara@objc(cs)TimerEngine(im)dealloc">deinit</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>We make sure we clean up after ourselves.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">deinit</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Private%20Instance%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Private Instance Methods" class="dashAnchor"></a>
+                <a href="#/Private%20Instance%20Methods">
+                  <h3 class="section-name">Private Instance Methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC10_loadPrefs33_F7CC5841E3066C13444B22357CDA263BLLyyF"></a>
+                    <a name="//apple_ref/swift/Method/_loadPrefs()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC10_loadPrefs33_F7CC5841E3066C13444B22357CDA263BLLyyF">_loadPrefs()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This method loads the main prefs into our instance storage.</p>
+
+<p>NOTE: This will overwrite any unsaved changes to the current _loadedPrefs property.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">_loadPrefs</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Instance Methods" class="dashAnchor"></a>
+                <a href="#/Instance%20Methods">
+                  <h3 class="section-name">Instance Methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC020getIndexedColorThemeG0ySo7UIColorCSiF"></a>
+                    <a name="//apple_ref/swift/Method/getIndexedColorThemeColor(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC020getIndexedColorThemeG0ySo7UIColorCSiF">getIndexedColorThemeColor(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the color for the indexed color theme.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getIndexedColorThemeColor</span><span class="p">(</span><span class="n">_</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIColor</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC09createNewC0AA0C12SettingTupleCyF"></a>
+                    <a name="//apple_ref/swift/Method/createNewTimer()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC09createNewC0AA0C12SettingTupleCyF">createNewTimer()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is a factory for creating a new timer object.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">createNewTimer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a new timer object, instantiated with a zero time, and default characteristics.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC9savePrefsyyF"></a>
+                    <a name="//apple_ref/swift/Method/savePrefs()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC9savePrefsyyF">savePrefs()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This method simply saves the main preferences Dictionary into the standard user defaults.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">savePrefs</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC05pauseC0yyF"></a>
+                    <a name="//apple_ref/swift/Method/pauseTimer()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC05pauseC0yyF">pauseTimer()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Just what it says on the tin.
+Does nothing if no timer is selected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">pauseTimer</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC08continueC0yyF"></a>
+                    <a name="//apple_ref/swift/Method/continueTimer()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC08continueC0yyF">continueTimer()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This will either start, or continue, the selected timer.
+Does nothing if no timer is selected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">continueTimer</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC05startC0yyF"></a>
+                    <a name="//apple_ref/swift/Method/startTimer()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC05startC0yyF">startTimer()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This starts a selected timer from scratch.
+Does nothing if no timer is selected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">startTimer</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC04stopC0yyF"></a>
+                    <a name="//apple_ref/swift/Method/stopTimer()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC04stopC0yyF">stopTimer()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Stops a running selected timer.
+Does nothing if no timer is selected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">stopTimer</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC05resetC0yyF"></a>
+                    <a name="//apple_ref/swift/Method/resetTimer()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC05resetC0yyF">resetTimer()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This resets the selected timer, and returns it to <q>paused</q> mode.
+Does nothing if no timer is selected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">resetTimer</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC03endC0yyF"></a>
+                    <a name="//apple_ref/swift/Method/endTimer()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC03endC0yyF">endTimer()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This forces a timer to <q>finish,</q> and enter alarm mode.
+Does nothing if no timer is selected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">endTimer</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/LGV_Timer_StateDelegate%20Methods"></a>
+                <a name="//apple_ref/swift/Section/LGV_Timer_StateDelegate Methods" class="dashAnchor"></a>
+                <a href="#/LGV_Timer_StateDelegate%20Methods">
+                  <h3 class="section-name">LGV_Timer_StateDelegate Methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC6Status4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCAA0cI0OtF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didUpdateTimerStatus:from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC6Status4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCAA0cI0OtF">appState(_:didUpdateTimerStatus:from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the timer status changes</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didUpdateTimerStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt"><a href="../Enums/TimerStatus.html">TimerStatus</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didUpdateTimerStatus</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The original state before the change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC11DisplayMode4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCAA0ciJ0OtF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didUpdateTimerDisplayMode:from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC11DisplayMode4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCAA0ciJ0OtF">appState(_:didUpdateTimerDisplayMode:from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the timer mode changes</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didUpdateTimerDisplayMode</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt"><a href="../Enums/TimerDisplayMode.html">TimerDisplayMode</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didUpdateTimerDisplayMode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The original state before the change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC11CurrentTime4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSitF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didUpdateTimerCurrentTime:from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC11CurrentTime4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSitF">appState(_:didUpdateTimerCurrentTime:from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the timer current time changes</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didUpdateTimerCurrentTime</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didUpdateTimerCurrentTime</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The original time before the change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC8WarnTime4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSitF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didUpdateTimerWarnTime:from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC8WarnTime4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSitF">appState(_:didUpdateTimerWarnTime:from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the timer warning time setting is changed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didUpdateTimerWarnTime</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didUpdateTimerWarnTime</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The original time before the change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC9FinalTime4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSitF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didUpdateTimerFinalTime:from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC9FinalTime4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSitF">appState(_:didUpdateTimerFinalTime:from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the timer final time setting is changed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didUpdateTimerFinalTime</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didUpdateTimerFinalTime</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The original time before the change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC7TimeSet4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSitF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didUpdateTimerTimeSet:from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC7TimeSet4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSitF">appState(_:didUpdateTimerTimeSet:from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the timer starting time setting is changed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didUpdateTimerTimeSet</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didUpdateTimerTimeSet</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The original time before the change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC7SoundID4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSitF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didUpdateTimerSoundID:from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC7SoundID4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSitF">appState(_:didUpdateTimerSoundID:from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the timer sound ID setting is changed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didUpdateTimerSoundID</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didUpdateTimerSoundID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The original ID before the change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC7SongURL4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSStF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didUpdateTimerSongURL:from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC7SongURL4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSStF">appState(_:didUpdateTimerSongURL:from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the timer song URL setting is changed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didUpdateTimerSongURL</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didUpdateTimerSongURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The original URL (as a String) before the change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC9AlertMode4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCAA0iJ0OtF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didUpdateTimerAlertMode:from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC9AlertMode4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCAA0iJ0OtF">appState(_:didUpdateTimerAlertMode:from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the timer alert mode setting is changed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didUpdateTimerAlertMode</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt"><a href="../Enums/AlertMode.html">AlertMode</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didUpdateTimerAlertMode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The original mode before the change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC9SoundMode4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCAA0iJ0OtF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didUpdateTimerSoundMode:from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC9SoundMode4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCAA0iJ0OtF">appState(_:didUpdateTimerSoundMode:from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the timer sound mode setting is changed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didUpdateTimerSoundMode</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt"><a href="../Enums/SoundMode.html">SoundMode</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didUpdateTimerSoundMode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The original mode before the change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_019didUpdateSucceedingC2ID4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSitF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didUpdateSucceedingTimerID:from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_019didUpdateSucceedingC2ID4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSitF">appState(_:didUpdateSucceedingTimerID:from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the next timer ID setting is changed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didUpdateSucceedingTimerID</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didUpdateSucceedingTimerID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The original ID before the change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_21didUpdateAudibleTicks4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSbtF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didUpdateAudibleTicks:from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_21didUpdateAudibleTicks4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSbtF">appState(_:didUpdateAudibleTicks:from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the audible ticks setting is changed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didUpdateAudibleTicks</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didUpdateAudibleTicks</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The original state before the change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC10ColorTheme4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSitF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didUpdateTimerColorTheme:from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_09didUpdateC10ColorTheme4fromyAA04LGV_c1_F0C_AA0C12SettingTupleCSitF">appState(_:didUpdateTimerColorTheme:from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the color theme setting is changed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didUpdateTimerColorTheme</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didUpdateTimerColorTheme</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The original state before the change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_06didAddC0yAA04LGV_c1_F0C_AA0C12SettingTupleCtF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didAddTimer:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_06didAddC0yAA04LGV_c1_F0C_AA0C12SettingTupleCtF">appState(_:didAddTimer:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when a timer is added</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didAddTimer</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didAddTimer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_010willRemoveC0yAA04LGV_c1_F0C_AA0C12SettingTupleCtF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:willRemoveTimer:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_010willRemoveC0yAA04LGV_c1_F0C_AA0C12SettingTupleCtF">appState(_:willRemoveTimer:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when a timer is about to be removed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">willRemoveTimer</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didAddTimer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that will be removed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_09didRemoveC7AtIndexyAA04LGV_c1_F0C_SitF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didRemoveTimerAtIndex:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_09didRemoveC7AtIndexyAA04LGV_c1_F0C_SitF">appState(_:didRemoveTimerAtIndex:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when a timer was removed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didRemoveTimerAtIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didRemoveTimerAtIndex</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The 0-based index of the imer that was removed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_09didSelectC0yAA04LGV_c1_F0C_AA0C12SettingTupleCSgtF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didSelectTimer:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_09didSelectC0yAA04LGV_c1_F0C_AA0C12SettingTupleCSgtF">appState(_:didSelectTimer:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when a timer was selected</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didSelectTimer</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="o">!</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didSelectTimer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected. It is optional, as it is possible to select no timer.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8appState_011didDeselectC0yAA04LGV_c1_F0C_AA0C12SettingTupleCtF"></a>
+                    <a name="//apple_ref/swift/Method/appState(_:didDeselectTimer:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8appState_011didDeselectC0yAA04LGV_c1_F0C_AA0C12SettingTupleCtF">appState(_:didDeselectTimer:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when a timer was deselected</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appState</span><span class="p">(</span><span class="n">_</span> <span class="nv">appState</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_Timer_State.html">LGV_Timer_State</a></span><span class="p">,</span> <span class="nv">didDeselectTimer</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance that called this delegate method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didSelectTimer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer setting tuple that was affected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Sequence%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Sequence Methods" class="dashAnchor"></a>
+                <a href="#/Sequence%20Methods">
+                  <h3 class="section-name">Sequence Methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineCyAA0C12SettingTupleCSicip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineCyAA0C12SettingTupleCSicip">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The 0-based index of the requested element.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The tuple at the given subscript.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC7indexOfySiSSF"></a>
+                    <a name="//apple_ref/swift/Method/indexOf(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC7indexOfySiSSF">indexOf(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the index of an element by its UUID</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">indexOf</span><span class="p">(</span><span class="n">_</span> <span class="nv">inUID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inUID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The UUID of the element we&rsquo;re looking for.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The 0-based index of the given element.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC7indexOfySiAA0C12SettingTupleCF"></a>
+                    <a name="//apple_ref/swift/Method/indexOf(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC7indexOfySiAA0C12SettingTupleCF">indexOf(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the index of an element</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">indexOf</span><span class="p">(</span><span class="n">_</span> <span class="nv">inObject</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inObject</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The element we&rsquo;re looking for.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The 0-based index of the given element.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8containsySbAA0C12SettingTupleCF"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8containsySbAA0C12SettingTupleCF">contains(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>See if our settings contain an object.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">inObject</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inObject</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The element we&rsquo;re looking for.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>true, if the settings array contains the given object.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC8containsySbSSF"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC8containsySbSSF">contains(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>See if our settings contain an object by its UUID.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">inUID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inUID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The UUID of the element we&rsquo;re looking for.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>true, if the settings array contains the given object.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC12makeIterators03AnyF0VyAA0C12SettingTupleCGyF"></a>
+                    <a name="//apple_ref/swift/Method/makeIterator()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC12makeIterators03AnyF0VyAA0C12SettingTupleCGyF">makeIterator()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">makeIterator</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AnyIterator</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new, initialized iterator of the settings.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC6appendyyAA0C12SettingTupleCF"></a>
+                    <a name="//apple_ref/swift/Method/append(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC6appendyyAA0C12SettingTupleCF">append(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Append a new object to the end of our array.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">append</span><span class="p">(</span><span class="n">_</span> <span class="nv">inObject</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerSettingTuple.html">TimerSettingTuple</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inObject</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object we&rsquo;re appending.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara11TimerEngineC6remove2atySi_tF"></a>
+                    <a name="//apple_ref/swift/Method/remove(at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara11TimerEngineC6remove2atySi_tF">remove(at:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Remove an object at the given 0-based index.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">remove</span><span class="p">(</span><span class="n">at</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>at</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The 0-based index of the object to be removed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Callback%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Callback Methods" class="dashAnchor"></a>
+                <a href="#/Callback%20Methods">
+                  <h3 class="section-name">Callback Methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@AmbiaMara@objc(cs)TimerEngine(im)timerCallback:"></a>
+                    <a name="//apple_ref/swift/Method/timerCallback(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@AmbiaMara@objc(cs)TimerEngine(im)timerCallback:">timerCallback(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the callback that is made by the repeating timer.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">timerCallback</span><span class="p">(</span><span class="n">_</span> <span class="nv">inTimer</span><span class="p">:</span> <span class="kt">Timer</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inTimer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Timer object that is calling this.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external">©2019 The Great Rift Valley Software Company</a></p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
