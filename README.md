@@ -4,8 +4,6 @@ ABOUT AMBIAMARA
 =
 This is a rich countdown timer app. It was designed specifically for public speakers, but has many uses.
 
-[This page covers its operation in great detail.](https://riftvalleysoftware.com/work/ios-apps/ambiamara/)
-
 This app is [publicly available on the Apple App Store](https://itunes.apple.com/us/app/ambiamara/id1448933389). It is an [Apple iOS-only](https://www.apple.com/ios) app, written in [Swift](https://www.apple.com/swift/).
 
 [This is the basic instruction page for AmbiaMara](https://riftvalleysoftware.com/work/ios-apps/ambiamara/)
