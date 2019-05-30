@@ -1,4 +1,4 @@
-![AmbiaMara Icon](icon.png)
+![AmbiaMara Icon](https://open-source-docs.riftvalleysoftware.com/docs/AmbiaMara/icon.png)
 
 ABOUT AMBIAMARA
 =
@@ -62,13 +62,13 @@ Each Timer screen can bring in a modal Timer Settings screen, which allows you t
 
 The Timer screen can bring in a modal Running Timer screen, which takes over the entire screen, and presents a very simple countdown timer to the user.
 
-![AmbiaMara Screens](https://riftvalleysoftware.com/AmbiaMara-Docs/img/AmbiaMaraScreens.png)
+![AmbiaMara Screens](https://open-source-docs.riftvalleysoftware.com/docs/AmbiaMara/img/AmbiaMaraScreens.png)
 
 The Running Timer screen displays a [CALayer](https://developer.apple.com/documentation/quartzcore/calayer)-based simulation of [classic "Fluorescent" displays](https://en.wikipedia.org/wiki/Vacuum_fluorescent_display).
 
 This is generated in realtime, using [UIBezierPaths](https://developer.apple.com/documentation/uikit/uibezierpath), and includes such details as the hexagonal grid and the cathode wires.
 
-![Display Detail](https://riftvalleysoftware.com/AmbiaMara-Docs/img/DisplayDetail.png)
+![Display Detail](https://open-source-docs.riftvalleysoftware.com/docs/AmbiaMara/img/DisplayDetail.png)
 
 The three "traffic lights," (podium and dual mode) however, are simple images; displayed in place.
 
