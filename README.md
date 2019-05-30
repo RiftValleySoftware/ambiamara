@@ -1,4 +1,4 @@
-![AmbiaMara Icon](https://open-source-docs.riftvalleysoftware.com/docs/AmbiaMara/icon.png)
+![AmbiaMara Icon](icon.png)
 
 ABOUT AMBIAMARA
 =
@@ -8,7 +8,7 @@ This app is [publicly available on the Apple App Store](https://itunes.apple.com
 
 [This is the basic instruction page for AmbiaMara](https://riftvalleysoftware.com/work/ios-apps/ambiamara/)
 
-[This page is the detailed documentation page for the AmbiaMara Codebase](https://riftvalleysoftware.com/AmbiaMara-Docs/)
+[This page is the detailed documentation page for the AmbiaMara Codebase](https://open-source-docs.riftvalleysoftware.com/docs/AmbiaMara/index.html)
 
 [This is the Codebase for the AmbiaMara App](https://github.com/RiftValleySoftware/ambiamara)
 
