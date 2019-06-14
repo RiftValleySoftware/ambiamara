@@ -3,6 +3,7 @@
 - Improved some internal code (refactoring).
 - Prepared for open-source (Equivalent of cleaning up before the in-laws visit).
 - Improved the Spanish localization slightly, by shortening the string for the "Show Controls" button.
+- Since the iPod touch also does not support vibrate, I switched the vibrate detection to iPhone-only.
 
 ***Version 1.0.0.3000* ** *(January 21, 2019)*
 - Some basic refactoring to ensure that the main thread is used, and that we use optional chaining for delegate calls.

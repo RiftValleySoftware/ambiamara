@@ -264,9 +264,9 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     /**
      */
     func setUpUIElements() {
-        self.vibrateSwitch.isHidden = "iPad" == UIDevice.current.model   // Hide these on iPads, which don't do vibrate.
+        self.vibrateSwitch.isHidden = "iPhone" != UIDevice.current.model   // Hide these on iPads and iPod touch, which don't do vibrate.
         self.vibrateButton.isHidden = self.vibrateSwitch.isHidden
-        self.vibrateSwitch.isOn = ("iPad" != UIDevice.current.model) && (self.timerObject.alertMode == .VibrateOnly) || (self.timerObject.alertMode == .Both)
+        self.vibrateSwitch.isOn = ("iPhone" == UIDevice.current.model) && (self.timerObject.alertMode == .VibrateOnly) || (self.timerObject.alertMode == .Both)
         self.audibleTicksSwitch.isOn = self.timerObject.audibleTicks
         if .denied == MPMediaLibrary.authorizationStatus() || .restricted == MPMediaLibrary.authorizationStatus() {
             if .Music == self.timerObject.soundMode {   // Make sure that we don't have a disabled segment selected.
