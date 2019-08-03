@@ -92,7 +92,7 @@ class A_TimerBaseViewController: UIViewController {
     /**
      Called to select the succeeding Tab
      
-     :param: _ The gesture recognizer that triggered this (ignored)
+     - parameter: The gesture recognizer that triggered this (ignored)
      */
     @IBAction func selectNextPage(_: UIGestureRecognizer) {
         if let selectedIndex = Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex {
@@ -108,7 +108,7 @@ class A_TimerBaseViewController: UIViewController {
     /**
      Called to select the preceeding Tab
      
-     :param: _ The gesture recognizer that triggered this (ignored)
+     - parameter: The gesture recognizer that triggered this (ignored)
      */
     @IBAction func selectPreviousPage(_: UIGestureRecognizer) {
         if Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerIndex >= 0 {
@@ -169,7 +169,7 @@ class A_TimerBaseViewController: UIViewController {
      
      Sets the app styling to navBar and TabBar.
      
-     :param: animated ignored by this function, but passed to the superclass.
+     - parameter animated: ignored by this function, but passed to the superclass.
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

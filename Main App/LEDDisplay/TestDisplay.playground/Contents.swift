@@ -197,7 +197,7 @@ public class LED_SingleDigit: LED_Element {
     /**
      Instantiates each of the segments.
      
-     :param: A value, from -2 to 15 (-2 is nothing. -1 is the minus sign).
+     - parameter inValue: A value, from -2 to 15 (-2 is nothing. -1 is the minus sign).
      */
     init(_ inValue: Int) {
         self._topSegment = type(of: self)._newSegmentShape(inSegment: .kTopSegment)
@@ -359,7 +359,7 @@ public class LED_SingleDigit: LED_Element {
     /**
      Creates a path containing a segment shape.
      
-     :param: inSegment This indicates which segment we want (Will affect rotation and selection of shape).
+     - parameter inSegment: This indicates which segment we want (Will affect rotation and selection of shape).
      
      :returns: a new path, in the shape of the requested segment
      */
@@ -421,9 +421,9 @@ public class LED_SingleDigit: LED_Element {
     /**
      Returns true, if the segment is selected for the current value.
      
-     :param: inSegment This indicates which segment we want to test.
+     - parameter inSegment: This indicates which segment we want to test.
      
-     :returns: true, if the segment is selected, false, otherwise
+     - returns: true, if the segment is selected, false, otherwise
      */
     private func _isSegmentSelected(_ inSegment: SegmentIndexes) -> Bool {
         var ret: Bool = false
@@ -466,7 +466,7 @@ public class LED_SeparatorDots: LED_Element {
     /**
      Instantiates each of the segments.
      
-     :param: An array of Bool, indicating which segments should be lit. There must be at least Two values.
+     - parameter inLitSegments: An array of Bool, indicating which segments should be lit. There must be at least Two values.
      */
     init(_ inLitSegments: [Bool] = [true]) {
         let dotWidth = type(of: self)._c_g_displaySize.width / 2
@@ -611,9 +611,9 @@ public class LED_ElementGrouping: LED_Element, Sequence {
     /**
      This is the "technical" inititializer.
      
-     :param: inElements This is an array of LED_Element objects, and is set without any interpretation. This cannot be changed after instantiation.
-     :param: inContainerSize This is a CGSize that represents the destination context. If it is CGSize.zero, then the default for the elements will be used. This can be changed.
-     :param: inSeparationSpace This is how many units (in destination context) will separate each of the elements (only applied if more than one element). This can be changed.
+     - parameter inElements: This is an array of LED_Element objects, and is set without any interpretation. This cannot be changed after instantiation.
+     - parameter inContainerSize: This is a CGSize that represents the destination context. If it is CGSize.zero, then the default for the elements will be used. This can be changed.
+     - parameter inSeparationSpace: This is how many units (in destination context) will separate each of the elements (only applied if more than one element). This can be changed.
      */
     init(inElements: [LED_Element], inContainerSize: CGSize, inSeparationSpace: CGFloat) {
         self._containedElemnts = inElements
@@ -625,9 +625,9 @@ public class LED_ElementGrouping: LED_Element, Sequence {
     /**
      This is an inititializer that will instantiate the two basic elements, according to a "map" handed in.
      
-     :param: inElements This is an array of ElementLayout tuples. It is interpreted for the types of instances to create. This cannot be changed after instantiation.
-     :param: inContainerSize This is a CGSize that represents the destination context. If it is CGSize.zero, then the default for the elements will be used. This can be changed. Default is CGSize.zero (Use element default).
-     :param: inSeparationSpace This is how many units (in destination context) will separate each of the elements (only applied if more than one element). This can be changed. Default is 12.
+     - parameter inElements: This is an array of ElementLayout tuples. It is interpreted for the types of instances to create. This cannot be changed after instantiation.
+     - parameter inContainerSize: This is a CGSize that represents the destination context. If it is CGSize.zero, then the default for the elements will be used. This can be changed. Default is CGSize.zero (Use element default).
+     - parameter inSeparationSpace: This is how many units (in destination context) will separate each of the elements (only applied if more than one element). This can be changed. Default is 12.
      */
     convenience init(_ inElementLayout: [ElementLayout], inContainerSize: CGSize = CGSize.zero, inSeparationSpace: CGFloat = 12) {
         var elements: [LED_Element] = []
