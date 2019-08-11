@@ -900,7 +900,7 @@ func testAllSegments() {
     path.stroke()
     
     //This code must always be at the end of the playground
-    let image = UIGraphicsGetImageFromCurrentImageContext()
+    _ = UIGraphicsGetImageFromCurrentImageContext()
     
     UIGraphicsEndImageContext()
 }
@@ -916,7 +916,7 @@ func testValue(_ inValue: Int) {
     path1.stroke()
     
     //This code must always be at the end of the playground
-    let image1 = UIGraphicsGetImageFromCurrentImageContext()
+    _ = UIGraphicsGetImageFromCurrentImageContext()
     
     UIGraphicsEndImageContext()
     
@@ -927,7 +927,7 @@ func testValue(_ inValue: Int) {
     path2.stroke()
     
     //This code must always be at the end of the playground
-    let image2 = UIGraphicsGetImageFromCurrentImageContext()
+    _ = UIGraphicsGetImageFromCurrentImageContext()
     
     UIGraphicsEndImageContext()
 }
@@ -942,7 +942,7 @@ func testSeparators(_ inLitElements: [Bool], inPadding: CGFloat) {
     path.stroke()
     
     //This code must always be at the end of the playground
-    let image = UIGraphicsGetImageFromCurrentImageContext()
+    _ = UIGraphicsGetImageFromCurrentImageContext()
     
     UIGraphicsEndImageContext()
     
@@ -953,7 +953,7 @@ func testSeparators(_ inLitElements: [Bool], inPadding: CGFloat) {
     path1.stroke()
     
     //This code must always be at the end of the playground
-    let image1 = UIGraphicsGetImageFromCurrentImageContext()
+    _ = UIGraphicsGetImageFromCurrentImageContext()
     
     UIGraphicsEndImageContext()
     
@@ -964,7 +964,7 @@ func testSeparators(_ inLitElements: [Bool], inPadding: CGFloat) {
     path2.stroke()
     
     //This code must always be at the end of the playground
-    let image2 = UIGraphicsGetImageFromCurrentImageContext()
+    _ = UIGraphicsGetImageFromCurrentImageContext()
     
     UIGraphicsEndImageContext()
 }
@@ -985,7 +985,7 @@ func testGroupSingle() {
     path.stroke()
     
     //This code must always be at the end of the playground
-    let image = UIGraphicsGetImageFromCurrentImageContext()
+    _ = UIGraphicsGetImageFromCurrentImageContext()
     
     UIGraphicsEndImageContext()
 }
@@ -1010,7 +1010,7 @@ func testGroupMulti() {
     path.stroke()
     
     //This code must always be at the end of the playground
-    let image = UIGraphicsGetImageFromCurrentImageContext()
+    _ = UIGraphicsGetImageFromCurrentImageContext()
     
     UIGraphicsEndImageContext()
 }
@@ -1044,7 +1044,7 @@ func testGroupMultiNested() {
     path.stroke()
     
     //This code must always be at the end of the playground
-    let image = UIGraphicsGetImageFromCurrentImageContext()
+    _ = UIGraphicsGetImageFromCurrentImageContext()
     
     UIGraphicsEndImageContext()
 }
@@ -1074,7 +1074,7 @@ func testGroupMultiIterated() {
         path.stroke()
         
         //This code must always be at the end of the playground
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+        _ = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
     }

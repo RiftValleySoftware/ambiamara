@@ -131,6 +131,13 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
                     print("Turning On Ignore Select From Watch.")
                 #endif
                 self.selectedViewController = self.viewControllers?[timerIndex]
+                if self.timerEngine.autoStartNextSelectedTimer {
+                    #if DEBUG
+                        print("Starting Selected Timer.")
+                    #endif
+                    
+                    self.timerEngine.startTimer()
+                }
             }
         }
     }
@@ -171,7 +178,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     }
     
     /* ################################################################################################################################## */
-    // MARK: - LGV_Timer_TimerEngineDelegate Protocol Methods
+    // MARK: - TimerEngineDelegate Protocol Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
