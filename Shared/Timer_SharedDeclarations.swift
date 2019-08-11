@@ -479,7 +479,7 @@ class TimerSettingTuple: NSObject, NSCoding {
     // MARK: - Instance Properties
     /* ################################################################################################################################## */
     /// This is the App Status object that "owns" this instance.
-    var handler: RVS_Timer_State! = nil
+    var handler: LGV_Timer_State! = nil
     /// This will be used to track the timer progress.
     var firstTick: TimeInterval = 0.0
     /// This will be used to track the timer progress.
@@ -883,7 +883,7 @@ class TimerSettingTuple: NSObject, NSCoding {
      - parameter uid: This is a unique ID for this setting. It can be defaulted.
      - parameter handler: This is the "owner" of this instance. Default is nil.
      */
-    convenience init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, currentTime: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, soundMode: SoundMode, alertVolume: Int, soundID: Int, succeedingTimerID: Int, audibleTicks: Bool, songURLString: String, timerStatus: TimerStatus, uid: String!, handler: RVS_Timer_State! = nil) {
+    convenience init(timeSet: Int, timeSetPodiumWarn: Int, timeSetPodiumFinal: Int, currentTime: Int, displayMode: TimerDisplayMode, colorTheme: Int, alertMode: AlertMode, soundMode: SoundMode, alertVolume: Int, soundID: Int, succeedingTimerID: Int, audibleTicks: Bool, songURLString: String, timerStatus: TimerStatus, uid: String!, handler: LGV_Timer_State! = nil) {
         self.init()
         self.timeSet = timeSet
         self.timeSetPodiumWarn = timeSetPodiumWarn
@@ -909,7 +909,7 @@ class TimerSettingTuple: NSObject, NSCoding {
      - parameter dictionary: This is a Dictionary that contains the state.
      - parameter handler: This is the "owner" of this instance. Default is nil.
      */
-    convenience init(dictionary: [String: Any], handler: RVS_Timer_State! = nil) {
+    convenience init(dictionary: [String: Any], handler: LGV_Timer_State! = nil) {
         self.init()
         self.dictionary = dictionary
         self.handler = handler
@@ -1144,7 +1144,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter didUpdateTimerStatus: The timer setting tuple that was affected.
      - parameter from: The original state before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerStatus: TimerSettingTuple, from: TimerStatus)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerStatus: TimerSettingTuple, from: TimerStatus)
     
     /* ################################################################## */
     /**
@@ -1154,7 +1154,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter didUpdateTimerDisplayMode: The timer setting tuple that was affected.
      - parameter from: The original state before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerDisplayMode: TimerSettingTuple, from: TimerDisplayMode)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerDisplayMode: TimerSettingTuple, from: TimerDisplayMode)
     
     /* ################################################################## */
     /**
@@ -1164,7 +1164,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter didUpdateTimerCurrentTime: The timer setting tuple that was affected.
      - parameter from: The original time before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerCurrentTime: TimerSettingTuple, from: Int)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerCurrentTime: TimerSettingTuple, from: Int)
     
     /* ################################################################## */
     /**
@@ -1174,7 +1174,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter didUpdateTimerWarnTime: The timer setting tuple that was affected.
      - parameter from: The original time before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerWarnTime: TimerSettingTuple, from: Int)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerWarnTime: TimerSettingTuple, from: Int)
 
     /* ################################################################## */
     /**
@@ -1184,7 +1184,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter didUpdateTimerFinalTime: The timer setting tuple that was affected.
      - parameter from: The original time before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerFinalTime: TimerSettingTuple, from: Int)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerFinalTime: TimerSettingTuple, from: Int)
 
     /* ################################################################## */
     /**
@@ -1194,7 +1194,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter didUpdateTimerTimeSet: The timer setting tuple that was affected.
      - parameter from: The original time before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerTimeSet: TimerSettingTuple, from: Int)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerTimeSet: TimerSettingTuple, from: Int)
 
     /* ################################################################## */
     /**
@@ -1204,7 +1204,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter didUpdateTimerSoundID: The timer setting tuple that was affected.
      - parameter from: The original ID before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerSoundID: TimerSettingTuple, from: Int)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerSoundID: TimerSettingTuple, from: Int)
     
     /* ################################################################## */
     /**
@@ -1214,7 +1214,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter didUpdateTimerSongURL: The timer setting tuple that was affected.
      - parameter from: The original URL (as a String) before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerSongURL: TimerSettingTuple, from: String)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerSongURL: TimerSettingTuple, from: String)
 
     /* ################################################################## */
     /**
@@ -1224,7 +1224,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter didUpdateTimerAlertMode: The timer setting tuple that was affected.
      - parameter from: The original mode before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerAlertMode: TimerSettingTuple, from: AlertMode)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerAlertMode: TimerSettingTuple, from: AlertMode)
 
     /* ################################################################## */
     /**
@@ -1234,7 +1234,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter didUpdateTimerSoundMode: The timer setting tuple that was affected.
      - parameter from: The original mode before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerSoundMode: TimerSettingTuple, from: SoundMode)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerSoundMode: TimerSettingTuple, from: SoundMode)
 
     /* ################################################################## */
     /**
@@ -1244,7 +1244,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter didUpdateSucceedingTimerID: The timer setting tuple that was affected.
      - parameter from: The original ID before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateSucceedingTimerID: TimerSettingTuple, from: Int)
+    func appState(_ appState: LGV_Timer_State, didUpdateSucceedingTimerID: TimerSettingTuple, from: Int)
 
     /* ################################################################## */
     /**
@@ -1254,7 +1254,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter didUpdateAudibleTicks: The timer setting tuple that was affected.
      - parameter from: The original state before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateAudibleTicks: TimerSettingTuple, from: Bool)
+    func appState(_ appState: LGV_Timer_State, didUpdateAudibleTicks: TimerSettingTuple, from: Bool)
 
     /* ################################################################## */
     /**
@@ -1264,7 +1264,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter didUpdateTimerColorTheme: The timer setting tuple that was affected.
      - parameter from: The original state before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerColorTheme: TimerSettingTuple, from: Int)
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerColorTheme: TimerSettingTuple, from: Int)
 
     /* ################################################################## */
     /**
@@ -1273,7 +1273,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter appState: The instance that called this delegate method.
      - parameter didAddTimer: The timer setting tuple that was affected.
      */
-    func appState(_ appState: RVS_Timer_State, didAddTimer: TimerSettingTuple)
+    func appState(_ appState: LGV_Timer_State, didAddTimer: TimerSettingTuple)
 
     /* ################################################################## */
     /**
@@ -1282,7 +1282,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter appState: The instance that called this delegate method.
      - parameter didAddTimer: The timer setting tuple that will be removed.
      */
-    func appState(_ appState: RVS_Timer_State, willRemoveTimer: TimerSettingTuple)
+    func appState(_ appState: LGV_Timer_State, willRemoveTimer: TimerSettingTuple)
     
     /* ################################################################## */
     /**
@@ -1291,7 +1291,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter appState: The instance that called this delegate method.
      - parameter didRemoveTimerAtIndex: The 0-based index of the imer that was removed.
      */
-    func appState(_ appState: RVS_Timer_State, didRemoveTimerAtIndex: Int)
+    func appState(_ appState: LGV_Timer_State, didRemoveTimerAtIndex: Int)
     
     /* ################################################################## */
     /**
@@ -1300,7 +1300,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter appState: The instance that called this delegate method.
      - parameter didSelectTimer: The timer setting tuple that was affected. It is optional, as it is possible to select no timer.
      */
-    func appState(_ appState: RVS_Timer_State, didSelectTimer: TimerSettingTuple!)
+    func appState(_ appState: LGV_Timer_State, didSelectTimer: TimerSettingTuple!)
     
     /* ################################################################## */
     /**
@@ -1309,7 +1309,7 @@ protocol LGV_Timer_StateDelegate: class {
      - parameter appState: The instance that called this delegate method.
      - parameter didSelectTimer: The timer setting tuple that was affected.
      */
-    func appState(_ appState: RVS_Timer_State, didDeselectTimer: TimerSettingTuple)
+    func appState(_ appState: LGV_Timer_State, didDeselectTimer: TimerSettingTuple)
 }
 
 /* ################################################################################################################################## */
@@ -1318,7 +1318,7 @@ protocol LGV_Timer_StateDelegate: class {
 /**
  This class encapsulates the entire app status.
  */
-class RVS_Timer_State: NSObject, NSCoding, Sequence {
+class LGV_Timer_State: NSObject, NSCoding, Sequence {
     /// These are the states the app could be in
     private enum AppStateKeys: String {
         /// The list of timers

@@ -237,7 +237,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /**
      Returns the current app status.
      */
-    var appState: RVS_Timer_State! {
+    var appState: LGV_Timer_State! {
         if nil != self.timerEngine {
             return self.timerEngine.appState
         } else {

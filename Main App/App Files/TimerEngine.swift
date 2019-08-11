@@ -283,7 +283,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     /// This is any delegate for this engine. It is a weak reference, in order to inhibit reference loops.
     weak var delegate: TimerEngineDelegate!
     /// This is the current application state. It is the "heart" of the timer.
-    var appState: RVS_Timer_State!
+    var appState: LGV_Timer_State!
     /// This is the current selected timer.
     var timer: Timer!
     /// This aggregates our available sounds.
@@ -538,14 +538,14 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      NOTE: This will overwrite any unsaved changes to the current _loadedPrefs property.
      */
     private func _loadPrefs() {
-        self.appState = RVS_Timer_State(delegate: self)
+        self.appState = LGV_Timer_State(delegate: self)
         // Pick up our beeper sounds.
         self.soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil)
         self.soundSelection.sort()
         // Pick up the audible ticks sound.
         self.tickURI = Bundle.main.path(forResource: "tick", ofType: "aiff") ?? ""
         
-        if let temp = UserDefaults.standard.object(forKey: type(of: self)._appStatePrefsKey) as? Data, let temp2 = NSKeyedUnarchiver.unarchiveObject(with: temp) as? RVS_Timer_State {
+        if let temp = UserDefaults.standard.object(forKey: type(of: self)._appStatePrefsKey) as? Data, let temp2 = NSKeyedUnarchiver.unarchiveObject(with: temp) as? LGV_Timer_State {
             self.appState = temp2
             self.appState.delegate = self
             self.timers.forEach {
@@ -714,7 +714,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter didUpdateTimerStatus: The timer setting tuple that was affected.
      - parameter from: The original state before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerStatus: TimerSettingTuple, from: TimerStatus) {
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerStatus: TimerSettingTuple, from: TimerStatus) {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerStatus, changedTimerStatusFrom: from)
         }
@@ -729,7 +729,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter didUpdateTimerDisplayMode: The timer setting tuple that was affected.
      - parameter from: The original state before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerDisplayMode: TimerSettingTuple, from: TimerDisplayMode) {
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerDisplayMode: TimerSettingTuple, from: TimerDisplayMode) {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerDisplayMode, changedTimerDisplayModeFrom: from)
         }
@@ -744,7 +744,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter didUpdateTimerCurrentTime: The timer setting tuple that was affected.
      - parameter from: The original time before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerCurrentTime: TimerSettingTuple, from: Int) {
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerCurrentTime: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerCurrentTime, changedCurrentTimeFrom: from)
         }
@@ -759,7 +759,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter didUpdateTimerWarnTime: The timer setting tuple that was affected.
      - parameter from: The original time before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerWarnTime: TimerSettingTuple, from: Int) {
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerWarnTime: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerWarnTime, changedWarnTimeFrom: from)
         }
@@ -774,7 +774,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter didUpdateTimerFinalTime: The timer setting tuple that was affected.
      - parameter from: The original time before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerFinalTime: TimerSettingTuple, from: Int) {
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerFinalTime: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerFinalTime, changedFinalTimeFrom: from)
         }
@@ -789,7 +789,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter didUpdateTimerTimeSet: The timer setting tuple that was affected.
      - parameter from: The original time before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerTimeSet: TimerSettingTuple, from: Int) {
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerTimeSet: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerTimeSet, changedTimeSetFrom: from)
         }
@@ -804,7 +804,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter didUpdateTimerSoundID: The timer setting tuple that was affected.
      - parameter from: The original ID before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerSoundID: TimerSettingTuple, from: Int) {
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerSoundID: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerSoundID, changedTimerSoundIDFrom: from)
         }
@@ -819,7 +819,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter didUpdateTimerSongURL: The timer setting tuple that was affected.
      - parameter from: The original URL (as a String) before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerSongURL: TimerSettingTuple, from: String) {
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerSongURL: TimerSettingTuple, from: String) {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerSongURL, changedTimerSongURLFrom: from)
         }
@@ -834,7 +834,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter didUpdateTimerAlertMode: The timer setting tuple that was affected.
      - parameter from: The original mode before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerAlertMode: TimerSettingTuple, from: AlertMode) {
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerAlertMode: TimerSettingTuple, from: AlertMode) {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerAlertMode, changedTimerAlertModeFrom: from)
         }
@@ -849,7 +849,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter didUpdateTimerSoundMode: The timer setting tuple that was affected.
      - parameter from: The original mode before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerSoundMode: TimerSettingTuple, from: SoundMode) {
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerSoundMode: TimerSettingTuple, from: SoundMode) {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerSoundMode, changedTimerSoundModeFrom: from)
         }
@@ -864,7 +864,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter didUpdateSucceedingTimerID: The timer setting tuple that was affected.
      - parameter from: The original ID before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateSucceedingTimerID: TimerSettingTuple, from: Int) {
+    func appState(_ appState: LGV_Timer_State, didUpdateSucceedingTimerID: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateSucceedingTimerID, changedSucceedingTimerIDFrom: from)
         }
@@ -879,7 +879,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter didUpdateAudibleTicks: The timer setting tuple that was affected.
      - parameter from: The original state before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateAudibleTicks: TimerSettingTuple, from: Bool) {
+    func appState(_ appState: LGV_Timer_State, didUpdateAudibleTicks: TimerSettingTuple, from: Bool) {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateAudibleTicks, changedAudibleTicksFrom: from)
         }
@@ -894,7 +894,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter didUpdateTimerColorTheme: The timer setting tuple that was affected.
      - parameter from: The original state before the change.
      */
-    func appState(_ appState: RVS_Timer_State, didUpdateTimerColorTheme: TimerSettingTuple, from: Int) {
+    func appState(_ appState: LGV_Timer_State, didUpdateTimerColorTheme: TimerSettingTuple, from: Int) {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerColorTheme, changedTimerColorThemeFrom: from)
         }
@@ -908,7 +908,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter appState: The instance that called this delegate method.
      - parameter didAddTimer: The timer setting tuple that was affected.
      */
-    func appState(_ appState: RVS_Timer_State, didAddTimer: TimerSettingTuple) {
+    func appState(_ appState: LGV_Timer_State, didAddTimer: TimerSettingTuple) {
         DispatchQueue.main.async {
             self.delegate?.timerEngine(self, didAddTimer: didAddTimer)
         }
@@ -922,7 +922,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter appState: The instance that called this delegate method.
      - parameter didAddTimer: The timer setting tuple that will be removed.
      */
-    func appState(_ appState: RVS_Timer_State, willRemoveTimer: TimerSettingTuple) {
+    func appState(_ appState: LGV_Timer_State, willRemoveTimer: TimerSettingTuple) {
         DispatchQueue.main.async {
             self.delegate?.timerEngine(self, willRemoveTimer: willRemoveTimer)
         }
@@ -935,7 +935,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter appState: The instance that called this delegate method.
      - parameter didRemoveTimerAtIndex: The 0-based index of the imer that was removed.
      */
-    func appState(_ appState: RVS_Timer_State, didRemoveTimerAtIndex: Int) {
+    func appState(_ appState: LGV_Timer_State, didRemoveTimerAtIndex: Int) {
         DispatchQueue.main.async {
             self.delegate?.timerEngine(self, didRemoveTimerAtIndex: didRemoveTimerAtIndex)
         }
@@ -949,7 +949,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter appState: The instance that called this delegate method.
      - parameter didSelectTimer: The timer setting tuple that was affected. It is optional, as it is possible to select no timer.
      */
-    func appState(_ appState: RVS_Timer_State, didSelectTimer: TimerSettingTuple!) {
+    func appState(_ appState: LGV_Timer_State, didSelectTimer: TimerSettingTuple!) {
         DispatchQueue.main.async {
             self.delegate?.timerEngine(self, didSelectTimer: didSelectTimer)
         }
@@ -963,7 +963,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter appState: The instance that called this delegate method.
      - parameter didSelectTimer: The timer setting tuple that was affected.
      */
-    func appState(_ appState: RVS_Timer_State, didDeselectTimer: TimerSettingTuple) {
+    func appState(_ appState: LGV_Timer_State, didDeselectTimer: TimerSettingTuple) {
         DispatchQueue.main.async {
             self.delegate?.timerEngine(self, didDeselectTimer: didDeselectTimer)
         }
