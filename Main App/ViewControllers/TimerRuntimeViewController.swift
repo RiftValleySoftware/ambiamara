@@ -566,7 +566,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     /* ################################################################## */
     /**
      */
-    @IBAction func resetButtonHit(_ sender: Any) {
+    @IBAction func resetButtonHit(_ sender: Any! = nil) {
         if (.Paused == self.timerObject.timerStatus) && (self.timerObject.timeSet == self.timerObject.currentTime) {
             self.stopTimer()
         } else {
@@ -592,7 +592,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      */
     @IBAction func tapInView(_ sender: Any) {
         if .Alarm == self.timerObject.timerStatus {
-            self.stopButtonHit()
+            self.resetButtonHit()
         } else {
             self.pauseButtonHit()
         }
