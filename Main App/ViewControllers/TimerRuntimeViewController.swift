@@ -592,7 +592,13 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      */
     @IBAction func tapInView(_ sender: Any) {
         if .Alarm == self.timerObject.timerStatus {
-            self.resetButtonHit()
+            if 0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer, let myTabController = Timer_AppDelegate.appDelegateObject.mainTabController {
+                Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
+                myTabController.timerEngine.autoStartNextSelectedTimer = true   // We want the next selected timer to start immediately.
+                myTabController.timerEngine.selectedTimerIndex = Timer_AppDelegate.appDelegateObject.appState.nextTimer
+            } else {
+                self.resetButtonHit()
+            }
         } else {
             self.pauseButtonHit()
         }
