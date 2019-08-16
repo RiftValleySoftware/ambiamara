@@ -1115,7 +1115,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>This plays whatever alert sound has been chosen by the user.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1141,7 +1142,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>This plays a <q>tick</q> sound.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1150,6 +1152,25 @@
                           <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">_playTickSound</span><span class="p">(</span><span class="n">times</span> <span class="nv">inTimes</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>times</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional. Default is 1. This is how many times the tick will be repeated (quick succession).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1327,7 +1348,10 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>This pauses a running timer, without dismissing the screen, or resetting the timer.</p>
+
+<p>It will flash the display a <q>subdued</q> red.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1353,7 +1377,10 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>This continues a paused timer.</p>
+
+<p>It will flash the display a <q>subdued</q> green.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1379,7 +1406,10 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>This stops a running timer, and dismisses the screen.</p>
+
+<p>It will flash the display a bright red.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1405,7 +1435,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>This forces the timer to immediately complete its time, and go into alarm mode.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1431,7 +1462,10 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>This resets the timer to its starting value, but does not dismiss the screen.</p>
+
+<p>If the timer is paused, this will flash a <q>subdued</q> white. If not, it will flash a <q>subdued</q> red.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1457,7 +1491,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>This forces the timer to update to match the current timer state.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1483,7 +1518,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>This is called to <q>play</q> a tick sound.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1492,6 +1528,25 @@
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">tick</span><span class="p">(</span><span class="n">times</span> <span class="nv">inTimes</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>times</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional. Default is 1. This is how many times the tick will be repeated (quick succession).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1509,13 +1564,44 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>This flashes the display, depending on the current state of the timer.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">flashDisplay</span><span class="p">(</span><span class="n">_</span> <span class="nv">inUIColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="o">!</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">duration</span><span class="p">:</span> <span class="kt">TimeInterval</span> <span class="o">=</span> <span class="mf">0.75</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara26TimerRuntimeViewControllerC013cascadeToNextC0SbyF"></a>
+                    <a name="//apple_ref/swift/Method/cascadeToNextTimer()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara26TimerRuntimeViewControllerC013cascadeToNextC0SbyF">cascadeToNextTimer()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This will transition the timer to a following timer, if one is set up.</p>
+
+<p>-returns: (Discardable) True, if the next timer transition happened.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">func</span> <span class="nf">cascadeToNextTimer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1546,7 +1632,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Called after the view has finished loading.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1572,7 +1659,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Called when the view is about to set up its layout.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1598,7 +1686,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Called just before the view appears.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1624,7 +1713,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Called just before the view disappears.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1688,14 +1778,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Called when the stop button has been hit.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@IBAction</span>
-<span class="kd">func</span> <span class="nf">stopButtonHit</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span></code></pre>
+<span class="kd">func</span> <span class="nf">stopButtonHit</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1715,14 +1806,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Called when the end button has been hit (or the right-swipe gesture has happened).</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@IBAction</span>
-<span class="kd">func</span> <span class="nf">endButtonHit</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span></code></pre>
+<span class="kd">func</span> <span class="nf">endButtonHit</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1742,14 +1834,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Called when the reset button has been hit (or the left-swipe gesture has happened).</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@IBAction</span>
-<span class="kd">func</span> <span class="nf">resetButtonHit</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span></code></pre>
+<span class="kd">func</span> <span class="nf">resetButtonHit</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1769,14 +1862,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Called when the pause button has been hit (or the tap gesture has happened).</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@IBAction</span>
-<span class="kd">func</span> <span class="nf">pauseButtonHit</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+<span class="kd">func</span> <span class="nf">pauseButtonHit</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1796,14 +1890,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Called when the tap gesture has happened.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@IBAction</span>
-<span class="kd">func</span> <span class="nf">tapInView</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span></code></pre>
+<span class="kd">func</span> <span class="nf">tapInView</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

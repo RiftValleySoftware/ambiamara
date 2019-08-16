@@ -159,6 +159,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     
     /* ################################################################## */
     /**
+     This plays whatever alert sound has been chosen by the user.
      */
     private func _playAlertSound() {
         if nil == self.audioPlayer {
@@ -183,6 +184,9 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     
     /* ################################################################## */
     /**
+     This plays a "tick" sound.
+     
+     - parameter times: Optional. Default is 1. This is how many times the tick will be repeated (quick succession).
      */
     private func _playTickSound(times inTimes: Int = 1) {
         if nil == self.audioPlayer, self.timerObject.audibleTicks {
@@ -263,6 +267,9 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     This pauses a running timer, without dismissing the screen, or resetting the timer.
+     
+     It will flash the display a "subdued" red.
      */
     func pauseTimer() {
         self.flashDisplay(UIColor.red.withAlphaComponent(0.5), duration: 0.5)
@@ -271,18 +278,20 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     
     /* ################################################################## */
     /**
+     This continues a paused timer.
+     
+     It will flash the display a "subdued" green.
      */
     func continueTimer() {
-        if Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
-            self.navBarItem.title = ""
-        }
-        
         self.flashDisplay(UIColor.green.withAlphaComponent(0.5), duration: 0.5)
         Timer_AppDelegate.appDelegateObject.timerEngine.continueTimer()
     }
     
     /* ################################################################## */
     /**
+     This stops a running timer, and dismisses the screen.
+     
+     It will flash the display a bright red.
      */
     func stopTimer() {
         self.flashDisplay(UIColor.red, duration: 0.5)
@@ -292,18 +301,18 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     
     /* ################################################################## */
     /**
+     This forces the timer to immediately complete its time, and go into alarm mode.
      */
     func endTimer() {
-        if Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
-            self.navBarItem.title = ""
-        }
-        
         self.stopAudioPlayer()
         Timer_AppDelegate.appDelegateObject.timerEngine.endTimer()
     }
     
     /* ################################################################## */
     /**
+     This resets the timer to its starting value, but does not dismiss the screen.
+     
+     If the timer is paused, this will flash a "subdued" white. If not, it will flash a "subdued" red.
      */
     func resetTimer() {
         self.stopAudioPlayer()
@@ -318,6 +327,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     
     /* ################################################################## */
     /**
+     This forces the timer to update to match the current timer state.
      */
     func updateTimer() {
         self._setUpDisplay()
@@ -342,6 +352,9 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     
     /* ################################################################## */
     /**
+     This is called to "play" a tick sound.
+     
+     - parameter times: Optional. Default is 1. This is how many times the tick will be repeated (quick succession).
      */
     func tick(times inTimes: Int = 1) {
         self._playTickSound(times: inTimes)
@@ -349,6 +362,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
 
     /* ################################################################## */
     /**
+     This flashes the display, depending on the current state of the timer.
      */
     func flashDisplay(_ inUIColor: UIColor! = nil, duration: TimeInterval = 0.75) {
         DispatchQueue.main.async {
@@ -356,15 +370,16 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
                 self.flasherView.backgroundColor = inUIColor
             } else {
                 switch self.timerObject.timerStatus {
-                case .WarnRun:
+                case .WarnRun:  // If we are transitioning into the "warning" state, we flash yellow.
                     self.flasherView.backgroundColor = UIColor.yellow
-                case.FinalRun:
+                case.FinalRun:  // If we are transitioning into the "final" state, we flash orange.
                     self.flasherView.backgroundColor = UIColor.orange
-                default:
+                default:        // Otherwise, we are probably in alarm mode, and should flash red.
                     self.flasherView.backgroundColor = UIColor.red
                 }
             }
             
+            // This is a pulsed brightness animation, with a fast attack, and slow decay.
             self.flasherView.isHidden = false
             self.flasherView.alpha = 1.0
             UIView.animate(withDuration: duration, animations: {
@@ -372,12 +387,32 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
             })
         }
     }
+    
+    /* ################################################################## */
+    /**
+     This will transition the timer to a following timer, if one is set up.
+     
+     -returns: (Discardable) True, if the next timer transition happened.
+     */
+    @discardableResult
+    func cascadeToNextTimer() -> Bool {
+        if 0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer, let myTabController = Timer_AppDelegate.appDelegateObject.mainTabController {
+            Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
+            myTabController.timerEngine.autoStartNextSelectedTimer = true   // We want the next selected timer to start immediately.
+            myTabController.timerEngine.selectedTimerIndex = Timer_AppDelegate.appDelegateObject.appState.nextTimer
+            
+            return true
+        }
+        
+        return false
+    }
 
     /* ################################################################################################################################## */
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     Called after the view has finished loading.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -424,6 +459,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     
     /* ################################################################## */
     /**
+     Called when the view is about to set up its layout.
      */
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -463,6 +499,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     
     /* ################################################################## */
     /**
+     Called just before the view appears.
      */
     override func viewWillAppear(_ animated: Bool) {
         UIApplication.shared.isIdleTimerDisabled = true
@@ -487,6 +524,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     
     /* ################################################################## */
     /**
+     Called just before the view disappears.
      */
     override func viewWillDisappear(_ animated: Bool) {
         self.myHandler.runningTimer = nil
@@ -539,23 +577,25 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     Called when the stop button has been hit.
+     
+     - parameter: Ignored, and optional.
      */
-    @IBAction func stopButtonHit(_ sender: Any! = nil) {
+    @IBAction func stopButtonHit(_: Any! = nil) {
         if .Alarm == self.timerObject.timerStatus {
             self.resetTimer()
-            if 0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer, let myTabController = Timer_AppDelegate.appDelegateObject.mainTabController {
-                Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
-                myTabController.timerEngine.autoStartNextSelectedTimer = true   // We want the next selected timer to start immediately.
-                myTabController.timerEngine.selectedTimerIndex = Timer_AppDelegate.appDelegateObject.appState.nextTimer
-            }
+            cascadeToNextTimer()
         }
         self.stopTimer()
     }
     
     /* ################################################################## */
     /**
+     Called when the end button has been hit (or the right-swipe gesture has happened).
+     
+     - parameter: Ignored, and optional.
      */
-    @IBAction func endButtonHit(_ sender: Any) {
+    @IBAction func endButtonHit(_: Any! = nil) {
         if .Alarm == self.timerObject.timerStatus {
             self.resetTimer()
         } else {
@@ -565,8 +605,11 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     
     /* ################################################################## */
     /**
+     Called when the reset button has been hit (or the left-swipe gesture has happened).
+     
+     - parameter: Ignored, and optional.
      */
-    @IBAction func resetButtonHit(_ sender: Any! = nil) {
+    @IBAction func resetButtonHit(_: Any! = nil) {
         if (.Paused == self.timerObject.timerStatus) && (self.timerObject.timeSet == self.timerObject.currentTime) {
             self.stopTimer()
         } else {
@@ -576,8 +619,11 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     
     /* ################################################################## */
     /**
+     Called when the pause button has been hit (or the tap gesture has happened).
+     
+     - parameter: Ignored, and optional.
      */
-    @IBAction func pauseButtonHit(_ sender: Any! = nil) {
+    @IBAction func pauseButtonHit(_: Any! = nil) {
         if .Paused == self.timerObject.timerStatus {
             self.continueTimer()
         } else if (.Podium == self.timerObject.displayMode) && (.Stopped != self.timerObject.timerStatus) {
@@ -589,14 +635,13 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     
     /* ################################################################## */
     /**
+     Called when the tap gesture has happened.
+     
+     - parameter: Ignored, and optional.
      */
-    @IBAction func tapInView(_ sender: Any) {
+    @IBAction func tapInView(_: Any! = nil) {
         if .Alarm == self.timerObject.timerStatus {
-            if 0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer, let myTabController = Timer_AppDelegate.appDelegateObject.mainTabController {
-                Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
-                myTabController.timerEngine.autoStartNextSelectedTimer = true   // We want the next selected timer to start immediately.
-                myTabController.timerEngine.selectedTimerIndex = Timer_AppDelegate.appDelegateObject.appState.nextTimer
-            } else {
+            if !cascadeToNextTimer() {
                 self.resetButtonHit()
             }
         } else {

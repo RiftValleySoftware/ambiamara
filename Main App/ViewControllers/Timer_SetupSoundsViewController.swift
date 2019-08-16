@@ -8,10 +8,6 @@
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  */
 
-/* ###################################################################################################################################### */
-/**
- */
-
 import UIKit
 import MediaPlayer
 import AVKit
@@ -243,6 +239,80 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     This looks for the system URI of a given song.
+     
+     - parameter artistIndex: The index of the artist, in our Array.
+     - parameter songIndex: The index of the song, in that artists' song list Array.
+     */
+    func findSongURL(artistIndex: Int, songIndex: Int) -> String {
+        var ret = ""
+        
+        if !Timer_AppDelegate.appDelegateObject.artists.isEmpty, !Timer_AppDelegate.appDelegateObject.songs.isEmpty {
+            let artistName = Timer_AppDelegate.appDelegateObject.artists[artistIndex]
+            if let songInfo = Timer_AppDelegate.appDelegateObject.songs[artistName], 0 <= songIndex, songIndex < Timer_AppDelegate.appDelegateObject.songs.count {
+                ret = songInfo[songIndex].resourceURI
+            }
+        }
+        
+        return ret
+    }
+    
+    /* ################################################################## */
+    /**
+     This returns the artist and song info for a given song URL.
+     
+     - parameter inURL: The URL of the song.
+     
+     - returns: A tuple, containing the artist index, and the song index.
+     */
+    func findSongInfo(_ inURL: String = "") -> (artistIndex: Int, songIndex: Int) {
+        for artistInfo in Timer_AppDelegate.appDelegateObject.songs {
+            var songIndex: Int = 0
+            for song in artistInfo.value {
+                if inURL == song.resourceURI {
+                    if let artistIndex = Timer_AppDelegate.appDelegateObject.artists.firstIndex(of: song.artistName) {
+                        return (artistIndex: Int(artistIndex), songIndex: songIndex)
+                    }
+                }
+                songIndex += 1
+            }
+        }
+        
+        return (artistIndex: 0, songIndex: 0)
+    }
+    
+    /* ################################################################## */
+    /**
+     This tells the picker to select the currently chosen song.
+     */
+    func selectSong() {
+        DispatchQueue.main.async {
+            if .authorized == MPMediaLibrary.authorizationStatus() {
+                self.soundModeSegmentedSwitch.setEnabled(true, forSegmentAt: SoundMode.Music.rawValue)
+                self.timerObject.soundMode = .Music
+                let indexes = self.findSongInfo(self.timerObject.songURLString)
+                self.artistSoundSelectPicker.selectRow(indexes.artistIndex, inComponent: 0, animated: true)
+                self.songSelectPicker.reloadComponent(0)
+                self.songSelectPicker.selectRow(indexes.songIndex, inComponent: 0, animated: true)
+                self.pickerView(self.songSelectPicker, didSelectRow: self.songSelectPicker.selectedRow(inComponent: 0), inComponent: 0)
+            } else {
+                self.soundModeSegmentedSwitch.setEnabled(.denied != MPMediaLibrary.authorizationStatus(), forSegmentAt: SoundMode.Music.rawValue)
+                if !self.soundModeSegmentedSwitch.isEnabledForSegment(at: SoundMode.Music.rawValue) && (.Music == self.timerObject.soundMode) {
+                    self.soundModeSegmentedSwitch.selectedSegmentIndex = SoundMode.Silent.rawValue
+                } else {
+                    self.soundModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.soundMode.rawValue
+                }
+            }
+        }
+    }
+
+    /* ################################################################## */
+    // MARK: - UI Methods
+    /* ################################################################## */
+
+    /* ################################################################## */
+    /**
+     This starts the "busy" throbber, while the music library is being loaded.
      */
     func startSpinner() {
         self.artistSoundSelectPickerContainerView.isHidden = true
@@ -255,6 +325,7 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     This stops the throbber.
      */
     func stopSpinner() {
         self.activityContainerView.isHidden = true
@@ -262,6 +333,7 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     This sets up the UI to match the current state.
      */
     func setUpUIElements() {
         self.vibrateSwitch.isHidden = "iPhone" != UIDevice.current.model   // Hide these on iPads and iPod touch, which don't do vibrate.
@@ -287,68 +359,16 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
         self.testSoundButtonContainerView.isHidden = .Sound != self.timerObject.soundMode
         self.musicTestButtonContainerView.isHidden = .Music != self.timerObject.soundMode || Timer_AppDelegate.appDelegateObject.artists.isEmpty
     }
-    
+
     /* ################################################################## */
-    /**
-     */
-    func findSongURL(artistIndex: Int, songIndex: Int) -> String {
-        var ret = ""
-        
-        if !Timer_AppDelegate.appDelegateObject.artists.isEmpty, !Timer_AppDelegate.appDelegateObject.songs.isEmpty {
-            let artistName = Timer_AppDelegate.appDelegateObject.artists[artistIndex]
-            if let songInfo = Timer_AppDelegate.appDelegateObject.songs[artistName], 0 <= songIndex, songIndex < Timer_AppDelegate.appDelegateObject.songs.count {
-                ret = songInfo[songIndex].resourceURI
-            }
-        }
-        
-        return ret
-    }
-    
+    // MARK: - IBAction Methods
     /* ################################################################## */
-    /**
-     */
-    func findSongInfo(_ inURL: String = "") -> (artistIndex: Int, songIndex: Int) {
-        for artistInfo in Timer_AppDelegate.appDelegateObject.songs {
-            var songIndex: Int = 0
-            for song in artistInfo.value {
-                if inURL == song.resourceURI {
-                    if let artistIndex = Timer_AppDelegate.appDelegateObject.artists.firstIndex(of: song.artistName) {
-                        return (artistIndex: Int(artistIndex), songIndex: songIndex)
-                    }
-                }
-                songIndex += 1
-            }
-        }
-        
-        return (artistIndex: 0, songIndex: 0)
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func selectSong() {
-        DispatchQueue.main.async {
-            if .authorized == MPMediaLibrary.authorizationStatus() {
-                self.soundModeSegmentedSwitch.setEnabled(true, forSegmentAt: SoundMode.Music.rawValue)
-                self.timerObject.soundMode = .Music
-                let indexes = self.findSongInfo(self.timerObject.songURLString)
-                self.artistSoundSelectPicker.selectRow(indexes.artistIndex, inComponent: 0, animated: true)
-                self.songSelectPicker.reloadComponent(0)
-                self.songSelectPicker.selectRow(indexes.songIndex, inComponent: 0, animated: true)
-                self.pickerView(self.songSelectPicker, didSelectRow: self.songSelectPicker.selectedRow(inComponent: 0), inComponent: 0)
-            } else {
-                self.soundModeSegmentedSwitch.setEnabled(.denied != MPMediaLibrary.authorizationStatus(), forSegmentAt: SoundMode.Music.rawValue)
-                if !self.soundModeSegmentedSwitch.isEnabledForSegment(at: SoundMode.Music.rawValue) && (.Music == self.timerObject.soundMode) {
-                    self.soundModeSegmentedSwitch.selectedSegmentIndex = SoundMode.Silent.rawValue
-                } else {
-                    self.soundModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.soundMode.rawValue
-                }
-            }
-        }
-    }
 
     /* ################################################################## */
     /**
+     This is called when the audible ticks switch is hit.
+     
+     - parameter sender: The switch object.
      */
     @IBAction func audibleTicksSwitchHit(_ sender: UISwitch) {
         self.timerObject.audibleTicks = sender.isOn
@@ -356,14 +376,20 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     This is called when the audible ticks switch label (a button) is hit. It toggles the switch.
+     
+     - parameter: The button object (ignored).
      */
-    @IBAction func audibleTicksButtonHit(_ sender: Any) {
+    @IBAction func audibleTicksButtonHit(_: Any) {
         self.audibleTicksSwitch.isOn = !self.audibleTicksSwitch.isOn
         self.audibleTicksSwitch.sendActions(for: .valueChanged)
     }
     
     /* ################################################################## */
     /**
+     This is called when the test icon button is hit.
+     
+     - parameter sender: The button object.
      */
     @IBAction func soundTestButtonHit(_ inSender: SoundTestButton) {
         if !inSender.isOn {
@@ -398,6 +424,9 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     This is called when the "DONE" button is hit, or the screen is dismissed.
+     
+     - parameter: ignored (and optional).
      */
     @IBAction func doneButtonHit(_: Any! = nil) {
         self.stopAudioPlayer()
@@ -443,8 +472,11 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     This is called when the vibrate switch is hit.
+     
+     - parameter: ignored, and optional.
      */
-    @IBAction func vibrateSwitchHit(_ sender: UISwitch! = nil) {
+    @IBAction func vibrateSwitchHit(_: UISwitch! = nil) {
         switch self.soundModeSegmentedSwitch.selectedSegmentIndex {
         case SoundMode.Sound.rawValue:
             self.timerObject.alertMode = self.vibrateSwitch.isOn ? .Both : .SoundOnly
@@ -462,14 +494,22 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     This is called when the vibrate switch label (a button) is hit.
+     
+     - parameter: ignored
      */
-    @IBAction func vibrateButtonHit(_ sender: UIButton) {
+    @IBAction func vibrateButtonHit(_: UIButton) {
         self.vibrateSwitch.isOn = !self.vibrateSwitch.isOn
         self.vibrateSwitch.sendActions(for: .valueChanged)
     }
-    
+
+    /* ################################################################## */
+    // MARK: - Base Class Override Methods
+    /* ################################################################## */
+
     /* ################################################################## */
     /**
+     This is called when the view finishes loading.
      */
     override func viewDidLoad() {
         self.vibrateButton.setTitle(self.vibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
@@ -487,6 +527,7 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     this is called just prior to the view appearing.
      */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -539,7 +580,12 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     }
 
     /* ################################################################## */
+    // MARK: - PickerView Delegate and DataSource Methods
+    /* ################################################################## */
+
+    /* ################################################################## */
     /**
+     - returns: 1
      */
     override func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -673,6 +719,9 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     
     /* ################################################################## */
     /**
+     This returns the accesibility label for a given picker component.
+     
+     - returns: The accessibility string.
      */
     override func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inComponent: Int) -> String? {
         if self.artistSoundSelectPicker == inPickerView {
