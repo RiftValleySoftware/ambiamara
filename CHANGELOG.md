@@ -1,4 +1,4 @@
-***Version 1.0.1.3000* ** *(TBD)*
+***Version 1.0.2.2000* ** *August 24, 2019*
 - Converted project to Swift 5.
 - Improved some internal code (refactoring).
 - Prepared for open-source (Equivalent of cleaning up before the in-laws visit).
