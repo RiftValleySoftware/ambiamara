@@ -78,13 +78,15 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
             if .authorized == MPMediaLibrary.authorizationStatus() {    // Already authorized? Head on in!
                 self.loadUpOnMusic()
             } else {    // May I see your ID, sir?
-                MPMediaLibrary.requestAuthorization { [unowned self] status in
-                    DispatchQueue.main.async {  // Make sure that we're in the main thread, as GUI will happen.
-                        if case .authorized = status {  // Lift the velvet rope...
-                            self.loadUpOnMusic()
-                        } else {    // Call in the bouncers...
-                            Timer_AppDelegate.displayAlert("ERROR_HEADER_MEDIA", inMessage: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
-                            self.dunLoadin()
+                DispatchQueue.main.async {  // Make sure that we're in the main thread, as GUI will happen.
+                    MPMediaLibrary.requestAuthorization { [unowned self] status in
+                        DispatchQueue.main.async {  // Make sure that we're in the main thread, as GUI will happen.
+                            if case .authorized = status {  // Lift the velvet rope...
+                                self.loadUpOnMusic()
+                            } else {    // Call in the bouncers...
+                                Timer_AppDelegate.displayAlert("ERROR_HEADER_MEDIA", inMessage: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
+                                self.dunLoadin()
+                            }
                         }
                     }
                 }
