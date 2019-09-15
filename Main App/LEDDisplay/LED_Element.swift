@@ -381,7 +381,7 @@ public class LED_SingleDigit: LED_Element {
      */
     private class func _newSegmentShape(inSegment: SegmentIndexes) -> UIBezierPath! {
         let ret: UIBezierPath! = UIBezierPath()
-        var points: [CGPoint] = (.kCenterSegment == inSegment) ? self._c_g_CenterShapePoints: self._c_g_StandardShapePoints
+        let points: [CGPoint] = (.kCenterSegment == inSegment) ? self._c_g_CenterShapePoints: self._c_g_StandardShapePoints
         
         ret.move(to: (points[0]))
         
@@ -752,7 +752,7 @@ public class LED_ElementGrouping: LED_Element, Sequence {
     public var drawnFrame: CGRect {
         let bounds = self.allSegments.bounds
         
-        bounds.offsetBy(dx: (self._containerSize.width - bounds.size.width) / 2.0, dy: (self._containerSize.height - bounds.size.height) / 2.0)
+        _ = bounds.offsetBy(dx: (self._containerSize.width - bounds.size.width) / 2.0, dy: (self._containerSize.height - bounds.size.height) / 2.0)
         
         return bounds
     }

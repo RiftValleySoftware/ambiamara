@@ -1,3 +1,7 @@
+**Version 1.0.2.3000** *September 15, 2019*
+- Fixed a couple of those stupid errors caused by Apple changing things from structs to classes.
+- App Store release.
+
 **Version 1.0.2.2001** *August 26, 2019*
 - After a report of a crash that I couldn't reproduce, I decided to try forcing the request for permission run in the main thread; even though I don't think it needs it.
 
