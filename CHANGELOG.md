@@ -1,3 +1,6 @@
+**Version 1.0.2.3001** *September 16, 2019*
+- No change. Apple wanted me to re-release with the latest RC of Xcode.
+
 **Version 1.0.2.3000** *September 15, 2019*
 - Fixed a couple of those stupid errors caused by Apple changing things from structs to classes.
 - App Store release.
