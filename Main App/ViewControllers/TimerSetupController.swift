@@ -69,15 +69,22 @@ class TimerSetupController: A_TimerSetPickerController {
             maxValInt = Swift.min(TimerSettingTuple.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet), self.timerObject.timeSetPodiumWarn - 1)
         }
         
+        self.navigationItem.title = "LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL".localizedVariant
+
         self.timerObject.timeSetPodiumFinal = maxValInt
 
         self.warningThresholdLabel.text = self.warningThresholdLabel.text?.localizedVariant
         self.finalThresholdLabel.text = self.finalThresholdLabel.text?.localizedVariant
-        self.doneButton.setTitle(self.doneButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
         self.colorDisplayLabel.text = self.colorDisplayLabel.text?.localizedVariant
         
         self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
-        
+        if #available(iOS 13.0, *) {
+            self.timerModeSegmentedSwitch.selectedSegmentTintColor = self.view.tintColor
+            // White text.
+            self.timerModeSegmentedSwitch.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+            self.timerModeSegmentedSwitch.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: self.view?.tintColor ?? UIColor.white], for: .normal)
+        }
+
         self.setUpPickerViews()
         
         self.warningThresholdTimePicker.reloadAllComponents()
@@ -164,16 +171,6 @@ class TimerSetupController: A_TimerSetPickerController {
         self.setUpPickerViews()
     }
     
-    /* ################################################################## */
-    /**
-     Called when the done button is hit.
-     
-     - parameter: ignored. Optional, so this can be called with no parameter.
-     */
-    @IBAction func doneButtonHit(_: Any! = nil) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     /* ################################################################################################################################## */
     /**
      This method adds all the accessibility stuff.
@@ -217,9 +214,6 @@ class TimerSetupController: A_TimerSetPickerController {
         }
         
         self.alarmSetupButton.accessibilityLabel = accessibilityLabel
-
-        self.doneButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-LABEL".localizedVariant
-        self.doneButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-DONE-BUTTON-HINT".localizedVariant
         
         UIAccessibility.post(notification: .layoutChanged, argument: self.timerModeSegmentedSwitch)
     }

@@ -350,7 +350,12 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
         } else {
             self.soundModeSegmentedSwitch.setEnabled(true, forSegmentAt: 1)
         }
-        
+        if #available(iOS 13.0, *) {
+            self.soundModeSegmentedSwitch.selectedSegmentTintColor = self.view.tintColor
+            self.soundModeSegmentedSwitch.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+            self.soundModeSegmentedSwitch.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: self.view?.tintColor ?? UIColor.white], for: .normal)
+        }
+
         self.soundModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.soundMode.rawValue
         self.artistSoundSelectPickerContainerView.isHidden = .Silent == self.timerObject.soundMode || (.Music == self.timerObject.soundMode && (Timer_AppDelegate.appDelegateObject.songs.isEmpty || Timer_AppDelegate.appDelegateObject.artists.isEmpty))
         self.songSelectPickerContainerView.isHidden = .Music != self.timerObject.soundMode || Timer_AppDelegate.appDelegateObject.songs.isEmpty || Timer_AppDelegate.appDelegateObject.artists.isEmpty
@@ -515,7 +520,11 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
      */
     override func viewDidLoad() {
         self.vibrateButton.setTitle(self.vibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
-        self.doneButton.setTitle(self.doneButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
+        if #available(iOS 13.0, *) {
+            self.doneButton.isHidden = true
+        } else {
+            self.doneButton.setTitle(self.doneButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
+        }
         self.audibleTicksSwitchButton.setTitle(self.audibleTicksSwitchButton.title(for: UIControl.State.normal)?.localizedVariant, for: UIControl.State.normal)
         self.noMusicLabel.text = self.noMusicLabel.text?.localizedVariant
         self.fetchingMusicLabel.text = self.fetchingMusicLabel.text?.localizedVariant

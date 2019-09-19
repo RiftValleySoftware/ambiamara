@@ -242,6 +242,24 @@ class TimerSetController: A_TimerSetPickerController {
     func tick(times inTimes: Int = 1) {
         self.runningTimer?.tick(times: inTimes)
     }
+    
+    /* ################################################################## */
+    /**
+     Establishes the entire screen.
+     */
+    func setUpEntireScreen() {
+        if nil != self.timerObject {
+            Timer_AppDelegate.appDelegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
+        }
+        
+        self.updateTimer()
+        self.nextTimerSelectionContainer.isHidden = true
+        self.setTimePickerView.isHidden = false
+        self.nextTimerButton.addTarget(self, action: #selector(type(of: self).nextTimerButtonHit(_:)), for: .touchUpInside)
+        self.trafficLightsImageView.isHidden = .Digital == self.timerObject.displayMode
+        self.titleLabel.text = self.navigationItem.title ?? ""
+        self.setTimePickerView.reloadAllComponents()
+    }
 
     /* ################################################################################################################################## */
     // MARK: - Base Class Override Methods
@@ -252,7 +270,8 @@ class TimerSetController: A_TimerSetPickerController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationItem.backBarButtonItem?.title = self.navigationItem.backBarButtonItem?.title?.localizedVariant
+
         if let tabber = self.tabBarController as? Timer_MainTabController {
             tabber.addTimerToList(self)
         }
@@ -265,18 +284,8 @@ class TimerSetController: A_TimerSetPickerController {
      Called when the view will display.
      */
     override func viewWillAppear(_ animated: Bool) {
-        self.updateTimer()
-        if nil != self.timerObject {
-//            Timer_AppDelegate.appDelegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
-        }
-        
-        self.nextTimerSelectionContainer.isHidden = true
-        self.setTimePickerView.isHidden = false
-        self.nextTimerButton.addTarget(self, action: #selector(type(of: self).nextTimerButtonHit(_:)), for: .touchUpInside)
-        self.trafficLightsImageView.isHidden = .Digital == self.timerObject.displayMode
-        self.titleLabel.text = self.navigationItem.title ?? ""
-        self.setTimePickerView.reloadAllComponents()
         super.viewWillAppear(animated)
+        setUpEntireScreen()
     }
         
     /* ################################################################## */

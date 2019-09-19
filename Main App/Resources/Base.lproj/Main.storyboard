@@ -217,7 +217,7 @@
                         <outlet property="setupButton" destination="2m3-Kd-jYo" id="NfH-I2-rKy"/>
                         <outlet property="timeDisplayLabel" destination="mGx-XA-7vt" id="dZZ-kt-bDb"/>
                         <outlet property="trafficLightsImageView" destination="LHR-m5-O1i" id="gpY-ZS-CVH"/>
-                        <segue destination="Cmw-cs-f0x" kind="presentation" identifier="timer-segue-to-settings" id="hgl-6b-v60"/>
+                        <segue destination="Cmw-cs-f0x" kind="show" identifier="timer-segue-to-settings" id="hgl-6b-v60"/>
                         <segue destination="pId-dv-a9R" kind="show" identifier="timer-segue-to-start-timer" id="OqM-yy-Koa"/>
                     </connections>
                 </viewController>
@@ -389,11 +389,11 @@
             <objects>
                 <viewController title="Timer Settings" id="Cmw-cs-f0x" customClass="TimerSetupController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="m5H-jP-7bL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fCL-vy-SIp">
-                                <rect key="frame" x="16" y="0.0" width="288" height="41"/>
+                                <rect key="frame" x="16" y="44" width="288" height="41"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="RUh-o5-VWb"/>
@@ -404,12 +404,13 @@
                                     <segment title="" image="TimerModeImages-Both"/>
                                 </segments>
                                 <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="selectedSegmentTintColor" red="1" green="1" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="modeSegmentedControlChanged:" destination="Cmw-cs-f0x" eventType="valueChanged" id="nUQ-MR-fsS"/>
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-6l-M17" userLabel="Color Picker Container View">
-                                <rect key="frame" x="16" y="52" width="288" height="129"/>
+                                <rect key="frame" x="16" y="96" width="288" height="129"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lha-1G-1eH">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="129"/>
@@ -443,7 +444,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-1e-i1t" userLabel="Podium Mode Container View">
-                                <rect key="frame" x="16" y="181" width="288" height="240"/>
+                                <rect key="frame" x="16" y="225" width="288" height="240"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPo-vP-d5X">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="120"/>
@@ -501,10 +502,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSd-xp-cyv">
-                                <rect key="frame" x="16" y="421" width="288" height="71"/>
+                                <rect key="frame" x="16" y="465" width="288" height="54"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo6-5G-Rn0" customClass="TimerSoundModeButton" customModule="AmbiaMara" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="11.5" width="288" height="48"/>
+                                        <rect key="frame" x="0.0" y="3" width="288" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="BlD-kg-dAA"/>
                                         </constraints>
@@ -525,42 +526,28 @@
                                     <constraint firstItem="mo6-5G-Rn0" firstAttribute="leading" secondItem="QSd-xp-cyv" secondAttribute="leading" id="gQv-lQ-g0x"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cf6-o5-MMZ">
-                                <rect key="frame" x="8" y="492" width="304" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="Jxu-Gd-q5P"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="BASIC-DONE-BUTTON"/>
-                                <connections>
-                                    <action selector="doneButtonHit:" destination="Cmw-cs-f0x" eventType="touchUpInside" id="AAy-8j-Fy9"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="bottom" id="5an-AK-5J5"/>
+                            <constraint firstItem="usg-pJ-xv3" firstAttribute="bottom" secondItem="QSd-xp-cyv" secondAttribute="bottom" id="CDA-Lp-ENI"/>
                             <constraint firstItem="QSd-xp-cyv" firstAttribute="top" secondItem="bOd-1e-i1t" secondAttribute="bottom" id="EP2-me-OvQ"/>
                             <constraint firstItem="QSd-xp-cyv" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="Egf-bB-70T"/>
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="Pwm-Cm-Hw1"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="KvQ-6l-M17" secondAttribute="trailing" constant="16" id="aqk-K5-IFD"/>
-                            <constraint firstItem="usg-pJ-xv3" firstAttribute="bottom" secondItem="cf6-o5-MMZ" secondAttribute="bottom" constant="8" id="cNn-dV-t2O"/>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="dEZ-r6-kTV"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="bOd-1e-i1t" secondAttribute="trailing" constant="16" id="f6P-eK-WDI"/>
                             <constraint firstItem="KvQ-6l-M17" firstAttribute="top" secondItem="fCL-vy-SIp" secondAttribute="bottom" constant="12" id="fnb-cX-Eqm"/>
-                            <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="cf6-o5-MMZ" secondAttribute="trailing" constant="8" id="h6n-Td-mcB"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="fCL-vy-SIp" secondAttribute="trailing" constant="16" id="oQQ-ds-5dh"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="top" secondItem="usg-pJ-xv3" secondAttribute="top" id="rUw-G0-AOG"/>
                             <constraint firstItem="fCL-vy-SIp" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="16" id="tQf-WR-EGN"/>
-                            <constraint firstItem="cf6-o5-MMZ" firstAttribute="top" secondItem="QSd-xp-cyv" secondAttribute="bottom" id="uLb-dD-mAn"/>
                             <constraint firstItem="usg-pJ-xv3" firstAttribute="trailing" secondItem="QSd-xp-cyv" secondAttribute="trailing" constant="16" id="x34-24-nUe"/>
-                            <constraint firstItem="cf6-o5-MMZ" firstAttribute="leading" secondItem="usg-pJ-xv3" secondAttribute="leading" constant="8" id="zE5-GV-8N1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="usg-pJ-xv3"/>
                     </view>
-                    <navigationItem key="navigationItem" title="LGV_TIMER-TIMER-SETUP-TITLE" id="bR4-hy-Vgz"/>
+                    <navigationItem key="navigationItem" id="bR4-hy-Vgz"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
                             <color key="value" red="0.0" green="0.0060920210260000003" blue="0.73128643130000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -574,7 +561,6 @@
                         <outlet property="colorDisplayLabel" destination="RGc-PT-dR1" id="ike-IJ-mbT"/>
                         <outlet property="colorPickerContainerView" destination="KvQ-6l-M17" id="gaF-Od-ed5"/>
                         <outlet property="colorThemePicker" destination="lha-1G-1eH" id="LcQ-Yu-wwh"/>
-                        <outlet property="doneButton" destination="cf6-o5-MMZ" id="Zxb-eg-6wx"/>
                         <outlet property="finalThresholdLabel" destination="Ojn-dk-can" id="jam-Y3-yJC"/>
                         <outlet property="finalThresholdTimePicker" destination="VaK-Cn-EOG" id="i7c-SA-P8h"/>
                         <outlet property="podiumModeContainerView" destination="bOd-1e-i1t" id="ECt-Zz-Rki"/>
@@ -903,6 +889,7 @@
                                     <segment title="" image="Music"/>
                                     <segment title="" image="Nothing"/>
                                 </segments>
+                                <color key="selectedSegmentTintColor" red="1" green="1" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="soundModeSegmentedSwitchHit:" destination="avR-jN-gqo" eventType="valueChanged" id="nbl-r2-KfN"/>
                                 </connections>
@@ -1148,6 +1135,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wpe-dP-nhC"/>
                     </view>
+                    <navigationItem key="navigationItem" id="jty-kl-C0J"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="gradientTopColor">
                             <color key="value" red="0.0" green="0.006092021025941639" blue="0.73128643134715032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
