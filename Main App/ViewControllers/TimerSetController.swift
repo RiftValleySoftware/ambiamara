@@ -64,7 +64,7 @@ class TimerSetController: A_TimerSetPickerController {
         }
         
         if 1 < Timer_AppDelegate.appDelegateObject.timerEngine.timers.count {
-            self.nextTimerButton.isHidden = false
+            self.nextTimerButton.isHidden = true // false   Forced hidden, because...bugz
             let nextID = self.timerObject.succeedingTimerID
             
             if 0 <= nextID {
@@ -267,7 +267,7 @@ class TimerSetController: A_TimerSetPickerController {
     override func viewWillAppear(_ animated: Bool) {
         self.updateTimer()
         if nil != self.timerObject {
-            Timer_AppDelegate.appDelegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
+//            Timer_AppDelegate.appDelegateObject.sendSelectMessage(timerUID: self.timerObject.uid)
         }
         
         self.nextTimerSelectionContainer.isHidden = true

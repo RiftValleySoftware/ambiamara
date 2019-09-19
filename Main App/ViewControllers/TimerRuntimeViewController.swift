@@ -297,6 +297,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
         self.flashDisplay(UIColor.red, duration: 0.5)
         self.stopAudioPlayer()
         Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
+        navigationController?.popViewController(animated: true)
     }
     
     /* ################################################################## */
@@ -332,20 +333,22 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     func updateTimer() {
         self._setUpDisplay()
         
-        self.timeDisplay.accessibilityLabel = self.timerObject.currentQuickSpeakableTime
+        if let timeDisplay = self.timeDisplay {
+            timeDisplay.accessibilityLabel = self.timerObject.currentQuickSpeakableTime
 
-        self.timeDisplay.isHidden = (.Podium == self.timerObject.displayMode) || (.Alarm == self.timerObject.timerStatus)
-        if nil != self.stoplightContainerView {
-            self.stoplightContainerView.isHidden = (.Alarm == self.timerObject.timerStatus)
-        }
-        
-        if .Alarm == self.timerObject.timerStatus {
-            UIApplication.shared.isIdleTimerDisabled = false // Toggle this to "wake" the touch sensor. The system can put it into a "resting" mode, so two touches are required.
-            UIApplication.shared.isIdleTimerDisabled = true
-            self.flashDisplay()
-            self._playAlertSound()
-            if .VibrateOnly == self.timerObject.alertMode || .Both == self.timerObject.alertMode {
-                AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+            timeDisplay.isHidden = (.Podium == self.timerObject.displayMode) || (.Alarm == self.timerObject.timerStatus)
+            if nil != self.stoplightContainerView {
+                self.stoplightContainerView.isHidden = (.Alarm == self.timerObject.timerStatus)
+            }
+            
+            if .Alarm == self.timerObject.timerStatus {
+                UIApplication.shared.isIdleTimerDisabled = false // Toggle this to "wake" the touch sensor. The system can put it into a "resting" mode, so two touches are required.
+                UIApplication.shared.isIdleTimerDisabled = true
+                self.flashDisplay()
+                self._playAlertSound()
+                if .VibrateOnly == self.timerObject.alertMode || .Both == self.timerObject.alertMode {
+                    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+                }
             }
         }
     }
@@ -396,11 +399,13 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      */
     @discardableResult
     func cascadeToNextTimer() -> Bool {
-        if 0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer, let myTabController = Timer_AppDelegate.appDelegateObject.mainTabController {
+        if  0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer,
+            let myTabController = Timer_AppDelegate.appDelegateObject.mainTabController {
             Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
             myTabController.timerEngine.autoStartNextSelectedTimer = true   // We want the next selected timer to start immediately.
             myTabController.timerEngine.selectedTimerIndex = Timer_AppDelegate.appDelegateObject.appState.nextTimer
-            
+            navigationController?.popViewController(animated: false)
+
             return true
         }
         
@@ -508,11 +513,14 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
             self.myNavigationBar.tintColor = self.view.tintColor
             self.myNavigationBar.backgroundColor = UIColor.black
             self.myNavigationBar.barTintColor = UIColor.black
-            self.myNavigationBar.isHidden = false
         } else {
             self.myNavigationBar.isHidden = true
         }
-        
+
+        if let navController = self.navigationController {
+            navController.navigationBar.isHidden = true
+        }
+
         Timer_AppDelegate.appDelegateObject.currentTimer = self
         Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerUID = self.timerObject.uid
         Timer_AppDelegate.appDelegateObject.timerEngine.startTimer()
@@ -531,9 +539,9 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
         if let navController = self.navigationController {
             navController.navigationBar.isHidden = false
         }
-        
+
         super.viewWillDisappear(animated)
-        
+
         Timer_AppDelegate.restoreOriginalBrightness()   // Restore whatever brightness was set before.
         Timer_AppDelegate.appDelegateObject.currentTimer = nil
         UIApplication.shared.isIdleTimerDisabled = false
@@ -584,7 +592,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     @IBAction func stopButtonHit(_: Any! = nil) {
         if .Alarm == self.timerObject.timerStatus {
             self.resetTimer()
-            cascadeToNextTimer()
+            self.cascadeToNextTimer()
         }
         self.stopTimer()
     }

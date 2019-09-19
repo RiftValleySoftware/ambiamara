@@ -1476,13 +1476,13 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - returns: The 0-based index of the next timer (-1 if none).
      */
     var nextTimer: Int {
-        if 0 <= self._selectedTimer0BasedIndex && self._selectedTimer0BasedIndex < self.timers.count {
-            let nextIndex = self.selectedTimer.succeedingTimerID
-            
-            if nextIndex < self.timers.count {
-                return Swift.max(-1, nextIndex)
-            }
-        }
+//        if 0 <= self._selectedTimer0BasedIndex && self._selectedTimer0BasedIndex < self.timers.count {
+//            let nextIndex = self.selectedTimer.succeedingTimerID
+//            
+//            if nextIndex < self.timers.count {
+//                return Swift.max(-1, nextIndex)
+//            }
+//        }
         
         return -1
     }

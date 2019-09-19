@@ -1,3 +1,6 @@
+**Version 1.0.3.3000** *September 20, 2019*
+- Fixed a nasty bug in iOS13, where the gestures were all messed up. Had to remove the "following timer" feature for now. It's a kludge, anyway. Needs to be done properly.
+
 **Version 1.0.2.3001** *September 16, 2019*
 - No change. Apple wanted me to re-release with the latest RC of Xcode.
 

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mvc-fj-sq5">
-    <device id="retina4_0" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mvc-fj-sq5">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,7 +20,7 @@
                     <tabBarItem key="tabBarItem" title="" id="oDm-vU-50Y"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="eRP-fW-XSv">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -44,7 +42,7 @@
             <objects>
                 <viewController title="Timer Set and Start" id="Y3X-jz-wfO" customClass="TimerSetController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gVx-u0-GdF">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="475"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pRN-X9-V6N" userLabel="Time Display Container">
@@ -59,7 +57,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xlu-sm-qJT">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xlu-sm-qJT">
                                         <rect key="frame" x="0.0" y="94" width="288" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="PAn-wY-oNR"/>
@@ -94,10 +92,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EDZ-zT-xw3" userLabel="Picker View Container">
-                                <rect key="frame" x="8" y="132" width="304" height="191"/>
+                                <rect key="frame" x="8" y="132" width="304" height="211"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lN6-TG-yli">
-                                        <rect key="frame" x="8" y="0.0" width="288" height="191"/>
+                                        <rect key="frame" x="8" y="0.0" width="288" height="211"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="dataSource" destination="Y3X-jz-wfO" id="mJX-Bx-OAr"/>
@@ -105,10 +103,10 @@
                                         </connections>
                                     </pickerView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D3u-jq-DKi">
-                                        <rect key="frame" x="8" y="0.0" width="288" height="191"/>
+                                        <rect key="frame" x="8" y="0.0" width="288" height="211"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSb-5d-O0F">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="191"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="211"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="Y3X-jz-wfO" id="Sfx-EY-JwF"/>
                                                     <outlet property="delegate" destination="Y3X-jz-wfO" id="8fQ-ZD-6Qh"/>
@@ -143,7 +141,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="BUz-mL-rSv" userLabel="Start Button Container">
-                                <rect key="frame" x="0.0" y="323" width="320" height="132"/>
+                                <rect key="frame" x="0.0" y="343" width="320" height="132"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b7B-d7-lBc">
                                         <rect key="frame" x="130" y="31.5" width="60" height="69"/>
@@ -220,7 +218,7 @@
                         <outlet property="timeDisplayLabel" destination="mGx-XA-7vt" id="dZZ-kt-bDb"/>
                         <outlet property="trafficLightsImageView" destination="LHR-m5-O1i" id="gpY-ZS-CVH"/>
                         <segue destination="Cmw-cs-f0x" kind="presentation" identifier="timer-segue-to-settings" id="hgl-6b-v60"/>
-                        <segue destination="pId-dv-a9R" kind="presentation" identifier="timer-segue-to-start-timer" id="OqM-yy-Koa"/>
+                        <segue destination="pId-dv-a9R" kind="show" identifier="timer-segue-to-start-timer" id="OqM-yy-Koa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pMd-Al-am4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -245,16 +243,16 @@
         <!--Timer Runtime-->
         <scene sceneID="hTo-Uo-hbx">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="pId-dv-a9R" userLabel="Timer Runtime" customClass="TimerRuntimeViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="pId-dv-a9R" userLabel="Timer Runtime" customClass="TimerRuntimeViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VER-Lg-FXG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yh-KU-1zx" userLabel="Display Container">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvk-HB-53P" customClass="LED_ClockView" customModule="AmbiaMara" customModuleProvider="target">
-                                        <rect key="frame" x="4" y="0.0" width="312" height="548"/>
+                                        <rect key="frame" x="4" y="0.0" width="312" height="568"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
@@ -263,7 +261,7 @@
                                         <gestureRecognizers/>
                                     </view>
                                     <view hidden="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRL-jt-yJr">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <bool key="isElement" value="YES"/>
@@ -288,7 +286,7 @@
                                 </connections>
                             </view>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pl8-D1-u7N">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Zw4-yL-9k9"/>
@@ -342,6 +340,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="OGB-C4-DO7"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <userDefinedRuntimeAttributes>
@@ -390,11 +389,11 @@
             <objects>
                 <viewController title="Timer Settings" id="Cmw-cs-f0x" customClass="TimerSetupController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="m5H-jP-7bL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fCL-vy-SIp">
-                                <rect key="frame" x="16" y="20" width="288" height="41"/>
+                                <rect key="frame" x="16" y="0.0" width="288" height="41"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="RUh-o5-VWb"/>
@@ -410,7 +409,7 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-6l-M17" userLabel="Color Picker Container View">
-                                <rect key="frame" x="16" y="72" width="288" height="129"/>
+                                <rect key="frame" x="16" y="52" width="288" height="129"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lha-1G-1eH">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="129"/>
@@ -444,7 +443,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-1e-i1t" userLabel="Podium Mode Container View">
-                                <rect key="frame" x="16" y="201" width="288" height="240"/>
+                                <rect key="frame" x="16" y="181" width="288" height="240"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPo-vP-d5X">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="120"/>
@@ -502,7 +501,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSd-xp-cyv">
-                                <rect key="frame" x="16" y="441" width="288" height="71"/>
+                                <rect key="frame" x="16" y="421" width="288" height="71"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo6-5G-Rn0" customClass="TimerSoundModeButton" customModule="AmbiaMara" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="11.5" width="288" height="48"/>
@@ -527,7 +526,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cf6-o5-MMZ">
-                                <rect key="frame" x="8" y="512" width="304" height="48"/>
+                                <rect key="frame" x="8" y="492" width="304" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="Jxu-Gd-q5P"/>
                                 </constraints>
@@ -593,11 +592,11 @@
             <objects>
                 <viewController title="Main Timer Settings" id="dZU-jO-ENB" userLabel="Timer List" customClass="Timer_SettingsViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WlI-lT-4T0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="475"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j29-iR-j9c">
-                                <rect key="frame" x="16" y="4" width="288" height="399"/>
+                                <rect key="frame" x="16" y="4" width="288" height="419"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="1" green="1" blue="0.58892299110000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
@@ -671,7 +670,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1gs-61-NM5" userLabel="Switch Container">
-                                <rect key="frame" x="16" y="411" width="288" height="44"/>
+                                <rect key="frame" x="16" y="431" width="288" height="44"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="klv-6l-eUf" userLabel="Internal Switch Container">
                                         <rect key="frame" x="-16" y="0.0" width="320" height="44"/>
@@ -783,11 +782,11 @@
             <objects>
                 <viewController title="LGV_TIMER-INFO-TITLE-FORMAT" modalTransitionStyle="partialCurl" hidesBottomBarWhenPushed="YES" id="PKI-7x-KlB" userLabel="Info" customClass="Timer_InfoViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pCc-NV-qjF">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="agq-yz-VPb" customClass="TheGreatRiftValleyDrawing" customModule="AmbiaMara" customModuleProvider="target">
-                                <rect key="frame" x="96" y="20" width="128" height="128"/>
+                                <rect key="frame" x="96" y="0.0" width="128" height="128"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="128" id="jnU-2Q-8XH"/>
@@ -803,7 +802,7 @@
                                 </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-INFO-CORPORATE-BLURB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="xyi-Sb-0Gd">
-                                <rect key="frame" x="16" y="156" width="288" height="30"/>
+                                <rect key="frame" x="16" y="136" width="288" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="tXb-i4-iiC"/>
                                 </constraints>
@@ -812,7 +811,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LGV_TIMER-INFO-TITLE-FORMAT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="sO5-o8-Fyk">
-                                <rect key="frame" x="16" y="194" width="288" height="30"/>
+                                <rect key="frame" x="16" y="174" width="288" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="GlE-P5-iZQ"/>
                                 </constraints>
@@ -821,7 +820,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" text="LGV_TIMER-ABOUT-TEXT" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8bv-Ws-8kF">
-                                <rect key="frame" x="8" y="232" width="304" height="328"/>
+                                <rect key="frame" x="8" y="212" width="304" height="328"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -890,11 +889,11 @@
             <objects>
                 <viewController id="avR-jN-gqo" customClass="Timer_SetupSoundsViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HLm-Em-6mF">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0YC-uY-IAy">
-                                <rect key="frame" x="8" y="71" width="304" height="41"/>
+                                <rect key="frame" x="8" y="51" width="304" height="41"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="1UL-fy-hyw"/>
@@ -909,7 +908,7 @@
                                 </connections>
                             </segmentedControl>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OlQ-fV-h36">
-                                <rect key="frame" x="8" y="28" width="49" height="31"/>
+                                <rect key="frame" x="8" y="8" width="49" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="47" id="3I9-de-HjA"/>
                                     <constraint firstAttribute="height" constant="31" id="dIZ-yB-9vq"/>
@@ -921,7 +920,7 @@
                                 </connections>
                             </switch>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PMB-fq-wfY">
-                                <rect key="frame" x="63" y="28" width="249" height="31"/>
+                                <rect key="frame" x="63" y="8" width="249" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="d5d-Sn-tOF"/>
                                 </constraints>
@@ -932,7 +931,7 @@
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Bu-Fw-FZa" userLabel="No Music Label View">
-                                <rect key="frame" x="8" y="111" width="304" height="354"/>
+                                <rect key="frame" x="8" y="91" width="304" height="354"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-NO-MUSIC-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7L-1V-QXv">
                                         <rect key="frame" x="0.0" y="162" width="304" height="30"/>
@@ -953,7 +952,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hrn-NJ-meW" userLabel="Artist-Sound Select View">
-                                <rect key="frame" x="8" y="111" width="304" height="120"/>
+                                <rect key="frame" x="8" y="91" width="304" height="120"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vgq-bW-AeN">
                                         <rect key="frame" x="0.0" y="0.0" width="304" height="120"/>
@@ -974,7 +973,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WYl-wR-sZA" userLabel="Song Select Picker Container View">
-                                <rect key="frame" x="8" y="231" width="304" height="120"/>
+                                <rect key="frame" x="8" y="211" width="304" height="120"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pRz-r6-5TC">
                                         <rect key="frame" x="0.0" y="0.0" width="304" height="120"/>
@@ -995,7 +994,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icb-vL-3zB" userLabel="Test Sound Button Container View">
-                                <rect key="frame" x="8" y="231" width="304" height="234"/>
+                                <rect key="frame" x="8" y="211" width="304" height="234"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2wp-vs-RMZ" customClass="SoundTestButton" customModule="AmbiaMara" customModuleProvider="target">
                                         <rect key="frame" x="127" y="92" width="50" height="50"/>
@@ -1020,7 +1019,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdT-fG-3D9" userLabel="Music Test Button Container View">
-                                <rect key="frame" x="8" y="351" width="304" height="114"/>
+                                <rect key="frame" x="8" y="331" width="304" height="114"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KkI-hg-1Rx" customClass="SoundTestButton" customModule="AmbiaMara" customModuleProvider="target">
                                         <rect key="frame" x="127" y="32" width="50" height="50"/>
@@ -1044,7 +1043,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BbL-Ed-DcR">
-                                <rect key="frame" x="8" y="111" width="304" height="354"/>
+                                <rect key="frame" x="8" y="91" width="304" height="354"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="CmC-ty-3Sv">
                                         <rect key="frame" x="133.5" y="158.5" width="37" height="37"/>
@@ -1073,7 +1072,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dX0-Lz-MmC">
-                                <rect key="frame" x="0.0" y="512" width="320" height="48"/>
+                                <rect key="frame" x="0.0" y="492" width="320" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="of3-37-yuz"/>
                                 </constraints>
@@ -1084,7 +1083,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sS3-tg-sjd">
-                                <rect key="frame" x="63" y="473" width="249" height="31"/>
+                                <rect key="frame" x="63" y="453" width="249" height="31"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="LGV_TIMER-AUDIBLE-TICKS-BUTTON"/>
                                 <connections>
@@ -1092,7 +1091,7 @@
                                 </connections>
                             </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bN2-mr-HYf">
-                                <rect key="frame" x="8" y="473" width="49" height="31"/>
+                                <rect key="frame" x="8" y="453" width="49" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="47" id="HGS-Yb-RMq"/>
                                     <constraint firstAttribute="height" constant="31" id="dYK-te-TOf"/>
@@ -1188,7 +1187,7 @@
                 <navigationController title="Timer List Navigation Controller" modalTransitionStyle="crossDissolve" id="sDn-VD-xYI" customClass="TimerSettingsNavController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="LGV_TIMER-SETUP-TITLE" id="Y9h-rb-Dgm"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Vpb-uI-amC">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
