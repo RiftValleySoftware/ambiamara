@@ -395,23 +395,19 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     /**
      This will transition the timer to a following timer, if one is set up.
      
-     -returns: (Discardable) True, if the next timer transition happened.
+     - parameter inNextTimerIndex: The next timer index. If 0 or greater, then we will cascade to that timer. If less than 0, we ignore.
      */
-    @discardableResult
-    func cascadeToNextTimer() -> Bool {
-        if  0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer,
-            let myTabController = Timer_AppDelegate.appDelegateObject.mainTabController {
+    func cascadeToNextTimer(_ inNextTimerIndex: Int) {
+        if  0 <= inNextTimerIndex,
+            let navigationController = self.navigationController as? TimerNavController {
             Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
-            myTabController.timerEngine.autoStartNextSelectedTimer = true   // We want the next selected timer to start immediately.
-            myTabController.timerEngine.selectedTimerIndex = Timer_AppDelegate.appDelegateObject.appState.nextTimer
-            navigationController?.popViewController(animated: false)
-
-            return true
+            self.stopAudioPlayer()
+            self.closeUpShop()
+            navigationController.selectNextTimer = inNextTimerIndex
+            navigationController.popViewController(animated: false)
         }
-        
-        return false
     }
-
+    
     /* ################################################################################################################################## */
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
@@ -424,7 +420,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
         
         self.tapRecognizer.require(toFail: resetSwipeRecognizer)
         self.tapRecognizer.require(toFail: endSwipeRecognizer)
-        
+
         let tempRect = CGRect(origin: CGPoint.zero, size: CGSize(width: 75, height: 75))
         
         if .Digital != self.timerObject.displayMode {
@@ -507,7 +503,30 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      Called just before the view appears.
      */
     override func viewWillAppear(_ animated: Bool) {
+        self.setUpShop()
+        super.viewWillAppear(animated)
+        if let navigationController = self.navigationController as? TimerNavController {
+            navigationController.selectNextTimer = -1
+        }
+        Timer_AppDelegate.recordOriginalBrightness()    // This will record any original brightness, and force our screen brightness to maximum during presentation.
+    }
+    
+    /* ################################################################## */
+    /**
+     Called just before the view disappears.
+     */
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.closeUpShop()
+    }
+    
+    /* ################################################################## */
+    /**
+     Prepares the timer screen.
+     */
+    func setUpShop() {
         UIApplication.shared.isIdleTimerDisabled = true
+        self.hidesBottomBarWhenPushed = true
         
         if Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
             self.myNavigationBar.tintColor = self.view.tintColor
@@ -524,29 +543,25 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
         Timer_AppDelegate.appDelegateObject.currentTimer = self
         Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerUID = self.timerObject.uid
         Timer_AppDelegate.appDelegateObject.timerEngine.startTimer()
-        
-        super.viewWillAppear(animated)
-    
-        Timer_AppDelegate.recordOriginalBrightness()    // This will record any original brightness, and force our screen brightness to maximum during presentation.
     }
     
     /* ################################################################## */
     /**
-     Called just before the view disappears.
+     This closes up our various things, and makes things reappear.
      */
-    override func viewWillDisappear(_ animated: Bool) {
+    func closeUpShop() {
         self.myHandler.runningTimer = nil
         if let navController = self.navigationController {
             navController.navigationBar.isHidden = false
         }
-
-        super.viewWillDisappear(animated)
+        
+        self.hidesBottomBarWhenPushed = false   // We need to do this, or the tab bar will be hidden in the next screen.
 
         Timer_AppDelegate.restoreOriginalBrightness()   // Restore whatever brightness was set before.
         Timer_AppDelegate.appDelegateObject.currentTimer = nil
         UIApplication.shared.isIdleTimerDisabled = false
     }
-    
+
     /* ################################################################################################################################## */
     /**
      This method adds all the accessibility stuff.
@@ -590,11 +605,11 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      - parameter: Ignored, and optional.
      */
     @IBAction func stopButtonHit(_: Any! = nil) {
-        if .Alarm == self.timerObject.timerStatus {
-            self.resetTimer()
-            self.cascadeToNextTimer()
+        if .Alarm == self.timerObject.timerStatus, 0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer {
+            self.cascadeToNextTimer(Timer_AppDelegate.appDelegateObject.appState.nextTimer)
+        } else {
+            stopTimer()
         }
-        self.stopTimer()
     }
     
     /* ################################################################## */
@@ -649,8 +664,10 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      */
     @IBAction func tapInView(_: Any! = nil) {
         if .Alarm == self.timerObject.timerStatus {
-            if !cascadeToNextTimer() {
-                self.resetButtonHit()
+            if 0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer {
+                self.cascadeToNextTimer(Timer_AppDelegate.appDelegateObject.appState.nextTimer)
+            } else {
+                self.stopButtonHit()
             }
         } else {
             self.pauseButtonHit()

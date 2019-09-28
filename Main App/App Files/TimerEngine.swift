@@ -290,8 +290,6 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     var soundSelection: [String] = []
     /// This is the URI to the selected "tick" sound.
     var tickURI: String = ""
-    /// This is an ephemeral semaphore (yuck) that tells the timer to auto-start after being selected. We use this for cascading timers.
-    var autoStartNextSelectedTimer: Bool = false
     
     /* ################################################################################################################################## */
     // MARK: - Instance Calculated Properties
@@ -659,7 +657,6 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      */
     func startTimer() {
         if let selectedTimer = self.selectedTimer {
-            autoStartNextSelectedTimer = false  // We always reset this.
             selectedTimer.timerStatus = .Running
       }
     }

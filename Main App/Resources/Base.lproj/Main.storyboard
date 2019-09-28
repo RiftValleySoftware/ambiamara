@@ -57,7 +57,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xlu-sm-qJT">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xlu-sm-qJT">
                                         <rect key="frame" x="0.0" y="94" width="288" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="PAn-wY-oNR"/>
@@ -328,12 +328,12 @@
                         <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="1yh-KU-1zx" firstAttribute="top" secondItem="IRq-1K-51o" secondAttribute="top" id="J9s-Zx-z0f"/>
+                            <constraint firstItem="1yh-KU-1zx" firstAttribute="top" secondItem="VER-Lg-FXG" secondAttribute="top" id="J9s-Zx-z0f"/>
                             <constraint firstItem="Pl8-D1-u7N" firstAttribute="leading" secondItem="IRq-1K-51o" secondAttribute="leading" id="RKT-Ee-btk"/>
                             <constraint firstItem="Pl8-D1-u7N" firstAttribute="top" secondItem="IRq-1K-51o" secondAttribute="top" id="UPM-ZN-kKu"/>
                             <constraint firstItem="IRq-1K-51o" firstAttribute="trailing" secondItem="Pl8-D1-u7N" secondAttribute="trailing" id="UWg-aq-kNZ"/>
                             <constraint firstItem="IRq-1K-51o" firstAttribute="trailing" secondItem="1yh-KU-1zx" secondAttribute="trailing" id="d8N-mj-jPr"/>
-                            <constraint firstItem="IRq-1K-51o" firstAttribute="bottom" secondItem="1yh-KU-1zx" secondAttribute="bottom" id="e6O-sj-42J"/>
+                            <constraint firstAttribute="bottom" secondItem="1yh-KU-1zx" secondAttribute="bottom" id="e6O-sj-42J"/>
                             <constraint firstItem="1yh-KU-1zx" firstAttribute="leading" secondItem="IRq-1K-51o" secondAttribute="leading" id="hBo-w4-k9J"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IRq-1K-51o"/>

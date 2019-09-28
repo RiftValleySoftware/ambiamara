@@ -122,16 +122,21 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     
     /* ################################################################## */
     /**
+     Select the timer.
+     
+     - parameter inTimerIndex: The 0-based index of the timer to be selected.
+     - parameter andStartTimer: If true (optional, and default is false), the timer will be started, as soon as it's selected.
      */
-    func selectTimer(_ inTimerIndex: Int) {
+    func selectTimer(_ inTimerIndex: Int, andStartTimer inStartTimer: Bool = false) {
         let timerIndex = 1 + inTimerIndex
         DispatchQueue.main.async {
+            self.tabBar.isHidden = false
             if self.selectedViewController != self.viewControllers?[timerIndex] {
                 #if DEBUG
                     print("Turning On Ignore Select From Watch.")
                 #endif
                 self.selectedViewController = self.viewControllers?[timerIndex]
-                if self.timerEngine.autoStartNextSelectedTimer {
+                if inStartTimer {
                     #if DEBUG
                         print("Starting Selected Timer.")
                     #endif
@@ -175,6 +180,22 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
                 self.viewControllers?.append(timerController)
             }
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is used by the "cascading timer" functionality.
+     
+     Call this method to select a timer, and start it going.
+     
+     - parameter inIndex: The 0-based index of the next timer to be selected and started.
+     */
+    func selectAndStartTimerAtIndex(_ inIndex: Int) {
+        assert(0 <= inIndex, "Timer Index Must be 0 or greater!")
+        #if DEBUG
+            print("Cascading the timer to timer number \(inIndex + 1)")
+        #endif
+        self.selectTimer(inIndex, andStartTimer: true)
     }
     
     /* ################################################################################################################################## */

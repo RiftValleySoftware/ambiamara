@@ -24,6 +24,14 @@ class TimerNavController: UINavigationController, UINavigationControllerDelegate
     
     /* ################################################################## */
     /**
+     Yuck. This is a semaphore. But since we don't have closures for navigation pops, we need to do this.
+     
+     This is set to 0 or greater by the running timer if there's a cascade. Otherwise, it is -1.
+     */
+    var selectNextTimer: Int = -1
+    
+    /* ################################################################## */
+    /**
      - returns: The associated timer object (accessor)
      */
     var timerObject: TimerSettingTuple! {

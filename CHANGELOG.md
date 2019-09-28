@@ -1,3 +1,5 @@
+**Version 1.1.0.0000** *TBD*
+
 **Version 1.0.3.3000** *September 20, 2019*
 - Fixed a few nasty bugs in iOS13, where the gestures were all messed up, and modals behaved differently. Had to remove the "following timer" feature for now. It's a kludge, anyway. Needs to be done properly.
 

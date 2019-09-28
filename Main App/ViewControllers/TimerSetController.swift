@@ -64,7 +64,7 @@ class TimerSetController: A_TimerSetPickerController {
         }
         
         if 1 < Timer_AppDelegate.appDelegateObject.timerEngine.timers.count {
-            self.nextTimerButton.isHidden = true // false   Forced hidden, because...bugz
+            self.nextTimerButton.isHidden = false
             let nextID = self.timerObject.succeedingTimerID
             
             if 0 <= nextID {
@@ -288,6 +288,23 @@ class TimerSetController: A_TimerSetPickerController {
         setUpEntireScreen()
     }
         
+    /* ################################################################## */
+    /**
+     Called when the view has displayed.
+     */
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Special kludge for cascading timer. We check the navigation controller semaphore (yuck), and select and start the next timer.
+        if let navigationController = self.navigationController as? TimerNavController, let mainTabController = self.tabBarController as? Timer_MainTabController {
+            let nextTimer = navigationController.selectNextTimer
+            navigationController.selectNextTimer = -1
+            if 0 <= nextTimer {
+                mainTabController.selectTimer(nextTimer, andStartTimer: true)
+            }
+        }
+    }
+
     /* ################################################################## */
     /**
      Called when the view will go away.
