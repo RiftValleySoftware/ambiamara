@@ -18,7 +18,7 @@ import UIKit
 // MARK: - Main Class -
 /* ###################################################################################################################################### */
 /**
- This is a class that programmatically renders the timer sound mode (sound/music) button.
+ This is a class that programmatically renders the timer sound mode (sound/music/vibrate/ticks/none) button.
  
  It is a control, and can be used to act as a button.
  */
