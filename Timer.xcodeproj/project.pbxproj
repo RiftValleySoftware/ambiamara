@@ -64,9 +64,6 @@
 		D48ED40021B475BC00ADB8F8 /* 14-shut-up-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED40221B475BC00ADB8F8 /* 14-shut-up-1.mp3 */; };
 		D4AAAB222293509800938489 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4AAAB202293509800938489 /* Localizable.strings */; };
 		D4CF37C8219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */; };
-		D4CFBC9B23414992005076D3 /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D4CFBC9A23414992005076D3 /* Warnings.xcconfig */; };
-		D4CFBC9C23414992005076D3 /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D4CFBC9A23414992005076D3 /* Warnings.xcconfig */; };
-		D4CFBC9D23414992005076D3 /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D4CFBC9A23414992005076D3 /* Warnings.xcconfig */; };
 		D4D71E3121D574D400ACBB47 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D71E3321D574D400ACBB47 /* InfoPlist.strings */; };
 		D4D722E821B0326B0062035B /* Timer_SetupSoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */; };
 		D4D722EA21B036070062035B /* SoundTestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E921B036070062035B /* SoundTestButton.swift */; };
@@ -496,7 +493,7 @@
 			attributes = {
 				CLASSPREFIX = RVS_AM_;
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Rift Valley Software, Inc.";
 				TargetAttributes = {
 					77EFB3DB1ED5C1A800BDDEFF = {
@@ -570,7 +567,6 @@
 				D433BB9D21B1898D001C79F6 /* 20-antique-car-horn.mp3 in Resources */,
 				D433BBA021B18AF4001C79F6 /* 21-alarm-klaxon.mp3 in Resources */,
 				D48ED3FA21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 in Resources */,
-				D4CFBC9B23414992005076D3 /* Warnings.xcconfig in Resources */,
 				D4AAAB222293509800938489 /* Localizable.strings in Resources */,
 				772459C81F1E1D10006CA335 /* Assets.xcassets in Resources */,
 				772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */,
@@ -583,7 +579,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4CFBC9C23414992005076D3 /* Warnings.xcconfig in Resources */,
 				D44FF72A23413E72008D0F51 /* Assets.xcassets in Resources */,
 				D44FF72823413E71008D0F51 /* Interface.storyboard in Resources */,
 			);
@@ -593,7 +588,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4CFBC9D23414992005076D3 /* Warnings.xcconfig in Resources */,
 				D44FF73C23413E73008D0F51 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -819,7 +813,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				STRIP_BITCODE_FROM_COPIED_FILES = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -880,6 +874,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				STRIP_BITCODE_FROM_COPIED_FILES = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
