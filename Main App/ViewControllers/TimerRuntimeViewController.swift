@@ -26,7 +26,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     /// The maximum width, as a multiplier, of the podium mode "traffic lights" section
     private let _stoplightMaxWidthFactor: CGFloat = 0.2
     /// The volume as a multiplier, of each audible "tick."
-    private let _tickVolume: Float = 0.005
+    private let _tickVolume: Float = 0.015
     /// Tracks the last value, so we make sure we don't "blink" until we're supposed to.
     private var _originalValue: Int = 0
     
@@ -297,7 +297,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
         self.flashDisplay(UIColor.red, duration: 0.5)
         self.stopAudioPlayer()
         Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
-        navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: false)
     }
     
     /* ################################################################## */
@@ -398,13 +398,9 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      - parameter inNextTimerIndex: The next timer index. If 0 or greater, then we will cascade to that timer. If less than 0, we ignore.
      */
     func cascadeToNextTimer(_ inNextTimerIndex: Int) {
-        if  0 <= inNextTimerIndex,
-            let navigationController = self.navigationController as? TimerNavController {
-            Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
-            self.stopAudioPlayer()
-            self.closeUpShop()
+        if  0 <= inNextTimerIndex, let navigationController = self.navigationController as? TimerNavController {
             navigationController.selectNextTimer = inNextTimerIndex
-            navigationController.popViewController(animated: false)
+            self.stopTimer()
         }
     }
     
@@ -452,7 +448,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
         if let backgroundColor = Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].backgroundColor {
             self.timeDisplay.activeSegmentColor = backgroundColor
         }
-        
+
         self.timeDisplay.inactiveSegmentColor = UIColor.white.withAlphaComponent(0.1)
         self.setNeedsUpdateOfHomeIndicatorAutoHidden()
         self.updateTimer()
@@ -669,7 +665,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
             if 0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer {
                 self.cascadeToNextTimer(Timer_AppDelegate.appDelegateObject.appState.nextTimer)
             } else {
-                self.stopButtonHit()
+                self.resetButtonHit()
             }
         } else {
             self.pauseButtonHit()
