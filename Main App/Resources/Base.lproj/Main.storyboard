@@ -218,7 +218,7 @@
                         <outlet property="timeDisplayLabel" destination="mGx-XA-7vt" id="dZZ-kt-bDb"/>
                         <outlet property="trafficLightsImageView" destination="LHR-m5-O1i" id="gpY-ZS-CVH"/>
                         <segue destination="Cmw-cs-f0x" kind="show" identifier="timer-segue-to-settings" id="hgl-6b-v60"/>
-                        <segue destination="pId-dv-a9R" kind="show" identifier="timer-segue-to-start-timer" id="OqM-yy-Koa"/>
+                        <segue destination="pId-dv-a9R" kind="show" identifier="timer-segue-to-start-timer" animates="NO" id="OqM-yy-Koa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pMd-Al-am4" userLabel="First Responder" sceneMemberID="firstResponder"/>

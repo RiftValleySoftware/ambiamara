@@ -22,6 +22,8 @@ class TimerSetController: A_TimerSetPickerController {
     static let switchToSettingsSegueID = "timer-segue-to-settings"
     /// Segue ID to start the timer
     static let startTimerSegueID = "timer-segue-to-start-timer"
+    /// Segue ID for immediate timer start (no animation).
+    static let startTimerNowSegueID = "timer-segue-to-start-timer-now"
     
     /// The buton to go into settings
     @IBOutlet weak var setupButton: UIBarButtonItem!

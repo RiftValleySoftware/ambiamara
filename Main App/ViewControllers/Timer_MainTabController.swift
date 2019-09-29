@@ -130,7 +130,6 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     func selectTimer(_ inTimerIndex: Int, andStartTimer inStartTimer: Bool = false) {
         let timerIndex = 1 + inTimerIndex
         DispatchQueue.main.async {
-            self.tabBar.isHidden = false
             if self.selectedViewController != self.viewControllers?[timerIndex] {
                 #if DEBUG
                     print("Turning On Ignore Select From Watch.")

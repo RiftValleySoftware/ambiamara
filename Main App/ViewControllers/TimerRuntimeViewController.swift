@@ -527,7 +527,8 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     func setUpShop() {
         UIApplication.shared.isIdleTimerDisabled = true
         self.hidesBottomBarWhenPushed = true
-        
+        self.tabBarController?.tabBar.isHidden = true
+
         if Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
             self.myNavigationBar.tintColor = self.view.tintColor
             self.myNavigationBar.backgroundColor = UIColor.black
@@ -555,6 +556,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
             navController.navigationBar.isHidden = false
         }
         
+        self.tabBarController?.tabBar.isHidden = false
         self.hidesBottomBarWhenPushed = false   // We need to do this, or the tab bar will be hidden in the next screen.
 
         Timer_AppDelegate.restoreOriginalBrightness()   // Restore whatever brightness was set before.
