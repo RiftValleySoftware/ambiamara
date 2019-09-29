@@ -62,11 +62,11 @@
 		D48ED3FA21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED3FC21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 */; };
 		D48ED3FD21B475AE00ADB8F8 /* 15-shut-up-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED3FF21B475AE00ADB8F8 /* 15-shut-up-2.mp3 */; };
 		D48ED40021B475BC00ADB8F8 /* 14-shut-up-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED40221B475BC00ADB8F8 /* 14-shut-up-1.mp3 */; };
-		D4A57E722341439F00634F92 /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D4A57E712341439F00634F92 /* Warnings.xcconfig */; };
-		D4A57E732341439F00634F92 /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D4A57E712341439F00634F92 /* Warnings.xcconfig */; };
-		D4A57E742341439F00634F92 /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D4A57E712341439F00634F92 /* Warnings.xcconfig */; };
 		D4AAAB222293509800938489 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4AAAB202293509800938489 /* Localizable.strings */; };
 		D4CF37C8219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */; };
+		D4CFBC9B23414992005076D3 /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D4CFBC9A23414992005076D3 /* Warnings.xcconfig */; };
+		D4CFBC9C23414992005076D3 /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D4CFBC9A23414992005076D3 /* Warnings.xcconfig */; };
+		D4CFBC9D23414992005076D3 /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D4CFBC9A23414992005076D3 /* Warnings.xcconfig */; };
 		D4D71E3121D574D400ACBB47 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D71E3321D574D400ACBB47 /* InfoPlist.strings */; };
 		D4D722E821B0326B0062035B /* Timer_SetupSoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */; };
 		D4D722EA21B036070062035B /* SoundTestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E921B036070062035B /* SoundTestButton.swift */; };
@@ -181,12 +181,12 @@
 		D48ED40121B475BC00ADB8F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = en; path = "en.lproj/14-shut-up-1.mp3"; sourceTree = "<group>"; };
 		D48ED41321B477DB00ADB8F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D48ED41421B477DB00ADB8F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		D4A57E712341439F00634F92 /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
 		D4AAAB212293509800938489 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4AAAB23229350A000938489 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4AAAB24229350A300938489 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4AAAB25229350A500938489 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TheGreatRiftValleyDrawing.swift; path = ViewControllers/TheGreatRiftValleyDrawing.swift; sourceTree = "<group>"; };
+		D4CFBC9A23414992005076D3 /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = Meta/Warnings.xcconfig; sourceTree = "<group>"; };
 		D4D71E3221D574D400ACBB47 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D4D71E3421D574D600ACBB47 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D4D71E3521D5757100ACBB47 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -407,7 +407,7 @@
 		D4A57E752341442300634F92 /* Meta */ = {
 			isa = PBXGroup;
 			children = (
-				D4A57E712341439F00634F92 /* Warnings.xcconfig */,
+				D4CFBC9A23414992005076D3 /* Warnings.xcconfig */,
 			);
 			name = Meta;
 			sourceTree = "<group>";
@@ -474,6 +474,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D44FF74223413E73008D0F51 /* Build configuration list for PBXNativeTarget "Watch App Extension" */;
 			buildPhases = (
+				D4CFBC9F234149F7005076D3 /* SwiftLint */,
 				D44FF72C23413E72008D0F51 /* Sources */,
 				D44FF72D23413E72008D0F51 /* Frameworks */,
 				D44FF72E23413E72008D0F51 /* Resources */,
@@ -569,10 +570,10 @@
 				D433BB9D21B1898D001C79F6 /* 20-antique-car-horn.mp3 in Resources */,
 				D433BBA021B18AF4001C79F6 /* 21-alarm-klaxon.mp3 in Resources */,
 				D48ED3FA21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 in Resources */,
+				D4CFBC9B23414992005076D3 /* Warnings.xcconfig in Resources */,
 				D4AAAB222293509800938489 /* Localizable.strings in Resources */,
 				772459C81F1E1D10006CA335 /* Assets.xcassets in Resources */,
 				772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */,
-				D4A57E722341439F00634F92 /* Warnings.xcconfig in Resources */,
 				77AF00B41F69623800D35EF1 /* LaunchScreen.storyboard in Resources */,
 				77AF00B71F69624E00D35EF1 /* Main.storyboard in Resources */,
 			);
@@ -582,7 +583,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4A57E732341439F00634F92 /* Warnings.xcconfig in Resources */,
+				D4CFBC9C23414992005076D3 /* Warnings.xcconfig in Resources */,
 				D44FF72A23413E72008D0F51 /* Assets.xcassets in Resources */,
 				D44FF72823413E71008D0F51 /* Interface.storyboard in Resources */,
 			);
@@ -592,8 +593,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4CFBC9D23414992005076D3 /* Warnings.xcconfig in Resources */,
 				D44FF73C23413E73008D0F51 /* Assets.xcassets in Resources */,
-				D4A57E742341439F00634F92 /* Warnings.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,7 +613,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\n";
+			shellScript = "if test -f \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\nfi\n";
+		};
+		D4CFBC9F234149F7005076D3 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -f \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -748,7 +767,7 @@
 /* Begin XCBuildConfiguration section */
 		77EFB3EC1ED5C1A800BDDEFF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D4A57E712341439F00634F92 /* Warnings.xcconfig */;
+			baseConfigurationReference = D4CFBC9A23414992005076D3 /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -815,7 +834,7 @@
 		};
 		77EFB3ED1ED5C1A800BDDEFF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D4A57E712341439F00634F92 /* Warnings.xcconfig */;
+			baseConfigurationReference = D4CFBC9A23414992005076D3 /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
