@@ -24,6 +24,8 @@ In May, 2017, it was rewritten in Swift, and released as ["An Excellent Countdow
 
 In April, 2019, it was again rewritten, and released as "AmbiaMara."
 
+So that means that the basic design is from 2012. It's not the "swifiest" design on Earth, but it works pretty well.
+
 NO WATCH APP
 -
 The app features a nascent (unused) Apple Watch app. It was determined that the communication between phone and Watch was too unreliable to qualify the companion app for release, but the app has been left in the codebase for possible future deployment.
