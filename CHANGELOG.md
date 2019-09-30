@@ -1,3 +1,5 @@
+**Version 1.2.0.2000** *TBD*
+
 **Version 1.1.0.2001** *September 28, 2019*
 - Fixed a bug, where the sound editor button was not being changed upon return from the sound editor.
 
