@@ -22,6 +22,9 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     
     /// This contains our audio player.
     var audioPlayer: AVAudioPlayer!
+    
+    /// This is an awesomely nasty backreference to our main setup controller
+    var daBoss: TimerSetupController!
 
     /// The vibrate switch
     @IBOutlet weak var vibrateSwitch: UISwitch!
@@ -513,7 +516,16 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
     /* ################################################################## */
     // MARK: - Base Class Override Methods
     /* ################################################################## */
-
+    
+    /* ################################################################## */
+    /**
+     This is called when the view finishes loading.
+     */
+    override func viewWillDisappear(_ animated: Bool) {
+        self.daBoss?.setup()
+        super.viewWillDisappear(animated)
+    }
+    
     /* ################################################################## */
     /**
      This is called when the view finishes loading.
