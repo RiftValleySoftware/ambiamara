@@ -404,7 +404,7 @@
                                     <segment title="" image="TimerModeImages-Both"/>
                                 </segments>
                                 <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="selectedSegmentTintColor" red="1" green="1" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="selectedSegmentTintColor" red="1" green="0.97254901959999995" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="modeSegmentedControlChanged:" destination="Cmw-cs-f0x" eventType="valueChanged" id="nUQ-MR-fsS"/>
                                 </connections>
@@ -528,7 +528,6 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="bOd-1e-i1t" firstAttribute="top" secondItem="KvQ-6l-M17" secondAttribute="bottom" id="5an-AK-5J5"/>
@@ -889,7 +888,7 @@
                                     <segment title="" image="Music"/>
                                     <segment title="" image="Nothing"/>
                                 </segments>
-                                <color key="selectedSegmentTintColor" red="1" green="1" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="selectedSegmentTintColor" red="1" green="0.97254901959999995" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="soundModeSegmentedSwitchHit:" destination="avR-jN-gqo" eventType="valueChanged" id="nbl-r2-KfN"/>
                                 </connections>
@@ -900,7 +899,7 @@
                                     <constraint firstAttribute="width" constant="47" id="3I9-de-HjA"/>
                                     <constraint firstAttribute="height" constant="31" id="dIZ-yB-9vq"/>
                                 </constraints>
-                                <color key="onTintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="onTintColor" red="1" green="0.97254901960784312" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="thumbTintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="vibrateSwitchHit:" destination="avR-jN-gqo" eventType="valueChanged" id="EoQ-VI-TcY"/>
@@ -1010,6 +1009,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KkI-hg-1Rx" customClass="SoundTestButton" customModule="AmbiaMara" customModuleProvider="target">
                                         <rect key="frame" x="127" y="32" width="50" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="lJy-R8-E3U"/>
                                             <constraint firstAttribute="width" secondItem="KkI-hg-1Rx" secondAttribute="height" multiplier="1:1" id="qI8-8A-m8C"/>
@@ -1091,7 +1091,6 @@
                             </switch>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="sS3-tg-sjd" firstAttribute="centerY" secondItem="bN2-mr-HYf" secondAttribute="centerY" id="0L8-C1-2Zc"/>
                             <constraint firstItem="wpe-dP-nhC" firstAttribute="trailing" secondItem="hrn-NJ-meW" secondAttribute="trailing" constant="8" id="7CJ-10-vQZ"/>
@@ -1229,4 +1228,5 @@
         <image name="TimerModeImages-Lights" width="104" height="26"/>
         <image name="TrafficLights" width="12" height="40"/>
     </resources>
+    <color key="tintColor" red="1" green="0.97254901960784312" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
 </document>

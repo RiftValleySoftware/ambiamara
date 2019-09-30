@@ -46,6 +46,9 @@ class TimerSetupController: A_TimerSetPickerController {
     /// The label for the color display
     @IBOutlet weak var colorDisplayLabel: UILabel!
     
+    /* ################################################################################################################################## */
+    // MARK: - Internal Instance Methods
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This just sets up the picker views to the current settings
@@ -53,16 +56,15 @@ class TimerSetupController: A_TimerSetPickerController {
     func setUpPickerViews() {
         self.podiumModeContainerView.isHidden = (.Digital == self.timerObject.displayMode)
         self.colorPickerContainerView.isHidden = (.Podium == self.timerObject.displayMode)
+        self.warningThresholdTimePicker.setNeedsDisplay()
+        self.finalThresholdTimePicker.setNeedsDisplay()
     }
     
-    /* ################################################################################################################################## */
-    // MARK: - Base Class Override Methods
-    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     Called when the view will appear.
+     Sets up the screen before it is shown.
      */
-    override func viewWillAppear(_ animated: Bool) {
+    func setup() {
         // Make sure that our red is always less than our yellow.
         var maxValInt = Swift.max(0, Swift.min(self.timerObject.timeSetPodiumFinal, self.timerObject.timeSetPodiumWarn - 1))
         if 0 == maxValInt {
@@ -86,7 +88,7 @@ class TimerSetupController: A_TimerSetPickerController {
         }
 
         self.setUpPickerViews()
-        
+
         self.warningThresholdTimePicker.reloadAllComponents()
         self.finalThresholdTimePicker.reloadAllComponents()
         self.colorThemePicker.reloadAllComponents()
@@ -115,8 +117,6 @@ class TimerSetupController: A_TimerSetPickerController {
         Timer_AppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
         self.colorThemePicker.selectRow(self.timerObject.colorTheme, inComponent: 0, animated: true)
         
-        self.navigationController?.navigationBar.tintColor = self.view.tintColor
-        
         self.alarmSetupButton.isMusicOn = .Music == self.timerObject.soundMode
         self.alarmSetupButton.isSoundOn = .Sound == self.timerObject.soundMode
         self.alarmSetupButton.isTicksOn = self.timerObject.audibleTicks
@@ -124,7 +124,17 @@ class TimerSetupController: A_TimerSetPickerController {
         self.colorThemePicker.reloadAllComponents()
         self.warningThresholdTimePicker.reloadAllComponents()
         self.finalThresholdTimePicker.reloadAllComponents()
-        
+    }
+
+    /* ################################################################################################################################## */
+    // MARK: - Base Class Override Methods
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     Called when the view will appear.
+     */
+    override func viewWillAppear(_ animated: Bool) {
+        self.setup()
         super.viewWillAppear(animated)
     }
     
@@ -154,6 +164,7 @@ class TimerSetupController: A_TimerSetPickerController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationController = segue.destination as? Timer_SetupSoundsViewController {
             destinationController.timerObject = self.timerObject
+            destinationController.daBoss = self
         }
     }
 
