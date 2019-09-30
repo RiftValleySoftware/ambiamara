@@ -43,6 +43,7 @@
 		D433BBA221B18D09001C79F6 /* TimerSoundModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D433BBA121B18D09001C79F6 /* TimerSoundModeButton.swift */; };
 		D4380ED82342434700AE2207 /* Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4380ED72342434700AE2207 /* Timer_SharedDeclarations.swift */; };
 		D4380EDA2342438600AE2207 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */; };
+		D4380EDC234260BE00AE2207 /* AmbiaMara_Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4380EDB234260BE00AE2207 /* AmbiaMara_Prefs.swift */; };
 		D44FF72823413E71008D0F51 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D44FF72623413E71008D0F51 /* Interface.storyboard */; };
 		D44FF72A23413E72008D0F51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44FF72923413E72008D0F51 /* Assets.xcassets */; };
 		D44FF73123413E72008D0F51 /* AmbiaMara Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D44FF73023413E72008D0F51 /* AmbiaMara Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -155,6 +156,7 @@
 		D433BBA121B18D09001C79F6 /* TimerSoundModeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimerSoundModeButton.swift; path = ViewControllers/TimerSoundModeButton.swift; sourceTree = "<group>"; };
 		D4380ED72342434700AE2207 /* Timer_SharedDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timer_SharedDeclarations.swift; path = "App Files/Timer_SharedDeclarations.swift"; sourceTree = "<group>"; };
 		D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_PersistentPrefs.swift; sourceTree = "<group>"; };
+		D4380EDB234260BE00AE2207 /* AmbiaMara_Prefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmbiaMara_Prefs.swift; sourceTree = "<group>"; };
 		D44FF72423413E71008D0F51 /* AmbiaMara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbiaMara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44FF72723413E71008D0F51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		D44FF72923413E72008D0F51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -362,10 +364,11 @@
 		D44FF73423413E72008D0F51 /* Watch App Extension */ = {
 			isa = PBXGroup;
 			children = (
-				D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */,
-				D44FF73523413E72008D0F51 /* InterfaceController.swift */,
 				D44FF73723413E72008D0F51 /* ExtensionDelegate.swift */,
+				D44FF73523413E72008D0F51 /* InterfaceController.swift */,
 				D44FF73923413E72008D0F51 /* NotificationController.swift */,
+				D4380EDB234260BE00AE2207 /* AmbiaMara_Prefs.swift */,
+				D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */,
 				D44FF73B23413E73008D0F51 /* Assets.xcassets */,
 				D44FF73D23413E73008D0F51 /* Info.plist */,
 				D44FF73E23413E73008D0F51 /* PushNotificationPayload.apns */,
@@ -668,6 +671,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4380EDC234260BE00AE2207 /* AmbiaMara_Prefs.swift in Sources */,
 				D44FF73A23413E72008D0F51 /* NotificationController.swift in Sources */,
 				D44FF73823413E72008D0F51 /* ExtensionDelegate.swift in Sources */,
 				D44FF73623413E72008D0F51 /* InterfaceController.swift in Sources */,
