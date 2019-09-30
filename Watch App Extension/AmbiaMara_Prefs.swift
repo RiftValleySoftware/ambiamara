@@ -42,12 +42,6 @@ public class AmbiaMara_Prefs: RVS_PersistentPrefs {
     private static let _mainListKeyPrefix = "timer-%d"
     
     /* ############################################################################################################################## */
-    // MARK: - Private Instance Properties
-    /* ############################################################################################################################## */
-    /// This is the index of this pref.
-    private var _index: Int = -1
-    
-    /* ############################################################################################################################## */
     // MARK: - Public Overridden Calculated Properties
     /* ############################################################################################################################## */
     /* ################################################################## */
@@ -57,26 +51,6 @@ public class AmbiaMara_Prefs: RVS_PersistentPrefs {
      */
     override public var keys: [String] {
         return Keys.allCases.compactMap { return $0.rawValue }
-    }
-    
-    /* ################################################################## */
-    /**
-     This is the key for this instance.
-     
-     It uses the index property to determine the String to return.
-     */
-    override public var key: String {
-        get {
-            if 0 <= _index {
-                return String(format: type(of: self)._mainListKeyPrefix, _index)
-            }
-            
-            return super.key
-        }
-        
-        set {
-            _ = newValue    // NOP
-        }
     }
     
     /* ############################################################################################################################## */
@@ -156,8 +130,25 @@ public class AmbiaMara_Prefs: RVS_PersistentPrefs {
     /* ############################################################################################################################## */
     // MARK: - Public Init
     /* ############################################################################################################################## */
-    public init(index inIndex: Int) {
-        super.init()
-        _index = inIndex
+    /* ################################################################## */
+    /**
+     Initialize with an index and initial values.
+     
+     - parameter index: The Integer index (0-based) of this parameter.
+     - parameter values: A String-keyed Dictionary of Int, with our values. The keys must match the keys Array.
+     */
+    public init(index inIndex: Int, values inValues: [String: Int]) {
+        super.init(key: String(format: type(of: self)._mainListKeyPrefix, inIndex), values: inValues)
+    }
+    
+    /* ############################################################################################################################## */
+    // MARK: - Public Instance Methods
+    /* ############################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This clears the values, and deletes the pref from the UserDefaults.
+     */
+    public func clear() {
+        values = [:]
     }
 }
