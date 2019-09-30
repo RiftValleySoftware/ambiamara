@@ -288,6 +288,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      */
     func applicationWillEnterForeground(_: UIApplication) {
         type(of: self).recordOriginalBrightness()
+        self.sendForegroundMessage()
     }
     
     /* ################################################################## */
@@ -328,20 +329,11 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
 
     /* ################################################################## */
     /**
-     Commented out, as we are not using the companion app.
      */
-//    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-//        self.activateSession()
-//        return true
-//    }
-    
-    /* ################################################################## */
-    /**
-     Commented out, as we are not using the companion app.
-     */
-//    func applicationWillEnterForeground(_ application: UIApplication) {
-//        self.sendForegroundMessage()
-//    }
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        self.activateSession()
+        return true
+    }
     
     /* ################################################################## */
     /**
@@ -358,7 +350,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     }
     
     /* ################################################################################################################################## */
-    // MARK: - WCSessionDelegate Sender Methods - WILL NOT BE USED, BECAUSE WE AREN'T ENABLING THE WATCH APP.
+    // MARK: - WCSessionDelegate Sender Methods -
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**

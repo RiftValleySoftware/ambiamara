@@ -1,15 +1,20 @@
-//
-//  NotificationController.swift
-//  Timer
-//  
-//  Created by Chris Marshall on 9/29/19.
-//  © 2019 Little Green Viper Software Development LLC. All rights reserved.
-//  This is proprietary code. Copying and reuse are not allowed. It is being opened to provide sample code.
+/**
+© Copyright 2019, The Great Rift Valley Software Company. All rights reserved.
+
+This code is proprietary and confidential code,
+It is NOT to be reused or combined into any application,
+unless done so, specifically under written license from The Great Rift Valley Software Company.
+
+The Great Rift Valley Software Company: https://riftvalleysoftware.com
+*/
 
 import WatchKit
 import Foundation
 import UserNotifications
 
+/* ###################################################################################################################################### */
+/**
+ */
 class NotificationController: WKUserNotificationInterfaceController {
 
     override init() {

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		77052CD71EE0DAAD00DA2E8C /* TimerRuntimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77052CD61EE0DAAD00DA2E8C /* TimerRuntimeViewController.swift */; };
 		770FB9B01EE4359300E3120D /* Timer_InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770FB9AF1EE4359300E3120D /* Timer_InfoViewController.swift */; };
-		771974DE1EF02FD2002C8F62 /* Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771974DD1EF02FD2002C8F62 /* Timer_SharedDeclarations.swift */; };
 		772459C51F1E1D00006CA335 /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */; };
 		772459C81F1E1D10006CA335 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 772459C11F1E1CD7006CA335 /* Assets.xcassets */; };
 		772A13C61ED5E50C0043C58B /* Timer_SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A13C51ED5E50C0043C58B /* Timer_SettingsViewController.swift */; };
@@ -42,6 +41,8 @@
 		D433BB9E21B1898D001C79F6 /* 17-car-horn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D433BB9721B1898D001C79F6 /* 17-car-horn.mp3 */; };
 		D433BBA021B18AF4001C79F6 /* 21-alarm-klaxon.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D433BB9F21B18AF4001C79F6 /* 21-alarm-klaxon.mp3 */; };
 		D433BBA221B18D09001C79F6 /* TimerSoundModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D433BBA121B18D09001C79F6 /* TimerSoundModeButton.swift */; };
+		D4380ED82342434700AE2207 /* Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4380ED72342434700AE2207 /* Timer_SharedDeclarations.swift */; };
+		D4380EDA2342438600AE2207 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */; };
 		D44FF72823413E71008D0F51 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D44FF72623413E71008D0F51 /* Interface.storyboard */; };
 		D44FF72A23413E72008D0F51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44FF72923413E72008D0F51 /* Assets.xcassets */; };
 		D44FF73123413E72008D0F51 /* AmbiaMara Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D44FF73023413E72008D0F51 /* AmbiaMara Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -117,7 +118,6 @@
 		2F088DE0452F2465A4662EAD /* Pods-An Excellent Countdown Timer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-An Excellent Countdown Timer.release.xcconfig"; path = "Pods/Target Support Files/Pods-An Excellent Countdown Timer/Pods-An Excellent Countdown Timer.release.xcconfig"; sourceTree = "<group>"; };
 		77052CD61EE0DAAD00DA2E8C /* TimerRuntimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimerRuntimeViewController.swift; path = ViewControllers/TimerRuntimeViewController.swift; sourceTree = "<group>"; };
 		770FB9AF1EE4359300E3120D /* Timer_InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timer_InfoViewController.swift; path = ViewControllers/Timer_InfoViewController.swift; sourceTree = "<group>"; };
-		771974DD1EF02FD2002C8F62 /* Timer_SharedDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timer_SharedDeclarations.swift; path = ../Shared/Timer_SharedDeclarations.swift; sourceTree = "<group>"; };
 		772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Let's go Digital Regular.ttf"; sourceTree = "<group>"; };
 		772459C11F1E1CD7006CA335 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		772A13C51ED5E50C0043C58B /* Timer_SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timer_SettingsViewController.swift; path = ViewControllers/Timer_SettingsViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +153,8 @@
 		D433BB9721B1898D001C79F6 /* 17-car-horn.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "17-car-horn.mp3"; sourceTree = "<group>"; };
 		D433BB9F21B18AF4001C79F6 /* 21-alarm-klaxon.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "21-alarm-klaxon.mp3"; sourceTree = "<group>"; };
 		D433BBA121B18D09001C79F6 /* TimerSoundModeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimerSoundModeButton.swift; path = ViewControllers/TimerSoundModeButton.swift; sourceTree = "<group>"; };
+		D4380ED72342434700AE2207 /* Timer_SharedDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timer_SharedDeclarations.swift; path = "App Files/Timer_SharedDeclarations.swift"; sourceTree = "<group>"; };
+		D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_PersistentPrefs.swift; sourceTree = "<group>"; };
 		D44FF72423413E71008D0F51 /* AmbiaMara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbiaMara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44FF72723413E71008D0F51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		D44FF72923413E72008D0F51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -237,8 +239,8 @@
 			isa = PBXGroup;
 			children = (
 				772A13D41ED5E8840043C58B /* Timer_AppDelegate.swift */,
+				D4380ED72342434700AE2207 /* Timer_SharedDeclarations.swift */,
 				77BB98E01F12838F0062B14A /* TimerEngine.swift */,
-				771974DD1EF02FD2002C8F62 /* Timer_SharedDeclarations.swift */,
 			);
 			name = "App Files";
 			sourceTree = "<group>";
@@ -360,6 +362,7 @@
 		D44FF73423413E72008D0F51 /* Watch App Extension */ = {
 			isa = PBXGroup;
 			children = (
+				D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */,
 				D44FF73523413E72008D0F51 /* InterfaceController.swift */,
 				D44FF73723413E72008D0F51 /* ExtensionDelegate.swift */,
 				D44FF73923413E72008D0F51 /* NotificationController.swift */,
@@ -651,13 +654,13 @@
 				D427963F219B50F90012F705 /* SwipeableTabBarController.swift in Sources */,
 				D4CF37C8219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift in Sources */,
 				7770CB2E1ED6153500ED1F9A /* TimerSetController.swift in Sources */,
+				D4380ED82342434700AE2207 /* Timer_SharedDeclarations.swift in Sources */,
 				D427963B219B50F90012F705 /* SwipeInteractor.swift in Sources */,
 				D427963C219B50F90012F705 /* SwipeAnimationType.swift in Sources */,
 				D427963E219B50F90012F705 /* SwipeAnimation.swift in Sources */,
 				775AE1771EDDDF1D00B168A7 /* A_TimerSetPickerController.swift in Sources */,
 				770FB9B01EE4359300E3120D /* Timer_InfoViewController.swift in Sources */,
 				772BF9C41ED600B3002D1782 /* TimerNavController.swift in Sources */,
-				771974DE1EF02FD2002C8F62 /* Timer_SharedDeclarations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,6 +671,7 @@
 				D44FF73A23413E72008D0F51 /* NotificationController.swift in Sources */,
 				D44FF73823413E72008D0F51 /* ExtensionDelegate.swift in Sources */,
 				D44FF73623413E72008D0F51 /* InterfaceController.swift in Sources */,
+				D4380EDA2342438600AE2207 /* RVS_PersistentPrefs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
