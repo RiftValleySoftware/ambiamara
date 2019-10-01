@@ -140,15 +140,61 @@ public class AmbiaMara_Prefs: RVS_PersistentPrefs {
     public init(index inIndex: Int, values inValues: [String: Int]) {
         super.init(key: String(format: type(of: self)._mainListKeyPrefix, inIndex), values: inValues)
     }
+}
+
+/* ################################################################################################################################## */
+// MARK: - Main State Class
+/* ################################################################################################################################## */
+/**
+ */
+public class TimerState: Sequence {
+    /* ############################################################################################################################## */
+    // MARK: - Private Instance Variables
+    /* ############################################################################################################################## */
+    /// This is a list of the timers, as saved prefs.
+    private var _timers: [AmbiaMara_Prefs] = []
     
     /* ############################################################################################################################## */
-    // MARK: - Public Instance Methods
+    // MARK: - Public Instance Variables
     /* ############################################################################################################################## */
+    /// The selected timer as an index into the list
+    var selectedTimerIndex: Int = -1 {
+        didSet {
+            
+        }
+    }
+    
+    /* ############################################################################################################################## */
+    // MARK: - Sequence Support
+    /* ############################################################################################################################## */
+    /// The sequenced element is one of our prefs instances.
+    public typealias Element = AmbiaMara_Prefs
+    /// The iterator iterates as an Array of our prefs.
+    public typealias Iterator = Array<AmbiaMara_Prefs>.Iterator
+    
     /* ################################################################## */
     /**
-     This clears the values, and deletes the pref from the UserDefaults.
+     Returns the number of items we have in our prefs Array.
      */
-    public func clear() {
-        values = [:]
+    public var count: Int {
+        return _timers.count
+    }
+    
+    /* ################################################################## */
+    /**
+     Allows a simple integer-indexed (0-based) of our prefs Array.
+     
+     - parameter inIndex: A 0-based index into our prefs Array.
+     */
+    public subscript(_ inIndex: Int) -> Element {
+        return _timers[inIndex]
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns: an Array iterator of our prefs.
+     */
+    public func makeIterator() -> TimerState.Iterator {
+        return _timers.makeIterator()
     }
 }
