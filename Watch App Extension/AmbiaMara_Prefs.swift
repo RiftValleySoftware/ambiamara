@@ -147,7 +147,7 @@ public class AmbiaMara_Prefs: RVS_PersistentPrefs {
 /* ################################################################################################################################## */
 /**
  */
-public class TimerState: Sequence {
+public class TimerState {
     /* ############################################################################################################################## */
     // MARK: - Private Instance Variables
     /* ############################################################################################################################## */
@@ -163,10 +163,53 @@ public class TimerState: Sequence {
             
         }
     }
+}
+
+/* ################################################################################################################################## */
+// MARK: - Main State Class (Array Behavior Support)
+/* ################################################################################################################################## */
+/**
+ */
+extension TimerState {
+    /* ################################################################## */
+    /**
+     Allows a simple integer-indexed (0-based) of our prefs Array.
+     
+     - parameter inIndex: A 0-based index into our prefs Array.
+     */
+    public subscript(_ inIndex: Int) -> Element {
+        return _timers[inIndex]
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    public func append(_ inElement: Element) {
+        _timers.append(inElement)
+    }
     
-    /* ############################################################################################################################## */
-    // MARK: - Sequence Support
-    /* ############################################################################################################################## */
+    /* ################################################################## */
+    /**
+     */
+    public func insert(_ inElement: Element, at inAt: Int) {
+        _timers.insert(inElement, at: inAt)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    public func remove(at inAt: Int) {
+        _timers[inAt].clear()   // Make sure that we clear the element from our stored prefs.
+        _timers.remove(at: inAt)
+    }
+}
+
+/* ################################################################################################################################## */
+// MARK: - Main State Class (Sequence Support)
+/* ################################################################################################################################## */
+/**
+ */
+extension TimerState: Sequence {
     /// The sequenced element is one of our prefs instances.
     public typealias Element = AmbiaMara_Prefs
     /// The iterator iterates as an Array of our prefs.
@@ -178,16 +221,6 @@ public class TimerState: Sequence {
      */
     public var count: Int {
         return _timers.count
-    }
-    
-    /* ################################################################## */
-    /**
-     Allows a simple integer-indexed (0-based) of our prefs Array.
-     
-     - parameter inIndex: A 0-based index into our prefs Array.
-     */
-    public subscript(_ inIndex: Int) -> Element {
-        return _timers[inIndex]
     }
     
     /* ################################################################## */
