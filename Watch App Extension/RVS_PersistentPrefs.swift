@@ -61,7 +61,7 @@ public class RVS_PersistentPrefs: NSObject {
             UserDefaults.standard.set(_values, forKey: key)
         } else {
             #if DEBUG
-            print("Attempt to set non-plist values!")
+                print("Attempt to set non-plist values!")
             #endif
             
             // What we do here, is look through our values list, and record the keys of the elements that are not considered plist-compatible (for XML plists). We return those in the error that we throw.
@@ -90,12 +90,13 @@ public class RVS_PersistentPrefs: NSObject {
      */
     private func _load() throws {
         let standardDefaultsObject = UserDefaults.standard
-        
+        _values = [:]   // Start clean.
+
         if let loadedPrefs = standardDefaultsObject.object(forKey: key) as? [String: Any] {
             _values = loadedPrefs
         } else {
             #if DEBUG
-            print("Unable to Load Prefs for \"\(key)\"")
+                print("Unable to Load Prefs for \"\(key)\"")
             #endif
             throw PrefsError.noStoredPrefsForKey(key: key)
         }
@@ -167,7 +168,7 @@ public class RVS_PersistentPrefs: NSObject {
             do {
                 try _load()
                 #if DEBUG
-                print("Successfully Loaded \(_values)")
+                    print("Successfully Loaded \(_values)")
                 #endif
             } catch PrefsError.noStoredPrefsForKey(let unknownKey) {
                 lastError = PrefsError.noStoredPrefsForKey(key: unknownKey)
@@ -198,14 +199,14 @@ public class RVS_PersistentPrefs: NSObject {
             
             if !illegalKeys.isEmpty {
                 #if DEBUG
-                print("Illegal Keys!")
+                    print("Illegal Keys!")
                 #endif
                 lastError = PrefsError.incorrectKeys(invalidElements: illegalKeys)
             } else {
                 do {
                     try _save()
                     #if DEBUG
-                    print("Successfully Saved \(_values)")
+                        print("Successfully Saved \(_values)")
                     #endif
                 } catch PrefsError.valuesNotPlistCompatible(let unCodableKeys) {
                     lastError = PrefsError.valuesNotPlistCompatible(invalidElements: unCodableKeys)
@@ -280,7 +281,7 @@ public class RVS_PersistentPrefs: NSObject {
         }
         
         #if DEBUG
-        print("Initial Values for \"\(key)\": \(_values)")
+            print("Initial Values for \"\(key)\": \(_values)")
         #endif
         
         // Make sure we didn't barf.
@@ -288,5 +289,16 @@ public class RVS_PersistentPrefs: NSObject {
             !inValues.isEmpty {
             values = _values.merging(inValues, uniquingKeysWith: { (_, new) in new })
         }
+    }
+    
+    /* ############################################################################################################################## */
+    // MARK: - Public Methods
+    /* ############################################################################################################################## */
+    /* ################################################################## */
+    /**
+     This clears the values, and deletes the pref from the UserDefaults.
+     */
+    public func clear() {
+        values = [:]
     }
 }
