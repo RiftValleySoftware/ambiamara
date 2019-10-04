@@ -224,73 +224,6 @@
           <div class="section-content">
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Class%20Extensions"></a>
-                <a name="//apple_ref/swift/Section/Class Extensions" class="dashAnchor"></a>
-                <a href="#/Class%20Extensions">
-                  <h3 class="section-name">Class Extensions</h3>
-                </a>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(cs)UIColor"></a>
-                    <a name="//apple_ref/swift/Extension/UIColor" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)UIColor">UIColor</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This allows us to deal with HSB colors, and detect grayscale and clear</p>
-
-                        <a href="Extensions/UIColor.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">UIColor</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">NSSecureCoding</span><span class="p">,</span> <span class="kt">NSCopying</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:12CoreGraphics7CGFloatV"></a>
-                    <a name="//apple_ref/swift/Extension/CGFloat" class="dashAnchor"></a>
-                    <a class="token" href="#/s:12CoreGraphics7CGFloatV">CGFloat</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This makes it easier to convert between Degrees and Radians.</p>
-
-                        <a href="Extensions/CGFloat.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">CGFloat</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
                 <a name="/Various%20Strings,%20Used%20in%20Messaging"></a>
                 <a name="//apple_ref/swift/Section/Various Strings, Used in Messaging" class="dashAnchor"></a>
                 <a href="#/Various%20Strings,%20Used%20in%20Messaging">
@@ -319,7 +252,8 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@frozen</span>
+<span class="kd">extension</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -347,7 +281,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">UIView</span> <span class="p">:</span> <span class="kt">UIResponder</span><span class="p">,</span> <span class="kt">NSCoding</span><span class="p">,</span> <span class="kt">UIAppearance</span><span class="p">,</span> <span class="kt">UIAppearanceContainer</span><span class="p">,</span> <span class="kt">UIDynamicItem</span><span class="p">,</span> <span class="kt">UITraitEnvironment</span><span class="p">,</span> <span class="kt">UICoordinateSpace</span><span class="p">,</span> <span class="kt">UIFocusItem</span><span class="p">,</span> <span class="kt">UIFocusItemContainer</span><span class="p">,</span> <span class="kt">CALayerDelegate</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UIView</span></code></pre>
 
                         </div>
                       </div>
@@ -375,7 +309,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">UIImage</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">NSSecureCoding</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UIImage</span></code></pre>
 
                         </div>
                       </div>
@@ -403,7 +337,76 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Int</span> <span class="p">:</span> <span class="kt">FixedWidthInteger</span><span class="p">,</span> <span class="kt">SignedInteger</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@frozen</span>
+<span class="kd">extension</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Class%20Extensions"></a>
+                <a name="//apple_ref/swift/Section/Class Extensions" class="dashAnchor"></a>
+                <a href="#/Class%20Extensions">
+                  <h3 class="section-name">Class Extensions</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)UIColor"></a>
+                    <a name="//apple_ref/swift/Extension/UIColor" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)UIColor">UIColor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This allows us to deal with HSB colors, and detect grayscale and clear</p>
+
+                        <a href="Extensions/UIColor.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UIColor</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12CoreGraphics7CGFloatV"></a>
+                    <a name="//apple_ref/swift/Extension/CGFloat" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12CoreGraphics7CGFloatV">CGFloat</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This makes it easier to convert between Degrees and Radians.</p>
+
+                        <a href="Extensions/CGFloat.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@frozen</span>
+<span class="kd">extension</span> <span class="kt">CGFloat</span></code></pre>
 
                         </div>
                       </div>
@@ -419,7 +422,7 @@
     </div>
     <section class="footer">
       <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external">©2019 The Great Rift Valley Software Company</a></p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
