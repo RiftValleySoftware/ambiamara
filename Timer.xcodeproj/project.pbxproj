@@ -44,12 +44,10 @@
 		D4380ED82342434700AE2207 /* Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4380ED72342434700AE2207 /* Timer_SharedDeclarations.swift */; };
 		D4380EDA2342438600AE2207 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */; };
 		D4380EDC234260BE00AE2207 /* AmbiaMara_Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4380EDB234260BE00AE2207 /* AmbiaMara_Prefs.swift */; };
-		D44FF72823413E71008D0F51 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D44FF72623413E71008D0F51 /* Interface.storyboard */; };
 		D44FF72A23413E72008D0F51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44FF72923413E72008D0F51 /* Assets.xcassets */; };
 		D44FF73123413E72008D0F51 /* AmbiaMara Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D44FF73023413E72008D0F51 /* AmbiaMara Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D44FF73623413E72008D0F51 /* Timer_InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF73523413E72008D0F51 /* Timer_InterfaceController.swift */; };
 		D44FF73823413E72008D0F51 /* Timer_ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF73723413E72008D0F51 /* Timer_ExtensionDelegate.swift */; };
-		D44FF73A23413E72008D0F51 /* Timer_NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF73923413E72008D0F51 /* Timer_NotificationController.swift */; };
 		D44FF73C23413E73008D0F51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44FF73B23413E73008D0F51 /* Assets.xcassets */; };
 		D44FF74123413E73008D0F51 /* AmbiaMara.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D44FF72423413E71008D0F51 /* AmbiaMara.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D48C0A4221B096C9007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3921B096C8007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 */; };
@@ -61,6 +59,7 @@
 		D48C0A4821B096C9007AC2DC /* 10-annoying-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3F21B096C8007AC2DC /* 10-annoying-alarm.mp3 */; };
 		D48C0A4921B096C9007AC2DC /* 04-fast-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A4021B096C8007AC2DC /* 04-fast-beep.mp3 */; };
 		D48C0A4A21B096C9007AC2DC /* 06-escalation.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A4121B096C8007AC2DC /* 06-escalation.mp3 */; };
+		D48C8622234A5078001CCF3E /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D48C8620234A5078001CCF3E /* Interface.storyboard */; };
 		D48ED3FA21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED3FC21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 */; };
 		D48ED3FD21B475AE00ADB8F8 /* 15-shut-up-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED3FF21B475AE00ADB8F8 /* 15-shut-up-2.mp3 */; };
 		D48ED40021B475BC00ADB8F8 /* 14-shut-up-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED40221B475BC00ADB8F8 /* 14-shut-up-1.mp3 */; };
@@ -158,16 +157,13 @@
 		D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_PersistentPrefs.swift; sourceTree = "<group>"; };
 		D4380EDB234260BE00AE2207 /* AmbiaMara_Prefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmbiaMara_Prefs.swift; sourceTree = "<group>"; };
 		D44FF72423413E71008D0F51 /* AmbiaMara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbiaMara.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D44FF72723413E71008D0F51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		D44FF72923413E72008D0F51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D44FF72B23413E72008D0F51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D44FF73023413E72008D0F51 /* AmbiaMara Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "AmbiaMara Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44FF73523413E72008D0F51 /* Timer_InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer_InterfaceController.swift; sourceTree = "<group>"; };
 		D44FF73723413E72008D0F51 /* Timer_ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer_ExtensionDelegate.swift; sourceTree = "<group>"; };
-		D44FF73923413E72008D0F51 /* Timer_NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer_NotificationController.swift; sourceTree = "<group>"; };
 		D44FF73B23413E73008D0F51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D44FF73D23413E73008D0F51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D44FF73E23413E73008D0F51 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		D48C0A3921B096C8007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "07-videogame-beeps-lower-frequency.mp3"; sourceTree = "<group>"; };
 		D48C0A3A21B096C8007AC2DC /* 08-videogame-beeps-high-frequency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "08-videogame-beeps-high-frequency.mp3"; sourceTree = "<group>"; };
 		D48C0A3B21B096C8007AC2DC /* 09-single-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "09-single-beep.mp3"; sourceTree = "<group>"; };
@@ -177,6 +173,7 @@
 		D48C0A3F21B096C8007AC2DC /* 10-annoying-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "10-annoying-alarm.mp3"; sourceTree = "<group>"; };
 		D48C0A4021B096C8007AC2DC /* 04-fast-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "04-fast-beep.mp3"; sourceTree = "<group>"; };
 		D48C0A4121B096C8007AC2DC /* 06-escalation.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "06-escalation.mp3"; sourceTree = "<group>"; };
+		D48C8621234A5078001CCF3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Watch App/Base.lproj/Interface.storyboard"; sourceTree = "<group>"; };
 		D48ED3FB21B475A400ADB8F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = en; path = "en.lproj/22-thanks-for-sharing.mp3"; sourceTree = "<group>"; };
 		D48ED3FE21B475AE00ADB8F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = en; path = "en.lproj/15-shut-up-2.mp3"; sourceTree = "<group>"; };
 		D48ED40121B475BC00ADB8F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = en; path = "en.lproj/14-shut-up-1.mp3"; sourceTree = "<group>"; };
@@ -354,7 +351,7 @@
 		D44FF72523413E71008D0F51 /* Watch App */ = {
 			isa = PBXGroup;
 			children = (
-				D44FF72623413E71008D0F51 /* Interface.storyboard */,
+				D48C8620234A5078001CCF3E /* Interface.storyboard */,
 				D44FF72923413E72008D0F51 /* Assets.xcassets */,
 				D44FF72B23413E72008D0F51 /* Info.plist */,
 			);
@@ -366,7 +363,6 @@
 			children = (
 				D44FF73723413E72008D0F51 /* Timer_ExtensionDelegate.swift */,
 				D44FF73523413E72008D0F51 /* Timer_InterfaceController.swift */,
-				D44FF73923413E72008D0F51 /* Timer_NotificationController.swift */,
 				D48C861F234A4013001CCF3E /* Resources and Meta */,
 			);
 			path = "Watch App Extension";
@@ -410,7 +406,6 @@
 				D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */,
 				D44FF73B23413E73008D0F51 /* Assets.xcassets */,
 				D44FF73D23413E73008D0F51 /* Info.plist */,
-				D44FF73E23413E73008D0F51 /* PushNotificationPayload.apns */,
 			);
 			path = "Resources and Meta";
 			sourceTree = "<group>";
@@ -593,8 +588,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D48C8622234A5078001CCF3E /* Interface.storyboard in Resources */,
 				D44FF72A23413E72008D0F51 /* Assets.xcassets in Resources */,
-				D44FF72823413E71008D0F51 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,7 +675,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4380EDC234260BE00AE2207 /* AmbiaMara_Prefs.swift in Sources */,
-				D44FF73A23413E72008D0F51 /* Timer_NotificationController.swift in Sources */,
 				D44FF73823413E72008D0F51 /* Timer_ExtensionDelegate.swift in Sources */,
 				D44FF73623413E72008D0F51 /* Timer_InterfaceController.swift in Sources */,
 				D4380EDA2342438600AE2207 /* RVS_PersistentPrefs.swift in Sources */,
@@ -719,10 +713,10 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		D44FF72623413E71008D0F51 /* Interface.storyboard */ = {
+		D48C8620234A5078001CCF3E /* Interface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D44FF72723413E71008D0F51 /* Base */,
+				D48C8621234A5078001CCF3E /* Base */,
 			);
 			name = Interface.storyboard;
 			sourceTree = "<group>";
