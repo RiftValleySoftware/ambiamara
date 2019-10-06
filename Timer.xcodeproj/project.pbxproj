@@ -47,9 +47,9 @@
 		D44FF72823413E71008D0F51 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D44FF72623413E71008D0F51 /* Interface.storyboard */; };
 		D44FF72A23413E72008D0F51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44FF72923413E72008D0F51 /* Assets.xcassets */; };
 		D44FF73123413E72008D0F51 /* AmbiaMara Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D44FF73023413E72008D0F51 /* AmbiaMara Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D44FF73623413E72008D0F51 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF73523413E72008D0F51 /* InterfaceController.swift */; };
-		D44FF73823413E72008D0F51 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF73723413E72008D0F51 /* ExtensionDelegate.swift */; };
-		D44FF73A23413E72008D0F51 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF73923413E72008D0F51 /* NotificationController.swift */; };
+		D44FF73623413E72008D0F51 /* Timer_InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF73523413E72008D0F51 /* Timer_InterfaceController.swift */; };
+		D44FF73823413E72008D0F51 /* Timer_ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF73723413E72008D0F51 /* Timer_ExtensionDelegate.swift */; };
+		D44FF73A23413E72008D0F51 /* Timer_NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF73923413E72008D0F51 /* Timer_NotificationController.swift */; };
 		D44FF73C23413E73008D0F51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44FF73B23413E73008D0F51 /* Assets.xcassets */; };
 		D44FF74123413E73008D0F51 /* AmbiaMara.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D44FF72423413E71008D0F51 /* AmbiaMara.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D48C0A4221B096C9007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3921B096C8007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 */; };
@@ -162,9 +162,9 @@
 		D44FF72923413E72008D0F51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D44FF72B23413E72008D0F51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D44FF73023413E72008D0F51 /* AmbiaMara Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "AmbiaMara Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D44FF73523413E72008D0F51 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
-		D44FF73723413E72008D0F51 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
-		D44FF73923413E72008D0F51 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		D44FF73523413E72008D0F51 /* Timer_InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer_InterfaceController.swift; sourceTree = "<group>"; };
+		D44FF73723413E72008D0F51 /* Timer_ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer_ExtensionDelegate.swift; sourceTree = "<group>"; };
+		D44FF73923413E72008D0F51 /* Timer_NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer_NotificationController.swift; sourceTree = "<group>"; };
 		D44FF73B23413E73008D0F51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D44FF73D23413E73008D0F51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D44FF73E23413E73008D0F51 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
@@ -364,14 +364,10 @@
 		D44FF73423413E72008D0F51 /* Watch App Extension */ = {
 			isa = PBXGroup;
 			children = (
-				D44FF73723413E72008D0F51 /* ExtensionDelegate.swift */,
-				D44FF73523413E72008D0F51 /* InterfaceController.swift */,
-				D44FF73923413E72008D0F51 /* NotificationController.swift */,
-				D4380EDB234260BE00AE2207 /* AmbiaMara_Prefs.swift */,
-				D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */,
-				D44FF73B23413E73008D0F51 /* Assets.xcassets */,
-				D44FF73D23413E73008D0F51 /* Info.plist */,
-				D44FF73E23413E73008D0F51 /* PushNotificationPayload.apns */,
+				D44FF73723413E72008D0F51 /* Timer_ExtensionDelegate.swift */,
+				D44FF73523413E72008D0F51 /* Timer_InterfaceController.swift */,
+				D44FF73923413E72008D0F51 /* Timer_NotificationController.swift */,
+				D48C861F234A4013001CCF3E /* Resources and Meta */,
 			);
 			path = "Watch App Extension";
 			sourceTree = "<group>";
@@ -405,6 +401,18 @@
 				D48ED3FC21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		D48C861F234A4013001CCF3E /* Resources and Meta */ = {
+			isa = PBXGroup;
+			children = (
+				D4380EDB234260BE00AE2207 /* AmbiaMara_Prefs.swift */,
+				D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */,
+				D44FF73B23413E73008D0F51 /* Assets.xcassets */,
+				D44FF73D23413E73008D0F51 /* Info.plist */,
+				D44FF73E23413E73008D0F51 /* PushNotificationPayload.apns */,
+			);
+			path = "Resources and Meta";
 			sourceTree = "<group>";
 		};
 		D4A57E752341442300634F92 /* Meta */ = {
@@ -672,9 +680,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4380EDC234260BE00AE2207 /* AmbiaMara_Prefs.swift in Sources */,
-				D44FF73A23413E72008D0F51 /* NotificationController.swift in Sources */,
-				D44FF73823413E72008D0F51 /* ExtensionDelegate.swift in Sources */,
-				D44FF73623413E72008D0F51 /* InterfaceController.swift in Sources */,
+				D44FF73A23413E72008D0F51 /* Timer_NotificationController.swift in Sources */,
+				D44FF73823413E72008D0F51 /* Timer_ExtensionDelegate.swift in Sources */,
+				D44FF73623413E72008D0F51 /* Timer_InterfaceController.swift in Sources */,
 				D4380EDA2342438600AE2207 /* RVS_PersistentPrefs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -955,7 +963,7 @@
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "$(SRCROOT)/Watch App Extension/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Watch App Extension/Resources and Meta/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -985,7 +993,7 @@
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "$(SRCROOT)/Watch App Extension/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Watch App Extension/Resources and Meta/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

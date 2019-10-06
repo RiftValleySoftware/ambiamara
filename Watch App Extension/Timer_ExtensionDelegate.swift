@@ -13,7 +13,7 @@ import WatchKit
 /* ###################################################################################################################################### */
 /**
  */
-class ExtensionDelegate: NSObject, WKExtensionDelegate {
+class Timer_ExtensionDelegate: NSObject, WKExtensionDelegate {
     /* ################################################################## */
     /**
      */

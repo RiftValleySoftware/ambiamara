@@ -15,7 +15,7 @@ import UserNotifications
 /* ###################################################################################################################################### */
 /**
  */
-class NotificationController: WKUserNotificationInterfaceController {
+class Timer_NotificationController: WKUserNotificationInterfaceController {
     /* ################################################################## */
     /**
      */

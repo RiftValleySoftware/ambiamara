@@ -14,7 +14,7 @@ import Foundation
 /* ###################################################################################################################################### */
 /**
  */
-class InterfaceController: WKInterfaceController {
+class Timer_InterfaceController: WKInterfaceController {
     /* ################################################################## */
     /**
      */
