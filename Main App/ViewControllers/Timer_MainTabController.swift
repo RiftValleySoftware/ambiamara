@@ -36,6 +36,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
             if newValue != super.selectedViewController,
                 let viewController = super.selectedViewController as? UINavigationController {
                 viewController.popToRootViewController(animated: false)
+                Timer_AppDelegate.lockOrientation(.all)
             }
             
             super.selectedViewController = newValue
