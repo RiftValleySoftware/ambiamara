@@ -1,5 +1,11 @@
 **Version 1.2.0.2000** *TBD*
 
+**Version 1.1.1.3000** *October 11, 2019*
+- There was a bug, where changing the timer while an editor was up would leave the lock orientation. This has been fixed.
+
+**Version 1.1.0.3000** *October 10, 2019*
+- There was a rendering bug, where changing the timer while an editor was up would lock orientation for the running timer.
+
 **Version 1.1.0.2001** *September 28, 2019*
 - Fixed a bug, where the sound editor button was not being changed upon return from the sound editor.
 
