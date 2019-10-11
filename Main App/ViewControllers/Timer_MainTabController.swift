@@ -23,6 +23,25 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     /// The "haert" of the timer.
     var timerEngine: TimerEngine! = nil
     
+    /* ################################################################## */
+    /**
+     We do this, to intercept the call, and make sure that we close any open settings.
+     */
+    override var selectedViewController: UIViewController? {
+        get {
+            return super.selectedViewController
+        }
+        
+        set {
+            if newValue != super.selectedViewController,
+                let viewController = super.selectedViewController as? UINavigationController {
+                viewController.popToRootViewController(animated: false)
+            }
+            
+            super.selectedViewController = newValue
+        }
+    }
+    
     /* ################################################################################################################################## */
     // MARK: - Base Class Override Methods
     /* ################################################################################################################################## */
