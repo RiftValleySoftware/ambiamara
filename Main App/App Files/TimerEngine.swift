@@ -543,7 +543,8 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         // Pick up the audible ticks sound.
         self.tickURI = Bundle.main.path(forResource: "tick", ofType: "aiff") ?? ""
         
-        if let temp = UserDefaults.standard.object(forKey: type(of: self)._appStatePrefsKey) as? Data, let temp2 = NSKeyedUnarchiver.unarchiveObject(with: temp) as? LGV_Timer_State {
+        if  let temp = UserDefaults.standard.object(forKey: type(of: self)._appStatePrefsKey) as? Data,
+            let temp2 = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(temp) as? LGV_Timer_State {
             self.appState = temp2
             self.appState.delegate = self
             self.timers.forEach {
@@ -609,8 +610,10 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This method simply saves the main preferences Dictionary into the standard user defaults.
      */
     func savePrefs() {
-        let appData = NSKeyedArchiver.archivedData(withRootObject: self.appState as Any)
-        UserDefaults.standard.set(appData, forKey: type(of: self)._appStatePrefsKey)
+        if  let temp = self.appState,
+            let appData = try? NSKeyedArchiver.archivedData(withRootObject: temp, requiringSecureCoding: false) {
+            UserDefaults.standard.set(appData, forKey: type(of: self)._appStatePrefsKey)
+        }
     }
     
     /* ################################################################## */

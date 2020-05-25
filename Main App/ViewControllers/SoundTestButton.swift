@@ -14,6 +14,9 @@ import UIKit
 // MARK: - Main Class -
 /* ###################################################################################################################################### */
 /**
+ This is a class that programmatically renders the timer sound test (sound/music) button.
+ 
+ It is a control, and can be used to act as a button.
  */
 @IBDesignable
 class SoundTestButton: UIButton {

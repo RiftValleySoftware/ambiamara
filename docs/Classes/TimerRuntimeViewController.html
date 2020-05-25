@@ -1581,9 +1581,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9AmbiaMara26TimerRuntimeViewControllerC013cascadeToNextC0SbyF"></a>
-                    <a name="//apple_ref/swift/Method/cascadeToNextTimer()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9AmbiaMara26TimerRuntimeViewControllerC013cascadeToNextC0SbyF">cascadeToNextTimer()</a>
+                    <a name="/s:9AmbiaMara26TimerRuntimeViewControllerC013cascadeToNextC0yySiF"></a>
+                    <a name="//apple_ref/swift/Method/cascadeToNextTimer(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara26TimerRuntimeViewControllerC013cascadeToNextC0yySiF">cascadeToNextTimer(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1593,17 +1593,33 @@
                       <div class="abstract">
                         <p>This will transition the timer to a following timer, if one is set up.</p>
 
-<p>-returns: (Discardable) True, if the next timer transition happened.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
-<span class="kd">func</span> <span class="nf">cascadeToNextTimer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">cascadeToNextTimer</span><span class="p">(</span><span class="n">_</span> <span class="nv">inNextTimerIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inNextTimerIndex</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The next timer index. If 0 or greater, then we will cascade to that timer. If less than 0, we ignore.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1721,6 +1737,60 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewWillDisappear</span><span class="p">(</span><span class="n">_</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara26TimerRuntimeViewControllerC9setUpShopyyF"></a>
+                    <a name="//apple_ref/swift/Method/setUpShop()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara26TimerRuntimeViewControllerC9setUpShopyyF">setUpShop()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Prepares the timer screen.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">setUpShop</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara26TimerRuntimeViewControllerC11closeUpShopyyF"></a>
+                    <a name="//apple_ref/swift/Method/closeUpShop()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara26TimerRuntimeViewControllerC11closeUpShopyyF">closeUpShop()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This closes up our various things, and makes things reappear.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">closeUpShop</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -1914,7 +1984,7 @@
     </div>
     <section class="footer">
       <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external">©2019 The Great Rift Valley Software Company</a></p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

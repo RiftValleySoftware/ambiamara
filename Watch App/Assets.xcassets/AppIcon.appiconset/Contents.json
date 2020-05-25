@@ -1,0 +1,92 @@
+{
+  "images" : [
+    {
+      "idiom" : "watch",
+      "subtype" : "38mm",
+      "filename" : "icon38mm@2x.png",
+      "size" : "24x24",
+      "role" : "notificationCenter",
+      "scale" : "2x"
+    },
+    {
+      "subtype" : "42mm",
+      "filename" : "icon42mm@2x.png",
+      "scale" : "2x",
+      "idiom" : "watch",
+      "role" : "notificationCenter",
+      "size" : "27.5x27.5"
+    },
+    {
+      "size" : "29x29",
+      "role" : "companionSettings",
+      "filename" : "icon-settings@2x.png",
+      "idiom" : "watch",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "watch",
+      "role" : "companionSettings",
+      "filename" : "icon-settings@3x.png",
+      "scale" : "3x",
+      "size" : "29x29"
+    },
+    {
+      "role" : "appLauncher",
+      "size" : "40x40",
+      "scale" : "2x",
+      "subtype" : "38mm",
+      "filename" : "icon-launcher@2x.png",
+      "idiom" : "watch"
+    },
+    {
+      "scale" : "2x",
+      "size" : "86x86",
+      "subtype" : "38mm",
+      "idiom" : "watch",
+      "filename" : "icon-quicklook38mm@2x.png",
+      "role" : "quickLook"
+    },
+    {
+      "role" : "quickLook",
+      "filename" : "icon-quicklook42mm@2x.png",
+      "size" : "98x98",
+      "idiom" : "watch",
+      "scale" : "2x",
+      "subtype" : "42mm"
+    },
+    {
+      "idiom" : "watch-marketing",
+      "scale" : "1x",
+      "size" : "1024x1024",
+      "filename" : "watch-marketing.png"
+    },
+    {
+      "subtype" : "40mm",
+      "role" : "appLauncher",
+      "filename" : "icon40mm@2x.png",
+      "scale" : "2x",
+      "idiom" : "watch",
+      "size" : "44x44"
+    },
+    {
+      "role" : "appLauncher",
+      "filename" : "icon44mm@2x.png",
+      "scale" : "2x",
+      "idiom" : "watch",
+      "subtype" : "44mm",
+      "size" : "50x50"
+    },
+    {
+      "subtype" : "44mm",
+      "filename" : "icon-quicklook44mm@2x.png",
+      "idiom" : "watch",
+      "role" : "quickLook",
+      "scale" : "2x",
+      "size" : "108x108"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

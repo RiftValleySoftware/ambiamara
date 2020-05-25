@@ -14,6 +14,14 @@
 
 import UIKit
 
+/* ###################################################################################################################################### */
+// MARK: - Main Class -
+/* ###################################################################################################################################### */
+/**
+ This is a class that programmatically renders the timer sound mode (sound/music/vibrate/ticks/none) button.
+ 
+ It is a control, and can be used to act as a button.
+ */
 @IBDesignable
 class TimerSoundModeButton: UIButton {
     @IBInspectable var isVibrateOn: Bool = false {
@@ -42,14 +50,6 @@ class TimerSoundModeButton: UIButton {
 
     /* ################################################################## */
     // MARK: - Instance Superclass Overrides
-    /* ################################################################## */
-    /**
-     */
-    override func layoutSubviews() {
-        super.layoutSubviews()
-//        self.setNeedsDisplay()
-    }
-    
     /* ################################################################## */
     /**
      */

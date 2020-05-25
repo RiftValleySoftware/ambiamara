@@ -1,3 +1,5 @@
+**Version 1.2.0.2000** *TBD*
+
 **Version 1.1.1.3000** *October 11, 2019*
 - There was a bug, where changing the timer while an editor was up would leave the lock orientation. This has been fixed.
 
