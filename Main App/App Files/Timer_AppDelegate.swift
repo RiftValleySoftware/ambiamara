@@ -250,9 +250,9 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /* ################################################################################################################################## */
     /// Activates a session
     func activateSession() {
-        if WCSession.isSupported() && (self._mySession.activationState != .activated) {
-            self._mySession.delegate = self
-            self.session.activate()
+        if WCSession.isSupported(), (self._mySession?.activationState != .activated) {
+            self._mySession?.delegate = self
+            self.session?.activate()
         }
     }
 

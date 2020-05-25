@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,6 +22,8 @@
 		77AF00B41F69623800D35EF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77AF00B61F69623800D35EF1 /* LaunchScreen.storyboard */; };
 		77AF00B71F69624E00D35EF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77AF00B91F69624E00D35EF1 /* Main.storyboard */; };
 		77BB98E11F12838F0062B14A /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB98E01F12838F0062B14A /* TimerEngine.swift */; };
+		D40AD1AF247C5D1F00CF7FA7 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40AD1AE247C5D1F00CF7FA7 /* RVS_PersistentPrefs.swift */; };
+		D40AD1B0247C5D1F00CF7FA7 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40AD1AE247C5D1F00CF7FA7 /* RVS_PersistentPrefs.swift */; };
 		D41ECAD321C2AFCA00E48FA4 /* tick.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D41ECAD221C2AFCA00E48FA4 /* tick.aiff */; };
 		D427963A219B50F90012F705 /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279634219B50F90012F705 /* UIKit+Extensions.swift */; };
 		D427963B219B50F90012F705 /* SwipeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279635219B50F90012F705 /* SwipeInteractor.swift */; };
@@ -42,14 +44,13 @@
 		D433BBA021B18AF4001C79F6 /* 21-alarm-klaxon.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D433BB9F21B18AF4001C79F6 /* 21-alarm-klaxon.mp3 */; };
 		D433BBA221B18D09001C79F6 /* TimerSoundModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D433BBA121B18D09001C79F6 /* TimerSoundModeButton.swift */; };
 		D4380ED82342434700AE2207 /* Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4380ED72342434700AE2207 /* Timer_SharedDeclarations.swift */; };
-		D4380EDA2342438600AE2207 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */; };
 		D4380EDC234260BE00AE2207 /* AmbiaMara_Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4380EDB234260BE00AE2207 /* AmbiaMara_Prefs.swift */; };
 		D44FF72A23413E72008D0F51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44FF72923413E72008D0F51 /* Assets.xcassets */; };
 		D44FF73123413E72008D0F51 /* AmbiaMara Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D44FF73023413E72008D0F51 /* AmbiaMara Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D44FF73623413E72008D0F51 /* Timer_InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF73523413E72008D0F51 /* Timer_InterfaceController.swift */; };
 		D44FF73823413E72008D0F51 /* Timer_ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF73723413E72008D0F51 /* Timer_ExtensionDelegate.swift */; };
 		D44FF73C23413E73008D0F51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44FF73B23413E73008D0F51 /* Assets.xcassets */; };
-		D44FF74123413E73008D0F51 /* AmbiaMara.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D44FF72423413E71008D0F51 /* AmbiaMara.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D44FF74123413E73008D0F51 /* AmbiaMara.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D44FF72423413E71008D0F51 /* AmbiaMara.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D48C0A4221B096C9007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3921B096C8007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 */; };
 		D48C0A4321B096C9007AC2DC /* 08-videogame-beeps-high-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3A21B096C8007AC2DC /* 08-videogame-beeps-high-frequency.mp3 */; };
 		D48C0A4421B096C9007AC2DC /* 09-single-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3B21B096C8007AC2DC /* 09-single-beep.mp3 */; };
@@ -134,6 +135,8 @@
 		78BA64C6A1ADB18A61F7EE29 /* Pods-Rift Valley Countdown Timer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rift Valley Countdown Timer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rift Valley Countdown Timer/Pods-Rift Valley Countdown Timer.release.xcconfig"; sourceTree = "<group>"; };
 		95A4CF40AC49D132081FAE6F /* Pods_Rift_Valley_Countdown_Timer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rift_Valley_Countdown_Timer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC62B86A43C730806EAC0B0D /* Pods-An Excellent Countdown Timer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-An Excellent Countdown Timer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-An Excellent Countdown Timer/Pods-An Excellent Countdown Timer.debug.xcconfig"; sourceTree = "<group>"; };
+		D40AD1AE247C5D1F00CF7FA7 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_PersistentPrefs.swift; path = Carthage/Checkouts/RVS_PersistentPrefs/RVS_Persistent_Prefs/RVS_PersistentPrefs.swift; sourceTree = "<group>"; };
+		D40AD1B1247C60D700CF7FA7 /* AmbiaMara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AmbiaMara.entitlements; sourceTree = "<group>"; };
 		D41ECAD221C2AFCA00E48FA4 /* tick.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = tick.aiff; sourceTree = "<group>"; };
 		D4279634219B50F90012F705 /* UIKit+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Extensions.swift"; sourceTree = "<group>"; };
 		D4279635219B50F90012F705 /* SwipeInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeInteractor.swift; sourceTree = "<group>"; };
@@ -154,7 +157,6 @@
 		D433BB9F21B18AF4001C79F6 /* 21-alarm-klaxon.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "21-alarm-klaxon.mp3"; sourceTree = "<group>"; };
 		D433BBA121B18D09001C79F6 /* TimerSoundModeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimerSoundModeButton.swift; path = ViewControllers/TimerSoundModeButton.swift; sourceTree = "<group>"; };
 		D4380ED72342434700AE2207 /* Timer_SharedDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timer_SharedDeclarations.swift; path = "App Files/Timer_SharedDeclarations.swift"; sourceTree = "<group>"; };
-		D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_PersistentPrefs.swift; sourceTree = "<group>"; };
 		D4380EDB234260BE00AE2207 /* AmbiaMara_Prefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmbiaMara_Prefs.swift; sourceTree = "<group>"; };
 		D44FF72423413E71008D0F51 /* AmbiaMara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbiaMara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44FF72923413E72008D0F51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -286,6 +288,8 @@
 		77EFB3D31ED5C1A800BDDEFF = {
 			isa = PBXGroup;
 			children = (
+				D40AD1B1247C60D700CF7FA7 /* AmbiaMara.entitlements */,
+				D40AD1AD247C5CFD00CF7FA7 /* From Carthage */,
 				775ACEDA1ED5C2BA0097FF5C /* Main App */,
 				D44FF72523413E71008D0F51 /* Watch App */,
 				D44FF73423413E72008D0F51 /* Watch App Extension */,
@@ -324,6 +328,14 @@
 				772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		D40AD1AD247C5CFD00CF7FA7 /* From Carthage */ = {
+			isa = PBXGroup;
+			children = (
+				D40AD1AE247C5D1F00CF7FA7 /* RVS_PersistentPrefs.swift */,
+			);
+			name = "From Carthage";
 			sourceTree = "<group>";
 		};
 		D4279632219B50F90012F705 /* SwipeableTabBarController */ = {
@@ -403,7 +415,6 @@
 			isa = PBXGroup;
 			children = (
 				D4380EDB234260BE00AE2207 /* AmbiaMara_Prefs.swift */,
-				D4380ED92342438600AE2207 /* RVS_PersistentPrefs.swift */,
 				D44FF73B23413E73008D0F51 /* Assets.xcassets */,
 				D44FF73D23413E73008D0F51 /* Info.plist */,
 			);
@@ -502,7 +513,7 @@
 			attributes = {
 				CLASSPREFIX = RVS_AM_;
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "Rift Valley Software, Inc.";
 				TargetAttributes = {
 					77EFB3DB1ED5C1A800BDDEFF = {
@@ -654,6 +665,7 @@
 				772A13D81ED5E8840043C58B /* Timer_AppDelegate.swift in Sources */,
 				D427963D219B50F90012F705 /* SwipeTransitioningProtocol.swift in Sources */,
 				772A13CC1ED5E8270043C58B /* Timer_MainTabController.swift in Sources */,
+				D40AD1AF247C5D1F00CF7FA7 /* RVS_PersistentPrefs.swift in Sources */,
 				77052CD71EE0DAAD00DA2E8C /* TimerRuntimeViewController.swift in Sources */,
 				772A13C61ED5E50C0043C58B /* Timer_SettingsViewController.swift in Sources */,
 				7789C3241ED61CEF009EAB3D /* A_TimerBaseViewController.swift in Sources */,
@@ -675,9 +687,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4380EDC234260BE00AE2207 /* AmbiaMara_Prefs.swift in Sources */,
+				D40AD1B0247C5D1F00CF7FA7 /* RVS_PersistentPrefs.swift in Sources */,
 				D44FF73823413E72008D0F51 /* Timer_ExtensionDelegate.swift in Sources */,
 				D44FF73623413E72008D0F51 /* Timer_InterfaceController.swift in Sources */,
-				D4380EDA2342438600AE2207 /* RVS_PersistentPrefs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,6 +703,7 @@
 		};
 		D44FF74023413E73008D0F51 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = D44FF72323413E71008D0F51 /* Watch App */;
 			targetProxy = D44FF73F23413E73008D0F51 /* PBXContainerItemProxy */;
 		};
@@ -821,7 +834,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -882,7 +895,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
@@ -902,6 +915,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AmbiaMara.entitlements;
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -917,6 +931,7 @@
 				OTHER_LDFLAGS = "${inherited}";
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -926,6 +941,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AmbiaMara.entitlements;
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -941,6 +957,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -972,7 +989,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 5.0;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
 			};
 			name = Debug;
 		};
@@ -1001,7 +1018,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 5.0;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
 			};
 			name = Release;
 		};
@@ -1028,7 +1045,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 5.0;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
 			};
 			name = Debug;
 		};
@@ -1054,7 +1071,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 5.0;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
 			};
 			name = Release;
 		};

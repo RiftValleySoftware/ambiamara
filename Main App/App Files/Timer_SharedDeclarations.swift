@@ -764,11 +764,10 @@ class TimerSettingTuple: NSObject, NSCoding {
             ret["timeSetPodiumWarn"] = self.timeSetPodiumWarn
             ret["timeSetPodiumFinal"] = self.timeSetPodiumFinal
             ret["currentTime"] = self.currentTime
-            let data = NSMutableData()
-            let archiver = NSKeyedArchiver(forWritingWith: data)
+            let archiver = NSKeyedArchiver(requiringSecureCoding: false)
             archiver.encode(self.storedColor, forKey: "storedColor")
             archiver.finishEncoding()
-            ret["storedColor"] = data
+            ret["storedColor"] = archiver.encodedData
             
             return ret
         }
@@ -828,11 +827,11 @@ class TimerSettingTuple: NSObject, NSCoding {
             }
             
             if let storedColor = newValue["storedColor"] as? Data {
-                let unarchiver = NSKeyedUnarchiver(forReadingWith: storedColor)
-                if let storedColor = unarchiver.decodeObject(forKey: "storedColor") {
+                if  let unarchiver = try? NSKeyedUnarchiver(forReadingFrom: storedColor),
+                    let storedColor = unarchiver.decodeObject(forKey: "storedColor") {
                     self.storedColor = storedColor as AnyObject
+                    unarchiver.finishDecoding()
                 }
-                unarchiver.finishDecoding()
             }
         }
     }
