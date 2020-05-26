@@ -18,7 +18,7 @@ opt_in_rules:
 - comma
 
 excluded:
-- Pods
+- Carthage
 - Project/R.generated.swift
 - Main App/SwipeableTabBarController
 
