@@ -5,6 +5,9 @@
       location = "container:"
       name = "Meta">
       <FileRef
+         location = "group:Cartfile">
+      </FileRef>
+      <FileRef
          location = "group:.swift-version">
       </FileRef>
       <FileRef
