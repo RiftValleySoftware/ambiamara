@@ -1010,7 +1010,7 @@ class TimerSettingTuple: NSObject, NSCoding {
      
      - returns: true, if the UIDs match.
      */
-    static func == (left: TimerSettingTuple, right: TimerSettingTuple) -> Bool {
+    static func isEqual (left: TimerSettingTuple, right: TimerSettingTuple) -> Bool {
         return left.uid == right.uid
     }
     
