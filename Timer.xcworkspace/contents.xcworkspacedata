@@ -14,9 +14,6 @@
          location = "group:Cartfile">
       </FileRef>
       <FileRef
-         location = "group:.swift-version">
-      </FileRef>
-      <FileRef
          location = "group:.swiftlint.yml">
       </FileRef>
       <FileRef
