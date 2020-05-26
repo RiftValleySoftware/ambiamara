@@ -369,7 +369,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         
         set {
             if nil == self.gcdTimer {
-                self.gcdTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: type(of: self).timerInterval, delegate: self, leewayInMilliseconds: 0, onlyFireOnce: false, context: nil, queue: nil, isWallTime: true)
+                self.gcdTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self.timerInterval, delegate: self, leewayInMilliseconds: 0, onlyFireOnce: false, context: nil, queue: nil, isWallTime: true)
                 self.gcdTimer.isRunning = true
             } else if nil != self.gcdTimer {
                 self.gcdTimer.isRunning = false
@@ -542,7 +542,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         // Pick up the audible ticks sound.
         self.tickURI = Bundle.main.path(forResource: "tick", ofType: "aiff") ?? ""
         
-        if  let temp = UserDefaults.standard.object(forKey: type(of: self)._appStatePrefsKey) as? Data,
+        if  let temp = UserDefaults.standard.object(forKey: Self._appStatePrefsKey) as? Data,
             let temp2 = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(temp) as? LGV_Timer_State {
             self.appState = temp2
             self.appState.delegate = self
@@ -611,7 +611,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     func savePrefs() {
         if  let temp = self.appState,
             let appData = try? NSKeyedArchiver.archivedData(withRootObject: temp, requiringSecureCoding: false) {
-            UserDefaults.standard.set(appData, forKey: type(of: self)._appStatePrefsKey)
+            UserDefaults.standard.set(appData, forKey: Self._appStatePrefsKey)
         }
     }
     
@@ -1081,7 +1081,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         if let selectedTimer = self.selectedTimer {
             if (.Stopped != selectedTimer.timerStatus) && (.Paused != selectedTimer.timerStatus) {
                 if .Alarm == selectedTimer.timerStatus {
-                    if type(of: self).timerAlarmInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
+                    if Self.timerAlarmInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
                         self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
                         DispatchQueue.main.async {
                             self.delegate?.timerSetting(selectedTimer, alarm: self._alarmCount)
@@ -1089,7 +1089,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
                         self._alarmCount += 1
                     }
                 } else {
-                    if type(of: self).timerTickInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
+                    if Self.timerTickInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
                         self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
                         selectedTimer.currentTime = Swift.max(0, selectedTimer.currentTime - 1)
                         if (0 < selectedTimer.timeSetPodiumWarn) && (0 < selectedTimer.timeSetPodiumFinal) && (selectedTimer.timeSetPodiumWarn > selectedTimer.timeSetPodiumFinal) {
@@ -1142,7 +1142,7 @@ extension TimerEngine: RVS_BasicGCDTimerDelegate {
         if let selectedTimer = self.selectedTimer {
             if (.Stopped != selectedTimer.timerStatus) && (.Paused != selectedTimer.timerStatus) {
                 if .Alarm == selectedTimer.timerStatus {
-                    if type(of: self).timerAlarmInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
+                    if Self.timerAlarmInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
                         self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
                         DispatchQueue.main.async {
                             self.delegate?.timerSetting(selectedTimer, alarm: self._alarmCount)
@@ -1150,7 +1150,7 @@ extension TimerEngine: RVS_BasicGCDTimerDelegate {
                         self._alarmCount += 1
                     }
                 } else {
-                    if type(of: self).timerTickInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
+                    if Self.timerTickInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
                         self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
                         selectedTimer.currentTime = Swift.max(0, selectedTimer.currentTime - 1)
                         if (0 < selectedTimer.timeSetPodiumWarn) && (0 < selectedTimer.timeSetPodiumFinal) && (selectedTimer.timeSetPodiumWarn > selectedTimer.timeSetPodiumFinal) {

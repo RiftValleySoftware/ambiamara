@@ -256,7 +256,7 @@ public class LED_ClockView: UIView {
         let sHexagonWidth = CGFloat(fillShape.bounds.size.height / 15)
         let radius: CGFloat = sHexagonWidth / 2
         
-        let hexPath: CGMutablePath = type(of: self)._getHexPath(radius)
+        let hexPath: CGMutablePath = Self._getHexPath(radius)
         let oneHexWidth = hexPath.boundingBox.size.width
         let oneHexHeight = hexPath.boundingBox.size.height
         
@@ -375,12 +375,12 @@ public class LED_ClockView: UIView {
             }
             
             if nil != hoursElementGroup {
-                type(of: self)._setDecimalValue(hoursElementGroup, inValue: self.hours, inZeroFill: self.zeroPadding)
+                Self._setDecimalValue(hoursElementGroup, inValue: self.hours, inZeroFill: self.zeroPadding)
             }
             
             if nil != minutesElementGroup {
                 let zeroPadding = (nil != hoursElementGroup) ? ((0 != self.hours) ? true: self.zeroPadding): self.zeroPadding
-                type(of: self)._setDecimalValue(minutesElementGroup, inValue: self.minutes, inZeroFill: zeroPadding)
+                Self._setDecimalValue(minutesElementGroup, inValue: self.minutes, inZeroFill: zeroPadding)
                 
                 if (0 == self.hours) && (!self.zeroPadding || (nil == hoursElementGroup)) && (nil != minutesSeparatorElementGroup) {
                     (minutesSeparatorElementGroup[0] as? LED_SeparatorDots)?.value = [false, false]
@@ -390,7 +390,7 @@ public class LED_ClockView: UIView {
             if nil != secondsElementGroup {
                 var zeroPadding = (nil != hoursElementGroup) ? ((0 != self.hours) ? true: self.zeroPadding): self.zeroPadding
                 zeroPadding = (nil != minutesElementGroup) ? ((0 != self.minutes) ? true: zeroPadding): zeroPadding
-                type(of: self)._setDecimalValue(secondsElementGroup, inValue: self.seconds, inZeroFill: zeroPadding)
+                Self._setDecimalValue(secondsElementGroup, inValue: self.seconds, inZeroFill: zeroPadding)
                 
                 if (0 == self.minutes) && (!zeroPadding || (nil == minutesElementGroup)) && (nil != secondsSeparatorElementGroup) {
                     (secondsSeparatorElementGroup[0] as? LED_SeparatorDots)?.value = [false, false]

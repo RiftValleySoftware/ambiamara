@@ -46,7 +46,7 @@ class TheGreatRiftValleyDrawing: UIControl {
      */
     override func layoutSubviews() {
         if nil == self._tapGestureRecognizer {
-            self._tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(type(of: self).controlTapped(_:)))
+            self._tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(Self.controlTapped(_:)))
             self.addGestureRecognizer(self._tapGestureRecognizer)
         }
         super.layoutSubviews()

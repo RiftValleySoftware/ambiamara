@@ -596,8 +596,8 @@ class TimerSettingTuple: NSObject, NSCoding {
             }
             
             if self.timeSet <= self.timeSetPodiumWarn {
-                self.timeSetPodiumWarn = type(of: self).calcPodiumModeWarningThresholdForTimerValue(self.timeSet)
-                self.timeSetPodiumFinal = type(of: self).calcPodiumModeFinalThresholdForTimerValue(self.timeSet)
+                self.timeSetPodiumWarn = Self.calcPodiumModeWarningThresholdForTimerValue(self.timeSet)
+                self.timeSetPodiumFinal = Self.calcPodiumModeFinalThresholdForTimerValue(self.timeSet)
             }
         }
     }
@@ -1051,55 +1051,55 @@ class TimerSettingTuple: NSObject, NSCoding {
         self.audibleTicks = false
 
         if coder.containsValue(forKey: TimerStateKeys.SucceedingTimerID.rawValue) {
-            let succeedingTimerID = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.SucceedingTimerID.rawValue)
+            let succeedingTimerID = coder.decodeInteger(forKey: Self.TimerStateKeys.SucceedingTimerID.rawValue)
             self.succeedingTimerID = succeedingTimerID
         }
         
-        let timeSet = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.TimeSet.rawValue)
+        let timeSet = coder.decodeInteger(forKey: Self.TimerStateKeys.TimeSet.rawValue)
         self.timeSet = timeSet
         
-        let timeWarn = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.TimeSetPodiumWarn.rawValue)
+        let timeWarn = coder.decodeInteger(forKey: Self.TimerStateKeys.TimeSetPodiumWarn.rawValue)
         self.timeSetPodiumWarn = timeWarn
         
-        let timeFinal = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.TimeSetPodiumFinal.rawValue)
+        let timeFinal = coder.decodeInteger(forKey: Self.TimerStateKeys.TimeSetPodiumFinal.rawValue)
         self.timeSetPodiumFinal = timeFinal
         
-        let currentTime = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.CurrentTime.rawValue)
+        let currentTime = coder.decodeInteger(forKey: Self.TimerStateKeys.CurrentTime.rawValue)
         self.currentTime = currentTime
         
-        if let displayMode = TimerDisplayMode(rawValue: coder.decodeInteger(forKey: type(of: self).TimerStateKeys.DisplayMode.rawValue)) {
+        if let displayMode = TimerDisplayMode(rawValue: coder.decodeInteger(forKey: Self.TimerStateKeys.DisplayMode.rawValue)) {
             self.displayMode = displayMode
         }
         
-        let colorTheme = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.ColorTheme.rawValue)
+        let colorTheme = coder.decodeInteger(forKey: Self.TimerStateKeys.ColorTheme.rawValue)
         self.colorTheme = colorTheme
         
-        if let alertMode = AlertMode(rawValue: coder.decodeInteger(forKey: type(of: self).TimerStateKeys.AlertMode.rawValue)) {
+        if let alertMode = AlertMode(rawValue: coder.decodeInteger(forKey: Self.TimerStateKeys.AlertMode.rawValue)) {
             self.alertMode = alertMode
         }
         
-        if let soundMode = SoundMode(rawValue: coder.decodeInteger(forKey: type(of: self).TimerStateKeys.SoundMode.rawValue)) {
+        if let soundMode = SoundMode(rawValue: coder.decodeInteger(forKey: Self.TimerStateKeys.SoundMode.rawValue)) {
             self.soundMode = soundMode
         }
         
-        let succeedingTimerID = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.SucceedingTimerID.rawValue)
+        let succeedingTimerID = coder.decodeInteger(forKey: Self.TimerStateKeys.SucceedingTimerID.rawValue)
         self.succeedingTimerID = succeedingTimerID
         
-        let audibleTicks = coder.decodeBool(forKey: type(of: self).TimerStateKeys.AudibleTicks.rawValue)
+        let audibleTicks = coder.decodeBool(forKey: Self.TimerStateKeys.AudibleTicks.rawValue)
         self.audibleTicks = audibleTicks
 
-        let soundID = coder.decodeInteger(forKey: type(of: self).TimerStateKeys.SoundID.rawValue)
+        let soundID = coder.decodeInteger(forKey: Self.TimerStateKeys.SoundID.rawValue)
         self.soundID = soundID
         
-        if let songURLString = coder.decodeObject(forKey: type(of: self).TimerStateKeys.SongURLString.rawValue) as? String {
+        if let songURLString = coder.decodeObject(forKey: Self.TimerStateKeys.SongURLString.rawValue) as? String {
             self.songURLString = songURLString
         }
 
-        if let timerStatus = TimerStatus(rawValue: coder.decodeInteger(forKey: type(of: self).TimerStateKeys.Status.rawValue)) {
+        if let timerStatus = TimerStatus(rawValue: coder.decodeInteger(forKey: Self.TimerStateKeys.Status.rawValue)) {
             self.timerStatus = timerStatus
         }
         
-        if let uid = coder.decodeObject(forKey: type(of: self).TimerStateKeys.UID.rawValue) as? String {
+        if let uid = coder.decodeObject(forKey: Self.TimerStateKeys.UID.rawValue) as? String {
             self.uid = uid
         }
     }
@@ -1111,20 +1111,20 @@ class TimerSettingTuple: NSObject, NSCoding {
      - parameter with: The coder we'll be setting the state into.
      */
     func encode(with: NSCoder) {
-        with.encode(self.timeSet, forKey: type(of: self).TimerStateKeys.TimeSet.rawValue)
-        with.encode(self.timeSetPodiumWarn, forKey: type(of: self).TimerStateKeys.TimeSetPodiumWarn.rawValue)
-        with.encode(self.timeSetPodiumFinal, forKey: type(of: self).TimerStateKeys.TimeSetPodiumFinal.rawValue)
-        with.encode(self.currentTime, forKey: type(of: self).TimerStateKeys.CurrentTime.rawValue)
-        with.encode(self.displayMode.rawValue, forKey: type(of: self).TimerStateKeys.DisplayMode.rawValue)
-        with.encode(self.colorTheme, forKey: type(of: self).TimerStateKeys.ColorTheme.rawValue)
-        with.encode(self.alertMode.rawValue, forKey: type(of: self).TimerStateKeys.AlertMode.rawValue)
-        with.encode(self.soundMode.rawValue, forKey: type(of: self).TimerStateKeys.SoundMode.rawValue)
-        with.encode(self.succeedingTimerID, forKey: type(of: self).TimerStateKeys.SucceedingTimerID.rawValue)
-        with.encode(self.audibleTicks, forKey: type(of: self).TimerStateKeys.AudibleTicks.rawValue)
-        with.encode(self.songURLString, forKey: type(of: self).TimerStateKeys.SongURLString.rawValue)
-        with.encode(self.timerStatus.rawValue, forKey: type(of: self).TimerStateKeys.Status.rawValue)
-        with.encode(self.soundID, forKey: type(of: self).TimerStateKeys.SoundID.rawValue)
-        with.encode(self.uid, forKey: type(of: self).TimerStateKeys.UID.rawValue)
+        with.encode(self.timeSet, forKey: Self.TimerStateKeys.TimeSet.rawValue)
+        with.encode(self.timeSetPodiumWarn, forKey: Self.TimerStateKeys.TimeSetPodiumWarn.rawValue)
+        with.encode(self.timeSetPodiumFinal, forKey: Self.TimerStateKeys.TimeSetPodiumFinal.rawValue)
+        with.encode(self.currentTime, forKey: Self.TimerStateKeys.CurrentTime.rawValue)
+        with.encode(self.displayMode.rawValue, forKey: Self.TimerStateKeys.DisplayMode.rawValue)
+        with.encode(self.colorTheme, forKey: Self.TimerStateKeys.ColorTheme.rawValue)
+        with.encode(self.alertMode.rawValue, forKey: Self.TimerStateKeys.AlertMode.rawValue)
+        with.encode(self.soundMode.rawValue, forKey: Self.TimerStateKeys.SoundMode.rawValue)
+        with.encode(self.succeedingTimerID, forKey: Self.TimerStateKeys.SucceedingTimerID.rawValue)
+        with.encode(self.audibleTicks, forKey: Self.TimerStateKeys.AudibleTicks.rawValue)
+        with.encode(self.songURLString, forKey: Self.TimerStateKeys.SongURLString.rawValue)
+        with.encode(self.timerStatus.rawValue, forKey: Self.TimerStateKeys.Status.rawValue)
+        with.encode(self.soundID, forKey: Self.TimerStateKeys.SoundID.rawValue)
+        with.encode(self.uid, forKey: Self.TimerStateKeys.UID.rawValue)
     }
 }
 
@@ -1929,7 +1929,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         
         self._timers = []
         
-        if let timers = coder.decodeObject(forKey: type(of: self).AppStateKeys.Timers.rawValue) as? [TimerSettingTuple] {
+        if let timers = coder.decodeObject(forKey: Self.AppStateKeys.Timers.rawValue) as? [TimerSettingTuple] {
             self._timers = timers
             
             self.timers.forEach {
@@ -1937,15 +1937,15 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
             }
         }
         
-        if coder.containsValue(forKey: type(of: self).AppStateKeys.SelectedTimer.rawValue) {
-            let selectedTimer0BasedIndex = coder.decodeInteger(forKey: type(of: self).AppStateKeys.SelectedTimer.rawValue)
+        if coder.containsValue(forKey: Self.AppStateKeys.SelectedTimer.rawValue) {
+            let selectedTimer0BasedIndex = coder.decodeInteger(forKey: Self.AppStateKeys.SelectedTimer.rawValue)
             self._selectedTimer0BasedIndex = selectedTimer0BasedIndex
         } else {
             self._selectedTimer0BasedIndex = -1
         }
         
-        if coder.containsValue(forKey: type(of: self).AppStateKeys.ShowControls.rawValue) {
-            let showControls = coder.decodeBool(forKey: type(of: self).AppStateKeys.ShowControls.rawValue)
+        if coder.containsValue(forKey: Self.AppStateKeys.ShowControls.rawValue) {
+            let showControls = coder.decodeBool(forKey: Self.AppStateKeys.ShowControls.rawValue)
             self._showControlsInRunningTimer = showControls
         } else {
             self._showControlsInRunningTimer = true
@@ -1959,8 +1959,8 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - parameter with: The coder we'll be setting the state into.
      */
     func encode(with: NSCoder) {
-        with.encode(self._timers, forKey: type(of: self).AppStateKeys.Timers.rawValue)
-        with.encode(self._selectedTimer0BasedIndex, forKey: type(of: self).AppStateKeys.SelectedTimer.rawValue)
-        with.encode(self._showControlsInRunningTimer, forKey: type(of: self).AppStateKeys.ShowControls.rawValue)
+        with.encode(self._timers, forKey: Self.AppStateKeys.Timers.rawValue)
+        with.encode(self._selectedTimer0BasedIndex, forKey: Self.AppStateKeys.SelectedTimer.rawValue)
+        with.encode(self._showControlsInRunningTimer, forKey: Self.AppStateKeys.ShowControls.rawValue)
     }
 }

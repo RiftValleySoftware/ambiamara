@@ -200,13 +200,13 @@ public class LED_SingleDigit: LED_Element {
      - parameter inValue: A value, from -2 to 15 (-2 is nothing. -1 is the minus sign).
      */
     init(_ inValue: Int) {
-        self._topSegment = type(of: self)._newSegmentShape(inSegment: .kTopSegment)
-        self._topLeftSegment = type(of: self)._newSegmentShape(inSegment: .kTopLeftSegment)
-        self._bottomLeftSegment = type(of: self)._newSegmentShape(inSegment: .kBottomLeftSegment)
-        self._topRightSegment = type(of: self)._newSegmentShape(inSegment: .kTopRightSegment)
-        self._bottomRightSegment = type(of: self)._newSegmentShape(inSegment: .kBottomRightSegment)
-        self._bottomSegment = type(of: self)._newSegmentShape(inSegment: .kBottomSegment)
-        self._centerSegment = type(of: self)._newSegmentShape(inSegment: .kCenterSegment)
+        self._topSegment = Self._newSegmentShape(inSegment: .kTopSegment)
+        self._topLeftSegment = Self._newSegmentShape(inSegment: .kTopLeftSegment)
+        self._bottomLeftSegment = Self._newSegmentShape(inSegment: .kBottomLeftSegment)
+        self._topRightSegment = Self._newSegmentShape(inSegment: .kTopRightSegment)
+        self._bottomRightSegment = Self._newSegmentShape(inSegment: .kBottomRightSegment)
+        self._bottomSegment = Self._newSegmentShape(inSegment: .kBottomSegment)
+        self._centerSegment = Self._newSegmentShape(inSegment: .kCenterSegment)
         self._value = max(-2, min(15, inValue))
     }
     
@@ -228,7 +228,7 @@ public class LED_SingleDigit: LED_Element {
      Get the bounding box of this segment.
      */
     public var drawingSize: CGSize {
-        return type(of: self)._c_g_displaySize
+        return Self._c_g_displaySize
     }
     
     /* ################################################################## */
@@ -275,7 +275,7 @@ public class LED_SingleDigit: LED_Element {
     public var activeSegments: UIBezierPath {
         let ret: UIBezierPath = UIBezierPath()
         
-        if let selectedSegments = type(of: self)._c_g_segmentSelection[self._value] {
+        if let selectedSegments = Self._c_g_segmentSelection[self._value] {
             // Include the segments that we're using.
             for segmentPathIndex in selectedSegments {
                 switch segmentPathIndex {
@@ -427,7 +427,7 @@ public class LED_SingleDigit: LED_Element {
      */
     private func _isSegmentSelected(_ inSegment: SegmentIndexes) -> Bool {
         var ret: Bool = false
-        if let selectedSegments = type(of: self)._c_g_segmentSelection[self._value] {
+        if let selectedSegments = Self._c_g_segmentSelection[self._value] {
             
             for segmentPathIndex in selectedSegments where segmentPathIndex == inSegment {
                 ret = true
@@ -469,17 +469,17 @@ public class LED_SeparatorDots: LED_Element {
      - parameter inLitSegments: An array of Bool, indicating which segments should be lit. There must be at least Two values.
      */
     init(_ inLitSegments: [Bool] = [true]) {
-        let dotWidth = type(of: self)._c_g_displaySize.width / 2
+        let dotWidth = Self._c_g_displaySize.width / 2
         let dotHorizontalCenter = dotWidth
-        var lastPoint = CGPoint(x: dotHorizontalCenter, y: type(of: self)._c_g_displaySize.height - (dotWidth / 2))
+        var lastPoint = CGPoint(x: dotHorizontalCenter, y: Self._c_g_displaySize.height - (dotWidth / 2))
         self._litSegments = inLitSegments   // These are the ones we want "lit".
         
         // More than one results in an evenly-distributed vertical row.
         if inLitSegments.count > 1 {
             // First, calculate our vertical offsets.
-            let separator = type(of: self)._c_g_displaySize.height / CGFloat(inLitSegments.count + 1)
+            let separator = Self._c_g_displaySize.height / CGFloat(inLitSegments.count + 1)
             let firstPoint = CGPoint(x: dotHorizontalCenter, y: separator)
-            lastPoint.y = type(of: self)._c_g_displaySize.height - separator
+            lastPoint.y = Self._c_g_displaySize.height - separator
             
             var segmentCenters: [CGPoint] = [firstPoint]
             
@@ -527,7 +527,7 @@ public class LED_SeparatorDots: LED_Element {
      Get the drawing size of this element.
      */
     public var drawingSize: CGSize {
-        return type(of: self)._c_g_displaySize
+        return Self._c_g_displaySize
     }
     
     /* ################################################################## */

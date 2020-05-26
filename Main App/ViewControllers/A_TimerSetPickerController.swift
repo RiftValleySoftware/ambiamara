@@ -81,7 +81,7 @@ class A_TimerNavBaseController: A_TimerBaseViewController {
                 }
             }
             
-            return type(of: self).textAsImage(drawText: displayedString as NSString)
+            return Self.textAsImage(drawText: displayedString as NSString)
         } else {
             return UIImage(named: "List")
         }
@@ -189,7 +189,7 @@ class A_TimerSetPickerController: A_TimerNavBaseController, UIPickerViewDelegate
      - returns: the height, in display units, of the referenced picker component rows
      */
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return pickerView.bounds.size.height / type(of: self).s_g_pickerElementHeightDivisor
+        return pickerView.bounds.size.height / Self.s_g_pickerElementHeightDivisor
     }
     
     /* ################################################################## */
@@ -199,7 +199,7 @@ class A_TimerSetPickerController: A_TimerNavBaseController, UIPickerViewDelegate
      - returns: the width, in display units, of the referenced picker component
      */
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return (pickerView.bounds.size.width / 3.0) - type(of: self).s_g_pickerElementPaddingInDisplayUnits
+        return (pickerView.bounds.size.width / 3.0) - Self.s_g_pickerElementPaddingInDisplayUnits
     }
     
     /* ################################################################## */

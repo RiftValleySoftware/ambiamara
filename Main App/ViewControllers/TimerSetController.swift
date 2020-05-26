@@ -131,7 +131,7 @@ class TimerSetController: A_TimerSetPickerController {
         self.setTimePickerView.isHidden = true
         
         self.updateTimer()
-        self.nextTimerButton.addTarget(self, action: #selector(type(of: self).setSelectedNextTimer(_:)), for: .touchUpInside)
+        self.nextTimerButton.addTarget(self, action: #selector(Self.setSelectedNextTimer(_:)), for: .touchUpInside)
         self.nextTimerPickerView.isAccessibilityElement = true
         UIAccessibility.post(notification: .layoutChanged, argument: self.nextTimerPickerView)
     }
@@ -148,7 +148,7 @@ class TimerSetController: A_TimerSetPickerController {
         
         self.nextTimerPickerView.isAccessibilityElement = false
         UIAccessibility.post(notification: .layoutChanged, argument: self.timeDisplayLabel)
-        self.nextTimerButton.addTarget(self, action: #selector(type(of: self).nextTimerButtonHit(_:)), for: .touchUpInside)
+        self.nextTimerButton.addTarget(self, action: #selector(Self.nextTimerButtonHit(_:)), for: .touchUpInside)
     }
     
     /* ################################################################################################################################## */
@@ -159,7 +159,7 @@ class TimerSetController: A_TimerSetPickerController {
      Bring in the setup screen.
      */
     func bringInSettingsScreen() {
-        self.performSegue(withIdentifier: type(of: self).switchToSettingsSegueID, sender: nil)
+        self.performSegue(withIdentifier: Self.switchToSettingsSegueID, sender: nil)
     }
     
     /* ################################################################## */
@@ -210,7 +210,7 @@ class TimerSetController: A_TimerSetPickerController {
      Start the Timer.
      */
     func startTimer() {
-        self.performSegue(withIdentifier: type(of: self).startTimerSegueID, sender: nil)
+        self.performSegue(withIdentifier: Self.startTimerSegueID, sender: nil)
     }
     
     /* ################################################################## */
@@ -257,7 +257,7 @@ class TimerSetController: A_TimerSetPickerController {
         self.updateTimer()
         self.nextTimerSelectionContainer.isHidden = true
         self.setTimePickerView.isHidden = false
-        self.nextTimerButton.addTarget(self, action: #selector(type(of: self).nextTimerButtonHit(_:)), for: .touchUpInside)
+        self.nextTimerButton.addTarget(self, action: #selector(Self.nextTimerButtonHit(_:)), for: .touchUpInside)
         self.trafficLightsImageView.isHidden = .Digital == self.timerObject.displayMode
         self.titleLabel.text = self.navigationItem.title ?? ""
         self.setTimePickerView.reloadAllComponents()

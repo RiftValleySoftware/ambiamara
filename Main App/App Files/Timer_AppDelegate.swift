@@ -267,7 +267,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      - parameter: ignored
      */
     func applicationDidFinishLaunching(_: UIApplication) {
-        type(of: self).recordOriginalBrightness()
+        Self.recordOriginalBrightness()
     }
     
     /* ################################################################## */
@@ -277,7 +277,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      - parameter: ignored
      */
     func applicationDidBecomeActive(_: UIApplication) {
-        type(of: self).recordOriginalBrightness()
+        Self.recordOriginalBrightness()
     }
 
     /* ################################################################## */
@@ -287,7 +287,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      - parameter: ignored
      */
     func applicationWillEnterForeground(_: UIApplication) {
-        type(of: self).recordOriginalBrightness()
+        Self.recordOriginalBrightness()
         self.sendForegroundMessage()
     }
     
@@ -298,7 +298,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      - parameter: ignored
      */
     func applicationWillResignActive(_: UIApplication) {
-        type(of: self).restoreOriginalBrightness()
+        Self.restoreOriginalBrightness()
     }
 
     /* ################################################################## */
@@ -309,7 +309,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      - parameter: ignored
      */
     func applicationDidEnterBackground(_: UIApplication) {
-        type(of: self).restoreOriginalBrightness()
+        Self.restoreOriginalBrightness()
         if nil != self.timerEngine {
             self.sendBackgroundMessage()
             self.timerEngine.savePrefs()
@@ -485,21 +485,21 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /**
      */
     func sessionDidBecomeInactive(_ session: WCSession) {
-        type(of: self).displayAlert("iOS App: LGV_Timer_AppDelegate.sessionDidBecomeInactive", inMessage: "")
+        Self.displayAlert("iOS App: LGV_Timer_AppDelegate.sessionDidBecomeInactive", inMessage: "")
     }
     
     /* ################################################################## */
     /**
      */
     func sessionDidDeactivate(_ session: WCSession) {
-        type(of: self).displayAlert("iOS App: LGV_Timer_AppDelegate.sessionDidDeactivate", inMessage: "")
+        Self.displayAlert("iOS App: LGV_Timer_AppDelegate.sessionDidDeactivate", inMessage: "")
     }
     
     /* ################################################################## */
     /**
      */
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
-        type(of: self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveApplicationContext:)", inMessage: "\(applicationContext)")
+        Self.displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveApplicationContext:)", inMessage: "\(applicationContext)")
     }
     
     /* ################################################################## */
@@ -539,7 +539,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
                                     print(uid)
                                 }
                             #endif
-                            type(of: self).displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessage:)", inMessage: "\(message)")
+                            Self.displayAlert("iOS App: LGV_Timer_AppDelegate.session(_:,didReceiveMessage:)", inMessage: "\(message)")
                         }
                     }
                 }

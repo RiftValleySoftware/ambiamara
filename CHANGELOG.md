@@ -1,4 +1,6 @@
 **Version 1.2.0.2000** *TBD*
+- I swapped out all the archaic `type(of: self).` for `Self.`
+- I swapped the standard Timer() class out for my GCD timer class, as Catalyst had an issue, where it would stop ticking while resizing the window.
 
 **Version 1.1.1.3000** *October 11, 2019*
 - There was a bug, where changing the timer while an editor was up would leave the lock orientation. This has been fixed.
