@@ -26,25 +26,25 @@ import UIKit
 class TimerSoundModeButton: UIButton {
     @IBInspectable var isVibrateOn: Bool = false {
         didSet {
-            self.setNeedsDisplay()
+            setNeedsDisplay()
         }
     }
     
     @IBInspectable var isMusicOn: Bool = false {
         didSet {
-            self.setNeedsDisplay()
+            setNeedsDisplay()
         }
     }
     
     @IBInspectable var isSoundOn: Bool = false {
         didSet {
-            self.setNeedsDisplay()
+            setNeedsDisplay()
         }
     }
     
     @IBInspectable var isTicksOn: Bool = false {
         didSet {
-            self.setNeedsDisplay()
+            setNeedsDisplay()
         }
     }
 
@@ -55,8 +55,8 @@ class TimerSoundModeButton: UIButton {
      */
     override func touchesBegan(_ inTouches: Set<UITouch>, with inEvent: UIEvent?) {
         if let touchLocation = inTouches.first?.location(in: self) {
-            if self.bounds.contains(touchLocation) {
-                self.isHighlighted = true
+            if bounds.contains(touchLocation) {
+                isHighlighted = true
             }
         }
         
@@ -68,8 +68,8 @@ class TimerSoundModeButton: UIButton {
      */
     override func beginTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let touchLocation = inTouch.location(in: self)
-        self.isHighlighted = self.bounds.contains(touchLocation)
-        self.setNeedsDisplay()
+        isHighlighted = bounds.contains(touchLocation)
+        setNeedsDisplay()
         return super.beginTracking(inTouch, with: inEvent)
     }
     
@@ -78,8 +78,8 @@ class TimerSoundModeButton: UIButton {
      */
     override func continueTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let touchLocation = inTouch.location(in: self)
-        self.isHighlighted = self.bounds.contains(touchLocation)
-        self.setNeedsDisplay()
+        isHighlighted = bounds.contains(touchLocation)
+        setNeedsDisplay()
         return super.continueTracking(inTouch, with: inEvent)
     }
     
@@ -87,8 +87,8 @@ class TimerSoundModeButton: UIButton {
     /**
      */
     override func endTracking(_ inTouch: UITouch?, with inEvent: UIEvent?) {
-        self.isHighlighted = false
-        self.setNeedsDisplay()
+        isHighlighted = false
+        setNeedsDisplay()
         return super.endTracking(inTouch, with: inEvent)
     }
     
@@ -97,9 +97,9 @@ class TimerSoundModeButton: UIButton {
      */
     override func touchesEnded(_ inTouches: Set<UITouch>, with inEvent: UIEvent?) {
         if let touchLocation = inTouches.first?.location(in: self) {
-            if self.bounds.contains(touchLocation) {
-                self.isHighlighted = false
-                self.sendActions(for: .touchUpInside)
+            if bounds.contains(touchLocation) {
+                isHighlighted = false
+                sendActions(for: .touchUpInside)
             }
         }
         
@@ -110,40 +110,40 @@ class TimerSoundModeButton: UIButton {
     /**
      */
     override func draw(_ inRect: CGRect) {
-        var brightness: CGFloat = self.isHighlighted || self.isSelected ? 0.75 : 1.0
+        var brightness: CGFloat = isHighlighted || isSelected ? 0.75 : 1.0
         
-        if !self.isEnabled {
-            self.tintColor = UIColor(white: 1.0, alpha: 1.0)
+        if !isEnabled {
+            tintColor = UIColor(white: 1.0, alpha: 1.0)
             brightness = 0.5
         }
         
-        let backgroundColor = self.tintColor.withAlphaComponent(brightness)
-        self.layer.backgroundColor = backgroundColor.cgColor
+        let backgroundColor = tintColor.withAlphaComponent(brightness)
+        layer.backgroundColor = backgroundColor.cgColor
 
         // What we do here, is get images that represent our current modes.
         var imageArray: [UIImage] = []
         
-        if self.isVibrateOn {
+        if isVibrateOn {
             if let tempImage = UIImage(named: "VibrateIcon")?.withRenderingMode(.alwaysTemplate) {
                 imageArray.append(tempImage)
             }
-        } else if !self.isMusicOn, !self.isSoundOn, !self.isTicksOn {
+        } else if !isMusicOn, !isSoundOn, !isTicksOn {
             if let tempImage = UIImage(named: "Nothing")?.withRenderingMode(.alwaysTemplate) {
                 imageArray.append(tempImage)
             }
         }
         
-        if self.isSoundOn {
+        if isSoundOn {
             if let tempImage = UIImage(named: "Speaker")?.withRenderingMode(.alwaysTemplate) {
                 imageArray.append(tempImage)
             }
-        } else if self.isMusicOn {
+        } else if isMusicOn {
             if let tempImage = UIImage(named: "Music")?.withRenderingMode(.alwaysTemplate) {
                 imageArray.append(tempImage)
             }
         }
         
-        if self.isTicksOn {
+        if isTicksOn {
             if let tempImage = UIImage(named: "Ticks")?.withRenderingMode(.alwaysTemplate) {
                 imageArray.append(tempImage)
             }
@@ -184,11 +184,11 @@ class TimerSoundModeButton: UIButton {
                 UIGraphicsEndImageContext()
                 
                 let imageBounds = CGRect(origin: CGPoint.zero, size: combinedImage.size)
-                let frame = CGRect(origin: CGPoint(x: self.bounds.midX - imageBounds.midX, y: self.bounds.midY - imageBounds.midY), size: imageBounds.size)
+                let frame = CGRect(origin: CGPoint(x: bounds.midX - imageBounds.midX, y: bounds.midY - imageBounds.midY), size: imageBounds.size)
 
                 let imageView = UIImageView(image: combinedImage)
                 imageView.frame = frame
-                self.mask = imageView
+                mask = imageView
             } else {
                 UIGraphicsEndImageContext()
             }

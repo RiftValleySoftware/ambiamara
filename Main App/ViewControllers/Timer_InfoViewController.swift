@@ -35,7 +35,7 @@ class Timer_InfoViewController: A_TimerBaseViewController {
      - parameter sender: ignored
      */
     @IBAction func doneButtonHit(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     /* ################################################################## */
@@ -50,7 +50,7 @@ class Timer_InfoViewController: A_TimerBaseViewController {
             return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
         }
         
-        let openLink = NSURL(string: self.corporateURI)
+        let openLink = NSURL(string: corporateURI)
         UIApplication.shared.open(openLink! as URL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
     }
     
@@ -74,8 +74,8 @@ class Timer_InfoViewController: A_TimerBaseViewController {
             }
         }
 
-        self.corporateBlurb.text = self.corporateName
-        self.labelForTitle.text = appName + " " + appVersion
-        self.rvsText.text = self.rvsText.text.localizedVariant
+        corporateBlurb.text = corporateName
+        labelForTitle.text = appName + " " + appVersion
+        rvsText.text = rvsText.text.localizedVariant
     }
 }

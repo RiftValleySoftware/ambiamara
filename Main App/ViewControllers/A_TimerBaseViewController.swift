@@ -73,7 +73,7 @@ class A_TimerBaseViewController: UIViewController {
         get {
             var ret: String = ""
             
-            if let title = self.navigationItem.title {
+            if let title = navigationItem.title {
                 ret = title
             }
             
@@ -81,7 +81,7 @@ class A_TimerBaseViewController: UIViewController {
         }
         
         set {
-            self.navigationItem.title = newValue.localizedVariant
+            navigationItem.title = newValue.localizedVariant
         }
     }
     
@@ -131,24 +131,24 @@ class A_TimerBaseViewController: UIViewController {
 
         // If the user is running high contrast, we give it to them.
         if UIAccessibility.isDarkerSystemColorsEnabled && !(self is TimerRuntimeViewController) {
-            self.gradientTopColor = UIColor.darkGray
-            self.gradientBottomColor = UIColor.black
+            gradientTopColor = UIColor.darkGray
+            gradientBottomColor = UIColor.black
         }
         
-        self.gradientLayer.colors = [self.gradientTopColor.cgColor, self.gradientBottomColor.cgColor]
-        self.gradientLayer.locations = [0.0, 1.0]
+        gradientLayer.colors = [gradientTopColor.cgColor, gradientBottomColor.cgColor]
+        gradientLayer.locations = [0.0, 1.0]
         
-        self.view.layer.sublayers?.insert(self.gradientLayer, at: 0)
+        view.layer.sublayers?.insert(gradientLayer, at: 0)
         
         // The nav item for timers is set by the bar manager.
-        if (type(of: self) != TimerNavController.self) && (nil != self.navigationItem.title) {
-            self.titleLabel = UILabel()
-            self.titleLabel.font = UIFont.boldSystemFont(ofSize: self.headerFontSize)
-            self.titleLabel.textColor = UIColor.white
-            self.titleLabel.adjustsFontSizeToFitWidth = true
-            self.titleLabel.text = self.navigationItem.title!.localizedVariant
-            self.titleLabel.isAccessibilityElement = true
-            self.navigationItem.titleView = self.titleLabel
+        if (type(of: self) != TimerNavController.self) && (nil != navigationItem.title) {
+            titleLabel = UILabel()
+            titleLabel.font = UIFont.boldSystemFont(ofSize: headerFontSize)
+            titleLabel.textColor = UIColor.white
+            titleLabel.adjustsFontSizeToFitWidth = true
+            titleLabel.text = navigationItem.title!.localizedVariant
+            titleLabel.isAccessibilityElement = true
+            navigationItem.titleView = titleLabel
         }
     }
     
@@ -160,7 +160,7 @@ class A_TimerBaseViewController: UIViewController {
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.gradientLayer.frame = self.view.bounds
+        gradientLayer.frame = view.bounds
     }
     
     /* ################################################################## */
@@ -173,19 +173,19 @@ class A_TimerBaseViewController: UIViewController {
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let navController = self.navigationController {
+        if let navController = navigationController {
             let navBar = navController.navigationBar
-            navBar.barTintColor = self.gradientTopColor
-            navBar.tintColor = self.view.tintColor
+            navBar.barTintColor = gradientTopColor
+            navBar.tintColor = view.tintColor
             navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         }
         
-        if let tabController = self.tabBarController {
-            tabController.tabBar.barTintColor = self.gradientBottomColor
-            tabController.tabBar.unselectedItemTintColor = self.view.tintColor
+        if let tabController = tabBarController {
+            tabController.tabBar.barTintColor = gradientBottomColor
+            tabController.tabBar.unselectedItemTintColor = view.tintColor
         }
         
-        self.addAccessibilityStuff()
+        addAccessibilityStuff()
     }
     
     /* ################################################################################################################################## */
@@ -193,12 +193,12 @@ class A_TimerBaseViewController: UIViewController {
      This method applies the app styling to the "More..." view.
      */
     func gussyUpTheMoreNavigation() {
-        if let navBar = self.navigationController?.navigationBar {
-            self.tabBarController?.moreNavigationController.navigationBar.tintColor = navBar.tintColor
-            self.tabBarController?.moreNavigationController.navigationBar.barStyle = navBar.barStyle
-            self.tabBarController?.moreNavigationController.navigationBar.barTintColor = navBar.barTintColor
-            self.tabBarController?.moreNavigationController.view.tintColor = UIColor.black
-            self.tabBarController?.moreNavigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        if let navBar = navigationController?.navigationBar {
+            tabBarController?.moreNavigationController.navigationBar.tintColor = navBar.tintColor
+            tabBarController?.moreNavigationController.navigationBar.barStyle = navBar.barStyle
+            tabBarController?.moreNavigationController.navigationBar.barTintColor = navBar.barTintColor
+            tabBarController?.moreNavigationController.view.tintColor = UIColor.black
+            tabBarController?.moreNavigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         }
     }
     

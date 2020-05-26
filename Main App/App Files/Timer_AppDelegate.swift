@@ -106,7 +106,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      Accessor for the main Tab controller.
      */
     var mainTabController: Timer_MainTabController! {
-        if let rootController = self.window?.rootViewController as? Timer_MainTabController {
+        if let rootController = window?.rootViewController as? Timer_MainTabController {
             return rootController
         }
         return nil
@@ -117,8 +117,8 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      Accessor for the main timer engine.
      */
     var timerEngine: TimerEngine! {
-        if nil != self.mainTabController {
-            return self.mainTabController.timerEngine
+        if nil != mainTabController {
+            return mainTabController.timerEngine
         }
         return nil
     }
@@ -146,7 +146,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      - parameter andRotateTo: The orientation that should be forced.
      */
     class func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation: UIInterfaceOrientation) {
-        self.lockOrientation(orientation)
+        lockOrientation(orientation)
         UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
     }
     
@@ -163,10 +163,10 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
             var presentedBy = inPresentingViewController
             
             if nil == presentedBy {
-                if let navController = self.appDelegateObject.window?.rootViewController as? UINavigationController {
+                if let navController = appDelegateObject.window?.rootViewController as? UINavigationController {
                     presentedBy = navController.topViewController
                 } else {
-                    if let tabController = self.appDelegateObject.window?.rootViewController as? UITabBarController {
+                    if let tabController = appDelegateObject.window?.rootViewController as? UITabBarController {
                         if let navController = tabController.selectedViewController as? UINavigationController {
                             presentedBy = navController.topViewController
                         } else {
@@ -193,14 +193,14 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      If the brightness level has not already been recorded, we do so now.
      */
     class func recordOriginalBrightness() {
-        if nil == self.originalScreenBrightness {
-            self.originalScreenBrightness = UIScreen.main.brightness
-            assert(0 <= self.originalScreenBrightness && 1.0 >= self.originalScreenBrightness)
+        if nil == originalScreenBrightness {
+            originalScreenBrightness = UIScreen.main.brightness
+            assert(0 <= originalScreenBrightness && 1.0 >= originalScreenBrightness)
         }
         
         // If the app had backgrounded while a timer was up, we'll need to force maximum brightness again.
-        if nil != self.appDelegateObject.currentTimer {
-            UIScreen.main.brightness = self.runningScreenBrightness
+        if nil != appDelegateObject.currentTimer {
+            UIScreen.main.brightness = runningScreenBrightness
         }
     }
     
@@ -209,10 +209,10 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      This restores our recorded brightness level to the screen.
      */
     class func restoreOriginalBrightness() {
-        if nil != self.originalScreenBrightness {
-            assert(0 <= self.originalScreenBrightness && 1.0 >= self.originalScreenBrightness)
-            UIScreen.main.brightness = self.originalScreenBrightness
-            self.originalScreenBrightness = nil
+        if nil != originalScreenBrightness {
+            assert(0 <= originalScreenBrightness && 1.0 >= originalScreenBrightness)
+            UIScreen.main.brightness = originalScreenBrightness
+            originalScreenBrightness = nil
         }
     }
 
@@ -226,11 +226,11 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /* ################################################################################################################################## */
     /// Accessor for the session
     var session: WCSession! {
-        if nil == self._mySession {
-             self._mySession = WCSession.default
+        if nil == _mySession {
+             _mySession = WCSession.default
         }
         
-        return self._mySession
+        return _mySession
     }
     
     /* ################################################################## */
@@ -238,8 +238,8 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      Returns the current app status.
      */
     var appState: LGV_Timer_State! {
-        if nil != self.timerEngine {
-            return self.timerEngine.appState
+        if nil != timerEngine {
+            return timerEngine.appState
         } else {
             return nil
         }
@@ -250,9 +250,9 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /* ################################################################################################################################## */
     /// Activates a session
     func activateSession() {
-        if WCSession.isSupported(), (self._mySession?.activationState != .activated) {
-            self._mySession?.delegate = self
-            self.session?.activate()
+        if WCSession.isSupported(), (_mySession?.activationState != .activated) {
+            _mySession?.delegate = self
+            session?.activate()
         }
     }
 
@@ -288,7 +288,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      */
     func applicationWillEnterForeground(_: UIApplication) {
         Self.recordOriginalBrightness()
-        self.sendForegroundMessage()
+        sendForegroundMessage()
     }
     
     /* ################################################################## */
@@ -310,9 +310,9 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      */
     func applicationDidEnterBackground(_: UIApplication) {
         Self.restoreOriginalBrightness()
-        if nil != self.timerEngine {
-            self.sendBackgroundMessage()
-            self.timerEngine.savePrefs()
+        if nil != timerEngine {
+            sendBackgroundMessage()
+            timerEngine.savePrefs()
         }
     }
 
@@ -324,14 +324,14 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      - parameter supportedInterfaceOrientationsFor: ignored
      */
     func application(_: UIApplication, supportedInterfaceOrientationsFor: UIWindow?) -> UIInterfaceOrientationMask {
-        return self.orientationLock
+        return orientationLock
     }
 
     /* ################################################################## */
     /**
      */
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        self.activateSession()
+        activateSession()
         return true
     }
     
@@ -343,9 +343,9 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      - parameter application: The application object.
      */
     func applicationWillTerminate(_ application: UIApplication) {
-        if nil != self.timerEngine {
-            self.sendBackgroundMessage()
-            self.timerEngine.savePrefs()
+        if nil != timerEngine {
+            sendBackgroundMessage()
+            timerEngine.savePrefs()
         }
     }
     
@@ -356,12 +356,12 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /**
      */
     func sendStartMessage(timerUID: String, currentTime: Int! = nil) {
-        if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
+        if (nil != timerEngine) && (nil != session) && (WCSessionActivationState.activated == session.activationState ) {
             let selectMsg = [Timer_Messages.s_timerListStartTimerMessageKey: timerUID]
             #if DEBUG
                 print("Phone Sending Message: " + String(describing: selectMsg))
             #endif
-            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+            session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
     }
     
@@ -369,12 +369,12 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /**
      */
     func sendStopMessage(timerUID: String) {
-        if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
+        if (nil != timerEngine) && (nil != session) && (WCSessionActivationState.activated == session.activationState ) {
             let selectMsg = [Timer_Messages.s_timerListStopTimerMessageKey: timerUID]
             #if DEBUG
                 print("Phone Sending Message: " + String(describing: selectMsg))
             #endif
-            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+            session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
     }
     
@@ -382,11 +382,11 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /**
      */
     func sendSelectMessage(timerUID: String = "") {
-        if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
+        if (nil != timerEngine) && (nil != session) && (WCSessionActivationState.activated == session.activationState ) {
             #if DEBUG
-                print("Incrementing Ignore Select From Watch from \(self.ignoreSelectMessageFromWatch).")
+                print("Incrementing Ignore Select From Watch from \(ignoreSelectMessageFromWatch).")
             #endif
-            self.ignoreSelectMessageFromWatch += 1
+            ignoreSelectMessageFromWatch += 1
             Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { (_ inTimer: Timer) in
                 #if DEBUG
                     if 0 < self.ignoreSelectMessageFromWatch {
@@ -395,12 +395,12 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
                 #endif
                 self.ignoreSelectMessageFromWatch = 0
             })
-            if .activated == self.session.activationState {
+            if .activated == session.activationState {
                 let selectMsg = [Timer_Messages.s_timerListSelectTimerMessageKey: timerUID]
                 #if DEBUG
                     print("Phone Sending Message: " + String(describing: selectMsg))
                 #endif
-                self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+                session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
             }
         }
     }
@@ -409,12 +409,12 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /**
      */
     func sendAlarmMessage(timerUID: String) {
-        if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
+        if (nil != timerEngine) && (nil != session) && (WCSessionActivationState.activated == session.activationState ) {
             let selectMsg = [Timer_Messages.s_timerListAlarmMessageKey: timerUID]
             #if DEBUG
                 print("Phone Sending Message: " + String(describing: selectMsg))
             #endif
-           self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+           session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
     }
     
@@ -422,12 +422,12 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /**
      */
     func sendTick() {
-        if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
-            let selectMsg = [Timer_Messages.s_timerSendTickMessageKey: self.appState.selectedTimer.currentTime]
+        if (nil != timerEngine) && (nil != session) && (WCSessionActivationState.activated == session.activationState ) {
+            let selectMsg = [Timer_Messages.s_timerSendTickMessageKey: appState.selectedTimer.currentTime]
             #if DEBUG
                 print("Phone Sending Message: " + String(describing: selectMsg))
             #endif
-            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+            session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
     }
 
@@ -435,12 +435,12 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /**
      */
     func sendBackgroundMessage() {
-        if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
+        if (nil != timerEngine) && (nil != session) && (WCSessionActivationState.activated == session.activationState ) {
             let selectMsg = [Timer_Messages.s_timerAppInBackgroundMessageKey: ""]
             #if DEBUG
                 print("Phone Sending Message: " + String(describing: selectMsg))
             #endif
-            self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+            session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
         }
     }
     
@@ -448,23 +448,23 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /**
      */
     func sendForegroundMessage() {
-        if (nil != self.timerEngine) && (nil != self.session) && (WCSessionActivationState.activated == self.session.activationState ) {
-            if nil != self.appState {
-                self.appState.forEach {    // Make sure the timer color theme is up to date.
-                    $0.storedColor = self.timerEngine.getIndexedColorThemeColor($0.colorTheme)
+        if (nil != timerEngine) && (nil != session) && (WCSessionActivationState.activated == session.activationState ) {
+            if nil != appState {
+                appState.forEach {    // Make sure the timer color theme is up to date.
+                    $0.storedColor = timerEngine.getIndexedColorThemeColor($0.colorTheme)
                 }
                 
-                let selectMsg = [Timer_Messages.s_timerRequestAppStatusMessageKey: self.appState.dictionary]
+                let selectMsg = [Timer_Messages.s_timerRequestAppStatusMessageKey: appState.dictionary]
                 #if DEBUG
                     print("Phone Sending Message: " + String(describing: selectMsg))
                 #endif
-                self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+                session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
             } else {
                 let selectMsg = [Timer_Messages.s_timerAppInForegroundMessageKey: ""]
                 #if DEBUG
                     print("Phone Sending Message: " + String(describing: selectMsg))
                 #endif
-                self.session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
+                session.sendMessage(selectMsg, replyHandler: nil, errorHandler: nil)
             }
         }
     }
@@ -477,7 +477,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
      */
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         if .activated == activationState {
-            self.sendForegroundMessage()
+            sendForegroundMessage()
         }
     }
     
@@ -506,7 +506,7 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /**
      */
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
-        if nil != self.timerEngine {
+        if nil != timerEngine {
             DispatchQueue.main.async {
                 if .active == UIApplication.shared.applicationState {
                     #if DEBUG
@@ -551,18 +551,18 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /**
      */
     func handleTimerListSelectMessage(_ message: [String: Any], _ key: String) {
-        if 0 == self.ignoreSelectMessageFromWatch {
-            if (nil != self.timerEngine) && (nil != self.mainTabController) {
+        if 0 == ignoreSelectMessageFromWatch {
+            if (nil != timerEngine) && (nil != mainTabController) {
                 if let uid = message[key] as? String {
-                    let index = self.timerEngine.indexOf(uid)
-                    self.timerEngine.selectedTimerIndex = index
+                    let index = timerEngine.indexOf(uid)
+                    timerEngine.selectedTimerIndex = index
                 }
             }
         } else {
             #if DEBUG
-                print("Select From Watch Ignored. Decrementing Ignore Select From Watch from \(self.ignoreSelectMessageFromWatch).")
+                print("Select From Watch Ignored. Decrementing Ignore Select From Watch from \(ignoreSelectMessageFromWatch).")
             #endif
-            self.ignoreSelectMessageFromWatch -= 1
+            ignoreSelectMessageFromWatch -= 1
         }
     }
     
@@ -570,13 +570,13 @@ class Timer_AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     /**
      */
     func handleTimerListStartMessage(_ message: [String: Any], _ key: String) {
-        if (nil != self.timerEngine) && (nil != self.mainTabController) {
+        if (nil != timerEngine) && (nil != mainTabController) {
             if let uid = message[key] as? String {
-                let index = self.timerEngine.indexOf(uid)
-                self.timerEngine.selectedTimerIndex = index
+                let index = timerEngine.indexOf(uid)
+                timerEngine.selectedTimerIndex = index
             }
             
-            if let controller = self.mainTabController.getTimerScreen(self.timerEngine.selectedTimer) {
+            if let controller = mainTabController.getTimerScreen(timerEngine.selectedTimer) {
                 controller.startTimer()
             }
         }

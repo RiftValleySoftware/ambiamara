@@ -29,7 +29,7 @@ class TheGreatRiftValleyDrawing: UIControl {
      */
     @IBInspectable var baseColor: UIColor = UIColor.black {
         didSet {
-            self.layoutSubviews()
+            layoutSubviews()
         }
     }
     /* ################################################################## */
@@ -37,7 +37,7 @@ class TheGreatRiftValleyDrawing: UIControl {
      */
     @IBInspectable var moonColor: UIColor = UIColor.clear {
         didSet {
-            self.layoutSubviews()
+            layoutSubviews()
         }
     }
 
@@ -45,9 +45,9 @@ class TheGreatRiftValleyDrawing: UIControl {
     /**
      */
     override func layoutSubviews() {
-        if nil == self._tapGestureRecognizer {
-            self._tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(Self.controlTapped(_:)))
-            self.addGestureRecognizer(self._tapGestureRecognizer)
+        if nil == _tapGestureRecognizer {
+            _tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(Self.controlTapped(_:)))
+            addGestureRecognizer(_tapGestureRecognizer)
         }
         super.layoutSubviews()
     }
@@ -56,9 +56,9 @@ class TheGreatRiftValleyDrawing: UIControl {
     /**
      */
     override func draw(_ inRect: CGRect) {
-        self._moonFillGradientLayer?.removeFromSuperlayer()  // Remove any previous gradient fill layers.
-        self._gradientLayer?.removeFromSuperlayer()
-        self.backgroundColor = UIColor.clear    // Make sure that our background color is clear.
+        _moonFillGradientLayer?.removeFromSuperlayer()  // Remove any previous gradient fill layers.
+        _gradientLayer?.removeFromSuperlayer()
+        backgroundColor = UIColor.clear    // Make sure that our background color is clear.
         let moonFillPath = UIBezierPath()
         moonFillPath.move(to: CGPoint(x: 197.2, y: 205.4))
         moonFillPath.addLine(to: CGPoint(x: 224.1, y: 164.4))
@@ -639,8 +639,8 @@ class TheGreatRiftValleyDrawing: UIControl {
         path.append(theGreatRiftValleyPath)
         path.append(tmPath)
 
-        let scaleX = self.bounds.width / path.bounds.size.width
-        let scaleY = self.bounds.height / path.bounds.size.height
+        let scaleX = bounds.width / path.bounds.size.width
+        let scaleY = bounds.height / path.bounds.size.height
         let scale = min(scaleX, scaleY)
         
         let transform: CGAffineTransform = CGAffineTransform.init(scaleX: scale, y: scale)
@@ -653,55 +653,55 @@ class TheGreatRiftValleyDrawing: UIControl {
         var fillEndColor: UIColor = UIColor.clear
         var fillStartColor: UIColor = UIColor.clear
         
-        if self.baseColor.isGrayscale {
-            lineEndColor = UIColor(white: 1.6 - self.baseColor.whiteLevel, alpha: 1.0)
-            lineStartColor = UIColor(white: 1.5 - self.baseColor.whiteLevel, alpha: 1.0)
-        } else if !self.moonColor.isClear {
-            lineEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 0.4, alpha: 1.0)
-            lineStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 0.3, alpha: 1.0)
+        if baseColor.isGrayscale {
+            lineEndColor = UIColor(white: 1.6 - baseColor.whiteLevel, alpha: 1.0)
+            lineStartColor = UIColor(white: 1.5 - baseColor.whiteLevel, alpha: 1.0)
+        } else if !moonColor.isClear {
+            lineEndColor = UIColor(hue: baseColor.hsba.h, saturation: baseColor.hsba.s, brightness: 0.4, alpha: 1.0)
+            lineStartColor = UIColor(hue: baseColor.hsba.h, saturation: baseColor.hsba.s, brightness: 0.3, alpha: 1.0)
         } else {
-            lineEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 1.0, alpha: 1.0)
-            lineStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 0.9, alpha: 1.0)
+            lineEndColor = UIColor(hue: baseColor.hsba.h, saturation: baseColor.hsba.s, brightness: 1.0, alpha: 1.0)
+            lineStartColor = UIColor(hue: baseColor.hsba.h, saturation: baseColor.hsba.s, brightness: 0.9, alpha: 1.0)
         }
         
-        if !self.moonColor.isClear, self.moonColor.isGrayscale {  // Otherwise, we mute the main color, and amp up the moon.
-            fillEndColor = UIColor(white: self.moonColor.whiteLevel, alpha: 1.0)
-            fillStartColor = UIColor(white: max(0, self.moonColor.whiteLevel - 0.1), alpha: 1.0)
-        } else if !self.moonColor.isClear {
-            fillEndColor = UIColor(hue: self.moonColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 1.0, alpha: 1.0)
-            fillStartColor = UIColor(hue: self.moonColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 0.9, alpha: 1.0)
+        if !moonColor.isClear, moonColor.isGrayscale {  // Otherwise, we mute the main color, and amp up the moon.
+            fillEndColor = UIColor(white: moonColor.whiteLevel, alpha: 1.0)
+            fillStartColor = UIColor(white: max(0, moonColor.whiteLevel - 0.1), alpha: 1.0)
+        } else if !moonColor.isClear {
+            fillEndColor = UIColor(hue: moonColor.hsba.h, saturation: baseColor.hsba.s, brightness: 1.0, alpha: 1.0)
+            fillStartColor = UIColor(hue: moonColor.hsba.h, saturation: baseColor.hsba.s, brightness: 0.9, alpha: 1.0)
         }
         
-        self._gradientLayer = CAGradientLayer()
-        self._gradientLayer.colors = [lineStartColor.cgColor, lineEndColor.cgColor]
-        self._gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
-        self._gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
-        self._gradientLayer.frame = self.bounds
+        _gradientLayer = CAGradientLayer()
+        _gradientLayer.colors = [lineStartColor.cgColor, lineEndColor.cgColor]
+        _gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
+        _gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
+        _gradientLayer.frame = bounds
 
         let shape = CAShapeLayer()
         shape.path = path.cgPath
-        self._gradientLayer.mask = shape
+        _gradientLayer.mask = shape
         
-        if !self.moonColor.isClear {    // If the moon is clear, we don't fill it at all.
-            self._moonFillGradientLayer = CAGradientLayer()
-            self._moonFillGradientLayer.colors = [fillStartColor.cgColor, fillEndColor.cgColor]
-            self._moonFillGradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
-            self._moonFillGradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
-            self._moonFillGradientLayer.frame = self.bounds
+        if !moonColor.isClear {    // If the moon is clear, we don't fill it at all.
+            _moonFillGradientLayer = CAGradientLayer()
+            _moonFillGradientLayer.colors = [fillStartColor.cgColor, fillEndColor.cgColor]
+            _moonFillGradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
+            _moonFillGradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
+            _moonFillGradientLayer.frame = bounds
             
             let shape = CAShapeLayer()
             shape.path = moonFillPath.cgPath
-            self._moonFillGradientLayer.mask = shape
-            self.layer.addSublayer(self._moonFillGradientLayer)
+            _moonFillGradientLayer.mask = shape
+            layer.addSublayer(_moonFillGradientLayer)
         }
 
-        self.layer.addSublayer(self._gradientLayer)
+        layer.addSublayer(_gradientLayer)
     }
     
     /* ################################################################## */
     /**
      */
     @IBAction func controlTapped(_ sender: Any) {
-        self.sendActions(for: .touchUpInside)
+        sendActions(for: .touchUpInside)
     }
 }

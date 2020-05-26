@@ -52,12 +52,12 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.selectedIndex = 0
-        self.timerEngine = TimerEngine(delegate: self)
-        self.viewControllers?[0].tabBarItem.title = self.viewControllers?[0].tabBarItem.title?.localizedVariant
-        self.updateTimers()
-        self.delegate = self
-        self.isSwipeEnabled = false // We disable the swipe, because we'll be providing our own.
+        selectedIndex = 0
+        timerEngine = TimerEngine(delegate: self)
+        viewControllers?[0].tabBarItem.title = viewControllers?[0].tabBarItem.title?.localizedVariant
+        updateTimers()
+        delegate = self
+        isSwipeEnabled = false // We disable the swipe, because we'll be providing our own.
     }
     
     /* ################################################################################################################################## */
@@ -106,11 +106,11 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
      - parameter inTimer: The timer View Controller to add.
      */
     func addTimerToList(_ inTimer: TimerSetController) {
-        for timerView in self.activeTimerSetControllers where timerView == inTimer {
+        for timerView in activeTimerSetControllers where timerView == inTimer {
             return
         }
         
-        self.activeTimerSetControllers.append(inTimer)
+        activeTimerSetControllers.append(inTimer)
     }
     
     /* ################################################################## */
@@ -120,8 +120,8 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
      - parameter inTimer: The timer View Controller to remove.
      */
     func removeTimerFromList(_ inTimer: TimerSetController) {
-        for i in self.activeTimerSetControllers.enumerated() where i.element == inTimer {
-            self.activeTimerSetControllers.remove(at: i.offset)
+        for i in activeTimerSetControllers.enumerated() where i.element == inTimer {
+            activeTimerSetControllers.remove(at: i.offset)
             break
         }
     }
@@ -133,7 +133,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
      - parameter timerObject: The TimerSettingTuple of the View Controller.
      */
     func getTimerScreen(_ timerObject: TimerSettingTuple) -> TimerSetController! {
-        for timerView in self.activeTimerSetControllers where timerView.timerObject.uid == timerObject.uid {
+        for timerView in activeTimerSetControllers where timerView.timerObject.uid == timerObject.uid {
             return timerView
         }
         
@@ -170,7 +170,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     /**
      */
     func deleteTimer(_ inTimerIndex: Int) {
-        let timer = self.timerEngine[inTimerIndex]
+        let timer = timerEngine[inTimerIndex]
         timer.seppuku()
     }
     
@@ -178,17 +178,16 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
     /**
      */
     func addNewTimer() {
-        _ = self.timerEngine.createNewTimer()
+        _ = timerEngine.createNewTimer()
     }
     
     /* ################################################################## */
     /**
      */
     func addTimer(_ inTimerObject: TimerSettingTuple) {
-        let storyboard = self.storyboard
-        if nil != storyboard {
+        if let storyboard = self.storyboard {
             let storyBoardID = "LGV_Timer_TimerNavController"
-            if let timerController = storyboard!.instantiateViewController(withIdentifier: storyBoardID) as? TimerNavController {
+            if let timerController = storyboard.instantiateViewController(withIdentifier: storyBoardID) as? TimerNavController {
                 timerController.timerObject = inTimerObject
                 timerController.delegate = timerController
                 let timerTitle = timerController.tabBarText
@@ -196,7 +195,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
                 timerController.tabBarItem.image = timerController.tabBarImage
                 timerController.tabBarItem.selectedImage = timerController.tabBarImage
                 timerController.navigationBar.topItem?.title = timerTitle
-                self.viewControllers?.append(timerController)
+                viewControllers?.append(timerController)
             }
         }
     }
@@ -214,7 +213,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
         #if DEBUG
             print("Cascading the timer to timer number \(inIndex + 1)")
         #endif
-        self.selectTimer(inIndex, andStartTimer: true)
+        selectTimer(inIndex, andStartTimer: true)
     }
     
     /* ################################################################################################################################## */
@@ -232,7 +231,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
             print("Timer Added: \(didAddTimer)")
         #endif
         
-        self.updateTimers()
+        updateTimers()
         didAddTimer.selected = true
     }
     
@@ -261,7 +260,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
             print("Timer at index \(didRemoveTimerAtIndex) was removed.")
         #endif
         
-        self.updateTimers()
+        updateTimers()
     }
     
     /* ################################################################## */
@@ -279,10 +278,10 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
         var index = -1
         
         if nil != didSelectTimer {
-            index = self.timerEngine.indexOf(didSelectTimer)
+            index = timerEngine.indexOf(didSelectTimer)
         }
         
-        self.selectTimer(index)
+        selectTimer(index)
     }
     
     /* ################################################################## */
@@ -310,7 +309,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
             print("Timer (\(timerSetting)) Alarm: \(alarm)")
         #endif
         
-        if let controller = self.getTimerScreen(timerSetting) {
+        if let controller = getTimerScreen(timerSetting) {
             controller.updateTimer()
         }
     }
@@ -326,7 +325,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
         #if DEBUG
         print("Timer (\(timerSetting)) Tick: \(inTimes)")
         #endif
-        if let controller = self.getTimerScreen(timerSetting) {
+        if let controller = getTimerScreen(timerSetting) {
             if timerSetting.audibleTicks {
                 controller.tick(times: inTimes)
             }
@@ -345,7 +344,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
             print("Timer (\(timerSetting)) Changed Current Time From: \(changedCurrentTimeFrom)")
         #endif
         
-        if let controller = self.getTimerScreen(timerSetting) {
+        if let controller = getTimerScreen(timerSetting) {
             controller.updateTimer()
             Timer_AppDelegate.appDelegateObject.sendTick()
         }
@@ -402,7 +401,7 @@ class Timer_MainTabController: SwipeableTabBarController, TimerEngineDelegate {
             print("Timer (\(timerSetting)) Changed Timer Status From: \(changedTimerStatusFrom)")
         #endif
         
-        if let controller = self.getTimerScreen(timerSetting) {
+        if let controller = getTimerScreen(timerSetting) {
             if (.Running == timerSetting.timerStatus) && (.Stopped == changedTimerStatusFrom) {
                 controller.startTimer()
                 Timer_AppDelegate.appDelegateObject.sendStartMessage(timerUID: timerSetting.uid)

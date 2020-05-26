@@ -36,13 +36,13 @@ class TimerNavController: UINavigationController, UINavigationControllerDelegate
      */
     var timerObject: TimerSettingTuple! {
         get {
-            return self._timerObject
+            return _timerObject
         }
         
         set {
-            self._timerObject = newValue
-            if let controller = self.topViewController as? A_TimerNavBaseController {
-                controller.timerObject = self._timerObject
+            _timerObject = newValue
+            if let controller = topViewController as? A_TimerNavBaseController {
+                controller.timerObject = _timerObject
             }
         }
     }
@@ -50,7 +50,7 @@ class TimerNavController: UINavigationController, UINavigationControllerDelegate
     /* ################################################################################################################################## */
     /// - returns: the index number for this timer instance (1-based).
     var timerNumber: Int {
-        return Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(self.timerObject.uid) + 1
+        return Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(timerObject.uid) + 1
     }
     
     /* ################################################################## */
@@ -58,7 +58,7 @@ class TimerNavController: UINavigationController, UINavigationControllerDelegate
      - returns: The text for the tab bar icon/item
      */
     var tabBarText: String {
-        if let topController = self.topViewController as? A_TimerNavBaseController {
+        if let topController = topViewController as? A_TimerNavBaseController {
             return topController.tabBarText
         }
         return ""
@@ -69,7 +69,7 @@ class TimerNavController: UINavigationController, UINavigationControllerDelegate
      - returns: an image to display in the tab bar
      */
     var tabBarImage: UIImage {
-        if let topController = self.topViewController as? A_TimerNavBaseController {
+        if let topController = topViewController as? A_TimerNavBaseController {
             return topController.tabBarImage
         }
         return UIImage()
@@ -82,10 +82,10 @@ class TimerNavController: UINavigationController, UINavigationControllerDelegate
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if self == navigationController {
             if let newViewController = viewController as? A_TimerSetPickerController {
-                if !self.timerObject.selected {
-                    self.timerObject.selected = true
+                if !timerObject.selected {
+                    timerObject.selected = true
                 }
-                newViewController.timerObject = self.timerObject
+                newViewController.timerObject = timerObject
             }
         }
     }

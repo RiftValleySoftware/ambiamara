@@ -54,7 +54,7 @@ class A_TimerNavBaseController: A_TimerBaseViewController {
     
     /// This has the index number for this timer instance (1-based).
     var timerNumber: Int {
-        return Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(self.timerObject)
+        return Timer_AppDelegate.appDelegateObject.timerEngine.indexOf(timerObject)
     }
     
     /* ################################################################################################################################## */
@@ -67,7 +67,7 @@ class A_TimerNavBaseController: A_TimerBaseViewController {
     var tabBarImage: UIImage! {
         var displayedString = ""
         let timerNumber = self.timerNumber
-        if (0 <= self.timerNumber) && (Timer_AppDelegate.appDelegateObject.timerEngine.count > self.timerNumber) {
+        if (0 <= timerNumber) && (Timer_AppDelegate.appDelegateObject.timerEngine.count > timerNumber) {
             let prefs = Timer_AppDelegate.appDelegateObject.timerEngine[timerNumber]
             let timeTuple = TimeInstance(prefs.timeSet)
             
@@ -92,7 +92,7 @@ class A_TimerNavBaseController: A_TimerBaseViewController {
      This supplies a dynamically-created title for the Tab Bar.
      */
     var tabBarText: String {
-        return String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, self.timerNumber + 1)
+        return String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, timerNumber + 1)
     }
     
     /* ################################################################## */
@@ -100,7 +100,7 @@ class A_TimerNavBaseController: A_TimerBaseViewController {
      This adds the accessibility title.
      */
     override func viewDidLoad() {
-        self.navigationItem.title?.accessibilityHint = self.timerObject.setSpeakableTime
+        navigationItem.title?.accessibilityHint = timerObject.setSpeakableTime
         super.viewDidLoad()
     }
     

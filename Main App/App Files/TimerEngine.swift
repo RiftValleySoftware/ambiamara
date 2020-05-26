@@ -299,7 +299,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This simply returns true, if a timer is currently selected.
      */
     var timerSelected: Bool {
-        return self.appState.timerSelected
+        return appState.timerSelected
     }
     
     /* ################################################################## */
@@ -307,7 +307,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This returns the currently selected timer (or nil, if no timer is selected).
      */
     var selectedTimer: TimerSettingTuple! {
-        return self.appState.selectedTimer
+        return appState.selectedTimer
     }
     
     /* ################################################################## */
@@ -316,14 +316,14 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      */
     var selectedTimerIndex: Int! {
         get {
-            let index = self.appState.selectedTimerIndex
-            if index >= self.timers.count || 0 > index {
+            let index = appState.selectedTimerIndex
+            if index >= timers.count || 0 > index {
                 return nil
             }
             
             return index
         }
-        set { self.appState.selectedTimerIndex = newValue }
+        set { appState.selectedTimerIndex = newValue }
     }
 
     /* ################################################################## */
@@ -331,8 +331,8 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This returns the UID of the selected timer object.
      */
     var selectedTimerUID: String {
-        get { return self.appState.selectedTimerUID }
-        set { self.appState.selectedTimerUID = newValue }
+        get { return appState.selectedTimerUID }
+        set { appState.selectedTimerUID = newValue }
     }
     
     /* ################################################################## */
@@ -340,7 +340,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This returns true, if we have no timers (We should always have at least one, but belt and suspenders).
      */
     var isEmpty: Bool {
-        return self.appState.isEmpty
+        return appState.isEmpty
     }
     
     /* ################################################################## */
@@ -348,8 +348,8 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This returns the array of timer objects.
      */
     var timers: [TimerSettingTuple] {
-        get { return self.appState.timers }
-        set { self.appState.timers = newValue }
+        get { return appState.timers }
+        set { appState.timers = newValue }
     }
     
     /* ################################################################## */
@@ -357,7 +357,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This returns how many timers we have.
      */
     var count: Int {
-        return self.appState.count
+        return appState.count
     }
     
     /* ################################################################## */
@@ -365,15 +365,15 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This return true, if we currently have a ticking timer.
      */
     var timerActive: Bool {
-        get { return nil != self.gcdTimer }
+        get { return nil != gcdTimer }
         
         set {
-            if nil == self.gcdTimer {
-                self.gcdTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self.timerInterval, delegate: self, leewayInMilliseconds: 0, onlyFireOnce: false, context: nil, queue: nil, isWallTime: true)
-                self.gcdTimer.isRunning = true
-            } else if nil != self.gcdTimer {
-                self.gcdTimer.isRunning = false
-                self.gcdTimer = nil
+            if nil == gcdTimer {
+                gcdTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self.timerInterval, delegate: self, leewayInMilliseconds: 0, onlyFireOnce: false, context: nil, queue: nil, isWallTime: true)
+                gcdTimer.isRunning = true
+            } else if nil != gcdTimer {
+                gcdTimer.isRunning = false
+                gcdTimer = nil
             }
         }
     }
@@ -383,8 +383,8 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This returns the actual elapsed time (in a standard interval) since the timer started.
      */
     var actualTimeSinceStart: TimeInterval {
-        if self.timerSelected && (0.0 < self._firstTick) {
-            return Date.timeIntervalSinceReferenceDate - self._firstTick
+        if timerSelected && (0.0 < _firstTick) {
+            return Date.timeIntervalSinceReferenceDate - _firstTick
         } else {
             return 0.0
         }
@@ -395,21 +395,21 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      Returns the color palettes.
      */
     var colorLabelArray: [UILabel] {
-        if self._colorLabelArray.isEmpty {
+        if _colorLabelArray.isEmpty {
             // The first index is white.
             let label = UILabel()
             label.backgroundColor = UIColor.white
-            self._colorLabelArray = [label]
+            _colorLabelArray = [label]
             // We generate a series of colors, fully saturated, from red (orangeish) to red (purpleish).
             for hue: CGFloat in stride(from: 0.0, to: 1.0, by: 0.05) {
                 let color = UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
                 let label = UILabel()
                 label.backgroundColor = color
-                self._colorLabelArray.append(label)
+                _colorLabelArray.append(label)
             }
         }
         
-        return self._colorLabelArray
+        return _colorLabelArray
     }
 
     /* ################################################################################################################################## */
@@ -420,7 +420,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This creates a timer tuple from the persistent stored data sent in.
      */
     private class func _convertStorageToTimer(_ inTimer: NSDictionary) -> TimerSettingTuple {
-        let tempSetting: TimerSettingTuple = self.defaultTimer
+        let tempSetting: TimerSettingTuple = defaultTimer
         
         if let timeSet = inTimer.object(forKey: TimerPrefKeys.TimeSet.rawValue) as? NSNumber {
             tempSetting.timeSet = timeSet.intValue
@@ -502,8 +502,8 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     init(delegate: TimerEngineDelegate) {
         super.init()
         self.delegate = delegate
-        self._loadPrefs()
-        self.timerActive = true
+        _loadPrefs()
+        timerActive = true
     }
     
     /* ################################################################## */
@@ -511,15 +511,15 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      We make sure we clean up after ourselves.
      */
     deinit {
-        self.timerActive = false
+        timerActive = false
         
-        self.savePrefs()
+        savePrefs()
         var index = 0
         
-        for timer in self.timers where nil != self.delegate {
+        for timer in timers where nil != delegate {
             DispatchQueue.main.async {
-                self.delegate.timerEngine(self, willRemoveTimer: timer)
-                self.delegate.timerEngine(self, didRemoveTimerAtIndex: index)
+                self.delegate?.timerEngine(self, willRemoveTimer: timer)
+                self.delegate?.timerEngine(self, didRemoveTimerAtIndex: index)
             }
             index += 1
         }
@@ -535,39 +535,39 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      NOTE: This will overwrite any unsaved changes to the current _loadedPrefs property.
      */
     private func _loadPrefs() {
-        self.appState = LGV_Timer_State(delegate: self)
+        appState = LGV_Timer_State(delegate: self)
         // Pick up our beeper sounds.
-        self.soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil)
-        self.soundSelection.sort()
+        soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil)
+        soundSelection.sort()
         // Pick up the audible ticks sound.
-        self.tickURI = Bundle.main.path(forResource: "tick", ofType: "aiff") ?? ""
+        tickURI = Bundle.main.path(forResource: "tick", ofType: "aiff") ?? ""
         
         if  let temp = UserDefaults.standard.object(forKey: Self._appStatePrefsKey) as? Data,
             let temp2 = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(temp) as? LGV_Timer_State {
-            self.appState = temp2
-            self.appState.delegate = self
-            self.timers.forEach {
+            appState = temp2
+            appState.delegate = self
+            timers.forEach {
                 $0.timerStatus = .Stopped
-                $0.storedColor = self.getIndexedColorThemeColor($0.colorTheme)
-                $0.handler = self.appState
+                $0.storedColor = getIndexedColorThemeColor($0.colorTheme)
+                $0.handler = appState
             }
         }
         
         // We are not allowed to have zero timers.
-        if self.timers.isEmpty {
-            let temp = self.createNewTimer()
-            temp.storedColor = self.getIndexedColorThemeColor(temp.colorTheme)
+        if timers.isEmpty {
+            let temp = createNewTimer()
+            temp.storedColor = getIndexedColorThemeColor(temp.colorTheme)
         }
         
         // If we are in restricted media mode, then we don't allow any of our timers to be in Music mode.
         if .denied == MPMediaLibrary.authorizationStatus() || .restricted == MPMediaLibrary.authorizationStatus() {
-            for timer in self.timers where .Music == timer.soundMode {  // Only ones that are set to Music get changed.
+            for timer in timers where .Music == timer.soundMode {  // Only ones that are set to Music get changed.
                 timer.soundMode = .Silent
             }
         }
         
-        self.selectedTimerIndex = -1    // Start in the Timer List tab.
-        self.savePrefs()    // Make sure that we save in the proper format.
+        selectedTimerIndex = -1    // Start in the Timer List tab.
+        savePrefs()    // Make sure that we save in the proper format.
     }
     
     /* ################################################################################################################################## */
@@ -580,7 +580,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
     func getIndexedColorThemeColor(_ index: Int) -> UIColor {
         var ret: UIColor
         
-        let label = self.colorLabelArray[index]
+        let label = colorLabelArray[index]
         
         ret = label.textColor
         
@@ -600,7 +600,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - returns: a new timer object, instantiated with a zero time, and default characteristics.
      */
     func createNewTimer() -> TimerSettingTuple {
-        let timer = self.appState.createNewTimer()
+        let timer = appState.createNewTimer()
         return timer
     }
     
@@ -609,7 +609,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      This method simply saves the main preferences Dictionary into the standard user defaults.
      */
     func savePrefs() {
-        if  let temp = self.appState,
+        if  let temp = appState,
             let appData = try? NSKeyedArchiver.archivedData(withRootObject: temp, requiringSecureCoding: false) {
             UserDefaults.standard.set(appData, forKey: Self._appStatePrefsKey)
         }
@@ -621,7 +621,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      Does nothing if no timer is selected.
      */
     func pauseTimer() {
-        if let selectedTimer = self.selectedTimer {
+        if let selectedTimer = selectedTimer {
             selectedTimer.timerStatus = .Paused
         }
     }
@@ -632,9 +632,9 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      Does nothing if no timer is selected.
      */
     func continueTimer() {
-        if let selectedTimer = self.selectedTimer {
+        if let selectedTimer = selectedTimer {
             if 0 >= selectedTimer.currentTime {
-                self.startTimer()
+                startTimer()
             } else {
                 if (0 < selectedTimer.timeSetPodiumWarn) && (0 < selectedTimer.timeSetPodiumWarn) && (selectedTimer.timeSetPodiumWarn > selectedTimer.timeSetPodiumWarn) {
                     switch selectedTimer.currentTime {
@@ -658,7 +658,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      Does nothing if no timer is selected.
      */
     func startTimer() {
-        if let selectedTimer = self.selectedTimer {
+        if let selectedTimer = selectedTimer {
             selectedTimer.timerStatus = .Running
       }
     }
@@ -669,7 +669,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      Does nothing if no timer is selected.
      */
     func stopTimer() {
-        if let selectedTimer = self.selectedTimer {
+        if let selectedTimer = selectedTimer {
             selectedTimer.timerStatus = .Stopped
         }
     }
@@ -680,13 +680,13 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      Does nothing if no timer is selected.
      */
     func resetTimer() {
-        if let selectedTimer = self.selectedTimer {
+        if let selectedTimer = selectedTimer {
             let oldStatus = selectedTimer.timerStatus
             selectedTimer.timerStatus = .Paused
             selectedTimer.currentTime = selectedTimer.timeSet
             selectedTimer.lastTick = 0.0
             selectedTimer.firstTick = 0.0
-            self.appState.sendStatusUpdateMessage(selectedTimer, from: oldStatus)
+            appState.sendStatusUpdateMessage(selectedTimer, from: oldStatus)
         }
     }
     
@@ -696,7 +696,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      Does nothing if no timer is selected.
      */
     func endTimer() {
-        if let selectedTimer = self.selectedTimer {
+        if let selectedTimer = selectedTimer {
             selectedTimer.currentTime = 0
             selectedTimer.timerStatus = .Alarm
         }
@@ -717,7 +717,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerStatus, changedTimerStatusFrom: from)
         }
-        self.savePrefs()
+        savePrefs()
     }
     
     /* ################################################################## */
@@ -732,7 +732,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerDisplayMode, changedTimerDisplayModeFrom: from)
         }
-        self.savePrefs()
+        savePrefs()
     }
     
     /* ################################################################## */
@@ -747,7 +747,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerCurrentTime, changedCurrentTimeFrom: from)
         }
-        self.savePrefs()
+        savePrefs()
     }
     
     /* ################################################################## */
@@ -762,7 +762,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerWarnTime, changedWarnTimeFrom: from)
         }
-        self.savePrefs()
+        savePrefs()
     }
     
     /* ################################################################## */
@@ -777,7 +777,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerFinalTime, changedFinalTimeFrom: from)
         }
-        self.savePrefs()
+        savePrefs()
     }
     
     /* ################################################################## */
@@ -792,7 +792,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerTimeSet, changedTimeSetFrom: from)
         }
-        self.savePrefs()
+        savePrefs()
     }
     
     /* ################################################################## */
@@ -807,7 +807,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerSoundID, changedTimerSoundIDFrom: from)
         }
-        self.savePrefs()
+        savePrefs()
     }
     
     /* ################################################################## */
@@ -822,7 +822,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerSongURL, changedTimerSongURLFrom: from)
         }
-        self.savePrefs()
+        savePrefs()
     }
 
     /* ################################################################## */
@@ -837,7 +837,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerAlertMode, changedTimerAlertModeFrom: from)
         }
-        self.savePrefs()
+        savePrefs()
     }
 
     /* ################################################################## */
@@ -852,7 +852,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerSoundMode, changedTimerSoundModeFrom: from)
         }
-        self.savePrefs()
+        savePrefs()
     }
 
     /* ################################################################## */
@@ -867,7 +867,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateSucceedingTimerID, changedSucceedingTimerIDFrom: from)
         }
-        self.savePrefs()
+        savePrefs()
     }
 
     /* ################################################################## */
@@ -882,7 +882,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateAudibleTicks, changedAudibleTicksFrom: from)
         }
-        self.savePrefs()
+        savePrefs()
     }
 
     /* ################################################################## */
@@ -897,7 +897,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerSetting(didUpdateTimerColorTheme, changedTimerColorThemeFrom: from)
         }
-        self.savePrefs()
+        savePrefs()
     }
 
     /* ################################################################## */
@@ -911,7 +911,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerEngine(self, didAddTimer: didAddTimer)
         }
-        self.savePrefs()
+        savePrefs()
     }
     
     /* ################################################################## */
@@ -938,7 +938,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerEngine(self, didRemoveTimerAtIndex: didRemoveTimerAtIndex)
         }
-        self.savePrefs()
+        savePrefs()
     }
     
     /* ################################################################## */
@@ -952,7 +952,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             self.delegate?.timerEngine(self, didSelectTimer: didSelectTimer)
         }
-        self.savePrefs()
+        savePrefs()
     }
     
     /* ################################################################## */
@@ -977,8 +977,8 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - returns: The tuple at the given subscript.
      */
     subscript(_ index: Int) -> TimerSettingTuple {
-        assert(index < self.appState.timers.count)
-        return self.appState[index]
+        assert(index < appState.timers.count)
+        return appState[index]
     }
 
     /* ################################################################## */
@@ -989,7 +989,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - returns: The 0-based index of the given element.
      */
     func indexOf(_ inUID: String) -> Int {
-        return self.appState.indexOf(inUID)
+        return appState.indexOf(inUID)
     }
 
     /* ################################################################## */
@@ -1000,7 +1000,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - returns: The 0-based index of the given element.
      */
     func indexOf(_ inObject: TimerSettingTuple) -> Int {
-        return self.appState.indexOf(inObject)
+        return appState.indexOf(inObject)
     }
 
     /* ################################################################## */
@@ -1011,7 +1011,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - returns: true, if the settings array contains the given object.
      */
     func contains(_ inObject: TimerSettingTuple) -> Bool {
-        return self.appState.contains(inObject)
+        return appState.contains(inObject)
     }
 
     /* ################################################################## */
@@ -1022,7 +1022,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - returns: true, if the settings array contains the given object.
      */
     func contains(_ inUID: String) -> Bool {
-        return self.appState.contains(inUID)
+        return appState.contains(inUID)
     }
     
     /* ################################################################## */
@@ -1049,7 +1049,7 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter inObject: The object we're appending.
      */
     func append(_ inObject: TimerSettingTuple) {
-        self.appState.append(inObject)
+        appState.append(inObject)
     }
     
     /* ################################################################## */
@@ -1062,10 +1062,10 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         DispatchQueue.main.async {
             if nil != self.delegate {
                 let timerToBeRemoved = self[index]
-                self.delegate.timerEngine(self, willRemoveTimer: timerToBeRemoved)
+                self.delegate?.timerEngine(self, willRemoveTimer: timerToBeRemoved)
             }
         }
-        self.appState.remove(at: index)
+        appState.remove(at: index)
     }
     
     /* ################################################################################################################################## */
@@ -1078,44 +1078,44 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
      - parameter inTimer: The Timer object that is calling this.
      */
     @objc func timerCallback(_ inTimer: Timer) {
-        if let selectedTimer = self.selectedTimer {
+        if let selectedTimer = selectedTimer {
             if (.Stopped != selectedTimer.timerStatus) && (.Paused != selectedTimer.timerStatus) {
                 if .Alarm == selectedTimer.timerStatus {
-                    if Self.timerAlarmInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
-                        self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
+                    if Self.timerAlarmInterval <= (Date.timeIntervalSinceReferenceDate - selectedTimer.lastTick) {
+                        selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
                         DispatchQueue.main.async {
                             self.delegate?.timerSetting(selectedTimer, alarm: self._alarmCount)
                         }
-                        self._alarmCount += 1
+                        _alarmCount += 1
                     }
                 } else {
-                    if Self.timerTickInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
-                        self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
+                    if Self.timerTickInterval <= (Date.timeIntervalSinceReferenceDate - selectedTimer.lastTick) {
+                        selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
                         selectedTimer.currentTime = Swift.max(0, selectedTimer.currentTime - 1)
                         if (0 < selectedTimer.timeSetPodiumWarn) && (0 < selectedTimer.timeSetPodiumFinal) && (selectedTimer.timeSetPodiumWarn > selectedTimer.timeSetPodiumFinal) {
                             switch selectedTimer.currentTime {
                             case 0:
-                                self._alarmCount = 0
+                                _alarmCount = 0
                                 selectedTimer.timerStatus = .Alarm
                             case 1...selectedTimer.timeSetPodiumFinal:
                                 DispatchQueue.main.async {
-                                    self.delegate?.timerSetting(self.selectedTimer, tick: (.Digital == selectedTimer.displayMode ? 1 : 3))
+                                    self.delegate?.timerSetting(selectedTimer, tick: (.Digital == selectedTimer.displayMode ? 1 : 3))
                                 }
                                 selectedTimer.timerStatus = .FinalRun
                             case (selectedTimer.timeSetPodiumFinal + 1)...selectedTimer.timeSetPodiumWarn:
                                 DispatchQueue.main.async {
-                                    self.delegate?.timerSetting(self.selectedTimer, tick: (.Digital == selectedTimer.displayMode ? 1 : 2))
+                                    self.delegate?.timerSetting(selectedTimer, tick: (.Digital == selectedTimer.displayMode ? 1 : 2))
                                 }
                                 selectedTimer.timerStatus = .WarnRun
                             default:
                                 selectedTimer.timerStatus = .Running
                                 DispatchQueue.main.async {
-                                    self.delegate?.timerSetting(self.selectedTimer, tick: 1)
+                                    self.delegate?.timerSetting(selectedTimer, tick: 1)
                                 }
                             }
                         } else {
                             if 0 == selectedTimer.currentTime {
-                                self._alarmCount = 0
+                                _alarmCount = 0
                                 selectedTimer.timerStatus = .Alarm
                             } else {
                                 selectedTimer.timerStatus = .Running
@@ -1139,44 +1139,44 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
  */
 extension TimerEngine: RVS_BasicGCDTimerDelegate {
     func basicGCDTimerCallback(_ inTimer: RVS_BasicGCDTimer) {
-        if let selectedTimer = self.selectedTimer {
+        if let selectedTimer = selectedTimer {
             if (.Stopped != selectedTimer.timerStatus) && (.Paused != selectedTimer.timerStatus) {
                 if .Alarm == selectedTimer.timerStatus {
-                    if Self.timerAlarmInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
-                        self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
+                    if Self.timerAlarmInterval <= (Date.timeIntervalSinceReferenceDate - selectedTimer.lastTick) {
+                        selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
                         DispatchQueue.main.async {
                             self.delegate?.timerSetting(selectedTimer, alarm: self._alarmCount)
                         }
-                        self._alarmCount += 1
+                        _alarmCount += 1
                     }
                 } else {
-                    if Self.timerTickInterval <= (Date.timeIntervalSinceReferenceDate - self.selectedTimer.lastTick) {
-                        self.selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
+                    if Self.timerTickInterval <= (Date.timeIntervalSinceReferenceDate - selectedTimer.lastTick) {
+                        selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
                         selectedTimer.currentTime = Swift.max(0, selectedTimer.currentTime - 1)
                         if (0 < selectedTimer.timeSetPodiumWarn) && (0 < selectedTimer.timeSetPodiumFinal) && (selectedTimer.timeSetPodiumWarn > selectedTimer.timeSetPodiumFinal) {
                             switch selectedTimer.currentTime {
                             case 0:
-                                self._alarmCount = 0
+                                _alarmCount = 0
                                 selectedTimer.timerStatus = .Alarm
                             case 1...selectedTimer.timeSetPodiumFinal:
                                 DispatchQueue.main.async {
-                                    self.delegate?.timerSetting(self.selectedTimer, tick: (.Digital == selectedTimer.displayMode ? 1 : 3))
+                                    self.delegate?.timerSetting(selectedTimer, tick: (.Digital == selectedTimer.displayMode ? 1 : 3))
                                 }
                                 selectedTimer.timerStatus = .FinalRun
                             case (selectedTimer.timeSetPodiumFinal + 1)...selectedTimer.timeSetPodiumWarn:
                                 DispatchQueue.main.async {
-                                    self.delegate?.timerSetting(self.selectedTimer, tick: (.Digital == selectedTimer.displayMode ? 1 : 2))
+                                    self.delegate?.timerSetting(selectedTimer, tick: (.Digital == selectedTimer.displayMode ? 1 : 2))
                                 }
                                 selectedTimer.timerStatus = .WarnRun
                             default:
                                 selectedTimer.timerStatus = .Running
                                 DispatchQueue.main.async {
-                                    self.delegate?.timerSetting(self.selectedTimer, tick: 1)
+                                    self.delegate?.timerSetting(selectedTimer, tick: 1)
                                 }
                             }
                         } else {
                             if 0 == selectedTimer.currentTime {
-                                self._alarmCount = 0
+                                _alarmCount = 0
                                 selectedTimer.timerStatus = .Alarm
                             } else {
                                 selectedTimer.timerStatus = .Running

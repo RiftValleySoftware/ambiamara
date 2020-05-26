@@ -123,7 +123,7 @@ extension String {
      */
     var urlEncodedString: String? {
         let customAllowedSet =  CharacterSet.urlQueryAllowed
-        if let ret = self.addingPercentEncoding(withAllowedCharacters: customAllowedSet) {
+        if let ret = addingPercentEncoding(withAllowedCharacters: customAllowedSet) {
             return ret
         } else {
             return ""
@@ -143,13 +143,13 @@ extension UIView {
      - parameter inSubview: The subview we want to add.
      */
     func addContainedView(_ inSubView: UIView) {
-        self.addSubview(inSubView)
+        addSubview(inSubView)
         
         inSubView.translatesAutoresizingMaskIntoConstraints = false
-        inSubView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
-        inSubView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
-        inSubView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
-        inSubView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        inSubView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+        inSubView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
+        inSubView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        inSubView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
     }
     
     /* ################################################################## */
@@ -157,11 +157,11 @@ extension UIView {
      - returns: the first responder view. Nil, if no view is a first responder.
      */
     var currentFirstResponder: UIResponder! {
-        if self.isFirstResponder {
+        if isFirstResponder {
             return self
         }
         
-        for view in self.subviews {
+        for view in subviews {
             if let responder = view.currentFirstResponder {
                 return responder
             }
@@ -236,15 +236,15 @@ class TimeInstance {
      */
     var intVal: Int {
         get {
-            return min(86399, max(0, (self.hours * 3600) + (self.minutes * 60) + self.seconds))
+            return min(86399, max(0, (hours * 3600) + (minutes * 60) + seconds))
         }
         
         set {
             let temp = min(86399, max(0, newValue))
             
-            self.hours = max(0, Int(temp / 3600))
-            self.minutes = max(0, Int(temp / 60) - (self.hours * 60))
-            self.seconds = max(0, Int(temp) - ((self.hours * 3600) + (self.minutes * 60)))
+            hours = max(0, Int(temp / 3600))
+            minutes = max(0, Int(temp / 60) - (hours * 60))
+            seconds = max(0, Int(temp) - ((hours * 3600) + (minutes * 60)))
         }
     }
     
@@ -256,11 +256,11 @@ class TimeInstance {
      */
     var hours: Int {
         get {
-            return self._hours
+            return _hours
         }
         
         set {
-            self._hours = min(23, max(0, newValue))
+            _hours = min(23, max(0, newValue))
         }
     }
     
@@ -272,11 +272,11 @@ class TimeInstance {
      */
     var minutes: Int {
         get {
-            return self._minutes
+            return _minutes
         }
         
         set {
-            self._minutes = min(59, max(0, newValue))
+            _minutes = min(59, max(0, newValue))
         }
     }
     
@@ -288,11 +288,11 @@ class TimeInstance {
      */
     var seconds: Int {
         get {
-            return self._seconds
+            return _seconds
         }
         
         set {
-            self._seconds = min(59, max(0, newValue))
+            _seconds = min(59, max(0, newValue))
         }
     }
     
@@ -302,20 +302,20 @@ class TimeInstance {
      */
     var dateComponents: DateComponents {
         get {
-            return DateComponents(calendar: nil, timeZone: nil, era: nil, year: nil, month: nil, day: nil, hour: self._hours, minute: self._minutes, second: self._seconds, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            return DateComponents(calendar: nil, timeZone: nil, era: nil, year: nil, month: nil, day: nil, hour: _hours, minute: _minutes, second: _seconds, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
         }
         
         set {
-            self.intVal = 0
+            intVal = 0
             
             if let hour = newValue.hour {
-                self.hours = Int(hour)
+                hours = Int(hour)
             }
             if let minute = newValue.minute {
-                self.minutes = Int(minute)
+                minutes = Int(minute)
             }
             if let second = newValue.second {
-                self.seconds = Int(second)
+                seconds = Int(second)
             }
         }
     }
@@ -325,7 +325,7 @@ class TimeInstance {
      Returns the value in an easily readable format.
      */
     var description: String {
-        return String(format: "%02d:%02d:%02d", self._hours, self._minutes, self._seconds)
+        return String(format: "%02d:%02d:%02d", _hours, _minutes, _seconds)
     }
     
     /* ###################################################################################################################################### */
@@ -340,9 +340,9 @@ class TimeInstance {
      - parameter seconds: The number of seconds, as an Int, from 0 - 59.
      */
     init(hours: Int, minutes: Int, seconds: Int) {
-        self._hours = max(0, min(23, hours))
-        self._minutes = max(0, min(59, minutes))
-        self._seconds = max(0, min(59, seconds))
+        _hours = max(0, min(23, hours))
+        _minutes = max(0, min(59, minutes))
+        _seconds = max(0, min(59, seconds))
     }
     
     /* ################################################################## */
@@ -354,9 +354,9 @@ class TimeInstance {
     init(_ inSeconds: Int) {
         let temp = min(86399, max(0, inSeconds))
         
-        self._hours = max(0, Int(temp / 3600))
-        self._minutes = max(0, Int(temp / 60) - (self._hours * 60))
-        self._seconds = max(0, Int(temp) - ((self._hours * 3600) + (self._minutes * 60)))
+        _hours = max(0, Int(temp / 3600))
+        _minutes = max(0, Int(temp / 60) - (_hours * 60))
+        _seconds = max(0, Int(temp) - ((_hours * 3600) + (_minutes * 60)))
     }
 }
 
@@ -493,9 +493,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     /// This is how the timer will display
     var displayMode: TimerDisplayMode {
         didSet {
-            if oldValue != self.displayMode {
-                if nil != self.handler {
-                    self.handler.sendDisplayModeUpdateMessage(self, from: oldValue)
+            if oldValue != displayMode {
+                if nil != handler {
+                    handler.sendDisplayModeUpdateMessage(self, from: oldValue)
                 }
             }
         }
@@ -505,9 +505,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     /// This determines what kind of alert the timer makes when it is complete.
     var alertMode: AlertMode {
         didSet {
-            if oldValue != self.alertMode {
-                if nil != self.handler {
-                    self.handler.sendAlertModeUpdateMessage(self, from: oldValue)
+            if oldValue != alertMode {
+                if nil != handler {
+                    handler.sendAlertModeUpdateMessage(self, from: oldValue)
                 }
             }
         }
@@ -517,9 +517,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     /// This determines what kind of sound the timer makes when it makes sounds.
     var soundMode: SoundMode {
         didSet {
-            if oldValue != self.soundMode {
-                if nil != self.handler {
-                    self.handler.sendSoundModeUpdateMessage(self, from: oldValue)
+            if oldValue != soundMode {
+                if nil != handler {
+                    handler.sendSoundModeUpdateMessage(self, from: oldValue)
                 }
             }
         }
@@ -529,9 +529,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     /// This is the 0-based index for the color theme.
     var colorTheme: Int {
         didSet {
-            if oldValue != self.colorTheme {
-                if nil != self.handler {
-                    self.handler.sendColorThemeUpdateMessage(self, from: oldValue)
+            if oldValue != colorTheme {
+                if nil != handler {
+                    handler.sendColorThemeUpdateMessage(self, from: oldValue)
                 }
             }
         }
@@ -541,9 +541,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     /// This will be the 0-based ID of a sound for this timer.
     var soundID: Int {
         didSet {
-            if oldValue != self.soundID {
-                if nil != self.handler {
-                    self.handler.sendSoundIDUpdateMessage(self, from: oldValue)
+            if oldValue != soundID {
+                if nil != handler {
+                    handler.sendSoundIDUpdateMessage(self, from: oldValue)
                 }
             }
         }
@@ -553,9 +553,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     /// This will be the 0-based ID of a following timer for this. -1, if no succeeding timer.
     var succeedingTimerID: Int {
         didSet {
-            if oldValue != self.succeedingTimerID {
-                if nil != self.handler {
-                    self.handler.sendSucceedingTimerIDUpdateMessage(self, from: oldValue)
+            if oldValue != succeedingTimerID {
+                if nil != handler {
+                    handler.sendSucceedingTimerIDUpdateMessage(self, from: oldValue)
                 }
             }
         }
@@ -565,9 +565,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     /// This will be a boolean value that is true if the timer is to make audible ticks and transition noises.
     var audibleTicks: Bool {
         didSet {
-            if oldValue != self.audibleTicks {
-                if nil != self.handler {
-                    self.handler.sendAudibleTicksUpdateMessage(self, from: oldValue)
+            if oldValue != audibleTicks {
+                if nil != handler {
+                    handler.sendAudibleTicksUpdateMessage(self, from: oldValue)
                 }
             }
         }
@@ -577,9 +577,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     /// This is the URI of a selected song to play as an alarm.
     var songURLString: String {
         didSet {
-            if oldValue != self.songURLString {
-                if nil != self.handler {
-                    self.handler.sendSongURLUpdateMessage(self, from: oldValue)
+            if oldValue != songURLString {
+                if nil != handler {
+                    handler.sendSongURLUpdateMessage(self, from: oldValue)
                 }
             }
         }
@@ -589,15 +589,15 @@ class TimerSettingTuple: NSObject, NSCoding {
     /// This is the set (start) time for the countdown timer. It is an integer, with the number of seconds (0 - 86399)
     var timeSet: Int {
         didSet {
-            if oldValue != self.timeSet {
-                if nil != self.handler {
-                    self.handler.sendSetTimeUpdateMessage(self, from: oldValue)
+            if oldValue != timeSet {
+                if nil != handler {
+                    handler.sendSetTimeUpdateMessage(self, from: oldValue)
                 }
             }
             
-            if self.timeSet <= self.timeSetPodiumWarn {
-                self.timeSetPodiumWarn = Self.calcPodiumModeWarningThresholdForTimerValue(self.timeSet)
-                self.timeSetPodiumFinal = Self.calcPodiumModeFinalThresholdForTimerValue(self.timeSet)
+            if timeSet <= timeSetPodiumWarn {
+                timeSetPodiumWarn = Self.calcPodiumModeWarningThresholdForTimerValue(timeSet)
+                timeSetPodiumFinal = Self.calcPodiumModeFinalThresholdForTimerValue(timeSet)
             }
         }
     }
@@ -606,9 +606,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     /// This is the number of seconds (0 - 86399) before the yellow light comes on in Podium Mode. If 0, then it is automatically calculated.
     var timeSetPodiumWarn: Int {
         didSet {
-            if oldValue != self.timeSetPodiumWarn {
-                if nil != self.handler {
-                    self.handler.sendWarnTimeUpdateMessage(self, from: oldValue)
+            if oldValue != timeSetPodiumWarn {
+                if nil != handler {
+                    handler.sendWarnTimeUpdateMessage(self, from: oldValue)
                 }
             }
         }
@@ -618,9 +618,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     /// This is the number of seconds (0 - 86399) before the red light comes on in Podium Mode. If 0, then it is automatically calculated.
     var timeSetPodiumFinal: Int {
         didSet {
-            if oldValue != self.timeSetPodiumFinal {
-                if nil != self.handler {
-                    self.handler.sendFinalTimeUpdateMessage(self, from: oldValue)
+            if oldValue != timeSetPodiumFinal {
+                if nil != handler {
+                    handler.sendFinalTimeUpdateMessage(self, from: oldValue)
                 }
             }
         }
@@ -630,9 +630,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     /// The actual time for this timer.
     var currentTime: Int {
         didSet {
-            if (nil != self.handler) && (oldValue != self.currentTime) {
-                if (.Running == self.timerStatus) || (.WarnRun == self.timerStatus) || (.FinalRun == self.timerStatus) || (.Alarm == self.timerStatus) {
-                    self.handler.sendTimeUpdateMessage(self, from: oldValue)
+            if (nil != handler) && (oldValue != currentTime) {
+                if (.Running == timerStatus) || (.WarnRun == timerStatus) || (.FinalRun == timerStatus) || (.Alarm == timerStatus) {
+                    handler.sendTimeUpdateMessage(self, from: oldValue)
                 }
             }
         }
@@ -642,32 +642,32 @@ class TimerSettingTuple: NSObject, NSCoding {
     /// This is the current status of this timer.
     var timerStatus: TimerStatus {
         didSet {
-            if oldValue != self.timerStatus {
-                if .Running == self.timerStatus {
+            if oldValue != timerStatus {
+                if .Running == timerStatus {
                     if (.Stopped == oldValue) || (.Alarm == oldValue) {
-                        self.firstTick = Date.timeIntervalSinceReferenceDate
+                        firstTick = Date.timeIntervalSinceReferenceDate
                     }
                     
                     if (.Stopped == oldValue) || (.Alarm == oldValue) || (.Paused == oldValue) {
-                        self.lastTick = Date.timeIntervalSinceReferenceDate
+                        lastTick = Date.timeIntervalSinceReferenceDate
                     }
                 }
                 
-                if .Stopped == self.timerStatus {
-                    self.firstTick = 0.0
-                    self.lastTick = 0.0
+                if .Stopped == timerStatus {
+                    firstTick = 0.0
+                    lastTick = 0.0
                 }
                 
-                if (.Stopped == self.timerStatus) || ((.Running == self.timerStatus) && ((.Stopped == oldValue) || (.Alarm == oldValue))) {
-                    self.currentTime = self.timeSet
+                if (.Stopped == timerStatus) || ((.Running == timerStatus) && ((.Stopped == oldValue) || (.Alarm == oldValue))) {
+                    currentTime = timeSet
                 }
                 
-                if .Alarm == self.timerStatus {
-                    self.currentTime = 0
+                if .Alarm == timerStatus {
+                    currentTime = 0
                 }
                 
-                if nil != self.handler {
-                    self.handler.sendStatusUpdateMessage(self, from: oldValue)
+                if nil != handler {
+                    handler.sendStatusUpdateMessage(self, from: oldValue)
                 }
             }
         }
@@ -681,9 +681,9 @@ class TimerSettingTuple: NSObject, NSCoding {
     var setSpeakableTime: String {
         var ret = [String]()
         
-        let hours = Int(self.timeSet / (60 * 60))
-        let minutes = Int(self.timeSet / (60)) - (hours * 60)
-        let seconds = Int(self.timeSet) - (minutes * 60) - (hours * 60 * 60)
+        let hours = Int(timeSet / (60 * 60))
+        let minutes = Int(timeSet / (60)) - (hours * 60)
+        let seconds = Int(timeSet) - (minutes * 60) - (hours * 60 * 60)
         
         if 0 < hours {
             if 1 == hours {
@@ -715,7 +715,7 @@ class TimerSettingTuple: NSObject, NSCoding {
     var currentQuickSpeakableTime: String {
         var ret = [String]()
         
-        let currTime = self.currentTime - 1 // We do this, because we lose a second while talking.
+        let currTime = currentTime - 1 // We do this, because we lose a second while talking.
         
         let hours = Int(currTime / (60 * 60))
         let minutes = Int(currTime / (60)) - (hours * 60)
@@ -751,21 +751,21 @@ class TimerSettingTuple: NSObject, NSCoding {
         get {
             var ret: [String: Any] = [:]
             
-            ret["uid"] = self.uid
-            ret["timerStatus"] = self.timerStatus.rawValue
-            ret["displayMode"] = self.displayMode.rawValue
-            ret["alertMode"] = self.alertMode.rawValue
-            ret["soundMode"] = self.soundMode.rawValue
-            ret["songURLString"] = self.songURLString
-            ret["succeedingTimerID"] = self.succeedingTimerID
-            ret["audibleTicks"] = self.audibleTicks
-            ret["colorTheme"] = self.colorTheme
-            ret["timeSet"] = self.timeSet
-            ret["timeSetPodiumWarn"] = self.timeSetPodiumWarn
-            ret["timeSetPodiumFinal"] = self.timeSetPodiumFinal
-            ret["currentTime"] = self.currentTime
+            ret["uid"] = uid
+            ret["timerStatus"] = timerStatus.rawValue
+            ret["displayMode"] = displayMode.rawValue
+            ret["alertMode"] = alertMode.rawValue
+            ret["soundMode"] = soundMode.rawValue
+            ret["songURLString"] = songURLString
+            ret["succeedingTimerID"] = succeedingTimerID
+            ret["audibleTicks"] = audibleTicks
+            ret["colorTheme"] = colorTheme
+            ret["timeSet"] = timeSet
+            ret["timeSetPodiumWarn"] = timeSetPodiumWarn
+            ret["timeSetPodiumFinal"] = timeSetPodiumFinal
+            ret["currentTime"] = currentTime
             let archiver = NSKeyedArchiver(requiringSecureCoding: false)
-            archiver.encode(self.storedColor, forKey: "storedColor")
+            archiver.encode(storedColor, forKey: "storedColor")
             archiver.finishEncoding()
             ret["storedColor"] = archiver.encodedData
             
@@ -844,23 +844,23 @@ class TimerSettingTuple: NSObject, NSCoding {
      Default initializer
      */
     override init() {
-        self.uid = NSUUID().uuidString
-        self.handler = nil
-        self.timeSet = 0
-        self.timeSetPodiumWarn = 0
-        self.timeSetPodiumFinal = 0
-        self.currentTime = 0
-        self.displayMode = .Dual
-        self.colorTheme = 0
-        self.alertMode = .Silent
-        self.soundMode = .Silent
-        self.soundID = 5
-        self.songURLString = ""
-        self.timerStatus = .Stopped
-        self.firstTick = 0.0
-        self.lastTick = 0.0
-        self.succeedingTimerID = -1
-        self.audibleTicks = false
+        uid = NSUUID().uuidString
+        handler = nil
+        timeSet = 0
+        timeSetPodiumWarn = 0
+        timeSetPodiumFinal = 0
+        currentTime = 0
+        displayMode = .Dual
+        colorTheme = 0
+        alertMode = .Silent
+        soundMode = .Silent
+        soundID = 5
+        songURLString = ""
+        timerStatus = .Stopped
+        firstTick = 0.0
+        lastTick = 0.0
+        succeedingTimerID = -1
+        audibleTicks = false
         super.init()
     }
     
@@ -923,20 +923,20 @@ class TimerSettingTuple: NSObject, NSCoding {
      */
     override var description: String {
         let ret = String(format: "timeSet: %d, timeSetPodiumWarn: %d, timeSetPodiumFinal: %d, currentTime: %d, displayMode: %d, colorTheme: %d, alertMode: %d, soundMode: %d, songURLString: %@, soundID: %d, timerStatus: %d, firstTick: %.5f, lastTick: %.5f, uid: %@",
-                      self.timeSet,
-                      self.timeSetPodiumWarn,
-                      self.timeSetPodiumFinal,
-                      self.currentTime,
-                      self.displayMode.rawValue,
-                      self.colorTheme,
-                      self.alertMode.rawValue,
-                      self.soundMode.rawValue,
-                      self.songURLString,
-                      self.soundID,
-                      self.timerStatus.rawValue,
-                      self.firstTick,
-                      self.lastTick,
-                      self.uid
+                      timeSet,
+                      timeSetPodiumWarn,
+                      timeSetPodiumFinal,
+                      currentTime,
+                      displayMode.rawValue,
+                      colorTheme,
+                      alertMode.rawValue,
+                      soundMode.rawValue,
+                      songURLString,
+                      soundID,
+                      timerStatus.rawValue,
+                      firstTick,
+                      lastTick,
+                      uid
         )
         
         return ret
@@ -948,23 +948,23 @@ class TimerSettingTuple: NSObject, NSCoding {
      */
     var selected: Bool {
         get {
-            if nil != self.handler {
-                return self.handler!.selectedTimerUID == self.uid
+            if nil != handler {
+                return handler!.selectedTimerUID == uid
             }
             
             return false
         }
         
         set {
-            if nil != self.handler {
-                if (self.handler!.selectedTimerUID == self.uid) && !newValue {
-                    self.handler!.selectedTimerUID = ""
+            if nil != handler {
+                if (handler!.selectedTimerUID == uid) && !newValue {
+                    handler!.selectedTimerUID = ""
                 } else {
                     if newValue {
-                        if self.handler!.selectedTimerUID != self.uid {
-                            self.timerStatus = .Stopped
+                        if handler!.selectedTimerUID != uid {
+                            timerStatus = .Stopped
                         }
-                        self.handler!.selectedTimerUID = self.uid
+                        handler!.selectedTimerUID = uid
                     }
                 }
             }
@@ -983,7 +983,7 @@ class TimerSettingTuple: NSObject, NSCoding {
      - returns: an Int, with the warning threshold.
      */
     class func calcPodiumModeWarningThresholdForTimerValue(_ inTimerSet: Int) -> Int {
-        return max(0, min(inTimerSet, Int(ceil(Float(inTimerSet) * self._podiumModeWarningThreshold))))
+        return max(0, min(inTimerSet, Int(ceil(Float(inTimerSet) * _podiumModeWarningThreshold))))
     }
     
     /* ################################################################## */
@@ -995,7 +995,7 @@ class TimerSettingTuple: NSObject, NSCoding {
      - returns: an Int, with the final threshold.
      */
     class func calcPodiumModeFinalThresholdForTimerValue(_ inTimerSet: Int) -> Int {
-        return max(0, min(calcPodiumModeWarningThresholdForTimerValue(inTimerSet), Int(ceil(Float(inTimerSet) * self._podiumModeFinalThreshold))))
+        return max(0, min(calcPodiumModeWarningThresholdForTimerValue(inTimerSet), Int(ceil(Float(inTimerSet) * _podiumModeFinalThreshold))))
     }
     
     /* ################################################################################################################################## */
@@ -1022,9 +1022,9 @@ class TimerSettingTuple: NSObject, NSCoding {
      Delete thyself.
      */
     func seppuku() {
-        if nil != self.handler {
-            let myIndex = self.handler.indexOf(self)
-            self.handler.remove(at: myIndex)
+        if nil != handler {
+            let myIndex = handler.indexOf(self)
+            handler.remove(at: myIndex)
         }
     }
     
@@ -1038,17 +1038,17 @@ class TimerSettingTuple: NSObject, NSCoding {
      - parameter coder: The coder containing the state
      */
     required init?(coder: NSCoder) {
-        self.songURLString = ""
-        self.displayMode = .Dual
-        self.alertMode = .Both
-        self.soundMode = .Sound
-        self.timerStatus = .Stopped
-        self.uid = ""
-        self.firstTick = 0.0
-        self.lastTick = 0.0
-        self.handler = nil
-        self.succeedingTimerID = -1
-        self.audibleTicks = false
+        songURLString = ""
+        displayMode = .Dual
+        alertMode = .Both
+        soundMode = .Sound
+        timerStatus = .Stopped
+        uid = ""
+        firstTick = 0.0
+        lastTick = 0.0
+        handler = nil
+        succeedingTimerID = -1
+        audibleTicks = false
 
         if coder.containsValue(forKey: TimerStateKeys.SucceedingTimerID.rawValue) {
             let succeedingTimerID = coder.decodeInteger(forKey: Self.TimerStateKeys.SucceedingTimerID.rawValue)
@@ -1059,10 +1059,10 @@ class TimerSettingTuple: NSObject, NSCoding {
         self.timeSet = timeSet
         
         let timeWarn = coder.decodeInteger(forKey: Self.TimerStateKeys.TimeSetPodiumWarn.rawValue)
-        self.timeSetPodiumWarn = timeWarn
+        timeSetPodiumWarn = timeWarn
         
         let timeFinal = coder.decodeInteger(forKey: Self.TimerStateKeys.TimeSetPodiumFinal.rawValue)
-        self.timeSetPodiumFinal = timeFinal
+        timeSetPodiumFinal = timeFinal
         
         let currentTime = coder.decodeInteger(forKey: Self.TimerStateKeys.CurrentTime.rawValue)
         self.currentTime = currentTime
@@ -1111,20 +1111,20 @@ class TimerSettingTuple: NSObject, NSCoding {
      - parameter with: The coder we'll be setting the state into.
      */
     func encode(with: NSCoder) {
-        with.encode(self.timeSet, forKey: Self.TimerStateKeys.TimeSet.rawValue)
-        with.encode(self.timeSetPodiumWarn, forKey: Self.TimerStateKeys.TimeSetPodiumWarn.rawValue)
-        with.encode(self.timeSetPodiumFinal, forKey: Self.TimerStateKeys.TimeSetPodiumFinal.rawValue)
-        with.encode(self.currentTime, forKey: Self.TimerStateKeys.CurrentTime.rawValue)
-        with.encode(self.displayMode.rawValue, forKey: Self.TimerStateKeys.DisplayMode.rawValue)
-        with.encode(self.colorTheme, forKey: Self.TimerStateKeys.ColorTheme.rawValue)
-        with.encode(self.alertMode.rawValue, forKey: Self.TimerStateKeys.AlertMode.rawValue)
-        with.encode(self.soundMode.rawValue, forKey: Self.TimerStateKeys.SoundMode.rawValue)
-        with.encode(self.succeedingTimerID, forKey: Self.TimerStateKeys.SucceedingTimerID.rawValue)
-        with.encode(self.audibleTicks, forKey: Self.TimerStateKeys.AudibleTicks.rawValue)
-        with.encode(self.songURLString, forKey: Self.TimerStateKeys.SongURLString.rawValue)
-        with.encode(self.timerStatus.rawValue, forKey: Self.TimerStateKeys.Status.rawValue)
-        with.encode(self.soundID, forKey: Self.TimerStateKeys.SoundID.rawValue)
-        with.encode(self.uid, forKey: Self.TimerStateKeys.UID.rawValue)
+        with.encode(timeSet, forKey: Self.TimerStateKeys.TimeSet.rawValue)
+        with.encode(timeSetPodiumWarn, forKey: Self.TimerStateKeys.TimeSetPodiumWarn.rawValue)
+        with.encode(timeSetPodiumFinal, forKey: Self.TimerStateKeys.TimeSetPodiumFinal.rawValue)
+        with.encode(currentTime, forKey: Self.TimerStateKeys.CurrentTime.rawValue)
+        with.encode(displayMode.rawValue, forKey: Self.TimerStateKeys.DisplayMode.rawValue)
+        with.encode(colorTheme, forKey: Self.TimerStateKeys.ColorTheme.rawValue)
+        with.encode(alertMode.rawValue, forKey: Self.TimerStateKeys.AlertMode.rawValue)
+        with.encode(soundMode.rawValue, forKey: Self.TimerStateKeys.SoundMode.rawValue)
+        with.encode(succeedingTimerID, forKey: Self.TimerStateKeys.SucceedingTimerID.rawValue)
+        with.encode(audibleTicks, forKey: Self.TimerStateKeys.AudibleTicks.rawValue)
+        with.encode(songURLString, forKey: Self.TimerStateKeys.SongURLString.rawValue)
+        with.encode(timerStatus.rawValue, forKey: Self.TimerStateKeys.Status.rawValue)
+        with.encode(soundID, forKey: Self.TimerStateKeys.SoundID.rawValue)
+        with.encode(uid, forKey: Self.TimerStateKeys.UID.rawValue)
     }
 }
 
@@ -1345,7 +1345,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - returns: True, if a timer is currently selected.
      */
     var timerSelected: Bool {
-        return 0 <= self.selectedTimerIndex
+        return 0 <= selectedTimerIndex
     }
     
     /* ################################################################## */
@@ -1353,8 +1353,8 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - returns: True, if the control bar is shown in the running timer.
      */
     var showControlsInRunningTimer: Bool {
-        get { return self._showControlsInRunningTimer }
-        set { self._showControlsInRunningTimer = newValue }
+        get { return _showControlsInRunningTimer }
+        set { _showControlsInRunningTimer = newValue }
     }
     
     /* ################################################################## */
@@ -1367,33 +1367,33 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         get {
             var ret: TimerSettingTuple! = nil
             
-            if 0..<self._timers.count ~= self._selectedTimer0BasedIndex {
-                ret = self._timers[self._selectedTimer0BasedIndex]
+            if 0..<_timers.count ~= _selectedTimer0BasedIndex {
+                ret = _timers[_selectedTimer0BasedIndex]
             }
             
             return ret
         }
         
         set {
-            if let oldTimer = self.selectedTimer {
+            if let oldTimer = selectedTimer {
                 if oldTimer.uid != newValue.uid {
                     DispatchQueue.main.async {
                         self.delegate?.appState(self, didDeselectTimer: oldTimer)
                     }
                 }
                 
-                self._selectedTimer0BasedIndex = -1
+                _selectedTimer0BasedIndex = -1
                 
                 if let setValue = newValue {
-                    for index in 0..<self._timers.count where self._timers[index].uid == setValue.uid {
-                        self._selectedTimer0BasedIndex = index
+                    for index in 0..<_timers.count where _timers[index].uid == setValue.uid {
+                        _selectedTimer0BasedIndex = index
                         DispatchQueue.main.async {
                             self.delegate?.appState(self, didSelectTimer: self._timers[index])
                         }
                         break
                     }
                 } else {
-                    self._selectedTimer0BasedIndex = -1
+                    _selectedTimer0BasedIndex = -1
                 }
             }
         }
@@ -1406,16 +1406,16 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - returns: The 0-based index of the currently selected timer. -1 if the timer list is displayed.
      */
     var selectedTimerIndex: Int {
-        get { return self._selectedTimer0BasedIndex }
+        get { return _selectedTimer0BasedIndex }
         set {
-            let oldTimer = self.selectedTimer
+            let oldTimer = selectedTimer
             var newTimer: TimerSettingTuple! = nil
             
-            if 0..<self._timers.count ~= newValue {
-                self._selectedTimer0BasedIndex = newValue
-                newTimer = self.selectedTimer
+            if 0..<_timers.count ~= newValue {
+                _selectedTimer0BasedIndex = newValue
+                newTimer = selectedTimer
             } else {
-                self._selectedTimer0BasedIndex = -1
+                _selectedTimer0BasedIndex = -1
             }
             
             if nil != oldTimer {
@@ -1438,15 +1438,15 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         get {
             var ret: String = ""
             
-            if 0..<self.count ~= self.selectedTimerIndex {
-                ret = self._timers[self.selectedTimerIndex].uid
+            if 0..<count ~= selectedTimerIndex {
+                ret = _timers[selectedTimerIndex].uid
             }
             
             return ret
         }
         
         set {
-            if let oldTimer = self.selectedTimer {
+            if let oldTimer = selectedTimer {
                 if oldTimer.uid != newValue {
                     DispatchQueue.main.async {
                         self.delegate?.appState(self, didDeselectTimer: oldTimer)
@@ -1454,18 +1454,18 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
                 }
             }
             
-            self._selectedTimer0BasedIndex = -1
+            _selectedTimer0BasedIndex = -1
             
             if !newValue.isEmpty {
-                for index in 0..<self._timers.count where self._timers[index].uid == newValue {
-                    self._selectedTimer0BasedIndex = index
+                for index in 0..<_timers.count where _timers[index].uid == newValue {
+                    _selectedTimer0BasedIndex = index
                     DispatchQueue.main.async {
                         self.delegate?.appState(self, didSelectTimer: self._timers[index])
                     }
                     break
                 }
             } else {
-                self._selectedTimer0BasedIndex = -1
+                _selectedTimer0BasedIndex = -1
             }
         }
     }
@@ -1475,10 +1475,10 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - returns: The 0-based index of the next timer (-1 if none).
      */
     var nextTimer: Int {
-        if 0 <= self._selectedTimer0BasedIndex && self._selectedTimer0BasedIndex < self.timers.count {
-            let nextIndex = self.selectedTimer.succeedingTimerID
+        if 0 <= _selectedTimer0BasedIndex && _selectedTimer0BasedIndex < timers.count {
+            let nextIndex = selectedTimer.succeedingTimerID
             
-            if nextIndex < self.timers.count {
+            if nextIndex < timers.count {
                 return Swift.max(-1, nextIndex)
             }
         }
@@ -1491,7 +1491,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - returns: True, if there are no timers in the list.
      */
     var isEmpty: Bool {
-        return 0 < self.count
+        return 0 < count
     }
     
     /* ################################################################## */
@@ -1499,7 +1499,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - returns: The number of timers in the lisy.
      */
     var count: Int {
-        return self._timers.count
+        return _timers.count
     }
     
     /* ################################################################## */
@@ -1507,11 +1507,11 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - returns: The list of timers (accessor)
      */
     var timers: [TimerSettingTuple] {
-        get { return self._timers }
+        get { return _timers }
         set {
-            self._timers = newValue
-            if !(0..<self.count ~= self.selectedTimerIndex) {
-                self._selectedTimer0BasedIndex = -1
+            _timers = newValue
+            if !(0..<count ~= selectedTimerIndex) {
+                _selectedTimer0BasedIndex = -1
             }
         }
     }
@@ -1523,9 +1523,9 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     var dictionary: [String: Any] {
         get {
             var ret: [String: Any] = [:]
-            ret["selectedTimerIndex"] = self.selectedTimerIndex
+            ret["selectedTimerIndex"] = selectedTimerIndex
             var timerArray: [[String: Any]] = []
-            self.timers.forEach {
+            timers.forEach {
                 let timerDictionary = $0.dictionary
                 timerArray.append(timerDictionary)
             }
@@ -1549,7 +1549,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
                         var found: Bool = false
                         
                         // See if we already have this object. If so, we set it to the new value, and append it now.
-                        for timerObject in self.timers where timerObject.uid == uid {
+                        for timerObject in timers where timerObject.uid == uid {
                             timerObject.dictionary = $0
                             newTimerArray.append(timerObject)
                             found = true
@@ -1563,7 +1563,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
                     }
                 }
                 
-                self.timers = newTimerArray
+                timers = newTimerArray
             }
         }
     }
@@ -1608,7 +1608,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         
         ret.handler = self
         
-        self.append(ret)
+        append(ret)
         DispatchQueue.main.async {
             self.delegate?.appState(self, didAddTimer: ret)
         }
@@ -1794,7 +1794,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - returns: The tuple at the given subscript.
      */
     subscript(_ index: Int) -> TimerSettingTuple {
-        return self._timers[index]
+        return _timers[index]
     }
     
     /* ################################################################## */
@@ -1808,7 +1808,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
         var ret: Int = -1
         
         if !inUID.isEmpty {
-            for index in 0..<self._timers.count where self._timers[index].uid == inUID {
+            for index in 0..<_timers.count where _timers[index].uid == inUID {
                 ret = index
                 break
             }
@@ -1825,7 +1825,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - returns: The 0-based index of the given element.
      */
     func indexOf(_ inObject: TimerSettingTuple) -> Int {
-        return self.indexOf(inObject.uid)
+        return indexOf(inObject.uid)
     }
     
     /* ################################################################## */
@@ -1836,7 +1836,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - returns: true, if the settings array contains the given object.
      */
     func contains(_ inObject: TimerSettingTuple) -> Bool {
-        return 0 <= self.indexOf(inObject)
+        return 0 <= indexOf(inObject)
     }
     
     /* ################################################################## */
@@ -1847,7 +1847,7 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - returns: true, if the settings array contains the given object.
      */
     func contains(_ inUID: String) -> Bool {
-        return 0 <= self.indexOf(inUID)
+        return 0 <= indexOf(inUID)
     }
     
     /* ################################################################## */
@@ -1927,28 +1927,28 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
     required init?(coder: NSCoder) {
         super.init()
         
-        self._timers = []
+        _timers = []
         
         if let timers = coder.decodeObject(forKey: Self.AppStateKeys.Timers.rawValue) as? [TimerSettingTuple] {
-            self._timers = timers
+            _timers = timers
             
-            self.timers.forEach {
+            timers.forEach {
                 $0.handler = self
             }
         }
         
         if coder.containsValue(forKey: Self.AppStateKeys.SelectedTimer.rawValue) {
             let selectedTimer0BasedIndex = coder.decodeInteger(forKey: Self.AppStateKeys.SelectedTimer.rawValue)
-            self._selectedTimer0BasedIndex = selectedTimer0BasedIndex
+            _selectedTimer0BasedIndex = selectedTimer0BasedIndex
         } else {
-            self._selectedTimer0BasedIndex = -1
+            _selectedTimer0BasedIndex = -1
         }
         
         if coder.containsValue(forKey: Self.AppStateKeys.ShowControls.rawValue) {
             let showControls = coder.decodeBool(forKey: Self.AppStateKeys.ShowControls.rawValue)
-            self._showControlsInRunningTimer = showControls
+            _showControlsInRunningTimer = showControls
         } else {
-            self._showControlsInRunningTimer = true
+            _showControlsInRunningTimer = true
         }
     }
     
@@ -1959,8 +1959,8 @@ class LGV_Timer_State: NSObject, NSCoding, Sequence {
      - parameter with: The coder we'll be setting the state into.
      */
     func encode(with: NSCoder) {
-        with.encode(self._timers, forKey: Self.AppStateKeys.Timers.rawValue)
-        with.encode(self._selectedTimer0BasedIndex, forKey: Self.AppStateKeys.SelectedTimer.rawValue)
-        with.encode(self._showControlsInRunningTimer, forKey: Self.AppStateKeys.ShowControls.rawValue)
+        with.encode(_timers, forKey: Self.AppStateKeys.Timers.rawValue)
+        with.encode(_selectedTimer0BasedIndex, forKey: Self.AppStateKeys.SelectedTimer.rawValue)
+        with.encode(_showControlsInRunningTimer, forKey: Self.AppStateKeys.ShowControls.rawValue)
     }
 }

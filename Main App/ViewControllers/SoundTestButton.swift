@@ -48,8 +48,8 @@ class SoundTestButton: UIButton {
      */
     override func touchesBegan(_ inTouches: Set<UITouch>, with inEvent: UIEvent?) {
         if let touchLocation = inTouches.first?.location(in: self) {
-            if self.bounds.contains(touchLocation) {
-                self.isHighlighted = true
+            if bounds.contains(touchLocation) {
+                isHighlighted = true
             }
         }
         
@@ -61,8 +61,8 @@ class SoundTestButton: UIButton {
      */
     override func beginTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let touchLocation = inTouch.location(in: self)
-        self.isHighlighted = self.bounds.contains(touchLocation)
-        self.setNeedsDisplay()
+        isHighlighted = bounds.contains(touchLocation)
+        setNeedsDisplay()
         return super.beginTracking(inTouch, with: inEvent)
     }
     
@@ -71,8 +71,8 @@ class SoundTestButton: UIButton {
      */
     override func continueTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let touchLocation = inTouch.location(in: self)
-        self.isHighlighted = self.bounds.contains(touchLocation)
-        self.setNeedsDisplay()
+        isHighlighted = bounds.contains(touchLocation)
+        setNeedsDisplay()
         return super.continueTracking(inTouch, with: inEvent)
     }
     
@@ -80,8 +80,8 @@ class SoundTestButton: UIButton {
     /**
      */
     override func endTracking(_ inTouch: UITouch?, with inEvent: UIEvent?) {
-        self.isHighlighted = false
-        self.setNeedsDisplay()
+        isHighlighted = false
+        setNeedsDisplay()
         return super.endTracking(inTouch, with: inEvent)
     }
 
@@ -90,10 +90,10 @@ class SoundTestButton: UIButton {
      */
     override func touchesEnded(_ inTouches: Set<UITouch>, with inEvent: UIEvent?) {
         if let touchLocation = inTouches.first?.location(in: self) {
-            if self.bounds.contains(touchLocation) {
-                self.isHighlighted = false
-                self.isOn = !self.isOn
-                self.sendActions(for: .valueChanged)
+            if bounds.contains(touchLocation) {
+                isHighlighted = false
+                isOn = !isOn
+                sendActions(for: .valueChanged)
             }
         }
         
@@ -254,10 +254,10 @@ class SoundTestButton: UIButton {
 
         let path = UIBezierPath()
         
-        path.append(self.isOn ? speakerCutoutPath: speakerPath)
+        path.append(isOn ? speakerCutoutPath: speakerPath)
         
-        if self.isOn {
-            path.append(self.isMusic ? notesPath : wavesPath)
+        if isOn {
+            path.append(isMusic ? notesPath : wavesPath)
         }
         
         // We just use this for scaling, so everything stays in the same place, regardless of state.
@@ -266,27 +266,27 @@ class SoundTestButton: UIButton {
         scalingPath.append(wavesPath)
 
         // Match the path to our bounds.
-        let scaleX = self.bounds.width / scalingPath.bounds.size.width
-        let scaleY = self.bounds.height / scalingPath.bounds.size.height
+        let scaleX = bounds.width / scalingPath.bounds.size.width
+        let scaleY = bounds.height / scalingPath.bounds.size.height
         let scale = min(scaleX, scaleY)
         
         let transform: CGAffineTransform = CGAffineTransform.init(scaleX: scale, y: scale)
         
         path.apply(transform)
         
-        var brightness: CGFloat = self.isHighlighted || self.isSelected ? 0.5 : 1.0
+        var brightness: CGFloat = isHighlighted || isSelected ? 0.5 : 1.0
         
-        if !self.isEnabled {
-            self.tintColor = UIColor(white: 1.0, alpha: 1.0)
+        if !isEnabled {
+            tintColor = UIColor(white: 1.0, alpha: 1.0)
             brightness = 0.5
         }
         
-        let backgroundColor = self.tintColor.withAlphaComponent(brightness)
+        let backgroundColor = tintColor.withAlphaComponent(brightness)
         
-        self.layer.backgroundColor = backgroundColor.cgColor
+        layer.backgroundColor = backgroundColor.cgColor
         
         let shape = CAShapeLayer()
         shape.path = path.cgPath
-        self.layer.mask = shape
+        layer.mask = shape
     }
 }

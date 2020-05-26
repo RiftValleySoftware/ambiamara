@@ -26,7 +26,7 @@ extension UIColor {
      */
     var hsba:(h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat) {
         var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        if self.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
+        if getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
             return (h: h, s: s, b: b, a: a)
         }
         return (h: 0, s: 0, b: 0, a: 0)
@@ -38,7 +38,7 @@ extension UIColor {
      */
     var isGrayscale: Bool {
         var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        if !self.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
+        if !getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
             return true
         }
         return h == 0 && s == 0
@@ -50,9 +50,9 @@ extension UIColor {
      */
     var isClear: Bool {
         var white: CGFloat = 0, h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        if !self.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
+        if !getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
             return 0.0 == a
-        } else if self.getWhite(&white, alpha: &a) {
+        } else if getWhite(&white, alpha: &a) {
             return 0.0 == a
         }
         
@@ -65,7 +65,7 @@ extension UIColor {
      */
     var whiteLevel: CGFloat {
         var white: CGFloat = 0, alpha: CGFloat = 0
-        if self.getWhite(&white, alpha: &alpha) {
+        if getWhite(&white, alpha: &alpha) {
             return white
         }
         return 0
@@ -109,24 +109,24 @@ public class LED_ClockView: UIView {
     /// The hours
     var hours: Int = 0 {
         didSet {
-            if self.hours != oldValue {
-                self.setNeedsLayout()
+            if hours != oldValue {
+                setNeedsLayout()
             }
         }
     }
     /// The minutes
     var minutes: Int = 0 {
         didSet {
-            if self.minutes != oldValue {
-                self.setNeedsLayout()
+            if minutes != oldValue {
+                setNeedsLayout()
             }
         }
     }
     /// The seconds
     var seconds: Int = 0 {
         didSet {
-            if self.seconds != oldValue {
-                self.setNeedsLayout()
+            if seconds != oldValue {
+                setNeedsLayout()
             }
         }
     }
@@ -235,7 +235,7 @@ public class LED_ClockView: UIView {
      */
     private class func _getHexPath(_ inHowBig: CGFloat) -> CGMutablePath {
         let path = CGMutablePath()
-        let points = self._pointySideUpHexagon(inHowBig)
+        let points = _pointySideUpHexagon(inHowBig)
         let cpg = points[0]
         path.move(to: cpg)
         points.forEach {
@@ -287,9 +287,9 @@ public class LED_ClockView: UIView {
         }
         
         // See if we will be drawing any "cathode wires".
-        if 0 < self._numberOfLines {
+        if 0 < _numberOfLines {
             let path = CGMutablePath()
-            let verticalspacing = fillShape.bounds.size.height / CGFloat(self._numberOfLines + 1)   // The extra 1, is because there are "implicit" lines at the top and bottom.
+            let verticalspacing = fillShape.bounds.size.height / CGFloat(_numberOfLines + 1)   // The extra 1, is because there are "implicit" lines at the top and bottom.
             
             var y: CGFloat = verticalspacing
             
@@ -330,13 +330,13 @@ public class LED_ClockView: UIView {
         var secondsSeparatorElementGroup: LED_ElementGrouping! = nil
         var minutesSeparatorElementGroup: LED_ElementGrouping! = nil
         
-        hoursElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
+        hoursElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(separationSpace))
         
         minutesSeparatorElementGroup = LED_ElementGrouping(inElements: [LED_SeparatorDots([true, true])], inContainerSize: CGSize.zero, inSeparationSpace: 0)
-        minutesElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
+        minutesElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(separationSpace))
 
         secondsSeparatorElementGroup = LED_ElementGrouping(inElements: [LED_SeparatorDots([true, true])], inContainerSize: CGSize.zero, inSeparationSpace: 0)
-        secondsElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(self.separationSpace))
+        secondsElementGroup = LED_ElementGrouping(inElements: [LED_SingleDigit(-2), LED_SingleDigit(-2)], inContainerSize: CGSize.zero, inSeparationSpace: CGFloat(separationSpace))
         
         var elements: [LED_Element] = []
         
@@ -364,40 +364,40 @@ public class LED_ClockView: UIView {
             size.height -= 40
             size.width -= 8
             
-            self._allElementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: size, inSeparationSpace: CGFloat(self.separationSpace))
+            _allElementGroup = LED_ElementGrouping(inElements: elements, inContainerSize: size, inSeparationSpace: CGFloat(separationSpace))
         
             if nil != minutesSeparatorElementGroup {
-                (minutesSeparatorElementGroup[0] as? LED_SeparatorDots)?.value = [self._separatorsOn, self._separatorsOn]
+                (minutesSeparatorElementGroup[0] as? LED_SeparatorDots)?.value = [_separatorsOn, _separatorsOn]
             }
             
             if nil != secondsSeparatorElementGroup {
-                (secondsSeparatorElementGroup[0] as? LED_SeparatorDots)?.value = [self._separatorsOn, self._separatorsOn]
+                (secondsSeparatorElementGroup[0] as? LED_SeparatorDots)?.value = [_separatorsOn, _separatorsOn]
             }
             
             if nil != hoursElementGroup {
-                Self._setDecimalValue(hoursElementGroup, inValue: self.hours, inZeroFill: self.zeroPadding)
+                Self._setDecimalValue(hoursElementGroup, inValue: hours, inZeroFill: zeroPadding)
             }
             
             if nil != minutesElementGroup {
-                let zeroPadding = (nil != hoursElementGroup) ? ((0 != self.hours) ? true: self.zeroPadding): self.zeroPadding
-                Self._setDecimalValue(minutesElementGroup, inValue: self.minutes, inZeroFill: zeroPadding)
+                let zeroPadding = (nil != hoursElementGroup) ? ((0 != hours) ? true: self.zeroPadding): self.zeroPadding
+                Self._setDecimalValue(minutesElementGroup, inValue: minutes, inZeroFill: zeroPadding)
                 
-                if (0 == self.hours) && (!self.zeroPadding || (nil == hoursElementGroup)) && (nil != minutesSeparatorElementGroup) {
+                if (0 == hours) && (!zeroPadding || (nil == hoursElementGroup)) && (nil != minutesSeparatorElementGroup) {
                     (minutesSeparatorElementGroup[0] as? LED_SeparatorDots)?.value = [false, false]
                 }
             }
             
             if nil != secondsElementGroup {
-                var zeroPadding = (nil != hoursElementGroup) ? ((0 != self.hours) ? true: self.zeroPadding): self.zeroPadding
-                zeroPadding = (nil != minutesElementGroup) ? ((0 != self.minutes) ? true: zeroPadding): zeroPadding
-                Self._setDecimalValue(secondsElementGroup, inValue: self.seconds, inZeroFill: zeroPadding)
+                var zeroPadding = (nil != hoursElementGroup) ? ((0 != hours) ? true: self.zeroPadding): self.zeroPadding
+                zeroPadding = (nil != minutesElementGroup) ? ((0 != minutes) ? true: self.zeroPadding): self.zeroPadding
+                Self._setDecimalValue(secondsElementGroup, inValue: seconds, inZeroFill: zeroPadding)
                 
-                if (0 == self.minutes) && (!zeroPadding || (nil == minutesElementGroup)) && (nil != secondsSeparatorElementGroup) {
+                if (0 == minutes) && (!zeroPadding || (nil == minutesElementGroup)) && (nil != secondsSeparatorElementGroup) {
                     (secondsSeparatorElementGroup[0] as? LED_SeparatorDots)?.value = [false, false]
                 }
             }
             
-            self.layoutSubviewsPart2()
+            layoutSubviewsPart2()
         }
     }
     
@@ -406,25 +406,25 @@ public class LED_ClockView: UIView {
      This is just here to reduce CC.
      */
     func layoutSubviewsPart2() {
-        if nil == self._displayView {
-            self._displayView = UIView(frame: self.bounds)
-            self.addSubview(self._displayView)
+        if nil == _displayView {
+            _displayView = UIView(frame: bounds)
+            addSubview(_displayView)
         }
         
-        if nil == self._gridImageView {
-            self._gridImageView = UIImageView(frame: self.bounds)
-            self._gridImageView.backgroundColor = UIColor.clear
-            self._gridImageView.contentMode = .scaleAspectFill
-            self.addSubview(self._gridImageView)
+        if nil == _gridImageView {
+            _gridImageView = UIImageView(frame: bounds)
+            _gridImageView.backgroundColor = UIColor.clear
+            _gridImageView.contentMode = .scaleAspectFill
+            addSubview(_gridImageView)
         }
         
-        let activePath = self._allElementGroup.activeSegments
-        let inactivePath = self._allElementGroup.inactiveSegments
+        let activePath = _allElementGroup.activeSegments
+        let inactivePath = _allElementGroup.inactiveSegments
         inactivePath.append(activePath)
         
-        self._gridImageView.frame.origin = inactivePath.bounds.origin
-        self._gridImageView.frame.size = inactivePath.bounds.size
-        self._gridImageView.image = self._generateHexOverlayImage(inactivePath)
+        _gridImageView.frame.origin = inactivePath.bounds.origin
+        _gridImageView.frame.size = inactivePath.bounds.size
+        _gridImageView.image = _generateHexOverlayImage(inactivePath)
         
         super.layoutSubviews()
     }
@@ -438,49 +438,49 @@ public class LED_ClockView: UIView {
      - parameter rect: the rectangle in which to render the display (ignored).
      */
     override public func draw(_ rect: CGRect) {
-        let activePath = self._allElementGroup.activeSegments
+        let activePath = _allElementGroup.activeSegments
         
-        if nil != self._bottomLayer {
-            self._bottomLayer.removeFromSuperlayer()
+        if nil != _bottomLayer {
+            _bottomLayer.removeFromSuperlayer()
         }
         
-        self._bottomLayer = CAShapeLayer()
-        let inactivePath = self._allElementGroup.inactiveSegments
+        _bottomLayer = CAShapeLayer()
+        let inactivePath = _allElementGroup.inactiveSegments
         inactivePath.append(activePath)
-        self._bottomLayer.path = inactivePath.cgPath
-        self._bottomLayer.strokeColor = UIColor.clear.cgColor
-        self._bottomLayer.fillColor = self.inactiveSegmentColor.cgColor
-        self._displayView.layer.addSublayer(self._bottomLayer)
+        _bottomLayer.path = inactivePath.cgPath
+        _bottomLayer.strokeColor = UIColor.clear.cgColor
+        _bottomLayer.fillColor = inactiveSegmentColor.cgColor
+        _displayView.layer.addSublayer(_bottomLayer)
         
-        if nil != self._topLayer {
-            self._topLayer.removeFromSuperlayer()
+        if nil != _topLayer {
+            _topLayer.removeFromSuperlayer()
         }
         
-        self._topLayer = CAGradientLayer()
+        _topLayer = CAGradientLayer()
         var fillEndColor: UIColor = UIColor.clear
         var fillStartColor: UIColor = UIColor.clear
         
-        if self.activeSegmentColor.isGrayscale {
-            fillEndColor = UIColor(white: self.activeSegmentColor.whiteLevel, alpha: 1.0)
-            fillStartColor = UIColor(white: max(0, self.activeSegmentColor.whiteLevel - 0.5), alpha: 1.0)
+        if activeSegmentColor.isGrayscale {
+            fillEndColor = UIColor(white: activeSegmentColor.whiteLevel, alpha: 1.0)
+            fillStartColor = UIColor(white: max(0, activeSegmentColor.whiteLevel - 0.5), alpha: 1.0)
         } else {
-            fillEndColor = UIColor(hue: self.activeSegmentColor.hsba.h, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-            fillStartColor = UIColor(hue: self.activeSegmentColor.hsba.h, saturation: 1.0, brightness: 0.5, alpha: 1.0)
+            fillEndColor = UIColor(hue: activeSegmentColor.hsba.h, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+            fillStartColor = UIColor(hue: activeSegmentColor.hsba.h, saturation: 1.0, brightness: 0.5, alpha: 1.0)
         }
         
         // This just makes sure we get the full benefit of the gradient.
         let shapeSize = activePath.cgPath.boundingBoxOfPath.size
-        let top = (shapeSize.height / self.bounds.size.height) / 2
+        let top = (shapeSize.height / bounds.size.height) / 2
         let bottom = 1.0 - top
         
-        self._topLayer.colors = [fillStartColor.cgColor, fillEndColor.cgColor]
-        self._topLayer.startPoint = CGPoint(x: 0.5, y: bottom)
-        self._topLayer.endPoint = CGPoint(x: 0.5, y: top)
-        self._topLayer.frame = self.bounds
+        _topLayer.colors = [fillStartColor.cgColor, fillEndColor.cgColor]
+        _topLayer.startPoint = CGPoint(x: 0.5, y: bottom)
+        _topLayer.endPoint = CGPoint(x: 0.5, y: top)
+        _topLayer.frame = bounds
 
         let shape = CAShapeLayer()
         shape.path = activePath.cgPath
-        self._topLayer.mask = shape
+        _topLayer.mask = shape
 
         let animation1 = CABasicAnimation(keyPath: "opacity")
         animation1.fromValue = 0.75
@@ -497,9 +497,9 @@ public class LED_ClockView: UIView {
         
         animGroup.animations = [animation1, animation2]
         
-        self._topLayer.add(animGroup, forKey: "opacity")
-        self._topLayer.opacity = 0.9
+        _topLayer.add(animGroup, forKey: "opacity")
+        _topLayer.opacity = 0.9
         
-        self._displayView.layer.addSublayer(self._topLayer)
+        _displayView.layer.addSublayer(_topLayer)
     }
 }
