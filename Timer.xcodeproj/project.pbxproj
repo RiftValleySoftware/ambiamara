@@ -63,6 +63,7 @@
 		D48ED3FA21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED3FC21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 */; };
 		D48ED3FD21B475AE00ADB8F8 /* 15-shut-up-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED3FF21B475AE00ADB8F8 /* 15-shut-up-2.mp3 */; };
 		D48ED40021B475BC00ADB8F8 /* 14-shut-up-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED40221B475BC00ADB8F8 /* 14-shut-up-1.mp3 */; };
+		D496CB06247D82F900E8DC76 /* RVS_BasicGCDTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D496CB05247D82F900E8DC76 /* RVS_BasicGCDTimer.swift */; };
 		D4AAAB222293509800938489 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4AAAB202293509800938489 /* Localizable.strings */; };
 		D4CF37C8219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */; };
 		D4D71E3121D574D400ACBB47 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D71E3321D574D400ACBB47 /* InfoPlist.strings */; };
@@ -177,6 +178,7 @@
 		D48ED40121B475BC00ADB8F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = en; path = "en.lproj/14-shut-up-1.mp3"; sourceTree = "<group>"; };
 		D48ED41321B477DB00ADB8F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D48ED41421B477DB00ADB8F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D496CB05247D82F900E8DC76 /* RVS_BasicGCDTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_BasicGCDTimer.swift; path = Carthage/Checkouts/RVS_BasicGCDTimer/RVS_BasicGCDTimer/RVS_BasicGCDTimer.swift; sourceTree = "<group>"; };
 		D4AAAB212293509800938489 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4AAAB23229350A000938489 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4AAAB24229350A300938489 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				D40AD1AE247C5D1F00CF7FA7 /* RVS_PersistentPrefs.swift */,
+				D496CB05247D82F900E8DC76 /* RVS_BasicGCDTimer.swift */,
 			);
 			name = "From Carthage";
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 					};
 					D44FF72323413E71008D0F51 = {
 						CreatedOnToolsVersion = 11.0;
+						LastSwiftMigration = 1150;
 					};
 					D44FF72F23413E72008D0F51 = {
 						CreatedOnToolsVersion = 11.0;
@@ -652,6 +656,7 @@
 				772A13C61ED5E50C0043C58B /* Timer_SettingsViewController.swift in Sources */,
 				7789C3241ED61CEF009EAB3D /* A_TimerBaseViewController.swift in Sources */,
 				D427963F219B50F90012F705 /* SwipeableTabBarController.swift in Sources */,
+				D496CB06247D82F900E8DC76 /* RVS_BasicGCDTimer.swift in Sources */,
 				D4CF37C8219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift in Sources */,
 				7770CB2E1ED6153500ED1F9A /* TimerSetController.swift in Sources */,
 				D4380ED82342434700AE2207 /* Timer_SharedDeclarations.swift in Sources */,
@@ -1010,6 +1015,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
@@ -1018,6 +1024,11 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = AmbiaMara_Watch_App_Extension;
 				INFOPLIST_FILE = "$(SRCROOT)/Watch App/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MARKETING_VERSION = 1.2.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1025,6 +1036,7 @@
 				PRODUCT_NAME = AmbiaMara;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 6.0;
@@ -1037,6 +1049,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
@@ -1045,6 +1058,11 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = AmbiaMara_Watch_App_Extension;
 				INFOPLIST_FILE = "$(SRCROOT)/Watch App/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MARKETING_VERSION = 1.2.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara.watchkitapp;

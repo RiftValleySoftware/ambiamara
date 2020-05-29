@@ -54,10 +54,10 @@ class TimerSetupController: A_TimerSetPickerController {
      This just sets up the picker views to the current settings
      */
     func setUpPickerViews() {
-        self.podiumModeContainerView.isHidden = (.Digital == self.timerObject.displayMode)
-        self.colorPickerContainerView.isHidden = (.Podium == self.timerObject.displayMode)
-        self.warningThresholdTimePicker.setNeedsDisplay()
-        self.finalThresholdTimePicker.setNeedsDisplay()
+        podiumModeContainerView.isHidden = (.Digital == timerObject.displayMode)
+        colorPickerContainerView.isHidden = (.Podium == timerObject.displayMode)
+        warningThresholdTimePicker.setNeedsDisplay()
+        finalThresholdTimePicker.setNeedsDisplay()
     }
     
     /* ################################################################## */
@@ -66,64 +66,64 @@ class TimerSetupController: A_TimerSetPickerController {
      */
     func setup() {
         // Make sure that our red is always less than our yellow.
-        var maxValInt = Swift.max(0, Swift.min(self.timerObject.timeSetPodiumFinal, self.timerObject.timeSetPodiumWarn - 1))
+        var maxValInt = Swift.max(0, Swift.min(timerObject.timeSetPodiumFinal, timerObject.timeSetPodiumWarn - 1))
         if 0 == maxValInt {
-            maxValInt = Swift.min(TimerSettingTuple.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet), self.timerObject.timeSetPodiumWarn - 1)
+            maxValInt = Swift.min(TimerSettingTuple.calcPodiumModeFinalThresholdForTimerValue(timerObject.timeSet), timerObject.timeSetPodiumWarn - 1)
         }
         
-        self.navigationItem.title = "LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL".localizedVariant
+        navigationItem.title = "LGV_TIMER-ACCESSIBILITY-SETTINGS-BUTTON-LABEL".localizedVariant
 
-        self.timerObject.timeSetPodiumFinal = maxValInt
+        timerObject.timeSetPodiumFinal = maxValInt
 
-        self.warningThresholdLabel.text = self.warningThresholdLabel.text?.localizedVariant
-        self.finalThresholdLabel.text = self.finalThresholdLabel.text?.localizedVariant
-        self.colorDisplayLabel.text = self.colorDisplayLabel.text?.localizedVariant
+        warningThresholdLabel.text = warningThresholdLabel.text?.localizedVariant
+        finalThresholdLabel.text = finalThresholdLabel.text?.localizedVariant
+        colorDisplayLabel.text = colorDisplayLabel.text?.localizedVariant
         
-        self.timerModeSegmentedSwitch.selectedSegmentIndex = self.timerObject.displayMode.rawValue
+        timerModeSegmentedSwitch.selectedSegmentIndex = timerObject.displayMode.rawValue
         if #available(iOS 13.0, *) {
-            self.timerModeSegmentedSwitch.selectedSegmentTintColor = self.view.tintColor
+            timerModeSegmentedSwitch.selectedSegmentTintColor = view.tintColor
             // White text.
-            self.timerModeSegmentedSwitch.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
-            self.timerModeSegmentedSwitch.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: self.view?.tintColor ?? UIColor.white], for: .normal)
+            timerModeSegmentedSwitch.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+            timerModeSegmentedSwitch.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: view?.tintColor ?? UIColor.white], for: .normal)
         }
 
-        self.setUpPickerViews()
+        setUpPickerViews()
 
-        self.warningThresholdTimePicker.reloadAllComponents()
-        self.finalThresholdTimePicker.reloadAllComponents()
-        self.colorThemePicker.reloadAllComponents()
+        warningThresholdTimePicker.reloadAllComponents()
+        finalThresholdTimePicker.reloadAllComponents()
+        colorThemePicker.reloadAllComponents()
         
-        var timeSetWarnInt = self.timerObject.timeSetPodiumWarn
+        var timeSetWarnInt = timerObject.timeSetPodiumWarn
         if 0 >= timeSetWarnInt {
-            timeSetWarnInt = TimerSettingTuple.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet)
-            self.timerObject.timeSetPodiumWarn = timeSetWarnInt
+            timeSetWarnInt = TimerSettingTuple.calcPodiumModeWarningThresholdForTimerValue(timerObject.timeSet)
+            timerObject.timeSetPodiumWarn = timeSetWarnInt
         }
         let timeSetWarn = TimeInstance(timeSetWarnInt)
-        var timeSetFinalInt = self.timerObject.timeSetPodiumFinal
+        var timeSetFinalInt = timerObject.timeSetPodiumFinal
         if 0 >= timeSetFinalInt {
-            timeSetFinalInt = TimerSettingTuple.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet)
-            self.timerObject.timeSetPodiumFinal = timeSetFinalInt
+            timeSetFinalInt = TimerSettingTuple.calcPodiumModeFinalThresholdForTimerValue(timerObject.timeSet)
+            timerObject.timeSetPodiumFinal = timeSetFinalInt
         }
         
         let timeSetFinal = TimeInstance(timeSetFinalInt)
-        self.warningThresholdTimePicker.selectRow(timeSetWarn.hours, inComponent: Components.Hours.rawValue, animated: true)
-        self.warningThresholdTimePicker.selectRow(timeSetWarn.minutes, inComponent: Components.Minutes.rawValue, animated: true)
-        self.warningThresholdTimePicker.selectRow(timeSetWarn.seconds, inComponent: Components.Seconds.rawValue, animated: true)
-        self.finalThresholdTimePicker.selectRow(timeSetFinal.hours, inComponent: Components.Hours.rawValue, animated: true)
-        self.finalThresholdTimePicker.selectRow(timeSetFinal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
-        self.finalThresholdTimePicker.selectRow(timeSetFinal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
+        warningThresholdTimePicker.selectRow(timeSetWarn.hours, inComponent: Components.Hours.rawValue, animated: true)
+        warningThresholdTimePicker.selectRow(timeSetWarn.minutes, inComponent: Components.Minutes.rawValue, animated: true)
+        warningThresholdTimePicker.selectRow(timeSetWarn.seconds, inComponent: Components.Seconds.rawValue, animated: true)
+        finalThresholdTimePicker.selectRow(timeSetFinal.hours, inComponent: Components.Hours.rawValue, animated: true)
+        finalThresholdTimePicker.selectRow(timeSetFinal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
+        finalThresholdTimePicker.selectRow(timeSetFinal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
         
         // This ensures that we force the display to portrait (for this screen only).
         Timer_AppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
-        self.colorThemePicker.selectRow(self.timerObject.colorTheme, inComponent: 0, animated: true)
+        colorThemePicker.selectRow(timerObject.colorTheme, inComponent: 0, animated: true)
         
-        self.alarmSetupButton.isMusicOn = .Music == self.timerObject.soundMode
-        self.alarmSetupButton.isSoundOn = .Sound == self.timerObject.soundMode
-        self.alarmSetupButton.isTicksOn = self.timerObject.audibleTicks
-        self.alarmSetupButton.isVibrateOn = (.VibrateOnly == self.timerObject.alertMode || .Both == self.timerObject.alertMode)
-        self.colorThemePicker.reloadAllComponents()
-        self.warningThresholdTimePicker.reloadAllComponents()
-        self.finalThresholdTimePicker.reloadAllComponents()
+        alarmSetupButton.isMusicOn = .Music == timerObject.soundMode
+        alarmSetupButton.isSoundOn = .Sound == timerObject.soundMode
+        alarmSetupButton.isTicksOn = timerObject.audibleTicks
+        alarmSetupButton.isVibrateOn = (.VibrateOnly == timerObject.alertMode || .Both == timerObject.alertMode)
+        colorThemePicker.reloadAllComponents()
+        warningThresholdTimePicker.reloadAllComponents()
+        finalThresholdTimePicker.reloadAllComponents()
     }
 
     /* ################################################################################################################################## */
@@ -134,7 +134,7 @@ class TimerSetupController: A_TimerSetPickerController {
      Called when the view will appear.
      */
     override func viewWillAppear(_ animated: Bool) {
-        self.setup()
+        setup()
         super.viewWillAppear(animated)
     }
     
@@ -144,7 +144,7 @@ class TimerSetupController: A_TimerSetPickerController {
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.alarmSetupButton.setNeedsDisplay()
+        alarmSetupButton.setNeedsDisplay()
     }
     
     /* ################################################################## */
@@ -163,7 +163,7 @@ class TimerSetupController: A_TimerSetPickerController {
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationController = segue.destination as? Timer_SetupSoundsViewController {
-            destinationController.timerObject = self.timerObject
+            destinationController.timerObject = timerObject
             destinationController.daBoss = self
         }
     }
@@ -178,8 +178,8 @@ class TimerSetupController: A_TimerSetPickerController {
      - parameter sender: ignored
      */
     @IBAction func modeSegmentedControlChanged(_ sender: UISegmentedControl) {
-        self.timerObject.displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
-        self.setUpPickerViews()
+        timerObject.displayMode = TimerDisplayMode(rawValue: sender.selectedSegmentIndex)!
+        setUpPickerViews()
     }
     
     /* ################################################################################################################################## */
@@ -193,21 +193,21 @@ class TimerSetupController: A_TimerSetPickerController {
             let imageName = "TimerModeImages-" + trailer.element
             if let image = UIImage(named: imageName) {
                 image.accessibilityLabel = ("LGV_TIMER-ACCESSIBILITY-SEGMENTED-TIMER-MODE-" + trailer.element + "-LABEL").localizedVariant
-                self.timerModeSegmentedSwitch.setImage(image, forSegmentAt: trailer.offset)
+                timerModeSegmentedSwitch.setImage(image, forSegmentAt: trailer.offset)
             }
         }
         
-        self.warningThresholdLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-LABEL".localizedVariant
-        self.warningThresholdLabel.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-HINT".localizedVariant
+        warningThresholdLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-LABEL".localizedVariant
+        warningThresholdLabel.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-WARN-TIME-PICKER-HINT".localizedVariant
         
-        self.finalThresholdLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-LABEL".localizedVariant
-        self.finalThresholdLabel.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-HINT".localizedVariant
+        finalThresholdLabel.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-LABEL".localizedVariant
+        finalThresholdLabel.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SET-FINAL-TIME-PICKER-HINT".localizedVariant
         
-        self.alarmSetupButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-HINT".localizedVariant
+        alarmSetupButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-HINT".localizedVariant
         
         var accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ALARM-SETUP-BUTTON-LABEL".localizedVariant
 
-        switch self.timerObject.soundMode {
+        switch timerObject.soundMode {
         case .Sound:
             accessibilityLabel += "LGV_TIMER-ACCESSIBILITY-SOUND-SET".localizedVariant
         case .Music:
@@ -216,17 +216,17 @@ class TimerSetupController: A_TimerSetPickerController {
             accessibilityLabel += "LGV_TIMER-ACCESSIBILITY-SILENT-SET".localizedVariant
         }
         
-        if .VibrateOnly == self.timerObject.alertMode || .Both == self.timerObject.alertMode {
+        if .VibrateOnly == timerObject.alertMode || .Both == timerObject.alertMode {
             accessibilityLabel += "LGV_TIMER-ACCESSIBILITY-VIBRATE-SET".localizedVariant
         }
         
-        if self.timerObject.audibleTicks {
+        if timerObject.audibleTicks {
             accessibilityLabel += "LGV_TIMER-ACCESSIBILITY-TICKS-SET".localizedVariant
         }
         
-        self.alarmSetupButton.accessibilityLabel = accessibilityLabel
+        alarmSetupButton.accessibilityLabel = accessibilityLabel
         
-        UIAccessibility.post(notification: .layoutChanged, argument: self.timerModeSegmentedSwitch)
+        UIAccessibility.post(notification: .layoutChanged, argument: timerModeSegmentedSwitch)
     }
 
     /* ################################################################################################################################## */
@@ -236,14 +236,14 @@ class TimerSetupController: A_TimerSetPickerController {
     /**
      */
     override func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return (self.colorThemePicker == pickerView) ? 1: super.numberOfComponents(in: pickerView)
+        return (colorThemePicker == pickerView) ? 1: super.numberOfComponents(in: pickerView)
     }
     
     /* ################################################################## */
     /**
      */
     override func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if self.colorThemePicker == pickerView {
+        if colorThemePicker == pickerView {
             return Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray.count
         } else {
             return super.pickerView(pickerView, numberOfRowsInComponent: component)
@@ -260,7 +260,7 @@ class TimerSetupController: A_TimerSetPickerController {
      - returns: the height, in display units, of the referenced picker component rows
      */
     override func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return pickerView.bounds.size.height / ((self.colorThemePicker == pickerView) ? 3.0: 4.0)
+        return pickerView.bounds.size.height / ((colorThemePicker == pickerView) ? 3.0: 4.0)
     }
     
     /* ################################################################## */
@@ -270,7 +270,7 @@ class TimerSetupController: A_TimerSetPickerController {
      - returns: the width, in display units, of the referenced picker component
      */
     override func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return (self.colorThemePicker == pickerView) ? pickerView.bounds.size.width: super.pickerView(pickerView, widthForComponent: component)
+        return (colorThemePicker == pickerView) ? pickerView.bounds.size.width: super.pickerView(pickerView, widthForComponent: component)
     }
     
     /* ################################################################## */
@@ -282,7 +282,7 @@ class TimerSetupController: A_TimerSetPickerController {
      - returns: a UIView, containing the picker cell.
      */
     override func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        if self.colorThemePicker == pickerView {
+        if colorThemePicker == pickerView {
             let width = self.pickerView(pickerView, widthForComponent: component)
             let height = self.pickerView(pickerView, rowHeightForComponent: component)
             let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: height))
@@ -303,31 +303,31 @@ class TimerSetupController: A_TimerSetPickerController {
      - parameter inComponent: The 0-based component index being selected.
      */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if self.colorThemePicker == pickerView {
-            self.timerObject.colorTheme = row
+        if colorThemePicker == pickerView {
+            timerObject.colorTheme = row
         } else {
             let hours = pickerView.selectedRow(inComponent: Components.Hours.rawValue)
             let minutes = pickerView.selectedRow(inComponent: Components.Minutes.rawValue)
             let seconds = pickerView.selectedRow(inComponent: Components.Seconds.rawValue)
-            if self.warningThresholdTimePicker == pickerView {
-                if self.timerObject.timeSet > Int(TimeInstance(hours: hours, minutes: minutes, seconds: seconds)) {
-                    self.timerObject.timeSetPodiumWarn = Int(TimeInstance(hours: hours, minutes: minutes, seconds: seconds))
-                    var maxValInt = Swift.max(0, Swift.min(self.timerObject.timeSetPodiumFinal, self.timerObject.timeSetPodiumWarn - 1))
+            if warningThresholdTimePicker == pickerView {
+                if timerObject.timeSet > Int(TimeInstance(hours: hours, minutes: minutes, seconds: seconds)) {
+                    timerObject.timeSetPodiumWarn = Int(TimeInstance(hours: hours, minutes: minutes, seconds: seconds))
+                    var maxValInt = Swift.max(0, Swift.min(timerObject.timeSetPodiumFinal, timerObject.timeSetPodiumWarn - 1))
                     if 0 == maxValInt {
-                        maxValInt = Swift.min(TimerSettingTuple.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet), self.timerObject.timeSetPodiumWarn - 1)
+                        maxValInt = Swift.min(TimerSettingTuple.calcPodiumModeFinalThresholdForTimerValue(timerObject.timeSet), timerObject.timeSetPodiumWarn - 1)
                     }
                     
-                    self.timerObject.timeSetPodiumFinal = maxValInt
+                    timerObject.timeSetPodiumFinal = maxValInt
                     let maxVal = TimeInstance(maxValInt)
                     
-                    self.finalThresholdTimePicker.selectRow(maxVal.hours, inComponent: Components.Hours.rawValue, animated: true)
-                    self.finalThresholdTimePicker.selectRow(maxVal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
-                    self.finalThresholdTimePicker.selectRow(maxVal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
+                    finalThresholdTimePicker.selectRow(maxVal.hours, inComponent: Components.Hours.rawValue, animated: true)
+                    finalThresholdTimePicker.selectRow(maxVal.minutes, inComponent: Components.Minutes.rawValue, animated: true)
+                    finalThresholdTimePicker.selectRow(maxVal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
                 } else {
-                    var maxValInt = Swift.max(0, self.timerObject.timeSet - 1)
+                    var maxValInt = Swift.max(0, timerObject.timeSet - 1)
                     
                     if 0 == maxValInt {
-                        maxValInt = Swift.min(TimerSettingTuple.calcPodiumModeWarningThresholdForTimerValue(self.timerObject.timeSet), self.timerObject.timeSetPodiumWarn - 1)
+                        maxValInt = Swift.min(TimerSettingTuple.calcPodiumModeWarningThresholdForTimerValue(timerObject.timeSet), timerObject.timeSetPodiumWarn - 1)
                     }
                     
                     let maxVal = TimeInstance(maxValInt)
@@ -337,20 +337,20 @@ class TimerSetupController: A_TimerSetPickerController {
                     pickerView.selectRow(maxVal.seconds, inComponent: Components.Seconds.rawValue, animated: true)
                 }
             } else {
-                if (0 == self.timerObject.timeSetPodiumWarn) || (0 == self.timerObject.timeSet) || (self.timerObject.timeSetPodiumWarn > Int(TimeInstance(hours: hours, minutes: minutes, seconds: seconds))) {
-                    if (0 == self.timerObject.timeSetPodiumWarn) || (0 == self.timerObject.timeSet) {
-                        self.timerObject.timeSetPodiumFinal =  0
+                if (0 == timerObject.timeSetPodiumWarn) || (0 == timerObject.timeSet) || (timerObject.timeSetPodiumWarn > Int(TimeInstance(hours: hours, minutes: minutes, seconds: seconds))) {
+                    if (0 == timerObject.timeSetPodiumWarn) || (0 == timerObject.timeSet) {
+                        timerObject.timeSetPodiumFinal =  0
                         pickerView.selectRow(0, inComponent: Components.Hours.rawValue, animated: true)
                         pickerView.selectRow(0, inComponent: Components.Minutes.rawValue, animated: true)
                         pickerView.selectRow(0, inComponent: Components.Seconds.rawValue, animated: true)
                     } else {
-                        self.timerObject.timeSetPodiumFinal = Int(TimeInstance(hours: hours, minutes: minutes, seconds: seconds))
+                        timerObject.timeSetPodiumFinal = Int(TimeInstance(hours: hours, minutes: minutes, seconds: seconds))
                     }
                 } else {
-                    var maxValInt = Swift.max(0, self.timerObject.timeSetPodiumWarn - 1)
+                    var maxValInt = Swift.max(0, timerObject.timeSetPodiumWarn - 1)
                     
                     if 0 == maxValInt {
-                        maxValInt = Swift.min(TimerSettingTuple.calcPodiumModeFinalThresholdForTimerValue(self.timerObject.timeSet), self.timerObject.timeSetPodiumWarn - 1)
+                        maxValInt = Swift.min(TimerSettingTuple.calcPodiumModeFinalThresholdForTimerValue(timerObject.timeSet), timerObject.timeSetPodiumWarn - 1)
                     }
                     
                     let maxVal = TimeInstance(maxValInt)

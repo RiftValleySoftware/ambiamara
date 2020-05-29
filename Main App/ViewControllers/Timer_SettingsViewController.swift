@@ -71,13 +71,13 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
      We use this method to establish all the localized strings, and restore the controls to reflect the stored state.
      */
     override func viewDidLoad() {
-        self.navItemTitle.title = self.navItemTitle.title?.localizedVariant
-        self.mainTabController = self.tabBarController as? Timer_MainTabController
+        navItemTitle.title = navItemTitle.title?.localizedVariant
+        mainTabController = tabBarController as? Timer_MainTabController
         Timer_AppDelegate.appDelegateObject.timerListController = self
         super.viewDidLoad()
-        self.gussyUpTheMoreNavigation()
+        gussyUpTheMoreNavigation()
         
-        self.showControlsSwitch.isOn = Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer
+        showControlsSwitch.isOn = Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer
     }
     
     /* ################################################################## */
@@ -89,16 +89,16 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
         
         let titleString = "LGV_TIMER-ABOUT-SHOWCONTROLS-BUTTON".localizedVariant
         
-        let viewBounds = self.view.bounds
+        let viewBounds = view.bounds
         
         if 480 > viewBounds.size.width {
             let font = UIFont.systemFont(ofSize: 14)
             let attributedTitle = NSAttributedString(string: titleString, attributes: [NSAttributedString.Key.font: font])
-            self.showControlsButton.setAttributedTitle(attributedTitle, for: UIControl.State.normal)
+            showControlsButton.setAttributedTitle(attributedTitle, for: UIControl.State.normal)
         } else {
             let font = UIFont.systemFont(ofSize: 20)
             let attributedTitle = NSAttributedString(string: titleString, attributes: [NSAttributedString.Key.font: font])
-            self.showControlsButton.setAttributedTitle(attributedTitle, for: UIControl.State.normal)
+            showControlsButton.setAttributedTitle(attributedTitle, for: UIControl.State.normal)
         }
     }
     
@@ -108,8 +108,8 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.mainTabController.timerEngine.selectedTimerIndex = -1
-        self.timerTableView.reloadData()
+        mainTabController.timerEngine.selectedTimerIndex = -1
+        timerTableView.reloadData()
         Timer_AppDelegate.appDelegateObject.sendSelectMessage()
     }
 
@@ -134,8 +134,8 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
      - parameter sender: The button object.
      */
     @IBAction func showControlsButtonHit(_ sender: Any) {
-        self.showControlsSwitch.setOn(!self.showControlsSwitch.isOn, animated: true)
-        Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer = self.showControlsSwitch.isOn
+        showControlsSwitch.setOn(!showControlsSwitch.isOn, animated: true)
+        Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer = showControlsSwitch.isOn
         Timer_AppDelegate.appDelegateObject.timerEngine.savePrefs()
     }
     
@@ -146,9 +146,9 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
      - parameter sender: The button object.
      */
     @IBAction func addTimerButtonHit(_ sender: Any) {
-        self.mainTabController.addNewTimer()
-        self.timerTableView.reloadData()
-        self.gussyUpTheMoreNavigation()
+        mainTabController.addNewTimer()
+        timerTableView.reloadData()
+        gussyUpTheMoreNavigation()
     }
     
     /* ################################################################## */
@@ -158,7 +158,7 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
      - parameter sender: The button object.
      */
     @IBAction func infoButtonHit(_ sender: Any) {
-        self.performSegue(withIdentifier: self._info_segue_id, sender: nil)
+        performSegue(withIdentifier: _info_segue_id, sender: nil)
     }
     
     /* ################################################################################################################################## */
@@ -172,7 +172,7 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
      - returns the number of rows to display.
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.mainTabController.timerEngine.timers.count
+        return mainTabController.timerEngine.timers.count
     }
     
     /* ################################################################## */
@@ -185,19 +185,19 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
      - returns a nice, shiny cell (or sets the state of a reused one).
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        assert(self.mainTabController.timerEngine.count > indexPath.row && 0 <= indexPath.row)
+        assert(mainTabController.timerEngine.count > indexPath.row && 0 <= indexPath.row)
         if let ret = tableView.dequeueReusableCell(withIdentifier: "SingleTimerCell") as? SettingsTimerTableCell {
             if let clockView = ret.clockDisplay, let timerNameLabel = ret.timerNameLabel {
                 let timerName = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
                 
-                let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
+                let timerPrefs = mainTabController.timerEngine[indexPath.row]
                 clockView.text = TimeInstance(timerPrefs.timeSet).description
                 if .Podium == timerPrefs.displayMode {
                     clockView.textColor = UIColor.white
                     timerNameLabel.textColor = UIColor.white
                     clockView.font = UIFont.boldSystemFont(ofSize: 24)
                 } else {
-                    if let backgroundColor = self.mainTabController.timerEngine.colorLabelArray[timerPrefs.colorTheme].backgroundColor {
+                    if let backgroundColor = mainTabController.timerEngine.colorLabelArray[timerPrefs.colorTheme].backgroundColor {
                         clockView.textColor = backgroundColor
                         timerNameLabel.textColor = backgroundColor
                     }
@@ -212,12 +212,12 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
             }
             
             if let trafficLights = ret.trafficLights {
-                let timerPrefs = self.mainTabController.timerEngine[indexPath.row]
+                let timerPrefs = mainTabController.timerEngine[indexPath.row]
                 trafficLights.isHidden = (.Digital == timerPrefs.displayMode)
             }
             
             // Add accessibility strings.
-            switch self.mainTabController.timerEngine[indexPath.row].displayMode {
+            switch mainTabController.timerEngine[indexPath.row].displayMode {
             case .Podium:
                 ret.accessibilityLabel = (ret.accessibilityLabel ?? "") + " " + "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-LABEL".localizedVariant
                 ret.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-PODIUM-HINT".localizedVariant
@@ -248,8 +248,8 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
      - returns: nil (don't let selection happen).
      */
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let timerIndex = max(0, min(indexPath.row, self.mainTabController.timerEngine.timers.count - 1))
-        self.mainTabController.timerEngine.selectedTimerIndex = timerIndex
+        let timerIndex = max(0, min(indexPath.row, mainTabController.timerEngine.timers.count - 1))
+        mainTabController.timerEngine.selectedTimerIndex = timerIndex
         return nil
     }
     
@@ -263,7 +263,7 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
      - returns: true, as long as there are more than one timers.
      */
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return 1 < self.mainTabController.timerEngine.timers.count
+        return 1 < mainTabController.timerEngine.timers.count
     }
     
     /* ################################################################## */
@@ -286,7 +286,7 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
             
             alertController.addAction(cancelAction)
             
-            self.present(alertController, animated: true, completion: nil)
+            present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -299,7 +299,7 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
      */
     func doADirtyDeedCheap(_ tableView: UITableView, forRowAt indexPath: IndexPath) {
         tableView.isEditing = false
-        self.mainTabController.deleteTimer(indexPath.row)
+        mainTabController.deleteTimer(indexPath.row)
     }
     
     /* ################################################################## */
@@ -319,20 +319,20 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
     override func addAccessibilityStuff() {
         super.addAccessibilityStuff()
         
-        self.navInfo.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-INFO-LABEL".localizedVariant
-        self.navInfo.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-INFO-HINT".localizedVariant
-        self.navAdd.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ADD-LABEL".localizedVariant
-        self.navAdd.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ADD-HINT".localizedVariant
+        navInfo.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-INFO-LABEL".localizedVariant
+        navInfo.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-INFO-HINT".localizedVariant
+        navAdd.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ADD-LABEL".localizedVariant
+        navAdd.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ADD-HINT".localizedVariant
         
-        self.timerTableView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-LABEL".localizedVariant
-        self.timerTableView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-HINT".localizedVariant
+        timerTableView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-TABLE-LABEL".localizedVariant
+        timerTableView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-HINT".localizedVariant
 
-        self.showControlsSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SWITCH-LABEL".localizedVariant
-        self.showControlsSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SWITCH-HINT".localizedVariant
+        showControlsSwitch.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SWITCH-LABEL".localizedVariant
+        showControlsSwitch.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SWITCH-HINT".localizedVariant
         
-        self.showControlsButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SWITCH-LABEL".localizedVariant
-        self.showControlsButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SWITCH-HINT".localizedVariant
+        showControlsButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SWITCH-LABEL".localizedVariant
+        showControlsButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SWITCH-HINT".localizedVariant
         
-        UIAccessibility.post(notification: .layoutChanged, argument: self.timerTableView)
+        UIAccessibility.post(notification: .layoutChanged, argument: timerTableView)
     }
 }

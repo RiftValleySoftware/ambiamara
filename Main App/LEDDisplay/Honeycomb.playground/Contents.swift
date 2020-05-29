@@ -64,7 +64,7 @@ func getHexPath(_ inHowBig: CGFloat) -> CGMutablePath {
 class View: UIView {
     var filledWithHexagons: CGPath {
         let path = CGMutablePath()
-        let sHexagonWidth = self.bounds.size.height / 50
+        let sHexagonWidth = bounds.size.height / 50
         let radius: CGFloat = sHexagonWidth / 2
         
         let hexPath: CGMutablePath = getHexPath(radius)
@@ -75,9 +75,9 @@ class View: UIView {
         let nudgeY: CGFloat = radius + ((oneHexHeight - oneHexWidth) * 2)
         
         var yOffset: CGFloat = 0
-        while yOffset < self.bounds.size.height {
+        while yOffset < bounds.size.height {
             var xOffset = nudgeX
-            while xOffset < self.bounds.size.width {
+            while xOffset < bounds.size.width {
                 let transform = CGAffineTransform(translationX: xOffset, y: yOffset)
                 path.addPath(hexPath, transform: transform)
                 xOffset += oneHexWidth
@@ -91,7 +91,7 @@ class View: UIView {
     }
     
     func drawPolygonUsingPath(ctx: CGContext) {
-        let path = self.filledWithHexagons
+        let path = filledWithHexagons
         ctx.addPath(path)
         ctx.setLineWidth(0.25)
         ctx.setStrokeColor(UIColor.red.cgColor)
@@ -100,17 +100,17 @@ class View: UIView {
     }
     
     override func layoutSubviews() {
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
         let drawingContext = UIGraphicsGetCurrentContext()
         
         drawPolygonUsingPath(ctx: drawingContext!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        let imageView = UIImageView(frame: self.bounds)
+        let imageView = UIImageView(frame: bounds)
         imageView.image = image
         
-        self.addSubview(imageView)
+        addSubview(imageView)
     }
 }
 

@@ -138,7 +138,7 @@ public class AmbiaMara_Prefs: RVS_PersistentPrefs {
      - parameter values: A String-keyed Dictionary of Int, with our values. The keys must match the keys Array.
      */
     public init(index inIndex: Int, values inValues: [String: Int]) {
-        super.init(key: String(format: type(of: self)._mainListKeyPrefix, inIndex), values: inValues)
+        super.init(key: String(format: Self._mainListKeyPrefix, inIndex), values: inValues)
     }
 }
 

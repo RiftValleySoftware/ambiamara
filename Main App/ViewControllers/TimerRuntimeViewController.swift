@@ -101,55 +101,55 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      Bring in the setup screen.
      */
     private func _setUpDisplay() {
-        if nil != self.pauseButton {
-            self.pauseButton.image = UIImage(named: .Paused == self.timerObject.timerStatus ? self.startButtonImageName: self.pauseButtonImageName)
-            self.pauseButton.isEnabled = (0 < self.timerObject.currentTime)
+        if nil != pauseButton {
+            pauseButton.image = UIImage(named: .Paused == timerObject.timerStatus ? startButtonImageName: pauseButtonImageName)
+            pauseButton.isEnabled = (0 < timerObject.currentTime)
         }
         
-        if nil != self.resetButton {
-            self.resetButton.isEnabled = (self.timerObject.currentTime < self.timerObject.timeSet)
+        if nil != resetButton {
+            resetButton.isEnabled = (timerObject.currentTime < timerObject.timeSet)
         }
         
-        if nil != self.endButton {
-            self.endButton.isEnabled = (0 < self.timerObject.currentTime)
+        if nil != endButton {
+            endButton.isEnabled = (0 < timerObject.currentTime)
         }
         
-        if .Podium != self.timerObject.displayMode && nil != self.timeDisplay {
-            if self._originalValue != self.timerObject.currentTime {
-                self._originalValue = self.timerObject.currentTime
-                self.timeDisplay.hours = TimeInstance(self.timerObject.currentTime).hours
-                self.timeDisplay.minutes = TimeInstance(self.timerObject.currentTime).minutes
-                self.timeDisplay.seconds = TimeInstance(self.timerObject.currentTime).seconds
-                self.timeDisplay.setNeedsDisplay()
+        if .Podium != timerObject.displayMode && nil != timeDisplay {
+            if _originalValue != timerObject.currentTime {
+                _originalValue = timerObject.currentTime
+                timeDisplay.hours = TimeInstance(timerObject.currentTime).hours
+                timeDisplay.minutes = TimeInstance(timerObject.currentTime).minutes
+                timeDisplay.seconds = TimeInstance(timerObject.currentTime).seconds
+                timeDisplay.setNeedsDisplay()
             }
         }
         
-        if .Digital != self.timerObject.displayMode && nil != self.stoplightContainerView {
-            switch self.timerObject.timerStatus {
+        if .Digital != timerObject.displayMode && nil != stoplightContainerView {
+            switch timerObject.timerStatus {
             case .Paused:
-                self.greenLight.isHighlighted = false
-                self.yellowLight.isHighlighted = false
-                self.redLight.isHighlighted = false
+                greenLight.isHighlighted = false
+                yellowLight.isHighlighted = false
+                redLight.isHighlighted = false
                 
             case .Running:
-                self.greenLight.isHighlighted = true
-                self.yellowLight.isHighlighted = false
-                self.redLight.isHighlighted = false
+                greenLight.isHighlighted = true
+                yellowLight.isHighlighted = false
+                redLight.isHighlighted = false
                 
             case .WarnRun:
-                self.greenLight.isHighlighted = false
-                self.yellowLight.isHighlighted = true
-                self.redLight.isHighlighted = false
+                greenLight.isHighlighted = false
+                yellowLight.isHighlighted = true
+                redLight.isHighlighted = false
                 
             case .FinalRun:
-                self.greenLight.isHighlighted = false
-                self.yellowLight.isHighlighted = false
-                self.redLight.isHighlighted = true
+                greenLight.isHighlighted = false
+                yellowLight.isHighlighted = false
+                redLight.isHighlighted = true
                 
             case .Alarm:
-                self.greenLight.isHighlighted = false
-                self.yellowLight.isHighlighted = false
-                self.redLight.isHighlighted = false
+                greenLight.isHighlighted = false
+                yellowLight.isHighlighted = false
+                redLight.isHighlighted = false
                 
             default:
                 break
@@ -162,22 +162,22 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      This plays whatever alert sound has been chosen by the user.
      */
     private func _playAlertSound() {
-        if nil == self.audioPlayer {
+        if nil == audioPlayer {
             var soundUrl: URL!
             
-            switch self.timerObject.soundMode {
+            switch timerObject.soundMode {
             case .Sound:
-                soundUrl = URL(string: Timer_AppDelegate.appDelegateObject.timerEngine.soundSelection[self.timerObject.soundID].urlEncodedString ?? "")
+                soundUrl = URL(string: Timer_AppDelegate.appDelegateObject.timerEngine.soundSelection[timerObject.soundID].urlEncodedString ?? "")
                 
             case.Music:
-                soundUrl = URL(string: self.timerObject.songURLString)
+                soundUrl = URL(string: timerObject.songURLString)
                 
             default:
                 break
             }
             
             if nil != soundUrl {
-                self.playThisSound(soundUrl)
+                playThisSound(soundUrl)
             }
         }
     }
@@ -189,11 +189,11 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      - parameter times: Optional. Default is 1. This is how many times the tick will be repeated (quick succession).
      */
     private func _playTickSound(times inTimes: Int = 1) {
-        if nil == self.audioPlayer, self.timerObject.audibleTicks {
+        if nil == audioPlayer, timerObject.audibleTicks {
             let soundUrl: URL! = URL(string: Timer_AppDelegate.appDelegateObject.timerEngine.tickURI.urlEncodedString ?? "")
             
             if nil != soundUrl {
-                self.playThisSound(soundUrl, times: inTimes)
+                playThisSound(soundUrl, times: inTimes)
             }
         }
     }
@@ -219,12 +219,12 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
             }
         } else {
             do {
-                if nil == self.audioPlayer {
+                if nil == audioPlayer {
                     try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
-                    try self.audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
-                    self.audioPlayer?.numberOfLoops = -1   // Repeat indefinitely
+                    try audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
+                    audioPlayer?.numberOfLoops = -1   // Repeat indefinitely
                 }
-                self.audioPlayer?.play()
+                audioPlayer?.play()
             } catch {
             }
         }
@@ -235,8 +235,8 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      If the audio player is going, this pauses it. Nothing happens if no audio player is going.
      */
     func pauseAudioPlayer() {
-        if nil != self.audioPlayer {
-            self.audioPlayer?.pause()
+        if nil != audioPlayer {
+            audioPlayer?.pause()
         }
     }
     
@@ -245,9 +245,9 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      This terminates the audio player. Nothing happens if no audio player is going.
      */
     func stopAudioPlayer() {
-        if nil != self.audioPlayer {
-            self.audioPlayer?.stop()
-            self.audioPlayer = nil
+        if nil != audioPlayer {
+            audioPlayer?.stop()
+            audioPlayer = nil
         }
     }
 
@@ -272,7 +272,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      It will flash the display a "subdued" red.
      */
     func pauseTimer() {
-        self.flashDisplay(UIColor.red.withAlphaComponent(0.5), duration: 0.5)
+        flashDisplay(UIColor.red.withAlphaComponent(0.5), duration: 0.5)
         Timer_AppDelegate.appDelegateObject.timerEngine.pauseTimer()
     }
     
@@ -283,7 +283,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      It will flash the display a "subdued" green.
      */
     func continueTimer() {
-        self.flashDisplay(UIColor.green.withAlphaComponent(0.5), duration: 0.5)
+        flashDisplay(UIColor.green.withAlphaComponent(0.5), duration: 0.5)
         Timer_AppDelegate.appDelegateObject.timerEngine.continueTimer()
     }
     
@@ -294,8 +294,8 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      It will flash the display a bright red.
      */
     func stopTimer() {
-        self.flashDisplay(UIColor.red, duration: 0.5)
-        self.stopAudioPlayer()
+        flashDisplay(UIColor.red, duration: 0.5)
+        stopAudioPlayer()
         Timer_AppDelegate.appDelegateObject.timerEngine.stopTimer()
         navigationController?.popViewController(animated: false)
     }
@@ -305,7 +305,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      This forces the timer to immediately complete its time, and go into alarm mode.
      */
     func endTimer() {
-        self.stopAudioPlayer()
+        stopAudioPlayer()
         Timer_AppDelegate.appDelegateObject.timerEngine.endTimer()
     }
     
@@ -316,11 +316,11 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      If the timer is paused, this will flash a "subdued" white. If not, it will flash a "subdued" red.
      */
     func resetTimer() {
-        self.stopAudioPlayer()
-        if .Paused != self.timerObject.timerStatus {
-            self.flashDisplay(UIColor.red.withAlphaComponent(0.5), duration: 0.5)
+        stopAudioPlayer()
+        if .Paused != timerObject.timerStatus {
+            flashDisplay(UIColor.red.withAlphaComponent(0.5), duration: 0.5)
         } else {
-            self.flashDisplay(UIColor.white.withAlphaComponent(0.5), duration: 0.5)
+            flashDisplay(UIColor.white.withAlphaComponent(0.5), duration: 0.5)
         }
         
         Timer_AppDelegate.appDelegateObject.timerEngine.resetTimer()
@@ -331,22 +331,22 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      This forces the timer to update to match the current timer state.
      */
     func updateTimer() {
-        self._setUpDisplay()
+        _setUpDisplay()
         
-        if let timeDisplay = self.timeDisplay {
-            timeDisplay.accessibilityLabel = self.timerObject.currentQuickSpeakableTime
+        if let timeDisplay = timeDisplay {
+            timeDisplay.accessibilityLabel = timerObject.currentQuickSpeakableTime
 
-            timeDisplay.isHidden = (.Podium == self.timerObject.displayMode) || (.Alarm == self.timerObject.timerStatus)
-            if nil != self.stoplightContainerView {
-                self.stoplightContainerView.isHidden = (.Alarm == self.timerObject.timerStatus)
+            timeDisplay.isHidden = (.Podium == timerObject.displayMode) || (.Alarm == timerObject.timerStatus)
+            if nil != stoplightContainerView {
+                stoplightContainerView.isHidden = (.Alarm == timerObject.timerStatus)
             }
             
-            if .Alarm == self.timerObject.timerStatus {
+            if .Alarm == timerObject.timerStatus {
                 UIApplication.shared.isIdleTimerDisabled = false // Toggle this to "wake" the touch sensor. The system can put it into a "resting" mode, so two touches are required.
                 UIApplication.shared.isIdleTimerDisabled = true
-                self.flashDisplay()
-                self._playAlertSound()
-                if .VibrateOnly == self.timerObject.alertMode || .Both == self.timerObject.alertMode {
+                flashDisplay()
+                _playAlertSound()
+                if .VibrateOnly == timerObject.alertMode || .Both == timerObject.alertMode {
                     AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
                 }
             }
@@ -360,7 +360,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      - parameter times: Optional. Default is 1. This is how many times the tick will be repeated (quick succession).
      */
     func tick(times inTimes: Int = 1) {
-        self._playTickSound(times: inTimes)
+        _playTickSound(times: inTimes)
     }
 
     /* ################################################################## */
@@ -398,9 +398,9 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      - parameter inNextTimerIndex: The next timer index. If 0 or greater, then we will cascade to that timer. If less than 0, we ignore.
      */
     func cascadeToNextTimer(_ inNextTimerIndex: Int) {
-        if  0 <= inNextTimerIndex, let navigationController = self.navigationController as? TimerNavController {
+        if  0 <= inNextTimerIndex, let navigationController = navigationController as? TimerNavController {
             navigationController.selectNextTimer = inNextTimerIndex
-            self.stopTimer()
+            stopTimer()
         }
     }
     
@@ -414,44 +414,44 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tapRecognizer.require(toFail: resetSwipeRecognizer)
-        self.tapRecognizer.require(toFail: endSwipeRecognizer)
+        tapRecognizer.require(toFail: resetSwipeRecognizer)
+        tapRecognizer.require(toFail: endSwipeRecognizer)
 
         let tempRect = CGRect(origin: CGPoint.zero, size: CGSize(width: 75, height: 75))
         
-        if .Digital != self.timerObject.displayMode {
-            self.stoplightContainerView = UIView(frame: tempRect)
-            self.stoplightContainerView.isUserInteractionEnabled = false
+        if .Digital != timerObject.displayMode {
+            stoplightContainerView = UIView(frame: tempRect)
+            stoplightContainerView.isUserInteractionEnabled = false
             
-            self.greenLight = UIImageView(frame: tempRect)
-            self.yellowLight = UIImageView(frame: tempRect)
-            self.redLight = UIImageView(frame: tempRect)
+            greenLight = UIImageView(frame: tempRect)
+            yellowLight = UIImageView(frame: tempRect)
+            redLight = UIImageView(frame: tempRect)
             
-            self.stoplightContainerView.addSubview(self.greenLight)
-            self.stoplightContainerView.addSubview(self.yellowLight)
-            self.stoplightContainerView.addSubview(self.redLight)
+            stoplightContainerView.addSubview(greenLight)
+            stoplightContainerView.addSubview(yellowLight)
+            stoplightContainerView.addSubview(redLight)
             
-            self.greenLight.contentMode = .scaleAspectFit
-            self.yellowLight.contentMode = .scaleAspectFit
-            self.redLight.contentMode = .scaleAspectFit
+            greenLight.contentMode = .scaleAspectFit
+            yellowLight.contentMode = .scaleAspectFit
+            redLight.contentMode = .scaleAspectFit
             
-            self.greenLight.image = UIImage(named: self.offStoplightImageName)
-            self.yellowLight.image = UIImage(named: self.offStoplightImageName)
-            self.redLight.image = UIImage(named: self.offStoplightImageName)
-            self.greenLight.highlightedImage = UIImage(named: self.greenStoplightImageName)
-            self.yellowLight.highlightedImage = UIImage(named: self.yellowStoplightImageName)
-            self.redLight.highlightedImage = UIImage(named: self.redStoplightImageName)
+            greenLight.image = UIImage(named: offStoplightImageName)
+            yellowLight.image = UIImage(named: offStoplightImageName)
+            redLight.image = UIImage(named: offStoplightImageName)
+            greenLight.highlightedImage = UIImage(named: greenStoplightImageName)
+            yellowLight.highlightedImage = UIImage(named: yellowStoplightImageName)
+            redLight.highlightedImage = UIImage(named: redStoplightImageName)
             
-            self.view.addSubview(self.stoplightContainerView)
+            view.addSubview(stoplightContainerView)
         }
         
-        if let backgroundColor = Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[self.timerObject.colorTheme].backgroundColor {
-            self.timeDisplay.activeSegmentColor = backgroundColor
+        if let backgroundColor = Timer_AppDelegate.appDelegateObject.timerEngine.colorLabelArray[timerObject.colorTheme].backgroundColor {
+            timeDisplay.activeSegmentColor = backgroundColor
         }
 
-        self.timeDisplay.inactiveSegmentColor = UIColor.white.withAlphaComponent(0.1)
-        self.setNeedsUpdateOfHomeIndicatorAutoHidden()
-        self.updateTimer()
+        timeDisplay.inactiveSegmentColor = UIColor.white.withAlphaComponent(0.1)
+        setNeedsUpdateOfHomeIndicatorAutoHidden()
+        updateTimer()
     }
     
     /* ################################################################## */
@@ -461,18 +461,18 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        if nil != self.stoplightContainerView {
-            let verticalPadding: CGFloat = (.Dual == self.timerObject.displayMode) ? 4: 0
-            var containerRect = self.view.bounds.inset(by: self.view.safeAreaInsets)
-            var maxWidth = (containerRect.size.width * self._stoplightMaxWidthFactor)
+        if nil != stoplightContainerView {
+            let verticalPadding: CGFloat = (.Dual == timerObject.displayMode) ? 4: 0
+            var containerRect = view.bounds.inset(by: view.safeAreaInsets)
+            var maxWidth = (containerRect.size.width * _stoplightMaxWidthFactor)
             
-            if .Dual == self.timerObject.displayMode {
-                maxWidth = min(maxWidth, containerRect.size.height * self._stoplightDualModeHeightFactor)
+            if .Dual == timerObject.displayMode {
+                maxWidth = min(maxWidth, containerRect.size.height * _stoplightDualModeHeightFactor)
                 containerRect.origin.y = containerRect.size.height - (maxWidth + (verticalPadding * 2))
                 containerRect.size.height = maxWidth + (verticalPadding * 2)
             }
             
-            self.stoplightContainerView.frame = containerRect
+            stoplightContainerView.frame = containerRect
             
             let yPos = (containerRect.size.height / 2) - ((maxWidth / 2) + verticalPadding)
             let stopLightSize = CGSize(width: maxWidth, height: maxWidth)
@@ -484,14 +484,14 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
             let yellowFrame = CGRect(origin: yellowPos, size: stopLightSize)
             let redFrame = CGRect(origin: redPos, size: stopLightSize)
             
-            self.greenLight.frame = greenFrame
-            self.yellowLight.frame = yellowFrame
-            self.redLight.frame = redFrame
+            greenLight.frame = greenFrame
+            yellowLight.frame = yellowFrame
+            redLight.frame = redFrame
         }
 
-        self._originalValue = 0
+        _originalValue = 0
         
-        self.updateTimer()
+        updateTimer()
     }
     
     /* ################################################################## */
@@ -499,9 +499,9 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      Called just before the view appears.
      */
     override func viewWillAppear(_ animated: Bool) {
-        self.setUpShop()
+        setUpShop()
         super.viewWillAppear(animated)
-        if let navigationController = self.navigationController as? TimerNavController {
+        if let navigationController = navigationController as? TimerNavController {
             navigationController.selectNextTimer = -1
         }
         Timer_AppDelegate.recordOriginalBrightness()    // This will record any original brightness, and force our screen brightness to maximum during presentation.
@@ -513,7 +513,7 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      */
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.closeUpShop()
+        closeUpShop()
     }
     
     /* ################################################################## */
@@ -522,23 +522,23 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      */
     func setUpShop() {
         UIApplication.shared.isIdleTimerDisabled = true
-        self.hidesBottomBarWhenPushed = true
-        self.tabBarController?.tabBar.isHidden = true
+        hidesBottomBarWhenPushed = true
+        tabBarController?.tabBar.isHidden = true
 
         if Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer {
-            self.myNavigationBar.tintColor = self.view.tintColor
-            self.myNavigationBar.backgroundColor = UIColor.black
-            self.myNavigationBar.barTintColor = UIColor.black
+            myNavigationBar.tintColor = view.tintColor
+            myNavigationBar.backgroundColor = UIColor.black
+            myNavigationBar.barTintColor = UIColor.black
         } else {
-            self.myNavigationBar.isHidden = true
+            myNavigationBar.isHidden = true
         }
 
-        if let navController = self.navigationController {
+        if let navController = navigationController {
             navController.navigationBar.isHidden = true
         }
 
         Timer_AppDelegate.appDelegateObject.currentTimer = self
-        Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerUID = self.timerObject.uid
+        Timer_AppDelegate.appDelegateObject.timerEngine.selectedTimerUID = timerObject.uid
         Timer_AppDelegate.appDelegateObject.timerEngine.startTimer()
     }
     
@@ -547,13 +547,13 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      This closes up our various things, and makes things reappear.
      */
     func closeUpShop() {
-        self.myHandler.runningTimer = nil
-        if let navController = self.navigationController {
+        myHandler.runningTimer = nil
+        if let navController = navigationController {
             navController.navigationBar.isHidden = false
         }
         
-        self.tabBarController?.tabBar.isHidden = false
-        self.hidesBottomBarWhenPushed = false   // We need to do this, or the tab bar will be hidden in the next screen.
+        tabBarController?.tabBar.isHidden = false
+        hidesBottomBarWhenPushed = false   // We need to do this, or the tab bar will be hidden in the next screen.
 
         Timer_AppDelegate.restoreOriginalBrightness()   // Restore whatever brightness was set before.
         Timer_AppDelegate.appDelegateObject.currentTimer = nil
@@ -567,30 +567,30 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
     override func addAccessibilityStuff() {
         super.addAccessibilityStuff()
         
-        self.view.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SCREEN-LABEL".localizedVariant
-        self.view.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SCREEN-HINT".localizedVariant
+        view.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-SCREEN-LABEL".localizedVariant
+        view.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-SCREEN-HINT".localizedVariant
         
-        self.flasherView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ALARM-LABEL".localizedVariant
-        self.flasherView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ALARM-HINT".localizedVariant
+        flasherView.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-ALARM-LABEL".localizedVariant
+        flasherView.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-ALARM-HINT".localizedVariant
         
-        self.stopButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-STOP-BUTTON-LABEL".localizedVariant
-        self.stopButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-STOP-BUTTON-HINT".localizedVariant
+        stopButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-STOP-BUTTON-LABEL".localizedVariant
+        stopButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-STOP-BUTTON-HINT".localizedVariant
         
-        self.resetButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-REWIND-BUTTON-LABEL".localizedVariant
-        self.resetButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-REWIND-BUTTON-HINT".localizedVariant
+        resetButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-REWIND-BUTTON-LABEL".localizedVariant
+        resetButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-REWIND-BUTTON-HINT".localizedVariant
         
-        self.endButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-END-BUTTON-LABEL".localizedVariant
-        self.endButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-END-BUTTON-HINT".localizedVariant
+        endButton.accessibilityLabel = "LGV_TIMER-ACCESSIBILITY-END-BUTTON-LABEL".localizedVariant
+        endButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-END-BUTTON-HINT".localizedVariant
         
-        self.pauseButton.accessibilityLabel = (.Running == self.timerObject.timerStatus ? "LGV_TIMER-ACCESSIBILITY-PAUSE-BUTTON-LABEL" : "LGV_TIMER-ACCESSIBILITY-START-BUTTON-LABEL").localizedVariant
-        self.pauseButton.accessibilityHint = (.Running == self.timerObject.timerStatus ? "LGV_TIMER-ACCESSIBILITY-PAUSE-BUTTON-HINT" : "LGV_TIMER-ACCESSIBILITY-START-BUTTON-HINT").localizedVariant
+        pauseButton.accessibilityLabel = (.Running == timerObject.timerStatus ? "LGV_TIMER-ACCESSIBILITY-PAUSE-BUTTON-LABEL" : "LGV_TIMER-ACCESSIBILITY-START-BUTTON-LABEL").localizedVariant
+        pauseButton.accessibilityHint = (.Running == timerObject.timerStatus ? "LGV_TIMER-ACCESSIBILITY-PAUSE-BUTTON-HINT" : "LGV_TIMER-ACCESSIBILITY-START-BUTTON-HINT").localizedVariant
 
-        self.timeDisplay.isAccessibilityElement = true
-        self.timeDisplay.accessibilityLabel = self.timerObject.currentQuickSpeakableTime
+        timeDisplay.isAccessibilityElement = true
+        timeDisplay.accessibilityLabel = timerObject.currentQuickSpeakableTime
 
-        self.view.accessibilityElements = [self.timeDisplay as Any, self.stopButton as Any, self.resetButton as Any, self.endButton as Any, self.pauseButton as Any, self.flasherView as Any]
+        view.accessibilityElements = [timeDisplay as Any, stopButton as Any, resetButton as Any, endButton as Any, pauseButton as Any, flasherView as Any]
         
-        UIAccessibility.post(notification: .layoutChanged, argument: self.timeDisplay)
+        UIAccessibility.post(notification: .layoutChanged, argument: timeDisplay)
     }
 
     /* ################################################################################################################################## */
@@ -603,8 +603,8 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      - parameter: Ignored, and optional.
      */
     @IBAction func stopButtonHit(_: Any! = nil) {
-        if .Alarm == self.timerObject.timerStatus, 0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer {
-            self.cascadeToNextTimer(Timer_AppDelegate.appDelegateObject.appState.nextTimer)
+        if .Alarm == timerObject.timerStatus, 0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer {
+            cascadeToNextTimer(Timer_AppDelegate.appDelegateObject.appState.nextTimer)
         } else {
             stopTimer()
         }
@@ -617,10 +617,10 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      - parameter: Ignored, and optional.
      */
     @IBAction func endButtonHit(_: Any! = nil) {
-        if .Alarm == self.timerObject.timerStatus {
-            self.resetTimer()
+        if .Alarm == timerObject.timerStatus {
+            resetTimer()
         } else {
-            self.endTimer()
+            endTimer()
         }
     }
     
@@ -631,10 +631,10 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      - parameter: Ignored, and optional.
      */
     @IBAction func resetButtonHit(_: Any! = nil) {
-        if (.Paused == self.timerObject.timerStatus) && (self.timerObject.timeSet == self.timerObject.currentTime) {
-            self.stopTimer()
+        if (.Paused == timerObject.timerStatus) && (timerObject.timeSet == timerObject.currentTime) {
+            stopTimer()
         } else {
-            self.resetTimer()
+            resetTimer()
         }
     }
     
@@ -645,12 +645,12 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      - parameter: Ignored, and optional.
      */
     @IBAction func pauseButtonHit(_: Any! = nil) {
-        if .Paused == self.timerObject.timerStatus {
-            self.continueTimer()
-        } else if (.Podium == self.timerObject.displayMode) && (.Stopped != self.timerObject.timerStatus) {
-            self.resetTimer()
+        if .Paused == timerObject.timerStatus {
+            continueTimer()
+        } else if (.Podium == timerObject.displayMode) && (.Stopped != timerObject.timerStatus) {
+            resetTimer()
         } else {
-            self.pauseTimer()
+            pauseTimer()
         }
     }
     
@@ -661,14 +661,14 @@ class TimerRuntimeViewController: A_TimerNavBaseController {
      - parameter: Ignored, and optional.
      */
     @IBAction func tapInView(_: Any! = nil) {
-        if .Alarm == self.timerObject.timerStatus {
+        if .Alarm == timerObject.timerStatus {
             if 0 <= Timer_AppDelegate.appDelegateObject.appState.nextTimer {
-                self.cascadeToNextTimer(Timer_AppDelegate.appDelegateObject.appState.nextTimer)
+                cascadeToNextTimer(Timer_AppDelegate.appDelegateObject.appState.nextTimer)
             } else {
-                self.resetButtonHit()
+                resetButtonHit()
             }
         } else {
-            self.pauseButtonHit()
+            pauseButtonHit()
         }
     }
 }

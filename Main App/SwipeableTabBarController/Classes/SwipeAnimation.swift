@@ -73,7 +73,7 @@ class SwipeAnimation: NSObject, SwipeTransitioningProtocol {
                        animations: {
                         self.animationType.animation(fromView: fromView, toView: toView, direction: self.fromLeft)
         },
-                       completion: {[unowned self] _ in
+                        completion: {[unowned self] _ in
                         self.finishedTransition(fromView: fromView,
                                                 toView: toView,
                                                 in: transitionContext)

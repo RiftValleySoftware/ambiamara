@@ -97,10 +97,10 @@ class SwipeInteractor: UIPercentDrivenInteractiveTransition {
                 
                 // TODO (marcosgriselli): support dual side swipping in one drag.
                 if rightToLeftSwipe && translationValue > 0 {
-                    self.update(0)
+                    update(0)
                     return
                 } else if !rightToLeftSwipe && translationValue < 0 {
-                    self.update(0)
+                    update(0)
                     return
                 }
                 
@@ -108,7 +108,7 @@ class SwipeInteractor: UIPercentDrivenInteractiveTransition {
                 fraction = min(max(fraction, 0.0), 0.99)
                 shouldCompleteTransition = (fraction > 0.5)
                 
-                self.update(fraction)
+                update(fraction)
             }
             
         case .ended, .cancelled:
