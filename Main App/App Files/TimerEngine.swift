@@ -560,12 +560,14 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         }
         
         // If we are in restricted media mode, then we don't allow any of our timers to be in Music mode.
-        if .denied == MPMediaLibrary.authorizationStatus() || .restricted == MPMediaLibrary.authorizationStatus() {
-            for timer in timers where .Music == timer.soundMode {  // Only ones that are set to Music get changed.
+        for timer in timers where .Music == timer.soundMode {  // Only ones that are set to Music get changed.
+            #if targetEnvironment(macCatalyst)  // Catalyst won't allow us to access the music library. Boo!
                 timer.soundMode = .Silent
-            }
+            #else
+                timer.soundMode = (.denied == MPMediaLibrary.authorizationStatus() || .restricted == MPMediaLibrary.authorizationStatus()) ? .Silent : timer.soundMode
+            #endif
         }
-        
+
         selectedTimerIndex = -1    // Start in the Timer List tab.
         savePrefs()    // Make sure that we save in the proper format.
     }

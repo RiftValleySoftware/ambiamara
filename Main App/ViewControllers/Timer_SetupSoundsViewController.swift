@@ -353,11 +353,18 @@ class Timer_SetupSoundsViewController: A_TimerSetPickerController {
         } else {
             soundModeSegmentedSwitch.setEnabled(true, forSegmentAt: 1)
         }
+        
         if #available(iOS 13.0, *) {
             soundModeSegmentedSwitch.selectedSegmentTintColor = view.tintColor
             soundModeSegmentedSwitch.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+            soundModeSegmentedSwitch.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.lightGray], for: .disabled)
             soundModeSegmentedSwitch.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: view?.tintColor ?? UIColor.white], for: .normal)
         }
+        
+        #if targetEnvironment(macCatalyst)  // Catalyst won't allow us to access the music library. Boo!
+            soundModeSegmentedSwitch.setEnabled(false, forSegmentAt: 1)
+            timerObject.soundMode = .Music == timerObject.soundMode ? .Silent : timerObject.soundMode
+        #endif
 
         soundModeSegmentedSwitch.selectedSegmentIndex = timerObject.soundMode.rawValue
         artistSoundSelectPickerContainerView.isHidden = .Silent == timerObject.soundMode || (.Music == timerObject.soundMode && (Timer_AppDelegate.appDelegateObject.songs.isEmpty || Timer_AppDelegate.appDelegateObject.artists.isEmpty))
