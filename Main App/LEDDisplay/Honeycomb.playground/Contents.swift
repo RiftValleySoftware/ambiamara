@@ -12,7 +12,7 @@ import UIKit
 import PlaygroundSupport
 
 extension CGFloat {
-    func radians -> CGFloat {
+    var radians: CGFloat {
         let b = CGFloat(Double.pi) * (self/180)
         return b
     }
