@@ -77,7 +77,16 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
         super.viewDidLoad()
         gussyUpTheMoreNavigation()
         
-        showControlsSwitch.isOn = Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer
+        // We do not allow the controls to be hidden, in Catalyst.
+        #if targetEnvironment(macCatalyst)
+            showControlsSwitch.isHidden = true
+            showControlsButton.isHidden = true
+            Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer = true
+        #else
+            showControlsSwitch.isHidden = false
+            showControlsButton.isHidden = false
+            showControlsSwitch.isOn = Timer_AppDelegate.appDelegateObject.timerEngine.appState.showControlsInRunningTimer
+        #endif
     }
     
     /* ################################################################## */
