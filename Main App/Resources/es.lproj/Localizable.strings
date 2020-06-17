@@ -112,6 +112,8 @@
 "LGV_TIMER-ACCESSIBILITY-INFO-HINT" = "Si seleccionas este botón, se mostrará la pantalla de información de la aplicación.";
 "LGV_TIMER-ACCESSIBILITY-ADD-LABEL" = "Crear un nuevo temporizador";
 "LGV_TIMER-ACCESSIBILITY-ADD-HINT" = "Si seleccionas esta opción, se añadirá un nuevo temporizador predeterminado al final de la lista y se seleccionará su pantalla de configuración.";
+"LGV_TIMER-ACCESSIBILITY-DEL-LABEL" = "Eliminar el temporizador";
+"LGV_TIMER-ACCESSIBILITY-DEL-HINT"  = "Eliminar el temporizador";
 
 "LGV_TIMER-ACCESSIBILITY-TABLE-LABEL" = "Lista de todos los temporizadores disponibles";
 "LGV_TIMER-ACCESSIBILITY-TABLE-HINT" = "Cada fila de esta tabla representa un solo temporizador. Puedes seleccionar un temporizador pulsando en esa fila o eliminarlo deslizando la fila hacia la izquierda.";

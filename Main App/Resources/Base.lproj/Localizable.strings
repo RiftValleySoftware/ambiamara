@@ -112,6 +112,8 @@
 "LGV_TIMER-ACCESSIBILITY-INFO-HINT"                     =   "If you select this button, the information screen for the app will be shown.";
 "LGV_TIMER-ACCESSIBILITY-ADD-LABEL"                     =   "Create A New Timer";
 "LGV_TIMER-ACCESSIBILITY-ADD-HINT"                      =   "If you select this, a new default timer will be added to the end of the list, and its setup screen will be selected.";
+"LGV_TIMER-ACCESSIBILITY-DEL-LABEL"                     =   "Delete The Timer";
+"LGV_TIMER-ACCESSIBILITY-DEL-HINT"                      =   "Delete The Timer";
 
 "LGV_TIMER-ACCESSIBILITY-TABLE-LABEL"                   =   "List of All Available Timers";
 "LGV_TIMER-ACCESSIBILITY-TABLE-HINT"                    =   "Each row of this table represents a single timer. You can select a timer by tapping that row, or delete a timer by left-swiping the row.";
