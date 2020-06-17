@@ -23,6 +23,23 @@ class SettingsTimerTableCell: UITableViewCell {
     @IBOutlet weak var timerNameLabel: UILabel!
     /// The little traffic lights image that may be displayed
     @IBOutlet weak var trafficLights: UIImageView!
+    /// This is a delete button that is only displayed in Catalyst mode.
+    @IBOutlet weak var deleteButton: UIButton!
+    /// This is the 0-based timer index (-1 default, meaning not set).
+    var timerIndex: Int = -1
+    /// The table view that "owns" this row.
+    weak var tableView: UITableView!
+    
+    /* ################################################################## */
+    /**
+     This is called when the user hits the delete button.
+     
+     - parameter: ignored.
+     */
+    @IBAction func deleteButtonHit(_: Any) {
+        let indexPath = IndexPath(row: timerIndex, section: 0)
+        tableView.dataSource?.tableView?(tableView, commit: .delete, forRowAt: indexPath)
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -197,6 +214,8 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
         assert(mainTabController.timerEngine.count > indexPath.row && 0 <= indexPath.row)
         if let ret = tableView.dequeueReusableCell(withIdentifier: "SingleTimerCell") as? SettingsTimerTableCell {
             if let clockView = ret.clockDisplay, let timerNameLabel = ret.timerNameLabel {
+                ret.timerIndex = indexPath.row
+                ret.tableView = tableView
                 let timerName = String(format: "LGV_TIMER-TIMER-TITLE-FORMAT".localizedVariant, indexPath.row + 1)
                 
                 let timerPrefs = mainTabController.timerEngine[indexPath.row]
@@ -225,6 +244,10 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
                 trafficLights.isHidden = (.Digital == timerPrefs.displayMode)
             }
             
+            #if targetEnvironment(macCatalyst)  // The swipe to delete does not work, in Catalyst, so we provide a delete button.
+            ret.deleteButton.isHidden = !(1 < mainTabController.timerEngine.count)
+            #endif
+            
             // Add accessibility strings.
             switch mainTabController.timerEngine[indexPath.row].displayMode {
             case .Podium:
@@ -238,6 +261,9 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
                 ret.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-TABLE-ROW-DUAL-HINT".localizedVariant
             }
 
+            ret.deleteButton.accessibilityLabel = (ret.accessibilityLabel ?? "") + " " + "LGV_TIMER-ACCESSIBILITY-DEL-LABEL".localizedVariant
+            ret.deleteButton.accessibilityHint = "LGV_TIMER-ACCESSIBILITY-DEL-HINT".localizedVariant
+            
             return ret
         } else {
             return UITableViewCell()

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mvc-fj-sq5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mvc-fj-sq5">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -610,24 +610,46 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIMER 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUK-xt-9d3">
-                                                            <rect key="frame" x="158" y="0.0" width="130" height="44"/>
+                                                            <rect key="frame" x="158" y="0.0" width="105" height="44"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Pq-PS-SOH">
+                                                            <rect key="frame" x="263" y="0.0" width="25" height="44"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="25" id="AfW-Kf-fSU"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                                            <state key="normal" title="𐌈">
+                                                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
+                                                            <state key="selected">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <state key="highlighted">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="deleteButtonHit:" destination="ac3-fZ-O32" eventType="touchUpInside" id="Zbe-Km-iP4"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="UTb-8q-JAj" secondAttribute="bottom" id="7fg-G1-kmD"/>
+                                                        <constraint firstItem="9Pq-PS-SOH" firstAttribute="top" secondItem="LIP-Nv-Co1" secondAttribute="top" id="Bc4-PT-DxQ"/>
                                                         <constraint firstItem="U3D-3Q-xvD" firstAttribute="centerX" secondItem="LIP-Nv-Co1" secondAttribute="centerX" id="CCi-d1-IYG"/>
                                                         <constraint firstAttribute="bottom" secondItem="cUK-xt-9d3" secondAttribute="bottom" id="RpP-9v-Evp"/>
+                                                        <constraint firstItem="9Pq-PS-SOH" firstAttribute="leading" secondItem="cUK-xt-9d3" secondAttribute="trailing" id="TfC-hW-K56"/>
                                                         <constraint firstItem="U3D-3Q-xvD" firstAttribute="top" secondItem="LIP-Nv-Co1" secondAttribute="top" id="YBK-wQ-Vpu"/>
                                                         <constraint firstItem="U3D-3Q-xvD" firstAttribute="leading" secondItem="UTb-8q-JAj" secondAttribute="trailing" constant="8" id="ZzH-8u-c7H"/>
-                                                        <constraint firstAttribute="trailing" secondItem="cUK-xt-9d3" secondAttribute="trailing" id="a8t-gT-ygg"/>
+                                                        <constraint firstAttribute="bottom" secondItem="9Pq-PS-SOH" secondAttribute="bottom" id="e0P-yz-wwE"/>
                                                         <constraint firstItem="cUK-xt-9d3" firstAttribute="top" secondItem="LIP-Nv-Co1" secondAttribute="top" id="gsI-zd-ib9"/>
                                                         <constraint firstItem="UTb-8q-JAj" firstAttribute="leading" secondItem="LIP-Nv-Co1" secondAttribute="leading" id="izm-HD-7xL"/>
                                                         <constraint firstAttribute="bottom" secondItem="U3D-3Q-xvD" secondAttribute="bottom" id="kii-or-kOf"/>
                                                         <constraint firstItem="UTb-8q-JAj" firstAttribute="top" secondItem="LIP-Nv-Co1" secondAttribute="top" id="lvO-Ie-Njb"/>
+                                                        <constraint firstAttribute="trailing" secondItem="9Pq-PS-SOH" secondAttribute="trailing" id="rkb-Vw-6wR"/>
                                                         <constraint firstItem="cUK-xt-9d3" firstAttribute="leading" secondItem="U3D-3Q-xvD" secondAttribute="trailing" constant="8" id="zsR-0X-wnX"/>
                                                     </constraints>
                                                 </view>
@@ -635,7 +657,6 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="LIP-Nv-Co1" firstAttribute="leading" secondItem="KvH-ni-liP" secondAttribute="leading" id="3om-6c-saM"/>
-                                                <constraint firstAttribute="trailing" secondItem="LIP-Nv-Co1" secondAttribute="trailing" id="UL3-Bq-4O3"/>
                                                 <constraint firstItem="LIP-Nv-Co1" firstAttribute="centerX" secondItem="KvH-ni-liP" secondAttribute="centerX" id="oNp-Bs-lJ0"/>
                                                 <constraint firstItem="LIP-Nv-Co1" firstAttribute="top" secondItem="KvH-ni-liP" secondAttribute="top" id="q81-wp-XBr"/>
                                                 <constraint firstAttribute="bottom" secondItem="LIP-Nv-Co1" secondAttribute="bottom" id="uvt-dc-hUQ"/>
@@ -644,6 +665,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="clockDisplay" destination="UTb-8q-JAj" id="zuF-BX-1Gw"/>
+                                            <outlet property="deleteButton" destination="9Pq-PS-SOH" id="i9Z-i9-SBC"/>
                                             <outlet property="timerNameLabel" destination="cUK-xt-9d3" id="it4-uq-VwF"/>
                                             <outlet property="trafficLights" destination="U3D-3Q-xvD" id="1zW-Vl-5d4"/>
                                         </connections>
@@ -760,7 +782,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1349.5999999999999" y="517.6911544227886"/>
+            <point key="canvasLocation" x="1348.125" y="517.6056338028169"/>
         </scene>
         <!--Info-->
         <scene sceneID="MrX-RY-GB5">
@@ -1210,6 +1232,7 @@
             <point key="canvasLocation" x="-266" y="518"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="1" green="0.97254901960784312" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
     <resources>
         <image name="Info" width="22" height="22"/>
         <image name="List" width="26" height="26"/>
@@ -1228,5 +1251,4 @@
         <image name="TimerModeImages-Lights" width="104" height="26"/>
         <image name="TrafficLights" width="12" height="40"/>
     </resources>
-    <color key="tintColor" red="1" green="0.97254901960784312" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
 </document>

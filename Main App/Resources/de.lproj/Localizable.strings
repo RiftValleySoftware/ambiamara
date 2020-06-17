@@ -112,6 +112,8 @@
 "LGV_TIMER-ACCESSIBILITY-INFO-HINT" = "Wenn Sie diese Schaltfläche auswählen, wird der Informationsbildschirm zur App angezeigt.";
 "LGV_TIMER-ACCESSIBILITY-ADD-LABEL" = "Einen neuen Timer erstellen";
 "LGV_TIMER-ACCESSIBILITY-ADD-HINT" = "Wenn Sie diese Option auswählen, wird am Ende dieser Liste ein neuer Standardtimer hinzugefügt und der zugehörige Setup-Bildschirm ausgewählt.";
+"LGV_TIMER-ACCESSIBILITY-DEL-LABEL" = "Löschen Sie den Timer";
+"LGV_TIMER-ACCESSIBILITY-DEL-HINT"  = "Löschen Sie den Timer";
 
 "LGV_TIMER-ACCESSIBILITY-TABLE-LABEL" = "Liste aller verfügbaren Timer";
 "LGV_TIMER-ACCESSIBILITY-TABLE-HINT" = "Jede Zeile dieser Tabelle stellt einen einzelnen Timer dar. Sie können einen Timer auswählen, indem Sie auf diese Zeile tippen, oder einen Timer löschen, indem Sie die Zeile nach links wischen.";

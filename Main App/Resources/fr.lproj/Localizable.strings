@@ -112,6 +112,8 @@
 "LGV_TIMER-ACCESSIBILITY-INFO-HINT" = "Si vous sélectionnez ce bouton, l'écran d'informations sur l'application sera affiché.";
 "LGV_TIMER-ACCESSIBILITY-ADD-LABEL" = "Créer un nouveau compte à rebours";
 "LGV_TIMER-ACCESSIBILITY-ADD-HINT" = "Si vous choisissez ce bouton, un nouveau compte à rebours par défaut sera ajouté à la fin de la liste et son écran de paramétrage sera sélectionné.";
+"LGV_TIMER-ACCESSIBILITY-DEL-LABEL" = "Supprimer la minuterie";
+"LGV_TIMER-ACCESSIBILITY-DEL-HINT"  = "Supprimer la minuterie";
 
 "LGV_TIMER-ACCESSIBILITY-TABLE-LABEL" = "Liste des comptes à rebours disponibles";
 "LGV_TIMER-ACCESSIBILITY-TABLE-HINT" = "Chaque ligne de ce tableau représente un compte à rebours individuel. Vous pouvez en choisir un en appuyant sur la ligne en question, ou le supprimer en balayant la ligne vers la gauche.";
