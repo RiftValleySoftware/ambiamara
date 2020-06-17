@@ -81,13 +81,6 @@
 			remoteGlobalIDString = D44FF72F23413E72008D0F51;
 			remoteInfo = "AmbiaMara Watch App Extension";
 		};
-		D44FF73F23413E73008D0F51 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 77EFB3D41ED5C1A800BDDEFF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D44FF72323413E71008D0F51;
-			remoteInfo = "AmbiaMara Watch App";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -449,7 +442,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D44FF74023413E73008D0F51 /* PBXTargetDependency */,
 			);
 			name = AmbiaMara;
 			productName = LGV_Timer;
@@ -687,12 +679,6 @@
 			isa = PBXTargetDependency;
 			target = D44FF72F23413E72008D0F51 /* Watch App Extension */;
 			targetProxy = D44FF73223413E72008D0F51 /* PBXContainerItemProxy */;
-		};
-		D44FF74023413E73008D0F51 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = D44FF72323413E71008D0F51 /* Watch App */;
-			targetProxy = D44FF73F23413E73008D0F51 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

@@ -13,13 +13,17 @@ import Foundation
 
 /* ###################################################################################################################################### */
 /**
+ This is the main Watch app interface controller class.
  */
 class Timer_InterfaceController: WKInterfaceController {
     /* ################################################################## */
     /**
+     Called when the app is first woken up.
+     
+     - parameter withContext: The data passed into the app as it was rousted out of bed.
      */
-    override func awake(withContext context: Any?) {
-        super.awake(withContext: context)
+    override func awake(withContext inContext: Any?) {
+        super.awake(withContext: inContext)
     }
     
     /* ################################################################## */
