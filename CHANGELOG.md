@@ -1,7 +1,8 @@
-**Version 1.2.1.2000** *TBD*
+**Version 1.2.1.2000** *June 19, 2020*
 - I swapped out all the archaic `type(of: self).` for `Self.`
 - I swapped the standard Timer() class out for my GCD timer class, as Catalyst had an issue, where it would stop ticking while resizing the window.
 - This now implements a MacCatalyst version. Catalyst will not feature access to the music library, and will also not allow full "gesture control."
+- The project has been converted to use SPM.
 
 **Version 1.1.1.3000** *October 11, 2019*
 - There was a bug, where changing the timer while an editor was up would leave the lock orientation. This has been fixed.

@@ -2,11 +2,29 @@
   "object": {
     "pins": [
       {
+        "package": "RVS_BasicGCDTimer",
+        "repositoryURL": "git@github.com:RiftValleySoftware/RVS_BasicGCDTimer.git",
+        "state": {
+          "branch": "master",
+          "revision": "bfe9f10dca72a9c98444b2fc9cd0958f9eadd66a",
+          "version": null
+        }
+      },
+      {
         "package": "RVS_Generic_Swift_Toolbox",
         "repositoryURL": "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git",
         "state": {
           "branch": "master",
           "revision": "a218c0576e7926735cf3a3f32c1809d2a261394b",
+          "version": null
+        }
+      },
+      {
+        "package": "RVS_Persistent_Prefs",
+        "repositoryURL": "git@github.com:RiftValleySoftware/RVS_PersistentPrefs.git",
+        "state": {
+          "branch": "master",
+          "revision": "7f02452b44143e3559d901964d51c33f4e46bea8",
           "version": null
         }
       }

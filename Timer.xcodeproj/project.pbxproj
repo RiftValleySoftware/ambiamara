@@ -22,7 +22,6 @@
 		77AF00B41F69623800D35EF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77AF00B61F69623800D35EF1 /* LaunchScreen.storyboard */; };
 		77AF00B71F69624E00D35EF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77AF00B91F69624E00D35EF1 /* Main.storyboard */; };
 		77BB98E11F12838F0062B14A /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB98E01F12838F0062B14A /* TimerEngine.swift */; };
-		D40AD1B0247C5D1F00CF7FA7 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40AD1AE247C5D1F00CF7FA7 /* RVS_PersistentPrefs.swift */; };
 		D41ECAD321C2AFCA00E48FA4 /* tick.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D41ECAD221C2AFCA00E48FA4 /* tick.aiff */; };
 		D427963A219B50F90012F705 /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279634219B50F90012F705 /* UIKit+Extensions.swift */; };
 		D427963B219B50F90012F705 /* SwipeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279635219B50F90012F705 /* SwipeInteractor.swift */; };
@@ -42,6 +41,8 @@
 		D433BB9E21B1898D001C79F6 /* 17-car-horn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D433BB9721B1898D001C79F6 /* 17-car-horn.mp3 */; };
 		D433BBA021B18AF4001C79F6 /* 21-alarm-klaxon.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D433BB9F21B18AF4001C79F6 /* 21-alarm-klaxon.mp3 */; };
 		D433BBA221B18D09001C79F6 /* TimerSoundModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D433BBA121B18D09001C79F6 /* TimerSoundModeButton.swift */; };
+		D434029E249D44E800B3DED8 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D434029D249D44E800B3DED8 /* RVS_BasicGCDTimer */; };
+		D434029F249D44E800B3DED8 /* RVS_BasicGCDTimer in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D434029D249D44E800B3DED8 /* RVS_BasicGCDTimer */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D4380ED82342434700AE2207 /* Timer_SharedDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4380ED72342434700AE2207 /* Timer_SharedDeclarations.swift */; };
 		D4380EDC234260BE00AE2207 /* AmbiaMara_Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4380EDB234260BE00AE2207 /* AmbiaMara_Prefs.swift */; };
 		D44FF72A23413E72008D0F51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44FF72923413E72008D0F51 /* Assets.xcassets */; };
@@ -49,6 +50,8 @@
 		D44FF73623413E72008D0F51 /* Timer_InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF73523413E72008D0F51 /* Timer_InterfaceController.swift */; };
 		D44FF73823413E72008D0F51 /* Timer_ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF73723413E72008D0F51 /* Timer_ExtensionDelegate.swift */; };
 		D44FF73C23413E73008D0F51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44FF73B23413E73008D0F51 /* Assets.xcassets */; };
+		D459114D249D4A2D005C19C1 /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D459114C249D4A2D005C19C1 /* RVS_Persistent_Prefs */; };
+		D459114E249D4A2D005C19C1 /* RVS_Persistent_Prefs in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D459114C249D4A2D005C19C1 /* RVS_Persistent_Prefs */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D48C0A4221B096C9007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3921B096C8007AC2DC /* 07-videogame-beeps-lower-frequency.mp3 */; };
 		D48C0A4321B096C9007AC2DC /* 08-videogame-beeps-high-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3A21B096C8007AC2DC /* 08-videogame-beeps-high-frequency.mp3 */; };
 		D48C0A4421B096C9007AC2DC /* 09-single-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48C0A3B21B096C8007AC2DC /* 09-single-beep.mp3 */; };
@@ -62,13 +65,11 @@
 		D48ED3FA21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED3FC21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 */; };
 		D48ED3FD21B475AE00ADB8F8 /* 15-shut-up-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED3FF21B475AE00ADB8F8 /* 15-shut-up-2.mp3 */; };
 		D48ED40021B475BC00ADB8F8 /* 14-shut-up-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED40221B475BC00ADB8F8 /* 14-shut-up-1.mp3 */; };
-		D496CB06247D82F900E8DC76 /* RVS_BasicGCDTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D496CB05247D82F900E8DC76 /* RVS_BasicGCDTimer.swift */; };
 		D4AAAB222293509800938489 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4AAAB202293509800938489 /* Localizable.strings */; };
 		D4CF37C8219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */; };
 		D4D71E3121D574D400ACBB47 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D71E3321D574D400ACBB47 /* InfoPlist.strings */; };
 		D4D722E821B0326B0062035B /* Timer_SetupSoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */; };
 		D4D722EA21B036070062035B /* SoundTestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E921B036070062035B /* SoundTestButton.swift */; };
-		D4D86F02249CF96600327C61 /* RVS_BasicGCDTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D496CB05247D82F900E8DC76 /* RVS_BasicGCDTimer.swift */; };
 		D4EC61F8249D325000326195 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4EC61F7249D325000326195 /* RVS_Generic_Swift_Toolbox */; };
 		D4EC61F9249D325000326195 /* RVS_Generic_Swift_Toolbox in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D4EC61F7249D325000326195 /* RVS_Generic_Swift_Toolbox */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D4FE3794219B6D180031E105 /* LED_Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE3792219B6D180031E105 /* LED_Element.swift */; };
@@ -103,6 +104,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D459114E249D4A2D005C19C1 /* RVS_Persistent_Prefs in Embed Frameworks */,
+				D434029F249D44E800B3DED8 /* RVS_BasicGCDTimer in Embed Frameworks */,
 				D4EC61F9249D325000326195 /* RVS_Generic_Swift_Toolbox in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -126,7 +129,6 @@
 		7789C3231ED61CEF009EAB3D /* A_TimerBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = A_TimerBaseViewController.swift; path = ViewControllers/A_TimerBaseViewController.swift; sourceTree = "<group>"; };
 		77BB98E01F12838F0062B14A /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimerEngine.swift; path = "App Files/TimerEngine.swift"; sourceTree = "<group>"; };
 		77EFB3DC1ED5C1A800BDDEFF /* AmbiaMara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbiaMara.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D40AD1AE247C5D1F00CF7FA7 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_PersistentPrefs.swift; path = Carthage/Checkouts/RVS_PersistentPrefs/RVS_Persistent_Prefs/RVS_PersistentPrefs.swift; sourceTree = "<group>"; };
 		D40AD1B1247C60D700CF7FA7 /* AmbiaMara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AmbiaMara.entitlements; sourceTree = "<group>"; };
 		D41ECAD221C2AFCA00E48FA4 /* tick.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = tick.aiff; sourceTree = "<group>"; };
 		D4279634219B50F90012F705 /* UIKit+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Extensions.swift"; sourceTree = "<group>"; };
@@ -172,7 +174,6 @@
 		D48ED40121B475BC00ADB8F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = en; path = "en.lproj/14-shut-up-1.mp3"; sourceTree = "<group>"; };
 		D48ED41321B477DB00ADB8F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D48ED41421B477DB00ADB8F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		D496CB05247D82F900E8DC76 /* RVS_BasicGCDTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_BasicGCDTimer.swift; path = Carthage/Checkouts/RVS_BasicGCDTimer/RVS_BasicGCDTimer/RVS_BasicGCDTimer.swift; sourceTree = "<group>"; };
 		D4AAAB212293509800938489 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4AAAB23229350A000938489 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4AAAB24229350A300938489 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -200,6 +201,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D459114D249D4A2D005C19C1 /* RVS_Persistent_Prefs in Frameworks */,
+				D434029E249D44E800B3DED8 /* RVS_BasicGCDTimer in Frameworks */,
 				D4EC61F8249D325000326195 /* RVS_Generic_Swift_Toolbox in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,7 +276,6 @@
 		77EFB3D31ED5C1A800BDDEFF = {
 			isa = PBXGroup;
 			children = (
-				D40AD1AD247C5CFD00CF7FA7 /* From Carthage */,
 				775ACEDA1ED5C2BA0097FF5C /* Main App */,
 				D44FF72523413E71008D0F51 /* Watch App */,
 				D44FF73423413E72008D0F51 /* Watch App Extension */,
@@ -300,15 +302,6 @@
 				772459C01F1E1CD7006CA335 /* Let's go Digital Regular.ttf */,
 			);
 			path = Fonts;
-			sourceTree = "<group>";
-		};
-		D40AD1AD247C5CFD00CF7FA7 /* From Carthage */ = {
-			isa = PBXGroup;
-			children = (
-				D40AD1AE247C5D1F00CF7FA7 /* RVS_PersistentPrefs.swift */,
-				D496CB05247D82F900E8DC76 /* RVS_BasicGCDTimer.swift */,
-			);
-			name = "From Carthage";
 			sourceTree = "<group>";
 		};
 		D4279632219B50F90012F705 /* SwipeableTabBarController */ = {
@@ -457,6 +450,8 @@
 			name = AmbiaMara;
 			packageProductDependencies = (
 				D4EC61F7249D325000326195 /* RVS_Generic_Swift_Toolbox */,
+				D434029D249D44E800B3DED8 /* RVS_BasicGCDTimer */,
+				D459114C249D4A2D005C19C1 /* RVS_Persistent_Prefs */,
 			);
 			productName = LGV_Timer;
 			productReference = 77EFB3DC1ED5C1A800BDDEFF /* AmbiaMara.app */;
@@ -541,6 +536,8 @@
 			mainGroup = 77EFB3D31ED5C1A800BDDEFF;
 			packageReferences = (
 				D4EC61F6249D325000326195 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
+				D434029C249D44E800B3DED8 /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */,
+				D459114B249D4A2D005C19C1 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */,
 			);
 			productRefGroup = 77EFB3DD1ED5C1A800BDDEFF /* Products */;
 			projectDirPath = "";
@@ -665,7 +662,6 @@
 				772A13C61ED5E50C0043C58B /* Timer_SettingsViewController.swift in Sources */,
 				7789C3241ED61CEF009EAB3D /* A_TimerBaseViewController.swift in Sources */,
 				D427963F219B50F90012F705 /* SwipeableTabBarController.swift in Sources */,
-				D496CB06247D82F900E8DC76 /* RVS_BasicGCDTimer.swift in Sources */,
 				D4CF37C8219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift in Sources */,
 				7770CB2E1ED6153500ED1F9A /* TimerSetController.swift in Sources */,
 				D4380ED82342434700AE2207 /* Timer_SharedDeclarations.swift in Sources */,
@@ -683,8 +679,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4380EDC234260BE00AE2207 /* AmbiaMara_Prefs.swift in Sources */,
-				D4D86F02249CF96600327C61 /* RVS_BasicGCDTimer.swift in Sources */,
-				D40AD1B0247C5D1F00CF7FA7 /* RVS_PersistentPrefs.swift in Sources */,
 				D44FF73823413E72008D0F51 /* Timer_ExtensionDelegate.swift in Sources */,
 				D44FF73623413E72008D0F51 /* Timer_InterfaceController.swift in Sources */,
 			);
@@ -1121,6 +1115,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D434029C249D44E800B3DED8 /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:RiftValleySoftware/RVS_BasicGCDTimer.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		D459114B249D4A2D005C19C1 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:RiftValleySoftware/RVS_PersistentPrefs.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		D4EC61F6249D325000326195 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git";
@@ -1132,6 +1142,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D434029D249D44E800B3DED8 /* RVS_BasicGCDTimer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D434029C249D44E800B3DED8 /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
+			productName = RVS_BasicGCDTimer;
+		};
+		D459114C249D4A2D005C19C1 /* RVS_Persistent_Prefs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D459114B249D4A2D005C19C1 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
+			productName = RVS_Persistent_Prefs;
+		};
 		D4EC61F7249D325000326195 /* RVS_Generic_Swift_Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4EC61F6249D325000326195 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
