@@ -66,6 +66,7 @@ class Timer_Messages {
     static let s_timerAppInForegroundMessageValue = "AppData"
 }
 
+/* ###################################################################################################################################### */
 /**
  These are the data keys for each timer object.
  */
@@ -86,49 +87,6 @@ class Timer_Data_Keys {
     static let s_timerDataDisplayModeKey = "DisplayMode"
     /// Display the color
     static let s_timerDataColorKey = "Color"
-}
-
-/* ###################################################################################################################################### */
-/**
- These are String class extensions that we'll use throughout the app.
- */
-extension String {
-    /* ################################################################## */
-    /**
-     This allows us to easily localize. Simply use this to apply any localization.
-     */
-    var localizedVariant: String {
-        return NSLocalizedString(self, comment: "")
-    }
-    
-    /* ################################################################## */
-    /**
-     This extension lets us uppercase only the first letter of the string (used for weekdays).
-     From here: https://stackoverflow.com/a/28288340/879365
-     
-     - returns: The string, with only the first letter uppercased.
-     */
-    var firstUppercased: String {
-        guard let first = first else { return "" }
-        return String(first).uppercased() + dropFirst()
-    }
-    
-    /* ################################################################## */
-    /**
-     The following calculated property comes from this: http://stackoverflow.com/a/27736118/879365
-     
-     This extension function cleans up a URI string.
-     
-     - returns: a string, cleaned for URI.
-     */
-    var urlEncodedString: String? {
-        let customAllowedSet =  CharacterSet.urlQueryAllowed
-        if let ret = addingPercentEncoding(withAllowedCharacters: customAllowedSet) {
-            return ret
-        } else {
-            return ""
-        }
-    }
 }
 
 /* ###################################################################################################################################### */

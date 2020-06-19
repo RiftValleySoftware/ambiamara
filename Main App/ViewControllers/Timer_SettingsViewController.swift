@@ -245,7 +245,7 @@ class Timer_SettingsViewController: A_TimerBaseViewController, UITableViewDelega
             }
             
             #if targetEnvironment(macCatalyst)  // The swipe to delete does not work, in Catalyst, so we provide a delete button.
-            ret.deleteButton.isHidden = !(1 < mainTabController.timerEngine.count)
+                ret.deleteButton.isHidden = !(1 < mainTabController.timerEngine.count)
             #endif
             
             // Add accessibility strings.
