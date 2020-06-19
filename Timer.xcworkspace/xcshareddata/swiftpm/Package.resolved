@@ -6,7 +6,7 @@
         "repositoryURL": "git@github.com:RiftValleySoftware/RVS_BasicGCDTimer.git",
         "state": {
           "branch": "master",
-          "revision": "bfe9f10dca72a9c98444b2fc9cd0958f9eadd66a",
+          "revision": "9f2b7d7d6dcbf3fb6aa1e2bb24cfd4ef7bed568c",
           "version": null
         }
       },
@@ -15,7 +15,7 @@
         "repositoryURL": "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git",
         "state": {
           "branch": "master",
-          "revision": "a218c0576e7926735cf3a3f32c1809d2a261394b",
+          "revision": "eb9d5aa8bcbd0fd54701ab2fa14c6d2c6d98ac16",
           "version": null
         }
       },
@@ -24,7 +24,7 @@
         "repositoryURL": "git@github.com:RiftValleySoftware/RVS_PersistentPrefs.git",
         "state": {
           "branch": "master",
-          "revision": "7f02452b44143e3559d901964d51c33f4e46bea8",
+          "revision": "f4bcb52fdde3efebc888ebaa41732d805d4787c5",
           "version": null
         }
       }
