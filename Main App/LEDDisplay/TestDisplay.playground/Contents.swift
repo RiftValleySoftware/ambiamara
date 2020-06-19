@@ -651,7 +651,7 @@ public class LED_ElementGrouping: LED_Element, Sequence {
             elements.append(element)
         }
         
-        init(inElements: elements, inContainerSize: inContainerSize, inSeparationSpace: inSeparationSpace)
+        self.init(inElements: elements, inContainerSize: inContainerSize, inSeparationSpace: inSeparationSpace)
     }
     
     // MARK: - Private Instance Calculated Properties

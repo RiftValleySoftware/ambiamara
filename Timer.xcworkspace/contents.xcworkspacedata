@@ -5,29 +5,37 @@
       location = "container:"
       name = "Meta">
       <FileRef
-         location = "group:carthage.command">
-      </FileRef>
-      <FileRef
-         location = "group:jazzy.command">
-      </FileRef>
-      <FileRef
-         location = "group:Cartfile">
-      </FileRef>
-      <FileRef
-         location = "group:.swiftlint.yml">
-      </FileRef>
-      <FileRef
          location = "group:README.md">
-      </FileRef>
-      <FileRef
-         location = "group:Main App/LEDDisplay/TestDisplay.playground">
       </FileRef>
       <FileRef
          location = "group:CHANGELOG.md">
       </FileRef>
-      <FileRef
-         location = "group:Main App/LEDDisplay/Honeycomb.playground">
-      </FileRef>
+      <Group
+         location = "container:"
+         name = "Scripts And Imports">
+         <FileRef
+            location = "group:.swiftlint.yml">
+         </FileRef>
+         <FileRef
+            location = "group:Cartfile">
+         </FileRef>
+         <FileRef
+            location = "group:carthage.command">
+         </FileRef>
+         <FileRef
+            location = "group:jazzy.command">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "Experimental Playgrounds">
+         <FileRef
+            location = "group:Main App/LEDDisplay/TestDisplay.playground">
+         </FileRef>
+         <FileRef
+            location = "group:Main App/LEDDisplay/Honeycomb.playground">
+         </FileRef>
+      </Group>
    </Group>
    <FileRef
       location = "group:Timer.xcodeproj">

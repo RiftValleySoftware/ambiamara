@@ -1,2 +1,3 @@
 github "RiftValleySoftware/RVS_BasicGCDTimer" "1.0.1"
-github "RiftValleySoftware/RVS_PersistentPrefs" "1.0.5"
+github "RiftValleySoftware/RVS_Generic_Swift_Toolbox" "1.0.6"
+github "RiftValleySoftware/RVS_PersistentPrefs" "1.0.6"
