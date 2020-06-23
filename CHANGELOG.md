@@ -1,3 +1,6 @@
+**Version 1.2.2.2000** *TBD*
+- Added access to the music folder for Mac (still doesn't work, though).
+
 **Version 1.2.1.2000** *June 19, 2020*
 - I swapped out all the archaic `type(of: self).` for `Self.`
 - I swapped the standard Timer() class out for my GCD timer class, as Catalyst had an issue, where it would stop ticking while resizing the window.
