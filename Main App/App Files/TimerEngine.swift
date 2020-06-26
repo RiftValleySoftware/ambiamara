@@ -1071,77 +1071,18 @@ class TimerEngine: NSObject, Sequence, LGV_Timer_StateDelegate {
         }
         appState.remove(at: index)
     }
-    
-    /* ################################################################################################################################## */
-    // MARK: - Callback Methods
-    /* ################################################################################################################################## */
+}
+
+/* ###################################################################################################################################### */
+// MARK: - RVS_BasicGCDTimerDelegate Conformance
+/* ###################################################################################################################################### */
+extension TimerEngine: RVS_BasicGCDTimerDelegate {
     /* ################################################################## */
     /**
      This is the callback that is made by the repeating timer.
      
      - parameter inTimer: The Timer object that is calling this.
      */
-    @objc func timerCallback(_ inTimer: Timer) {
-        if let selectedTimer = selectedTimer {
-            if (.Stopped != selectedTimer.timerStatus) && (.Paused != selectedTimer.timerStatus) {
-                if .Alarm == selectedTimer.timerStatus {
-                    if Self.timerAlarmInterval <= (Date.timeIntervalSinceReferenceDate - selectedTimer.lastTick) {
-                        selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
-                        DispatchQueue.main.async {
-                            self.delegate?.timerSetting(selectedTimer, alarm: self._alarmCount)
-                        }
-                        _alarmCount += 1
-                    }
-                } else {
-                    if Self.timerTickInterval <= (Date.timeIntervalSinceReferenceDate - selectedTimer.lastTick) {
-                        selectedTimer.lastTick = Date.timeIntervalSinceReferenceDate
-                        selectedTimer.currentTime = Swift.max(0, selectedTimer.currentTime - 1)
-                        if (0 < selectedTimer.timeSetPodiumWarn) && (0 < selectedTimer.timeSetPodiumFinal) && (selectedTimer.timeSetPodiumWarn > selectedTimer.timeSetPodiumFinal) {
-                            switch selectedTimer.currentTime {
-                            case 0:
-                                _alarmCount = 0
-                                selectedTimer.timerStatus = .Alarm
-                            case 1...selectedTimer.timeSetPodiumFinal:
-                                DispatchQueue.main.async {
-                                    self.delegate?.timerSetting(selectedTimer, tick: (.Digital == selectedTimer.displayMode ? 1 : 3))
-                                }
-                                selectedTimer.timerStatus = .FinalRun
-                            case (selectedTimer.timeSetPodiumFinal + 1)...selectedTimer.timeSetPodiumWarn:
-                                DispatchQueue.main.async {
-                                    self.delegate?.timerSetting(selectedTimer, tick: (.Digital == selectedTimer.displayMode ? 1 : 2))
-                                }
-                                selectedTimer.timerStatus = .WarnRun
-                            default:
-                                selectedTimer.timerStatus = .Running
-                                DispatchQueue.main.async {
-                                    self.delegate?.timerSetting(selectedTimer, tick: 1)
-                                }
-                            }
-                        } else {
-                            if 0 == selectedTimer.currentTime {
-                                _alarmCount = 0
-                                selectedTimer.timerStatus = .Alarm
-                            } else {
-                                selectedTimer.timerStatus = .Running
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - RVS_BasicGCDTimerDelegate Conformance
-/* ###################################################################################################################################### */
-/* ################################################################## */
-/**
- This is the callback that is made by the repeating timer.
- 
- - parameter inTimer: The Timer object that is calling this.
- */
-extension TimerEngine: RVS_BasicGCDTimerDelegate {
     func basicGCDTimerCallback(_ inTimer: RVS_BasicGCDTimer) {
         if let selectedTimer = selectedTimer {
             if (.Stopped != selectedTimer.timerStatus) && (.Paused != selectedTimer.timerStatus) {

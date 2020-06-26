@@ -1,5 +1,7 @@
-**Version 1.2.2.2000** *TBD*
+**Version 1.2.1.3000** *June 26, 2020*
 - Added access to the music folder for Mac (still doesn't work, though).
+- Added the SPM modules by version (not branch).
+- Resubmit to App Store (iOS).
 
 **Version 1.2.1.2000** *June 19, 2020*
 - I swapped out all the archaic `type(of: self).` for `Self.`

@@ -29,6 +29,12 @@
 		D427963D219B50F90012F705 /* SwipeTransitioningProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279637219B50F90012F705 /* SwipeTransitioningProtocol.swift */; };
 		D427963E219B50F90012F705 /* SwipeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279638219B50F90012F705 /* SwipeAnimation.swift */; };
 		D427963F219B50F90012F705 /* SwipeableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4279639219B50F90012F705 /* SwipeableTabBarController.swift */; };
+		D427EBCE24A665FD00560C3D /* RVS-BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D427EBCD24A665FD00560C3D /* RVS-BasicGCDTimer */; };
+		D427EBCF24A665FD00560C3D /* RVS-BasicGCDTimer in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D427EBCD24A665FD00560C3D /* RVS-BasicGCDTimer */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D427EBD224A6661C00560C3D /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D427EBD124A6661C00560C3D /* RVS-Generic-Swift-Toolbox */; };
+		D427EBD324A6661C00560C3D /* RVS-Generic-Swift-Toolbox in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D427EBD124A6661C00560C3D /* RVS-Generic-Swift-Toolbox */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D427EBD624A6663B00560C3D /* RVS-Persistent-Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D427EBD524A6663B00560C3D /* RVS-Persistent-Prefs */; };
+		D427EBD724A6663B00560C3D /* RVS-Persistent-Prefs in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D427EBD524A6663B00560C3D /* RVS-Persistent-Prefs */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D433BB8C21B18165001C79F6 /* 11-bells.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D433BB8721B18165001C79F6 /* 11-bells.mp3 */; };
 		D433BB8D21B18165001C79F6 /* 02-high-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D433BB8821B18165001C79F6 /* 02-high-beep.mp3 */; };
 		D433BB8E21B18165001C79F6 /* 00-low-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D433BB8921B18165001C79F6 /* 00-low-beep.mp3 */; };
@@ -61,13 +67,7 @@
 		D48ED3FA21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED3FC21B475A400ADB8F8 /* 22-thanks-for-sharing.mp3 */; };
 		D48ED3FD21B475AE00ADB8F8 /* 15-shut-up-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED3FF21B475AE00ADB8F8 /* 15-shut-up-2.mp3 */; };
 		D48ED40021B475BC00ADB8F8 /* 14-shut-up-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED40221B475BC00ADB8F8 /* 14-shut-up-1.mp3 */; };
-		D49078BA249D6F6D00375449 /* RVS-BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D49078B9249D6F6D00375449 /* RVS-BasicGCDTimer */; };
-		D49078BB249D6F6D00375449 /* RVS-BasicGCDTimer in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D49078B9249D6F6D00375449 /* RVS-BasicGCDTimer */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		D49078BE249D6FA300375449 /* RVS-Persistent-Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D49078BD249D6FA300375449 /* RVS-Persistent-Prefs */; };
-		D49078BF249D6FA300375449 /* RVS-Persistent-Prefs in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D49078BD249D6FA300375449 /* RVS-Persistent-Prefs */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D4AAAB222293509800938489 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4AAAB202293509800938489 /* Localizable.strings */; };
-		D4CAF09A249D695600041665 /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4CAF099249D695600041665 /* RVS-Generic-Swift-Toolbox */; };
-		D4CAF09B249D695600041665 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D4CAF099249D695600041665 /* RVS-Generic-Swift-Toolbox */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D4CF37C8219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */; };
 		D4D71E3121D574D400ACBB47 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D71E3321D574D400ACBB47 /* InfoPlist.strings */; };
 		D4D722E821B0326B0062035B /* Timer_SetupSoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D722E721B0326B0062035B /* Timer_SetupSoundsViewController.swift */; };
@@ -104,9 +104,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D49078BB249D6F6D00375449 /* RVS-BasicGCDTimer in Embed Frameworks */,
-				D49078BF249D6FA300375449 /* RVS-Persistent-Prefs in Embed Frameworks */,
-				D4CAF09B249D695600041665 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */,
+				D427EBD324A6661C00560C3D /* RVS-Generic-Swift-Toolbox in Embed Frameworks */,
+				D427EBD724A6663B00560C3D /* RVS-Persistent-Prefs in Embed Frameworks */,
+				D427EBCF24A665FD00560C3D /* RVS-BasicGCDTimer in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,9 +201,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D49078BA249D6F6D00375449 /* RVS-BasicGCDTimer in Frameworks */,
-				D49078BE249D6FA300375449 /* RVS-Persistent-Prefs in Frameworks */,
-				D4CAF09A249D695600041665 /* RVS-Generic-Swift-Toolbox in Frameworks */,
+				D427EBD224A6661C00560C3D /* RVS-Generic-Swift-Toolbox in Frameworks */,
+				D427EBD624A6663B00560C3D /* RVS-Persistent-Prefs in Frameworks */,
+				D427EBCE24A665FD00560C3D /* RVS-BasicGCDTimer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,9 +449,9 @@
 			);
 			name = AmbiaMara;
 			packageProductDependencies = (
-				D4CAF099249D695600041665 /* RVS-Generic-Swift-Toolbox */,
-				D49078B9249D6F6D00375449 /* RVS-BasicGCDTimer */,
-				D49078BD249D6FA300375449 /* RVS-Persistent-Prefs */,
+				D427EBCD24A665FD00560C3D /* RVS-BasicGCDTimer */,
+				D427EBD124A6661C00560C3D /* RVS-Generic-Swift-Toolbox */,
+				D427EBD524A6663B00560C3D /* RVS-Persistent-Prefs */,
 			);
 			productName = LGV_Timer;
 			productReference = 77EFB3DC1ED5C1A800BDDEFF /* AmbiaMara.app */;
@@ -535,9 +535,9 @@
 			);
 			mainGroup = 77EFB3D31ED5C1A800BDDEFF;
 			packageReferences = (
-				D4CAF098249D695600041665 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
-				D49078B8249D6F6D00375449 /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */,
-				D49078BC249D6FA300375449 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */,
+				D427EBCC24A665FD00560C3D /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */,
+				D427EBD024A6661C00560C3D /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
+				D427EBD424A6663B00560C3D /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */,
 			);
 			productRefGroup = 77EFB3DD1ED5C1A800BDDEFF /* Products */;
 			projectDirPath = "";
@@ -901,7 +901,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Main App/AmbiaMara.entitlements";
-				CURRENT_PROJECT_VERSION = 2000;
+				CURRENT_PROJECT_VERSION = 3001;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -911,7 +911,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.2.1;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = "${inherited}";
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
@@ -927,7 +927,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Main App/AmbiaMara.entitlements";
-				CURRENT_PROJECT_VERSION = 2000;
+				CURRENT_PROJECT_VERSION = 3001;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -937,7 +937,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.2.1;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
@@ -1027,7 +1027,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.2.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara.watchkitapp;
@@ -1061,7 +1061,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.2.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara.watchkitapp;
 				PRODUCT_NAME = AmbiaMara;
@@ -1115,47 +1115,47 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D49078B8249D6F6D00375449 /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */ = {
+		D427EBCC24A665FD00560C3D /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_BasicGCDTimer.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
 			};
 		};
-		D49078BC249D6FA300375449 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:RiftValleySoftware/RVS_PersistentPrefs.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		D4CAF098249D695600041665 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
+		D427EBD024A6661C00560C3D /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
+		D427EBD424A6663B00560C3D /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:RiftValleySoftware/RVS_PersistentPrefs.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D49078B9249D6F6D00375449 /* RVS-BasicGCDTimer */ = {
+		D427EBCD24A665FD00560C3D /* RVS-BasicGCDTimer */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D49078B8249D6F6D00375449 /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
+			package = D427EBCC24A665FD00560C3D /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
 			productName = "RVS-BasicGCDTimer";
 		};
-		D49078BD249D6FA300375449 /* RVS-Persistent-Prefs */ = {
+		D427EBD124A6661C00560C3D /* RVS-Generic-Swift-Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D49078BC249D6FA300375449 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
-			productName = "RVS-Persistent-Prefs";
-		};
-		D4CAF099249D695600041665 /* RVS-Generic-Swift-Toolbox */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4CAF098249D695600041665 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			package = D427EBD024A6661C00560C3D /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
 			productName = "RVS-Generic-Swift-Toolbox";
+		};
+		D427EBD524A6663B00560C3D /* RVS-Persistent-Prefs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D427EBD424A6663B00560C3D /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
+			productName = "RVS-Persistent-Prefs";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
