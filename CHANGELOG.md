@@ -1,3 +1,6 @@
+**Version 1.2.1.3002** *June 27, 2020*
+- No change. Needed to resubmit to App Store.
+
 **Version 1.2.1.3000** *June 26, 2020*
 - Added access to the music folder for Mac (still doesn't work, though).
 - Added the SPM modules by version (not branch).
