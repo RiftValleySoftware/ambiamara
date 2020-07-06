@@ -1,5 +1,6 @@
-**Version 1.2.2.2000** *TBD*
+**Version 1.3.0.0000** *TBD*
 - Updated the dependencies.
+- Turned on the basics for Watch App support.
 
 **Version 1.2.1.3002** *June 27, 2020*
 - No change. Needed to resubmit to App Store.
