@@ -14,6 +14,7 @@
  */
 
 import UIKit
+import RVS_Persistent_Prefs
 
 /* ###################################################################################################################################### */
 // MARK: - Various Strings, Used in Messaging -
@@ -386,7 +387,7 @@ enum TimerStatus: Int {
 /**
  This is the basic element that describes one timer.
  */
-class TimerSettingTuple: NSObject, NSCoding {
+class TimerSettingTuple: RVS_PersistentPrefs, NSCoding {
     // MARK: - Private Static Constants
     /* ################################################################################################################################## */
     /* ################################################################## */
@@ -402,7 +403,7 @@ class TimerSettingTuple: NSObject, NSCoding {
     /**
      This enum contains all the various timer state Dictionary keys.
      */
-    private enum TimerStateKeys: String {
+    private enum TimerStateKeys: String, CaseIterable {
         /// Time is being set
         case TimeSet
         /// Warning time is being set
@@ -433,6 +434,10 @@ class TimerSettingTuple: NSObject, NSCoding {
         case UID
     }
 
+    /* ################################################################## */
+    /// These are all the possible keys.
+    override var keys: [String] { TimerStateKeys.allCases.map { $0.rawValue } }
+    
     /* ################################################################################################################################## */
     // MARK: - Instance Properties
     /* ################################################################################################################################## */
@@ -996,18 +1001,26 @@ class TimerSettingTuple: NSObject, NSCoding {
      - parameter coder: The coder containing the state
      */
     required init?(coder: NSCoder) {
-        songURLString = ""
+        uid = NSUUID().uuidString
+        handler = nil
+        timeSet = 0
+        timeSetPodiumWarn = 0
+        timeSetPodiumFinal = 0
+        currentTime = 0
         displayMode = .Dual
-        alertMode = .Both
-        soundMode = .Sound
+        colorTheme = 0
+        alertMode = .Silent
+        soundMode = .Silent
+        soundID = 5
+        songURLString = ""
         timerStatus = .Stopped
-        uid = ""
         firstTick = 0.0
         lastTick = 0.0
-        handler = nil
         succeedingTimerID = -1
         audibleTicks = false
 
+        super.init()
+        
         if coder.containsValue(forKey: TimerStateKeys.SucceedingTimerID.rawValue) {
             let succeedingTimerID = coder.decodeInteger(forKey: Self.TimerStateKeys.SucceedingTimerID.rawValue)
             self.succeedingTimerID = succeedingTimerID
