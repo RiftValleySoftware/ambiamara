@@ -2,6 +2,7 @@
 - Updated the dependencies.
 - Turned on the basics for Watch App support.
 - Tweaked the iOS Base Version to 13.0.
+- Updated to latest Xcode.
 
 **Version 1.2.1.3002** *June 27, 2020*
 - No change. Needed to resubmit to App Store.
