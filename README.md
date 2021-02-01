@@ -1,4 +1,4 @@
-![AmbiaMara Icon](https://riftvalleysoftware.com/AmbiaMara-Docs/icon.png)
+![AmbiaMara Icon](https://riftvalleysoftware.com/AmbiaMara-Docs/CircularIcon.png)
 
 ABOUT AMBIAMARA
 =
