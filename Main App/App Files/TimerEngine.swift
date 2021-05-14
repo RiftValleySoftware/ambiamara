@@ -18,7 +18,7 @@ import RVS_BasicGCDTimer
 /**
  This protocol allows observers of the engine.
  */
-protocol TimerEngineDelegate: class {
+protocol TimerEngineDelegate: AnyObject {
     /* ################################################################## */
     /**
      Called when we add a new timer.

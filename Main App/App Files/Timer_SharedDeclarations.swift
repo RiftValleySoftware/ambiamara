@@ -1105,7 +1105,7 @@ class TimerSettingTuple: RVS_PersistentPrefs, NSCoding {
 /**
  This protocol allows observers of the app status.
  */
-protocol LGV_Timer_StateDelegate: class {
+protocol LGV_Timer_StateDelegate: AnyObject {
     /* ################################################################## */
     /**
      Called when the timer status changes
