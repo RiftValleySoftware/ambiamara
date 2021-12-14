@@ -1,4 +1,4 @@
-**Version 1.3.0.0000** *TBD*
+**Version 1.3.1.0000** *December 14, 2021*
 - Updated the dependencies.
 - Turned on the basics for Watch App support.
 - Tweaked the iOS Base Version to 13.0.
