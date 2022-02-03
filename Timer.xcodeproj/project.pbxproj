@@ -62,8 +62,8 @@
 		D48ED3FD21B475AE00ADB8F8 /* 15-shut-up-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED3FF21B475AE00ADB8F8 /* 15-shut-up-2.mp3 */; };
 		D48ED40021B475BC00ADB8F8 /* 14-shut-up-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D48ED40221B475BC00ADB8F8 /* 14-shut-up-1.mp3 */; };
 		D4AAAB222293509800938489 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4AAAB202293509800938489 /* Localizable.strings */; };
+		D4B6514027AC7F3F007D4672 /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4B6513F27AC7F3F007D4672 /* RVS-Generic-Swift-Toolbox */; };
 		D4CE141B24B2265C00955757 /* RVS-BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4CE141A24B2265C00955757 /* RVS-BasicGCDTimer */; };
-		D4CE141E24B2268100955757 /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4CE141D24B2268100955757 /* RVS-Generic-Swift-Toolbox */; };
 		D4CE142124B2269400955757 /* RVS-Persistent-Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D4CE142024B2269400955757 /* RVS-Persistent-Prefs */; };
 		D4CF37C8219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF37C7219B40D2001E48B1 /* TheGreatRiftValleyDrawing.swift */; };
 		D4D71E3121D574D400ACBB47 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D71E3321D574D400ACBB47 /* InfoPlist.strings */; };
@@ -185,9 +185,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4CE141E24B2268100955757 /* RVS-Generic-Swift-Toolbox in Frameworks */,
 				D4CE142124B2269400955757 /* RVS-Persistent-Prefs in Frameworks */,
 				D4CE141B24B2265C00955757 /* RVS-BasicGCDTimer in Frameworks */,
+				D4B6514027AC7F3F007D4672 /* RVS-Generic-Swift-Toolbox in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,8 +433,8 @@
 			name = AmbiaMara;
 			packageProductDependencies = (
 				D4CE141A24B2265C00955757 /* RVS-BasicGCDTimer */,
-				D4CE141D24B2268100955757 /* RVS-Generic-Swift-Toolbox */,
 				D4CE142024B2269400955757 /* RVS-Persistent-Prefs */,
+				D4B6513F27AC7F3F007D4672 /* RVS-Generic-Swift-Toolbox */,
 			);
 			productName = LGV_Timer;
 			productReference = 77EFB3DC1ED5C1A800BDDEFF /* AmbiaMara.app */;
@@ -519,8 +519,8 @@
 			mainGroup = 77EFB3D31ED5C1A800BDDEFF;
 			packageReferences = (
 				D4CE141924B2265C00955757 /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */,
-				D4CE141C24B2268100955757 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
 				D4CE141F24B2269400955757 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */,
+				D4B6513E27AC7F3F007D4672 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
 			);
 			productRefGroup = 77EFB3DD1ED5C1A800BDDEFF /* Products */;
 			projectDirPath = "";
@@ -1104,20 +1104,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D4B6513E27AC7F3F007D4672 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.5;
+			};
+		};
 		D4CE141924B2265C00955757 /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_BasicGCDTimer.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.4;
-			};
-		};
-		D4CE141C24B2268100955757 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.6.4;
+				minimumVersion = 1.3.5;
 			};
 		};
 		D4CE141F24B2269400955757 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */ = {
@@ -1125,21 +1125,21 @@
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_PersistentPrefs.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.5;
+				minimumVersion = 1.2.6;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D4B6513F27AC7F3F007D4672 /* RVS-Generic-Swift-Toolbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4B6513E27AC7F3F007D4672 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			productName = "RVS-Generic-Swift-Toolbox";
+		};
 		D4CE141A24B2265C00955757 /* RVS-BasicGCDTimer */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4CE141924B2265C00955757 /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
 			productName = "RVS-BasicGCDTimer";
-		};
-		D4CE141D24B2268100955757 /* RVS-Generic-Swift-Toolbox */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4CE141C24B2268100955757 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
-			productName = "RVS-Generic-Swift-Toolbox";
 		};
 		D4CE142024B2269400955757 /* RVS-Persistent-Prefs */ = {
 			isa = XCSwiftPackageProductDependency;

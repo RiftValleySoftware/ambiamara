@@ -1,3 +1,6 @@
+**Version 1.3.2.0000** *TBD*
+- Updated the packages.
+
 **Version 1.3.1.0000** *December 14, 2021*
 - Updated the dependencies.
 - Turned on the basics for Watch App support.
