@@ -1,0 +1,519 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D47C029F2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C029E2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift */; };
+		D47C02A32819CA6500D359F5 /* RVS_AmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C02A22819CA6500D359F5 /* RVS_AmbiaMara_ViewController.swift */; };
+		D47C02A62819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A42819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard */; };
+		D47C02A82819CA6800D359F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A72819CA6800D359F5 /* Assets.xcassets */; };
+		D47C02AB2819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A92819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard */; };
+		D4C4B70C2819CEDB00E22ECA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4C4B70A2819CEDB00E22ECA /* Localizable.strings */; };
+		D4C4B7112819D36800E22ECA /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4C4B7102819D36800E22ECA /* RVS-Generic-Swift-Toolbox */; };
+		D4C4B7142819D39B00E22ECA /* RVS-Persistent-Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D4C4B7132819D39B00E22ECA /* RVS-Persistent-Prefs */; };
+		D4C4B7172819D3D300E22ECA /* RVS-RetroLEDDisplay in Frameworks */ = {isa = PBXBuildFile; productRef = D4C4B7162819D3D300E22ECA /* RVS-RetroLEDDisplay */; };
+		D4C4B71A2819D40500E22ECA /* RVS-BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4C4B7192819D40500E22ECA /* RVS-BasicGCDTimer */; };
+		D4C4B71C2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */; };
+		D4C4B7212819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4B71F2819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D47C029B2819CA6500D359F5 /* AmbiaMara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbiaMara.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D47C029E2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_AppSceneDelegate.swift; sourceTree = "<group>"; };
+		D47C02A22819CA6500D359F5 /* RVS_AmbiaMara_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_ViewController.swift; sourceTree = "<group>"; };
+		D47C02A52819CA6500D359F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RVS_AmbiaMara_Main.storyboard; sourceTree = "<group>"; };
+		D47C02A72819CA6800D359F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D47C02AA2819CA6800D359F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RVS_AmbiaMara_LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D4C4B70B2819CEDB00E22ECA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D4C4B70E2819CF8F00E22ECA /* AmbiaMara.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = AmbiaMara.docc; sourceTree = "<group>"; };
+		D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_BaseViewController.swift; sourceTree = "<group>"; };
+		D4C4B71F2819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_Extensions.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D47C02982819CA6500D359F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4C4B7142819D39B00E22ECA /* RVS-Persistent-Prefs in Frameworks */,
+				D4C4B7172819D3D300E22ECA /* RVS-RetroLEDDisplay in Frameworks */,
+				D4C4B71A2819D40500E22ECA /* RVS-BasicGCDTimer in Frameworks */,
+				D4C4B7112819D36800E22ECA /* RVS-Generic-Swift-Toolbox in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D47C02922819CA6500D359F5 = {
+			isa = PBXGroup;
+			children = (
+				D4C4B6FE2819CCDB00E22ECA /* Sources */,
+				D47C029C2819CA6500D359F5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D47C029C2819CA6500D359F5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D47C029B2819CA6500D359F5 /* AmbiaMara.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D47C029D2819CA6500D359F5 /* AmbiaMara */ = {
+			isa = PBXGroup;
+			children = (
+				D4F90F492819E53A00E4C664 /* MainApplication */,
+				D4C4B71D2819D70300E22ECA /* ViewControllers */,
+				D4C4B7222819DD5100E22ECA /* Utility */,
+				D4C4B6FF2819CCF300E22ECA /* Resources */,
+				D4C4B70E2819CF8F00E22ECA /* AmbiaMara.docc */,
+			);
+			path = AmbiaMara;
+			sourceTree = "<group>";
+		};
+		D4C4B6FE2819CCDB00E22ECA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D47C029D2819CA6500D359F5 /* AmbiaMara */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		D4C4B6FF2819CCF300E22ECA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D47C02A42819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard */,
+				D4C4B70A2819CEDB00E22ECA /* Localizable.strings */,
+				D47C02A72819CA6800D359F5 /* Assets.xcassets */,
+				D47C02A92819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D4C4B71D2819D70300E22ECA /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */,
+				D47C02A22819CA6500D359F5 /* RVS_AmbiaMara_ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D4C4B7222819DD5100E22ECA /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				D4C4B71F2819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		D4F90F492819E53A00E4C664 /* MainApplication */ = {
+			isa = PBXGroup;
+			children = (
+				D47C029E2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift */,
+			);
+			path = MainApplication;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D47C029A2819CA6500D359F5 /* AmbiaMara */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D47C02AF2819CA6800D359F5 /* Build configuration list for PBXNativeTarget "AmbiaMara" */;
+			buildPhases = (
+				D4C4B7022819CD7300E22ECA /* SwiftLint */,
+				D47C02972819CA6500D359F5 /* Sources */,
+				D47C02982819CA6500D359F5 /* Frameworks */,
+				D47C02992819CA6500D359F5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AmbiaMara;
+			packageProductDependencies = (
+				D4C4B7102819D36800E22ECA /* RVS-Generic-Swift-Toolbox */,
+				D4C4B7132819D39B00E22ECA /* RVS-Persistent-Prefs */,
+				D4C4B7162819D3D300E22ECA /* RVS-RetroLEDDisplay */,
+				D4C4B7192819D40500E22ECA /* RVS-BasicGCDTimer */,
+			);
+			productName = AmbiaMara;
+			productReference = D47C029B2819CA6500D359F5 /* AmbiaMara.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D47C02932819CA6500D359F5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1330;
+				LastUpgradeCheck = 1330;
+				TargetAttributes = {
+					D47C029A2819CA6500D359F5 = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
+				};
+			};
+			buildConfigurationList = D47C02962819CA6500D359F5 /* Build configuration list for PBXProject "AmbiaMara" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D47C02922819CA6500D359F5;
+			packageReferences = (
+				D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
+				D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */,
+				D4C4B7152819D3D300E22ECA /* XCRemoteSwiftPackageReference "RVS_RetroLEDDisplay" */,
+				D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */,
+			);
+			productRefGroup = D47C029C2819CA6500D359F5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D47C029A2819CA6500D359F5 /* AmbiaMara */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D47C02992819CA6500D359F5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D47C02AB2819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard in Resources */,
+				D4C4B70C2819CEDB00E22ECA /* Localizable.strings in Resources */,
+				D47C02A82819CA6800D359F5 /* Assets.xcassets in Resources */,
+				D47C02A62819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D4C4B7022819CD7300E22ECA /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D47C02972819CA6500D359F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D47C02A32819CA6500D359F5 /* RVS_AmbiaMara_ViewController.swift in Sources */,
+				D47C029F2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift in Sources */,
+				D4C4B7212819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift in Sources */,
+				D4C4B71C2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D47C02A42819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D47C02A52819CA6500D359F5 /* Base */,
+			);
+			name = RVS_AmbiaMara_Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D47C02A92819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D47C02AA2819CA6800D359F5 /* Base */,
+			);
+			name = RVS_AmbiaMara_LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D4C4B70A2819CEDB00E22ECA /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4C4B70B2819CEDB00E22ECA /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D47C02AD2819CA6800D359F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D47C02AE2819CA6800D359F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D47C02B02819CA6800D359F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 0000;
+				DEVELOPMENT_TEAM = KSAUGZFWP2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sources/Meta/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = RVS_AmbiaMara_LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = RVS_AmbiaMara_Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D47C02B12819CA6800D359F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 0000;
+				DEVELOPMENT_TEAM = KSAUGZFWP2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sources/Meta/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = RVS_AmbiaMara_LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = RVS_AmbiaMara_Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D47C02962819CA6500D359F5 /* Build configuration list for PBXProject "AmbiaMara" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D47C02AD2819CA6800D359F5 /* Debug */,
+				D47C02AE2819CA6800D359F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D47C02AF2819CA6800D359F5 /* Build configuration list for PBXNativeTarget "AmbiaMara" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D47C02B02819CA6800D359F5 /* Debug */,
+				D47C02B12819CA6800D359F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.7;
+			};
+		};
+		D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RiftValleySoftware/RVS_PersistentPrefs";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.7;
+			};
+		};
+		D4C4B7152819D3D300E22ECA /* XCRemoteSwiftPackageReference "RVS_RetroLEDDisplay" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:RiftValleySoftware/RVS_RetroLEDDisplay.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+		D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RiftValleySoftware/RVS_BasicGCDTimer.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D4C4B7102819D36800E22ECA /* RVS-Generic-Swift-Toolbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			productName = "RVS-Generic-Swift-Toolbox";
+		};
+		D4C4B7132819D39B00E22ECA /* RVS-Persistent-Prefs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
+			productName = "RVS-Persistent-Prefs";
+		};
+		D4C4B7162819D3D300E22ECA /* RVS-RetroLEDDisplay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C4B7152819D3D300E22ECA /* XCRemoteSwiftPackageReference "RVS_RetroLEDDisplay" */;
+			productName = "RVS-RetroLEDDisplay";
+		};
+		D4C4B7192819D40500E22ECA /* RVS-BasicGCDTimer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
+			productName = "RVS-BasicGCDTimer";
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = D47C02932819CA6500D359F5 /* Project object */;
+}
