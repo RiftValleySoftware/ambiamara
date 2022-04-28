@@ -129,13 +129,6 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
-     This holds the set times (0 is start, 1, is warning, and 2 is final).
-     These are seconds.
-    */
-    private var _setTimesInSeconds: [Int] = [0, 0, 0]
-
-    /* ################################################################## */
-    /**
      The "startup" logo that we fade out.
     */
     @IBOutlet weak var startupLogo: UIImageView?
@@ -335,7 +328,16 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         startSetButton?.reversed = .start == _state
         warnSetButton?.reversed = .warn == _state
         finalSetButton?.reversed = .final == _state
-        pickerTime = _setTimesInSeconds[_state.rawValue]
+        switch _state {
+        case .start:
+            pickerTime = RVS_AmbiaMara_Settings().currentTimer.startTime
+        case .warn:
+            pickerTime = RVS_AmbiaMara_Settings().currentTimer.warnTime
+        case .final:
+            pickerTime = RVS_AmbiaMara_Settings().currentTimer.finalTime
+        default:
+            break
+        }
         setPickerControl?.reloadAllComponents()
     }
 }
@@ -374,7 +376,17 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
     /**
     */
     func pickerView(_ inPickerView: UIPickerView, didSelectRow inRow: Int, inComponent: Int) {
-        _setTimesInSeconds[_state.rawValue] = pickerTime
+        switch _state {
+        case .start:
+            RVS_AmbiaMara_Settings().currentTimer.startTime = pickerTime
+        case .warn:
+            RVS_AmbiaMara_Settings().currentTimer.warnTime = pickerTime
+        case .final:
+            RVS_AmbiaMara_Settings().currentTimer.finalTime = pickerTime
+        default:
+            break
+        }
+
         inPickerView.reloadAllComponents()
     }
     
