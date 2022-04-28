@@ -12,3 +12,10 @@
 //|  DO NOT MODIFY ON THIS SIDE OF THE EQUALS  | |   MODIFY THE TEXT ON THIS SIDE TO THE LOCAL LANGUAGE  |*
 // --------------------------------------------   ------------------------------------------------------- *
 //********************************************** **********************************************************
+
+"SLUG-HOURS"                                    =   "Hours";
+"SLUG-MINUTES"                                  =   "Minutes";
+"SLUG-SECONDS"                                  =   "Seconds";
+"SLUG-STATE-Start"                              =   "Total Time";
+"SLUG-STATE-Warn"                               =   "Warning Time";
+"SLUG-STATE-Final"                              =   "Final Time";
