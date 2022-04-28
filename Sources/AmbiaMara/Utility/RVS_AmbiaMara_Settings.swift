@@ -21,11 +21,11 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     /* ################################################################################################################################## */
     // MARK: Individual Timer State
     /* ################################################################################################################################## */
-    struct TimerSettings: Codable {
+    class TimerSettings: Codable {
         /* ############################################################## */
         /**
          */
-        let id: UUID
+        var id: String
 
         /* ############################################################## */
         /**
@@ -45,7 +45,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
         /* ############################################################## */
         /**
          */
-        init(id inID: UUID = UUID(), startTime inStartTime: Int = 0, warnTime inWarnTime: Int = 0, finalTime inFinalTime: Int = 0) {
+        init(id inID: String = UUID().uuidString, startTime inStartTime: Int = 0, warnTime inWarnTime: Int = 0, finalTime inFinalTime: Int = 0) {
             id = inID
             startTime = inStartTime
             warnTime = inWarnTime
@@ -63,7 +63,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
         /* ############################################################## */
         /**
          */
-        case timers
+        case _timers
 
         /* ############################################################## */
         /**
@@ -75,7 +75,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
          These are all the keys, in an Array of String.
          */
         static var allKeys: [String] { [
-                                        timers.rawValue,
+                                        _timers.rawValue,
                                         currentTimerIndex.rawValue
                                         ]
         }
@@ -85,25 +85,17 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     /**
      */
     override var keys: [String] { Keys.allKeys }
-    
-    /* ################################################################## */
-    /**
-     */
-    private var _timers: [TimerSettings] {
-        get { values[Keys.timers.rawValue] as? [TimerSettings] ?? [] }
-        set { values[Keys.timers.rawValue] = newValue }
-    }
 
     /* ################################################################## */
     /**
      */
     private func _remove(timer inTimer: TimerSettings) {
-        if let index = _timers.firstIndex(where: { $0.id == inTimer.id }) {
-            _timers.remove(at: index)
+        if let index = timers.firstIndex(where: { $0.id == inTimer.id }) {
+            timers.remove(at: index)
         }
         
-        if !(0..<_timers.count).contains(currentTimerIndex) {
-            currentTimerIndex = max(0, min(currentTimerIndex, _timers.count - 1))
+        if !(0..<timers.count).contains(currentTimerIndex) {
+            currentTimerIndex = max(0, min(currentTimerIndex, timers.count - 1))
         }
     }
 
@@ -111,28 +103,29 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     /**
      */
     private func _add(timer inTimer: TimerSettings) {
-        guard let index = _timers.firstIndex(where: { $0.id == inTimer.id }) else {
-            _timers.append(inTimer)
-            currentTimerIndex = _timers.count - 1
+        guard let index = timers.firstIndex(where: { $0.id == inTimer.id }) else {
+            timers.append(inTimer)
+            currentTimerIndex = timers.count - 1
             return
         }
    
-        _timers[index] = inTimer
+        currentTimerIndex = index
+        timers[index] = inTimer
     }
 
     /* ################################################################## */
     /**
      */
-    var ids: [UUID] { _timers.map { $0.id } }
+    var ids: [String] { timers.map { $0.id } }
     
     /* ################################################################## */
     /**
      */
     var timers: [TimerSettings] {
-        get { _timers }
+        get { values[Keys._timers.rawValue] as? [TimerSettings] ?? [] }
         set {
-            _timers = newValue
-            currentTimerIndex = max(0, min(currentTimerIndex, _timers.count - 1))
+            values[Keys._timers.rawValue] = newValue
+            currentTimerIndex = max(0, min(currentTimerIndex, timers.count - 1))
         }
     }
 
@@ -145,7 +138,10 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     /**
      */
     var currentTimerIndex: Int {
-        get { values[Keys.currentTimerIndex.rawValue] as? Int ?? 0 }
+        get {
+            let index = values[Keys.currentTimerIndex.rawValue] as? Int ?? 0
+            return max(0, min(index, timers.count - 1))
+        }
         set { values[Keys.currentTimerIndex.rawValue] = newValue }
     }
     
@@ -154,18 +150,19 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
      */
     var currentTimer: TimerSettings {
         get {
-            if _timers.isEmpty {
+            if timers.isEmpty {
                 _add(timer: TimerSettings())
             }
-            return _timers[currentTimerIndex]
+            return timers[currentTimerIndex]
         }
+        
         set {
-            if let index = _timers.firstIndex(where: { $0.id == newValue.id }) {
+            if let index = timers.firstIndex(where: { $0.id == newValue.id }) {
                 currentTimerIndex = index
-                _timers[currentTimerIndex] = newValue
+                timers[currentTimerIndex] = newValue
             } else {
                 _add(timer: newValue)
-                currentTimerIndex = _timers.count - 1
+                currentTimerIndex = timers.count - 1
             }
         }
     }
@@ -174,17 +171,17 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     /**
      */
     func getTimer(index inIndex: Int) -> TimerSettings? {
-        guard (0..<_timers.count).contains(inIndex) else { return nil }
+        guard (0..<timers.count).contains(inIndex) else { return nil }
         currentTimerIndex = inIndex
-        return _timers[inIndex]
+        return timers[inIndex]
     }
 
     /* ################################################################## */
     /**
      */
-    func getTimer(id inID: UUID) -> TimerSettings? {
-        guard let index = _timers.firstIndex(where: { $0.id == inID }) else { return nil }
+    func getTimer(id inID: String) -> TimerSettings? {
+        guard let index = timers.firstIndex(where: { $0.id == inID }) else { return nil }
         currentTimerIndex = index
-        return _timers[index]
+        return timers[index]
     }
 }
