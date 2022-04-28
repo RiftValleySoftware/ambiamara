@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D44E770D281ACAEE00B491EF /* RVS-MaskButton in Frameworks */ = {isa = PBXBuildFile; productRef = D44E770C281ACAEE00B491EF /* RVS-MaskButton */; };
+		D44E7711281ACDD900B491EF /* let's go digital regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D44E7710281ACDD900B491EF /* let's go digital regular.ttf */; };
 		D47C029F2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C029E2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift */; };
-		D47C02A32819CA6500D359F5 /* RVS_AmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C02A22819CA6500D359F5 /* RVS_AmbiaMara_ViewController.swift */; };
+		D47C02A32819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */; };
 		D47C02A62819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A42819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard */; };
 		D47C02A82819CA6800D359F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A72819CA6800D359F5 /* Assets.xcassets */; };
 		D47C02AB2819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A92819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard */; };
@@ -22,9 +24,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D44E7710281ACDD900B491EF /* let's go digital regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "let's go digital regular.ttf"; sourceTree = "<group>"; };
+		D44E7712281AD1B000B491EF /* AmbiaMara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AmbiaMara.entitlements; sourceTree = "<group>"; };
 		D47C029B2819CA6500D359F5 /* AmbiaMara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbiaMara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D47C029E2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_AppSceneDelegate.swift; sourceTree = "<group>"; };
-		D47C02A22819CA6500D359F5 /* RVS_AmbiaMara_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_ViewController.swift; sourceTree = "<group>"; };
+		D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_SetTimerAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
 		D47C02A52819CA6500D359F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RVS_AmbiaMara_Main.storyboard; sourceTree = "<group>"; };
 		D47C02A72819CA6800D359F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D47C02AA2819CA6800D359F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RVS_AmbiaMara_LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -41,6 +45,7 @@
 			files = (
 				D4C4B7142819D39B00E22ECA /* RVS-Persistent-Prefs in Frameworks */,
 				D4C4B7172819D3D300E22ECA /* RVS-RetroLEDDisplay in Frameworks */,
+				D44E770D281ACAEE00B491EF /* RVS-MaskButton in Frameworks */,
 				D4C4B71A2819D40500E22ECA /* RVS-BasicGCDTimer in Frameworks */,
 				D4C4B7112819D36800E22ECA /* RVS-Generic-Swift-Toolbox in Frameworks */,
 			);
@@ -49,10 +54,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D44E7714281AD24F00B491EF /* ProjectMeta */ = {
+			isa = PBXGroup;
+			children = (
+				D44E7712281AD1B000B491EF /* AmbiaMara.entitlements */,
+			);
+			path = ProjectMeta;
+			sourceTree = "<group>";
+		};
 		D47C02922819CA6500D359F5 = {
 			isa = PBXGroup;
 			children = (
 				D4C4B6FE2819CCDB00E22ECA /* Sources */,
+				D44E7714281AD24F00B491EF /* ProjectMeta */,
 				D47C029C2819CA6500D359F5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +106,7 @@
 				D4C4B70A2819CEDB00E22ECA /* Localizable.strings */,
 				D47C02A72819CA6800D359F5 /* Assets.xcassets */,
 				D47C02A92819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard */,
+				D44E7710281ACDD900B491EF /* let's go digital regular.ttf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -100,7 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */,
-				D47C02A22819CA6500D359F5 /* RVS_AmbiaMara_ViewController.swift */,
+				D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -143,6 +158,7 @@
 				D4C4B7132819D39B00E22ECA /* RVS-Persistent-Prefs */,
 				D4C4B7162819D3D300E22ECA /* RVS-RetroLEDDisplay */,
 				D4C4B7192819D40500E22ECA /* RVS-BasicGCDTimer */,
+				D44E770C281ACAEE00B491EF /* RVS-MaskButton */,
 			);
 			productName = AmbiaMara;
 			productReference = D47C029B2819CA6500D359F5 /* AmbiaMara.app */;
@@ -177,6 +193,8 @@
 				D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */,
 				D4C4B7152819D3D300E22ECA /* XCRemoteSwiftPackageReference "RVS_RetroLEDDisplay" */,
 				D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */,
+				D44E770A281ACA9C00B491EF /* XCRemoteSwiftPackageReference "RVS_MaskButton" */,
+				D44E770B281ACAEE00B491EF /* XCRemoteSwiftPackageReference "RVS_MaskButton" */,
 			);
 			productRefGroup = D47C029C2819CA6500D359F5 /* Products */;
 			projectDirPath = "";
@@ -194,6 +212,7 @@
 			files = (
 				D47C02AB2819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard in Resources */,
 				D4C4B70C2819CEDB00E22ECA /* Localizable.strings in Resources */,
+				D44E7711281ACDD900B491EF /* let's go digital regular.ttf in Resources */,
 				D47C02A82819CA6800D359F5 /* Assets.xcassets in Resources */,
 				D47C02A62819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard in Resources */,
 			);
@@ -227,7 +246,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D47C02A32819CA6500D359F5 /* RVS_AmbiaMara_ViewController.swift in Sources */,
+				D47C02A32819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift in Sources */,
 				D47C029F2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift in Sources */,
 				D4C4B7212819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift in Sources */,
 				D4C4B71C2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift in Sources */,
@@ -383,6 +402,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ProjectMeta/AmbiaMara.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
@@ -393,6 +413,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = RVS_AmbiaMara_Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -400,6 +421,7 @@
 				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -411,6 +433,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ProjectMeta/AmbiaMara.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
@@ -421,6 +444,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = RVS_AmbiaMara_Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -428,6 +452,7 @@
 				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -458,6 +483,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D44E770A281ACA9C00B491EF /* XCRemoteSwiftPackageReference "RVS_MaskButton" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:RiftValleySoftware/RVS_MaskButton.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
+		D44E770B281ACAEE00B491EF /* XCRemoteSwiftPackageReference "RVS_MaskButton" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:RiftValleySoftware/RVS_MaskButton.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
 		D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox";
@@ -493,6 +534,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D44E770C281ACAEE00B491EF /* RVS-MaskButton */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D44E770A281ACA9C00B491EF /* XCRemoteSwiftPackageReference "RVS_MaskButton" */;
+			productName = "RVS-MaskButton";
+		};
 		D4C4B7102819D36800E22ECA /* RVS-Generic-Swift-Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;

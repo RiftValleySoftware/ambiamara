@@ -3,7 +3,7 @@
    version = "1.0">
    <Group
       location = "group:"
-      name = "ProjectMeta">
+      name = "Meta">
       <FileRef
          location = "group:README.md">
       </FileRef>

@@ -99,7 +99,7 @@ extension RVS_AmbiaMara_BaseViewController {
                         centerImageView.alpha = Self._watermarkAlpha
                         centerImageView.translatesAutoresizingMaskIntoConstraints = false
                         centerImageView.contentMode = .scaleAspectFit
-                        centerImageView.tintColor = .label
+                        centerImageView.tintColor = UIColor(named: "CenterImageColor")
                         backgroundGradientView.insertSubview(centerImageView, at: 1)
 
                         centerImageView.centerXAnchor.constraint(equalTo: backgroundGradientView.centerXAnchor).isActive = true
