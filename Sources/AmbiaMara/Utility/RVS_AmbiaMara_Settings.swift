@@ -21,11 +21,16 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     /* ################################################################################################################################## */
     // MARK: Individual Timer State
     /* ################################################################################################################################## */
-    class TimerSettings: Codable {
+    struct TimerSettings {
         /* ############################################################## */
         /**
          */
-        var id: String
+        typealias KVP = (key: String, value: [Int])
+        
+        /* ############################################################## */
+        /**
+         */
+        let id: String
 
         /* ############################################################## */
         /**
@@ -42,6 +47,21 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
          */
         var finalTime: Int
         
+        /* ############################################################## */
+        /**
+         */
+        var asKVP: KVP { (key: id, value: [startTime, warnTime, finalTime]) }
+        
+        /* ############################################################## */
+        /**
+         */
+        init(_ inKVP: KVP) {
+            id = inKVP.key
+            startTime = inKVP.value[0]
+            warnTime = inKVP.value[1]
+            finalTime = inKVP.value[2]
+        }
+
         /* ############################################################## */
         /**
          */
@@ -122,10 +142,25 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     /**
      */
     var timers: [TimerSettings] {
-        get { values[Keys._timers.rawValue] as? [TimerSettings] ?? [] }
+        get {
+            guard let kvpArray = values[Keys._timers.rawValue] as? [String: [Int]],
+                  !kvpArray.isEmpty
+            else { return [] }
+            
+            return kvpArray.compactMap {
+                guard 3 == $0.value.count,
+                      !$0.key.isEmpty
+                else { return nil }
+                return TimerSettings(id: $0.key, startTime: $0.value[0], warnTime: $0.value[1], finalTime: $0.value[2])
+            }.sorted { a, b in a.startTime < b.startTime }
+        }
         set {
-            values[Keys._timers.rawValue] = newValue
-            currentTimerIndex = max(0, min(currentTimerIndex, timers.count - 1))
+            var newDictionary: [String: [Int]] = [:]
+            newValue.forEach {
+                let kvp = $0.asKVP
+                newDictionary[kvp.key] = kvp.value
+            }
+            values[Keys._timers.rawValue] = newDictionary
         }
     }
 
