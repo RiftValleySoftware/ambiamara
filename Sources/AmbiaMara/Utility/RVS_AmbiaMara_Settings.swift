@@ -152,7 +152,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
                       !$0.key.isEmpty
                 else { return nil }
                 return TimerSettings(id: $0.key, startTime: $0.value[0], warnTime: $0.value[1], finalTime: $0.value[2])
-            }.sorted { a, b in a.startTime < b.startTime }
+            }.sorted { a, b in a.startTime < b.startTime ? true : a.id < b.id }
         }
         set {
             var newDictionary: [String: [Int]] = [:]
