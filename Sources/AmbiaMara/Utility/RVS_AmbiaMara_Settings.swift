@@ -50,8 +50,16 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
         /* ############################################################## */
         /**
          */
-        var asKVP: KVP { (key: id, value: [startTime, warnTime, finalTime]) }
+        var kvp: KVP { (key: id, value: [startTime, warnTime, finalTime]) }
         
+        /* ############################################################## */
+        /**
+         */
+        var isCurrent: Bool {
+            get { id == RVS_AmbiaMara_Settings().currentTimerID }
+            set { RVS_AmbiaMara_Settings().currentTimerID = id }
+        }
+
         /* ############################################################## */
         /**
          */
@@ -110,12 +118,12 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     /**
      */
     private func _remove(timer inTimer: TimerSettings) {
-        if let index = timers.firstIndex(where: { $0.id == inTimer.id }) {
+        if let index = ids.firstIndex(of: inTimer.id) {
             timers.remove(at: index)
         }
         
         if !(0..<timers.count).contains(currentTimerIndex) {
-            currentTimerIndex = max(0, min(currentTimerIndex, timers.count - 1))
+            currentTimerIndex = max(-1, min(currentTimerIndex, timers.count - 1))
         }
     }
 
@@ -136,11 +144,6 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     /* ################################################################## */
     /**
      */
-    var ids: [String] { timers.map { $0.id } }
-    
-    /* ################################################################## */
-    /**
-     */
     var timers: [TimerSettings] {
         get {
             guard let kvpArray = values[Keys._timers.rawValue] as? [String: [Int]],
@@ -157,12 +160,17 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
         set {
             var newDictionary: [String: [Int]] = [:]
             newValue.forEach {
-                let kvp = $0.asKVP
+                let kvp = $0.kvp
                 newDictionary[kvp.key] = kvp.value
             }
             values[Keys._timers.rawValue] = newDictionary
         }
     }
+
+    /* ################################################################## */
+    /**
+     */
+    var ids: [String] { timers.map { $0.id } }
 
     /* ################################################################## */
     /**
@@ -173,13 +181,18 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     /**
      */
     var currentTimerIndex: Int {
-        get {
-            let index = values[Keys.currentTimerIndex.rawValue] as? Int ?? 0
-            return max(0, min(index, timers.count - 1))
-        }
+        get { max(-1, min(values[Keys.currentTimerIndex.rawValue] as? Int ?? -1, timers.count - 1)) }
         set { values[Keys.currentTimerIndex.rawValue] = newValue }
     }
-    
+
+    /* ################################################################## */
+    /**
+     */
+    var currentTimerID: String {
+        get { currentTimer.id }
+        set { currentTimerIndex = ids.firstIndex(of: newValue) ?? -1 }
+    }
+
     /* ################################################################## */
     /**
      */
@@ -187,6 +200,9 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
         get {
             if timers.isEmpty {
                 _add(timer: TimerSettings())
+                currentTimerIndex = 0
+            } else if -1 == currentTimerIndex {
+                currentTimerIndex = 0
             }
             return timers[currentTimerIndex]
         }
@@ -205,18 +221,8 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     /* ################################################################## */
     /**
      */
-    func getTimer(index inIndex: Int) -> TimerSettings? {
-        guard (0..<timers.count).contains(inIndex) else { return nil }
-        currentTimerIndex = inIndex
-        return timers[inIndex]
-    }
-
-    /* ################################################################## */
-    /**
-     */
-    func getTimer(id inID: String) -> TimerSettings? {
-        guard let index = timers.firstIndex(where: { $0.id == inID }) else { return nil }
-        currentTimerIndex = index
+    func getTimer(byID inID: String) -> TimerSettings? {
+        guard let index = ids.firstIndex(of: inID) else { return nil }
         return timers[index]
     }
 }
