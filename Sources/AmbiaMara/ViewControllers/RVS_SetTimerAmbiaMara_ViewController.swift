@@ -113,7 +113,13 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /**
      The period that we use for the "fade in" animation.
     */
-    private static let _fadeAnimationPeriod = CGFloat(1.0)
+    private static let _fadeInAnimationPeriod = CGFloat(1.0)
+
+    /* ################################################################## */
+    /**
+     The period that we use for the selection fade animation.
+    */
+    private static let _selectionFadeAnimationPeriod = CGFloat(0.25)
 
     /* ################################################################## */
     /**
@@ -168,6 +174,11 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     
     /* ################################################################## */
     /**
+    */
+    @IBOutlet weak var setupContainerView: UIView?
+    
+    /* ################################################################## */
+    /**
      The horizontal stack view that contains the three state buttons.
     */
     @IBOutlet weak var buttonContainerStackView: UIStackView?
@@ -176,19 +187,19 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /**
      The button to select the start time set state.
     */
-    @IBOutlet weak var startSetButton: RVS_MaskButton?
+    @IBOutlet weak var startSetButton: UIButton?
 
     /* ################################################################## */
     /**
      The button to select the warning time set state.
     */
-    @IBOutlet weak var warnSetButton: RVS_MaskButton?
+    @IBOutlet weak var warnSetButton: UIButton?
 
     /* ################################################################## */
     /**
      The button to select the final time set state.
     */
-    @IBOutlet weak var finalSetButton: RVS_MaskButton?
+    @IBOutlet weak var finalSetButton: UIButton?
 }
 
 /* ###################################################################################################################################### */
@@ -220,9 +231,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             DispatchQueue.main.async { [weak self] in
                 guard let setPickerControl = self?.setPickerControl else { return }
                 setPickerControl.reloadAllComponents()
-                setPickerControl.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: false)
-                setPickerControl.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: false)
-                setPickerControl.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
+                setPickerControl.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: true)
+                setPickerControl.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: true)
+                setPickerControl.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: true)
             }
         }
     }
@@ -263,7 +274,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      
      - parameter inButton: The button that was hit.
     */
-    @IBAction func setButtonHit(_ inButton: RVS_MaskButton) {
+    @IBAction func setButtonHit(_ inButton: UIButton) {
         switch inButton {
         case startSetButton:
             _state = .start
@@ -290,16 +301,12 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         view.layoutIfNeeded()
         if let startupLogo = startupLogo {
             startupLogo.alpha = 1.0
-            setPickerControl?.alpha = 0.0
-            buttonContainerStackView?.alpha = 0.0
-            labelContainerStackView?.alpha = 0.0
+            setupContainerView?.alpha = 0.0
             view.layoutIfNeeded()
-            UIView.animate(withDuration: Self._fadeAnimationPeriod,
+            UIView.animate(withDuration: Self._fadeInAnimationPeriod,
                            animations: { [weak self] in
                                             startupLogo.alpha = 0.0
-                                            self?.setPickerControl?.alpha = 1.0
-                                            self?.buttonContainerStackView?.alpha = 1.0
-                                            self?.labelContainerStackView?.alpha = 1.0
+                                            self?.setupContainerView?.alpha = 1.0
                                             self?.view.layoutIfNeeded()
                                         },
                            completion: { [weak self] _ in
@@ -317,17 +324,12 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      This sets up the buttons and the picker to the current state.
     */
     func setButtonsUp() {
-        pickerTime = 0
         stateLabel?.text = "SLUG-STATE-\(_state.stringValue)".localizedVariant
-        setPickerControl?.reloadAllComponents()
-        labelContainerStackView?.backgroundColor = UIColor(named: "\(_state.stringValue)-GradientTopColor")
-        stateLabel?.textColor = .final == _state ? .white : .black
-        hoursLabel?.textColor = .final == _state ? .white : .black
-        minutesLabel?.textColor = .final == _state ? .white : .black
-        secondsLabel?.textColor = .final == _state ? .white : .black
-        startSetButton?.reversed = .start == _state
-        warnSetButton?.reversed = .warn == _state
-        finalSetButton?.reversed = .final == _state
+        
+        startSetButton?.isUserInteractionEnabled = .start != _state
+        warnSetButton?.isUserInteractionEnabled = .warn != _state
+        finalSetButton?.isUserInteractionEnabled = .final != _state
+        
         switch _state {
         case .start:
             pickerTime = RVS_AmbiaMara_Settings().currentTimer.startTime
@@ -338,6 +340,23 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         default:
             break
         }
+        
+        view.layoutIfNeeded()
+        UIView.animate(withDuration: Self._selectionFadeAnimationPeriod,
+                       animations: { [weak self] in
+                                        self?.setupContainerView?.backgroundColor = UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
+                                        self?.stateLabel?.textColor = .final == self?._state ? .white : .black
+                                        self?.hoursLabel?.textColor = .final == self?._state ? .white : .black
+                                        self?.minutesLabel?.textColor = .final == self?._state ? .white : .black
+                                        self?.secondsLabel?.textColor = .final == self?._state ? .white : .black
+                                        self?.startSetButton?.backgroundColor = .start != self?._state ? .black : self?.setupContainerView?.backgroundColor
+                                        self?.warnSetButton?.backgroundColor = .warn != self?._state ? .black : self?.setupContainerView?.backgroundColor
+                                        self?.finalSetButton?.backgroundColor = .final != self?._state ? .black : self?.setupContainerView?.backgroundColor
+                                        self?.view.layoutIfNeeded()
+                                    },
+                       completion: nil
+        )
+
         setPickerControl?.reloadAllComponents()
     }
 }
@@ -408,8 +427,7 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
         ret.setTitle(String(value), for: .normal)
         ret.cornerRadius = Self._pickerCornerRadius
         ret.buttonFont = Self._pickerFont
-        ret.gradientStartColor = UIColor(named: "\(_state.stringValue)-GradientTopColor")
-        ret.gradientEndColor = UIColor(named: "\(_state.stringValue)-GradientBottomColor")
+        ret.gradientStartColor = UIColor(named: "\(_state.stringValue)-Color")
         ret.isEnabled = false
         ret.reversed = (inRow == inPickerView.selectedRow(inComponent: inComponent))
         return ret
