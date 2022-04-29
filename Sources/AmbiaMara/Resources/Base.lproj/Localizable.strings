@@ -19,3 +19,14 @@
 "SLUG-STATE-Start"                              =   "Total Time";
 "SLUG-STATE-Warn"                               =   "Warning Time";
 "SLUG-STATE-Final"                              =   "Final Time";
+
+// MARK: -
+// MARK: ACCESSIBILITY
+// MARK: -
+
+"SLUG-ACC-HOURS-FORMAT"                         =   "This wheel will allow you to specify up to %d hours.";
+"SLUG-ACC-MINUTES-FORMAT"                       =   "This wheel will allow you to specify up to %d minutes.";
+"SLUG-ACC-SECONDS-FORMAT"                       =   "This wheel will allow you to specify up to %d seconds.";
+"SLUG-ACC-STATE-Start"                          =   "This is the total time for the timer.";
+"SLUG-ACC-STATE-Warn"                           =   "When this time is reached, the timer goes into a \"warning\" state, and the color changes. If you leave the time at 0, the warning state never happens, and the timer either goes directly to the \"Final Countdown\" state, or to an alarm.";
+"SLUG-ACC-STATE-Final"                          =   "When this time is reached, the timer goes into a \"final countdown\" state, and the color changes again. If you leave the time at 0, the final countdown state never happens, and the timer goes directly to an alarm.";

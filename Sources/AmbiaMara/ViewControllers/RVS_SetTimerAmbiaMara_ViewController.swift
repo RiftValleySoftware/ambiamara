@@ -249,6 +249,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         hoursLabel?.text = (hoursLabel?.text ?? "ERROR").localizedVariant
         minutesLabel?.text = (minutesLabel?.text ?? "ERROR").localizedVariant
         secondsLabel?.text = (secondsLabel?.text ?? "ERROR").localizedVariant
+        startSetButton?.accessibilityLabel = "SLUG-ACC-STATE-Start".localizedVariant
+        warnSetButton?.accessibilityLabel = "SLUG-ACC-STATE-Warn".localizedVariant
+        finalSetButton?.accessibilityLabel = "SLUG-ACC-STATE-Final".localizedVariant
         setButtonsUp()
     }
     
@@ -331,6 +334,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         warnSetButton?.isUserInteractionEnabled = .warn != _state
         finalSetButton?.isUserInteractionEnabled = .final != _state
         
+        setupContainerView?.accessibilityLabel = "SLUG-ACC-STATE-\(_state.stringValue)".localizedVariant
+
         switch _state {
         case .start:
             pickerTime = RVS_AmbiaMara_Settings().currentTimer.startTime
