@@ -266,6 +266,8 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
             } else if -1 == currentTimerIndex {
                 currentTimerIndex = 0
             }
+            
+            currentTimerIndex = min(currentTimerIndex, numberOfTimers - 1)
             return timers[currentTimerIndex]
         }
         
