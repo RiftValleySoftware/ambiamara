@@ -22,46 +22,108 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     // MARK: Individual Timer State
     /* ################################################################################################################################## */
     struct TimerSettings {
-        /* ############################################################## */
+        /* ############################################################################################################################## */
+        // MARK: Default Range Setup Struct
+        /* ############################################################################################################################## */
         /**
+         This allows us to have an easily indexable set of values, so that we can specify warning and final suggestions for certain times.
+         */
+        struct DefaultRangeElement: Hashable {
+            /* ###################################################### */
+            /**
+             The range to which this applies.
+            */
+            let range: Range<Int>
+            
+            /* ###################################################### */
+            /**
+             The warning time (seconds)
+            */
+            let warnTime: Int
+            
+            /* ###################################################### */
+            /**
+             The final time (seconds)
+            */
+            let finalTime: Int
+            
+            /* ###################################################### */
+            /**
+             We hash on the range only.
+              - parameter into: The hasher to set.
+            */
+            func hash(into inHasher: inout Hasher) {
+                inHasher.combine(range)
+            }
+
+            /* ###################################################### */
+            /**
+             We equate on the range only.
+             - parameter lhs: The lefthand side of the comparison.
+             - parameter rhs: The righthand side of the comparison.
+             - returns: True, if the ranges match.
+             */
+            static func == (lhs: DefaultRangeElement, rhs: DefaultRangeElement) -> Bool {
+                lhs.range == rhs.range
+            }
+        }
+        
+        /* ########################################################## */
+        /**
+         This has the timer settings in a Key-Value-Pair (KVP) fashion, for storage.
+         - parameter key: The key, which is from the UUID string.
+         - parameter value: A three-element Array of Int:
+                            - 0 is start time
+                            - 1 is warn time
+                            - 2 is final time.
+                            The values are seconds.
          */
         typealias KVP = (key: String, value: [Int])
         
-        /* ############################################################## */
+        /* ########################################################## */
         /**
+         The ID, which is set from a UUID.
          */
         let id: String
 
-        /* ############################################################## */
+        /* ########################################################## */
         /**
+         The start time (as seconds)
          */
         var startTime: Int
 
-        /* ############################################################## */
+        /* ########################################################## */
         /**
+         The warning time (as seconds)
          */
         var warnTime: Int
 
-        /* ############################################################## */
+        /* ########################################################## */
         /**
+         The warning time (as seconds)
          */
         var finalTime: Int
         
-        /* ############################################################## */
+        /* ########################################################## */
         /**
+         - returns: The timer, expressed as a KVP.
          */
         var kvp: KVP { (key: id, value: [startTime, warnTime, finalTime]) }
         
-        /* ############################################################## */
+        /* ########################################################## */
         /**
+         - returns: True, if this is the currently selected timer.
+         Setting this, selects this timer.
          */
         var isCurrent: Bool {
             get { id == RVS_AmbiaMara_Settings().currentTimerID }
             set { RVS_AmbiaMara_Settings().currentTimerID = id }
         }
 
-        /* ############################################################## */
+        /* ########################################################## */
         /**
+         Initializer, from a KVP
+         - parameter inKVP: The KVP, specifying this timer.
          */
         init(_ inKVP: KVP) {
             id = inKVP.key
@@ -70,8 +132,14 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
             finalTime = inKVP.value[2]
         }
 
-        /* ############################################################## */
+        /* ########################################################## */
         /**
+         Initializer with values. All are optional.
+         - parameters:
+            - id: The unique ID string. If not provided, a new one is created as a UUID string.
+            - startTime: The start time, in seconds. If not provided, this is 0.
+            - warnTime: The warning time, in seconds. If not provided, this is 0.
+            - finalTime: The final time, in seconds. If not provided, this is 0.
          */
         init(id inID: String = UUID().uuidString, startTime inStartTime: Int = 0, warnTime inWarnTime: Int = 0, finalTime inFinalTime: Int = 0) {
             id = inID
@@ -90,11 +158,13 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     enum Keys: String {
         /* ############################################################## */
         /**
+         The timers, stored as a Dictionary (key is the ID).
          */
-        case _timers
+        case timers
 
         /* ############################################################## */
         /**
+         The current selected timer index. -1 is no timer selected,
          */
         case currentTimerIndex
 
@@ -103,19 +173,17 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
          These are all the keys, in an Array of String.
          */
         static var allKeys: [String] { [
-                                        _timers.rawValue,
+                                        timers.rawValue,
                                         currentTimerIndex.rawValue
                                         ]
         }
     }
-    
-    /* ################################################################## */
-    /**
-     */
-    override var keys: [String] { Keys.allKeys }
 
     /* ################################################################## */
     /**
+     Remove the timer from storage.
+     - parameter timer: The timer to be removed.
+     Upon return, the timer is no longer styored in persistent prefs.
      */
     private func _remove(timer inTimer: TimerSettings) {
         if let index = ids.firstIndex(of: inTimer.id) {
@@ -129,24 +197,32 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
 
     /* ################################################################## */
     /**
+     Add the timer to storage. If the timer is already in storage, it is updated.
+     - parameter timer: The timer to be added.
      */
     private func _add(timer inTimer: TimerSettings) {
         guard let index = timers.firstIndex(where: { $0.id == inTimer.id }) else {
             timers.append(inTimer)
-            currentTimerIndex = timers.count - 1
             return
         }
    
-        currentTimerIndex = index
         timers[index] = inTimer
     }
+    
+    /* ################################################################## */
+    /**
+     The keys (for determining storage).
+     */
+    override var keys: [String] { Keys.allKeys }
 
     /* ################################################################## */
     /**
+     The timers, as TimerSettings instances.
+     The Array is sorted by the duration of the timer Start times.
      */
     var timers: [TimerSettings] {
         get {
-            guard let kvpArray = values[Keys._timers.rawValue] as? [String: [Int]],
+            guard let kvpArray = values[Keys.timers.rawValue] as? [String: [Int]],
                   !kvpArray.isEmpty
             else { return [] }
             
@@ -163,22 +239,25 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
                 let kvp = $0.kvp
                 newDictionary[kvp.key] = kvp.value
             }
-            values[Keys._timers.rawValue] = newDictionary
+            values[Keys.timers.rawValue] = newDictionary
         }
     }
 
     /* ################################################################## */
     /**
+     The IDs of the timer Array (in the order of the timer sort)
      */
     var ids: [String] { timers.map { $0.id } }
 
     /* ################################################################## */
     /**
+     The number of timers.
      */
     var numberOfTimers: Int { ids.count }
 
     /* ################################################################## */
     /**
+     The current index into the Array of timers (so 0-based), of the currently selected timer.
      */
     var currentTimerIndex: Int {
         get { max(-1, min(values[Keys.currentTimerIndex.rawValue] as? Int ?? -1, timers.count - 1)) }
@@ -187,6 +266,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
 
     /* ################################################################## */
     /**
+     The ID of the currently selected timer.
      */
     var currentTimerID: String {
         get { currentTimer.id }
@@ -195,6 +275,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
 
     /* ################################################################## */
     /**
+     The currently selected timer instance.
      */
     var currentTimer: TimerSettings {
         get {
@@ -220,6 +301,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
 
     /* ################################################################## */
     /**
+     This fetches a timer by its ID.
      */
     func getTimer(byID inID: String) -> TimerSettings? {
         guard let index = ids.firstIndex(of: inID) else { return nil }

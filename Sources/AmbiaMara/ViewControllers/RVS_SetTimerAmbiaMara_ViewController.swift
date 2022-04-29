@@ -20,7 +20,7 @@ import RVS_MaskButton
  */
 class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /* ################################################################################################################################## */
-    // MARK: - Time Sections Enum -
+    // MARK: Time Sections Enum
     /* ################################################################################################################################## */
     /**
      The timer setup is accomplished via a picker control, with three sections: Hours (left), Minutes (center), and Seconds (right).
@@ -47,17 +47,12 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     }
 
     /* ################################################################################################################################## */
-    // MARK: - App State Enum -
+    // MARK: Screen State Enum
     /* ################################################################################################################################## */
     /**
+     These enums determine the state of this screen
      */
     enum States: Int {
-        /* ############################################################## */
-        /**
-         The timer is alarming.
-        */
-        case alarm = -1
-
         /* ############################################################## */
         /**
          The timer is setting the start time.
@@ -82,9 +77,6 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
         */
         var stringValue: String {
             switch self {
-            case .alarm:
-                return "Alarm"
-                
             case .start:
                 return "Start"
                 
@@ -99,18 +91,6 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
-     The size of the picker font
-    */
-    private static let _pickerFont = UIFont.boldSystemFont(ofSize: 60) // UIFont(name: "Let's Go Digital", size: 60)
-
-    /* ################################################################## */
-    /**
-     The size of the picker selection corner radius.
-    */
-    private static let _pickerCornerRadius = CGFloat(8)
-
-    /* ################################################################## */
-    /**
      The period that we use for the "fade in" animation.
     */
     private static let _fadeInAnimationPeriod = CGFloat(1.0)
@@ -119,11 +99,24 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /**
      The period that we use for the selection fade animation.
     */
-    private static let _selectionFadeAnimationPeriod = CGFloat(0.25)
+    private static let _selectionFadeAnimationPeriod = CGFloat(0.5)
 
     /* ################################################################## */
     /**
-     The period that we use for the "fade in" animation.
+     The size of the picker font
+    */
+    private static let _pickerFont = UIFont.boldSystemFont(ofSize: 60)
+
+    /* ################################################################## */
+    /**
+     The size of the picker selection corner radius.
+    */
+    private static let _pickerCornerRadius = CGFloat(4)
+
+    /* ################################################################## */
+    /**
+     The ranges that we use to populate the picker.
+     The picker will display Integers between the range endpoints.
     */
     private static let _pickerViewData: [Range<Int>] = [0..<100, 0..<60, 0..<60]
 
@@ -153,16 +146,19 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
+     The label over the hours wheel
     */
     @IBOutlet weak var hoursLabel: UILabel?
 
     /* ################################################################## */
     /**
+     The label over the minutes wheel
     */
     @IBOutlet weak var minutesLabel: UILabel?
 
     /* ################################################################## */
     /**
+     The label over the seconds wheel
     */
     @IBOutlet weak var secondsLabel: UILabel?
     
@@ -174,6 +170,7 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     
     /* ################################################################## */
     /**
+     This contains the whole timer settings area. It has a background color that changes for the state.
     */
     @IBOutlet weak var setupContainerView: UIView?
     
@@ -243,6 +240,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
 extension RVS_SetTimerAmbiaMara_ViewController {
+    /* ################################################################## */
+    /**
+     Called when the view hierarchy is set up. We use this to set our localizations and accessibility.
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         hoursLabel?.text = (hoursLabel?.text ?? "ERROR").localizedVariant
@@ -337,8 +338,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             pickerTime = RVS_AmbiaMara_Settings().currentTimer.warnTime
         case .final:
             pickerTime = RVS_AmbiaMara_Settings().currentTimer.finalTime
-        default:
-            break
         }
         
         view.layoutIfNeeded()
@@ -402,8 +401,6 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
             RVS_AmbiaMara_Settings().currentTimer.warnTime = pickerTime
         case .final:
             RVS_AmbiaMara_Settings().currentTimer.finalTime = pickerTime
-        default:
-            break
         }
 
         inPickerView.reloadAllComponents()
