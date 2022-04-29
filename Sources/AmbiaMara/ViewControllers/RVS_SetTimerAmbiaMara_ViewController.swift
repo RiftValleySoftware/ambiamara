@@ -205,6 +205,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     /* ################################################################## */
     /**
      Returns the currently limited value (warn can't be higher than start, and final can't be higher than either warn or start).
+     - parameter from: The time being checked (in seconds).
+     - returns: The normalized time (clipped, if necessary).
     */
     private func _stateTime(from inTime: Int) -> Int {
         var currentValue = inTime
@@ -263,10 +265,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             let seconds = min(59, currentValue)
             DispatchQueue.main.async { [weak self] in
                 guard let setPickerControl = self?.setPickerControl else { return }
-                setPickerControl.reloadAllComponents()
                 setPickerControl.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: false)
                 setPickerControl.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: false)
                 setPickerControl.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
+                setPickerControl.reloadAllComponents()
             }
         }
     }
