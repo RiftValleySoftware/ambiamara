@@ -105,7 +105,7 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /**
      The size of the picker font
     */
-    private static let _pickerFont = UIFont.monospacedDigitSystemFont(ofSize: 50, weight: .bold)
+    private static let _pickerFont = UIFont.monospacedDigitSystemFont(ofSize: 40, weight: .bold)
 
     /* ################################################################## */
     /**
@@ -264,9 +264,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             DispatchQueue.main.async { [weak self] in
                 guard let setPickerControl = self?.setPickerControl else { return }
                 setPickerControl.reloadAllComponents()
-                setPickerControl.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: true)
-                setPickerControl.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: true)
-                setPickerControl.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: true)
+                setPickerControl.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: false)
+                setPickerControl.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: false)
+                setPickerControl.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
             }
         }
     }
@@ -427,9 +427,11 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDataSource {
 extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
     /* ################################################################## */
     /**
-     All picker rows are the same height, based on the point size of the font.
+     All picker rows are the same height.
+     - parameter inPickerView: The picker instance.
+     - parameter rowHeightForComponent: ignored (the component we're checking).
     */
-    func pickerView(_: UIPickerView, rowHeightForComponent: Int) -> CGFloat { max(0, Self._pickerFont.pointSize) }
+    func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent: Int) -> CGFloat { inPickerView.bounds.height / 3 }
     
     /* ################################################################## */
     /**
