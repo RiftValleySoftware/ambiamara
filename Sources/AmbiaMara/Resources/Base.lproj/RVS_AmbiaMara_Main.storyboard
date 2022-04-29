@@ -32,7 +32,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ojq-yB-OEJ">
                                         <rect key="frame" x="0.0" y="0.0" width="337.5" height="60"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RRV-b8-AsH">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="RRV-b8-AsH">
                                                 <rect key="frame" x="0.0" y="0.0" width="337.5" height="45"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                                 <nil key="textColor"/>
@@ -41,19 +41,19 @@
                                             <stackView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xdm-Vs-RRO">
                                                 <rect key="frame" x="0.0" y="45" width="337.5" height="15"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-HOURS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyY-1I-cLM">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-HOURS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="eyY-1I-cLM">
                                                         <rect key="frame" x="0.0" y="0.0" width="112.5" height="15"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-MINUTES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WnN-su-9Io">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-MINUTES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WnN-su-9Io">
                                                         <rect key="frame" x="112.5" y="0.0" width="112.5" height="15"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-SECONDS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLK-rW-bOx">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-SECONDS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hLK-rW-bOx">
                                                         <rect key="frame" x="225" y="0.0" width="112.5" height="15"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <nil key="textColor"/>
@@ -194,22 +194,47 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qte-uJ-cL0">
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <barButtonItem systemItem="trash" id="p3d-KM-TEZ">
+                                        <connections>
+                                            <action selector="trashHit:" destination="BYZ-38-t0r" id="bdh-bG-99z"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="7UK-tL-fc7"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Doe-Qq-bhQ"/>
+                                    <barButtonItem systemItem="add" id="DFN-LB-4Im">
+                                        <connections>
+                                            <action selector="addHit:" destination="BYZ-38-t0r" id="UES-Eo-Lt3"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="uq8-S5-u02" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7aI-1a-ipv"/>
                             <constraint firstItem="sOf-1r-x28" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" priority="750" id="8AW-wf-t0n"/>
+                            <constraint firstItem="Qte-uJ-cL0" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="MpB-J6-3DX"/>
                             <constraint firstItem="sOf-1r-x28" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Oem-Ps-FSY"/>
+                            <constraint firstItem="Qte-uJ-cL0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="uq8-S5-u02" secondAttribute="bottom" id="UfB-Kk-iEV"/>
                             <constraint firstItem="uq8-S5-u02" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.8" priority="750" id="an6-HP-2NV"/>
-                            <constraint firstItem="uq8-S5-u02" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="e3E-k2-UGE"/>
+                            <constraint firstItem="uq8-S5-u02" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" priority="750" id="e3E-k2-UGE"/>
+                            <constraint firstItem="Qte-uJ-cL0" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="j8y-ba-2DA"/>
                             <constraint firstItem="sOf-1r-x28" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" priority="750" id="jcy-A0-Eyp"/>
+                            <constraint firstItem="uq8-S5-u02" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" id="kBR-aW-wnc"/>
                             <constraint firstItem="sOf-1r-x28" firstAttribute="width" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.6" id="leG-mg-2nK"/>
                             <constraint firstItem="sOf-1r-x28" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nhb-jF-CRl"/>
+                            <constraint firstItem="Qte-uJ-cL0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="trg-Ra-3wd"/>
                             <constraint firstItem="sOf-1r-x28" firstAttribute="height" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.6" id="xgQ-ho-JYq"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
+                        <outlet property="addBarButtonItem" destination="DFN-LB-4Im" id="Vkg-Il-g6V"/>
                         <outlet property="buttonContainerStackView" destination="WoK-h3-fWr" id="ih6-Rt-BzX"/>
                         <outlet property="finalSetButton" destination="bpG-gy-7Gm" id="TZ5-j1-jrq"/>
                         <outlet property="hoursLabel" destination="eyY-1I-cLM" id="jLa-XF-WJQ"/>
@@ -221,6 +246,8 @@
                         <outlet property="startSetButton" destination="ETf-1Y-vad" id="PJ8-0E-m1c"/>
                         <outlet property="startupLogo" destination="sOf-1r-x28" id="ybY-nK-DpV"/>
                         <outlet property="stateLabel" destination="RRV-b8-AsH" id="Ndk-FU-fHg"/>
+                        <outlet property="toolbar" destination="Qte-uJ-cL0" id="rvc-cA-SmW"/>
+                        <outlet property="trashBarButtonItem" destination="p3d-KM-TEZ" id="bbP-eh-ElX"/>
                         <outlet property="warnSetButton" destination="aqL-cx-ehW" id="ZIz-Uw-CWn"/>
                     </connections>
                 </viewController>
@@ -289,13 +316,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="883" height="877"/>
+        <image name="CenterImage" width="937" height="937"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="Final-Color">
             <color red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Start-Color">
-            <color red="0.012242102049083457" green="0.85844775883838387" blue="0.0066264808650919136" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.012000000104308128" green="0.85799998044967651" blue="0.0070000002160668373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Start-GradientTopColor">
             <color red="0.023000000044703484" green="1" blue="0.0040000001899898052" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -304,7 +331,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Warn-Color">
-            <color red="0.93402777777777779" green="0.81833905085691894" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.93400001525878906" green="0.81800001859664917" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

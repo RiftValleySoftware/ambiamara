@@ -121,6 +121,12 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
+     The maximum number of timers we can have.
+    */
+    private static let _maxTimerCount = 3
+
+    /* ################################################################## */
+    /**
      The current screen state.
     */
     private var _state: States = .start
@@ -196,12 +202,46 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
      The button to select the final time set state.
     */
     @IBOutlet weak var finalSetButton: UIButton?
+    
+    /* ################################################################## */
+    /**
+     This is the toolbar on the bottom, with the timers.
+    */
+    @IBOutlet weak var toolbar: UIToolbar?
+    
+    /* ################################################################## */
+    /**
+     This is the leftmost button, the trash icon.
+    */
+    @IBOutlet weak var trashBarButtonItem: UIBarButtonItem?
+    
+    /* ################################################################## */
+    /**
+     This is the rightmost button, the add button.
+    */
+    @IBOutlet weak var addBarButtonItem: UIBarButtonItem?
 }
 
 /* ###################################################################################################################################### */
 // MARK: Computed Properties
 /* ###################################################################################################################################### */
 extension RVS_SetTimerAmbiaMara_ViewController {
+    /* ################################################################## */
+    /**
+     This will list out timer toolbar items.
+    */
+    var timerBarItems: [UIBarButtonItem] {
+        var ret = [UIBarButtonItem]()
+        
+        guard let items = toolbar?.items else { return [] }
+        
+        for item in items.enumerated() where (2..<(items.count - 2)).contains(item.offset) {
+            ret.append(item.element)
+        }
+        
+        return ret
+    }
+
     /* ################################################################## */
     /**
      Returns the currently limited value (warn can't be higher than start, and final can't be higher than either warn or start).
@@ -269,6 +309,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                 setPickerControl.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: false)
                 setPickerControl.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
                 setPickerControl.reloadAllComponents()
+                self?.setUpBarButtonItems()
             }
         }
     }
@@ -329,12 +370,88 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         }
         setButtonsUp()
     }
+    
+    /* ################################################################## */
+    /**
+     Called when the trash bar button item has been hit.
+     - parameter: ignored.
+    */
+    @IBAction func trashHit(_: Any) {
+        if 1 < timerBarItems.count {
+            RVS_AmbiaMara_Settings().remove(timer: RVS_AmbiaMara_Settings().currentTimer)
+            setUpBarButtonItems()
+            _state = .start
+            setButtonsUp()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the add bar button item has been hit.
+     - parameter: ignored.
+    */
+    @IBAction func addHit(_: Any) {
+        if Self._maxTimerCount > timerBarItems.count {
+            RVS_AmbiaMara_Settings().add(timer: RVS_AmbiaMara_Settings.TimerSettings(), andSelect: true)
+            setUpBarButtonItems()
+            _state = .start
+            setButtonsUp()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the add bar button item has been hit.
+     - parameter: ignored.
+    */
+    @objc func selectToolbarItem(_ inToolbarButton: UIBarButtonItem) {
+        let tag = inToolbarButton.tag
+        guard (1...RVS_AmbiaMara_Settings().numberOfTimers).contains(tag) else { return }
+        RVS_AmbiaMara_Settings().currentTimerIndex = tag - 1
+        setUpBarButtonItems()
+        _state = .start
+        setButtonsUp()
+    }
 }
 
 /* ###################################################################################################################################### */
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RVS_SetTimerAmbiaMara_ViewController {
+    /* ################################################################## */
+    /**
+    */
+    func setUpBarButtonItems() {
+        if let items = toolbar?.items {
+            var newItems: [UIBarButtonItem] = [items[0], items[1], items[items.count - 2], items[items.count - 1]]
+            for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
+                let tag = timer.offset + 1
+                let timerButton = UIBarButtonItem()
+                let startTimeAsComponents = timer.element.startTimeAsComponents
+                timerButton.tag = tag
+                timerButton.title = "\(String(format: "%02d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+                timerButton.target = self
+                timerButton.action = #selector(selectToolbarItem(_:))
+                newItems.insert(timerButton, at: 2 + timer.offset)
+            }
+            
+            toolbar?.setItems(newItems, animated: false)
+            
+            determineBarButtonStatus()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+    */
+    func determineBarButtonStatus() {
+        trashBarButtonItem?.isEnabled = 1 < timerBarItems.count
+        for item in timerBarItems.enumerated() {
+            item.element.isEnabled = item.offset != RVS_AmbiaMara_Settings().currentTimerIndex
+        }
+        addBarButtonItem?.isEnabled = Self._maxTimerCount > timerBarItems.count
+    }
+    
     /* ################################################################## */
     /**
      This handles the "fade in" animation. This only happens, the first time.
@@ -467,6 +584,7 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
         inPickerView.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
 
         inPickerView.reloadAllComponents()
+        setUpBarButtonItems()
     }
     
     /* ################################################################## */

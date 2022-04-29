@@ -69,13 +69,45 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
 
         /* ########################################################## */
         /**
+         The start time (as hours, minutes, and seconds)
+         */
+        var startTimeAsComponents: [Int] {
+            var currentValue = startTime
+            
+            let hours = min(99, currentValue / (60 * 60))
+            currentValue -= (hours * 60 * 60)
+            let minutes = min(59, currentValue / 60)
+            currentValue -= (minutes * 60)
+            let seconds = min(59, currentValue)
+            
+            return [hours, minutes, seconds]
+        }
+
+        /* ########################################################## */
+        /**
          The warning time (as seconds)
          */
         var warnTime: Int {
             get { max(0, min(_startTime - 1, _warnTime)) }
             set { _warnTime = max(0, min(_startTime - 1, newValue)) }
         }
-        
+ 
+        /* ########################################################## */
+        /**
+         The warning time (as hours, minutes, and seconds)
+         */
+        var warnTimeAsComponents: [Int] {
+            var currentValue = warnTime
+            
+            let hours = min(99, currentValue / (60 * 60))
+            currentValue -= (hours * 60 * 60)
+            let minutes = min(59, currentValue / 60)
+            currentValue -= (minutes * 60)
+            let seconds = min(59, currentValue)
+            
+            return [hours, minutes, seconds]
+        }
+
         /* ########################################################## */
         /**
          The warning time (as seconds)
@@ -85,6 +117,22 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
             set { _finalTime = max(0, min(warnTime - 1, newValue)) }
         }
         
+       /* ########################################################## */
+       /**
+        The final time (as hours, minutes, and seconds)
+        */
+       var finalTimeAsComponents: [Int] {
+           var currentValue = finalTime
+           
+           let hours = min(99, currentValue / (60 * 60))
+           currentValue -= (hours * 60 * 60)
+           let minutes = min(59, currentValue / 60)
+           currentValue -= (minutes * 60)
+           let seconds = min(59, currentValue)
+           
+           return [hours, minutes, seconds]
+       }
+
         /* ########################################################## */
         /**
          - returns: The timer, expressed as a KVP.
@@ -145,6 +193,12 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
 
         /* ############################################################## */
         /**
+         The timer IDs, stored as an Array. This is how we order the timers.
+         */
+        case timerIDs
+
+        /* ############################################################## */
+        /**
          The current selected timer index. -1 is no timer selected,
          */
         case currentTimerIndex
@@ -155,6 +209,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
          */
         static var allKeys: [String] { [
                                         timers.rawValue,
+                                        timerIDs.rawValue,
                                         currentTimerIndex.rawValue
                                         ]
         }
@@ -166,9 +221,9 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
      - parameter timer: The timer to be removed.
      Upon return, the timer is no longer styored in persistent prefs.
      */
-    private func _remove(timer inTimer: TimerSettings) {
-        if let index = ids.firstIndex(of: inTimer.id) {
-            timers.remove(at: index)
+    func remove(timer inTimer: TimerSettings) {
+        if let timerIndex = ids.firstIndex(of: inTimer.id) {
+            timers.remove(at: timerIndex)
         }
         
         if !(0..<timers.count).contains(currentTimerIndex) {
@@ -180,14 +235,22 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     /**
      Add the timer to storage. If the timer is already in storage, it is updated.
      - parameter timer: The timer to be added.
+     - parameter andSelect: If true, then the current selection will move to this timer. Default is false.
      */
-    private func _add(timer inTimer: TimerSettings) {
+    func add(timer inTimer: TimerSettings, andSelect inAndSelect: Bool = false) {
         guard let index = timers.firstIndex(where: { $0.id == inTimer.id }) else {
             timers.append(inTimer)
+            if inAndSelect {
+                currentTimerIndex = timers.count - 1
+            }
             return
         }
    
         timers[index] = inTimer
+        
+        if inAndSelect {
+            currentTimerIndex = index
+        }
     }
     
     /* ################################################################## */
@@ -204,31 +267,36 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     var timers: [TimerSettings] {
         get {
             guard let kvpArray = values[Keys.timers.rawValue] as? [String: [Int]],
-                  !kvpArray.isEmpty
+                  !kvpArray.isEmpty,
+                  !ids.isEmpty
             else { return [] }
             
-            return kvpArray.compactMap {
-                guard 3 == $0.value.count,
-                      !$0.key.isEmpty
+            return ids.compactMap {
+                guard let timer = kvpArray[$0],
+                      3 == timer.count,
+                      !$0.isEmpty
                 else { return nil }
-                return TimerSettings(id: $0.key, startTime: $0.value[0], warnTime: $0.value[1], finalTime: $0.value[2])
-            }.sorted { a, b in a.startTime < b.startTime ? true : a.id < b.id }
+                return TimerSettings(id: $0, startTime: timer[0], warnTime: timer[1], finalTime: timer[2])
+            }
         }
         set {
+            var ids = [String]()
             var newDictionary: [String: [Int]] = [:]
             newValue.forEach {
                 let kvp = $0.kvp
+                ids.append(kvp.key)
                 newDictionary[kvp.key] = kvp.value
             }
+            values[Keys.timerIDs.rawValue] = ids
             values[Keys.timers.rawValue] = newDictionary
         }
     }
 
     /* ################################################################## */
     /**
-     The IDs of the timer Array (in the order of the timer sort)
+     This returns the timer IDs, as an Array. This is how we deal with ordering the timers, since they are stored as a Dictionary.
      */
-    var ids: [String] { timers.map { $0.id } }
+    var ids: [String] { values[Keys.timerIDs.rawValue] as? [String] ?? [] }
 
     /* ################################################################## */
     /**
@@ -260,8 +328,8 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
      */
     var currentTimer: TimerSettings {
         get {
-            if timers.isEmpty {
-                _add(timer: TimerSettings())
+            if ids.isEmpty {
+                add(timer: TimerSettings())
                 currentTimerIndex = 0
             } else if -1 == currentTimerIndex {
                 currentTimerIndex = 0
@@ -276,7 +344,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
                 currentTimerIndex = index
                 timers[currentTimerIndex] = newValue
             } else {
-                _add(timer: newValue)
+                add(timer: newValue)
                 currentTimerIndex = timers.count - 1
             }
         }
