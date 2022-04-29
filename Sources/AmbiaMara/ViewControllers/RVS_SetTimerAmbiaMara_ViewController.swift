@@ -123,13 +123,13 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /**
      The maximum number of timers we can have.
     */
-    private static let _maxTimerCount = 3
+    private static let _maxTimerCount = 2
 
     /* ################################################################## */
     /**
      The current screen state.
     */
-    private var _state: States = .start
+    private var _state: States = .start { didSet { setButtonsUp() } }
 
     /* ################################################################## */
     /**
@@ -220,6 +220,12 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
      This is the rightmost button, the add button.
     */
     @IBOutlet weak var addBarButtonItem: UIBarButtonItem?
+    
+    /* ################################################################## */
+    /**
+     This starts the timer.
+    */
+    @IBOutlet weak var startButton: UIButton!
 }
 
 /* ###################################################################################################################################### */
@@ -401,6 +407,16 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     
     /* ################################################################## */
     /**
+     The timer start button was hit.
+     
+     - parameter: ignored.
+    */
+    @IBAction func startButtonHit(_: Any) {
+        _state = .start
+    }
+
+    /* ################################################################## */
+    /**
      Called when the add bar button item has been hit.
      - parameter: ignored.
     */
@@ -410,7 +426,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         RVS_AmbiaMara_Settings().currentTimerIndex = tag - 1
         setUpBarButtonItems()
         _state = .start
-        setButtonsUp()
     }
 }
 
@@ -485,9 +500,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     func setButtonsUp() {
         stateLabel?.text = "SLUG-STATE-\(_state.stringValue)".localizedVariant
         
-        startSetButton?.isUserInteractionEnabled = .start != _state
-        warnSetButton?.isUserInteractionEnabled = .warn != _state
-        finalSetButton?.isUserInteractionEnabled = .final != _state
+        startSetButton?.isEnabled = .start != _state
+        warnSetButton?.isEnabled = .warn != _state
+        finalSetButton?.isEnabled = .final != _state
         
         setupContainerView?.accessibilityLabel = "SLUG-ACC-STATE-\(_state.stringValue)".localizedVariant
 
@@ -508,9 +523,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                                         self?.hoursLabel?.textColor = .final == self?._state ? .white : .black
                                         self?.minutesLabel?.textColor = .final == self?._state ? .white : .black
                                         self?.secondsLabel?.textColor = .final == self?._state ? .white : .black
-                                        self?.startSetButton?.backgroundColor = .start != self?._state ? .black : self?.setupContainerView?.backgroundColor
-                                        self?.warnSetButton?.backgroundColor = .warn != self?._state ? .black : self?.setupContainerView?.backgroundColor
-                                        self?.finalSetButton?.backgroundColor = .final != self?._state ? .black : self?.setupContainerView?.backgroundColor
                                         self?.view.layoutIfNeeded()
                                     },
                        completion: nil

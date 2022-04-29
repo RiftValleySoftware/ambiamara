@@ -107,11 +107,11 @@
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="BAx-Ku-HQd"/>
                                         </connections>
                                     </pickerView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="WoK-h3-fWr">
-                                        <rect key="frame" x="20" y="210" width="297.5" height="60"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="WoK-h3-fWr">
+                                        <rect key="frame" x="4" y="210" width="329.5" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETf-1Y-vad">
-                                                <rect key="frame" x="0.0" y="6" width="85.5" height="48"/>
+                                                <rect key="frame" x="0.0" y="6" width="79" height="48"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" name="Start-Color"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -128,7 +128,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqL-cx-ehW">
-                                                <rect key="frame" x="105.5" y="6" width="86" height="48"/>
+                                                <rect key="frame" x="83" y="6" width="79.5" height="48"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" name="Warn-Color"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -145,7 +145,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpG-gy-7Gm">
-                                                <rect key="frame" x="211.5" y="6" width="86" height="48"/>
+                                                <rect key="frame" x="166.5" y="6" width="79.5" height="48"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" name="Final-Color"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -161,13 +161,32 @@
                                                     <action selector="setButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Llg-tl-vEn"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42o-kL-hkS">
+                                                <rect key="frame" x="250" y="6" width="79.5" height="48"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" name="Start-Color"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal">
+                                                    <imageReference key="image" image="arrowtriangle.forward.fill" catalog="system" symbolScale="large"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="startButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fQh-vX-iNd"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="bpG-gy-7Gm" firstAttribute="height" secondItem="ETf-1Y-vad" secondAttribute="height" id="4X5-Mf-8ZI"/>
                                             <constraint firstAttribute="height" constant="60" id="7KZ-S8-w8y"/>
+                                            <constraint firstItem="42o-kL-hkS" firstAttribute="height" secondItem="ETf-1Y-vad" secondAttribute="height" id="CMM-yj-wve"/>
                                             <constraint firstItem="ETf-1Y-vad" firstAttribute="height" secondItem="WoK-h3-fWr" secondAttribute="height" multiplier="0.8" id="SOA-Cg-9Jl"/>
                                             <constraint firstItem="aqL-cx-ehW" firstAttribute="height" secondItem="ETf-1Y-vad" secondAttribute="height" id="V1V-HT-c76"/>
+                                            <constraint firstItem="42o-kL-hkS" firstAttribute="width" secondItem="ETf-1Y-vad" secondAttribute="width" id="WRt-rJ-n0o"/>
                                             <constraint firstItem="bpG-gy-7Gm" firstAttribute="width" secondItem="ETf-1Y-vad" secondAttribute="width" id="rRJ-wQ-s67"/>
                                             <constraint firstItem="aqL-cx-ehW" firstAttribute="width" secondItem="ETf-1Y-vad" secondAttribute="width" id="uGZ-8i-Stw"/>
                                         </constraints>
@@ -177,8 +196,8 @@
                                 <constraints>
                                     <constraint firstItem="ojq-yB-OEJ" firstAttribute="top" secondItem="uq8-S5-u02" secondAttribute="top" id="A2Z-sE-TH9"/>
                                     <constraint firstAttribute="trailing" secondItem="3QH-qQ-XP5" secondAttribute="trailing" constant="4" id="I58-3U-cNM"/>
-                                    <constraint firstAttribute="trailing" secondItem="WoK-h3-fWr" secondAttribute="trailing" constant="20" id="Qsu-p3-j6Q"/>
-                                    <constraint firstItem="WoK-h3-fWr" firstAttribute="leading" secondItem="uq8-S5-u02" secondAttribute="leading" constant="20" id="Xkp-Ls-1Np"/>
+                                    <constraint firstAttribute="trailing" secondItem="WoK-h3-fWr" secondAttribute="trailing" constant="4" id="Qsu-p3-j6Q"/>
+                                    <constraint firstItem="WoK-h3-fWr" firstAttribute="leading" secondItem="uq8-S5-u02" secondAttribute="leading" constant="4" id="Xkp-Ls-1Np"/>
                                     <constraint firstItem="3QH-qQ-XP5" firstAttribute="centerY" secondItem="uq8-S5-u02" secondAttribute="centerY" id="dC6-By-CdH"/>
                                     <constraint firstItem="WoK-h3-fWr" firstAttribute="top" secondItem="3QH-qQ-XP5" secondAttribute="bottom" id="dL5-Ex-m4I"/>
                                     <constraint firstItem="ojq-yB-OEJ" firstAttribute="bottom" secondItem="3QH-qQ-XP5" secondAttribute="top" id="e3d-A0-hcH"/>
@@ -243,6 +262,7 @@
                         <outlet property="secondsLabel" destination="hLK-rW-bOx" id="qKn-ac-0xV"/>
                         <outlet property="setPickerControl" destination="3QH-qQ-XP5" id="zLw-bo-MF1"/>
                         <outlet property="setupContainerView" destination="uq8-S5-u02" id="QjZ-RJ-5rS"/>
+                        <outlet property="startButton" destination="42o-kL-hkS" id="HbB-R9-InA"/>
                         <outlet property="startSetButton" destination="ETf-1Y-vad" id="PJ8-0E-m1c"/>
                         <outlet property="startupLogo" destination="sOf-1r-x28" id="ybY-nK-DpV"/>
                         <outlet property="stateLabel" destination="RRV-b8-AsH" id="Ndk-FU-fHg"/>
@@ -317,6 +337,7 @@
     </scenes>
     <resources>
         <image name="CenterImage" width="937" height="937"/>
+        <image name="arrowtriangle.forward.fill" catalog="system" width="128" height="113"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="Final-Color">
             <color red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
