@@ -22,52 +22,6 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     // MARK: Individual Timer State
     /* ################################################################################################################################## */
     struct TimerSettings {
-        /* ############################################################################################################################## */
-        // MARK: Default Range Setup Struct
-        /* ############################################################################################################################## */
-        /**
-         This allows us to have an easily indexable set of values, so that we can specify warning and final suggestions for certain times.
-         */
-        struct DefaultRangeElement: Hashable {
-            /* ###################################################### */
-            /**
-             The range to which this applies.
-            */
-            let range: Range<Int>
-            
-            /* ###################################################### */
-            /**
-             The warning time (seconds)
-            */
-            let warnTime: Int
-            
-            /* ###################################################### */
-            /**
-             The final time (seconds)
-            */
-            let finalTime: Int
-            
-            /* ###################################################### */
-            /**
-             We hash on the range only.
-              - parameter into: The hasher to set.
-            */
-            func hash(into inHasher: inout Hasher) {
-                inHasher.combine(range)
-            }
-
-            /* ###################################################### */
-            /**
-             We equate on the range only.
-             - parameter lhs: The lefthand side of the comparison.
-             - parameter rhs: The righthand side of the comparison.
-             - returns: True, if the ranges match.
-             */
-            static func == (lhs: DefaultRangeElement, rhs: DefaultRangeElement) -> Bool {
-                lhs.range == rhs.range
-            }
-        }
-        
         /* ########################################################## */
         /**
          This has the timer settings in a Key-Value-Pair (KVP) fashion, for storage.
@@ -79,7 +33,25 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
                             The values are seconds.
          */
         typealias KVP = (key: String, value: [Int])
-        
+
+        /* ########################################################## */
+        /**
+         The start time (as seconds)
+         */
+        private var _startTime: Int
+
+        /* ########################################################## */
+        /**
+         The warning time (as seconds)
+         */
+        private var _warnTime: Int
+
+        /* ########################################################## */
+        /**
+         The warning time (as seconds)
+         */
+        private var _finalTime: Int
+
         /* ########################################################## */
         /**
          The ID, which is set from a UUID.
@@ -90,19 +62,28 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
         /**
          The start time (as seconds)
          */
-        var startTime: Int
+        var startTime: Int {
+            get { _startTime }
+            set { _startTime = newValue }
+        }
 
         /* ########################################################## */
         /**
          The warning time (as seconds)
          */
-        var warnTime: Int
-
+        var warnTime: Int {
+            get { max(0, min(_startTime - 1, _warnTime)) }
+            set { _warnTime = max(0, min(_startTime - 1, newValue)) }
+        }
+        
         /* ########################################################## */
         /**
          The warning time (as seconds)
          */
-        var finalTime: Int
+        var finalTime: Int {
+            get { max(0, min(_startTime, warnTime - 1, _finalTime)) }
+            set { _finalTime = max(0, min(warnTime - 1, newValue)) }
+        }
         
         /* ########################################################## */
         /**
@@ -127,9 +108,9 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
          */
         init(_ inKVP: KVP) {
             id = inKVP.key
-            startTime = inKVP.value[0]
-            warnTime = inKVP.value[1]
-            finalTime = inKVP.value[2]
+            _startTime = inKVP.value[0]
+            _warnTime = inKVP.value[1]
+            _finalTime = inKVP.value[2]
         }
 
         /* ########################################################## */
@@ -143,9 +124,9 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
          */
         init(id inID: String = UUID().uuidString, startTime inStartTime: Int = 0, warnTime inWarnTime: Int = 0, finalTime inFinalTime: Int = 0) {
             id = inID
-            startTime = inStartTime
-            warnTime = inWarnTime
-            finalTime = inFinalTime
+            _startTime = inStartTime
+            _warnTime = inWarnTime
+            _finalTime = inFinalTime
         }
     }
 

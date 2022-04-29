@@ -105,7 +105,7 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /**
      The size of the picker font
     */
-    private static let _pickerFont = UIFont.boldSystemFont(ofSize: 60)
+    private static let _pickerFont = UIFont.monospacedDigitSystemFont(ofSize: 50, weight: .bold)
 
     /* ################################################################## */
     /**
@@ -115,10 +115,9 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
-     The ranges that we use to populate the picker.
-     The picker will display Integers between the range endpoints.
+     The ranges that we use to populate the picker (default).
     */
-    private static let _pickerViewData: [Range<Int>] = [0..<100, 0..<60, 0..<60]
+    private static let _defaultPickerViewData: [Range<Int>] = [0..<100, 0..<60, 0..<60]
 
     /* ################################################################## */
     /**
@@ -205,6 +204,42 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
 extension RVS_SetTimerAmbiaMara_ViewController {
     /* ################################################################## */
     /**
+     Returns the currently limited value (warn can't be higher than start, and final can't be higher than either warn or start).
+    */
+    private func _stateTime(from inTime: Int) -> Int {
+        var currentValue = inTime
+        
+        let startTimeInSeconds = RVS_AmbiaMara_Settings().currentTimer.startTime
+        let warnTimeInSeconds = RVS_AmbiaMara_Settings().currentTimer.warnTime
+        
+        let startTimeThreshold = startTimeInSeconds - 1
+        let warnTimeThreshold = startTimeInSeconds > warnTimeInSeconds && 0 < warnTimeInSeconds
+                                    ? warnTimeInSeconds - 1
+                                    : startTimeThreshold
+        
+        switch _state {
+        case .start:
+            break
+
+        case .warn:
+            currentValue = min(inTime, startTimeThreshold)
+            
+        case .final:
+            currentValue = min(inTime, warnTimeThreshold)
+        }
+        
+        return currentValue
+    }
+
+    /* ################################################################## */
+    /**
+     The ranges that we use to populate the picker.
+     The picker will display Integers between the range endpoints.
+    */
+    private var _pickerViewData: [Range<Int>] { Self._defaultPickerViewData }
+
+    /* ################################################################## */
+    /**
      This is the number of seconds currently represented by the picker.
      Setting it, sets the picker.
     */
@@ -219,7 +254,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         }
         
         set {
-            var currentValue = newValue
+            var currentValue = _stateTime(from: newValue)
+            
             let hours = min(99, currentValue / (60 * 60))
             currentValue -= (hours * 60 * 60)
             let minutes = min(59, currentValue / 60)
@@ -375,14 +411,14 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDataSource {
      
      - returns the number of components (always 3)
     */
-    func numberOfComponents(in: UIPickerView) -> Int { Self._pickerViewData.count }
+    func numberOfComponents(in: UIPickerView) -> Int { _pickerViewData.count }
     
     /* ################################################################## */
     /**
      - parameter: The picker view (ignored)
      - parameter numberOfRowsInComponent: The 0-based index of the component we are querying.
     */
-    func pickerView(_: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int { (Self._pickerViewData[inComponent].max() ?? -1) + 1 }
+    func pickerView(_: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int { (_pickerViewData[inComponent].max() ?? -1) + 1 }
 }
 
 /* ###################################################################################################################################### */
@@ -393,26 +429,51 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
     /**
      All picker rows are the same height, based on the point size of the font.
     */
-    func pickerView(_: UIPickerView, rowHeightForComponent: Int) -> CGFloat { max(0, Self._pickerFont.pointSize - 10) }
+    func pickerView(_: UIPickerView, rowHeightForComponent: Int) -> CGFloat { max(0, Self._pickerFont.pointSize) }
     
     /* ################################################################## */
     /**
+     This is called when a row is selected.
+     It verifies that the value is OK, and may change the selection, if not.
+     - parameter inPickerView: The picker instance.
+     - parameter didSelectRow: The 0-based row index, in the component.
+     - parameter inComponent: The component that contains the selected row (0-based index).
     */
     func pickerView(_ inPickerView: UIPickerView, didSelectRow inRow: Int, inComponent: Int) {
+        let originalPickerTime = _stateTime(from: pickerTime)
         switch _state {
         case .start:
-            RVS_AmbiaMara_Settings().currentTimer.startTime = pickerTime
+            RVS_AmbiaMara_Settings().currentTimer.startTime = originalPickerTime
         case .warn:
-            RVS_AmbiaMara_Settings().currentTimer.warnTime = pickerTime
+            RVS_AmbiaMara_Settings().currentTimer.warnTime = originalPickerTime
         case .final:
-            RVS_AmbiaMara_Settings().currentTimer.finalTime = pickerTime
+            RVS_AmbiaMara_Settings().currentTimer.finalTime = originalPickerTime
         }
+        
+        var currentValue = originalPickerTime
+        
+        let hours = min(99, currentValue / (60 * 60))
+        currentValue -= (hours * 60 * 60)
+        let minutes = min(59, currentValue / 60)
+        currentValue -= (minutes * 60)
+        let seconds = min(59, currentValue)
+        
+        inPickerView.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: false)
+        inPickerView.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: false)
+        inPickerView.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
 
         inPickerView.reloadAllComponents()
     }
     
     /* ################################################################## */
     /**
+     This returns the view to display for the picker row.
+     
+     - parameter inPickerView: The picker instance.
+     - parameter viewForRow: The 0-based row index to be displayed.
+     - parameter forComponent: The 0-based component index for the row.
+     - parameter reusing: If a view will be reused, we'll use that, instead.
+     - returns: A new view, containing the row. If it is selected, it is displayed as reversed.
     */
     func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inView: UIView?) -> UIView {
         let hasValue: [Bool] = [0 < inPickerView.selectedRow(inComponent: PickerComponents.hour.rawValue),
@@ -424,14 +485,18 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
                             && PickerComponents.second.rawValue == inComponent)
         else { return UIView() }
         
-        let value = Self._pickerViewData[inComponent][inRow]
-        let ret = RVS_MaskButton()
-        ret.setTitle(String(value), for: .normal)
-        ret.cornerRadius = Self._pickerCornerRadius
-        ret.buttonFont = Self._pickerFont
-        ret.gradientStartColor = UIColor(named: "\(_state.stringValue)-Color")
-        ret.isEnabled = false
-        ret.reversed = (inRow == inPickerView.selectedRow(inComponent: inComponent))
-        return ret
+        guard let reusedView = inView else {
+            let value = _pickerViewData[inComponent][inRow]
+            let ret = RVS_MaskButton()
+            ret.setTitle(String(value), for: .normal)
+            ret.cornerRadius = Self._pickerCornerRadius
+            ret.buttonFont = Self._pickerFont
+            ret.gradientStartColor = UIColor(named: "\(_state.stringValue)-Color")
+            ret.isEnabled = false
+            ret.reversed = (inRow == inPickerView.selectedRow(inComponent: inComponent))
+            return ret
+        }
+        
+        return reusedView
     }
 }
