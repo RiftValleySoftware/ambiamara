@@ -32,6 +32,7 @@
 		D47C02A72819CA6800D359F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D47C02AA2819CA6800D359F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RVS_AmbiaMara_LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_Settings.swift; sourceTree = "<group>"; };
+		D488F2EE281D6D960045E999 /* Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = Sources/Meta/Warnings.xcconfig; sourceTree = SOURCE_ROOT; };
 		D4C4B70B2819CEDB00E22ECA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4C4B70E2819CF8F00E22ECA /* AmbiaMara.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = AmbiaMara.docc; sourceTree = "<group>"; };
 		D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_BaseViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +58,7 @@
 		D44E7714281AD24F00B491EF /* ProjectMeta */ = {
 			isa = PBXGroup;
 			children = (
+				D488F2EE281D6D960045E999 /* Warnings.xcconfig */,
 				D44E7712281AD1B000B491EF /* AmbiaMara.entitlements */,
 			);
 			path = ProjectMeta;
@@ -285,6 +287,7 @@
 /* Begin XCBuildConfiguration section */
 		D47C02AD2819CA6800D359F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D488F2EE281D6D960045E999 /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -345,6 +348,7 @@
 		};
 		D47C02AE2819CA6800D359F5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D488F2EE281D6D960045E999 /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

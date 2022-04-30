@@ -21,6 +21,15 @@
 "SLUG-STATE-Final"                              =   "Final Time";
 
 // MARK: -
+// MARK: ALERTS
+// MARK: -
+
+"SLUG-DELETE-BUTTON-TEXT"                       =   "Delete";
+"SLUG-CANCEL-BUTTON-TEXT"                       =   "Cancel";
+"SLUG-DELETE-CONFIRM-HEADER"                    =   "Delete This Timer?";
+"SLUG-DELETE-CONFIRM-MESSAGE-FORMAT"            =   "Are you sure that you want to delete timer %d (%@)?";
+
+// MARK: -
 // MARK: ACCESSIBILITY
 // MARK: -
 
@@ -30,3 +39,4 @@
 "SLUG-ACC-STATE-Start"                          =   "This is the total time for the timer.";
 "SLUG-ACC-STATE-Warn"                           =   "When this time is reached, the timer goes into a \"warning\" state, and the color changes. If you leave the time at 0, the warning state never happens, and the timer either goes directly to the \"Final Countdown\" state, or to an alarm.";
 "SLUG-ACC-STATE-Final"                          =   "When this time is reached, the timer goes into a \"final countdown\" state, and the color changes again. If you leave the time at 0, the final countdown state never happens, and the timer goes directly to an alarm.";
+"SLUG-ACC-PLAY-BUTTON"                          =   "This starts the timer.";

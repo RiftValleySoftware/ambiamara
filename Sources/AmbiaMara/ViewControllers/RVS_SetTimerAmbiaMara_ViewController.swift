@@ -225,7 +225,7 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /**
      This starts the timer.
     */
-    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var startButton: UIButton?
 }
 
 /* ###################################################################################################################################### */
@@ -337,6 +337,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         startSetButton?.accessibilityLabel = "SLUG-ACC-STATE-Start".localizedVariant
         warnSetButton?.accessibilityLabel = "SLUG-ACC-STATE-Warn".localizedVariant
         finalSetButton?.accessibilityLabel = "SLUG-ACC-STATE-Final".localizedVariant
+        startButton?.accessibilityLabel = "SLUG-ACC-PLAY-BUTTON".localizedVariant
+
         setButtonsUp()
     }
     
@@ -384,10 +386,35 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     */
     @IBAction func trashHit(_: Any) {
         if 1 < timerBarItems.count {
-            RVS_AmbiaMara_Settings().remove(timer: RVS_AmbiaMara_Settings().currentTimer)
-            setUpToolbar()
-            _state = .start
-            setButtonsUp()
+            let timerTag = RVS_AmbiaMara_Settings().currentTimerIndex + 1
+            let startTimeAsComponents = RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents
+            var timeString: String
+            
+            if 0 < startTimeAsComponents[0] {
+                timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+            } else if 0 < startTimeAsComponents[1] {
+                timeString = "\(String(format: "%d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+            } else {
+                timeString = String(startTimeAsComponents[2])
+            }
+            
+            let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER".localizedVariant,
+                                                    message: String(format: "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT".localizedVariant, timerTag, timeString),
+                                                    preferredStyle: .alert
+            )
+
+            let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive, handler: { [weak self] _ in
+                RVS_AmbiaMara_Settings().remove(timer: RVS_AmbiaMara_Settings().currentTimer)
+                self?.setUpToolbar()
+                self?._state = .start
+                self?.setButtonsUp()
+            })
+            
+            alertController.addAction(okAction)
+            
+            alertController.addAction(UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel, handler: nil))
+
+            present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -443,9 +470,18 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                 let tag = timer.offset + 1
                 let timerButton = UIBarButtonItem()
                 let startTimeAsComponents = timer.element.startTimeAsComponents
+                var timeString: String
+                if 0 < startTimeAsComponents[0] {
+                    timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+                } else if 0 < startTimeAsComponents[1] {
+                    timeString = "\(String(format: "%d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+                } else {
+                    timeString = String(startTimeAsComponents[2])
+                }
                 timerButton.tag = tag
+
                 timerButton.image = UIImage(systemName: "\(tag).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
-                timerButton.accessibilityLabel = "\(String(format: "%02d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+                timerButton.accessibilityLabel = timeString
                 timerButton.target = self
                 timerButton.action = #selector(selectToolbarItem(_:))
                 newItems.insert(timerButton, at: 2 + timer.offset)
