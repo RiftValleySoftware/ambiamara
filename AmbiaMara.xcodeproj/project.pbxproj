@@ -21,6 +21,9 @@
 		D4C4B71A2819D40500E22ECA /* RVS-BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4C4B7192819D40500E22ECA /* RVS-BasicGCDTimer */; };
 		D4C4B71C2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */; };
 		D4C4B7212819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4B71F2819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift */; };
+		D4CE51B8281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B6281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift */; };
+		D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_ViewController.swift */; };
+		D4CE51BB281DD48700DA6B85 /* RVS_AboutAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51BA281DD48700DA6B85 /* RVS_AboutAmbiaMara_ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +40,9 @@
 		D4C4B70E2819CF8F00E22ECA /* AmbiaMara.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = AmbiaMara.docc; sourceTree = "<group>"; };
 		D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_BaseViewController.swift; sourceTree = "<group>"; };
 		D4C4B71F2819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_Extensions.swift; sourceTree = "<group>"; };
+		D4CE51B6281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_TimerAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
+		D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_SetAlarmAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
+		D4CE51BA281DD48700DA6B85 /* RVS_AboutAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AboutAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +123,9 @@
 			children = (
 				D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */,
 				D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */,
+				D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_ViewController.swift */,
+				D4CE51B6281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift */,
+				D4CE51BA281DD48700DA6B85 /* RVS_AboutAmbiaMara_ViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -247,10 +256,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4CE51BB281DD48700DA6B85 /* RVS_AboutAmbiaMara_ViewController.swift in Sources */,
 				D47C02A32819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift in Sources */,
 				D47C029F2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift in Sources */,
+				D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_ViewController.swift in Sources */,
 				D4C4B7212819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift in Sources */,
 				D486C829281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift in Sources */,
+				D4CE51B8281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift in Sources */,
 				D4C4B71C2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

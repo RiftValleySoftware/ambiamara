@@ -35,10 +35,15 @@
 // MARK: ACCESSIBILITY
 // MARK: -
 
-"SLUG-ACC-HOURS-FORMAT"                         =   "This wheel will allow you to specify up to %d hours.";
-"SLUG-ACC-MINUTES-FORMAT"                       =   "This wheel will allow you to specify up to %d minutes.";
-"SLUG-ACC-SECONDS-FORMAT"                       =   "This wheel will allow you to specify up to %d seconds.";
-"SLUG-ACC-STATE-Start"                          =   "This is the total time for the timer.";
-"SLUG-ACC-STATE-Warn"                           =   "When this time is reached, the timer goes into a \"warning\" state, and the color changes. If you leave the time at 0, the warning state never happens, and the timer either goes directly to the \"Final Countdown\" state, or to an alarm.";
-"SLUG-ACC-STATE-Final"                          =   "When this time is reached, the timer goes into a \"final countdown\" state, and the color changes again. If you leave the time at 0, the final countdown state never happens, and the timer goes directly to an alarm.";
+"SLUG-ACC-ALARM-BUTTON"                         =   "Selecting this button will bring in a screen that will allow you to specify an alarm for the timer.";
+"SLUG-ACC-ABOUT-BUTTON"                         =   "Selecting this button will bring in a screen that will provide information about this app.";
+"SLUG-ACC-0-FORMAT"                             =   "This wheel will allow you to set the timer to up to %d hours. It is currently set to %d hours.";
+"SLUG-ACC-1-FORMAT"                             =   "This wheel will allow you to set the timer to up to %d minutes. It is currently set to %d minutes.";
+"SLUG-ACC-2-FORMAT"                             =   "This wheel will allow you to set the timer to up to %d seconds. It is currently set to %d seconds.";
+"SLUG-ACC-STATE-Start"                          =   "This is the total time for the timer. It is specified in hours (up to 100), minutes (up to 59), and seconds (up to 59).";
+"SLUG-ACC-STATE-Warn"                           =   "When this time is reached, the timer goes into a \"warning\" state, and the color changes. If you leave this time at 0, the warning state never happens, and the timer either goes directly to the \"Final Countdown\" state, or to an alarm, when it completes. This time cannot be greater than the total time.";
+"SLUG-ACC-STATE-Final"                          =   "When this time is reached, the timer goes into a \"final countdown\" state, and the color changes again. If you leave this time at 0, the final countdown state never happens, and the timer goes directly to an alarm, when it completes. This time cannot be greater than the warning time, or the total time.";
 "SLUG-ACC-PLAY-BUTTON"                          =   "This starts the timer.";
+"SLUG-ACC-ADD-TIMER-BUTTON"                     =   "Selecting this button will add a new timer.";
+"SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT"           =   "Selecting this button will allow you to delete Timer %d.";
+"SLUG-ACC-CLEAR-BUTTON"                         =   "Selecting this button will reset the timer to 0.";

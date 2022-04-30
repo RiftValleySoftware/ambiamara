@@ -13,6 +13,41 @@ import RVS_Generic_Swift_Toolbox
 import RVS_MaskButton
 
 /* ###################################################################################################################################### */
+// MARK: - Cleantime Report Popover View Controller -
+/* ###################################################################################################################################### */
+/**
+ This controls the popover that is displayed, when touching the mode title button.
+ */
+class RVS_SetTimerAmbiaMara_PopoverViewController: UIViewController {
+    /* ################################################################## */
+    /**
+     The storyboard ID for this controller.
+     */
+    static let storyboardID = "RVS_SetTimerAmbiaMara_PopoverViewController"
+    
+    /* ################################################################## */
+    /**
+     The string that will be displayed in the popover.
+     */
+    var descriptionString: String = "ERROR"
+    
+    /* ################################################################## */
+    /**
+     The label that will display the description, in the popover.
+     */
+    @IBOutlet weak var descriptionLabel: UILabel?
+    
+    /* ################################################################## */
+    /**
+     Called when the view loads.
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        descriptionLabel?.text = descriptionString
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Initial View Controller -
 /* ###################################################################################################################################### */
 /**
@@ -91,6 +126,12 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
+     The height for our timer state description popover.
+    */
+    private static let _preferredPopoverHeightInDisplayUnits = CGFloat(300)
+    
+    /* ################################################################## */
+    /**
      The period that we use for the "fade in" animation.
     */
     private static let _fadeInAnimationPeriod = CGFloat(1.0)
@@ -129,8 +170,26 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /**
      The current screen state.
     */
-    private var _state: States = .start { didSet { setButtonsUp() } }
+    private var _state: States = .start { didSet { setUpButtons() } }
 
+    /* ################################################################## */
+    /**
+     The set alarm bar button item.
+    */
+    @IBOutlet weak var alarmSetBarButtonItem: UIBarButtonItem?
+    
+    /* ################################################################## */
+    /**
+     The button that sets the timer back to zero.
+    */
+    @IBOutlet weak var clearButton: UIButton?
+    
+    /* ################################################################## */
+    /**
+     The about screen bar button item.
+    */
+    @IBOutlet weak var infoBarButtonItem: UIBarButtonItem?
+    
     /* ################################################################## */
     /**
      The "startup" logo that we fade out.
@@ -226,6 +285,30 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
      This starts the timer.
     */
     @IBOutlet weak var startButton: UIButton?
+    
+    /* ################################################################## */
+    /**
+     The popover gesture recognizer for the state.
+    */
+    @IBOutlet var stateTapGestureRecognizer: UITapGestureRecognizer?
+    
+    /* ################################################################## */
+    /**
+     The popover gesture recognizer for the hours component.
+    */
+    @IBOutlet var hoursTapGestureRecognizer: UITapGestureRecognizer?
+    
+    /* ################################################################## */
+    /**
+     The popover gesture recognizer for the minutes component.
+    */
+    @IBOutlet var minutesTapGestureRecognizer: UITapGestureRecognizer?
+    
+    /* ################################################################## */
+    /**
+     The popover gesture recognizer for the seconds component.
+    */
+    @IBOutlet var secondsTapGestureRecognizer: UITapGestureRecognizer?
 }
 
 /* ###################################################################################################################################### */
@@ -334,14 +417,22 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         hoursLabel?.text = (hoursLabel?.text ?? "ERROR").localizedVariant
         minutesLabel?.text = (minutesLabel?.text ?? "ERROR").localizedVariant
         secondsLabel?.text = (secondsLabel?.text ?? "ERROR").localizedVariant
+        
+        infoBarButtonItem?.accessibilityLabel = "SLUG-ACC-ABOUT-BUTTON".localizedVariant
+        alarmSetBarButtonItem?.accessibilityLabel = "SLUG-ACC-ALARM-BUTTON".localizedVariant
         startSetButton?.accessibilityLabel = "SLUG-ACC-STATE-Start".localizedVariant
         warnSetButton?.accessibilityLabel = "SLUG-ACC-STATE-Warn".localizedVariant
         finalSetButton?.accessibilityLabel = "SLUG-ACC-STATE-Final".localizedVariant
         startButton?.accessibilityLabel = "SLUG-ACC-PLAY-BUTTON".localizedVariant
+        addBarButtonItem?.accessibilityLabel = "SLUG-ACC-ADD-TIMER-BUTTON".localizedVariant
+        clearButton?.accessibilityLabel = "SLUG-ACC-CLEAR-BUTTON".localizedVariant
+        
         bottomToolbar?.delegate = self
+
+        // Makes the toolbar background transparent.
         bottomToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
         bottomToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
-        setButtonsUp()
+        setUpButtons()
     }
     
     /* ############################################################## */
@@ -353,7 +444,26 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
-        fadeInAnimation()
+        view.layoutIfNeeded()
+        // First time through, we do a "fade in" animation.
+        if let startupLogo = startupLogo {
+            startupLogo.alpha = 1.0
+            setupContainerView?.alpha = 0.0
+            view.layoutIfNeeded()
+            UIView.animate(withDuration: Self._fadeInAnimationPeriod,
+                           animations: { [weak self] in
+                                            startupLogo.alpha = 0.0
+                                            self?.setupContainerView?.alpha = 1.0
+                                            self?.view.layoutIfNeeded()
+                                        },
+                           completion: { [weak self] _ in
+                                            DispatchQueue.main.async {
+                                                startupLogo.removeFromSuperview()
+                                                self?.startupLogo = nil
+                                            }
+                                        }
+            )
+        }
     }
 }
 
@@ -361,6 +471,21 @@ extension RVS_SetTimerAmbiaMara_ViewController {
 // MARK: Callbacks
 /* ###################################################################################################################################### */
 extension RVS_SetTimerAmbiaMara_ViewController {
+    /* ################################################################## */
+    /**
+     The clear button was hit.
+     - parameter inClearButton: the clear button instance.
+    */
+    @IBAction func clearButtonHit(_ inClearButton: UIButton) {
+        RVS_AmbiaMara_Settings().currentTimer.finalTime = 0
+        RVS_AmbiaMara_Settings().currentTimer.warnTime = 0
+        RVS_AmbiaMara_Settings().currentTimer.startTime = 0
+        
+        _state = .start
+        setUpButtons()
+        setUpToolbar()
+    }
+
     /* ################################################################## */
     /**
      Called when one of the state buttons is hit. It sets the screen state.
@@ -378,7 +503,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         default:
             _state = .start
         }
-        setButtonsUp()
+        setUpButtons()
     }
     
     /* ################################################################## */
@@ -411,7 +536,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                 RVS_AmbiaMara_Settings().remove(timer: RVS_AmbiaMara_Settings().currentTimer)
                 self?.setUpToolbar()
                 self?._state = .start
-                self?.setButtonsUp()
+                self?.setUpButtons()
             })
             
             alertController.addAction(okAction)
@@ -432,7 +557,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             RVS_AmbiaMara_Settings().add(timer: RVS_AmbiaMara_Settings.TimerSettings(), andSelect: true)
             setUpToolbar()
             _state = .start
-            setButtonsUp()
+            setUpButtons()
         }
     }
     
@@ -444,6 +569,44 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     */
     @IBAction func startButtonHit(_: Any) {
         _state = .start
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called, when someone selects the top mode label.
+     It displays a popover, with a description of the current mode.
+     - parameter: ignored.
+     */
+    @IBAction func displayTimerStateDescriptionPopover(_ inTapGestureRecognizer: UITapGestureRecognizer) {
+       if let popoverController = storyboard?.instantiateViewController(identifier: RVS_SetTimerAmbiaMara_PopoverViewController.storyboardID) as? RVS_SetTimerAmbiaMara_PopoverViewController {
+           var displayString = "ERROR"
+           var viewHook: UIView?
+           
+           guard let setPickerControl = setPickerControl else { return }
+           
+           switch inTapGestureRecognizer {
+           case hoursTapGestureRecognizer:
+               displayString = pickerView(setPickerControl, accessibilityLabelForComponent: 0) ?? "ERROR"
+               viewHook = hoursLabel
+           case minutesTapGestureRecognizer:
+               displayString = pickerView(setPickerControl, accessibilityLabelForComponent: 1) ?? "ERROR"
+               viewHook = minutesLabel
+           case secondsTapGestureRecognizer:
+               displayString = pickerView(setPickerControl, accessibilityLabelForComponent: 2) ?? "ERROR"
+               viewHook = secondsLabel
+           default:
+               displayString = "SLUG-ACC-STATE-\(_state.stringValue)".localizedVariant
+               viewHook = stateLabel
+           }
+           
+           popoverController.descriptionString = displayString
+           popoverController.modalPresentationStyle = .popover
+           popoverController.popoverPresentationController?.sourceView = viewHook
+           popoverController.popoverPresentationController?.delegate = self
+           popoverController.preferredContentSize = view?.window?.bounds.size ?? .zero
+           popoverController.preferredContentSize.height = min(popoverController.preferredContentSize.height, Self._preferredPopoverHeightInDisplayUnits)
+           present(popoverController, animated: true)
+       }
     }
 
     /* ################################################################## */
@@ -466,8 +629,11 @@ extension RVS_SetTimerAmbiaMara_ViewController {
 extension RVS_SetTimerAmbiaMara_ViewController: UIToolbarDelegate {
     /* ################################################################## */
     /**
+     This ensures that the toolbar floats over the lower part of the screen.
+     - parameter for: The bar positioning (ignored)
+     - returns .top (always).
     */
-    func position(for bar: UIBarPositioning) -> UIBarPosition { .top }
+    func position(for: UIBarPositioning) -> UIBarPosition { .top }
 }
 
 /* ###################################################################################################################################### */
@@ -476,6 +642,7 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIToolbarDelegate {
 extension RVS_SetTimerAmbiaMara_ViewController {
     /* ################################################################## */
     /**
+     This sets up the toolbar, by adding all the timers.
     */
     func setUpToolbar() {
         if let items = bottomToolbar?.items {
@@ -499,6 +666,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                 let imageName = "\(tag).circle\(currentTag == tag ? ".fill" : "")"
                 timerButton.image = UIImage(systemName: imageName)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
                 timerButton.accessibilityLabel = timeString
+                timerButton.isEnabled = currentTag != tag
                 timerButton.target = self
                 timerButton.tintColor = view?.tintColor
                 timerButton.action = #selector(selectToolbarItem(_:))
@@ -507,44 +675,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             
             bottomToolbar?.setItems(newItems, animated: false)
             
-            determineBarButtonStatus()
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-    */
-    func determineBarButtonStatus() {
-        trashBarButtonItem?.isEnabled = 1 < timerBarItems.count
-        for item in timerBarItems.enumerated() {
-            item.element.isEnabled = item.offset != RVS_AmbiaMara_Settings().currentTimerIndex
-        }
-        addBarButtonItem?.isEnabled = Self._maxTimerCount > timerBarItems.count
-    }
-    
-    /* ################################################################## */
-    /**
-     This handles the "fade in" animation. This only happens, the first time.
-     */
-    func fadeInAnimation() {
-        view.layoutIfNeeded()
-        if let startupLogo = startupLogo {
-            startupLogo.alpha = 1.0
-            setupContainerView?.alpha = 0.0
-            view.layoutIfNeeded()
-            UIView.animate(withDuration: Self._fadeInAnimationPeriod,
-                           animations: { [weak self] in
-                                            startupLogo.alpha = 0.0
-                                            self?.setupContainerView?.alpha = 1.0
-                                            self?.view.layoutIfNeeded()
-                                        },
-                           completion: { [weak self] _ in
-                                            DispatchQueue.main.async {
-                                                startupLogo.removeFromSuperview()
-                                                self?.startupLogo = nil
-                                            }
-                                        }
-            )
+            trashBarButtonItem?.accessibilityLabel = String(format: "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT".localizedVariant, currentTag)
+            trashBarButtonItem?.isEnabled = 1 < timerBarItems.count
+            addBarButtonItem?.isEnabled = Self._maxTimerCount > timerBarItems.count
         }
     }
     
@@ -552,12 +685,18 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     /**
      This sets up the buttons and the picker to the current state.
     */
-    func setButtonsUp() {
+    func setUpButtons() {
         stateLabel?.text = "SLUG-STATE-\(_state.stringValue)".localizedVariant
         
         startSetButton?.isEnabled = .start != _state
         warnSetButton?.isEnabled = .warn != _state
+                                    && 1 < RVS_AmbiaMara_Settings().currentTimer.startTime
         finalSetButton?.isEnabled = .final != _state
+                                    && 1 < RVS_AmbiaMara_Settings().currentTimer.startTime
+                                    && (1 < RVS_AmbiaMara_Settings().currentTimer.warnTime
+                                        || 0 == RVS_AmbiaMara_Settings().currentTimer.warnTime)
+        startButton?.isEnabled = 0 < RVS_AmbiaMara_Settings().currentTimer.startTime
+        clearButton?.isHidden = 0 >= RVS_AmbiaMara_Settings().currentTimer.startTime
         
         setupContainerView?.accessibilityLabel = "SLUG-ACC-STATE-\(_state.stringValue)".localizedVariant
 
@@ -652,6 +791,7 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
 
         inPickerView.reloadAllComponents()
         setUpToolbar()
+        setUpButtons()
     }
     
     /* ################################################################## */
@@ -688,4 +828,45 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
         
         return reusedView
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UIPickerViewAccessibilityDelegate Conformance
+/* ###################################################################################################################################### */
+extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewAccessibilityDelegate {
+    /* ################################################################## */
+    /**
+     This returns the accessibility label for the picker component.
+     
+     - parameter inPickerView: The picker instance.
+     - parameter accessibilityLabelForComponent: The 0-based component index for the label.
+     - returns: An accessibility string for the component.
+    */
+    func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inComponent: Int) -> String? {
+        String(format: "SLUG-ACC-\(inComponent)-FORMAT".localizedVariant, _pickerViewData[inComponent].upperBound - 1, inPickerView.selectedRow(inComponent: inComponent))
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UIPopoverPresentationControllerDelegate Conformance
+/* ###################################################################################################################################### */
+extension RVS_SetTimerAmbiaMara_ViewController: UIPopoverPresentationControllerDelegate {
+    /* ################################################################## */
+    /**
+     Called to ask if there's any possibility of this being displayed in another way.
+     
+     - parameter for: The presentation controller we're talking about.
+     - returns: No way, Jose.
+     */
+    func adaptivePresentationStyle(for: UIPresentationController) -> UIModalPresentationStyle { .none }
+    
+    /* ################################################################## */
+    /**
+     Called to ask if there's any possibility of this being displayed in another way (when the screen is rotated).
+     
+     - parameter for: The presentation controller we're talking about.
+     - parameter traitCollection: The traits, describing the new orientation.
+     - returns: No way, Jose.
+     */
+    func adaptivePresentationStyle(for: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle { .none }
 }

@@ -66,6 +66,15 @@ extension RVS_AmbiaMara_BaseViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // This ensures that our navigation bar will be transparent.
+        let appearance = UINavigationBarAppearance()
+        
+        appearance.configureWithTransparentBackground()
+        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationItem.compactAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationItem.standardAppearance = appearance
 
         if let view = view {
             _myBackgroundGradientView = UIImageView()
