@@ -66,13 +66,6 @@ extension RVS_AmbiaMara_BaseViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let tabBarItemTitle = tabBarItem?.title?.localizedVariant,
-           !tabBarItemTitle.isEmpty {
-            tabBarController?.navigationItem.title = tabBarItemTitle
-        } else {
-            navigationItem.title = (navigationItem.title ?? "ERROR").localizedVariant
-        }
 
         if let view = view {
             _myBackgroundGradientView = UIImageView()

@@ -19,6 +19,7 @@
 "SLUG-STATE-Start"                              =   "Total Time";
 "SLUG-STATE-Warn"                               =   "Warning Time";
 "SLUG-STATE-Final"                              =   "Final Time";
+"SLUG-TIMER-TITLE-FORMAT"                       =   "Timer %d";
 
 // MARK: -
 // MARK: ALERTS
@@ -27,6 +28,7 @@
 "SLUG-DELETE-BUTTON-TEXT"                       =   "Delete";
 "SLUG-CANCEL-BUTTON-TEXT"                       =   "Cancel";
 "SLUG-DELETE-CONFIRM-HEADER"                    =   "Delete This Timer?";
+"SLUG-DELETE-CONFIRM-MESSAGE-FORMAT-ZERO"       =   "Are you sure that you want to delete timer %d?";
 "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT"            =   "Are you sure that you want to delete timer %d (%@)?";
 
 // MARK: -

@@ -339,6 +339,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         finalSetButton?.accessibilityLabel = "SLUG-ACC-STATE-Final".localizedVariant
         startButton?.accessibilityLabel = "SLUG-ACC-PLAY-BUTTON".localizedVariant
         bottomToolbar?.delegate = self
+        bottomToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
+        bottomToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
         setButtonsUp()
     }
     
@@ -382,6 +384,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     /* ################################################################## */
     /**
      Called when the trash bar button item has been hit.
+     This puts up a confirmation screen, asking if the user is sure they want to delete the timer.
      - parameter: ignored.
     */
     @IBAction func trashHit(_: Any) {
@@ -398,9 +401,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                 timeString = String(startTimeAsComponents[2])
             }
             
-            let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER".localizedVariant,
-                                                    message: String(format: "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT".localizedVariant, timerTag, timeString),
-                                                    preferredStyle: .alert
+            let message = timeString.isEmpty || "0" == timeString
+                ? String(format: "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT-ZERO".localizedVariant, timerTag)
+                : String(format: "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT".localizedVariant, timerTag, timeString)
+            let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER".localizedVariant, message: message, preferredStyle: .alert
             )
 
             let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive, handler: { [weak self] _ in
@@ -474,12 +478,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     /**
     */
     func setUpToolbar() {
-        bottomToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
-        bottomToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
-
         if let items = bottomToolbar?.items {
             var newItems: [UIBarButtonItem] = [items[0], items[1], items[items.count - 2], items[items.count - 1]]
             let currentTag = RVS_AmbiaMara_Settings().currentTimerIndex + 1
+            navigationItem.title = String(format: "SLUG-TIMER-TITLE-FORMAT".localizedVariant, currentTag)
             for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
                 let tag = timer.offset + 1
                 let timerButton = UIBarButtonItem()
@@ -498,6 +500,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                 timerButton.image = UIImage(systemName: imageName)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
                 timerButton.accessibilityLabel = timeString
                 timerButton.target = self
+                timerButton.tintColor = view?.tintColor
                 timerButton.action = #selector(selectToolbarItem(_:))
                 newItems.insert(timerButton, at: 2 + timer.offset)
             }
