@@ -123,7 +123,7 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /**
      The maximum number of timers we can have.
     */
-    private static let _maxTimerCount = 2
+    private static let _maxTimerCount = 7
 
     /* ################################################################## */
     /**
@@ -315,7 +315,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                 setPickerControl.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: false)
                 setPickerControl.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
                 setPickerControl.reloadAllComponents()
-                self?.setUpBarButtonItems()
+                self?.setUpToolbar()
             }
         }
     }
@@ -385,7 +385,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     @IBAction func trashHit(_: Any) {
         if 1 < timerBarItems.count {
             RVS_AmbiaMara_Settings().remove(timer: RVS_AmbiaMara_Settings().currentTimer)
-            setUpBarButtonItems()
+            setUpToolbar()
             _state = .start
             setButtonsUp()
         }
@@ -399,7 +399,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     @IBAction func addHit(_: Any) {
         if Self._maxTimerCount > timerBarItems.count {
             RVS_AmbiaMara_Settings().add(timer: RVS_AmbiaMara_Settings.TimerSettings(), andSelect: true)
-            setUpBarButtonItems()
+            setUpToolbar()
             _state = .start
             setButtonsUp()
         }
@@ -424,7 +424,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         let tag = inToolbarButton.tag
         guard (1...RVS_AmbiaMara_Settings().numberOfTimers).contains(tag) else { return }
         RVS_AmbiaMara_Settings().currentTimerIndex = tag - 1
-        setUpBarButtonItems()
+        setUpToolbar()
         _state = .start
     }
 }
@@ -436,7 +436,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     /* ################################################################## */
     /**
     */
-    func setUpBarButtonItems() {
+    func setUpToolbar() {
         if let items = toolbar?.items {
             var newItems: [UIBarButtonItem] = [items[0], items[1], items[items.count - 2], items[items.count - 1]]
             for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
@@ -444,7 +444,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                 let timerButton = UIBarButtonItem()
                 let startTimeAsComponents = timer.element.startTimeAsComponents
                 timerButton.tag = tag
-                timerButton.title = "\(String(format: "%02d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+                timerButton.image = UIImage(systemName: "\(tag).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+                timerButton.accessibilityLabel = "\(String(format: "%02d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
                 timerButton.target = self
                 timerButton.action = #selector(selectToolbarItem(_:))
                 newItems.insert(timerButton, at: 2 + timer.offset)
@@ -518,7 +519,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         view.layoutIfNeeded()
         UIView.animate(withDuration: Self._selectionFadeAnimationPeriod,
                        animations: { [weak self] in
-                                        self?.setupContainerView?.backgroundColor = UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
+                                        self?.labelContainerStackView?.backgroundColor = UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
                                         self?.stateLabel?.textColor = .final == self?._state ? .white : .black
                                         self?.hoursLabel?.textColor = .final == self?._state ? .white : .black
                                         self?.minutesLabel?.textColor = .final == self?._state ? .white : .black
@@ -596,7 +597,7 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
         inPickerView.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
 
         inPickerView.reloadAllComponents()
-        setUpBarButtonItems()
+        setUpToolbar()
     }
     
     /* ################################################################## */

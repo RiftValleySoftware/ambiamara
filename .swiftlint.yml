@@ -22,12 +22,12 @@ file_length:
 - 1001 # error
 
 type_body_length:
-- 200 # warning
-- 201 # error
+- 250 # warning
+- 251 # error
 
 line_length:
-- 200 # warning
-- 201 # error
+- 250 # warning
+- 251 # error
 
 cyclomatic_complexity:
 - 10 # warning
