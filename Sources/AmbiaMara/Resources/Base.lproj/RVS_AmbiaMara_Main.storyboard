@@ -218,7 +218,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qte-uJ-cL0">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qte-uJ-cL0">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
@@ -235,10 +235,12 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
+                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="uq8-S5-u02" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7aI-1a-ipv"/>
                             <constraint firstItem="sOf-1r-x28" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" priority="750" id="8AW-wf-t0n"/>
@@ -259,6 +261,7 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
                         <outlet property="addBarButtonItem" destination="DFN-LB-4Im" id="Vkg-Il-g6V"/>
+                        <outlet property="bottomToolbar" destination="Qte-uJ-cL0" id="rvc-cA-SmW"/>
                         <outlet property="buttonContainerStackView" destination="WoK-h3-fWr" id="ih6-Rt-BzX"/>
                         <outlet property="finalSetButton" destination="bpG-gy-7Gm" id="TZ5-j1-jrq"/>
                         <outlet property="hoursLabel" destination="eyY-1I-cLM" id="jLa-XF-WJQ"/>
@@ -271,7 +274,6 @@
                         <outlet property="startSetButton" destination="ETf-1Y-vad" id="PJ8-0E-m1c"/>
                         <outlet property="startupLogo" destination="sOf-1r-x28" id="ybY-nK-DpV"/>
                         <outlet property="stateLabel" destination="RRV-b8-AsH" id="Ndk-FU-fHg"/>
-                        <outlet property="toolbar" destination="Qte-uJ-cL0" id="rvc-cA-SmW"/>
                         <outlet property="trashBarButtonItem" destination="p3d-KM-TEZ" id="bbP-eh-ElX"/>
                         <outlet property="warnSetButton" destination="aqL-cx-ehW" id="ZIz-Uw-CWn"/>
                     </connections>

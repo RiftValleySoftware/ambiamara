@@ -207,7 +207,7 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /**
      This is the toolbar on the bottom, with the timers.
     */
-    @IBOutlet weak var toolbar: UIToolbar?
+    @IBOutlet weak var bottomToolbar: UIToolbar?
     
     /* ################################################################## */
     /**
@@ -239,7 +239,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     var timerBarItems: [UIBarButtonItem] {
         var ret = [UIBarButtonItem]()
         
-        guard let items = toolbar?.items else { return [] }
+        guard let items = bottomToolbar?.items else { return [] }
         
         for item in items.enumerated() where (2..<(items.count - 2)).contains(item.offset) {
             ret.append(item.element)
@@ -338,7 +338,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         warnSetButton?.accessibilityLabel = "SLUG-ACC-STATE-Warn".localizedVariant
         finalSetButton?.accessibilityLabel = "SLUG-ACC-STATE-Final".localizedVariant
         startButton?.accessibilityLabel = "SLUG-ACC-PLAY-BUTTON".localizedVariant
-
+        bottomToolbar?.delegate = self
         setButtonsUp()
     }
     
@@ -457,6 +457,16 @@ extension RVS_SetTimerAmbiaMara_ViewController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: UIToolbarDelegate Conformance
+/* ###################################################################################################################################### */
+extension RVS_SetTimerAmbiaMara_ViewController: UIToolbarDelegate {
+    /* ################################################################## */
+    /**
+    */
+    func position(for bar: UIBarPositioning) -> UIBarPosition { .top }
+}
+
+/* ###################################################################################################################################### */
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RVS_SetTimerAmbiaMara_ViewController {
@@ -464,8 +474,12 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     /**
     */
     func setUpToolbar() {
-        if let items = toolbar?.items {
+        bottomToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
+        bottomToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
+
+        if let items = bottomToolbar?.items {
             var newItems: [UIBarButtonItem] = [items[0], items[1], items[items.count - 2], items[items.count - 1]]
+            let currentTag = RVS_AmbiaMara_Settings().currentTimerIndex + 1
             for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
                 let tag = timer.offset + 1
                 let timerButton = UIBarButtonItem()
@@ -478,16 +492,17 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                 } else {
                     timeString = String(startTimeAsComponents[2])
                 }
+                
                 timerButton.tag = tag
-
-                timerButton.image = UIImage(systemName: "\(tag).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+                let imageName = "\(tag).circle\(currentTag == tag ? ".fill" : "")"
+                timerButton.image = UIImage(systemName: imageName)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
                 timerButton.accessibilityLabel = timeString
                 timerButton.target = self
                 timerButton.action = #selector(selectToolbarItem(_:))
                 newItems.insert(timerButton, at: 2 + timer.offset)
             }
             
-            toolbar?.setItems(newItems, animated: false)
+            bottomToolbar?.setItems(newItems, animated: false)
             
             determineBarButtonStatus()
         }
