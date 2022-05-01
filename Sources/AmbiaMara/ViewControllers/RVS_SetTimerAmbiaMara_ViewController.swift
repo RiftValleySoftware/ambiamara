@@ -228,6 +228,13 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
+     This is an "overall container" view. It mainly exists to fix an issue with the toolbar,
+     but also makes the fade in more convenient.
+    */
+    @IBOutlet weak var containerView: UIView!
+    
+    /* ################################################################## */
+    /**
      The state label.
     */
     @IBOutlet weak var stateLabel: UILabel!
@@ -494,12 +501,12 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         // First time through, we do a "fade in" animation.
         if let startupLogo = startupLogo {
             startupLogo.alpha = 1.0
-            setupContainerView?.alpha = 0.0
+            containerView?.alpha = 0.0
             view.layoutIfNeeded()
             UIView.animate(withDuration: Self._fadeInAnimationPeriod,
                            animations: { [weak self] in
                                             startupLogo.alpha = 0.0
-                                            self?.setupContainerView?.alpha = 1.0
+                                            self?.containerView?.alpha = 1.0
                                             self?.view.layoutIfNeeded()
                                         },
                            completion: { [weak self] _ in
