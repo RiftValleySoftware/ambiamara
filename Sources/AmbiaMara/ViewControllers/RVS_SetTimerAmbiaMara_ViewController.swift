@@ -151,12 +151,6 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
-     The height for our timer state description popover.
-    */
-    private static let _preferredPopoverHeightInDisplayUnits = CGFloat(300)
-    
-    /* ################################################################## */
-    /**
      The period that we use for the "fade in" animation.
     */
     private static let _fadeInAnimationPeriod = CGFloat(1.0)
