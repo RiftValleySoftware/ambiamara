@@ -465,8 +465,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         hoursLabel?.accessibilityLabel = String(format: "SLUG-ACC-0-LABEL-FORMAT".localizedVariant, _pickerViewData[0].upperBound - 1)
         minutesLabel?.accessibilityLabel = String(format: "SLUG-ACC-1-LABEL-FORMAT".localizedVariant, _pickerViewData[1].upperBound - 1)
         secondsLabel?.accessibilityLabel = String(format: "SLUG-ACC-2-LABEL-FORMAT".localizedVariant, _pickerViewData[2].upperBound - 1)
-        
-        bottomToolbar?.delegate = self
 
         // Makes the toolbar background transparent.
         bottomToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
@@ -483,6 +481,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
+        navigationController?.isNavigationBarHidden = false
+        alarmSetBarButtonItem?.isEnabled = false
+        infoBarButtonItem?.isEnabled = false
+        setPickerControl?.isUserInteractionEnabled = false
         
         stateLabel?.isUserInteractionEnabled = RVS_AmbiaMara_Settings().useGuidancePopovers
         hoursLabel?.isUserInteractionEnabled = RVS_AmbiaMara_Settings().useGuidancePopovers
@@ -491,7 +493,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         
         // First time through, we do a "fade in" animation.
         if let startupLogo = startupLogo {
-            navigationController?.isNavigationBarHidden = true
             startupLogo.alpha = 1.0
             setupContainerView?.alpha = 0.0
             view.layoutIfNeeded()
@@ -504,8 +505,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                            completion: { [weak self] _ in
                                             DispatchQueue.main.async {
                                                 startupLogo.removeFromSuperview()
-                                                self?.navigationController?.isNavigationBarHidden = false
                                                 self?.startupLogo = nil
+                                                self?.alarmSetBarButtonItem?.isEnabled = true
+                                                self?.infoBarButtonItem?.isEnabled = true
+                                                self?.setPickerControl?.isUserInteractionEnabled = true
                                             }
                                         }
             )
@@ -676,19 +679,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         setUpToolbar()
         _state = .start
     }
-}
-
-/* ###################################################################################################################################### */
-// MARK: UIToolbarDelegate Conformance
-/* ###################################################################################################################################### */
-extension RVS_SetTimerAmbiaMara_ViewController: UIToolbarDelegate {
-    /* ################################################################## */
-    /**
-     This ensures that the toolbar floats over the lower part of the screen.
-     - parameter for: The bar positioning (ignored)
-     - returns .top (always).
-    */
-    func position(for: UIBarPositioning) -> UIBarPosition { .top }
 }
 
 /* ###################################################################################################################################### */
