@@ -250,13 +250,13 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
      This is an "overall container" view. It mainly exists to fix an issue with the toolbar,
      but also makes the fade in more convenient.
     */
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var containerView: UIView?
     
     /* ################################################################## */
     /**
      The state label.
     */
-    @IBOutlet weak var stateLabel: UILabel!
+    @IBOutlet weak var stateLabel: UILabel?
     
     /* ################################################################## */
     /**
