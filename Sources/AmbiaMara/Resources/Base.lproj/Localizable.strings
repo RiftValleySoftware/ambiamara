@@ -56,9 +56,9 @@
 "SLUG-ACC-1-FORMAT"                             =   "This wheel will allow you to set the timer to up to %d minutes. It is currently set to %d minutes.";
 "SLUG-ACC-2-FORMAT"                             =   "This wheel will allow you to set the timer to up to %d seconds. It is currently set to %d seconds.";
 "SLUG-ACC-STATE"                                =   "This label displays the current setting state for the timer. There are three states possible.";
-"SLUG-ACC-STATE-PREFIX-Start"                   =   " The timer is currently set to the total time.";
-"SLUG-ACC-STATE-PREFIX-Warn"                    =   " The timer is currently set to the warning threshold time.";
-"SLUG-ACC-STATE-PREFIX-Final"                   =   " The timer is currently set to the final countdown time.";
+"SLUG-ACC-STATE-PREFIX-Start"                   =   "The timer is set to the total time.";
+"SLUG-ACC-STATE-PREFIX-Warn"                    =   "The timer is set to the warning threshold time.";
+"SLUG-ACC-STATE-PREFIX-Final"                   =   "The timer is set to the final countdown time.";
 "SLUG-ACC-STATE-BUTTON-HINT"                    =   " You can set it to up to 100 hours, 59 minutes, and 59 seconds.";
 "SLUG-ACC-STATE-BUTTON-LABEL-Start"             =   "This is the total time for the timer.";
 "SLUG-ACC-STATE-BUTTON-LABEL-Warn"              =   "This is the warning threshold time for the timer.";

@@ -495,6 +495,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         // Makes the toolbar background transparent.
         bottomToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
         bottomToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
+        
+        // This allows us to set a help popover to the navigation bar.
+        navigationController?.navigationBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(displayTimerStateDescriptionPopover)))
+
         setUpButtons()
     }
     
@@ -674,9 +678,27 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             case secondsTapGestureRecognizer:
                 displayString = pickerView(setPickerControl, accessibilityLabelForComponent: 2) ?? "ERROR"
                 viewHook = secondsLabel
-            default:
+            case stateTapGestureRecognizer:
                 displayString = "SLUG-ACC-STATE-\(_state.stringValue)".localizedVariant
                 viewHook = stateLabel
+            default:
+                var timeAsComponents: [Int]
+                switch _state {
+                case .start:
+                    pickerTime = currentTimer.startTime
+                    timeAsComponents = currentTimer.startTimeAsComponents
+                case .warn:
+                    pickerTime = currentTimer.warnTime
+                    timeAsComponents = currentTimer.warnTimeAsComponents
+                case .final:
+                    pickerTime = currentTimer.finalTime
+                    timeAsComponents = currentTimer.finalTimeAsComponents
+                }
+                
+                displayString = (1 < RVS_AmbiaMara_Settings().numberOfTimers ? String(format: "SLUG-CURRENT-TIMER-SELECTED-FORMAT".localizedVariant + "\n", currentTimer.index + 1) : "")
+                                + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant + "\n"
+                                + String(format: "SLUG-CURRENT-TIMER-TIME-FORMAT".localizedVariant, timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
+                viewHook = navigationController?.navigationBar
             }
            
             popoverController.descriptionString = displayString
@@ -767,7 +789,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         startButton?.isEnabled = 0 < currentTimer.startTime
         clearButton?.isHidden = 0 >= currentTimer.startTime
         
-        stateLabel?.accessibilityLabel = "SLUG-ACC-STATE".localizedVariant + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant
+        stateLabel?.accessibilityLabel = "SLUG-ACC-STATE".localizedVariant + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant
         stateLabel?.accessibilityHint = "SLUG-ACC-STATE-\(_state.stringValue)".localizedVariant
 
         var timeAsComponents: [Int]
@@ -785,8 +807,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         
         setPickerControl?.accessibilityHint = String(format: "SLUG-CURRENT-TIMER-TIME-FORMAT".localizedVariant, timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
         navigationController?.navigationBar.accessibilityHint = String(format: "SLUG-CURRENT-TIMER-SELECTED-FORMAT".localizedVariant, currentTimer.index + 1)
-            + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant
-            + String(format: "SLUG-CURRENT-TIMER-TIME-FORMAT".localizedVariant, timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
+            + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant
+            + " " + String(format: "SLUG-CURRENT-TIMER-TIME-FORMAT".localizedVariant, timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
 
         view.layoutIfNeeded()
         UIView.animate(withDuration: Self._selectionFadeAnimationPeriod,
