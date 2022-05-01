@@ -553,7 +553,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KF-TF-nOv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="947.82608695652186" y="835.71428571428567"/>
+            <point key="canvasLocation" x="132" y="836"/>
         </scene>
         <!--Timer Ambia Mara View Controller-->
         <scene sceneID="0Ap-at-9HD">
@@ -569,7 +569,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eUy-Xf-5Eg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="836"/>
+            <point key="canvasLocation" x="952" y="836"/>
         </scene>
         <!--Set Alarm Ambia Mara View Controller-->
         <scene sceneID="L5y-aw-jD5">
