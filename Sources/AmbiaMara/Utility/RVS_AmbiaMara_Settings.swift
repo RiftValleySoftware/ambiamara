@@ -135,6 +135,18 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
 
         /* ########################################################## */
         /**
+         - returns: The timer's index. -1 if not found.
+         */
+        var index: Int {
+            for item in RVS_AmbiaMara_Settings().timers.enumerated() where item.element.id == id {
+                return item.offset
+            }
+            
+            return -1
+        }
+        
+        /* ########################################################## */
+        /**
          - returns: The timer, expressed as a KVP.
          */
         var kvp: KVP { (key: id, value: [startTime, warnTime, finalTime]) }
@@ -199,9 +211,15 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
 
         /* ############################################################## */
         /**
-         The current selected timer index. -1 is no timer selected,
+         The current selected timer index. -1 is no timer selected.
          */
         case currentTimerIndex
+
+        /* ############################################################## */
+        /**
+         If true, then the setup screen will provide guidance, in popovers.
+         */
+        case useGuidancePopovers
 
         /* ############################################################## */
         /**
@@ -210,7 +228,8 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
         static var allKeys: [String] { [
                                         timers.rawValue,
                                         timerIDs.rawValue,
-                                        currentTimerIndex.rawValue
+                                        currentTimerIndex.rawValue,
+                                        useGuidancePopovers.rawValue
                                         ]
         }
     }
@@ -237,7 +256,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
      - parameter timer: The timer to be added.
      - parameter andSelect: If true, then the current selection will move to this timer. Default is false.
      */
-    func add(timer inTimer: TimerSettings, andSelect inAndSelect: Bool = false) {
+    func add(timer inTimer: TimerSettings = TimerSettings(), andSelect inAndSelect: Bool = false) {
         guard let index = timers.firstIndex(where: { $0.id == inTimer.id }) else {
             timers.append(inTimer)
             if inAndSelect {
@@ -322,6 +341,15 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
         set { currentTimerIndex = ids.firstIndex(of: newValue) ?? -1 }
     }
 
+    /* ################################################################## */
+    /**
+     If true, then the setup scren will provide guidance popovers.
+     */
+    var useGuidancePopovers: Bool {
+        get { values[Keys.useGuidancePopovers.rawValue] as? Bool ?? !UIAccessibility.isVoiceOverRunning }
+        set { values[Keys.useGuidancePopovers.rawValue] = newValue }
+    }
+    
     /* ################################################################## */
     /**
      The currently selected timer instance.

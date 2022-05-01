@@ -7,6 +7,7 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -151,7 +152,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="WoK-h3-fWr">
                                         <rect key="frame" x="4" y="210" width="323" height="60"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETf-1Y-vad">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETf-1Y-vad">
                                                 <rect key="frame" x="0.0" y="6" width="77.5" height="48"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" name="Start-Color"/>
@@ -168,7 +169,7 @@
                                                     <action selector="setButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lbV-83-ejQ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqL-cx-ehW">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqL-cx-ehW">
                                                 <rect key="frame" x="81.5" y="6" width="78" height="48"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" name="Warn-Color"/>
@@ -185,7 +186,7 @@
                                                     <action selector="setButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gaP-hj-AnQ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpG-gy-7Gm">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpG-gy-7Gm">
                                                 <rect key="frame" x="163.5" y="6" width="78" height="48"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" name="Final-Color"/>
@@ -202,7 +203,7 @@
                                                     <action selector="setButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Llg-tl-vEn"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42o-kL-hkS">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42o-kL-hkS">
                                                 <rect key="frame" x="245.5" y="6" width="77.5" height="48"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" name="Start-Color"/>
@@ -259,7 +260,7 @@
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
-                                    <barButtonItem systemItem="trash" id="p3d-KM-TEZ">
+                                    <barButtonItem enabled="NO" systemItem="trash" id="p3d-KM-TEZ">
                                         <color key="tintColor" systemColor="systemRedColor"/>
                                         <connections>
                                             <action selector="trashHit:" destination="BYZ-38-t0r" id="bdh-bG-99z"/>
@@ -267,7 +268,7 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="7UK-tL-fc7"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Doe-Qq-bhQ"/>
-                                    <barButtonItem systemItem="add" id="DFN-LB-4Im">
+                                    <barButtonItem enabled="NO" systemItem="add" id="DFN-LB-4Im">
                                         <connections>
                                             <action selector="addHit:" destination="BYZ-38-t0r" id="UES-Eo-Lt3"/>
                                         </connections>
@@ -483,14 +484,62 @@
                     <view key="view" contentMode="scaleToFill" id="RiP-wE-HMj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cnP-ZB-vMv">
+                                <rect key="frame" x="20" y="88" width="374" height="31"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XIh-CT-ZiM">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="31"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9R5-Y0-E9j">
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="popoverHelpSettingsSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="p5G-Dm-BNQ"/>
+                                                </connections>
+                                            </switch>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZt-yd-Vg1">
+                                                <rect key="frame" x="57" y="0.0" width="317" height="31"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="SLUG-POPOVER-HELP-SETTING-LABEL"/>
+                                                <connections>
+                                                    <action selector="popoverHelpSettingsSwitchChanged:" destination="UOz-ud-dcU" eventType="touchUpInside" id="zvd-p4-TCU"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="RZt-yd-Vg1" secondAttribute="bottom" id="FZ8-5e-Pc5"/>
+                                            <constraint firstItem="9R5-Y0-E9j" firstAttribute="top" secondItem="XIh-CT-ZiM" secondAttribute="top" id="GTM-kg-trR"/>
+                                            <constraint firstItem="RZt-yd-Vg1" firstAttribute="top" secondItem="XIh-CT-ZiM" secondAttribute="top" id="u47-lL-YP2"/>
+                                            <constraint firstAttribute="bottom" secondItem="9R5-Y0-E9j" secondAttribute="bottom" id="xaj-jU-r9P"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="XIh-CT-ZiM" secondAttribute="trailing" id="ETk-Sk-Qx5"/>
+                                    <constraint firstItem="XIh-CT-ZiM" firstAttribute="leading" secondItem="cnP-ZB-vMv" secondAttribute="leading" id="uj4-SR-9jg"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="l0f-Zf-OSP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cnP-ZB-vMv" firstAttribute="top" secondItem="l0f-Zf-OSP" secondAttribute="top" id="PeC-j5-wX1"/>
+                            <constraint firstItem="cnP-ZB-vMv" firstAttribute="leading" secondItem="l0f-Zf-OSP" secondAttribute="leading" constant="20" id="XH2-Zl-ZXb"/>
+                            <constraint firstItem="l0f-Zf-OSP" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cnP-ZB-vMv" secondAttribute="bottom" id="ddL-O9-ULM"/>
+                            <constraint firstItem="l0f-Zf-OSP" firstAttribute="trailing" secondItem="cnP-ZB-vMv" secondAttribute="trailing" constant="20" id="kG5-Do-Nf2"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Put-az-xEf"/>
+                    <connections>
+                        <outlet property="popoverHelpSettingsSwitch" destination="9R5-Y0-E9j" id="b08-dk-f0J"/>
+                        <outlet property="popoverHelpSettingsSwitchLabelButton" destination="RZt-yd-Vg1" id="Ddx-6a-DFW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KF-TF-nOv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="948" y="836"/>
+            <point key="canvasLocation" x="947.82608695652186" y="835.71428571428567"/>
         </scene>
         <!--Timer Ambia Mara View Controller-->
         <scene sceneID="0Ap-at-9HD">

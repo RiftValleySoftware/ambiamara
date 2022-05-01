@@ -13,14 +13,6 @@
 // --------------------------------------------   ------------------------------------------------------- *
 //********************************************** **********************************************************
 
-"SLUG-HOURS"                                    =   "Hours";
-"SLUG-MINUTES"                                  =   "Minutes";
-"SLUG-SECONDS"                                  =   "Seconds";
-"SLUG-STATE-Start"                              =   "Total Time";
-"SLUG-STATE-Warn"                               =   "Warning Time";
-"SLUG-STATE-Final"                              =   "Final Time";
-"SLUG-TIMER-TITLE-FORMAT"                       =   "Timer %d";
-
 // MARK: -
 // MARK: ALERTS
 // MARK: -
@@ -32,18 +24,60 @@
 "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT"            =   "Are you sure that you want to delete timer %d (%@)?";
 
 // MARK: -
+// MARK: MAIN TEXT
+// MARK: -
+
+// MARK: SETUP SCREEN
+
+"SLUG-HOURS"                                    =   "Hours";
+"SLUG-MINUTES"                                  =   "Minutes";
+"SLUG-SECONDS"                                  =   "Seconds";
+"SLUG-STATE-Start"                              =   "Total Time";
+"SLUG-STATE-Warn"                               =   "Warning Time";
+"SLUG-STATE-Final"                              =   "Final Time";
+"SLUG-TIMER-TITLE-FORMAT"                       =   "Timer %d";
+
+// MARK: ABOUT THE APP SCREEN
+
+"SLUG-POPOVER-HELP-SETTING-LABEL"               =   "Show Help Popovers";
+
+// MARK: -
 // MARK: ACCESSIBILITY
 // MARK: -
 
+// MARK: SETUP SCREEN
+
 "SLUG-ACC-ALARM-BUTTON"                         =   "Selecting this button will bring in a screen that will allow you to specify an alarm for the timer.";
 "SLUG-ACC-ABOUT-BUTTON"                         =   "Selecting this button will bring in a screen that will provide information about this app.";
+"SLUG-ACC-0-LABEL-FORMAT"                       =   "The wheel below this label will allow you to set the timer to up to %d hours.";
+"SLUG-ACC-1-LABEL-FORMAT"                       =   "The wheel below this label will allow you to set the timer to up to %d minutes.";
+"SLUG-ACC-2-LABEL-FORMAT"                       =   "The wheel below this label will allow you to set the timer to up to %d seconds.";
 "SLUG-ACC-0-FORMAT"                             =   "This wheel will allow you to set the timer to up to %d hours. It is currently set to %d hours.";
 "SLUG-ACC-1-FORMAT"                             =   "This wheel will allow you to set the timer to up to %d minutes. It is currently set to %d minutes.";
 "SLUG-ACC-2-FORMAT"                             =   "This wheel will allow you to set the timer to up to %d seconds. It is currently set to %d seconds.";
-"SLUG-ACC-STATE-Start"                          =   "This is the total time for the timer. It is specified in hours (up to 100), minutes (up to 59), and seconds (up to 59).";
+"SLUG-ACC-STATE"                                =   "This label displays the current setting state for the timer. There are three states possible.";
+"SLUG-ACC-STATE-PREFIX-Start"                   =   " The timer is currently set to the total time.";
+"SLUG-ACC-STATE-PREFIX-Warn"                    =   " The timer is currently set to the warning threshold time.";
+"SLUG-ACC-STATE-PREFIX-Final"                   =   " The timer is currently set to the final countdown time.";
+"SLUG-ACC-STATE-BUTTON-HINT"                    =   " You can set it to up to 100 hours, 59 minutes, and 59 seconds.";
+"SLUG-ACC-STATE-BUTTON-LABEL-Start"             =   "This is the total time for the timer.";
+"SLUG-ACC-STATE-BUTTON-LABEL-Warn"              =   "This is the warning threshold time for the timer.";
+"SLUG-ACC-STATE-BUTTON-LABEL-Final"             =   "This is the final countdown time for the timer.";
+"SLUG-ACC-STATE-BUTTON-LABEL-DISABLED-SUFFIX"   =   " The button is currently disabled.";
+"SLUG-ACC-STATE-Start"                          =   "This is the total time for the timer. You can set it to up to 100 hours, 59 minutes, and 59 seconds.";
 "SLUG-ACC-STATE-Warn"                           =   "When this time is reached, the timer goes into a \"warning\" state, and the color changes. If you leave this time at 0, the warning state never happens, and the timer either goes directly to the \"Final Countdown\" state, or to an alarm, when it completes. This time cannot be greater than the total time.";
 "SLUG-ACC-STATE-Final"                          =   "When this time is reached, the timer goes into a \"final countdown\" state, and the color changes again. If you leave this time at 0, the final countdown state never happens, and the timer goes directly to an alarm, when it completes. This time cannot be greater than the warning time, or the total time.";
+"SLUG-CURRENT-TIMER-SELECTED-FORMAT"            =   "Timer %d is currently selected.";
+"SLUG-CURRENT-TIMER-TIME-FORMAT"                =   "The current time is %d hours, %d minutes, and %d seconds.";
 "SLUG-ACC-PLAY-BUTTON"                          =   "This starts the timer.";
+"SLUG-ACC-PLAY-BUTTON-HINT"                     =   "If you select this, a new screen will appear, with the running timer.";
 "SLUG-ACC-ADD-TIMER-BUTTON"                     =   "Selecting this button will add a new timer.";
+"SLUG-ACC-TIMER-BUTTON-LABEL-FORMAT"            =   "This is the selection button for Timer %d.";
+"SLUG-ACC-TIMER-BUTTON-HINT-IS-FORMAT"          =   "It is selected, and is set to %@. The app is currently setting this timer.";
+"SLUG-ACC-TIMER-BUTTON-HINT-NOT-FORMAT"         =   "It is not selected, and is set to %@. If you select it, the app will change to allow you to set this timer.";
 "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT"           =   "Selecting this button will allow you to delete Timer %d.";
 "SLUG-ACC-CLEAR-BUTTON"                         =   "Selecting this button will reset the timer to 0.";
+
+// MARK: ABOUT THE APP SCREEN
+
+"SLUG-ACC-SHOW-HELP-SWITCH"                     =   "If this switch is on, then popovers will be shown in the help screen, when you touch the labels in the center of the screen, explaining the operation of the app.";
