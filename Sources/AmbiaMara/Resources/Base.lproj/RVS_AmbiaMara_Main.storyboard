@@ -589,7 +589,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="937" height="937"/>
+        <image name="CenterImage" width="883" height="877"/>
         <image name="arrowtriangle.forward.fill" catalog="system" width="128" height="113"/>
         <image name="bell.fill" catalog="system" width="128" height="124"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>

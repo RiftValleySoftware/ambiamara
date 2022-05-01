@@ -27,6 +27,12 @@ class RVS_SetTimerAmbiaMara_PopoverViewController: UIViewController {
     
     /* ################################################################## */
     /**
+     This is how much leeway to give on each side, to account for the popover inset.
+     */
+    static let sideOffsetInDisplayUnits = CGFloat(40)
+    
+    /* ################################################################## */
+    /**
      The string that will be displayed in the popover.
      */
     var descriptionString: String = "ERROR"
@@ -36,6 +42,25 @@ class RVS_SetTimerAmbiaMara_PopoverViewController: UIViewController {
      The label that will display the description, in the popover.
      */
     @IBOutlet weak var descriptionLabel: UILabel?
+    
+    /* ################################################################## */
+    /**
+     */
+    override var preferredContentSize: CGSize {
+        get {
+            guard let descriptionLabel = descriptionLabel,
+                  let text = descriptionLabel.text,
+                  let font = descriptionLabel.font
+            else { return super.preferredContentSize }
+            
+            let calcString = NSAttributedString(string: text, attributes: [.font: font])
+            let cropRect = calcString.boundingRect(with: CGSize.init(width: super.preferredContentSize.width - (Self.sideOffsetInDisplayUnits * 2),
+                                                                     height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
+
+            return CGSize(width: super.preferredContentSize.width, height: cropRect.size.height + Self.sideOffsetInDisplayUnits)
+        }
+        set { super.preferredContentSize = newValue }
+    }
     
     /* ################################################################## */
     /**
@@ -489,9 +514,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
         navigationController?.isNavigationBarHidden = false
-        alarmSetBarButtonItem?.isEnabled = false
-        infoBarButtonItem?.isEnabled = false
-        setPickerControl?.isUserInteractionEnabled = false
         
         stateLabel?.isUserInteractionEnabled = RVS_AmbiaMara_Settings().useGuidancePopovers
         hoursLabel?.isUserInteractionEnabled = RVS_AmbiaMara_Settings().useGuidancePopovers
@@ -500,6 +522,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         
         // First time through, we do a "fade in" animation.
         if let startupLogo = startupLogo {
+            alarmSetBarButtonItem?.isEnabled = false
+            infoBarButtonItem?.isEnabled = false
+            setPickerControl?.isUserInteractionEnabled = false
             startupLogo.alpha = 1.0
             containerView?.alpha = 0.0
             view.layoutIfNeeded()
@@ -519,8 +544,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                                             }
                                         }
             )
-        } else {
-            navigationController?.isNavigationBarHidden = false
         }
     }
 }
@@ -667,7 +690,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             popoverController.popoverPresentationController?.sourceView = viewHook
             popoverController.popoverPresentationController?.delegate = self
             popoverController.preferredContentSize = view?.window?.bounds.size ?? .zero
-            popoverController.preferredContentSize.height = min(popoverController.preferredContentSize.height, Self._preferredPopoverHeightInDisplayUnits)
             currentPopover = popoverController
             present(popoverController, animated: true)
        }
