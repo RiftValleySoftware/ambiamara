@@ -41,11 +41,15 @@
 
 "SLUG-POPOVER-HELP-SETTING-LABEL"               =   "Show Help Popovers";
 
+// MARK: ALARM SETUP SCREEN
+
+"SLUG-VIBRATE"                                  =   "Use Vibrate";
+
 // MARK: -
 // MARK: ACCESSIBILITY
 // MARK: -
 
-// MARK: SETUP SCREEN
+// MARK: TIMER SETUP SCREEN
 
 "SLUG-ACC-ALARM-BUTTON"                         =   "Selecting this button will bring in a screen that will allow you to specify an alarm for the timer.";
 "SLUG-ACC-ABOUT-BUTTON"                         =   "Selecting this button will bring in a screen that will provide information about this app.";
@@ -81,3 +85,6 @@
 // MARK: ABOUT THE APP SCREEN
 
 "SLUG-ACC-SHOW-HELP-SWITCH"                     =   "If this switch is on, then popovers will be shown in the help screen, when you touch the labels in the center of the screen, explaining the operation of the app.";
+
+// MARK: ALARM SETUP SCREEN
+

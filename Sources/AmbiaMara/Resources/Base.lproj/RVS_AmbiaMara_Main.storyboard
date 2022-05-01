@@ -335,16 +335,16 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="MNO-3D-wJv">
-                        <barButtonItem key="leftBarButtonItem" id="t6N-Pt-3ne">
+                        <barButtonItem key="leftBarButtonItem" id="d2m-mo-1ss">
+                            <imageReference key="image" image="gearshape.fill" catalog="system" symbolScale="large"/>
+                            <connections>
+                                <segue destination="UOz-ud-dcU" kind="show" id="vEx-fy-iDw"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" id="t6N-Pt-3ne">
                             <imageReference key="image" image="bell.fill" catalog="system" symbolScale="large"/>
                             <connections>
                                 <segue destination="Vbk-gE-tat" kind="show" id="M6G-Tc-e29"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" id="d2m-mo-1ss">
-                            <imageReference key="image" image="info.circle.fill" catalog="system" symbolScale="large"/>
-                            <connections>
-                                <segue destination="UOz-ud-dcU" kind="show" id="vEx-fy-iDw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -579,23 +579,98 @@
                     <view key="view" contentMode="scaleToFill" id="Ceo-jA-4Oa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WmW-5S-HR2">
+                                <rect key="frame" x="20" y="88" width="374" height="774"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sJV-M8-EEI">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="cxr-Ki-IZG"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="">
+                                                <imageReference key="image" image="nosign" catalog="system" symbolScale="large"/>
+                                            </segment>
+                                            <segment title="">
+                                                <imageReference key="image" image="bell.fill" catalog="system" symbolScale="large"/>
+                                            </segment>
+                                            <segment title="">
+                                                <imageReference key="image" image="speaker.wave.3.fill" catalog="system" symbolScale="large"/>
+                                            </segment>
+                                        </segments>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="alarmModeSegmentedSwitchHit:" destination="Vbk-gE-tat" eventType="valueChanged" id="Vvu-Rc-OGq"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vLl-KJ-LU0">
+                                        <rect key="frame" x="0.0" y="38" width="374" height="736"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZMg-gt-lOZ">
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="736"/>
+                                                <connections>
+                                                    <action selector="vibrateSwitchChanged:" destination="Vbk-gE-tat" eventType="valueChanged" id="57D-Ee-mag"/>
+                                                </connections>
+                                            </switch>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehg-s1-KXq">
+                                                <rect key="frame" x="57" y="0.0" width="317" height="736"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="SLUG-VIBRATE"/>
+                                                <connections>
+                                                    <action selector="vibrateSwitchChanged:" destination="Vbk-gE-tat" eventType="touchUpInside" id="IPk-EE-l4i"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Ehg-s1-KXq" firstAttribute="top" secondItem="vLl-KJ-LU0" secondAttribute="top" id="9ZH-Ew-JfD"/>
+                                            <constraint firstAttribute="bottom" secondItem="Ehg-s1-KXq" secondAttribute="bottom" id="Xsz-cw-D4O"/>
+                                            <constraint firstItem="ZMg-gt-lOZ" firstAttribute="top" secondItem="vLl-KJ-LU0" secondAttribute="top" id="bVc-5t-ewN"/>
+                                            <constraint firstAttribute="bottom" secondItem="ZMg-gt-lOZ" secondAttribute="bottom" id="rtL-JG-g9I"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="vLl-KJ-LU0" secondAttribute="trailing" id="5WG-Ye-Bbt"/>
+                                    <constraint firstItem="sJV-M8-EEI" firstAttribute="leading" secondItem="WmW-5S-HR2" secondAttribute="leading" id="ce4-BP-gIn"/>
+                                    <constraint firstAttribute="trailing" secondItem="sJV-M8-EEI" secondAttribute="trailing" id="dbW-JD-VSX"/>
+                                    <constraint firstItem="sJV-M8-EEI" firstAttribute="top" secondItem="WmW-5S-HR2" secondAttribute="top" id="kWk-OJ-nqY"/>
+                                    <constraint firstItem="vLl-KJ-LU0" firstAttribute="leading" secondItem="WmW-5S-HR2" secondAttribute="leading" id="pjD-Lq-OGu"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Mmz-qg-Pbe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WmW-5S-HR2" firstAttribute="top" secondItem="Mmz-qg-Pbe" secondAttribute="top" id="P3M-mw-yVJ"/>
+                            <constraint firstItem="Mmz-qg-Pbe" firstAttribute="trailing" secondItem="WmW-5S-HR2" secondAttribute="trailing" constant="20" id="XhN-Th-lAk"/>
+                            <constraint firstItem="WmW-5S-HR2" firstAttribute="leading" secondItem="Mmz-qg-Pbe" secondAttribute="leading" constant="20" id="Xrb-si-ZWW"/>
+                            <constraint firstItem="WmW-5S-HR2" firstAttribute="bottom" secondItem="Mmz-qg-Pbe" secondAttribute="bottom" placeholder="YES" id="yWf-Yn-phg"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DEY-Ya-WmV"/>
+                    <connections>
+                        <outlet property="alarmModeSegmentedSwitch" destination="sJV-M8-EEI" id="d1c-By-gs3"/>
+                        <outlet property="vibrateSwitch" destination="ZMg-gt-lOZ" id="nzy-ic-I7c"/>
+                        <outlet property="vibrateSwitchLabelButton" destination="Ehg-s1-KXq" id="aeV-bM-ga1"/>
+                        <outlet property="vibrateSwitchStackView" destination="vLl-KJ-LU0" id="GKo-1K-KsA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3X-ku-fhZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-678" y="836"/>
+            <point key="canvasLocation" x="-678.26086956521749" y="835.71428571428567"/>
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="937" height="937"/>
+        <image name="CenterImage" width="883" height="877"/>
         <image name="arrowtriangle.forward.fill" catalog="system" width="128" height="113"/>
         <image name="bell.fill" catalog="system" width="128" height="124"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
-        <image name="info.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="nosign" catalog="system" width="128" height="121"/>
+        <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <namedColor name="Final-Color">
             <color red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
