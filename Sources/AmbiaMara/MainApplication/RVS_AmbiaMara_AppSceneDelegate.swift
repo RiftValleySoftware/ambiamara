@@ -79,9 +79,7 @@ extension RVS_AmbiaMara_AppSceneDelegate: UIApplicationDelegate {
      - parameter: The application instance (ignored).
      - parameter didFinishLaunchingWithOptions: The launch options (ignored).
      */
-    func application(_: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        return true
-    }
+    func application(_: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { true }
 
     /* ############################################################## */
     /**
