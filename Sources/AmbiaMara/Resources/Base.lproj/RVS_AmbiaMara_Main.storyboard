@@ -647,22 +647,134 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CCr-i1-aFM">
-                                <rect key="frame" x="20" y="88" width="374" height="774"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="vpN-ve-3yx">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Start-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="w9M-NO-9Ub">
-                                        <rect key="frame" x="0.0" y="0.0" width="119.5" height="774"/>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Warn-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="ibP-ej-fEh">
-                                        <rect key="frame" x="127.5" y="0.0" width="119" height="774"/>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Final-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="Puf-73-hW9">
-                                        <rect key="frame" x="254.5" y="0.0" width="119.5" height="774"/>
-                                    </imageView>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="JvE-LH-jn6">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="awW-mh-pTA">
+                                                <rect key="frame" x="50" y="0.0" width="314" height="50"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="RRd-P6-4GH">
+                                                        <rect key="frame" x="0.0" y="0.0" width="314" height="50"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="5cN-zl-Eck" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
+                                                                <rect key="frame" x="0.0" y="0.0" width="104.5" height="50"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
+                                                                        <color key="value" name="Tint-3"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
+                                                                        <color key="value" systemColor="tertiaryLabelColor"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="numberOfDigits">
+                                                                        <integer key="value" value="2"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                                        <integer key="value" value="2"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="skew">
+                                                                        <real key="value" value="0.14999999999999999"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasLeadingZeroes" value="NO"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </imageView>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="fP9-ON-xd4" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
+                                                                <rect key="frame" x="104.5" y="0.0" width="105" height="50"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
+                                                                        <color key="value" name="Tint-3"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
+                                                                        <color key="value" systemColor="tertiaryLabelColor"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="numberOfDigits">
+                                                                        <integer key="value" value="2"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                                        <integer key="value" value="2"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="skew">
+                                                                        <real key="value" value="0.14999999999999999"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasLeadingZeroes" value="YES"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </imageView>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="IoF-o5-OLL" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
+                                                                <rect key="frame" x="209.5" y="0.0" width="104.5" height="50"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
+                                                                        <color key="value" name="Tint-3"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
+                                                                        <color key="value" systemColor="tertiaryLabelColor"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="numberOfDigits">
+                                                                        <integer key="value" value="2"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                                        <integer key="value" value="2"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="skew">
+                                                                        <real key="value" value="0.14999999999999999"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasLeadingZeroes" value="YES"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="IoF-o5-OLL" secondAttribute="bottom" id="3bg-Fj-zIq"/>
+                                                            <constraint firstItem="fP9-ON-xd4" firstAttribute="top" secondItem="RRd-P6-4GH" secondAttribute="top" id="Fgv-6T-bBA"/>
+                                                            <constraint firstItem="IoF-o5-OLL" firstAttribute="width" secondItem="5cN-zl-Eck" secondAttribute="width" id="NYx-W3-Ham"/>
+                                                            <constraint firstAttribute="bottom" secondItem="fP9-ON-xd4" secondAttribute="bottom" id="Psp-Rq-8Lk"/>
+                                                            <constraint firstItem="IoF-o5-OLL" firstAttribute="top" secondItem="RRd-P6-4GH" secondAttribute="top" id="TiD-5w-Gho"/>
+                                                            <constraint firstAttribute="bottom" secondItem="5cN-zl-Eck" secondAttribute="bottom" id="VZv-Xa-vAT"/>
+                                                            <constraint firstItem="fP9-ON-xd4" firstAttribute="height" secondItem="5cN-zl-Eck" secondAttribute="height" id="hdK-TZ-0Hx"/>
+                                                            <constraint firstItem="5cN-zl-Eck" firstAttribute="top" secondItem="RRd-P6-4GH" secondAttribute="top" id="jag-aS-6Rq"/>
+                                                            <constraint firstItem="IoF-o5-OLL" firstAttribute="height" secondItem="5cN-zl-Eck" secondAttribute="height" id="sap-mQ-5Mj"/>
+                                                            <constraint firstItem="fP9-ON-xd4" firstAttribute="width" secondItem="5cN-zl-Eck" secondAttribute="width" id="tiC-WC-Rii"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="RRd-P6-4GH" firstAttribute="leading" secondItem="awW-mh-pTA" secondAttribute="leading" id="A27-hj-U6B"/>
+                                                    <constraint firstAttribute="trailing" secondItem="RRd-P6-4GH" secondAttribute="trailing" id="Qhl-VI-mso"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="awW-mh-pTA" secondAttribute="trailing" constant="50" id="Kg0-FZ-cz9"/>
+                                            <constraint firstItem="awW-mh-pTA" firstAttribute="leading" secondItem="JvE-LH-jn6" secondAttribute="leading" constant="50" id="dWL-XD-Xwa"/>
+                                            <constraint firstAttribute="bottom" secondItem="awW-mh-pTA" secondAttribute="bottom" id="dtL-Yb-hgX"/>
+                                            <constraint firstItem="awW-mh-pTA" firstAttribute="top" secondItem="JvE-LH-jn6" secondAttribute="top" id="sOn-kD-BIz"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CCr-i1-aFM">
+                                        <rect key="frame" x="20" y="70" width="374" height="704"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Start-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="w9M-NO-9Ub">
+                                                <rect key="frame" x="0.0" y="0.0" width="119.5" height="704"/>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Warn-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="ibP-ej-fEh">
+                                                <rect key="frame" x="127.5" y="0.0" width="119" height="704"/>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Final-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="Puf-73-hW9">
+                                                <rect key="frame" x="254.5" y="0.0" width="119.5" height="704"/>
+                                            </imageView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Puf-73-hW9" firstAttribute="width" secondItem="w9M-NO-9Ub" secondAttribute="width" id="QRa-kp-nXi"/>
+                                            <constraint firstItem="ibP-ej-fEh" firstAttribute="width" secondItem="w9M-NO-9Ub" secondAttribute="width" id="num-pH-w1Q"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="Puf-73-hW9" firstAttribute="width" secondItem="w9M-NO-9Ub" secondAttribute="width" id="QRa-kp-nXi"/>
-                                    <constraint firstItem="ibP-ej-fEh" firstAttribute="width" secondItem="w9M-NO-9Ub" secondAttribute="width" id="num-pH-w1Q"/>
+                                    <constraint firstAttribute="trailing" secondItem="CCr-i1-aFM" secondAttribute="trailing" constant="20" id="3RK-jZ-2fA"/>
+                                    <constraint firstItem="CCr-i1-aFM" firstAttribute="leading" secondItem="vpN-ve-3yx" secondAttribute="leading" constant="20" id="Jko-ud-EbA"/>
+                                    <constraint firstItem="JvE-LH-jn6" firstAttribute="leading" secondItem="vpN-ve-3yx" secondAttribute="leading" id="Vzg-XN-Ggh"/>
+                                    <constraint firstAttribute="trailing" secondItem="JvE-LH-jn6" secondAttribute="trailing" id="p90-Z0-9db"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -670,13 +782,24 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="CCr-i1-aFM" firstAttribute="bottom" secondItem="wPB-KW-suh" secondAttribute="bottom" id="4DM-yo-xqG"/>
-                            <constraint firstItem="wPB-KW-suh" firstAttribute="trailing" secondItem="CCr-i1-aFM" secondAttribute="trailing" constant="20" id="DgG-Ti-RVo"/>
-                            <constraint firstItem="CCr-i1-aFM" firstAttribute="leading" secondItem="wPB-KW-suh" secondAttribute="leading" constant="20" id="KFK-w3-T0n"/>
-                            <constraint firstItem="CCr-i1-aFM" firstAttribute="top" secondItem="wPB-KW-suh" secondAttribute="top" id="zD0-DO-Z19"/>
+                            <constraint firstItem="vpN-ve-3yx" firstAttribute="bottom" secondItem="wPB-KW-suh" secondAttribute="bottom" id="5BF-x1-vR6"/>
+                            <constraint firstItem="vpN-ve-3yx" firstAttribute="trailing" secondItem="wPB-KW-suh" secondAttribute="trailing" id="7xw-sT-ql3"/>
+                            <constraint firstItem="vpN-ve-3yx" firstAttribute="top" secondItem="wPB-KW-suh" secondAttribute="top" id="9OH-EC-TGS"/>
+                            <constraint firstItem="vpN-ve-3yx" firstAttribute="leading" secondItem="wPB-KW-suh" secondAttribute="leading" id="r6d-Kl-v6S"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5PW-lA-4CB"/>
+                    <connections>
+                        <outlet property="digitalDisplayContainerView" destination="JvE-LH-jn6" id="Azd-7W-7wJ"/>
+                        <outlet property="digitalDisplayViewHours" destination="5cN-zl-Eck" id="3z0-w6-xMy"/>
+                        <outlet property="digitalDisplayViewMinutes" destination="fP9-ON-xd4" id="DQn-zG-Mu2"/>
+                        <outlet property="digitalDisplayViewSeconds" destination="IoF-o5-OLL" id="cvo-Aa-hT6"/>
+                        <outlet property="digitsInternalContainerView" destination="awW-mh-pTA" id="FVf-fN-LIe"/>
+                        <outlet property="finalLightImageView" destination="Puf-73-hW9" id="xcr-cM-ZMM"/>
+                        <outlet property="startLightImageView" destination="w9M-NO-9Ub" id="zDN-or-cLq"/>
+                        <outlet property="trafficLightsContainerView" destination="CCr-i1-aFM" id="607-Tk-pK4"/>
+                        <outlet property="warnLightImageView" destination="ibP-ej-fEh" id="QdX-JM-LcR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eUy-Xf-5Eg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -866,6 +989,9 @@
         <namedColor name="StartupLogoColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="Tint-3">
+            <color red="0.0" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Warn-Color">
             <color red="0.93400001525878906" green="0.81800001859664917" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -874,6 +1000,9 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

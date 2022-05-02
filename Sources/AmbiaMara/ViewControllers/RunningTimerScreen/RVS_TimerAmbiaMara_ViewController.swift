@@ -20,4 +20,90 @@ import RVS_BasicGCDTimer
  This is the view controller for the running timer screen.
  */
 class RVS_TimerAmbiaMara_ViewController: UIViewController {
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var digitalDisplayContainerView: UIView?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var digitsInternalContainerView: UIView?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var digitalDisplayViewHours: RVS_RetroLEDDigitalDisplay?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var digitalDisplayViewMinutes: RVS_RetroLEDDigitalDisplay?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var digitalDisplayViewSeconds: RVS_RetroLEDDigitalDisplay?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var trafficLightsContainerView: UIStackView?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var startLightImageView: UIImageView?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var warnLightImageView: UIImageView?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var finalLightImageView: UIImageView?
+}
+
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension RVS_TimerAmbiaMara_ViewController {
+    /* ############################################################## */
+    /**
+     Called when the hierarchy is loaded.
+     */
+    override func viewDidLoad() {
+        trafficLightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().showStoplights
+        digitalDisplayContainerView?.isHidden = !RVS_AmbiaMara_Settings().showDigits
+        
+        let hours = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[0] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[0] : -2
+        let minutes = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[1] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[1] : 0 < hours ? 0 : -2
+        let seconds = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[2] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[2] : 0 < hours || 0 < minutes ? 0 : -2
+        
+        if RVS_AmbiaMara_Settings().showDigits {
+            digitalDisplayContainerView?.autoLayoutAspectConstraint(aspectRatio: 0.2)?.isActive = true
+            digitalDisplayViewHours?.radix = 10
+            digitalDisplayViewMinutes?.radix = 10
+            digitalDisplayViewSeconds?.radix = 10
+        }
+        
+        setTimeAs(hours: hours, minutes: minutes, seconds: seconds)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension RVS_TimerAmbiaMara_ViewController {
+    func setTimeAs(hours inHours: Int, minutes inMinutes: Int, seconds inSeconds: Int) {
+        if RVS_AmbiaMara_Settings().showDigits {
+            digitalDisplayViewMinutes?.hasLeadingZeroes = 0 < inHours
+            digitalDisplayViewSeconds?.hasLeadingZeroes = 0 < inHours || 0 < inMinutes
+            digitalDisplayViewHours?.value = inHours
+            digitalDisplayViewMinutes?.value = inMinutes
+            digitalDisplayViewSeconds?.value = inSeconds
+        }
+    }
 }
