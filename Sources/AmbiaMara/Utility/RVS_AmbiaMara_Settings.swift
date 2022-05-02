@@ -238,6 +238,18 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
          The selected sound. This is a 0-based index (Int).
          */
         case selectedSoundIndex
+        
+        /* ################################################################## */
+        /**
+         If the digits are to be shown in the running timer, this boolean is true.
+         */
+        case showDigits
+
+        /* ################################################################## */
+        /**
+         If the "stoplights" are to be shown in the running timer, this boolean is true.
+         */
+        case showStoplights
 
         /* ############################################################## */
         /**
@@ -250,7 +262,9 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
                                         useGuidancePopovers.rawValue,
                                         useVibrate.rawValue,
                                         alarmMode.rawValue,
-                                        selectedSoundIndex.rawValue
+                                        selectedSoundIndex.rawValue,
+                                        showDigits.rawValue,
+                                        showStoplights.rawValue
                                         ]
         }
     }
@@ -396,6 +410,24 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     var selectedSoundIndex: Int {
         get { values[Keys.selectedSoundIndex.rawValue] as? Int ?? 0 }
         set { values[Keys.selectedSoundIndex.rawValue] = newValue }
+    }
+
+    /* ################################################################## */
+    /**
+     If the digits are to be shown in the running timer, this should be true.
+     */
+    var showDigits: Bool {
+        get { 0 != (values[Keys.showDigits.rawValue] as? Int ?? 0) }
+        set { values[Keys.showDigits.rawValue] = newValue ? 1 : 0 }
+    }
+
+    /* ################################################################## */
+    /**
+     If the "stoplights" are to be shown in the running timer, this should be true.
+     */
+    var showStoplights: Bool {
+        get { 0 != (values[Keys.showStoplights.rawValue] as? Int ?? 0) }
+        set { values[Keys.showStoplights.rawValue] = newValue ? 1 : 0 }
     }
 
     /* ################################################################## */

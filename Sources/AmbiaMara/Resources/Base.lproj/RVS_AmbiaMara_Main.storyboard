@@ -344,7 +344,7 @@
                         <barButtonItem key="rightBarButtonItem" id="t6N-Pt-3ne">
                             <imageReference key="image" image="bell.fill" catalog="system" symbolScale="large"/>
                             <connections>
-                                <segue destination="Vbk-gE-tat" kind="show" id="M6G-Tc-e29"/>
+                                <action selector="displayAlarmSetupPopover:" destination="BYZ-38-t0r" id="qVl-mg-0gm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -466,7 +466,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="403" height="166"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQg-cN-AI9">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQg-cN-AI9">
                                 <rect key="frame" x="20" y="44" width="363" height="122"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -554,7 +554,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KF-TF-nOv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="836"/>
+            <point key="canvasLocation" x="-278" y="836"/>
         </scene>
         <!--Timer Ambia Mara View Controller-->
         <scene sceneID="0Ap-at-9HD">
@@ -570,18 +570,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eUy-Xf-5Eg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="952" y="836"/>
+            <point key="canvasLocation" x="577" y="836"/>
         </scene>
-        <!--Set Alarm Ambia Mara View Controller-->
+        <!--Set Alarm Ambia Mara Popover View Controller-->
         <scene sceneID="L5y-aw-jD5">
             <objects>
-                <viewController id="Vbk-gE-tat" customClass="RVS_SetAlarmAmbiaMara_ViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RVS_SetAlarmAmbiaMara_ViewController" id="Vbk-gE-tat" customClass="RVS_SetAlarmAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ceo-jA-4Oa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="334"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WmW-5S-HR2">
-                                <rect key="frame" x="20" y="88" width="374" height="774"/>
+                                <rect key="frame" x="20" y="64" width="374" height="290"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sJV-M8-EEI">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="31"/>
@@ -590,7 +590,7 @@
                                         </constraints>
                                         <segments>
                                             <segment title="">
-                                                <imageReference key="image" image="nosign" catalog="system" symbolScale="large"/>
+                                                <imageReference key="image" image="bell.slash.fill" catalog="system" symbolScale="large"/>
                                             </segment>
                                             <segment title="">
                                                 <imageReference key="image" image="bell.fill" catalog="system" symbolScale="large"/>
@@ -603,16 +603,16 @@
                                         </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vLl-KJ-LU0">
-                                        <rect key="frame" x="0.0" y="38" width="374" height="736"/>
+                                        <rect key="frame" x="0.0" y="38" width="374" height="252"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZMg-gt-lOZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="736"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="252"/>
                                                 <connections>
                                                     <action selector="vibrateSwitchChanged:" destination="Vbk-gE-tat" eventType="valueChanged" id="57D-Ee-mag"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehg-s1-KXq">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="736"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="252"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="SLUG-VIBRATE"/>
                                                 <connections>
@@ -628,7 +628,7 @@
                                         </constraints>
                                     </stackView>
                                     <pickerView hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="21l-2m-K2x">
-                                        <rect key="frame" x="0.0" y="774" width="374" height="100"/>
+                                        <rect key="frame" x="0.0" y="290" width="374" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="LON-5y-h9U"/>
                                         </constraints>
@@ -653,13 +653,15 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="WmW-5S-HR2" firstAttribute="top" secondItem="Mmz-qg-Pbe" secondAttribute="top" id="P3M-mw-yVJ"/>
+                            <constraint firstItem="WmW-5S-HR2" firstAttribute="top" secondItem="Mmz-qg-Pbe" secondAttribute="top" constant="20" id="P3M-mw-yVJ"/>
                             <constraint firstItem="Mmz-qg-Pbe" firstAttribute="trailing" secondItem="WmW-5S-HR2" secondAttribute="trailing" constant="20" id="XhN-Th-lAk"/>
                             <constraint firstItem="WmW-5S-HR2" firstAttribute="leading" secondItem="Mmz-qg-Pbe" secondAttribute="leading" constant="20" id="Xrb-si-ZWW"/>
-                            <constraint firstItem="WmW-5S-HR2" firstAttribute="bottom" secondItem="Mmz-qg-Pbe" secondAttribute="bottom" placeholder="YES" id="yWf-Yn-phg"/>
+                            <constraint firstItem="WmW-5S-HR2" firstAttribute="bottom" secondItem="Mmz-qg-Pbe" secondAttribute="bottom" constant="20" placeholder="YES" id="yWf-Yn-phg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DEY-Ya-WmV"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="414" height="334"/>
                     <connections>
                         <outlet property="alarmModeSegmentedSwitch" destination="sJV-M8-EEI" id="d1c-By-gs3"/>
                         <outlet property="soundsPickerView" destination="21l-2m-K2x" id="rPn-tv-ab5"/>
@@ -670,13 +672,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3X-ku-fhZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-678.26086956521749" y="835.71428571428567"/>
+            <point key="canvasLocation" x="871" y="113"/>
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="937" height="937"/>
+        <image name="CenterImage" width="883" height="877"/>
         <image name="arrowtriangle.forward.fill" catalog="system" width="128" height="113"/>
         <image name="bell.fill" catalog="system" width="128" height="124"/>
+        <image name="bell.slash.fill" catalog="system" width="124" height="128"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="nosign" catalog="system" width="128" height="121"/>

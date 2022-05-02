@@ -13,67 +13,6 @@ import RVS_Generic_Swift_Toolbox
 import RVS_MaskButton
 
 /* ###################################################################################################################################### */
-// MARK: - Cleantime Report Popover View Controller -
-/* ###################################################################################################################################### */
-/**
- This controls the popover that is displayed, when touching the mode title button.
- */
-class RVS_SetTimerAmbiaMara_PopoverViewController: UIViewController {
-    /* ################################################################## */
-    /**
-     The storyboard ID for this controller.
-     */
-    static let storyboardID = "RVS_SetTimerAmbiaMara_PopoverViewController"
-    
-    /* ################################################################## */
-    /**
-     This is how much leeway to give on each side, to account for the popover inset.
-     */
-    static let sideOffsetInDisplayUnits = CGFloat(40)
-    
-    /* ################################################################## */
-    /**
-     The string that will be displayed in the popover.
-     */
-    var descriptionString: String = "ERROR"
-    
-    /* ################################################################## */
-    /**
-     The label that will display the description, in the popover.
-     */
-    @IBOutlet weak var descriptionLabel: UILabel?
-    
-    /* ################################################################## */
-    /**
-     */
-    override var preferredContentSize: CGSize {
-        get {
-            guard let descriptionLabel = descriptionLabel,
-                  let text = descriptionLabel.text,
-                  let font = descriptionLabel.font
-            else { return super.preferredContentSize }
-            
-            let calcString = NSAttributedString(string: text, attributes: [.font: font])
-            let cropRect = calcString.boundingRect(with: CGSize.init(width: super.preferredContentSize.width - (Self.sideOffsetInDisplayUnits * 2),
-                                                                     height: CGFloat.greatestFiniteMagnitude),
-                                                   options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
-
-            return CGSize(width: super.preferredContentSize.width, height: cropRect.size.height + Self.sideOffsetInDisplayUnits)
-        }
-        set { super.preferredContentSize = newValue }
-    }
-    
-    /* ################################################################## */
-    /**
-     Called when the view loads.
-     */
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        descriptionLabel?.text = descriptionString
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - Initial View Controller -
 /* ###################################################################################################################################### */
 /**
@@ -519,6 +458,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         minutesLabel?.isUserInteractionEnabled = RVS_AmbiaMara_Settings().useGuidancePopovers
         secondsLabel?.isUserInteractionEnabled = RVS_AmbiaMara_Settings().useGuidancePopovers
         
+        setAlarmIcon()
+        
         // First time through, we do a "fade in" animation.
         if let startupLogo = startupLogo {
             alarmSetBarButtonItem?.isEnabled = false
@@ -711,7 +652,33 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             present(popoverController, animated: true)
        }
     }
+    
+    /* ################################################################## */
+    /**
+     This is called, when someone selects the top mode label.
+     It displays a popover, with a description of the current mode.
+     - parameter: ignored.
+     */
+    @IBAction func displayAlarmSetupPopover(_ inButtonItem: UIBarButtonItem) {
+        if let popoverController = storyboard?.instantiateViewController(identifier: RVS_SetAlarmAmbiaMara_PopoverViewController.storyboardID) as? RVS_SetAlarmAmbiaMara_PopoverViewController {
+            popoverController.modalPresentationStyle = .popover
+            popoverController.myController = self
+            popoverController.popoverPresentationController?.barButtonItem = inButtonItem
+            popoverController.popoverPresentationController?.delegate = self
+            popoverController.preferredContentSize = view?.window?.bounds.size ?? .zero
+            currentPopover = popoverController
+            present(popoverController, animated: true)
+       }
+    }
 
+    /* ################################################################## */
+    /**
+     This makes sure the alarm icon at the top, is the correct one.
+    */
+    func setAlarmIcon() {
+        alarmSetBarButtonItem?.image = UIImage(systemName: RVS_AmbiaMara_Settings().alarmMode ? "bell.fill" : "bell.slash.fill")
+    }
+    
     /* ################################################################## */
     /**
      Called when the add bar button item has been hit.

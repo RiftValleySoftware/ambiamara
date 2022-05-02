@@ -12,18 +12,36 @@ import UIKit
 import RVS_Generic_Swift_Toolbox
 
 /* ###################################################################################################################################### */
-// MARK: - Set Audible and Visual Alarm View Controller -
+// MARK: - Set Audible and Visual Alarm Popover View Controller -
 /* ###################################################################################################################################### */
 /**
- This is the view controller for the alarm setup screen.
+ This is the view controller for the alarm setup popover.
  */
-class RVS_SetAlarmAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
+class RVS_SetAlarmAmbiaMara_PopoverViewController: RVS_AmbiaMara_BaseViewController {
+    /* ################################################################## */
+    /**
+     The size of the picker font
+    */
+    private static let _pickerFont = UIFont.boldSystemFont(ofSize: 20)
+
+    /* ################################################################## */
+    /**
+     The storyboard ID for this controller.
+     */
+    static let storyboardID = "RVS_SetAlarmAmbiaMara_ViewController"
+    
     /* ################################################################## */
     /**
      This aggregates our available sounds.
      The sounds are files, stored in the resources, so this simply gets them, and stores them as path URIs.
     */
     var soundSelection: [String] = []
+    
+    /* ################################################################## */
+    /**
+     This references the presenting view controller.
+    */
+    weak var myController: RVS_SetTimerAmbiaMara_ViewController?
     
     /* ################################################################## */
     /**
@@ -59,7 +77,11 @@ class RVS_SetAlarmAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
 /* ###################################################################################################################################### */
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
-extension RVS_SetAlarmAmbiaMara_ViewController {
+extension RVS_SetAlarmAmbiaMara_PopoverViewController {
+    /* ################################################################## */
+    /**
+     
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -83,7 +105,7 @@ extension RVS_SetAlarmAmbiaMara_ViewController {
 /* ###################################################################################################################################### */
 // MARK: Callbacks
 /* ###################################################################################################################################### */
-extension RVS_SetAlarmAmbiaMara_ViewController {
+extension RVS_SetAlarmAmbiaMara_PopoverViewController {
     /* ################################################################## */
     /**
      Called when the alarm mode is changed.
@@ -93,6 +115,7 @@ extension RVS_SetAlarmAmbiaMara_ViewController {
     @IBAction func alarmModeSegmentedSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         RVS_AmbiaMara_Settings().alarmMode = 1 == inSegmentedSwitch.selectedSegmentIndex
         soundsPickerView?.isHidden = 0 == inSegmentedSwitch.selectedSegmentIndex
+        myController?.setAlarmIcon()
     }
     
     /* ################################################################## */
@@ -114,7 +137,7 @@ extension RVS_SetAlarmAmbiaMara_ViewController {
 /* ###################################################################################################################################### */
 // MARK: UIPickerViewDataSource Conformance
 /* ###################################################################################################################################### */
-extension RVS_SetAlarmAmbiaMara_ViewController: UIPickerViewDataSource {
+extension RVS_SetAlarmAmbiaMara_PopoverViewController: UIPickerViewDataSource {
     /* ################################################################## */
     /**
      - parameter in: The picker view (ignored).
@@ -134,7 +157,7 @@ extension RVS_SetAlarmAmbiaMara_ViewController: UIPickerViewDataSource {
 /* ###################################################################################################################################### */
 // MARK: UIPickerViewDelegate Conformance
 /* ###################################################################################################################################### */
-extension RVS_SetAlarmAmbiaMara_ViewController: UIPickerViewDelegate {
+extension RVS_SetAlarmAmbiaMara_PopoverViewController: UIPickerViewDelegate {
     /* ################################################################## */
     /**
      This is called when a row is selected.
@@ -160,6 +183,7 @@ extension RVS_SetAlarmAmbiaMara_ViewController: UIPickerViewDelegate {
     func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inView: UIView?) -> UIView {
         guard let soundUri = URL(string: soundSelection[inRow].urlEncodedString ?? "")?.lastPathComponent else { return UIView() }
         let label = UILabel()
+        label.font = Self._pickerFont
         label.textColor = .white
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
@@ -173,7 +197,7 @@ extension RVS_SetAlarmAmbiaMara_ViewController: UIPickerViewDelegate {
 /* ###################################################################################################################################### */
 // MARK: UIPickerViewAccessibilityDelegate Conformance
 /* ###################################################################################################################################### */
-extension RVS_SetAlarmAmbiaMara_ViewController: UIPickerViewAccessibilityDelegate {
+extension RVS_SetAlarmAmbiaMara_PopoverViewController: UIPickerViewAccessibilityDelegate {
     /* ################################################################## */
     /**
      This returns the accessibility label for the picker component.
