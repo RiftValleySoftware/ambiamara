@@ -9,6 +9,7 @@
  */
 
 import UIKit
+import AVKit
 import RVS_Generic_Swift_Toolbox
 
 /* ###################################################################################################################################### */
@@ -44,6 +45,12 @@ class RVS_SetAlarmAmbiaMara_PopoverViewController: RVS_AmbiaMara_BaseViewControl
     
     /* ################################################################## */
     /**
+     This is the audio player (for sampling sounds).
+    */
+    var audioPlayer: AVAudioPlayer!
+    
+    /* ################################################################## */
+    /**
      This aggregates our available sounds.
      The sounds are files, stored in the resources, so this simply gets them, and stores them as path URIs.
     */
@@ -54,7 +61,22 @@ class RVS_SetAlarmAmbiaMara_PopoverViewController: RVS_AmbiaMara_BaseViewControl
      If true, then the currently selected sound is playing.
      This is set or cleared by the "play sound" button.
     */
-    var isSoundPlaying: Bool = false { didSet { DispatchQueue.main.async { [weak self] in self?.setUpForSoundPlayMode() } } }
+    var isSoundPlaying: Bool = false {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.audioPlayer?.stop()
+                self?.audioPlayer = nil
+                
+                if self?.isSoundPlaying ?? false,
+                   let selectedURLString = self?.soundSelection[RVS_AmbiaMara_Settings().selectedSoundIndex],
+                   let url = URL(string: selectedURLString) {
+                    self?.playThisSound(url)
+                }
+                
+                self?.setUpForSoundPlayMode()
+            }
+        }
+    }
     
     /* ################################################################## */
     /**
@@ -166,6 +188,27 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
     func setUpForSoundPlayMode() {
         soundPlayButton?.setImage(UIImage(systemName: Self._playSoundImageNames[isSoundPlaying ? 1 : 0]), for: .normal)
     }
+
+    /* ################################################################## */
+    /**
+     This plays any sound, using a given URL.
+     
+     - parameter inSoundURL: This is the URI to the sound resource.
+     */
+    func playThisSound(_ inSoundURL: URL) {
+        do {
+            if nil == audioPlayer {
+                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
+                try audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
+                audioPlayer?.numberOfLoops = -1
+            }
+            audioPlayer?.play()
+        } catch {
+            #if DEBUG
+                print("ERROR! Attempt to play sound failed: \(String(describing: error))")
+            #endif
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -244,7 +287,10 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController: UIPickerViewDelegate {
      - parameter inComponent: The component that contains the selected row (0-based index).
     */
     func pickerView(_ inPickerView: UIPickerView, didSelectRow inRow: Int, inComponent: Int) {
+        let wasPlaying = isSoundPlaying
+        isSoundPlaying = false
         RVS_AmbiaMara_Settings().selectedSoundIndex = inRow
+        isSoundPlaying = wasPlaying
     }
     
     /* ################################################################## */
@@ -285,4 +331,20 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController: UIPickerViewAccessibility
      - returns: An accessibility string for the component.
     */
     func pickerView(_: UIPickerView, accessibilityLabelForComponent: Int) -> String? { "SLUG-ACC-SOUND-PICKER".localizedVariant }
+}
+
+/* ###################################################################################################################################### */
+// MARK: AVAudioPlayerDelegate Conformance
+/* ###################################################################################################################################### */
+extension RVS_SetAlarmAmbiaMara_PopoverViewController: AVAudioPlayerDelegate {
+    /* ################################################################## */
+    /**
+     Called when the sound is done playing.
+     
+      - parameter: The player (ignored)
+      - parameter successfully: True, if the play was successful (also ignored).
+    */
+    func audioPlayerDidFinishPlaying(_: AVAudioPlayer, successfully: Bool) {
+        isSoundPlaying = false
+    }
 }
