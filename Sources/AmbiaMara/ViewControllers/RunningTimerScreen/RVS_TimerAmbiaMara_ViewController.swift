@@ -105,5 +105,25 @@ extension RVS_TimerAmbiaMara_ViewController {
             digitalDisplayViewMinutes?.value = inMinutes
             digitalDisplayViewSeconds?.value = inSeconds
         }
+        
+        if RVS_AmbiaMara_Settings().showStoplights {
+            let hours = max(0, inHours)
+            let minutes = max(0, inMinutes)
+            let seconds = max(0, inSeconds)
+            let totalTime = (hours * 60 * 60) + (minutes * 60) + seconds
+            if totalTime >= RVS_AmbiaMara_Settings().currentTimer.startTime {
+                startLightImageView?.alpha = 1.0
+                warnLightImageView?.alpha = 0.15
+                finalLightImageView?.alpha = 0.15
+            } else if totalTime >= RVS_AmbiaMara_Settings().currentTimer.warnTime {
+                startLightImageView?.alpha = 0.15
+                warnLightImageView?.alpha = 1.0
+                finalLightImageView?.alpha = 0.15
+            } else if totalTime >= RVS_AmbiaMara_Settings().currentTimer.finalTime {
+                startLightImageView?.alpha = 0.15
+                warnLightImageView?.alpha = 0.15
+                finalLightImageView?.alpha = 1.0
+            }
+        }
     }
 }
