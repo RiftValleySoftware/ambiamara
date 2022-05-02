@@ -581,7 +581,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WmW-5S-HR2">
-                                <rect key="frame" x="20" y="64" width="374" height="290"/>
+                                <rect key="frame" x="20" y="64" width="374" height="270"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sJV-M8-EEI">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="31"/>
@@ -603,16 +603,16 @@
                                         </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vLl-KJ-LU0">
-                                        <rect key="frame" x="0.0" y="38" width="374" height="252"/>
+                                        <rect key="frame" x="0.0" y="38" width="374" height="232"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZMg-gt-lOZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="252"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="232"/>
                                                 <connections>
                                                     <action selector="vibrateSwitchChanged:" destination="Vbk-gE-tat" eventType="valueChanged" id="57D-Ee-mag"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehg-s1-KXq">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="252"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="232"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="SLUG-VIBRATE"/>
                                                 <connections>
@@ -628,7 +628,7 @@
                                         </constraints>
                                     </stackView>
                                     <pickerView hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="21l-2m-K2x">
-                                        <rect key="frame" x="0.0" y="290" width="374" height="100"/>
+                                        <rect key="frame" x="0.0" y="270" width="374" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="LON-5y-h9U"/>
                                         </constraints>
@@ -656,7 +656,7 @@
                             <constraint firstItem="WmW-5S-HR2" firstAttribute="top" secondItem="Mmz-qg-Pbe" secondAttribute="top" constant="20" id="P3M-mw-yVJ"/>
                             <constraint firstItem="Mmz-qg-Pbe" firstAttribute="trailing" secondItem="WmW-5S-HR2" secondAttribute="trailing" constant="20" id="XhN-Th-lAk"/>
                             <constraint firstItem="WmW-5S-HR2" firstAttribute="leading" secondItem="Mmz-qg-Pbe" secondAttribute="leading" constant="20" id="Xrb-si-ZWW"/>
-                            <constraint firstItem="WmW-5S-HR2" firstAttribute="bottom" secondItem="Mmz-qg-Pbe" secondAttribute="bottom" constant="20" placeholder="YES" id="yWf-Yn-phg"/>
+                            <constraint firstItem="Mmz-qg-Pbe" firstAttribute="bottom" secondItem="WmW-5S-HR2" secondAttribute="bottom" placeholder="YES" id="yWf-Yn-phg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DEY-Ya-WmV"/>

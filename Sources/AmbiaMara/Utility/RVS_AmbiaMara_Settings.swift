@@ -417,7 +417,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
      If the digits are to be shown in the running timer, this should be true.
      */
     var showDigits: Bool {
-        get { 0 != (values[Keys.showDigits.rawValue] as? Int ?? 0) }
+        get { 0 != (values[Keys.showDigits.rawValue] as? Int ?? 1) }
         set { values[Keys.showDigits.rawValue] = newValue ? 1 : 0 }
     }
 
@@ -426,7 +426,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
      If the "stoplights" are to be shown in the running timer, this should be true.
      */
     var showStoplights: Bool {
-        get { 0 != (values[Keys.showStoplights.rawValue] as? Int ?? 0) }
+        get { 0 != (values[Keys.showStoplights.rawValue] as? Int ?? 1) }
         set { values[Keys.showStoplights.rawValue] = newValue ? 1 : 0 }
     }
 

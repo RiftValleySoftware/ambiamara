@@ -93,6 +93,12 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /**
      The period that we use for the "fade in" animation.
     */
+    private static let _alarmPopoverSize = CGSize(width: 400, height: 200)
+
+    /* ################################################################## */
+    /**
+     The period that we use for the "fade in" animation.
+    */
     private static let _fadeInAnimationPeriod = CGFloat(1.0)
 
     /* ################################################################## */
@@ -665,7 +671,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             popoverController.myController = self
             popoverController.popoverPresentationController?.barButtonItem = inButtonItem
             popoverController.popoverPresentationController?.delegate = self
-            popoverController.preferredContentSize = view?.window?.bounds.size ?? .zero
+            popoverController.preferredContentSize = Self._alarmPopoverSize
             currentPopover = popoverController
             present(popoverController, animated: true)
        }
@@ -754,7 +760,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                                     && 1 < currentTimer.startTime
                                     && (1 < currentTimer.warnTime
                                         || 0 == currentTimer.warnTime)
-        startButton?.isEnabled = 0 < currentTimer.startTime
+        startButton?.isEnabled = 0 < currentTimer.startTime && (RVS_AmbiaMara_Settings().showDigits || RVS_AmbiaMara_Settings().showStoplights)
         clearButton?.isHidden = 0 >= currentTimer.startTime
         
         stateLabel?.accessibilityLabel = "SLUG-ACC-STATE".localizedVariant + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant

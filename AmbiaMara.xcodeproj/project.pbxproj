@@ -148,6 +148,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D4352A65281FF11200BEC5A4 /* Popovers */ = {
+			isa = PBXGroup;
+			children = (
+				D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */,
+				D4352A63281FEEFD00BEC5A4 /* RVS_SetTimerAmbiaMara_PopoverViewController.swift */,
+			);
+			path = Popovers;
+			sourceTree = "<group>";
+		};
 		D44E7714281AD24F00B491EF /* ProjectMeta */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,8 +253,7 @@
 				D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */,
 				D4CE51B6281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift */,
 				D4CE51BA281DD48700DA6B85 /* RVS_AboutAmbiaMara_ViewController.swift */,
-				D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */,
-				D4352A63281FEEFD00BEC5A4 /* RVS_SetTimerAmbiaMara_PopoverViewController.swift */,
+				D4352A65281FF11200BEC5A4 /* Popovers */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
