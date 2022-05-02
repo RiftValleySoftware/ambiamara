@@ -80,7 +80,7 @@ class RVS_SetAlarmAmbiaMara_PopoverViewController: RVS_AmbiaMara_BaseViewControl
 extension RVS_SetAlarmAmbiaMara_PopoverViewController {
     /* ################################################################## */
     /**
-     
+     Called when the hierarchy has loaded. We set up the initial states, and all the localization and accessibility.
     */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,11 +90,15 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
         alarmModeSegmentedSwitch?.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
         alarmModeSegmentedSwitch?.setTitleTextAttributes([.foregroundColor: UIColor.white.withAlphaComponent(0.25)], for: .disabled)
 
+        vibrateSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        vibrateSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
+        
         vibrateSwitchLabelButton?.setTitle(vibrateSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         vibrateSwitch?.isOn = RVS_AmbiaMara_Settings().useVibrate
         
         alarmModeSegmentedSwitch?.accessibilityLabel = "SLUG-ACC-ALARM-SET-MODE-SWITCH-LABEL".localizedVariant
         alarmModeSegmentedSwitch?.accessibilityHint = "SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT".localizedVariant
+        
         vibrateSwitch?.accessibilityLabel = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".localizedVariant
         vibrateSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".localizedVariant
 

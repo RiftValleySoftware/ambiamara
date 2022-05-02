@@ -647,7 +647,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="wPB-KW-suh"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" id="5PW-lA-4CB"/>
                 </viewController>
@@ -694,10 +695,10 @@
                                                     <action selector="vibrateSwitchChanged:" destination="Vbk-gE-tat" eventType="valueChanged" id="57D-Ee-mag"/>
                                                 </connections>
                                             </switch>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehg-s1-KXq">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehg-s1-KXq">
                                                 <rect key="frame" x="57" y="0.0" width="317" height="232"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="SLUG-VIBRATE"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="SLUG-VIBRATE-BUTTON"/>
                                                 <connections>
                                                     <action selector="vibrateSwitchChanged:" destination="Vbk-gE-tat" eventType="touchUpInside" id="IPk-EE-l4i"/>
                                                 </connections>
@@ -757,21 +758,41 @@
             </objects>
             <point key="canvasLocation" x="871" y="113"/>
         </scene>
-        <!--About Ambia Mara View Controller-->
+        <!--SLUG-ABOUT-TITLE-->
         <scene sceneID="gkd-bp-rVp">
             <objects>
                 <viewController id="Gjb-Zz-XlA" customClass="RVS_AboutAmbiaMara_ViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u9V-bG-Ubc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" text="SLUG-ABOUT-MAIN-TEXT" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Tz6-2I-hpj">
+                                <rect key="frame" x="20" y="88" width="366" height="774"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
+                            </textView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="CTe-gZ-jIr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="CTe-gZ-jIr" firstAttribute="bottom" secondItem="Tz6-2I-hpj" secondAttribute="bottom" id="DCO-Yi-Fah"/>
+                            <constraint firstItem="CTe-gZ-jIr" firstAttribute="trailing" secondItem="Tz6-2I-hpj" secondAttribute="trailing" constant="28" id="E3F-np-j0G"/>
+                            <constraint firstItem="Tz6-2I-hpj" firstAttribute="top" secondItem="CTe-gZ-jIr" secondAttribute="top" id="Fhw-QY-qXM"/>
+                            <constraint firstItem="Tz6-2I-hpj" firstAttribute="leading" secondItem="CTe-gZ-jIr" secondAttribute="leading" constant="20" id="z25-Ai-ZV2"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="jXe-I8-Htj"/>
+                    <navigationItem key="navigationItem" title="SLUG-ABOUT-TITLE" id="jXe-I8-Htj"/>
+                    <connections>
+                        <outlet property="aboutText" destination="Tz6-2I-hpj" id="Nft-Ar-aDm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gya-oJ-oJu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-299" y="838"/>
+            <point key="canvasLocation" x="-300" y="837.72321428571422"/>
         </scene>
     </scenes>
     <resources>

@@ -18,4 +18,24 @@ import RVS_Generic_Swift_Toolbox
  This is the view controller for the about screen.
  */
 class RVS_AboutAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
+    /* ################################################################## */
+    /**
+     This is the main about text.
+    */
+    @IBOutlet weak var aboutText: UITextView?
+}
+
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension RVS_AboutAmbiaMara_ViewController {
+    /* ################################################################## */
+    /**
+     Called when the hierarchy has loaded. We set up the text and localization.
+    */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.title = navigationItem.title?.localizedVariant
+        aboutText?.text = aboutText?.text?.localizedVariant
+    }
 }

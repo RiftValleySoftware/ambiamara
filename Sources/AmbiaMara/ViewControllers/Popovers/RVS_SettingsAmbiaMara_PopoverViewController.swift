@@ -92,6 +92,15 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         popoverDisplayTrafficLightsSwitchLabelButton?.setTitle(popoverDisplayTrafficLightsSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         aboutAmbiaMaraButton?.setTitle(aboutAmbiaMaraButton?.title(for: .normal)?.localizedVariant, for: .normal)
 
+        popoverHelpSettingsSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        popoverHelpSettingsSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
+        popoverDisplayDigitsSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        popoverDisplayDigitsSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
+        popoverDisplayTrafficLightsSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        popoverDisplayTrafficLightsSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
+        aboutAmbiaMaraButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        aboutAmbiaMaraButton?.titleLabel?.minimumScaleFactor = 0.5
+
         popoverHelpSettingsSwitch?.accessibilityLabel = "SLUG-ACC-SHOW-HELP-SWITCH".localizedVariant
         popoverHelpSettingsSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-SHOW-HELP-SWITCH".localizedVariant
         

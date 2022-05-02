@@ -46,7 +46,7 @@
 
 // MARK: ALARM SETUP POPOVER
 
-"SLUG-VIBRATE"                                  =   "Use Vibrate";
+"SLUG-VIBRATE-BUTTON"                           =   "Use Vibrate";
 
 // MARK: Sound Names
 
@@ -74,6 +74,11 @@
 "14-shut-up-1.mp3"                              =   "Shut Up (Obnoxious Man)";      // ONLY USED FOR ENGLISH
 "15-shut-up-2.mp3"                              =   "Shut Up (Woman)";              // ONLY USED FOR ENGLISH
 "22-thanks-for-sharing.mp3"                     =   "Thanks for Sharing (Robotic)"; // ONLY USED FOR ENGLISH
+
+// MARK: ABOUT SCREEN
+
+"SLUG-ABOUT-TITLE"                              =   "About AmbiaMara";
+"SLUG-ABOUT-MAIN-TEXT"                          =   "This will contain the about text.";
 
 // MARK: -
 // MARK: ACCESSIBILITY

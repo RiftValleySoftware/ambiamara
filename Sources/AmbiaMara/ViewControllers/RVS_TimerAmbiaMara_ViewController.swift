@@ -17,5 +17,5 @@ import RVS_Generic_Swift_Toolbox
 /**
  This is the view controller for the running timer screen.
  */
-class RVS_TimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
+class RVS_TimerAmbiaMara_ViewController: UIViewController {
 }
