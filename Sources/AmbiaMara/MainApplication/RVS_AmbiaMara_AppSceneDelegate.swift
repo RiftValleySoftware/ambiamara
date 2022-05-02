@@ -51,6 +51,26 @@ extension RVS_AmbiaMara_AppSceneDelegate {
 }
 
 /* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension RVS_AmbiaMara_AppSceneDelegate {
+    /* ################################################################## */
+    /**
+     This closes any open popovers.
+     */
+    func cleanPopover() {
+        DispatchQueue.main.async { [weak self] in
+            if let viewControllers = self?.navigationController?.viewControllers,
+               let setupScreen = viewControllers.first as? RVS_SetTimerAmbiaMara_ViewController,
+               let popover = setupScreen.currentPopover {
+                setupScreen.currentPopover = nil
+                popover.dismiss(animated: false)
+            }
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: UIApplicationDelegate Conformance
 /* ###################################################################################################################################### */
 extension RVS_AmbiaMara_AppSceneDelegate: UIApplicationDelegate {
@@ -80,14 +100,19 @@ extension RVS_AmbiaMara_AppSceneDelegate: UIApplicationDelegate {
 extension RVS_AmbiaMara_AppSceneDelegate: UIWindowSceneDelegate {
     /* ################################################################## */
     /**
+     Called when the app is resigning active
+     - parameter: The scene instance (ignored).
+     */
+    func sceneWillResignActive(_: UIScene) {
+        cleanPopover()
+    }
+    
+    /* ################################################################## */
+    /**
      Called when the app goes into the background.
      - parameter: The scene instance (ignored).
      */
     func sceneDidEnterBackground(_: UIScene) {
-        if let viewControllers = navigationController?.viewControllers,
-           let setupScreen = viewControllers.first as? RVS_SetTimerAmbiaMara_ViewController,
-           let popover = setupScreen.currentPopover {
-            popover.dismiss(animated: false)
-        }
+        cleanPopover()
     }
 }
