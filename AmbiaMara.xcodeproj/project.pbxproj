@@ -30,7 +30,6 @@
 		D4B01F8C281F58D200B07C56 /* 12-crazy-bird.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F74281F58D200B07C56 /* 12-crazy-bird.mp3 */; };
 		D4B01F8D281F58D200B07C56 /* 18-antique-phone.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F75281F58D200B07C56 /* 18-antique-phone.mp3 */; };
 		D4B01F8E281F58D200B07C56 /* 01-medium-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F76281F58D200B07C56 /* 01-medium-beep.mp3 */; };
-		D4B01F8F281F58D200B07C56 /* tick.aiff in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F77281F58D200B07C56 /* tick.aiff */; };
 		D4B01F90281F58D200B07C56 /* 05-high-fast-beeps.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F78281F58D200B07C56 /* 05-high-fast-beeps.mp3 */; };
 		D4B01F91281F58D200B07C56 /* 07-videogame-beeps-lower-frequency.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F79281F58D200B07C56 /* 07-videogame-beeps-lower-frequency.mp3 */; };
 		D4B01F92281F58D200B07C56 /* 03-electronic-buzz.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F7A281F58D200B07C56 /* 03-electronic-buzz.mp3 */; };
@@ -82,7 +81,6 @@
 				D4B01F8A281F58D200B07C56 /* 20-antique-car-horn.mp3 in Copy Sounds */,
 				D4B01F94281F58D200B07C56 /* 21-alarm-klaxon.mp3 in Copy Sounds */,
 				D4B01F84281F58D200B07C56 /* 22-thanks-for-sharing.mp3 in Copy Sounds */,
-				D4B01F8F281F58D200B07C56 /* tick.aiff in Copy Sounds */,
 			);
 			name = "Copy Sounds";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,7 +113,6 @@
 		D4B01F74281F58D200B07C56 /* 12-crazy-bird.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "12-crazy-bird.mp3"; sourceTree = "<group>"; };
 		D4B01F75281F58D200B07C56 /* 18-antique-phone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "18-antique-phone.mp3"; sourceTree = "<group>"; };
 		D4B01F76281F58D200B07C56 /* 01-medium-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "01-medium-beep.mp3"; sourceTree = "<group>"; };
-		D4B01F77281F58D200B07C56 /* tick.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = tick.aiff; sourceTree = "<group>"; };
 		D4B01F78281F58D200B07C56 /* 05-high-fast-beeps.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "05-high-fast-beeps.mp3"; sourceTree = "<group>"; };
 		D4B01F79281F58D200B07C56 /* 07-videogame-beeps-lower-frequency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "07-videogame-beeps-lower-frequency.mp3"; sourceTree = "<group>"; };
 		D4B01F7A281F58D200B07C56 /* 03-electronic-buzz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "03-electronic-buzz.mp3"; sourceTree = "<group>"; };
@@ -150,6 +147,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D4233CA02820384D00ED62EC /* Baseline */ = {
+			isa = PBXGroup;
+			children = (
+				D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */,
+			);
+			path = Baseline;
+			sourceTree = "<group>";
+		};
+		D4233CA12820386000ED62EC /* SetTimerScreen */ = {
+			isa = PBXGroup;
+			children = (
+				D4352A65281FF11200BEC5A4 /* Popovers */,
+				D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */,
+			);
+			path = SetTimerScreen;
+			sourceTree = "<group>";
+		};
+		D4233CA22820386E00ED62EC /* AboutScreen */ = {
+			isa = PBXGroup;
+			children = (
+				D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */,
+			);
+			path = AboutScreen;
+			sourceTree = "<group>";
+		};
+		D4233CA32820387800ED62EC /* RunningTimerScreen */ = {
+			isa = PBXGroup;
+			children = (
+				D4CE51B6281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift */,
+			);
+			path = RunningTimerScreen;
+			sourceTree = "<group>";
+		};
 		D4352A65281FF11200BEC5A4 /* Popovers */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,7 +254,6 @@
 				D4B01F72281F58D200B07C56 /* 20-antique-car-horn.mp3 */,
 				D4B01F7C281F58D200B07C56 /* 21-alarm-klaxon.mp3 */,
 				D4B01F6A281F58D200B07C56 /* 22-thanks-for-sharing.mp3 */,
-				D4B01F77281F58D200B07C56 /* tick.aiff */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -252,11 +281,10 @@
 		D4C4B71D2819D70300E22ECA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */,
-				D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */,
-				D4CE51B6281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift */,
-				D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */,
-				D4352A65281FF11200BEC5A4 /* Popovers */,
+				D4233CA02820384D00ED62EC /* Baseline */,
+				D4233CA12820386000ED62EC /* SetTimerScreen */,
+				D4233CA22820386E00ED62EC /* AboutScreen */,
+				D4233CA32820387800ED62EC /* RunningTimerScreen */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
