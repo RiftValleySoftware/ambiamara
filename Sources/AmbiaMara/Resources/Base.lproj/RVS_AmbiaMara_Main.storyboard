@@ -202,7 +202,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42o-kL-hkS">
                                                         <rect key="frame" x="250.5" y="3.5" width="79.5" height="26"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <color key="tintColor" name="Start-Color"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal">
                                                             <imageReference key="image" image="arrowtriangle.forward.fill" catalog="system" symbolScale="large"/>
@@ -580,7 +580,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WmW-5S-HR2">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WmW-5S-HR2">
                                 <rect key="frame" x="20" y="88" width="374" height="774"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sJV-M8-EEI">
@@ -594,9 +594,6 @@
                                             </segment>
                                             <segment title="">
                                                 <imageReference key="image" image="bell.fill" catalog="system" symbolScale="large"/>
-                                            </segment>
-                                            <segment title="">
-                                                <imageReference key="image" image="speaker.wave.3.fill" catalog="system" symbolScale="large"/>
                                             </segment>
                                         </segments>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -630,11 +627,23 @@
                                             <constraint firstAttribute="bottom" secondItem="ZMg-gt-lOZ" secondAttribute="bottom" id="rtL-JG-g9I"/>
                                         </constraints>
                                     </stackView>
+                                    <pickerView hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="21l-2m-K2x">
+                                        <rect key="frame" x="0.0" y="774" width="374" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="LON-5y-h9U"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Vbk-gE-tat" id="mfb-sq-KUN"/>
+                                            <outlet property="delegate" destination="Vbk-gE-tat" id="1fd-qH-2tF"/>
+                                        </connections>
+                                    </pickerView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="vLl-KJ-LU0" secondAttribute="trailing" id="5WG-Ye-Bbt"/>
                                     <constraint firstItem="sJV-M8-EEI" firstAttribute="leading" secondItem="WmW-5S-HR2" secondAttribute="leading" id="ce4-BP-gIn"/>
                                     <constraint firstAttribute="trailing" secondItem="sJV-M8-EEI" secondAttribute="trailing" id="dbW-JD-VSX"/>
+                                    <constraint firstItem="21l-2m-K2x" firstAttribute="leading" secondItem="WmW-5S-HR2" secondAttribute="leading" id="ezy-aN-C7w"/>
+                                    <constraint firstAttribute="trailing" secondItem="21l-2m-K2x" secondAttribute="trailing" id="hRl-Zk-dpb"/>
                                     <constraint firstItem="sJV-M8-EEI" firstAttribute="top" secondItem="WmW-5S-HR2" secondAttribute="top" id="kWk-OJ-nqY"/>
                                     <constraint firstItem="vLl-KJ-LU0" firstAttribute="leading" secondItem="WmW-5S-HR2" secondAttribute="leading" id="pjD-Lq-OGu"/>
                                 </constraints>
@@ -653,6 +662,7 @@
                     <navigationItem key="navigationItem" id="DEY-Ya-WmV"/>
                     <connections>
                         <outlet property="alarmModeSegmentedSwitch" destination="sJV-M8-EEI" id="d1c-By-gs3"/>
+                        <outlet property="soundsPickerView" destination="21l-2m-K2x" id="rPn-tv-ab5"/>
                         <outlet property="vibrateSwitch" destination="ZMg-gt-lOZ" id="nzy-ic-I7c"/>
                         <outlet property="vibrateSwitchLabelButton" destination="Ehg-s1-KXq" id="aeV-bM-ga1"/>
                         <outlet property="vibrateSwitchStackView" destination="vLl-KJ-LU0" id="GKo-1K-KsA"/>
@@ -664,13 +674,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="883" height="877"/>
+        <image name="CenterImage" width="937" height="937"/>
         <image name="arrowtriangle.forward.fill" catalog="system" width="128" height="113"/>
         <image name="bell.fill" catalog="system" width="128" height="124"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="nosign" catalog="system" width="128" height="121"/>
-        <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <namedColor name="Final-Color">
             <color red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

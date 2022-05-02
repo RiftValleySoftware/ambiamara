@@ -223,13 +223,34 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
 
         /* ############################################################## */
         /**
+         If true, then the alarm will use haptics (vibration), in devices that support it.
+         */
+        case useVibrate
+
+        /* ############################################################## */
+        /**
+         The alarm mode. It will store one of the AlarmSoundMode values as an Int.
+         */
+        case alarmMode
+        
+        /* ############################################################## */
+        /**
+         The selected sound. This is a 0-based index (Int).
+         */
+        case selectedSoundIndex
+
+        /* ############################################################## */
+        /**
          These are all the keys, in an Array of String.
          */
         static var allKeys: [String] { [
                                         timers.rawValue,
                                         timerIDs.rawValue,
                                         currentTimerIndex.rawValue,
-                                        useGuidancePopovers.rawValue
+                                        useGuidancePopovers.rawValue,
+                                        useVibrate.rawValue,
+                                        alarmMode.rawValue,
+                                        selectedSoundIndex.rawValue
                                         ]
         }
     }
@@ -346,10 +367,37 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
      If true, then the setup scren will provide guidance popovers.
      */
     var useGuidancePopovers: Bool {
-        get { values[Keys.useGuidancePopovers.rawValue] as? Bool ?? !UIAccessibility.isVoiceOverRunning }
-        set { values[Keys.useGuidancePopovers.rawValue] = newValue }
+        get { 0 != (values[Keys.useGuidancePopovers.rawValue] as? Int ?? 0) }
+        set { values[Keys.useGuidancePopovers.rawValue] = newValue ? 1 : 0 }
     }
-    
+
+    /* ################################################################## */
+    /**
+     If true, then the alarm will use haptics (vibration), in devices that support it.
+     */
+    var useVibrate: Bool {
+        get { 0 != (values[Keys.useVibrate.rawValue] as? Int ?? 0) }
+        set { values[Keys.useVibrate.rawValue] = newValue ? 1 : 0 }
+    }
+
+    /* ################################################################## */
+    /**
+     The alarm audio mode. If true, then there will be an audible alarm.
+     */
+    var alarmMode: Bool {
+        get { 0 != (values[Keys.alarmMode.rawValue] as? Int ?? 0) }
+        set { values[Keys.alarmMode.rawValue] = newValue ? 1 : 0 }
+    }
+
+    /* ################################################################## */
+    /**
+     The selected sound, for an alarm. This is a 0-based index.
+     */
+    var selectedSoundIndex: Int {
+        get { values[Keys.selectedSoundIndex.rawValue] as? Int ?? 0 }
+        set { values[Keys.selectedSoundIndex.rawValue] = newValue }
+    }
+
     /* ################################################################## */
     /**
      The currently selected timer instance.

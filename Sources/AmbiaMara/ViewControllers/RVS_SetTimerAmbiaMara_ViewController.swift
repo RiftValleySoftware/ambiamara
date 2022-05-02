@@ -55,7 +55,8 @@ class RVS_SetTimerAmbiaMara_PopoverViewController: UIViewController {
             
             let calcString = NSAttributedString(string: text, attributes: [.font: font])
             let cropRect = calcString.boundingRect(with: CGSize.init(width: super.preferredContentSize.width - (Self.sideOffsetInDisplayUnits * 2),
-                                                                     height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
+                                                                     height: CGFloat.greatestFiniteMagnitude),
+                                                   options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
 
             return CGSize(width: super.preferredContentSize.width, height: cropRect.size.height + Self.sideOffsetInDisplayUnits)
         }

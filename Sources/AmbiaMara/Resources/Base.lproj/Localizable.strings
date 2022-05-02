@@ -45,6 +45,33 @@
 
 "SLUG-VIBRATE"                                  =   "Use Vibrate";
 
+// MARK: Sound Names
+
+"00-low-beep.mp3"                                       =   "Low Simple Beeps";
+"01-medium-beep.mp3"                                    =   "Medium Simple Beeps";
+"02-high-beep.mp3"                                      =   "High Simple Beeps";
+"03-electronic-buzz.mp3"                                =   "Strident Beeps";
+"04-fast-beep.mp3"                                      =   "Subtle Ringing";
+"05-high-fast-beeps.mp3"                                =   "Fast Subtle Beeps";
+"06-escalation.mp3"                                     =   "Escalating Alarm";
+"07-videogame-beeps-lower-frequency.mp3"                =   "Low-Frequency Electronic";
+"08-videogame-beeps-high-frequency.mp3"                 =   "High-Frequency Electronic";
+"09-single-beep.mp3"                                    =   "Basic Beeps";
+"10-annoying-alarm.mp3"                                 =   "Classic Alarm";
+"11-bells.mp3"                                          =   "Church Bells";
+"12-crazy-bird.mp3"                                     =   "Crazy Bird";
+"13-rooster.mp3"                                        =   "Rooster";
+"16-snoring-1.mp3"                                      =   "Snoring";
+"17-car-horn.mp3"                                       =   "Car Horn";
+"18-antique-phone.mp3"                                  =   "Antique Phone Ringing";
+"19-classic-phone.mp3"                                  =   "Classic Phone Ringing";
+"20-antique-car-horn.mp3"                               =   "Antique Car Horn";
+"21-alarm-klaxon.mp3"                                   =   "Alarm Klaxon";
+
+"14-shut-up-1.mp3"                                      =   "Shut Up (Obnoxious Man)";      // ONLY USED FOR ENGLISH
+"15-shut-up-2.mp3"                                      =   "Shut Up (Woman)";              // ONLY USED FOR ENGLISH
+"22-thanks-for-sharing.mp3"                             =   "Thanks for Sharing (Robotic)"; // ONLY USED FOR ENGLISH
+
 // MARK: -
 // MARK: ACCESSIBILITY
 // MARK: -
