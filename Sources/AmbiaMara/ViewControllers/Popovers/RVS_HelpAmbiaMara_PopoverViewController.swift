@@ -13,17 +13,17 @@ import RVS_Generic_Swift_Toolbox
 import RVS_MaskButton
 
 /* ###################################################################################################################################### */
-// MARK: - Cleantime Report Popover View Controller -
+// MARK: - Help Popover View Controller -
 /* ###################################################################################################################################### */
 /**
  This controls the popover that is displayed, when touching the mode title button.
  */
-class RVS_SetTimerAmbiaMara_PopoverViewController: UIViewController {
+class RVS_HelpAmbiaMara_PopoverViewController: UIViewController {
     /* ################################################################## */
     /**
      The storyboard ID for this controller.
      */
-    static let storyboardID = "RVS_SetTimerAmbiaMara_PopoverViewController"
+    static let storyboardID = "RVS_HelpAmbiaMara_PopoverViewController"
     
     /* ################################################################## */
     /**
@@ -58,7 +58,7 @@ class RVS_SetTimerAmbiaMara_PopoverViewController: UIViewController {
                                                                      height: CGFloat.greatestFiniteMagnitude),
                                                    options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
 
-            return CGSize(width: super.preferredContentSize.width, height: cropRect.size.height + Self.sideOffsetInDisplayUnits)
+            return CGSize(width: super.preferredContentSize.width, height: cropRect.size.height + (Self.sideOffsetInDisplayUnits * 2))
         }
         set { super.preferredContentSize = newValue }
     }

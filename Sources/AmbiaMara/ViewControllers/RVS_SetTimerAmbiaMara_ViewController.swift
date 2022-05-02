@@ -91,6 +91,12 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
+     The ID for the segue, to show the about screen.
+    */
+    private static let _aboutViewSegueID = "ShowAboutView"
+    
+    /* ################################################################## */
+    /**
      The period that we use for the "fade in" animation.
     */
     private static let _alarmPopoverSize = CGSize(width: 400, height: 200)
@@ -443,7 +449,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         bottomToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
         
         // This allows us to set a help popover to the navigation bar.
-        navigationController?.navigationBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(displayTimerStateDescriptionPopover)))
+        navigationController?.navigationBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(displayHelpPopover)))
 
         setUpButtons()
     }
@@ -604,13 +610,13 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     
     /* ################################################################## */
     /**
-     This is called, when someone selects the top mode label.
-     It displays a popover, with a description of the current mode.
+     This is called, when someone selects one of the help items.
+     It displays a popover, with help text.
      - parameter: ignored.
      */
-    @IBAction func displayTimerStateDescriptionPopover(_ inTapGestureRecognizer: UITapGestureRecognizer) {
+    @IBAction func displayHelpPopover(_ inTapGestureRecognizer: UITapGestureRecognizer) {
         if RVS_AmbiaMara_Settings().useGuidancePopovers,
-           let popoverController = storyboard?.instantiateViewController(identifier: RVS_SetTimerAmbiaMara_PopoverViewController.storyboardID) as? RVS_SetTimerAmbiaMara_PopoverViewController {
+           let popoverController = storyboard?.instantiateViewController(identifier: RVS_HelpAmbiaMara_PopoverViewController.storyboardID) as? RVS_HelpAmbiaMara_PopoverViewController {
             var displayString = "ERROR"
             var viewHook: UIView?
 
@@ -653,7 +659,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             popoverController.modalPresentationStyle = .popover
             popoverController.popoverPresentationController?.sourceView = viewHook
             popoverController.popoverPresentationController?.delegate = self
-            popoverController.preferredContentSize = view?.window?.bounds.size ?? .zero
             currentPopover = popoverController
             present(popoverController, animated: true)
        }
@@ -661,9 +666,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     
     /* ################################################################## */
     /**
-     This is called, when someone selects the top mode label.
-     It displays a popover, with a description of the current mode.
-     - parameter: ignored.
+     This is called, when someone selects the Alarm Set Bar Button.
+     It displays a popover, with tools to select the audible (or vibratory) alarm.
+     - parameter inButtonItem: the bar button item.
      */
     @IBAction func displayAlarmSetupPopover(_ inButtonItem: UIBarButtonItem) {
         if let popoverController = storyboard?.instantiateViewController(identifier: RVS_SetAlarmAmbiaMara_PopoverViewController.storyboardID) as? RVS_SetAlarmAmbiaMara_PopoverViewController {
@@ -676,13 +681,23 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             present(popoverController, animated: true)
        }
     }
-
+    
     /* ################################################################## */
     /**
-     This makes sure the alarm icon at the top, is the correct one.
-    */
-    func setAlarmIcon() {
-        alarmSetBarButtonItem?.image = UIImage(systemName: RVS_AmbiaMara_Settings().alarmMode ? "bell.fill" : "bell.slash.fill")
+     This is called, when someone selects the Settings Bar Button.
+     It displays a popover, with various app settings.
+     - parameter inButtonItem: the bar button item.
+     */
+    @IBAction func displaySettingsPopover(_ inButtonItem: UIBarButtonItem) {
+        if let popoverController = storyboard?.instantiateViewController(identifier: RVS_SettingsAmbiaMara_PopoverViewController.storyboardID) as? RVS_SettingsAmbiaMara_PopoverViewController {
+            popoverController.modalPresentationStyle = .popover
+            popoverController.myController = self
+            popoverController.popoverPresentationController?.barButtonItem = inButtonItem
+            popoverController.popoverPresentationController?.delegate = self
+            popoverController.preferredContentSize = Self._alarmPopoverSize
+            currentPopover = popoverController
+            present(popoverController, animated: true)
+       }
     }
     
     /* ################################################################## */
@@ -697,6 +712,22 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         RVS_AmbiaMara_Settings().currentTimerIndex = tag - 1
         setUpToolbar()
         _state = .start
+    }
+
+    /* ################################################################## */
+    /**
+     This makes sure the alarm icon at the top, is the correct one.
+    */
+    func setAlarmIcon() {
+        alarmSetBarButtonItem?.image = UIImage(systemName: RVS_AmbiaMara_Settings().alarmMode ? "bell.fill" : "bell.slash.fill")
+    }
+
+    /* ################################################################## */
+    /**
+     This shows the about screen.
+    */
+    func showAboutScreen() {
+        performSegue(withIdentifier: Self._aboutViewSegueID, sender: nil)
     }
 }
 

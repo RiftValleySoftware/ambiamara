@@ -335,10 +335,10 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="MNO-3D-wJv">
-                        <barButtonItem key="leftBarButtonItem" id="d2m-mo-1ss">
+                        <barButtonItem key="leftBarButtonItem" id="d2m-mo-1ss" userLabel="Settings Bar Button Item">
                             <imageReference key="image" image="gearshape.fill" catalog="system" symbolScale="large"/>
                             <connections>
-                                <segue destination="UOz-ud-dcU" kind="show" id="vEx-fy-iDw"/>
+                                <action selector="displaySettingsPopover:" destination="BYZ-38-t0r" id="DzN-bD-clm"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" id="t6N-Pt-3ne">
@@ -373,6 +373,7 @@
                         <outlet property="stateTapGestureRecognizer" destination="Ynv-EO-rg8" id="oAq-Qd-WkQ"/>
                         <outlet property="trashBarButtonItem" destination="p3d-KM-TEZ" id="bbP-eh-ElX"/>
                         <outlet property="warnSetButton" destination="aqL-cx-ehW" id="ZIz-Uw-CWn"/>
+                        <segue destination="Gjb-Zz-XlA" kind="show" identifier="ShowAboutView" id="Cjg-du-upc"/>
                     </connections>
                 </viewController>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" id="RGK-rp-qcY">
@@ -437,31 +438,31 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="Ynv-EO-rg8" userLabel="State Tap Gesture Recognizer">
                     <connections>
-                        <action selector="displayTimerStateDescriptionPopover:" destination="BYZ-38-t0r" id="KMp-tt-Gi9"/>
+                        <action selector="displayHelpPopover:" destination="BYZ-38-t0r" id="kE2-DE-C6E"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="ia5-3Z-cWc" userLabel="Hours Tap Gesture Recognizer">
                     <connections>
-                        <action selector="displayTimerStateDescriptionPopover:" destination="BYZ-38-t0r" id="R2G-lN-4Ko"/>
+                        <action selector="displayHelpPopover:" destination="BYZ-38-t0r" id="mmV-4A-iSc"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="Il1-by-kWZ" userLabel="Minutes Tap Gesture Recognizer">
                     <connections>
-                        <action selector="displayTimerStateDescriptionPopover:" destination="BYZ-38-t0r" id="ung-aW-TSN"/>
+                        <action selector="displayHelpPopover:" destination="BYZ-38-t0r" id="9Qp-Xo-9CS"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="Vn9-zn-NkZ" userLabel="Seconds Tap Gesture Recognizer">
                     <connections>
-                        <action selector="displayTimerStateDescriptionPopover:" destination="BYZ-38-t0r" id="GIC-24-G4k"/>
+                        <action selector="displayHelpPopover:" destination="BYZ-38-t0r" id="lj6-PH-0te"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="107.8125"/>
         </scene>
-        <!--Set Timer Ambia Mara Popover View Controller-->
+        <!--Help Ambia Mara Popover View Controller-->
         <scene sceneID="viO-DF-CS0">
             <objects>
-                <viewController storyboardIdentifier="RVS_SetTimerAmbiaMara_PopoverViewController" id="W6g-00-qiK" customClass="RVS_SetTimerAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RVS_HelpAmbiaMara_PopoverViewController" id="W6g-00-qiK" customClass="RVS_HelpAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U5F-Vp-Sxy">
                         <rect key="frame" x="0.0" y="0.0" width="403" height="166"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -492,16 +493,16 @@
             </objects>
             <point key="canvasLocation" x="862" y="-137"/>
         </scene>
-        <!--About Ambia Mara View Controller-->
+        <!--Settings Ambia Mara Popover View Controller-->
         <scene sceneID="IBu-gW-FEa">
             <objects>
-                <viewController id="UOz-ud-dcU" customClass="RVS_AboutAmbiaMara_ViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RVS_SettingsAmbiaMara_PopoverViewController" id="UOz-ud-dcU" customClass="RVS_SettingsAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RiP-wE-HMj">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="338"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cnP-ZB-vMv">
-                                <rect key="frame" x="20" y="88" width="374" height="31"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cnP-ZB-vMv">
+                                <rect key="frame" x="20" y="64" width="374" height="149"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XIh-CT-ZiM">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="31"/>
@@ -512,7 +513,7 @@
                                                     <action selector="popoverHelpSettingsSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="p5G-Dm-BNQ"/>
                                                 </connections>
                                             </switch>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZt-yd-Vg1">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZt-yd-Vg1">
                                                 <rect key="frame" x="57" y="0.0" width="317" height="31"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -529,9 +530,84 @@
                                             <constraint firstAttribute="bottom" secondItem="9R5-Y0-E9j" secondAttribute="bottom" id="xaj-jU-r9P"/>
                                         </constraints>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="iKk-kE-OBe">
+                                        <rect key="frame" x="0.0" y="39" width="374" height="31"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I9Y-lP-1Hg">
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="popoverDisplayDigitsSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="P13-lC-MKH"/>
+                                                </connections>
+                                            </switch>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ioe-3n-Vuc">
+                                                <rect key="frame" x="57" y="0.0" width="317" height="31"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="SLUG-POPOVER-DIGITS-SETTING-LABEL"/>
+                                                <connections>
+                                                    <action selector="popoverDisplayDigitsSwitchChanged:" destination="UOz-ud-dcU" eventType="touchUpInside" id="9la-Ky-or8"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="I9Y-lP-1Hg" firstAttribute="top" secondItem="iKk-kE-OBe" secondAttribute="top" id="4eI-YD-iEl"/>
+                                            <constraint firstAttribute="bottom" secondItem="ioe-3n-Vuc" secondAttribute="bottom" id="PFE-ZW-ZGE"/>
+                                            <constraint firstItem="ioe-3n-Vuc" firstAttribute="top" secondItem="iKk-kE-OBe" secondAttribute="top" id="gJp-rZ-K45"/>
+                                            <constraint firstAttribute="bottom" secondItem="I9Y-lP-1Hg" secondAttribute="bottom" id="y9c-Uu-d7k"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="jNx-jH-0dn">
+                                        <rect key="frame" x="0.0" y="78" width="374" height="31"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rxk-2T-KIX">
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="popoverDisplayTrafficLightsSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="Mwf-z6-ws0"/>
+                                                </connections>
+                                            </switch>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yw3-FJ-7iH">
+                                                <rect key="frame" x="57" y="0.0" width="317" height="31"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="SLUG-POPOVER-STOPLIGHTS-SETTING-LABEL"/>
+                                                <connections>
+                                                    <action selector="popoverDisplayTrafficLightsSwitchChanged:" destination="UOz-ud-dcU" eventType="touchUpInside" id="zxl-Xx-5lT"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="rxk-2T-KIX" firstAttribute="top" secondItem="jNx-jH-0dn" secondAttribute="top" id="0ld-rG-Lu8"/>
+                                            <constraint firstItem="yw3-FJ-7iH" firstAttribute="top" secondItem="jNx-jH-0dn" secondAttribute="top" id="9p0-EC-K3c"/>
+                                            <constraint firstAttribute="bottom" secondItem="yw3-FJ-7iH" secondAttribute="bottom" id="gzk-Ou-irP"/>
+                                            <constraint firstAttribute="bottom" secondItem="rxk-2T-KIX" secondAttribute="bottom" id="xbp-Nn-aGr"/>
+                                        </constraints>
+                                    </stackView>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omz-Mi-exI">
+                                        <rect key="frame" x="0.0" y="117" width="374" height="32"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="SLUG-ABOUT-AMBIAMARA-BUTTON">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="showAboutScreen:" destination="UOz-ud-dcU" eventType="touchUpInside" id="gFm-YR-f0m"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="iKk-kE-OBe" firstAttribute="leading" secondItem="cnP-ZB-vMv" secondAttribute="leading" id="6cb-Xe-mmQ"/>
                                     <constraint firstAttribute="trailing" secondItem="XIh-CT-ZiM" secondAttribute="trailing" id="ETk-Sk-Qx5"/>
+                                    <constraint firstAttribute="trailing" secondItem="iKk-kE-OBe" secondAttribute="trailing" id="Khr-JE-dNh"/>
+                                    <constraint firstItem="omz-Mi-exI" firstAttribute="leading" secondItem="cnP-ZB-vMv" secondAttribute="leading" id="QLb-4l-J4Q"/>
+                                    <constraint firstAttribute="trailing" secondItem="omz-Mi-exI" secondAttribute="trailing" id="VCA-BP-EeT"/>
+                                    <constraint firstAttribute="trailing" secondItem="jNx-jH-0dn" secondAttribute="trailing" id="dvu-T7-yhj"/>
+                                    <constraint firstItem="jNx-jH-0dn" firstAttribute="leading" secondItem="cnP-ZB-vMv" secondAttribute="leading" id="qnZ-Yj-DpE"/>
                                     <constraint firstItem="XIh-CT-ZiM" firstAttribute="leading" secondItem="cnP-ZB-vMv" secondAttribute="leading" id="uj4-SR-9jg"/>
                                 </constraints>
                             </stackView>
@@ -540,21 +616,28 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cnP-ZB-vMv" firstAttribute="top" secondItem="l0f-Zf-OSP" secondAttribute="top" id="PeC-j5-wX1"/>
+                            <constraint firstItem="cnP-ZB-vMv" firstAttribute="top" secondItem="l0f-Zf-OSP" secondAttribute="top" constant="20" id="PeC-j5-wX1"/>
                             <constraint firstItem="cnP-ZB-vMv" firstAttribute="leading" secondItem="l0f-Zf-OSP" secondAttribute="leading" constant="20" id="XH2-Zl-ZXb"/>
-                            <constraint firstItem="l0f-Zf-OSP" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cnP-ZB-vMv" secondAttribute="bottom" id="ddL-O9-ULM"/>
+                            <constraint firstItem="l0f-Zf-OSP" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cnP-ZB-vMv" secondAttribute="bottom" placeholder="YES" id="ddL-O9-ULM"/>
                             <constraint firstItem="l0f-Zf-OSP" firstAttribute="trailing" secondItem="cnP-ZB-vMv" secondAttribute="trailing" constant="20" id="kG5-Do-Nf2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Put-az-xEf"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="414" height="338"/>
                     <connections>
+                        <outlet property="aboutAmbiaMaraButton" destination="omz-Mi-exI" id="CKZ-OL-zgq"/>
+                        <outlet property="popoverDisplayDigitsSwitch" destination="I9Y-lP-1Hg" id="hTo-Fx-gSD"/>
+                        <outlet property="popoverDisplayDigitsSwitchLabelButton" destination="ioe-3n-Vuc" id="oxa-Tu-j9I"/>
+                        <outlet property="popoverDisplayTrafficLightsSwitch" destination="rxk-2T-KIX" id="Lge-hp-J5C"/>
+                        <outlet property="popoverDisplayTrafficLightsSwitchLabelButton" destination="yw3-FJ-7iH" id="5M1-HP-he9"/>
                         <outlet property="popoverHelpSettingsSwitch" destination="9R5-Y0-E9j" id="b08-dk-f0J"/>
                         <outlet property="popoverHelpSettingsSwitchLabelButton" destination="RZt-yd-Vg1" id="Ddx-6a-DFW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KF-TF-nOv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-278" y="836"/>
+            <point key="canvasLocation" x="1586.9565217391305" y="114.50892857142857"/>
         </scene>
         <!--Timer Ambia Mara View Controller-->
         <scene sceneID="0Ap-at-9HD">
@@ -570,7 +653,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eUy-Xf-5Eg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="577" y="836"/>
+            <point key="canvasLocation" x="574" y="838"/>
         </scene>
         <!--Set Alarm Ambia Mara Popover View Controller-->
         <scene sceneID="L5y-aw-jD5">
@@ -674,9 +757,25 @@
             </objects>
             <point key="canvasLocation" x="871" y="113"/>
         </scene>
+        <!--About Ambia Mara View Controller-->
+        <scene sceneID="gkd-bp-rVp">
+            <objects>
+                <viewController id="Gjb-Zz-XlA" customClass="RVS_AboutAmbiaMara_ViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="u9V-bG-Ubc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="CTe-gZ-jIr"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="jXe-I8-Htj"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gya-oJ-oJu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-299" y="838"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="883" height="877"/>
+        <image name="CenterImage" width="937" height="937"/>
         <image name="arrowtriangle.forward.fill" catalog="system" width="128" height="113"/>
         <image name="bell.fill" catalog="system" width="128" height="124"/>
         <image name="bell.slash.fill" catalog="system" width="124" height="128"/>

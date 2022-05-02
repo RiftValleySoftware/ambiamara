@@ -381,7 +381,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
      If true, then the setup scren will provide guidance popovers.
      */
     var useGuidancePopovers: Bool {
-        get { 0 != (values[Keys.useGuidancePopovers.rawValue] as? Int ?? 0) }
+        get { 0 != (values[Keys.useGuidancePopovers.rawValue] as? Int ?? 1) }
         set { values[Keys.useGuidancePopovers.rawValue] = newValue ? 1 : 0 }
     }
 
@@ -408,7 +408,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
      The selected sound, for an alarm. This is a 0-based index.
      */
     var selectedSoundIndex: Int {
-        get { values[Keys.selectedSoundIndex.rawValue] as? Int ?? 0 }
+        get { values[Keys.selectedSoundIndex.rawValue] as? Int ?? 6 }
         set { values[Keys.selectedSoundIndex.rawValue] = newValue }
     }
 

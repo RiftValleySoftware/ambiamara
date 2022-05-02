@@ -93,6 +93,11 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
         vibrateSwitchLabelButton?.setTitle(vibrateSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         vibrateSwitch?.isOn = RVS_AmbiaMara_Settings().useVibrate
         
+        alarmModeSegmentedSwitch?.accessibilityLabel = "SLUG-ACC-ALARM-SET-MODE-SWITCH-LABEL".localizedVariant
+        alarmModeSegmentedSwitch?.accessibilityHint = "SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT".localizedVariant
+        vibrateSwitch?.accessibilityLabel = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".localizedVariant
+        vibrateSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".localizedVariant
+
         alarmModeSegmentedSwitch?.selectedSegmentIndex = RVS_AmbiaMara_Settings().alarmMode ? 1 : 0
         soundsPickerView?.isHidden = 0 == alarmModeSegmentedSwitch?.selectedSegmentIndex
         
@@ -202,11 +207,9 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController: UIPickerViewAccessibility
     /**
      This returns the accessibility label for the picker component.
      
-     - parameter inPickerView: The picker instance.
-     - parameter accessibilityLabelForComponent: The 0-based component index for the label.
+     - parameter: The picker instance (ignored).
+     - parameter accessibilityLabelForComponent: The 0-based component index for the label (ignored).
      - returns: An accessibility string for the component.
     */
-    func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inComponent: Int) -> String? {
-        ""
-    }
+    func pickerView(_: UIPickerView, accessibilityLabelForComponent: Int) -> String? { "SLUG-ACC-SOUND-PICKER".localizedVariant }
 }
