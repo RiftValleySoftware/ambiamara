@@ -26,6 +26,18 @@ class RVS_SetAlarmAmbiaMara_PopoverViewController: RVS_AmbiaMara_BaseViewControl
 
     /* ################################################################## */
     /**
+     The padding on either side of the labels we use as picker rows.
+    */
+    private static let _pickerPaddingInDisplayUnits = CGFloat(20)
+
+    /* ################################################################## */
+    /**
+     The SFSymbols names for the play sound button.
+    */
+    private static let _playSoundImageNames = ["speaker.wave.3.fill", "speaker.slash.fill"]
+
+    /* ################################################################## */
+    /**
      The storyboard ID for this controller.
      */
     static let storyboardID = "RVS_SetAlarmAmbiaMara_ViewController"
@@ -36,6 +48,13 @@ class RVS_SetAlarmAmbiaMara_PopoverViewController: RVS_AmbiaMara_BaseViewControl
      The sounds are files, stored in the resources, so this simply gets them, and stores them as path URIs.
     */
     var soundSelection: [String] = []
+    
+    /* ################################################################## */
+    /**
+     If true, then the currently selected sound is playing.
+     This is set or cleared by the "play sound" button.
+    */
+    var isSoundPlaying: Bool = false { didSet { DispatchQueue.main.async { [weak self] in self?.setUpForSoundPlayMode() } } }
     
     /* ################################################################## */
     /**
@@ -72,6 +91,18 @@ class RVS_SetAlarmAmbiaMara_PopoverViewController: RVS_AmbiaMara_BaseViewControl
      The picker view for the sounds. Only shown if the seg switch is set to sound.
     */
     @IBOutlet weak var soundsPickerView: UIPickerView?
+
+    /* ################################################################## */
+    /**
+     The stack view that holds the sound selection picker, and the play sound button.
+    */
+    @IBOutlet weak var soundSelectionStackView: UIView?
+    
+    /* ################################################################## */
+    /**
+     This is the "play sound" button.
+    */
+    @IBOutlet weak var soundPlayButton: UIButton?
 }
 
 /* ###################################################################################################################################### */
@@ -85,29 +116,55 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        alarmModeSegmentedSwitch?.selectedSegmentTintColor = .white
-        alarmModeSegmentedSwitch?.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
-        alarmModeSegmentedSwitch?.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
-        alarmModeSegmentedSwitch?.setTitleTextAttributes([.foregroundColor: UIColor.white.withAlphaComponent(0.25)], for: .disabled)
-
         vibrateSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         vibrateSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
         
         vibrateSwitchLabelButton?.setTitle(vibrateSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         vibrateSwitch?.isOn = RVS_AmbiaMara_Settings().useVibrate
         
-        alarmModeSegmentedSwitch?.accessibilityLabel = "SLUG-ACC-ALARM-SET-MODE-SWITCH-LABEL".localizedVariant
-        alarmModeSegmentedSwitch?.accessibilityHint = "SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT".localizedVariant
-        
         vibrateSwitch?.accessibilityLabel = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".localizedVariant
         vibrateSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".localizedVariant
-
-        alarmModeSegmentedSwitch?.selectedSegmentIndex = RVS_AmbiaMara_Settings().alarmMode ? 1 : 0
-        soundsPickerView?.isHidden = 0 == alarmModeSegmentedSwitch?.selectedSegmentIndex
         
         soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted()
         
+        if let alarmModeSegmentedSwitch = alarmModeSegmentedSwitch {
+            alarmModeSegmentedSwitch.selectedSegmentTintColor = .white
+            alarmModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
+            alarmModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
+            alarmModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.white.withAlphaComponent(0.25)], for: .disabled)
+            alarmModeSegmentedSwitch.selectedSegmentIndex = RVS_AmbiaMara_Settings().alarmMode ? 1 : 0
+            alarmModeSegmentedSwitch.accessibilityLabel = "SLUG-ACC-ALARM-SET-MODE-SWITCH-LABEL".localizedVariant
+            alarmModeSegmentedSwitch.accessibilityHint = "SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT".localizedVariant
+            alarmModeSegmentedSwitchHit(alarmModeSegmentedSwitch)
+        }
+
         soundsPickerView?.selectRow(RVS_AmbiaMara_Settings().selectedSoundIndex, inComponent: 0, animated: false)
+    }
+    
+    /* ################################################################## */
+    /**
+     Called just before the screen disappears.
+     We use this to kill the sound (if playing).
+     
+     - parameter inIsAnimated: True, if the disappearance is animated.
+    */
+    override func viewWillDisappear(_ inAnimated: Bool) {
+        super.viewWillDisappear(inAnimated)
+        isSoundPlaying = false
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension RVS_SetAlarmAmbiaMara_PopoverViewController {
+    /* ################################################################## */
+    /**
+     Sets the image to the play button, depending on whether or not the sound is playing.
+     It also starts or stops the sound play.
+    */
+    func setUpForSoundPlayMode() {
+        soundPlayButton?.setImage(UIImage(systemName: Self._playSoundImageNames[isSoundPlaying ? 1 : 0]), for: .normal)
     }
 }
 
@@ -123,15 +180,16 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
     */
     @IBAction func alarmModeSegmentedSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         RVS_AmbiaMara_Settings().alarmMode = 1 == inSegmentedSwitch.selectedSegmentIndex
-        soundsPickerView?.isHidden = 0 == inSegmentedSwitch.selectedSegmentIndex
         myController?.setAlarmIcon()
+        soundSelectionStackView?.isHidden = 1 != alarmModeSegmentedSwitch?.selectedSegmentIndex
+        isSoundPlaying = false
     }
     
     /* ################################################################## */
     /**
      Called when the vibrate switch, or its label, changes.
      
-     - parameter inSender: The switch that changed, or the label button..
+     - parameter inSender: The switch that changed, or the label button.
     */
     @IBAction func vibrateSwitchChanged(_ inSender: UIControl) {
         if let vibrateSwitch = inSender as? UISwitch {
@@ -140,6 +198,16 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
             vibrateSwitch?.setOn(!(vibrateSwitch?.isOn ?? true), animated: true)
             vibrateSwitch?.sendActions(for: .valueChanged)
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the "play sound" button is hit.
+     
+     - parameter: The button instance (ignored).
+    */
+    @IBAction func soundPlayButtonHit(_: UIButton) {
+        isSoundPlaying = !isSoundPlaying
     }
 }
 
@@ -191,11 +259,12 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController: UIPickerViewDelegate {
     */
     func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inView: UIView?) -> UIView {
         guard let soundUri = URL(string: soundSelection[inRow].urlEncodedString ?? "")?.lastPathComponent else { return UIView() }
-        let label = UILabel()
+        let labelFrame = CGRect(origin: .zero, size: CGSize(width: inPickerView.bounds.size.width - Self._pickerPaddingInDisplayUnits, height: inPickerView.bounds.size.height / 3))
+        let label = UILabel(frame: labelFrame)
         label.font = Self._pickerFont
         label.textColor = .white
         label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
+        label.minimumScaleFactor = 0.25
         label.text = soundUri.localizedVariant
         label.textAlignment = .center
         

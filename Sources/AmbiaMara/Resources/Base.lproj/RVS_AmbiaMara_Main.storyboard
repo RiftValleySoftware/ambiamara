@@ -711,25 +711,44 @@
                                             <constraint firstAttribute="bottom" secondItem="ZMg-gt-lOZ" secondAttribute="bottom" id="rtL-JG-g9I"/>
                                         </constraints>
                                     </stackView>
-                                    <pickerView hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="21l-2m-K2x">
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9IW-EI-Muk">
                                         <rect key="frame" x="0.0" y="270" width="374" height="100"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="LON-5y-h9U"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="dataSource" destination="Vbk-gE-tat" id="mfb-sq-KUN"/>
-                                            <outlet property="delegate" destination="Vbk-gE-tat" id="1fd-qH-2tF"/>
-                                        </connections>
-                                    </pickerView>
+                                        <subviews>
+                                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="21l-2m-K2x">
+                                                <rect key="frame" x="0.0" y="0.0" width="334" height="100"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="LON-5y-h9U"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="Vbk-gE-tat" id="mfb-sq-KUN"/>
+                                                    <outlet property="delegate" destination="Vbk-gE-tat" id="1fd-qH-2tF"/>
+                                                </connections>
+                                            </pickerView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufw-eb-eYM">
+                                                <rect key="frame" x="334" y="37.5" width="40" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="wcl-ZE-EFP"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal">
+                                                    <imageReference key="image" image="speaker.wave.3.fill" catalog="system" symbolScale="large"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="regular"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="soundPlayButtonHit:" destination="Vbk-gE-tat" eventType="touchUpInside" id="9k4-sk-jGg"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="vLl-KJ-LU0" secondAttribute="trailing" id="5WG-Ye-Bbt"/>
+                                    <constraint firstItem="9IW-EI-Muk" firstAttribute="leading" secondItem="WmW-5S-HR2" secondAttribute="leading" id="U9g-Qq-mQQ"/>
                                     <constraint firstItem="sJV-M8-EEI" firstAttribute="leading" secondItem="WmW-5S-HR2" secondAttribute="leading" id="ce4-BP-gIn"/>
                                     <constraint firstAttribute="trailing" secondItem="sJV-M8-EEI" secondAttribute="trailing" id="dbW-JD-VSX"/>
-                                    <constraint firstItem="21l-2m-K2x" firstAttribute="leading" secondItem="WmW-5S-HR2" secondAttribute="leading" id="ezy-aN-C7w"/>
-                                    <constraint firstAttribute="trailing" secondItem="21l-2m-K2x" secondAttribute="trailing" id="hRl-Zk-dpb"/>
                                     <constraint firstItem="sJV-M8-EEI" firstAttribute="top" secondItem="WmW-5S-HR2" secondAttribute="top" id="kWk-OJ-nqY"/>
                                     <constraint firstItem="vLl-KJ-LU0" firstAttribute="leading" secondItem="WmW-5S-HR2" secondAttribute="leading" id="pjD-Lq-OGu"/>
+                                    <constraint firstAttribute="trailing" secondItem="9IW-EI-Muk" secondAttribute="trailing" id="vMd-ht-BsN"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -748,6 +767,8 @@
                     <size key="freeformSize" width="414" height="334"/>
                     <connections>
                         <outlet property="alarmModeSegmentedSwitch" destination="sJV-M8-EEI" id="d1c-By-gs3"/>
+                        <outlet property="soundPlayButton" destination="ufw-eb-eYM" id="2Xf-02-fKm"/>
+                        <outlet property="soundSelectionStackView" destination="9IW-EI-Muk" id="rEO-SR-ugF"/>
                         <outlet property="soundsPickerView" destination="21l-2m-K2x" id="rPn-tv-ab5"/>
                         <outlet property="vibrateSwitch" destination="ZMg-gt-lOZ" id="nzy-ic-I7c"/>
                         <outlet property="vibrateSwitchLabelButton" destination="Ehg-s1-KXq" id="aeV-bM-ga1"/>
@@ -803,6 +824,7 @@
         <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="nosign" catalog="system" width="128" height="121"/>
+        <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <namedColor name="Final-Color">
             <color red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
