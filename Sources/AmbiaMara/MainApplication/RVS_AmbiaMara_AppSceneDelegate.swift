@@ -66,7 +66,7 @@ extension RVS_AmbiaMara_AppSceneDelegate {
                    setupScreen.currentPopover = nil
                    popover.dismiss(animated: false)
                } else if let runningTimerScreen = viewControllers.first as? RVS_TimerAmbiaMara_ViewController {
-                   runningTimerScreen.stopSounds()
+                   runningTimerScreen.stopAlarm()
                }
             }
         }

@@ -464,7 +464,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
         navigationController?.isNavigationBarHidden = false
-        
+        UIApplication.shared.isIdleTimerDisabled = false    // Just in case...
+
         stateLabel?.isUserInteractionEnabled = RVS_AmbiaMara_Settings().useGuidancePopovers
         hoursLabel?.isUserInteractionEnabled = RVS_AmbiaMara_Settings().useGuidancePopovers
         minutesLabel?.isUserInteractionEnabled = RVS_AmbiaMara_Settings().useGuidancePopovers
