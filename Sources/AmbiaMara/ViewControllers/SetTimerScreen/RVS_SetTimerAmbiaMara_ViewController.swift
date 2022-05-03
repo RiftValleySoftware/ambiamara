@@ -97,9 +97,9 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     
     /* ################################################################## */
     /**
-     The period that we use for the "fade in" animation.
+     The size of the two settings popovers.
     */
-    private static let _alarmPopoverSize = CGSize(width: 400, height: 228)
+    private static let _settingsPopoverWidth = CGFloat(400)
 
     /* ################################################################## */
     /**
@@ -676,7 +676,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             popoverController.myController = self
             popoverController.popoverPresentationController?.barButtonItem = inButtonItem
             popoverController.popoverPresentationController?.delegate = self
-            popoverController.preferredContentSize = Self._alarmPopoverSize
+            popoverController.preferredContentSize = CGSize(width: Self._settingsPopoverWidth, height: RVS_SetAlarmAmbiaMara_PopoverViewController.settingsPopoverHeightInDisplayUnits)
             currentPopover = popoverController
             present(popoverController, animated: true)
        }
@@ -694,7 +694,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             popoverController.myController = self
             popoverController.popoverPresentationController?.barButtonItem = inButtonItem
             popoverController.popoverPresentationController?.delegate = self
-            popoverController.preferredContentSize = Self._alarmPopoverSize
+            popoverController.preferredContentSize = CGSize(width: Self._settingsPopoverWidth, height: RVS_SettingsAmbiaMara_PopoverViewController.settingsPopoverHeightInDisplayUnits)
             currentPopover = popoverController
             present(popoverController, animated: true)
        }

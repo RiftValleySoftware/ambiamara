@@ -45,6 +45,12 @@ class RVS_SetAlarmAmbiaMara_PopoverViewController: UIViewController {
     
     /* ################################################################## */
     /**
+     The popover height.
+    */
+    static let settingsPopoverHeightInDisplayUnits = CGFloat(200)
+
+    /* ################################################################## */
+    /**
      This is the audio player (for sampling sounds).
     */
     private var _audioPlayer: AVAudioPlayer!

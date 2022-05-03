@@ -51,6 +51,11 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
      */
     private static var _stoplightPausedAlpha = CGFloat(0.35)
 
+    /* ############################################################## */
+    /**
+     */
+    private static var _centerAlignmentToolbarOffsetInDisplayUnits = CGFloat(40)
+
     /* ################################################################## */
     /**
      This is the audio player (for playing alarm sounds).
@@ -170,6 +175,26 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /**
      */
     @IBOutlet weak var backgroundTapGestureRecognizer: UITapGestureRecognizer?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var controlToolbar: UIToolbar?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var playPauseToolbarItem: UIBarButtonItem?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var stopToolbarItem: UIBarButtonItem?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var centerAlignmentConstraint: NSLayoutConstraint?
 }
 
 /* ###################################################################################################################################### */
@@ -189,11 +214,37 @@ extension RVS_TimerAmbiaMara_ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Makes the toolbar background transparent.
+        controlToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
+        controlToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
         _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted()
         
+        trafficLightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().showStoplights
+        digitalDisplayContainerView?.isHidden = !RVS_AmbiaMara_Settings().showDigits
+        
+        controlToolbar?.isHidden = !RVS_AmbiaMara_Settings().displayToolbar
+        centerAlignmentConstraint?.constant = RVS_AmbiaMara_Settings().displayToolbar ? Self._centerAlignmentToolbarOffsetInDisplayUnits : 0
+
+        if RVS_AmbiaMara_Settings().showDigits {
+            digitalDisplayContainerView?.autoLayoutAspectConstraint(aspectRatio: 0.2)?.isActive = true
+            digitalDisplayViewHours?.radix = 10
+            digitalDisplayViewMinutes?.radix = 10
+            digitalDisplayViewSeconds?.radix = 10
+        }
+
         _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: 0.25, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main, isWallTime: true)
         
         initializeTimer()
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when the view is about to appear.
+     - parameter inIsAnimated: True, if the appearance is animated.
+     */
+    override func viewWillAppear(_ inIsAnimated: Bool) {
+        super.viewWillAppear(inIsAnimated)
+        navigationController?.isNavigationBarHidden = true
     }
     
     /* ############################################################## */
@@ -228,27 +279,50 @@ extension RVS_TimerAmbiaMara_ViewController {
             continueTimer()
         }
     }
+
+    /* ############################################################## */
+    /**
+     */
+    @IBAction func toolbarItemHit(_ inSender: UIBarButtonItem) {
+        if stopToolbarItem == inSender {
+            stopTimer()
+        } else if playPauseToolbarItem == inSender {
+            if _timer?.isRunning ?? false {
+                pauseTimer()
+            } else {
+                if 0 == _tickTime {
+                    startTimer()
+                } else {
+                    continueTimer()
+                }
+            }
+        }
+        
+        setUpToolbar()
+    }
 }
 
 /* ###################################################################################################################################### */
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RVS_TimerAmbiaMara_ViewController {
+    /* ################################################################## */
+    /**
+     This sets up the toolbar, by adding all the timers.
+    */
+    func setUpToolbar() {
+        if _timer?.isRunning ?? false {
+            playPauseToolbarItem?.image = UIImage(systemName: "pause.fill")
+        } else {
+            playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
+        }
+    }
+
     /* ############################################################## */
     /**
      This initializes the timer screen.
      */
     func initializeTimer() {
-        trafficLightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().showStoplights
-        digitalDisplayContainerView?.isHidden = !RVS_AmbiaMara_Settings().showDigits
-        
-        if RVS_AmbiaMara_Settings().showDigits {
-            digitalDisplayContainerView?.autoLayoutAspectConstraint(aspectRatio: 0.2)?.isActive = true
-            digitalDisplayViewHours?.radix = 10
-            digitalDisplayViewMinutes?.radix = 10
-            digitalDisplayViewSeconds?.radix = 10
-        }
-
         let hours = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[0] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[0] : -2
         let minutes = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[1] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[1] : 0 < hours ? 0 : -2
         let seconds = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[2] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[2] : 0 < hours || 0 < minutes ? 0 : -2
@@ -277,10 +351,10 @@ extension RVS_TimerAmbiaMara_ViewController {
     func startTimer() {
         _startingTime = Date()
         _tickTime = 0
-        setDigitDisplayTime()
         _timer?.isRunning = true
         determineDigitLEDColor()
         determineTrafficLightColor()
+        setUpToolbar()
     }
 
     /* ############################################################## */
@@ -293,6 +367,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         stopSounds()
         determineDigitLEDColor()
         determineTrafficLightColor()
+        setUpToolbar()
     }
     
     /* ############################################################## */

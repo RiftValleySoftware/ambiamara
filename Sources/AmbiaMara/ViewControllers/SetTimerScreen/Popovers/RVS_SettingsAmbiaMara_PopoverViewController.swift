@@ -32,6 +32,12 @@ class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
     
     /* ################################################################## */
     /**
+     The popover height.
+    */
+    static let settingsPopoverHeightInDisplayUnits = CGFloat(268)
+
+    /* ################################################################## */
+    /**
      The switch that controls whether or not the popover help is shown when touching the labels.
     */
     @IBOutlet weak var popoverHelpSettingsSwitch: UISwitch?
@@ -68,7 +74,7 @@ class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
     
     /* ################################################################## */
     /**
-     The switch that controls whether or not the running timer start immediately, or as paused.
+     The switch that controls whether or not the running timer starts immediately, or as paused.
     */
     @IBOutlet weak var popoverStartImmediatelySwitch: UISwitch?
     
@@ -77,6 +83,18 @@ class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
      The label for the switch is actually a button.
     */
     @IBOutlet weak var popoverStartImmediatelySwitchLabelButton: UIButton?
+    
+    /* ################################################################## */
+    /**
+     The switch that controls whether or not the running timer has a toolbar, displayed at the top.
+    */
+    @IBOutlet weak var popoverDisplayToolbarSwitch: UISwitch?
+    
+    /* ################################################################## */
+    /**
+     The label for the switch is actually a button.
+    */
+    @IBOutlet weak var popoverDisplayToolbarSwitchLabelButton: UIButton?
 
     /* ################################################################## */
     /**
@@ -99,11 +117,13 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         popoverDisplayDigitsSwitch?.isOn = RVS_AmbiaMara_Settings().showDigits
         popoverDisplayTrafficLightsSwitch?.isOn = RVS_AmbiaMara_Settings().showStoplights
         popoverStartImmediatelySwitch?.isOn = RVS_AmbiaMara_Settings().startTimerImmediately
-
+        popoverDisplayToolbarSwitch?.isOn = RVS_AmbiaMara_Settings().displayToolbar
+        
         popoverHelpSettingsSwitchLabelButton?.setTitle(popoverHelpSettingsSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         popoverDisplayDigitsSwitchLabelButton?.setTitle(popoverDisplayDigitsSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         popoverDisplayTrafficLightsSwitchLabelButton?.setTitle(popoverDisplayTrafficLightsSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         popoverStartImmediatelySwitchLabelButton?.setTitle(popoverStartImmediatelySwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        popoverDisplayToolbarSwitchLabelButton?.setTitle(popoverDisplayToolbarSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         aboutAmbiaMaraButton?.setTitle(aboutAmbiaMaraButton?.title(for: .normal)?.localizedVariant, for: .normal)
 
         popoverHelpSettingsSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -114,6 +134,8 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         popoverDisplayTrafficLightsSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
         popoverStartImmediatelySwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         popoverStartImmediatelySwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
+        popoverDisplayToolbarSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        popoverDisplayToolbarSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
         aboutAmbiaMaraButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         aboutAmbiaMaraButton?.titleLabel?.minimumScaleFactor = 0.5
 
@@ -128,6 +150,9 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         
         popoverStartImmediatelySwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH".localizedVariant
         popoverStartImmediatelySwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH".localizedVariant
+        
+        popoverDisplayToolbarSwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SWITCH".localizedVariant
+        popoverDisplayToolbarSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SWITCH".localizedVariant
 
         aboutAmbiaMaraButton?.accessibilityLabel = "SLUG-ACC-ABOUT-AMBIAMARA-BUTTON".localizedVariant
     }
@@ -199,6 +224,20 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         } else {
             popoverStartImmediatelySwitch?.setOn(!(popoverStartImmediatelySwitch?.isOn ?? true), animated: true)
             popoverStartImmediatelySwitch?.sendActions(for: .valueChanged)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     The switch or button for display toolbar was hit.
+     - parameter inSender: the switch or the button.
+    */
+    @IBAction func popoverDisplayToolbarSwitchChanged(_ inSender: UIControl) {
+        if let switcher = inSender as? UISwitch {
+            RVS_AmbiaMara_Settings().displayToolbar = switcher.isOn
+        } else {
+            popoverDisplayToolbarSwitch?.setOn(!(popoverDisplayToolbarSwitch?.isOn ?? true), animated: true)
+            popoverDisplayToolbarSwitch?.sendActions(for: .valueChanged)
         }
     }
 }

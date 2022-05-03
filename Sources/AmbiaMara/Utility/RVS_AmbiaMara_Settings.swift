@@ -257,7 +257,13 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
          If false, then it starts as paused.
          */
         case startTimerImmediately
-        
+
+        /* ################################################################## */
+        /**
+         If this is true, the running timer toolbar is displayed at the top of the screen.
+         */
+        case displayToolbar
+
         /* ############################################################## */
         /**
          These are all the keys, in an Array of String.
@@ -272,7 +278,8 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
                                         selectedSoundIndex.rawValue,
                                         showDigits.rawValue,
                                         showStoplights.rawValue,
-                                        startTimerImmediately.rawValue
+                                        startTimerImmediately.rawValue,
+                                        displayToolbar.rawValue
                                         ]
         }
     }
@@ -446,6 +453,15 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     var startTimerImmediately: Bool {
         get { 0 != (values[Keys.startTimerImmediately.rawValue] as? Int ?? 1) }
         set { values[Keys.startTimerImmediately.rawValue] = newValue ? 1 : 0 }
+    }
+
+    /* ################################################################## */
+    /**
+     If this is true, then the toolbar is shown at the top of the running timer.
+     */
+    var displayToolbar: Bool {
+        get { 0 != (values[Keys.displayToolbar.rawValue] as? Int ?? 1) }
+        set { values[Keys.displayToolbar.rawValue] = newValue ? 1 : 0 }
     }
 
     /* ################################################################## */
