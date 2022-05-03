@@ -158,8 +158,8 @@
 		D4233CA12820386000ED62EC /* SetTimerScreen */ = {
 			isa = PBXGroup;
 			children = (
-				D4352A65281FF11200BEC5A4 /* Popovers */,
 				D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */,
+				D4352A65281FF11200BEC5A4 /* Popovers */,
 			);
 			path = SetTimerScreen;
 			sourceTree = "<group>";
@@ -219,9 +219,9 @@
 		D47C029D2819CA6500D359F5 /* AmbiaMara */ = {
 			isa = PBXGroup;
 			children = (
+				D4C4B7222819DD5100E22ECA /* Utility */,
 				D4F90F492819E53A00E4C664 /* MainApplication */,
 				D4C4B71D2819D70300E22ECA /* ViewControllers */,
-				D4C4B7222819DD5100E22ECA /* Utility */,
 				D4C4B6FF2819CCF300E22ECA /* Resources */,
 				D4C4B70E2819CF8F00E22ECA /* AmbiaMara.docc */,
 			);

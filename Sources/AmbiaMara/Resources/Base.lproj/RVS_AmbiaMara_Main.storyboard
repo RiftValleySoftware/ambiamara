@@ -502,19 +502,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cnP-ZB-vMv">
-                                <rect key="frame" x="20" y="64" width="374" height="149"/>
+                                <rect key="frame" x="20" y="64" width="374" height="180"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XIh-CT-ZiM">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="29"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9R5-Y0-E9j">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
                                                 <connections>
                                                     <action selector="popoverHelpSettingsSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="p5G-Dm-BNQ"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZt-yd-Vg1">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="31"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="29"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-POPOVER-HELP-SETTING-LABEL"/>
@@ -531,16 +531,16 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="iKk-kE-OBe">
-                                        <rect key="frame" x="0.0" y="39" width="374" height="31"/>
+                                        <rect key="frame" x="0.0" y="37" width="374" height="29"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I9Y-lP-1Hg">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
                                                 <connections>
                                                     <action selector="popoverDisplayDigitsSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="P13-lC-MKH"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ioe-3n-Vuc">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="31"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="29"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-POPOVER-DIGITS-SETTING-LABEL"/>
@@ -557,16 +557,16 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="jNx-jH-0dn">
-                                        <rect key="frame" x="0.0" y="78" width="374" height="31"/>
+                                        <rect key="frame" x="0.0" y="74" width="374" height="29"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rxk-2T-KIX">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
                                                 <connections>
                                                     <action selector="popoverDisplayTrafficLightsSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="Mwf-z6-ws0"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yw3-FJ-7iH">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="31"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="29"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-POPOVER-STOPLIGHTS-SETTING-LABEL"/>
@@ -582,8 +582,36 @@
                                             <constraint firstAttribute="bottom" secondItem="rxk-2T-KIX" secondAttribute="bottom" id="xbp-Nn-aGr"/>
                                         </constraints>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" id="Xzy-5h-Cg0">
+                                        <rect key="frame" x="0.0" y="111" width="374" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p7i-GW-TPA">
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
+                                                <connections>
+                                                    <action selector="popoverStartImmediatelySwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="1cs-Vp-6rn"/>
+                                                </connections>
+                                            </switch>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RjQ-a1-oDw">
+                                                <rect key="frame" x="57" y="0.0" width="317" height="29"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="SLUG-POPOVER-START-IMMEDIATELY-SETTING-LABEL"/>
+                                                <connections>
+                                                    <action selector="popoverStartImmediatelySwitchChanged:" destination="UOz-ud-dcU" eventType="touchUpInside" id="KqJ-Kd-RLj"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <viewLayoutGuide key="safeArea" id="vfI-Uk-YT1"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="p7i-GW-TPA" secondAttribute="bottom" id="NlI-mp-3Bu"/>
+                                            <constraint firstAttribute="bottom" secondItem="RjQ-a1-oDw" secondAttribute="bottom" id="fSI-0z-dbb"/>
+                                            <constraint firstItem="p7i-GW-TPA" firstAttribute="top" secondItem="Xzy-5h-Cg0" secondAttribute="top" id="ugF-9a-o3q"/>
+                                            <constraint firstItem="RjQ-a1-oDw" firstAttribute="top" secondItem="Xzy-5h-Cg0" secondAttribute="top" id="vmm-r4-4Se"/>
+                                        </constraints>
+                                    </stackView>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omz-Mi-exI">
-                                        <rect key="frame" x="0.0" y="117" width="374" height="32"/>
+                                        <rect key="frame" x="0.0" y="148" width="374" height="32"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -633,6 +661,8 @@
                         <outlet property="popoverDisplayTrafficLightsSwitchLabelButton" destination="yw3-FJ-7iH" id="5M1-HP-he9"/>
                         <outlet property="popoverHelpSettingsSwitch" destination="9R5-Y0-E9j" id="b08-dk-f0J"/>
                         <outlet property="popoverHelpSettingsSwitchLabelButton" destination="RZt-yd-Vg1" id="Ddx-6a-DFW"/>
+                        <outlet property="popoverStartImmediatelySwitch" destination="p7i-GW-TPA" id="LLh-LP-DGe"/>
+                        <outlet property="popoverStartImmediatelySwitchLabelButton" destination="RjQ-a1-oDw" id="ut4-c5-NkW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KF-TF-nOv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -647,20 +677,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="vpN-ve-3yx">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                            <stackView opaque="NO" contentMode="top" axis="vertical" distribution="fillProportionally" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="vpN-ve-3yx">
+                                <rect key="frame" x="0.0" y="61" width="414" height="774"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="JvE-LH-jn6">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="669.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="awW-mh-pTA">
-                                                <rect key="frame" x="50" y="0.0" width="314" height="50"/>
+                                                <rect key="frame" x="31" y="0.0" width="352" height="669.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="RRd-P6-4GH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="314" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="352" height="669.5"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="5cN-zl-Eck" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
-                                                                <rect key="frame" x="0.0" y="0.0" width="104.5" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="117.5" height="669.5"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
                                                                         <color key="value" name="Tint-3"/>
@@ -681,7 +711,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="fP9-ON-xd4" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
-                                                                <rect key="frame" x="104.5" y="0.0" width="105" height="50"/>
+                                                                <rect key="frame" x="117.5" y="0.0" width="117" height="669.5"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
                                                                         <color key="value" name="Tint-3"/>
@@ -702,7 +732,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="IoF-o5-OLL" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
-                                                                <rect key="frame" x="209.5" y="0.0" width="104.5" height="50"/>
+                                                                <rect key="frame" x="234.5" y="0.0" width="117.5" height="669.5"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
                                                                         <color key="value" name="Tint-3"/>
@@ -737,42 +767,53 @@
                                                         </constraints>
                                                     </stackView>
                                                 </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="RRd-P6-4GH" firstAttribute="leading" secondItem="awW-mh-pTA" secondAttribute="leading" id="A27-hj-U6B"/>
-                                                    <constraint firstAttribute="trailing" secondItem="RRd-P6-4GH" secondAttribute="trailing" id="Qhl-VI-mso"/>
-                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="awW-mh-pTA" secondAttribute="trailing" constant="50" id="Kg0-FZ-cz9"/>
-                                            <constraint firstItem="awW-mh-pTA" firstAttribute="leading" secondItem="JvE-LH-jn6" secondAttribute="leading" constant="50" id="dWL-XD-Xwa"/>
+                                            <constraint firstItem="awW-mh-pTA" firstAttribute="centerX" secondItem="JvE-LH-jn6" secondAttribute="centerX" id="W2M-o5-p5m"/>
                                             <constraint firstAttribute="bottom" secondItem="awW-mh-pTA" secondAttribute="bottom" id="dtL-Yb-hgX"/>
+                                            <constraint firstItem="awW-mh-pTA" firstAttribute="width" secondItem="JvE-LH-jn6" secondAttribute="width" multiplier="0.85" id="mnh-DT-lLC"/>
                                             <constraint firstItem="awW-mh-pTA" firstAttribute="top" secondItem="JvE-LH-jn6" secondAttribute="top" id="sOn-kD-BIz"/>
                                         </constraints>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CCr-i1-aFM">
-                                        <rect key="frame" x="20" y="70" width="374" height="704"/>
+                                    <stackView opaque="NO" contentMode="top" verticalHuggingPriority="1000" verticalCompressionResistancePriority="250" distribution="equalCentering" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="CCr-i1-aFM">
+                                        <rect key="frame" x="40" y="689.5" width="334" height="84.5"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Start-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="w9M-NO-9Ub">
-                                                <rect key="frame" x="0.0" y="0.0" width="119.5" height="704"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Start-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="w9M-NO-9Ub">
+                                                <rect key="frame" x="0.0" y="0.0" width="84.5" height="84.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="w9M-NO-9Ub" secondAttribute="height" multiplier="1:1" id="P2v-69-gn6"/>
+                                                </constraints>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Warn-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="ibP-ej-fEh">
-                                                <rect key="frame" x="127.5" y="0.0" width="119" height="704"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Warn-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="ibP-ej-fEh">
+                                                <rect key="frame" x="124.5" y="0.0" width="85" height="84.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="ibP-ej-fEh" secondAttribute="height" multiplier="1:1" id="hbt-jP-bDU"/>
+                                                </constraints>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Final-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="Puf-73-hW9">
-                                                <rect key="frame" x="254.5" y="0.0" width="119.5" height="704"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Final-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="Puf-73-hW9">
+                                                <rect key="frame" x="249.5" y="0.0" width="84.5" height="84.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Puf-73-hW9" secondAttribute="height" multiplier="1:1" id="w7f-uP-RqV"/>
+                                                </constraints>
                                             </imageView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="Puf-73-hW9" firstAttribute="top" secondItem="CCr-i1-aFM" secondAttribute="top" id="BfT-mJ-2Dp"/>
                                             <constraint firstItem="Puf-73-hW9" firstAttribute="width" secondItem="w9M-NO-9Ub" secondAttribute="width" id="QRa-kp-nXi"/>
+                                            <constraint firstAttribute="bottom" secondItem="ibP-ej-fEh" secondAttribute="bottom" id="Rf2-je-wXl"/>
+                                            <constraint firstAttribute="bottom" secondItem="Puf-73-hW9" secondAttribute="bottom" id="ZeS-fE-0Y5"/>
+                                            <constraint firstAttribute="bottom" secondItem="w9M-NO-9Ub" secondAttribute="bottom" id="hp7-F4-Eka"/>
                                             <constraint firstItem="ibP-ej-fEh" firstAttribute="width" secondItem="w9M-NO-9Ub" secondAttribute="width" id="num-pH-w1Q"/>
+                                            <constraint firstItem="w9M-NO-9Ub" firstAttribute="top" secondItem="CCr-i1-aFM" secondAttribute="top" id="qzn-Ig-MWw"/>
+                                            <constraint firstItem="ibP-ej-fEh" firstAttribute="top" secondItem="CCr-i1-aFM" secondAttribute="top" id="zq5-bT-x7w"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="CCr-i1-aFM" secondAttribute="trailing" constant="20" id="3RK-jZ-2fA"/>
-                                    <constraint firstItem="CCr-i1-aFM" firstAttribute="leading" secondItem="vpN-ve-3yx" secondAttribute="leading" constant="20" id="Jko-ud-EbA"/>
+                                    <constraint firstAttribute="trailing" secondItem="CCr-i1-aFM" secondAttribute="trailing" constant="40" id="IRr-WB-LBQ"/>
+                                    <constraint firstItem="CCr-i1-aFM" firstAttribute="leading" secondItem="vpN-ve-3yx" secondAttribute="leading" constant="40" id="IiE-1e-szs"/>
                                     <constraint firstItem="JvE-LH-jn6" firstAttribute="leading" secondItem="vpN-ve-3yx" secondAttribute="leading" id="Vzg-XN-Ggh"/>
                                     <constraint firstAttribute="trailing" secondItem="JvE-LH-jn6" secondAttribute="trailing" id="p90-Z0-9db"/>
                                 </constraints>
@@ -782,9 +823,10 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="vpN-ve-3yx" firstAttribute="bottom" secondItem="wPB-KW-suh" secondAttribute="bottom" id="5BF-x1-vR6"/>
+                            <constraint firstItem="vpN-ve-3yx" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="wPB-KW-suh" secondAttribute="bottom" priority="750" id="5BF-x1-vR6"/>
                             <constraint firstItem="vpN-ve-3yx" firstAttribute="trailing" secondItem="wPB-KW-suh" secondAttribute="trailing" id="7xw-sT-ql3"/>
-                            <constraint firstItem="vpN-ve-3yx" firstAttribute="top" secondItem="wPB-KW-suh" secondAttribute="top" id="9OH-EC-TGS"/>
+                            <constraint firstItem="vpN-ve-3yx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="wPB-KW-suh" secondAttribute="top" priority="750" id="9OH-EC-TGS"/>
+                            <constraint firstItem="vpN-ve-3yx" firstAttribute="centerY" secondItem="PYt-ye-sV5" secondAttribute="centerY" id="fQ0-mq-WiV"/>
                             <constraint firstItem="vpN-ve-3yx" firstAttribute="leading" secondItem="wPB-KW-suh" secondAttribute="leading" id="r6d-Kl-v6S"/>
                         </constraints>
                     </view>

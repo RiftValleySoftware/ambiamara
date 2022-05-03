@@ -251,6 +251,13 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
          */
         case showStoplights
 
+        /* ################################################################## */
+        /**
+         If this is true, then going into the running timer screen starts the timer immediately.
+         If false, then it starts as paused.
+         */
+        case startTimerImmediately
+        
         /* ############################################################## */
         /**
          These are all the keys, in an Array of String.
@@ -264,7 +271,8 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
                                         alarmMode.rawValue,
                                         selectedSoundIndex.rawValue,
                                         showDigits.rawValue,
-                                        showStoplights.rawValue
+                                        showStoplights.rawValue,
+                                        startTimerImmediately.rawValue
                                         ]
         }
     }
@@ -428,6 +436,16 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     var showStoplights: Bool {
         get { 0 != (values[Keys.showStoplights.rawValue] as? Int ?? 1) }
         set { values[Keys.showStoplights.rawValue] = newValue ? 1 : 0 }
+    }
+
+    /* ################################################################## */
+    /**
+     If this is true, then going into the running timer screen starts the timer immediately.
+     If false, then it starts as paused.
+     */
+    var startTimerImmediately: Bool {
+        get { 0 != (values[Keys.startTimerImmediately.rawValue] as? Int ?? 1) }
+        set { values[Keys.startTimerImmediately.rawValue] = newValue ? 1 : 0 }
     }
 
     /* ################################################################## */

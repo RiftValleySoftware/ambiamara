@@ -47,28 +47,28 @@ class RVS_SetAlarmAmbiaMara_PopoverViewController: RVS_AmbiaMara_BaseViewControl
     /**
      This is the audio player (for sampling sounds).
     */
-    var audioPlayer: AVAudioPlayer!
+    private var _audioPlayer: AVAudioPlayer!
     
     /* ################################################################## */
     /**
      This aggregates our available sounds.
      The sounds are files, stored in the resources, so this simply gets them, and stores them as path URIs.
     */
-    var soundSelection: [String] = []
+    private var _soundSelection: [String] = []
     
     /* ################################################################## */
     /**
      If true, then the currently selected sound is playing.
      This is set or cleared by the "play sound" button.
     */
-    var isSoundPlaying: Bool = false {
+    private var _isSoundPlaying: Bool = false {
         didSet {
             DispatchQueue.main.async { [weak self] in
-                self?.audioPlayer?.stop()
-                self?.audioPlayer = nil
+                self?._audioPlayer?.stop()
+                self?._audioPlayer = nil
                 
-                if self?.isSoundPlaying ?? false,
-                   let selectedURLString = self?.soundSelection[RVS_AmbiaMara_Settings().selectedSoundIndex],
+                if self?._isSoundPlaying ?? false,
+                   let selectedURLString = self?._soundSelection[RVS_AmbiaMara_Settings().selectedSoundIndex],
                    let url = URL(string: selectedURLString) {
                     self?.playThisSound(url)
                 }
@@ -147,7 +147,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
         vibrateSwitch?.accessibilityLabel = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".localizedVariant
         vibrateSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".localizedVariant
         
-        soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted()
+        _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted()
         
         if let alarmModeSegmentedSwitch = alarmModeSegmentedSwitch {
             alarmModeSegmentedSwitch.selectedSegmentTintColor = .white
@@ -172,7 +172,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
     */
     override func viewWillDisappear(_ inAnimated: Bool) {
         super.viewWillDisappear(inAnimated)
-        isSoundPlaying = false
+        _isSoundPlaying = false
     }
 }
 
@@ -186,7 +186,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
      It also starts or stops the sound play.
     */
     func setUpForSoundPlayMode() {
-        soundPlayButton?.setImage(UIImage(systemName: Self._playSoundImageNames[isSoundPlaying ? 1 : 0]), for: .normal)
+        soundPlayButton?.setImage(UIImage(systemName: Self._playSoundImageNames[_isSoundPlaying ? 1 : 0]), for: .normal)
     }
 
     /* ################################################################## */
@@ -197,12 +197,12 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
      */
     func playThisSound(_ inSoundURL: URL) {
         do {
-            if nil == audioPlayer {
+            if nil == _audioPlayer {
                 try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
-                try audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
-                audioPlayer?.numberOfLoops = -1
+                try _audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
+                _audioPlayer?.numberOfLoops = -1
             }
-            audioPlayer?.play()
+            _audioPlayer?.play()
         } catch {
             #if DEBUG
                 print("ERROR! Attempt to play sound failed: \(String(describing: error))")
@@ -225,7 +225,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
         RVS_AmbiaMara_Settings().alarmMode = 1 == inSegmentedSwitch.selectedSegmentIndex
         myController?.setAlarmIcon()
         soundSelectionStackView?.isHidden = 1 != alarmModeSegmentedSwitch?.selectedSegmentIndex
-        isSoundPlaying = false
+        _isSoundPlaying = false
     }
     
     /* ################################################################## */
@@ -250,7 +250,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
      - parameter: The button instance (ignored).
     */
     @IBAction func soundPlayButtonHit(_: UIButton) {
-        isSoundPlaying = !isSoundPlaying
+        _isSoundPlaying = !_isSoundPlaying
     }
 }
 
@@ -271,7 +271,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController: UIPickerViewDataSource {
      - parameter: The picker view (ignored)
      - parameter numberOfRowsInComponent: The 0-based index of the component we are querying.
     */
-    func pickerView(_: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int { soundSelection.count }
+    func pickerView(_: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int { _soundSelection.count }
 }
 
 /* ###################################################################################################################################### */
@@ -287,10 +287,10 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController: UIPickerViewDelegate {
      - parameter inComponent: The component that contains the selected row (0-based index).
     */
     func pickerView(_ inPickerView: UIPickerView, didSelectRow inRow: Int, inComponent: Int) {
-        let wasPlaying = isSoundPlaying
-        isSoundPlaying = false
+        let wasPlaying = _isSoundPlaying
+        _isSoundPlaying = false
         RVS_AmbiaMara_Settings().selectedSoundIndex = inRow
-        isSoundPlaying = wasPlaying
+        _isSoundPlaying = wasPlaying
     }
     
     /* ################################################################## */
@@ -304,7 +304,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController: UIPickerViewDelegate {
      - returns: A new view, containing the row. If it is selected, it is displayed as reversed.
     */
     func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inView: UIView?) -> UIView {
-        guard let soundUri = URL(string: soundSelection[inRow].urlEncodedString ?? "")?.lastPathComponent else { return UIView() }
+        guard let soundUri = URL(string: _soundSelection[inRow].urlEncodedString ?? "")?.lastPathComponent else { return UIView() }
         let labelFrame = CGRect(origin: .zero, size: CGSize(width: inPickerView.bounds.size.width - Self._pickerPaddingInDisplayUnits, height: inPickerView.bounds.size.height / 3))
         let label = UILabel(frame: labelFrame)
         label.font = Self._pickerFont
@@ -345,6 +345,6 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController: AVAudioPlayerDelegate {
       - parameter successfully: True, if the play was successful (also ignored).
     */
     func audioPlayerDidFinishPlaying(_: AVAudioPlayer, successfully: Bool) {
-        isSoundPlaying = false
+        _isSoundPlaying = false
     }
 }

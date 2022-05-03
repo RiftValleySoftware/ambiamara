@@ -65,6 +65,18 @@ class RVS_SettingsAmbiaMara_PopoverViewController: RVS_AmbiaMara_BaseViewControl
      The label for the switch is actually a button.
     */
     @IBOutlet weak var popoverDisplayTrafficLightsSwitchLabelButton: UIButton?
+    
+    /* ################################################################## */
+    /**
+     The switch that controls whether or not the running timer start immediately, or as paused.
+    */
+    @IBOutlet weak var popoverStartImmediatelySwitch: UISwitch?
+    
+    /* ################################################################## */
+    /**
+     The label for the switch is actually a button.
+    */
+    @IBOutlet weak var popoverStartImmediatelySwitchLabelButton: UIButton?
 
     /* ################################################################## */
     /**
@@ -86,10 +98,12 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         popoverHelpSettingsSwitch?.isOn = RVS_AmbiaMara_Settings().useGuidancePopovers
         popoverDisplayDigitsSwitch?.isOn = RVS_AmbiaMara_Settings().showDigits
         popoverDisplayTrafficLightsSwitch?.isOn = RVS_AmbiaMara_Settings().showStoplights
+        popoverStartImmediatelySwitch?.isOn = RVS_AmbiaMara_Settings().startTimerImmediately
 
         popoverHelpSettingsSwitchLabelButton?.setTitle(popoverHelpSettingsSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         popoverDisplayDigitsSwitchLabelButton?.setTitle(popoverDisplayDigitsSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         popoverDisplayTrafficLightsSwitchLabelButton?.setTitle(popoverDisplayTrafficLightsSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        popoverStartImmediatelySwitchLabelButton?.setTitle(popoverStartImmediatelySwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         aboutAmbiaMaraButton?.setTitle(aboutAmbiaMaraButton?.title(for: .normal)?.localizedVariant, for: .normal)
 
         popoverHelpSettingsSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -98,6 +112,8 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         popoverDisplayDigitsSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
         popoverDisplayTrafficLightsSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         popoverDisplayTrafficLightsSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
+        popoverStartImmediatelySwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        popoverStartImmediatelySwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
         aboutAmbiaMaraButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         aboutAmbiaMaraButton?.titleLabel?.minimumScaleFactor = 0.5
 
@@ -110,6 +126,9 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         popoverDisplayTrafficLightsSwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-STOPLIGHTS-SWITCH".localizedVariant
         popoverDisplayTrafficLightsSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-STOPLIGHTS-SWITCH".localizedVariant
         
+        popoverStartImmediatelySwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH".localizedVariant
+        popoverStartImmediatelySwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH".localizedVariant
+
         aboutAmbiaMaraButton?.accessibilityLabel = "SLUG-ACC-ABOUT-AMBIAMARA-BUTTON".localizedVariant
     }
 }
@@ -168,5 +187,18 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
             popoverDisplayTrafficLightsSwitch?.sendActions(for: .valueChanged)
         }
     }
-
+    
+    /* ################################################################## */
+    /**
+     The switch or button for start immediately was hit.
+     - parameter inSender: the switch or the button.
+    */
+    @IBAction func popoverStartImmediatelySwitchChanged(_ inSender: UIControl) {
+        if let switcher = inSender as? UISwitch {
+            RVS_AmbiaMara_Settings().startTimerImmediately = switcher.isOn
+        } else {
+            popoverStartImmediatelySwitch?.setOn(!(popoverStartImmediatelySwitch?.isOn ?? true), animated: true)
+            popoverStartImmediatelySwitch?.sendActions(for: .valueChanged)
+        }
+    }
 }

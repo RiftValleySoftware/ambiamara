@@ -99,7 +99,7 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /**
      The period that we use for the "fade in" animation.
     */
-    private static let _alarmPopoverSize = CGSize(width: 400, height: 200)
+    private static let _alarmPopoverSize = CGSize(width: 400, height: 228)
 
     /* ################################################################## */
     /**

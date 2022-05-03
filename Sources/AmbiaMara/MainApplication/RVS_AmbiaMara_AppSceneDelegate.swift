@@ -60,11 +60,14 @@ extension RVS_AmbiaMara_AppSceneDelegate {
      */
     func cleanPopover() {
         DispatchQueue.main.async { [weak self] in
-            if let viewControllers = self?.navigationController?.viewControllers,
-               let setupScreen = viewControllers.first as? RVS_SetTimerAmbiaMara_ViewController,
-               let popover = setupScreen.currentPopover {
-                setupScreen.currentPopover = nil
-                popover.dismiss(animated: false)
+            if let viewControllers = self?.navigationController?.viewControllers {
+               if let setupScreen = viewControllers.first as? RVS_SetTimerAmbiaMara_ViewController,
+                  let popover = setupScreen.currentPopover {
+                   setupScreen.currentPopover = nil
+                   popover.dismiss(animated: false)
+               } else if let runningTimerScreen = viewControllers.first as? RVS_TimerAmbiaMara_ViewController {
+                   runningTimerScreen.stopSounds()
+               }
             }
         }
     }
