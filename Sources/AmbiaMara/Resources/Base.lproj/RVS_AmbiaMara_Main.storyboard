@@ -717,10 +717,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Imh-NL-3La" userLabel="Gesture Sponge">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="vcy-b7-Qj6" appends="YES" id="leG-y4-uZU"/>
+                                    <outletCollection property="gestureRecognizers" destination="82J-Um-I4A" appends="YES" id="asa-EU-GNy"/>
+                                </connections>
+                            </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fld-C3-mAh">
                                 <rect key="frame" x="0.0" y="44" width="414" height="0.0"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
+                                    <barButtonItem id="q6L-Ih-xDG">
+                                        <imageReference key="image" image="backward.end.alt.fill" catalog="system" symbolScale="large"/>
+                                        <connections>
+                                            <action selector="toolbarItemHit:" destination="AXI-TT-Eqw" id="lmp-qu-0Rr"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="0ZZ-DK-FnG"/>
                                     <barButtonItem id="E7z-wz-7hz">
                                         <imageReference key="image" image="stop.fill" catalog="system" symbolScale="large"/>
                                         <connections>
@@ -732,6 +747,13 @@
                                         <imageReference key="image" image="arrowtriangle.right.fill" catalog="system" symbolScale="large"/>
                                         <connections>
                                             <action selector="toolbarItemHit:" destination="AXI-TT-Eqw" id="B9k-Bs-1Ty"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="yd5-Kw-ufU"/>
+                                    <barButtonItem id="1Qh-ZC-RzS">
+                                        <imageReference key="image" image="forward.end.alt.fill" catalog="system" symbolScale="large"/>
+                                        <connections>
+                                            <action selector="toolbarItemHit:" destination="AXI-TT-Eqw" id="KjI-Kb-I3B"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -878,6 +900,10 @@
                                     <constraint firstAttribute="trailing" secondItem="JvE-LH-jn6" secondAttribute="trailing" id="p90-Z0-9db"/>
                                 </constraints>
                             </stackView>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wux-GQ-bHU">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wPB-KW-suh"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -886,18 +912,28 @@
                         <constraints>
                             <constraint firstItem="vpN-ve-3yx" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="wPB-KW-suh" secondAttribute="bottom" id="5BF-x1-vR6"/>
                             <constraint firstItem="vpN-ve-3yx" firstAttribute="trailing" secondItem="wPB-KW-suh" secondAttribute="trailing" id="7xw-sT-ql3"/>
+                            <constraint firstItem="Wux-GQ-bHU" firstAttribute="top" secondItem="PYt-ye-sV5" secondAttribute="top" id="DOl-0d-emW"/>
                             <constraint firstItem="fld-C3-mAh" firstAttribute="leading" secondItem="wPB-KW-suh" secondAttribute="leading" id="MqI-Ck-loO"/>
                             <constraint firstItem="fld-C3-mAh" firstAttribute="top" secondItem="wPB-KW-suh" secondAttribute="top" id="RiU-0d-7GR"/>
+                            <constraint firstItem="Imh-NL-3La" firstAttribute="leading" secondItem="PYt-ye-sV5" secondAttribute="leading" id="S4O-e8-opl"/>
+                            <constraint firstAttribute="trailing" secondItem="Wux-GQ-bHU" secondAttribute="trailing" id="TYa-BX-oj9"/>
                             <constraint firstItem="vpN-ve-3yx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fld-C3-mAh" secondAttribute="bottom" id="VGN-Ah-z9i"/>
+                            <constraint firstAttribute="trailing" secondItem="Imh-NL-3La" secondAttribute="trailing" id="VIe-Oh-Wfd"/>
+                            <constraint firstAttribute="bottom" secondItem="Wux-GQ-bHU" secondAttribute="bottom" id="ez2-Qp-nbF"/>
                             <constraint firstItem="vpN-ve-3yx" firstAttribute="centerY" secondItem="PYt-ye-sV5" secondAttribute="centerY" id="fQ0-mq-WiV"/>
+                            <constraint firstItem="Wux-GQ-bHU" firstAttribute="leading" secondItem="PYt-ye-sV5" secondAttribute="leading" id="nm1-aJ-Few"/>
+                            <constraint firstAttribute="bottom" secondItem="Imh-NL-3La" secondAttribute="bottom" id="qmE-ij-Oxe"/>
                             <constraint firstItem="vpN-ve-3yx" firstAttribute="leading" secondItem="wPB-KW-suh" secondAttribute="leading" id="r6d-Kl-v6S"/>
+                            <constraint firstItem="Imh-NL-3La" firstAttribute="top" secondItem="PYt-ye-sV5" secondAttribute="top" id="xqN-qO-ZQT"/>
                             <constraint firstItem="fld-C3-mAh" firstAttribute="trailing" secondItem="wPB-KW-suh" secondAttribute="trailing" id="yWm-bA-wQf"/>
                         </constraints>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="vcy-b7-Qj6" appends="YES" id="VPP-Fv-fHM"/>
+                            <outletCollection property="gestureRecognizers" destination="l57-ZX-qwY" appends="YES" id="yi3-uu-r7q"/>
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="backgroundLeftSwipeGestureRecognizer" destination="82J-Um-I4A" id="l0i-Ux-Wv8"/>
+                        <outlet property="backgroundRightSwipeGestureRecognizer" destination="l57-ZX-qwY" id="0v8-uE-32o"/>
                         <outlet property="backgroundTapGestureRecognizer" destination="vcy-b7-Qj6" id="LIL-x7-KaL"/>
                         <outlet property="centerAlignmentConstraint" destination="fQ0-mq-WiV" id="rVm-1J-szc"/>
                         <outlet property="controlToolbar" destination="fld-C3-mAh" id="EjO-CT-oow"/>
@@ -906,8 +942,11 @@
                         <outlet property="digitalDisplayViewMinutes" destination="fP9-ON-xd4" id="DQn-zG-Mu2"/>
                         <outlet property="digitalDisplayViewSeconds" destination="IoF-o5-OLL" id="cvo-Aa-hT6"/>
                         <outlet property="digitsInternalContainerView" destination="awW-mh-pTA" id="FVf-fN-LIe"/>
+                        <outlet property="fastForwardBarButtonItem" destination="1Qh-ZC-RzS" id="7iG-Zf-UqR"/>
                         <outlet property="finalLightImageView" destination="Puf-73-hW9" id="xcr-cM-ZMM"/>
+                        <outlet property="flasherView" destination="Wux-GQ-bHU" id="d3M-CM-Iwe"/>
                         <outlet property="playPauseToolbarItem" destination="7xM-yR-1gF" id="E79-fD-lu8"/>
+                        <outlet property="rewindToolbarItem" destination="q6L-Ih-xDG" id="LDh-tj-ew1"/>
                         <outlet property="startLightImageView" destination="w9M-NO-9Ub" id="zDN-or-cLq"/>
                         <outlet property="stopToolbarItem" destination="E7z-wz-7hz" id="DG1-r4-SFL"/>
                         <outlet property="trafficLightsContainerView" destination="CCr-i1-aFM" id="607-Tk-pK4"/>
@@ -920,6 +959,16 @@
                         <action selector="backgroundTapped:" destination="AXI-TT-Eqw" id="QFh-p2-6uY"/>
                     </connections>
                 </tapGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="82J-Um-I4A" userLabel="Background Left Swipe Gesture Recognizer">
+                    <connections>
+                        <action selector="swipeGestureReceived:" destination="AXI-TT-Eqw" id="6as-mU-Z6V"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="l57-ZX-qwY" userLabel="Background Right Swipe Gesture Recognizer">
+                    <connections>
+                        <action selector="swipeGestureReceived:" destination="AXI-TT-Eqw" id="ReT-ef-69z"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="573.91304347826087" y="837.72321428571422"/>
         </scene>
@@ -1090,8 +1139,10 @@
         <image name="Start-TrafficLight" width="1024" height="1024"/>
         <image name="Warn-TrafficLight" width="1024" height="1024"/>
         <image name="arrowtriangle.right.fill" catalog="system" width="128" height="113"/>
+        <image name="backward.end.alt.fill" catalog="system" width="128" height="66"/>
         <image name="bell.fill" catalog="system" width="128" height="124"/>
         <image name="bell.slash.fill" catalog="system" width="124" height="128"/>
+        <image name="forward.end.alt.fill" catalog="system" width="128" height="66"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="nosign" catalog="system" width="128" height="121"/>
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
