@@ -135,7 +135,8 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
      */
     private var _isAlarming: Bool = false {
         didSet {
-            if !_isAlarming {
+            if !_isAlarming,
+               oldValue {
                 _alarmTimer?.isRunning = false
                 _timer?.isRunning = false
                 stopSounds()
@@ -144,7 +145,8 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
                 setDigitDisplayTime()
                 setTimerDisplay()
                 setUpToolbar()
-            } else {
+            } else if _isAlarming,
+                      !oldValue {
                 _timer?.isRunning = false
                 _alarmTimer?.isRunning = true
                 setUpToolbar()
@@ -300,6 +302,22 @@ extension RVS_TimerAmbiaMara_ViewController {
         let differenceInSeconds = Int(Date().timeIntervalSince1970 - startingTime)
         return (RVS_AmbiaMara_Settings().currentTimer.startTime - differenceInSeconds) <= RVS_AmbiaMara_Settings().currentTimer.finalTime
     }
+    
+    /* ############################################################## */
+    /**
+     - returns: The index of the following timer. Nil, if no following timer.
+                This "circles around," so the final timer points to the first timer.
+     */
+    private var _nextTimerIndex: Int? {
+        guard 1 < RVS_AmbiaMara_Settings().numberOfTimers else { return nil }
+        
+        var nextIndex = RVS_AmbiaMara_Settings().currentTimerIndex + 1
+        if nextIndex == RVS_AmbiaMara_Settings().numberOfTimers {
+            nextIndex = 0
+        }
+        
+        return nextIndex
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -367,7 +385,7 @@ extension RVS_TimerAmbiaMara_ViewController {
      */
     private func _generateHexOverlayImage(_ inBounds: CGRect) -> UIImage? {
         let path = CGMutablePath()
-        let sHexagonWidth = CGFloat(inBounds.size.height / 25)
+        let sHexagonWidth = CGFloat(inBounds.size.height / 20)
         let radius: CGFloat = sHexagonWidth / 2
         
         let hexPath: CGMutablePath = Self._getHexPath(radius)
@@ -395,7 +413,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         if let drawingContext = UIGraphicsGetCurrentContext() {
             drawingContext.addPath(path)
             drawingContext.setLineWidth(0.1)
-            drawingContext.setStrokeColor(UIColor.black.withAlphaComponent(0.75).cgColor)
+            drawingContext.setStrokeColor(UIColor.black.withAlphaComponent(0.8).cgColor)
             drawingContext.setFillColor(UIColor.clear.cgColor)
             drawingContext.strokePath()
         }
@@ -462,8 +480,6 @@ extension RVS_TimerAmbiaMara_ViewController {
         
         _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: 0.25, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main, isWallTime: true)
         _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDuration, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main)
-
-        initializeTimer()
     }
     
     /* ############################################################## */
@@ -509,6 +525,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         stopAlarm()
         pauseTimer()
         _timer = nil
+        _alarmTimer = nil
     }
 }
 
@@ -560,6 +577,16 @@ extension RVS_TimerAmbiaMara_ViewController {
         } else {
             if _isAlarming {
                 _isAlarming = false
+                if let nextTimerIndex = _nextTimerIndex {
+                    RVS_AmbiaMara_Settings().currentTimerIndex = nextTimerIndex
+                    
+                    view.setNeedsLayout()
+
+                    if !_isTimerRunning,
+                       !_isAlarming {
+                        initializeTimer()
+                    }
+                }
             } else {
                 _isAlarming = true
             }
