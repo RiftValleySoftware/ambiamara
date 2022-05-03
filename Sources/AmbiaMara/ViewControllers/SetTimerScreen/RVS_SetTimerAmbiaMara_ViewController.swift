@@ -214,7 +214,7 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /**
      The button to select the start time set state.
     */
-    @IBOutlet weak var labelContainerStackView: UIStackView?
+    @IBOutlet weak var topLabelContainerView: UIView?
 
     /* ################################################################## */
     /**
@@ -818,7 +818,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         view.layoutIfNeeded()
         UIView.animate(withDuration: Self._selectionFadeAnimationPeriod,
                        animations: { [weak self] in
-                                        self?.labelContainerStackView?.backgroundColor = UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
+                                        self?.topLabelContainerView?.backgroundColor = UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
                                         self?.stateLabel?.textColor = .final == self?._state ? .white : .black
                                         self?.hoursLabel?.textColor = .final == self?._state ? .white : .black
                                         self?.minutesLabel?.textColor = .final == self?._state ? .white : .black

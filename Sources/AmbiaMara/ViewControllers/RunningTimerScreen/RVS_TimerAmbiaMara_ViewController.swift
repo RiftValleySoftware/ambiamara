@@ -97,6 +97,29 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
             }
         }
     }
+    
+    /* ############################################################## */
+    /**
+     */
+    private var _isAlarming: Bool = false {
+        didSet {
+            if !_isAlarming {
+                _timer?.isRunning = false
+                stopSounds()
+                _startingTime = Date()
+                _tickTime = 0
+                setDigitDisplayTime()
+                determineDigitLEDColor()
+                determineTrafficLightColor()
+            } else {
+                _timer?.isRunning = false
+                if RVS_AmbiaMara_Settings().alarmMode {
+                    _isSoundPlaying = true
+                }
+                setDigitalTimeAs(hours: -2, minutes: -2, seconds: -2)
+            }
+        }
+    }
 
     /* ############################################################## */
     /**
@@ -142,6 +165,11 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /**
      */
     @IBOutlet weak var finalLightImageView: UIImageView?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var backgroundTapGestureRecognizer: UITapGestureRecognizer?
 }
 
 /* ###################################################################################################################################### */
@@ -162,16 +190,6 @@ extension RVS_TimerAmbiaMara_ViewController {
         super.viewDidLoad()
         
         _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted()
-
-        trafficLightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().showStoplights
-        digitalDisplayContainerView?.isHidden = !RVS_AmbiaMara_Settings().showDigits
-        
-        if RVS_AmbiaMara_Settings().showDigits {
-            digitalDisplayContainerView?.autoLayoutAspectConstraint(aspectRatio: 0.2)?.isActive = true
-            digitalDisplayViewHours?.radix = 10
-            digitalDisplayViewMinutes?.radix = 10
-            digitalDisplayViewSeconds?.radix = 10
-        }
         
         _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: 0.25, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main, isWallTime: true)
         
@@ -180,6 +198,8 @@ extension RVS_TimerAmbiaMara_ViewController {
     
     /* ############################################################## */
     /**
+     Called when the view is about to disappear.
+     - parameter inIsAnimated: True, if the disappearance is animated.
      */
     override func viewWillDisappear(_ inIsAnimated: Bool) {
         super.viewWillDisappear(inIsAnimated)
@@ -189,18 +209,51 @@ extension RVS_TimerAmbiaMara_ViewController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: Callbacks
+/* ###################################################################################################################################### */
+extension RVS_TimerAmbiaMara_ViewController {
+    /* ############################################################## */
+    /**
+     Called if the background was tapped. This is how we start/pause/continue the timer.
+     - parameter: ignored.
+     */
+    @IBAction func backgroundTapped(_: UITapGestureRecognizer) {
+        if _isAlarming {
+            stopAlarm()
+        } else if _timer?.isRunning ?? true {
+            pauseTimer()
+        } else if 0 == _tickTime {
+            startTimer()
+        } else {
+            continueTimer()
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RVS_TimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
+     This initializes the timer screen.
      */
     func initializeTimer() {
+        trafficLightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().showStoplights
+        digitalDisplayContainerView?.isHidden = !RVS_AmbiaMara_Settings().showDigits
+        
+        if RVS_AmbiaMara_Settings().showDigits {
+            digitalDisplayContainerView?.autoLayoutAspectConstraint(aspectRatio: 0.2)?.isActive = true
+            digitalDisplayViewHours?.radix = 10
+            digitalDisplayViewMinutes?.radix = 10
+            digitalDisplayViewSeconds?.radix = 10
+        }
+
         let hours = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[0] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[0] : -2
         let minutes = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[1] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[1] : 0 < hours ? 0 : -2
         let seconds = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[2] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[2] : 0 < hours || 0 < minutes ? 0 : -2
         
-        setTimeAs(hours: hours, minutes: minutes, seconds: seconds)
+        setDigitalTimeAs(hours: hours, minutes: minutes, seconds: seconds)
 
         if RVS_AmbiaMara_Settings().startTimerImmediately {
             startTimer()
@@ -211,36 +264,59 @@ extension RVS_TimerAmbiaMara_ViewController {
     
     /* ############################################################## */
     /**
+     This stops the alarm, sets the timer to zero, and pauses it.
+     */
+    func stopAlarm() {
+        _isAlarming = false
+    }
+    
+    /* ############################################################## */
+    /**
+     This starts the timer from scratch.
      */
     func startTimer() {
         _startingTime = Date()
         _tickTime = 0
-        continueTimer()
-        determineCurrentLEDColor()
-        determineCurrentTrafficLightColor()
+        setDigitDisplayTime()
+        _timer?.isRunning = true
+        determineDigitLEDColor()
+        determineTrafficLightColor()
     }
-    
+
     /* ############################################################## */
     /**
+     Pauses the timer, without resetting anything.
+     Any playing sounds are stopped.
      */
     func pauseTimer() {
         _timer?.isRunning = false
         stopSounds()
-        determineCurrentLEDColor()
-        determineCurrentTrafficLightColor()
+        determineDigitLEDColor()
+        determineTrafficLightColor()
     }
     
     /* ############################################################## */
     /**
+     Continues the timer, setting the counter to the last time.
+     - parameter takeElapsedTimeIntoAccount: If true, then we don't reset the timer to the last time.
+                                             Instead, we take the time between the last tick, and now, into account.
      */
-    func continueTimer() {
-        determineCurrentLEDColor(_tickTime)
-        determineCurrentTrafficLightColor(_tickTime)
+    func continueTimer(takeElapsedTimeIntoAccount: Bool = false) {
+        determineDigitLEDColor(_tickTime)
+        determineTrafficLightColor(_tickTime)
+        if !takeElapsedTimeIntoAccount {
+            _startingTime = Date().addingTimeInterval(-TimeInterval(_tickTime))
+            _tickTime = 0
+        }
         _timer?.isRunning = true
+        if let timer = _timer { // Force an immediate update.
+            basicGCDTimerCallback(timer)
+        }
     }
     
     /* ############################################################## */
     /**
+     Stops the timer, by popping the screen.
      */
     func stopTimer() {
         navigationController?.popViewController(animated: true)
@@ -248,26 +324,20 @@ extension RVS_TimerAmbiaMara_ViewController {
     
     /* ############################################################## */
     /**
+     Stops any playing sounds.
      */
     func stopSounds() {
         _isSoundPlaying = false
     }
-
-    /* ############################################################## */
-    /**
-     */
-    func alarm() {
-        _timer?.isRunning = false
-        if RVS_AmbiaMara_Settings().alarmMode {
-            _isSoundPlaying = true
-        }
-        setTimeAs(hours: -2, minutes: -2, seconds: -2)
-    }
     
     /* ############################################################## */
     /**
+     This determines the proper color for the "traffic lights."
+     - parameter inCurrentTime: Optional. Default is 0. This is the elapsed time, in seconds.
      */
-    func determineCurrentTrafficLightColor(_ inCurrentTime: Int = 0) {
+    func determineTrafficLightColor(_ inCurrentTime: Int = 0) {
+        guard RVS_AmbiaMara_Settings().showStoplights else { return }
+        
         let coutdownTime = RVS_AmbiaMara_Settings().currentTimer.startTime - inCurrentTime
         
         guard _timer?.isRunning ?? false else {
@@ -298,8 +368,12 @@ extension RVS_TimerAmbiaMara_ViewController {
     
     /* ############################################################## */
     /**
+     This determines the proper color for the digit "LEDs."
+     - parameter inCurrentTime: Optional. Default is 0. This is the elapsed time, in seconds.
      */
-    func determineCurrentLEDColor(_ inCurrentTime: Int = 0) {
+    func determineDigitLEDColor(_ inCurrentTime: Int = 0) {
+        guard RVS_AmbiaMara_Settings().showDigits else { return }
+        
         let coutdownTime = RVS_AmbiaMara_Settings().currentTimer.startTime - inCurrentTime
         
         guard _timer?.isRunning ?? false else {
@@ -326,10 +400,14 @@ extension RVS_TimerAmbiaMara_ViewController {
     
     /* ############################################################## */
     /**
+     This will flash the screen, for transitions between timer states.
+     It will also set the colors for the digits and/or traffic lights.
+     - parameter inCurrentTime: The elapsed time, in seconds.
      */
     func flashIfNecessary(_ inCurrentTime: Int) {
-        determineCurrentLEDColor(inCurrentTime)
-        determineCurrentTrafficLightColor(inCurrentTime)
+        determineDigitLEDColor(inCurrentTime)
+        determineTrafficLightColor(inCurrentTime)
+        // Look for a threshold crossing.
         let previousTime = RVS_AmbiaMara_Settings().currentTimer.startTime - _tickTime
         let coutdownTime = RVS_AmbiaMara_Settings().currentTimer.startTime - inCurrentTime
         
@@ -365,8 +443,12 @@ extension RVS_TimerAmbiaMara_ViewController {
 
     /* ############################################################## */
     /**
+     This sets the digits, directly.
+     - parameter hours: The hour number
+     - parameter minutes: The minute number
+     - parameter seconds: The second number.
      */
-    func setTimeAs(hours inHours: Int, minutes inMinutes: Int, seconds inSeconds: Int) {
+    func setDigitalTimeAs(hours inHours: Int, minutes inMinutes: Int, seconds inSeconds: Int) {
         if RVS_AmbiaMara_Settings().showDigits {
             digitalDisplayViewMinutes?.hasLeadingZeroes = 0 < inHours
             digitalDisplayViewSeconds?.hasLeadingZeroes = 0 < inHours || 0 < inMinutes
@@ -376,6 +458,25 @@ extension RVS_TimerAmbiaMara_ViewController {
         }
     }
     
+    /* ############################################################## */
+    /**
+     This calculates the current time, and sets the digital display to that time.
+     */
+    func setDigitDisplayTime() {
+        guard RVS_AmbiaMara_Settings().showDigits,
+              let startingTime = _startingTime?.timeIntervalSince1970 else { return }
+        
+        var differenceInSeconds = RVS_AmbiaMara_Settings().currentTimer.startTime - Int(Date().timeIntervalSince1970 - startingTime)
+        
+        let hours = Int(differenceInSeconds / (60 * 60))
+        differenceInSeconds -= (hours * 60 * 60)
+        let minutes = Int(differenceInSeconds / 60)
+        differenceInSeconds -= (minutes * 60)
+        let seconds = differenceInSeconds
+        
+        setDigitalTimeAs(hours: 0 < hours ? hours : -2, minutes: (0 < minutes || 0 < hours) ? minutes : -2, seconds: seconds)
+    }
+
     /* ################################################################## */
     /**
      This plays any sound, using a given URL.
@@ -404,25 +505,21 @@ extension RVS_TimerAmbiaMara_ViewController {
 extension RVS_TimerAmbiaMara_ViewController: RVS_BasicGCDTimerDelegate {
     /* ############################################################## */
     /**
+     Called when the timer fires.
+     
+     - parameter: The timer (ignored)
      */
-    func basicGCDTimerCallback(_ timer: RVS_BasicGCDTimer) {
+    func basicGCDTimerCallback(_: RVS_BasicGCDTimer) {
         guard let startingTime = _startingTime?.timeIntervalSince1970 else { return }
-        var differenceInSeconds = Int(Date().timeIntervalSince1970 - startingTime)
+        let differenceInSeconds = Int(Date().timeIntervalSince1970 - startingTime)
         guard differenceInSeconds != _tickTime else { return }
         flashIfNecessary(differenceInSeconds)
         _tickTime = differenceInSeconds
-        differenceInSeconds = RVS_AmbiaMara_Settings().currentTimer.startTime - differenceInSeconds
         
-        let hours = Int(differenceInSeconds / (60 * 60))
-        differenceInSeconds -= (hours * 60 * 60)
-        let minutes = Int(differenceInSeconds / 60)
-        differenceInSeconds -= (minutes * 60)
-        let seconds = differenceInSeconds
+        setDigitDisplayTime()
         
-        setTimeAs(hours: 0 < hours ? hours : -2, minutes: (0 < minutes || 0 < hours) ? minutes : -2, seconds: seconds)
-        
-        if 0 >= differenceInSeconds {
-            alarm()
+        if 0 >= RVS_AmbiaMara_Settings().currentTimer.startTime - differenceInSeconds {
+            _isAlarming = true
         }
     }
 }

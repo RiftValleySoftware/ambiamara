@@ -18,7 +18,7 @@ import RVS_Generic_Swift_Toolbox
 /**
  This is the view controller for the alarm setup popover.
  */
-class RVS_SetAlarmAmbiaMara_PopoverViewController: RVS_AmbiaMara_BaseViewController {
+class RVS_SetAlarmAmbiaMara_PopoverViewController: UIViewController {
     /* ################################################################## */
     /**
      The size of the picker font

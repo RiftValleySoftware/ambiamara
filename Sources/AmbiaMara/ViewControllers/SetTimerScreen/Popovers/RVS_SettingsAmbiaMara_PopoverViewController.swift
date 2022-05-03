@@ -17,7 +17,7 @@ import RVS_Generic_Swift_Toolbox
 /**
  This is the view controller for the about screen.
  */
-class RVS_SettingsAmbiaMara_PopoverViewController: RVS_AmbiaMara_BaseViewController {
+class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
     /* ################################################################## */
     /**
      The storyboard ID for this controller.
