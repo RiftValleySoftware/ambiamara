@@ -658,3 +658,17 @@ extension CGPoint {
         return CGPoint(x: x, y: y)
     }
 }
+
+/* ###################################################################################################################################### */
+// MARK: CGFloat Extension
+/* ###################################################################################################################################### */
+/**
+ This makes it easier to convert between Degrees and Radians.
+ */
+extension CGFloat {
+    /* ################################################################## */
+    /**
+     - returns: a float (in degrees), as Radians
+     */
+    var radians: CGFloat { CGFloat(Double.pi) * (self / 180) }
+}

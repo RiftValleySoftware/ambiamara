@@ -757,116 +757,133 @@
                                     <view contentMode="scaleToFill" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="JvE-LH-jn6">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="84.5"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="awW-mh-pTA">
-                                                <rect key="frame" x="31" y="0.0" width="352" height="84.5"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="RRd-P6-4GH">
+                                                <rect key="frame" x="40" y="0.0" width="334" height="84.5"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="RRd-P6-4GH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="352" height="84.5"/>
-                                                        <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="5cN-zl-Eck" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
-                                                                <rect key="frame" x="0.0" y="0.0" width="117.5" height="84.5"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
-                                                                        <color key="value" name="Tint-3"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
-                                                                        <color key="value" systemColor="tertiaryLabelColor"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="numberOfDigits">
-                                                                        <integer key="value" value="2"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
-                                                                        <integer key="value" value="2"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="skew">
-                                                                        <real key="value" value="0.14999999999999999"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasLeadingZeroes" value="NO"/>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </imageView>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="fP9-ON-xd4" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
-                                                                <rect key="frame" x="117.5" y="0.0" width="117" height="84.5"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
-                                                                        <color key="value" name="Tint-3"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
-                                                                        <color key="value" systemColor="tertiaryLabelColor"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="numberOfDigits">
-                                                                        <integer key="value" value="2"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
-                                                                        <integer key="value" value="2"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="skew">
-                                                                        <real key="value" value="0.14999999999999999"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasLeadingZeroes" value="YES"/>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </imageView>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="IoF-o5-OLL" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
-                                                                <rect key="frame" x="234.5" y="0.0" width="117.5" height="84.5"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
-                                                                        <color key="value" name="Tint-3"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
-                                                                        <color key="value" systemColor="tertiaryLabelColor"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="numberOfDigits">
-                                                                        <integer key="value" value="2"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
-                                                                        <integer key="value" value="2"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="skew">
-                                                                        <real key="value" value="0.14999999999999999"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasLeadingZeroes" value="YES"/>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </imageView>
-                                                        </subviews>
-                                                        <constraints>
-                                                            <constraint firstAttribute="bottom" secondItem="IoF-o5-OLL" secondAttribute="bottom" id="3bg-Fj-zIq"/>
-                                                            <constraint firstItem="fP9-ON-xd4" firstAttribute="top" secondItem="RRd-P6-4GH" secondAttribute="top" id="Fgv-6T-bBA"/>
-                                                            <constraint firstItem="IoF-o5-OLL" firstAttribute="width" secondItem="5cN-zl-Eck" secondAttribute="width" id="NYx-W3-Ham"/>
-                                                            <constraint firstAttribute="bottom" secondItem="fP9-ON-xd4" secondAttribute="bottom" id="Psp-Rq-8Lk"/>
-                                                            <constraint firstItem="IoF-o5-OLL" firstAttribute="top" secondItem="RRd-P6-4GH" secondAttribute="top" id="TiD-5w-Gho"/>
-                                                            <constraint firstAttribute="bottom" secondItem="5cN-zl-Eck" secondAttribute="bottom" id="VZv-Xa-vAT"/>
-                                                            <constraint firstItem="fP9-ON-xd4" firstAttribute="height" secondItem="5cN-zl-Eck" secondAttribute="height" id="hdK-TZ-0Hx"/>
-                                                            <constraint firstItem="5cN-zl-Eck" firstAttribute="top" secondItem="RRd-P6-4GH" secondAttribute="top" id="jag-aS-6Rq"/>
-                                                            <constraint firstItem="IoF-o5-OLL" firstAttribute="height" secondItem="5cN-zl-Eck" secondAttribute="height" id="sap-mQ-5Mj"/>
-                                                            <constraint firstItem="fP9-ON-xd4" firstAttribute="width" secondItem="5cN-zl-Eck" secondAttribute="width" id="tiC-WC-Rii"/>
-                                                        </constraints>
-                                                    </stackView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="5cN-zl-Eck" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
+                                                        <rect key="frame" x="0.0" y="0.0" width="98" height="84.5"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
+                                                                <color key="value" name="Tint-3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
+                                                                <color key="value" systemColor="tertiaryLabelColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="numberOfDigits">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="skew">
+                                                                <real key="value" value="0.14999999999999999"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="hasLeadingZeroes" value="NO"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="fP9-ON-xd4" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
+                                                        <rect key="frame" x="118" y="0.0" width="98" height="84.5"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
+                                                                <color key="value" name="Tint-3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
+                                                                <color key="value" systemColor="tertiaryLabelColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="numberOfDigits">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="skew">
+                                                                <real key="value" value="0.14999999999999999"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="hasLeadingZeroes" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="IoF-o5-OLL" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
+                                                        <rect key="frame" x="236" y="0.0" width="98" height="84.5"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
+                                                                <color key="value" name="Tint-3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
+                                                                <color key="value" systemColor="tertiaryLabelColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="numberOfDigits">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="skew">
+                                                                <real key="value" value="0.14999999999999999"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="hasLeadingZeroes" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="IoF-o5-OLL" secondAttribute="bottom" id="3bg-Fj-zIq"/>
+                                                    <constraint firstItem="fP9-ON-xd4" firstAttribute="top" secondItem="RRd-P6-4GH" secondAttribute="top" id="Fgv-6T-bBA"/>
+                                                    <constraint firstItem="IoF-o5-OLL" firstAttribute="width" secondItem="5cN-zl-Eck" secondAttribute="width" id="NYx-W3-Ham"/>
+                                                    <constraint firstAttribute="bottom" secondItem="fP9-ON-xd4" secondAttribute="bottom" id="Psp-Rq-8Lk"/>
+                                                    <constraint firstItem="IoF-o5-OLL" firstAttribute="top" secondItem="RRd-P6-4GH" secondAttribute="top" id="TiD-5w-Gho"/>
+                                                    <constraint firstAttribute="bottom" secondItem="5cN-zl-Eck" secondAttribute="bottom" id="VZv-Xa-vAT"/>
+                                                    <constraint firstItem="fP9-ON-xd4" firstAttribute="height" secondItem="5cN-zl-Eck" secondAttribute="height" id="hdK-TZ-0Hx"/>
+                                                    <constraint firstItem="5cN-zl-Eck" firstAttribute="top" secondItem="RRd-P6-4GH" secondAttribute="top" id="jag-aS-6Rq"/>
+                                                    <constraint firstItem="IoF-o5-OLL" firstAttribute="height" secondItem="5cN-zl-Eck" secondAttribute="height" id="sap-mQ-5Mj"/>
+                                                    <constraint firstItem="fP9-ON-xd4" firstAttribute="width" secondItem="5cN-zl-Eck" secondAttribute="width" id="tiC-WC-Rii"/>
+                                                </constraints>
                                             </stackView>
+                                            <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bsz-Ev-R9x">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="84.5"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2OC-Kk-azi">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="85"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <blurEffect style="systemUltraThinMaterialDark"/>
+                                            </visualEffectView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CXq-OC-NGk">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="84.5"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="awW-mh-pTA" firstAttribute="centerX" secondItem="JvE-LH-jn6" secondAttribute="centerX" id="W2M-o5-p5m"/>
-                                            <constraint firstAttribute="bottom" secondItem="awW-mh-pTA" secondAttribute="bottom" id="dtL-Yb-hgX"/>
-                                            <constraint firstItem="awW-mh-pTA" firstAttribute="width" secondItem="JvE-LH-jn6" secondAttribute="width" multiplier="0.85" id="mnh-DT-lLC"/>
-                                            <constraint firstItem="awW-mh-pTA" firstAttribute="top" secondItem="JvE-LH-jn6" secondAttribute="top" id="sOn-kD-BIz"/>
+                                            <constraint firstItem="CXq-OC-NGk" firstAttribute="top" secondItem="JvE-LH-jn6" secondAttribute="top" id="4Kd-wA-vfO"/>
+                                            <constraint firstItem="RRd-P6-4GH" firstAttribute="leading" secondItem="JvE-LH-jn6" secondAttribute="leading" constant="40" id="Cgb-aj-j7k"/>
+                                            <constraint firstItem="RRd-P6-4GH" firstAttribute="top" secondItem="JvE-LH-jn6" secondAttribute="top" id="DVs-5N-BJy"/>
+                                            <constraint firstItem="bsz-Ev-R9x" firstAttribute="top" secondItem="JvE-LH-jn6" secondAttribute="top" id="Hb2-1Q-Pw8"/>
+                                            <constraint firstAttribute="bottom" secondItem="bsz-Ev-R9x" secondAttribute="bottom" id="KIS-vz-C0e"/>
+                                            <constraint firstAttribute="trailing" secondItem="bsz-Ev-R9x" secondAttribute="trailing" id="LKq-e1-CMX"/>
+                                            <constraint firstItem="bsz-Ev-R9x" firstAttribute="leading" secondItem="JvE-LH-jn6" secondAttribute="leading" id="Ni0-UB-PG2"/>
+                                            <constraint firstAttribute="trailing" secondItem="RRd-P6-4GH" secondAttribute="trailing" constant="40" id="OKl-e2-9Sn"/>
+                                            <constraint firstAttribute="trailing" secondItem="CXq-OC-NGk" secondAttribute="trailing" id="lbj-vQ-7uY"/>
+                                            <constraint firstAttribute="bottom" secondItem="RRd-P6-4GH" secondAttribute="bottom" id="osU-AM-fpr"/>
+                                            <constraint firstAttribute="bottom" secondItem="CXq-OC-NGk" secondAttribute="bottom" id="pun-pQ-yaM"/>
+                                            <constraint firstItem="CXq-OC-NGk" firstAttribute="leading" secondItem="JvE-LH-jn6" secondAttribute="leading" id="u91-sy-cVA"/>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="top" verticalHuggingPriority="1000" verticalCompressionResistancePriority="250" distribution="equalCentering" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="CCr-i1-aFM">
                                         <rect key="frame" x="40" y="94.5" width="334" height="84.5"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Start-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="w9M-NO-9Ub">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Start-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="w9M-NO-9Ub">
                                                 <rect key="frame" x="0.0" y="0.0" width="84.5" height="84.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="w9M-NO-9Ub" secondAttribute="height" multiplier="1:1" id="P2v-69-gn6"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Warn-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="ibP-ej-fEh">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Warn-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="ibP-ej-fEh">
                                                 <rect key="frame" x="124.5" y="0.0" width="85" height="84.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="ibP-ej-fEh" secondAttribute="height" multiplier="1:1" id="hbt-jP-bDU"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Final-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="Puf-73-hW9">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Final-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="Puf-73-hW9">
                                                 <rect key="frame" x="249.5" y="0.0" width="84.5" height="84.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Puf-73-hW9" secondAttribute="height" multiplier="1:1" id="w7f-uP-RqV"/>
@@ -931,10 +948,10 @@
                         <outlet property="digitalDisplayViewHours" destination="5cN-zl-Eck" id="3z0-w6-xMy"/>
                         <outlet property="digitalDisplayViewMinutes" destination="fP9-ON-xd4" id="DQn-zG-Mu2"/>
                         <outlet property="digitalDisplayViewSeconds" destination="IoF-o5-OLL" id="cvo-Aa-hT6"/>
-                        <outlet property="digitsInternalContainerView" destination="awW-mh-pTA" id="FVf-fN-LIe"/>
                         <outlet property="fastForwardBarButtonItem" destination="1Qh-ZC-RzS" id="7iG-Zf-UqR"/>
                         <outlet property="finalLightImageView" destination="Puf-73-hW9" id="xcr-cM-ZMM"/>
                         <outlet property="flasherView" destination="Wux-GQ-bHU" id="d3M-CM-Iwe"/>
+                        <outlet property="hexGridImageView" destination="CXq-OC-NGk" id="eJp-Wr-FnK"/>
                         <outlet property="playPauseToolbarItem" destination="7xM-yR-1gF" id="E79-fD-lu8"/>
                         <outlet property="rewindToolbarItem" destination="q6L-Ih-xDG" id="LDh-tj-ew1"/>
                         <outlet property="startLightImageView" destination="w9M-NO-9Ub" id="zDN-or-cLq"/>

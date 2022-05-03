@@ -27,47 +27,52 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /* ############################################################## */
     /**
      */
-    private static var _pausedLEDColor: UIColor? = UIColor(named: "Paused-Color")
+    private static let _pausedLEDColor: UIColor? = UIColor(named: "Paused-Color")
     
     /* ############################################################## */
     /**
      */
-    private static var _initialLEDColor: UIColor? = UIColor(named: "Start-Color")
+    private static let _initialLEDColor: UIColor? = UIColor(named: "Start-Color")
     
     /* ############################################################## */
     /**
      */
-    private static var _warnLEDColor: UIColor? = UIColor(named: "Warn-Color")
+    private static let _warnLEDColor: UIColor? = UIColor(named: "Warn-Color")
     
     /* ############################################################## */
     /**
      */
-    private static var _finalLEDColor: UIColor? = UIColor(named: "Final-Color")
+    private static let _finalLEDColor: UIColor? = UIColor(named: "Final-Color")
 
     /* ############################################################## */
     /**
      */
-    private static var _flashDuration = TimeInterval(0.75)
+    private static let _flashDuration = TimeInterval(0.75)
 
     /* ############################################################## */
     /**
      */
-    private static var _alarmDuration = TimeInterval(0.85)
+    private static let _alarmDuration = TimeInterval(0.85)
 
     /* ############################################################## */
     /**
      */
-    private static var _stoplightDimmedAlpha = CGFloat(0.15)
+    private static let _stoplightDimmedAlpha = CGFloat(0.15)
 
     /* ############################################################## */
     /**
      */
-    private static var _stoplightPausedAlpha = CGFloat(0.35)
+    private static let _stoplightPausedAlpha = CGFloat(0.35)
 
     /* ############################################################## */
     /**
      */
-    private static var _centerAlignmentToolbarOffsetInDisplayUnits = CGFloat(40)
+    private static let _centerAlignmentToolbarOffsetInDisplayUnits = CGFloat(40)
+    
+    /* ############################################################## */
+    /**
+     */
+    private static let _numberOfLines = 3
 
     /* ################################################################################################################################## */
     // MARK: Private Stored Instance Properties
@@ -248,6 +253,11 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /* ############################################################## */
     /**
      */
+    @IBOutlet weak var hexGridImageView: UIImageView?
+    
+    /* ############################################################## */
+    /**
+     */
     @IBOutlet weak var flasherView: UIView!
 }
 
@@ -293,6 +303,130 @@ extension RVS_TimerAmbiaMara_ViewController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: Private Class Functions
+/* ###################################################################################################################################### */
+extension RVS_TimerAmbiaMara_ViewController {
+    /* ################################################################## */
+    /**
+     This creates an array of [CGPoint](https://developer.apple.com/documentation/coregraphics/cgpoint), based on a 0,0 origin, that describe
+     a hexagon, on its "side" (point facing up).
+     
+     - parameter inHowBig: The radius, in display units.
+     
+     - returns: an array of [CGPoint](https://developer.apple.com/documentation/coregraphics/cgpoint), that can be used to describe a path.
+     */
+    private class func _pointySideUpHexagon(_ inHowBig: CGFloat) -> [CGPoint] {
+        let angle = CGFloat(60).radians
+        let cx = CGFloat(inHowBig)  // x origin
+        let cy = CGFloat(inHowBig)  // y origin
+        let r = CGFloat(inHowBig)   // radius of circle
+        var points = [CGPoint]()
+        var minX: CGFloat = inHowBig * 2
+        var maxX: CGFloat = 0
+        for i in 0...6 {
+            let x = cx + r * cos(angle * CGFloat(i) - CGFloat(30).radians)
+            let y = cy + r * sin(angle * CGFloat(i) - CGFloat(30).radians)
+            minX = min(minX, x)
+            maxX = max(maxX, x)
+            points.append(CGPoint(x: x, y: y))
+        }
+        
+        for i in points.enumerated() {
+            points[i.offset] = CGPoint(x: i.element.x - minX, y: i.element.y)
+        }
+        
+        return points
+    }
+    
+    /* ################################################################## */
+    /**
+     This returns a [CGMutablePath](https://developer.apple.com/documentation/coregraphics/cgmutablepath), describing a "pointy side up" hexagon.
+     
+     - parameter inHowBig: The radius, in display units.
+     
+     - returns: A [CGMutablePath](https://developer.apple.com/documentation/coregraphics/cgmutablepath), describing a "pointy side up" hexagon.
+     */
+    private class func _getHexPath(_ inHowBig: CGFloat) -> CGMutablePath {
+        let path = CGMutablePath()
+        let points = _pointySideUpHexagon(inHowBig)
+        let cpg = points[0]
+        path.move(to: cpg)
+        points.forEach { path.addLine(to: $0) }
+        path.closeSubpath()
+        return path
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Private Instance Methods
+/* ###################################################################################################################################### */
+extension RVS_TimerAmbiaMara_ViewController {
+    /* ################################################################## */
+    /**
+     This class generates an overlay image of a faint "hex grid" that allows us to simulate an old-fashioned "fluorescent" display.
+     */
+    private func _generateHexOverlayImage(_ inBounds: CGRect) -> UIImage? {
+        let path = CGMutablePath()
+        let sHexagonWidth = CGFloat(inBounds.size.height / 25)
+        let radius: CGFloat = sHexagonWidth / 2
+        
+        let hexPath: CGMutablePath = Self._getHexPath(radius)
+        let oneHexWidth = hexPath.boundingBox.size.width
+        let oneHexHeight = hexPath.boundingBox.size.height
+        
+        let halfWidth = oneHexWidth / 2.0
+        var nudgeX: CGFloat = 0
+        let nudgeY: CGFloat = radius + ((oneHexHeight - oneHexWidth) * 2)
+        
+        var yOffset: CGFloat = 0
+        while yOffset < inBounds.size.height {
+            var xOffset = nudgeX
+            while xOffset < inBounds.size.width {
+                let transform = CGAffineTransform(translationX: xOffset, y: yOffset)
+                path.addPath(hexPath, transform: transform)
+                xOffset += oneHexWidth
+            }
+            
+            nudgeX = (0 < nudgeX) ? 0: halfWidth
+            yOffset += nudgeY
+        }
+
+        UIGraphicsBeginImageContextWithOptions(inBounds.size, false, 0.0)
+        if let drawingContext = UIGraphicsGetCurrentContext() {
+            drawingContext.addPath(path)
+            drawingContext.setLineWidth(0.1)
+            drawingContext.setStrokeColor(UIColor.black.withAlphaComponent(0.75).cgColor)
+            drawingContext.setFillColor(UIColor.clear.cgColor)
+            drawingContext.strokePath()
+        }
+        
+        // See if we will be drawing any "cathode wires".
+        if 0 < Self._numberOfLines {
+            let path = CGMutablePath()
+            let verticalspacing = inBounds.size.height / CGFloat(Self._numberOfLines + 1)   // The extra 1, is because there are "implicit" lines at the top and bottom.
+
+            var y: CGFloat = verticalspacing
+
+            while y < inBounds.size.height {
+                path.move(to: CGPoint(x: 0, y: y))
+                path.addLine(to: CGPoint(x: inBounds.size.width, y: y))
+                y += verticalspacing
+            }
+
+            if let drawingContext = UIGraphicsGetCurrentContext() {
+                drawingContext.addPath(path)
+                drawingContext.setLineWidth(0.1)
+                drawingContext.setStrokeColor(UIColor.white.withAlphaComponent(0.75).cgColor)
+                drawingContext.strokePath()
+            }
+        }
+        defer { UIGraphicsEndImageContext() }
+        
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
 extension RVS_TimerAmbiaMara_ViewController {
@@ -321,7 +455,6 @@ extension RVS_TimerAmbiaMara_ViewController {
         centerAlignmentConstraint?.constant = RVS_AmbiaMara_Settings().displayToolbar ? Self._centerAlignmentToolbarOffsetInDisplayUnits : 0
 
         if RVS_AmbiaMara_Settings().showDigits {
-            digitalDisplayContainerView?.autoLayoutAspectConstraint(aspectRatio: 0.2)?.isActive = true
             digitalDisplayViewHours?.radix = 10
             digitalDisplayViewMinutes?.radix = 10
             digitalDisplayViewSeconds?.radix = 10
@@ -342,6 +475,27 @@ extension RVS_TimerAmbiaMara_ViewController {
         super.viewWillAppear(inIsAnimated)
         navigationController?.isNavigationBarHidden = true
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure we don't fall asleep.
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when the view has rearranged its view hierarchy.
+     */
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        if RVS_AmbiaMara_Settings().showDigits {
+            var aspect = CGFloat(0.2)
+            if 3600 > RVS_AmbiaMara_Settings().currentTimer.startTime {
+                digitalDisplayViewHours?.isHidden = true
+                aspect = 0.35
+            }
+            digitalDisplayContainerView?.autoLayoutAspectConstraint(aspectRatio: aspect)?.isActive = true
+            if nil == hexGridImageView?.image,
+               let bounds = digitalDisplayContainerView?.bounds {
+                hexGridImageView?.image = _generateHexOverlayImage(bounds)
+            }
+        }
     }
     
     /* ############################################################## */
