@@ -508,7 +508,7 @@
             <objects>
                 <viewController storyboardIdentifier="RVS_SettingsAmbiaMara_PopoverViewController" id="UOz-ud-dcU" customClass="RVS_SettingsAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RiP-wE-HMj">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="338"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="308"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cnP-ZB-vMv">
@@ -690,7 +690,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Put-az-xEf"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="414" height="338"/>
+                    <size key="freeformSize" width="414" height="308"/>
                     <connections>
                         <outlet property="aboutAmbiaMaraButton" destination="omz-Mi-exI" id="CKZ-OL-zgq"/>
                         <outlet property="popoverDisplayDigitsSwitch" destination="I9Y-lP-1Hg" id="hTo-Fx-gSD"/>
@@ -709,10 +709,10 @@
             </objects>
             <point key="canvasLocation" x="1586.9565217391305" y="114.50892857142857"/>
         </scene>
-        <!--Timer Ambia Mara View Controller-->
+        <!--Running Timer Ambia Mara View Controller-->
         <scene sceneID="0Ap-at-9HD">
             <objects>
-                <viewController id="AXI-TT-Eqw" customClass="RVS_TimerAmbiaMara_ViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="AXI-TT-Eqw" userLabel="Running Timer Ambia Mara View Controller" customClass="RVS_TimerAmbiaMara_ViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PYt-ye-sV5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -897,7 +897,6 @@
                             <outletCollection property="gestureRecognizers" destination="vcy-b7-Qj6" appends="YES" id="VPP-Fv-fHM"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="5PW-lA-4CB"/>
                     <connections>
                         <outlet property="backgroundTapGestureRecognizer" destination="vcy-b7-Qj6" id="LIL-x7-KaL"/>
                         <outlet property="centerAlignmentConstraint" destination="fQ0-mq-WiV" id="rVm-1J-szc"/>
@@ -929,11 +928,11 @@
             <objects>
                 <viewController storyboardIdentifier="RVS_SetAlarmAmbiaMara_ViewController" id="Vbk-gE-tat" customClass="RVS_SetAlarmAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ceo-jA-4Oa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="334"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="240"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WmW-5S-HR2">
-                                <rect key="frame" x="20" y="64" width="374" height="270"/>
+                                <rect key="frame" x="20" y="64" width="374" height="176"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sJV-M8-EEI">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="31"/>
@@ -955,16 +954,16 @@
                                         </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vLl-KJ-LU0">
-                                        <rect key="frame" x="0.0" y="38" width="374" height="232"/>
+                                        <rect key="frame" x="0.0" y="38" width="374" height="138"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZMg-gt-lOZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="232"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="138"/>
                                                 <connections>
                                                     <action selector="vibrateSwitchChanged:" destination="Vbk-gE-tat" eventType="valueChanged" id="57D-Ee-mag"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehg-s1-KXq">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="232"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="138"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="SLUG-VIBRATE-BUTTON"/>
                                                 <connections>
@@ -980,7 +979,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9IW-EI-Muk">
-                                        <rect key="frame" x="0.0" y="270" width="374" height="100"/>
+                                        <rect key="frame" x="0.0" y="176" width="374" height="100"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="21l-2m-K2x">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="100"/>
@@ -1032,7 +1031,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="DEY-Ya-WmV"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="414" height="334"/>
+                    <size key="freeformSize" width="414" height="240"/>
                     <connections>
                         <outlet property="alarmModeSegmentedSwitch" destination="sJV-M8-EEI" id="d1c-By-gs3"/>
                         <outlet property="soundPlayButton" destination="ufw-eb-eYM" id="2Xf-02-fKm"/>
@@ -1047,10 +1046,10 @@
             </objects>
             <point key="canvasLocation" x="871" y="113"/>
         </scene>
-        <!--SLUG-ABOUT-TITLE-->
+        <!--About AmbiaMara-->
         <scene sceneID="gkd-bp-rVp">
             <objects>
-                <viewController id="Gjb-Zz-XlA" customClass="RVS_AboutAmbiaMara_ViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Gjb-Zz-XlA" userLabel="About AmbiaMara" customClass="RVS_AboutAmbiaMara_ViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u9V-bG-Ubc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
