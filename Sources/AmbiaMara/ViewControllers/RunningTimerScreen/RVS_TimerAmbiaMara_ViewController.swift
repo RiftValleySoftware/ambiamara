@@ -32,6 +32,21 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /* ############################################################## */
     /**
      */
+    private static let _pausedStoplightAlpha = CGFloat(0.05)
+    
+    /* ############################################################## */
+    /**
+     */
+    private static let _activeStoplightAlpha = CGFloat(1.0)
+    
+    /* ############################################################## */
+    /**
+     */
+    private static let _inactiveStoplightAlpha = CGFloat(0.15)
+
+    /* ############################################################## */
+    /**
+     */
     private static let _initialLEDColor: UIColor? = UIColor(named: "Start-Color")
     
     /* ############################################################## */
@@ -110,6 +125,30 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
      */
     private var _tickTime: Int = 0
 
+    /* ################################################################## */
+    /**
+     This will provide haptic/audio feedback for the alarm.
+     */
+    private var _alarmImpactFeedbackGenerator: UIImpactFeedbackGenerator?
+
+    /* ################################################################## */
+    /**
+     This will provide haptic/audio feedback for transitions to warn.
+     */
+    private var _warnImpactFeedbackGenerator: UIImpactFeedbackGenerator?
+
+    /* ################################################################## */
+    /**
+     This will provide haptic/audio feedback for transitions to final.
+     */
+    private var _finalImpactFeedbackGenerator: UIImpactFeedbackGenerator?
+
+    /* ################################################################## */
+    /**
+     This will provide haptic/audio feedback for transition to warning.
+     */
+    private var _selectionFeedbackGenerator: UISelectionFeedbackGenerator?
+
     /* ############################################################## */
     /**
      True, if the timer is currently in "alarm" state.
@@ -131,6 +170,7 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
                     _isSoundPlaying = true
                 }
                 setDigitalTimeAs(hours: -2, minutes: -2, seconds: 0)
+                determineStoplightColor()
             }
         }
     }
@@ -185,12 +225,12 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /* ############################################################## */
     /**
      */
-    @IBOutlet weak var backgroundLeftSwipeGestureRecognizer: UISwipeGestureRecognizer!
+    @IBOutlet weak var backgroundLeftSwipeGestureRecognizer: UISwipeGestureRecognizer?
 
     /* ############################################################## */
     /**
      */
-    @IBOutlet weak var backgroundRightSwipeGestureRecognizer: UISwipeGestureRecognizer!
+    @IBOutlet weak var backgroundRightSwipeGestureRecognizer: UISwipeGestureRecognizer?
 
     /* ############################################################## */
     /**
@@ -210,17 +250,22 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /* ############################################################## */
     /**
      */
-    @IBOutlet weak var fastForwardBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var fastForwardBarButtonItem: UIBarButtonItem?
 
     /* ############################################################## */
     /**
      */
-    @IBOutlet weak var rewindToolbarItem: UIBarButtonItem!
+    @IBOutlet weak var rewindToolbarItem: UIBarButtonItem?
     
     /* ############################################################## */
     /**
      */
-    @IBOutlet weak var centerAlignmentConstraint: NSLayoutConstraint?
+    @IBOutlet weak var timerIndicatorToolbarItem: UIBarButtonItem!
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var blurFilterView: UIVisualEffectView!
 
     /* ############################################################## */
     /**
@@ -230,7 +275,27 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /* ############################################################## */
     /**
      */
-    @IBOutlet weak var flasherView: UIView!
+    @IBOutlet weak var flasherView: UIView?
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var stoplightsContainerView: UIStackView?
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var startTrafficLightImageView: UIImageView?
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var warnTrafficLightImageView: UIImageView?
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var finalTrafficLightImageView: UIImageView?
 }
 
 /* ###################################################################################################################################### */
@@ -285,6 +350,9 @@ extension RVS_TimerAmbiaMara_ViewController {
         if nextIndex == RVS_AmbiaMara_Settings().numberOfTimers {
             nextIndex = 0
         }
+        
+        // Not valid, if no time set.
+        guard 0 < RVS_AmbiaMara_Settings().timers[nextIndex].startTime else { return nil }
         
         return nextIndex
     }
@@ -437,11 +505,15 @@ extension RVS_TimerAmbiaMara_ViewController {
         _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted()
         
         controlToolbar?.isHidden = !RVS_AmbiaMara_Settings().displayToolbar
-        centerAlignmentConstraint?.constant = RVS_AmbiaMara_Settings().displayToolbar ? Self._centerAlignmentToolbarOffsetInDisplayUnits : 0
 
         digitalDisplayViewHours?.radix = 10
         digitalDisplayViewMinutes?.radix = 10
         digitalDisplayViewSeconds?.radix = 10
+        
+        _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        _warnImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        _finalImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
+        _alarmImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .soft)
         
         _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: 0.25, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main, isWallTime: true)
         _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDuration, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main)
@@ -456,9 +528,22 @@ extension RVS_TimerAmbiaMara_ViewController {
         super.viewWillAppear(inIsAnimated)
         navigationController?.isNavigationBarHidden = true
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure we don't fall asleep.
-        initializeTimer()
+        stoplightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().stoplightMode
+        digitalDisplayContainerView?.isHidden = RVS_AmbiaMara_Settings().stoplightMode
+        blurFilterView?.isHidden = isHighContrastMode
+        hexGridImageView?.isHidden = isHighContrastMode
     }
     
+    /* ############################################################## */
+    /**
+     Called when the view has appeared. We use this to start the timer (if necessary).
+     - parameter inIsAnimated: True, if the appearance is animated.
+     */
+    override func viewDidAppear(_ inIsAnimated: Bool) {
+        super.viewDidAppear(inIsAnimated)
+        initializeTimer()
+    }
+
     /* ############################################################## */
     /**
      Called when the view has rearranged its view hierarchy.
@@ -608,20 +693,21 @@ extension RVS_TimerAmbiaMara_ViewController {
            !_isAlarming,
            _isAtEnd || _isAtStart,
            let nextTimerIndex = _nextTimerIndex {
-            fastForwardBarButtonItem?.image = UIImage(systemName: "\(nextTimerIndex + 1).circle.fill")
+            fastForwardBarButtonItem?.image = UIImage(systemName: "\(nextTimerIndex + 1).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
             fastForwardBarButtonItem?.isEnabled = true
         } else {
-            fastForwardBarButtonItem?.image = UIImage(systemName: "forward.end.alt.fill")
+            fastForwardBarButtonItem?.image = UIImage(systemName: "forward.end.alt.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
             fastForwardBarButtonItem?.isEnabled = !_isAlarming
         }
         
         rewindToolbarItem?.isEnabled = !_isAtStart
         playPauseToolbarItem?.isEnabled = !_isAlarming
+        timerIndicatorToolbarItem?.image = UIImage(systemName: "\(RVS_AmbiaMara_Settings().currentTimerIndex + 1).circle")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
 
         if _isTimerRunning {
-            playPauseToolbarItem?.image = UIImage(systemName: "pause.fill")
+            playPauseToolbarItem?.image = UIImage(systemName: "pause.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
         } else {
-            playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
+            playPauseToolbarItem?.image = UIImage(systemName: "play.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
         }
     }
 
@@ -634,7 +720,13 @@ extension RVS_TimerAmbiaMara_ViewController {
         let minutes = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[1] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[1] : 0 < hours ? 0 : -2
         let seconds = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[2] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[2] : 0 < hours || 0 < minutes ? 0 : -2
         setDigitalTimeAs(hours: hours, minutes: minutes, seconds: seconds)
+        determineStoplightColor(RVS_AmbiaMara_Settings().currentTimer.startTime)
+        _alarmImpactFeedbackGenerator?.prepare()
+        _warnImpactFeedbackGenerator?.prepare()
+        _finalImpactFeedbackGenerator?.prepare()
+        _selectionFeedbackGenerator?.prepare()
         if RVS_AmbiaMara_Settings().startTimerImmediately {
+            flashGreen()
             startTimer()
         } else {
             pauseTimer()
@@ -751,6 +843,35 @@ extension RVS_TimerAmbiaMara_ViewController {
     func setTimerDisplay() {
         setDigitDisplayTime()
         determineDigitLEDColor(remainingTime)
+        determineStoplightColor(remainingTime)
+    }
+    
+    /* ############################################################## */
+    /**
+     This determines the proper color for the digit "LEDs."
+     - parameter inCurrentTime: Optional. Default is 0. This is the elapsed time, in seconds.
+     */
+    func determineStoplightColor(_ inCurrentTime: Int = 0) {
+        guard _isTimerRunning else {
+            startTrafficLightImageView?.alpha = Self._pausedStoplightAlpha
+            warnTrafficLightImageView?.alpha = Self._pausedStoplightAlpha
+            finalTrafficLightImageView?.alpha = Self._pausedStoplightAlpha
+            return
+        }
+        
+        if inCurrentTime <= RVS_AmbiaMara_Settings().currentTimer.finalTime {
+            startTrafficLightImageView?.alpha = Self._inactiveStoplightAlpha
+            warnTrafficLightImageView?.alpha = Self._inactiveStoplightAlpha
+            finalTrafficLightImageView?.alpha = Self._activeStoplightAlpha
+        } else if inCurrentTime <= RVS_AmbiaMara_Settings().currentTimer.warnTime {
+            startTrafficLightImageView?.alpha = Self._inactiveStoplightAlpha
+            warnTrafficLightImageView?.alpha = Self._activeStoplightAlpha
+            finalTrafficLightImageView?.alpha = Self._inactiveStoplightAlpha
+        } else {
+            startTrafficLightImageView?.alpha = Self._activeStoplightAlpha
+            warnTrafficLightImageView?.alpha = Self._inactiveStoplightAlpha
+            finalTrafficLightImageView?.alpha = Self._inactiveStoplightAlpha
+        }
     }
     
     /* ############################################################## */
@@ -791,6 +912,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         // Look for a threshold crossing.
         let previousTime = RVS_AmbiaMara_Settings().currentTimer.startTime - inTickTime
         determineDigitLEDColor(remainingTime)
+        determineStoplightColor(remainingTime)
         if previousTime > RVS_AmbiaMara_Settings().currentTimer.warnTime,
            _isWarning {
             flashYellow()
@@ -809,6 +931,8 @@ extension RVS_TimerAmbiaMara_ViewController {
         UIView.animate(withDuration: Self._flashDuration, animations: {
             self.flasherView?.backgroundColor = .clear
         })
+        _selectionFeedbackGenerator?.selectionChanged()
+        _selectionFeedbackGenerator?.prepare()
     }
     
     /* ############################################################## */
@@ -820,6 +944,8 @@ extension RVS_TimerAmbiaMara_ViewController {
         UIView.animate(withDuration: Self._flashDuration, animations: {
             self.flasherView?.backgroundColor = .clear
         })
+        _warnImpactFeedbackGenerator?.impactOccurred()
+        _warnImpactFeedbackGenerator?.prepare()
     }
 
     /* ############################################################## */
@@ -831,6 +957,13 @@ extension RVS_TimerAmbiaMara_ViewController {
         UIView.animate(withDuration: Self._flashDuration, animations: {
             self.flasherView?.backgroundColor = .clear
         })
+        if _isAlarming {
+            _alarmImpactFeedbackGenerator?.impactOccurred()
+            _alarmImpactFeedbackGenerator?.prepare()
+        } else {
+            _finalImpactFeedbackGenerator?.impactOccurred()
+            _finalImpactFeedbackGenerator?.prepare()
+        }
     }
 
     /* ############################################################## */
@@ -914,7 +1047,9 @@ extension RVS_TimerAmbiaMara_ViewController: RVS_BasicGCDTimerDelegate {
         _tickTime = differenceInSeconds
         flashIfNecessary(previousTickTime: previousTickTime)
         setDigitDisplayTime()
-        
+        _selectionFeedbackGenerator?.selectionChanged()
+        _selectionFeedbackGenerator?.prepare()
+
         if 0 >= (RVS_AmbiaMara_Settings().currentTimer.startTime - differenceInSeconds) {
             _isAlarming = true
         }

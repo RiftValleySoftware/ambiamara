@@ -507,7 +507,7 @@
         <scene sceneID="IBu-gW-FEa">
             <objects>
                 <viewController storyboardIdentifier="RVS_SettingsAmbiaMara_PopoverViewController" id="UOz-ud-dcU" customClass="RVS_SettingsAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="RiP-wE-HMj">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="RiP-wE-HMj">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="308"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -515,7 +515,7 @@
                                 <rect key="frame" x="20" y="64" width="374" height="180"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omz-Mi-exI">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="63"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -532,16 +532,16 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XIh-CT-ZiM" userLabel="Popovers Stack View">
-                                        <rect key="frame" x="0.0" y="71" width="374" height="31"/>
+                                        <rect key="frame" x="0.0" y="38" width="374" height="29"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9R5-Y0-E9j">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
                                                 <connections>
                                                     <action selector="popoverHelpSettingsSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="p5G-Dm-BNQ"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZt-yd-Vg1">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="31"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="29"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-POPOVER-HELP-SETTING-LABEL"/>
@@ -558,17 +558,17 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" id="Xzy-5h-Cg0" userLabel="Start Immediately Stack View">
-                                        <rect key="frame" x="0.0" y="110" width="374" height="31"/>
+                                        <rect key="frame" x="0.0" y="75" width="374" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p7i-GW-TPA">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
                                                 <connections>
                                                     <action selector="popoverStartImmediatelySwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="1cs-Vp-6rn"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RjQ-a1-oDw">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="31"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="29"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-POPOVER-START-IMMEDIATELY-SETTING-LABEL"/>
@@ -586,17 +586,17 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" id="CVY-F1-Y9c" userLabel="Toolbar Stack View">
-                                        <rect key="frame" x="0.0" y="149" width="374" height="31"/>
+                                        <rect key="frame" x="0.0" y="112" width="374" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecG-jq-uKs">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
                                                 <connections>
                                                     <action selector="popoverDisplayToolbarSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="ADj-YS-zuo"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6BK-rZ-z63">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="31"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="29"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-POPOVER-SHOW-TOOLBAR-SETTING-LABEL"/>
@@ -613,11 +613,24 @@
                                             <constraint firstAttribute="bottom" secondItem="ecG-jq-uKs" secondAttribute="bottom" id="YMU-74-tCg"/>
                                         </constraints>
                                     </stackView>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="brc-he-RCW">
+                                        <rect key="frame" x="0.0" y="149" width="374" height="32"/>
+                                        <color key="backgroundColor" name="SegSwitchColor"/>
+                                        <segments>
+                                            <segment title="" image="Digits"/>
+                                            <segment title="" image="Stoplights"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="timerModeSegmentedSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="Ftr-KB-FuG"/>
+                                        </connections>
+                                    </segmentedControl>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="brc-he-RCW" firstAttribute="leading" secondItem="cnP-ZB-vMv" secondAttribute="leading" id="8fl-0c-EzZ"/>
                                     <constraint firstAttribute="trailing" secondItem="XIh-CT-ZiM" secondAttribute="trailing" id="ETk-Sk-Qx5"/>
                                     <constraint firstItem="omz-Mi-exI" firstAttribute="leading" secondItem="cnP-ZB-vMv" secondAttribute="leading" id="QLb-4l-J4Q"/>
                                     <constraint firstAttribute="trailing" secondItem="omz-Mi-exI" secondAttribute="trailing" id="VCA-BP-EeT"/>
+                                    <constraint firstAttribute="trailing" secondItem="brc-he-RCW" secondAttribute="trailing" id="rqZ-Ob-UNP"/>
                                     <constraint firstItem="XIh-CT-ZiM" firstAttribute="leading" secondItem="cnP-ZB-vMv" secondAttribute="leading" id="uj4-SR-9jg"/>
                                 </constraints>
                             </stackView>
@@ -626,9 +639,10 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cnP-ZB-vMv" firstAttribute="leading" secondItem="RiP-wE-HMj" secondAttribute="leadingMargin" id="0XA-53-Uah"/>
                             <constraint firstItem="cnP-ZB-vMv" firstAttribute="top" secondItem="l0f-Zf-OSP" secondAttribute="top" constant="20" id="PeC-j5-wX1"/>
+                            <constraint firstItem="cnP-ZB-vMv" firstAttribute="leading" secondItem="l0f-Zf-OSP" secondAttribute="leading" constant="20" id="Vfy-UV-dKE"/>
                             <constraint firstItem="l0f-Zf-OSP" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cnP-ZB-vMv" secondAttribute="bottom" placeholder="YES" id="ddL-O9-ULM"/>
+                            <constraint firstItem="l0f-Zf-OSP" firstAttribute="trailing" secondItem="cnP-ZB-vMv" secondAttribute="trailing" constant="20" id="wJK-Ta-SLK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Put-az-xEf"/>
@@ -642,6 +656,7 @@
                         <outlet property="popoverHelpSettingsSwitchLabelButton" destination="RZt-yd-Vg1" id="Ddx-6a-DFW"/>
                         <outlet property="popoverStartImmediatelySwitch" destination="p7i-GW-TPA" id="LLh-LP-DGe"/>
                         <outlet property="popoverStartImmediatelySwitchLabelButton" destination="RjQ-a1-oDw" id="ut4-c5-NkW"/>
+                        <outlet property="timerModeSegmentedSwitch" destination="brc-he-RCW" id="43I-X7-u52"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KF-TF-nOv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -656,7 +671,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okx-7i-W39">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okx-7i-W39">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <viewLayoutGuide key="safeArea" id="GcM-0D-V8H"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -686,7 +701,7 @@
                                                         <color key="value" name="Paused-Color"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
-                                                        <color key="value" systemColor="tertiaryLabelColor"/>
+                                                        <color key="value" name="DisabledSegmentColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
@@ -700,7 +715,7 @@
                                                         <color key="value" name="Paused-Color"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
-                                                        <color key="value" systemColor="tertiaryLabelColor"/>
+                                                        <color key="value" name="DisabledSegmentColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="skew">
                                                         <real key="value" value="0.20000000000000001"/>
@@ -723,7 +738,7 @@
                                                         <color key="value" name="Paused-Color"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
-                                                        <color key="value" systemColor="tertiaryLabelColor"/>
+                                                        <color key="value" name="DisabledSegmentColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="skew">
                                                         <real key="value" value="0.20000000000000001"/>
@@ -775,6 +790,39 @@
                                     <constraint firstItem="fY6-wY-IG5" firstAttribute="bottom" secondItem="4t0-CW-2Ah" secondAttribute="bottom" id="tab-r7-KyE"/>
                                 </constraints>
                             </view>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="oBo-bn-Jew">
+                                <rect key="frame" x="41.5" y="399.5" width="331" height="97"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.050000000000000003" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Start-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="ivd-pD-PPX">
+                                        <rect key="frame" x="0.0" y="0.0" width="97" height="97"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="ivd-pD-PPX" secondAttribute="height" multiplier="1:1" id="a3u-vB-IKn"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.050000000000000003" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Warn-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="3lx-sX-cHo">
+                                        <rect key="frame" x="117" y="0.0" width="97" height="97"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="3lx-sX-cHo" secondAttribute="height" multiplier="1:1" id="Sro-hB-rUc"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.050000000000000003" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Final-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="c9Q-w2-pGy">
+                                        <rect key="frame" x="234" y="0.0" width="97" height="97"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="c9Q-w2-pGy" secondAttribute="height" multiplier="1:1" id="GFr-HM-e7L"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="c9Q-w2-pGy" secondAttribute="bottom" id="Gpy-0y-C4n"/>
+                                    <constraint firstAttribute="bottom" secondItem="3lx-sX-cHo" secondAttribute="bottom" id="WkZ-7K-ARH"/>
+                                    <constraint firstItem="3lx-sX-cHo" firstAttribute="width" secondItem="ivd-pD-PPX" secondAttribute="width" id="Wqp-6Z-oF9"/>
+                                    <constraint firstItem="c9Q-w2-pGy" firstAttribute="width" secondItem="3lx-sX-cHo" secondAttribute="width" id="cr6-7z-c0k"/>
+                                    <constraint firstItem="ivd-pD-PPX" firstAttribute="top" secondItem="oBo-bn-Jew" secondAttribute="top" id="q4c-ho-6tr"/>
+                                    <constraint firstItem="c9Q-w2-pGy" firstAttribute="top" secondItem="oBo-bn-Jew" secondAttribute="top" id="r2r-c7-75B"/>
+                                    <constraint firstAttribute="bottom" secondItem="ivd-pD-PPX" secondAttribute="bottom" id="rV8-dt-d5V"/>
+                                    <constraint firstItem="3lx-sX-cHo" firstAttribute="top" secondItem="oBo-bn-Jew" secondAttribute="top" id="xiI-xO-zCo"/>
+                                </constraints>
+                            </stackView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JHV-9i-Nag">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <color key="backgroundColor" name="ToolbarColor"/>
@@ -789,6 +837,12 @@
                                     <barButtonItem image="backward.end.alt.fill" catalog="system" id="5pr-zf-jro">
                                         <connections>
                                             <action selector="toolbarItemHit:" destination="FWf-2O-eKE" id="RKE-rw-Uyc"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="wrX-CP-ZJH"/>
+                                    <barButtonItem enabled="NO" id="9sX-3c-fMq">
+                                        <connections>
+                                            <action selector="toolbarItemHit:" destination="FWf-2O-eKE" id="oHN-JE-2Za"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="3bK-sI-jqF"/>
@@ -821,14 +875,18 @@
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="oBo-bn-Jew" firstAttribute="width" relation="lessThanOrEqual" secondItem="ht0-4k-rJK" secondAttribute="width" multiplier="0.8" id="5xi-Lu-aBV"/>
                             <constraint firstItem="ht0-4k-rJK" firstAttribute="bottom" secondItem="JHV-9i-Nag" secondAttribute="bottom" id="BZg-9i-URv"/>
                             <constraint firstAttribute="trailing" secondItem="okx-7i-W39" secondAttribute="trailing" id="CUz-gB-0Ew"/>
                             <constraint firstItem="ht0-4k-rJK" firstAttribute="trailing" secondItem="BJi-bD-ter" secondAttribute="trailing" id="FiL-UG-FqS"/>
                             <constraint firstItem="BJi-bD-ter" firstAttribute="top" secondItem="7tt-fn-aIE" secondAttribute="top" id="Gl3-uz-EVN"/>
                             <constraint firstAttribute="bottom" secondItem="BJi-bD-ter" secondAttribute="bottom" id="SnR-Km-yNa"/>
+                            <constraint firstItem="oBo-bn-Jew" firstAttribute="centerY" secondItem="7tt-fn-aIE" secondAttribute="centerY" id="X8B-o5-wYX"/>
                             <constraint firstItem="JHV-9i-Nag" firstAttribute="leading" secondItem="ht0-4k-rJK" secondAttribute="leading" id="aBJ-ZH-ZhX"/>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" secondItem="BJi-bD-ter" secondAttribute="height" id="bc6-uc-v25"/>
                             <constraint firstItem="okx-7i-W39" firstAttribute="top" secondItem="7tt-fn-aIE" secondAttribute="top" id="hsI-kp-YN4"/>
                             <constraint firstItem="JHV-9i-Nag" firstAttribute="trailing" secondItem="ht0-4k-rJK" secondAttribute="trailing" id="imN-WD-PaD"/>
+                            <constraint firstItem="oBo-bn-Jew" firstAttribute="centerX" secondItem="7tt-fn-aIE" secondAttribute="centerX" id="j40-D8-Br9"/>
                             <constraint firstAttribute="bottom" secondItem="okx-7i-W39" secondAttribute="bottom" id="pzt-D0-sYC"/>
                             <constraint firstItem="BJi-bD-ter" firstAttribute="leading" secondItem="ht0-4k-rJK" secondAttribute="leading" id="rli-j4-yNr"/>
                             <constraint firstItem="okx-7i-W39" firstAttribute="leading" secondItem="7tt-fn-aIE" secondAttribute="leading" id="sGU-zu-UI9"/>
@@ -844,17 +902,23 @@
                         <outlet property="backgroundLeftSwipeGestureRecognizer" destination="TdR-Bu-pzJ" id="15J-bs-Wwg"/>
                         <outlet property="backgroundRightSwipeGestureRecognizer" destination="FV3-MJ-hjK" id="Czt-oc-50M"/>
                         <outlet property="backgroundTapGestureRecognizer" destination="2m6-eb-uaq" id="srM-ib-vdK"/>
+                        <outlet property="blurFilterView" destination="fY6-wY-IG5" id="qy3-xd-Tg9"/>
                         <outlet property="controlToolbar" destination="JHV-9i-Nag" id="MOY-PP-VwB"/>
                         <outlet property="digitalDisplayContainerView" destination="BJi-bD-ter" id="6oW-0H-WXx"/>
                         <outlet property="digitalDisplayViewHours" destination="KRf-cW-nFh" id="9xP-9t-Zw4"/>
                         <outlet property="digitalDisplayViewMinutes" destination="7L9-ec-Ebr" id="mOe-4E-84S"/>
                         <outlet property="digitalDisplayViewSeconds" destination="N26-11-dhj" id="HHy-u9-fQJ"/>
                         <outlet property="fastForwardBarButtonItem" destination="T60-Qx-dgK" id="rzK-ZI-cNJ"/>
+                        <outlet property="finalTrafficLightImageView" destination="c9Q-w2-pGy" id="YZP-z1-UCO"/>
                         <outlet property="flasherView" destination="okx-7i-W39" id="TrI-r4-Laa"/>
                         <outlet property="hexGridImageView" destination="DTA-fw-WyG" id="Ali-b3-IpS"/>
                         <outlet property="playPauseToolbarItem" destination="LoP-qC-Bwy" id="Jq5-OQ-VqM"/>
                         <outlet property="rewindToolbarItem" destination="5pr-zf-jro" id="suZ-aB-vLR"/>
+                        <outlet property="startTrafficLightImageView" destination="ivd-pD-PPX" id="25K-T5-e01"/>
                         <outlet property="stopToolbarItem" destination="ABe-ev-oBz" id="ZHe-NE-6bE"/>
+                        <outlet property="stoplightsContainerView" destination="oBo-bn-Jew" id="dNn-KI-EpQ"/>
+                        <outlet property="timerIndicatorToolbarItem" destination="9sX-3c-fMq" id="7OG-H0-1U6"/>
+                        <outlet property="warnTrafficLightImageView" destination="3lx-sX-cHo" id="dDR-xa-qCc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DES-Zf-NEK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -874,7 +938,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="604" y="838"/>
+            <point key="canvasLocation" x="602.89855072463774" y="837.72321428571422"/>
         </scene>
         <!--Set Alarm Ambia Mara Popover View Controller-->
         <scene sceneID="L5y-aw-jD5">
@@ -889,6 +953,7 @@
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sJV-M8-EEI">
                                         <rect key="frame" x="0.0" y="0.0" width="360" height="31"/>
+                                        <color key="backgroundColor" name="SegSwitchColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="cxr-Ki-IZG"/>
                                         </constraints>
@@ -1037,10 +1102,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="883" height="877"/>
+        <image name="CenterImage" width="937" height="937"/>
+        <image name="Digits" width="60" height="20"/>
         <image name="Final-TrafficLight" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
         <image name="Start-TrafficLight" width="1024" height="1024"/>
+        <image name="Stoplights" width="65" height="20"/>
         <image name="Warn-TrafficLight" width="1024" height="1024"/>
         <image name="backward.end.alt.fill" catalog="system" width="128" height="66"/>
         <image name="bell.fill" catalog="system" width="128" height="124"/>
@@ -1051,11 +1118,17 @@
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
+        <namedColor name="DisabledSegmentColor">
+            <color red="0.5" green="0.5" blue="0.5" alpha="0.1976872930463576" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Final-Color">
-            <color red="1" green="0.0" blue="0.19782072305679321" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.0" blue="0.19799999892711639" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Paused-Color">
             <color red="0.012000000104308128" green="1" blue="0.82800000905990601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="SegSwitchColor">
+            <color red="1" green="1" blue="1" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Start-Color">
             <color red="0.012000000104308128" green="0.85799998044967651" blue="0.0070000002160668373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1070,16 +1143,13 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Warn-Color">
-            <color red="1" green="0.91525495052337646" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.91500002145767212" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="tertiaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

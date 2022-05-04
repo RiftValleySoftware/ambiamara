@@ -34,7 +34,7 @@ class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
     /**
      The popover height.
     */
-    static let settingsPopoverHeightInDisplayUnits = CGFloat(180)
+    static let settingsPopoverHeightInDisplayUnits = CGFloat(220)
 
     /* ################################################################## */
     /**
@@ -71,6 +71,12 @@ class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
      The label for the switch is actually a button.
     */
     @IBOutlet weak var popoverDisplayToolbarSwitchLabelButton: UIButton?
+    
+    /* ################################################################## */
+    /**
+     The segmented switch that indicates whether digital or stoplight mode.
+    */
+    @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl?
 
     /* ################################################################## */
     /**
@@ -92,6 +98,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         popoverHelpSettingsSwitch?.isOn = RVS_AmbiaMara_Settings().useGuidancePopovers
         popoverStartImmediatelySwitch?.isOn = RVS_AmbiaMara_Settings().startTimerImmediately
         popoverDisplayToolbarSwitch?.isOn = RVS_AmbiaMara_Settings().displayToolbar
+        timerModeSegmentedSwitch?.selectedSegmentIndex = RVS_AmbiaMara_Settings().stoplightMode ? 1 : 0
         
         popoverHelpSettingsSwitchLabelButton?.setTitle(popoverHelpSettingsSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         popoverStartImmediatelySwitchLabelButton?.setTitle(popoverStartImmediatelySwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
@@ -117,6 +124,16 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         popoverDisplayToolbarSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SWITCH".localizedVariant
 
         aboutAmbiaMaraButton?.accessibilityLabel = "SLUG-ACC-ABOUT-AMBIAMARA-BUTTON".localizedVariant
+
+        if let timerModeSegmentedSwitch = timerModeSegmentedSwitch {
+            timerModeSegmentedSwitch.selectedSegmentTintColor = .white
+            timerModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
+            timerModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
+            timerModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.white.withAlphaComponent(0.25)], for: .disabled)
+            timerModeSegmentedSwitch.selectedSegmentIndex = RVS_AmbiaMara_Settings().stoplightMode ? 1 : 0
+            timerModeSegmentedSwitch.accessibilityLabel = "SLUG-ACC-POPOVER-TIMER-MODE".localizedVariant
+            timerModeSegmentedSwitchChanged(timerModeSegmentedSwitch)
+        }
     }
 }
 
@@ -173,5 +190,14 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
             popoverDisplayToolbarSwitch?.setOn(!(popoverDisplayToolbarSwitch?.isOn ?? true), animated: true)
             popoverDisplayToolbarSwitch?.sendActions(for: .valueChanged)
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     The switch or button for timer mode was hit.
+     - parameter inSender: the segmented control for the timer mode..
+    */
+    @IBAction func timerModeSegmentedSwitchChanged(_ inSender: UISegmentedControl) {
+        RVS_AmbiaMara_Settings().stoplightMode = 0 < inSender.selectedSegmentIndex
     }
 }

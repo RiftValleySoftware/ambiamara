@@ -807,11 +807,11 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         view.layoutIfNeeded()
         UIView.animate(withDuration: Self._selectionFadeAnimationPeriod,
                        animations: { [weak self] in
-                                        self?.topLabelContainerView?.backgroundColor = UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
-                                        self?.stateLabel?.textColor = .final == self?._state ? .white : .black
-                                        self?.hoursLabel?.textColor = .final == self?._state ? .white : .black
-                                        self?.minutesLabel?.textColor = .final == self?._state ? .white : .black
-                                        self?.secondsLabel?.textColor = .final == self?._state ? .white : .black
+            self?.topLabelContainerView?.backgroundColor = (self?.isHighContrastMode ?? false) ? .white : UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
+            self?.stateLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+                                        self?.hoursLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+                                        self?.minutesLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+                                        self?.secondsLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
                                         self?.view.layoutIfNeeded()
                                     },
                        completion: nil
@@ -915,7 +915,7 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
             ret.setTitle(String(value), for: .normal)
             ret.cornerRadius = Self._pickerCornerRadius
             ret.buttonFont = Self._pickerFont
-            ret.gradientStartColor = UIColor(named: "\(_state.stringValue)-Color")
+            ret.gradientStartColor = .white
             ret.isEnabled = false
             ret.reversed = (inRow == inPickerView.selectedRow(inComponent: inComponent))
             return ret

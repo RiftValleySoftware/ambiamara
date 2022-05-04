@@ -122,6 +122,7 @@
 "SLUG-ACC-SHOW-HELP-SWITCH"                     =   "If this switch is on, then popovers will be shown in the help screen, when you touch the labels in the center of the screen, explaining the operation of the app.";
 "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH"     =   "If this is on, then the timer starts immediately, upon the timer page appearing. If off, then you need to start the timer.";
 "SLUG-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH"      =   "If this is on, a toolbar will be displayed at the bottom of the running timer, with controls that let you manage the timer. If it is off, you will need to use gestures.";
+"SLUG-ACC-POPOVER-TIMER-MODE"                   =   "This switch will select the display mode of the running timer. It will either be digital (numbers), or three \"traffic lights.\"";
 "SLUG-ACC-ABOUT-AMBIAMARA-BUTTON"               =   "This will bring in a screen, with information about this app.";
 
 // MARK: ALARM SETUP POPOVER

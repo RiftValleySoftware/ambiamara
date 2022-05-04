@@ -252,6 +252,12 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
          */
         case displayToolbar
 
+        /* ################################################################## */
+        /**
+         If this is true, then the running display will be three "traffic lights," instead of a digital display.
+         */
+        case stoplightMode
+
         /* ############################################################## */
         /**
          These are all the keys, in an Array of String.
@@ -265,7 +271,8 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
                                         alarmMode.rawValue,
                                         selectedSoundIndex.rawValue,
                                         startTimerImmediately.rawValue,
-                                        displayToolbar.rawValue
+                                        displayToolbar.rawValue,
+                                        stoplightMode.rawValue
                                         ]
         }
     }
@@ -430,6 +437,15 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     var displayToolbar: Bool {
         get { 0 != (values[Keys.displayToolbar.rawValue] as? Int ?? 1) }
         set { values[Keys.displayToolbar.rawValue] = newValue ? 1 : 0 }
+    }
+
+    /* ################################################################## */
+    /**
+     If this is true, then the running display will be three "traffic lights," instead of a digital display.
+     */
+    var stoplightMode: Bool {
+        get { 0 != (values[Keys.stoplightMode.rawValue] as? Int ?? 0) }
+        set { values[Keys.stoplightMode.rawValue] = newValue ? 1 : 0 }
     }
 
     /* ################################################################## */
