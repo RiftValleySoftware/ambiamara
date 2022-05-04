@@ -575,92 +575,6 @@ extension RVS_TimerAmbiaMara_ViewController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: Callbacks
-/* ###################################################################################################################################### */
-extension RVS_TimerAmbiaMara_ViewController {
-    /* ############################################################## */
-    /**
-     Called if the background was tapped. This is how we start/pause/continue the timer.
-     - parameter: ignored.
-     */
-    @IBAction func backgroundTapped(_: UITapGestureRecognizer) {
-        if _isAlarming {
-            stopAlarm()
-        } else if _isTimerRunning {
-            flashRed()
-            pauseTimer()
-        } else if 0 == _tickTime {
-            flashGreen()
-            startTimer()
-        } else {
-            if !_isWarning,
-               !_isFinal {
-                flashGreen()
-            }
-            continueTimer()
-        }
-    }
-    
-    /* ############################################################## */
-    /**
-     The user swiped the timer.
-     
-     - parameter inGestureRecognizer: The swipe gesture recognizer.
-     */
-    @IBAction func swipeGestureReceived(_ inGestureRecognizer: UISwipeGestureRecognizer) {
-        if inGestureRecognizer == backgroundLeftSwipeGestureRecognizer {
-            if !_isTimerRunning,
-               _isAtStart {
-                stopTimer()
-            } else {
-                if _isAlarming {
-                    _isAlarming = false
-                } else {
-                    resetTimer()
-                }
-            }
-            setUpToolbar()
-        } else {
-            fastForwardHit()
-        }
-    }
-
-    /* ############################################################## */
-    /**
-     One of the toolbar controls was hit.
-     
-     - parameter inSender: The item that was activated.
-     */
-    @IBAction func toolbarItemHit(_ inSender: UIBarButtonItem) {
-        if stopToolbarItem == inSender {
-            stopTimer()
-        } else if rewindToolbarItem == inSender {
-            resetTimer()
-        } else if fastForwardBarButtonItem == inSender {
-            fastForwardHit()
-        } else if playPauseToolbarItem == inSender {
-            if _isTimerRunning {
-                flashRed()
-                pauseTimer()
-            } else {
-                if 0 == _tickTime {
-                    flashGreen()
-                    startTimer()
-                } else {
-                    if !_isWarning,
-                       !_isFinal {
-                        flashGreen()
-                    }
-                    continueTimer()
-                }
-            }
-            
-            setUpToolbar()
-        }
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RVS_TimerAmbiaMara_ViewController {
@@ -693,6 +607,10 @@ extension RVS_TimerAmbiaMara_ViewController {
            !_isAlarming,
            _isAtEnd || _isAtStart,
            let nextTimerIndex = _nextTimerIndex {
+            fastForwardBarButtonItem?.image = UIImage(systemName: "\(nextTimerIndex + 1).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+            fastForwardBarButtonItem?.isEnabled = true
+        } else if _isAlarming,
+                  let nextTimerIndex = _nextTimerIndex {
             fastForwardBarButtonItem?.image = UIImage(systemName: "\(nextTimerIndex + 1).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
             fastForwardBarButtonItem?.isEnabled = true
         } else {
@@ -743,7 +661,12 @@ extension RVS_TimerAmbiaMara_ViewController {
               _isAtEnd || _isAtStart,
               cascadeTimer()
         else {
-            _isAlarming = true
+            if _isAlarming {
+                stopAlarm()
+                cascadeTimer()
+            } else {
+                _isAlarming = true
+            }
             return
         }
     }
@@ -1015,6 +938,92 @@ extension RVS_TimerAmbiaMara_ViewController {
             #if DEBUG
                 print("ERROR! Attempt to play sound failed: \(String(describing: error))")
             #endif
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Callbacks
+/* ###################################################################################################################################### */
+extension RVS_TimerAmbiaMara_ViewController {
+    /* ############################################################## */
+    /**
+     Called if the background was tapped. This is how we start/pause/continue the timer.
+     - parameter: ignored.
+     */
+    @IBAction func backgroundTapped(_: UITapGestureRecognizer) {
+        if _isAlarming {
+            stopAlarm()
+        } else if _isTimerRunning {
+            flashRed()
+            pauseTimer()
+        } else if 0 == _tickTime {
+            flashGreen()
+            startTimer()
+        } else {
+            if !_isWarning,
+               !_isFinal {
+                flashGreen()
+            }
+            continueTimer()
+        }
+    }
+    
+    /* ############################################################## */
+    /**
+     The user swiped the timer.
+     
+     - parameter inGestureRecognizer: The swipe gesture recognizer.
+     */
+    @IBAction func swipeGestureReceived(_ inGestureRecognizer: UISwipeGestureRecognizer) {
+        if inGestureRecognizer == backgroundLeftSwipeGestureRecognizer {
+            if !_isTimerRunning,
+               _isAtStart {
+                stopTimer()
+            } else {
+                if _isAlarming {
+                    _isAlarming = false
+                } else {
+                    resetTimer()
+                }
+            }
+            setUpToolbar()
+        } else {
+            fastForwardHit()
+        }
+    }
+
+    /* ############################################################## */
+    /**
+     One of the toolbar controls was hit.
+     
+     - parameter inSender: The item that was activated.
+     */
+    @IBAction func toolbarItemHit(_ inSender: UIBarButtonItem) {
+        if stopToolbarItem == inSender {
+            stopTimer()
+        } else if rewindToolbarItem == inSender {
+            resetTimer()
+        } else if fastForwardBarButtonItem == inSender {
+            fastForwardHit()
+        } else if playPauseToolbarItem == inSender {
+            if _isTimerRunning {
+                flashRed()
+                pauseTimer()
+            } else {
+                if 0 == _tickTime {
+                    flashGreen()
+                    startTimer()
+                } else {
+                    if !_isWarning,
+                       !_isFinal {
+                        flashGreen()
+                    }
+                    continueTimer()
+                }
+            }
+            
+            setUpToolbar()
         }
     }
 }
