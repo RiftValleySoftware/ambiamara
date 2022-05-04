@@ -780,7 +780,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                                     && 1 < currentTimer.startTime
                                     && (1 < currentTimer.warnTime
                                         || 0 == currentTimer.warnTime)
-        startButton?.isEnabled = 0 < currentTimer.startTime && (RVS_AmbiaMara_Settings().showDigits || RVS_AmbiaMara_Settings().showStoplights)
+        startButton?.isEnabled = 0 < currentTimer.startTime
         clearButton?.isHidden = 0 >= currentTimer.startTime
         
         stateLabel?.accessibilityLabel = "SLUG-ACC-STATE".localizedVariant + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant

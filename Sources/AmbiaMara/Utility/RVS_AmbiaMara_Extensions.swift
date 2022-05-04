@@ -345,12 +345,18 @@ extension UIView {
     /**
      This creates a constraint, locking the view to a given aspect ratio.
      - parameter aspectRatio: The aspect ratio. It is W/H, so numbers less than 1.0 are wider than tall, and numbers greater than 1.0 are taller than wide.
+     - parameter priority: The priority. This is optional, and default is .required
+     - parameter constant: This is the constant to be applied. This is optional, and default is 0.
      - returns: An inactive constraint, locking this view to the given aspect ratio.
      */
-    func autoLayoutAspectConstraint(aspectRatio inAspect: CGFloat) -> NSLayoutConstraint? {
+    func autoLayoutAspectConstraint(aspectRatio inAspect: CGFloat, priority inPriority: UILayoutPriority = .required, constant inConstant: CGFloat = 0) -> NSLayoutConstraint? {
         guard 0.0 < inAspect else { return nil }
         
-        return NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: self, attribute: .width, multiplier: inAspect, constant: 0)
+        let constraint = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: self, attribute: .width, multiplier: inAspect, constant: inConstant)
+        
+        constraint.priority = inPriority
+        
+        return constraint
     }
 }
 

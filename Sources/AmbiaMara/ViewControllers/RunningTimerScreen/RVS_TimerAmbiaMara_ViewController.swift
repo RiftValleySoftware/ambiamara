@@ -170,11 +170,6 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /* ############################################################## */
     /**
      */
-    @IBOutlet weak var digitsInternalContainerView: UIView?
-
-    /* ############################################################## */
-    /**
-     */
     @IBOutlet weak var digitalDisplayViewHours: RVS_RetroLEDDigitalDisplay?
 
     /* ############################################################## */
@@ -186,26 +181,6 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /**
      */
     @IBOutlet weak var digitalDisplayViewSeconds: RVS_RetroLEDDigitalDisplay?
-
-    /* ############################################################## */
-    /**
-     */
-    @IBOutlet weak var trafficLightsContainerView: UIStackView?
-
-    /* ############################################################## */
-    /**
-     */
-    @IBOutlet weak var startLightImageView: UIImageView?
-
-    /* ############################################################## */
-    /**
-     */
-    @IBOutlet weak var warnLightImageView: UIImageView?
-
-    /* ############################################################## */
-    /**
-     */
-    @IBOutlet weak var finalLightImageView: UIImageView?
 
     /* ############################################################## */
     /**
@@ -395,7 +370,7 @@ extension RVS_TimerAmbiaMara_ViewController {
      */
     private func _generateHexOverlayImage(_ inBounds: CGRect) -> UIImage? {
         let path = CGMutablePath()
-        let sHexagonWidth = CGFloat(inBounds.size.height / 20)
+        let sHexagonWidth = CGFloat(inBounds.size.height / 30)
         let radius: CGFloat = sHexagonWidth / 2
         
         let hexPath: CGMutablePath = Self._getHexPath(radius)
@@ -476,17 +451,12 @@ extension RVS_TimerAmbiaMara_ViewController {
         controlToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
         _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted()
         
-        trafficLightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().showStoplights
-        digitalDisplayContainerView?.isHidden = !RVS_AmbiaMara_Settings().showDigits
-        
         controlToolbar?.isHidden = !RVS_AmbiaMara_Settings().displayToolbar
         centerAlignmentConstraint?.constant = RVS_AmbiaMara_Settings().displayToolbar ? Self._centerAlignmentToolbarOffsetInDisplayUnits : 0
 
-        if RVS_AmbiaMara_Settings().showDigits {
-            digitalDisplayViewHours?.radix = 10
-            digitalDisplayViewMinutes?.radix = 10
-            digitalDisplayViewSeconds?.radix = 10
-        }
+        digitalDisplayViewHours?.radix = 10
+        digitalDisplayViewMinutes?.radix = 10
+        digitalDisplayViewSeconds?.radix = 10
         
         _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: 0.25, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main, isWallTime: true)
         _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDuration, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main)
@@ -510,19 +480,12 @@ extension RVS_TimerAmbiaMara_ViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        if RVS_AmbiaMara_Settings().showDigits {
-            var aspect = CGFloat(0.2)
-            if 3600 > RVS_AmbiaMara_Settings().currentTimer.startTime {
-                digitalDisplayViewHours?.isHidden = true
-                aspect = 0.35
-            }
-            digitalDisplayContainerView?.autoLayoutAspectConstraint(aspectRatio: aspect)?.isActive = true
-            if nil == hexGridImageView?.image,
-               let bounds = digitalDisplayContainerView?.bounds {
-                hexGridImageView?.image = _generateHexOverlayImage(bounds)
-            }
+        digitalDisplayViewHours?.isHidden = 3600 > RVS_AmbiaMara_Settings().currentTimer.startTime
+        if nil == hexGridImageView?.image,
+           let bounds = hexGridImageView?.bounds {
+            hexGridImageView?.image = _generateHexOverlayImage(bounds)
         }
-        
+
         initializeTimer()
     }
     
@@ -712,11 +675,6 @@ extension RVS_TimerAmbiaMara_ViewController {
         let hours = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[0] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[0] : -2
         let minutes = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[1] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[1] : 0 < hours ? 0 : -2
         let seconds = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[2] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[2] : 0 < hours || 0 < minutes ? 0 : -2
-        
-        if RVS_AmbiaMara_Settings().showDigits && RVS_AmbiaMara_Settings().showStoplights,
-           let digitHeightAnchor = digitsInternalContainerView?.heightAnchor {
-            trafficLightsContainerView?.heightAnchor.constraint(equalTo: digitHeightAnchor, multiplier: 0.5).isActive = true
-        }
         setDigitalTimeAs(hours: hours, minutes: minutes, seconds: seconds)
     }
     
@@ -821,42 +779,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         let differenceInSeconds = Int(Date().timeIntervalSince1970 - startingTime)
         let currentTime = RVS_AmbiaMara_Settings().currentTimer.startTime - differenceInSeconds
         setDigitDisplayTime()
-        determineTrafficLightColor(currentTime)
         determineDigitLEDColor(currentTime)
-    }
-    
-    /* ############################################################## */
-    /**
-     This determines the proper color for the "traffic lights."
-     - parameter inCurrentTime: Optional. Default is 0. This is the elapsed time, in seconds.
-     */
-    func determineTrafficLightColor(_ inCurrentTime: Int = 0) {
-        guard RVS_AmbiaMara_Settings().showStoplights else { return }
-        
-        guard _isTimerRunning else {
-            startLightImageView?.alpha = Self._stoplightPausedAlpha
-            warnLightImageView?.alpha = Self._stoplightPausedAlpha
-            finalLightImageView?.alpha = Self._stoplightPausedAlpha
-            return
-        }
-        
-        if inCurrentTime > RVS_AmbiaMara_Settings().currentTimer.warnTime {
-            startLightImageView?.alpha = 1.0
-            warnLightImageView?.alpha = Self._stoplightDimmedAlpha
-            finalLightImageView?.alpha = Self._stoplightDimmedAlpha
-        } else if inCurrentTime > RVS_AmbiaMara_Settings().currentTimer.finalTime {
-            startLightImageView?.alpha = Self._stoplightDimmedAlpha
-            warnLightImageView?.alpha = 1.0
-            finalLightImageView?.alpha = Self._stoplightDimmedAlpha
-        } else if inCurrentTime > 0 {
-            startLightImageView?.alpha = Self._stoplightDimmedAlpha
-            warnLightImageView?.alpha = Self._stoplightDimmedAlpha
-            finalLightImageView?.alpha = 1.0
-        } else {
-            startLightImageView?.alpha = Self._stoplightDimmedAlpha
-            warnLightImageView?.alpha = Self._stoplightDimmedAlpha
-            finalLightImageView?.alpha = Self._stoplightDimmedAlpha
-        }
     }
     
     /* ############################################################## */
@@ -865,8 +788,6 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter inCurrentTime: Optional. Default is 0. This is the elapsed time, in seconds.
      */
     func determineDigitLEDColor(_ inCurrentTime: Int = 0) {
-        guard RVS_AmbiaMara_Settings().showDigits else { return }
-        
         guard _isTimerRunning else {
             digitalDisplayViewHours?.onGradientStartColor = Self._pausedLEDColor
             digitalDisplayViewMinutes?.onGradientStartColor = Self._pausedLEDColor
@@ -949,13 +870,11 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter seconds: The second number.
      */
     func setDigitalTimeAs(hours inHours: Int, minutes inMinutes: Int, seconds inSeconds: Int) {
-        if RVS_AmbiaMara_Settings().showDigits {
-            digitalDisplayViewMinutes?.hasLeadingZeroes = 0 < inHours
-            digitalDisplayViewSeconds?.hasLeadingZeroes = 0 < inHours || 0 < inMinutes
-            digitalDisplayViewHours?.value = inHours
-            digitalDisplayViewMinutes?.value = inMinutes
-            digitalDisplayViewSeconds?.value = inSeconds
-        }
+        digitalDisplayViewMinutes?.hasLeadingZeroes = 0 < inHours
+        digitalDisplayViewSeconds?.hasLeadingZeroes = 0 < inHours || 0 < inMinutes
+        digitalDisplayViewHours?.value = inHours
+        digitalDisplayViewMinutes?.value = inMinutes
+        digitalDisplayViewSeconds?.value = inSeconds
     }
     
     /* ############################################################## */
@@ -963,8 +882,7 @@ extension RVS_TimerAmbiaMara_ViewController {
      This calculates the current time, and sets the digital display to that time.
      */
     func setDigitDisplayTime() {
-        guard RVS_AmbiaMara_Settings().showDigits,
-              let startingTime = _startingTime?.timeIntervalSince1970 else { return }
+        guard let startingTime = _startingTime?.timeIntervalSince1970 else { return }
         
         var differenceInSeconds = RVS_AmbiaMara_Settings().currentTimer.startTime - Int(Date().timeIntervalSince1970 - startingTime)
         

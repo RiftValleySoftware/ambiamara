@@ -34,7 +34,7 @@ class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
     /**
      The popover height.
     */
-    static let settingsPopoverHeightInDisplayUnits = CGFloat(268)
+    static let settingsPopoverHeightInDisplayUnits = CGFloat(180)
 
     /* ################################################################## */
     /**
@@ -47,30 +47,6 @@ class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
      The label for the switch is actually a button.
     */
     @IBOutlet weak var popoverHelpSettingsSwitchLabelButton: UIButton?
-    
-    /* ################################################################## */
-    /**
-     The switch that controls whether or not the running timer will display a digital countdown.
-    */
-    @IBOutlet weak var popoverDisplayDigitsSwitch: UISwitch?
-    
-    /* ################################################################## */
-    /**
-     The label for the switch is actually a button.
-    */
-    @IBOutlet weak var popoverDisplayDigitsSwitchLabelButton: UIButton?
-    
-    /* ################################################################## */
-    /**
-     The switch that controls whether or not the running timer will display three "traffic lights."
-    */
-    @IBOutlet weak var popoverDisplayTrafficLightsSwitch: UISwitch?
-    
-    /* ################################################################## */
-    /**
-     The label for the switch is actually a button.
-    */
-    @IBOutlet weak var popoverDisplayTrafficLightsSwitchLabelButton: UIButton?
     
     /* ################################################################## */
     /**
@@ -114,24 +90,16 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         popoverHelpSettingsSwitch?.isOn = RVS_AmbiaMara_Settings().useGuidancePopovers
-        popoverDisplayDigitsSwitch?.isOn = RVS_AmbiaMara_Settings().showDigits
-        popoverDisplayTrafficLightsSwitch?.isOn = RVS_AmbiaMara_Settings().showStoplights
         popoverStartImmediatelySwitch?.isOn = RVS_AmbiaMara_Settings().startTimerImmediately
         popoverDisplayToolbarSwitch?.isOn = RVS_AmbiaMara_Settings().displayToolbar
         
         popoverHelpSettingsSwitchLabelButton?.setTitle(popoverHelpSettingsSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
-        popoverDisplayDigitsSwitchLabelButton?.setTitle(popoverDisplayDigitsSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
-        popoverDisplayTrafficLightsSwitchLabelButton?.setTitle(popoverDisplayTrafficLightsSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         popoverStartImmediatelySwitchLabelButton?.setTitle(popoverStartImmediatelySwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         popoverDisplayToolbarSwitchLabelButton?.setTitle(popoverDisplayToolbarSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         aboutAmbiaMaraButton?.setTitle(aboutAmbiaMaraButton?.title(for: .normal)?.localizedVariant, for: .normal)
 
         popoverHelpSettingsSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         popoverHelpSettingsSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
-        popoverDisplayDigitsSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
-        popoverDisplayDigitsSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
-        popoverDisplayTrafficLightsSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
-        popoverDisplayTrafficLightsSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
         popoverStartImmediatelySwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         popoverStartImmediatelySwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
         popoverDisplayToolbarSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -141,12 +109,6 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
 
         popoverHelpSettingsSwitch?.accessibilityLabel = "SLUG-ACC-SHOW-HELP-SWITCH".localizedVariant
         popoverHelpSettingsSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-SHOW-HELP-SWITCH".localizedVariant
-        
-        popoverDisplayDigitsSwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-DIGITS-SWITCH".localizedVariant
-        popoverDisplayDigitsSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-DIGITS-SWITCH".localizedVariant
-        
-        popoverDisplayTrafficLightsSwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-STOPLIGHTS-SWITCH".localizedVariant
-        popoverDisplayTrafficLightsSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-STOPLIGHTS-SWITCH".localizedVariant
         
         popoverStartImmediatelySwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH".localizedVariant
         popoverStartImmediatelySwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH".localizedVariant
@@ -182,34 +144,6 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         } else {
             popoverHelpSettingsSwitch?.setOn(!(popoverHelpSettingsSwitch?.isOn ?? true), animated: true)
             popoverHelpSettingsSwitch?.sendActions(for: .valueChanged)
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     The switch or button for digital display was hit.
-     - parameter inSender: the switch or the button.
-    */
-    @IBAction func popoverDisplayDigitsSwitchChanged(_ inSender: UIControl) {
-        if let switcher = inSender as? UISwitch {
-            RVS_AmbiaMara_Settings().showDigits = switcher.isOn
-        } else {
-            popoverDisplayDigitsSwitch?.setOn(!(popoverDisplayDigitsSwitch?.isOn ?? true), animated: true)
-            popoverDisplayDigitsSwitch?.sendActions(for: .valueChanged)
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     The switch or button for traffic lights display was hit.
-     - parameter inSender: the switch or the button.
-    */
-    @IBAction func popoverDisplayTrafficLightsSwitchChanged(_ inSender: UIControl) {
-        if let switcher = inSender as? UISwitch {
-            RVS_AmbiaMara_Settings().showStoplights = switcher.isOn
-        } else {
-            popoverDisplayTrafficLightsSwitch?.setOn(!(popoverDisplayTrafficLightsSwitch?.isOn ?? true), animated: true)
-            popoverDisplayTrafficLightsSwitch?.sendActions(for: .valueChanged)
         }
     }
     
