@@ -285,6 +285,16 @@ extension RVS_TimerAmbiaMara_ViewController {
 
     /* ############################################################## */
     /**
+     - returns: True, if the current time is at the end.
+     */
+    private var _isAtEnd: Bool {
+        guard let startingTime = _startingTime?.timeIntervalSince1970 else { return false }
+        let differenceInSeconds = Int(Date().timeIntervalSince1970 - startingTime)
+        return 0 >= (RVS_AmbiaMara_Settings().currentTimer.startTime - differenceInSeconds)
+    }
+
+    /* ############################################################## */
+    /**
      - returns: True, if the current time is within the "warning" window.
      */
     private var _isWarning: Bool {
@@ -579,26 +589,15 @@ extension RVS_TimerAmbiaMara_ViewController {
         } else {
             if _isAlarming {
                 _isAlarming = false
-                if let nextTimerIndex = _nextTimerIndex {
-                    RVS_AmbiaMara_Settings().currentTimerIndex = nextTimerIndex
-                    
-                    view.setNeedsLayout()
-
-                    if !_isTimerRunning,
-                       !_isAlarming {
-                        initializeTimer()
-
-                        resetTimer()
-
-                        if RVS_AmbiaMara_Settings().startTimerImmediately {
-                            startTimer()
-                        } else {
-                            pauseTimer()
-                        }
-                    }
+                if RVS_AmbiaMara_Settings().startTimerImmediately {
+                    cascadeTimer()
                 }
             } else {
-                _isAlarming = true
+                if _isAtEnd {
+                    cascadeTimer()
+                } else {
+                    finishTimer()
+                }
             }
         }
     }
@@ -615,7 +614,18 @@ extension RVS_TimerAmbiaMara_ViewController {
         } else if rewindToolbarItem == inSender {
             resetTimer()
         } else if fastForwardBarButtonItem == inSender {
-            _isAlarming = true
+            if _isAlarming {
+                _isAlarming = false
+                if RVS_AmbiaMara_Settings().startTimerImmediately {
+                    cascadeTimer()
+                }
+            } else {
+                if _isAtEnd {
+                    cascadeTimer()
+                } else {
+                    finishTimer()
+                }
+            }
         } else if playPauseToolbarItem == inSender {
             if _isTimerRunning {
                 flashRed()
@@ -637,13 +647,54 @@ extension RVS_TimerAmbiaMara_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RVS_TimerAmbiaMara_ViewController {
+    
+    /* ############################################################## */
+    /**
+     See if we have another timer to which we can cascade.
+     
+     - returns: True, if the timer cascaded. Can be ignored.
+     */
+    @discardableResult
+    func cascadeTimer() -> Bool {
+        if let nextTimerIndex = _nextTimerIndex {
+            RVS_AmbiaMara_Settings().currentTimerIndex = nextTimerIndex
+            
+            view.setNeedsLayout()
+
+            if !_isTimerRunning,
+               !_isAlarming {
+                initializeTimer()
+
+                resetTimer()
+
+                if RVS_AmbiaMara_Settings().startTimerImmediately {
+                    startTimer()
+                } else {
+                    pauseTimer()
+                }
+                
+                return true
+            }
+        }
+        
+        return false
+    }
+
     /* ################################################################## */
     /**
      This sets up the toolbar, by adding all the timers.
     */
     func setUpToolbar() {
         rewindToolbarItem?.isEnabled = !_isAtStart
-        fastForwardBarButtonItem?.isEnabled = !_isAlarming
+        if !_isTimerRunning,
+           !_isAlarming,
+           _isAtEnd,
+           let nextTimerIndex = _nextTimerIndex {
+            fastForwardBarButtonItem?.image = UIImage(systemName: "\(nextTimerIndex + 1).circle.fill")
+        } else {
+            fastForwardBarButtonItem?.image = UIImage(systemName: "forward.end.alt.fill")
+            fastForwardBarButtonItem?.isEnabled = !_isAlarming
+        }
         playPauseToolbarItem?.isEnabled = !_isAlarming
 
         if _isTimerRunning {
@@ -701,6 +752,17 @@ extension RVS_TimerAmbiaMara_ViewController {
         _tickTime = 0
         _timer?.isRunning = false
         setTimerDisplay()
+        setUpToolbar()
+    }
+
+    /* ############################################################## */
+    /**
+     This sets the timer to scratch, but does not start it.
+     */
+    func finishTimer() {
+        _startingTime = Date()
+        _tickTime = RVS_AmbiaMara_Settings().currentTimer.startTime
+        _isAlarming = true
         setUpToolbar()
     }
 
