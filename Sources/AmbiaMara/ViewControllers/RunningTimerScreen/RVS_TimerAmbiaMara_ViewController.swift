@@ -512,6 +512,8 @@ extension RVS_TimerAmbiaMara_ViewController {
                 hexGridImageView?.image = _generateHexOverlayImage(bounds)
             }
         }
+        
+        initializeTimer()
     }
     
     /* ############################################################## */
@@ -585,6 +587,14 @@ extension RVS_TimerAmbiaMara_ViewController {
                     if !_isTimerRunning,
                        !_isAlarming {
                         initializeTimer()
+
+                        resetTimer()
+
+                        if RVS_AmbiaMara_Settings().startTimerImmediately {
+                            startTimer()
+                        } else {
+                            pauseTimer()
+                        }
                     }
                 }
             } else {
@@ -657,14 +667,6 @@ extension RVS_TimerAmbiaMara_ViewController {
             trafficLightsContainerView?.heightAnchor.constraint(equalTo: digitHeightAnchor, multiplier: 0.5).isActive = true
         }
         setDigitalTimeAs(hours: hours, minutes: minutes, seconds: seconds)
-
-        resetTimer()
-
-        if RVS_AmbiaMara_Settings().startTimerImmediately {
-            startTimer()
-        } else {
-            pauseTimer()
-        }
     }
     
     /* ############################################################## */

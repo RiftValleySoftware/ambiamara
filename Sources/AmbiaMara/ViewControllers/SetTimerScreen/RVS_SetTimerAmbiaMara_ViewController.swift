@@ -147,24 +147,9 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     /**
      The current timer, cached.
     */
-    private var _currentTimer: RVS_AmbiaMara_Settings.TimerSettings?
-
-    /* ################################################################## */
-    /**
-     The current timer, cached.
-    */
     var currentTimer: RVS_AmbiaMara_Settings.TimerSettings {
-        get {
-            guard nil == _currentTimer else { return _currentTimer ?? RVS_AmbiaMara_Settings.TimerSettings() }
-            _currentTimer = RVS_AmbiaMara_Settings().currentTimer
-            
-            return _currentTimer ?? RVS_AmbiaMara_Settings.TimerSettings()
-        }
-        
-        set {
-            RVS_AmbiaMara_Settings().currentTimer = newValue
-            _currentTimer = nil
-        }
+        get { RVS_AmbiaMara_Settings().currentTimer }
+        set { RVS_AmbiaMara_Settings().currentTimer = newValue  }
     }
     
     /* ################################################################## */
@@ -450,8 +435,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         
         // This allows us to set a help popover to the navigation bar.
         navigationController?.navigationBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(displayHelpPopover)))
-
-        setUpButtons()
     }
     
     /* ############################################################## */
@@ -463,6 +446,14 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
+        
+        #if DEBUG
+            print("Timer Setup Loaded for Timer \(RVS_AmbiaMara_Settings().currentTimerIndex).")
+            print("Timer: \(RVS_AmbiaMara_Settings().currentTimer).")
+        #endif
+        
+        setUpButtons()
+
         navigationController?.isNavigationBarHidden = false
         UIApplication.shared.isIdleTimerDisabled = false    // Just in case...
 
@@ -568,7 +559,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
 
             let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive, handler: { [weak self] _ in
                 if let currentTimer = self?.currentTimer {
-                    self?._currentTimer = nil
                     RVS_AmbiaMara_Settings().remove(timer: currentTimer)
                 }
                 self?.setUpToolbar()
@@ -591,7 +581,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     */
     @IBAction func addHit(_: Any) {
         if Self._maxTimerCount > timerBarItems.count {
-            _currentTimer = nil
             RVS_AmbiaMara_Settings().add(andSelect: true)
             setUpToolbar()
             _state = .start
@@ -709,7 +698,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     @objc func selectToolbarItem(_ inToolbarButton: UIBarButtonItem) {
         let tag = inToolbarButton.tag
         guard (1...RVS_AmbiaMara_Settings().numberOfTimers).contains(tag) else { return }
-        _currentTimer = nil
         RVS_AmbiaMara_Settings().currentTimerIndex = tag - 1
         setUpToolbar()
         _state = .start
