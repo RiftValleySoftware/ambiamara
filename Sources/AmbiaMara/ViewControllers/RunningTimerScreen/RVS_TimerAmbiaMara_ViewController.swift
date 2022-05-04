@@ -159,6 +159,7 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
                oldValue {
                 _alarmTimer?.isRunning = false
                 _timer?.isRunning = false
+                flashCyan()
                 resetTimer()
             } else if _isAlarming,
                       !oldValue {
@@ -647,6 +648,7 @@ extension RVS_TimerAmbiaMara_ViewController {
             flashGreen()
             startTimer()
         } else {
+            flashCyan()
             pauseTimer()
         }
     }
@@ -847,6 +849,19 @@ extension RVS_TimerAmbiaMara_ViewController {
     
     /* ############################################################## */
     /**
+     This flashes the screen briefly cyan (pause)
+     */
+    func flashCyan() {
+        flasherView?.backgroundColor = UIColor(named: "Paused-Color")
+        UIView.animate(withDuration: Self._flashDuration, animations: {
+            self.flasherView?.backgroundColor = .clear
+        })
+        _selectionFeedbackGenerator?.selectionChanged()
+        _selectionFeedbackGenerator?.prepare()
+    }
+    
+    /* ############################################################## */
+    /**
      This flashes the screen briefly green
      */
     func flashGreen() {
@@ -857,7 +872,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         _selectionFeedbackGenerator?.selectionChanged()
         _selectionFeedbackGenerator?.prepare()
     }
-    
+
     /* ############################################################## */
     /**
      This flashes the screen briefly yellow
@@ -955,7 +970,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         if _isAlarming {
             stopAlarm()
         } else if _isTimerRunning {
-            flashRed()
+            flashCyan()
             pauseTimer()
         } else if 0 == _tickTime {
             flashGreen()
@@ -1008,7 +1023,7 @@ extension RVS_TimerAmbiaMara_ViewController {
             fastForwardHit()
         } else if playPauseToolbarItem == inSender {
             if _isTimerRunning {
-                flashRed()
+                flashCyan()
                 pauseTimer()
             } else {
                 if 0 == _tickTime {
