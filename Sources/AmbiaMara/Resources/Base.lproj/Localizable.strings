@@ -40,8 +40,6 @@
 // MARK: SETTINGS POPOVER
 
 "SLUG-POPOVER-HELP-SETTING-LABEL"               =   "Show Help Popovers";
-"SLUG-POPOVER-DIGITS-SETTING-LABEL"             =   "Show Digits";
-"SLUG-POPOVER-STOPLIGHTS-SETTING-LABEL"         =   "Show \"Traffic Lights\"";
 "SLUG-POPOVER-START-IMMEDIATELY-SETTING-LABEL"  =   "Start Timer Immediately";
 "SLUG-POPOVER-SHOW-TOOLBAR-SETTING-LABEL"       =   "Show Toolbar In Timer";
 "SLUG-ABOUT-AMBIAMARA-BUTTON"                   =   "About AmbiaMara";
@@ -122,10 +120,8 @@
 // MARK: SETTINGS POPOVER
 
 "SLUG-ACC-SHOW-HELP-SWITCH"                     =   "If this switch is on, then popovers will be shown in the help screen, when you touch the labels in the center of the screen, explaining the operation of the app.";
-"SLUG-ACC-POPOVER-DIGITS-SWITCH"                =   "If this is on, then the running timer will display a digital countdown.";
-"SLUG-ACC-POPOVER-STOPLIGHTS-SWITCH"            =   "If this is on, then the running timer will display three \"traffic lights.\"";
 "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH"     =   "If this is on, then the timer starts immediately, upon the timer page appearing. If off, then you need to start the timer.";
-"SLUG-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH"      =   "If this is on, a toolbar will be displayed at the top of the running timer, with controls that let you manage the timer. If it is off, you will need to use gestures.";
+"SLUG-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH"      =   "If this is on, a toolbar will be displayed at the bottom of the running timer, with controls that let you manage the timer. If it is off, you will need to use gestures.";
 "SLUG-ACC-ABOUT-AMBIAMARA-BUTTON"               =   "This will bring in a screen, with information about this app.";
 
 // MARK: ALARM SETUP POPOVER
