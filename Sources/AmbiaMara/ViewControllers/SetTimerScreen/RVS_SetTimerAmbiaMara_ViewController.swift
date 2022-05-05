@@ -472,16 +472,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             )
         }
     }
-    
-    /* ############################################################## */
-    /**
-     Called when the layout changes.
-     We make sure to set up the buttons, in case of accessibility change.
-     */
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setUpButtons()
-    }
 }
 
 /* ###################################################################################################################################### */
