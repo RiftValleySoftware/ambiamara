@@ -872,7 +872,13 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
         inPickerView.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: false)
         inPickerView.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
 
-        inPickerView.reloadAllComponents()
+        if 0 == inComponent {
+            inPickerView.reloadComponent(1)
+            inPickerView.reloadComponent(2)
+        } else if 1 == inComponent {
+            inPickerView.reloadComponent(2)
+        }
+        
         setUpToolbar()
         setUpButtons()
     }
