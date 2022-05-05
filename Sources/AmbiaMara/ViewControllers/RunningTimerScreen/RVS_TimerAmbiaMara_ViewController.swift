@@ -127,27 +127,15 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
 
     /* ################################################################## */
     /**
-     This will provide haptic/audio feedback for the alarm.
-     */
-    private var _alarmImpactFeedbackGenerator: UIImpactFeedbackGenerator?
-
-    /* ################################################################## */
-    /**
-     This will provide haptic/audio feedback for transitions to warn.
-     */
-    private var _warnImpactFeedbackGenerator: UIImpactFeedbackGenerator?
-
-    /* ################################################################## */
-    /**
-     This will provide haptic/audio feedback for transitions to final.
-     */
-    private var _finalImpactFeedbackGenerator: UIImpactFeedbackGenerator?
-
-    /* ################################################################## */
-    /**
-     This will provide haptic/audio feedback for transition to warning.
+     This will provide haptic/audio feedback for continues and ticks.
      */
     private var _selectionFeedbackGenerator: UISelectionFeedbackGenerator?
+
+    /* ################################################################## */
+    /**
+     This will provide haptic/audio feedback for gestures, alams, and transitions.
+     */
+    private var _feedbackGenerator: UIImpactFeedbackGenerator?
 
     /* ############################################################## */
     /**
@@ -505,16 +493,19 @@ extension RVS_TimerAmbiaMara_ViewController {
         controlToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
         _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted()
         
-        controlToolbar?.isHidden = !RVS_AmbiaMara_Settings().displayToolbar
+        if RVS_AmbiaMara_Settings().displayToolbar {
+            backgroundLeftSwipeGestureRecognizer?.isEnabled = false
+            backgroundRightSwipeGestureRecognizer?.isEnabled = false
+        } else {
+            controlToolbar?.isHidden = true
+        }
 
         digitalDisplayViewHours?.radix = 10
         digitalDisplayViewMinutes?.radix = 10
         digitalDisplayViewSeconds?.radix = 10
         
         _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-        _warnImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-        _finalImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
-        _alarmImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .soft)
+        _feedbackGenerator = UIImpactFeedbackGenerator()
         
         _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: 0.25, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main, isWallTime: true)
         _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDuration, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main)
@@ -604,14 +595,8 @@ extension RVS_TimerAmbiaMara_ViewController {
      This sets up the toolbar, by adding all the timers.
     */
     func setUpToolbar() {
-        if !_isTimerRunning,
-           !_isAlarming,
-           _isAtEnd || _isAtStart,
+        if _isAlarming,
            let nextTimerIndex = _nextTimerIndex {
-            fastForwardBarButtonItem?.image = UIImage(systemName: "\(nextTimerIndex + 1).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
-            fastForwardBarButtonItem?.isEnabled = true
-        } else if _isAlarming,
-                  let nextTimerIndex = _nextTimerIndex {
             fastForwardBarButtonItem?.image = UIImage(systemName: "\(nextTimerIndex + 1).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
             fastForwardBarButtonItem?.isEnabled = true
         } else {
@@ -640,10 +625,8 @@ extension RVS_TimerAmbiaMara_ViewController {
         let seconds = 0 < RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[2] ? RVS_AmbiaMara_Settings().currentTimer.startTimeAsComponents[2] : 0 < hours || 0 < minutes ? 0 : -2
         setDigitalTimeAs(hours: hours, minutes: minutes, seconds: seconds)
         determineStoplightColor(RVS_AmbiaMara_Settings().currentTimer.startTime)
-        _alarmImpactFeedbackGenerator?.prepare()
-        _warnImpactFeedbackGenerator?.prepare()
-        _finalImpactFeedbackGenerator?.prepare()
         _selectionFeedbackGenerator?.prepare()
+        _feedbackGenerator?.prepare()
         if RVS_AmbiaMara_Settings().startTimerImmediately {
             flashGreen()
             startTimer()
@@ -658,18 +641,11 @@ extension RVS_TimerAmbiaMara_ViewController {
      Fast forward will either start the alarm, or cascade to the next timer.
      */
     func fastForwardHit() {
-        guard !_isTimerRunning,
-              !_isAlarming,
-              _isAtEnd || _isAtStart,
-              cascadeTimer()
-        else {
-            if _isAlarming {
-                stopAlarm()
-                cascadeTimer()
-            } else {
-                _isAlarming = true
-            }
-            return
+        if _isAlarming {
+            stopAlarm()
+            cascadeTimer()
+        } else {
+            _isAlarming = true
         }
     }
 
@@ -700,6 +676,7 @@ extension RVS_TimerAmbiaMara_ViewController {
      This sets the timer to scratch, but does not start it.
      */
     func resetTimer() {
+        _isAlarming = false
         _alarmTimer?.isRunning = false
         _timer?.isRunning = false
         _startingTime = nil
@@ -856,8 +833,8 @@ extension RVS_TimerAmbiaMara_ViewController {
         UIView.animate(withDuration: Self._flashDuration, animations: {
             self.flasherView?.backgroundColor = .clear
         })
-        _selectionFeedbackGenerator?.selectionChanged()
-        _selectionFeedbackGenerator?.prepare()
+        _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+        _feedbackGenerator?.prepare()
     }
     
     /* ############################################################## */
@@ -869,8 +846,8 @@ extension RVS_TimerAmbiaMara_ViewController {
         UIView.animate(withDuration: Self._flashDuration, animations: {
             self.flasherView?.backgroundColor = .clear
         })
-        _selectionFeedbackGenerator?.selectionChanged()
-        _selectionFeedbackGenerator?.prepare()
+        _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+        _feedbackGenerator?.prepare()
     }
 
     /* ############################################################## */
@@ -882,8 +859,8 @@ extension RVS_TimerAmbiaMara_ViewController {
         UIView.animate(withDuration: Self._flashDuration, animations: {
             self.flasherView?.backgroundColor = .clear
         })
-        _warnImpactFeedbackGenerator?.impactOccurred()
-        _warnImpactFeedbackGenerator?.prepare()
+        _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.medium.rawValue))
+        _feedbackGenerator?.prepare()
     }
 
     /* ############################################################## */
@@ -896,12 +873,11 @@ extension RVS_TimerAmbiaMara_ViewController {
             self.flasherView?.backgroundColor = .clear
         })
         if _isAlarming {
-            _alarmImpactFeedbackGenerator?.impactOccurred()
-            _alarmImpactFeedbackGenerator?.prepare()
+            _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.soft.rawValue))
         } else {
-            _finalImpactFeedbackGenerator?.impactOccurred()
-            _finalImpactFeedbackGenerator?.prepare()
+            _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.heavy.rawValue))
         }
+        _feedbackGenerator?.prepare()
     }
 
     /* ############################################################## */
@@ -967,6 +943,8 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter: ignored.
      */
     @IBAction func backgroundTapped(_: UITapGestureRecognizer) {
+        _selectionFeedbackGenerator?.selectionChanged()
+        _selectionFeedbackGenerator?.prepare()
         if _isAlarming {
             stopAlarm()
         } else if _isTimerRunning {
@@ -991,6 +969,8 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter inGestureRecognizer: The swipe gesture recognizer.
      */
     @IBAction func swipeGestureReceived(_ inGestureRecognizer: UISwipeGestureRecognizer) {
+        _selectionFeedbackGenerator?.selectionChanged()
+        _selectionFeedbackGenerator?.prepare()
         if inGestureRecognizer == backgroundLeftSwipeGestureRecognizer {
             if !_isTimerRunning,
                _isAtStart {
@@ -1015,6 +995,8 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter inSender: The item that was activated.
      */
     @IBAction func toolbarItemHit(_ inSender: UIBarButtonItem) {
+        _selectionFeedbackGenerator?.selectionChanged()
+        _selectionFeedbackGenerator?.prepare()
         if stopToolbarItem == inSender {
             stopTimer()
         } else if rewindToolbarItem == inSender {

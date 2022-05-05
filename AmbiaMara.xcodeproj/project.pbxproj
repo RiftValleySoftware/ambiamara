@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D4291733282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */; };
-		D4352A64281FEEFD00BEC5A4 /* RVS_HelpAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4352A63281FEEFD00BEC5A4 /* RVS_HelpAmbiaMara_PopoverViewController.swift */; };
 		D44E770D281ACAEE00B491EF /* RVS-MaskButton in Frameworks */ = {isa = PBXBuildFile; productRef = D44E770C281ACAEE00B491EF /* RVS-MaskButton */; };
 		D47C029F2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C029E2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift */; };
 		D47C02A32819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */; };
@@ -89,7 +88,6 @@
 
 /* Begin PBXFileReference section */
 		D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AboutAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
-		D4352A63281FEEFD00BEC5A4 /* RVS_HelpAmbiaMara_PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_HelpAmbiaMara_PopoverViewController.swift; sourceTree = "<group>"; };
 		D44E7712281AD1B000B491EF /* AmbiaMara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AmbiaMara.entitlements; sourceTree = "<group>"; };
 		D47C029B2819CA6500D359F5 /* AmbiaMara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbiaMara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D47C029E2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_AppSceneDelegate.swift; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 		D4352A65281FF11200BEC5A4 /* Popovers */ = {
 			isa = PBXGroup;
 			children = (
-				D4352A63281FEEFD00BEC5A4 /* RVS_HelpAmbiaMara_PopoverViewController.swift */,
 				D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */,
 				D4CE51BA281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift */,
 			);
@@ -418,7 +415,6 @@
 			files = (
 				D4CE51BB281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift in Sources */,
 				D47C02A32819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift in Sources */,
-				D4352A64281FEEFD00BEC5A4 /* RVS_HelpAmbiaMara_PopoverViewController.swift in Sources */,
 				D47C029F2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift in Sources */,
 				D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift in Sources */,
 				D4C4B7212819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift in Sources */,

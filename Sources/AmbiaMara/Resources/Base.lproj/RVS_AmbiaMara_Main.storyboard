@@ -51,7 +51,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="uq8-S5-u02">
-                                        <rect key="frame" x="40" y="274" width="334" height="210"/>
+                                        <rect key="frame" x="40" y="264" width="334" height="230"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="dXY-cj-mkS">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="50"/>
@@ -70,9 +70,6 @@
                                                                 <real key="value" value="8"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <outletCollection property="gestureRecognizers" destination="Ynv-EO-rg8" appends="YES" id="RKb-rR-v6c"/>
-                                                        </connections>
                                                     </label>
                                                     <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xdm-Vs-RRO">
                                                         <rect key="frame" x="0.0" y="30" width="334" height="20"/>
@@ -83,9 +80,6 @@
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
-                                                                <connections>
-                                                                    <outletCollection property="gestureRecognizers" destination="ia5-3Z-cWc" appends="YES" id="9fp-cQ-fLA"/>
-                                                                </connections>
                                                             </label>
                                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-MINUTES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WnN-su-9Io">
                                                                 <rect key="frame" x="111.5" y="0.0" width="111" height="20"/>
@@ -93,18 +87,12 @@
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
-                                                                <connections>
-                                                                    <outletCollection property="gestureRecognizers" destination="Il1-by-kWZ" appends="YES" id="JCs-CW-8Bc"/>
-                                                                </connections>
                                                             </label>
                                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-SECONDS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hLK-rW-bOx">
                                                                 <rect key="frame" x="222.5" y="0.0" width="111.5" height="20"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
-                                                                <connections>
-                                                                    <outletCollection property="gestureRecognizers" destination="Vn9-zn-NkZ" appends="YES" id="v4X-5F-piv"/>
-                                                                </connections>
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -155,7 +143,7 @@
                                                 </connections>
                                             </pickerView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="WoK-h3-fWr">
-                                                <rect key="frame" x="4" y="180" width="326" height="30"/>
+                                                <rect key="frame" x="4" y="200" width="326" height="30"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETf-1Y-vad">
                                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -260,7 +248,7 @@
                                             <constraint firstAttribute="trailing" secondItem="WoK-h3-fWr" secondAttribute="trailing" constant="4" id="Qsu-p3-j6Q"/>
                                             <constraint firstItem="dXY-cj-mkS" firstAttribute="leading" secondItem="uq8-S5-u02" secondAttribute="leading" id="Xdg-OQ-VSH"/>
                                             <constraint firstItem="WoK-h3-fWr" firstAttribute="leading" secondItem="uq8-S5-u02" secondAttribute="leading" constant="4" id="Xkp-Ls-1Np"/>
-                                            <constraint firstItem="WoK-h3-fWr" firstAttribute="top" secondItem="3QH-qQ-XP5" secondAttribute="bottom" id="dL5-Ex-m4I"/>
+                                            <constraint firstItem="WoK-h3-fWr" firstAttribute="top" secondItem="3QH-qQ-XP5" secondAttribute="bottom" constant="20" id="dL5-Ex-m4I"/>
                                             <constraint firstItem="3QH-qQ-XP5" firstAttribute="leading" secondItem="uq8-S5-u02" secondAttribute="leading" constant="4" id="orq-6t-nz9"/>
                                             <constraint firstAttribute="bottom" secondItem="WoK-h3-fWr" secondAttribute="bottom" id="wxl-DS-Cak"/>
                                         </constraints>
@@ -367,19 +355,15 @@
                         <outlet property="containerView" destination="6pY-ss-e0K" id="dn1-t4-hBO"/>
                         <outlet property="finalSetButton" destination="bpG-gy-7Gm" id="TZ5-j1-jrq"/>
                         <outlet property="hoursLabel" destination="eyY-1I-cLM" id="jLa-XF-WJQ"/>
-                        <outlet property="hoursTapGestureRecognizer" destination="ia5-3Z-cWc" id="6QI-LM-47V"/>
                         <outlet property="infoBarButtonItem" destination="d2m-mo-1ss" id="QhX-xs-c1B"/>
                         <outlet property="minutesLabel" destination="WnN-su-9Io" id="oFY-RC-QAg"/>
-                        <outlet property="minutesTapGestureRecognizer" destination="Il1-by-kWZ" id="eDs-ed-34J"/>
                         <outlet property="secondsLabel" destination="hLK-rW-bOx" id="qKn-ac-0xV"/>
-                        <outlet property="secondsTapGestureRecognizer" destination="Vn9-zn-NkZ" id="iiK-gq-Dyg"/>
                         <outlet property="setPickerControl" destination="3QH-qQ-XP5" id="zLw-bo-MF1"/>
                         <outlet property="setupContainerView" destination="uq8-S5-u02" id="1Hf-UO-jmK"/>
                         <outlet property="startButton" destination="42o-kL-hkS" id="HbB-R9-InA"/>
                         <outlet property="startSetButton" destination="ETf-1Y-vad" id="PJ8-0E-m1c"/>
                         <outlet property="startupLogo" destination="sOf-1r-x28" id="ybY-nK-DpV"/>
                         <outlet property="stateLabel" destination="RRV-b8-AsH" id="Ndk-FU-fHg"/>
-                        <outlet property="stateTapGestureRecognizer" destination="Ynv-EO-rg8" id="oAq-Qd-WkQ"/>
                         <outlet property="topLabelContainerView" destination="dXY-cj-mkS" id="FJt-Zb-pZ9"/>
                         <outlet property="trashBarButtonItem" destination="p3d-KM-TEZ" id="bbP-eh-ElX"/>
                         <outlet property="warnSetButton" destination="aqL-cx-ehW" id="ZIz-Uw-CWn"/>
@@ -446,76 +430,22 @@
                     </constraints>
                 </stackView>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="Ynv-EO-rg8" userLabel="State Tap Gesture Recognizer">
-                    <connections>
-                        <action selector="displayHelpPopover:" destination="BYZ-38-t0r" id="kE2-DE-C6E"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="ia5-3Z-cWc" userLabel="Hours Tap Gesture Recognizer">
-                    <connections>
-                        <action selector="displayHelpPopover:" destination="BYZ-38-t0r" id="mmV-4A-iSc"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="Il1-by-kWZ" userLabel="Minutes Tap Gesture Recognizer">
-                    <connections>
-                        <action selector="displayHelpPopover:" destination="BYZ-38-t0r" id="9Qp-Xo-9CS"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="Vn9-zn-NkZ" userLabel="Seconds Tap Gesture Recognizer">
-                    <connections>
-                        <action selector="displayHelpPopover:" destination="BYZ-38-t0r" id="lj6-PH-0te"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="107.8125"/>
-        </scene>
-        <!--Help Ambia Mara Popover View Controller-->
-        <scene sceneID="viO-DF-CS0">
-            <objects>
-                <viewController storyboardIdentifier="RVS_HelpAmbiaMara_PopoverViewController" id="W6g-00-qiK" customClass="RVS_HelpAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="U5F-Vp-Sxy">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="166"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQg-cN-AI9">
-                                <rect key="frame" x="20" y="44" width="360" height="122"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="TJt-pM-Jes"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="AQg-cN-AI9" firstAttribute="top" secondItem="TJt-pM-Jes" secondAttribute="top" id="Gog-cS-wwD"/>
-                            <constraint firstItem="AQg-cN-AI9" firstAttribute="leading" secondItem="TJt-pM-Jes" secondAttribute="leading" constant="20" id="Hqe-WD-wYU"/>
-                            <constraint firstItem="TJt-pM-Jes" firstAttribute="trailing" secondItem="AQg-cN-AI9" secondAttribute="trailing" constant="20" id="II1-oE-oXI"/>
-                            <constraint firstItem="TJt-pM-Jes" firstAttribute="bottom" secondItem="AQg-cN-AI9" secondAttribute="bottom" id="qQ6-JC-SrS"/>
-                        </constraints>
-                    </view>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="400" height="166"/>
-                    <connections>
-                        <outlet property="descriptionLabel" destination="AQg-cN-AI9" id="bvY-9p-3K2"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="r2G-4W-MdD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="862" y="-137"/>
         </scene>
         <!--Settings Ambia Mara Popover View Controller-->
         <scene sceneID="IBu-gW-FEa">
             <objects>
                 <viewController storyboardIdentifier="RVS_SettingsAmbiaMara_PopoverViewController" id="UOz-ud-dcU" customClass="RVS_SettingsAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="RiP-wE-HMj">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="308"/>
+                    <view key="view" contentMode="scaleToFill" id="RiP-wE-HMj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="280"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cnP-ZB-vMv">
-                                <rect key="frame" x="20" y="64" width="374" height="180"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="cnP-ZB-vMv">
+                                <rect key="frame" x="20" y="64" width="374" height="184"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omz-Mi-exI">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="32"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -531,44 +461,18 @@
                                             <action selector="showAboutScreen:" destination="UOz-ud-dcU" eventType="touchUpInside" id="gFm-YR-f0m"/>
                                         </connections>
                                     </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XIh-CT-ZiM" userLabel="Popovers Stack View">
-                                        <rect key="frame" x="0.0" y="38" width="374" height="29"/>
-                                        <subviews>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9R5-Y0-E9j">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
-                                                <connections>
-                                                    <action selector="popoverHelpSettingsSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="p5G-Dm-BNQ"/>
-                                                </connections>
-                                            </switch>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZt-yd-Vg1">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="29"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="SLUG-POPOVER-HELP-SETTING-LABEL"/>
-                                                <connections>
-                                                    <action selector="popoverHelpSettingsSwitchChanged:" destination="UOz-ud-dcU" eventType="touchUpInside" id="zvd-p4-TCU"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="RZt-yd-Vg1" secondAttribute="bottom" id="FZ8-5e-Pc5"/>
-                                            <constraint firstItem="9R5-Y0-E9j" firstAttribute="top" secondItem="XIh-CT-ZiM" secondAttribute="top" id="GTM-kg-trR"/>
-                                            <constraint firstItem="RZt-yd-Vg1" firstAttribute="top" secondItem="XIh-CT-ZiM" secondAttribute="top" id="u47-lL-YP2"/>
-                                            <constraint firstAttribute="bottom" secondItem="9R5-Y0-E9j" secondAttribute="bottom" id="xaj-jU-r9P"/>
-                                        </constraints>
-                                    </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" id="Xzy-5h-Cg0" userLabel="Start Immediately Stack View">
-                                        <rect key="frame" x="0.0" y="75" width="374" height="29"/>
+                                        <rect key="frame" x="0.0" y="50" width="374" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p7i-GW-TPA">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="36"/>
                                                 <connections>
                                                     <action selector="popoverStartImmediatelySwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="1cs-Vp-6rn"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RjQ-a1-oDw">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="29"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="36"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-POPOVER-START-IMMEDIATELY-SETTING-LABEL"/>
@@ -586,17 +490,17 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" id="CVY-F1-Y9c" userLabel="Toolbar Stack View">
-                                        <rect key="frame" x="0.0" y="112" width="374" height="29"/>
+                                        <rect key="frame" x="0.0" y="104" width="374" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecG-jq-uKs">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="popoverDisplayToolbarSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="ADj-YS-zuo"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6BK-rZ-z63">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="29"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="31"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-POPOVER-SHOW-TOOLBAR-SETTING-LABEL"/>
@@ -614,7 +518,7 @@
                                         </constraints>
                                     </stackView>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="brc-he-RCW">
-                                        <rect key="frame" x="0.0" y="149" width="374" height="32"/>
+                                        <rect key="frame" x="0.0" y="153" width="374" height="32"/>
                                         <color key="backgroundColor" name="SegSwitchColor"/>
                                         <segments>
                                             <segment title="" image="Digits"/>
@@ -627,11 +531,9 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="brc-he-RCW" firstAttribute="leading" secondItem="cnP-ZB-vMv" secondAttribute="leading" id="8fl-0c-EzZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="XIh-CT-ZiM" secondAttribute="trailing" id="ETk-Sk-Qx5"/>
                                     <constraint firstItem="omz-Mi-exI" firstAttribute="leading" secondItem="cnP-ZB-vMv" secondAttribute="leading" id="QLb-4l-J4Q"/>
                                     <constraint firstAttribute="trailing" secondItem="omz-Mi-exI" secondAttribute="trailing" id="VCA-BP-EeT"/>
                                     <constraint firstAttribute="trailing" secondItem="brc-he-RCW" secondAttribute="trailing" id="rqZ-Ob-UNP"/>
-                                    <constraint firstItem="XIh-CT-ZiM" firstAttribute="leading" secondItem="cnP-ZB-vMv" secondAttribute="leading" id="uj4-SR-9jg"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -639,21 +541,19 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="cnP-ZB-vMv" firstAttribute="leading" secondItem="l0f-Zf-OSP" secondAttribute="leading" constant="20" id="Mx9-js-EO8"/>
                             <constraint firstItem="cnP-ZB-vMv" firstAttribute="top" secondItem="l0f-Zf-OSP" secondAttribute="top" constant="20" id="PeC-j5-wX1"/>
-                            <constraint firstItem="cnP-ZB-vMv" firstAttribute="leading" secondItem="l0f-Zf-OSP" secondAttribute="leading" constant="20" id="Vfy-UV-dKE"/>
+                            <constraint firstItem="l0f-Zf-OSP" firstAttribute="trailing" secondItem="cnP-ZB-vMv" secondAttribute="trailing" constant="20" id="RRe-kr-qHW"/>
                             <constraint firstItem="l0f-Zf-OSP" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cnP-ZB-vMv" secondAttribute="bottom" placeholder="YES" id="ddL-O9-ULM"/>
-                            <constraint firstItem="l0f-Zf-OSP" firstAttribute="trailing" secondItem="cnP-ZB-vMv" secondAttribute="trailing" constant="20" id="wJK-Ta-SLK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Put-az-xEf"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="400" height="308"/>
+                    <size key="freeformSize" width="414" height="280"/>
                     <connections>
                         <outlet property="aboutAmbiaMaraButton" destination="omz-Mi-exI" id="CKZ-OL-zgq"/>
                         <outlet property="popoverDisplayToolbarSwitch" destination="ecG-jq-uKs" id="45p-Fm-ILs"/>
                         <outlet property="popoverDisplayToolbarSwitchLabelButton" destination="6BK-rZ-z63" id="OWn-4e-xa2"/>
-                        <outlet property="popoverHelpSettingsSwitch" destination="9R5-Y0-E9j" id="b08-dk-f0J"/>
-                        <outlet property="popoverHelpSettingsSwitchLabelButton" destination="RZt-yd-Vg1" id="Ddx-6a-DFW"/>
                         <outlet property="popoverStartImmediatelySwitch" destination="p7i-GW-TPA" id="LLh-LP-DGe"/>
                         <outlet property="popoverStartImmediatelySwitchLabelButton" destination="RjQ-a1-oDw" id="ut4-c5-NkW"/>
                         <outlet property="timerModeSegmentedSwitch" destination="brc-he-RCW" id="43I-X7-u52"/>
@@ -661,7 +561,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KF-TF-nOv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="865.21739130434787" y="280.58035714285711"/>
+            <point key="canvasLocation" x="871" y="119"/>
         </scene>
         <!--Timer Ambia Mara View Controller-->
         <scene sceneID="62s-RG-oJ0">
@@ -945,14 +845,14 @@
             <objects>
                 <viewController storyboardIdentifier="RVS_SetAlarmAmbiaMara_ViewController" id="Vbk-gE-tat" customClass="RVS_SetAlarmAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ceo-jA-4Oa">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="240"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="240"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WmW-5S-HR2">
-                                <rect key="frame" x="20" y="64" width="360" height="176"/>
+                                <rect key="frame" x="20" y="64" width="374" height="176"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sJV-M8-EEI">
-                                        <rect key="frame" x="0.0" y="0.0" width="360" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="31"/>
                                         <color key="backgroundColor" name="SegSwitchColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="cxr-Ki-IZG"/>
@@ -972,7 +872,7 @@
                                         </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vLl-KJ-LU0">
-                                        <rect key="frame" x="0.0" y="38" width="360" height="138"/>
+                                        <rect key="frame" x="0.0" y="38" width="374" height="138"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZMg-gt-lOZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="51" height="138"/>
@@ -981,7 +881,7 @@
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehg-s1-KXq">
-                                                <rect key="frame" x="57" y="0.0" width="303" height="138"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="138"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="SLUG-VIBRATE-BUTTON"/>
                                                 <connections>
@@ -997,10 +897,10 @@
                                         </constraints>
                                     </stackView>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9IW-EI-Muk">
-                                        <rect key="frame" x="0.0" y="176" width="360" height="100"/>
+                                        <rect key="frame" x="0.0" y="176" width="374" height="100"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="21l-2m-K2x">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="334" height="100"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="LON-5y-h9U"/>
                                                 </constraints>
@@ -1010,7 +910,7 @@
                                                 </connections>
                                             </pickerView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufw-eb-eYM">
-                                                <rect key="frame" x="320" y="37.5" width="40" height="25"/>
+                                                <rect key="frame" x="334" y="37.5" width="40" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="wcl-ZE-EFP"/>
                                                 </constraints>
@@ -1049,7 +949,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="DEY-Ya-WmV"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="400" height="240"/>
+                    <size key="freeformSize" width="414" height="240"/>
                     <connections>
                         <outlet property="alarmModeSegmentedSwitch" destination="sJV-M8-EEI" id="d1c-By-gs3"/>
                         <outlet property="soundPlayButton" destination="ufw-eb-eYM" id="2Xf-02-fKm"/>
@@ -1062,7 +962,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3X-ku-fhZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="864.49275362318849" y="48.883928571428569"/>
+            <point key="canvasLocation" x="871" y="-113"/>
         </scene>
         <!--About AmbiaMara-->
         <scene sceneID="gkd-bp-rVp">
@@ -1119,7 +1019,7 @@
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="DisabledSegmentColor">
-            <color red="0.5" green="0.5" blue="0.5" alpha="0.1976872930463576" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.5" green="0.5" blue="0.5" alpha="0.19799999892711639" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Final-Color">
             <color red="1" green="0.0" blue="0.19799999892711639" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1128,7 +1028,7 @@
             <color red="0.012000000104308128" green="1" blue="0.82800000905990601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="SegSwitchColor">
-            <color red="1" green="1" blue="1" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="1" blue="1" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Start-Color">
             <color red="0.012000000104308128" green="0.85799998044967651" blue="0.0070000002160668373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
