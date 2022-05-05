@@ -810,6 +810,7 @@
                         <outlet property="backgroundUpSwipeGestureRecognizer" destination="qPz-L7-uB0" id="a24-dU-8sv"/>
                         <outlet property="blurFilterView" destination="fY6-wY-IG5" id="qy3-xd-Tg9"/>
                         <outlet property="controlToolbar" destination="JHV-9i-Nag" id="MOY-PP-VwB"/>
+                        <outlet property="digitContainerInternalView" destination="4t0-CW-2Ah" id="k3S-uw-lFZ"/>
                         <outlet property="digitalDisplayContainerView" destination="BJi-bD-ter" id="6oW-0H-WXx"/>
                         <outlet property="digitalDisplayViewHours" destination="KRf-cW-nFh" id="9xP-9t-Zw4"/>
                         <outlet property="digitalDisplayViewMinutes" destination="7L9-ec-Ebr" id="mOe-4E-84S"/>
@@ -1036,7 +1037,7 @@
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.18299999833106995" green="0.53700000047683716" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

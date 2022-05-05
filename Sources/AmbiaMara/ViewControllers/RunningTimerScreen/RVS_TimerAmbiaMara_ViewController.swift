@@ -267,7 +267,7 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /**
      */
     @IBOutlet weak var blurFilterView: UIVisualEffectView!
-
+    
     /* ############################################################## */
     /**
      */
@@ -277,7 +277,12 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /**
      */
     @IBOutlet weak var flasherView: UIView?
-    
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet var digitContainerInternalView: UIView?
+
     /* ############################################################## */
     /**
      */
@@ -440,10 +445,12 @@ extension RVS_TimerAmbiaMara_ViewController {
     /* ################################################################## */
     /**
      This class generates an overlay image of a faint "hex grid" that allows us to simulate an old-fashioned "fluorescent" display.
+     
+     - parameter inBounds: The main bounds of the screen, from which the array will be calculated.
      */
     private func _generateHexOverlayImage(_ inBounds: CGRect) -> UIImage? {
         let path = CGMutablePath()
-        let sHexagonWidth = CGFloat(inBounds.size.height / 30)
+        let sHexagonWidth = CGFloat(min(inBounds.size.width, inBounds.size.height) / 50)
         let radius: CGFloat = sHexagonWidth / 2
         
         let hexPath: CGMutablePath = Self._getHexPath(radius)
@@ -470,32 +477,12 @@ extension RVS_TimerAmbiaMara_ViewController {
         UIGraphicsBeginImageContextWithOptions(inBounds.size, false, 0.0)
         if let drawingContext = UIGraphicsGetCurrentContext() {
             drawingContext.addPath(path)
-            drawingContext.setLineWidth(0.1)
+            drawingContext.setLineWidth(0.2)
             drawingContext.setStrokeColor(UIColor.black.withAlphaComponent(0.8).cgColor)
             drawingContext.setFillColor(UIColor.clear.cgColor)
             drawingContext.strokePath()
         }
         
-        // See if we will be drawing any "cathode wires".
-        if 0 < Self._numberOfLines {
-            let path = CGMutablePath()
-            let verticalspacing = inBounds.size.height / CGFloat(Self._numberOfLines + 1)   // The extra 1, is because there are "implicit" lines at the top and bottom.
-
-            var y: CGFloat = verticalspacing
-
-            while y < inBounds.size.height {
-                path.move(to: CGPoint(x: 0, y: y))
-                path.addLine(to: CGPoint(x: inBounds.size.width, y: y))
-                y += verticalspacing
-            }
-
-            if let drawingContext = UIGraphicsGetCurrentContext() {
-                drawingContext.addPath(path)
-                drawingContext.setLineWidth(0.1)
-                drawingContext.setStrokeColor(UIColor.white.withAlphaComponent(0.75).cgColor)
-                drawingContext.strokePath()
-            }
-        }
         defer { UIGraphicsEndImageContext() }
         
         return UIGraphicsGetImageFromCurrentImageContext()
@@ -568,15 +555,13 @@ extension RVS_TimerAmbiaMara_ViewController {
 
     /* ############################################################## */
     /**
-     Called when the view has rearranged its view hierarchy.
+     Called when the view will rearrange its view hierarchy.
      */
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         digitalDisplayViewHours?.isHidden = 3600 > RVS_AmbiaMara_Settings().currentTimer.startTime
         digitalDisplayViewMinutes?.isHidden = 60 > RVS_AmbiaMara_Settings().currentTimer.startTime
-        if nil == hexGridImageView?.image,
-           let bounds = hexGridImageView?.bounds {
+        if let bounds = digitalDisplayContainerView?.bounds {
             hexGridImageView?.image = _generateHexOverlayImage(bounds)
         }
     }
