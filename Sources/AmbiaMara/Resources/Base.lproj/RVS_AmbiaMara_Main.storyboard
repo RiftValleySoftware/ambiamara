@@ -51,7 +51,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="uq8-S5-u02">
-                                        <rect key="frame" x="40" y="252" width="334" height="254"/>
+                                        <rect key="frame" x="40" y="266" width="334" height="246"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="dXY-cj-mkS">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="50"/>
@@ -143,7 +143,7 @@
                                                 </connections>
                                             </pickerView>
                                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" distribution="equalCentering" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="WoK-h3-fWr">
-                                                <rect key="frame" x="4" y="200" width="326" height="54"/>
+                                                <rect key="frame" x="4" y="192" width="326" height="54"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETf-1Y-vad">
                                                         <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
@@ -248,7 +248,7 @@
                                             <constraint firstAttribute="trailing" secondItem="WoK-h3-fWr" secondAttribute="trailing" constant="4" id="Qsu-p3-j6Q"/>
                                             <constraint firstItem="dXY-cj-mkS" firstAttribute="leading" secondItem="uq8-S5-u02" secondAttribute="leading" id="Xdg-OQ-VSH"/>
                                             <constraint firstItem="WoK-h3-fWr" firstAttribute="leading" secondItem="uq8-S5-u02" secondAttribute="leading" constant="4" id="Xkp-Ls-1Np"/>
-                                            <constraint firstItem="WoK-h3-fWr" firstAttribute="top" secondItem="3QH-qQ-XP5" secondAttribute="bottom" constant="20" id="dL5-Ex-m4I"/>
+                                            <constraint firstItem="WoK-h3-fWr" firstAttribute="top" secondItem="3QH-qQ-XP5" secondAttribute="bottom" constant="12" id="dL5-Ex-m4I"/>
                                             <constraint firstItem="3QH-qQ-XP5" firstAttribute="leading" secondItem="uq8-S5-u02" secondAttribute="leading" constant="4" id="orq-6t-nz9"/>
                                             <constraint firstAttribute="bottom" secondItem="WoK-h3-fWr" secondAttribute="bottom" id="wxl-DS-Cak"/>
                                         </constraints>
@@ -259,11 +259,11 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hl-8D-atr">
-                                        <rect key="frame" x="12" y="365" width="28" height="28"/>
+                                        <rect key="frame" x="12" y="375" width="28" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="1hl-8D-atr" secondAttribute="height" multiplier="1:1" id="FaB-Fo-nLu"/>
                                         </constraints>
-                                        <color key="tintColor" systemColor="systemRedColor"/>
+                                        <color key="tintColor" name="Delete-Color"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal">
                                             <imageReference key="image" image="nosign" catalog="system" symbolScale="large"/>
@@ -302,7 +302,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Qte-uJ-cL0" secondAttribute="bottom" id="4dK-SZ-NV5"/>
-                                    <constraint firstItem="uq8-S5-u02" firstAttribute="centerY" secondItem="6pY-ss-e0K" secondAttribute="centerY" constant="-30" id="7Md-eK-zVF"/>
+                                    <constraint firstItem="uq8-S5-u02" firstAttribute="centerY" secondItem="6pY-ss-e0K" secondAttribute="centerY" constant="-20" id="7Md-eK-zVF"/>
                                     <constraint firstItem="1hl-8D-atr" firstAttribute="centerY" secondItem="uq8-S5-u02" secondAttribute="centerY" id="G6X-iK-llD"/>
                                     <constraint firstItem="uq8-S5-u02" firstAttribute="centerX" secondItem="Qte-uJ-cL0" secondAttribute="centerX" id="QYN-HA-u3l"/>
                                     <constraint firstItem="1hl-8D-atr" firstAttribute="trailing" secondItem="uq8-S5-u02" secondAttribute="leading" id="YKt-Lg-Pna"/>
@@ -316,7 +316,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" name="AccentColor"/>
                         <constraints>
                             <constraint firstItem="sOf-1r-x28" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" priority="750" id="8AW-wf-t0n"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6pY-ss-e0K" secondAttribute="bottom" id="AK2-Yd-fZQ"/>
@@ -539,7 +539,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="l0f-Zf-OSP"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" name="AccentColor"/>
                         <constraints>
                             <constraint firstItem="cnP-ZB-vMv" firstAttribute="leading" secondItem="l0f-Zf-OSP" secondAttribute="leading" constant="20" id="Mx9-js-EO8"/>
                             <constraint firstItem="cnP-ZB-vMv" firstAttribute="top" secondItem="l0f-Zf-OSP" secondAttribute="top" constant="20" id="PeC-j5-wX1"/>
@@ -774,7 +774,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ht0-4k-rJK"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" name="AccentColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="oBo-bn-Jew" firstAttribute="width" relation="lessThanOrEqual" secondItem="ht0-4k-rJK" secondAttribute="width" multiplier="0.8" id="5xi-Lu-aBV"/>
@@ -941,7 +941,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Mmz-qg-Pbe"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" name="AccentColor"/>
                         <constraints>
                             <constraint firstItem="WmW-5S-HR2" firstAttribute="top" secondItem="Mmz-qg-Pbe" secondAttribute="top" constant="20" id="P3M-mw-yVJ"/>
                             <constraint firstItem="Mmz-qg-Pbe" firstAttribute="trailing" secondItem="WmW-5S-HR2" secondAttribute="trailing" constant="20" id="XhN-Th-lAk"/>
@@ -986,6 +986,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CTe-gZ-jIr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="tintColor" name="AccentColor"/>
                         <constraints>
                             <constraint firstItem="CTe-gZ-jIr" firstAttribute="bottom" secondItem="Tz6-2I-hpj" secondAttribute="bottom" id="DCO-Yi-Fah"/>
                             <constraint firstItem="CTe-gZ-jIr" firstAttribute="trailing" secondItem="Tz6-2I-hpj" secondAttribute="trailing" constant="28" id="E3F-np-j0G"/>
@@ -1020,6 +1021,9 @@
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
+        <namedColor name="AccentColor">
+            <color red="0.44499999284744263" green="0.47600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -1052,9 +1056,6 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

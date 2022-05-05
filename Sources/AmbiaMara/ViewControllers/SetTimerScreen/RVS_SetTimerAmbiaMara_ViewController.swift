@@ -439,14 +439,13 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             print("Timer Setup Loaded for Timer \(RVS_AmbiaMara_Settings().currentTimerIndex).")
             print("Timer: \(RVS_AmbiaMara_Settings().currentTimer).")
         #endif
-        
-        setUpButtons()
 
         navigationController?.isNavigationBarHidden = false
         UIApplication.shared.isIdleTimerDisabled = false    // Just in case...
         
         setAlarmIcon()
-        
+        setUpButtons()
+
         // First time through, we do a "fade in" animation.
         if let startupLogo = startupLogo {
             alarmSetBarButtonItem?.isEnabled = false
@@ -472,6 +471,16 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                                         }
             )
         }
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when the layout changes.
+     We make sure to set up the buttons, in case of accessibility change.
+     */
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setUpButtons()
     }
 }
 
