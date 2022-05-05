@@ -116,4 +116,21 @@ extension RVS_AmbiaMara_AppSceneDelegate: UIWindowSceneDelegate {
     func sceneDidEnterBackground(_: UIScene) {
         cleanPopover()
     }
+    
+    /* ################################################################## */
+    /**
+     Called when the app is about to become active.
+     I use this to make sure the buttons and toolbar react promply to changes in things like increased contrast.
+     - parameter: The scene instance (ignored).
+     */
+    func sceneDidBecomeActive(_: UIScene) {
+        DispatchQueue.main.async { [weak self] in
+            if let viewControllers = self?.navigationController?.viewControllers {
+                if let setupScreen = viewControllers.first as? RVS_SetTimerAmbiaMara_ViewController {
+                    setupScreen.setUpToolbar()
+                    setupScreen.setUpButtons()
+               }
+            }
+        }
+    }
 }
