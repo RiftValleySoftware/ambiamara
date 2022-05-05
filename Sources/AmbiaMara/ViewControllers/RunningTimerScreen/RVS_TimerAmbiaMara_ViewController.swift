@@ -153,6 +153,8 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
                       !oldValue {
                 _timer?.isRunning = false
                 _alarmTimer?.isRunning = true
+                determineDigitLEDColor()
+                determineStoplightColor()
                 setUpToolbar()
                 flashRed()
                 if RVS_AmbiaMara_Settings().alarmMode {
@@ -608,7 +610,7 @@ extension RVS_TimerAmbiaMara_ViewController {
     @discardableResult
     func cascadeTimer(backwards inUsePreviousTimer: Bool = false) -> Bool {
         if let nextTimerIndex = inUsePreviousTimer ? _previousTimerIndex : _nextTimerIndex {
-            flashCyan()
+            flashTimerNumber(nextTimerIndex + 1)
             RVS_AmbiaMara_Settings().currentTimerIndex = nextTimerIndex
             
             view.setNeedsLayout()
@@ -624,13 +626,17 @@ extension RVS_TimerAmbiaMara_ViewController {
      This sets up the toolbar, by adding all the timers.
     */
     func setUpToolbar() {
-        if _isAlarming,
+        if !_isAlarming,
+           !_isTimerRunning,
+           _isAtStart || _isAtEnd,
            let nextTimerIndex = _nextTimerIndex {
             fastForwardBarButtonItem?.image = UIImage(systemName: "\(nextTimerIndex + 1).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
             fastForwardBarButtonItem?.isEnabled = true
+            fastForwardBarButtonItem?.accessibilityLabel = String(format: "SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT".localizedVariant, nextTimerIndex + 1)
         } else {
             fastForwardBarButtonItem?.image = UIImage(systemName: "forward.end.alt.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
             fastForwardBarButtonItem?.isEnabled = !_isAlarming
+            fastForwardBarButtonItem?.accessibilityLabel = "SLUG-ACC-TOOLBAR-FF-ALARM".localizedVariant
         }
         
         if !_isTimerRunning,
@@ -638,15 +644,21 @@ extension RVS_TimerAmbiaMara_ViewController {
            let previousTimerIndex = _previousTimerIndex {
             rewindToolbarItem?.image = UIImage(systemName: "\(previousTimerIndex + 1).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
             rewindToolbarItem?.isEnabled = true
+            rewindToolbarItem?.accessibilityLabel = String(format: "SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT".localizedVariant, previousTimerIndex + 1)
         } else {
             rewindToolbarItem?.image = UIImage(systemName: "backward.end.alt.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
             rewindToolbarItem?.isEnabled = _isAlarming || !_isAtStart
+            rewindToolbarItem?.accessibilityLabel = "SLUG-ACC-TOOLBAR-REWIND-ALARM".localizedVariant
         }
         
         playPauseToolbarItem?.isEnabled = !_isAlarming
+        playPauseToolbarItem?.accessibilityLabel = _isAlarming ? nil : (_isTimerRunning ? "SLUG-ACC-TOOLBAR-PAUSE".localizedVariant : "SLUG-ACC-TOOLBAR-PLAY".localizedVariant)
+
+        stopToolbarItem?.accessibilityLabel = "SLUG-ACC-TOOLBAR-STOP".localizedVariant
         
         if nil != _nextTimerIndex {
             timerIndicatorToolbarItem?.image = UIImage(systemName: "\(RVS_AmbiaMara_Settings().currentTimerIndex + 1).circle")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+            timerIndicatorToolbarItem?.accessibilityLabel = String(format: "SLUG-ACC-TOOLBAR-TIMER-FORMAT".localizedVariant, RVS_AmbiaMara_Settings().currentTimerIndex + 1)
         } else {
             timerIndicatorToolbarItem?.image = nil
         }
@@ -681,14 +693,15 @@ extension RVS_TimerAmbiaMara_ViewController {
 
     /* ############################################################## */
     /**
-     Fast forward will either start the alarm, or cascade to the next timer.
+     Fast forward will either sto the alarm, or cascade to the next timer.
      */
     func fastForwardHit() {
-        if _isAlarming {
-            stopAlarm()
-            cascadeTimer()
-        } else {
+        if _isTimerRunning {
             _isAlarming = true
+        } else if _isAlarming {
+            stopAlarm()
+        } else {
+            cascadeTimer()
         }
     }
 
@@ -846,11 +859,12 @@ extension RVS_TimerAmbiaMara_ViewController {
      */
     func determineDigitLEDColor(_ inCurrentTime: Int = 0) {
         if !_isTimerRunning,
+           !_isAlarming,
            _isAtEnd || _isAtStart {
             digitalDisplayViewHours?.onGradientStartColor = Self._pausedLEDColor
             digitalDisplayViewMinutes?.onGradientStartColor = Self._pausedLEDColor
             digitalDisplayViewSeconds?.onGradientStartColor = Self._pausedLEDColor
-        } else if inCurrentTime <= RVS_AmbiaMara_Settings().currentTimer.finalTime {
+        } else if _isAlarming || inCurrentTime <= RVS_AmbiaMara_Settings().currentTimer.finalTime {
             digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
             digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
             digitalDisplayViewSeconds?.onGradientStartColor = Self._finalLEDColor
@@ -864,9 +878,9 @@ extension RVS_TimerAmbiaMara_ViewController {
             digitalDisplayViewSeconds?.onGradientStartColor = Self._initialLEDColor
         }
         
-        digitalDisplayViewHours?.onGradientEndColor = !_isTimerRunning ? Self._pausedLEDColor : nil
-        digitalDisplayViewMinutes?.onGradientEndColor = !_isTimerRunning ? Self._pausedLEDColor : nil
-        digitalDisplayViewSeconds?.onGradientEndColor = !_isTimerRunning ? Self._pausedLEDColor : nil
+        digitalDisplayViewHours?.onGradientEndColor = !_isAlarming && !_isTimerRunning ? Self._pausedLEDColor : nil
+        digitalDisplayViewMinutes?.onGradientEndColor = !_isAlarming && !_isTimerRunning ? Self._pausedLEDColor : nil
+        digitalDisplayViewSeconds?.onGradientEndColor = !_isAlarming && !_isTimerRunning ? Self._pausedLEDColor : nil
     }
     
     /* ############################################################## */
@@ -947,6 +961,40 @@ extension RVS_TimerAmbiaMara_ViewController {
 
     /* ############################################################## */
     /**
+     This flashes the current timer number, in an expanding and fading image.
+     */
+    func flashTimerNumber(_ inNumber: Int) {
+        guard let view = view else { return }
+        
+        let timerLabel = UILabel()
+        view.addSubview(timerLabel)
+        timerLabel.translatesAutoresizingMaskIntoConstraints = false
+        timerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        timerLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        timerLabel.text = isHighContrastMode ? "" : String(inNumber)    // No flash for high contrast.
+        timerLabel.textAlignment = .center
+        timerLabel.translatesAutoresizingMaskIntoConstraints = false
+        timerLabel.font = .monospacedDigitSystemFont(ofSize: view.bounds.size.height * 3, weight: .bold)
+        timerLabel.transform = timerLabel.transform.scaledBy(x: 0, y: 0)
+        timerLabel.textColor = UIColor(named: "Paused-Color")
+        
+        flasherView?.backgroundColor = UIColor(named: "Paused-Color")
+        UIView.animate(withDuration: Self._flashDuration,
+                       animations: { [weak self] in
+                                        timerLabel.transform = CGAffineTransform.identity
+                                        timerLabel.alpha = 0.0
+                                        self?.flasherView?.backgroundColor = .clear
+                                    },
+                       completion: { _ in
+                                        timerLabel.removeFromSuperview()
+                                    }
+        )
+        _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+        _feedbackGenerator?.prepare()
+    }
+    
+    /* ############################################################## */
+    /**
      This sets the digits, directly.
      - parameter hours: The hour number
      - parameter minutes: The minute number
@@ -955,6 +1003,18 @@ extension RVS_TimerAmbiaMara_ViewController {
     func setDigitalTimeAs(hours inHours: Int, minutes inMinutes: Int, seconds inSeconds: Int) {
         digitalDisplayViewMinutes?.hasLeadingZeroes = 0 < inHours
         digitalDisplayViewSeconds?.hasLeadingZeroes = 0 < inHours || 0 < inMinutes
+        
+        if _isTimerRunning,
+           0 < inHours || 0 < inMinutes || 0 < inSeconds {
+            digitalDisplayContainerView?.accessibilityLabel = String(format: "SLUG-ACC-RUNNING-TIMER-FORMAT".localizedVariant, inHours, inMinutes, inSeconds)
+        } else if _isAlarming {
+            digitalDisplayContainerView?.accessibilityLabel = "SLUG-ACC-ALARMING-TIMER".localizedVariant
+        } else if 0 < inHours || 0 < inMinutes || 0 < inSeconds {
+            digitalDisplayContainerView?.accessibilityLabel = String(format: "SLUG-ACC-PAUSED-TIMER-FORMAT".localizedVariant, inHours, inMinutes, inSeconds)
+        } else {
+            digitalDisplayContainerView?.accessibilityLabel = nil
+        }
+        
         digitalDisplayViewHours?.value = inHours
         digitalDisplayViewMinutes?.value = inMinutes
         digitalDisplayViewSeconds?.value = inSeconds
@@ -1119,14 +1179,5 @@ extension RVS_TimerAmbiaMara_ViewController: RVS_BasicGCDTimerDelegate {
         if 0 >= (RVS_AmbiaMara_Settings().currentTimer.startTime - differenceInSeconds) {
             _isAlarming = true
         }
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: UIToolbarDelegate Conformance
-/* ###################################################################################################################################### */
-extension RVS_TimerAmbiaMara_ViewController: UIToolbarDelegate {
-    func position(for bar: UIBarPositioning) -> UIBarPosition {
-        .top
     }
 }

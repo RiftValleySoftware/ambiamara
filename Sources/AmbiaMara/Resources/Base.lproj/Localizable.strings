@@ -131,3 +131,16 @@
 "SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT"           =   "This allows you to select either no audible alarm, or an audible alarm. Segment 0 is off, and Segment 1 is on.";
 "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH"             =   "If this is on, then the phone will vibrate, when the alarm is triggered.";
 "SLUG-ACC-SOUND-PICKER"                         =   "This lists the various sounds available, upon completion of the countdown timer.";
+
+// MARK: RUNNING TIMER SCREEN
+
+"SLUG-ACC-ALARMING-TIMER"                       =   "Timer is alarming.";
+"SLUG-ACC-RUNNING-TIMER-FORMAT"                 =   "Timer is at %d:%02d:02d.";
+"SLUG-ACC-PAUSED-TIMER-FORMAT"                  =   "Timer is paused at %d:%02d:02d.";
+"SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT"            =   "This button will set the timer to Timer %d.";
+"SLUG-ACC-TOOLBAR-FF-ALARM"                     =   "This button will set the timer to the end, and start the alarm.";
+"SLUG-ACC-TOOLBAR-REWIND-ALARM"                 =   "This button will set the timer to the start.";
+"SLUG-ACC-TOOLBAR-PLAY"                         =   "This button will start the countdown timer.";
+"SLUG-ACC-TOOLBAR-PAUSE"                        =   "This button will pause the countdown timer.";
+"SLUG-ACC-TOOLBAR-STOP"                         =   "This button will stop the timer, and return to the setup screen.";
+"SLUG-ACC-TOOLBAR-TIMER-FORMAT"                 =   "This is Timer %d.";
