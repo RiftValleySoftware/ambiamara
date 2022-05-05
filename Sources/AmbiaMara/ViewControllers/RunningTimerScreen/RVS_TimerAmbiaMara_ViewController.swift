@@ -224,6 +224,16 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /* ############################################################## */
     /**
      */
+    @IBOutlet weak var backgroundUpSwipeGestureRecognizer: UISwipeGestureRecognizer?
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var backgroundDownSwipeGestureRecognizer: UISwipeGestureRecognizer?
+    
+    /* ############################################################## */
+    /**
+     */
     @IBOutlet weak var controlToolbar: UIToolbar?
 
     /* ############################################################## */
@@ -330,7 +340,7 @@ extension RVS_TimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
      - returns: The index of the following timer. Nil, if no following timer.
-                This "circles around," so the final timer points to the first timer.
+                This "circles around," so the last timer points to the first timer.
      */
     private var _nextTimerIndex: Int? {
         guard 1 < RVS_AmbiaMara_Settings().numberOfTimers else { return nil }
@@ -344,6 +354,25 @@ extension RVS_TimerAmbiaMara_ViewController {
         guard 0 < RVS_AmbiaMara_Settings().timers[nextIndex].startTime else { return nil }
         
         return nextIndex
+    }
+    
+    /* ############################################################## */
+    /**
+     - returns: The index of the previous timer. Nil, if no previous timer.
+                This "circles around," so the first timer points to the last timer.
+     */
+    private var _previousTimerIndex: Int? {
+        guard 1 < RVS_AmbiaMara_Settings().numberOfTimers else { return nil }
+        
+        var previousIndex = RVS_AmbiaMara_Settings().currentTimerIndex - 1
+        if 0 > previousIndex {
+            previousIndex = RVS_AmbiaMara_Settings().numberOfTimers - 1
+        }
+        
+        // Not valid, if no time set.
+        guard 0 < RVS_AmbiaMara_Settings().timers[previousIndex].startTime else { return nil }
+        
+        return previousIndex
     }
 }
 
@@ -492,13 +521,6 @@ extension RVS_TimerAmbiaMara_ViewController {
         controlToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
         controlToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
         _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted()
-        
-        if RVS_AmbiaMara_Settings().displayToolbar {
-            backgroundLeftSwipeGestureRecognizer?.isEnabled = false
-            backgroundRightSwipeGestureRecognizer?.isEnabled = false
-        } else {
-            controlToolbar?.isHidden = true
-        }
 
         digitalDisplayViewHours?.radix = 10
         digitalDisplayViewMinutes?.radix = 10
@@ -522,6 +544,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure we don't fall asleep.
         stoplightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().stoplightMode
         digitalDisplayContainerView?.isHidden = RVS_AmbiaMara_Settings().stoplightMode
+        controlToolbar?.isHidden = !RVS_AmbiaMara_Settings().displayToolbar
 
         #if targetEnvironment(macCatalyst)  // Looks like crap on Mac Catalyst.
             blurFilterView?.isHidden = true
@@ -579,12 +602,13 @@ extension RVS_TimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
      See if we have another timer to which we can cascade.
-     
+     - parameter backwards: True, if this is a backwards cascade (previous timer). Default is false (next timer).
      - returns: True, if the timer cascaded. Can be ignored.
      */
     @discardableResult
-    func cascadeTimer() -> Bool {
-        if let nextTimerIndex = _nextTimerIndex {
+    func cascadeTimer(backwards inUsePreviousTimer: Bool = false) -> Bool {
+        if let nextTimerIndex = inUsePreviousTimer ? _previousTimerIndex : _nextTimerIndex {
+            flashCyan()
             RVS_AmbiaMara_Settings().currentTimerIndex = nextTimerIndex
             
             view.setNeedsLayout()
@@ -609,7 +633,16 @@ extension RVS_TimerAmbiaMara_ViewController {
             fastForwardBarButtonItem?.isEnabled = !_isAlarming
         }
         
-        rewindToolbarItem?.isEnabled = !_isAtStart
+        if !_isTimerRunning,
+           _isAtStart,
+           let previousTimerIndex = _previousTimerIndex {
+            rewindToolbarItem?.image = UIImage(systemName: "\(previousTimerIndex + 1).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+            rewindToolbarItem?.isEnabled = true
+        } else {
+            rewindToolbarItem?.image = UIImage(systemName: "backward.end.alt.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+            rewindToolbarItem?.isEnabled = _isAlarming || !_isAtStart
+        }
+        
         playPauseToolbarItem?.isEnabled = !_isAlarming
         
         if nil != _nextTimerIndex {
@@ -657,6 +690,26 @@ extension RVS_TimerAmbiaMara_ViewController {
         } else {
             _isAlarming = true
         }
+    }
+
+    /* ############################################################## */
+    /**
+     Rewind will either reset the alarm, or cascade to the previous timer.
+     */
+    func rewindHit() {
+        if !_isAlarming,
+           !_isTimerRunning,
+           _isAtStart {
+            if !cascadeTimer(backwards: true) {
+                flashCyan()
+            }
+        } else {
+            stopAlarm()
+            flashCyan()
+            resetTimer()
+        }
+        
+        setUpToolbar()
     }
 
     /* ############################################################## */
@@ -792,14 +845,12 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter inCurrentTime: Optional. Default is 0. This is the elapsed time, in seconds.
      */
     func determineDigitLEDColor(_ inCurrentTime: Int = 0) {
-        guard _isTimerRunning else {
+        if !_isTimerRunning,
+           _isAtEnd || _isAtStart {
             digitalDisplayViewHours?.onGradientStartColor = Self._pausedLEDColor
             digitalDisplayViewMinutes?.onGradientStartColor = Self._pausedLEDColor
             digitalDisplayViewSeconds?.onGradientStartColor = Self._pausedLEDColor
-            return
-        }
-        
-        if inCurrentTime <= RVS_AmbiaMara_Settings().currentTimer.finalTime {
+        } else if inCurrentTime <= RVS_AmbiaMara_Settings().currentTimer.finalTime {
             digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
             digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
             digitalDisplayViewSeconds?.onGradientStartColor = Self._finalLEDColor
@@ -812,6 +863,10 @@ extension RVS_TimerAmbiaMara_ViewController {
             digitalDisplayViewMinutes?.onGradientStartColor = Self._initialLEDColor
             digitalDisplayViewSeconds?.onGradientStartColor = Self._initialLEDColor
         }
+        
+        digitalDisplayViewHours?.onGradientEndColor = !_isTimerRunning ? Self._pausedLEDColor : nil
+        digitalDisplayViewMinutes?.onGradientEndColor = !_isTimerRunning ? Self._pausedLEDColor : nil
+        digitalDisplayViewSeconds?.onGradientEndColor = !_isTimerRunning ? Self._pausedLEDColor : nil
     }
     
     /* ############################################################## */
@@ -974,28 +1029,22 @@ extension RVS_TimerAmbiaMara_ViewController {
     
     /* ############################################################## */
     /**
-     The user swiped the timer.
+     The user swiped the timer. This only works for toolbar hidden.
      
      - parameter inGestureRecognizer: The swipe gesture recognizer.
      */
     @IBAction func swipeGestureReceived(_ inGestureRecognizer: UISwipeGestureRecognizer) {
+        guard !RVS_AmbiaMara_Settings().displayToolbar else { return }
+        
         _selectionFeedbackGenerator?.selectionChanged()
         _selectionFeedbackGenerator?.prepare()
         if inGestureRecognizer == backgroundLeftSwipeGestureRecognizer {
-            if !_isTimerRunning,
-               _isAtStart {
-                stopTimer()
-            } else {
-                if _isAlarming {
-                    _isAlarming = false
-                } else {
-                    flashCyan()
-                    resetTimer()
-                }
-            }
-            setUpToolbar()
-        } else {
+            rewindHit()
+        } else if inGestureRecognizer == backgroundRightSwipeGestureRecognizer {
             fastForwardHit()
+        } else {
+            flashRed()
+            stopTimer()
         }
     }
 
@@ -1011,7 +1060,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         if stopToolbarItem == inSender {
             stopTimer()
         } else if rewindToolbarItem == inSender {
-            resetTimer()
+            rewindHit()
         } else if fastForwardBarButtonItem == inSender {
             fastForwardHit()
         } else if playPauseToolbarItem == inSender {

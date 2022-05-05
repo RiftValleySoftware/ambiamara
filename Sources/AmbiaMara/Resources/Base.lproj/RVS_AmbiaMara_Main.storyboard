@@ -797,13 +797,17 @@
                             <outletCollection property="gestureRecognizers" destination="FV3-MJ-hjK" appends="YES" id="uiu-t5-9Ob"/>
                             <outletCollection property="gestureRecognizers" destination="TdR-Bu-pzJ" appends="YES" id="Rb5-Ig-gZf"/>
                             <outletCollection property="gestureRecognizers" destination="2m6-eb-uaq" appends="YES" id="ju2-UZ-zFw"/>
+                            <outletCollection property="gestureRecognizers" destination="qPz-L7-uB0" appends="YES" id="o96-eo-JgT"/>
+                            <outletCollection property="gestureRecognizers" destination="sIT-fh-cO5" appends="YES" id="JYl-2a-MoX"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="vqD-oa-sy9"/>
                     <connections>
+                        <outlet property="backgroundDownSwipeGestureRecognizer" destination="sIT-fh-cO5" id="HtU-EI-tSy"/>
                         <outlet property="backgroundLeftSwipeGestureRecognizer" destination="TdR-Bu-pzJ" id="15J-bs-Wwg"/>
                         <outlet property="backgroundRightSwipeGestureRecognizer" destination="FV3-MJ-hjK" id="Czt-oc-50M"/>
                         <outlet property="backgroundTapGestureRecognizer" destination="2m6-eb-uaq" id="srM-ib-vdK"/>
+                        <outlet property="backgroundUpSwipeGestureRecognizer" destination="qPz-L7-uB0" id="a24-dU-8sv"/>
                         <outlet property="blurFilterView" destination="fY6-wY-IG5" id="qy3-xd-Tg9"/>
                         <outlet property="controlToolbar" destination="JHV-9i-Nag" id="MOY-PP-VwB"/>
                         <outlet property="digitalDisplayContainerView" destination="BJi-bD-ter" id="6oW-0H-WXx"/>
@@ -837,6 +841,16 @@
                 <swipeGestureRecognizer direction="left" id="TdR-Bu-pzJ" userLabel="Left Swipe Gesture Recognizer">
                     <connections>
                         <action selector="swipeGestureReceived:" destination="FWf-2O-eKE" id="gol-9P-5rI"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="up" id="qPz-L7-uB0" userLabel="Up Swipe Gesture Recognizer">
+                    <connections>
+                        <action selector="swipeGestureReceived:" destination="FWf-2O-eKE" id="FIp-CL-kcY"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="down" id="sIT-fh-cO5" userLabel="Down Swipe Gesture Recognizer">
+                    <connections>
+                        <action selector="swipeGestureReceived:" destination="FWf-2O-eKE" id="K53-ND-KTM"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -1005,7 +1019,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="883" height="877"/>
+        <image name="CenterImage" width="937" height="937"/>
         <image name="Digits" width="60" height="20"/>
         <image name="Final-Image" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
