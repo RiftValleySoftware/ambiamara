@@ -217,12 +217,6 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
 
         /* ############################################################## */
         /**
-         If true, then the setup screen will provide guidance, in popovers.
-         */
-        case useGuidancePopovers
-
-        /* ############################################################## */
-        /**
          If true, then the alarm will use haptics (vibration), in devices that support it.
          */
         case useVibrate
@@ -266,7 +260,6 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
                                         timers.rawValue,
                                         timerIDs.rawValue,
                                         currentTimerIndex.rawValue,
-                                        useGuidancePopovers.rawValue,
                                         useVibrate.rawValue,
                                         alarmMode.rawValue,
                                         selectedSoundIndex.rawValue,
@@ -382,15 +375,6 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     var currentTimerID: String {
         get { currentTimer.id }
         set { currentTimerIndex = ids.firstIndex(of: newValue) ?? -1 }
-    }
-
-    /* ################################################################## */
-    /**
-     If true, then the setup scren will provide guidance popovers.
-     */
-    var useGuidancePopovers: Bool {
-        get { 0 != (values[Keys.useGuidancePopovers.rawValue] as? Int ?? 1) }
-        set { values[Keys.useGuidancePopovers.rawValue] = newValue ? 1 : 0 }
     }
 
     /* ################################################################## */

@@ -45,12 +45,6 @@ class RVS_SetAlarmAmbiaMara_PopoverViewController: UIViewController {
     
     /* ################################################################## */
     /**
-     The popover height.
-    */
-    static let settingsPopoverHeightInDisplayUnits = CGFloat(200)
-
-    /* ################################################################## */
-    /**
      This is the audio player (for sampling sounds).
     */
     private var _audioPlayer: AVAudioPlayer!
@@ -134,6 +128,23 @@ class RVS_SetAlarmAmbiaMara_PopoverViewController: UIViewController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: Class Variables
+/* ###################################################################################################################################### */
+extension RVS_SetAlarmAmbiaMara_PopoverViewController {
+    /* ################################################################## */
+    /**
+     The popover height.
+    */
+    class var settingsPopoverHeightInDisplayUnits: CGFloat {
+        if .phone != UITraitCollection.current.userInterfaceIdiom {
+            return 170
+        } else {
+            return 200
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
 extension RVS_SetAlarmAmbiaMara_PopoverViewController {
@@ -144,6 +155,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        vibrateSwitchStackView?.isHidden = .phone != traitCollection.userInterfaceIdiom
         vibrateSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         vibrateSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
         

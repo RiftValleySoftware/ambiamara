@@ -32,24 +32,6 @@ class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
     
     /* ################################################################## */
     /**
-     The popover height.
-    */
-    static let settingsPopoverHeightInDisplayUnits = CGFloat(220)
-
-    /* ################################################################## */
-    /**
-     The switch that controls whether or not the popover help is shown when touching the labels.
-    */
-    @IBOutlet weak var popoverHelpSettingsSwitch: UISwitch?
-    
-    /* ################################################################## */
-    /**
-     The label for the switch is actually a button.
-    */
-    @IBOutlet weak var popoverHelpSettingsSwitchLabelButton: UIButton?
-    
-    /* ################################################################## */
-    /**
      The switch that controls whether or not the running timer starts immediately, or as paused.
     */
     @IBOutlet weak var popoverStartImmediatelySwitch: UISwitch?
@@ -60,6 +42,12 @@ class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
     */
     @IBOutlet weak var popoverStartImmediatelySwitchLabelButton: UIButton?
     
+    /* ################################################################## */
+    /**
+     The container for the toolbar display prefs.
+    */
+    @IBOutlet weak var toolbarContainerStackView: UIView?
+
     /* ################################################################## */
     /**
      The switch that controls whether or not the running timer has a toolbar, displayed at the top.
@@ -86,6 +74,23 @@ class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: Class Variables
+/* ###################################################################################################################################### */
+extension RVS_SettingsAmbiaMara_PopoverViewController {
+    /* ################################################################## */
+    /**
+     The popover height.
+    */
+    class var settingsPopoverHeightInDisplayUnits: CGFloat {
+        #if targetEnvironment(macCatalyst)  // We should not rely on gestures for Catalyst.
+            return 170
+        #else
+            return 220
+        #endif
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
 extension RVS_SettingsAmbiaMara_PopoverViewController {
@@ -95,34 +100,31 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        popoverHelpSettingsSwitch?.isOn = RVS_AmbiaMara_Settings().useGuidancePopovers
         popoverStartImmediatelySwitch?.isOn = RVS_AmbiaMara_Settings().startTimerImmediately
         popoverDisplayToolbarSwitch?.isOn = RVS_AmbiaMara_Settings().displayToolbar
         timerModeSegmentedSwitch?.selectedSegmentIndex = RVS_AmbiaMara_Settings().stoplightMode ? 1 : 0
         
-        popoverHelpSettingsSwitchLabelButton?.setTitle(popoverHelpSettingsSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         popoverStartImmediatelySwitchLabelButton?.setTitle(popoverStartImmediatelySwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         popoverDisplayToolbarSwitchLabelButton?.setTitle(popoverDisplayToolbarSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         aboutAmbiaMaraButton?.setTitle(aboutAmbiaMaraButton?.title(for: .normal)?.localizedVariant, for: .normal)
 
-        popoverHelpSettingsSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
-        popoverHelpSettingsSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
         popoverStartImmediatelySwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         popoverStartImmediatelySwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
         popoverDisplayToolbarSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         popoverDisplayToolbarSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
         aboutAmbiaMaraButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         aboutAmbiaMaraButton?.titleLabel?.minimumScaleFactor = 0.5
-
-        popoverHelpSettingsSwitch?.accessibilityLabel = "SLUG-ACC-SHOW-HELP-SWITCH".localizedVariant
-        popoverHelpSettingsSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-SHOW-HELP-SWITCH".localizedVariant
         
         popoverStartImmediatelySwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH".localizedVariant
         popoverStartImmediatelySwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH".localizedVariant
         
         popoverDisplayToolbarSwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SWITCH".localizedVariant
         popoverDisplayToolbarSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SWITCH".localizedVariant
-
+        
+        #if targetEnvironment(macCatalyst)  // We should not rely on gestures for Catalyst.
+            toolbarContainerStackView?.isHidden = true
+        #endif
+        
         aboutAmbiaMaraButton?.accessibilityLabel = "SLUG-ACC-ABOUT-AMBIAMARA-BUTTON".localizedVariant
 
         if let timerModeSegmentedSwitch = timerModeSegmentedSwitch {
@@ -148,20 +150,6 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
     */
     @IBAction func showAboutScreen(_: Any) {
         dismiss(animated: true, completion: { [weak self] in self?.myController?.showAboutScreen()})
-    }
-    
-    /* ################################################################## */
-    /**
-     The switch or button for popover help was hit.
-     - parameter inSender: the switch or the button.
-    */
-    @IBAction func popoverHelpSettingsSwitchChanged(_ inSender: UIControl) {
-        if let switcher = inSender as? UISwitch {
-            RVS_AmbiaMara_Settings().useGuidancePopovers = switcher.isOn
-        } else {
-            popoverHelpSettingsSwitch?.setOn(!(popoverHelpSettingsSwitch?.isOn ?? true), animated: true)
-            popoverHelpSettingsSwitch?.sendActions(for: .valueChanged)
-        }
     }
     
     /* ################################################################## */

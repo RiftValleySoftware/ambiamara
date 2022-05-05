@@ -522,7 +522,12 @@ extension RVS_TimerAmbiaMara_ViewController {
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure we don't fall asleep.
         stoplightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().stoplightMode
         digitalDisplayContainerView?.isHidden = RVS_AmbiaMara_Settings().stoplightMode
-        blurFilterView?.isHidden = isHighContrastMode
+
+        #if targetEnvironment(macCatalyst)  // Looks like crap on Mac Catalyst.
+            blurFilterView?.isHidden = true
+        #else
+            blurFilterView?.isHidden = isHighContrastMode
+        #endif
         hexGridImageView?.isHidden = isHighContrastMode
     }
     
@@ -606,7 +611,12 @@ extension RVS_TimerAmbiaMara_ViewController {
         
         rewindToolbarItem?.isEnabled = !_isAtStart
         playPauseToolbarItem?.isEnabled = !_isAlarming
-        timerIndicatorToolbarItem?.image = UIImage(systemName: "\(RVS_AmbiaMara_Settings().currentTimerIndex + 1).circle")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+        
+        if nil != _nextTimerIndex {
+            timerIndicatorToolbarItem?.image = UIImage(systemName: "\(RVS_AmbiaMara_Settings().currentTimerIndex + 1).circle")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+        } else {
+            timerIndicatorToolbarItem?.image = nil
+        }
 
         if _isTimerRunning {
             playPauseToolbarItem?.image = UIImage(systemName: "pause.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
@@ -979,6 +989,7 @@ extension RVS_TimerAmbiaMara_ViewController {
                 if _isAlarming {
                     _isAlarming = false
                 } else {
+                    flashCyan()
                     resetTimer()
                 }
             }

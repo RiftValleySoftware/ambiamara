@@ -387,6 +387,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         minutesLabel?.text = (minutesLabel?.text ?? "ERROR").localizedVariant
         secondsLabel?.text = (secondsLabel?.text ?? "ERROR").localizedVariant
         
+        #if targetEnvironment(macCatalyst)  // We should not rely on gestures for Catalyst.
+            RVS_AmbiaMara_Settings().displayToolbar = true
+        #endif
+
         infoBarButtonItem?.accessibilityLabel = "SLUG-ACC-ABOUT-BUTTON".localizedVariant
         alarmSetBarButtonItem?.accessibilityLabel = "SLUG-ACC-ALARM-BUTTON".localizedVariant
         startSetButton?.accessibilityLabel = "SLUG-ACC-STATE-BUTTON-LABEL-Start".localizedVariant
@@ -404,6 +408,17 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         hoursLabel?.accessibilityLabel = String(format: "SLUG-ACC-0-LABEL-FORMAT".localizedVariant, _pickerViewData[0].upperBound - 1)
         minutesLabel?.accessibilityLabel = String(format: "SLUG-ACC-1-LABEL-FORMAT".localizedVariant, _pickerViewData[1].upperBound - 1)
         secondsLabel?.accessibilityLabel = String(format: "SLUG-ACC-2-LABEL-FORMAT".localizedVariant, _pickerViewData[2].upperBound - 1)
+
+        startSetButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        startSetButton?.titleLabel?.minimumScaleFactor = 0.5
+        warnSetButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        warnSetButton?.titleLabel?.minimumScaleFactor = 0.5
+        finalSetButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        finalSetButton?.titleLabel?.minimumScaleFactor = 0.5
+        
+        if isHighContrastMode {
+            finalSetButton?.setTitleColor(.black, for: .normal)
+        }
 
         // Makes the toolbar background transparent.
         bottomToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
@@ -429,11 +444,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
 
         navigationController?.isNavigationBarHidden = false
         UIApplication.shared.isIdleTimerDisabled = false    // Just in case...
-
-        stateLabel?.isUserInteractionEnabled = RVS_AmbiaMara_Settings().useGuidancePopovers
-        hoursLabel?.isUserInteractionEnabled = RVS_AmbiaMara_Settings().useGuidancePopovers
-        minutesLabel?.isUserInteractionEnabled = RVS_AmbiaMara_Settings().useGuidancePopovers
-        secondsLabel?.isUserInteractionEnabled = RVS_AmbiaMara_Settings().useGuidancePopovers
         
         setAlarmIcon()
         
@@ -462,6 +472,169 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                                         }
             )
         }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension RVS_SetTimerAmbiaMara_ViewController {
+    /* ################################################################## */
+    /**
+     This sets up the toolbar, by adding all the timers.
+    */
+    func setUpToolbar() {
+        if let items = bottomToolbar?.items {
+            var newItems: [UIBarButtonItem] = [items[0], items[1], items[items.count - 2], items[items.count - 1]]
+            if 1 < RVS_AmbiaMara_Settings().numberOfTimers {
+                let currentTag = currentTimer.index + 1
+                navigationItem.title = String(format: "SLUG-TIMER-TITLE-FORMAT".localizedVariant, currentTag)
+                for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
+                    let tag = timer.offset + 1
+                    let timerButton = UIBarButtonItem()
+                    let startTimeAsComponents = timer.element.startTimeAsComponents
+                    var timeString: String
+                    if 0 < startTimeAsComponents[0] {
+                        timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+                    } else if 0 < startTimeAsComponents[1] {
+                        timeString = "\(String(format: "%d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+                    } else {
+                        timeString = String(startTimeAsComponents[2])
+                    }
+                    
+                    timerButton.tag = tag
+                    let imageName = "\(tag).circle\(currentTag != tag ? ".fill" : "")"
+                    timerButton.image = UIImage(systemName: imageName)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+                    timerButton.accessibilityLabel = String(format: "SLUG-ACC-TIMER-BUTTON-LABEL-FORMAT".localizedVariant, tag)
+                    timerButton.accessibilityHint = String(format: "SLUG-ACC-TIMER-BUTTON-HINT-\(currentTag == tag ? "IS" : "NOT")-FORMAT".localizedVariant, timeString)
+                    timerButton.isEnabled = currentTag != tag
+                    timerButton.target = self
+                    timerButton.tintColor = view?.tintColor
+                    timerButton.action = #selector(selectToolbarItem(_:))
+                    newItems.insert(timerButton, at: 2 + timer.offset)
+                }
+                trashBarButtonItem?.accessibilityLabel = String(format: "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT".localizedVariant, currentTag)
+            } else {
+                navigationItem.title = nil
+            }
+            
+            bottomToolbar?.setItems(newItems, animated: false)
+            
+            trashBarButtonItem?.isEnabled = 1 < timerBarItems.count
+            addBarButtonItem?.isEnabled = Self._maxTimerCount > timerBarItems.count
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This sets up the buttons and the picker to the current state.
+    */
+    func setUpButtons() {
+        stateLabel?.text = "SLUG-STATE-\(_state.stringValue)".localizedVariant
+        
+        startSetButton?.isEnabled = .start != _state
+        warnSetButton?.isEnabled = .warn != _state
+                                    && 1 < currentTimer.startTime
+        finalSetButton?.isEnabled = .final != _state
+                                    && 1 < currentTimer.startTime
+                                    && (1 < currentTimer.warnTime
+                                        || 0 == currentTimer.warnTime)
+        startButton?.isEnabled = 0 < currentTimer.startTime
+        clearButton?.isHidden = 0 >= currentTimer.startTime
+        
+        stateLabel?.accessibilityLabel = "SLUG-ACC-STATE".localizedVariant + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant
+        stateLabel?.accessibilityHint = "SLUG-ACC-STATE-\(_state.stringValue)".localizedVariant
+
+        startSetButton?.backgroundColor = .start != _state ? (isHighContrastMode ? .white : UIColor(named: "Start-Color")) : (isHighContrastMode ? .black : UIColor(named: "Start-Color")?.withAlphaComponent(0.4))
+        warnSetButton?.backgroundColor = .warn != _state && 0 < currentTimer.startTime ? (isHighContrastMode ? .white : UIColor(named: "Warn-Color")) :  (isHighContrastMode ? .black : UIColor(named: "Warn-Color")?.withAlphaComponent(0.4))
+        finalSetButton?.backgroundColor = .final != _state && 0 < currentTimer.startTime ? (isHighContrastMode ? .white : UIColor(named: "Final-Color")) :  (isHighContrastMode ? .black : UIColor(named: "Final-Color")?.withAlphaComponent(0.4))
+        startSetButton?.borderColor = .start == _state ? (isHighContrastMode ? .white : UIColor(named: "Start-Color")) : nil
+        startSetButton?.borderWidth = .start == _state ? 4 : 0
+        warnSetButton?.borderColor = .warn == _state ? (isHighContrastMode ? .white : UIColor(named: "Warn-Color")) : nil
+        warnSetButton?.borderWidth = .warn == _state ? 4 : 0
+        finalSetButton?.borderColor = .final == _state ? (isHighContrastMode ? .white : UIColor(named: "Final-Color")) : nil
+        finalSetButton?.borderWidth = .final == _state ? 4 : 0
+
+        if 0 < currentTimer.startTime,
+           .start != _state {
+            let timeAsComponents = currentTimer.startTimeAsComponents
+            var label = ""
+            if 0 < timeAsComponents[0] {
+                label = String(format: " %02d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
+            } else if 0 < timeAsComponents[1] {
+                label = String(format: " %02d:%02d ", timeAsComponents[1], timeAsComponents[2])
+            } else if 0 < timeAsComponents[2] {
+                label = String(format: " %02d ", timeAsComponents[2])
+            }
+            startSetButton?.setTitle(label, for: .normal)
+        } else {
+            startSetButton?.setTitle(nil, for: .normal)
+        }
+
+        if 0 < currentTimer.warnTime,
+           .warn != _state {
+            let timeAsComponents = currentTimer.warnTimeAsComponents
+            var label = ""
+            if 0 < timeAsComponents[0] {
+                label = String(format: " %02d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
+            } else if 0 < timeAsComponents[1] {
+                label = String(format: " %02d:%02d ", timeAsComponents[1], timeAsComponents[2])
+            } else if 0 < timeAsComponents[2] {
+                label = String(format: " %02d ", timeAsComponents[2])
+            }
+            warnSetButton?.setTitle(label, for: .normal)
+        } else {
+            warnSetButton?.setTitle(nil, for: .normal)
+        }
+
+        if 0 < currentTimer.finalTime,
+           .final != _state {
+            let timeAsComponents = currentTimer.finalTimeAsComponents
+            var label = ""
+            if 0 < timeAsComponents[0] {
+                label = String(format: " %02d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
+            } else if 0 < timeAsComponents[1] {
+                label = String(format: " %02d:%02d ", timeAsComponents[1], timeAsComponents[2])
+            } else if 0 < timeAsComponents[2] {
+                label = String(format: " %02d ", timeAsComponents[2])
+            }
+            finalSetButton?.setTitle(label, for: .normal)
+        } else {
+            finalSetButton?.setTitle(nil, for: .normal)
+        }
+
+        var timeAsComponents: [Int]
+        switch _state {
+        case .start:
+            pickerTime = currentTimer.startTime
+            timeAsComponents = currentTimer.startTimeAsComponents
+        case .warn:
+            pickerTime = currentTimer.warnTime
+            timeAsComponents = currentTimer.warnTimeAsComponents
+        case .final:
+            pickerTime = currentTimer.finalTime
+            timeAsComponents = currentTimer.finalTimeAsComponents
+        }
+        
+        setPickerControl?.accessibilityHint = String(format: "SLUG-CURRENT-TIMER-TIME-FORMAT".localizedVariant, timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
+        navigationController?.navigationBar.accessibilityHint = String(format: "SLUG-CURRENT-TIMER-SELECTED-FORMAT".localizedVariant, currentTimer.index + 1)
+            + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant
+            + " " + String(format: "SLUG-CURRENT-TIMER-TIME-FORMAT".localizedVariant, timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
+
+        view.layoutIfNeeded()
+        UIView.animate(withDuration: Self._selectionFadeAnimationPeriod,
+                       animations: { [weak self] in
+            self?.topLabelContainerView?.backgroundColor = (self?.isHighContrastMode ?? false) ? .white : UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
+            self?.stateLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+                                        self?.hoursLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+                                        self?.minutesLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+                                        self?.secondsLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+                                        self?.view.layoutIfNeeded()
+                                    },
+                       completion: nil
+        )
+
+        setPickerControl?.reloadAllComponents()
     }
 }
 
@@ -634,107 +807,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     */
     func showAboutScreen() {
         performSegue(withIdentifier: Self._aboutViewSegueID, sender: nil)
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: Instance Methods
-/* ###################################################################################################################################### */
-extension RVS_SetTimerAmbiaMara_ViewController {
-    /* ################################################################## */
-    /**
-     This sets up the toolbar, by adding all the timers.
-    */
-    func setUpToolbar() {
-        if let items = bottomToolbar?.items {
-            var newItems: [UIBarButtonItem] = [items[0], items[1], items[items.count - 2], items[items.count - 1]]
-            let currentTag = currentTimer.index + 1
-            navigationItem.title = String(format: "SLUG-TIMER-TITLE-FORMAT".localizedVariant, currentTag)
-            for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
-                let tag = timer.offset + 1
-                let timerButton = UIBarButtonItem()
-                let startTimeAsComponents = timer.element.startTimeAsComponents
-                var timeString: String
-                if 0 < startTimeAsComponents[0] {
-                    timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
-                } else if 0 < startTimeAsComponents[1] {
-                    timeString = "\(String(format: "%d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
-                } else {
-                    timeString = String(startTimeAsComponents[2])
-                }
-                
-                timerButton.tag = tag
-                let imageName = "\(tag).circle\(currentTag != tag ? ".fill" : "")"
-                timerButton.image = UIImage(systemName: imageName)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
-                timerButton.accessibilityLabel = String(format: "SLUG-ACC-TIMER-BUTTON-LABEL-FORMAT".localizedVariant, tag)
-                timerButton.accessibilityHint = String(format: "SLUG-ACC-TIMER-BUTTON-HINT-\(currentTag == tag ? "IS" : "NOT")-FORMAT".localizedVariant, timeString)
-                timerButton.isEnabled = currentTag != tag
-                timerButton.target = self
-                timerButton.tintColor = view?.tintColor
-                timerButton.action = #selector(selectToolbarItem(_:))
-                newItems.insert(timerButton, at: 2 + timer.offset)
-            }
-            
-            bottomToolbar?.setItems(newItems, animated: false)
-            
-            trashBarButtonItem?.accessibilityLabel = String(format: "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT".localizedVariant, currentTag)
-            trashBarButtonItem?.isEnabled = 1 < timerBarItems.count
-            addBarButtonItem?.isEnabled = Self._maxTimerCount > timerBarItems.count
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     This sets up the buttons and the picker to the current state.
-    */
-    func setUpButtons() {
-        stateLabel?.text = "SLUG-STATE-\(_state.stringValue)".localizedVariant
-        
-        startSetButton?.isEnabled = .start != _state
-        warnSetButton?.isEnabled = .warn != _state
-                                    && 1 < currentTimer.startTime
-        finalSetButton?.isEnabled = .final != _state
-                                    && 1 < currentTimer.startTime
-                                    && (1 < currentTimer.warnTime
-                                        || 0 == currentTimer.warnTime)
-        startButton?.isEnabled = 0 < currentTimer.startTime
-        clearButton?.isHidden = 0 >= currentTimer.startTime
-        
-        stateLabel?.accessibilityLabel = "SLUG-ACC-STATE".localizedVariant + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant
-        stateLabel?.accessibilityHint = "SLUG-ACC-STATE-\(_state.stringValue)".localizedVariant
-
-        var timeAsComponents: [Int]
-        switch _state {
-        case .start:
-            pickerTime = currentTimer.startTime
-            timeAsComponents = currentTimer.startTimeAsComponents
-        case .warn:
-            pickerTime = currentTimer.warnTime
-            timeAsComponents = currentTimer.warnTimeAsComponents
-        case .final:
-            pickerTime = currentTimer.finalTime
-            timeAsComponents = currentTimer.finalTimeAsComponents
-        }
-        
-        setPickerControl?.accessibilityHint = String(format: "SLUG-CURRENT-TIMER-TIME-FORMAT".localizedVariant, timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
-        navigationController?.navigationBar.accessibilityHint = String(format: "SLUG-CURRENT-TIMER-SELECTED-FORMAT".localizedVariant, currentTimer.index + 1)
-            + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant
-            + " " + String(format: "SLUG-CURRENT-TIMER-TIME-FORMAT".localizedVariant, timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
-
-        view.layoutIfNeeded()
-        UIView.animate(withDuration: Self._selectionFadeAnimationPeriod,
-                       animations: { [weak self] in
-            self?.topLabelContainerView?.backgroundColor = (self?.isHighContrastMode ?? false) ? .white : UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
-            self?.stateLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.hoursLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.minutesLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.secondsLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.view.layoutIfNeeded()
-                                    },
-                       completion: nil
-        )
-
-        setPickerControl?.reloadAllComponents()
     }
 }
 

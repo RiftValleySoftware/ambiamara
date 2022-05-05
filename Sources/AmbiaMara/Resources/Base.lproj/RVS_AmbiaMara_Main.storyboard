@@ -51,7 +51,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="uq8-S5-u02">
-                                        <rect key="frame" x="40" y="264" width="334" height="230"/>
+                                        <rect key="frame" x="40" y="252" width="334" height="254"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="dXY-cj-mkS">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="50"/>
@@ -142,43 +142,43 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="BAx-Ku-HQd"/>
                                                 </connections>
                                             </pickerView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="WoK-h3-fWr">
-                                                <rect key="frame" x="4" y="200" width="326" height="30"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" distribution="equalCentering" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="WoK-h3-fWr">
+                                                <rect key="frame" x="4" y="200" width="326" height="54"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETf-1Y-vad">
-                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
+                                                        <color key="backgroundColor" name="Start-Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="ETf-1Y-vad" secondAttribute="height" multiplier="1:1" id="QQm-3d-zve"/>
                                                         </constraints>
-                                                        <color key="tintColor" name="Start-Color"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal">
-                                                            <imageReference key="image" image="Start-TrafficLight" symbolScale="large"/>
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                <real key="value" value="8"/>
+                                                                <real key="value" value="27"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="setButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lbV-83-ejQ"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqL-cx-ehW">
-                                                        <rect key="frame" x="98.5" y="0.0" width="30" height="30"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqL-cx-ehW">
+                                                        <rect key="frame" x="90.5" y="0.0" width="54" height="54"/>
+                                                        <color key="backgroundColor" name="Warn-Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="aqL-cx-ehW" secondAttribute="height" multiplier="1:1" id="foR-qD-EWN"/>
+                                                            <constraint firstAttribute="height" constant="54" id="iCr-Cj-H87"/>
                                                         </constraints>
-                                                        <color key="tintColor" name="Warn-Color"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal">
-                                                            <imageReference key="image" image="Warn-TrafficLight" symbolScale="large"/>
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                <real key="value" value="8"/>
+                                                                <real key="value" value="27"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
@@ -186,19 +186,19 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpG-gy-7Gm">
-                                                        <rect key="frame" x="197.5" y="0.0" width="30" height="30"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <rect key="frame" x="181.5" y="0.0" width="54" height="54"/>
+                                                        <color key="backgroundColor" name="Final-Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="bpG-gy-7Gm" secondAttribute="height" multiplier="1:1" id="Dx9-TU-hVY"/>
                                                         </constraints>
-                                                        <color key="tintColor" name="Final-Color"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal">
-                                                            <imageReference key="image" image="Final-TrafficLight" symbolScale="large"/>
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                <real key="value" value="8"/>
+                                                                <real key="value" value="27"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
@@ -206,11 +206,10 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42o-kL-hkS">
-                                                        <rect key="frame" x="296" y="0.0" width="30" height="30"/>
+                                                        <rect key="frame" x="272" y="0.0" width="54" height="54"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="42o-kL-hkS" secondAttribute="height" multiplier="1:1" id="l4p-gf-QmG"/>
-                                                            <constraint firstAttribute="height" constant="30" id="lgK-6z-o38"/>
                                                         </constraints>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -230,12 +229,13 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="bpG-gy-7Gm" firstAttribute="height" secondItem="ETf-1Y-vad" secondAttribute="height" id="4X5-Mf-8ZI"/>
+                                                    <constraint firstItem="bpG-gy-7Gm" firstAttribute="width" secondItem="aqL-cx-ehW" secondAttribute="width" id="1Bs-Nh-neM"/>
                                                     <constraint firstAttribute="bottom" secondItem="42o-kL-hkS" secondAttribute="bottom" id="55V-gS-mLg"/>
                                                     <constraint firstItem="aqL-cx-ehW" firstAttribute="width" secondItem="ETf-1Y-vad" secondAttribute="width" id="IHQ-mc-u7m"/>
-                                                    <constraint firstItem="bpG-gy-7Gm" firstAttribute="width" secondItem="ETf-1Y-vad" secondAttribute="width" id="UgI-XB-m3m"/>
                                                     <constraint firstItem="aqL-cx-ehW" firstAttribute="height" secondItem="ETf-1Y-vad" secondAttribute="height" id="V1V-HT-c76"/>
                                                     <constraint firstItem="42o-kL-hkS" firstAttribute="top" secondItem="WoK-h3-fWr" secondAttribute="top" id="V1z-fQ-Onx"/>
+                                                    <constraint firstItem="42o-kL-hkS" firstAttribute="height" secondItem="aqL-cx-ehW" secondAttribute="height" id="dXQ-1i-A3a"/>
+                                                    <constraint firstItem="bpG-gy-7Gm" firstAttribute="height" secondItem="aqL-cx-ehW" secondAttribute="height" id="uLd-Me-tCI"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
@@ -278,7 +278,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <items>
                                             <barButtonItem enabled="NO" systemItem="trash" id="p3d-KM-TEZ">
-                                                <color key="tintColor" systemColor="systemRedColor"/>
+                                                <color key="tintColor" name="Delete-Color"/>
                                                 <connections>
                                                     <action selector="trashHit:" destination="BYZ-38-t0r" id="bdh-bG-99z"/>
                                                 </connections>
@@ -557,6 +557,7 @@
                         <outlet property="popoverStartImmediatelySwitch" destination="p7i-GW-TPA" id="LLh-LP-DGe"/>
                         <outlet property="popoverStartImmediatelySwitchLabelButton" destination="RjQ-a1-oDw" id="ut4-c5-NkW"/>
                         <outlet property="timerModeSegmentedSwitch" destination="brc-he-RCW" id="43I-X7-u52"/>
+                        <outlet property="toolbarContainerStackView" destination="CVY-F1-Y9c" id="dVy-u9-lX3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KF-TF-nOv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -661,13 +662,14 @@
                                             <constraint firstAttribute="bottom" secondItem="N26-11-dhj" secondAttribute="bottom" id="tV9-7J-fTD"/>
                                         </constraints>
                                     </stackView>
-                                    <visualEffectView opaque="NO" alpha="0.45000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fY6-wY-IG5">
+                                    <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fY6-wY-IG5">
                                         <rect key="frame" x="0.0" y="394" width="414" height="108"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="CCw-JA-9Mg">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
-                                        <blurEffect style="systemUltraThinMaterial"/>
+                                        <blurEffect style="light"/>
                                     </visualEffectView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DTA-fw-WyG">
                                         <rect key="frame" x="0.0" y="394" width="414" height="108"/>
@@ -693,19 +695,19 @@
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="oBo-bn-Jew">
                                 <rect key="frame" x="41.5" y="399.5" width="331" height="97"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.050000000000000003" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Start-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="ivd-pD-PPX">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.050000000000000003" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Start-Image" translatesAutoresizingMaskIntoConstraints="NO" id="ivd-pD-PPX">
                                         <rect key="frame" x="0.0" y="0.0" width="97" height="97"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ivd-pD-PPX" secondAttribute="height" multiplier="1:1" id="a3u-vB-IKn"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.050000000000000003" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Warn-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="3lx-sX-cHo">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.050000000000000003" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Warn-Image" translatesAutoresizingMaskIntoConstraints="NO" id="3lx-sX-cHo">
                                         <rect key="frame" x="117" y="0.0" width="97" height="97"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="3lx-sX-cHo" secondAttribute="height" multiplier="1:1" id="Sro-hB-rUc"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.050000000000000003" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Final-TrafficLight" translatesAutoresizingMaskIntoConstraints="NO" id="c9Q-w2-pGy">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.050000000000000003" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Final-Image" translatesAutoresizingMaskIntoConstraints="NO" id="c9Q-w2-pGy">
                                         <rect key="frame" x="234" y="0.0" width="97" height="97"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="c9Q-w2-pGy" secondAttribute="height" multiplier="1:1" id="GFr-HM-e7L"/>
@@ -1004,11 +1006,11 @@
     <resources>
         <image name="CenterImage" width="937" height="937"/>
         <image name="Digits" width="60" height="20"/>
-        <image name="Final-TrafficLight" width="1024" height="1024"/>
+        <image name="Final-Image" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
-        <image name="Start-TrafficLight" width="1024" height="1024"/>
+        <image name="Start-Image" width="1024" height="1024"/>
         <image name="Stoplights" width="65" height="20"/>
-        <image name="Warn-TrafficLight" width="1024" height="1024"/>
+        <image name="Warn-Image" width="1024" height="1024"/>
         <image name="backward.end.alt.fill" catalog="system" width="128" height="66"/>
         <image name="bell.fill" catalog="system" width="128" height="124"/>
         <image name="bell.slash.fill" catalog="system" width="124" height="128"/>
@@ -1018,6 +1020,9 @@
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
+        <namedColor name="Delete-Color">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="DisabledSegmentColor">
             <color red="0.5" green="0.5" blue="0.5" alpha="0.19799999892711639" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
