@@ -162,9 +162,14 @@ extension UIViewController {
     
     /* ################################################################## */
     /**
-     Returns true, if we are in High Contrast Mode.
+     Returns true, if we are in High Contrast Mode, grayscale mode, or colorless mode.
+     We react the same to all of them.
      */
-    var isHighContrastMode: Bool { UIAccessibility.isDarkerSystemColorsEnabled }
+    var isHighContrastMode: Bool {
+        UIAccessibility.isDarkerSystemColorsEnabled
+            || UIAccessibility.isGrayscaleEnabled
+            || UIAccessibility.shouldDifferentiateWithoutColor
+    }
     
     /* ################################################################## */
     /**
