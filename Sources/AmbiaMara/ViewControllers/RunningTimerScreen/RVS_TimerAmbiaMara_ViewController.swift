@@ -450,7 +450,7 @@ extension RVS_TimerAmbiaMara_ViewController {
      */
     private func _generateHexOverlayImage(_ inBounds: CGRect) -> UIImage? {
         let path = CGMutablePath()
-        let sHexagonWidth = CGFloat(min(inBounds.size.width, inBounds.size.height) / 50)
+        let sHexagonWidth = CGFloat(min(inBounds.size.width, inBounds.size.height) / 20)
         let radius: CGFloat = sHexagonWidth / 2
         
         let hexPath: CGMutablePath = Self._getHexPath(radius)
@@ -534,12 +534,14 @@ extension RVS_TimerAmbiaMara_ViewController {
         stoplightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().stoplightMode
         digitalDisplayContainerView?.isHidden = RVS_AmbiaMara_Settings().stoplightMode
         controlToolbar?.isHidden = !RVS_AmbiaMara_Settings().displayToolbar
-
-        #if targetEnvironment(macCatalyst)  // Looks like crap on Mac Catalyst.
-            blurFilterView?.isHidden = true
-        #else
+        
+        // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
+        // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
+        if ProcessInfo().isMacCatalystApp {
+            blurFilterView?.isHidden = true  // Looks like crap on Mac.
+        } else {
             blurFilterView?.isHidden = isHighContrastMode
-        #endif
+        }
         hexGridImageView?.isHidden = isHighContrastMode
     }
     
@@ -561,7 +563,9 @@ extension RVS_TimerAmbiaMara_ViewController {
         super.viewWillLayoutSubviews()
         digitalDisplayViewHours?.isHidden = 3600 > RVS_AmbiaMara_Settings().currentTimer.startTime
         digitalDisplayViewMinutes?.isHidden = 60 > RVS_AmbiaMara_Settings().currentTimer.startTime
-        if let bounds = digitalDisplayContainerView?.bounds {
+        let imageSize = hexGridImageView?.image?.size ?? .zero
+        if let bounds = digitContainerInternalView?.bounds,
+           imageSize != bounds.size {
             hexGridImageView?.image = _generateHexOverlayImage(bounds)
         }
     }
