@@ -616,9 +616,7 @@ extension RVS_TimerAmbiaMara_ViewController {
      This sets up the toolbar, by adding all the timers.
     */
     func setUpToolbar() {
-        if !_isAlarming,
-           !_isTimerRunning,
-           _isAtStart || _isAtEnd,
+        if _isAlarming || (!_isTimerRunning && _isAtStart || _isAtEnd),
            let nextTimerIndex = _nextTimerIndex {
             fastForwardBarButtonItem?.image = UIImage(systemName: "\(nextTimerIndex + 1).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
             fastForwardBarButtonItem?.isEnabled = true

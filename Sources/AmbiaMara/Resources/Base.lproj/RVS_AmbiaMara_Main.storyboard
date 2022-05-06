@@ -317,6 +317,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="tintColor" name="AccentColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="sOf-1r-x28" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" priority="750" id="8AW-wf-t0n"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6pY-ss-e0K" secondAttribute="bottom" id="AK2-Yd-fZQ"/>
@@ -330,6 +331,10 @@
                             <constraint firstItem="sOf-1r-x28" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nhb-jF-CRl"/>
                             <constraint firstItem="sOf-1r-x28" firstAttribute="height" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.6" id="xgQ-ho-JYq"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="9R4-wX-OXE" appends="YES" id="tSq-pm-Yl0"/>
+                            <outletCollection property="gestureRecognizers" destination="jK0-c6-GFE" appends="YES" id="sGj-ut-DIP"/>
+                        </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="MNO-3D-wJv">
@@ -349,6 +354,8 @@
                     <connections>
                         <outlet property="addBarButtonItem" destination="DFN-LB-4Im" id="Vkg-Il-g6V"/>
                         <outlet property="alarmSetBarButtonItem" destination="t6N-Pt-3ne" id="7C1-mQ-g7s"/>
+                        <outlet property="backgroundLeftSwipeGestureRecognizer" destination="jK0-c6-GFE" id="7KR-xq-Lkh"/>
+                        <outlet property="backgroundRightSwipeGestureRecognizer" destination="9R4-wX-OXE" id="duC-Bc-RP1"/>
                         <outlet property="bottomToolbar" destination="Qte-uJ-cL0" id="rvc-cA-SmW"/>
                         <outlet property="buttonContainerStackView" destination="WoK-h3-fWr" id="ih6-Rt-BzX"/>
                         <outlet property="clearButton" destination="1hl-8D-atr" id="0x9-37-bSl"/>
@@ -430,6 +437,16 @@
                     </constraints>
                 </stackView>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="9R4-wX-OXE" userLabel="Right Swipe Gesture Recognizer">
+                    <connections>
+                        <action selector="swipeGestureReceived:" destination="BYZ-38-t0r" id="kUK-mo-UFB"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="jK0-c6-GFE" userLabel="Left Swipe Gesture Recognizer">
+                    <connections>
+                        <action selector="swipeGestureReceived:" destination="BYZ-38-t0r" id="DgF-jx-Pje"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="107.8125"/>
         </scene>
@@ -1020,7 +1037,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="883" height="877"/>
+        <image name="CenterImage" width="937" height="937"/>
         <image name="Digits" width="60" height="20"/>
         <image name="Final-Image" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
@@ -1037,7 +1054,7 @@
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="0.44499999284744263" green="0.47600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
