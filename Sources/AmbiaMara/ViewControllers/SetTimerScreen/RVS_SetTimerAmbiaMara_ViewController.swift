@@ -112,6 +112,11 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
      The period that we use for the selection fade animation.
     */
     private static let _selectionFadeAnimationPeriod = CGFloat(0.25)
+    /* ################################################################## */
+    /**
+     The period that we use for the add timer animation.
+    */
+    private static let _addTimerAnimationPeriod = CGFloat(0.5)
 
     /* ################################################################## */
     /**
@@ -862,14 +867,32 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     */
     @IBAction func addHit(_: Any) {
         if Self._maxTimerCount > _timerBarItems.count {
+            guard let setupContainerView = setupContainerView,
+                  let view = view else { return }
             if areHapticsAvailable {
                 _selectionFeedbackGenerator?.selectionChanged()
                 _selectionFeedbackGenerator?.prepare()
             }
+            
             RVS_AmbiaMara_Settings().add(andSelect: true)
-            setUpToolbar()
+            setupContainerView.transform = CGAffineTransform(translationX: view.bounds.size.width / 2, y: view.bounds.size.height / 2)
+            setupContainerView.transform = setupContainerView.transform.scaledBy(x: 0.1, y: 0.1)
+            setupContainerView.alpha = 0.0
             _state = .start
             setUpButtons()
+            view.layoutIfNeeded()
+            UIView.animate(withDuration: Self._addTimerAnimationPeriod,
+                           animations: { setupContainerView.transform = CGAffineTransform.identity
+                                         setupContainerView.alpha = 1.0
+                                        },
+                           completion: { [weak self] _ in
+                                            if self?.areHapticsAvailable ?? false {
+                                                self?._feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.soft.rawValue))
+                                                self?._feedbackGenerator?.prepare()
+                                                self?.setUpToolbar()
+                                            }
+                                        }
+            )
         }
     }
     
