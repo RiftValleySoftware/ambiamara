@@ -716,10 +716,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         
         var selectTimerIndex = -1
         
-        if inGestureRecognizer == backgroundLeftSwipeGestureRecognizer,
+        if inGestureRecognizer == backgroundRightSwipeGestureRecognizer,
            let nextTimerIndex = _nextTimerIndex {
             selectTimerIndex = nextTimerIndex
-        } else if inGestureRecognizer == backgroundRightSwipeGestureRecognizer,
+        } else if inGestureRecognizer == backgroundLeftSwipeGestureRecognizer,
                   let previousTimerIndex = _previousTimerIndex {
             selectTimerIndex = previousTimerIndex
         }

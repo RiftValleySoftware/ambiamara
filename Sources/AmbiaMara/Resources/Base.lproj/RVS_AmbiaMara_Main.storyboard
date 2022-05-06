@@ -820,11 +820,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="vqD-oa-sy9"/>
                     <connections>
-                        <outlet property="backgroundDownSwipeGestureRecognizer" destination="sIT-fh-cO5" id="HtU-EI-tSy"/>
-                        <outlet property="backgroundLeftSwipeGestureRecognizer" destination="TdR-Bu-pzJ" id="15J-bs-Wwg"/>
-                        <outlet property="backgroundRightSwipeGestureRecognizer" destination="FV3-MJ-hjK" id="Czt-oc-50M"/>
-                        <outlet property="backgroundTapGestureRecognizer" destination="2m6-eb-uaq" id="srM-ib-vdK"/>
-                        <outlet property="backgroundUpSwipeGestureRecognizer" destination="qPz-L7-uB0" id="a24-dU-8sv"/>
                         <outlet property="blurFilterView" destination="fY6-wY-IG5" id="qy3-xd-Tg9"/>
                         <outlet property="controlToolbar" destination="JHV-9i-Nag" id="MOY-PP-VwB"/>
                         <outlet property="digitContainerInternalView" destination="4t0-CW-2Ah" id="k3S-uw-lFZ"/>
@@ -853,22 +848,22 @@
                 </tapGestureRecognizer>
                 <swipeGestureRecognizer direction="right" id="FV3-MJ-hjK" userLabel="Right Swipe Gesture Recognizer">
                     <connections>
-                        <action selector="swipeGestureReceived:" destination="FWf-2O-eKE" id="ffV-og-UN0"/>
+                        <action selector="rightSwipeGestureReceived:" destination="FWf-2O-eKE" id="YY0-er-g0j"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer direction="left" id="TdR-Bu-pzJ" userLabel="Left Swipe Gesture Recognizer">
                     <connections>
-                        <action selector="swipeGestureReceived:" destination="FWf-2O-eKE" id="gol-9P-5rI"/>
+                        <action selector="leftSwipeGestureReceived:" destination="FWf-2O-eKE" id="EdF-4q-S1P"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer direction="up" id="qPz-L7-uB0" userLabel="Up Swipe Gesture Recognizer">
                     <connections>
-                        <action selector="swipeGestureReceived:" destination="FWf-2O-eKE" id="FIp-CL-kcY"/>
+                        <action selector="upDownwipeGestureReceived:" destination="FWf-2O-eKE" id="YdB-3K-Mse"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer direction="down" id="sIT-fh-cO5" userLabel="Down Swipe Gesture Recognizer">
                     <connections>
-                        <action selector="swipeGestureReceived:" destination="FWf-2O-eKE" id="K53-ND-KTM"/>
+                        <action selector="upDownwipeGestureReceived:" destination="FWf-2O-eKE" id="PbY-fU-Wiw"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -1037,7 +1032,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="937" height="937"/>
+        <image name="CenterImage" width="883" height="877"/>
         <image name="Digits" width="60" height="20"/>
         <image name="Final-Image" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
@@ -1054,7 +1049,7 @@
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.18299999833106995" green="0.53700000047683716" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -207,31 +207,6 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /**
      */
     @IBOutlet weak var digitalDisplayViewSeconds: RVS_RetroLEDDigitalDisplay?
-
-    /* ############################################################## */
-    /**
-     */
-    @IBOutlet weak var backgroundTapGestureRecognizer: UITapGestureRecognizer?
-
-    /* ############################################################## */
-    /**
-     */
-    @IBOutlet weak var backgroundLeftSwipeGestureRecognizer: UISwipeGestureRecognizer?
-
-    /* ############################################################## */
-    /**
-     */
-    @IBOutlet weak var backgroundRightSwipeGestureRecognizer: UISwipeGestureRecognizer?
-
-    /* ############################################################## */
-    /**
-     */
-    @IBOutlet weak var backgroundUpSwipeGestureRecognizer: UISwipeGestureRecognizer?
-    
-    /* ############################################################## */
-    /**
-     */
-    @IBOutlet weak var backgroundDownSwipeGestureRecognizer: UISwipeGestureRecognizer?
     
     /* ############################################################## */
     /**
@@ -517,7 +492,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         
         _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
         _feedbackGenerator = UIImpactFeedbackGenerator()
-        
+
         _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: 0.25, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main, isWallTime: true)
         _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDuration, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main)
     }
@@ -1091,11 +1066,11 @@ extension RVS_TimerAmbiaMara_ViewController {
     
     /* ############################################################## */
     /**
-     The user swiped the timer. This only works for toolbar hidden.
+     The user right-swiped the timer. This only works for toolbar hidden.
      
-     - parameter inGestureRecognizer: The swipe gesture recognizer.
+     - parameter: The swipe gesture recognizer (ignored).
      */
-    @IBAction func swipeGestureReceived(_ inGestureRecognizer: UISwipeGestureRecognizer) {
+    @IBAction func rightSwipeGestureReceived(_: UISwipeGestureRecognizer) {
         guard !RVS_AmbiaMara_Settings().displayToolbar else { return }
         
         if areHapticsAvailable {
@@ -1103,14 +1078,42 @@ extension RVS_TimerAmbiaMara_ViewController {
             _selectionFeedbackGenerator?.prepare()
         }
         
-        if inGestureRecognizer == backgroundLeftSwipeGestureRecognizer {
-            rewindHit()
-        } else if inGestureRecognizer == backgroundRightSwipeGestureRecognizer {
-            fastForwardHit()
-        } else {
-            flashRed()
-            stopTimer()
+        fastForwardHit()
+    }
+    
+    /* ############################################################## */
+    /**
+     The user left-swiped the timer. This only works for toolbar hidden.
+     
+     - parameter: The swipe gesture recognizer (ignored).
+     */
+    @IBAction func leftSwipeGestureReceived(_ inGestureRecognizer: UISwipeGestureRecognizer) {
+        guard !RVS_AmbiaMara_Settings().displayToolbar else { return }
+        
+        if areHapticsAvailable {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
         }
+        
+        rewindHit()
+    }
+
+    /* ############################################################## */
+    /**
+     The user up- or down-swiped the timer. This only works for toolbar hidden.
+     
+     - parameter: The swipe gesture recognizer (ignored).
+     */
+    @IBAction func upDownwipeGestureReceived(_: UISwipeGestureRecognizer) {
+        guard !RVS_AmbiaMara_Settings().displayToolbar else { return }
+        
+        if areHapticsAvailable {
+            _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+            _feedbackGenerator?.prepare()
+        }
+        
+        flashRed()
+        stopTimer()
     }
 
     /* ############################################################## */
