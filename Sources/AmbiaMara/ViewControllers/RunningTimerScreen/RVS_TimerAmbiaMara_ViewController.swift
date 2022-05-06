@@ -1102,6 +1102,7 @@ extension RVS_TimerAmbiaMara_ViewController {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
         }
+        
         if inGestureRecognizer == backgroundLeftSwipeGestureRecognizer {
             rewindHit()
         } else if inGestureRecognizer == backgroundRightSwipeGestureRecognizer {

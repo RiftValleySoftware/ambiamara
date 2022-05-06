@@ -747,6 +747,11 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      - parameter inClearButton: the clear button instance.
     */
     @IBAction func clearButtonHit(_ inClearButton: UIButton) {
+        if areHapticsAvailable {
+            _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+            _feedbackGenerator?.prepare()
+        }
+
         _currentTimer.finalTime = 0
         _currentTimer.warnTime = 0
         _currentTimer.startTime = 0
@@ -763,6 +768,11 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      - parameter inButton: The button that was hit.
     */
     @IBAction func setButtonHit(_ inButton: UIButton) {
+        if areHapticsAvailable {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
+        }
+        
         switch inButton {
         case startSetButton:
             _state = .start
@@ -772,10 +782,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             _state = .final
         default:
             _state = .start
-        }
-        if areHapticsAvailable {
-            _selectionFeedbackGenerator?.selectionChanged()
-            _selectionFeedbackGenerator?.prepare()
         }
     }
     
@@ -787,6 +793,11 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     */
     @IBAction func trashHit(_: Any) {
         if 1 < _timerBarItems.count {
+            if areHapticsAvailable {
+                _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+                _feedbackGenerator?.prepare()
+            }
+
             let timerTag = _currentTimer.index + 1
             let startTimeAsComponents = _currentTimer.startTimeAsComponents
             var timeString: String
@@ -807,6 +818,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
 
             let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive, handler: { [weak self] _ in
                 if let currentTimer = self?._currentTimer {
+                    if self?.areHapticsAvailable ?? false {
+                        self?._feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+                        self?._feedbackGenerator?.prepare()
+                    }
                     RVS_AmbiaMara_Settings().remove(timer: currentTimer)
                 }
                 self?.setUpToolbar()
@@ -862,6 +877,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      */
     @IBAction func displayAlarmSetupPopover(_ inButtonItem: UIBarButtonItem) {
         if let popoverController = storyboard?.instantiateViewController(identifier: RVS_SetAlarmAmbiaMara_PopoverViewController.storyboardID) as? RVS_SetAlarmAmbiaMara_PopoverViewController {
+            if areHapticsAvailable {
+                _selectionFeedbackGenerator?.selectionChanged()
+                _selectionFeedbackGenerator?.prepare()
+            }
             popoverController.modalPresentationStyle = .popover
             popoverController.myController = self
             popoverController.popoverPresentationController?.barButtonItem = inButtonItem
@@ -880,6 +899,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      */
     @IBAction func displaySettingsPopover(_ inButtonItem: UIBarButtonItem) {
         if let popoverController = storyboard?.instantiateViewController(identifier: RVS_SettingsAmbiaMara_PopoverViewController.storyboardID) as? RVS_SettingsAmbiaMara_PopoverViewController {
+            if areHapticsAvailable {
+                _selectionFeedbackGenerator?.selectionChanged()
+                _selectionFeedbackGenerator?.prepare()
+            }
             popoverController.modalPresentationStyle = .popover
             popoverController.myController = self
             popoverController.popoverPresentationController?.barButtonItem = inButtonItem

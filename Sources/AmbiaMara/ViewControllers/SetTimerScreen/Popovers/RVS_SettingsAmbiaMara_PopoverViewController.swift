@@ -20,6 +20,12 @@ import RVS_Generic_Swift_Toolbox
 class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
     /* ################################################################## */
     /**
+     This will provide haptic/audio feedback for subtle events.
+     */
+    private var _selectionFeedbackGenerator: UISelectionFeedbackGenerator?
+
+    /* ################################################################## */
+    /**
      The storyboard ID for this controller.
      */
     static let storyboardID = "RVS_SettingsAmbiaMara_PopoverViewController"
@@ -127,6 +133,9 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         
         aboutAmbiaMaraButton?.accessibilityLabel = "SLUG-ACC-ABOUT-AMBIAMARA-BUTTON".localizedVariant
 
+        _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        _selectionFeedbackGenerator?.prepare()
+
         if let timerModeSegmentedSwitch = timerModeSegmentedSwitch {
             timerModeSegmentedSwitch.selectedSegmentTintColor = .white
             timerModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
@@ -149,6 +158,10 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
      - parameter: ignored.
     */
     @IBAction func showAboutScreen(_: Any) {
+        if areHapticsAvailable {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
+        }
         dismiss(animated: true, completion: { [weak self] in self?.myController?.showAboutScreen()})
     }
     
@@ -159,6 +172,10 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
     */
     @IBAction func popoverStartImmediatelySwitchChanged(_ inSender: UIControl) {
         if let switcher = inSender as? UISwitch {
+            if areHapticsAvailable {
+                _selectionFeedbackGenerator?.selectionChanged()
+                _selectionFeedbackGenerator?.prepare()
+            }
             RVS_AmbiaMara_Settings().startTimerImmediately = switcher.isOn
         } else {
             popoverStartImmediatelySwitch?.setOn(!(popoverStartImmediatelySwitch?.isOn ?? true), animated: true)
@@ -173,6 +190,10 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
     */
     @IBAction func popoverDisplayToolbarSwitchChanged(_ inSender: UIControl) {
         if let switcher = inSender as? UISwitch {
+            if areHapticsAvailable {
+                _selectionFeedbackGenerator?.selectionChanged()
+                _selectionFeedbackGenerator?.prepare()
+            }
             RVS_AmbiaMara_Settings().displayToolbar = switcher.isOn
         } else {
             popoverDisplayToolbarSwitch?.setOn(!(popoverDisplayToolbarSwitch?.isOn ?? true), animated: true)
@@ -186,6 +207,10 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
      - parameter inSender: the segmented control for the timer mode..
     */
     @IBAction func timerModeSegmentedSwitchChanged(_ inSender: UISegmentedControl) {
+        if areHapticsAvailable {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
+        }
         RVS_AmbiaMara_Settings().stoplightMode = 0 < inSender.selectedSegmentIndex
     }
 }

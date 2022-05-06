@@ -51,6 +51,12 @@ class RVS_SetAlarmAmbiaMara_PopoverViewController: UIViewController {
     
     /* ################################################################## */
     /**
+     This will provide haptic/audio feedback for subtle events.
+     */
+    private var _selectionFeedbackGenerator: UISelectionFeedbackGenerator?
+
+    /* ################################################################## */
+    /**
      This aggregates our available sounds.
      The sounds are files, stored in the resources, so this simply gets them, and stores them as path URIs.
     */
@@ -178,6 +184,9 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
             alarmModeSegmentedSwitchHit(alarmModeSegmentedSwitch)
         }
 
+        _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        _selectionFeedbackGenerator?.prepare()
+
         soundsPickerView?.selectRow(RVS_AmbiaMara_Settings().selectedSoundIndex, inComponent: 0, animated: false)
     }
     
@@ -240,6 +249,10 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
      - parameter inSegmentedSwitch: The segmented switch that changed.
     */
     @IBAction func alarmModeSegmentedSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
+        if areHapticsAvailable {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
+        }
         RVS_AmbiaMara_Settings().alarmMode = 1 == inSegmentedSwitch.selectedSegmentIndex
         myController?.setAlarmIcon()
         soundSelectionStackView?.isHidden = 1 != alarmModeSegmentedSwitch?.selectedSegmentIndex
@@ -254,6 +267,10 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
     */
     @IBAction func vibrateSwitchChanged(_ inSender: UIControl) {
         if let vibrateSwitch = inSender as? UISwitch {
+            if areHapticsAvailable {
+                _selectionFeedbackGenerator?.selectionChanged()
+                _selectionFeedbackGenerator?.prepare()
+            }
             RVS_AmbiaMara_Settings().useVibrate = vibrateSwitch.isOn
         } else {
             vibrateSwitch?.setOn(!(vibrateSwitch?.isOn ?? true), animated: true)
@@ -268,6 +285,10 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
      - parameter: The button instance (ignored).
     */
     @IBAction func soundPlayButtonHit(_: UIButton) {
+        if areHapticsAvailable {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
+        }
         _isSoundPlaying = !_isSoundPlaying
     }
 }
