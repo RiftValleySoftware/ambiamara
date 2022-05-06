@@ -600,6 +600,7 @@ extension RVS_TimerAmbiaMara_ViewController {
     func cascadeTimer(backwards inUsePreviousTimer: Bool = false) -> Bool {
         if let nextTimerIndex = inUsePreviousTimer ? _previousTimerIndex : _nextTimerIndex {
             flashTimerNumber(nextTimerIndex + 1)
+            _tickTime = 0
             RVS_AmbiaMara_Settings().currentTimerIndex = nextTimerIndex
             
             view.setNeedsLayout()
@@ -685,12 +686,13 @@ extension RVS_TimerAmbiaMara_ViewController {
      Fast forward will either sto the alarm, or cascade to the next timer.
      */
     func fastForwardHit() {
-        if _isTimerRunning {
-            _isAlarming = true
-        } else if _isAlarming {
+        if _isAlarming {
             stopAlarm()
-        } else {
             cascadeTimer()
+        } else if _isTimerRunning || !(_isAtStart || _isAtEnd) {
+            _isAlarming = true
+        } else if !cascadeTimer() {
+            flashCyan()
         }
     }
 
@@ -701,7 +703,7 @@ extension RVS_TimerAmbiaMara_ViewController {
     func rewindHit() {
         if !_isAlarming,
            !_isTimerRunning,
-           _isAtStart {
+           _isAtStart || _isAtEnd {
             if !cascadeTimer(backwards: true) {
                 flashCyan()
             }
@@ -867,9 +869,9 @@ extension RVS_TimerAmbiaMara_ViewController {
             digitalDisplayViewSeconds?.onGradientStartColor = Self._initialLEDColor
         }
         
-        digitalDisplayViewHours?.onGradientEndColor = !_isAlarming && !_isTimerRunning ? Self._pausedLEDColor : nil
-        digitalDisplayViewMinutes?.onGradientEndColor = !_isAlarming && !_isTimerRunning ? Self._pausedLEDColor : nil
-        digitalDisplayViewSeconds?.onGradientEndColor = !_isAlarming && !_isTimerRunning ? Self._pausedLEDColor : nil
+        digitalDisplayViewHours?.onGradientEndColor = !_isAlarming && !_isTimerRunning && !_isAtEnd && !_isAtStart ? .white : nil
+        digitalDisplayViewMinutes?.onGradientEndColor = !_isAlarming && !_isTimerRunning && !_isAtEnd && !_isAtStart ? .white : nil
+        digitalDisplayViewSeconds?.onGradientEndColor = !_isAlarming && !_isTimerRunning && !_isAtEnd && !_isAtStart ? .white : nil
     }
     
     /* ############################################################## */
@@ -964,7 +966,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         timerLabel.textAlignment = .center
         timerLabel.translatesAutoresizingMaskIntoConstraints = false
         timerLabel.font = .monospacedDigitSystemFont(ofSize: view.bounds.size.height * 3, weight: .bold)
-        timerLabel.transform = timerLabel.transform.scaledBy(x: 0, y: 0)
+        timerLabel.transform = timerLabel.transform.scaledBy(x: 0.1, y: 0.1)
         timerLabel.textColor = UIColor(named: "Paused-Color")
         
         flasherView?.backgroundColor = UIColor(named: "Paused-Color")
