@@ -901,7 +901,14 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
                             && PickerComponents.minute.rawValue == inComponent)
                         || ((hasValue[PickerComponents.hour.rawValue] || hasValue[PickerComponents.minute.rawValue])
                             && PickerComponents.second.rawValue == inComponent)
-        else { return UIView() }
+        else {
+            let ret = RVS_MaskButton()
+            ret.setTitle("0", for: .normal)
+            ret.buttonFont = Self._pickerFont
+            ret.gradientStartColor = .white
+            ret.isEnabled = false
+            return ret
+       }
         
         guard let reusedView = inView else {
             let value = _pickerViewData[inComponent][inRow]
