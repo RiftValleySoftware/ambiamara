@@ -851,26 +851,36 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
     */
     func pickerView(_ inPickerView: UIPickerView, didSelectRow inRow: Int, inComponent: Int) {
         let originalPickerTime = _stateTime(from: pickerTime)
-        switch _state {
-        case .start:
+        
+        if .start == _state {
             currentTimer.startTime = originalPickerTime
-        case .warn:
-            currentTimer.warnTime = originalPickerTime
-        case .final:
-            currentTimer.finalTime = originalPickerTime
+        } else {
+            if .warn == _state {
+                currentTimer.warnTime = originalPickerTime
+            } else {
+                currentTimer.finalTime = originalPickerTime
+            }
+            
+            var currentValue = originalPickerTime
+            
+            let hours = min(99, currentValue / (60 * 60))
+            currentValue -= (hours * 60 * 60)
+            let minutes = min(59, currentValue / 60)
+            currentValue -= (minutes * 60)
+            let seconds = min(59, currentValue)
+            
+            if hours != inPickerView.selectedRow(inComponent: PickerComponents.hour.rawValue) {
+                inPickerView.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: false)
+            }
+            
+            if minutes != inPickerView.selectedRow(inComponent: PickerComponents.minute.rawValue) {
+                inPickerView.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: false)
+            }
+            
+            if seconds != inPickerView.selectedRow(inComponent: PickerComponents.second.rawValue) {
+                inPickerView.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
+            }
         }
-        
-        var currentValue = originalPickerTime
-        
-        let hours = min(99, currentValue / (60 * 60))
-        currentValue -= (hours * 60 * 60)
-        let minutes = min(59, currentValue / 60)
-        currentValue -= (minutes * 60)
-        let seconds = min(59, currentValue)
-        
-        inPickerView.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: false)
-        inPickerView.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: false)
-        inPickerView.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
 
         if 0 == inComponent {
             inPickerView.reloadComponent(1)
@@ -890,39 +900,31 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
      - parameter inPickerView: The picker instance.
      - parameter viewForRow: The 0-based row index to be displayed.
      - parameter forComponent: The 0-based component index for the row.
-     - parameter reusing: If a view will be reused, we'll use that, instead.
+     - parameter reusing: If a row has been previously created, we use that, instead.
      - returns: A new view, containing the row. If it is selected, it is displayed as reversed.
     */
-    func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inView: UIView?) -> UIView {
+    func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inReusingView: UIView?) -> UIView {
+        guard nil == inReusingView else { return inReusingView ?? UIView() }
+        let ret = RVS_MaskButton()
+        ret.buttonFont = Self._pickerFont
+        ret.gradientStartColor = .white
+        ret.isEnabled = false
+
         let hasValue: [Bool] = [0 < inPickerView.selectedRow(inComponent: PickerComponents.hour.rawValue),
                                 0 < inPickerView.selectedRow(inComponent: PickerComponents.minute.rawValue)
                                 ]
-        guard 0 < inRow || (hasValue[PickerComponents.hour.rawValue]
-                            && PickerComponents.minute.rawValue == inComponent)
-                        || ((hasValue[PickerComponents.hour.rawValue] || hasValue[PickerComponents.minute.rawValue])
-                            && PickerComponents.second.rawValue == inComponent)
-        else {
-            let ret = RVS_MaskButton()
+
+        if 0 < inRow
+            || (hasValue[0] && PickerComponents.minute.rawValue == inComponent)
+            || ((hasValue[0] || hasValue[1]) && PickerComponents.second.rawValue == inComponent) {
+            ret.setTitle(String(_pickerViewData[inComponent][inRow]), for: .normal)
+            ret.cornerRadius = 8
+            ret.reversed = (inRow == inPickerView.selectedRow(inComponent: inComponent))
+        } else {
             ret.setTitle("0", for: .normal)
-            ret.buttonFont = Self._pickerFont
-            ret.gradientStartColor = .white
-            ret.isEnabled = false
-            return ret
        }
         
-        guard let reusedView = inView else {
-            let value = _pickerViewData[inComponent][inRow]
-            let ret = RVS_MaskButton()
-            ret.setTitle(String(value), for: .normal)
-            ret.cornerRadius = Self._pickerCornerRadius
-            ret.buttonFont = Self._pickerFont
-            ret.gradientStartColor = .white
-            ret.isEnabled = false
-            ret.reversed = (inRow == inPickerView.selectedRow(inComponent: inComponent))
-            return ret
-        }
-        
-        return reusedView
+        return ret
     }
 }
 
@@ -939,7 +941,10 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewAccessibilityDelegat
      - returns: An accessibility string for the component.
     */
     func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inComponent: Int) -> String? {
-        String(format: "SLUG-ACC-\(inComponent)-FORMAT".localizedVariant, _pickerViewData[inComponent].upperBound - 1, inPickerView.selectedRow(inComponent: inComponent))
+        String(format: "SLUG-ACC-\(inComponent)-FORMAT".localizedVariant,
+               _pickerViewData[inComponent].upperBound - 1,
+               inPickerView.selectedRow(inComponent: inComponent)
+        )
     }
 }
 
