@@ -9,6 +9,7 @@
  */
 
 import UIKit
+import CoreHaptics
 
 /* ###################################################################################################################################### */
 // MARK: - Special Weak Storage Generic -
@@ -179,36 +180,9 @@ extension UIViewController {
     
     /* ################################################################## */
     /**
-     This returns the first responder, wherever it is in our hierarchy.
+     Returns true, if haptics are available.
      */
-    var currentFirstResponder: UIResponder? { view.currentFirstResponder }
-    
-    /* ################################################################## */
-    /**
-     Returns the previous ViewController in a navigation stack.
-     Nil, if at root, or not in a navigation stack.
-     Inspired by [this SO answer](https://stackoverflow.com/a/42916780/879365).
-     */
-    var previousViewController: UIViewController? {
-        guard let viewControllers = navigationController?.viewControllers,
-              1 < viewControllers.count  else { return nil }
-        
-        return viewControllers[viewControllers.count - 2]
-    }
-    
-    /* ################################################################## */
-    /**
-     Returns the X/Y aspect of the screen (window). It will return 0, if it cannot determine the aspect.
-     */
-    var screenAspect: CGFloat { (view?.window?.bounds.size.width ?? 0) / (view?.window?.bounds.size.height ?? 1) }
-
-    /* ################################################################## */
-    /**
-     This puts away any open keyboards.
-     */
-    func resignAllFirstResponders() {
-        view.resignAllFirstResponders()
-    }
+    var areHapticsAvailable: Bool { CHHapticEngine.capabilitiesForHardware().supportsHaptics }
 }
 
 /* ###################################################################################################################################### */

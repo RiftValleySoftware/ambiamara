@@ -901,8 +901,10 @@ extension RVS_TimerAmbiaMara_ViewController {
         UIView.animate(withDuration: Self._flashDuration, animations: {
             self.flasherView?.backgroundColor = .clear
         })
-        _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
-        _feedbackGenerator?.prepare()
+        if areHapticsAvailable {
+            _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+            _feedbackGenerator?.prepare()
+        }
     }
     
     /* ############################################################## */
@@ -914,8 +916,10 @@ extension RVS_TimerAmbiaMara_ViewController {
         UIView.animate(withDuration: Self._flashDuration, animations: {
             self.flasherView?.backgroundColor = .clear
         })
-        _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
-        _feedbackGenerator?.prepare()
+        if areHapticsAvailable {
+            _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.light.rawValue))
+            _feedbackGenerator?.prepare()
+        }
     }
 
     /* ############################################################## */
@@ -927,8 +931,10 @@ extension RVS_TimerAmbiaMara_ViewController {
         UIView.animate(withDuration: Self._flashDuration, animations: {
             self.flasherView?.backgroundColor = .clear
         })
-        _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.medium.rawValue))
-        _feedbackGenerator?.prepare()
+        if areHapticsAvailable {
+            _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.medium.rawValue))
+            _feedbackGenerator?.prepare()
+        }
     }
 
     /* ############################################################## */
@@ -940,12 +946,14 @@ extension RVS_TimerAmbiaMara_ViewController {
         UIView.animate(withDuration: Self._flashDuration, animations: {
             self.flasherView?.backgroundColor = .clear
         })
-        if _isAlarming {
-            _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.soft.rawValue))
-        } else {
-            _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.heavy.rawValue))
+        if areHapticsAvailable {
+            if _isAlarming {
+                _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.soft.rawValue))
+            } else {
+                _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.heavy.rawValue))
+            }
+            _feedbackGenerator?.prepare()
         }
-        _feedbackGenerator?.prepare()
     }
 
     /* ############################################################## */
@@ -978,8 +986,11 @@ extension RVS_TimerAmbiaMara_ViewController {
                                         timerLabel.removeFromSuperview()
                                     }
         )
-        _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
-        _feedbackGenerator?.prepare()
+        
+        if areHapticsAvailable {
+            _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+            _feedbackGenerator?.prepare()
+        }
     }
     
     /* ############################################################## */
@@ -1057,8 +1068,10 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter: ignored.
      */
     @IBAction func backgroundTapped(_: UITapGestureRecognizer) {
-        _selectionFeedbackGenerator?.selectionChanged()
-        _selectionFeedbackGenerator?.prepare()
+        if areHapticsAvailable {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
+        }
         if _isAlarming {
             stopAlarm()
         } else if _isTimerRunning {
@@ -1085,8 +1098,10 @@ extension RVS_TimerAmbiaMara_ViewController {
     @IBAction func swipeGestureReceived(_ inGestureRecognizer: UISwipeGestureRecognizer) {
         guard !RVS_AmbiaMara_Settings().displayToolbar else { return }
         
-        _selectionFeedbackGenerator?.selectionChanged()
-        _selectionFeedbackGenerator?.prepare()
+        if areHapticsAvailable {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
+        }
         if inGestureRecognizer == backgroundLeftSwipeGestureRecognizer {
             rewindHit()
         } else if inGestureRecognizer == backgroundRightSwipeGestureRecognizer {
@@ -1104,8 +1119,10 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter inSender: The item that was activated.
      */
     @IBAction func toolbarItemHit(_ inSender: UIBarButtonItem) {
-        _selectionFeedbackGenerator?.selectionChanged()
-        _selectionFeedbackGenerator?.prepare()
+        if areHapticsAvailable {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
+        }
         if stopToolbarItem == inSender {
             stopTimer()
         } else if rewindToolbarItem == inSender {
@@ -1162,8 +1179,10 @@ extension RVS_TimerAmbiaMara_ViewController: RVS_BasicGCDTimerDelegate {
         _tickTime = differenceInSeconds
         flashIfNecessary(previousTickTime: previousTickTime)
         setDigitDisplayTime()
-        _selectionFeedbackGenerator?.selectionChanged()
-        _selectionFeedbackGenerator?.prepare()
+        if areHapticsAvailable {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
+        }
 
         if 0 >= (RVS_AmbiaMara_Settings().currentTimer.startTime - differenceInSeconds) {
             _isAlarming = true

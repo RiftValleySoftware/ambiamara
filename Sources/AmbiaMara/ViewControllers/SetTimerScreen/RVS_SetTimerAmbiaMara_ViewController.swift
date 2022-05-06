@@ -145,10 +145,16 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
-     This will provide haptic/audio feedback for continues and ticks.
+     This will provide haptic/audio feedback for subtle events.
      */
     private var _selectionFeedbackGenerator: UISelectionFeedbackGenerator?
-    
+
+    /* ################################################################## */
+    /**
+     This will provide haptic/audio feedback for more significant events.
+     */
+    private var _feedbackGenerator: UIImpactFeedbackGenerator?
+
     /* ################################################################## */
     /**
      If a popover is being displayed, we reference it here (so we put it away, when we ned to).
@@ -474,6 +480,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
 
         _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
         _selectionFeedbackGenerator?.prepare()
+        
+        _feedbackGenerator = UIImpactFeedbackGenerator()
+        _feedbackGenerator?.prepare()
     }
     
     /* ############################################################## */
@@ -595,16 +604,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         stateLabel?.accessibilityLabel = "SLUG-ACC-STATE".localizedVariant + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant
         stateLabel?.accessibilityHint = "SLUG-ACC-STATE-\(_state.stringValue)".localizedVariant
 
-        startSetButton?.backgroundColor = .start != _state ? (isHighContrastMode ? .white : UIColor(named: "Start-Color")) : (isHighContrastMode ? .black : UIColor(named: "Start-Color")?.withAlphaComponent(0.4))
-        warnSetButton?.backgroundColor = .warn != _state && 0 < _currentTimer.startTime ? (isHighContrastMode ? .white : UIColor(named: "Warn-Color")) :  (isHighContrastMode ? .black : UIColor(named: "Warn-Color")?.withAlphaComponent(0.4))
-        finalSetButton?.backgroundColor = .final != _state && 0 < _currentTimer.startTime ? (isHighContrastMode ? .white : UIColor(named: "Final-Color")) :  (isHighContrastMode ? .black : UIColor(named: "Final-Color")?.withAlphaComponent(0.4))
-        startSetButton?.borderColor = .start == _state ? (isHighContrastMode ? .white : UIColor(named: "Start-Color")) : nil
-        startSetButton?.borderWidth = .start == _state ? 4 : 0
-        warnSetButton?.borderColor = .warn == _state ? (isHighContrastMode ? .white : UIColor(named: "Warn-Color")) : nil
-        warnSetButton?.borderWidth = .warn == _state ? 4 : 0
-        finalSetButton?.borderColor = .final == _state ? (isHighContrastMode ? .white : UIColor(named: "Final-Color")) : nil
-        finalSetButton?.borderWidth = .final == _state ? 4 : 0
-
         if 0 < _currentTimer.startTime,
            .start != _state {
             let timeAsComponents = _currentTimer.startTimeAsComponents
@@ -653,6 +652,32 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             finalSetButton?.setTitle(nil, for: .normal)
         }
 
+        view.layoutIfNeeded()
+        UIView.animate(withDuration: Self._selectionFadeAnimationPeriod,
+                       animations: { [weak self] in
+            self?.topLabelContainerView?.backgroundColor = (self?.isHighContrastMode ?? false) ? .white : UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
+            self?.startSetButton?.backgroundColor = .start != self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Start-Color"))
+                                                        : ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Start-Color")?.withAlphaComponent(0.4))
+            self?.warnSetButton?.backgroundColor = .warn != self?._state && 0 < self?._currentTimer.startTime ?? 0 ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Warn-Color"))
+                                                        :  ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Warn-Color")?.withAlphaComponent(0.4))
+            self?.finalSetButton?.backgroundColor = .final != self?._state && 0 < self?._currentTimer.startTime ?? 0
+                                                    ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Final-Color"))
+                                                    :  ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Final-Color")?.withAlphaComponent(0.4))
+            self?.startSetButton?.borderColor = .start == self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Start-Color")) : nil
+            self?.startSetButton?.borderWidth = .start == self?._state ? 4 : 0
+            self?.warnSetButton?.borderColor = .warn == self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Warn-Color")) : nil
+            self?.warnSetButton?.borderWidth = .warn == self?._state ? 4 : 0
+            self?.finalSetButton?.borderColor = .final == self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Final-Color")) : nil
+            self?.finalSetButton?.borderWidth = .final == self?._state ? 4 : 0
+            self?.stateLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+                                        self?.hoursLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+                                        self?.minutesLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+                                        self?.secondsLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+                                        self?.view.layoutIfNeeded()
+                                    },
+                       completion: nil
+        )
+
         var timeAsComponents: [Int]
         switch _state {
         case .start:
@@ -670,19 +695,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         navigationController?.navigationBar.accessibilityHint = String(format: "SLUG-CURRENT-TIMER-SELECTED-FORMAT".localizedVariant, _currentTimer.index + 1)
             + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant
             + " " + String(format: "SLUG-CURRENT-TIMER-TIME-FORMAT".localizedVariant, timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
-
-        view.layoutIfNeeded()
-        UIView.animate(withDuration: Self._selectionFadeAnimationPeriod,
-                       animations: { [weak self] in
-            self?.topLabelContainerView?.backgroundColor = (self?.isHighContrastMode ?? false) ? .white : UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
-            self?.stateLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.hoursLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.minutesLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.secondsLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.view.layoutIfNeeded()
-                                    },
-                       completion: nil
-        )
 
         setPickerControl?.reloadAllComponents()
     }
@@ -714,9 +726,16 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         
         guard (0..<RVS_AmbiaMara_Settings().numberOfTimers).contains(selectTimerIndex) else { return }
         
-        _selectionFeedbackGenerator?.selectionChanged()
-        _selectionFeedbackGenerator?.prepare()
-        
+        if areHapticsAvailable {
+            if 0 == selectTimerIndex || (RVS_AmbiaMara_Settings().numberOfTimers - 1) == selectTimerIndex {
+                _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+                _feedbackGenerator?.prepare()
+            } else {
+                _selectionFeedbackGenerator?.selectionChanged()
+                _selectionFeedbackGenerator?.prepare()
+            }
+        }
+
         RVS_AmbiaMara_Settings().currentTimerIndex = selectTimerIndex
         setUpToolbar()
         _state = .start
@@ -754,9 +773,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         default:
             _state = .start
         }
-        _selectionFeedbackGenerator?.selectionChanged()
-        _selectionFeedbackGenerator?.prepare()
-        setUpButtons()
+        if areHapticsAvailable {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
+        }
     }
     
     /* ################################################################## */
@@ -809,8 +829,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     */
     @IBAction func addHit(_: Any) {
         if Self._maxTimerCount > _timerBarItems.count {
-            _selectionFeedbackGenerator?.selectionChanged()
-            _selectionFeedbackGenerator?.prepare()
+            if areHapticsAvailable {
+                _selectionFeedbackGenerator?.selectionChanged()
+                _selectionFeedbackGenerator?.prepare()
+            }
             RVS_AmbiaMara_Settings().add(andSelect: true)
             setUpToolbar()
             _state = .start
@@ -825,6 +847,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      - parameter: ignored.
     */
     @IBAction func startButtonHit(_: Any) {
+        if areHapticsAvailable {
+            _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.heavy.rawValue))
+            _feedbackGenerator?.prepare()
+        }
         _state = .start
     }
     
@@ -872,8 +898,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     @objc func selectToolbarItem(_ inToolbarButton: UIBarButtonItem) {
         let tag = inToolbarButton.tag
         guard (1...RVS_AmbiaMara_Settings().numberOfTimers).contains(tag) else { return }
-        _selectionFeedbackGenerator?.selectionChanged()
-        _selectionFeedbackGenerator?.prepare()
+        if areHapticsAvailable {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
+        }
         RVS_AmbiaMara_Settings().currentTimerIndex = tag - 1
         setUpToolbar()
         _state = .start
