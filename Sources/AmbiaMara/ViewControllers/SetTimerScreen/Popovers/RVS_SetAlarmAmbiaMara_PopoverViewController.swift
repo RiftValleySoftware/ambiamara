@@ -200,6 +200,10 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
     override func viewWillDisappear(_ inAnimated: Bool) {
         super.viewWillDisappear(inAnimated)
         _isSoundPlaying = false
+        if areHapticsAvailable {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
+        }
     }
 }
 

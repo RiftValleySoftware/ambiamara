@@ -146,6 +146,20 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
             timerModeSegmentedSwitchChanged(timerModeSegmentedSwitch)
         }
     }
+    
+    /* ################################################################## */
+    /**
+     Called just before the screen disappears.
+     
+     - parameter inIsAnimated: True, if the disappearance is animated.
+    */
+    override func viewWillDisappear(_ inAnimated: Bool) {
+        super.viewWillDisappear(inAnimated)
+        if areHapticsAvailable {
+            _selectionFeedbackGenerator?.selectionChanged()
+            _selectionFeedbackGenerator?.prepare()
+        }
+    }
 }
 
 /* ###################################################################################################################################### */

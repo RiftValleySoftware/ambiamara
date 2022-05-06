@@ -747,18 +747,29 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      - parameter inClearButton: the clear button instance.
     */
     @IBAction func clearButtonHit(_ inClearButton: UIButton) {
+        guard let setPickerControl = setPickerControl else { return }
+
+        switch _state {
+        case .start:
+            _currentTimer.startTime = 0
+
+        case .warn:
+            _currentTimer.warnTime = 0
+
+        case .final:
+            _currentTimer.finalTime = 0
+        }
+
         if areHapticsAvailable {
             _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
             _feedbackGenerator?.prepare()
         }
-
-        _currentTimer.finalTime = 0
-        _currentTimer.warnTime = 0
-        _currentTimer.startTime = 0
-        
-        _state = .start
-        setUpButtons()
-        setUpToolbar()
+        setPickerControl.selectRow(0, inComponent: PickerComponents.hour.rawValue, animated: false)
+        pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.hour.rawValue)
+        setPickerControl.selectRow(0, inComponent: PickerComponents.minute.rawValue, animated: false)
+        pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.minute.rawValue)
+        setPickerControl.selectRow(0, inComponent: PickerComponents.second.rawValue, animated: false)
+        pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.second.rawValue)
     }
 
     /* ################################################################## */
@@ -830,8 +841,15 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             })
             
             alertController.addAction(okAction)
-            
-            alertController.addAction(UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel, handler: nil))
+
+            let cancelAction = UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel, handler: { [weak self] _ in
+                if self?.areHapticsAvailable ?? false {
+                    self?._selectionFeedbackGenerator?.selectionChanged()
+                    self?._selectionFeedbackGenerator?.prepare()
+                }
+            })
+
+            alertController.addAction(cancelAction)
 
             present(alertController, animated: true, completion: nil)
         }
@@ -992,32 +1010,30 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
         
         if .start == _state {
             _currentTimer.startTime = originalPickerTime
+        } else if .warn == _state {
+            _currentTimer.warnTime = originalPickerTime
         } else {
-            if .warn == _state {
-                _currentTimer.warnTime = originalPickerTime
-            } else {
-                _currentTimer.finalTime = originalPickerTime
-            }
-            
-            var currentValue = originalPickerTime
-            
-            let hours = min(99, currentValue / (60 * 60))
-            currentValue -= (hours * 60 * 60)
-            let minutes = min(59, currentValue / 60)
-            currentValue -= (minutes * 60)
-            let seconds = min(59, currentValue)
-            
-            if hours != inPickerView.selectedRow(inComponent: PickerComponents.hour.rawValue) {
-                inPickerView.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: false)
-            }
-            
-            if minutes != inPickerView.selectedRow(inComponent: PickerComponents.minute.rawValue) {
-                inPickerView.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: false)
-            }
-            
-            if seconds != inPickerView.selectedRow(inComponent: PickerComponents.second.rawValue) {
-                inPickerView.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
-            }
+            _currentTimer.finalTime = originalPickerTime
+        }
+        
+        var currentValue = originalPickerTime
+        
+        let hours = min(99, currentValue / (60 * 60))
+        currentValue -= (hours * 60 * 60)
+        let minutes = min(59, currentValue / 60)
+        currentValue -= (minutes * 60)
+        let seconds = min(59, currentValue)
+        
+        if hours != inPickerView.selectedRow(inComponent: PickerComponents.hour.rawValue) {
+            inPickerView.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: false)
+        }
+        
+        if minutes != inPickerView.selectedRow(inComponent: PickerComponents.minute.rawValue) {
+            inPickerView.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: false)
+        }
+        
+        if seconds != inPickerView.selectedRow(inComponent: PickerComponents.second.rawValue) {
+            inPickerView.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
         }
 
         if 0 == inComponent {
