@@ -20,7 +20,7 @@ import RVS_Generic_Swift_Toolbox
 class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
     /* ################################################################## */
     /**
-     This will provide haptic/audio feedback for subtle events.
+     This will provide haptic/audio feedback for popover events.
      */
     private var _selectionFeedbackGenerator: UISelectionFeedbackGenerator?
 
@@ -88,11 +88,13 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
      The popover height.
     */
     class var settingsPopoverHeightInDisplayUnits: CGFloat {
-        #if targetEnvironment(macCatalyst)  // We should not rely on gestures for Catalyst.
+        // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
+        // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
+        if ProcessInfo().isMacCatalystApp {
             return 170
-        #else
+        } else {
             return 220
-        #endif
+        }
     }
 }
 
@@ -127,10 +129,15 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         popoverDisplayToolbarSwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SWITCH".localizedVariant
         popoverDisplayToolbarSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SWITCH".localizedVariant
         
-        #if targetEnvironment(macCatalyst)  // We should not rely on gestures for Catalyst.
+        // We should not rely on gestures for Catalyst.
+        // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
+        // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
+        if ProcessInfo().isMacCatalystApp {
             toolbarContainerStackView?.isHidden = true
-        #endif
-        
+        } else {
+            toolbarContainerStackView?.isHidden = false
+        }
+
         aboutAmbiaMaraButton?.accessibilityLabel = "SLUG-ACC-ABOUT-AMBIAMARA-BUTTON".localizedVariant
 
         _selectionFeedbackGenerator = UISelectionFeedbackGenerator()

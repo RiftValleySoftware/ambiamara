@@ -14,6 +14,7 @@ import UIKit
 // MARK: - Main App and Scene Delegate Class -
 /* ###################################################################################################################################### */
 /**
+ The main app/scene delegate (I combine them).
  */
 @UIApplicationMain
 class RVS_AmbiaMara_AppSceneDelegate: UIResponder {
@@ -62,8 +63,8 @@ extension RVS_AmbiaMara_AppSceneDelegate {
         DispatchQueue.main.async { [weak self] in
             if let viewControllers = self?.navigationController?.viewControllers {
                if let setupScreen = viewControllers.first as? RVS_SetTimerAmbiaMara_ViewController,
-                  let popover = setupScreen.currentPopover {
-                   setupScreen.currentPopover = nil
+                  let popover = setupScreen.currentDisplayedPopover {
+                   setupScreen.currentDisplayedPopover = nil
                    popover.dismiss(animated: false)
                } else if let runningTimerScreen = viewControllers.first as? RVS_TimerAmbiaMara_ViewController {
                    runningTimerScreen.stopAlarm()

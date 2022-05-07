@@ -26,79 +26,70 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /* ################################################################################################################################## */
     /* ############################################################## */
     /**
+     The color for the digital display, when in "Pause" mode.
      */
     private static let _pausedLEDColor: UIColor? = UIColor(named: "Paused-Color")
     
     /* ############################################################## */
     /**
+     The opacity of the "traffic lights," when in "Paused" mode.
      */
-    private static let _pausedStoplightAlpha = CGFloat(0.05)
+    private static let _pausedStoplightAlpha = CGFloat(0.07)
     
     /* ############################################################## */
     /**
+     The opacity of the currently active "traffic light," when the timer is running.
      */
     private static let _activeStoplightAlpha = CGFloat(1.0)
     
     /* ############################################################## */
     /**
+     The opacity of the currently inactive "traffic lights," when the timer is running.
      */
     private static let _inactiveStoplightAlpha = CGFloat(0.15)
 
     /* ############################################################## */
     /**
+     The color of the digits, when the timer is running, and is still in "Start" mode.
      */
-    private static let _initialLEDColor: UIColor? = UIColor(named: "Start-Color")
+    private static let _startLEDColor: UIColor? = UIColor(named: "Start-Color")
     
     /* ############################################################## */
     /**
+     The color of the digits, when the timer is running, and is in "Warn" mode.
      */
     private static let _warnLEDColor: UIColor? = UIColor(named: "Warn-Color")
     
     /* ############################################################## */
     /**
+     The color of the digits, when the timer is running, and is in "Final" mode.
      */
     private static let _finalLEDColor: UIColor? = UIColor(named: "Final-Color")
 
     /* ############################################################## */
     /**
+     The animation duration of the screen flashes.
      */
-    private static let _flashDuration = TimeInterval(0.75)
+    private static let _flashDurationInSeconds = TimeInterval(0.75)
 
     /* ############################################################## */
     /**
+     The repeat rate of the alarm "pulses."
      */
-    private static let _alarmDuration = TimeInterval(0.85)
-
-    /* ############################################################## */
-    /**
-     */
-    private static let _stoplightDimmedAlpha = CGFloat(0.15)
-
-    /* ############################################################## */
-    /**
-     */
-    private static let _stoplightPausedAlpha = CGFloat(0.35)
-
-    /* ############################################################## */
-    /**
-     */
-    private static let _centerAlignmentToolbarOffsetInDisplayUnits = CGFloat(40)
-    
-    /* ############################################################## */
-    /**
-     */
-    private static let _numberOfLines = 3
+    private static let _alarmDurationInSeconds = TimeInterval(0.85)
 
     /* ################################################################################################################################## */
     // MARK: Private Stored Instance Properties
     /* ################################################################################################################################## */
     /* ############################################################## */
     /**
+     The main timer instance.
      */
     private var _timer: RVS_BasicGCDTimer?
     
     /* ############################################################## */
     /**
+     The timer that is set when the alarm is sounding.
      */
     private var _alarmTimer: RVS_BasicGCDTimer?
 
@@ -117,13 +108,15 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     
     /* ############################################################## */
     /**
+     When the timer is started (or continued), the initial time is set here.
      */
     private var _startingTime: Date?
     
     /* ############################################################## */
     /**
+     This contains the elapsed time since start, in seconds.
      */
-    private var _tickTime: Int = 0
+    private var _tickTimeInSeconds: Int = 0
 
     /* ################################################################## */
     /**
@@ -190,91 +183,109 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /* ################################################################################################################################## */
     /* ############################################################## */
     /**
+     This is the main view, containing the digital display.
      */
     @IBOutlet weak var digitalDisplayContainerView: UIView?
 
     /* ############################################################## */
     /**
+     The hours digit pair.
      */
     @IBOutlet weak var digitalDisplayViewHours: RVS_RetroLEDDigitalDisplay?
 
     /* ############################################################## */
     /**
+     The minutes digit pair.
      */
     @IBOutlet weak var digitalDisplayViewMinutes: RVS_RetroLEDDigitalDisplay?
 
     /* ############################################################## */
     /**
+     The seconds digit pair.
      */
     @IBOutlet weak var digitalDisplayViewSeconds: RVS_RetroLEDDigitalDisplay?
     
     /* ############################################################## */
     /**
+     This is the toolbar that may (or may not) be displayed at the bottom of the screen.
      */
     @IBOutlet weak var controlToolbar: UIToolbar?
 
     /* ############################################################## */
     /**
+     The "Play" of "Pause" toolbar button.
      */
     @IBOutlet weak var playPauseToolbarItem: UIBarButtonItem?
 
     /* ############################################################## */
     /**
+     The "Stop" toolbar button.
      */
     @IBOutlet weak var stopToolbarItem: UIBarButtonItem?
 
     /* ############################################################## */
     /**
+     The "Fast Forward"/"Next Timer" toolbar button.
      */
     @IBOutlet weak var fastForwardBarButtonItem: UIBarButtonItem?
 
     /* ############################################################## */
     /**
+     The "Rewind"/"Previous Timer" toolbar button.
      */
     @IBOutlet weak var rewindToolbarItem: UIBarButtonItem?
     
     /* ############################################################## */
     /**
+     The button in the center of the toolbar that indicates the timer index (if we have multiple timers).
      */
     @IBOutlet weak var timerIndicatorToolbarItem: UIBarButtonItem!
     
     /* ############################################################## */
     /**
+     The filter that gives the "gas blur" effect.
      */
     @IBOutlet weak var blurFilterView: UIVisualEffectView!
     
     /* ############################################################## */
     /**
+     The image that displays the "hex grid" over the digital display.
      */
     @IBOutlet weak var hexGridImageView: UIImageView?
     
     /* ############################################################## */
     /**
+     The view across the back that is filled with a color, during a "flash."
      */
     @IBOutlet weak var flasherView: UIView?
 
     /* ############################################################## */
     /**
+     The stack view that contains the digit pairs.
      */
     @IBOutlet var digitContainerInternalView: UIView?
 
     /* ############################################################## */
     /**
+     The view that contains the three "traffic lights."
      */
     @IBOutlet weak var stoplightsContainerView: UIStackView?
     
     /* ############################################################## */
     /**
+     The "traffic light" that is displayed during the "Start" phase of the timer.
      */
     @IBOutlet weak var startTrafficLightImageView: UIImageView?
     
     /* ############################################################## */
     /**
+     The "traffic light" that is displayed during the "Warn" phase of the timer.
      */
     @IBOutlet weak var warnTrafficLightImageView: UIImageView?
     
     /* ############################################################## */
     /**
+     The "traffic light" that is displayed during the "Final" phase of the timer.
      */
     @IBOutlet weak var finalTrafficLightImageView: UIImageView?
 }
@@ -287,7 +298,7 @@ extension RVS_TimerAmbiaMara_ViewController {
     /**
      - returns: The remaining countdown time, in seconds.
      */
-    private var remainingTime: Int { RVS_AmbiaMara_Settings().currentTimer.startTime - _tickTime }
+    private var remainingTime: Int { RVS_AmbiaMara_Settings().currentTimer.startTime - _tickTimeInSeconds }
     
     /* ############################################################## */
     /**
@@ -494,7 +505,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         _feedbackGenerator = UIImpactFeedbackGenerator()
 
         _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: 0.25, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main, isWallTime: true)
-        _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDuration, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main)
+        _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDurationInSeconds, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main)
     }
     
     /* ############################################################## */
@@ -575,7 +586,7 @@ extension RVS_TimerAmbiaMara_ViewController {
     func cascadeTimer(backwards inUsePreviousTimer: Bool = false) -> Bool {
         if let nextTimerIndex = inUsePreviousTimer ? _previousTimerIndex : _nextTimerIndex {
             flashTimerNumber(nextTimerIndex + 1)
-            _tickTime = 0
+            _tickTimeInSeconds = 0
             RVS_AmbiaMara_Settings().currentTimerIndex = nextTimerIndex
             
             view.setNeedsLayout()
@@ -704,7 +715,7 @@ extension RVS_TimerAmbiaMara_ViewController {
     func startTimer() {
         if let timer = _timer { // Force an immediate update.
             _startingTime = Date()
-            _tickTime = 0
+            _tickTimeInSeconds = 0
             timer.isRunning = true
             setTimerDisplay()
             setUpToolbar()
@@ -720,7 +731,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         _alarmTimer?.isRunning = false
         _timer?.isRunning = false
         _startingTime = nil
-        _tickTime = 0
+        _tickTimeInSeconds = 0
         stopSounds()
         setTimerDisplay()
         setUpToolbar()
@@ -732,7 +743,7 @@ extension RVS_TimerAmbiaMara_ViewController {
      */
     func finishTimer() {
         _startingTime = nil
-        _tickTime = RVS_AmbiaMara_Settings().currentTimer.startTime
+        _tickTimeInSeconds = RVS_AmbiaMara_Settings().currentTimer.startTime
         _isAlarming = true
         setUpToolbar()
     }
@@ -755,8 +766,8 @@ extension RVS_TimerAmbiaMara_ViewController {
      */
     func continueTimer() {
         setTimerDisplay()
-        _startingTime = Date().addingTimeInterval(-TimeInterval(_tickTime))
-        _tickTime = 0
+        _startingTime = Date().addingTimeInterval(-TimeInterval(_tickTimeInSeconds))
+        _tickTimeInSeconds = 0 // Doing this, ensures that the next tick will update.
         _timer?.isRunning = true
         if let timer = _timer { // Force an immediate update.
             basicGCDTimerCallback(timer)
@@ -781,6 +792,7 @@ extension RVS_TimerAmbiaMara_ViewController {
     
     /* ############################################################## */
     /**
+     This sets up the timer display, according to the time and the settings.
      */
     func setTimerDisplay() {
         setDigitDisplayTime()
@@ -837,9 +849,9 @@ extension RVS_TimerAmbiaMara_ViewController {
             digitalDisplayViewMinutes?.onGradientStartColor = Self._warnLEDColor
             digitalDisplayViewSeconds?.onGradientStartColor = Self._warnLEDColor
         } else {
-            digitalDisplayViewHours?.onGradientStartColor = Self._initialLEDColor
-            digitalDisplayViewMinutes?.onGradientStartColor = Self._initialLEDColor
-            digitalDisplayViewSeconds?.onGradientStartColor = Self._initialLEDColor
+            digitalDisplayViewHours?.onGradientStartColor = Self._startLEDColor
+            digitalDisplayViewMinutes?.onGradientStartColor = Self._startLEDColor
+            digitalDisplayViewSeconds?.onGradientStartColor = Self._startLEDColor
         }
         
         digitalDisplayViewHours?.onGradientEndColor = !_isAlarming && !_isTimerRunning && !_isAtEnd && !_isAtStart ? .white : nil
@@ -873,7 +885,7 @@ extension RVS_TimerAmbiaMara_ViewController {
      */
     func flashCyan() {
         flasherView?.backgroundColor = UIColor(named: "Paused-Color")
-        UIView.animate(withDuration: Self._flashDuration, animations: {
+        UIView.animate(withDuration: Self._flashDurationInSeconds, animations: {
             self.flasherView?.backgroundColor = .clear
         })
         if areHapticsAvailable {
@@ -888,7 +900,7 @@ extension RVS_TimerAmbiaMara_ViewController {
      */
     func flashGreen() {
         flasherView?.backgroundColor = UIColor(named: "Start-Color")
-        UIView.animate(withDuration: Self._flashDuration, animations: {
+        UIView.animate(withDuration: Self._flashDurationInSeconds, animations: {
             self.flasherView?.backgroundColor = .clear
         })
         if areHapticsAvailable {
@@ -903,7 +915,7 @@ extension RVS_TimerAmbiaMara_ViewController {
      */
     func flashYellow() {
         flasherView?.backgroundColor = UIColor(named: "Warn-Color")
-        UIView.animate(withDuration: Self._flashDuration, animations: {
+        UIView.animate(withDuration: Self._flashDurationInSeconds, animations: {
             self.flasherView?.backgroundColor = .clear
         })
         if areHapticsAvailable {
@@ -918,7 +930,7 @@ extension RVS_TimerAmbiaMara_ViewController {
      */
     func flashRed() {
         flasherView?.backgroundColor = UIColor(named: "Final-Color")
-        UIView.animate(withDuration: Self._flashDuration, animations: {
+        UIView.animate(withDuration: Self._flashDurationInSeconds, animations: {
             self.flasherView?.backgroundColor = .clear
         })
         if areHapticsAvailable {
@@ -951,7 +963,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         timerLabel.textColor = UIColor(named: "Paused-Color")
         
         flasherView?.backgroundColor = UIColor(named: "Paused-Color")
-        UIView.animate(withDuration: Self._flashDuration,
+        UIView.animate(withDuration: Self._flashDurationInSeconds,
                        animations: { [weak self] in
                                         timerLabel.transform = CGAffineTransform.identity
                                         timerLabel.alpha = 0.0
@@ -1052,7 +1064,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         } else if _isTimerRunning {
             flashCyan()
             pauseTimer()
-        } else if 0 == _tickTime {
+        } else if 0 == _tickTimeInSeconds {
             flashGreen()
             startTimer()
         } else {
@@ -1138,7 +1150,7 @@ extension RVS_TimerAmbiaMara_ViewController {
                 flashCyan()
                 pauseTimer()
             } else {
-                if 0 == _tickTime {
+                if 0 == _tickTimeInSeconds {
                     flashGreen()
                     startTimer()
                 } else {
@@ -1178,9 +1190,9 @@ extension RVS_TimerAmbiaMara_ViewController: RVS_BasicGCDTimerDelegate {
         setTimerDisplay()
         guard let startingTime = _startingTime?.timeIntervalSince1970 else { return }
         let differenceInSeconds = Int(Date().timeIntervalSince1970 - startingTime)
-        guard differenceInSeconds != _tickTime else { return }
-        let previousTickTime = _tickTime
-        _tickTime = differenceInSeconds
+        guard differenceInSeconds != _tickTimeInSeconds else { return }
+        let previousTickTime = _tickTimeInSeconds
+        _tickTimeInSeconds = differenceInSeconds
         flashIfNecessary(previousTickTime: previousTickTime)
         setDigitDisplayTime()
         if areHapticsAvailable {

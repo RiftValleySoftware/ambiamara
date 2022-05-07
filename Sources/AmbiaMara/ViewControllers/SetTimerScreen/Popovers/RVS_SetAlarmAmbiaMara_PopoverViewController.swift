@@ -139,7 +139,7 @@ class RVS_SetAlarmAmbiaMara_PopoverViewController: UIViewController {
 extension RVS_SetAlarmAmbiaMara_PopoverViewController {
     /* ################################################################## */
     /**
-     The popover height.
+     The popover height. We adjust for the missing switch, if vibrate is not available.
     */
     class var settingsPopoverHeightInDisplayUnits: CGFloat {
         if .phone != UITraitCollection.current.userInterfaceIdiom {
