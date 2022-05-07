@@ -991,17 +991,6 @@ extension RVS_TimerAmbiaMara_ViewController {
         digitalDisplayViewMinutes?.hasLeadingZeroes = 0 < inHours
         digitalDisplayViewSeconds?.hasLeadingZeroes = 0 < inHours || 0 < inMinutes
         
-        if _isTimerRunning,
-           0 < inHours || 0 < inMinutes || 0 < inSeconds {
-            digitalDisplayContainerView?.accessibilityLabel = String(format: "SLUG-ACC-RUNNING-TIMER-FORMAT".localizedVariant, inHours, inMinutes, inSeconds)
-        } else if _isAlarming {
-            digitalDisplayContainerView?.accessibilityLabel = "SLUG-ACC-ALARMING-TIMER".localizedVariant
-        } else if 0 < inHours || 0 < inMinutes || 0 < inSeconds {
-            digitalDisplayContainerView?.accessibilityLabel = String(format: "SLUG-ACC-PAUSED-TIMER-FORMAT".localizedVariant, inHours, inMinutes, inSeconds)
-        } else {
-            digitalDisplayContainerView?.accessibilityLabel = nil
-        }
-        
         digitalDisplayViewHours?.value = inHours
         digitalDisplayViewMinutes?.value = inMinutes
         digitalDisplayViewSeconds?.value = inSeconds
@@ -1051,10 +1040,12 @@ extension RVS_TimerAmbiaMara_ViewController {
 extension RVS_TimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
-     Called if the background was tapped. This is how we start/pause/continue the timer.
+     Called if the background was tapped. This is how we start/pause/continue the timer. This only works for toolbar hidden.
      - parameter: ignored.
      */
     @IBAction func backgroundTapped(_: UITapGestureRecognizer) {
+        guard !RVS_AmbiaMara_Settings().displayToolbar else { return }
+        
         if areHapticsAvailable {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
@@ -1079,8 +1070,7 @@ extension RVS_TimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
      The user right-swiped the timer. This only works for toolbar hidden.
-     
-     - parameter: The swipe gesture recognizer (ignored).
+     - parameter: ignored.
      */
     @IBAction func rightSwipeGestureReceived(_: UISwipeGestureRecognizer) {
         guard !RVS_AmbiaMara_Settings().displayToolbar else { return }
@@ -1096,8 +1086,7 @@ extension RVS_TimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
      The user left-swiped the timer. This only works for toolbar hidden.
-     
-     - parameter: The swipe gesture recognizer (ignored).
+     - parameter: ignored.
      */
     @IBAction func leftSwipeGestureReceived(_ inGestureRecognizer: UISwipeGestureRecognizer) {
         guard !RVS_AmbiaMara_Settings().displayToolbar else { return }
@@ -1113,8 +1102,7 @@ extension RVS_TimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
      The user up- or down-swiped the timer. This only works for toolbar hidden.
-     
-     - parameter: The swipe gesture recognizer (ignored).
+     - parameter: ignored.
      */
     @IBAction func upDownwipeGestureReceived(_: UISwipeGestureRecognizer) {
         guard !RVS_AmbiaMara_Settings().displayToolbar else { return }

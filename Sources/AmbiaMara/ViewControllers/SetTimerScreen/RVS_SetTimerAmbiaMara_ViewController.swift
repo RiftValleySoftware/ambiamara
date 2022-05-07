@@ -465,11 +465,11 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         // We should not rely on gestures for Catalyst.
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
-        if ProcessInfo().isMacCatalystApp {
+        if ProcessInfo().isMacCatalystApp || UIAccessibility.isVoiceOverRunning {
             RVS_AmbiaMara_Settings().displayToolbar = true
         }
 
-        settingsBarButtonItem?.accessibilityLabel = "SLUG-ACC-ABOUT-BUTTON".localizedVariant
+        settingsBarButtonItem?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON".localizedVariant
         alarmSetBarButtonItem?.accessibilityLabel = "SLUG-ACC-ALARM-BUTTON".localizedVariant
         startSetButton?.accessibilityLabel = "SLUG-ACC-STATE-BUTTON-LABEL-Start".localizedVariant
         startSetButton?.accessibilityHint = "SLUG-ACC-STATE-BUTTON-HINT".localizedVariant
@@ -627,8 +627,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         startButton?.isEnabled = 0 < _currentTimer.startTime
         clearButton?.isHidden = 0 >= _stateTime()
         
-        stateLabel?.accessibilityLabel = "SLUG-ACC-STATE".localizedVariant + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant
-        stateLabel?.accessibilityHint = "SLUG-ACC-STATE-\(_state.stringValue)".localizedVariant
+        stateLabel?.accessibilityLabel = "SLUG-ACC-STATE-\(_state.stringValue)".localizedVariant
+        stateLabel?.accessibilityHint = "SLUG-ACC-STATE".localizedVariant + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant
 
         if 0 < _currentTimer.startTime,
            .start != _state {

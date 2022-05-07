@@ -90,7 +90,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
     class var settingsPopoverHeightInDisplayUnits: CGFloat {
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
-        if ProcessInfo().isMacCatalystApp {
+        if ProcessInfo().isMacCatalystApp || UIAccessibility.isVoiceOverRunning {
             return 170
         } else {
             return 220
@@ -132,7 +132,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         // We should not rely on gestures for Catalyst.
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
-        if ProcessInfo().isMacCatalystApp {
+        if ProcessInfo().isMacCatalystApp || UIAccessibility.isVoiceOverRunning {
             toolbarContainerStackView?.isHidden = true
         } else {
             toolbarContainerStackView?.isHidden = false
