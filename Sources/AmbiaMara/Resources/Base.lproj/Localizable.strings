@@ -111,7 +111,58 @@
 "SLUG-ABOUT-TITLE"                              =   "About AmbiaMara";
 
 /* The text for the screen's main display. */
-"SLUG-ABOUT-MAIN-TEXT"                          =   "AmbiaMara is the ultimate countdown timer!\nIt has two running modes:\n\n\t• Digital (numbers only), and\n\n\t• Podium (\"traffic lights\").\n\nEach timer has three modes:\n\n\t•Total Time, which is the entire time the timer counts down,\n\n\t• Warning Time, which is a threshold that warns you that time is getting short, and\n\n\t• Final Countdown Time, where the timer is about to expire.\n\nYou can select between a set of sounds that the device will play, along with vibration (on devices that support vibration).\nAdd timers by touching the \"+\" in the bottom, right of the screen, and delete them by selecting the trash can icon, in the bottom, left of the screen.\nYou can choose which timer is being set, by selecting the button in the toolbar at the bottom, or by swiping left and right, in the screen.\n\nOPERATION\n\nYou can choose to have a toolbar displayed along the bottom of the running timer, or use swipe and tap gestures to control it (without the toolbar).\nIf the toolbar is hidden, you must swipe left and right, to choose between timers. Tap to start and pause timers, and swipe paused timers to either go into alarm mode (right), or reset the timer (left). Swipe up or down, to stop the timer, and return to the setting screen.\n\nFor more complete instructions, and information about authorship and privacy, visit https://riftvalleysoftware.com/work/ios-apps/ambiamara-2/";
+"SLUG-ABOUT-MAIN-TEXT"                          =   "AmbiaMara is the ultimate countdown timer!
+
+Each timer has three possible modes, that occur at different times:
+
+    • Total Time, which is the entire time the timer counts down
+
+    • Warning Time, which is a threshold that warns you that time is getting short, and
+
+    • Final Countdown Time, where the timer is about to expire.
+
+Each timer can be set to have these thresholds, which are reflected in the running timer.
+
+It has two running modes:
+
+    • Digital (numbers only), and
+
+    • Podium (\"traffic lights\").
+
+Digital Mode mimics an old-fashioned \"flourescent LED digital display.\"
+
+Podium Mode is something that would be familiar to debaters. It displays three simple \"traffic lights\" (green, yellow and red). The timer switches the active one, based on the time.
+
+SETTING THE TIMER:
+
+You can select between a set of sounds that the device will play, along with vibration (on devices that support vibration). This is done, via the Alarm Setting Popover (accessed by the \"Bell\" button, in the top, left corner of the screen).
+Add timers by touching the \"+\" at the right side of the toolbar, in the bottom, right of the screen, and delete them by selecting the trash can icon, on the left side of the toolbar, in the bottom, left of the screen.
+You can choose which timer is being set, by selecting the numbered timer button in the toolbar at the bottom, or by swiping left and right, in the screen.
+
+You can have a minimum of one (1) timer, and a maximum of seven (7) timers. It is possible to \"cascade\" between these timers, so, for example, you can have a total time of eighteen minutes, with a 15-minute timer that goes off, and then \"cascades\" to a 3-minute timer, for the end of the period.
+
+OPERATION:
+
+You can choose to have a toolbar displayed along the bottom of the running timer, or use swipe and tap gestures to control it (without the toolbar).
+
+TOOLBAR MODE:
+
+If the toolbar is shown, use the buttons in the toolbar to control the running timer. The Stop button (Square), will always stop the timer, and return you to the timer setting screen.
+Selecting the Play button (single triangle) starts the timer, if it is paused. If the timer is running, the same button will become a set of parallel bars (Pause). Selecting it will stop the timer at the current time.
+Selecting Rewind (double arrow, pointing to the left), will cause the timer to return to its starting time. If there is more than one timer, you can use the same button to select the previous timer.
+Selecting Fast Forward (double arrow, pointing to the right) will send a paused timer directly to Alarm Mode. It can also be used to select the following timer, if there are multiple timers.
+
+GESTURE MODE:
+
+If the toolbar is hidden, you must swipe left and right, to choose between timers, rewind, or fast forward, and tap to start and pause the timer.
+Tap to start and pause timers.
+Swipe left or right, in paused timers to either go into alarm mode (right), or reset the timer (left).
+Swipe left or right, in paused (and reset) timers to go to following timers (right), or previous timers (left).
+Swipe up or down, to stop the timer, and return to the setting screen.
+
+MORE INFORMATION:
+
+For more complete instructions, and information about authorship and privacy, visit https://riftvalleysoftware.com/work/ios-apps/ambiamara/";
 
 // MARK: -
 // MARK: ACCESSIBILITY

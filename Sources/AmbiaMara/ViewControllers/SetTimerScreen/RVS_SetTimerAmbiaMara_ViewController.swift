@@ -112,11 +112,18 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
      The period that we use for the selection fade animation.
     */
     private static let _selectionFadeAnimationPeriodInSeconds = CGFloat(0.25)
+    
     /* ################################################################## */
     /**
      The period that we use for the add timer animation.
     */
     private static let _addTimerAnimationPeriodInSeconds = CGFloat(0.5)
+    
+    /* ################################################################## */
+    /**
+     The starting alpha for our settings items, in the initial animation.
+    */
+    private static let _initialSettingsItemAlpha = CGFloat(0.25)
 
     /* ################################################################## */
     /**
@@ -535,7 +542,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             settingsBarButtonItem?.isEnabled = false
             setTimePickerView?.isUserInteractionEnabled = false
             startupLogo.alpha = 1.0
-            containerView?.alpha = 0.0
+            containerView?.alpha = Self._initialSettingsItemAlpha
             view.layoutIfNeeded()
             UIView.animate(withDuration: Self._fadeInAnimationPeriodInSeconds,
                            animations: { [weak self] in
@@ -550,13 +557,21 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                                                 self?.alarmSetBarButtonItem?.isEnabled = true
                                                 self?.settingsBarButtonItem?.isEnabled = true
                                                 self?.setTimePickerView?.isUserInteractionEnabled = true
-                                                self?.setUpButtons()
+                                                self?.view?.setNeedsLayout()
                                             }
                                         }
             )
-        } else {
-            setUpButtons()
         }
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when the layout is rearranged.
+     We use this to ensure that our various items get properly redrawn.
+     */
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setUpButtons()
     }
 }
 
@@ -1102,7 +1117,10 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
      - returns: A new view, containing the row. If it is selected, it is displayed as reversed.
     */
     func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inReusingView: UIView?) -> UIView {
+        let selectedRow = inPickerView.selectedRow(inComponent: inComponent)
+        
         guard nil == inReusingView else { return inReusingView ?? UIView() }
+        
         let ret = RVS_MaskButton()
         ret.buttonFont = Self._pickerFont
         ret.gradientStartColor = .white
@@ -1117,7 +1135,7 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
             || ((hasValue[0] || hasValue[1]) && PickerComponents.second.rawValue == inComponent) {
             ret.setTitle(String(_pickerViewData[inComponent][inRow]), for: .normal)
             ret.cornerRadius = Self._pickerCornerRadiusInDisplayUnits
-            ret.reversed = (inRow == inPickerView.selectedRow(inComponent: inComponent))
+            ret.reversed = (inRow == selectedRow)
         } else {
             ret.setTitle("0", for: .normal)
        }
