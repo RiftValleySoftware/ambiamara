@@ -361,37 +361,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
 
     /* ################################################################## */
     /**
-     Returns the currently limited value (warn can't be higher than start, and final can't be higher than either warn or start).
-     - parameter from: The time being checked (in seconds).
-     - returns: The normalized time (clipped, if necessary).
-    */
-    private func _stateTime(from inTime: Int) -> Int {
-        var currentValue = inTime
-        
-        let startTimeInSeconds = _currentTimer.startTime
-        let warnTimeInSeconds = _currentTimer.warnTime
-        
-        let startTimeThreshold = startTimeInSeconds - 1
-        let warnTimeThreshold = startTimeInSeconds > warnTimeInSeconds && 0 < warnTimeInSeconds
-                                    ? warnTimeInSeconds - 1
-                                    : startTimeThreshold
-        
-        switch _state {
-        case .start:
-            break
-
-        case .warn:
-            currentValue = min(inTime, startTimeThreshold)
-            
-        case .final:
-            currentValue = min(inTime, warnTimeThreshold)
-        }
-        
-        return currentValue
-    }
-
-    /* ################################################################## */
-    /**
      The ranges that we use to populate the picker.
      The picker will display Integers between the range endpoints.
     */
@@ -427,8 +396,45 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                 setPickerControl.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
                 setPickerControl.reloadAllComponents()
                 self?.setUpToolbar()
+                self?.clearButton?.isHidden = 0 >= (self?._stateTime() ?? -1)
             }
         }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Private Instance Methods
+/* ###################################################################################################################################### */
+extension RVS_SetTimerAmbiaMara_ViewController {
+    /* ################################################################## */
+    /**
+     Returns the currently limited value (warn can't be higher than start, and final can't be higher than either warn or start).
+     - parameter from: The time being checked (in seconds). It is optional. leaving it out, fetches the time from the picker.
+     - returns: The normalized time (clipped, if necessary).
+    */
+    private func _stateTime(from inTime: Int = -1) -> Int {
+        var currentValue = -1 == inTime ? pickerTime : inTime
+        
+        let startTimeInSeconds = _currentTimer.startTime
+        let warnTimeInSeconds = _currentTimer.warnTime
+        
+        let startTimeThreshold = startTimeInSeconds - 1
+        let warnTimeThreshold = startTimeInSeconds > warnTimeInSeconds && 0 < warnTimeInSeconds
+                                    ? warnTimeInSeconds - 1
+                                    : startTimeThreshold
+        
+        switch _state {
+        case .start:
+            break
+
+        case .warn:
+            currentValue = min(currentValue, startTimeThreshold)
+            
+        case .final:
+            currentValue = min(currentValue, warnTimeThreshold)
+        }
+        
+        return currentValue
     }
 }
 
@@ -509,7 +515,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         UIApplication.shared.isIdleTimerDisabled = false    // Just in case...
         
         setAlarmIcon()
-        setUpButtons()
 
         // First time through, we do a "fade in" animation.
         if let startupLogo = startupLogo {
@@ -532,9 +537,12 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                                                 self?.alarmSetBarButtonItem?.isEnabled = true
                                                 self?.infoBarButtonItem?.isEnabled = true
                                                 self?.setPickerControl?.isUserInteractionEnabled = true
+                                                self?.setUpButtons()
                                             }
                                         }
             )
+        } else {
+            setUpButtons()
         }
     }
 }
@@ -604,7 +612,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                                     && (1 < _currentTimer.warnTime
                                         || 0 == _currentTimer.warnTime)
         startButton?.isEnabled = 0 < _currentTimer.startTime
-        clearButton?.isHidden = 0 >= _currentTimer.startTime
+        clearButton?.isHidden = 0 >= _stateTime()
         
         stateLabel?.accessibilityLabel = "SLUG-ACC-STATE".localizedVariant + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".localizedVariant
         stateLabel?.accessibilityHint = "SLUG-ACC-STATE-\(_state.stringValue)".localizedVariant
