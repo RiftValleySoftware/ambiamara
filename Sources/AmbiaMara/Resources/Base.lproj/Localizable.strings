@@ -17,10 +17,15 @@
 // MARK: ALERTS
 // MARK: -
 
+/* The delete (destructive) button in the delete confirmation modal alert. */
 "SLUG-DELETE-BUTTON-TEXT"                       =   "Delete";
+/* The cancel (non-destructive) button in the delete confirmation modal alert. */
 "SLUG-CANCEL-BUTTON-TEXT"                       =   "Cancel";
+/* The header for the delete confirmation modal alert. */
 "SLUG-DELETE-CONFIRM-HEADER"                    =   "Delete This Timer?";
+/* The main message text for the delete confirmation modal alert (when the timer has no set time). */
 "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT-ZERO"       =   "Are you sure that you want to delete timer %d?";
+/* The main message text for the delete confirmation modal alert (when the timer has a set time). */
 "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT"            =   "Are you sure that you want to delete timer %d (%@)?";
 
 // MARK: -
@@ -29,23 +34,33 @@
 
 // MARK: SETUP SCREEN
 
-"SLUG-HOURS"                                    =   "Hours";
-"SLUG-MINUTES"                                  =   "Minutes";
-"SLUG-SECONDS"                                  =   "Seconds";
-"SLUG-STATE-Start"                              =   "Total Time";
-"SLUG-STATE-Warn"                               =   "Warning Time";
-"SLUG-STATE-Final"                              =   "Final Time";
+/* The navigation bar title that is displayed when there is more than one timer. */
 "SLUG-TIMER-TITLE-FORMAT"                       =   "Timer %d";
+/* The label that is displayed over the picker, when the timer "Start" (total) time has been selected for editing. */
+"SLUG-STATE-Start"                              =   "Total Time";
+/* The label that is displayed over the picker, when the timer "Warn" (warning time) time has been selected for editing. */
+"SLUG-STATE-Warn"                               =   "Warning Time";
+/* The label that is displayed over the picker, when the timer "Final" (final countdown) time has been selected for editing. */
+"SLUG-STATE-Final"                              =   "Final Time";
+/* The name on the label over the "hours" picker view component. */*/
+"SLUG-HOURS"                                    =   "Hours";
+/* The name on the label over the "minutes" picker view component. */*/
+"SLUG-MINUTES"                                  =   "Minutes";
+/* The name on the label over the "seconds" picker view component. */*/
+"SLUG-SECONDS"                                  =   "Seconds";
 
 // MARK: SETTINGS POPOVER
 
-"SLUG-POPOVER-HELP-SETTING-LABEL"               =   "Show Help Popovers";
+/* The label for the switch to start the timer immediately upon entry. */
 "SLUG-POPOVER-START-IMMEDIATELY-SETTING-LABEL"  =   "Start Timer Immediately";
+/* The label for the switch to show the toolbar in the running timer (as opposed to just gestures). */
 "SLUG-POPOVER-SHOW-TOOLBAR-SETTING-LABEL"       =   "Show Toolbar In Timer";
+/* The button that will select the "About AmbiaMara" screen. */
 "SLUG-ABOUT-AMBIAMARA-BUTTON"                   =   "About AmbiaMara";
 
 // MARK: ALARM SETUP POPOVER
 
+/* The label for the switch to select vibration upon alarm. */
 "SLUG-VIBRATE-BUTTON"                           =   "Use Vibrate";
 
 // MARK: Sound Names
