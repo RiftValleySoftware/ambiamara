@@ -563,17 +563,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                                             }
                                         }
             )
+        } else {
+            setUpButtons()
         }
-    }
-    
-    /* ############################################################## */
-    /**
-     Called when the layout is rearranged.
-     We use this to ensure that our various items get properly redrawn.
-     */
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setUpButtons()
     }
 }
 
