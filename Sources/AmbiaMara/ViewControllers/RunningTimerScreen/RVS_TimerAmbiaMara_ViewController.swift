@@ -88,7 +88,7 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
     /**
      The number of seconds to wait before the toolbar auto-hides.
      */
-    private static let _autoHidePeriodInSeconds = TimeInterval(5)
+    private static let _autoHidePeriodInSeconds = TimeInterval(3)
 
     /* ############################################################## */
     /**
@@ -527,7 +527,12 @@ extension RVS_TimerAmbiaMara_ViewController {
         // Makes the toolbar background transparent.
         controlToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
         controlToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
-        _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted()
+        _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted { a, b in
+                guard let soundUriA = URL(string: a.urlEncodedString ?? "")?.lastPathComponent,
+                      let soundUriB = URL(string: b.urlEncodedString ?? "")?.lastPathComponent
+                else { return false }
+                return soundUriA < soundUriB
+            }
 
         digitalDisplayViewHours?.radix = 10
         digitalDisplayViewMinutes?.radix = 10

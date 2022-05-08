@@ -48,6 +48,9 @@
 		D4CE51B8281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B6281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift */; };
 		D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */; };
 		D4CE51BB281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51BA281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift */; };
+		D4F70CED282872A500DC0E11 /* 25-telephone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */; };
+		D4F70CEE282872A500DC0E11 /* 23-siren.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */; };
+		D4F70CEF282872A500DC0E11 /* 24-deep-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -127,6 +130,9 @@
 		D4CE51B6281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_TimerAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
 		D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_SetAlarmAmbiaMara_PopoverViewController.swift; sourceTree = "<group>"; };
 		D4CE51BA281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_SettingsAmbiaMara_PopoverViewController.swift; sourceTree = "<group>"; };
+		D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "25-telephone.mp3"; sourceTree = "<group>"; };
+		D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "23-siren.mp3"; sourceTree = "<group>"; };
+		D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "24-deep-alarm.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +257,9 @@
 				D4B01F72281F58D200B07C56 /* 20-antique-car-horn.mp3 */,
 				D4B01F7C281F58D200B07C56 /* 21-alarm-klaxon.mp3 */,
 				D4B01F6A281F58D200B07C56 /* 22-thanks-for-sharing.mp3 */,
+				D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */,
+				D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */,
+				D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -378,9 +387,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4F70CED282872A500DC0E11 /* 25-telephone.mp3 in Resources */,
+				D4F70CEE282872A500DC0E11 /* 23-siren.mp3 in Resources */,
 				D47C02AB2819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard in Resources */,
 				D4C4B70C2819CEDB00E22ECA /* Localizable.strings in Resources */,
 				D47C02A82819CA6800D359F5 /* Assets.xcassets in Resources */,
+				D4F70CEF282872A500DC0E11 /* 24-deep-alarm.mp3 in Resources */,
 				D47C02A62819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

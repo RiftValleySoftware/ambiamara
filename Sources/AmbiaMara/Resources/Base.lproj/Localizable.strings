@@ -103,6 +103,9 @@
 "19-classic-phone.mp3"                          =   "Classic Phone Ringing";
 "20-antique-car-horn.mp3"                       =   "Antique Car Horn";
 "21-alarm-klaxon.mp3"                           =   "Alarm Klaxon";
+"23-siren.mp3"                                  =   "Police Siren";
+"24-deep-alarm.mp3"                             =   "Foghorn";
+"25-telephone.mp3"                              =   "Cellphone";
 
 // MARK: English-Only Sounds
 
