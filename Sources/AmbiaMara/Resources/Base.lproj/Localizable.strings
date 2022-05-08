@@ -185,7 +185,7 @@ GESTURE MODE (TOOLBAR IS HIDDEN):
 If the toolbar is hidden, you must rely on gestures to control the timer.
 
     •   Tap (Timer is paused)
-The timer starts counting down.
+The timer starts (or continues) counting down.
 
     •   Tap (Timer is running)
 The timer pauses at the current countdown time.
