@@ -74,16 +74,22 @@ class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
     
     /* ################################################################## */
     /**
+     A label that acts as a "shim" for the auto-hide switch. We hide this, for Mac.
+    */
+    @IBOutlet weak var auotHideIndentLabel: UILabel?
+    
+    /* ################################################################## */
+    /**
      The switch that sets whether or not the toolbar "hides," when running.
      This is disabled, if not in Toolbar Mode.
     */
-    @IBOutlet weak var popoverDisplayAutoHideSwitch: UISwitch!
+    @IBOutlet weak var popoverDisplayAutoHideSwitch: UISwitch?
 
     /* ################################################################## */
     /**
      The label for the switch is actually a button.
     */
-    @IBOutlet weak var popoverDisplayAutoHideSwitchLabelButton: UIButton!
+    @IBOutlet weak var popoverDisplayAutoHideSwitchLabelButton: UIButton?
     
     /* ################################################################## */
     /**
@@ -110,7 +116,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
         if ProcessInfo().isMacCatalystApp || UIAccessibility.isVoiceOverRunning {
-            return 170
+            return 220
         } else {
             return 270
         }
@@ -162,10 +168,10 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
         if ProcessInfo().isMacCatalystApp || UIAccessibility.isVoiceOverRunning {
             toolbarContainerStackView?.isHidden = true
-            autoHideContainerStackView?.isHidden = true
+            auotHideIndentLabel?.isHidden = true
         } else {
             toolbarContainerStackView?.isHidden = false
-            autoHideContainerStackView?.isHidden = false
+            auotHideIndentLabel?.isHidden = false
         }
 
         aboutAmbiaMaraButton?.accessibilityLabel = "SLUG-ACC-ABOUT-AMBIAMARA-BUTTON".localizedVariant
