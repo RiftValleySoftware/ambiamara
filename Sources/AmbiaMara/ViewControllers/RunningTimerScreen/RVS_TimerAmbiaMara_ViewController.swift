@@ -78,6 +78,24 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
      */
     private static let _alarmDurationInSeconds = TimeInterval(0.85)
 
+    /* ############################################################## */
+    /**
+     The time between timer checks.
+     */
+    private static let _clockPeriodInSeconds = TimeInterval(0.25)
+
+    /* ############################################################## */
+    /**
+     The number of seconds to wait before the toolbar auto-hides.
+     */
+    private static let _autoHidePeriodInSeconds = TimeInterval(5)
+
+    /* ############################################################## */
+    /**
+     The period of the auto-hide duration.
+     */
+    private static let _autoHideAnimationDurationInSeconds = TimeInterval(0.5)
+
     /* ################################################################################################################################## */
     // MARK: Private Stored Instance Properties
     /* ################################################################################################################################## */
@@ -92,6 +110,12 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
      The timer that is set when the alarm is sounding.
      */
     private var _alarmTimer: RVS_BasicGCDTimer?
+    
+    /* ############################################################## */
+    /**
+     The timer that is used to trigger auto-hide (Toolbar On, Auto-Hide Working).
+     */
+    private var _autoHideTimer: RVS_BasicGCDTimer?
 
     /* ################################################################## */
     /**
@@ -142,6 +166,7 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
                 _timer?.isRunning = false
                 flashCyan()
                 resetTimer()
+                setAutoHide()
             } else if _isAlarming,
                       !oldValue {
                 _timer?.isRunning = false
@@ -149,6 +174,7 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
                 determineDigitLEDColor()
                 determineStoplightColor()
                 setUpToolbar()
+                showToolbar()
                 flashRed()
                 if RVS_AmbiaMara_Settings().alarmMode {
                     _isSoundPlaying = true
@@ -510,7 +536,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
         _feedbackGenerator = UIImpactFeedbackGenerator()
 
-        _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: 0.25, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main, isWallTime: true)
+        _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._clockPeriodInSeconds, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main, isWallTime: true)
         _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDurationInSeconds, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main)
     }
     
@@ -560,9 +586,6 @@ extension RVS_TimerAmbiaMara_ViewController {
            imageSize != bounds.size {
             hexGridImageView?.image = _generateHexOverlayImage(bounds)
         }
-        
-        _lastActivityTime = Date()
-        testAutoHide()
     }
     
     /* ############################################################## */
@@ -586,12 +609,76 @@ extension RVS_TimerAmbiaMara_ViewController {
 extension RVS_TimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
-     This looks at the last time the screen was touched, and, if in Toolbar Mode (with auto-hide on), it may tell the toolbar to hide (or show).
+     This animates the toolbar into visibility.
      */
-    func testAutoHide() {
-        guard RVS_AmbiaMara_Settings().autoHideToolbar,
-              RVS_AmbiaMara_Settings().displayToolbar
+    func showToolbar() {
+        _autoHideTimer?.invalidate()
+        _autoHideTimer = nil
+
+        guard RVS_AmbiaMara_Settings().displayToolbar,
+              RVS_AmbiaMara_Settings().autoHideToolbar
+        else {
+            controlToolbar?.alpha = 1.0
+            return
+        }
+
+        if 1.0 > (controlToolbar?.alpha ?? 1) {
+            controlToolbar?.alpha = 0.0
+            view.layoutIfNeeded()
+            UIView.animate(withDuration: Self._autoHideAnimationDurationInSeconds,
+                           animations: { [weak self] in
+                                            self?.controlToolbar?.alpha = 1.0
+                                            self?.view.layoutIfNeeded()
+                                        },
+                           completion: { [weak self] _ in
+                                            if self?._isTimerRunning ?? false {
+                                                self?._autoHideTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._autoHidePeriodInSeconds, delegate: self, leewayInMilliseconds: 100, onlyFireOnce: true, queue: .main, isWallTime: true)
+                                                self?._autoHideTimer?.isRunning = true
+                                            }
+                                        }
+            )
+        } else if _isTimerRunning {
+            _autoHideTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._autoHidePeriodInSeconds, delegate: self, leewayInMilliseconds: 100, onlyFireOnce: true, queue: .main, isWallTime: true)
+            _autoHideTimer?.isRunning = true
+        }
+    }
+    
+    /* ############################################################## */
+    /**
+     This animates the toolbar into invisibility.
+     */
+    func hideToolbar() {
+        _autoHideTimer?.invalidate()
+        _autoHideTimer = nil
+        controlToolbar?.alpha = 1.0
+        
+        guard RVS_AmbiaMara_Settings().displayToolbar,
+              RVS_AmbiaMara_Settings().autoHideToolbar
         else { return }
+
+        view.layoutIfNeeded()
+        UIView.animate(withDuration: Self._autoHideAnimationDurationInSeconds,
+                       animations: { [weak self] in
+                                        self?.controlToolbar?.alpha = 0.0
+                                        self?.view.layoutIfNeeded()
+                                    },
+                       completion: nil
+        )
+    }
+    
+    /* ############################################################## */
+    /**
+     This resets the autohide timer.
+     */
+    func setAutoHide() {
+        _autoHideTimer?.invalidate()
+        _autoHideTimer = nil
+
+        #if DEBUG
+            print("Resetting the auto-hide timer")
+        #endif
+        
+        showToolbar()
     }
     
     /* ############################################################## */
@@ -681,6 +768,8 @@ extension RVS_TimerAmbiaMara_ViewController {
             flashCyan()
             pauseTimer()
         }
+        
+        setAutoHide()
     }
 
     /* ############################################################## */
@@ -813,7 +902,6 @@ extension RVS_TimerAmbiaMara_ViewController {
      This sets up the timer display, according to the time and the settings.
      */
     func setTimerDisplay() {
-        testAutoHide()
         setDigitDisplayTime()
         determineDigitLEDColor(remainingTime)
         determineStoplightColor(remainingTime)
@@ -1063,9 +1151,8 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter: ignored.
      */
     @IBAction func backgroundTapped(_: UITapGestureRecognizer) {
-        _lastActivityTime = Date()
-        testAutoHide()
-        
+        setAutoHide()
+
         guard !RVS_AmbiaMara_Settings().displayToolbar else { return }
         
         if areHapticsAvailable {
@@ -1095,6 +1182,8 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter: ignored.
      */
     @IBAction func rightSwipeGestureReceived(_: UISwipeGestureRecognizer) {
+        setAutoHide()
+
         guard !RVS_AmbiaMara_Settings().displayToolbar else { return }
         
         if areHapticsAvailable {
@@ -1111,6 +1200,8 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter: ignored.
      */
     @IBAction func leftSwipeGestureReceived(_ inGestureRecognizer: UISwipeGestureRecognizer) {
+        setAutoHide()
+
         guard !RVS_AmbiaMara_Settings().displayToolbar else { return }
         
         if areHapticsAvailable {
@@ -1127,6 +1218,8 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter: ignored.
      */
     @IBAction func upDownwipeGestureReceived(_: UISwipeGestureRecognizer) {
+        setAutoHide()
+
         guard !RVS_AmbiaMara_Settings().displayToolbar else { return }
         
         if areHapticsAvailable {
@@ -1145,9 +1238,6 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter inSender: The item that was activated.
      */
     @IBAction func toolbarItemHit(_ inSender: UIBarButtonItem) {
-        _lastActivityTime = Date()
-        testAutoHide()
-
         if areHapticsAvailable {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
@@ -1177,6 +1267,8 @@ extension RVS_TimerAmbiaMara_ViewController {
             
             setUpToolbar()
         }
+        
+        setAutoHide()
     }
 }
 
@@ -1191,6 +1283,15 @@ extension RVS_TimerAmbiaMara_ViewController: RVS_BasicGCDTimerDelegate {
      - parameter inTimer: The timer
      */
     func basicGCDTimerCallback(_ inTimer: RVS_BasicGCDTimer) {
+        guard _autoHideTimer != inTimer else {
+            #if DEBUG
+                print("Triggering the auto-hide timer")
+            #endif
+            hideToolbar()
+
+            return
+        }
+        
         guard _isTimerRunning || _isAlarming else { return }
         guard !_isAlarming else {
             if RVS_AmbiaMara_Settings().useVibrate {

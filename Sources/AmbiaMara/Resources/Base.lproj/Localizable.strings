@@ -183,6 +183,10 @@ This button will send a paused timer directly to Alarm Mode. If there is more th
     •   The Rewind Button (double arrow, pointing to the left)/Previous Timer Button (circle, with a number in it)
 This will cause the timer to return to its starting time. If there is more than one timer, you can use the same button to select the previous timer (in which case, the double arrows are replaced by a timer number, in a circle).
 
+You can choose to have the toolbar \"auto-hide,\" in the Settings Popover. If you choose this, then the toolbar disappears, if there has been no interaction with the timer (touching the screen, or selecting a toolbar item). Touching the screen brings it back.
+
+The toolbar does not auto-hide, if the timer is paused, or is alarming.
+
 GESTURE MODE (TOOLBAR IS HIDDEN):
 
 If the toolbar is hidden, you must rely on gestures to control the timer.
