@@ -469,7 +469,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         minutesLabel?.text = (minutesLabel?.text ?? "ERROR").localizedVariant
         secondsLabel?.text = (secondsLabel?.text ?? "ERROR").localizedVariant
         
-        // We should not rely on gestures for Catalyst.
+        // We should not rely on gestures for Catalyst. Also, voiceover mode does not work well with gestures.
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
         if ProcessInfo().isMacCatalystApp || UIAccessibility.isVoiceOverRunning {
@@ -514,6 +514,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         
         _impactFeedbackGenerator = UIImpactFeedbackGenerator()
         _impactFeedbackGenerator?.prepare()
+        
+        navigationItem.backButtonTitle = "SLUG-BACK-BUTTON".localizedVariant
     }
     
     /* ############################################################## */

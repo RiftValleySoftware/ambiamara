@@ -129,7 +129,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         popoverDisplayToolbarSwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SWITCH".localizedVariant
         popoverDisplayToolbarSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SWITCH".localizedVariant
         
-        // We should not rely on gestures for Catalyst.
+        // We should not rely on gestures for Catalyst. Also, voiceover mode does not work well with gestures.
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
         if ProcessInfo().isMacCatalystApp || UIAccessibility.isVoiceOverRunning {
