@@ -177,6 +177,12 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
             }
         }
     }
+    
+    /* ############################################################## */
+    /**
+     This is used for the toolbar auto-hide.
+     */
+    private var _lastActivityTime: Date?
 
     /* ################################################################################################################################## */
     // MARK: Internal IB Stored Properties
@@ -554,6 +560,9 @@ extension RVS_TimerAmbiaMara_ViewController {
            imageSize != bounds.size {
             hexGridImageView?.image = _generateHexOverlayImage(bounds)
         }
+        
+        _lastActivityTime = Date()
+        testAutoHide()
     }
     
     /* ############################################################## */
@@ -575,6 +584,15 @@ extension RVS_TimerAmbiaMara_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RVS_TimerAmbiaMara_ViewController {
+    /* ############################################################## */
+    /**
+     This looks at the last time the screen was touched, and, if in Toolbar Mode (with auto-hide on), it may tell the toolbar to hide (or show).
+     */
+    func testAutoHide() {
+        guard RVS_AmbiaMara_Settings().autoHideToolbar,
+              RVS_AmbiaMara_Settings().displayToolbar
+        else { return }
+    }
     
     /* ############################################################## */
     /**
@@ -795,6 +813,7 @@ extension RVS_TimerAmbiaMara_ViewController {
      This sets up the timer display, according to the time and the settings.
      */
     func setTimerDisplay() {
+        testAutoHide()
         setDigitDisplayTime()
         determineDigitLEDColor(remainingTime)
         determineStoplightColor(remainingTime)
@@ -1044,6 +1063,9 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter: ignored.
      */
     @IBAction func backgroundTapped(_: UITapGestureRecognizer) {
+        _lastActivityTime = Date()
+        testAutoHide()
+        
         guard !RVS_AmbiaMara_Settings().displayToolbar else { return }
         
         if areHapticsAvailable {
@@ -1123,6 +1145,9 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter inSender: The item that was activated.
      */
     @IBAction func toolbarItemHit(_ inSender: UIBarButtonItem) {
+        _lastActivityTime = Date()
+        testAutoHide()
+
         if areHapticsAvailable {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()

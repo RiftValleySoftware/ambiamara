@@ -162,8 +162,10 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
         if ProcessInfo().isMacCatalystApp || UIAccessibility.isVoiceOverRunning {
             toolbarContainerStackView?.isHidden = true
+            autoHideContainerStackView?.isHidden = true
         } else {
             toolbarContainerStackView?.isHidden = false
+            autoHideContainerStackView?.isHidden = false
         }
 
         aboutAmbiaMaraButton?.accessibilityLabel = "SLUG-ACC-ABOUT-AMBIAMARA-BUTTON".localizedVariant

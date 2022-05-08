@@ -18,8 +18,8 @@ opt_in_rules:
 - comma
 
 file_length:
-- 1210 # warning
-- 1211 # error
+- 1300 # warning
+- 1301 # error
 
 type_body_length:
 - 250 # warning
