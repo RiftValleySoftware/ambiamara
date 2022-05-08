@@ -136,7 +136,7 @@ Each timer has three possible modes, that occur at different times:
 This is the entire time the timer counts down. It is indicated by a green color.
 
     •   Warning Time
-This is a threshold, when crossed, causes the timer to turn yellow, indicating that time is running out.
+This threshold, when crossed, causes the timer to turn yellow, indicating that time is running out.
 
     •   Final Countdown Time
 This is when the timer is about to alarm. The timer turns red.
