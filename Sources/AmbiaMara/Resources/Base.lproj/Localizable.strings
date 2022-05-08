@@ -70,6 +70,9 @@
 /* The label for the switch to show the toolbar in the running timer (as opposed to just gestures). */
 "SLUG-POPOVER-SHOW-TOOLBAR-SETTING-LABEL"       =   "Show Toolbar In Timer";
 
+/* The label for the switch that indicates the toolbar will "auto-hide," when not being used. */
+"SLUG-POPOVER-AUTO-HIDE-SETTING-LABEL"          =   "Auto-Hide Toolbar";
+
 /* The button that will select the "About AmbiaMara" screen. */
 "SLUG-ABOUT-AMBIAMARA-BUTTON"                   =   "About AmbiaMara";
 
@@ -313,7 +316,10 @@ For more complete instructions, and information about authorship, support, and p
 "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH"     =   "If this is on, then the timer starts immediately, upon the timer page appearing. If off, then you need to start the timer after entering the running timer screen.";
 
 /* This is applied to the "Show Toolbar" switch. */
-"SLUG-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH"      =   "If this is on, a toolbar will be displayed at the bottom of the running timer, with controls that let you manage the timer. If it is off, you will need to use gestures.";
+"SLUG-ACC-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH"  =   "If this is on, a toolbar will be displayed at the bottom of the running timer, with controls that let you manage the timer. If it is off, you will need to use gestures.";
+
+/* This is applied to the label for the switch that indicates the toolbar will "auto-hide," when not being used. */
+"SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-LABEL"      =   "If this is on, and the \"Show Toolbar\" switch is on, the toolbar will \"hide\" (fade away), after a few seconds of not being used. Touching the screen will bring it back.";
 
 /* This is applied to the segmented switch, at the bottom, with the two timer modes. */
 "SLUG-ACC-POPOVER-TIMER-MODE"                   =   "This switch will select the display mode of the running timer. It will either be digital (numbers), or three \"traffic lights.\"";

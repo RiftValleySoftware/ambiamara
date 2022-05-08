@@ -454,14 +454,14 @@
             <objects>
                 <viewController storyboardIdentifier="RVS_SettingsAmbiaMara_PopoverViewController" id="UOz-ud-dcU" customClass="RVS_SettingsAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RiP-wE-HMj">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="280"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="334"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="cnP-ZB-vMv">
-                                <rect key="frame" x="20" y="64" width="374" height="184"/>
+                                <rect key="frame" x="20" y="64" width="374" height="220"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omz-Mi-exI">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="32"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="28"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -478,17 +478,17 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" id="Xzy-5h-Cg0" userLabel="Start Immediately Stack View">
-                                        <rect key="frame" x="0.0" y="50" width="374" height="36"/>
+                                        <rect key="frame" x="0.0" y="46" width="374" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p7i-GW-TPA">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="36"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
                                                 <connections>
                                                     <action selector="popoverStartImmediatelySwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="1cs-Vp-6rn"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RjQ-a1-oDw">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="36"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="29"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-POPOVER-START-IMMEDIATELY-SETTING-LABEL"/>
@@ -506,17 +506,17 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" id="CVY-F1-Y9c" userLabel="Toolbar Stack View">
-                                        <rect key="frame" x="0.0" y="104" width="374" height="31"/>
+                                        <rect key="frame" x="0.0" y="93" width="374" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecG-jq-uKs">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
                                                 <connections>
                                                     <action selector="popoverDisplayToolbarSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="ADj-YS-zuo"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6BK-rZ-z63">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="31"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="29"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-POPOVER-SHOW-TOOLBAR-SETTING-LABEL"/>
@@ -533,8 +533,46 @@
                                             <constraint firstAttribute="bottom" secondItem="ecG-jq-uKs" secondAttribute="bottom" id="YMU-74-tCg"/>
                                         </constraints>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="aUO-XP-mX2" userLabel="Auto-Hide Stack View">
+                                        <rect key="frame" x="0.0" y="140" width="374" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jw3-Fr-MQr" userLabel="Blank Spacer Label">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="USB-BG-NcS"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lBf-IS-RyD">
+                                                <rect key="frame" x="58" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="popoverDisplayAutoHideSwitchHit:" destination="UOz-ud-dcU" eventType="valueChanged" id="K1N-Mh-HY1"/>
+                                                </connections>
+                                            </switch>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tyC-PQ-hip">
+                                                <rect key="frame" x="115" y="0.0" width="259" height="31"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="SLUG-POPOVER-AUTO-HIDE-SETTING-LABEL"/>
+                                                <connections>
+                                                    <action selector="popoverDisplayAutoHideSwitchHit:" destination="UOz-ud-dcU" eventType="touchUpInside" id="heA-bn-TVH"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <viewLayoutGuide key="safeArea" id="9W3-Wt-eTF"/>
+                                        <constraints>
+                                            <constraint firstItem="9W3-Wt-eTF" firstAttribute="bottom" secondItem="jw3-Fr-MQr" secondAttribute="bottom" id="1C3-FR-0UW"/>
+                                            <constraint firstItem="jw3-Fr-MQr" firstAttribute="top" secondItem="9W3-Wt-eTF" secondAttribute="top" id="E83-BL-NwA"/>
+                                            <constraint firstAttribute="bottom" secondItem="lBf-IS-RyD" secondAttribute="bottom" id="PG3-6G-JvP"/>
+                                            <constraint firstItem="tyC-PQ-hip" firstAttribute="top" secondItem="aUO-XP-mX2" secondAttribute="top" id="RTN-ko-ctv"/>
+                                            <constraint firstItem="lBf-IS-RyD" firstAttribute="top" secondItem="aUO-XP-mX2" secondAttribute="top" id="Sk2-Tv-asL"/>
+                                            <constraint firstAttribute="bottom" secondItem="tyC-PQ-hip" secondAttribute="bottom" id="ub1-dK-rfq"/>
+                                        </constraints>
+                                    </stackView>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="brc-he-RCW">
-                                        <rect key="frame" x="0.0" y="153" width="374" height="32"/>
+                                        <rect key="frame" x="0.0" y="189" width="374" height="32"/>
                                         <color key="backgroundColor" name="SegSwitchColor"/>
                                         <segments>
                                             <segment title="" image="Digits"/>
@@ -546,10 +584,12 @@
                                     </segmentedControl>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="aUO-XP-mX2" secondAttribute="trailing" id="4ik-HB-tti"/>
                                     <constraint firstItem="brc-he-RCW" firstAttribute="leading" secondItem="cnP-ZB-vMv" secondAttribute="leading" id="8fl-0c-EzZ"/>
                                     <constraint firstItem="omz-Mi-exI" firstAttribute="leading" secondItem="cnP-ZB-vMv" secondAttribute="leading" id="QLb-4l-J4Q"/>
                                     <constraint firstAttribute="trailing" secondItem="omz-Mi-exI" secondAttribute="trailing" id="VCA-BP-EeT"/>
                                     <constraint firstAttribute="trailing" secondItem="brc-he-RCW" secondAttribute="trailing" id="rqZ-Ob-UNP"/>
+                                    <constraint firstItem="aUO-XP-mX2" firstAttribute="leading" secondItem="cnP-ZB-vMv" secondAttribute="leading" id="xZ3-Hv-OFd"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -565,9 +605,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="Put-az-xEf"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="414" height="280"/>
+                    <size key="freeformSize" width="414" height="334"/>
                     <connections>
                         <outlet property="aboutAmbiaMaraButton" destination="omz-Mi-exI" id="CKZ-OL-zgq"/>
+                        <outlet property="autoHideContainerStackView" destination="aUO-XP-mX2" id="Vre-8Z-8eu"/>
+                        <outlet property="popoverDisplayAutoHideSwitch" destination="lBf-IS-RyD" id="41X-dc-YQI"/>
+                        <outlet property="popoverDisplayAutoHideSwitchLabelButton" destination="tyC-PQ-hip" id="eBa-XC-5Ic"/>
                         <outlet property="popoverDisplayToolbarSwitch" destination="ecG-jq-uKs" id="45p-Fm-ILs"/>
                         <outlet property="popoverDisplayToolbarSwitchLabelButton" destination="6BK-rZ-z63" id="OWn-4e-xa2"/>
                         <outlet property="popoverStartImmediatelySwitch" destination="p7i-GW-TPA" id="LLh-LP-DGe"/>
@@ -1031,7 +1074,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="883" height="877"/>
+        <image name="CenterImage" width="937" height="937"/>
         <image name="Digits" width="60" height="20"/>
         <image name="Final-Image" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
@@ -1048,7 +1091,7 @@
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="0.18299999833106995" green="0.53700000047683716" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.44499999284744263" green="0.47600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

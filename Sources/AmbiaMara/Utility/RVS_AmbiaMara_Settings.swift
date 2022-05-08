@@ -252,6 +252,12 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
          */
         case stoplightMode
 
+        /* ################################################################## */
+        /**
+         If this is true, then the toolbar (if in displayToolbar mode) will fade, after a few seconds of inactivity.
+         */
+        case autoHideToolbar
+
         /* ############################################################## */
         /**
          These are all the keys, in an Array of String.
@@ -265,7 +271,8 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
                                         selectedSoundIndex.rawValue,
                                         startTimerImmediately.rawValue,
                                         displayToolbar.rawValue,
-                                        stoplightMode.rawValue
+                                        stoplightMode.rawValue,
+                                        autoHideToolbar.rawValue
                                         ]
         }
     }
@@ -430,6 +437,15 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     var stoplightMode: Bool {
         get { 0 != (values[Keys.stoplightMode.rawValue] as? Int ?? 0) }
         set { values[Keys.stoplightMode.rawValue] = newValue ? 1 : 0 }
+    }
+
+    /* ################################################################## */
+    /**
+     If this is true, then the toolbar (if in displayToolbar mode) will fade, after a few seconds of inactivity.
+     */
+    var autoHideToolbar: Bool {
+        get { 0 != (values[Keys.autoHideToolbar.rawValue] as? Int ?? 0) }
+        set { values[Keys.autoHideToolbar.rawValue] = newValue ? 1 : 0 }
     }
 
     /* ################################################################## */

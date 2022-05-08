@@ -68,6 +68,25 @@ class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
     
     /* ################################################################## */
     /**
+     The container stack view for the auto-hide switch.
+    */
+    @IBOutlet weak var autoHideContainerStackView: UIView?
+    
+    /* ################################################################## */
+    /**
+     The switch that sets whether or not the toolbar "hides," when running.
+     This is disabled, if not in Toolbar Mode.
+    */
+    @IBOutlet weak var popoverDisplayAutoHideSwitch: UISwitch!
+
+    /* ################################################################## */
+    /**
+     The label for the switch is actually a button.
+    */
+    @IBOutlet weak var popoverDisplayAutoHideSwitchLabelButton: UIButton!
+    
+    /* ################################################################## */
+    /**
      The segmented switch that indicates whether digital or stoplight mode.
     */
     @IBOutlet weak var timerModeSegmentedSwitch: UISegmentedControl?
@@ -93,7 +112,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         if ProcessInfo().isMacCatalystApp || UIAccessibility.isVoiceOverRunning {
             return 170
         } else {
-            return 220
+            return 270
         }
     }
 }
@@ -110,25 +129,34 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         super.viewDidLoad()
         popoverStartImmediatelySwitch?.isOn = RVS_AmbiaMara_Settings().startTimerImmediately
         popoverDisplayToolbarSwitch?.isOn = RVS_AmbiaMara_Settings().displayToolbar
+        popoverDisplayAutoHideSwitch?.isOn = RVS_AmbiaMara_Settings().autoHideToolbar
+        popoverDisplayAutoHideSwitch?.isEnabled = RVS_AmbiaMara_Settings().displayToolbar
+        popoverDisplayAutoHideSwitchLabelButton?.isEnabled = RVS_AmbiaMara_Settings().displayToolbar
         timerModeSegmentedSwitch?.selectedSegmentIndex = RVS_AmbiaMara_Settings().stoplightMode ? 1 : 0
-        
+
         popoverStartImmediatelySwitchLabelButton?.setTitle(popoverStartImmediatelySwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         popoverDisplayToolbarSwitchLabelButton?.setTitle(popoverDisplayToolbarSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        popoverDisplayAutoHideSwitchLabelButton?.setTitle(popoverDisplayAutoHideSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         aboutAmbiaMaraButton?.setTitle(aboutAmbiaMaraButton?.title(for: .normal)?.localizedVariant, for: .normal)
-
+        
         popoverStartImmediatelySwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         popoverStartImmediatelySwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
         popoverDisplayToolbarSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         popoverDisplayToolbarSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
+        popoverDisplayAutoHideSwitchLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        popoverDisplayAutoHideSwitchLabelButton?.titleLabel?.minimumScaleFactor = 0.5
         aboutAmbiaMaraButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         aboutAmbiaMaraButton?.titleLabel?.minimumScaleFactor = 0.5
         
         popoverStartImmediatelySwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH".localizedVariant
         popoverStartImmediatelySwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH".localizedVariant
         
-        popoverDisplayToolbarSwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SWITCH".localizedVariant
-        popoverDisplayToolbarSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SWITCH".localizedVariant
+        popoverDisplayToolbarSwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH".localizedVariant
+        popoverDisplayToolbarSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH".localizedVariant
         
+        popoverDisplayAutoHideSwitch?.accessibilityLabel = "SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-LABEL".localizedVariant
+        popoverDisplayAutoHideSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-LABEL".localizedVariant
+
         // We should not rely on gestures for Catalyst. Also, voiceover mode does not work well with gestures.
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
@@ -175,6 +203,24 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
 extension RVS_SettingsAmbiaMara_PopoverViewController {
     /* ################################################################## */
     /**
+     The auto-hide switch, or its label, was hit.
+     - parameter inSender: The control that was selected.
+    */
+    @IBAction func popoverDisplayAutoHideSwitchHit(_ inSender: UIControl) {
+        if let switcher = inSender as? UISwitch {
+            if areHapticsAvailable {
+                _selectionFeedbackGenerator?.selectionChanged()
+                _selectionFeedbackGenerator?.prepare()
+            }
+            RVS_AmbiaMara_Settings().autoHideToolbar = switcher.isOn
+        } else {
+            popoverDisplayAutoHideSwitch?.setOn(!(popoverDisplayAutoHideSwitch?.isOn ?? true), animated: true)
+            popoverDisplayAutoHideSwitch?.sendActions(for: .valueChanged)
+        }
+    }
+
+    /* ################################################################## */
+    /**
      This dismisses the popover, and shows the about screen.
      - parameter: ignored.
     */
@@ -215,7 +261,11 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
                 _selectionFeedbackGenerator?.selectionChanged()
                 _selectionFeedbackGenerator?.prepare()
             }
+            
             RVS_AmbiaMara_Settings().displayToolbar = switcher.isOn
+            
+            popoverDisplayAutoHideSwitch?.isEnabled = RVS_AmbiaMara_Settings().displayToolbar
+            popoverDisplayAutoHideSwitchLabelButton?.isEnabled = RVS_AmbiaMara_Settings().displayToolbar
         } else {
             popoverDisplayToolbarSwitch?.setOn(!(popoverDisplayToolbarSwitch?.isOn ?? true), animated: true)
             popoverDisplayToolbarSwitch?.sendActions(for: .valueChanged)
