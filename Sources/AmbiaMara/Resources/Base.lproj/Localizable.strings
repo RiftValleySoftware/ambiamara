@@ -151,7 +151,7 @@ It has two running modes:
 The timer display has the appearance of an old-fashioned \"LED display.\"
 
     •   Podium (\"traffic lights\")
-The timer displays three circles that light up, as the timer progresses.
+The timer displays three circles that light up, one by one, as the timer progresses.
 
 The mode is chosen in the Settings popover, which is accesed via the \"Gear\” button, in the top, left of the screen (how you got to this screen).
 
@@ -163,7 +163,7 @@ You can have a minimum of one (1) timer, and a maximum of seven (7) timers. It i
 
 You can select between a set of sounds that the device will play, along with vibration (on devices that support vibration). This is done, via the Alarm Setting Popover (accessed by the \"Bell\" button, in the top, right corner of the screen). The sound and vibration settings apply to all timers (if there are multiple timers).
 
-Add timers by touching the \"+\" at the right side of the toolbar, in the bottom of the screen, and delete them by selecting the trash can icon, on the left side of the toolbar.
+Add timers by touching the \"╋\" at the right side of the toolbar, in the bottom of the screen, and delete them by selecting the trash can icon, on the left side of the toolbar.
 You can choose which timer is being set, by selecting a numbered timer button in the toolbar, or by swiping left and right, in the screen.
 
 OPERATION:
