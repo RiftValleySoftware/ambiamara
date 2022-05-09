@@ -14,6 +14,45 @@
 //********************************************** **********************************************************
 
 // MARK: -
+// MARK: SOUND NAMES (DISPLAYED IN THE ALARM POPOVER)
+// MARK: -
+
+"00-escalation.mp3"                             =   "Escalating Alarm";
+"01-low-beep.mp3"                               =   "Low-Pitched Beeps";
+"02-medium-beep.mp3"                            =   "Medium-Pitched Beeps";
+"03-high-beep.mp3"                              =   "High-Pitched Beeps";
+"04-electronic-buzz.mp3"                        =   "Strong Beeps";
+"05-fast-beep.mp3"                              =   "Quiet Ringing";
+"06-high-fast-beeps.mp3"                        =   "Fast Beeps";
+"07-videogame-beeps-lower-frequency.mp3"        =   "Low-Pitched Electronic";
+"08-videogame-beeps-high-frequency.mp3"         =   "High-Pitched Electronic";
+"09-single-beep.mp3"                            =   "Simple Beeps";
+"10-annoying-alarm.mp3"                         =   "Classic Alarm Bell";
+"11-bells.mp3"                                  =   "Church Bells";
+"12-crazy-bird.mp3"                             =   "Crazy Bird";
+"13-rooster.mp3"                                =   "Rooster";
+"16-snoring-1.mp3"                              =   "Snoring";
+"17-car-horn.mp3"                               =   "Car Horn";
+"18-antique-phone.mp3"                          =   "Antique Phone Ringing";
+"19-classic-phone.mp3"                          =   "Classic Phone Ringing";
+"20-antique-car-horn.mp3"                       =   "Antique Car Horn";
+"21-alarm-klaxon.mp3"                           =   "Alarm Klaxon";
+"23-siren.mp3"                                  =   "Police Siren";
+"24-deep-alarm.mp3"                             =   "Foghorn";
+"25-telephone.mp3"                              =   "Cellphone";
+
+// MARK: English-Only Sounds
+
+/* Do Not Translate -Only Used for English. */
+"14-shut-up-1.mp3"                              =   "Shut Up! (Man)";
+
+/* Do Not Translate -Only Used for English. */
+"15-shut-up-2.mp3"                              =   "Shut Up! (Woman)";
+
+/* Do Not Translate -Only Used for English. */
+"22-thanks-for-sharing.mp3"                     =   "Thanks for Sharing (Robotic)";
+
+// MARK: -
 // MARK: DELETE CONFIRMATION ALERT
 // MARK: -
 
@@ -73,7 +112,7 @@
 /* The label for the switch that indicates the toolbar will "auto-hide," when not being used. */
 "SLUG-POPOVER-AUTO-HIDE-SETTING-LABEL"          =   "Auto-Hide Toolbar";
 
-/* The button that will select the "About AmbiaMara" screen. */
+/* The button that will select the "About AmbiaMara" screen. NOTE FOR TRANSLATOR: "AmbiaMara" is the app name, so is not translated. */
 "SLUG-ABOUT-AMBIAMARA-BUTTON"                   =   "About AmbiaMara";
 
 // MARK: ALARM SETUP POPOVER
@@ -81,49 +120,12 @@
 /* The label for the switch to select vibration upon alarm. */
 "SLUG-VIBRATE-BUTTON"                           =   "Use Vibrate";
 
-// MARK: Sound Names
-
-"00-low-beep.mp3"                               =   "Low-Pitched Beeps";
-"01-medium-beep.mp3"                            =   "Medium-Pitched Beeps";
-"02-high-beep.mp3"                              =   "High-Pitched Beeps";
-"03-electronic-buzz.mp3"                        =   "Strong Beeps";
-"04-fast-beep.mp3"                              =   "Quiet Ringing";
-"05-high-fast-beeps.mp3"                        =   "Fast Beeps";
-"06-escalation.mp3"                             =   "Escalating Alarm";
-"07-videogame-beeps-lower-frequency.mp3"        =   "Low-Pitched Electronic";
-"08-videogame-beeps-high-frequency.mp3"         =   "High-Pitched Electronic";
-"09-single-beep.mp3"                            =   "Simple Beeps";
-"10-annoying-alarm.mp3"                         =   "Classic Alarm Bell";
-"11-bells.mp3"                                  =   "Church Bells";
-"12-crazy-bird.mp3"                             =   "Crazy Bird";
-"13-rooster.mp3"                                =   "Rooster";
-"16-snoring-1.mp3"                              =   "Snoring";
-"17-car-horn.mp3"                               =   "Car Horn";
-"18-antique-phone.mp3"                          =   "Antique Phone Ringing";
-"19-classic-phone.mp3"                          =   "Classic Phone Ringing";
-"20-antique-car-horn.mp3"                       =   "Antique Car Horn";
-"21-alarm-klaxon.mp3"                           =   "Alarm Klaxon";
-"23-siren.mp3"                                  =   "Police Siren";
-"24-deep-alarm.mp3"                             =   "Foghorn";
-"25-telephone.mp3"                              =   "Cellphone";
-
-// MARK: English-Only Sounds
-
-/* Do Not Translate -Only Used for English. */
-"14-shut-up-1.mp3"                              =   "Shut Up (Obnoxious Man)";
-
-/* Do Not Translate -Only Used for English. */
-"15-shut-up-2.mp3"                              =   "Shut Up (Woman)";
-
-/* Do Not Translate -Only Used for English. */
-"22-thanks-for-sharing.mp3"                     =   "Thanks for Sharing (Robotic)";
-
 // MARK: ABOUT SCREEN
 
 /* The navigation bar title for the screen. */
 "SLUG-ABOUT-TITLE"                              =   "About AmbiaMara";
 
-/* The text for the screen's main display. */
+/* The text for the screen's main display. It is instructions for using the app. */
 "SLUG-ABOUT-MAIN-TEXT"                          =   "AmbiaMara is the ultimate countdown timer!
 
 It will count down, from a preset time, in intervals of one second.

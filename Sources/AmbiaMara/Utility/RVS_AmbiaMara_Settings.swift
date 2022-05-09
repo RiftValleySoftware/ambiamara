@@ -407,7 +407,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
      The selected sound, for an alarm. This is a 0-based index.
      */
     var selectedSoundIndex: Int {
-        get { values[Keys.selectedSoundIndex.rawValue] as? Int ?? 6 }
+        get { values[Keys.selectedSoundIndex.rawValue] as? Int ?? 0 }
         set { values[Keys.selectedSoundIndex.rawValue] = newValue }
     }
 
