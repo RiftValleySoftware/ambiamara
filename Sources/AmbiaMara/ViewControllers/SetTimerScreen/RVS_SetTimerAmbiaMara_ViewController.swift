@@ -465,6 +465,11 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
+        // We do not do auto hide, when in voiceover mode.
+        if !UIAccessibility.isVoiceOverRunning {
+            RVS_AmbiaMara_Settings().autoHideToolbar = false
+        }
+
         hoursLabel?.text = (hoursLabel?.text ?? "ERROR").localizedVariant
         minutesLabel?.text = (minutesLabel?.text ?? "ERROR").localizedVariant
         secondsLabel?.text = (secondsLabel?.text ?? "ERROR").localizedVariant
@@ -484,7 +489,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         warnSetButton?.accessibilityHint = "SLUG-ACC-STATE-BUTTON-HINT".localizedVariant
         finalSetButton?.accessibilityLabel = "SLUG-ACC-STATE-BUTTON-LABEL-Final".localizedVariant
         finalSetButton?.accessibilityHint = "SLUG-ACC-STATE-BUTTON-HINT".localizedVariant
-        startButton?.accessibilityLabel = "SLUG-ACC-PLAY-BUTTON".localizedVariant
+        startButton?.accessibilityLabel = "SLUG-ACC-PLAY-BUTTON-LABEL".localizedVariant
         startButton?.accessibilityHint = "SLUG-ACC-PLAY-BUTTON-HINT".localizedVariant
         addBarButtonItem?.accessibilityLabel = "SLUG-ACC-ADD-TIMER-BUTTON".localizedVariant
         clearButton?.accessibilityLabel = "SLUG-ACC-CLEAR-BUTTON".localizedVariant
@@ -909,8 +914,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             setupContainerView.transform = setupContainerView.transform.scaledBy(x: 0.1, y: 0.1)
             setupContainerView.alpha = 0.0
             _state = .start
-            setUpButtons()
-            view.layoutIfNeeded()
+            clearButton?.isHidden = true
             UIView.animate(withDuration: Self._addTimerAnimationPeriodInSeconds,
                            animations: { setupContainerView.transform = CGAffineTransform.identity
                                          setupContainerView.alpha = 1.0

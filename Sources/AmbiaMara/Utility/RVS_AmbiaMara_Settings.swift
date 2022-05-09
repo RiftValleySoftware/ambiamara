@@ -113,8 +113,20 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
          The warning time (as seconds)
          */
         var finalTime: Int {
-            get { max(0, min(_startTime, warnTime - 1, _finalTime)) }
-            set { _finalTime = max(0, min(warnTime - 1, newValue)) }
+            get {
+                if 0 < warnTime {
+                    return max(0, min(_startTime, warnTime - 1, _finalTime))
+                } else {
+                    return max(0, min(_startTime - 1, _finalTime))
+                }
+            }
+            set {
+                if 0 < warnTime {
+                    _finalTime = max(0, min(_startTime, warnTime - 1, newValue))
+                } else {
+                    _finalTime = max(0, min(_startTime - 1, newValue))
+                }
+            }
         }
         
        /* ########################################################## */

@@ -53,7 +53,7 @@
 "22-thanks-for-sharing.mp3"                     =   "Thanks for Sharing (Robotic)";
 
 // MARK: -
-// MARK: DELETE CONFIRMATION ALERT
+// MARK: DELETE CONFIRMATION ALERT (DISPLAYED WHEN THE "TRASH" BUTTON IS HIT)
 // MARK: -
 
 /* The delete (destructive) button in the delete confirmation modal alert. */
@@ -72,15 +72,15 @@
 "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT"            =   "Are you sure that you want to delete timer %d (%@)?";
 
 // MARK: -
-// MARK: MAIN TEXT
+// MARK: MAIN USER INTERFACE TEXT
 // MARK: -
 
-// MARK: SETUP SCREEN
+// MARK: SETUP SCREEN (MAIN SCREEN)
 
-/* This is the name of the back button, in the "About" screen. */
+/* This is the name of the back button, in the "About" screen. It is only seen in the About AmbiaMara Screen (Back Button). */
 "SLUG-BACK-BUTTON"                              =   "Set Timer";
 
-/* The navigation bar title that is displayed when there is more than one timer. */
+/* The navigation bar title that is displayed when there is more than one timer. It is not displayed, if there is only one timer. */
 "SLUG-TIMER-TITLE-FORMAT"                       =   "Timer %d";
 
 /* The label that is displayed over the picker, when the timer "Start" (total) time has been selected for editing. */
@@ -101,23 +101,23 @@
 /* The name on the label over the "seconds" picker view component. */
 "SLUG-SECONDS"                                  =   "Seconds";
 
-// MARK: SETTINGS POPOVER
+// MARK: Settings Popover (Accessed Via the "Gear" Navigation Bar Button, at the Top, Left of the Screen)
 
 /* The label for the switch to start the timer immediately upon entry. */
 "SLUG-POPOVER-START-IMMEDIATELY-SETTING-LABEL"  =   "Start Timer Immediately";
 
-/* The label for the switch to show the toolbar in the running timer (as opposed to just gestures). */
+/* The label for the switch to show the toolbar in the running timer (as opposed to just gestures). NOTE: On Mac, this is hidden. If this is off, then the "Auto-Hide Toolbar" switch is disabled. */
 "SLUG-POPOVER-SHOW-TOOLBAR-SETTING-LABEL"       =   "Show Toolbar In Timer";
 
-/* The label for the switch that indicates the toolbar will "auto-hide," when not being used. */
+/* The label for the switch that indicates the toolbar will "auto-hide," when not being used. NOTE: On Mac, this is displayed without the "Show Toolbar" switch, and is always enabled. */
 "SLUG-POPOVER-AUTO-HIDE-SETTING-LABEL"          =   "Auto-Hide Toolbar";
 
 /* The button that will select the "About AmbiaMara" screen. NOTE FOR TRANSLATOR: "AmbiaMara" is the app name, so is not translated. */
 "SLUG-ABOUT-AMBIAMARA-BUTTON"                   =   "About AmbiaMara";
 
-// MARK: ALARM SETUP POPOVER
+// MARK: Alarm Settings Popover (Accessed Via the "Bell" Navigation Bar Button, at the Top, Right of the Screen)
 
-/* The label for the switch to select vibration upon alarm. */
+/* The label for the switch to select vibration upon alarm. NOTE: This is only shown on iPhones. */
 "SLUG-VIBRATE-BUTTON"                           =   "Use Vibrate";
 
 // MARK: ABOUT SCREEN
@@ -163,23 +163,27 @@ At the end of the timer period, the timer goes into \"Alarm Mode,\" where an aud
 
 SETTING THE TIMER:
 
-The timer initial (Start) time, along with the Warning and Final thresholds, are set, using the picker in the main screen. The three buttons below the picker select which threshold is being set.
+Use the picker in the main screen to set the timer initial (Start) time, along with the Warning and Final thresholds. The three buttons below the picker select which threshold is being set.
 
-NOTE: The Warning and Final times must be at least one second less than the Start (Total) time. You can choose not to have a Warning threshold (leave it at 0), in which case, the Final threshold cannot be greater than the Total time.
+NOTE: The Warning and/or Final times must be at least one second less than the Start (Total) time.
 
 You can select between a set of sounds that the device will play, along with vibration (on devices that support vibration). This is done, via the Alarm Setting Popover (accessed by the \"Bell\" button, in the top, right corner of the screen). The sound and vibration settings apply to all timers (if there are multiple timers).
 
-ALARM SOUNDS AND VIBRATION:
+SELECTING ALARM SOUNDS AND VIBRATION:
 
-If you select the Set Alarm button (the \"bell\" button, at the top right of the screen), a popover appears, where you can choose to have a sound played, and/or have phones vibrate (vibrate is not supported on iPads or iPods), when the timer ends a countdown. If you select a sound, you can test it, using the little \"speaker\" button, next to the sound picker.
+If you select the Set Alarm button (the \"Bell\" button, at the top right of the screen), a popover appears, where you can choose to play a sound, and/or vibrate, when the timer ends a countdown (NOTE: vibrate is only supported on iPhones). If you select a sound, you can test it, using the \"Speaker\" button, next to the sound picker.
 
 MULTIPLE TIMERS:
 
 You can have a minimum of one (1) timer, and a maximum of seven (7) timers.
 
-It is possible to \"cascade\" between these timers, so, for example, you can have a total time of eighteen minutes, with a 15-minute timer that goes off, and then \"cascades\" to a 3-minute timer, for the end of the period.
+It is possible to \"cascade\" between these timers, with one timer following another.
 
-Add timers by touching the \"╋\" at the right side of the toolbar, in the bottom of the screen, and delete them by selecting the trash can icon, on the left side of the toolbar.
+ADDING AND REMOVING TIMERS:
+
+Use the toolbar, on the bottom of the screen, to add, remove, and select timers.
+
+Add timers by touching the \"╋\" on the right side of the toolbar, and delete timers, by selecting the trash can icon, on the left side of the toolbar.
 
 You can choose which timer is being set, by selecting a numbered timer button in the toolbar, or by swiping left and right, in the screen.
 
@@ -187,7 +191,7 @@ OPERATION:
 
 You start the timer by selecting the \"Play\" button, which is the white triangle, to the right of the Final threshold button, under the time set picker.
 
-It is possible to have the timer start immediately, or start in Paused mode (Paused mode is indicated by a light blue digital color, or dark \"traffic lights\").
+It is possible to have the timer start immediately, or in Paused mode (Paused mode is indicated by a light blue digital color, or dark \"traffic lights\"). Choose this, in the Settings Popover.
 
 If the timer is running, the digital display will be green (Start), yellow (Warning), or red (Final, or alarming).
 
@@ -254,7 +258,7 @@ For more complete instructions, and information about authorship, support, and p
 /* The Gear button, in the upper left. */
 "SLUG-ACC-SETTINGS-BUTTON"                      =   "Selecting this button will display a popover that will allow you to adjust settings for the timers. It will also allow you to find out more about the app.";
 
-/* The bell button, in the upper right. */
+/* The Bell button, in the upper right. */
 "SLUG-ACC-ALARM-BUTTON"                         =   "Selecting this button will display a popover that will allow you to specify an alarm for the timers.";
 
 /* The label over the hours wheel of the picker. */
@@ -276,7 +280,7 @@ For more complete instructions, and information about authorship, support, and p
 "SLUG-ACC-2-FORMAT"                             =   "This wheel will allow you to set the timer to up to %d seconds. It is currently set to %d seconds.";
 
 /* This is applied to the main state label, above the picker. It is followed by one of the following three strings. */
-"SLUG-ACC-STATE"                                =   "This label displays the current threshold state for the timer.";
+"SLUG-ACC-STATE"                                =   "This label displays the current state being set.";
 
 /* This version is for when the timer is in "Start" state.*/
 "SLUG-ACC-STATE-PREFIX-Start"                   =   "The timer is set to the total time.";
@@ -288,19 +292,16 @@ For more complete instructions, and information about authorship, support, and p
 "SLUG-ACC-STATE-PREFIX-Final"                   =   "The timer is set to the final countdown time.";
 
 /* This This is added for the extended "hint" version of the labels for the buttons. */
-"SLUG-ACC-STATE-BUTTON-HINT"                    =   " You can set it to up to 100 hours, 59 minutes, and 59 seconds.";
+"SLUG-ACC-STATE-BUTTON-HINT"                    =   "You can set the time for this, using the picker, above.";
 
 /* This is applied to the green "Start" button. */
-"SLUG-ACC-STATE-BUTTON-LABEL-Start"             =   "This is the total time for the timer.";
+"SLUG-ACC-STATE-BUTTON-LABEL-Start"             =   "The total time for the timer.";
 
 /* This is applied to the yellow "Warn" button. */
-"SLUG-ACC-STATE-BUTTON-LABEL-Warn"              =   "This is the warning threshold time for the timer.";
+"SLUG-ACC-STATE-BUTTON-LABEL-Warn"              =   "The warning threshold time for the timer.";
 
 /* This is applied to the red "Final" button. */
-"SLUG-ACC-STATE-BUTTON-LABEL-Final"             =   "This is the final countdown time for the timer.";
-
-/* This is applied, if the button is currently in a disabled state. */
-"SLUG-ACC-STATE-BUTTON-LABEL-DISABLED-SUFFIX"   =   " The button is currently disabled.";
+"SLUG-ACC-STATE-BUTTON-LABEL-Final"             =   "The final countdown time for the timer.";
 
 /* This is applied to the green "Start" button's extended "hint." */
 "SLUG-ACC-STATE-Start"                          =   "This is the total time for the timer.";
@@ -318,9 +319,9 @@ For more complete instructions, and information about authorship, support, and p
 "SLUG-CURRENT-TIMER-TIME-FORMAT"                =   "The current time is %d hours, %d minutes, and %d seconds.";
 
 /* This is applied to the white triangular "play" button. */
-"SLUG-ACC-PLAY-BUTTON"                          =   "This starts the timer.";
+"SLUG-ACC-PLAY-BUTTON-LABEL"                    =   "This starts the timer.";
 
-/* This is a hint for the play button. */
+/* This is an extended hint for the play button. */
 "SLUG-ACC-PLAY-BUTTON-HINT"                     =   "If you select this, a new screen will appear, with the running timer.";
 
 /* This is applied to the white cross button, in the lower right of the toolbar. */
@@ -339,12 +340,12 @@ For more complete instructions, and information about authorship, support, and p
 "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT"           =   "Selecting this button will allow you to delete Timer %d.";
 
 /* This is applied to the clear button, that appears just to the left of the picker, when a value is set. */
-"SLUG-ACC-CLEAR-BUTTON"                         =   "Selecting this button will reset the time for the currently selected state, to 0.";
+"SLUG-ACC-CLEAR-BUTTON"                         =   "Selecting this button will reset the current time to 0.";
 
 // MARK: SETTINGS POPOVER
 
 /* This is applied to the "About AmbiaMara" button. */
-"SLUG-ACC-ABOUT-AMBIAMARA-BUTTON"               =   "This will bring in a screen, with information about this app.";
+"SLUG-ACC-ABOUT-AMBIAMARA-BUTTON"               =   "This will bring in a screen, with information about this app, along with detailed instructions.";
 
 /* This is applied to the "Start Immediately" switch. */
 "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH"     =   "If this is on, then the timer starts immediately, upon the timer page appearing. If off, then you need to start the timer after entering the running timer screen.";
@@ -353,18 +354,42 @@ For more complete instructions, and information about authorship, support, and p
 "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH"  =   "If this is on, a toolbar will be displayed at the bottom of the running timer, with controls that let you manage the timer. If it is off, you will need to use gestures.";
 
 /* This is applied to the label for the switch that indicates the toolbar will "auto-hide," when not being used. */
-"SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-LABEL"      =   "If this is on, and the \"Show Toolbar\" switch is on, the toolbar will \"hide\" (fade away), after a few seconds of not being used. Touching the screen will bring it back.";
+"SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-HINT"       =   "If this is on, the toolbar will \"hide\" (fade away), after a few seconds of not being used. Touching the screen will bring it back.";
 
 /* This is applied to the segmented switch, at the bottom, with the two timer modes. */
-"SLUG-ACC-POPOVER-TIMER-MODE"                   =   "This switch will select the display mode of the running timer. It will either be digital (numbers), or three \"traffic lights.\"";
+"SLUG-ACC-POPOVER-TIMER-MODE-LABEL"             =   "Timer Mode Switch";
+
+/* This is applied to the entire segmented switch, at the bottom, with the two timer modes. */
+"SLUG-ACC-POPOVER-TIMER-MODE-HINT"              =   "This switch will select the display mode of the running timer. It will either be digital (numbers), or three \"traffic lights.\" (three dots)";
+
+/* This is appended to the above hint, if the mode is "Digital." */
+"SLUG-ACC-POPOVER-TIMER-MODE-HINT-0"            =   "It is currently set to Digital Mode.";
+
+/* This is appended to the above hint, if the mode is "Traffic Lights." */
+"SLUG-ACC-POPOVER-TIMER-MODE-HINT-1"            =   "It is currently set to \"Traffic Lights\" Mode.";
+
+/* This is applied to the actual segment for "Digital Mode." */
+"SLUG-ACC-POPOVER-TIMER-MODE-SEGMENT-0-LABEL"   =   "Select Digital Timer Mode. In Digital Timer Mode, the running timer displays a \"retro LED display,\" and counts down, continuously. The color of the display changes, from green, to yellow, to red, as each threshold is passed.";
+
+/* This is applied to the actual segment for "Digital Mode." */
+"SLUG-ACC-POPOVER-TIMER-MODE-SEGMENT-1-LABEL"   =   "Select \"Traffic Lights\" Timer Mode. In \"Traffic Lights\" Timer Mode, the running timer displays three \"traffic lights,\" which are illuminated and changed, only when the thresholds are crossed. The leftmost \"traffic light\" is green, and represents most of the time. The center \"traffic light\" is yellow, and represents the \"Warning threshold.\" The leftmost \"traffic light\" is red, and represents the \"Final Countdown\" threshold.";
 
 // MARK: ALARM SETUP POPOVER
 
 /* This is applied to the segmented switch, at the top, that selects whether or not to sound an audible alarm. */
 "SLUG-ACC-ALARM-SET-MODE-SWITCH-LABEL"          =   "Turn the audible alarm on or off.";
 
-/* This is the extended hint for the selection button. */
-"SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT"           =   "This allows you to select either no audible alarm, or an audible alarm. Segment 0 (left) means alarm is off, and Segment 1 (right) means alarm is on.";
+/* This is appended to the above hint, if the mode is "Digital." */
+"SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT-0"         =   "It is currently off.";
+
+/* This is appended to the above hint, if the mode is "Traffic Lights." */
+"SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT-1"         =   "It is currently on, and you can use the picker, below, to choose a sound. You can test the sound, using the button next to the picker.";
+
+/* This is the accessibility label for the alarm switch segment 0 (alarm sound off). */
+"SLUG-ACC-POPOVER-ALARM-MODE-SEGMENT-0-LABEL"   =   "Turn the alarm sounds off.";
+
+/* This is the accessibility label for the alarm switch segment 0 (alarm sound off). */
+"SLUG-ACC-POPOVER-ALARM-MODE-SEGMENT-1-LABEL"   =   "Turn the alarm sounds on. Use the picker below, to select a sound. You can test the sound, using the button next to the picker.";
 
 /* This is applied to the "Use Vibrate" switch. */
 "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH"             =   "If this is on, then the phone will vibrate, when the alarm is triggered.";
@@ -372,19 +397,13 @@ For more complete instructions, and information about authorship, support, and p
 /* This is applied to the sound selection picker. */
 "SLUG-ACC-SOUND-PICKER"                         =   "This lists the various sounds available, upon completion of the countdown timer.";
 
+/* This is applied to the sound sample button, next to the picker. */
+"SLUG-ACC-SOUND-SAMPLE-BUTTON"                  =   "Play the selected sound.";
+
 // MARK: RUNNING TIMER SCREEN
 
-/* This is applied to the main timer display, when it is "alarming." */
-"SLUG-ACC-ALARMING-TIMER"                       =   "Timer is alarming.";
-
-/* This is applied to the main timer display, when it is running. */
-"SLUG-ACC-RUNNING-TIMER-FORMAT"                 =   "Timer is at %d:%02d:02d.";
-
-/* This is applied to the main timer display, when it is paused. */
-"SLUG-ACC-PAUSED-TIMER-FORMAT"                  =   "Timer is paused at %d:%02d:02d.";
-
 /* This is applied to the toolbar "Fast Forward" or the "Rewind" button, when it shows a timer. */
-"SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT"            =   "This button will set the timer to Timer %d.";
+"SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT"            =   "This button will switch the timer to Timer %d.";
 
 /* This is applied to the toolbar "Fast Forward" button, when it shows the two arrows. */
 "SLUG-ACC-TOOLBAR-FF-ALARM"                     =   "This button will set the timer to the end, and start the alarm.";
@@ -402,4 +421,4 @@ For more complete instructions, and information about authorship, support, and p
 "SLUG-ACC-TOOLBAR-STOP"                         =   "This button will stop the timer, and return to the setup screen.";
 
 /* This is applied to the central disabled timer button in the toolbar. */
-"SLUG-ACC-TOOLBAR-TIMER-FORMAT"                 =   "This is Timer %d.";
+"SLUG-ACC-TOOLBAR-TIMER-FORMAT"                 =   "This screen is currently set to Timer %d.";

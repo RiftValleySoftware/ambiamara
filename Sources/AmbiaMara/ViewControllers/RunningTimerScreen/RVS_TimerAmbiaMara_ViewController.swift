@@ -719,7 +719,7 @@ extension RVS_TimerAmbiaMara_ViewController {
             fastForwardBarButtonItem?.accessibilityLabel = String(format: "SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT".localizedVariant, nextTimerIndex + 1)
         } else {
             fastForwardBarButtonItem?.image = UIImage(systemName: "forward.end.alt.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
-            fastForwardBarButtonItem?.isEnabled = !_isAlarming
+            fastForwardBarButtonItem?.isEnabled = (_isTimerRunning || nil != _nextTimerIndex)
             fastForwardBarButtonItem?.accessibilityLabel = "SLUG-ACC-TOOLBAR-FF-ALARM".localizedVariant
         }
         

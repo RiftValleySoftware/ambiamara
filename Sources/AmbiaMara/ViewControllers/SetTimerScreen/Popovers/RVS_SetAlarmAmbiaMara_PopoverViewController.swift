@@ -168,8 +168,10 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
         vibrateSwitchLabelButton?.setTitle(vibrateSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         vibrateSwitch?.isOn = RVS_AmbiaMara_Settings().useVibrate
         
-        vibrateSwitch?.accessibilityLabel = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".localizedVariant
-        vibrateSwitchLabelButton?.accessibilityLabel = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".localizedVariant
+        vibrateSwitch?.accessibilityHint = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".localizedVariant
+        vibrateSwitchLabelButton?.accessibilityHint = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".localizedVariant
+        
+        soundPlayButton?.accessibilityLabel = "SLUG-ACC-SOUND-SAMPLE-BUTTON".localizedVariant
         
         _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted { a, b in
                 guard let soundUriA = URL(string: a.urlEncodedString ?? "")?.lastPathComponent,
@@ -185,7 +187,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
             alarmModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.white.withAlphaComponent(0.25)], for: .disabled)
             alarmModeSegmentedSwitch.selectedSegmentIndex = RVS_AmbiaMara_Settings().alarmMode ? 1 : 0
             alarmModeSegmentedSwitch.accessibilityLabel = "SLUG-ACC-ALARM-SET-MODE-SWITCH-LABEL".localizedVariant
-            alarmModeSegmentedSwitch.accessibilityHint = "SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT".localizedVariant
+            alarmModeSegmentedSwitch.accessibilityHint = "SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT-\(alarmModeSegmentedSwitch.selectedSegmentIndex)".localizedVariant
             alarmModeSegmentedSwitchHit(alarmModeSegmentedSwitch)
         }
 
@@ -193,6 +195,12 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
         _selectionFeedbackGenerator?.prepare()
 
         soundsPickerView?.selectRow(RVS_AmbiaMara_Settings().selectedSoundIndex, inComponent: 0, animated: false)
+        
+        for index in 0..<(alarmModeSegmentedSwitch?.numberOfSegments ?? 0) {
+            if let image = alarmModeSegmentedSwitch?.imageForSegment(at: index) {
+                image.accessibilityLabel = "SLUG-ACC-POPOVER-ALARM-MODE-SEGMENT-\(index)-LABEL".localizedVariant
+            }
+        }
     }
     
     /* ################################################################## */
