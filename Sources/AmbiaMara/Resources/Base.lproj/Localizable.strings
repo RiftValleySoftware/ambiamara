@@ -126,7 +126,7 @@
 /* The text for the screen's main display. */
 "SLUG-ABOUT-MAIN-TEXT"                          =   "AmbiaMara is the ultimate countdown timer!
 
-The timer counts down, from as high as 99 hours, 59 minutes, and 59 seconds. It counts in intervals of one second.
+The timer counts down, from as high as 99 hours, 59 minutes, and 59 seconds, in intervals of one second.
 
 TIMER MODES:
 
@@ -190,9 +190,9 @@ You can choose to have the toolbar \"auto-hide,\" in the Settings Popover. If yo
 
 The toolbar does not auto-hide, if the timer is paused, or is alarming.
 
-GESTURE MODE (TOOLBAR IS HIDDEN):
+GESTURE MODE (TOOLBAR IS NOT DISLAYED):
 
-If the toolbar is hidden, you must rely on gestures to control the timer.
+If the toolbar is not displayed, you must rely on gestures to control the timer.
 
     •   Tap (Timer is paused)
 The timer starts (or continues) counting down.
