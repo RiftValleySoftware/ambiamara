@@ -36,6 +36,8 @@ extension RVS_AboutAmbiaMara_ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = navigationItem.title?.localizedVariant
-        aboutText?.text = aboutText?.text?.localizedVariant
+        if let text = aboutText?.text {
+            aboutText?.text = NSLocalizedString(text, tableName: "Instructions", comment: "")
+        }
     }
 }
