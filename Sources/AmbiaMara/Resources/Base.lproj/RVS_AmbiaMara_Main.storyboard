@@ -458,10 +458,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="cnP-ZB-vMv">
-                                <rect key="frame" x="20" y="64" width="374" height="222"/>
+                                <rect key="frame" x="20" y="64" width="374" height="224"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omz-Mi-exI">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="32"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -478,7 +478,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" id="Xzy-5h-Cg0" userLabel="Start Immediately Stack View">
-                                        <rect key="frame" x="0.0" y="48" width="374" height="29"/>
+                                        <rect key="frame" x="0.0" y="50" width="374" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p7i-GW-TPA">
@@ -506,7 +506,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" id="CVY-F1-Y9c" userLabel="Toolbar Stack View">
-                                        <rect key="frame" x="0.0" y="95" width="374" height="29"/>
+                                        <rect key="frame" x="0.0" y="97" width="374" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecG-jq-uKs">
@@ -534,7 +534,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="aUO-XP-mX2" userLabel="Auto-Hide Stack View">
-                                        <rect key="frame" x="0.0" y="142" width="374" height="31"/>
+                                        <rect key="frame" x="0.0" y="144" width="374" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jw3-Fr-MQr" userLabel="Blank Spacer Label">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="31"/>
@@ -572,7 +572,7 @@
                                         </constraints>
                                     </stackView>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="brc-he-RCW">
-                                        <rect key="frame" x="0.0" y="191" width="374" height="32"/>
+                                        <rect key="frame" x="0.0" y="193" width="374" height="32"/>
                                         <color key="backgroundColor" name="SegSwitchColor"/>
                                         <segments>
                                             <segment title="" image="Digits"/>
@@ -1075,7 +1075,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="937" height="937"/>
+        <image name="CenterImage" width="883" height="877"/>
         <image name="Digits" width="60" height="20"/>
         <image name="Final-Image" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
@@ -1092,7 +1092,7 @@
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="0.44499999284744263" green="0.47600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
