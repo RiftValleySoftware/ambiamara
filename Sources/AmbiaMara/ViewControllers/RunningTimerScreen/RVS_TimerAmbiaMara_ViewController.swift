@@ -773,10 +773,14 @@ extension RVS_TimerAmbiaMara_ViewController {
         _selectionFeedbackGenerator?.prepare()
         _feedbackGenerator?.prepare()
         if RVS_AmbiaMara_Settings().startTimerImmediately {
-            flashGreen()
+            if !RVS_AmbiaMara_Settings().stoplightMode {
+                flashGreen()
+            }
             startTimer()
         } else {
-            flashCyan()
+            if !RVS_AmbiaMara_Settings().stoplightMode {
+                flashCyan()
+            }
             pauseTimer()
         }
         
@@ -793,7 +797,8 @@ extension RVS_TimerAmbiaMara_ViewController {
             cascadeTimer()
         } else if _isTimerRunning || !(_isAtStart || _isAtEnd) {
             _isAlarming = true
-        } else if !cascadeTimer() {
+        } else if !cascadeTimer(),
+                  !RVS_AmbiaMara_Settings().stoplightMode {
             flashCyan()
         }
     }
@@ -806,12 +811,15 @@ extension RVS_TimerAmbiaMara_ViewController {
         if !_isAlarming,
            !_isTimerRunning,
            _isAtStart || _isAtEnd {
-            if !cascadeTimer(backwards: true) {
+            if !cascadeTimer(backwards: true),
+               !RVS_AmbiaMara_Settings().stoplightMode {
                 flashCyan()
             }
         } else {
             stopAlarm()
-            flashCyan()
+            if !RVS_AmbiaMara_Settings().stoplightMode {
+                flashCyan()
+            }
             resetTimer()
         }
         
@@ -988,6 +996,9 @@ extension RVS_TimerAmbiaMara_ViewController {
         let previousTime = RVS_AmbiaMara_Settings().currentTimer.startTime - inTickTime
         determineDigitLEDColor(remainingTime)
         determineStoplightColor(remainingTime)
+        
+        guard !RVS_AmbiaMara_Settings().stoplightMode else { return }   // No flashes for stoplight mode.
+        
         if previousTime > RVS_AmbiaMara_Settings().currentTimer.warnTime,
            _isWarning {
             flashYellow()
@@ -1173,14 +1184,19 @@ extension RVS_TimerAmbiaMara_ViewController {
         if _isAlarming {
             stopAlarm()
         } else if _isTimerRunning {
-            flashCyan()
+            if !RVS_AmbiaMara_Settings().stoplightMode {
+                flashCyan()
+            }
             pauseTimer()
-        } else if 0 == _tickTimeInSeconds {
-            flashGreen()
+        } else if _isAtStart {
+            if !RVS_AmbiaMara_Settings().stoplightMode {
+                flashGreen()
+            }
             startTimer()
         } else {
             if !_isWarning,
-               !_isFinal {
+               !_isFinal,
+               !RVS_AmbiaMara_Settings().stoplightMode {
                 flashGreen()
             }
             continueTimer()
@@ -1261,15 +1277,20 @@ extension RVS_TimerAmbiaMara_ViewController {
             fastForwardHit()
         } else if playPauseToolbarItem == inSender {
             if _isTimerRunning {
-                flashCyan()
+                if !RVS_AmbiaMara_Settings().stoplightMode {
+                    flashCyan()
+                }
                 pauseTimer()
             } else {
                 if 0 == _tickTimeInSeconds {
-                    flashGreen()
+                    if !RVS_AmbiaMara_Settings().stoplightMode {
+                        flashGreen()
+                    }
                     startTimer()
                 } else {
                     if !_isWarning,
-                       !_isFinal {
+                       !_isFinal,
+                       !RVS_AmbiaMara_Settings().stoplightMode {
                         flashGreen()
                     }
                     continueTimer()
