@@ -563,7 +563,6 @@ extension RVS_TimerAmbiaMara_ViewController {
         stoplightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().stoplightMode
         digitalDisplayContainerView?.isHidden = RVS_AmbiaMara_Settings().stoplightMode
         controlToolbar?.isHidden = !RVS_AmbiaMara_Settings().displayToolbar
-        setNeedsStatusBarAppearanceUpdate()
         
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
