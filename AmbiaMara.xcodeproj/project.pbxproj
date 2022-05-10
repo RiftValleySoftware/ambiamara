@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D427FE362829B6F5003F83D9 /* Instructions.strings in Resources */ = {isa = PBXBuildFile; fileRef = D427FE342829B6F5003F83D9 /* Instructions.strings */; };
 		D4291733282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */; };
 		D44E770D281ACAEE00B491EF /* RVS-MaskButton in Frameworks */ = {isa = PBXBuildFile; productRef = D44E770C281ACAEE00B491EF /* RVS-MaskButton */; };
+		D474E5DE282B26E900102B9B /* Instructions.txt in Resources */ = {isa = PBXBuildFile; fileRef = D474E5DC282B26E900102B9B /* Instructions.txt */; };
 		D47C029F2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C029E2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift */; };
 		D47C02A32819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */; };
 		D47C02A62819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A42819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard */; };
@@ -94,9 +94,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D427FE352829B6F5003F83D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Instructions.strings; sourceTree = "<group>"; };
 		D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AboutAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
 		D44E7712281AD1B000B491EF /* AmbiaMara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AmbiaMara.entitlements; sourceTree = "<group>"; };
+		D474E5DD282B26E900102B9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text; name = Base; path = Base.lproj/Instructions.txt; sourceTree = "<group>"; };
 		D47C029B2819CA6500D359F5 /* AmbiaMara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbiaMara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D47C029E2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_AppSceneDelegate.swift; sourceTree = "<group>"; };
 		D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_SetTimerAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
@@ -281,7 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				D47C02A42819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard */,
-				D427FE342829B6F5003F83D9 /* Instructions.strings */,
+				D474E5DC282B26E900102B9B /* Instructions.txt */,
 				D4C4B70A2819CEDB00E22ECA /* Localizable.strings */,
 				D47C02A72819CA6800D359F5 /* Assets.xcassets */,
 				D47C02A92819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard */,
@@ -397,7 +397,7 @@
 				D4C4B70C2819CEDB00E22ECA /* Localizable.strings in Resources */,
 				D47C02A82819CA6800D359F5 /* Assets.xcassets in Resources */,
 				D47C02A62819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard in Resources */,
-				D427FE362829B6F5003F83D9 /* Instructions.strings in Resources */,
+				D474E5DE282B26E900102B9B /* Instructions.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,12 +444,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		D427FE342829B6F5003F83D9 /* Instructions.strings */ = {
+		D474E5DC282B26E900102B9B /* Instructions.txt */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D427FE352829B6F5003F83D9 /* Base */,
+				D474E5DD282B26E900102B9B /* Base */,
 			);
-			name = Instructions.strings;
+			name = Instructions.txt;
 			sourceTree = "<group>";
 		};
 		D47C02A42819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard */ = {

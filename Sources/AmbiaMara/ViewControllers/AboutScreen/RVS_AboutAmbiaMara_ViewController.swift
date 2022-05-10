@@ -36,8 +36,10 @@ extension RVS_AboutAmbiaMara_ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = navigationItem.title?.localizedVariant
-        if let text = aboutText?.text {
-            aboutText?.text = NSLocalizedString(text, tableName: "Instructions", comment: "")
-        }
+        guard let file = Bundle.main.url(forResource: "Instructions", withExtension: "txt"),
+              let contents = try? String(contentsOf: file, encoding: String.Encoding.utf8 )
+        else { return }
+      
+        aboutText?.text = contents
     }
 }
