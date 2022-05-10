@@ -519,6 +519,12 @@ extension RVS_TimerAmbiaMara_ViewController {
 
     /* ############################################################## */
     /**
+     - returns true, indicating the status bar should be hidden.
+     */
+    override var prefersStatusBarHidden: Bool { true }
+    
+    /* ############################################################## */
+    /**
      Called when the hierarchy is loaded.
      */
     override func viewDidLoad() {
@@ -557,6 +563,7 @@ extension RVS_TimerAmbiaMara_ViewController {
         stoplightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().stoplightMode
         digitalDisplayContainerView?.isHidden = RVS_AmbiaMara_Settings().stoplightMode
         controlToolbar?.isHidden = !RVS_AmbiaMara_Settings().displayToolbar
+        setNeedsStatusBarAppearanceUpdate()
         
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.

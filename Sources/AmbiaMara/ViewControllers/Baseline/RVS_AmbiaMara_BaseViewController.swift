@@ -60,6 +60,12 @@ class RVS_AmbiaMara_BaseViewController: UIViewController {
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
 extension RVS_AmbiaMara_BaseViewController {
+    /* ############################################################## */
+    /**
+     - returns true, indicating the status bar should be hidden.
+     */
+    override var prefersStatusBarHidden: Bool { false }
+    
     /* ################################################################## */
     /**
      Called when the view hierarchy has been completed.
@@ -120,5 +126,17 @@ extension RVS_AmbiaMara_BaseViewController {
                 }
             }
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the view is about to appear.
+     We use this to make sure the status bar comes back.
+     
+     - parameter inAnimated: True, if the appearance is to be animated.
+    */
+    override func viewWillAppear(_ inAnimated: Bool) {
+        super.viewWillAppear(inAnimated)
+        setNeedsStatusBarAppearanceUpdate()
     }
 }
