@@ -71,12 +71,6 @@
 /* This is applied to the green "Final" button's extended "hint." */
 "SLUG-ACC-STATE-Final"                          =   "When this time is reached, the timer goes into a \"final countdown\" state, and the color changes again. If you leave this time at 0, the final countdown state never happens, and the timer goes directly to an alarm, when it completes. This time cannot be greater than the warning time, or the total time.";
 
-/* This is applied to the navbar hint. */
-"SLUG-CURRENT-TIMER-SELECTED-FORMAT"            =   "Timer %d is currently selected.";
-
-/* This is also applied to the navbar hint. */
-"SLUG-CURRENT-TIMER-TIME-FORMAT"                =   "The current time is %d hours, %d minutes, and %d seconds.";
-
 /* This is applied to the white triangular "play" button. */
 "SLUG-ACC-PLAY-BUTTON-LABEL"                    =   "This starts the timer.";
 

@@ -732,9 +732,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         }
         
         setTimePickerView?.accessibilityHint = String(format: "SLUG-CURRENT-TIMER-TIME-FORMAT".localizedVariant, timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
-        navigationController?.navigationBar.accessibilityHint = String(format: "SLUG-CURRENT-TIMER-SELECTED-FORMAT".localizedVariant, _currentTimer.index + 1)
-            + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".accessibilityLocalizedVariant
-            + " " + String(format: "SLUG-CURRENT-TIMER-TIME-FORMAT".localizedVariant, timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
 
         setTimePickerView?.reloadAllComponents()
     }
