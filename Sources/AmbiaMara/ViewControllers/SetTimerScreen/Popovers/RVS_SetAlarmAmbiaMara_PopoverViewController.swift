@@ -168,10 +168,10 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
         vibrateSwitchLabelButton?.setTitle(vibrateSwitchLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         vibrateSwitch?.isOn = RVS_AmbiaMara_Settings().useVibrate
         
-        vibrateSwitch?.accessibilityHint = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".localizedVariant
-        vibrateSwitchLabelButton?.accessibilityHint = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".localizedVariant
+        vibrateSwitch?.accessibilityHint = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".accessibilityLocalizedVariant
+        vibrateSwitchLabelButton?.accessibilityHint = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".accessibilityLocalizedVariant
         
-        soundPlayButton?.accessibilityLabel = "SLUG-ACC-SOUND-SAMPLE-BUTTON".localizedVariant
+        soundPlayButton?.accessibilityLabel = "SLUG-ACC-SOUND-SAMPLE-BUTTON".accessibilityLocalizedVariant
         
         _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted { a, b in
                 guard let soundUriA = URL(string: a.urlEncodedString ?? "")?.lastPathComponent,
@@ -186,8 +186,8 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
             alarmModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
             alarmModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.white.withAlphaComponent(0.25)], for: .disabled)
             alarmModeSegmentedSwitch.selectedSegmentIndex = RVS_AmbiaMara_Settings().alarmMode ? 1 : 0
-            alarmModeSegmentedSwitch.accessibilityLabel = "SLUG-ACC-ALARM-SET-MODE-SWITCH-LABEL".localizedVariant
-            alarmModeSegmentedSwitch.accessibilityHint = "SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT-\(alarmModeSegmentedSwitch.selectedSegmentIndex)".localizedVariant
+            alarmModeSegmentedSwitch.accessibilityLabel = "SLUG-ACC-ALARM-SET-MODE-SWITCH-LABEL".accessibilityLocalizedVariant
+            alarmModeSegmentedSwitch.accessibilityHint = "SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT-\(alarmModeSegmentedSwitch.selectedSegmentIndex)".accessibilityLocalizedVariant
             alarmModeSegmentedSwitchHit(alarmModeSegmentedSwitch)
         }
 
@@ -198,7 +198,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
         
         for index in 0..<(alarmModeSegmentedSwitch?.numberOfSegments ?? 0) {
             if let image = alarmModeSegmentedSwitch?.imageForSegment(at: index) {
-                image.accessibilityLabel = "SLUG-ACC-POPOVER-ALARM-MODE-SEGMENT-\(index)-LABEL".localizedVariant
+                image.accessibilityLabel = "SLUG-ACC-POPOVER-ALARM-MODE-SEGMENT-\(index)-LABEL".accessibilityLocalizedVariant
             }
         }
     }
@@ -386,7 +386,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController: UIPickerViewAccessibility
      - parameter accessibilityLabelForComponent: The 0-based component index for the label (ignored).
      - returns: An accessibility string for the component.
     */
-    func pickerView(_: UIPickerView, accessibilityLabelForComponent: Int) -> String? { "SLUG-ACC-SOUND-PICKER".localizedVariant }
+    func pickerView(_: UIPickerView, accessibilityLabelForComponent: Int) -> String? { "SLUG-ACC-SOUND-PICKER".accessibilityLocalizedVariant }
 }
 
 /* ###################################################################################################################################### */

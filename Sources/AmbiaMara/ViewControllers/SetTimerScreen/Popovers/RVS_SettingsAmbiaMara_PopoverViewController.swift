@@ -154,14 +154,14 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         aboutAmbiaMaraButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         aboutAmbiaMaraButton?.titleLabel?.minimumScaleFactor = 0.5
         
-        popoverStartImmediatelySwitch?.accessibilityHint = "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH".localizedVariant
-        popoverStartImmediatelySwitchLabelButton?.accessibilityHint = "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH".localizedVariant
+        popoverStartImmediatelySwitch?.accessibilityHint = "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH".accessibilityLocalizedVariant
+        popoverStartImmediatelySwitchLabelButton?.accessibilityHint = "SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH".accessibilityLocalizedVariant
         
-        popoverDisplayToolbarSwitch?.accessibilityHint = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH".localizedVariant
-        popoverDisplayToolbarSwitchLabelButton?.accessibilityHint = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH".localizedVariant
+        popoverDisplayToolbarSwitch?.accessibilityHint = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH".accessibilityLocalizedVariant
+        popoverDisplayToolbarSwitchLabelButton?.accessibilityHint = "SLUG-ACC-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH".accessibilityLocalizedVariant
         
-        popoverDisplayAutoHideSwitch?.accessibilityHint = "SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-HINT".localizedVariant
-        popoverDisplayAutoHideSwitchLabelButton?.accessibilityHint = "SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-HINT".localizedVariant
+        popoverDisplayAutoHideSwitch?.accessibilityHint = "SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-HINT".accessibilityLocalizedVariant
+        popoverDisplayAutoHideSwitchLabelButton?.accessibilityHint = "SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-HINT".accessibilityLocalizedVariant
 
         // We should not rely on gestures for Catalyst. Also, voiceover mode does not work well with gestures.
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
@@ -177,7 +177,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         // We do not do auto hide, when in voiceover mode.
         autoHideContainerStackView?.isHidden = UIAccessibility.isVoiceOverRunning
 
-        aboutAmbiaMaraButton?.accessibilityHint = "SLUG-ACC-ABOUT-AMBIAMARA-BUTTON".localizedVariant
+        aboutAmbiaMaraButton?.accessibilityHint = "SLUG-ACC-ABOUT-AMBIAMARA-BUTTON".accessibilityLocalizedVariant
 
         _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
         _selectionFeedbackGenerator?.prepare()
@@ -188,14 +188,14 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
             timerModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
             timerModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.white.withAlphaComponent(0.25)], for: .disabled)
             timerModeSegmentedSwitch.selectedSegmentIndex = RVS_AmbiaMara_Settings().stoplightMode ? 1 : 0
-            timerModeSegmentedSwitch.accessibilityLabel = "SLUG-ACC-POPOVER-TIMER-MODE-LABEL".localizedVariant
-            timerModeSegmentedSwitch.accessibilityHint = "SLUG-ACC-POPOVER-TIMER-MODE-HINT".localizedVariant + " " + "SLUG-ACC-POPOVER-TIMER-MODE-HINT-\(timerModeSegmentedSwitch.selectedSegmentIndex)".localizedVariant
+            timerModeSegmentedSwitch.accessibilityLabel = "SLUG-ACC-POPOVER-TIMER-MODE-LABEL".accessibilityLocalizedVariant
+            timerModeSegmentedSwitch.accessibilityHint = "SLUG-ACC-POPOVER-TIMER-MODE-HINT".accessibilityLocalizedVariant + " " + "SLUG-ACC-POPOVER-TIMER-MODE-HINT-\(timerModeSegmentedSwitch.selectedSegmentIndex)".accessibilityLocalizedVariant
             timerModeSegmentedSwitchChanged(timerModeSegmentedSwitch)
         }
         
         for index in 0..<(timerModeSegmentedSwitch?.numberOfSegments ?? 0) {
             if let image = timerModeSegmentedSwitch?.imageForSegment(at: index) {
-                image.accessibilityLabel = "SLUG-ACC-POPOVER-TIMER-MODE-SEGMENT-\(index)-LABEL".localizedVariant
+                image.accessibilityLabel = "SLUG-ACC-POPOVER-TIMER-MODE-SEGMENT-\(index)-LABEL".accessibilityLocalizedVariant
             }
         }
     }

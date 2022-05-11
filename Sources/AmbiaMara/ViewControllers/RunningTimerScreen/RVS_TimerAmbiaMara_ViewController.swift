@@ -722,11 +722,11 @@ extension RVS_TimerAmbiaMara_ViewController {
            let nextTimerIndex = _nextTimerIndex {
             fastForwardBarButtonItem?.image = UIImage(systemName: "\(nextTimerIndex + 1).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
             fastForwardBarButtonItem?.isEnabled = true
-            fastForwardBarButtonItem?.accessibilityLabel = String(format: "SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT".localizedVariant, nextTimerIndex + 1)
+            fastForwardBarButtonItem?.accessibilityLabel = String(format: "SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT".accessibilityLocalizedVariant, nextTimerIndex + 1)
         } else {
             fastForwardBarButtonItem?.image = UIImage(systemName: "forward.end.alt.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
             fastForwardBarButtonItem?.isEnabled = (_isTimerRunning || nil != _nextTimerIndex)
-            fastForwardBarButtonItem?.accessibilityLabel = "SLUG-ACC-TOOLBAR-FF-ALARM".localizedVariant
+            fastForwardBarButtonItem?.accessibilityLabel = "SLUG-ACC-TOOLBAR-FF-ALARM".accessibilityLocalizedVariant
         }
         
         if !_isTimerRunning,
@@ -734,21 +734,21 @@ extension RVS_TimerAmbiaMara_ViewController {
            let previousTimerIndex = _previousTimerIndex {
             rewindToolbarItem?.image = UIImage(systemName: "\(previousTimerIndex + 1).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
             rewindToolbarItem?.isEnabled = true
-            rewindToolbarItem?.accessibilityLabel = String(format: "SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT".localizedVariant, previousTimerIndex + 1)
+            rewindToolbarItem?.accessibilityLabel = String(format: "SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT".accessibilityLocalizedVariant, previousTimerIndex + 1)
         } else {
             rewindToolbarItem?.image = UIImage(systemName: "backward.end.alt.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
             rewindToolbarItem?.isEnabled = _isAlarming || !_isAtStart
-            rewindToolbarItem?.accessibilityLabel = "SLUG-ACC-TOOLBAR-REWIND-ALARM".localizedVariant
+            rewindToolbarItem?.accessibilityLabel = "SLUG-ACC-TOOLBAR-REWIND-ALARM".accessibilityLocalizedVariant
         }
         
         playPauseToolbarItem?.isEnabled = !_isAlarming
-        playPauseToolbarItem?.accessibilityLabel = _isAlarming ? nil : (_isTimerRunning ? "SLUG-ACC-TOOLBAR-PAUSE".localizedVariant : "SLUG-ACC-TOOLBAR-PLAY".localizedVariant)
+        playPauseToolbarItem?.accessibilityLabel = _isAlarming ? nil : (_isTimerRunning ? "SLUG-ACC-TOOLBAR-PAUSE".accessibilityLocalizedVariant : "SLUG-ACC-TOOLBAR-PLAY".accessibilityLocalizedVariant)
 
-        stopToolbarItem?.accessibilityLabel = "SLUG-ACC-TOOLBAR-STOP".localizedVariant
+        stopToolbarItem?.accessibilityLabel = "SLUG-ACC-TOOLBAR-STOP".accessibilityLocalizedVariant
         
         if nil != _nextTimerIndex {
             timerIndicatorToolbarItem?.image = UIImage(systemName: "\(RVS_AmbiaMara_Settings().currentTimerIndex + 1).circle")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
-            timerIndicatorToolbarItem?.accessibilityLabel = String(format: "SLUG-ACC-TOOLBAR-TIMER-FORMAT".localizedVariant, RVS_AmbiaMara_Settings().currentTimerIndex + 1)
+            timerIndicatorToolbarItem?.accessibilityLabel = String(format: "SLUG-ACC-TOOLBAR-TIMER-FORMAT".accessibilityLocalizedVariant, RVS_AmbiaMara_Settings().currentTimerIndex + 1)
         } else {
             timerIndicatorToolbarItem?.image = nil
         }
