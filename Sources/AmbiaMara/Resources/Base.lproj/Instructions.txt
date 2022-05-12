@@ -29,7 +29,7 @@ The timer displays three simple circles that light up, one by one, as the timer 
 
 The display is designed to take up as much space as possible, on the screen.
 
-The mode is chosen in the Settings popover, which is accessed via the "Gear\” button, in the top, left of the screen (how you got to this screen).
+The mode is chosen in the Settings popover, which is accessed via the "Gear" button, in the top, left of the screen (how you got to this screen).
 
 At the end of the timer period, the timer goes into "Alarm Mode," where an audible alarm may sound, the phone may vibrate, and the screen flashes red.
 
