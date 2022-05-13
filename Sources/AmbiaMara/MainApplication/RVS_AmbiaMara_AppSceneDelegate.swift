@@ -57,19 +57,12 @@ extension RVS_AmbiaMara_AppSceneDelegate {
 extension RVS_AmbiaMara_AppSceneDelegate {
     /* ################################################################## */
     /**
-     This closes any open popovers.
+     This closes any open popovers, and also stops any alarms.
      */
-    func cleanPopover() {
+    func cleanPopoverAndStopAlarm() {
         DispatchQueue.main.async { [weak self] in
-            if let viewControllers = self?.navigationController?.viewControllers {
-               if let setupScreen = viewControllers.first as? RVS_SetTimerAmbiaMara_ViewController,
-                  let popover = setupScreen.currentDisplayedPopover {
-                   setupScreen.currentDisplayedPopover = nil
-                   popover.dismiss(animated: false)
-               } else if let runningTimerScreen = viewControllers.first as? RVS_TimerAmbiaMara_ViewController {
-                   runningTimerScreen.stopAlarm()
-               }
-            }
+           (self?.navigationController?.viewControllers.first as? RVS_SetTimerAmbiaMara_ViewController)?.currentDisplayedPopover?.dismiss(animated: false)
+           (self?.navigationController?.topViewController as? RVS_TimerAmbiaMara_ViewController)?.stopAlarm()
         }
     }
 }
@@ -106,7 +99,7 @@ extension RVS_AmbiaMara_AppSceneDelegate: UIWindowSceneDelegate {
      - parameter: The scene instance (ignored).
      */
     func sceneWillResignActive(_: UIScene) {
-        cleanPopover()
+        cleanPopoverAndStopAlarm()
     }
     
     /* ################################################################## */
@@ -115,7 +108,7 @@ extension RVS_AmbiaMara_AppSceneDelegate: UIWindowSceneDelegate {
      - parameter: The scene instance (ignored).
      */
     func sceneDidEnterBackground(_: UIScene) {
-        cleanPopover()
+        cleanPopoverAndStopAlarm()
     }
     
     /* ################################################################## */

@@ -217,6 +217,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
         }
+        myController?.currentDisplayedPopover = nil
     }
 }
 

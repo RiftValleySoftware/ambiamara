@@ -212,6 +212,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
         }
+        myController?.currentDisplayedPopover = nil
     }
 }
 
