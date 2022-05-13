@@ -544,18 +544,17 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         setAlarmIcon()
 
         // First time through, we do a "fade in" animation.
-        if let startupLogo = startupLogo {
+        if let startupLogo = startupLogo,
+           inIsAnimated {
             alarmSetBarButtonItem?.isEnabled = false
             settingsBarButtonItem?.isEnabled = false
             setTimePickerView?.isUserInteractionEnabled = false
             startupLogo.alpha = 1.0
             containerView?.alpha = Self._initialSettingsItemAlpha
-            view.layoutIfNeeded()
             UIView.animate(withDuration: Self._fadeInAnimationPeriodInSeconds,
                            animations: { [weak self] in
                                             startupLogo.alpha = 0.0
                                             self?.containerView?.alpha = 1.0
-                                            self?.view.layoutIfNeeded()
                                         },
                            completion: { [weak self] _ in
                                             DispatchQueue.main.async {

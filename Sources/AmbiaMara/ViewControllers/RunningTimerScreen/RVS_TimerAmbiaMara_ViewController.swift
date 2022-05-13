@@ -605,12 +605,16 @@ extension RVS_TimerAmbiaMara_ViewController {
      - parameter inIsAnimated: True, if the disappearance is animated.
      */
     override func viewWillDisappear(_ inIsAnimated: Bool) {
-        super.viewWillDisappear(inIsAnimated)
-        UIApplication.shared.isIdleTimerDisabled = false
         stopAlarm()
         pauseTimer()
+        _timer?.invalidate()
         _timer = nil
+        _alarmTimer?.invalidate()
         _alarmTimer = nil
+        _autoHideTimer?.invalidate()
+        _autoHideTimer = nil
+        UIApplication.shared.isIdleTimerDisabled = false
+        super.viewWillDisappear(inIsAnimated)
     }
 }
 
