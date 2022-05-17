@@ -1,0 +1,113 @@
+/*
+ © Copyright 2018-2022, The Great Rift Valley Software Company. All rights reserved.
+ 
+ This code is proprietary code, and is not licensed for reuse.
+ It is NOT to be reused or combined into any application,
+ unless done so, specifically under written license from The Great Rift Valley Software Company.
+ 
+ The Great Rift Valley Software Company: https://riftvalleysoftware.com
+ */
+//********************************************** **********************************************************
+// --------------------------------------------   ------------------------------------------------------- *
+//|  DO NOT MODIFY ON THIS SIDE OF THE EQUALS  | |   MODIFY THE TEXT ON THIS SIDE TO THE LOCAL LANGUAGE  |*
+// --------------------------------------------   ------------------------------------------------------- *
+//********************************************** **********************************************************
+// MARK: -
+// MARK: SOUND NAMES (DISPLAYED IN THE ALARM POPOVER)
+// MARK: -
+
+"00-escalation.mp3" = "Alarme progressive";
+"01-low-beep.mp3" = "Bips graves";
+"02-medium-beep.mp3" = "Bips moyens";
+"03-high-beep.mp3" = "Bips aigus";
+"04-electronic-buzz.mp3" = "Bips forts";
+"05-fast-beep.mp3" = "Sonnerie silencieuse";
+"06-high-fast-beeps.mp3" = "Bips rapides";
+"07-videogame-beeps-lower-frequency.mp3" = "Électronique grave";
+"08-videogame-beeps-high-frequency.mp3" = "Électronique aigüe";
+"09-single-beep.mp3" = "Bips simples";
+"10-annoying-alarm.mp3" = "Sonnette d’alarme classique";
+"11-bells.mp3" = "Carillons";
+"12-crazy-bird.mp3" = "Oiseau fou";
+"13-rooster.mp3" = "Coq";
+"16-snoring-1.mp3" = "Ronflements";
+"17-car-horn.mp3" = "Klaxon";
+"18-antique-phone.mp3" = "Ancienne sonnerie de téléphone";
+"19-classic-phone.mp3" = "Sonnerie classique de téléphone";
+"20-antique-car-horn.mp3" = "Klaxon d'antan";
+"21-alarm-klaxon.mp3" = "Alarme";
+"23-siren.mp3" = "Sirène de police";
+"24-deep-alarm.mp3" = "Corne de brume";
+"25-telephone.mp3" = "Téléphone portable";
+
+// MARK: -
+// MARK: DELETE CONFIRMATION ALERT (DISPLAYED WHEN THE "TRASH" BUTTON IS HIT)
+// MARK: -
+
+/* The delete (destructive) button in the delete confirmation modal alert. */
+"SLUG-DELETE-BUTTON-TEXT" = "Supprimer";
+
+/* The cancel (non-destructive) button in the delete confirmation modal alert. */
+"SLUG-CANCEL-BUTTON-TEXT" = "Annuler";
+
+/* The header for the delete confirmation modal alert. */
+"SLUG-DELETE-CONFIRM-HEADER" = "Supprimer ce compte à rebours ?";
+
+/* The main message text for the delete confirmation modal alert (when the timer has no set time). */
+"SLUG-DELETE-CONFIRM-MESSAGE-FORMAT-ZERO" = "Voulez-vous vraiment supprimer le compte à rebours %d ?";
+
+/* The main message text for the delete confirmation modal alert (when the timer has a set time). */
+"SLUG-DELETE-CONFIRM-MESSAGE-FORMAT" = "Voulez-vous vraiment supprimer le compte à rebours %d (%@) ?";
+
+// MARK: -
+// MARK: MAIN USER INTERFACE TEXT
+// MARK: -
+// MARK: SETUP SCREEN (MAIN SCREEN)
+
+/* This is the name of the back button, in the "About" screen. It is only seen in the About AmbiaMara Screen (Back Button). */
+"SLUG-BACK-BUTTON" = "Régler le compte à rebours";
+
+/* The navigation bar title that is displayed when there is more than one timer. It is not displayed, if there is only one timer. */
+"SLUG-TIMER-TITLE-FORMAT" = "Compte à rebours n°%d";
+
+/* The label that is displayed over the picker, when the timer "Start" (total) time has been selected for editing. */
+"SLUG-STATE-Start" = "Temps total";
+
+/* The label that is displayed over the picker, when the timer "Warn" (warning time) time has been selected for editing. */
+"SLUG-STATE-Warn" = "Phase d'alarme";
+
+/* The label that is displayed over the picker, when the timer "Final" (final countdown) time has been selected for editing. */
+"SLUG-STATE-Final" = "Phase finale";
+
+/* The name on the label over the "hours" picker view component. */
+"SLUG-HOURS" = "Heures";
+
+/* The name on the label over the "minutes" picker view component. */
+"SLUG-MINUTES" = "Minutes";
+
+/* The name on the label over the "seconds" picker view component. */
+"SLUG-SECONDS" = "Secondes";
+
+// MARK: Settings Popover (Accessed Via the "Gear" Navigation Bar Button, at the Top, Left of the Screen)
+
+/* The label for the switch to start the timer immediately upon entry. */
+"SLUG-POPOVER-START-IMMEDIATELY-SETTING-LABEL" = "Démarrer le compte à rebours immédiatement";
+
+/* The label for the switch to show the toolbar in the running timer (as opposed to just gestures). NOTE: On Mac, this is hidden. If this is off, then the "Auto-Hide Toolbar" switch is disabled. */
+"SLUG-POPOVER-SHOW-TOOLBAR-SETTING-LABEL" = "Afficher la barre d’outils dans le compte à rebours";
+
+/* The label for the switch that indicates the toolbar will "auto-hide," when not being used. NOTE: On Mac, this is displayed without the "Show Toolbar" switch, and is always enabled. */
+"SLUG-POPOVER-AUTO-HIDE-SETTING-LABEL" = "Masquer automatiquement la barre d'outils";
+
+/* The button that will select the "About AmbiaMara" screen. NOTE FOR TRANSLATOR: "AmbiaMara" is the app name, so is not translated. */
+"SLUG-ABOUT-AMBIAMARA-BUTTON" = "À propos d’AmbiaMara";
+
+// MARK: Alarm Settings Popover (Accessed Via the "Bell" Navigation Bar Button, at the Top, Right of the Screen)
+
+/* The label for the switch to select vibration upon alarm. NOTE: This is only shown on iPhones. */
+"SLUG-VIBRATE-BUTTON" = "Utiliser la vibration";
+
+// MARK: ABOUT SCREEN
+
+/* The navigation bar title for the screen. */
+"SLUG-ABOUT-TITLE" = "À propos d’AmbiaMara";

@@ -1,0 +1,123 @@
+AmbiaMara ist der ultimative Countdown-Timer!
+
+Er zählt ab einer voreingestellten Zeit in Intervallen von einer Sekunde herunter.
+
+TIMER-MODI:
+
+Jeder Timer hat drei mögliche Modi, die zu unterschiedlichen Zeiten auftreten:
+
+    •   Gesamtzeit
+Dies ist die gesamte Zeit, die der Timer herunterzählt. Sie wird durch eine grüne Farbe angezeigt.
+
+    •   Warnzeit
+Bei Überschreitung dieses Schwellenwerts wechselt der Timer auf Gelb und zeigt damit an, dass die Zeit abläuft.
+
+    •   Endgültiger Countdown
+Dies ist der Zeitpunkt, an dem der Timer einen Alarm auslösen wird. Der Timer wechselt auf Rot.
+
+Diese Schwellenwerte können für jeden Timer eingestellt werden und werden im laufenden Timer angezeigt. Sie können sich auch dafür entscheiden, keine Schwellenwerte zu verwenden.
+
+Beim Überschreiten jeder Schwelle blinkt der Bildschirm kurz auf. Auf Geräten, die Haptik unterstützen, können Sie ein leichtes „Zucken“ spüren.
+
+Es gibt zwei Betriebsmodi:
+
+    •   Digital (nur Ziffern)
+Die Timer-Anzeige sieht aus wie eine altmodische „LED-Anzeige“.
+
+    •   Podium („Ampel“)
+Der Timer zeigt drei einfache Kreise an, die nacheinander aufleuchten, wenn der Timer weiterläuft. Er wurde speziell entwickelt, um Ablenkungen zu vermeiden.
+
+Die Anzeige ist so gestaltet, dass sie den größtmöglichen Platz auf dem Bildschirm einnimmt.
+
+Der Modus wird im Popover „Einstellungen“ ausgewählt. Sie können darauf über die „Zahnrad“-Schaltfläche oben links im Bildschirm zugreifen (so, wie Sie zu diesem Bildschirm gelangt sind).
+
+Nach Ablauf des Timer-Zeitintervalls wechselt der Timer in den „Alarmmodus“, in dem ein akustischer Alarm ertönen kann, das Telefon vibrieren kann und der Bildschirm rot blinkt.
+
+EINSTELLEN DES TIMERS:
+
+Verwenden Sie das Auswahlfeld im Hauptbildschirm, um die Anfangszeit (Startzeit) sowie die Warn- und Endschwellenwerte festzulegen. Mit den drei Schaltflächen unterhalb des Auswahlfelds wählen Sie den Schwellenwert aus, der eingestellt wird.
+
+HINWEIS: Die Warn- und/oder Endzeiten müssen mindestens eine Sekunde unter der Startzeit (Gesamtzeit) liegen.
+
+Sie können zwischen einer Reihe von Tönen wählen, die das Gerät zusammen mit Vibration (bei Geräten, die Vibration unterstützen) abspielen soll. Dies erfolgt über das Popover „Alarmeinstellungen“ (aufrufbar über die Schaltfläche „Glocke“ in der rechten oberen Ecke des Bildschirms). Die Ton- und Vibrationseinstellungen gelten für alle Timer (falls mehrere Timer vorliegen).
+
+AUSWAHL VON ALARMTÖNEN UND VIBRATIONEN:
+
+Wenn Sie auf die Schaltfläche „Alarm einstellen“ (die Schaltfläche „Glocke“ oben rechts auf dem Bildschirm) klicken, wird ein Popover angezeigt, in dem Sie einen Ton und/oder eine Vibration auswählen können, wenn der Timer einen Countdown beendet. (HINWEIS: Vibration wird nur auf iPhones unterstützt.) Wenn Sie einen Ton auswählen, können Sie diesen über die Schaltfläche „Lautsprecher“ neben der Tonauswahl testen.
+
+MEHRERE TIMER:
+
+Sie können mindestens einen (1) Timer und maximal sieben (7) Timer haben.
+
+Es ist möglich, zwischen diesen Timern zu „kaskadieren“, wobei ein Timer auf einen anderen folgt.
+
+HINZUFÜGEN UND ENTFERNEN VON TIMERN:
+
+Verwenden Sie die Symbolleiste am unteren Rand des Bildschirms zum Hinzufügen, Entfernen und Auswählen von Timern.
+
+Fügen Sie Timer hinzu, indem Sie das „╋“ auf der rechten Seite der Symbolleiste berühren, und löschen Sie Timer, indem Sie das Papierkorbsymbol auf der linken Seite der Symbolleiste auswählen.
+
+Sie können auswählen, welcher Timer eingestellt wird, indem Sie eine nummerierte Timer-Schaltfläche in der Symbolleiste auswählen oder auf dem Bildschirm nach links und rechts streichen.
+
+BEDIENUNG:
+
+Sie starten den Timer, indem Sie die Schaltfläche „Abspielen“ (das weiße Dreieck rechts neben der Schaltfläche „Endgültiger Schwellenwert“) unter dem Auswahlfeld für die Zeiteinstellung auswählen.
+
+Es ist möglich, den Timer sofort oder im angehaltenen Modus zu starten (der angehaltene Modus wird durch eine hellblaue digitale Farbe oder eine dunkle „Ampel“ angezeigt). Wählen Sie dies im Popover „Einstellungen“ aus.
+
+Wenn der Timer läuft, leuchtet die Digitalanzeige grün (Start), gelb (Warnung) oder rot (Endgültig oder Alarm).
+
+Wenn der Timer abgeschlossen ist, beginnt er zu „alarmieren“, wobei der Bildschirm rot blinkt, das Telefon vibrieren kann (oder auch nicht) und ein von Ihnen ausgewählter Ton wiederholt abgespielt wird.
+
+Sie können wählen, ob eine Symbolleiste am unteren Rand des laufenden Timers angezeigt werden soll, oder ob Sie ihn mit Streich- und Tippgesten steuern möchten (ohne Symbolleiste).
+
+SYMBOLLEISTENMODUS (SYMBOLLEISTE WIRD ANGEZEIGT):
+
+Wenn die Symbolleiste angezeigt wird, verwenden Sie die Schaltflächen in der Symbolleiste, um den laufenden Timer zu steuern. Tippen und Gesten werden nicht verwendet.
+
+HINWEIS: Die Symbolleiste wird in diesem Modus möglicherweise automatisch ausgeblendet. Wenn sie ausgeblendet ist, kann sie durch Tippen auf das Display eingeblendet werden, hat aber keinen Einfluss auf den Timer.
+
+    •   Die Stopp-Schaltfläche (quadratisch)
+Damit wird der Timer immer angehalten und Sie kehren zum Timer-Einstellungsbildschirm zurück.
+
+    •   Die Wiedergabetaste (einzelnes Dreieck)/Pause-Taste (doppelter Balken)
+Hiermit wird der Timer gestartet, wenn er angehalten ist. Bei laufendem Timer wird dieselbe Schaltfläche zur Pause-Schaltfläche (angezeigt durch zwei vertikale Balken), und wenn Sie sie drücken, wird der Timer zur aktuellen Zeit angehalten.
+
+    •   Die Schaltfläche „Schneller Vorlauf“ (Doppelpfeil, nach rechts zeigend)/Nächster Timer (Kreis, mit einer Zahl darin)
+Mit dieser Schaltfläche wird ein angehaltener (oder laufender) Timer direkt in den Alarmmodus gesendet. Gibt es mehr als einen Timer, können Sie mit der gleichen Schaltfläche den nächsten Timer auswählen (in diesem Fall werden die Doppelpfeile durch eine Timer-Nummer in einem Kreis ersetzt).
+
+    •   Die Schaltfläche „Schneller Vorlauf“ (Doppelpfeil, nach links zeigend)/Schaltfläche „Vorheriger Timer“ (Kreis, mit einer Zahl darin)
+Dadurch kehrt der Timer zu seiner Anfangszeit zurück und hält an (falls er bereits lief). Gibt es mehr als einen Timer, können Sie mit der gleichen Schaltfläche den vorherigen Timer auswählen (in diesem Fall werden die Doppelpfeile durch eine Timer-Nummer in einem Kreis ersetzt).
+
+Im Popover „Einstellungen“ können Sie für die Symbolleiste „Automatisches Ausblenden“ festlegen. Bei Auswahl dieser Option wird die Symbolleiste ausgeblendet, wenn keine Interaktion mit dem Timer stattgefunden hat (Berühren des Bildschirms oder Auswahl eines Symbolleistenelements). Durch Berühren des Bildschirms wird sie wieder eingeblendet.
+
+Die Symbolleiste wird nicht automatisch ausgeblendet, wenn der Timer angehalten oder ein Alarm ausgelöst wird.
+
+GESTENMODUS (SYMBOLLEISTE WIRD NICHT ANGEZEIGT):
+
+Wenn die Symbolleiste nicht eingeblendet ist, müssen Sie den Timer mit Gesten steuern.
+
+    •   Tippen (Timer ist angehalten)
+Der Timer beginnt mit dem Herunterzählen (oder setzt es fort).
+
+    •   Tippen (Timer läuft)
+Der Timer hält bei der aktuellen Countdown-Zeit an.
+
+    •   Nach links streichen (Timer läuft oder wird mitten im Countdown angehalten)
+Dadurch wird der Timer „zurückgesetzt“. Das bedeutet, dass die Zeit auf den Anfangswert zurückgesetzt, aber angehalten wird.
+
+    •   Nach rechts streichen (Timer läuft oder wird mitten im Countdown angehalten)
+Der Timer wechselt direkt in den Alarmmodus.
+
+    •   Nach links streichen (Timer wird angehalten, am Anfang)
+Sind mehrere Timer vorhanden, wird der vorherige Timer ausgewählt. Gibt es nur einen Timer, passiert nichts.
+
+    •   Nach rechts streichen (Timer wird angehalten, am Anfang)
+Sind mehrere Timer vorhanden, wird der folgende Timer ausgewählt. Gibt es nur einen Timer, passiert nichts.
+
+    •   Nach oben oder unten streichen (zu einem beliebigen Zeitpunkt)
+Stoppt den Timer und kehrt zum Einstellungsbildschirm zurück.
+
+WEITERE INFORMATIONEN:
+
+Ausführlichere Anweisungen und Informationen zu Urheberschaft, Support und Datenschutz finden Sie unter https://riftvalleysoftware.com/work/ios-apps/ambiamara/

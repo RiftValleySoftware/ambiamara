@@ -1,0 +1,184 @@
+/*
+ © Copyright 2018-2022, The Great Rift Valley Software Company. All rights reserved.
+ 
+ This code is proprietary code, and is not licensed for reuse.
+ It is NOT to be reused or combined into any application,
+ unless done so, specifically under written license from The Great Rift Valley Software Company.
+ 
+ The Great Rift Valley Software Company: https://riftvalleysoftware.com
+ */
+//********************************************** **********************************************************
+// --------------------------------------------   ------------------------------------------------------- *
+//|  DO NOT MODIFY ON THIS SIDE OF THE EQUALS  | |   MODIFY THE TEXT ON THIS SIDE TO THE LOCAL LANGUAGE  |*
+// --------------------------------------------   ------------------------------------------------------- *
+//********************************************** **********************************************************
+
+// MARK: TIMER SETUP SCREEN
+
+/* The Gear button, in the upper left. */
+"SLUG-ACC-SETTINGS-BUTTON" = "La sélection de ce bouton affichera une fenêtre contextuelle qui vous permettra de régler les paramètres des comptes à rebours. Cela vous permettra également d'en savoir plus sur l'application.";
+
+/* The Bell button, in the upper right. */
+"SLUG-ACC-ALARM-BUTTON" = "La sélection de ce bouton affichera une fenêtre contextuelle qui vous permettra de spécifier une alarme pour les comptes à rebours.";
+
+/* The label over the hours wheel of the picker. */
+"SLUG-ACC-0-LABEL-FORMAT" = "La molette située sous cette étiquette vous permettra de régler le compte à rebours jusqu'à %d heures.";
+
+/* The label over the minutes wheel of the picker. */
+"SLUG-ACC-1-LABEL-FORMAT" = "La molette située sous cette étiquette vous permettra de régler le compte à rebours jusqu'à %d minutes.";
+
+/* The label over the seconds wheel of the picker. */
+"SLUG-ACC-2-LABEL-FORMAT" = "La molette située sous cette étiquette vous permettra de régler le compte à rebours jusqu'à %d secondes.";
+
+/* This is applied to the actual hours picker wheel. */
+"SLUG-ACC-0-FORMAT" = "Cette molette vous permettra de régler le compte à rebours jusqu'à %d heures. Il est actuellement défini sur %d heures.";
+
+/* This is applied to the actual minutes picker wheel. */
+"SLUG-ACC-1-FORMAT" = "Cette molette vous permettra de régler le compte à rebours jusqu'à %d minutes. Il est actuellement défini sur %d minutes.";
+
+/* This is applied to the actual seconds picker wheel. */
+"SLUG-ACC-2-FORMAT" = "Cette molette vous permettra de régler le compte à rebours jusqu'à %d secondes. Il est actuellement défini sur %d secondes.";
+
+/* This is applied to the main state label, above the picker. It is followed by one of the following three strings. */
+"SLUG-ACC-STATE" = "Cette étiquette affiche l’état actuel en cours de réglage.";
+
+/* This version is for when the timer is in "Start" state.*/
+"SLUG-ACC-STATE-PREFIX-Start" = "Le compte à rebours est réglé sur la durée totale.";
+
+/* This version is for when the timer is in "Warn" state.*/
+"SLUG-ACC-STATE-PREFIX-Warn" = "Le compte à rebours est réglé sur l'heure du seuil d’avertissement.";
+
+/* This version is for when the timer is in "Final" state.*/
+"SLUG-ACC-STATE-PREFIX-Final" = "Le compte à rebours est réglé sur l'heure du décompte final.";
+
+/* This This is added for the extended "hint" version of the labels for the buttons. */
+"SLUG-ACC-STATE-BUTTON-HINT" = "Vous pouvez régler l'heure pour cela à l'aide du sélecteur ci-dessus.";
+
+/* This is applied to the green "Start" button. */
+"SLUG-ACC-STATE-BUTTON-LABEL-Start" = "La durée totale du compte à rebours.";
+
+/* This is applied to the yellow "Warn" button. */
+"SLUG-ACC-STATE-BUTTON-LABEL-Warn" = "L'heure du seuil d’avertissement pour le compte à rebours.";
+
+/* This is applied to the red "Final" button. */
+"SLUG-ACC-STATE-BUTTON-LABEL-Final" = "Le décompte final pour le compte à rebours.";
+
+/* This is applied to the green "Start" button's extended "hint." */
+"SLUG-ACC-STATE-Start" = "Il s'agit de la durée totale du compte à rebours.";
+
+/* This is applied to the green "Warn" button's extended "hint." */
+"SLUG-ACC-STATE-Warn" = "Lorsque ce temps est atteint, le compte à rebours passe en état « avertissement » et la couleur change. Si vous laissez ce temps à 0, l'état d'avertissement ne se produit jamais et le compte à rebours passe directement à l'état « Décompte final » ou à une alarme lorsqu'il est terminé. Ce temps ne peut pas être supérieur au temps total.";
+
+/* This is applied to the green "Final" button's extended "hint." */
+"SLUG-ACC-STATE-Final" = "Lorsque ce temps est atteint, le compte à rebours passe en état « décompte final » et la couleur change à nouveau. Si vous laissez ce temps à 0, l'état du décompte final ne se produit jamais et le compte à rebours passe directement à une alarme lorsqu'il est terminé. Ce temps ne peut pas être supérieur au temps total.";
+
+/* This is applied to the navbar hint. */
+"SLUG-CURRENT-TIMER-SELECTED-FORMAT" = "Le compte à rebours %d est actuellement sélectionné.";
+
+/* This is also applied to the navbar hint. */
+"SLUG-CURRENT-TIMER-TIME-FORMAT" = "Le temps actuel est de %d heures, %d minutes et %d secondes.";
+
+/* This is applied to the white triangular "play" button. */
+"SLUG-ACC-PLAY-BUTTON-LABEL" = "Cela démarre le compte à rebours.";
+
+/* This is an extended hint for the play button. */
+"SLUG-ACC-PLAY-BUTTON-HINT" = "Si vous sélectionnez cette option, un nouvel écran apparaît, avec le compte à rebours en cours d'exécution.";
+
+/* This is applied to the white cross button, in the lower right of the toolbar. */
+"SLUG-ACC-ADD-TIMER-BUTTON" = "La sélection de ce bouton ajoutera un nouveau compte à rebours.";
+
+/* This is applied to each timer button, in the middle of the toolbar. */
+"SLUG-ACC-TIMER-BUTTON-LABEL-FORMAT" = "Il s’agit du bouton de sélection pour le compte à rebours %d.";
+
+/* This is applied to the currently selected timer button, in the middle of the toolbar. */
+"SLUG-ACC-TIMER-BUTTON-HINT-IS-FORMAT" = "Il est sélectionné et défini sur %@. L’application est en train de régler ce compte à rebours.";
+
+/* This is applied to the unselected timer buttons, in the middle of the toolbar. */
+"SLUG-ACC-TIMER-BUTTON-HINT-NOT-FORMAT" = "Il n’est pas sélectionné et est défini sur %@. Si vous le sélectionnez, l’application changera pour vous permettre de régler ce compte à rebours.";
+
+/* This is applied to the "trashcan" button, at the bottom left of the toolbar. */
+"SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT" = "La sélection de ce bouton vous permettra de supprimer le compte à rebours %d.";
+
+/* This is applied to the clear button, that appears just to the left of the picker, when a value is set. */
+"SLUG-ACC-CLEAR-BUTTON" = "La sélection de ce bouton réinitialisera l’heure actuelle à 0.";
+
+// MARK: SETTINGS POPOVER
+
+/* This is applied to the "About AmbiaMara" button. */
+"SLUG-ACC-ABOUT-AMBIAMARA-BUTTON" = "Cela affichera un écran, avec des informations sur cette application, ainsi que des instructions détaillées.";
+
+/* This is applied to the "Start Immediately" switch. */
+"SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH" = "Si cette option est activée, le compte à rebours démarre immédiatement, dès que la page du compte à rebours apparaît. Si elle est désactivée, vous devez démarrer le compte à rebours après avoir accédé à l'écran du compte à rebours en cours d'exécution.";
+
+/* This is applied to the "Show Toolbar" switch. */
+"SLUG-ACC-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH" = "Si cette option est activée, une barre d'outils s'affiche en bas du compte à rebours en cours d'exécution, avec des commandes qui vous permettent de gérer le compte à rebours. Si elle est désactivée, vous devrez utiliser des gestes.";
+
+/* This is applied to the label for the switch that indicates the toolbar will "auto-hide," when not being used. */
+"SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-HINT" = "Si cette option est activée, la barre d'outils se « masquera » (disparaîtra) après quelques secondes d'inutilisation. Toucher l'écran la ramènera.";
+
+/* This is applied to the segmented switch, at the bottom, with the two timer modes. */
+"SLUG-ACC-POPOVER-TIMER-MODE-LABEL" = "Bouton du mode Compte à rebours";
+
+/* This is applied to the entire segmented switch, at the bottom, with the two timer modes. */
+"SLUG-ACC-POPOVER-TIMER-MODE-HINT" = "Ce bouton sélectionnera le mode d’affichage du compte à rebours en cours d’exécution. Ce sera soit numérique (chiffres), soit trois « feux tricolore ». (trois points)";
+
+/* This is appended to the above hint, if the mode is "Digital." */
+"SLUG-ACC-POPOVER-TIMER-MODE-HINT-0" = "Actuellement défini sur le mode numérique.";
+
+/* This is appended to the above hint, if the mode is "Traffic Lights." */
+"SLUG-ACC-POPOVER-TIMER-MODE-HINT-1" = "Actuellement défini sur le mode « Feu tricolore ».";
+
+/* This is applied to the actual segment for "Digital Mode." */
+"SLUG-ACC-POPOVER-TIMER-MODE-SEGMENT-0-LABEL" = "Sélectionnez le mode Compte à rebours numérique. En mode Compte à rebours numérique, la minuterie active affiche un « affichage LED rétro » et effectue le décompte en continu. La couleur de l'affichage change, passant du vert au jaune, puis au rouge, lorsque chaque seuil est dépassé.";
+
+/* This is applied to the actual segment for "Digital Mode." */
+"SLUG-ACC-POPOVER-TIMER-MODE-SEGMENT-1-LABEL" = "Sélectionnez le mode Compte à rebours « Feux tricolore ». En mode Compte à rebours « Feux tricolore », le compte à rebours actif affiche trois « feux tricolore », qui s'allument et changent, uniquement lorsque les seuils sont franchis. Le « feu tricolore » le plus à gauche est vert et représente la plupart du temps. Le « feu tricolore » central est jaune et représente le « seuil d'avertissement ». Le « feu tricolore » le plus à gauche est rouge et représente le seuil du « Décompte final ».";
+
+// MARK: ALARM SETUP POPOVER
+
+/* This is applied to the segmented switch, at the top, that selects whether or not to sound an audible alarm. */
+"SLUG-ACC-ALARM-SET-MODE-SWITCH-LABEL" = "Activez ou désactivez l’alarme sonore.";
+
+/* This is appended to the above hint, if the mode is "Digital." */
+"SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT-0" = "Actuellement désactivé.";
+
+/* This is appended to the above hint, if the mode is "Traffic Lights." */
+"SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT-1" = "Cette option est actuellement activée et vous pouvez utiliser le sélecteur ci-dessous pour choisir un son. Vous pouvez tester le son à l'aide du bouton situé à côté du sélecteur.";
+
+/* This is the accessibility label for the alarm switch segment 0 (alarm sound off). */
+"SLUG-ACC-POPOVER-ALARM-MODE-SEGMENT-0-LABEL" = "Éteindre le son de l'alarme.";
+
+/* This is the accessibility label for the alarm switch segment 0 (alarm sound off). */
+"SLUG-ACC-POPOVER-ALARM-MODE-SEGMENT-1-LABEL" = "Activez le son de l'alarme. Utilisez le sélecteur ci-dessous pour sélectionner un son. Vous pouvez tester le son à l'aide du bouton situé à côté du sélecteur.";
+
+/* This is applied to the "Use Vibrate" switch. */
+"SLUG-ACC-ALARM-SET-VIBRATE-SWITCH" = "Si cette option est activée, le téléphone vibre lorsque l'alarme se déclenche.";
+
+/* This is applied to the sound selection picker. */
+"SLUG-ACC-SOUND-PICKER" = "Ceci répertorie les différents sons disponibles, une fois le décompte du compte à rebours terminé.";
+
+/* This is applied to the sound sample button, next to the picker. */
+"SLUG-ACC-SOUND-SAMPLE-BUTTON" = "Écouter le son sélectionné.";
+
+// MARK: RUNNING TIMER SCREEN
+
+/* This is applied to the toolbar "Fast Forward" or the "Rewind" button, when it shows a timer. */
+"SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT" = "Ce bouton basculera le compte à rebours sur Compte à rebours %d.";
+
+/* This is applied to the toolbar "Fast Forward" button, when it shows the two arrows. */
+"SLUG-ACC-TOOLBAR-FF-ALARM" = "Ce bouton réglera le compte à rebours à la fin et démarrera l’alarme.";
+
+/* This is applied to the toolbar "Rewind" button, when it shows a timer. */
+"SLUG-ACC-TOOLBAR-REWIND-ALARM" = "Ce bouton définira le compte à rebours au début.";
+
+/* This is applied to the toolbar "Play/Pause" button, when the timer is paused. */
+"SLUG-ACC-TOOLBAR-PLAY" = "Ce bouton démarrera le compte à rebours du décompte.";
+
+/* This is applied to the toolbar "Play/Pause" button, when the timer is running. */
+"SLUG-ACC-TOOLBAR-PAUSE" = "Ce bouton mettra en pause le compte à rebours du décompte.";
+
+/* This is applied to the toolbar "Stop" button. */
+"SLUG-ACC-TOOLBAR-STOP" = "Ce bouton arrêtera le compte à rebours et reviendra à l’écran de configuration.";
+
+/* This is applied to the central disabled timer button in the toolbar. */
+"SLUG-ACC-TOOLBAR-TIMER-FORMAT" = "Cet écran est actuellement défini sur Compte à rebours %d.";

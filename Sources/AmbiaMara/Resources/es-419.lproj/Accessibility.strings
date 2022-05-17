@@ -1,0 +1,184 @@
+/*
+ © Copyright 2018-2022, The Great Rift Valley Software Company. All rights reserved.
+ 
+ This code is proprietary code, and is not licensed for reuse.
+ It is NOT to be reused or combined into any application,
+ unless done so, specifically under written license from The Great Rift Valley Software Company.
+ 
+ The Great Rift Valley Software Company: https://riftvalleysoftware.com
+ */
+//********************************************** **********************************************************
+// --------------------------------------------   ------------------------------------------------------- *
+//|  DO NOT MODIFY ON THIS SIDE OF THE EQUALS  | |   MODIFY THE TEXT ON THIS SIDE TO THE LOCAL LANGUAGE  |*
+// --------------------------------------------   ------------------------------------------------------- *
+//********************************************** **********************************************************
+
+// MARK: TIMER SETUP SCREEN
+
+/* The Gear button, in the upper left. */
+"SLUG-ACC-SETTINGS-BUTTON" = "Al seleccionar este botón, se mostrará una ventana emergente que te permitirá ajustar la configuración de los temporizadores. También te permitirá obtener más información sobre la aplicación.";
+
+/* The Bell button, in the upper right. */
+"SLUG-ACC-ALARM-BUTTON" = "Al seleccionar este botón, aparecerá una pantalla que te permitirá configurar una alarma para los temporizadores.";
+
+/* The label over the hours wheel of the picker. */
+"SLUG-ACC-0-LABEL-FORMAT" = "La rueda debajo de esta etiqueta te permitirá configurar el temporizador hasta %d horas.";
+
+/* The label over the minutes wheel of the picker. */
+"SLUG-ACC-1-LABEL-FORMAT" = "La rueda debajo de esta etiqueta te permitirá configurar el temporizador hasta %d minutos.";
+
+/* The label over the seconds wheel of the picker. */
+"SLUG-ACC-2-LABEL-FORMAT" = "La rueda debajo de esta etiqueta te permitirá configurar el temporizador hasta %d segundos.";
+
+/* This is applied to the actual hours picker wheel. */
+"SLUG-ACC-0-FORMAT" = "Esta rueda también te permitirá configurar el temporizador hasta %d horas. Actualmente está programado para %d horas.";
+
+/* This is applied to the actual minutes picker wheel. */
+"SLUG-ACC-1-FORMAT" = "Esta rueda te permitirá configurar el temporizador hasta %d minutos. Actualmente está programado para %d minutos.";
+
+/* This is applied to the actual seconds picker wheel. */
+"SLUG-ACC-2-FORMAT" = "Esta rueda te permitirá configurar el temporizador hasta %d segundos. Actualmente está programado para %d segundos.";
+
+/* This is applied to the main state label, above the picker. It is followed by one of the following three strings. */
+"SLUG-ACC-STATE" = "Esta etiqueta muestra el estado actual que se está configurando.";
+
+/* This version is for when the timer is in "Start" state.*/
+"SLUG-ACC-STATE-PREFIX-Start" = "El temporizador se establece en el tiempo total.";
+
+/* This version is for when the timer is in "Warn" state.*/
+"SLUG-ACC-STATE-PREFIX-Warn" = "El temporizador se configura según el tiempo del umbral de advertencia.";
+
+/* This version is for when the timer is in "Final" state.*/
+"SLUG-ACC-STATE-PREFIX-Final" = "El temporizador se establece en el tiempo de cuenta regresiva final.";
+
+/* This This is added for the extended "hint" version of the labels for the buttons. */
+"SLUG-ACC-STATE-BUTTON-HINT" = "Puedes establecer una hora para esto utilizando el selector más arriba.";
+
+/* This is applied to the green "Start" button. */
+"SLUG-ACC-STATE-BUTTON-LABEL-Start" = "El tiempo total del temporizador.";
+
+/* This is applied to the yellow "Warn" button. */
+"SLUG-ACC-STATE-BUTTON-LABEL-Warn" = "El tiempo del umbral de advertencia del temporizador.";
+
+/* This is applied to the red "Final" button. */
+"SLUG-ACC-STATE-BUTTON-LABEL-Final" = "El tiempo de cuenta regresiva final del temporizador.";
+
+/* This is applied to the green "Start" button's extended "hint." */
+"SLUG-ACC-STATE-Start" = "Este es el tiempo total del temporizador.";
+
+/* This is applied to the green "Warn" button's extended "hint." */
+"SLUG-ACC-STATE-Warn" = "Cuando se alcanza este tiempo, el temporizador entra en un estado de \"advertencia\" y cambia el color. Si dejas este tiempo en 0, nunca ocurre el estado de advertencia, y el temporizador pasa directamente al estado \"Cuenta regresiva final\" o a una alarma, cuando finaliza. Este tiempo no puede ser mayor que el tiempo total.";
+
+/* This is applied to the green "Final" button's extended "hint." */
+"SLUG-ACC-STATE-Final" = "Cuando se alcanza este tiempo, el temporizador entra en un estado de \"cuenta regresiva final\" y cambia nuevamente el color. Si dejas este tiempo en 0, nunca ocurre el estado cuenta regresiva final, y el temporizador pasa directamente al estado de alarma cuando finaliza. Este tiempo no puede ser mayor que el tiempo de advertencia o que el tiempo total.";
+
+/* This is applied to the navbar hint. */
+"SLUG-CURRENT-TIMER-SELECTED-FORMAT" = "El %d de temporizador está seleccionado actualmente.";
+
+/* This is also applied to the navbar hint. */
+"SLUG-CURRENT-TIMER-TIME-FORMAT" = "La hora actual es %d horas, %d minutos y %d segundos.";
+
+/* This is applied to the white triangular "play" button. */
+"SLUG-ACC-PLAY-BUTTON-LABEL" = "Esto inicia el temporizador.";
+
+/* This is an extended hint for the play button. */
+"SLUG-ACC-PLAY-BUTTON-HINT" = "Si seleccionas esto, aparecerá una nueva pantalla con el temporizador en curso.";
+
+/* This is applied to the white cross button, in the lower right of the toolbar. */
+"SLUG-ACC-ADD-TIMER-BUTTON" = "Si seleccionas este botón se agregará un nuevo temporizador.";
+
+/* This is applied to each timer button, in the middle of the toolbar. */
+"SLUG-ACC-TIMER-BUTTON-LABEL-FORMAT" = "Este es el botón de selección para el temporizador %d.";
+
+/* This is applied to the currently selected timer button, in the middle of the toolbar. */
+"SLUG-ACC-TIMER-BUTTON-HINT-IS-FORMAT" = "Está seleccionado y se establece en %@. La aplicación está configurando este temporizador.";
+
+/* This is applied to the unselected timer buttons, in the middle of the toolbar. */
+"SLUG-ACC-TIMER-BUTTON-HINT-NOT-FORMAT" = "No está seleccionado y se establece en %@. Si se selecciona, la aplicación cambiará para permitir la configuración de este temporizador.";
+
+/* This is applied to the "trashcan" button, at the bottom left of the toolbar. */
+"SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT" = "Si seleccionas este botón podrás eliminar el temporizador %d.";
+
+/* This is applied to the clear button, that appears just to the left of the picker, when a value is set. */
+"SLUG-ACC-CLEAR-BUTTON" = "Si seleccionas este botón se restablecerá la hora actual a 0.";
+
+// MARK: SETTINGS POPOVER
+
+/* This is applied to the "About AmbiaMara" button. */
+"SLUG-ACC-ABOUT-AMBIAMARA-BUTTON" = "Esto traerá una pantalla con información sobre esta aplicación, junto con instrucciones detalladas.";
+
+/* This is applied to the "Start Immediately" switch. */
+"SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH" = "Si está activado, el temporizador se inicia inmediatamente cuando aparece la página del temporizador. Si está desactivado, debes iniciar el temporizador después de ingresar a la pantalla del temporizador en curso.";
+
+/* This is applied to the "Show Toolbar" switch. */
+"SLUG-ACC-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH" = "Si está activado, se mostrará una barra de herramientas en la parte inferior del temporizador en curso, con controles que permiten administrar el temporizador. Si está desactivado, deberás usar gestos.";
+
+/* This is applied to the label for the switch that indicates the toolbar will "auto-hide," when not being used. */
+"SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-HINT" = "Si está activado, la barra de herramientas se \"ocultará\" (se desvanecerá), después de unos segundos de no ser usada. Regresará al tocar la pantalla.";
+
+/* This is applied to the segmented switch, at the bottom, with the two timer modes. */
+"SLUG-ACC-POPOVER-TIMER-MODE-LABEL" = "Botón de modo temporizador";
+
+/* This is applied to the entire segmented switch, at the bottom, with the two timer modes. */
+"SLUG-ACC-POPOVER-TIMER-MODE-HINT" = "Este botón seleccionará el modo de visualización del temporizador en curso. Puede ser digital (números) o tres \"semáforo\" (tres puntos).";
+
+/* This is appended to the above hint, if the mode is "Digital." */
+"SLUG-ACC-POPOVER-TIMER-MODE-HINT-0" = "Actualmente está configurado en Modo digital.";
+
+/* This is appended to the above hint, if the mode is "Traffic Lights." */
+"SLUG-ACC-POPOVER-TIMER-MODE-HINT-1" = "Actualmente está configurado en Modo \"semáforo\".";
+
+/* This is applied to the actual segment for "Digital Mode." */
+"SLUG-ACC-POPOVER-TIMER-MODE-SEGMENT-0-LABEL" = "Selecciona el modo de temporizador digital. En el modo de temporizador digital, el temporizador en curso muestra una \"pantalla LED retro\" y hace la cuenta regresiva continuamente. El color de la pantalla cambia de verde a amarillo, a rojo, a medida que se pasa cada umbral.";
+
+/* This is applied to the actual segment for "Digital Mode." */
+"SLUG-ACC-POPOVER-TIMER-MODE-SEGMENT-1-LABEL" = "Selecciona el modo de temporizador \"semáforo\". En el modo de temporizador \"semáforo\", el temporizador en curso muestra tres \"semáforos\" que se iluminan y cambian solo cuando se cruzan los umbrales. El \"semáforo\" más a la izquierda es verde y representa la mayor parte del tiempo. El \"semáforo\" del centro es amarillo y representa el \"umbral de advertencia\". El \"semáforo\" más a la izquierda es rojo y representa el umbral de \"cuenta regresiva final\".";
+
+// MARK: ALARM SETUP POPOVER
+
+/* This is applied to the segmented switch, at the top, that selects whether or not to sound an audible alarm. */
+"SLUG-ACC-ALARM-SET-MODE-SWITCH-LABEL" = "Activa o desactiva la alarma sonora.";
+
+/* This is appended to the above hint, if the mode is "Digital." */
+"SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT-0" = "Actualmente está desactivada.";
+
+/* This is appended to the above hint, if the mode is "Traffic Lights." */
+"SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT-1" = "Actualmente está activada y puedes usar el selector para elegir un sonido. Puedes probar el sonido pulsando el botón junto al selector.";
+
+/* This is the accessibility label for the alarm switch segment 0 (alarm sound off). */
+"SLUG-ACC-POPOVER-ALARM-MODE-SEGMENT-0-LABEL" = "Desactiva el sonido de la alarma.";
+
+/* This is the accessibility label for the alarm switch segment 0 (alarm sound off). */
+"SLUG-ACC-POPOVER-ALARM-MODE-SEGMENT-1-LABEL" = "Activa el sonido de la alarma. Usa el selector para elegir un sonido. Puedes probar el sonido pulsando el botón junto al selector.";
+
+/* This is applied to the "Use Vibrate" switch. */
+"SLUG-ACC-ALARM-SET-VIBRATE-SWITCH" = "Si está activada, el teléfono vibrará cuando suene la alarma.";
+
+/* This is applied to the sound selection picker. */
+"SLUG-ACC-SOUND-PICKER" = "Lista los diversos sonidos disponibles al finalizar el temporizador de cuenta regresiva.";
+
+/* This is applied to the sound sample button, next to the picker. */
+"SLUG-ACC-SOUND-SAMPLE-BUTTON" = "Reproduce el sonido seleccionado.";
+
+// MARK: RUNNING TIMER SCREEN
+
+/* This is applied to the toolbar "Fast Forward" or the "Rewind" button, when it shows a timer. */
+"SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT" = "Este botón cambia el temporizador por el Temporizador %d.";
+
+/* This is applied to the toolbar "Fast Forward" button, when it shows the two arrows. */
+"SLUG-ACC-TOOLBAR-FF-ALARM" = "Este botón configura el temporizador hasta el final y activa la alarma.";
+
+/* This is applied to the toolbar "Rewind" button, when it shows a timer. */
+"SLUG-ACC-TOOLBAR-REWIND-ALARM" = "Este botón configura el temporizador en el inicio.";
+
+/* This is applied to the toolbar "Play/Pause" button, when the timer is paused. */
+"SLUG-ACC-TOOLBAR-PLAY" = "Este botón inicia el temporizador de cuenta regresiva.";
+
+/* This is applied to the toolbar "Play/Pause" button, when the timer is running. */
+"SLUG-ACC-TOOLBAR-PAUSE" = "Este botón pausa el temporizador de cuenta regresiva.";
+
+/* This is applied to the toolbar "Stop" button. */
+"SLUG-ACC-TOOLBAR-STOP" = "Este botón detiene el temporizador y vuelve a la pantalla de configuración.";
+
+/* This is applied to the central disabled timer button in the toolbar. */
+"SLUG-ACC-TOOLBAR-TIMER-FORMAT" = "Esta pantalla está configurada actualmente en el Temporizador %d.";

@@ -1,0 +1,113 @@
+/*
+ © Copyright 2018-2022, The Great Rift Valley Software Company. All rights reserved.
+ 
+ This code is proprietary code, and is not licensed for reuse.
+ It is NOT to be reused or combined into any application,
+ unless done so, specifically under written license from The Great Rift Valley Software Company.
+ 
+ The Great Rift Valley Software Company: https://riftvalleysoftware.com
+ */
+//********************************************** **********************************************************
+// --------------------------------------------   ------------------------------------------------------- *
+//|  DO NOT MODIFY ON THIS SIDE OF THE EQUALS  | |   MODIFY THE TEXT ON THIS SIDE TO THE LOCAL LANGUAGE  |*
+// --------------------------------------------   ------------------------------------------------------- *
+//********************************************** **********************************************************
+// MARK: -
+// MARK: SOUND NAMES (DISPLAYED IN THE ALARM POPOVER)
+// MARK: -
+
+"00-escalation.mp3" = "Alarma intensificada";
+"01-low-beep.mp3" = "Bips volumen bajo";
+"02-medium-beep.mp3" = "Bips volumen medio";
+"03-high-beep.mp3" = "Bips volumen alto";
+"04-electronic-buzz.mp3" = "Bips estridentes";
+"05-fast-beep.mp3" = "Sonido silencioso";
+"06-high-fast-beeps.mp3" = "Bips rápidos";
+"07-videogame-beeps-lower-frequency.mp3" = "Electrónica de tono bajo";
+"08-videogame-beeps-high-frequency.mp3" = "Electrónica de tono alto";
+"09-single-beep.mp3" = "Bips simples";
+"10-annoying-alarm.mp3" = "Campana de alarma clásica";
+"11-bells.mp3" = "Campanas de iglesia";
+"12-crazy-bird.mp3" = "Pájaro loco";
+"13-rooster.mp3" = "Gallo";
+"16-snoring-1.mp3" = "Ronquidos";
+"17-car-horn.mp3" = "Claxon";
+"18-antique-phone.mp3" = "Sonido de teléfono antiguo";
+"19-classic-phone.mp3" = "Sonido de teléfono clásico";
+"20-antique-car-horn.mp3" = "Claxon de automóvil antiguo";
+"21-alarm-klaxon.mp3" = "Alarma";
+"23-siren.mp3" = "Sirena de policía";
+"24-deep-alarm.mp3" = "Gallo";
+"25-telephone.mp3" = "Celular";
+
+// MARK: -
+// MARK: DELETE CONFIRMATION ALERT (DISPLAYED WHEN THE "TRASH" BUTTON IS HIT)
+// MARK: -
+
+/* The delete (destructive) button in the delete confirmation modal alert. */
+"SLUG-DELETE-BUTTON-TEXT" = "Eliminar";
+
+/* The cancel (non-destructive) button in the delete confirmation modal alert. */
+"SLUG-CANCEL-BUTTON-TEXT" = "Cancelar";
+
+/* The header for the delete confirmation modal alert. */
+"SLUG-DELETE-CONFIRM-HEADER" = "¿Borrar este temporizador?";
+
+/* The main message text for the delete confirmation modal alert (when the timer has no set time). */
+"SLUG-DELETE-CONFIRM-MESSAGE-FORMAT-ZERO" = "¿Estás seguro de que quieres eliminar el temporizador %d?";
+
+/* The main message text for the delete confirmation modal alert (when the timer has a set time). */
+"SLUG-DELETE-CONFIRM-MESSAGE-FORMAT" = "¿Estás seguro de que quieres eliminar el temporizador %d (%@)?";
+
+// MARK: -
+// MARK: MAIN USER INTERFACE TEXT
+// MARK: -
+// MARK: SETUP SCREEN (MAIN SCREEN)
+
+/* This is the name of the back button, in the "About" screen. It is only seen in the About AmbiaMara Screen (Back Button). */
+"SLUG-BACK-BUTTON" = "Configurar temporizador";
+
+/* The navigation bar title that is displayed when there is more than one timer. It is not displayed, if there is only one timer. */
+"SLUG-TIMER-TITLE-FORMAT" = "Temporizador %d";
+
+/* The label that is displayed over the picker, when the timer "Start" (total) time has been selected for editing. */
+"SLUG-STATE-Start" = "Tiempo total";
+
+/* The label that is displayed over the picker, when the timer "Warn" (warning time) time has been selected for editing. */
+"SLUG-STATE-Warn" = "Tiempo de advertencia";
+
+/* The label that is displayed over the picker, when the timer "Final" (final countdown) time has been selected for editing. */
+"SLUG-STATE-Final" = "Tiempo final";
+
+/* The name on the label over the "hours" picker view component. */
+"SLUG-HOURS" = "Horas";
+
+/* The name on the label over the "minutes" picker view component. */
+"SLUG-MINUTES" = "Minutos";
+
+/* The name on the label over the "seconds" picker view component. */
+"SLUG-SECONDS" = "Segundos";
+
+// MARK: Settings Popover (Accessed Via the "Gear" Navigation Bar Button, at the Top, Left of the Screen)
+
+/* The label for the switch to start the timer immediately upon entry. */
+"SLUG-POPOVER-START-IMMEDIATELY-SETTING-LABEL" = "Iniciar el temporizador inmediatamente";
+
+/* The label for the switch to show the toolbar in the running timer (as opposed to just gestures). NOTE: On Mac, this is hidden. If this is off, then the "Auto-Hide Toolbar" switch is disabled. */
+"SLUG-POPOVER-SHOW-TOOLBAR-SETTING-LABEL" = "Mostrar la barra de herramientas en el temporizador";
+
+/* The label for the switch that indicates the toolbar will "auto-hide," when not being used. NOTE: On Mac, this is displayed without the "Show Toolbar" switch, and is always enabled. */
+"SLUG-POPOVER-AUTO-HIDE-SETTING-LABEL" = "Ocultar automáticamente la barra de herramientas";
+
+/* The button that will select the "About AmbiaMara" screen. NOTE FOR TRANSLATOR: "AmbiaMara" is the app name, so is not translated. */
+"SLUG-ABOUT-AMBIAMARA-BUTTON" = "Sobre AmbiaMara";
+
+// MARK: Alarm Settings Popover (Accessed Via the "Bell" Navigation Bar Button, at the Top, Right of the Screen)
+
+/* The label for the switch to select vibration upon alarm. NOTE: This is only shown on iPhones. */
+"SLUG-VIBRATE-BUTTON" = "Usar vibración";
+
+// MARK: ABOUT SCREEN
+
+/* The navigation bar title for the screen. */
+"SLUG-ABOUT-TITLE" = "Sobre AmbiaMara";

@@ -1,0 +1,123 @@
+¡AmbiaMara es el mejor temporizador de cuenta regresiva!
+
+Cuenta regresiva, a partir de un tiempo preestablecido, en intervalos de un segundo.
+
+MODOS DEL TEMPORIZADOR:
+
+Cada temporizador tiene tres modos, que se presentan en diferentes momentos:
+
+    •   Tiempo total
+Es todo el tiempo que el temporizador efectúa la cuenta regresiva. Se indica con un color verde.
+
+    •   Tiempo de advertencia
+Cuando se cruza este umbral, el temporizador se vuelve amarillo, lo que indica que el tiempo se está acabando.
+
+    • Tiempo de cuenta regresiva final
+El temporizador está a punto de hacer sonar la alarma. El temporizador se vuelve rojo.
+
+Cada temporizador se puede configurar para que tenga estos umbrales, que se reflejan en el temporizador en curso. También puedes elegir no tener umbrales.
+
+A medida que se cruza cada umbral, la pantalla parpadea brevemente. En los dispositivos que admiten háptica, es posible que sientas una leve "vibración"
+
+Tiene dos modos de funcionamiento:
+
+    • Digital (solo números)
+La pantalla del temporizador tiene la apariencia de una "pantalla LED" antigua
+
+    • Podio ("semáforo")
+El temporizador muestra tres círculos simples que se iluminan, uno por uno, mientras avanza el temporizador. Se diseñó específicamente para reducir la distracción.
+
+La pantalla está diseñada para ocupar la mayor cantidad de espacio en la pantalla.
+
+El modo se elige en la ventana emergente Ajustes, a la que se accede a través del botón "Engranaje", en la parte superior izquierda de la pantalla (cómo llegaste a esta pantalla).
+
+Al final del período del temporizador, este entra en "Modo de alarma", y puede sonar una alarma, el teléfono puede vibrar y la pantalla parpadea en rojo.
+
+CONFIGURACIÓN DEL TEMPORIZADOR:
+
+Utiliza el selector de la pantalla principal para configurar la hora inicial (Inicio) del temporizador, junto con los umbrales de advertencia y final. Los tres botones debajo del selector permiten elegir qué umbral se está configurando.
+
+NOTA: Los tiempos de advertencia o final deben tener al menos un segundo menos que el tiempo de inicio (total).
+
+Puedes elegir entre un conjunto de sonidos que reproducirá el dispositivo, junto con la vibración (en dispositivos que admiten vibración). Esto se hace en la ventana emergente Configuración de alarma (se accede mediante el botón "Campana", en la parte superior derecha de la pantalla). Los ajustes de sonido y vibración se aplican a todos los temporizadores (si hay varios temporizadores).
+
+SELECCIÓN DE SONIDOS DE ALARMA Y VIBRACIÓN:
+
+Si seleccionas el botón Configurar alarma (el botón "Campana", en la parte superior derecha de la pantalla), aparece una ventana emergente donde puedes elegir reproducir un sonido o vibración, cuando el temporizador finaliza una cuenta regresiva (NOTA: ls vibración solo es compatible con iPhone). Si seleccionas un sonido, puedes probarlo mediante el botón "Altavoz", junto al selector de sonido.
+
+MÚLTIPLES TEMPORIZADORES:
+
+Puedes tener un mínimo de un (1) temporizador y un máximo de siete (7) temporizadores.
+
+Es posible ver a estos temporizadores en modo "cascada", un temporizador debajo de otro.
+
+AGREGAR Y ELIMINAR TEMPORIZADORES:
+
+Utiliza la barra de herramientas, en la parte inferior de la pantalla, para agregar, quitar y seleccionar los temporizadores.
+
+Agrega los temporizadores tocando el "╋" en el lado derecho de la barra de herramientas, y elimínalos seleccionando el icono de la papelera, en el lado izquierdo de la barra de herramientas.
+
+Puedes elegir el temporizador que se está configurando mediante un botón de temporizador numerado en la barra de herramientas, o al deslizar el dedo hacia la izquierda y hacia la derecha, en la pantalla.
+
+OPERACIÓN:
+
+Puedes iniciar el temporizador con el botón "Reproducir", que es el triángulo blanco ubicado a la derecha del botón del umbral Final, debajo del selector de configuración de tiempo.
+
+Es posible que el temporizador se inicie inmediatamente o en modo pausado (el modo pausado se indica con un color digital azul claro o un "semáforo" oscuro). Elige esta opción en la ventana Configuración.
+
+Si el temporizador está en curso, la pantalla digital será verde (Inicio), amarilla (Advertencia) o roja (Final o Alarma).
+
+Cuando el temporizador haya finalizado, pasa a modo "alarma", y la pantalla parpadea en rojo, el teléfono puede (o no) vibrar y cualquier sonido que elijas se reproducirá repetidamente.
+
+Puedes elegir ver la barra de herramientas en la parte inferior del temporizador en curso o usar gestos de deslizar y tocar para controlarla (sin la barra de herramientas).
+
+MODO DE BARRA DE HERRAMIENTAS (SE MUESTRA LA BARRA DE HERRAMIENTAS):
+
+Si se muestra la barra de herramientas, usa los botones de la barra de herramientas para controlar el temporizador en curso. No se usan toques ni gestos.
+
+NOTA: la barra de herramientas puede "ocultarse automáticamente" en este modo. Si está oculta, se mostrará al tocar en la pantalla, pero no tendrá ningún efecto en el temporizador.
+
+    • Botón detener (cuadrado)
+Siempre detiene el temporizador y vuelve a la pantalla de configuración.
+
+    • Botón de reproducción (triángulo simple)/Botón de pausa (barras dobles)
+Inicia el temporizador si está en pausa. Si el temporizador está en curso, el mismo botón se convertirá en un botón de pausa (indicado por dos barras verticales) y, al seleccionarlo, se detendrá el temporizador en el momento actual.
+
+    • Botón de avance rápido (flecha doble apuntando a la derecha) / Botón del siguiente temporizador (círculo con un número)
+Este botón enviará un temporizador en pausa (o en curso) directamente al modo de alarma. Si hay más de un temporizador, puedes usar el mismo botón para seleccionar el siguiente temporizador (las flechas dobles se reemplazan por un número de temporizador en un círculo).
+
+    • Botón de rebobinado (flecha doble apuntando a la izquierda) / Botón del temporizador anterior (círculo con un número)
+Esto hará que el temporizador vuelva a la hora de inicio y se detenga (si estaba en curso). Si hay más de un temporizador, puedes usar el mismo botón para seleccionar el temporizador anterior (las flechas dobles se reemplazan por un número de temporizador en un círculo).
+
+Puedes elegir que la barra de herramientas se "oculte automáticamente" en la ventana Configuración. Si eliges esta opción, la barra de herramientas desaparece si no hubo interacción con el temporizador (tocando la pantalla o seleccionando un elemento de la barra de herramientas). Volverá cuando toques la pantalla.
+
+La barra de herramientas no se oculta automáticamente si el temporizador está en pausa o en modo de alarma.
+
+MODO DE GESTOS (NO SE MUESTRA LA BARRA DE HERRAMIENTAS):
+
+Si no se muestra la barra de herramientas, debes usar gestos para controlar el temporizador.
+
+    •  Toque (se pausa el temporizador)
+El temporizador inicia (o continúa) la cuenta regresiva.
+
+    •  Toque (temporizador en curso)
+El temporizador se pausa en el tiempo de cuenta regresiva actual.
+
+    • Desliza hacia la izquierda (el temporizador está en curso o pausado en medio de la cuenta regresiva)
+Esto hace que el temporizador se "reinicie". Esto significa que retrasa el tiempo al principio, pero mediante una pausa.
+
+    • Desliza hacia la derecha (el temporizador está en curso o pausado en medio de la cuenta regresiva)
+Esto hace que el temporizador pase directamente al modo de alarma.
+
+    • Desliza hacia la izquierda (el temporizador está pausado al inicio)
+Esto hace que se seleccione el temporizador anterior si hay varios temporizadores. No pasa nada si solo hay un temporizador.
+
+    • Desliza hacia la derecha (el temporizador está pausado al inicio)
+Esto hace que se seleccione el siguiente temporizador si hay varios temporizadores. No pasa nada si solo hay un temporizador.
+
+    • Desliza hacia arriba o hacia abajo (en cualquier momento)
+Se detiene el temporizador y vuelve a la pantalla de configuración.
+
+MÁS INFORMACIÓN:
+
+Para obtener instrucciones más completas e información sobre la autoría, el soporte y la privacidad, visita https://riftvalleysoftware.com/work/ios-apps/ambiamara/

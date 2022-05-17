@@ -1,0 +1,184 @@
+/*
+ © Copyright 2018-2022, The Great Rift Valley Software Company. All rights reserved.
+ 
+ This code is proprietary code, and is not licensed for reuse.
+ It is NOT to be reused or combined into any application,
+ unless done so, specifically under written license from The Great Rift Valley Software Company.
+ 
+ The Great Rift Valley Software Company: https://riftvalleysoftware.com
+ */
+//********************************************** **********************************************************
+// --------------------------------------------   ------------------------------------------------------- *
+//|  DO NOT MODIFY ON THIS SIDE OF THE EQUALS  | |   MODIFY THE TEXT ON THIS SIDE TO THE LOCAL LANGUAGE  |*
+// --------------------------------------------   ------------------------------------------------------- *
+//********************************************** **********************************************************
+
+// MARK: TIMER SETUP SCREEN
+
+/* The Gear button, in the upper left. */
+"SLUG-ACC-SETTINGS-BUTTON" = "Mit dieser Schaltfläche wird ein Popover geöffnet, in dem Sie die Einstellungen für die Timer anpassen können. Außerdem können Sie hier mehr über die App erfahren.";
+
+/* The Bell button, in the upper right. */
+"SLUG-ACC-ALARM-BUTTON" = "Bei Auswahl dieser Schaltfläche wird ein Popover angezeigt, in dem Sie einen Alarm für die Timer angeben können.";
+
+/* The label over the hours wheel of the picker. */
+"SLUG-ACC-0-LABEL-FORMAT" = "Mit dem Rad unter diesem Label können Sie den Timer auf bis zu %d Stunden einstellen.";
+
+/* The label over the minutes wheel of the picker. */
+"SLUG-ACC-1-LABEL-FORMAT" = "Mit dem Rad unter diesem Label können Sie den Timer auf bis zu %d Minuten einstellen.";
+
+/* The label over the seconds wheel of the picker. */
+"SLUG-ACC-2-LABEL-FORMAT" = "Mit dem Rad unter diesem Label können Sie den Timer auf bis zu %d Sekunden einstellen.";
+
+/* This is applied to the actual hours picker wheel. */
+"SLUG-ACC-0-FORMAT" = "Mit diesem Rad können Sie den Timer auf bis zu %d Stunden einstellen. Derzeit ist er auf %d Stunden eingestellt.";
+
+/* This is applied to the actual minutes picker wheel. */
+"SLUG-ACC-1-FORMAT" = "Mit diesem Rad können Sie den Timer auf bis zu %d Minuten einstellen. Derzeit ist er auf %d Minuten eingestellt.";
+
+/* This is applied to the actual seconds picker wheel. */
+"SLUG-ACC-2-FORMAT" = "Mit diesem Rad können Sie den Timer auf bis zu %d Sekunden einstellen. Derzeit ist er auf %d Sekunden eingestellt.";
+
+/* This is applied to the main state label, above the picker. It is followed by one of the following three strings. */
+"SLUG-ACC-STATE" = "Dieses Label zeigt den aktuell eingestellten Status an.";
+
+/* This version is for when the timer is in "Start" state.*/
+"SLUG-ACC-STATE-PREFIX-Start" = "Dieser Timer ist auf die Gesamtzeit eingestellt.";
+
+/* This version is for when the timer is in "Warn" state.*/
+"SLUG-ACC-STATE-PREFIX-Warn" = "Dieser Timer ist auf die Warnschwellenzeit eingestellt.";
+
+/* This version is for when the timer is in "Final" state.*/
+"SLUG-ACC-STATE-PREFIX-Final" = "Der Timer ist auf die endgültige Countdown-Zeit eingestellt.";
+
+/* This This is added for the extended "hint" version of the labels for the buttons. */
+"SLUG-ACC-STATE-BUTTON-HINT" = "Sie können die Zeit dafür mit der obigen Auswahl festlegen.";
+
+/* This is applied to the green "Start" button. */
+"SLUG-ACC-STATE-BUTTON-LABEL-Start" = "Die Gesamtzeit für den Timer.";
+
+/* This is applied to the yellow "Warn" button. */
+"SLUG-ACC-STATE-BUTTON-LABEL-Warn" = "Die Warnschwellenzeit für den Timer.";
+
+/* This is applied to the red "Final" button. */
+"SLUG-ACC-STATE-BUTTON-LABEL-Final" = "Die endgültige Countdown-Zeit für den Timer.";
+
+/* This is applied to the green "Start" button's extended "hint." */
+"SLUG-ACC-STATE-Start" = "Dies ist die Gesamtzeit für den Timer.";
+
+/* This is applied to the green "Warn" button's extended "hint." */
+"SLUG-ACC-STATE-Warn" = "Wenn diese Zeit erreicht ist, wechselt der Timer in einen „Warn“-Zustand, und die Farbe ändert sich. Wenn Sie diese Zeit auf 0 belassen, tritt der Warnzustand nie ein, und der Timer geht nach Ablauf entweder direkt in den Zustand „Endgültiger Countdown“ oder in einen Alarm über. Diese Zeit darf die Gesamtzeit nicht überschreiten.";
+
+/* This is applied to the green "Final" button's extended "hint." */
+"SLUG-ACC-STATE-Final" = "Wenn diese Zeit erreicht ist, wechselt der Timer in den Zustand „Endgültiger Countdown“, und die Farbe ändert sich. Wenn Sie diese Zeit auf 0 belassen, tritt der Zustand „Endgültiger Countdown“ nie ein, und der Timer geht nach Ablauf direkt in den Alarmzustand über. Diese Zeit darf die Warnzeit bzw. die Gesamtzeit nicht überschreiten.";
+
+/* This is applied to the navbar hint. */
+"SLUG-CURRENT-TIMER-SELECTED-FORMAT" = "Timer %d ist derzeit ausgewählt.";
+
+/* This is also applied to the navbar hint. */
+"SLUG-CURRENT-TIMER-TIME-FORMAT" = "Die aktuelle Zeit beträgt %d Stunden, %d Minuten und %d Sekunden.";
+
+/* This is applied to the white triangular "play" button. */
+"SLUG-ACC-PLAY-BUTTON-LABEL" = "Dadurch wird der Timer gestartet.";
+
+/* This is an extended hint for the play button. */
+"SLUG-ACC-PLAY-BUTTON-HINT" = "Wenn Sie dies auswählen, wird ein neuer Bildschirm mit dem laufenden Timer geöffnet.";
+
+/* This is applied to the white cross button, in the lower right of the toolbar. */
+"SLUG-ACC-ADD-TIMER-BUTTON" = "Wenn Sie diese Schaltfläche auswählen, wird ein neuer Timer hinzugefügt.";
+
+/* This is applied to each timer button, in the middle of the toolbar. */
+"SLUG-ACC-TIMER-BUTTON-LABEL-FORMAT" = "Dies ist die Auswahlschaltfläche für den Timer %d.";
+
+/* This is applied to the currently selected timer button, in the middle of the toolbar. */
+"SLUG-ACC-TIMER-BUTTON-HINT-IS-FORMAT" = "Sie ist ausgewählt und auf %@ gesetzt. Die App stellt derzeit diesen Timer ein.";
+
+/* This is applied to the unselected timer buttons, in the middle of the toolbar. */
+"SLUG-ACC-TIMER-BUTTON-HINT-NOT-FORMAT" = "Sie ist nicht ausgewählt und auf %@ gesetzt. Wenn Sie sie auswählen, ändert dies die App dahingehend, dass Sie diesen Timer einstellen können.";
+
+/* This is applied to the "trashcan" button, at the bottom left of the toolbar. */
+"SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT" = "Wenn Sie diese Schaltfläche auswählen, können Sie den Timer %d löschen.";
+
+/* This is applied to the clear button, that appears just to the left of the picker, when a value is set. */
+"SLUG-ACC-CLEAR-BUTTON" = "Wenn Sie diese Schaltfläche auswählen, wird die aktuelle Zeit auf 0 zurückgesetzt.";
+
+// MARK: SETTINGS POPOVER
+
+/* This is applied to the "About AmbiaMara" button. */
+"SLUG-ACC-ABOUT-AMBIAMARA-BUTTON" = "Dies ruft einen Bildschirm mit Informationen über diese App und detaillierten Anweisungen auf.";
+
+/* This is applied to the "Start Immediately" switch. */
+"SLUG-ACC-POPOVER-START-IMMEDIATELY-SWITCH" = "Ist diese Option aktiviert, startet der Timer sofort, sobald die Timer-Seite angezeigt wird. Wenn sie deaktiviert ist, müssen Sie den Timer starten, nachdem Sie den Bildschirm für den laufenden Timer aufgerufen haben.";
+
+/* This is applied to the "Show Toolbar" switch. */
+"SLUG-ACC-POPOVER-SHOW-TOOLBAR-SETTING-SWITCH" = "Ist diese Option aktiviert, wird am unteren Rand des laufenden Timers eine Symbolleiste mit Steuerelementen angezeigt, mit denen Sie den Timer verwalten können. Wenn sie deaktiviert ist, müssen Sie Gesten verwenden.";
+
+/* This is applied to the label for the switch that indicates the toolbar will "auto-hide," when not being used. */
+"SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-HINT" = "Ist diese Option aktiviert, wird die Symbolleiste „ausgeblendet“ (verborgen), nachdem sie einige Sekunden lang nicht verwendet wurde. Wenn Sie den Bildschirm berühren, wird sie wieder eingeblendet.";
+
+/* This is applied to the segmented switch, at the bottom, with the two timer modes. */
+"SLUG-ACC-POPOVER-TIMER-MODE-LABEL" = "Timer-Modus-Schalter";
+
+/* This is applied to the entire segmented switch, at the bottom, with the two timer modes. */
+"SLUG-ACC-POPOVER-TIMER-MODE-HINT" = "Dieser Schalter wählt den Anzeigemodus des laufenden Timers, entweder digital (Ziffern) oder eine „Ampel“ mit drei Farben (drei Punkte)";
+
+/* This is appended to the above hint, if the mode is "Digital." */
+"SLUG-ACC-POPOVER-TIMER-MODE-HINT-0" = "Aktuell ist der digitale Modus eingestellt.";
+
+/* This is appended to the above hint, if the mode is "Traffic Lights." */
+"SLUG-ACC-POPOVER-TIMER-MODE-HINT-1" = "Aktuell ist der „Ampel“-Modus eingestellt.";
+
+/* This is applied to the actual segment for "Digital Mode." */
+"SLUG-ACC-POPOVER-TIMER-MODE-SEGMENT-0-LABEL" = "Wählen Sie den digitalen Timer-Modus. Im digitalen Timer-Modus zeigt der laufende Timer eine „Retro-LED-Anzeige“ an und zählt kontinuierlich rückwärts. Die Farbe der Anzeige ändert sich beim Überschreiten des jeweiligen Schwellenwerts von Grün über Gelb zu Rot.";
+
+/* This is applied to the actual segment for "Digital Mode." */
+"SLUG-ACC-POPOVER-TIMER-MODE-SEGMENT-1-LABEL" = "Wählen Sie den Timer-Modus „Ampel“ aus. Im „Ampel“-Timer-Modus zeigt der laufende Timer eine dreifarbige „Ampel“ an, deren Lichter nur dann aufleuchten und wechseln, wenn die Schwellenwerte überschritten werden. Die „Ampel“ ganz links ist grün und repräsentiert die meiste Zeit. Die mittlere „Ampel“ ist gelb und stellt die „Warnschwelle“ dar. Die „Ampel“ ganz links ist rot und repräsentiert den Schwellenwert „Endgültiger Countdown“.";
+
+// MARK: ALARM SETUP POPOVER
+
+/* This is applied to the segmented switch, at the top, that selects whether or not to sound an audible alarm. */
+"SLUG-ACC-ALARM-SET-MODE-SWITCH-LABEL" = "Aktivieren oder deaktivieren Sie den akustischen Alarm.";
+
+/* This is appended to the above hint, if the mode is "Digital." */
+"SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT-0" = "Er ist derzeit deaktiviert.";
+
+/* This is appended to the above hint, if the mode is "Traffic Lights." */
+"SLUG-ACC-ALARM-SET-MODE-SWITCH-HINT-1" = "Diese Option ist derzeit aktiviert und Sie können das Auswahlfeld unten verwenden, um einen Ton auszuwählen. Mit der Schaltfläche neben dem Auswahlfeld können Sie den Ton testen.";
+
+/* This is the accessibility label for the alarm switch segment 0 (alarm sound off). */
+"SLUG-ACC-POPOVER-ALARM-MODE-SEGMENT-0-LABEL" = "Deaktivieren des Alarmtons.";
+
+/* This is the accessibility label for the alarm switch segment 0 (alarm sound off). */
+"SLUG-ACC-POPOVER-ALARM-MODE-SEGMENT-1-LABEL" = "Aktivieren der Alarmtöne. Wählen Sie mit dem Auswahlfeld unten einen Alarmton aus.";
+
+/* This is applied to the "Use Vibrate" switch. */
+"SLUG-ACC-ALARM-SET-VIBRATE-SWITCH" = "Bei Aktivierung dieser Option vibriert das Telefon, wenn der Alarm ausgelöst wird.";
+
+/* This is applied to the sound selection picker. */
+"SLUG-ACC-SOUND-PICKER" = "Hier werden die verschiedenen Töne aufgelistet, die nach Ablauf des Countdown-Timers verfügbar sind.";
+
+/* This is applied to the sound sample button, next to the picker. */
+"SLUG-ACC-SOUND-SAMPLE-BUTTON" = "Den ausgewählten Ton abspielen.";
+
+// MARK: RUNNING TIMER SCREEN
+
+/* This is applied to the toolbar "Fast Forward" or the "Rewind" button, when it shows a timer. */
+"SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT" = "Diese Schaltfläche schaltet den Timer auf Timer %d um.";
+
+/* This is applied to the toolbar "Fast Forward" button, when it shows the two arrows. */
+"SLUG-ACC-TOOLBAR-FF-ALARM" = "Mit dieser Schaltfläche wird der Timer auf das Ende eingestellt und der Alarm gestartet.";
+
+/* This is applied to the toolbar "Rewind" button, when it shows a timer. */
+"SLUG-ACC-TOOLBAR-REWIND-ALARM" = "Mit dieser Schaltfläche wird der Timer auf die Startzeit eingestellt.";
+
+/* This is applied to the toolbar "Play/Pause" button, when the timer is paused. */
+"SLUG-ACC-TOOLBAR-PLAY" = "Mit dieser Schaltfläche wird der Countdown-Timer gestartet.";
+
+/* This is applied to the toolbar "Play/Pause" button, when the timer is running. */
+"SLUG-ACC-TOOLBAR-PAUSE" = "Mit dieser Schaltfläche wird der Countdown-Timer angehalten.";
+
+/* This is applied to the toolbar "Stop" button. */
+"SLUG-ACC-TOOLBAR-STOP" = "Mit dieser Schaltfläche wird der Timer gestoppt und zum Setup-Bildschirm zurückgekehrt.";
+
+/* This is applied to the central disabled timer button in the toolbar. */
+"SLUG-ACC-TOOLBAR-TIMER-FORMAT" = "Dieser Bildschirm ist derzeit auf Timer %d eingestellt.";
