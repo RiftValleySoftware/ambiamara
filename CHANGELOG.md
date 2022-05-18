@@ -1,3 +1,6 @@
+**Version 2.0.2.3001** *May 18, 2022*
+Reduced the Mac Catalyst minver to Catalina.
+
 **Version 2.0.2.3000** *May 18, 2022*
 The display of the picker was optimized, in oreder to improve performance on Macs, using Catalyst.
 
