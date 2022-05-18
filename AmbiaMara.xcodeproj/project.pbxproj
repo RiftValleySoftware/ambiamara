@@ -656,7 +656,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ProjectMeta/AmbiaMara.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3002;
+				CURRENT_PROJECT_VERSION = 3003;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Meta/Info.plist;
@@ -691,7 +691,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ProjectMeta/AmbiaMara.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3002;
+				CURRENT_PROJECT_VERSION = 3003;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Meta/Info.plist;
@@ -764,7 +764,7 @@
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_RetroLEDDisplay.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
+				minimumVersion = 1.2.0;
 			};
 		};
 		D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */ = {
