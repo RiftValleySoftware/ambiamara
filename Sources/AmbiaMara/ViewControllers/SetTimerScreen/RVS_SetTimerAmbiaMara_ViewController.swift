@@ -10,7 +10,6 @@
 
 import UIKit
 import RVS_Generic_Swift_Toolbox
-import RVS_MaskButton
 
 /* ###################################################################################################################################### */
 // MARK: - Initial View Controller -
@@ -697,9 +696,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             self?.topLabelContainerView?.backgroundColor = (self?.isHighContrastMode ?? false) ? .white : UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
             self?.startSetButton?.backgroundColor = .start != self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Start-Color"))
                                                         : ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Start-Color")?.withAlphaComponent(0.4))
-            self?.warnSetButton?.backgroundColor = .warn != self?._state && 0 < self?._currentTimer.startTime ?? 0 ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Warn-Color"))
+            self?.warnSetButton?.backgroundColor = .warn != self?._state && 1 < self?._currentTimer.startTime ?? 0 ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Warn-Color"))
                                                         :  ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Warn-Color")?.withAlphaComponent(0.4))
-            self?.finalSetButton?.backgroundColor = .final != self?._state && 0 < self?._currentTimer.startTime ?? 0
+            self?.finalSetButton?.backgroundColor = .final != self?._state && 1 < self?._currentTimer.startTime ?? 0
                                                     ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Final-Color"))
                                                     :  ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Final-Color")?.withAlphaComponent(0.4))
             self?.startSetButton?.borderColor = .start == self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Start-Color")) : nil
@@ -1115,10 +1114,10 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
         
         guard nil == inReusingView else { return inReusingView ?? UIView() }
         
-        let ret = RVS_MaskButton()
-        ret.buttonFont = Self._pickerFont
-        ret.gradientStartColor = .white
-        ret.isEnabled = false
+        let ret = UILabel()
+        ret.font = Self._pickerFont
+        ret.textColor = .white
+        ret.textAlignment = .center
 
         let hasValue: [Bool] = [0 < inPickerView.selectedRow(inComponent: PickerComponents.hour.rawValue),
                                 0 < inPickerView.selectedRow(inComponent: PickerComponents.minute.rawValue)
@@ -1127,11 +1126,15 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
         if 0 < inRow
             || (hasValue[0] && PickerComponents.minute.rawValue == inComponent)
             || ((hasValue[0] || hasValue[1]) && PickerComponents.second.rawValue == inComponent) {
-            ret.setTitle(String(_pickerViewData[inComponent][inRow]), for: .normal)
-            ret.cornerRadius = Self._pickerCornerRadiusInDisplayUnits
-            ret.reversed = (inRow == selectedRow)
+            ret.text = String(_pickerViewData[inComponent][inRow])
+            if inRow == selectedRow {
+                ret.textColor = UIColor(named: "PickerTextColor")
+                ret.cornerRadius = Self._pickerCornerRadiusInDisplayUnits
+                ret.clipsToBounds = true
+                ret.backgroundColor = .white
+            }
         } else {
-            ret.setTitle("0", for: .normal)
+            ret.text = "0"
        }
         
         return ret

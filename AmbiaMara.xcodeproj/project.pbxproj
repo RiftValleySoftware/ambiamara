@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		D404247F282BEAA3004FD65A /* Accessibility.strings in Resources */ = {isa = PBXBuildFile; fileRef = D404247D282BEAA3004FD65A /* Accessibility.strings */; };
 		D4291733282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */; };
-		D44E770D281ACAEE00B491EF /* RVS-MaskButton in Frameworks */ = {isa = PBXBuildFile; productRef = D44E770C281ACAEE00B491EF /* RVS-MaskButton */; };
 		D474E5DE282B26E900102B9B /* Instructions.txt in Resources */ = {isa = PBXBuildFile; fileRef = D474E5DC282B26E900102B9B /* Instructions.txt */; };
 		D47C029F2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C029E2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift */; };
 		D47C02A32819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */; };
@@ -158,7 +157,6 @@
 			files = (
 				D4C4B7142819D39B00E22ECA /* RVS-Persistent-Prefs in Frameworks */,
 				D4C4B7172819D3D300E22ECA /* RVS-RetroLEDDisplay in Frameworks */,
-				D44E770D281ACAEE00B491EF /* RVS-MaskButton in Frameworks */,
 				D4C4B71A2819D40500E22ECA /* RVS-BasicGCDTimer in Frameworks */,
 				D4C4B7112819D36800E22ECA /* RVS-Generic-Swift-Toolbox in Frameworks */,
 			);
@@ -353,7 +351,6 @@
 				D4C4B7132819D39B00E22ECA /* RVS-Persistent-Prefs */,
 				D4C4B7162819D3D300E22ECA /* RVS-RetroLEDDisplay */,
 				D4C4B7192819D40500E22ECA /* RVS-BasicGCDTimer */,
-				D44E770C281ACAEE00B491EF /* RVS-MaskButton */,
 			);
 			productName = AmbiaMara;
 			productReference = D47C029B2819CA6500D359F5 /* AmbiaMara.app */;
@@ -391,8 +388,6 @@
 				D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */,
 				D4C4B7152819D3D300E22ECA /* XCRemoteSwiftPackageReference "RVS_RetroLEDDisplay" */,
 				D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */,
-				D44E770A281ACA9C00B491EF /* XCRemoteSwiftPackageReference "RVS_MaskButton" */,
-				D44E770B281ACAEE00B491EF /* XCRemoteSwiftPackageReference "RVS_MaskButton" */,
 			);
 			productRefGroup = D47C029C2819CA6500D359F5 /* Products */;
 			projectDirPath = "";
@@ -661,7 +656,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ProjectMeta/AmbiaMara.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3011;
+				CURRENT_PROJECT_VERSION = 3000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Meta/Info.plist;
@@ -679,7 +674,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -696,7 +691,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ProjectMeta/AmbiaMara.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3011;
+				CURRENT_PROJECT_VERSION = 3000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Meta/Info.plist;
@@ -714,7 +709,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -748,22 +743,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D44E770A281ACA9C00B491EF /* XCRemoteSwiftPackageReference "RVS_MaskButton" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:RiftValleySoftware/RVS_MaskButton.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.1;
-			};
-		};
-		D44E770B281ACAEE00B491EF /* XCRemoteSwiftPackageReference "RVS_MaskButton" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:RiftValleySoftware/RVS_MaskButton.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.1;
-			};
-		};
 		D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox";
@@ -799,11 +778,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D44E770C281ACAEE00B491EF /* RVS-MaskButton */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D44E770A281ACA9C00B491EF /* XCRemoteSwiftPackageReference "RVS_MaskButton" */;
-			productName = "RVS-MaskButton";
-		};
 		D4C4B7102819D36800E22ECA /* RVS-Generic-Swift-Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;

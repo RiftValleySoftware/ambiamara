@@ -1,4 +1,11 @@
-**Version 2.0.0.0000** *TBD*
+**Version 2.0.2.3000** *May 18, 2022*
+The display of the picker was optimized, in oreder to improve performance on Macs, using Catalyst.
+
+**Version 2.0.1.3011** *May 17, 2022*
+Complete rewrite.
+The app is now based on a single setup view (as opposed to the threee that were previously required).
+The running timer now has an optimized display size, based on the set time.
+The toolbar is now a complete mode, including "auto-hide."
 
 **Version 1.3.1.0000** *December 14, 2021*
 - Updated the dependencies.
