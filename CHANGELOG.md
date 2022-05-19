@@ -1,12 +1,12 @@
 **Version 2.1.0.3000** *May 19, 2022*
-Added keyboard shortcuts to the Catalyst app.
-The tab bar can now be hidden in Catalyst.
+- Added keyboard shortcuts to the Catalyst app.
+- The tab bar can now be hidden in Catalyst.
 
 **Version 2.0.2.3004** *May 18, 2022*
-Reduced the Mac Catalyst minver to Catalina.
+- Reduced the Mac Catalyst minver to Catalina.
 
 **Version 2.0.2.3000** *May 18, 2022*
-The display of the picker was optimized, in order to improve performance on Macs, using Catalyst.
+- The display of the picker was optimized, in order to improve performance on Macs, using Catalyst.
 
 **Version 2.0.1.3011** *May 17, 2022*
 Complete rewrite.
