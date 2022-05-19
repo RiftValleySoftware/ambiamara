@@ -1,4 +1,4 @@
-**Version 2.1.0.3000** *May 19, 2022*
+**Version 2.1.0.3005** *May 19, 2022*
 - Added keyboard shortcuts to the Catalyst app.
 - The tab bar can now be hidden in Catalyst.
 
