@@ -115,8 +115,8 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
     class var settingsPopoverHeightInDisplayUnits: CGFloat {
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
-        if ProcessInfo().isMacCatalystApp || UIAccessibility.isVoiceOverRunning {
-            return 220 - (UIAccessibility.isVoiceOverRunning ? 58 : 0)
+        if UIAccessibility.isVoiceOverRunning {
+            return 162
         } else {
             return 270
         }
@@ -163,10 +163,10 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         popoverDisplayAutoHideSwitch?.accessibilityHint = "SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-HINT".accessibilityLocalizedVariant
         popoverDisplayAutoHideSwitchLabelButton?.accessibilityHint = "SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-HINT".accessibilityLocalizedVariant
 
-        // We should not rely on gestures for Catalyst. Also, voiceover mode does not work well with gestures.
+        // Voiceover mode does not work well with gestures.
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
-        if ProcessInfo().isMacCatalystApp || UIAccessibility.isVoiceOverRunning {
+        if UIAccessibility.isVoiceOverRunning {
             toolbarContainerStackView?.isHidden = true
             auotHideIndentLabel?.isHidden = true
         } else {

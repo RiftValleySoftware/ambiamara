@@ -465,7 +465,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // We do not do auto hide, when in voiceover mode.
-        if !UIAccessibility.isVoiceOverRunning {
+        if UIAccessibility.isVoiceOverRunning {
             RVS_AmbiaMara_Settings().autoHideToolbar = false
         }
 
@@ -473,10 +473,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         minutesLabel?.text = (minutesLabel?.text ?? "ERROR").localizedVariant
         secondsLabel?.text = (secondsLabel?.text ?? "ERROR").localizedVariant
         
-        // We should not rely on gestures for Catalyst. Also, voiceover mode does not work well with gestures.
+        // Voiceover mode does not work well with gestures.
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
-        if ProcessInfo().isMacCatalystApp || UIAccessibility.isVoiceOverRunning {
+        if UIAccessibility.isVoiceOverRunning {
             RVS_AmbiaMara_Settings().displayToolbar = true
         }
 

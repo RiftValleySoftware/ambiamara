@@ -616,6 +616,69 @@ extension RVS_TimerAmbiaMara_ViewController {
         UIApplication.shared.isIdleTimerDisabled = false
         super.viewWillDisappear(inIsAnimated)
     }
+    
+    /* ############################################################## */
+    /**
+     This allows Catalyst apps to use the keyboard to control the timer, like gestures.
+     
+     - parameter inKeyPresses: The pressed keys.
+     - parameter with: The event, creating the keypresses.
+     */
+    override func pressesBegan(_ inKeyPresses: Set<UIPress>, with inEvent: UIPressesEvent?) {
+        var didHandleEvent = false
+        for press in inKeyPresses {
+            guard !didHandleEvent,
+                  let key = press.key
+            else { continue }
+            
+            switch key.charactersIgnoringModifiers {
+            case UIKeyCommand.inputLeftArrow:
+                didHandleEvent = true
+                if _isTimerRunning || !(_isAtStart && !_isAtEnd) || 1 < RVS_AmbiaMara_Settings().numberOfTimers {
+                    rewindHit()
+                } else if _isAlarming {
+                    didHandleEvent = true
+                    _isAlarming = false
+                }
+
+            case UIKeyCommand.inputRightArrow:
+                didHandleEvent = true
+                if _isTimerRunning || !(_isAtStart && !_isAtEnd) || 1 < RVS_AmbiaMara_Settings().numberOfTimers {
+                    fastForwardHit()
+                } else if _isAlarming {
+                    didHandleEvent = true
+                    _isAlarming = false
+                }
+
+            case UIKeyCommand.inputEscape:
+                stopTimer()
+
+            case " ":
+                didHandleEvent = true
+                if _isTimerRunning {
+                    pauseTimer()
+                } else if _isAtStart {
+                    startTimer()
+                } else if _isAlarming {
+                    _isAlarming = false
+                } else {
+                    continueTimer()
+                }
+
+            default:
+                if _isAlarming {
+                    didHandleEvent = true
+                    _isAlarming = false
+                }
+            }
+        }
+        
+        if didHandleEvent == false {
+            super.pressesBegan(inKeyPresses, with: inEvent)
+        }
+        
+        setAutoHide()
+    }
 }
 
 /* ###################################################################################################################################### */
