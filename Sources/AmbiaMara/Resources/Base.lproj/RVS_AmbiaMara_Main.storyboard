@@ -638,10 +638,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleAspectFit" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="BJi-bD-ter">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="4t0-CW-2Ah" userLabel="Digit Container Stack View">
-                                        <rect key="frame" x="41.5" y="394" width="331" height="108"/>
+                                        <rect key="frame" x="41.5" y="355" width="331" height="108"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KRf-cW-nFh" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
                                                 <rect key="frame" x="0.0" y="0.0" width="97" height="108"/>
@@ -723,7 +723,7 @@
                                         </constraints>
                                     </stackView>
                                     <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fY6-wY-IG5">
-                                        <rect key="frame" x="0.0" y="394" width="414" height="108"/>
+                                        <rect key="frame" x="0.0" y="355" width="414" height="108"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="CCw-JA-9Mg">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -732,7 +732,7 @@
                                         <blurEffect style="light"/>
                                     </visualEffectView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DTA-fw-WyG">
-                                        <rect key="frame" x="0.0" y="394" width="414" height="108"/>
+                                        <rect key="frame" x="0.0" y="355" width="414" height="108"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -841,11 +841,10 @@
                             <constraint firstItem="ht0-4k-rJK" firstAttribute="bottom" secondItem="JHV-9i-Nag" secondAttribute="bottom" id="BZg-9i-URv"/>
                             <constraint firstAttribute="trailing" secondItem="okx-7i-W39" secondAttribute="trailing" id="CUz-gB-0Ew"/>
                             <constraint firstItem="ht0-4k-rJK" firstAttribute="trailing" secondItem="BJi-bD-ter" secondAttribute="trailing" id="FiL-UG-FqS"/>
-                            <constraint firstItem="BJi-bD-ter" firstAttribute="top" secondItem="7tt-fn-aIE" secondAttribute="top" id="Gl3-uz-EVN"/>
-                            <constraint firstAttribute="bottom" secondItem="BJi-bD-ter" secondAttribute="bottom" id="SnR-Km-yNa"/>
+                            <constraint firstItem="BJi-bD-ter" firstAttribute="top" secondItem="ht0-4k-rJK" secondAttribute="top" id="Gl3-uz-EVN"/>
+                            <constraint firstItem="ht0-4k-rJK" firstAttribute="bottom" secondItem="BJi-bD-ter" secondAttribute="bottom" id="SnR-Km-yNa"/>
                             <constraint firstItem="oBo-bn-Jew" firstAttribute="centerY" secondItem="7tt-fn-aIE" secondAttribute="centerY" id="X8B-o5-wYX"/>
                             <constraint firstItem="JHV-9i-Nag" firstAttribute="leading" secondItem="ht0-4k-rJK" secondAttribute="leading" id="aBJ-ZH-ZhX"/>
-                            <constraint firstAttribute="height" relation="lessThanOrEqual" secondItem="BJi-bD-ter" secondAttribute="height" id="bc6-uc-v25"/>
                             <constraint firstItem="okx-7i-W39" firstAttribute="top" secondItem="7tt-fn-aIE" secondAttribute="top" id="hsI-kp-YN4"/>
                             <constraint firstItem="JHV-9i-Nag" firstAttribute="trailing" secondItem="ht0-4k-rJK" secondAttribute="trailing" id="imN-WD-PaD"/>
                             <constraint firstItem="oBo-bn-Jew" firstAttribute="centerX" secondItem="7tt-fn-aIE" secondAttribute="centerX" id="j40-D8-Br9"/>
