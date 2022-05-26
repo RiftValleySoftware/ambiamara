@@ -749,13 +749,6 @@ extension RVS_TimerAmbiaMara_ViewController {
      This resets the autohide timer.
      */
     func setAutoHide() {
-        _autoHideTimer?.invalidate()
-        _autoHideTimer = nil
-
-        #if DEBUG
-            print("Resetting the auto-hide timer")
-        #endif
-        
         showToolbar()
     }
     
@@ -972,7 +965,17 @@ extension RVS_TimerAmbiaMara_ViewController {
      Stops the timer, by popping the screen.
      */
     func stopTimer() {
-        navigationController?.popViewController(animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?._isAlarming = false
+            self?._isSoundPlaying = false
+            self?._timer?.invalidate()
+            self?._timer = nil
+            self?._alarmTimer?.invalidate()
+            self?._alarmTimer = nil
+            self?._autoHideTimer?.invalidate()
+            self?._autoHideTimer = nil
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
     
     /* ############################################################## */
@@ -1081,13 +1084,17 @@ extension RVS_TimerAmbiaMara_ViewController {
      */
     func flashCyan() {
         flasherView?.backgroundColor = UIColor(named: "Paused-Color")
-        UIView.animate(withDuration: Self._flashDurationInSeconds, animations: {
-            self.flasherView?.backgroundColor = .clear
-        })
         if areHapticsAvailable {
             _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
-            _feedbackGenerator?.prepare()
         }
+        UIView.animate(withDuration: Self._flashDurationInSeconds,
+                       animations: { [weak self] in
+                                        self?.flasherView?.backgroundColor = .clear
+                                    },
+                       completion: { [weak self] _ in
+                                        self?._feedbackGenerator?.prepare()
+                                    }
+        )
     }
     
     /* ############################################################## */
@@ -1096,13 +1103,17 @@ extension RVS_TimerAmbiaMara_ViewController {
      */
     func flashGreen() {
         flasherView?.backgroundColor = UIColor(named: "Start-Color")
-        UIView.animate(withDuration: Self._flashDurationInSeconds, animations: {
-            self.flasherView?.backgroundColor = .clear
-        })
         if areHapticsAvailable {
             _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.light.rawValue))
-            _feedbackGenerator?.prepare()
         }
+        UIView.animate(withDuration: Self._flashDurationInSeconds,
+                       animations: { [weak self] in
+                                        self?.flasherView?.backgroundColor = .clear
+                                    },
+                       completion: { [weak self] _ in
+                                        self?._feedbackGenerator?.prepare()
+                                    }
+        )
     }
 
     /* ############################################################## */
@@ -1111,13 +1122,17 @@ extension RVS_TimerAmbiaMara_ViewController {
      */
     func flashYellow() {
         flasherView?.backgroundColor = UIColor(named: "Warn-Color")
-        UIView.animate(withDuration: Self._flashDurationInSeconds, animations: {
-            self.flasherView?.backgroundColor = .clear
-        })
         if areHapticsAvailable {
             _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.medium.rawValue))
-            _feedbackGenerator?.prepare()
         }
+        UIView.animate(withDuration: Self._flashDurationInSeconds,
+                       animations: { [weak self] in
+                                        self?.flasherView?.backgroundColor = .clear
+                                    },
+                       completion: { [weak self] _ in
+                                        self?._feedbackGenerator?.prepare()
+                                    }
+        )
     }
 
     /* ############################################################## */
@@ -1125,18 +1140,23 @@ extension RVS_TimerAmbiaMara_ViewController {
      This flashes the screen briefly red
      */
     func flashRed() {
-        flasherView?.backgroundColor = UIColor(named: "Final-Color")
-        UIView.animate(withDuration: Self._flashDurationInSeconds, animations: {
-            self.flasherView?.backgroundColor = .clear
-        })
         if areHapticsAvailable {
             if _isAlarming {
                 _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.soft.rawValue))
             } else {
                 _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.heavy.rawValue))
             }
-            _feedbackGenerator?.prepare()
+            
         }
+        flasherView?.backgroundColor = UIColor(named: "Final-Color")
+        UIView.animate(withDuration: Self._flashDurationInSeconds,
+                       animations: { [weak self] in
+                                        self?.flasherView?.backgroundColor = .clear
+                                    },
+                       completion: { [weak self] _ in
+                                        self?._feedbackGenerator?.prepare()
+                                    }
+        )
     }
 
     /* ############################################################## */
@@ -1158,6 +1178,10 @@ extension RVS_TimerAmbiaMara_ViewController {
         timerLabel.transform = timerLabel.transform.scaledBy(x: 0.1, y: 0.1)
         timerLabel.textColor = UIColor(named: "Paused-Color")
         
+        if areHapticsAvailable {
+            _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+        }
+
         flasherView?.backgroundColor = UIColor(named: "Paused-Color")
         UIView.animate(withDuration: Self._flashDurationInSeconds,
                        animations: { [weak self] in
@@ -1165,15 +1189,11 @@ extension RVS_TimerAmbiaMara_ViewController {
                                         timerLabel.alpha = 0.0
                                         self?.flasherView?.backgroundColor = .clear
                                     },
-                       completion: { _ in
+                       completion: { [weak self] _ in
                                         timerLabel.removeFromSuperview()
+                                        self?._feedbackGenerator?.prepare()
                                     }
         )
-        
-        if areHapticsAvailable {
-            _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
-            _feedbackGenerator?.prepare()
-        }
     }
     
     /* ############################################################## */

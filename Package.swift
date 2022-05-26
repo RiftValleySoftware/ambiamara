@@ -47,7 +47,7 @@ let package = Package(
                     .product(name: "RVS-Persistent-Prefs",
                              package: "RVS_PersistentPrefs"),
                     .product(name: "RVS-RetroLEDDisplay",
-                             package: "RVS_RetroLEDDisplay"),
+                             package: "RVS_RetroLEDDisplay")
                     ])
     ]
 )
