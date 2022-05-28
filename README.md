@@ -1,6 +1,8 @@
 ![AmbiaMara Icon](icon.png)
 # ``AmbiaMara``
 
+<a href="https://apps.apple.com/us/app/ambiamara/id1448933389"><img src="img/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.png" align="right" /></a>
+
 AmbiaMara is the ultimate countdown timer!
 
 It will count down, from a preset time, in intervals of one second.
