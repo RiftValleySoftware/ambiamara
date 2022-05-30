@@ -32,10 +32,10 @@
             </objects>
             <point key="canvasLocation" x="-677" y="108"/>
         </scene>
-        <!--Set Timer Ambia Mara View Controller-->
+        <!--Set Timer View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="RVS_SetTimerAmbiaMara_ViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="Set Timer View Controller" customClass="RVS_SetTimerAmbiaMara_ViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -449,10 +449,10 @@
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="107.8125"/>
         </scene>
-        <!--Settings Ambia Mara Popover View Controller-->
+        <!--Settings Popover View Controller-->
         <scene sceneID="IBu-gW-FEa">
             <objects>
-                <viewController storyboardIdentifier="RVS_SettingsAmbiaMara_PopoverViewController" interfaceStyle="dark" id="UOz-ud-dcU" customClass="RVS_SettingsAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RVS_SettingsAmbiaMara_PopoverViewController" interfaceStyle="dark" id="UOz-ud-dcU" userLabel="Settings Popover View Controller" customClass="RVS_SettingsAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RiP-wE-HMj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="334"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -624,10 +624,10 @@
             </objects>
             <point key="canvasLocation" x="871" y="119"/>
         </scene>
-        <!--Timer Ambia Mara View Controller-->
+        <!--Running Timer View Controller-->
         <scene sceneID="62s-RG-oJ0">
             <objects>
-                <viewController storyboardIdentifier="RVS_TimerAmbiaMara_ViewController" id="FWf-2O-eKE" customClass="RVS_TimerAmbiaMara_ViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RVS_TimerAmbiaMara_ViewController" id="FWf-2O-eKE" userLabel="Running Timer View Controller" customClass="RVS_TimerAmbiaMara_ViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7tt-fn-aIE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -911,10 +911,10 @@
             </objects>
             <point key="canvasLocation" x="602.89855072463774" y="837.72321428571422"/>
         </scene>
-        <!--Set Alarm Ambia Mara Popover View Controller-->
+        <!--Set Alarm Popover View Controller-->
         <scene sceneID="L5y-aw-jD5">
             <objects>
-                <viewController storyboardIdentifier="RVS_SetAlarmAmbiaMara_ViewController" interfaceStyle="dark" id="Vbk-gE-tat" customClass="RVS_SetAlarmAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RVS_SetAlarmAmbiaMara_ViewController" interfaceStyle="dark" id="Vbk-gE-tat" userLabel="Set Alarm Popover View Controller" customClass="RVS_SetAlarmAmbiaMara_PopoverViewController" customModule="AmbiaMara" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ceo-jA-4Oa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="240"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
