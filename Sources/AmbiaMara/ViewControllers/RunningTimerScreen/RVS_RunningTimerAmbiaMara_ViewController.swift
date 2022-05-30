@@ -20,7 +20,7 @@ import RVS_BasicGCDTimer
 /**
  This is the view controller for the running timer screen.
  */
-class RVS_TimerAmbiaMara_ViewController: UIViewController {
+class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
     /* ################################################################################################################################## */
     // MARK: Private Static Properties
     /* ################################################################################################################################## */
@@ -325,7 +325,7 @@ class RVS_TimerAmbiaMara_ViewController: UIViewController {
 /* ###################################################################################################################################### */
 // MARK: Private Computed Properties
 /* ###################################################################################################################################### */
-extension RVS_TimerAmbiaMara_ViewController {
+extension RVS_RunningTimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
      - returns: The remaining countdown time, in seconds.
@@ -404,7 +404,7 @@ extension RVS_TimerAmbiaMara_ViewController {
 /* ###################################################################################################################################### */
 // MARK: Private Class Functions
 /* ###################################################################################################################################### */
-extension RVS_TimerAmbiaMara_ViewController {
+extension RVS_RunningTimerAmbiaMara_ViewController {
     /* ################################################################## */
     /**
      This creates an array of [CGPoint](https://developer.apple.com/documentation/coregraphics/cgpoint), based on a 0,0 origin, that describe
@@ -459,7 +459,7 @@ extension RVS_TimerAmbiaMara_ViewController {
 /* ###################################################################################################################################### */
 // MARK: Private Instance Methods
 /* ###################################################################################################################################### */
-extension RVS_TimerAmbiaMara_ViewController {
+extension RVS_RunningTimerAmbiaMara_ViewController {
     /* ################################################################## */
     /**
      This class generates an overlay image of a faint "hex grid" that allows us to simulate an old-fashioned "fluorescent" display.
@@ -510,7 +510,7 @@ extension RVS_TimerAmbiaMara_ViewController {
 /* ###################################################################################################################################### */
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
-extension RVS_TimerAmbiaMara_ViewController {
+extension RVS_RunningTimerAmbiaMara_ViewController {
     /* ################################################################## */
     /**
      - returns true, indicating that X-phones should hide the Home Bar.
@@ -684,7 +684,7 @@ extension RVS_TimerAmbiaMara_ViewController {
 /* ###################################################################################################################################### */
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
-extension RVS_TimerAmbiaMara_ViewController {
+extension RVS_RunningTimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
      This animates the toolbar into visibility.
@@ -1253,7 +1253,7 @@ extension RVS_TimerAmbiaMara_ViewController {
 /* ###################################################################################################################################### */
 // MARK: Callbacks
 /* ###################################################################################################################################### */
-extension RVS_TimerAmbiaMara_ViewController {
+extension RVS_RunningTimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
      Called if the background was tapped. This is how we start/pause/continue the timer. This only works for toolbar hidden.
@@ -1394,7 +1394,7 @@ extension RVS_TimerAmbiaMara_ViewController {
 /* ###################################################################################################################################### */
 // MARK: RVS_BasicGCDTimerDelegate Conformance
 /* ###################################################################################################################################### */
-extension RVS_TimerAmbiaMara_ViewController: RVS_BasicGCDTimerDelegate {
+extension RVS_RunningTimerAmbiaMara_ViewController: RVS_BasicGCDTimerDelegate {
     /* ############################################################## */
     /**
      Called when the timer fires.

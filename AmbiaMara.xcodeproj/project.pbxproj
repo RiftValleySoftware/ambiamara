@@ -39,7 +39,7 @@
 		D4C4B71A2819D40500E22ECA /* RVS-BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4C4B7192819D40500E22ECA /* RVS-BasicGCDTimer */; };
 		D4C4B71C2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */; };
 		D4C4B7212819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4B71F2819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift */; };
-		D4CE51B8281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B6281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift */; };
+		D4CE51B8281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B6281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift */; };
 		D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */; };
 		D4CE51BB281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51BA281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift */; };
 		D4F1448028293F4A001DD9E4 /* 01-low-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F1447928293F4A001DD9E4 /* 01-low-beep.mp3 */; };
@@ -126,7 +126,7 @@
 		D4C4B70E2819CF8F00E22ECA /* AmbiaMara.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = AmbiaMara.docc; sourceTree = "<group>"; };
 		D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_BaseViewController.swift; sourceTree = "<group>"; };
 		D4C4B71F2819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_Extensions.swift; sourceTree = "<group>"; };
-		D4CE51B6281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_TimerAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
+		D4CE51B6281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_RunningTimerAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
 		D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_SetAlarmAmbiaMara_PopoverViewController.swift; sourceTree = "<group>"; };
 		D4CE51BA281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_SettingsAmbiaMara_PopoverViewController.swift; sourceTree = "<group>"; };
 		D4D02B56283430D50024DF06 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text; name = fr; path = fr.lproj/Instructions.txt; sourceTree = "<group>"; };
@@ -193,7 +193,7 @@
 		D4233CA32820387800ED62EC /* RunningTimerScreen */ = {
 			isa = PBXGroup;
 			children = (
-				D4CE51B6281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift */,
+				D4CE51B6281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift */,
 			);
 			path = RunningTimerScreen;
 			sourceTree = "<group>";
@@ -446,7 +446,7 @@
 				D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift in Sources */,
 				D4C4B7212819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift in Sources */,
 				D486C829281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift in Sources */,
-				D4CE51B8281DCFA300DA6B85 /* RVS_TimerAmbiaMara_ViewController.swift in Sources */,
+				D4CE51B8281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift in Sources */,
 				D4291733282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift in Sources */,
 				D4C4B71C2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift in Sources */,
 			);

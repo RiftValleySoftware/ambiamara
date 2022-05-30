@@ -348,7 +348,7 @@ extension UIView {
 extension UIImage {
     /* ################################################################## */
     /**
-     This is a "cascading" image fetcher. It first, ses if there is an asset with the name given, then, it looks in the SFSymbols, finally, returning the SFSymbols.nosign, if none found.
+     This is a "cascading" image fetcher. It first, sees if there is an asset with the name given, then, it looks in the SFSymbols, finally, returning the SFSymbols.nosign, if none found.
      
      - parameter name: The name of the resource.
      

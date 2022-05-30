@@ -62,7 +62,7 @@ extension RVS_AmbiaMara_AppSceneDelegate {
     func cleanPopoverAndStopAlarm() {
         DispatchQueue.main.async { [weak self] in
            (self?.navigationController?.viewControllers.first as? RVS_SetTimerAmbiaMara_ViewController)?.currentDisplayedPopover?.dismiss(animated: false)
-           (self?.navigationController?.topViewController as? RVS_TimerAmbiaMara_ViewController)?.stopAlarm()
+           (self?.navigationController?.topViewController as? RVS_RunningTimerAmbiaMara_ViewController)?.stopAlarm()
         }
     }
 }
