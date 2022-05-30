@@ -407,9 +407,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             let seconds = min(59, currentValue)
             DispatchQueue.main.async { [weak self] in
                 guard let setPickerControl = self?.setTimePickerView else { return }
-                setPickerControl.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: false)
-                setPickerControl.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: false)
-                setPickerControl.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
+                setPickerControl.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: true)
+                setPickerControl.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: true)
+                setPickerControl.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: true)
                 setPickerControl.reloadAllComponents()
                 self?.setUpToolbar()
                 self?.clearButton?.isHidden = 0 >= (self?._stateTime() ?? -1)
@@ -799,11 +799,11 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
             _impactFeedbackGenerator?.prepare()
         }
-        setPickerControl.selectRow(0, inComponent: PickerComponents.hour.rawValue, animated: false)
+        setPickerControl.selectRow(0, inComponent: PickerComponents.hour.rawValue, animated: true)
         pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.hour.rawValue)
-        setPickerControl.selectRow(0, inComponent: PickerComponents.minute.rawValue, animated: false)
+        setPickerControl.selectRow(0, inComponent: PickerComponents.minute.rawValue, animated: true)
         pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.minute.rawValue)
-        setPickerControl.selectRow(0, inComponent: PickerComponents.second.rawValue, animated: false)
+        setPickerControl.selectRow(0, inComponent: PickerComponents.second.rawValue, animated: true)
         pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.second.rawValue)
     }
 
@@ -1077,15 +1077,15 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
         let seconds = min(59, currentValue)
         
         if hours != inPickerView.selectedRow(inComponent: PickerComponents.hour.rawValue) {
-            inPickerView.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: false)
+            inPickerView.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: true)
         }
         
         if minutes != inPickerView.selectedRow(inComponent: PickerComponents.minute.rawValue) {
-            inPickerView.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: false)
+            inPickerView.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: true)
         }
         
         if seconds != inPickerView.selectedRow(inComponent: PickerComponents.second.rawValue) {
-            inPickerView.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: false)
+            inPickerView.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: true)
         }
 
         if 0 == inComponent {

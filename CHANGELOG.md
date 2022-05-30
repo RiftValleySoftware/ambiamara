@@ -1,3 +1,7 @@
+**Version 2.1.2.3007** *TBD*
+- Internal code cleanup and updates to the latest tools.
+- The picker setting is now animated.
+
 **Version 2.1.1.3006** *May 26, 2022*
 - Beefed up the README.
 - Added some redundancy and extra code and belt and suspenders and other redundancy and whatnot, to try to resolve a possible crash, when stopping the timer (can't reproduce, but I don't like crashes -EVER)
