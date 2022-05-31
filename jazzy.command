@@ -11,8 +11,7 @@ if command -v jazzy; then
             --author_url https://riftvalleysoftware.com\
             --module AmbiaMara \
             --min-acl private \
-            --copyright [©2018-2022\ The\ Great\ Rift\ Valley\ Software\ Company]\(https://riftvalleysoftware.com\) \
-            -x CODE_SIGNING_ALLOWED=NO
+            --copyright [©2018-2022\ The\ Great\ Rift\ Valley\ Software\ Company]\(https://riftvalleysoftware.com\)
     cp icon.png docs/icon.png
     cp img/*.* docs/img/
     cd "${CWD}"
