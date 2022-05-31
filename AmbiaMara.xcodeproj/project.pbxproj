@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		D404247F282BEAA3004FD65A /* Accessibility.strings in Resources */ = {isa = PBXBuildFile; fileRef = D404247D282BEAA3004FD65A /* Accessibility.strings */; };
+		D40A69392846A05D0010A58E /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D40A69382846A05D0010A58E /* RVS_Persistent_Prefs */; };
 		D4291733282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */; };
 		D474E5DE282B26E900102B9B /* Instructions.txt in Resources */ = {isa = PBXBuildFile; fileRef = D474E5DC282B26E900102B9B /* Instructions.txt */; };
 		D47C029F2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C029E2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift */; };
@@ -16,6 +17,7 @@
 		D47C02A82819CA6800D359F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A72819CA6800D359F5 /* Assets.xcassets */; };
 		D47C02AB2819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A92819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard */; };
 		D486C829281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */; };
+		D491F1362846A42A00759031 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D491F1352846A42A00759031 /* RVS_BasicGCDTimer */; };
 		D4B01F81281F58D200B07C56 /* 11-bells.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F66281F58D200B07C56 /* 11-bells.mp3 */; };
 		D4B01F82281F58D200B07C56 /* 13-rooster.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F67281F58D200B07C56 /* 13-rooster.mp3 */; };
 		D4B01F83281F58D200B07C56 /* 15-shut-up-2.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F68281F58D200B07C56 /* 15-shut-up-2.mp3 */; };
@@ -33,12 +35,9 @@
 		D4B01F96281F58D200B07C56 /* 10-annoying-alarm.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F7E281F58D200B07C56 /* 10-annoying-alarm.mp3 */; };
 		D4B01F98281F58D200B07C56 /* 09-single-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F80281F58D200B07C56 /* 09-single-beep.mp3 */; };
 		D4C4B70C2819CEDB00E22ECA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4C4B70A2819CEDB00E22ECA /* Localizable.strings */; };
-		D4C4B7112819D36800E22ECA /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4C4B7102819D36800E22ECA /* RVS-Generic-Swift-Toolbox */; };
-		D4C4B7142819D39B00E22ECA /* RVS-Persistent-Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D4C4B7132819D39B00E22ECA /* RVS-Persistent-Prefs */; };
-		D4C4B7172819D3D300E22ECA /* RVS-RetroLEDDisplay in Frameworks */ = {isa = PBXBuildFile; productRef = D4C4B7162819D3D300E22ECA /* RVS-RetroLEDDisplay */; };
-		D4C4B71A2819D40500E22ECA /* RVS-BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4C4B7192819D40500E22ECA /* RVS-BasicGCDTimer */; };
 		D4C4B71C2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */; };
 		D4C4B7212819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4B71F2819DD4900E22ECA /* RVS_AmbiaMara_Extensions.swift */; };
+		D4CD2E7F284697E100400AB0 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4CD2E7E284697E100400AB0 /* RVS_Generic_Swift_Toolbox */; };
 		D4CE51B8281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B6281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift */; };
 		D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */; };
 		D4CE51BB281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51BA281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift */; };
@@ -52,6 +51,7 @@
 		D4F70CED282872A500DC0E11 /* 25-telephone.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */; };
 		D4F70CEE282872A500DC0E11 /* 23-siren.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */; };
 		D4F70CEF282872A500DC0E11 /* 24-deep-alarm.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */; };
+		D4FEE5BC2846B30700EBED74 /* RVS_RetroLEDDisplay in Frameworks */ = {isa = PBXBuildFile; productRef = D4FEE5BB2846B30700EBED74 /* RVS_RetroLEDDisplay */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -155,10 +155,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4C4B7142819D39B00E22ECA /* RVS-Persistent-Prefs in Frameworks */,
-				D4C4B7172819D3D300E22ECA /* RVS-RetroLEDDisplay in Frameworks */,
-				D4C4B71A2819D40500E22ECA /* RVS-BasicGCDTimer in Frameworks */,
-				D4C4B7112819D36800E22ECA /* RVS-Generic-Swift-Toolbox in Frameworks */,
+				D4FEE5BC2846B30700EBED74 /* RVS_RetroLEDDisplay in Frameworks */,
+				D491F1362846A42A00759031 /* RVS_BasicGCDTimer in Frameworks */,
+				D4CD2E7F284697E100400AB0 /* RVS_Generic_Swift_Toolbox in Frameworks */,
+				D40A69392846A05D0010A58E /* RVS_Persistent_Prefs in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +222,7 @@
 				D4C4B6FE2819CCDB00E22ECA /* Sources */,
 				D44E7714281AD24F00B491EF /* ProjectMeta */,
 				D47C029C2819CA6500D359F5 /* Products */,
+				D4CD2E7D284697E100400AB0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -320,6 +321,13 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		D4CD2E7D284697E100400AB0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D4F90F492819E53A00E4C664 /* MainApplication */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,10 +355,10 @@
 			);
 			name = AmbiaMara;
 			packageProductDependencies = (
-				D4C4B7102819D36800E22ECA /* RVS-Generic-Swift-Toolbox */,
-				D4C4B7132819D39B00E22ECA /* RVS-Persistent-Prefs */,
-				D4C4B7162819D3D300E22ECA /* RVS-RetroLEDDisplay */,
-				D4C4B7192819D40500E22ECA /* RVS-BasicGCDTimer */,
+				D4CD2E7E284697E100400AB0 /* RVS_Generic_Swift_Toolbox */,
+				D40A69382846A05D0010A58E /* RVS_Persistent_Prefs */,
+				D491F1352846A42A00759031 /* RVS_BasicGCDTimer */,
+				D4FEE5BB2846B30700EBED74 /* RVS_RetroLEDDisplay */,
 			);
 			productName = AmbiaMara;
 			productReference = D47C029B2819CA6500D359F5 /* AmbiaMara.app */;
@@ -372,7 +380,7 @@
 				};
 			};
 			buildConfigurationList = D47C02962819CA6500D359F5 /* Build configuration list for PBXProject "AmbiaMara" */;
-			compatibilityVersion = "Xcode 12.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -748,7 +756,7 @@
 			repositoryURL = "https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.7.3;
+				minimumVersion = 1.8.1;
 			};
 		};
 		D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */ = {
@@ -756,7 +764,7 @@
 			repositoryURL = "https://github.com/RiftValleySoftware/RVS_PersistentPrefs";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.8;
+				minimumVersion = 1.3.1;
 			};
 		};
 		D4C4B7152819D3D300E22ECA /* XCRemoteSwiftPackageReference "RVS_RetroLEDDisplay" */ = {
@@ -764,7 +772,7 @@
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_RetroLEDDisplay.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.0;
+				minimumVersion = 1.4.1;
 			};
 		};
 		D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */ = {
@@ -772,31 +780,31 @@
 			repositoryURL = "https://github.com/RiftValleySoftware/RVS_BasicGCDTimer.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.2;
+				minimumVersion = 1.5.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D4C4B7102819D36800E22ECA /* RVS-Generic-Swift-Toolbox */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
-			productName = "RVS-Generic-Swift-Toolbox";
-		};
-		D4C4B7132819D39B00E22ECA /* RVS-Persistent-Prefs */ = {
+		D40A69382846A05D0010A58E /* RVS_Persistent_Prefs */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
-			productName = "RVS-Persistent-Prefs";
+			productName = RVS_Persistent_Prefs;
 		};
-		D4C4B7162819D3D300E22ECA /* RVS-RetroLEDDisplay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4C4B7152819D3D300E22ECA /* XCRemoteSwiftPackageReference "RVS_RetroLEDDisplay" */;
-			productName = "RVS-RetroLEDDisplay";
-		};
-		D4C4B7192819D40500E22ECA /* RVS-BasicGCDTimer */ = {
+		D491F1352846A42A00759031 /* RVS_BasicGCDTimer */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
-			productName = "RVS-BasicGCDTimer";
+			productName = RVS_BasicGCDTimer;
+		};
+		D4CD2E7E284697E100400AB0 /* RVS_Generic_Swift_Toolbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			productName = RVS_Generic_Swift_Toolbox;
+		};
+		D4FEE5BB2846B30700EBED74 /* RVS_RetroLEDDisplay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C4B7152819D3D300E22ECA /* XCRemoteSwiftPackageReference "RVS_RetroLEDDisplay" */;
+			productName = RVS_RetroLEDDisplay;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
