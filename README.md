@@ -223,6 +223,6 @@ This causes the following timer to be selected, if there are multiple timers. If
     •   Escape (ESC) Key (At any time)
 Stop the timer, and return to the setting screen.
 
-MORE INFORMATION:
+## MORE INFORMATION:
 
 For more complete instructions, and information about authorship, support, and privacy, visit https://riftvalleysoftware.com/work/ios-apps/ambiamara/
