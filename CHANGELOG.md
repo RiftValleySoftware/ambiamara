@@ -1,6 +1,7 @@
-**Version 2.1.2.3007** *TBD*
+**Version 2.1.2.3008** *June 1, 2022*
 - Internal code cleanup and updates to the latest tools.
 - The picker setting is now animated.
+- Updated the README.
 
 **Version 2.1.1.3006** *May 26, 2022*
 - Beefed up the README.

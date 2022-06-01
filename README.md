@@ -7,6 +7,14 @@ AmbiaMara is the ultimate countdown timer!
 
 It will count down, from a preset time, in intervals of one second.
 
+## OVERVIEW:
+
+The app is a native Swift app, designed explicitly for public speakers, or events, where speakers need to be aware of time constraints.
+
+When running, its display takes over the entire screen of the device, so it is quite visible; even across a large room, while displayed on a small screen.
+
+It has a "retro" digital display mode, reminiscent of [the old-fashioned "vacuum fluorescent" digital displays](https://www.explainthatstuff.com/how-vacuum-fluorescent-displays-work.html)
+
 [Here is the main documentation page for the app](https://riftvalleysoftware.com/work/ios-apps/ambiamara/)
 
 ## TIMER MODES:
@@ -34,7 +42,6 @@ As each threshold is crossed, the screen flashes briefly. On devices that suppor
 |Figure 4: Digital Mode|Figure 5: Podium Mode|
 |:----:|:----:|
 |![Figure 4](img/Figure-04.png)|![Figure 5](img/Figure-05.png)|
-
 
 It has two running modes:
 
@@ -113,7 +120,6 @@ If the timer is running, the digital display will be green (Start), yellow (Warn
 |![Figure 15A](img/Figure-15A.png)|![Figure 16A](img/Figure-16A.png)|![Figure 17A](img/Figure-17A.png)|
 |![Figure 15B](img/Figure-15B.png)|![Figure 16B](img/Figure-16B.png)|![Figure 17B](img/Figure-17B.png)|
 
-
 When the timer is complete, it begins "alarming," where the screen flashes red, the phone may (or may not) vibrate, and any sound that you choose is played repeatedly.
 
 You can choose to have a toolbar displayed along the bottom of the running timer, or use swipe and tap gestures to control it (without the toolbar).
@@ -139,7 +145,6 @@ NOTE: The toolbar may "auto-hide" in this mode. If it is hidden, tapping in the 
 |Figure 22: The Stop Button|Figure 23: The Play Button|Figure 24: The Pause Button|
 |:----:|:----:|:----:|
 |![Figure 22](img/Figure-22.png)|![Figure 23](img/Figure-23.png)|![Figure 24](img/Figure-24.png)|
-
 
     •   The Stop Button (square)
 This will always stop the timer, and return you to the timer setting screen.

@@ -322,7 +322,7 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
 extension RVS_SetTimerAmbiaMara_ViewController {
     /* ################################################################## */
     /**
-     The current timer, cached.
+     The current timer, routed from the settings.
     */
     private var _currentTimer: RVS_AmbiaMara_Settings.TimerSettings {
         get { RVS_AmbiaMara_Settings().currentTimer }
