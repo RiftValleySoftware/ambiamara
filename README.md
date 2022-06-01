@@ -223,6 +223,16 @@ This causes the following timer to be selected, if there are multiple timers. If
     •   Escape (ESC) Key (At any time)
 Stop the timer, and return to the setting screen.
 
+
+DEPENDENCIES
+-
+This depends upon:
+
+- [RVS Generic Swift Toolbox](https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox)
+- [RVS Persistent Prefs](https://github.com/RiftValleySoftware/RVS_PersistentPrefs).
+- [RVS Basic GCD Timer](https://github.com/RiftValleySoftware/RVS_BasicGCDTimer)
+- [RVS Retro LED Display](https://github.com/RiftValleySoftware/RVS_RetroLEDDisplay)
+ 
 ## MORE INFORMATION:
 
 For more complete instructions, and information about authorship, support, and privacy, visit https://riftvalleysoftware.com/work/ios-apps/ambiamara/
