@@ -1,5 +1,4 @@
 **Version 2.1.3.3009** *June 9, 2022*
-
 - Made the timer symbols in the tootlbar heavier and more prominent.
 - Reversed the swipes in the setup screen.
 
