@@ -1,3 +1,8 @@
+**Version 2.1.3.3009** *June 9, 2022*
+
+- Made the timer symbols in the tootlbar heavier and more prominent.
+- Reversed the swipes in the setup screen.
+
 **Version 2.1.2.3008** *June 1, 2022*
 - Internal code cleanup and updates to the latest tools.
 - The picker setting is now animated.

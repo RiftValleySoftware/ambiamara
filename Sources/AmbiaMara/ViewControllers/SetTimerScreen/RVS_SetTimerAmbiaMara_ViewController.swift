@@ -600,8 +600,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                     }
                     
                     timerButton.tag = tag
-                    let imageName = "\(tag).circle\(currentTag != tag ? ".fill" : "")"
-                    timerButton.image = UIImage(systemName: imageName)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+                    let imageName = "\(tag).circle\(currentTag != tag ? "" : ".fill")"
+                    timerButton.image = UIImage(systemName: imageName)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large))
                     timerButton.accessibilityLabel = String(format: "SLUG-ACC-TIMER-BUTTON-LABEL-FORMAT".accessibilityLocalizedVariant, tag)
                     timerButton.accessibilityHint = String(format: "SLUG-ACC-TIMER-BUTTON-HINT-\(currentTag == tag ? "IS" : "NOT")-FORMAT".accessibilityLocalizedVariant, timeString)
                     timerButton.isEnabled = currentTag != tag
@@ -751,10 +751,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         
         var selectTimerIndex = -1
         
-        if inGestureRecognizer == backgroundRightSwipeGestureRecognizer,
+        if inGestureRecognizer == backgroundLeftSwipeGestureRecognizer,
            let nextTimerIndex = _nextTimerIndex {
             selectTimerIndex = nextTimerIndex
-        } else if inGestureRecognizer == backgroundLeftSwipeGestureRecognizer,
+        } else if inGestureRecognizer == backgroundRightSwipeGestureRecognizer,
                   let previousTimerIndex = _previousTimerIndex {
             selectTimerIndex = previousTimerIndex
         }
