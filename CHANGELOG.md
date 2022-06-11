@@ -1,3 +1,6 @@
+**Version 2.1.4.3010** *June 11, 2022*
+- Added Catalyst keystrokes for the Set Timer Screen.
+
 **Version 2.1.3.3009** *June 9, 2022*
 - Made the timer symbols in the tootlbar heavier and more prominent.
 - Reversed the swipes in the setup screen.

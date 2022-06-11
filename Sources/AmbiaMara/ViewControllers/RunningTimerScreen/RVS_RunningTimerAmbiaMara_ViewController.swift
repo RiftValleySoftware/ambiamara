@@ -673,7 +673,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
             }
         }
         
-        if didHandleEvent == false {
+        if !didHandleEvent {
             super.pressesBegan(inKeyPresses, with: inEvent)
         }
         

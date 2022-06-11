@@ -223,7 +223,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="startButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fQh-vX-iNd"/>
-                                                            <segue destination="FWf-2O-eKE" kind="show" id="DhB-vx-cmH"/>
+                                                            <segue destination="FWf-2O-eKE" kind="show" identifier="start-timer" id="DhB-vx-cmH"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -1094,13 +1094,13 @@
         <image name="bell.fill" catalog="system" width="128" height="124"/>
         <image name="bell.slash.fill" catalog="system" width="124" height="128"/>
         <image name="forward.end.alt.fill" catalog="system" width="128" height="66"/>
-        <image name="gearshape.fill" catalog="system" width="128" height="121"/>
-        <image name="nosign" catalog="system" width="128" height="121"/>
+        <image name="gearshape.fill" catalog="system" width="32" height="32"/>
+        <image name="nosign" catalog="system" width="32" height="32"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="0.44499999284744263" green="0.47600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -15,7 +15,9 @@ When running, its display takes over the entire screen of the device, so it is q
 
 It has a "retro" digital display mode, reminiscent of [the old-fashioned "vacuum fluorescent" digital displays](https://www.explainthatstuff.com/how-vacuum-fluorescent-displays-work.html)
 
-[Here is the main documentation page for the app](https://riftvalleysoftware.com/work/ios-apps/ambiamara/)
+- [Here is the main documentation page for the app](https://riftvalleysoftware.com/work/ios-apps/ambiamara/)
+
+- [Here is the technical documentation for the app](https://riftvalleysoftware.github.io/ambiamara/)
 
 ## TIMER MODES:
 
@@ -98,6 +100,19 @@ Use the toolbar, on the bottom of the screen, to add, remove, and select timers.
 Add timers by touching the "╋" on the right side of the toolbar, and delete timers, by selecting the trash can icon, on the left side of the toolbar.
 
 You can choose which timer is being set, by selecting a numbered timer button in the toolbar, or by swiping left and right, in the screen.
+
+### MAC VERSION KEYBOARD NAVIGATION:
+
+In the Mac (Catalyst) version of the app, it is possible to use the keyboard to control the app:
+
+    •   Space Bar or Return Key
+If the space bar or Return key is hit, the timer will start.
+
+    •   Left Arrow
+This causes the previous timer to be selected, if there are multiple timers. If there is only one timer, or at the the first timer, nothing happens.
+
+    •   Right Arrow
+This causes the following timer to be selected, if there are multiple timers. If there is only one timer, or at the last timer, nothing happens.
 
 ## OPERATION:
 

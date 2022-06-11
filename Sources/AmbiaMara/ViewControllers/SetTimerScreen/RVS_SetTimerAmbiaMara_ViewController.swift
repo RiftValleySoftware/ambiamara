@@ -96,6 +96,12 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     
     /* ################################################################## */
     /**
+     The ID for the segue, to start the timer.
+    */
+    private static let _startTimerSegueID = "start-timer"
+
+    /* ################################################################## */
+    /**
      The size of the two settings popovers.
     */
     private static let _settingsPopoverWidthInDisplayUnits = CGFloat(400)
@@ -570,6 +576,44 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             setUpButtons()
         }
     }
+    
+    /* ############################################################## */
+    /**
+     This allows Catalyst apps to use the keyboard to control the timer, like gestures.
+     
+     - parameter inKeyPresses: The pressed keys.
+     - parameter with: The event, creating the keypresses.
+     */
+    override func pressesBegan(_ inKeyPresses: Set<UIPress>, with inEvent: UIPressesEvent?) {
+        var didHandleEvent = false
+        for press in inKeyPresses {
+            guard !didHandleEvent,
+                  let key = press.key
+            else { continue }
+            
+            switch key.charactersIgnoringModifiers {
+            case UIKeyCommand.inputLeftArrow:
+                didHandleEvent = true
+                if let leftSwipe = backgroundLeftSwipeGestureRecognizer {
+                    swipeGestureReceived(leftSwipe)
+                }
+                
+            case UIKeyCommand.inputRightArrow:
+                didHandleEvent = true
+                if let rightSwipe = backgroundRightSwipeGestureRecognizer {
+                    swipeGestureReceived(rightSwipe)
+                }
+
+            case " ", "\r":
+                didHandleEvent = true
+                startButtonHit()
+                performSegue(withIdentifier: Self._startTimerSegueID, sender: nil)
+                
+            default:
+                break
+            }
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -929,9 +973,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     /**
      The timer start button was hit.
      
-     - parameter: ignored.
+     - parameter: ignored (and can be omitted).
     */
-    @IBAction func startButtonHit(_: Any) {
+    @IBAction func startButtonHit(_: Any! = nil) {
         if areHapticsAvailable {
             _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.heavy.rawValue))
             _impactFeedbackGenerator?.prepare()
