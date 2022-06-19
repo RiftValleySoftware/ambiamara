@@ -208,9 +208,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     /* ################################################################################################################################## */
     // MARK: RVS_PersistentPrefs Conformance
     /* ################################################################################################################################## */
-    /**
-     This is an enumeration that will list the prefs keys for us.
-     */
+    /// This is an enumeration that will list the prefs keys for us.
     enum Keys: String {
         /* ############################################################## */
         /**
@@ -291,44 +289,6 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
                                         ]
         }
     }
-
-    /* ################################################################## */
-    /**
-     Remove the timer from storage.
-     - parameter timer: The timer to be removed.
-     Upon return, the timer is no longer styored in persistent prefs.
-     */
-    func remove(timer inTimer: TimerSettings) {
-        if let timerIndex = ids.firstIndex(of: inTimer.id) {
-            timers.remove(at: timerIndex)
-        }
-        
-        if !(0..<timers.count).contains(currentTimerIndex) {
-            currentTimerIndex = max(-1, min(currentTimerIndex, timers.count - 1))
-        }
-    }
-
-    /* ################################################################## */
-    /**
-     Add the timer to storage. If the timer is already in storage, it is updated.
-     - parameter timer: The timer to be added.
-     - parameter andSelect: If true, then the current selection will move to this timer. Default is false.
-     */
-    func add(timer inTimer: TimerSettings = TimerSettings(), andSelect inAndSelect: Bool = false) {
-        guard let index = timers.firstIndex(where: { $0.id == inTimer.id }) else {
-            timers.append(inTimer)
-            if inAndSelect {
-                currentTimerIndex = timers.count - 1
-            }
-            return
-        }
-   
-        timers[index] = inTimer
-        
-        if inAndSelect {
-            currentTimerIndex = index
-        }
-    }
     
     /* ################################################################## */
     /**
@@ -336,6 +296,9 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
      */
     override var keys: [String] { Keys.allKeys }
 
+    /* ################################################################################################################################## */
+    // MARK: Instance Computed Properties
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      The timers, as TimerSettings instances.
@@ -491,12 +454,44 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
         }
     }
 
+    /* ################################################################################################################################## */
+    // MARK: Instance Methods
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     This fetches a timer by its ID.
+     Remove the timer from storage.
+     - parameter timer: The timer to be removed.
+     Upon return, the timer is no longer stored in persistent prefs.
      */
-    func getTimer(byID inID: String) -> TimerSettings? {
-        guard let index = ids.firstIndex(of: inID) else { return nil }
-        return timers[index]
+    func remove(timer inTimer: TimerSettings) {
+        if let timerIndex = ids.firstIndex(of: inTimer.id) {
+            timers.remove(at: timerIndex)
+        }
+        
+        if !(0..<timers.count).contains(currentTimerIndex) {
+            currentTimerIndex = max(-1, min(currentTimerIndex, timers.count - 1))
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     Add the timer to storage. If the timer is already in storage, it is updated.
+     - parameter timer: The timer to be added.
+     - parameter andSelect: If true, then the current selection will move to this timer. Default is false.
+     */
+    func add(timer inTimer: TimerSettings = TimerSettings(), andSelect inAndSelect: Bool = false) {
+        guard let index = timers.firstIndex(where: { $0.id == inTimer.id }) else {
+            timers.append(inTimer)
+            if inAndSelect {
+                currentTimerIndex = timers.count - 1
+            }
+            return
+        }
+   
+        timers[index] = inTimer
+        
+        if inAndSelect {
+            currentTimerIndex = index
+        }
     }
 }

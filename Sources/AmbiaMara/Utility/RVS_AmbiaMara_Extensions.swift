@@ -105,21 +105,6 @@ extension Bundle {
      If there is a privacy site URI, it is returned here as a URL. It may be nil.
      */
     var privacyURI: URL? { URL(string: privacyURIAsString ?? "") }
-
-    /* ################################################################## */
-    /**
-     [This come straight from here](https://stackoverflow.com/a/51241158/879365)
-     
-     This returns the highest-res version of the app icon, as an image. Nil, if unavailable.
-     */
-    var appIcon: UIImage? {
-        guard let icons = infoDictionary?["CFBundleIcons"] as? [String: Any],
-           let primaryIcon = icons["CFBundlePrimaryIcon"] as? [String: Any],
-           let iconFiles = primaryIcon["CFBundleIconFiles"] as? [String],
-           let lastIcon = iconFiles.last else { return nil }
-        
-        return UIImage.assetOrSystemImage(name: lastIcon)
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -348,16 +333,6 @@ extension UIView {
 extension UIImage {
     /* ################################################################## */
     /**
-     This is a "cascading" image fetcher. It first, sees if there is an asset with the name given, then, it looks in the SFSymbols, finally, returning the SFSymbols.nosign, if none found.
-     
-     - parameter name: The name of the resource.
-     
-     - returns: A new image. May be nil, if none found.
-     */
-    class func assetOrSystemImage(name inName: String) -> UIImage? { UIImage(named: inName) ?? UIImage(systemName: inName) ?? UIImage(systemName: "nosign") }
-    
-    /* ################################################################## */
-    /**
      This allows an image to be resized, given a maximum dimension, and a scale will be determined to meet that dimension.
      If the image is currently smaller than the maximum size, it will not be scaled.
      
@@ -366,11 +341,7 @@ extension UIImage {
      
      - returns: A new image, with the given dimensions. May be nil, if there was an error.
      */
-    func resized(toMaximumSize: CGFloat) -> UIImage? {
-        let scaleX: CGFloat = toMaximumSize / size.width
-        let scaleY: CGFloat = toMaximumSize / size.height
-        return resized(toScaleFactor: min(1.0, min(scaleX, scaleY)))
-    }
+    func resized(toMaximumSize: CGFloat) -> UIImage? { resized(toScaleFactor: min(1.0, min(toMaximumSize / size.width, toMaximumSize / size.height))) }
 
     /* ################################################################## */
     /**
@@ -466,11 +437,13 @@ extension UIImage {
 // MARK: - UIColor Extension -
 /* ###################################################################################################################################### */
 /**
- This allows us to see if a color is clear.
+ A couple of convenience extensions to the standard UIColor type.
  */
 extension UIColor {
     /* ################################################################## */
     /**
+     Create a color from a hexadecimal value (like a Web color).
+     
      [This comes fairly directly from this Hacking With Swift tutorial](https://www.hackingwithswift.com/example-code/uicolor/how-to-convert-a-hex-color-to-a-uicolor)
      - parameter hex: The hex number, as a String "#RRGGBB[AA]"
      - returns: The color, from the hex string.

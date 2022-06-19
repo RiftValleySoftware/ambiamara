@@ -1,5 +1,6 @@
 **Version 2.1.5.3011** *TBD*
 - Made the state label a bit taller, as it could vertically clip text.
+- Code cleanup.
 
 **Version 2.1.4.3010** *June 11, 2022*
 - Added Catalyst keystrokes for the Set Timer Screen.
