@@ -345,7 +345,7 @@ class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
     /**
      The gesture recognizer that will detect taps.
      */
-    @IBOutlet weak var tapGestureRecgnizer: UITapGestureRecognizer?
+    @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer?
 }
 
 /* ###################################################################################################################################### */
@@ -712,6 +712,35 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RVS_RunningTimerAmbiaMara_ViewController {
+    /* ############################################################## */
+    /**
+     This prepares the time set slider.
+     */
+    func prepareSlider() {
+        guard let timeSetSwipeDetectorView = timeSetSwipeDetectorView else { return }
+        
+        _timeSetSlider?.removeFromSuperview()
+        _timeSetSlider = nil
+        
+        let slider = UISlider()
+        slider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
+
+        timeSetSwipeDetectorView.addSubview(slider)
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.leadingAnchor.constraint(equalTo: timeSetSwipeDetectorView.leadingAnchor).isActive = true
+        slider.trailingAnchor.constraint(equalTo: timeSetSwipeDetectorView.trailingAnchor).isActive = true
+        slider.centerYAnchor.constraint(equalTo: timeSetSwipeDetectorView.centerYAnchor).isActive = true
+        
+        _timeSetSlider = slider
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    @objc func sliderChanged(_ inSlider: UISlider) {
+        
+    }
+    
     /* ############################################################## */
     /**
      This animates the toolbar into visibility.
@@ -1379,7 +1408,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      - parameter inGestureRecognizer: The gesture recognizer that was triggered.
      */
     @IBAction func longPressGestureDetected(_ inGestureRecognizer: UILongPressGestureRecognizer) {
-        setAutoHide()
+        pauseTimer()
+        prepareSlider()
     }
 
     /* ############################################################## */
