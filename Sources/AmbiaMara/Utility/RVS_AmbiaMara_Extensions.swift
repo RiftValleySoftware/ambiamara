@@ -116,15 +116,6 @@ extension Bundle {
 extension NSAttributedString {
     /* ################################################################## */
     /**
-     - returns: The string height required to display the string.
-     */
-    var stringHeight: CGFloat {
-        let rect = boundingRect(with: CGSize.init(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
-        return ceil(rect.size.height)
-    }
-    
-    /* ################################################################## */
-    /**
      - returns: The string width required to display the string.
      */
     var stringWidth: CGFloat {

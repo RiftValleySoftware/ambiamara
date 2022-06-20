@@ -795,7 +795,7 @@
                                 </constraints>
                             </stackView>
                             <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lxf-uE-d9v" userLabel="Time Set Swipe Detector View">
-                                <rect key="frame" x="8" y="812" width="398" height="50"/>
+                                <rect key="frame" x="12" y="812" width="390" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -858,13 +858,13 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="oBo-bn-Jew" firstAttribute="width" relation="lessThanOrEqual" secondItem="ht0-4k-rJK" secondAttribute="width" multiplier="0.8" id="5xi-Lu-aBV"/>
-                            <constraint firstItem="ht0-4k-rJK" firstAttribute="trailing" secondItem="lxf-uE-d9v" secondAttribute="trailing" constant="8" id="65m-K8-oWe"/>
+                            <constraint firstItem="ht0-4k-rJK" firstAttribute="trailing" secondItem="lxf-uE-d9v" secondAttribute="trailing" constant="12" id="65m-K8-oWe"/>
                             <constraint firstItem="ht0-4k-rJK" firstAttribute="bottom" secondItem="JHV-9i-Nag" secondAttribute="bottom" id="BZg-9i-URv"/>
                             <constraint firstAttribute="trailing" secondItem="okx-7i-W39" secondAttribute="trailing" id="CUz-gB-0Ew"/>
                             <constraint firstItem="ht0-4k-rJK" firstAttribute="trailing" secondItem="BJi-bD-ter" secondAttribute="trailing" id="FiL-UG-FqS"/>
                             <constraint firstItem="BJi-bD-ter" firstAttribute="top" secondItem="ht0-4k-rJK" secondAttribute="top" id="Gl3-uz-EVN"/>
                             <constraint firstItem="ht0-4k-rJK" firstAttribute="bottom" secondItem="lxf-uE-d9v" secondAttribute="bottom" id="HzM-d3-iMZ"/>
-                            <constraint firstItem="lxf-uE-d9v" firstAttribute="leading" secondItem="ht0-4k-rJK" secondAttribute="leading" constant="8" id="PtL-KB-jlk"/>
+                            <constraint firstItem="lxf-uE-d9v" firstAttribute="leading" secondItem="ht0-4k-rJK" secondAttribute="leading" constant="12" id="PtL-KB-jlk"/>
                             <constraint firstItem="ht0-4k-rJK" firstAttribute="bottom" secondItem="BJi-bD-ter" secondAttribute="bottom" id="SnR-Km-yNa"/>
                             <constraint firstItem="oBo-bn-Jew" firstAttribute="centerY" secondItem="7tt-fn-aIE" secondAttribute="centerY" id="X8B-o5-wYX"/>
                             <constraint firstItem="JHV-9i-Nag" firstAttribute="leading" secondItem="ht0-4k-rJK" secondAttribute="leading" id="aBJ-ZH-ZhX"/>
@@ -1122,7 +1122,7 @@
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.44499999284744263" green="0.47600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
