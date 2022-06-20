@@ -795,11 +795,11 @@
                                 </constraints>
                             </stackView>
                             <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lxf-uE-d9v" userLabel="Time Set Swipe Detector View">
-                                <rect key="frame" x="12" y="812" width="390" height="50"/>
+                                <rect key="frame" x="12" y="786" width="390" height="64"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="LcC-Lp-glg"/>
+                                    <constraint firstAttribute="height" constant="64" id="LcC-Lp-glg"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="5MA-y3-W9O" appends="YES" id="ofd-5p-mEX"/>
@@ -863,7 +863,7 @@
                             <constraint firstAttribute="trailing" secondItem="okx-7i-W39" secondAttribute="trailing" id="CUz-gB-0Ew"/>
                             <constraint firstItem="ht0-4k-rJK" firstAttribute="trailing" secondItem="BJi-bD-ter" secondAttribute="trailing" id="FiL-UG-FqS"/>
                             <constraint firstItem="BJi-bD-ter" firstAttribute="top" secondItem="ht0-4k-rJK" secondAttribute="top" id="Gl3-uz-EVN"/>
-                            <constraint firstItem="ht0-4k-rJK" firstAttribute="bottom" secondItem="lxf-uE-d9v" secondAttribute="bottom" id="HzM-d3-iMZ"/>
+                            <constraint firstItem="ht0-4k-rJK" firstAttribute="bottom" secondItem="lxf-uE-d9v" secondAttribute="bottom" constant="12" id="HzM-d3-iMZ"/>
                             <constraint firstItem="lxf-uE-d9v" firstAttribute="leading" secondItem="ht0-4k-rJK" secondAttribute="leading" constant="12" id="PtL-KB-jlk"/>
                             <constraint firstItem="ht0-4k-rJK" firstAttribute="bottom" secondItem="BJi-bD-ter" secondAttribute="bottom" id="SnR-Km-yNa"/>
                             <constraint firstItem="oBo-bn-Jew" firstAttribute="centerY" secondItem="7tt-fn-aIE" secondAttribute="centerY" id="X8B-o5-wYX"/>
