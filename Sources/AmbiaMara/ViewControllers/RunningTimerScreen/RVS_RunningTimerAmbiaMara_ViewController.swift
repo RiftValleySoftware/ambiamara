@@ -595,7 +595,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         stoplightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().stoplightMode
         digitalDisplayContainerView?.isHidden = RVS_AmbiaMara_Settings().stoplightMode
         controlToolbar?.isHidden = !RVS_AmbiaMara_Settings().displayToolbar
-        timeSetSwipeDetectorView?.isHidden = RVS_AmbiaMara_Settings().displayToolbar || RVS_AmbiaMara_Settings().stoplightMode
+        timeSetSwipeDetectorView?.isHidden = RVS_AmbiaMara_Settings().displayToolbar || RVS_AmbiaMara_Settings().stoplightMode || ProcessInfo().isMacCatalystApp
         
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
@@ -1429,7 +1429,6 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
                 _selectionFeedbackGenerator?.prepare()
             }
             _timeSetSlider?.value = location
-            _timeSetSlider?.setNeedsDisplay()
             _tickTimeInSeconds = max(1, Int(Float(RVS_AmbiaMara_Settings().currentTimer.startTime) * location))
             self.setTimerDisplay()
 
