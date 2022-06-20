@@ -1409,7 +1409,12 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      - parameter inGestureRecognizer: The gesture recognizer that was triggered.
      */
     @IBAction func longPressGestureDetected(_ inGestureRecognizer: UILongPressGestureRecognizer) {
-        pauseTimer()
+        if _isAlarming {
+            stopAlarm()
+        } else if _isTimerRunning {
+            pauseTimer()
+        }
+        
         guard let width = timeSetSwipeDetectorView?.bounds.size.width else { return }
         let gestureLocation = inGestureRecognizer.location(ofTouch: 0, in: timeSetSwipeDetectorView)
         let location = Float(max(0, min(1, gestureLocation.x / width)))
