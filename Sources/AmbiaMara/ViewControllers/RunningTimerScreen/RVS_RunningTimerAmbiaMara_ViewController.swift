@@ -1429,7 +1429,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
                 _selectionFeedbackGenerator?.prepare()
             }
             _timeSetSlider?.value = location
-            _tickTimeInSeconds = max(1, Int(Float(RVS_AmbiaMara_Settings().currentTimer.startTime) * location))
+            _tickTimeInSeconds = min(RVS_AmbiaMara_Settings().currentTimer.startTime - 1, Int(Float(RVS_AmbiaMara_Settings().currentTimer.startTime) * location))
             self.setTimerDisplay()
 
         default:
