@@ -690,12 +690,13 @@ extension RVS_SetTimerAmbiaMara_ViewController {
            .start != _state {
             let timeAsComponents = _currentTimer.startTimeAsComponents
             var label = ""
+            guard 3 == timeAsComponents.count else { return }
             if 0 < timeAsComponents[0] {
-                label = String(format: " %02d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
+                label = String(format: " %d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
             } else if 0 < timeAsComponents[1] {
-                label = String(format: " %02d:%02d ", timeAsComponents[1], timeAsComponents[2])
+                label = String(format: " %d:%02d ", timeAsComponents[1], timeAsComponents[2])
             } else if 0 < timeAsComponents[2] {
-                label = String(format: " %02d ", timeAsComponents[2])
+                label = String(format: " %d ", timeAsComponents[2])
             }
             startSetButton?.setTitle(label, for: .normal)
         } else {
@@ -706,12 +707,13 @@ extension RVS_SetTimerAmbiaMara_ViewController {
            .warn != _state {
             let timeAsComponents = _currentTimer.warnTimeAsComponents
             var label = ""
+            guard 3 == timeAsComponents.count else { return }
             if 0 < timeAsComponents[0] {
-                label = String(format: " %02d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
+                label = String(format: " %d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
             } else if 0 < timeAsComponents[1] {
-                label = String(format: " %02d:%02d ", timeAsComponents[1], timeAsComponents[2])
+                label = String(format: " %d:%02d ", timeAsComponents[1], timeAsComponents[2])
             } else if 0 < timeAsComponents[2] {
-                label = String(format: " %02d ", timeAsComponents[2])
+                label = String(format: " %d ", timeAsComponents[2])
             }
             warnSetButton?.setTitle(label, for: .normal)
         } else {
@@ -722,12 +724,13 @@ extension RVS_SetTimerAmbiaMara_ViewController {
            .final != _state {
             let timeAsComponents = _currentTimer.finalTimeAsComponents
             var label = ""
+            guard 3 == timeAsComponents.count else { return }
             if 0 < timeAsComponents[0] {
-                label = String(format: " %02d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
+                label = String(format: " %d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
             } else if 0 < timeAsComponents[1] {
-                label = String(format: " %02d:%02d ", timeAsComponents[1], timeAsComponents[2])
+                label = String(format: " %d:%02d ", timeAsComponents[1], timeAsComponents[2])
             } else if 0 < timeAsComponents[2] {
-                label = String(format: " %02d ", timeAsComponents[2])
+                label = String(format: " %d ", timeAsComponents[2])
             }
             finalSetButton?.setTitle(label, for: .normal)
         } else {

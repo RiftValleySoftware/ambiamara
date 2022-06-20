@@ -1,4 +1,4 @@
-**Version 2.2.0.3016** *June 20, 2022*
+**Version 2.2.0.3017** *June 20, 2022*
 - Added a slider for gesture mode digital, which allows the user to change the time.
 - Made the state label a bit taller in the setting screen, as it could vertically clip text.
 - Code cleanup.
