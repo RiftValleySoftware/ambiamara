@@ -1,4 +1,5 @@
-**Version 2.1.5.3011** *TBD*
+**Version 2.2.0.3011** *TBD*
+- Added a slider for gesture mode digital, which allows the user to change the time.
 - Made the state label a bit taller, as it could vertically clip text.
 - Code cleanup.
 

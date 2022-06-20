@@ -83,6 +83,12 @@ class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
      The time between timer checks.
      */
     private static let _clockPeriodInSeconds = TimeInterval(0.25)
+    
+    /* ############################################################## */
+    /**
+     The number of milliseconds to allow for timer leeway.
+     */
+    private static let _leewayInMilliseconds = 25
 
     /* ############################################################## */
     /**
@@ -573,8 +579,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
         _feedbackGenerator = UIImpactFeedbackGenerator()
 
-        _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._clockPeriodInSeconds, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main, isWallTime: true)
-        _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDurationInSeconds, delegate: self, leewayInMilliseconds: 50, onlyFireOnce: false, queue: .main)
+        _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._clockPeriodInSeconds, delegate: self, leewayInMilliseconds: Self._leewayInMilliseconds, onlyFireOnce: false)
+        _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDurationInSeconds, delegate: self, leewayInMilliseconds: Self._leewayInMilliseconds * 2, onlyFireOnce: false)
     }
     
     /* ############################################################## */
@@ -715,15 +721,18 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
      This prepares the time set slider.
+     - parameter atThisLocation: A float, from 0, to 1, with the starting thumb location (0 is left, 1 is right).
      */
-    func prepareSlider() {
+    func prepareSlider(atThisLocation inLocation: Float) {
         guard let timeSetSwipeDetectorView = timeSetSwipeDetectorView else { return }
         
         _timeSetSlider?.removeFromSuperview()
         _timeSetSlider = nil
         
         let slider = UISlider()
-        slider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
+        slider.maximumValue = 1.0
+        slider.minimumValue = 0.0
+        slider.value = inLocation
 
         timeSetSwipeDetectorView.addSubview(slider)
         slider.translatesAutoresizingMaskIntoConstraints = false
@@ -732,13 +741,6 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         slider.centerYAnchor.constraint(equalTo: timeSetSwipeDetectorView.centerYAnchor).isActive = true
         
         _timeSetSlider = slider
-    }
-    
-    /* ############################################################## */
-    /**
-     */
-    @objc func sliderChanged(_ inSlider: UISlider) {
-        
     }
     
     /* ############################################################## */
@@ -1202,7 +1204,6 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
             } else {
                 _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.heavy.rawValue))
             }
-            
         }
         flasherView?.backgroundColor = UIColor(named: "Final-Color")
         UIView.animate(withDuration: Self._flashDurationInSeconds,
@@ -1409,7 +1410,37 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      */
     @IBAction func longPressGestureDetected(_ inGestureRecognizer: UILongPressGestureRecognizer) {
         pauseTimer()
-        prepareSlider()
+        guard let width = timeSetSwipeDetectorView?.bounds.size.width else { return }
+        let gestureLocation = inGestureRecognizer.location(ofTouch: 0, in: timeSetSwipeDetectorView)
+        let location = Float(max(0, min(1, gestureLocation.x / width)))
+        
+        switch inGestureRecognizer.state {
+        case .began:
+            prepareSlider(atThisLocation: location)
+            if areHapticsAvailable {
+                _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+                _feedbackGenerator?.prepare()
+            }
+            fallthrough
+
+        case .changed:
+            if areHapticsAvailable {
+                _selectionFeedbackGenerator?.selectionChanged()
+                _selectionFeedbackGenerator?.prepare()
+            }
+            _timeSetSlider?.value = location
+            _timeSetSlider?.setNeedsDisplay()
+            _tickTimeInSeconds = Int(Float(RVS_AmbiaMara_Settings().currentTimer.startTime) * location)
+            self.setTimerDisplay()
+
+        default:
+            if areHapticsAvailable {
+                _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+                _feedbackGenerator?.prepare()
+            }
+            _timeSetSlider?.removeFromSuperview()
+            _timeSetSlider = nil
+        }
     }
 
     /* ############################################################## */
@@ -1469,39 +1500,45 @@ extension RVS_RunningTimerAmbiaMara_ViewController: RVS_BasicGCDTimerDelegate {
      - parameter inTimer: The timer
      */
     func basicGCDTimerCallback(_ inTimer: RVS_BasicGCDTimer) {
-        guard _autoHideTimer != inTimer else {
-            #if DEBUG
-                print("Triggering the auto-hide timer")
-            #endif
-            hideToolbar()
-
-            return
-        }
+        guard longPressTimeSetGestureRecognizer?.state == .possible else { return }
         
-        guard _isTimerRunning || _isAlarming else { return }
-        guard !_isAlarming else {
-            if RVS_AmbiaMara_Settings().useVibrate {
-                AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-            }
-            flashRed()
-            return
-        }
-        setUpToolbar()
-        setTimerDisplay()
-        guard let startingTime = _startingTime?.timeIntervalSince1970 else { return }
-        let differenceInSeconds = Int(Date().timeIntervalSince1970 - startingTime)
-        guard differenceInSeconds != _tickTimeInSeconds else { return }
-        let previousTickTime = _tickTimeInSeconds
-        _tickTimeInSeconds = differenceInSeconds
-        flashIfNecessary(previousTickTime: previousTickTime)
-        setDigitDisplayTime()
-        if areHapticsAvailable {
-            _selectionFeedbackGenerator?.selectionChanged()
-            _selectionFeedbackGenerator?.prepare()
-        }
+        DispatchQueue.main.async { [weak self] in
+            guard self?._autoHideTimer != inTimer else {
+                #if DEBUG
+                    print("Triggering the auto-hide timer")
+                #endif
+                self?.hideToolbar()
 
-        if 0 >= (RVS_AmbiaMara_Settings().currentTimer.startTime - differenceInSeconds) {
-            _isAlarming = true
+                return
+            }
+            
+            guard self?._isTimerRunning ?? false || self?._isAlarming ?? false else { return }
+            guard !(self?._isAlarming ?? false) else {
+                if RVS_AmbiaMara_Settings().useVibrate {
+                    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+                }
+                self?.flashRed()
+                return
+            }
+            self?.setUpToolbar()
+            self?.setTimerDisplay()
+            guard let startingTime = self?._startingTime?.timeIntervalSince1970 else { return }
+            let differenceInSeconds = Int(Date().timeIntervalSince1970 - startingTime)
+            guard let previousTickTime = self?._tickTimeInSeconds,
+                  differenceInSeconds != previousTickTime
+            else { return }
+            
+            self?._tickTimeInSeconds = differenceInSeconds
+            self?.flashIfNecessary(previousTickTime: previousTickTime)
+            self?.setDigitDisplayTime()
+            if self?.areHapticsAvailable ?? false {
+                self?._selectionFeedbackGenerator?.selectionChanged()
+                self?._selectionFeedbackGenerator?.prepare()
+            }
+
+            if 0 >= (RVS_AmbiaMara_Settings().currentTimer.startTime - differenceInSeconds) {
+                self?._isAlarming = true
+            }
         }
     }
 }
