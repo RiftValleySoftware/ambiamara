@@ -210,6 +210,12 @@ class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
      */
     private var _lastActivityTime: Date?
 
+    /* ############################################################## */
+    /**
+     If the slider is up, it will be stored here.
+     */
+    private weak var _timeSetSlider: UISlider?
+    
     /* ################################################################################################################################## */
     // MARK: Internal IB Stored Properties
     /* ################################################################################################################################## */
@@ -320,6 +326,26 @@ class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
      The "traffic light" that is displayed during the "Final" phase of the timer.
      */
     @IBOutlet weak var finalTrafficLightImageView: UIImageView?
+    
+    /* ############################################################## */
+    /**
+     The view that is used to detect a long-press, and will contain the slider to set the time.
+     This is not available in Toolbar Displayed Mode.
+     */
+    @IBOutlet weak var timeSetSwipeDetectorView: UIView?
+    
+    /* ############################################################## */
+    /**
+     The gesture recognizer that will detect a long-press (to bring up the slider).
+     This is not available in Toolbar Displayed Mode.
+     */
+    @IBOutlet weak var longPressTimeSetGestureRecognizer: UILongPressGestureRecognizer?
+    
+    /* ############################################################## */
+    /**
+     The gesture recognizer that will detect taps.
+     */
+    @IBOutlet weak var tapGestureRecgnizer: UITapGestureRecognizer?
 }
 
 /* ###################################################################################################################################### */
@@ -563,6 +589,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         stoplightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().stoplightMode
         digitalDisplayContainerView?.isHidden = RVS_AmbiaMara_Settings().stoplightMode
         controlToolbar?.isHidden = !RVS_AmbiaMara_Settings().displayToolbar
+        timeSetSwipeDetectorView?.isHidden = RVS_AmbiaMara_Settings().displayToolbar
         
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
@@ -1343,6 +1370,16 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         
         flashRed()
         stopTimer()
+    }
+    
+    /* ############################################################## */
+    /**
+     The long-press on the bottom of the screen was detected.
+     
+     - parameter inGestureRecognizer: The gesture recognizer that was triggered.
+     */
+    @IBAction func longPressGestureDetected(_ inGestureRecognizer: UILongPressGestureRecognizer) {
+        setAutoHide()
     }
 
     /* ############################################################## */
