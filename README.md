@@ -27,13 +27,13 @@ It has a "retro" digital display mode, reminiscent of [the old-fashioned "vacuum
 
 Each timer has three possible modes, that occur at different times:
 
-    •   Total Time
+•   **Total Time**
 This is the entire time the timer counts down. It is indicated by a green color.
 
-    •   Warning Time
+•   **Warning Time**
 This threshold, when crossed, causes the timer to turn yellow, indicating that time is running out.
 
-    •   Final Countdown Time
+•   **Final Countdown Time**
 This is when the timer is about to alarm. The timer turns red.
 
 Each timer can be set to have these thresholds, which are reflected in the running timer. You can also choose to have no thresholds.
@@ -47,10 +47,10 @@ As each threshold is crossed, the screen flashes briefly. On devices that suppor
 
 It has two running modes:
 
-    •   Digital (numbers only)
+•   **Digital (numbers only)**
 The timer display has the appearance of an old-fashioned "LED display."
 
-    •   Podium ("traffic lights")
+•   **Podium ("traffic lights")**
 The timer displays three simple circles that light up, one by one, as the timer progresses. It was specifically designed to reduce distraction.
 
 The display is designed to take up as much space as possible, on the screen.
@@ -105,13 +105,13 @@ You can choose which timer is being set, by selecting a numbered timer button in
 
 In the Mac (Catalyst) version of the app, it is possible to use the keyboard to control the app:
 
-    •   Space Bar or Return Key
+•   **Space Bar or Return Key**
 If the space bar or Return key is hit, the timer will start.
 
-    •   Left Arrow
+•   **Left Arrow**
 This causes the previous timer to be selected, if there are multiple timers. If there is only one timer, or at the the first timer, nothing happens.
 
-    •   Right Arrow
+•   **Right Arrow**
 This causes the following timer to be selected, if there are multiple timers. If there is only one timer, or at the last timer, nothing happens.
 
 ## OPERATION:
@@ -161,20 +161,20 @@ NOTE: The toolbar may "auto-hide" in this mode. If it is hidden, tapping in the 
 |:----:|:----:|:----:|
 |![Figure 22](img/Figure-22.png)|![Figure 23](img/Figure-23.png)|![Figure 24](img/Figure-24.png)|
 
-    •   The Stop Button (square)
+•   **The Stop Button (square)**
 This will always stop the timer, and return you to the timer setting screen.
 
-    •   The Play Button (single triangle)/Pause Button (double bars)
+•   **The Play Button (single triangle)/Pause Button (double bars)**
 This starts the timer, if the timer is paused. If the timer is running, the same button will become a Pause button (indicated by two vertical bars), and selecting it will pause the timer at the current time.
 
 |Figure 25: The Fast Forward Button|Figure 26: The Next Timer Button|Figure 27: The Rewind Button|Figure 28: The Previous Timer Button|
 |:----:|:----:|:----:|:----:|
 |![Figure 25](img/Figure-25.png)|![Figure 26](img/Figure-26.png)|![Figure 27](img/Figure-27.png)|![Figure 28](img/Figure-28.png)|
 
-    •   The Fast Forward Button (double arrow, pointing to the right)/Next Timer Button (circle, with a number in it)
+•   **The Fast Forward Button (double arrow, pointing to the right)/Next Timer Button (circle, with a number in it)**
 This button will send a paused (or running) timer directly to Alarm Mode. If there is more than one timer, you can use the same button to select the next timer (in which case, the double arrows are replaced by a timer number, in a circle).
 
-    •   The Rewind Button (double arrow, pointing to the left)/Previous Timer Button (circle, with a number in it)
+•   **The Rewind Button (double arrow, pointing to the left)/Previous Timer Button (circle, with a number in it)**
 This will cause the timer to return to its starting time, and pause (if it was running). If there is more than one timer, you can use the same button to select the previous timer (in which case, the double arrows are replaced by a timer number, in a circle).
 
 ### AUTO-HIDE
@@ -195,47 +195,47 @@ The toolbar does not auto-hide, if the timer is paused, or is alarming.
 
 If the toolbar is not displayed, you must rely on gestures to control the timer.
 
-    •   Tap (Timer is paused)
+•   **Tap (Timer is paused)**
 The timer starts (or continues) counting down.
 
-    •   Tap (Timer is running)
+•   **Tap (Timer is running)**
 The timer pauses at the current countdown time.
 
-    •   Swipe Left (Timer is running, or is paused in mid-countdown)
+•   **Swipe Left (Timer is running, or is paused in mid-countdown)**
 This causes the timer to "reset." This means that it sets the time back to the beginning, but pauses.
 
-    •   Swipe Left (Timer is paused, at the start)
+•   **Swipe Left (Timer is paused, at the start)**
 This causes the previous timer to be selected, if there are multiple timers. If there is only one timer, nothing happens.
 
-    •   Swipe Right (Timer is running, or is paused in mid-countdown)
+•   **Swipe Right (Timer is running, or is paused in mid-countdown)**
 This causes the timer to go directly to Alarm Mode.
 
-    •   Swipe Right (Timer is paused, at the start)
+•   **Swipe Right (Timer is paused, at the start)**
 This causes the following timer to be selected, if there are multiple timers. If there is only one timer, nothing happens.
 
-    •   Swipe Up or Down (At any time)
+•   **Swipe Up or Down (At any time)**
 Stop the timer, and return to the setting screen.
 
 ### MAC VERSION KEYBOARD NAVIGATION:
 
 In the Mac (Catalyst) version of the app, it is possible to use the keyboard to control the app:
 
-    •   Space Bar
+•   **Space Bar**
 If the space bar is hit, a paused timer will start (or continue), or a running timer will pause.
 
-    •   Left Arrow (Timer is running, or is paused in mid-countdown)
+•   **Left Arrow (Timer is running, or is paused in mid-countdown)**
 This causes the timer to "reset." This means that it sets the time back to the beginning, but pauses.
 
-    •   Left Arrow (Timer is paused, at the start)
+•   **Left Arrow (Timer is paused, at the start)**
 This causes the previous timer to be selected, if there are multiple timers. If there is only one timer, nothing happens.
 
-    •   Right Arrow (Timer is running, or is paused in mid-countdown)
+•   **Right Arrow (Timer is running, or is paused in mid-countdown)**
 This causes the timer to go directly to Alarm Mode.
 
-    •   Right Arrow (Timer is paused, at the start)
+•   **Right Arrow (Timer is paused, at the start)**
 This causes the following timer to be selected, if there are multiple timers. If there is only one timer, nothing happens.
 
-    •   Escape (ESC) Key (At any time)
+•   **Escape (ESC) Key (At any time)**
 Stop the timer, and return to the setting screen.
 
 ### DIGITAL MODE POWER USER FEATURE
