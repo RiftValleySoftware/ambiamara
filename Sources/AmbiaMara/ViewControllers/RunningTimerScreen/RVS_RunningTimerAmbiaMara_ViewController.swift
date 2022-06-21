@@ -579,6 +579,9 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
         _feedbackGenerator = UIImpactFeedbackGenerator()
 
+        if let longPressTimeSetGestureRecognizer = longPressTimeSetGestureRecognizer {
+            tapGestureRecognizer?.require(toFail: longPressTimeSetGestureRecognizer)
+        }
         _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._clockPeriodInSeconds, delegate: self, leewayInMilliseconds: Self._leewayInMilliseconds, onlyFireOnce: false)
         _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDurationInSeconds, delegate: self, leewayInMilliseconds: Self._leewayInMilliseconds * 2, onlyFireOnce: false)
     }
@@ -1408,7 +1411,12 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      
      - parameter inGestureRecognizer: The gesture recognizer that was triggered.
      */
-    @IBAction func longPressGestureDetected(_ inGestureRecognizer: UILongPressGestureRecognizer) {
+    @IBAction func longPressGestureDetected(_ inGestureRecognizer: UIGestureRecognizer) {
+        guard !(timeSetSwipeDetectorView?.isHidden ?? true) else {
+            inGestureRecognizer.state = .cancelled
+            return
+        }
+        
         if _isAlarming {
             stopAlarm()
         } else if _isTimerRunning {

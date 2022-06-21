@@ -801,9 +801,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="LcC-Lp-glg"/>
                                 </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="5MA-y3-W9O" appends="YES" id="ofd-5p-mEX"/>
-                                </connections>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JHV-9i-Nag">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
@@ -881,6 +878,7 @@
                             <outletCollection property="gestureRecognizers" destination="2m6-eb-uaq" appends="YES" id="ju2-UZ-zFw"/>
                             <outletCollection property="gestureRecognizers" destination="qPz-L7-uB0" appends="YES" id="o96-eo-JgT"/>
                             <outletCollection property="gestureRecognizers" destination="sIT-fh-cO5" appends="YES" id="JYl-2a-MoX"/>
+                            <outletCollection property="gestureRecognizers" destination="5MA-y3-W9O" appends="YES" id="Zdo-fY-NFJ"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="vqD-oa-sy9"/>
@@ -1122,7 +1120,7 @@
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="0.44499999284744263" green="0.47600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -1,5 +1,6 @@
 **Version 2.2.1.3018** *TBD*
 - Made it so the haptics don't keep getting triggered, if the slider is not moving.
+- The long-press gesture recognizer is now detected, anywhere on the screen.
 - Improvements in accessibility (voiceover, mostly).
 - Code cleanup.
 
