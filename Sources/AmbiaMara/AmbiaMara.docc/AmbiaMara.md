@@ -225,7 +225,7 @@ Stop the timer, and return to the setting screen.
 
 In Digital Mode, and Gesture Mode (it needs to be both), you have the ability to set the time to an arbitrary time, by long-pressing on the bottom of the display, in a running timer. This is not available for the Mac version.
 
-If you long-press on the display, at about the same place as the Toolbar would be shown, the timer pauses (if not already paused), and a slider appears, with the thumb under your finger. Slide it right or left, to change the set time of the timer.
+If you long-press on the display, the timer pauses (if not already paused), and a slider appears, with the thumb under your finger's location. Slide it right or left, to change the set time of the timer.
 
 |Figure 31: Slider in an iPhone Screen|Figure 32: Slider in an iPad Screen|
 |:----:|:----:|
