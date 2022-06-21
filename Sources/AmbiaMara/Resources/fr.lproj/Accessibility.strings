@@ -16,6 +16,12 @@
 // MARK: TIMER SETUP SCREEN
 
 /* The Gear button, in the upper left. */
+"SLUG-ACC-SETTINGS-BUTTON-LABEL"                =   "Réglages";
+
+/* The Bell button, in the upper right. */
+"SLUG-ACC-ALARM-BUTTON-LABEL"                   =   "des Sons";
+
+/* The Gear button, in the upper left. */
 "SLUG-ACC-SETTINGS-BUTTON" = "La sélection de ce bouton affichera une fenêtre contextuelle qui vous permettra de régler les paramètres des comptes à rebours. Cela vous permettra également d'en savoir plus sur l'application.";
 
 /* The Bell button, in the upper right. */

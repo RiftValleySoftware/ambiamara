@@ -1,6 +1,7 @@
 **Version 2.2.1.3018** *TBD*
 - Made it so the haptics don't keep getting triggered, if the slider is not moving.
 - Improvements in accessibility (voiceover, mostly).
+- Code cleanup.
 
 **Version 2.2.0.3017** *June 20, 2022*
 - Added a slider for gesture mode digital, which allows the user to change the time.

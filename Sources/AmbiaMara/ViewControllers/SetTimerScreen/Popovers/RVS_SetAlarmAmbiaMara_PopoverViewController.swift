@@ -240,18 +240,15 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
      - parameter inSoundURL: This is the URI to the sound resource.
      */
     func playThisSound(_ inSoundURL: URL) {
-        do {
-            if nil == _audioPlayer {
-                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
-                try _audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
-                _audioPlayer?.numberOfLoops = -1
+        if nil == _audioPlayer {
+            try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
+            if let audioPlayer = try? AVAudioPlayer(contentsOf: inSoundURL) {
+                audioPlayer.numberOfLoops = -1  // Keep repeating.
+                _audioPlayer = audioPlayer
             }
-            _audioPlayer?.play()
-        } catch {
-            #if DEBUG
-                print("ERROR! Attempt to play sound failed: \(String(describing: error))")
-            #endif
         }
+    
+        _audioPlayer?.play()
     }
 }
 
@@ -380,7 +377,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController: UIPickerViewDelegate {
 extension RVS_SetAlarmAmbiaMara_PopoverViewController: UIPickerViewAccessibilityDelegate {
     /* ################################################################## */
     /**
-     This returns the accessibility label for the picker component.
+     This returns the accessibility hint for the picker component.
      
      - parameter: The picker instance (ignored).
      - parameter accessibilityHintForComponent: The 0-based component index for the label (ignored).

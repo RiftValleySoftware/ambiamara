@@ -16,6 +16,12 @@
 // MARK: TIMER SETUP SCREEN
 
 /* The Gear button, in the upper left. */
+"SLUG-ACC-SETTINGS-BUTTON-LABEL"                =   "die Einstellungen";
+
+/* The Bell button, in the upper right. */
+"SLUG-ACC-ALARM-BUTTON-LABEL"                   =   "Geräusche";
+
+/* The Gear button, in the upper left. */
 "SLUG-ACC-SETTINGS-BUTTON" = "Mit dieser Schaltfläche wird ein Popover geöffnet, in dem Sie die Einstellungen für die Timer anpassen können. Außerdem können Sie hier mehr über die App erfahren.";
 
 /* The Bell button, in the upper right. */

@@ -480,13 +480,13 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         secondsLabel?.text = (secondsLabel?.text ?? "ERROR").localizedVariant
         
         // Voiceover mode does not work well with gestures.
-        // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
-        // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
         if UIAccessibility.isVoiceOverRunning {
             RVS_AmbiaMara_Settings().displayToolbar = true
         }
 
+        settingsBarButtonItem?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON-LABEL".accessibilityLocalizedVariant
         settingsBarButtonItem?.accessibilityHint = "SLUG-ACC-SETTINGS-BUTTON".accessibilityLocalizedVariant
+        alarmSetBarButtonItem?.accessibilityLabel = "SLUG-ACC-ALARM-BUTTON-LABEL".accessibilityLocalizedVariant
         alarmSetBarButtonItem?.accessibilityHint = "SLUG-ACC-ALARM-BUTTON".accessibilityLocalizedVariant
         startSetButton?.accessibilityLabel = "SLUG-ACC-STATE-BUTTON-LABEL-Start".accessibilityLocalizedVariant
         startSetButton?.accessibilityHint = "SLUG-ACC-STATE-BUTTON-HINT".accessibilityLocalizedVariant
@@ -511,6 +511,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         finalSetButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         finalSetButton?.titleLabel?.minimumScaleFactor = 0.5
         
+        // High contrast, means high contrast.
         if isHighContrastMode {
             finalSetButton?.setTitleColor(.black, for: .normal)
         }
@@ -551,11 +552,11 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         // First time through, we do a "fade in" animation.
         if let startupLogo = startupLogo,
            inIsAnimated {
-            alarmSetBarButtonItem?.isEnabled = false
-            settingsBarButtonItem?.isEnabled = false
-            setTimePickerView?.isUserInteractionEnabled = false
             startupLogo.alpha = 1.0
             containerView?.alpha = Self._initialSettingsItemAlpha
+            alarmSetBarButtonItem?.isEnabled = false
+            settingsBarButtonItem?.isEnabled = false
+            setTimePickerView?.isUserInteractionEnabled = false // Don't let the user use the picker, until the animation is done.
             UIView.animate(withDuration: Self._fadeInAnimationPeriodInSeconds,
                            animations: { [weak self] in
                                             startupLogo.alpha = 0.0

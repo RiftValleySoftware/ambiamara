@@ -19,6 +19,19 @@ import UIKit
 class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
     /* ################################################################## */
     /**
+     The height of the popover, in display units, if voiceover is running.
+     If voiceover is running, then we don't allow the toolbar to be hidden, so those controls are hidden.
+     */
+    private static let _voiceoverRunningHeightInDisplayUnits = CGFloat(162)
+
+    /* ################################################################## */
+    /**
+     The height of the popover, if voiceover is not running.
+     */
+    private static let _regularHeightInDisplayUnits = CGFloat(270)
+
+    /* ################################################################## */
+    /**
      This will provide haptic/audio feedback for popover events.
      */
     private var _selectionFeedbackGenerator: UISelectionFeedbackGenerator?
@@ -111,15 +124,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
     /**
      The popover height.
     */
-    class var settingsPopoverHeightInDisplayUnits: CGFloat {
-        // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
-        // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
-        if UIAccessibility.isVoiceOverRunning {
-            return 162
-        } else {
-            return 270
-        }
-    }
+    class var settingsPopoverHeightInDisplayUnits: CGFloat { UIAccessibility.isVoiceOverRunning ? Self._voiceoverRunningHeightInDisplayUnits : Self._regularHeightInDisplayUnits }
 }
 
 /* ###################################################################################################################################### */
@@ -163,18 +168,15 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         popoverDisplayAutoHideSwitchLabelButton?.accessibilityHint = "SLUG-ACC-POPOVER-AUTO-HIDE-SETTING-HINT".accessibilityLocalizedVariant
 
         // Voiceover mode does not work well with gestures.
-        // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
-        // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
         if UIAccessibility.isVoiceOverRunning {
             toolbarContainerStackView?.isHidden = true
             auotHideIndentLabel?.isHidden = true
+            autoHideContainerStackView?.isHidden = true
         } else {
             toolbarContainerStackView?.isHidden = false
             auotHideIndentLabel?.isHidden = false
+            autoHideContainerStackView?.isHidden = false
         }
-        
-        // We do not do auto hide, when in voiceover mode.
-        autoHideContainerStackView?.isHidden = UIAccessibility.isVoiceOverRunning
 
         aboutAmbiaMaraButton?.accessibilityHint = "SLUG-ACC-ABOUT-AMBIAMARA-BUTTON".accessibilityLocalizedVariant
 

@@ -69,6 +69,7 @@ extension RVS_AmbiaMara_BaseViewController {
     /* ################################################################## */
     /**
      Called when the view hierarchy has been completed.
+     We use this call, to create and set the "watermark" image, as well as the background gradient.
     */
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -16,6 +16,12 @@
 // MARK: TIMER SETUP SCREEN
 
 /* The Gear button, in the upper left. */
+"SLUG-ACC-SETTINGS-BUTTON-LABEL"                =   "Ajustes";
+
+/* The Bell button, in the upper right. */
+"SLUG-ACC-ALARM-BUTTON-LABEL"                   =   "Suena";
+
+/* The Gear button, in the upper left. */
 "SLUG-ACC-SETTINGS-BUTTON" = "Al seleccionar este botón, se mostrará una ventana emergente que te permitirá ajustar la configuración de los temporizadores. También te permitirá obtener más información sobre la aplicación.";
 
 /* The Bell button, in the upper right. */
