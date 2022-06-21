@@ -187,7 +187,7 @@ You can choose to have the toolbar "auto-hide," in the Settings Popover. If you 
 
 The toolbar does not auto-hide, if the timer is paused, or is alarming.
 
-### GESTURE MODE (TOOLBAR IS NOT DISLAYED):
+### GESTURE MODE (TOOLBAR IS NOT DISPLAYED):
 
 |Figure 30: Gestures|
 |:----:|
@@ -238,6 +238,15 @@ This causes the following timer to be selected, if there are multiple timers. If
     •   Escape (ESC) Key (At any time)
 Stop the timer, and return to the setting screen.
 
+### DIGITAL MODE POWER USER FEATURE
+
+In Digital Mode, and Gesture Mode (it needs to be both), you have the ability to set the time to an arbitrary time, by long-pressing on the bottom of the display, in a running timer. This is not available for the Mac version.
+
+If you long-press on the display, at about the same place as the Toolbar would be shown, the timer pauses (if not already paused), and a slider appears, with the thumb under your finger. Slide it right or left, to change the set time of the timer.
+
+|Figure 31: Slider in an iPhone Screen|Figure 32: Slider in an iPad Screen|
+|:----:|:----:|
+|![Figure 31](img/Figure-31.png)|![Figure 32](img/Figure-32.png)|
 
 DEPENDENCIES
 -
