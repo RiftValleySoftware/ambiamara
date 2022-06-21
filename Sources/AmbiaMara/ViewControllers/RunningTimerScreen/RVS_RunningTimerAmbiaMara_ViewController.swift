@@ -1429,14 +1429,16 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
             fallthrough
 
         case .changed:
-            if areHapticsAvailable {
-                _selectionFeedbackGenerator?.selectionChanged()
-                _selectionFeedbackGenerator?.prepare()
+            if location != _timeSetSlider?.value ?? -1 {
+                if areHapticsAvailable {
+                    _selectionFeedbackGenerator?.selectionChanged()
+                    _selectionFeedbackGenerator?.prepare()
+                }
+                _timeSetSlider?.value = location
+                _tickTimeInSeconds = min(RVS_AmbiaMara_Settings().currentTimer.startTime - 1, Int(Float(RVS_AmbiaMara_Settings().currentTimer.startTime) * location))
+                self.setTimerDisplay()
             }
-            _timeSetSlider?.value = location
-            _tickTimeInSeconds = min(RVS_AmbiaMara_Settings().currentTimer.startTime - 1, Int(Float(RVS_AmbiaMara_Settings().currentTimer.startTime) * location))
-            self.setTimerDisplay()
-
+            
         default:
             if areHapticsAvailable {
                 _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
