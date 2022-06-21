@@ -194,7 +194,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         
         for index in 0..<(timerModeSegmentedSwitch?.numberOfSegments ?? 0) {
             if let image = timerModeSegmentedSwitch?.imageForSegment(at: index) {
-                image.accessibilityLabel = "SLUG-ACC-POPOVER-TIMER-MODE-SEGMENT-\(index)-LABEL".accessibilityLocalizedVariant
+                image.accessibilityHint = "SLUG-ACC-POPOVER-TIMER-MODE-SEGMENT-\(index)-LABEL".accessibilityLocalizedVariant
             }
         }
     }

@@ -170,7 +170,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
         vibrateSwitch?.accessibilityHint = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".accessibilityLocalizedVariant
         vibrateSwitchLabelButton?.accessibilityHint = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".accessibilityLocalizedVariant
         
-        soundPlayButton?.accessibilityLabel = "SLUG-ACC-SOUND-SAMPLE-BUTTON".accessibilityLocalizedVariant
+        soundPlayButton?.accessibilityHint = "SLUG-ACC-SOUND-SAMPLE-BUTTON".accessibilityLocalizedVariant
         
         _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted { a, b in
                 guard let soundUriA = URL(string: a.urlEncodedString ?? "")?.lastPathComponent,
@@ -197,7 +197,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
         
         for index in 0..<(alarmModeSegmentedSwitch?.numberOfSegments ?? 0) {
             if let image = alarmModeSegmentedSwitch?.imageForSegment(at: index) {
-                image.accessibilityLabel = "SLUG-ACC-POPOVER-ALARM-MODE-SEGMENT-\(index)-LABEL".accessibilityLocalizedVariant
+                image.accessibilityHint = "SLUG-ACC-POPOVER-ALARM-MODE-SEGMENT-\(index)-LABEL".accessibilityLocalizedVariant
             }
         }
     }
@@ -383,10 +383,10 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController: UIPickerViewAccessibility
      This returns the accessibility label for the picker component.
      
      - parameter: The picker instance (ignored).
-     - parameter accessibilityLabelForComponent: The 0-based component index for the label (ignored).
+     - parameter accessibilityHintForComponent: The 0-based component index for the label (ignored).
      - returns: An accessibility string for the component.
     */
-    func pickerView(_: UIPickerView, accessibilityLabelForComponent: Int) -> String? { "SLUG-ACC-SOUND-PICKER".accessibilityLocalizedVariant }
+    func pickerView(_: UIPickerView, accessibilityHintForComponent: Int) -> String? { "SLUG-ACC-SOUND-PICKER".accessibilityLocalizedVariant }
 }
 
 /* ###################################################################################################################################### */

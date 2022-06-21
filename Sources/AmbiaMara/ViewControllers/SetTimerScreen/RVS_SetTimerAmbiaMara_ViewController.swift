@@ -486,8 +486,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             RVS_AmbiaMara_Settings().displayToolbar = true
         }
 
-        settingsBarButtonItem?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON".accessibilityLocalizedVariant
-        alarmSetBarButtonItem?.accessibilityLabel = "SLUG-ACC-ALARM-BUTTON".accessibilityLocalizedVariant
+        settingsBarButtonItem?.accessibilityHint = "SLUG-ACC-SETTINGS-BUTTON".accessibilityLocalizedVariant
+        alarmSetBarButtonItem?.accessibilityHint = "SLUG-ACC-ALARM-BUTTON".accessibilityLocalizedVariant
         startSetButton?.accessibilityLabel = "SLUG-ACC-STATE-BUTTON-LABEL-Start".accessibilityLocalizedVariant
         startSetButton?.accessibilityHint = "SLUG-ACC-STATE-BUTTON-HINT".accessibilityLocalizedVariant
         warnSetButton?.accessibilityLabel = "SLUG-ACC-STATE-BUTTON-LABEL-Warn".accessibilityLocalizedVariant
@@ -496,13 +496,13 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         finalSetButton?.accessibilityHint = "SLUG-ACC-STATE-BUTTON-HINT".accessibilityLocalizedVariant
         startButton?.accessibilityLabel = "SLUG-ACC-PLAY-BUTTON-LABEL".accessibilityLocalizedVariant
         startButton?.accessibilityHint = "SLUG-ACC-PLAY-BUTTON-HINT".accessibilityLocalizedVariant
-        addBarButtonItem?.accessibilityLabel = "SLUG-ACC-ADD-TIMER-BUTTON".accessibilityLocalizedVariant
-        clearButton?.accessibilityLabel = "SLUG-ACC-CLEAR-BUTTON".accessibilityLocalizedVariant
+        addBarButtonItem?.accessibilityHint = "SLUG-ACC-ADD-TIMER-BUTTON".accessibilityLocalizedVariant
+        clearButton?.accessibilityHint = "SLUG-ACC-CLEAR-BUTTON".accessibilityLocalizedVariant
         
         stateLabel?.accessibilityHint = "SLUG-ACC-STATE".accessibilityLocalizedVariant
-        hoursLabel?.accessibilityLabel = String(format: "SLUG-ACC-0-LABEL-FORMAT".accessibilityLocalizedVariant, _pickerViewData[0].upperBound - 1)
-        minutesLabel?.accessibilityLabel = String(format: "SLUG-ACC-1-LABEL-FORMAT".accessibilityLocalizedVariant, _pickerViewData[1].upperBound - 1)
-        secondsLabel?.accessibilityLabel = String(format: "SLUG-ACC-2-LABEL-FORMAT".accessibilityLocalizedVariant, _pickerViewData[2].upperBound - 1)
+        hoursLabel?.accessibilityHint = String(format: "SLUG-ACC-0-LABEL-FORMAT".accessibilityLocalizedVariant, _pickerViewData[0].upperBound - 1)
+        minutesLabel?.accessibilityHint = String(format: "SLUG-ACC-1-LABEL-FORMAT".accessibilityLocalizedVariant, _pickerViewData[1].upperBound - 1)
+        secondsLabel?.accessibilityHint = String(format: "SLUG-ACC-2-LABEL-FORMAT".accessibilityLocalizedVariant, _pickerViewData[2].upperBound - 1)
 
         startSetButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         startSetButton?.titleLabel?.minimumScaleFactor = 0.5
@@ -654,7 +654,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                     timerButton.action = #selector(selectToolbarItem(_:))
                     newItems.insert(timerButton, at: 2 + timer.offset)
                 }
-                trashBarButtonItem?.accessibilityLabel = String(format: "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT".accessibilityLocalizedVariant, currentTag)
+                trashBarButtonItem?.accessibilityHint = String(format: "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT".accessibilityLocalizedVariant, currentTag)
             } else {
                 navigationItem.title = nil
             }
@@ -683,7 +683,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         startButton?.isEnabled = 0 < _currentTimer.startTime
         clearButton?.isHidden = 0 >= _stateTime()
         
-        stateLabel?.accessibilityLabel = "SLUG-ACC-STATE-\(_state.stringValue)".accessibilityLocalizedVariant
+        stateLabel?.accessibilityHint = "SLUG-ACC-STATE-\(_state.stringValue)".accessibilityLocalizedVariant
         stateLabel?.accessibilityHint = "SLUG-ACC-STATE".accessibilityLocalizedVariant + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".accessibilityLocalizedVariant
 
         if 0 < _currentTimer.startTime,
@@ -1197,10 +1197,10 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewAccessibilityDelegat
      This returns the accessibility label for the picker component.
      
      - parameter inPickerView: The picker instance.
-     - parameter accessibilityLabelForComponent: The 0-based component index for the label.
+     - parameter accessibilityHintForComponent: The 0-based component index for the label.
      - returns: An accessibility string for the component.
     */
-    func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inComponent: Int) -> String? {
+    func pickerView(_ inPickerView: UIPickerView, accessibilityHintForComponent inComponent: Int) -> String? {
         String(format: "SLUG-ACC-\(inComponent)-FORMAT".accessibilityLocalizedVariant,
                _pickerViewData[inComponent].upperBound - 1,
                inPickerView.selectedRow(inComponent: inComponent)
