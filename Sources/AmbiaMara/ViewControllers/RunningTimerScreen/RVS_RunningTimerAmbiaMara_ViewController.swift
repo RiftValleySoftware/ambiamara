@@ -362,7 +362,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
     /**
      - returns: The remaining countdown time, in seconds.
      */
-    private var remainingTime: Int { RVS_AmbiaMara_Settings().currentTimer.startTime - _tickTimeInSeconds }
+    private var _remainingTime: Int { RVS_AmbiaMara_Settings().currentTimer.startTime - _tickTimeInSeconds }
     
     /* ############################################################## */
     /**
@@ -374,25 +374,25 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
     /**
      - returns: True, if the current time is at the "starting gate."
      */
-    private var _isAtStart: Bool { RVS_AmbiaMara_Settings().currentTimer.startTime <= remainingTime }
+    private var _isAtStart: Bool { RVS_AmbiaMara_Settings().currentTimer.startTime <= _remainingTime }
 
     /* ############################################################## */
     /**
      - returns: True, if the current time is at the end.
      */
-    private var _isAtEnd: Bool { 0 >= remainingTime }
+    private var _isAtEnd: Bool { 0 >= _remainingTime }
 
     /* ############################################################## */
     /**
      - returns: True, if the current time is within the "warning" window.
      */
-    private var _isWarning: Bool { remainingTime <= RVS_AmbiaMara_Settings().currentTimer.warnTime }
+    private var _isWarning: Bool { _remainingTime <= RVS_AmbiaMara_Settings().currentTimer.warnTime }
 
     /* ############################################################## */
     /**
      - returns: True, if the current time is within the "final countdown" window.
      */
-    private var _isFinal: Bool { remainingTime <= RVS_AmbiaMara_Settings().currentTimer.finalTime }
+    private var _isFinal: Bool { _remainingTime <= RVS_AmbiaMara_Settings().currentTimer.finalTime }
     
     /* ############################################################## */
     /**
@@ -1050,8 +1050,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      */
     func setTimerDisplay() {
         setDigitDisplayTime()
-        determineDigitLEDColor(remainingTime)
-        determineStoplightColor(remainingTime)
+        determineDigitLEDColor(_remainingTime)
+        determineStoplightColor(_remainingTime)
     }
     
     /* ############################################################## */
@@ -1122,8 +1122,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
     func flashIfNecessary(previousTickTime inTickTime: Int) {
         // Look for a threshold crossing.
         let previousTime = RVS_AmbiaMara_Settings().currentTimer.startTime - inTickTime
-        determineDigitLEDColor(remainingTime)
-        determineStoplightColor(remainingTime)
+        determineDigitLEDColor(_remainingTime)
+        determineStoplightColor(_remainingTime)
         
         guard !RVS_AmbiaMara_Settings().stoplightMode else { return }   // No flashes for stoplight mode.
         
@@ -1274,7 +1274,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      This calculates the current time, and sets the digital display to that time.
      */
     func setDigitDisplayTime() {
-        var differenceInSeconds = _isTimerRunning || 0 < remainingTime ? remainingTime : RVS_AmbiaMara_Settings().currentTimer.startTime
+        var differenceInSeconds = _isTimerRunning || 0 < _remainingTime ? _remainingTime : RVS_AmbiaMara_Settings().currentTimer.startTime
         
         let hours = Int(differenceInSeconds / (60 * 60))
         differenceInSeconds -= (hours * 60 * 60)
