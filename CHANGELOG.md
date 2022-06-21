@@ -34,7 +34,7 @@
 
 **Version 2.0.1.3011** *May 17, 2022*
 Complete rewrite.
-The app is now based on a single setup view (as opposed to the threee that were previously required).
+The app is now based on a single setup view (as opposed to the three that were previously required).
 The running timer now has an optimized display size, based on the set time.
 The toolbar is now a complete mode, including "auto-hide."
 
