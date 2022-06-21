@@ -170,7 +170,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
         vibrateSwitch?.accessibilityHint = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".accessibilityLocalizedVariant
         vibrateSwitchLabelButton?.accessibilityHint = "SLUG-ACC-ALARM-SET-VIBRATE-SWITCH".accessibilityLocalizedVariant
         
-        soundPlayButton?.accessibilityHint = "SLUG-ACC-SOUND-SAMPLE-BUTTON".accessibilityLocalizedVariant
+        soundPlayButton?.accessibilityLabel = "SLUG-ACC-SOUND-SAMPLE-BUTTON".accessibilityLocalizedVariant
         
         _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted { a, b in
                 guard let soundUriA = URL(string: a.urlEncodedString ?? "")?.lastPathComponent,
