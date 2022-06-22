@@ -355,16 +355,22 @@ class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
     
     /* ############################################################## */
     /**
+     In order to maintain the proper aspect ratio of the digit pairs, we need to ensconce them in container views.
+     This is the hours view.
      */
     @IBOutlet weak var hoursContainerView: UIView!
     
     /* ############################################################## */
     /**
+     In order to maintain the proper aspect ratio of the digit pairs, we need to ensconce them in container views.
+     This is the minutes view.
      */
     @IBOutlet weak var minutesContainerView: UIView!
     
     /* ############################################################## */
     /**
+     In order to maintain the proper aspect ratio of the digit pairs, we need to ensconce them in container views.
+     This is the seconds view.
      */
     @IBOutlet weak var secondsContainerView: UIView!
 }
