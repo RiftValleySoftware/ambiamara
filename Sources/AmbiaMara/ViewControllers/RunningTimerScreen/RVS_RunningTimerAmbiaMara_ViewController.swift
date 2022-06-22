@@ -352,6 +352,21 @@ class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
      The gesture recognizer that will detect taps.
      */
     @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer?
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var hoursContainerView: UIView!
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var minutesContainerView: UIView!
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var secondsContainerView: UIView!
 }
 
 /* ###################################################################################################################################### */
@@ -626,8 +641,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      */
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        digitalDisplayViewHours?.isHidden = 3600 > RVS_AmbiaMara_Settings().currentTimer.startTime
-        digitalDisplayViewMinutes?.isHidden = 60 > RVS_AmbiaMara_Settings().currentTimer.startTime
+        hoursContainerView?.isHidden = 3600 > RVS_AmbiaMara_Settings().currentTimer.startTime
+        minutesContainerView?.isHidden = 60 > RVS_AmbiaMara_Settings().currentTimer.startTime
         let imageSize = hexGridImageView?.image?.size ?? .zero
         if let bounds = digitContainerInternalView?.bounds,
            imageSize != bounds.size {
