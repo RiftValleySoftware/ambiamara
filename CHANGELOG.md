@@ -1,4 +1,4 @@
-**Version 2.2.1.3019** *June 22, 2022*
+**Version 2.2.1.3020** *June 22, 2022*
 - Made it so the haptics don't keep getting triggered, if the slider is not moving.
 - The long-press gesture recognizer is now detected, anywhere on the screen.
 - The long-press slider will now continue, if "start immediately" is on.

@@ -640,13 +640,13 @@
                             <view contentMode="scaleAspectFit" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="BJi-bD-ter">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="4t0-CW-2Ah" userLabel="Digit Container Stack View">
+                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" distribution="equalCentering" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="4t0-CW-2Ah" userLabel="Digit Container Stack View">
                                         <rect key="frame" x="41.5" y="355" width="331" height="108"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KRf-cW-nFh" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
                                                 <rect key="frame" x="0.0" y="0.0" width="97" height="108"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="KRf-cW-nFh" secondAttribute="height" multiplier="9:10" id="85e-zJ-S2s"/>
+                                                    <constraint firstAttribute="width" secondItem="KRf-cW-nFh" secondAttribute="height" multiplier="9:10" priority="999" id="85e-zJ-S2s"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="skew">
@@ -671,9 +671,6 @@
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7L9-ec-Ebr" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
                                                 <rect key="frame" x="117" y="0.0" width="97" height="108"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="7L9-ec-Ebr" secondAttribute="height" multiplier="9:10" id="OF5-ua-ADI"/>
-                                                </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
                                                         <color key="value" name="Paused-Color"/>
@@ -697,9 +694,6 @@
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N26-11-dhj" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
                                                 <rect key="frame" x="234" y="0.0" width="97" height="108"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="N26-11-dhj" secondAttribute="height" multiplier="9:10" id="pna-oL-bSx"/>
-                                                </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
                                                         <color key="value" name="Paused-Color"/>
@@ -724,9 +718,11 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="KRf-cW-nFh" secondAttribute="bottom" id="5yv-wF-oGU"/>
+                                            <constraint firstItem="7L9-ec-Ebr" firstAttribute="width" secondItem="KRf-cW-nFh" secondAttribute="width" id="I4b-3e-NzN"/>
                                             <constraint firstAttribute="bottom" secondItem="7L9-ec-Ebr" secondAttribute="bottom" id="RaW-8z-tS6"/>
                                             <constraint firstItem="N26-11-dhj" firstAttribute="top" secondItem="4t0-CW-2Ah" secondAttribute="top" id="dMd-wd-CyX"/>
                                             <constraint firstItem="7L9-ec-Ebr" firstAttribute="top" secondItem="4t0-CW-2Ah" secondAttribute="top" id="eAI-qK-lkx"/>
+                                            <constraint firstItem="N26-11-dhj" firstAttribute="width" secondItem="KRf-cW-nFh" secondAttribute="width" id="h96-nS-5u5"/>
                                             <constraint firstItem="KRf-cW-nFh" firstAttribute="top" secondItem="4t0-CW-2Ah" secondAttribute="top" id="sTf-nT-pLD"/>
                                             <constraint firstAttribute="bottom" secondItem="N26-11-dhj" secondAttribute="bottom" id="tV9-7J-fTD"/>
                                         </constraints>
@@ -1120,7 +1116,7 @@
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.44499999284744263" green="0.47600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
