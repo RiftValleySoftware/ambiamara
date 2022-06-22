@@ -743,6 +743,11 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         slider.trailingAnchor.constraint(equalTo: timeSetSwipeDetectorView.trailingAnchor).isActive = true
         slider.centerYAnchor.constraint(equalTo: timeSetSwipeDetectorView.centerYAnchor).isActive = true
         
+        if areHapticsAvailable {
+            _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+            _feedbackGenerator?.prepare()
+        }
+
         _timeSetSlider = slider
     }
     
@@ -1130,12 +1135,12 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         
         guard !RVS_AmbiaMara_Settings().stoplightMode else { return }   // No flashes for stoplight mode.
         
-        if previousTime > RVS_AmbiaMara_Settings().currentTimer.warnTime,
-           _isWarning {
-            flashYellow()
-        } else if previousTime > RVS_AmbiaMara_Settings().currentTimer.finalTime,
+        if previousTime > RVS_AmbiaMara_Settings().currentTimer.finalTime,
                   _isFinal {
             flashRed()
+        } else if previousTime > RVS_AmbiaMara_Settings().currentTimer.warnTime,
+                  _isWarning {
+            flashYellow()
         }
     }
     
@@ -1411,7 +1416,19 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      
      - parameter inGestureRecognizer: The gesture recognizer that was triggered.
      */
-    @IBAction func longPressGestureDetected(_ inGestureRecognizer: UIGestureRecognizer) {
+    @IBAction func longPressGestureDetected(_ inGestureRecognizer: UILongPressGestureRecognizer) {
+        /* ########################################################## */
+        /**
+         Sets the timer to the given percentage.
+         
+         - parameter location: The 0 -> 1 location.
+         */
+        func setTimerTo(location inLocation: Float) {
+            _timeSetSlider?.value = inLocation
+            _tickTimeInSeconds = min(RVS_AmbiaMara_Settings().currentTimer.startTime - 1, Int(Float(RVS_AmbiaMara_Settings().currentTimer.startTime) * inLocation))
+            self.setTimerDisplay()
+        }
+        
         guard !(timeSetSwipeDetectorView?.isHidden ?? true) else {
             inGestureRecognizer.state = .cancelled
             return
@@ -1430,11 +1447,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         switch inGestureRecognizer.state {
         case .began:
             prepareSlider(atThisLocation: location)
-            if areHapticsAvailable {
-                _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
-                _feedbackGenerator?.prepare()
-            }
-            fallthrough
+            setTimerTo(location: location)
 
         case .changed:
             if location != _timeSetSlider?.value ?? -1 {
@@ -1442,11 +1455,9 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
                     _selectionFeedbackGenerator?.selectionChanged()
                     _selectionFeedbackGenerator?.prepare()
                 }
-                _timeSetSlider?.value = location
-                _tickTimeInSeconds = min(RVS_AmbiaMara_Settings().currentTimer.startTime - 1, Int(Float(RVS_AmbiaMara_Settings().currentTimer.startTime) * location))
-                self.setTimerDisplay()
+                setTimerTo(location: location)
             }
-            
+        
         default:
             if areHapticsAvailable {
                 _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
@@ -1454,6 +1465,14 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
             }
             _timeSetSlider?.removeFromSuperview()
             _timeSetSlider = nil
+            
+            if RVS_AmbiaMara_Settings().startTimerImmediately {
+                if !_isFinal,
+                   !_isWarning {
+                    flashGreen()
+                }
+                continueTimer()
+            }
         }
     }
 
