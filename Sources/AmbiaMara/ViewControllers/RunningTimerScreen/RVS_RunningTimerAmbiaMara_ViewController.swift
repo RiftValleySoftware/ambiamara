@@ -26,6 +26,12 @@ class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
     /* ################################################################################################################################## */
     /* ############################################################## */
     /**
+     The distance from the bottom of the time set slider to the toolbar or the bottom of the screen.
+     */
+    private static let _timeSetSliderViewBottomContraintConstant = CGFloat(12)
+
+    /* ############################################################## */
+    /**
      The color for the digital display, when in "Pause" mode.
      */
     private static let _pausedLEDColor: UIColor? = UIColor(named: "Paused-Color")
@@ -373,6 +379,12 @@ class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
      This is the seconds view.
      */
     @IBOutlet weak var secondsContainerView: UIView!
+
+    /* ############################################################## */
+    /**
+     The constraint for the bottom of the slider. We move it around, if we display the toolbar.
+     */
+    @IBOutlet weak var timeSetSliderViewBottomContraint: NSLayoutConstraint!
 }
 
 /* ###################################################################################################################################### */
@@ -451,6 +463,22 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         guard 0 < RVS_AmbiaMara_Settings().timers[previousIndex].startTime else { return nil }
         
         return previousIndex
+    }
+    
+    /* ############################################################## */
+    /**
+     - returns: The height of the toolbar, plus the offset (or just the offset).
+                This depends upon whether or not the toolbar is displayed.
+     */
+    private var _currentBottomConstraintInDisplayUnits: CGFloat {
+        var ret = Self._timeSetSliderViewBottomContraintConstant
+        
+        if RVS_AmbiaMara_Settings().displayToolbar,
+           let height = navigationController?.toolbar?.frame.size.height {
+            ret += height
+        }
+        
+        return ret
     }
 }
 
@@ -619,7 +647,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         stoplightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().stoplightMode
         digitalDisplayContainerView?.isHidden = RVS_AmbiaMara_Settings().stoplightMode
         controlToolbar?.isHidden = !RVS_AmbiaMara_Settings().displayToolbar
-        timeSetSwipeDetectorView?.isHidden = RVS_AmbiaMara_Settings().displayToolbar || RVS_AmbiaMara_Settings().stoplightMode || ProcessInfo().isMacCatalystApp
+        timeSetSwipeDetectorView?.isHidden = RVS_AmbiaMara_Settings().stoplightMode
+        timeSetSliderViewBottomContraint?.constant = _currentBottomConstraintInDisplayUnits
         
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.

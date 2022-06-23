@@ -939,6 +939,7 @@
                         <outlet property="stopToolbarItem" destination="ABe-ev-oBz" id="ZHe-NE-6bE"/>
                         <outlet property="stoplightsContainerView" destination="oBo-bn-Jew" id="dNn-KI-EpQ"/>
                         <outlet property="tapGestureRecognizer" destination="2m6-eb-uaq" id="CoL-4i-qPj"/>
+                        <outlet property="timeSetSliderViewBottomContraint" destination="HzM-d3-iMZ" id="MXt-rb-YF7"/>
                         <outlet property="timeSetSwipeDetectorView" destination="lxf-uE-d9v" id="h36-HY-qZ8"/>
                         <outlet property="timerIndicatorToolbarItem" destination="9sX-3c-fMq" id="7OG-H0-1U6"/>
                         <outlet property="warnTrafficLightImageView" destination="3lx-sX-cHo" id="dDR-xa-qCc"/>
@@ -970,7 +971,7 @@
                         <action selector="upDownwipeGestureReceived:" destination="FWf-2O-eKE" id="PbY-fU-Wiw"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <pongPressGestureRecognizer cancelsTouchesInView="NO" allowableMovement="5" minimumPressDuration="0.5" id="5MA-y3-W9O">
+                <pongPressGestureRecognizer cancelsTouchesInView="NO" allowableMovement="10" minimumPressDuration="0.69999999999999996" id="5MA-y3-W9O">
                     <connections>
                         <action selector="longPressGestureDetected:" destination="FWf-2O-eKE" id="iDK-if-zSn"/>
                     </connections>
