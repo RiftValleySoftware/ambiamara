@@ -141,6 +141,33 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9AmbiaMara016RVS_RunningTimeraB15_ViewControllerC014_timeSetSliderF23BottomContraintConstant33_D7221F4000620B4378A7BA2E8D351DF3LL12CoreGraphics7CGFloatVvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/_timeSetSliderViewBottomContraintConstant" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara016RVS_RunningTimeraB15_ViewControllerC014_timeSetSliderF23BottomContraintConstant33_D7221F4000620B4378A7BA2E8D351DF3LL12CoreGraphics7CGFloatVvpZ">_timeSetSliderViewBottomContraintConstant</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The distance from the bottom of the time set slider to the toolbar or the bottom of the screen.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">_timeSetSliderViewBottomContraintConstant</span><span class="p">:</span> <span class="kt">CGFloat</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9AmbiaMara016RVS_RunningTimeraB15_ViewControllerC15_pausedLEDColor33_D7221F4000620B4378A7BA2E8D351DF3LLSo7UIColorCSgvpZ"></a>
                     <a name="//apple_ref/swift/Variable/_pausedLEDColor" class="dashAnchor"></a>
                     <a class="token" href="#/s:9AmbiaMara016RVS_RunningTimeraB15_ViewControllerC15_pausedLEDColor33_D7221F4000620B4378A7BA2E8D351DF3LLSo7UIColorCSgvpZ">_pausedLEDColor</a>
@@ -1544,6 +1571,34 @@ This is the seconds view.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@AmbiaMara@objc(cs)RVS_RunningTimerAmbiaMara_ViewController(py)timeSetSliderViewBottomContraint"></a>
+                    <a name="//apple_ref/swift/Property/timeSetSliderViewBottomContraint" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@AmbiaMara@objc(cs)RVS_RunningTimerAmbiaMara_ViewController(py)timeSetSliderViewBottomContraint">timeSetSliderViewBottomContraint</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The constraint for the bottom of the slider. We move it around, if we display the toolbar.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">timeSetSliderViewBottomContraint</span><span class="p">:</span> <span class="kt">NSLayoutConstraint</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -1795,6 +1850,37 @@ This is the seconds view.</p>
                         <h4>Return Value</h4>
                         <p>The index of the previous timer. Nil, if no previous timer.
        This &ldquo;circles around,&rdquo; so the first timer points to the last timer.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9AmbiaMara016RVS_RunningTimeraB15_ViewControllerC38_currentBottomConstraintInDisplayUnits33_D7221F4000620B4378A7BA2E8D351DF3LL12CoreGraphics7CGFloatVvp"></a>
+                    <a name="//apple_ref/swift/Property/_currentBottomConstraintInDisplayUnits" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9AmbiaMara016RVS_RunningTimeraB15_ViewControllerC38_currentBottomConstraintInDisplayUnits33_D7221F4000620B4378A7BA2E8D351DF3LL12CoreGraphics7CGFloatVvp">_currentBottomConstraintInDisplayUnits</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">_currentBottomConstraintInDisplayUnits</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The height of the toolbar, plus the offset (or just the offset).
+       This depends upon whether or not the toolbar is displayed.</p>
                       </div>
                     </section>
                   </div>
