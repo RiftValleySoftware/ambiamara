@@ -1522,6 +1522,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
                     flashGreen()
                 }
                 continueTimer()
+            } else {
+                showToolbar()
             }
         }
     }
