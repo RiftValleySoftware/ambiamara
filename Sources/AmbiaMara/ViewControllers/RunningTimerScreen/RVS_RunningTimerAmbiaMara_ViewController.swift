@@ -815,6 +815,11 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
             controlToolbar?.alpha = 1.0
             return
         }
+        
+        if _isTimerRunning {
+            _autoHideTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._autoHidePeriodInSeconds, delegate: self, leewayInMilliseconds: 100, onlyFireOnce: true, queue: .main, isWallTime: true)
+            _autoHideTimer?.isRunning = true
+        }
 
         if 1.0 > (controlToolbar?.alpha ?? 1) {
             controlToolbar?.alpha = 0.0
@@ -826,14 +831,9 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
                                         },
                            completion: { [weak self] _ in
                                             if self?._isTimerRunning ?? false {
-                                                self?._autoHideTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._autoHidePeriodInSeconds, delegate: self, leewayInMilliseconds: 100, onlyFireOnce: true, queue: .main, isWallTime: true)
-                                                self?._autoHideTimer?.isRunning = true
                                             }
                                         }
             )
-        } else if _isTimerRunning {
-            _autoHideTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._autoHidePeriodInSeconds, delegate: self, leewayInMilliseconds: 100, onlyFireOnce: true, queue: .main, isWallTime: true)
-            _autoHideTimer?.isRunning = true
         }
     }
     
@@ -1067,6 +1067,12 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      Continues the timer, setting the counter to the last time.
      */
     func continueTimer() {
+        showToolbar()
+        if nil == _autoHideTimer,
+           RVS_AmbiaMara_Settings().startTimerImmediately {
+            _autoHideTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._autoHidePeriodInSeconds, delegate: self, leewayInMilliseconds: 100, onlyFireOnce: true, queue: .main, isWallTime: true)
+            _autoHideTimer?.isRunning = true
+        }
         setTimerDisplay()
         _startingTime = Date().addingTimeInterval(-TimeInterval(_tickTimeInSeconds))
         _tickTimeInSeconds = 0 // Doing this, ensures that the next tick will update.
@@ -1479,6 +1485,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
             self.setTimerDisplay()
         }
         
+        setAutoHide()
+
         guard !(timeSetSwipeDetectorView?.isHidden ?? true) else {
             inGestureRecognizer.state = .cancelled
             return
