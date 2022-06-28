@@ -792,7 +792,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         slider.leadingAnchor.constraint(equalTo: timeSetSwipeDetectorView.leadingAnchor).isActive = true
         slider.trailingAnchor.constraint(equalTo: timeSetSwipeDetectorView.trailingAnchor).isActive = true
         slider.centerYAnchor.constraint(equalTo: timeSetSwipeDetectorView.centerYAnchor).isActive = true
-        
+
         if areHapticsAvailable {
             _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
             _feedbackGenerator?.prepare()
@@ -1482,6 +1482,13 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         func setTimerTo(location inLocation: Float) {
             _timeSetSlider?.value = inLocation
             _tickTimeInSeconds = min(RVS_AmbiaMara_Settings().currentTimer.startTime - 1, Int(Float(RVS_AmbiaMara_Settings().currentTimer.startTime) * inLocation))
+            
+            if let color = UIColor(named: "\(_isFinal ? "Final" : _isWarning ? "Warn" : "Start")-Color") {
+                _timeSetSlider?.minimumTrackTintColor = color
+                _timeSetSlider?.maximumTrackTintColor = color
+                _timeSetSlider?.thumbTintColor = color
+            }
+
             self.setTimerDisplay()
         }
         
@@ -1513,6 +1520,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
                     _selectionFeedbackGenerator?.selectionChanged()
                     _selectionFeedbackGenerator?.prepare()
                 }
+
                 setTimerTo(location: location)
             }
         

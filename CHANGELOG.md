@@ -1,4 +1,5 @@
-**Version 2.2.2.3022** *TBD*
+**Version 2.2.5.3025** *June 28, 2022*
+- The time set slider now changes color, in response to its location, in the time scale.
 
 **Version 2.2.1.3021** *June 22, 2022*
 - Made it so the haptics don't keep getting triggered, if the slider is not moving.
