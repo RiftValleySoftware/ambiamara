@@ -1171,7 +1171,8 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
                                 0 < inPickerView.selectedRow(inComponent: PickerComponents.minute.rawValue)
                                 ]
 
-        if 0 < inRow
+        if 2 == hasValue.count, // Belt and suspenders...
+           0 < inRow
             || (hasValue[0] && PickerComponents.minute.rawValue == inComponent)
             || ((hasValue[0] || hasValue[1]) && PickerComponents.second.rawValue == inComponent) {
             ret.text = String(_pickerViewData[inComponent][inRow])
