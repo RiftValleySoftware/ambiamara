@@ -252,10 +252,11 @@ DEPENDENCIES
 -
 This depends upon:
 
+- [RVS Basic GCD Timer](https://github.com/RiftValleySoftware/RVS_BasicGCDTimer)
 - [RVS Generic Swift Toolbox](https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox)
 - [RVS Persistent Prefs](https://github.com/RiftValleySoftware/RVS_PersistentPrefs)
-- [RVS Basic GCD Timer](https://github.com/RiftValleySoftware/RVS_BasicGCDTimer)
 - [RVS Retro LED Display](https://github.com/RiftValleySoftware/RVS_RetroLEDDisplay)
+- [RVS UIKit Toolbox](https://github.com/RiftValleySoftware/RVS_UIKit_Toolbox)
  
 ## MORE INFORMATION:
 

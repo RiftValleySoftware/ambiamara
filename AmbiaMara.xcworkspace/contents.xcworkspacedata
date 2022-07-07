@@ -22,9 +22,6 @@
       <FileRef
          location = "group:Sources/Meta/Warnings.xcconfig">
       </FileRef>
-      <FileRef
-         location = "group:Package.swift">
-      </FileRef>
    </Group>
    <FileRef
       location = "group:AmbiaMara.xcodeproj">

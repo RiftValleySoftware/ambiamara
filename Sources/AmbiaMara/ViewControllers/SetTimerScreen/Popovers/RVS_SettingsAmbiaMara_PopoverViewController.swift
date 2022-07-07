@@ -9,6 +9,7 @@
  */
 
 import UIKit
+import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
 // MARK: - About AmbiaMara Screen View Controller -
@@ -209,7 +210,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
     */
     override func viewWillDisappear(_ inAnimated: Bool) {
         super.viewWillDisappear(inAnimated)
-        if areHapticsAvailable {
+        if hapticsAreAvailable {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
         }
@@ -228,7 +229,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
     */
     @IBAction func popoverDisplayAutoHideSwitchHit(_ inSender: UIControl) {
         if let switcher = inSender as? UISwitch {
-            if areHapticsAvailable {
+            if hapticsAreAvailable {
                 _selectionFeedbackGenerator?.selectionChanged()
                 _selectionFeedbackGenerator?.prepare()
             }
@@ -245,7 +246,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
      - parameter: ignored.
     */
     @IBAction func showAboutScreen(_: Any) {
-        if areHapticsAvailable {
+        if hapticsAreAvailable {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
         }
@@ -259,7 +260,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
     */
     @IBAction func popoverStartImmediatelySwitchChanged(_ inSender: UIControl) {
         if let switcher = inSender as? UISwitch {
-            if areHapticsAvailable {
+            if hapticsAreAvailable {
                 _selectionFeedbackGenerator?.selectionChanged()
                 _selectionFeedbackGenerator?.prepare()
             }
@@ -277,7 +278,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
     */
     @IBAction func popoverDisplayToolbarSwitchChanged(_ inSender: UIControl) {
         if let switcher = inSender as? UISwitch {
-            if areHapticsAvailable {
+            if hapticsAreAvailable {
                 _selectionFeedbackGenerator?.selectionChanged()
                 _selectionFeedbackGenerator?.prepare()
             }
@@ -298,7 +299,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
      - parameter inSender: the segmented control for the timer mode..
     */
     @IBAction func timerModeSegmentedSwitchChanged(_ inSender: UISegmentedControl) {
-        if areHapticsAvailable {
+        if hapticsAreAvailable {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
         }

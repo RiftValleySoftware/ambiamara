@@ -212,7 +212,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
     override func viewWillDisappear(_ inAnimated: Bool) {
         super.viewWillDisappear(inAnimated)
         _isSoundPlaying = false
-        if areHapticsAvailable {
+        if hapticsAreAvailable {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
         }
@@ -263,7 +263,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
      - parameter inSegmentedSwitch: The segmented switch that changed.
     */
     @IBAction func alarmModeSegmentedSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
-        if areHapticsAvailable {
+        if hapticsAreAvailable {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
         }
@@ -281,7 +281,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
     */
     @IBAction func vibrateSwitchChanged(_ inSender: UIControl) {
         if let vibrateSwitch = inSender as? UISwitch {
-            if areHapticsAvailable {
+            if hapticsAreAvailable {
                 _selectionFeedbackGenerator?.selectionChanged()
                 _selectionFeedbackGenerator?.prepare()
             }
@@ -299,7 +299,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
      - parameter: The button instance (ignored).
     */
     @IBAction func soundPlayButtonHit(_: UIButton) {
-        if areHapticsAvailable {
+        if hapticsAreAvailable {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
         }

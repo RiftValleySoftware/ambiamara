@@ -809,7 +809,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         
         guard (0..<RVS_AmbiaMara_Settings().numberOfTimers).contains(selectTimerIndex) else { return }
         
-        if areHapticsAvailable {
+        if hapticsAreAvailable {
             if 0 == selectTimerIndex || (RVS_AmbiaMara_Settings().numberOfTimers - 1) == selectTimerIndex {
                 _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
                 _impactFeedbackGenerator?.prepare()
@@ -843,7 +843,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             _currentTimer.finalTime = 0
         }
 
-        if areHapticsAvailable {
+        if hapticsAreAvailable {
             _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
             _impactFeedbackGenerator?.prepare()
         }
@@ -862,7 +862,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      - parameter inButton: The button that was hit.
     */
     @IBAction func setButtonHit(_ inButton: UIButton) {
-        if areHapticsAvailable {
+        if hapticsAreAvailable {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
         }
@@ -887,7 +887,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     */
     @IBAction func trashHit(_: Any) {
         if 1 < _timerBarItems.count {
-            if areHapticsAvailable {
+            if hapticsAreAvailable {
                 _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
                 _impactFeedbackGenerator?.prepare()
             }
@@ -912,7 +912,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
 
             let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive, handler: { [weak self] _ in
                 if let currentTimer = self?._currentTimer {
-                    if self?.areHapticsAvailable ?? false {
+                    if self?.hapticsAreAvailable ?? false {
                         self?._impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
                         self?._impactFeedbackGenerator?.prepare()
                     }
@@ -926,7 +926,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             alertController.addAction(okAction)
 
             let cancelAction = UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel, handler: { [weak self] _ in
-                if self?.areHapticsAvailable ?? false {
+                if self?.hapticsAreAvailable ?? false {
                     self?._selectionFeedbackGenerator?.selectionChanged()
                     self?._selectionFeedbackGenerator?.prepare()
                 }
@@ -947,7 +947,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         if Self._maximumNumberOfTimers > _timerBarItems.count {
             guard let setupContainerView = setupContainerView,
                   let view = view else { return }
-            if areHapticsAvailable {
+            if hapticsAreAvailable {
                 _selectionFeedbackGenerator?.selectionChanged()
                 _selectionFeedbackGenerator?.prepare()
             }
@@ -963,7 +963,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                                          setupContainerView.alpha = 1.0
                                         },
                            completion: { [weak self] _ in
-                                            if self?.areHapticsAvailable ?? false {
+                                            if self?.hapticsAreAvailable ?? false {
                                                 self?._impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.soft.rawValue))
                                                 self?._impactFeedbackGenerator?.prepare()
                                                 self?.setUpToolbar()
@@ -980,7 +980,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      - parameter: ignored (and can be omitted).
     */
     @IBAction func startButtonHit(_: Any! = nil) {
-        if areHapticsAvailable {
+        if hapticsAreAvailable {
             _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.heavy.rawValue))
             _impactFeedbackGenerator?.prepare()
         }
@@ -995,7 +995,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      */
     @IBAction func displayAlarmSetupPopover(_ inButtonItem: UIBarButtonItem) {
         if let popoverController = storyboard?.instantiateViewController(identifier: RVS_SetAlarmAmbiaMara_PopoverViewController.storyboardID) as? RVS_SetAlarmAmbiaMara_PopoverViewController {
-            if areHapticsAvailable {
+            if hapticsAreAvailable {
                 _selectionFeedbackGenerator?.selectionChanged()
                 _selectionFeedbackGenerator?.prepare()
             }
@@ -1017,7 +1017,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      */
     @IBAction func displaySettingsPopover(_ inButtonItem: UIBarButtonItem) {
         if let popoverController = storyboard?.instantiateViewController(identifier: RVS_SettingsAmbiaMara_PopoverViewController.storyboardID) as? RVS_SettingsAmbiaMara_PopoverViewController {
-            if areHapticsAvailable {
+            if hapticsAreAvailable {
                 _selectionFeedbackGenerator?.selectionChanged()
                 _selectionFeedbackGenerator?.prepare()
             }
@@ -1039,7 +1039,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     @objc func selectToolbarItem(_ inToolbarButton: UIBarButtonItem) {
         let tag = inToolbarButton.tag
         guard (1...RVS_AmbiaMara_Settings().numberOfTimers).contains(tag) else { return }
-        if areHapticsAvailable {
+        if hapticsAreAvailable {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
         }
