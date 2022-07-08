@@ -1,5 +1,6 @@
 **Version 2.2.6.3026** *TBD*
 - Added the RVS_UIKit_Toolbox dependency.
+- Updated the RVS_Generic_Swift_Toolbox dependency.
 
 **Version 2.2.5.3025** *June 28, 2022*
 - The time set slider now changes color, in response to its location, in the time scale.
