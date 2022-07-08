@@ -8,7 +8,7 @@
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  */
 
-import UIKit
+import CoreGraphics
 
 /* ###################################################################################################################################### */
 // MARK: CGFloat Extension
