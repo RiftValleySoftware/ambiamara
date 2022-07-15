@@ -496,6 +496,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         addBarButtonItem?.accessibilityHint = "SLUG-ACC-ADD-TIMER-BUTTON".accessibilityLocalizedVariant
         clearButton?.accessibilityHint = "SLUG-ACC-CLEAR-BUTTON".accessibilityLocalizedVariant
         
+        guard 2 < _pickerViewData.count else { return }
+        
         stateLabel?.accessibilityHint = "SLUG-ACC-STATE".accessibilityLocalizedVariant
         hoursLabel?.accessibilityHint = String(format: "SLUG-ACC-0-LABEL-FORMAT".accessibilityLocalizedVariant, _pickerViewData[0].upperBound - 1)
         minutesLabel?.accessibilityHint = String(format: "SLUG-ACC-1-LABEL-FORMAT".accessibilityLocalizedVariant, _pickerViewData[1].upperBound - 1)
@@ -1087,7 +1089,10 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDataSource {
      - parameter: The picker view (ignored)
      - parameter numberOfRowsInComponent: The 0-based index of the component we are querying.
     */
-    func pickerView(_: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int { (_pickerViewData[inComponent].max() ?? -1) + 1 }
+    func pickerView(_: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int {
+        guard (0..<_pickerViewData.count).contains(inComponent) else { return 0 }
+        return (_pickerViewData[inComponent].max() ?? -1) + 1
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -1177,6 +1182,7 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
                                 ]
 
         if 2 == hasValue.count, // Belt and suspenders...
+           (0..<_pickerViewData.count).contains(inComponent),
            0 < inRow
             || (hasValue[0] && PickerComponents.minute.rawValue == inComponent)
             || ((hasValue[0] || hasValue[1]) && PickerComponents.second.rawValue == inComponent) {
@@ -1208,7 +1214,9 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewAccessibilityDelegat
      - returns: An accessibility string for the component.
     */
     func pickerView(_ inPickerView: UIPickerView, accessibilityHintForComponent inComponent: Int) -> String? {
-        String(format: "SLUG-ACC-\(inComponent)-FORMAT".accessibilityLocalizedVariant,
+        guard (0..<_pickerViewData.count).contains(inComponent) else { return nil }
+        
+        return String(format: "SLUG-ACC-\(inComponent)-FORMAT".accessibilityLocalizedVariant,
                _pickerViewData[inComponent].upperBound - 1,
                inPickerView.selectedRow(inComponent: inComponent)
         )

@@ -82,47 +82,46 @@ extension RVS_AmbiaMara_BaseViewController {
         navigationItem.compactAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.standardAppearance = appearance
+        
+        guard let view = view else { return }   // Oooh... If this fails, we in deep shit.
+        
+        _myBackgroundGradientView = UIImageView()
+        
+        if let backgroundGradientView = _myBackgroundGradientView {
+            backgroundGradientView.image = _backgroundGradientImage
+            backgroundGradientView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundGradientView.contentMode = .scaleToFill
+            view.insertSubview(backgroundGradientView, at: 0)
+            
+            backgroundGradientView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundGradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            backgroundGradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            backgroundGradientView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            backgroundGradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            
+            // No watermark for high contrast or reduced transparency mode.
+            if !isHighContrastMode,
+               !isReducedTransparencyMode {
+                _myCenterImageView = UIImageView()
+                if let centerImageView = _myCenterImageView {
+                    centerImageView.image = _watermarkImage
+                    centerImageView.alpha = Self._watermarkAlpha
+                    centerImageView.translatesAutoresizingMaskIntoConstraints = false
+                    centerImageView.contentMode = .scaleAspectFit
+                    centerImageView.tintColor = UIColor(named: "CenterImageColor")
+                    backgroundGradientView.insertSubview(centerImageView, at: 1)
 
-        if let view = view {
-            _myBackgroundGradientView = UIImageView()
-            if let backgroundGradientView = _myBackgroundGradientView,
-               let backGroundImage = _backgroundGradientImage {
-                backgroundGradientView.image = backGroundImage
-                backgroundGradientView.translatesAutoresizingMaskIntoConstraints = false
-                backgroundGradientView.contentMode = .scaleToFill
-                view.insertSubview(backgroundGradientView, at: 0)
-                
-                backgroundGradientView.translatesAutoresizingMaskIntoConstraints = false
-                backgroundGradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-                backgroundGradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-                backgroundGradientView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-                backgroundGradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-                
-                // No watermark for high contrast or reduced transparency mode.
-                if !isHighContrastMode,
-                   !isReducedTransparencyMode {
-                    _myCenterImageView = UIImageView()
-                    if let centerImageView = _myCenterImageView,
-                       let centerImage = _watermarkImage {
-                        centerImageView.image = centerImage
-                        centerImageView.alpha = Self._watermarkAlpha
-                        centerImageView.translatesAutoresizingMaskIntoConstraints = false
-                        centerImageView.contentMode = .scaleAspectFit
-                        centerImageView.tintColor = UIColor(named: "CenterImageColor")
-                        backgroundGradientView.insertSubview(centerImageView, at: 1)
+                    centerImageView.centerXAnchor.constraint(equalTo: backgroundGradientView.centerXAnchor).isActive = true
+                    centerImageView.centerYAnchor.constraint(equalTo: backgroundGradientView.centerYAnchor).isActive = true
+                    
+                    centerImageView.widthAnchor.constraint(lessThanOrEqualTo: backgroundGradientView.widthAnchor,
+                                                           multiplier: Self._watermarkSizeCoefficient).isActive = true
+                    centerImageView.heightAnchor.constraint(lessThanOrEqualTo: backgroundGradientView.heightAnchor,
+                                                            multiplier: Self._watermarkSizeCoefficient).isActive = true
 
-                        centerImageView.centerXAnchor.constraint(equalTo: backgroundGradientView.centerXAnchor).isActive = true
-                        centerImageView.centerYAnchor.constraint(equalTo: backgroundGradientView.centerYAnchor).isActive = true
-                        
-                        centerImageView.widthAnchor.constraint(lessThanOrEqualTo: backgroundGradientView.widthAnchor,
-                                                               multiplier: Self._watermarkSizeCoefficient).isActive = true
-                        centerImageView.heightAnchor.constraint(lessThanOrEqualTo: backgroundGradientView.heightAnchor,
-                                                                multiplier: Self._watermarkSizeCoefficient).isActive = true
-
-                        if let aspectConstraint = centerImageView.autoLayoutAspectConstraint(aspectRatio: 1.0) {
-                            aspectConstraint.isActive = true
-                            backgroundGradientView.addConstraint(aspectConstraint)
-                        }
+                    if let aspectConstraint = centerImageView.autoLayoutAspectConstraint(aspectRatio: 1.0) {
+                        aspectConstraint.isActive = true
+                        backgroundGradientView.addConstraint(aspectConstraint)
                     }
                 }
             }
