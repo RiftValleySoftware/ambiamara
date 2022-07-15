@@ -1,4 +1,4 @@
-**Version 2.2.6.3026** *TBD*
+**Version 2.2.6.3026** *July 15, 2022*
 - Added the RVS_UIKit_Toolbox dependency.
 - Updated the RVS_Generic_Swift_Toolbox dependency.
 - Internal work to make sure that there are sanity checks in the set screen (should never be needed, but belt and suspenders).
