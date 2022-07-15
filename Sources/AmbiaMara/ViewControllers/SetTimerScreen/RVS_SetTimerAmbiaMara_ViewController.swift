@@ -471,18 +471,15 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // We do not do auto hide, when in voiceover mode.
-        if UIAccessibility.isVoiceOverRunning {
+        // Voiceover mode does not work well with gestures.
+        if isVoiceOverRunning {
             RVS_AmbiaMara_Settings().autoHideToolbar = false
+            RVS_AmbiaMara_Settings().displayToolbar = true
         }
 
         hoursLabel?.text = (hoursLabel?.text ?? "ERROR").localizedVariant
         minutesLabel?.text = (minutesLabel?.text ?? "ERROR").localizedVariant
         secondsLabel?.text = (secondsLabel?.text ?? "ERROR").localizedVariant
-        
-        // Voiceover mode does not work well with gestures.
-        if UIAccessibility.isVoiceOverRunning {
-            RVS_AmbiaMara_Settings().displayToolbar = true
-        }
 
         settingsBarButtonItem?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON-LABEL".accessibilityLocalizedVariant
         settingsBarButtonItem?.accessibilityHint = "SLUG-ACC-SETTINGS-BUTTON".accessibilityLocalizedVariant
@@ -550,21 +547,21 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         setAlarmIcon()
 
         // First time through, we do a "fade in" animation.
-        if let startupLogo = startupLogo,
+        if nil != startupLogo,
            inIsAnimated {
-            startupLogo.alpha = 1.0
+            startupLogo?.alpha = 1.0
             containerView?.alpha = Self._initialSettingsItemAlpha
             alarmSetBarButtonItem?.isEnabled = false
             settingsBarButtonItem?.isEnabled = false
             setTimePickerView?.isUserInteractionEnabled = false // Don't let the user use the picker, until the animation is done.
             UIView.animate(withDuration: Self._fadeInAnimationPeriodInSeconds,
                            animations: { [weak self] in
-                                            startupLogo.alpha = 0.0
+                                            self?.startupLogo?.alpha = 0.0
                                             self?.containerView?.alpha = 1.0
                                         },
                            completion: { [weak self] _ in
                                             DispatchQueue.main.async {
-                                                startupLogo.removeFromSuperview()
+                                                self?.startupLogo?.removeFromSuperview()
                                                 self?.startupLogo = nil
                                                 self?.alarmSetBarButtonItem?.isEnabled = true
                                                 self?.settingsBarButtonItem?.isEnabled = true
@@ -627,6 +624,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     */
     func setUpToolbar() {
         if let items = bottomToolbar?.items {
+            guard 1 < items.count else { return }
             var newItems: [UIBarButtonItem] = [items[0], items[1], items[items.count - 2], items[items.count - 1]]
             if 1 < RVS_AmbiaMara_Settings().numberOfTimers {
                 let currentTag = _currentTimer.index + 1
@@ -635,25 +633,27 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                     let tag = timer.offset + 1
                     let timerButton = UIBarButtonItem()
                     let startTimeAsComponents = timer.element.startTimeAsComponents
-                    var timeString: String
-                    if 0 < startTimeAsComponents[0] {
-                        timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
-                    } else if 0 < startTimeAsComponents[1] {
-                        timeString = "\(String(format: "%d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
-                    } else {
-                        timeString = String(startTimeAsComponents[2])
+                    if 2 < startTimeAsComponents.count {
+                        var timeString: String
+                        if 0 < startTimeAsComponents[0] {
+                            timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+                        } else if 0 < startTimeAsComponents[1] {
+                            timeString = "\(String(format: "%d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+                        } else {
+                            timeString = String(startTimeAsComponents[2])
+                        }
+                        
+                        timerButton.tag = tag
+                        let imageName = "\(tag).circle\(currentTag != tag ? "" : ".fill")"
+                        timerButton.image = UIImage(systemName: imageName)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large))
+                        timerButton.accessibilityLabel = String(format: "SLUG-ACC-TIMER-BUTTON-LABEL-FORMAT".accessibilityLocalizedVariant, tag)
+                        timerButton.accessibilityHint = String(format: "SLUG-ACC-TIMER-BUTTON-HINT-\(currentTag == tag ? "IS" : "NOT")-FORMAT".accessibilityLocalizedVariant, timeString)
+                        timerButton.isEnabled = currentTag != tag
+                        timerButton.target = self
+                        timerButton.tintColor = view?.tintColor
+                        timerButton.action = #selector(selectToolbarItem(_:))
+                        newItems.insert(timerButton, at: 2 + timer.offset)
                     }
-                    
-                    timerButton.tag = tag
-                    let imageName = "\(tag).circle\(currentTag != tag ? "" : ".fill")"
-                    timerButton.image = UIImage(systemName: imageName)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large))
-                    timerButton.accessibilityLabel = String(format: "SLUG-ACC-TIMER-BUTTON-LABEL-FORMAT".accessibilityLocalizedVariant, tag)
-                    timerButton.accessibilityHint = String(format: "SLUG-ACC-TIMER-BUTTON-HINT-\(currentTag == tag ? "IS" : "NOT")-FORMAT".accessibilityLocalizedVariant, timeString)
-                    timerButton.isEnabled = currentTag != tag
-                    timerButton.target = self
-                    timerButton.tintColor = view?.tintColor
-                    timerButton.action = #selector(selectToolbarItem(_:))
-                    newItems.insert(timerButton, at: 2 + timer.offset)
                 }
                 trashBarButtonItem?.accessibilityHint = String(format: "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT".accessibilityLocalizedVariant, currentTag)
             } else {
@@ -691,7 +691,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
            .start != _state {
             let timeAsComponents = _currentTimer.startTimeAsComponents
             var label = ""
-            guard 3 == timeAsComponents.count else { return }
+            guard 2 < timeAsComponents.count else { return }
             if 0 < timeAsComponents[0] {
                 label = String(format: " %d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
             } else if 0 < timeAsComponents[1] {
@@ -708,7 +708,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
            .warn != _state {
             let timeAsComponents = _currentTimer.warnTimeAsComponents
             var label = ""
-            guard 3 == timeAsComponents.count else { return }
+            guard 2 < timeAsComponents.count else { return }
             if 0 < timeAsComponents[0] {
                 label = String(format: " %d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
             } else if 0 < timeAsComponents[1] {
@@ -725,7 +725,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
            .final != _state {
             let timeAsComponents = _currentTimer.finalTimeAsComponents
             var label = ""
-            guard 3 == timeAsComponents.count else { return }
+            guard 2 < timeAsComponents.count else { return }
             if 0 < timeAsComponents[0] {
                 label = String(format: " %d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
             } else if 0 < timeAsComponents[1] {
@@ -777,6 +777,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             timeAsComponents = _currentTimer.finalTimeAsComponents
         }
         
+        guard 2 < timeAsComponents.count else { return }
+
         setTimePickerView?.accessibilityHint = String(format: "SLUG-CURRENT-TIMER-TIME-FORMAT".localizedVariant, timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
 
         setTimePickerView?.reloadAllComponents()
@@ -894,8 +896,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
 
             let timerTag = _currentTimer.index + 1
             let startTimeAsComponents = _currentTimer.startTimeAsComponents
+            guard 2 < startTimeAsComponents.count else { return }
+
             var timeString: String
-            
+
             if 0 < startTimeAsComponents[0] {
                 timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
             } else if 0 < startTimeAsComponents[1] {
@@ -946,7 +950,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     @IBAction func addHit(_: Any) {
         if Self._maximumNumberOfTimers > _timerBarItems.count {
             guard let setupContainerView = setupContainerView,
-                  let view = view else { return }
+                  let view = view
+            else { return }
             if hapticsAreAvailable {
                 _selectionFeedbackGenerator?.selectionChanged()
                 _selectionFeedbackGenerator?.prepare()
