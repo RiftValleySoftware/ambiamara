@@ -1,4 +1,4 @@
-¡AmbiaMara es el mejor temporizador de cuenta regresiva!
+¡Rift Valley Timer es el mejor temporizador de cuenta regresiva!
 
 Cuenta regresiva, a partir de un tiempo preestablecido, en intervalos de un segundo.
 

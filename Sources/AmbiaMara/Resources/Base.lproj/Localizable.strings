@@ -116,7 +116,7 @@
 "SLUG-POPOVER-AUTO-HIDE-SETTING-LABEL"          =   "Auto-Hide Toolbar";
 
 /* The button that will select the "About AmbiaMara" screen. NOTE FOR TRANSLATOR: "AmbiaMara" is the app name, so is not translated. */
-"SLUG-ABOUT-AMBIAMARA-BUTTON"                   =   "About AmbiaMara";
+"SLUG-ABOUT-AMBIAMARA-BUTTON"                   =   "About Rift Valley Timer";
 
 // MARK: Alarm Settings Popover (Accessed Via the "Bell" Navigation Bar Button, at the Top, Right of the Screen)
 
@@ -126,4 +126,4 @@
 // MARK: ABOUT SCREEN
 
 /* The navigation bar title for the screen. */
-"SLUG-ABOUT-TITLE"                              =   "About AmbiaMara";
+"SLUG-ABOUT-TITLE"                              =   "About Rift Valley Timer";

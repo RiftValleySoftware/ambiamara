@@ -1,4 +1,4 @@
-AmbiaMara is the ultimate countdown timer!
+Rift Valley Timer is the ultimate countdown timer!
 
 It will count down, from a preset time, in intervals of one second.
 

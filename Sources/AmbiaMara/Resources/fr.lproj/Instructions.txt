@@ -1,4 +1,4 @@
-AmbiaMara est le compte à rebours dé décompte ultime !
+Rift Valley Timer est le compte à rebours dé décompte ultime !
 
 Il comptera à rebours, à partir d’une heure prédéfinie, par intervalles d’une seconde.
 

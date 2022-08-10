@@ -1,3 +1,6 @@
+**Version 2.3.0.3027** *August 10, 2022*
+- Got pinged by a software developer in Switzerland, saying that the name "AmbiaMara" infringes on their copyright. I don't think it does, but I'm not interested in fighting about it, so I changed the name to "Rift Valley Timer."
+
 **Version 2.2.6.3026** *July 15, 2022*
 - Added the RVS_UIKit_Toolbox dependency.
 - Updated the RVS_Generic_Swift_Toolbox dependency.

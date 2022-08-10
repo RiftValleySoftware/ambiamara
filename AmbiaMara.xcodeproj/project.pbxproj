@@ -98,7 +98,7 @@
 		D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AboutAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
 		D44E7712281AD1B000B491EF /* AmbiaMara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AmbiaMara.entitlements; sourceTree = "<group>"; };
 		D474E5DD282B26E900102B9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text; name = Base; path = Base.lproj/Instructions.txt; sourceTree = "<group>"; };
-		D47C029B2819CA6500D359F5 /* AmbiaMara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbiaMara.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D47C029B2819CA6500D359F5 /* Rift Valley Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rift Valley Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D47C029E2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_AppSceneDelegate.swift; sourceTree = "<group>"; };
 		D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_SetTimerAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
 		D47C02A52819CA6500D359F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RVS_AmbiaMara_Main.storyboard; sourceTree = "<group>"; };
@@ -229,7 +229,7 @@
 		D47C029C2819CA6500D359F5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D47C029B2819CA6500D359F5 /* AmbiaMara.app */,
+				D47C029B2819CA6500D359F5 /* Rift Valley Timer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -338,9 +338,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D47C029A2819CA6500D359F5 /* AmbiaMara */ = {
+		D47C029A2819CA6500D359F5 /* Rift Valley Timer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D47C02AF2819CA6800D359F5 /* Build configuration list for PBXNativeTarget "AmbiaMara" */;
+			buildConfigurationList = D47C02AF2819CA6800D359F5 /* Build configuration list for PBXNativeTarget "Rift Valley Timer" */;
 			buildPhases = (
 				D4C4B7022819CD7300E22ECA /* SwiftLint */,
 				D47C02972819CA6500D359F5 /* Sources */,
@@ -352,7 +352,7 @@
 			);
 			dependencies = (
 			);
-			name = AmbiaMara;
+			name = "Rift Valley Timer";
 			packageProductDependencies = (
 				D4CD2E7E284697E100400AB0 /* RVS_Generic_Swift_Toolbox */,
 				D40A69382846A05D0010A58E /* RVS_Persistent_Prefs */,
@@ -361,7 +361,7 @@
 				D4079933287731860058EAF4 /* RVS_UIKit_Toolbox */,
 			);
 			productName = AmbiaMara;
-			productReference = D47C029B2819CA6500D359F5 /* AmbiaMara.app */;
+			productReference = D47C029B2819CA6500D359F5 /* Rift Valley Timer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -402,7 +402,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D47C029A2819CA6500D359F5 /* AmbiaMara */,
+				D47C029A2819CA6500D359F5 /* Rift Valley Timer */,
 			);
 		};
 /* End PBXProject section */
@@ -664,10 +664,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ProjectMeta/AmbiaMara.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3026;
+				CURRENT_PROJECT_VERSION = 3027;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Meta/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Rift Valley Timer";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = RVS_AmbiaMara_LaunchScreen;
@@ -682,7 +683,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.6;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -699,10 +700,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ProjectMeta/AmbiaMara.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3026;
+				CURRENT_PROJECT_VERSION = 3027;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Meta/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Rift Valley Timer";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = RVS_AmbiaMara_LaunchScreen;
@@ -717,7 +719,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.6;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -739,7 +741,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D47C02AF2819CA6800D359F5 /* Build configuration list for PBXNativeTarget "AmbiaMara" */ = {
+		D47C02AF2819CA6800D359F5 /* Build configuration list for PBXNativeTarget "Rift Valley Timer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D47C02B02819CA6800D359F5 /* Debug */,
