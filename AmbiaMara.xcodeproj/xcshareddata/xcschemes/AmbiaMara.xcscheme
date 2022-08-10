@@ -24,7 +24,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D47C029A2819CA6500D359F5"
-               BuildableName = "RVS Timer.app"
+               BuildableName = "Rift Valley Timer.app"
                BlueprintName = "Rift Valley Timer"
                ReferencedContainer = "container:AmbiaMara.xcodeproj">
             </BuildableReference>
@@ -54,7 +54,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D47C029A2819CA6500D359F5"
-            BuildableName = "RVS Timer.app"
+            BuildableName = "Rift Valley Timer.app"
             BlueprintName = "Rift Valley Timer"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
@@ -71,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D47C029A2819CA6500D359F5"
-            BuildableName = "RVS Timer.app"
+            BuildableName = "Rift Valley Timer.app"
             BlueprintName = "Rift Valley Timer"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>

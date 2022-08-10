@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RVS_SetAlarmAmbiaMara_PopoverViewController Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/RVS_SetAlarmAmbiaMara_PopoverViewController" class="dashAnchor"></a>
+
+    <a title="RVS_SetAlarmAmbiaMara_PopoverViewController Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+           Docs
+        </a>
+         (100% documented)
+      </p>
+    
+      <div class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </div>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/ambiamara">
+            <img class="header-icon" src="../img/gh.png" alt="GitHub"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html"> Reference</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      RVS_SetAlarmAmbiaMara_PopoverViewController Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_AboutAmbiaMara_ViewController.html">RVS_AboutAmbiaMara_ViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_AmbiaMara_AppSceneDelegate.html">RVS_AmbiaMara_AppSceneDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_AmbiaMara_BaseViewController.html">RVS_AmbiaMara_BaseViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_AmbiaMara_Settings.html">RVS_AmbiaMara_Settings</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_AmbiaMara_Settings/TimerSettings.html">– TimerSettings</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_AmbiaMara_Settings/Keys.html">– Keys</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_RunningTimerAmbiaMara_ViewController.html">RVS_RunningTimerAmbiaMara_ViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_SetAlarmAmbiaMara_PopoverViewController.html">RVS_SetAlarmAmbiaMara_PopoverViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_SetTimerAmbiaMara_ViewController.html">RVS_SetTimerAmbiaMara_ViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_SetTimerAmbiaMara_ViewController/PickerComponents.html">– PickerComponents</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_SetTimerAmbiaMara_ViewController/States.html">– States</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_SettingsAmbiaMara_PopoverViewController.html">RVS_SettingsAmbiaMara_PopoverViewController</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>RVS_SetAlarmAmbiaMara_PopoverViewController</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">RVS_SetAlarmAmbiaMara_PopoverViewController</span> <span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RVS_SetAlarmAmbiaMara_PopoverViewController</span><span class="p">:</span> <span class="kt">UIPickerViewDataSource</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RVS_SetAlarmAmbiaMara_PopoverViewController</span><span class="p">:</span> <span class="kt">UIPickerViewDelegate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RVS_SetAlarmAmbiaMara_PopoverViewController</span><span class="p">:</span> <span class="kt">UIPickerViewAccessibilityDelegate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RVS_SetAlarmAmbiaMara_PopoverViewController</span><span class="p">:</span> <span class="kt">AVAudioPlayerDelegate</span></code></pre>
+
+                </div>
+              </div>
+            <p>This is the view controller for the alarm setup popover.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC11_pickerFont33_0B0D02E9DA028427800E0F2FE1A0A93CLLSo6UIFontCvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/_pickerFont" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC11_pickerFont33_0B0D02E9DA028427800E0F2FE1A0A93CLLSo6UIFontCvpZ">_pickerFont</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The size of the picker font</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">_pickerFont</span><span class="p">:</span> <span class="kt">UIFont</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC28_pickerPaddingInDisplayUnits33_0B0D02E9DA028427800E0F2FE1A0A93CLL12CoreGraphics7CGFloatVvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/_pickerPaddingInDisplayUnits" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC28_pickerPaddingInDisplayUnits33_0B0D02E9DA028427800E0F2FE1A0A93CLL12CoreGraphics7CGFloatVvpZ">_pickerPaddingInDisplayUnits</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The padding on either side of the labels we use as picker rows.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">_pickerPaddingInDisplayUnits</span><span class="p">:</span> <span class="kt">CGFloat</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC20_playSoundImageNames33_0B0D02E9DA028427800E0F2FE1A0A93CLLSaySSGvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/_playSoundImageNames" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC20_playSoundImageNames33_0B0D02E9DA028427800E0F2FE1A0A93CLLSaySSGvpZ">_playSoundImageNames</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The SFSymbols names for the play sound button.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">_playSoundImageNames</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC12storyboardIDSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/storyboardID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC12storyboardIDSSvpZ">storyboardID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The storyboard ID for this controller.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">storyboardID</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC12_audioPlayer33_0B0D02E9DA028427800E0F2FE1A0A93CLLSo07AVAudioM0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/_audioPlayer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC12_audioPlayer33_0B0D02E9DA028427800E0F2FE1A0A93CLLSo07AVAudioM0CSgvp">_audioPlayer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the audio player (for sampling sounds).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">_audioPlayer</span><span class="p">:</span> <span class="kt">AVAudioPlayer</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC27_selectionFeedbackGenerator33_0B0D02E9DA028427800E0F2FE1A0A93CLLSo011UISelectionmN0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/_selectionFeedbackGenerator" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC27_selectionFeedbackGenerator33_0B0D02E9DA028427800E0F2FE1A0A93CLLSo011UISelectionmN0CSgvp">_selectionFeedbackGenerator</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This will provide haptic/audio feedback for subtle events.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">_selectionFeedbackGenerator</span><span class="p">:</span> <span class="kt">UISelectionFeedbackGenerator</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC15_soundSelection33_0B0D02E9DA028427800E0F2FE1A0A93CLLSaySSGvp"></a>
+                    <a name="//apple_ref/swift/Property/_soundSelection" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC15_soundSelection33_0B0D02E9DA028427800E0F2FE1A0A93CLLSaySSGvp">_soundSelection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This aggregates our available sounds.
+The sounds are files, stored in the resources, so this simply gets them, and stores them as path URIs.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">_soundSelection</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC15_isSoundPlaying33_0B0D02E9DA028427800E0F2FE1A0A93CLLSbvp"></a>
+                    <a name="//apple_ref/swift/Property/_isSoundPlaying" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC15_isSoundPlaying33_0B0D02E9DA028427800E0F2FE1A0A93CLLSbvp">_isSoundPlaying</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If true, then the currently selected sound is playing.
+This is set or cleared by the &ldquo;play sound&rdquo; button.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">_isSoundPlaying</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC02myK0AA0d1_ecgh1_jK0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/myController" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC02myK0AA0d1_ecgh1_jK0CSgvp">myController</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This references the presenting view controller.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">myController</span><span class="p">:</span> <span class="kt"><a href="../Classes/RVS_SetTimerAmbiaMara_ViewController.html">RVS_SetTimerAmbiaMara_ViewController</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(py)alarmModeSegmentedSwitch"></a>
+                    <a name="//apple_ref/swift/Property/alarmModeSegmentedSwitch" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(py)alarmModeSegmentedSwitch">alarmModeSegmentedSwitch</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The segmented switch that controls the alarm mode.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">alarmModeSegmentedSwitch</span><span class="p">:</span> <span class="kt">UISegmentedControl</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(py)vibrateSwitchStackView"></a>
+                    <a name="//apple_ref/swift/Property/vibrateSwitchStackView" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(py)vibrateSwitchStackView">vibrateSwitchStackView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The stach view that holds the vibrate switch.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">vibrateSwitchStackView</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(py)vibrateSwitch"></a>
+                    <a name="//apple_ref/swift/Property/vibrateSwitch" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(py)vibrateSwitch">vibrateSwitch</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The vibrate switch (only available on iPhones).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">vibrateSwitch</span><span class="p">:</span> <span class="kt">UISwitch</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(py)vibrateSwitchLabelButton"></a>
+                    <a name="//apple_ref/swift/Property/vibrateSwitchLabelButton" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(py)vibrateSwitchLabelButton">vibrateSwitchLabelButton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The label for the switch is actually a button, that toggles the switch.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">vibrateSwitchLabelButton</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(py)soundsPickerView"></a>
+                    <a name="//apple_ref/swift/Property/soundsPickerView" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(py)soundsPickerView">soundsPickerView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The picker view for the sounds. Only shown if the seg switch is set to sound.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">soundsPickerView</span><span class="p">:</span> <span class="kt">UIPickerView</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(py)soundSelectionStackView"></a>
+                    <a name="//apple_ref/swift/Property/soundSelectionStackView" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(py)soundSelectionStackView">soundSelectionStackView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The stack view that holds the sound selection picker, and the play sound button.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">soundSelectionStackView</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(py)soundPlayButton"></a>
+                    <a name="//apple_ref/swift/Property/soundPlayButton" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(py)soundPlayButton">soundPlayButton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the &ldquo;play sound&rdquo; button.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">soundPlayButton</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Class%20Variables"></a>
+                <a name="//apple_ref/swift/Section/Class Variables" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Class%20Variables"></a>
+                  <h3 class="section-name"><span>Class Variables</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC08settingsI20HeightInDisplayUnits12CoreGraphics7CGFloatVvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/settingsPopoverHeightInDisplayUnits" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC08settingsI20HeightInDisplayUnits12CoreGraphics7CGFloatVvpZ">settingsPopoverHeightInDisplayUnits</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The popover height. We adjust for the missing switch, if vibrate is not available.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="k">var</span> <span class="nv">settingsPopoverHeightInDisplayUnits</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Base%20Class%20Overrides"></a>
+                <a name="//apple_ref/swift/Section/Base Class Overrides" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Base%20Class%20Overrides"></a>
+                  <h3 class="section-name"><span>Base Class Overrides</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)viewDidLoad"></a>
+                    <a name="//apple_ref/swift/Method/viewDidLoad()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)viewDidLoad">viewDidLoad()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the hierarchy has loaded. We set up the initial states, and all the localization and accessibility.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)viewWillDisappear:"></a>
+                    <a name="//apple_ref/swift/Method/viewWillDisappear(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)viewWillDisappear:">viewWillDisappear(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called just before the screen disappears.
+We use this to kill the sound (if playing).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewWillDisappear</span><span class="p">(</span><span class="n">_</span> <span class="nv">inAnimated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inIsAnimated</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>True, if the disappearance is animated.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Instance Methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Methods"></a>
+                  <h3 class="section-name"><span>Instance Methods</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC21setUpForSoundPlayModeyyF"></a>
+                    <a name="//apple_ref/swift/Method/setUpForSoundPlayMode()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC21setUpForSoundPlayModeyyF">setUpForSoundPlayMode()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets the image to the play button, depending on whether or not the sound is playing.
+It also starts or stops the sound play.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">setUpForSoundPlayMode</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC13playThisSoundyy10Foundation3URLVF"></a>
+                    <a name="//apple_ref/swift/Method/playThisSound(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17Rift_Valley_Timer43RVS_SetAlarmAmbiaMara_PopoverViewControllerC13playThisSoundyy10Foundation3URLVF">playThisSound(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This plays any sound, using a given URL.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">playThisSound</span><span class="p">(</span><span class="n">_</span> <span class="nv">inSoundURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inSoundURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>This is the URI to the sound resource.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Callbacks"></a>
+                <a name="//apple_ref/swift/Section/Callbacks" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Callbacks"></a>
+                  <h3 class="section-name"><span>Callbacks</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)alarmModeSegmentedSwitchHit:"></a>
+                    <a name="//apple_ref/swift/Method/alarmModeSegmentedSwitchHit(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)alarmModeSegmentedSwitchHit:">alarmModeSegmentedSwitchHit(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the alarm mode is changed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">alarmModeSegmentedSwitchHit</span><span class="p">(</span><span class="n">_</span> <span class="nv">inSegmentedSwitch</span><span class="p">:</span> <span class="kt">UISegmentedControl</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inSegmentedSwitch</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The segmented switch that changed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)vibrateSwitchChanged:"></a>
+                    <a name="//apple_ref/swift/Method/vibrateSwitchChanged(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)vibrateSwitchChanged:">vibrateSwitchChanged(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the vibrate switch, or its label, changes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">vibrateSwitchChanged</span><span class="p">(</span><span class="n">_</span> <span class="nv">inSender</span><span class="p">:</span> <span class="kt">UIControl</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inSender</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The switch that changed, or the label button.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)soundPlayButtonHit:"></a>
+                    <a name="//apple_ref/swift/Method/soundPlayButtonHit(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)soundPlayButtonHit:">soundPlayButtonHit(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the &ldquo;play sound&rdquo; button is hit.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">soundPlayButtonHit</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/UIPickerViewDataSource%20Conformance"></a>
+                <a name="//apple_ref/swift/Section/UIPickerViewDataSource Conformance" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/UIPickerViewDataSource%20Conformance"></a>
+                  <h3 class="section-name"><span>UIPickerViewDataSource Conformance</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)numberOfComponentsInPickerView:"></a>
+                    <a name="//apple_ref/swift/Method/numberOfComponents(in:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)numberOfComponentsInPickerView:">numberOfComponents(in:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">numberOfComponents</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="kt">UIPickerView</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>in</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The picker view (ignored).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)pickerView:numberOfRowsInComponent:"></a>
+                    <a name="//apple_ref/swift/Method/pickerView(_:numberOfRowsInComponent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)pickerView:numberOfRowsInComponent:">pickerView(_:<wbr>numberOfRowsInComponent:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">pickerView</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">UIPickerView</span><span class="p">,</span> <span class="n">numberOfRowsInComponent</span> <span class="nv">inComponent</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>numberOfRowsInComponent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The 0-based index of the component we are querying.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/UIPickerViewDelegate%20Conformance"></a>
+                <a name="//apple_ref/swift/Section/UIPickerViewDelegate Conformance" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/UIPickerViewDelegate%20Conformance"></a>
+                  <h3 class="section-name"><span>UIPickerViewDelegate Conformance</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)pickerView:didSelectRow:inComponent:"></a>
+                    <a name="//apple_ref/swift/Method/pickerView(_:didSelectRow:inComponent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)pickerView:didSelectRow:inComponent:">pickerView(_:<wbr>didSelectRow:<wbr>inComponent:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is called when a row is selected.
+It verifies that the value is OK, and may change the selection, if not.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">pickerView</span><span class="p">(</span><span class="n">_</span> <span class="nv">inPickerView</span><span class="p">:</span> <span class="kt">UIPickerView</span><span class="p">,</span> <span class="n">didSelectRow</span> <span class="nv">inRow</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">inComponent</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inPickerView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The picker instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didSelectRow</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The 0-based row index, in the component.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inComponent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The component that contains the selected row (0-based index).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)pickerView:viewForRow:forComponent:reusingView:"></a>
+                    <a name="//apple_ref/swift/Method/pickerView(_:viewForRow:forComponent:reusing:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)pickerView:viewForRow:forComponent:reusingView:">pickerView(_:<wbr>viewForRow:<wbr>forComponent:<wbr>reusing:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This returns the view to display for the picker row.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">pickerView</span><span class="p">(</span><span class="n">_</span> <span class="nv">inPickerView</span><span class="p">:</span> <span class="kt">UIPickerView</span><span class="p">,</span> <span class="n">viewForRow</span> <span class="nv">inRow</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">forComponent</span> <span class="nv">inComponent</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">reusing</span> <span class="nv">inView</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">UIView</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inPickerView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The picker instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>viewForRow</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The 0-based row index to be displayed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>forComponent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The 0-based component index for the row.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reusing</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If a view will be reused, we&rsquo;ll use that, instead.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new view, containing the row. If it is selected, it is displayed as reversed.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/UIPickerViewAccessibilityDelegate%20Conformance"></a>
+                <a name="//apple_ref/swift/Section/UIPickerViewAccessibilityDelegate Conformance" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/UIPickerViewAccessibilityDelegate%20Conformance"></a>
+                  <h3 class="section-name"><span>UIPickerViewAccessibilityDelegate Conformance</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)pickerView:accessibilityHintForComponent:"></a>
+                    <a name="//apple_ref/swift/Method/pickerView(_:accessibilityHintForComponent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)pickerView:accessibilityHintForComponent:">pickerView(_:<wbr>accessibilityHintForComponent:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This returns the accessibility hint for the picker component.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">pickerView</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">UIPickerView</span><span class="p">,</span> <span class="nv">accessibilityHintForComponent</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>accessibilityHintForComponent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The 0-based component index for the label (ignored).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An accessibility string for the component.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/AVAudioPlayerDelegate%20Conformance"></a>
+                <a name="//apple_ref/swift/Section/AVAudioPlayerDelegate Conformance" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/AVAudioPlayerDelegate%20Conformance"></a>
+                  <h3 class="section-name"><span>AVAudioPlayerDelegate Conformance</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)audioPlayerDidFinishPlaying:successfully:"></a>
+                    <a name="//apple_ref/swift/Method/audioPlayerDidFinishPlaying(_:successfully:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Rift_Valley_Timer@objc(cs)RVS_SetAlarmAmbiaMara_PopoverViewController(im)audioPlayerDidFinishPlaying:successfully:">audioPlayerDidFinishPlaying(_:<wbr>successfully:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the sound is done playing.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">audioPlayerDidFinishPlaying</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">AVAudioPlayer</span><span class="p">,</span> <span class="nv">successfully</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>successfully</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>True, if the play was successful (also ignored).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external noopener">©2018-2022 The Great Rift Valley Software Company</a></p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+    </section>
+  </body>
+</html>
