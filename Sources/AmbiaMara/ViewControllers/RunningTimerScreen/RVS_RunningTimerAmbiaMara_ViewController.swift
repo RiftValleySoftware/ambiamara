@@ -614,12 +614,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         // Makes the toolbar background transparent.
         controlToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
         controlToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
-        _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).map { $0.urlEncodedString ?? "" }.sorted { a, b in
-                guard let soundUriA = URL(string: a.urlEncodedString ?? "")?.lastPathComponent,
-                      let soundUriB = URL(string: b.urlEncodedString ?? "")?.lastPathComponent
-                else { return false }
-                return soundUriA < soundUriB
-            }
+        _soundSelection = RVS_AmbiaMara_Settings.soundURIs
 
         digitalDisplayViewHours?.radix = 10
         digitalDisplayViewMinutes?.radix = 10

@@ -295,6 +295,22 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
      The keys (for determining storage).
      */
     override var keys: [String] { Keys.allKeys }
+    
+    /* ################################################################################################################################## */
+    // MARK: Class Computed Properties
+    /* ################################################################################################################################## */
+    /* ########################################################## */
+    /**
+     - returns: An Array of Strings, representing the URIs of the sounds avaialable.
+     */
+    class var soundURIs: [String] {
+        Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).map { $0.urlEncodedString ?? "" }.sorted { a, b in
+            guard let soundUriA = URL(string: a.urlEncodedString ?? "")?.lastPathComponent,
+                  let soundUriB = URL(string: b.urlEncodedString ?? "")?.lastPathComponent
+            else { return false }
+            return soundUriA < soundUriB
+        }
+    }
 
     /* ################################################################################################################################## */
     // MARK: Instance Computed Properties

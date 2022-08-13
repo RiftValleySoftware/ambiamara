@@ -240,7 +240,7 @@ Stop the timer, and return to the setting screen.
 
 ### DIGITAL MODE POWER USER FEATURE
 
-In Digital Mode, and Gesture Mode (it needs to be both), you have the ability to set the time to an arbitrary time, by long-pressing on the bottom of the display, in a running timer. This is not available for the Mac version.
+In Digital Mode, you have the ability to set the time to an arbitrary time, by long-pressing on the bottom of the display, in a running timer.
 
 If you long-press on the display, the timer pauses (if not already paused), and a slider appears, with the thumb under your finger's location. Slide it right or left, to change the set time of the timer.
 
