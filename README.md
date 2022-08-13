@@ -97,7 +97,7 @@ It is possible to "cascade" between these timers, with one timer following anoth
 
 Use the toolbar, on the bottom of the screen, to add, remove, and select timers.
 
-Add timers by touching the "╋" on the right side of the toolbar, and delete timers, by selecting the trash can icon, on the left side of the toolbar.
+Add timers by touching the "✚" on the right side of the toolbar, and delete timers, by selecting the trash can icon, on the left side of the toolbar.
 
 You can choose which timer is being set, by selecting a numbered timer button in the toolbar, or by swiping left and right, in the screen.
 
