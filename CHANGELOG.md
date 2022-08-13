@@ -1,3 +1,6 @@
+**Version 2.3.1.3029** *August 12, 2022*
+- The new name exposed a bug, where the sound URIs were not treated properly. This has been fixed.
+
 **Version 2.3.0.3027** *August 10, 2022*
 - Got pinged by a software developer in Switzerland, saying that the name "AmbiaMara" infringes on their copyright. I don't think it does, but I'm not interested in fighting about it, so I changed the name to "Rift Valley Timer."
 

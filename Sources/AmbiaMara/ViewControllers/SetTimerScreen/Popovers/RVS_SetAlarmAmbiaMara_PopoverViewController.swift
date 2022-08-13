@@ -172,7 +172,7 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
         
         soundPlayButton?.accessibilityLabel = "SLUG-ACC-SOUND-SAMPLE-BUTTON".accessibilityLocalizedVariant
         
-        _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).sorted { a, b in
+        _soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).map { $0.urlEncodedString ?? "" }.sorted { a, b in
                 guard let soundUriA = URL(string: a.urlEncodedString ?? "")?.lastPathComponent,
                       let soundUriB = URL(string: b.urlEncodedString ?? "")?.lastPathComponent
                 else { return false }
