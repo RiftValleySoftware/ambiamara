@@ -1,3 +1,6 @@
+**Version 2.3.2.3030** *TBD*
+- Updated the timer dependency.
+
 **Version 2.3.1.3029** *August 12, 2022*
 - The new name exposed a bug, where the sound URIs were not treated properly. This has been fixed.
 
