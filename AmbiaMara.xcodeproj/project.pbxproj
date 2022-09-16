@@ -791,7 +791,7 @@
 			repositoryURL = "https://github.com/RiftValleySoftware/RVS_BasicGCDTimer.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.1;
+				minimumVersion = 1.5.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
