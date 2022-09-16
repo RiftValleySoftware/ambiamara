@@ -783,7 +783,7 @@
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_RetroLEDDisplay.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.2;
+				minimumVersion = 1.4.3;
 			};
 		};
 		D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */ = {
