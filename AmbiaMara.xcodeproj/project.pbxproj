@@ -372,7 +372,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					D47C029A2819CA6500D359F5 = {
 						CreatedOnToolsVersion = 13.3.1;
@@ -426,6 +426,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		D4C4B7022819CD7300E22ECA /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
