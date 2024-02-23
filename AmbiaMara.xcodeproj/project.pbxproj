@@ -342,7 +342,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D47C02AF2819CA6800D359F5 /* Build configuration list for PBXNativeTarget "Rift Valley Timer" */;
 			buildPhases = (
-				D4C4B7022819CD7300E22ECA /* SwiftLint */,
 				D47C02972819CA6500D359F5 /* Sources */,
 				D47C02982819CA6500D359F5 /* Frameworks */,
 				D47C02992819CA6500D359F5 /* Resources */,
@@ -372,7 +371,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					D47C029A2819CA6500D359F5 = {
 						CreatedOnToolsVersion = 13.3.1;
@@ -422,28 +421,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		D4C4B7022819CD7300E22ECA /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D47C02972819CA6500D359F5 /* Sources */ = {
@@ -578,6 +555,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -640,6 +618,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -665,7 +644,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ProjectMeta/AmbiaMara.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3030;
+				CURRENT_PROJECT_VERSION = 3031;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Meta/Info.plist;
@@ -684,7 +663,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.2;
+				MARKETING_VERSION = 2.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -701,7 +680,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ProjectMeta/AmbiaMara.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3030;
+				CURRENT_PROJECT_VERSION = 3031;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Meta/Info.plist;
@@ -720,7 +699,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.2;
+				MARKETING_VERSION = 2.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -759,7 +738,7 @@
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_UIKit_Toolbox.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.4;
+				minimumVersion = 1.5.3;
 			};
 		};
 		D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
@@ -767,7 +746,7 @@
 			repositoryURL = "https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.11.0;
+				minimumVersion = 1.13.1;
 			};
 		};
 		D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */ = {
@@ -775,7 +754,7 @@
 			repositoryURL = "https://github.com/RiftValleySoftware/RVS_PersistentPrefs";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.4;
+				minimumVersion = 1.3.7;
 			};
 		};
 		D4C4B7152819D3D300E22ECA /* XCRemoteSwiftPackageReference "RVS_RetroLEDDisplay" */ = {
@@ -783,7 +762,7 @@
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_RetroLEDDisplay.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.4;
+				minimumVersion = 1.4.5;
 			};
 		};
 		D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */ = {
@@ -791,7 +770,7 @@
 			repositoryURL = "https://github.com/RiftValleySoftware/RVS_BasicGCDTimer.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.2;
+				minimumVersion = 1.7.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

@@ -17,9 +17,6 @@
          location = "group:jazzy.command">
       </FileRef>
       <FileRef
-         location = "group:.swiftlint.yml">
-      </FileRef>
-      <FileRef
          location = "group:Sources/Meta/Warnings.xcconfig">
       </FileRef>
    </Group>

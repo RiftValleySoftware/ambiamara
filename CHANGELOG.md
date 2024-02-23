@@ -1,5 +1,6 @@
-**Version 2.3.2.3030** *TBD*
-- Updated the timer dependency.
+**Version 2.3.3.3030** *February 23, 2024*
+- Updated the various dependencies.
+- Removed SwiftLint (sob).
 - Updated to latest tools.
 
 **Version 2.3.1.3029** *August 12, 2022*
