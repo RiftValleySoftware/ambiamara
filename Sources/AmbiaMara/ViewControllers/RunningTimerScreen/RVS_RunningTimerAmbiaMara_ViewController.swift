@@ -361,6 +361,12 @@ class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
     
     /* ############################################################## */
     /**
+     The gesture recognizer that will detect double-taps.
+     */
+    @IBOutlet weak var doubleTapGestureRecognizer: UITapGestureRecognizer?
+
+    /* ############################################################## */
+    /**
      In order to maintain the proper aspect ratio of the digit pairs, we need to ensconce them in container views.
      This is the hours view.
      */
@@ -623,8 +629,11 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
         _feedbackGenerator = UIImpactFeedbackGenerator()
 
-        if let longPressTimeSetGestureRecognizer = longPressTimeSetGestureRecognizer {
-            tapGestureRecognizer?.require(toFail: longPressTimeSetGestureRecognizer)
+        if let longPressTimeSetGestureRecognizer = longPressTimeSetGestureRecognizer,
+           let tapGestureRecognizer = tapGestureRecognizer {
+            doubleTapGestureRecognizer?.require(toFail: longPressTimeSetGestureRecognizer)
+            doubleTapGestureRecognizer?.require(toFail: tapGestureRecognizer)
+            tapGestureRecognizer.require(toFail: longPressTimeSetGestureRecognizer)
         }
         _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._clockPeriodInSeconds, delegate: self, leewayInMilliseconds: Self._leewayInMilliseconds, onlyFireOnce: false)
         _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDurationInSeconds, delegate: self, leewayInMilliseconds: Self._leewayInMilliseconds * 2, onlyFireOnce: false)
@@ -1083,14 +1092,14 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      */
     func stopTimer() {
         DispatchQueue.main.async { [weak self] in
-            self?._isAlarming = false
-            self?._isSoundPlaying = false
             self?._timer?.invalidate()
             self?._timer = nil
             self?._alarmTimer?.invalidate()
             self?._alarmTimer = nil
             self?._autoHideTimer?.invalidate()
             self?._autoHideTimer = nil
+            self?._isAlarming = false
+            self?._isSoundPlaying = false
             self?.navigationController?.popViewController(animated: true)
         }
     }
@@ -1444,10 +1453,11 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
 
     /* ############################################################## */
     /**
-     The user up- or down-swiped the timer. This only works for toolbar hidden.
+     The double-tapped the timer, signifying that we will return to the set screen. This only works for toolbar hidden.
      - parameter: ignored.
      */
-    @IBAction func upDownwipeGestureReceived(_: UISwipeGestureRecognizer) {
+    @IBAction func leaveDisplay(_: Any) {
+        stopTimer()
         setAutoHide()
 
         guard !RVS_AmbiaMara_Settings().displayToolbar else { return }
@@ -1458,7 +1468,6 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         }
         
         flashRed()
-        stopTimer()
     }
     
     /* ############################################################## */
