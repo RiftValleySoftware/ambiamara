@@ -213,7 +213,7 @@ This causes the timer to go directly to Alarm Mode.
 •   **Swipe Right (Timer is paused, at the start)**
 This causes the following timer to be selected, if there are multiple timers. If there is only one timer, nothing happens.
 
-•   **Swipe Up or Down (At any time)**
+•   **Double-Tap (At any time)**
 Stop the timer, and return to the setting screen.
 
 ### MAC VERSION KEYBOARD NAVIGATION:
