@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0G4-ep-6qS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0G4-ep-6qS">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -40,7 +40,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CenterImage" translatesAutoresizingMaskIntoConstraints="NO" id="sOf-1r-x28">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CenterImage" translatesAutoresizingMaskIntoConstraints="NO" id="sOf-1r-x28">
                                 <rect key="frame" x="83" y="324" width="248" height="248"/>
                                 <color key="tintColor" name="StartupLogoColor"/>
                                 <constraints>
@@ -368,7 +368,7 @@
                         <outlet property="setupContainerView" destination="uq8-S5-u02" id="1Hf-UO-jmK"/>
                         <outlet property="startButton" destination="42o-kL-hkS" id="HbB-R9-InA"/>
                         <outlet property="startSetButton" destination="ETf-1Y-vad" id="PJ8-0E-m1c"/>
-                        <outlet property="startupLogo" destination="sOf-1r-x28" id="ybY-nK-DpV"/>
+                        <outlet property="startupLogo" destination="sOf-1r-x28" id="wVw-5p-TY0"/>
                         <outlet property="stateLabel" destination="RRV-b8-AsH" id="Ndk-FU-fHg"/>
                         <outlet property="topLabelContainerView" destination="dXY-cj-mkS" id="FJt-Zb-pZ9"/>
                         <outlet property="trashBarButtonItem" destination="p3d-KM-TEZ" id="bbP-eh-ElX"/>
@@ -458,7 +458,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="cnP-ZB-vMv">
-                                <rect key="frame" x="20" y="68" width="374" height="230"/>
+                                <rect key="frame" x="20" y="68" width="374" height="232"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omz-Mi-exI">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="32"/>
@@ -478,17 +478,17 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" id="Xzy-5h-Cg0" userLabel="Start Immediately Stack View">
-                                        <rect key="frame" x="0.0" y="50" width="374" height="31"/>
+                                        <rect key="frame" x="0.0" y="50" width="374" height="33"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p7i-GW-TPA">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="33"/>
                                                 <connections>
                                                     <action selector="popoverStartImmediatelySwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="1cs-Vp-6rn"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RjQ-a1-oDw">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="31"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="33"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-POPOVER-START-IMMEDIATELY-SETTING-LABEL"/>
@@ -506,17 +506,17 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" id="CVY-F1-Y9c" userLabel="Toolbar Stack View">
-                                        <rect key="frame" x="0.0" y="99" width="374" height="31"/>
+                                        <rect key="frame" x="0.0" y="101" width="374" height="33"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecG-jq-uKs">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="33"/>
                                                 <connections>
                                                     <action selector="popoverDisplayToolbarSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="ADj-YS-zuo"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6BK-rZ-z63">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="31"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="33"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-POPOVER-SHOW-TOOLBAR-SETTING-LABEL"/>
@@ -534,10 +534,10 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="aUO-XP-mX2" userLabel="Auto-Hide Stack View">
-                                        <rect key="frame" x="0.0" y="148" width="374" height="33"/>
+                                        <rect key="frame" x="0.0" y="152" width="374" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jw3-Fr-MQr" userLabel="Blank Spacer Label">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="33"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="USB-BG-NcS"/>
                                                 </constraints>
@@ -546,13 +546,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lBf-IS-RyD">
-                                                <rect key="frame" x="58" y="0.0" width="51" height="33"/>
+                                                <rect key="frame" x="58" y="0.0" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="popoverDisplayAutoHideSwitchHit:" destination="UOz-ud-dcU" eventType="valueChanged" id="K1N-Mh-HY1"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tyC-PQ-hip">
-                                                <rect key="frame" x="115" y="0.0" width="259" height="33"/>
+                                                <rect key="frame" x="115" y="0.0" width="259" height="31"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-POPOVER-AUTO-HIDE-SETTING-LABEL"/>
@@ -572,7 +572,7 @@
                                         </constraints>
                                     </stackView>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="brc-he-RCW">
-                                        <rect key="frame" x="0.0" y="199" width="374" height="32"/>
+                                        <rect key="frame" x="0.0" y="201" width="374" height="32"/>
                                         <color key="backgroundColor" name="SegSwitchColor"/>
                                         <segments>
                                             <segment title="" image="Digits"/>
@@ -1136,24 +1136,24 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="883" height="877"/>
+        <image name="CenterImage" width="320" height="318"/>
         <image name="Digits" width="60" height="20"/>
         <image name="Final-Image" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
         <image name="Start-Image" width="1024" height="1024"/>
         <image name="Stoplights" width="65" height="20"/>
         <image name="Warn-Image" width="1024" height="1024"/>
-        <image name="backward.end.alt.fill" catalog="system" width="128" height="64"/>
+        <image name="backward.end.alt.fill" catalog="system" width="128" height="62"/>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
         <image name="bell.slash.fill" catalog="system" width="119" height="128"/>
-        <image name="forward.end.alt.fill" catalog="system" width="128" height="64"/>
+        <image name="forward.end.alt.fill" catalog="system" width="128" height="62"/>
         <image name="gearshape.fill" catalog="system" width="128" height="123"/>
         <image name="nosign" catalog="system" width="128" height="123"/>
-        <image name="play.fill" catalog="system" width="117" height="128"/>
+        <image name="play.fill" catalog="system" width="120" height="128"/>
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="84"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="0.44499999284744263" green="0.47600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.31400001049041748" green="0.37999999523162842" blue="0.89399999380111694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

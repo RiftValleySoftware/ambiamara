@@ -555,7 +555,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      */
     private func _generateHexOverlayImage(_ inBounds: CGRect) -> UIImage? {
         let path = CGMutablePath()
-        let sHexagonWidth = CGFloat(min(inBounds.size.width, inBounds.size.height) / 20)
+        let sHexagonWidth = CGFloat(min(inBounds.size.width, inBounds.size.height) / 50)
         let radius: CGFloat = sHexagonWidth / 2
         
         let hexPath: CGMutablePath = Self._getHexPath(radius)
@@ -582,8 +582,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         UIGraphicsBeginImageContextWithOptions(inBounds.size, false, 0.0)
         if let drawingContext = UIGraphicsGetCurrentContext() {
             drawingContext.addPath(path)
-            drawingContext.setLineWidth(0.2)
-            drawingContext.setStrokeColor(UIColor.black.withAlphaComponent(0.8).cgColor)
+            drawingContext.setLineWidth(0.1)
+            drawingContext.setStrokeColor(UIColor.gray.withAlphaComponent(0.8).cgColor)
             drawingContext.setFillColor(UIColor.clear.cgColor)
             drawingContext.strokePath()
         }
