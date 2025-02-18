@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,11 @@
 		D47C02AB2819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A92819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard */; };
 		D486C829281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */; };
 		D491F1362846A42A00759031 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D491F1352846A42A00759031 /* RVS_BasicGCDTimer */; };
+		D4A932222D64E9CB0028556E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A9321F2D64E9CB0028556E /* ContentView.swift */; };
+		D4A932232D64E9CB0028556E /* Rift_Valley_Timer_WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A932202D64E9CB0028556E /* Rift_Valley_Timer_WatchApp.swift */; };
+		D4A932252D64E9CB0028556E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4A9321E2D64E9CB0028556E /* Assets.xcassets */; };
+		D4A9322A2D64E9CB0028556E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4A932262D64E9CB0028556E /* Assets.xcassets */; };
+		D4A9322C2D64E9CB0028556E /* Rift_Valley_Timer_Complications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A932282D64E9CB0028556E /* Rift_Valley_Timer_Complications.swift */; };
 		D4B01F81281F58D200B07C56 /* 11-bells.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F66281F58D200B07C56 /* 11-bells.mp3 */; };
 		D4B01F82281F58D200B07C56 /* 13-rooster.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F67281F58D200B07C56 /* 13-rooster.mp3 */; };
 		D4B01F83281F58D200B07C56 /* 15-shut-up-2.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F68281F58D200B07C56 /* 15-shut-up-2.mp3 */; };
@@ -149,6 +154,15 @@
 		D47C02AA2819CA6800D359F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RVS_AmbiaMara_LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_Settings.swift; sourceTree = "<group>"; };
 		D488F2EE281D6D960045E999 /* Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = Sources/Meta/Warnings.xcconfig; sourceTree = SOURCE_ROOT; };
+		D4A9321E2D64E9CB0028556E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D4A9321F2D64E9CB0028556E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D4A932202D64E9CB0028556E /* Rift_Valley_Timer_WatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_WatchApp.swift; sourceTree = "<group>"; };
+		D4A932262D64E9CB0028556E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D4A932272D64E9CB0028556E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4A932282D64E9CB0028556E /* Rift_Valley_Timer_Complications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_Complications.swift; sourceTree = "<group>"; };
+		D4A9322D2D64EA310028556E /* WatchApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WatchApp.entitlements; sourceTree = "<group>"; };
+		D4A9322E2D64EA440028556E /* WatchComplications.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WatchComplications.entitlements; sourceTree = "<group>"; };
+		D4A9322F2D64EA8B0028556E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4B01F66281F58D200B07C56 /* 11-bells.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "11-bells.mp3"; sourceTree = "<group>"; };
 		D4B01F67281F58D200B07C56 /* 13-rooster.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "13-rooster.mp3"; sourceTree = "<group>"; };
 		D4B01F69281F58D200B07C56 /* en */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = en; path = "en.lproj/15-shut-up-2.mp3"; sourceTree = "<group>"; };
@@ -195,21 +209,6 @@
 		D4F83CB42D63DB43009C4646 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		D4F83CB62D63DB43009C4646 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		D4F83CC12D63DB43009C4646 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = D4F83CB22D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		D4F83C9E2D63DB10009C4646 /* Rift Valley Timer Watch Watch App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Rift Valley Timer Watch Watch App"; sourceTree = "<group>"; };
-		D4F83CB82D63DB43009C4646 /* Rift Valley Timer Complications */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (D4F83CC12D63DB43009C4646 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Rift Valley Timer Complications"; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		D47C02982819CA6500D359F5 /* Frameworks */ = {
@@ -299,8 +298,6 @@
 			children = (
 				D4C4B6FE2819CCDB00E22ECA /* Sources */,
 				D44E7714281AD24F00B491EF /* ProjectMeta */,
-				D4F83C9E2D63DB10009C4646 /* Rift Valley Timer Watch Watch App */,
-				D4F83CB82D63DB43009C4646 /* Rift Valley Timer Complications */,
 				D47C029C2819CA6500D359F5 /* Products */,
 				D4CD2E7D284697E100400AB0 /* Frameworks */,
 			);
@@ -316,7 +313,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D47C029D2819CA6500D359F5 /* AmbiaMara */ = {
+		D47C029D2819CA6500D359F5 /* MainApp */ = {
 			isa = PBXGroup;
 			children = (
 				D4C4B7222819DD5100E22ECA /* Utility */,
@@ -325,7 +322,30 @@
 				D4C4B6FF2819CCF300E22ECA /* Resources */,
 				D4C4B70E2819CF8F00E22ECA /* AmbiaMara.docc */,
 			);
-			path = AmbiaMara;
+			path = MainApp;
+			sourceTree = "<group>";
+		};
+		D4A932212D64E9CB0028556E /* WatchApp */ = {
+			isa = PBXGroup;
+			children = (
+				D4A9321F2D64E9CB0028556E /* ContentView.swift */,
+				D4A932202D64E9CB0028556E /* Rift_Valley_Timer_WatchApp.swift */,
+				D4A9322F2D64EA8B0028556E /* Info.plist */,
+				D4A9322D2D64EA310028556E /* WatchApp.entitlements */,
+				D4A9321E2D64E9CB0028556E /* Assets.xcassets */,
+			);
+			path = WatchApp;
+			sourceTree = "<group>";
+		};
+		D4A932292D64E9CB0028556E /* WatchComplications */ = {
+			isa = PBXGroup;
+			children = (
+				D4A932282D64E9CB0028556E /* Rift_Valley_Timer_Complications.swift */,
+				D4A932272D64E9CB0028556E /* Info.plist */,
+				D4A9322E2D64EA440028556E /* WatchComplications.entitlements */,
+				D4A932262D64E9CB0028556E /* Assets.xcassets */,
+			);
+			path = WatchComplications;
 			sourceTree = "<group>";
 		};
 		D4B01F65281F58D200B07C56 /* Sounds */ = {
@@ -364,7 +384,9 @@
 		D4C4B6FE2819CCDB00E22ECA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D47C029D2819CA6500D359F5 /* AmbiaMara */,
+				D4A932212D64E9CB0028556E /* WatchApp */,
+				D4A932292D64E9CB0028556E /* WatchComplications */,
+				D47C029D2819CA6500D359F5 /* MainApp */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -426,6 +448,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D47C02AF2819CA6800D359F5 /* Build configuration list for PBXNativeTarget "Rift Valley Timer" */;
 			buildPhases = (
+				D4A932302D64EC280028556E /* SwiftLint */,
 				D47C02972819CA6500D359F5 /* Sources */,
 				D47C02982819CA6500D359F5 /* Frameworks */,
 				D47C02992819CA6500D359F5 /* Resources */,
@@ -453,6 +476,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4F83CAB2D63DB10009C4646 /* Build configuration list for PBXNativeTarget "Rift Valley Timer Watch Watch App" */;
 			buildPhases = (
+				D4A932312D64EC3D0028556E /* SwiftLint */,
 				D4F83C992D63DB10009C4646 /* Sources */,
 				D4F83C9A2D63DB10009C4646 /* Frameworks */,
 				D4F83C9B2D63DB10009C4646 /* Resources */,
@@ -462,9 +486,6 @@
 			);
 			dependencies = (
 				D4F83CBF2D63DB43009C4646 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				D4F83C9E2D63DB10009C4646 /* Rift Valley Timer Watch Watch App */,
 			);
 			name = "Rift Valley Timer Watch Watch App";
 			packageProductDependencies = (
@@ -477,6 +498,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4F83CC22D63DB43009C4646 /* Build configuration list for PBXNativeTarget "Rift Valley Timer ComplicationsExtension" */;
 			buildPhases = (
+				D4A932322D64EC520028556E /* SwiftLint */,
 				D4F83CAF2D63DB43009C4646 /* Sources */,
 				D4F83CB02D63DB43009C4646 /* Frameworks */,
 				D4F83CB12D63DB43009C4646 /* Resources */,
@@ -484,9 +506,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				D4F83CB82D63DB43009C4646 /* Rift Valley Timer Complications */,
 			);
 			name = "Rift Valley Timer ComplicationsExtension";
 			packageProductDependencies = (
@@ -564,6 +583,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A932252D64E9CB0028556E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,10 +591,71 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A9322A2D64E9CB0028556E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D4A932302D64EC280028556E /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v swiftlint 2>&1 >/dev/null\nthen\n    cd ${PROJECT_DIR}\n    swiftlint\nfi\n";
+		};
+		D4A932312D64EC3D0028556E /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v swiftlint 2>&1 >/dev/null\nthen\n    cd ${PROJECT_DIR}\n    swiftlint\nfi\n";
+		};
+		D4A932322D64EC520028556E /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v swiftlint 2>&1 >/dev/null\nthen\n    cd ${PROJECT_DIR}\n    swiftlint\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D47C02972819CA6500D359F5 /* Sources */ = {
@@ -596,6 +677,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A932222D64E9CB0028556E /* ContentView.swift in Sources */,
+				D4A932232D64E9CB0028556E /* Rift_Valley_Timer_WatchApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,6 +686,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A9322C2D64E9CB0028556E /* Rift_Valley_Timer_Complications.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -829,6 +913,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3033;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Meta/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Rift Valley Timer";
@@ -866,6 +951,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3033;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Meta/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Rift Valley Timer";
@@ -901,13 +987,16 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = Sources/WatchApp/WatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3033;
-				DEVELOPMENT_ASSET_PATHS = "\"Rift Valley Timer Watch Watch App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sources/WatchApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Rift Valley Timer";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.riftvalleysoftware.ambiamara;
@@ -937,13 +1026,16 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = Sources/WatchApp/WatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3033;
-				DEVELOPMENT_ASSET_PATHS = "\"Rift Valley Timer Watch Watch App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sources/WatchApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Rift Valley Timer";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.riftvalleysoftware.ambiamara;
@@ -972,12 +1064,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3033;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Rift Valley Timer Complications/Info.plist";
+				INFOPLIST_FILE = Sources/WatchComplications/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Rift Valley Timer Complications";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1007,12 +1101,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3033;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Rift Valley Timer Complications/Info.plist";
+				INFOPLIST_FILE = Sources/WatchComplications/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Rift Valley Timer Complications";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
