@@ -25,12 +25,12 @@
                         </textAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="WyG-h6-DZC"/>
+                        <segue destination="Qiq-WG-dfl" kind="relationship" relationship="rootViewController" id="d8E-uG-ZOY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZRg-jC-302" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-677" y="108"/>
+            <point key="canvasLocation" x="-1425" y="-644"/>
         </scene>
         <!--Set Timer View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -629,19 +629,19 @@
             <objects>
                 <viewController storyboardIdentifier="RVS_TimerAmbiaMara_ViewController" id="FWf-2O-eKE" userLabel="Running Timer View Controller" customClass="RVS_RunningTimerAmbiaMara_ViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7tt-fn-aIE">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okx-7i-W39">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                                 <viewLayoutGuide key="safeArea" id="GcM-0D-V8H"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleAspectFit" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="BJi-bD-ter">
-                                <rect key="frame" x="0.0" y="48" width="414" height="814"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="4t0-CW-2Ah" userLabel="Digit Container Stack View">
-                                        <rect key="frame" x="41.5" y="353" width="331" height="108"/>
+                                        <rect key="frame" x="41.5" y="389" width="331" height="108"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7F-47-24b">
                                                 <rect key="frame" x="0.0" y="0.0" width="97" height="108"/>
@@ -767,7 +767,7 @@
                                         </constraints>
                                     </stackView>
                                     <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fY6-wY-IG5">
-                                        <rect key="frame" x="0.0" y="353" width="414" height="108"/>
+                                        <rect key="frame" x="0.0" y="389" width="414" height="108"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="CCw-JA-9Mg">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -776,7 +776,7 @@
                                         <blurEffect style="light"/>
                                     </visualEffectView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DTA-fw-WyG">
-                                        <rect key="frame" x="0.0" y="353" width="414" height="108"/>
+                                        <rect key="frame" x="0.0" y="389" width="414" height="108"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -797,7 +797,7 @@
                                 </constraints>
                             </view>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="oBo-bn-Jew">
-                                <rect key="frame" x="41.5" y="399.5" width="331" height="97"/>
+                                <rect key="frame" x="41.5" y="394.5" width="331" height="97"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.050000000000000003" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Start-Image" translatesAutoresizingMaskIntoConstraints="NO" id="ivd-pD-PPX">
                                         <rect key="frame" x="0.0" y="0.0" width="97" height="97"/>
@@ -830,7 +830,7 @@
                                 </constraints>
                             </stackView>
                             <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lxf-uE-d9v" userLabel="Time Set Swipe Detector View">
-                                <rect key="frame" x="12" y="786" width="390" height="64"/>
+                                <rect key="frame" x="12" y="810" width="390" height="64"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -838,7 +838,7 @@
                                 </constraints>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JHV-9i-Nag">
-                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <rect key="frame" x="0.0" y="842" width="414" height="44"/>
                                 <color key="backgroundColor" name="ToolbarColor"/>
                                 <items>
                                     <barButtonItem id="ABe-ev-oBz">
@@ -973,13 +973,56 @@
             </objects>
             <point key="canvasLocation" x="602.89855072463774" y="837.72321428571422"/>
         </scene>
+        <!--Set Timer Wrapper-->
+        <scene sceneID="Y8t-QI-CR3">
+            <objects>
+                <viewController id="Qiq-WG-dfl" customClass="RVS_SetTimerWrapper" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="paH-kM-57N">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LC2-Q2-GWU">
+                                <rect key="frame" x="20" y="48" width="374" height="770"/>
+                                <connections>
+                                    <segue destination="xXq-tc-ySG" kind="embed" id="ubh-4i-z5O"/>
+                                </connections>
+                            </containerView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="weI-FH-6MG">
+                                <rect key="frame" x="20" y="818" width="374" height="44"/>
+                                <items>
+                                    <barButtonItem title="Item" id="hFT-mI-fKZ"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="KAI-rk-ext"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="LC2-Q2-GWU" firstAttribute="leading" secondItem="KAI-rk-ext" secondAttribute="leading" constant="20" id="FCA-Ji-vBG"/>
+                            <constraint firstItem="weI-FH-6MG" firstAttribute="leading" secondItem="KAI-rk-ext" secondAttribute="leading" constant="20" id="LGG-dt-RQ2"/>
+                            <constraint firstItem="KAI-rk-ext" firstAttribute="bottom" secondItem="weI-FH-6MG" secondAttribute="bottom" id="TNg-ke-Y8S"/>
+                            <constraint firstItem="KAI-rk-ext" firstAttribute="trailing" secondItem="weI-FH-6MG" secondAttribute="trailing" constant="20" id="XuL-GK-TNT"/>
+                            <constraint firstItem="weI-FH-6MG" firstAttribute="top" secondItem="LC2-Q2-GWU" secondAttribute="bottom" id="nUb-1B-enf"/>
+                            <constraint firstItem="LC2-Q2-GWU" firstAttribute="top" secondItem="KAI-rk-ext" secondAttribute="top" id="raV-jZ-Stq"/>
+                            <constraint firstItem="KAI-rk-ext" firstAttribute="trailing" secondItem="LC2-Q2-GWU" secondAttribute="trailing" constant="20" id="zMc-xe-N6d"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="DKX-Dg-hRm"/>
+                    <connections>
+                        <outlet property="pageViewContainer" destination="LC2-Q2-GWU" id="tNu-j0-uge"/>
+                        <outlet property="timerSelectionToolbar" destination="weI-FH-6MG" id="JTw-So-4G8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K4u-kY-rxh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-568.1159420289855" y="-644.19642857142856"/>
+        </scene>
         <!--Set Timer Page View Controller-->
         <scene sceneID="AsV-Zf-xXq">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="xXq-tc-ySG" customClass="RVS_SetTimerPageViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="RVS_SetTimerPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="xXq-tc-ySG" customClass="RVS_SetTimerPageViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4FC-ej-oQe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="94" y="-602"/>
+            <point key="canvasLocation" x="257" y="-644"/>
         </scene>
         <!--Set Alarm Popover View Controller-->
         <scene sceneID="L5y-aw-jD5">
@@ -1110,11 +1153,11 @@
             <objects>
                 <viewController id="Gjb-Zz-XlA" userLabel="About AmbiaMara" customClass="RVS_AboutAmbiaMara_ViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u9V-bG-Ubc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" indicatorStyle="white" maximumZoomScale="2" editable="NO" text="SLUG-ABOUT-MAIN-TEXT" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Tz6-2I-hpj">
-                                <rect key="frame" x="20" y="48" width="366" height="814"/>
+                                <rect key="frame" x="20" y="0.0" width="366" height="886"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
