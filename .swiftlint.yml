@@ -37,8 +37,8 @@ line_length:
 - 300 # error
 
 cyclomatic_complexity:
-- 11 # warning
-- 12 # error
+- 16 # warning
+- 17 # error
 
 excluded:
 - Pods

@@ -173,7 +173,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
          */
         var isCurrent: Bool {
             get { id == RVS_AmbiaMara_Settings().currentTimerID }
-            set { RVS_AmbiaMara_Settings().currentTimerID = id }
+            set { RVS_AmbiaMara_Settings().currentTimerID = newValue ? id : "" }
         }
 
         /* ########################################################## */

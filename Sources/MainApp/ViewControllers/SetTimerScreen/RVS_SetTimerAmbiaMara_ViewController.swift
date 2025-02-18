@@ -678,17 +678,17 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         
         startSetButton?.isEnabled = .start != _state
         warnSetButton?.isEnabled = .warn != _state
-                                    && 1 < _currentTimer.startTime
+        && 1 < _currentTimer.startTime
         finalSetButton?.isEnabled = .final != _state
-                                    && 1 < _currentTimer.startTime
-                                    && (1 < _currentTimer.warnTime
-                                        || 0 == _currentTimer.warnTime)
+        && 1 < _currentTimer.startTime
+        && (1 < _currentTimer.warnTime
+            || 0 == _currentTimer.warnTime)
         startButton?.isEnabled = 0 < _currentTimer.startTime
         clearButton?.isHidden = 0 >= _stateTime()
         
         stateLabel?.accessibilityHint = "SLUG-ACC-STATE-\(_state.stringValue)".accessibilityLocalizedVariant
         stateLabel?.accessibilityHint = "SLUG-ACC-STATE".accessibilityLocalizedVariant + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".accessibilityLocalizedVariant
-
+        
         if 0 < _currentTimer.startTime,
            .start != _state {
             let timeAsComponents = _currentTimer.startTimeAsComponents
@@ -705,7 +705,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         } else {
             startSetButton?.setTitle(nil, for: .normal)
         }
-
+        
         if 0 < _currentTimer.warnTime,
            .warn != _state {
             let timeAsComponents = _currentTimer.warnTimeAsComponents
@@ -722,7 +722,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         } else {
             warnSetButton?.setTitle(nil, for: .normal)
         }
-
+        
         if 0 < _currentTimer.finalTime,
            .final != _state {
             let timeAsComponents = _currentTimer.finalTimeAsComponents
@@ -739,7 +739,15 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         } else {
             finalSetButton?.setTitle(nil, for: .normal)
         }
-
+        
+        animateIntro()
+    }
+    
+    /* ################################################################## */
+    /**
+     This animates the intro of the screen.
+    */
+    func animateIntro() {
         view.layoutIfNeeded()
         UIView.animate(withDuration: Self._selectionFadeAnimationPeriodInSeconds,
                        animations: { [weak self] in
