@@ -171,6 +171,12 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
      This will provide haptic/audio feedback for more significant events.
      */
     private var _impactFeedbackGenerator: UIImpactFeedbackGenerator?
+    
+    /* ################################################################## */
+    /**
+     The storyboard ID, for instantiating the class.
+     */
+    static let storyboardID = "RVS_SetTimerAmbiaMara_ViewController"
 
     /* ################################################################## */
     /**

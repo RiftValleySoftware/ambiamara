@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4010AF62D6514C300DBDC0B /* RVS_SetTimerPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4010AF52D6514C300DBDC0B /* RVS_SetTimerPageViewController.swift */; };
 		D404247F282BEAA3004FD65A /* Accessibility.strings in Resources */ = {isa = PBXBuildFile; fileRef = D404247D282BEAA3004FD65A /* Accessibility.strings */; };
 		D4079934287731860058EAF4 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4079933287731860058EAF4 /* RVS_UIKit_Toolbox */; };
 		D40A69392846A05D0010A58E /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D40A69382846A05D0010A58E /* RVS_Persistent_Prefs */; };
@@ -142,6 +143,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D4010AF52D6514C300DBDC0B /* RVS_SetTimerPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_SetTimerPageViewController.swift; sourceTree = "<group>"; };
 		D404247E282BEAA3004FD65A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Accessibility.strings; sourceTree = "<group>"; };
 		D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AboutAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
 		D42F8BDB2D64F08900269D26 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 		D4233CA12820386000ED62EC /* SetTimerScreen */ = {
 			isa = PBXGroup;
 			children = (
+				D4010AF52D6514C300DBDC0B /* RVS_SetTimerPageViewController.swift */,
 				D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */,
 				D4352A65281FF11200BEC5A4 /* Popovers */,
 			);
@@ -666,6 +669,7 @@
 			files = (
 				D4CE51BB281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift in Sources */,
 				D47C02A32819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift in Sources */,
+				D4010AF62D6514C300DBDC0B /* RVS_SetTimerPageViewController.swift in Sources */,
 				D47C029F2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift in Sources */,
 				D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift in Sources */,
 				D486C829281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift in Sources */,

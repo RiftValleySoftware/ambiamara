@@ -35,7 +35,7 @@
         <!--Set Timer View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" userLabel="Set Timer View Controller" customClass="RVS_SetTimerAmbiaMara_ViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RVS_SetTimerAmbiaMara_ViewController" id="BYZ-38-t0r" userLabel="Set Timer View Controller" customClass="RVS_SetTimerAmbiaMara_ViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -973,6 +973,14 @@
             </objects>
             <point key="canvasLocation" x="602.89855072463774" y="837.72321428571422"/>
         </scene>
+        <!--Set Timer Page View Controller-->
+        <scene sceneID="AsV-Zf-xXq">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="xXq-tc-ySG" customClass="RVS_SetTimerPageViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4FC-ej-oQe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="94" y="-602"/>
+        </scene>
         <!--Set Alarm Popover View Controller-->
         <scene sceneID="L5y-aw-jD5">
             <objects>
@@ -1136,7 +1144,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="320" height="318"/>
+        <image name="CenterImage" width="883" height="877"/>
         <image name="Digits" width="60" height="20"/>
         <image name="Final-Image" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
