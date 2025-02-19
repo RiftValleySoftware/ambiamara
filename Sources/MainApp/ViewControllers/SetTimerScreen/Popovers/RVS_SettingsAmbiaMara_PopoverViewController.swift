@@ -47,7 +47,7 @@ class RVS_SettingsAmbiaMara_PopoverViewController: UIViewController {
     /**
      This references the presenting view controller.
     */
-    weak var myController: RVS_SetTimerAmbiaMara_ViewController?
+    weak var myController: RVS_SetTimerWrapper?
     
     /* ################################################################## */
     /**

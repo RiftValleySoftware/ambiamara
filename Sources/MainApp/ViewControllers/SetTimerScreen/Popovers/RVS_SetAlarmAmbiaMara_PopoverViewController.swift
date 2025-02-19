@@ -87,7 +87,7 @@ class RVS_SetAlarmAmbiaMara_PopoverViewController: UIViewController {
     /**
      This references the presenting view controller.
     */
-    weak var myController: RVS_SetTimerAmbiaMara_ViewController?
+    weak var myController: RVS_SetTimerWrapper?
     
     /* ################################################################## */
     /**

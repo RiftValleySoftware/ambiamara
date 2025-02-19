@@ -87,12 +87,6 @@ class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
             }
         }
     }
-
-    /* ################################################################## */
-    /**
-     The ID for the segue, to show the about screen.
-    */
-    private static let _aboutViewSegueID = "ShowAboutView"
     
     /* ################################################################## */
     /**
@@ -183,12 +177,6 @@ class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
      The storyboard ID, for instantiating the class.
      */
     static let storyboardID = "RVS_SetTimerAmbiaMara_ViewController"
-
-    /* ################################################################## */
-    /**
-     If a popover is being displayed, we reference it here (so we put it away, when we ned to).
-    */
-    weak var currentDisplayedPopover: UIViewController?
     
     /* ################################################################## */
     /**
@@ -217,7 +205,7 @@ class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
     /**
      The set alarm popover bar button item.
     */
-    @IBOutlet weak var alarmSetBarButtonItem: UIBarButtonItem?
+    @IBOutlet weak var alarmSetButton: UIBarButtonItem?
     
     /* ################################################################## */
     /**
@@ -501,8 +489,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
 
         settingsBarButtonItem?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON-LABEL".accessibilityLocalizedVariant
         settingsBarButtonItem?.accessibilityHint = "SLUG-ACC-SETTINGS-BUTTON".accessibilityLocalizedVariant
-        alarmSetBarButtonItem?.accessibilityLabel = "SLUG-ACC-ALARM-BUTTON-LABEL".accessibilityLocalizedVariant
-        alarmSetBarButtonItem?.accessibilityHint = "SLUG-ACC-ALARM-BUTTON".accessibilityLocalizedVariant
+        alarmSetButton?.accessibilityLabel = "SLUG-ACC-ALARM-BUTTON-LABEL".accessibilityLocalizedVariant
+        alarmSetButton?.accessibilityHint = "SLUG-ACC-ALARM-BUTTON".accessibilityLocalizedVariant
         startSetButton?.accessibilityLabel = "SLUG-ACC-STATE-BUTTON-LABEL-Start".accessibilityLocalizedVariant
         startSetButton?.accessibilityHint = "SLUG-ACC-STATE-BUTTON-HINT".accessibilityLocalizedVariant
         warnSetButton?.accessibilityLabel = "SLUG-ACC-STATE-BUTTON-LABEL-Warn".accessibilityLocalizedVariant
@@ -564,35 +552,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         navigationController?.isNavigationBarHidden = false
         UIApplication.shared.isIdleTimerDisabled = false    // Just in case...
         
-        setAlarmIcon()
-
-        // First time through, we do a "fade in" animation.
-//        if nil != startupLogo,
-//           inIsAnimated {
-//            containerView?.alpha = Self._initialSettingsItemAlpha
-//            alarmSetBarButtonItem?.isEnabled = false
-//            settingsBarButtonItem?.isEnabled = false
-//            setTimePickerView?.isUserInteractionEnabled = false // Don't let the user use the picker, until the animation is done.
-//            startupLogo?.alpha = 1.0
-//            UIView.animate(withDuration: Self._fadeInAnimationPeriodInSeconds,
-//                           animations: { [weak self] in
-//                                            self?.startupLogo?.alpha = 0.0
-//                                            self?.containerView?.alpha = 1.0
-//                                        },
-//                           completion: { [weak self] _ in
-//                                            DispatchQueue.main.async {
-//                                                self?.startupLogo?.removeFromSuperview()
-//                                                self?.startupLogo = nil
-//                                                self?.alarmSetBarButtonItem?.isEnabled = true
-//                                                self?.settingsBarButtonItem?.isEnabled = true
-//                                                self?.setTimePickerView?.isUserInteractionEnabled = true
-//                                                self?.view?.setNeedsLayout()
-//                                            }
-//                                        }
-//            )
-//        } else {
-            setUpButtons()
-//        }
+        container?.setAlarmIcon()
+        setUpButtons()
     }
     
     /* ############################################################## */
@@ -975,36 +936,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      Called when the add bar button item has been hit.
      - parameter: ignored.
     */
-    @IBAction func addHit(_: Any) {
-        if Self._maximumNumberOfTimers > _timerBarItems.count {
-            guard let setupContainerView = setupContainerView,
-                  let view = view
-            else { return }
-            if hapticsAreAvailable {
-                _selectionFeedbackGenerator?.selectionChanged()
-                _selectionFeedbackGenerator?.prepare()
-            }
-            
-            RVS_AmbiaMara_Settings().add(andSelect: true)
-            setupContainerView.transform = CGAffineTransform(translationX: view.bounds.size.width / 2, y: view.bounds.size.height / 2)
-            setupContainerView.transform = setupContainerView.transform.scaledBy(x: 0.1, y: 0.1)
-            setupContainerView.alpha = 0.0
-            _state = .start
-            setUpToolbar()
-//            clearButton?.isHidden = true
-//            UIView.animate(withDuration: Self._addTimerAnimationPeriodInSeconds,
-//                           animations: { setupContainerView.transform = CGAffineTransform.identity
-//                                         setupContainerView.alpha = 1.0
-//                                        },
-//                           completion: { [weak self] _ in
-//                                            if self?.hapticsAreAvailable ?? false {
-//                                                self?._impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.soft.rawValue))
-//                                                self?._impactFeedbackGenerator?.prepare()
-//                                                self?.setUpToolbar()
-//                                            }
-//                                        }
-//            )
-        }
+    @IBAction func addHit(_ inSender: Any) {
+        container?.addHit(inSender)
     }
     
     /* ################################################################## */
@@ -1020,51 +953,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         }
         _state = .start
     }
-    
-    /* ################################################################## */
-    /**
-     This is called, when someone selects the Alarm Set Bar Button.
-     It displays a popover, with tools to select the audible (or vibratory) alarm.
-     - parameter inButtonItem: the bar button item.
-     */
-    @IBAction func displayAlarmSetupPopover(_ inButtonItem: UIBarButtonItem) {
-        if let popoverController = storyboard?.instantiateViewController(identifier: RVS_SetAlarmAmbiaMara_PopoverViewController.storyboardID) as? RVS_SetAlarmAmbiaMara_PopoverViewController {
-            if hapticsAreAvailable {
-                _selectionFeedbackGenerator?.selectionChanged()
-                _selectionFeedbackGenerator?.prepare()
-            }
-            popoverController.modalPresentationStyle = .popover
-            popoverController.myController = self
-            popoverController.popoverPresentationController?.barButtonItem = inButtonItem
-            popoverController.popoverPresentationController?.delegate = self
-            popoverController.preferredContentSize = CGSize(width: Self._settingsPopoverWidthInDisplayUnits, height: RVS_SetAlarmAmbiaMara_PopoverViewController.settingsPopoverHeightInDisplayUnits)
-            currentDisplayedPopover = popoverController
-            present(popoverController, animated: true)
-       }
-    }
-    
-    /* ################################################################## */
-    /**
-     This is called, when someone selects the Settings Bar Button.
-     It displays a popover, with various app settings.
-     - parameter inButtonItem: the bar button item.
-     */
-    @IBAction func displaySettingsPopover(_ inButtonItem: UIBarButtonItem) {
-        if let popoverController = storyboard?.instantiateViewController(identifier: RVS_SettingsAmbiaMara_PopoverViewController.storyboardID) as? RVS_SettingsAmbiaMara_PopoverViewController {
-            if hapticsAreAvailable {
-                _selectionFeedbackGenerator?.selectionChanged()
-                _selectionFeedbackGenerator?.prepare()
-            }
-            popoverController.modalPresentationStyle = .popover
-            popoverController.myController = self
-            popoverController.popoverPresentationController?.barButtonItem = inButtonItem
-            popoverController.popoverPresentationController?.delegate = self
-            popoverController.preferredContentSize = CGSize(width: Self._settingsPopoverWidthInDisplayUnits, height: RVS_SettingsAmbiaMara_PopoverViewController.settingsPopoverHeightInDisplayUnits)
-            currentDisplayedPopover = popoverController
-            present(popoverController, animated: true)
-       }
-    }
-    
+
     /* ################################################################## */
     /**
      Called when the add bar button item has been hit.
@@ -1080,22 +969,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         RVS_AmbiaMara_Settings().currentTimerIndex = tag - 1
         setUpToolbar()
         _state = .start
-    }
-
-    /* ################################################################## */
-    /**
-     This makes sure the alarm icon at the top, is the correct one.
-    */
-    func setAlarmIcon() {
-        alarmSetBarButtonItem?.image = UIImage(systemName: RVS_AmbiaMara_Settings().alarmMode ? "bell.fill" : "bell.slash.fill")
-    }
-
-    /* ################################################################## */
-    /**
-     This shows the about screen.
-    */
-    func showAboutScreen() {
-        performSegue(withIdentifier: Self._aboutViewSegueID, sender: nil)
     }
 }
 
@@ -1248,28 +1121,4 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewAccessibilityDelegat
                inPickerView.selectedRow(inComponent: inComponent)
         )
     }
-}
-
-/* ###################################################################################################################################### */
-// MARK: UIPopoverPresentationControllerDelegate Conformance
-/* ###################################################################################################################################### */
-extension RVS_SetTimerAmbiaMara_ViewController: UIPopoverPresentationControllerDelegate {
-    /* ################################################################## */
-    /**
-     Called to ask if there's any possibility of this being displayed in another way.
-     
-     - parameter for: The presentation controller we're talking about.
-     - returns: No way, Jose.
-     */
-    func adaptivePresentationStyle(for: UIPresentationController) -> UIModalPresentationStyle { .none }
-    
-    /* ################################################################## */
-    /**
-     Called to ask if there's any possibility of this being displayed in another way (when the screen is rotated).
-     
-     - parameter for: The presentation controller we're talking about.
-     - parameter traitCollection: The traits, describing the new orientation.
-     - returns: No way, Jose.
-     */
-    func adaptivePresentationStyle(for: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle { .none }
 }

@@ -21,7 +21,19 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
     /**
      The maximum number of timers we can have.
     */
-    private static let _maximumNumberOfTimers = 7
+    private static let _maximumNumberOfTimers = 6
+
+    /* ################################################################## */
+    /**
+     The size of the two settings popovers.
+    */
+    private static let _settingsPopoverWidthInDisplayUnits = CGFloat(400)
+
+    /* ################################################################## */
+    /**
+     The ID for the segue, to show the about screen.
+    */
+    private static let _aboutViewSegueID = "ShowAboutView"
 
     /* ################################################################## */
     /**
@@ -39,11 +51,34 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
     /**
      */
     @IBOutlet weak var pageViewContainer: UIView?
+    
+    /* ################################################################## */
+    /**
+     The settings popover bar button item.
+    */
+    @IBOutlet weak var settingsButton: UIButton?
+    
+    /* ################################################################## */
+    /**
+     The set alarm popover bar button item.
+    */
+    @IBOutlet weak var alarmSetButton: UIButton?
 
     /* ################################################################## */
     /**
      */
     weak var pageViewController: RVS_SetTimerPageViewController?
+    
+    /* ################################################################## */
+    /**
+     */
+    weak var currentActiveTimerScreen: RVS_SetTimerAmbiaMara_ViewController?
+
+    /* ################################################################## */
+    /**
+     If a popover is being displayed, we reference it here (so we put it away, when we need to).
+    */
+    weak var currentDisplayedPopover: UIViewController?
 
     /* ################################################################## */
     /**
@@ -235,25 +270,121 @@ extension RVS_SetTimerWrapper {
     
     /* ################################################################## */
     /**
-     Called when the trash bar button item has been hit.
-     This puts up a confirmation screen, asking if the user is sure they want to delete the timer.
-     - parameter: ignored.
-    */
-    @IBAction func trashHit(_: Any) {
-        if 1 < _timerBarItems.count {
-            RVS_AmbiaMara_Settings().remove(timer: currentTimer)
-        }
-    }
-    
-    /* ################################################################## */
-    /**
      Called when the add bar button item has been hit.
      - parameter: ignored.
     */
     @IBAction func addHit(_: Any) {
         if Self._maximumNumberOfTimers > _timerBarItems.count {
             RVS_AmbiaMara_Settings().add(andSelect: true)
+            state = .start
+            setUpToolbar()
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the trash bar button item has been hit.
+     This puts up a confirmation screen, asking if the user is sure they want to delete the timer.
+     - parameter: ignored.
+    */
+    @IBAction func trashHit(_: Any) {
+        if 1 < _timerBarItems.count {
+            if hapticsAreAvailable {
+                _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+                _impactFeedbackGenerator?.prepare()
+            }
+
+            let timerTag = currentTimer.index + 1
+            let startTimeAsComponents = currentTimer.startTimeAsComponents
+            guard 2 < startTimeAsComponents.count else { return }
+
+            var timeString: String
+
+            if 0 < startTimeAsComponents[0] {
+                timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+            } else if 0 < startTimeAsComponents[1] {
+                timeString = "\(String(format: "%d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+            } else {
+                timeString = String(startTimeAsComponents[2])
+            }
+            
+            let message = timeString.isEmpty || "0" == timeString
+                ? String(format: "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT-ZERO".localizedVariant, timerTag)
+                : String(format: "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT".localizedVariant, timerTag, timeString)
+            let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER".localizedVariant, message: message, preferredStyle: .alert
+            )
+
+            let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive, handler: { [weak self] _ in
+                if let currentTimer = self?.currentTimer {
+                    if self?.hapticsAreAvailable ?? false {
+                        self?._impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+                        self?._impactFeedbackGenerator?.prepare()
+                    }
+                    RVS_AmbiaMara_Settings().remove(timer: currentTimer)
+                }
+                self?.setUpToolbar()
+                self?.state = .start
+                self?.setUpButtons()
+            })
+            
+            alertController.addAction(okAction)
+
+            let cancelAction = UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel, handler: { [weak self] _ in
+                if self?.hapticsAreAvailable ?? false {
+                    self?._selectionFeedbackGenerator?.selectionChanged()
+                    self?._selectionFeedbackGenerator?.prepare()
+                }
+            })
+
+            alertController.addAction(cancelAction)
+
+            present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func setUpButtons() {
+        
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called, when someone selects the Settings Bar Button.
+     It displays a popover, with various app settings.
+     - parameter inButtonItem: the bar button item.
+     */
+    @IBAction func displaySettingsPopover(_ inButtonItem: UIBarButtonItem) {
+        if let popoverController = storyboard?.instantiateViewController(identifier: RVS_SettingsAmbiaMara_PopoverViewController.storyboardID) as? RVS_SettingsAmbiaMara_PopoverViewController {
+            if hapticsAreAvailable {
+                _selectionFeedbackGenerator?.selectionChanged()
+                _selectionFeedbackGenerator?.prepare()
+            }
+            popoverController.modalPresentationStyle = .popover
+            popoverController.myController = self
+            popoverController.popoverPresentationController?.barButtonItem = inButtonItem
+            popoverController.popoverPresentationController?.delegate = self
+            popoverController.preferredContentSize = CGSize(width: Self._settingsPopoverWidthInDisplayUnits, height: RVS_SettingsAmbiaMara_PopoverViewController.settingsPopoverHeightInDisplayUnits)
+            currentDisplayedPopover = popoverController
+            present(popoverController, animated: true)
+       }
+    }
+
+    /* ################################################################## */
+    /**
+     This makes sure the alarm icon at the top, is the correct one.
+    */
+    func setAlarmIcon() {
+        alarmSetButton?.setImage(UIImage(systemName: RVS_AmbiaMara_Settings().alarmMode ? "bell.fill" : "bell.slash.fill"), for: .normal)
+    }
+
+    /* ################################################################## */
+    /**
+     This shows the about screen.
+    */
+    func showAboutScreen() {
+        performSegue(withIdentifier: Self._aboutViewSegueID, sender: nil)
     }
 }
 
@@ -278,6 +409,30 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
         ret?.container = self
         return ret
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UIPopoverPresentationControllerDelegate Conformance
+/* ###################################################################################################################################### */
+extension RVS_SetTimerWrapper: UIPopoverPresentationControllerDelegate {
+    /* ################################################################## */
+    /**
+     Called to ask if there's any possibility of this being displayed in another way.
+     
+     - parameter for: The presentation controller we're talking about.
+     - returns: No way, Jose.
+     */
+    func adaptivePresentationStyle(for: UIPresentationController) -> UIModalPresentationStyle { .none }
+    
+    /* ################################################################## */
+    /**
+     Called to ask if there's any possibility of this being displayed in another way (when the screen is rotated).
+     
+     - parameter for: The presentation controller we're talking about.
+     - parameter traitCollection: The traits, describing the new orientation.
+     - returns: No way, Jose.
+     */
+    func adaptivePresentationStyle(for: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle { .none }
 }
 
 /* ###################################################################################################################################### */

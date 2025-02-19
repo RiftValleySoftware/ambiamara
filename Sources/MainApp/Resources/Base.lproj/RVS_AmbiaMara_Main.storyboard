@@ -323,7 +323,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="alarmSetBarButtonItem" destination="t6N-Pt-3ne" id="NJ8-0Z-NUV"/>
+                        <outlet property="alarmSetButton" destination="t6N-Pt-3ne" id="NJ8-0Z-NUV"/>
                         <outlet property="backgroundLeftSwipeGestureRecognizer" destination="jK0-c6-GFE" id="7KR-xq-Lkh"/>
                         <outlet property="backgroundRightSwipeGestureRecognizer" destination="9R4-wX-OXE" id="duC-Bc-RP1"/>
                         <outlet property="clearButton" destination="1hl-8D-atr" id="0x9-37-bSl"/>
@@ -981,12 +981,35 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DW9-yi-6uz">
+                                <rect key="frame" x="20" y="48" width="50" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="DW9-yi-6uz" secondAttribute="height" multiplier="25:17" id="zDT-ip-8Uc"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="gear.circle" catalog="system" symbolScale="large"/>
+                                </buttonConfiguration>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hof-OD-AWO">
+                                <rect key="frame" x="344" y="48" width="50" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="hof-OD-AWO" secondAttribute="height" multiplier="25:17" id="MV9-5u-9sc"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="bell" catalog="system" symbolScale="large"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KAI-rk-ext"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ZHN-tJ-989" secondAttribute="trailing" constant="20" id="8bb-e7-sNL"/>
+                            <constraint firstItem="DW9-yi-6uz" firstAttribute="top" secondItem="LC2-Q2-GWU" secondAttribute="top" id="9LE-Eq-eBA"/>
+                            <constraint firstItem="hof-OD-AWO" firstAttribute="width" secondItem="hof-OD-AWO" secondAttribute="height" multiplier="25:17" id="CmX-2r-jZn"/>
                             <constraint firstItem="LC2-Q2-GWU" firstAttribute="leading" secondItem="KAI-rk-ext" secondAttribute="leading" constant="20" id="FCA-Ji-vBG"/>
+                            <constraint firstItem="DW9-yi-6uz" firstAttribute="leading" secondItem="LC2-Q2-GWU" secondAttribute="leading" id="WFO-EO-kmv"/>
                             <constraint firstItem="ZHN-tJ-989" firstAttribute="top" secondItem="LC2-Q2-GWU" secondAttribute="bottom" id="aYa-xN-NSZ"/>
                             <constraint firstItem="ZHN-tJ-989" firstAttribute="leading" secondItem="KAI-rk-ext" secondAttribute="leading" constant="20" id="bBu-LD-bKg"/>
                             <constraint firstItem="LC2-Q2-GWU" firstAttribute="top" secondItem="KAI-rk-ext" secondAttribute="top" id="raV-jZ-Stq"/>
@@ -997,7 +1020,9 @@
                     <navigationItem key="navigationItem" id="DKX-Dg-hRm"/>
                     <connections>
                         <outlet property="addBarButtonItem" destination="Jdg-Ku-r6X" id="2hG-ap-IZ0"/>
+                        <outlet property="alarmSetBarButtonItem" destination="hof-OD-AWO" id="kAJ-rm-3kB"/>
                         <outlet property="pageViewContainer" destination="LC2-Q2-GWU" id="tNu-j0-uge"/>
+                        <outlet property="settingsButton" destination="DW9-yi-6uz" id="Kb6-Gi-crT"/>
                         <outlet property="timerSelectionToolbar" destination="ZHN-tJ-989" id="RIA-YD-m2j"/>
                         <outlet property="trashBarButtonItem" destination="FIr-GB-Wg6" id="2TA-ou-5G3"/>
                     </connections>
@@ -1177,7 +1202,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="883" height="877"/>
+        <image name="CenterImage" width="320" height="318"/>
         <image name="Digits" width="60" height="20"/>
         <image name="Final-Image" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
@@ -1185,16 +1210,18 @@
         <image name="Stoplights" width="65" height="20"/>
         <image name="Warn-Image" width="1024" height="1024"/>
         <image name="backward.end.alt.fill" catalog="system" width="128" height="62"/>
+        <image name="bell" catalog="system" width="125" height="128"/>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
         <image name="bell.slash.fill" catalog="system" width="119" height="128"/>
         <image name="forward.end.alt.fill" catalog="system" width="128" height="62"/>
+        <image name="gear.circle" catalog="system" width="128" height="123"/>
         <image name="gearshape.fill" catalog="system" width="128" height="123"/>
         <image name="nosign" catalog="system" width="128" height="123"/>
         <image name="play.fill" catalog="system" width="120" height="128"/>
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="84"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="0.31400001049041748" green="0.37999999523162842" blue="0.89399999380111694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.44499999284744263" green="0.47600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
