@@ -158,7 +158,13 @@ class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
     /**
      The current screen state.
     */
-    private var _state: States = .start { didSet { setUpButtons() } }
+    private var _state: States {
+        get { container?.state ?? .start }
+        set {
+            container?.state = newValue
+            setUpButtons()
+        }
+    }
 
     /* ################################################################## */
     /**
@@ -183,6 +189,12 @@ class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
      If a popover is being displayed, we reference it here (so we put it away, when we ned to).
     */
     weak var currentDisplayedPopover: UIViewController?
+    
+    /* ################################################################## */
+    /**
+     Shortcut to the overall container for this instance.
+    */
+    weak var container: RVS_SetTimerWrapper?
 
     // MARK: Overall Items
     
@@ -299,7 +311,7 @@ class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
     /**
      This is the toolbar on the bottom, with the timers.
     */
-    @IBOutlet weak var bottomToolbar: UIToolbar?
+    var bottomToolbar: UIToolbar? { container?.timerSelectionToolbar }
     
     /* ################################################################## */
     /**
@@ -337,8 +349,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      The current timer, routed from the settings.
     */
     private var _currentTimer: RVS_AmbiaMara_Settings.TimerSettings {
-        get { RVS_AmbiaMara_Settings().currentTimer }
-        set { RVS_AmbiaMara_Settings().currentTimer = newValue  }
+        get { container?.currentTimer ?? RVS_AmbiaMara_Settings.TimerSettings() }
+        set { container?.currentTimer = newValue  }
     }
 
     /* ################################################################## */
@@ -555,32 +567,32 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         setAlarmIcon()
 
         // First time through, we do a "fade in" animation.
-        if nil != startupLogo,
-           inIsAnimated {
-            startupLogo?.alpha = 1.0
-            containerView?.alpha = Self._initialSettingsItemAlpha
-            alarmSetBarButtonItem?.isEnabled = false
-            settingsBarButtonItem?.isEnabled = false
-            setTimePickerView?.isUserInteractionEnabled = false // Don't let the user use the picker, until the animation is done.
-            UIView.animate(withDuration: Self._fadeInAnimationPeriodInSeconds,
-                           animations: { [weak self] in
-                                            self?.startupLogo?.alpha = 0.0
-                                            self?.containerView?.alpha = 1.0
-                                        },
-                           completion: { [weak self] _ in
-                                            DispatchQueue.main.async {
-                                                self?.startupLogo?.removeFromSuperview()
-                                                self?.startupLogo = nil
-                                                self?.alarmSetBarButtonItem?.isEnabled = true
-                                                self?.settingsBarButtonItem?.isEnabled = true
-                                                self?.setTimePickerView?.isUserInteractionEnabled = true
-                                                self?.view?.setNeedsLayout()
-                                            }
-                                        }
-            )
-        } else {
+//        if nil != startupLogo,
+//           inIsAnimated {
+//            containerView?.alpha = Self._initialSettingsItemAlpha
+//            alarmSetBarButtonItem?.isEnabled = false
+//            settingsBarButtonItem?.isEnabled = false
+//            setTimePickerView?.isUserInteractionEnabled = false // Don't let the user use the picker, until the animation is done.
+//            startupLogo?.alpha = 1.0
+//            UIView.animate(withDuration: Self._fadeInAnimationPeriodInSeconds,
+//                           animations: { [weak self] in
+//                                            self?.startupLogo?.alpha = 0.0
+//                                            self?.containerView?.alpha = 1.0
+//                                        },
+//                           completion: { [weak self] _ in
+//                                            DispatchQueue.main.async {
+//                                                self?.startupLogo?.removeFromSuperview()
+//                                                self?.startupLogo = nil
+//                                                self?.alarmSetBarButtonItem?.isEnabled = true
+//                                                self?.settingsBarButtonItem?.isEnabled = true
+//                                                self?.setTimePickerView?.isUserInteractionEnabled = true
+//                                                self?.view?.setNeedsLayout()
+//                                            }
+//                                        }
+//            )
+//        } else {
             setUpButtons()
-        }
+//        }
     }
     
     /* ############################################################## */
@@ -755,30 +767,30 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     */
     func animateIntro() {
         view.layoutIfNeeded()
-        UIView.animate(withDuration: Self._selectionFadeAnimationPeriodInSeconds,
-                       animations: { [weak self] in
-            self?.topLabelContainerView?.backgroundColor = (self?.isHighContrastMode ?? false) ? .white : UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
-            self?.startSetButton?.backgroundColor = .start != self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Start-Color"))
-                                                        : ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Start-Color")?.withAlphaComponent(0.4))
-            self?.warnSetButton?.backgroundColor = .warn != self?._state && 1 < self?._currentTimer.startTime ?? 0 ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Warn-Color"))
-                                                        :  ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Warn-Color")?.withAlphaComponent(0.4))
-            self?.finalSetButton?.backgroundColor = .final != self?._state && 1 < self?._currentTimer.startTime ?? 0
-                                                    ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Final-Color"))
-                                                    :  ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Final-Color")?.withAlphaComponent(0.4))
-            self?.startSetButton?.borderColor = .start == self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Start-Color")) : nil
-            self?.startSetButton?.borderWidth = .start == self?._state ? 4 : 0
-            self?.warnSetButton?.borderColor = .warn == self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Warn-Color")) : nil
-            self?.warnSetButton?.borderWidth = .warn == self?._state ? 4 : 0
-            self?.finalSetButton?.borderColor = .final == self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Final-Color")) : nil
-            self?.finalSetButton?.borderWidth = .final == self?._state ? 4 : 0
-            self?.stateLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.hoursLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.minutesLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.secondsLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.view.layoutIfNeeded()
-                                    },
-                       completion: nil
-        )
+//        UIView.animate(withDuration: Self._selectionFadeAnimationPeriodInSeconds,
+//                       animations: { [weak self] in
+//            self?.topLabelContainerView?.backgroundColor = (self?.isHighContrastMode ?? false) ? .white : UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
+//            self?.startSetButton?.backgroundColor = .start != self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Start-Color"))
+//                                                        : ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Start-Color")?.withAlphaComponent(0.4))
+//            self?.warnSetButton?.backgroundColor = .warn != self?._state && 1 < self?._currentTimer.startTime ?? 0 ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Warn-Color"))
+//                                                        :  ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Warn-Color")?.withAlphaComponent(0.4))
+//            self?.finalSetButton?.backgroundColor = .final != self?._state && 1 < self?._currentTimer.startTime ?? 0
+//                                                    ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Final-Color"))
+//                                                    :  ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Final-Color")?.withAlphaComponent(0.4))
+//            self?.startSetButton?.borderColor = .start == self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Start-Color")) : nil
+//            self?.startSetButton?.borderWidth = .start == self?._state ? 4 : 0
+//            self?.warnSetButton?.borderColor = .warn == self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Warn-Color")) : nil
+//            self?.warnSetButton?.borderWidth = .warn == self?._state ? 4 : 0
+//            self?.finalSetButton?.borderColor = .final == self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Final-Color")) : nil
+//            self?.finalSetButton?.borderWidth = .final == self?._state ? 4 : 0
+//            self?.stateLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+//                                        self?.hoursLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+//                                        self?.minutesLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+//                                        self?.secondsLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
+//                                        self?.view.layoutIfNeeded()
+//                                    },
+//                       completion: nil
+//        )
 
         var timeAsComponents: [Int]
         switch _state {
@@ -978,19 +990,20 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             setupContainerView.transform = setupContainerView.transform.scaledBy(x: 0.1, y: 0.1)
             setupContainerView.alpha = 0.0
             _state = .start
-            clearButton?.isHidden = true
-            UIView.animate(withDuration: Self._addTimerAnimationPeriodInSeconds,
-                           animations: { setupContainerView.transform = CGAffineTransform.identity
-                                         setupContainerView.alpha = 1.0
-                                        },
-                           completion: { [weak self] _ in
-                                            if self?.hapticsAreAvailable ?? false {
-                                                self?._impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.soft.rawValue))
-                                                self?._impactFeedbackGenerator?.prepare()
-                                                self?.setUpToolbar()
-                                            }
-                                        }
-            )
+            setUpToolbar()
+//            clearButton?.isHidden = true
+//            UIView.animate(withDuration: Self._addTimerAnimationPeriodInSeconds,
+//                           animations: { setupContainerView.transform = CGAffineTransform.identity
+//                                         setupContainerView.alpha = 1.0
+//                                        },
+//                           completion: { [weak self] _ in
+//                                            if self?.hapticsAreAvailable ?? false {
+//                                                self?._impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.soft.rawValue))
+//                                                self?._impactFeedbackGenerator?.prepare()
+//                                                self?.setUpToolbar()
+//                                            }
+//                                        }
+//            )
         }
     }
     

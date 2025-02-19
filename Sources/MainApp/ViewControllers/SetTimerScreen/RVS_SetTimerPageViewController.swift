@@ -47,6 +47,12 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
+     The current screen state.
+    */
+    var state: RVS_SetTimerAmbiaMara_ViewController.States = .start
+
+    /* ################################################################## */
+    /**
      */
     @IBOutlet weak var timerSelectionToolbar: UIToolbar?
     
@@ -66,7 +72,7 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
     /**
      The current timer, routed from the settings.
     */
-    private var _currentTimer: RVS_AmbiaMara_Settings.TimerSettings {
+    var currentTimer: RVS_AmbiaMara_Settings.TimerSettings {
         get { RVS_AmbiaMara_Settings().currentTimer }
         set { RVS_AmbiaMara_Settings().currentTimer = newValue  }
     }
@@ -134,6 +140,7 @@ extension RVS_SetTimerWrapper {
               let initialController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
         else { return }
         
+        initialController.container = self
         pvc.dataSource = self
         pvc.setViewControllers( [initialController], direction: .forward, animated: false, completion: nil)
 
@@ -169,7 +176,7 @@ extension RVS_SetTimerWrapper {
             guard 1 < items.count else { return }
             var newItems: [UIBarButtonItem] = [items[0], items[1], items[items.count - 2], items[items.count - 1]]
             if 1 < RVS_AmbiaMara_Settings().numberOfTimers {
-                let currentTag = _currentTimer.index + 1
+                let currentTag = currentTimer.index + 1
                 navigationItem.title = String(format: "SLUG-TIMER-TITLE-FORMAT".localizedVariant, currentTag)
                 for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
                     let tag = timer.offset + 1
@@ -234,54 +241,7 @@ extension RVS_SetTimerWrapper {
     */
     @IBAction func trashHit(_: Any) {
         if 1 < _timerBarItems.count {
-            if hapticsAreAvailable {
-                _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
-                _impactFeedbackGenerator?.prepare()
-            }
-
-            let timerTag = _currentTimer.index + 1
-            let startTimeAsComponents = _currentTimer.startTimeAsComponents
-            guard 2 < startTimeAsComponents.count else { return }
-
-            var timeString: String
-
-            if 0 < startTimeAsComponents[0] {
-                timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
-            } else if 0 < startTimeAsComponents[1] {
-                timeString = "\(String(format: "%d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
-            } else {
-                timeString = String(startTimeAsComponents[2])
-            }
-            
-            let message = timeString.isEmpty || "0" == timeString
-                ? String(format: "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT-ZERO".localizedVariant, timerTag)
-                : String(format: "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT".localizedVariant, timerTag, timeString)
-            let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER".localizedVariant, message: message, preferredStyle: .alert
-            )
-
-            let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive, handler: { [weak self] _ in
-                if let currentTimer = self?._currentTimer {
-                    if self?.hapticsAreAvailable ?? false {
-                        self?._impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
-                        self?._impactFeedbackGenerator?.prepare()
-                    }
-                    RVS_AmbiaMara_Settings().remove(timer: currentTimer)
-                }
-                self?.setUpToolbar()
-            })
-            
-            alertController.addAction(okAction)
-
-            let cancelAction = UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel, handler: { [weak self] _ in
-                if self?.hapticsAreAvailable ?? false {
-                    self?._selectionFeedbackGenerator?.selectionChanged()
-                    self?._selectionFeedbackGenerator?.prepare()
-                }
-            })
-
-            alertController.addAction(cancelAction)
-
-            present(alertController, animated: true, completion: nil)
+            RVS_AmbiaMara_Settings().remove(timer: currentTimer)
         }
     }
     
@@ -292,31 +252,7 @@ extension RVS_SetTimerWrapper {
     */
     @IBAction func addHit(_: Any) {
         if Self._maximumNumberOfTimers > _timerBarItems.count {
-            guard let setupContainerView = setupContainerView,
-                  let view = view
-            else { return }
-            if hapticsAreAvailable {
-                _selectionFeedbackGenerator?.selectionChanged()
-                _selectionFeedbackGenerator?.prepare()
-            }
-            
             RVS_AmbiaMara_Settings().add(andSelect: true)
-            setupContainerView.transform = CGAffineTransform(translationX: view.bounds.size.width / 2, y: view.bounds.size.height / 2)
-            setupContainerView.transform = setupContainerView.transform.scaledBy(x: 0.1, y: 0.1)
-            setupContainerView.alpha = 0.0
-            _state = .start
-            clearButton?.isHidden = true
-            UIView.animate(withDuration: Self._addTimerAnimationPeriodInSeconds,
-                           animations: { setupContainerView.transform = CGAffineTransform.identity
-                                         setupContainerView.alpha = 1.0
-                                        },
-                           completion: { [weak self] _ in
-                                            if self?.hapticsAreAvailable ?? false {
-                                                self?._impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.soft.rawValue))
-                                                self?._impactFeedbackGenerator?.prepare()
-                                            }
-                                        }
-            )
         }
     }
 }
@@ -329,14 +265,18 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
     /**
      */
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
+        let ret = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
+        ret?.container = self
+        return ret
     }
     
     /* ################################################################## */
     /**
      */
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
+        let ret = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
+        ret?.container = self
+        return ret
     }
 }
 

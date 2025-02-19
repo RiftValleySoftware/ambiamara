@@ -273,43 +273,14 @@
                                             <action selector="clearButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y1H-Ao-15R"/>
                                         </connections>
                                     </button>
-                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qte-uJ-cL0">
-                                        <rect key="frame" x="0.0" y="770" width="414" height="44"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <items>
-                                            <barButtonItem enabled="NO" systemItem="trash" id="p3d-KM-TEZ">
-                                                <color key="tintColor" name="Delete-Color"/>
-                                                <connections>
-                                                    <action selector="trashHit:" destination="BYZ-38-t0r" id="bdh-bG-99z"/>
-                                                </connections>
-                                            </barButtonItem>
-                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="7UK-tL-fc7"/>
-                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="Doe-Qq-bhQ"/>
-                                            <barButtonItem enabled="NO" systemItem="add" id="DFN-LB-4Im">
-                                                <connections>
-                                                    <action selector="addHit:" destination="BYZ-38-t0r" id="UES-Eo-Lt3"/>
-                                                </connections>
-                                            </barButtonItem>
-                                        </items>
-                                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </toolbar>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Qte-uJ-cL0" secondAttribute="bottom" id="4dK-SZ-NV5"/>
                                     <constraint firstItem="uq8-S5-u02" firstAttribute="centerY" secondItem="6pY-ss-e0K" secondAttribute="centerY" constant="-20" id="7Md-eK-zVF"/>
                                     <constraint firstItem="1hl-8D-atr" firstAttribute="centerY" secondItem="uq8-S5-u02" secondAttribute="centerY" id="G6X-iK-llD"/>
-                                    <constraint firstItem="uq8-S5-u02" firstAttribute="centerX" secondItem="Qte-uJ-cL0" secondAttribute="centerX" id="QYN-HA-u3l"/>
                                     <constraint firstItem="1hl-8D-atr" firstAttribute="trailing" secondItem="uq8-S5-u02" secondAttribute="leading" id="YKt-Lg-Pna"/>
                                     <constraint firstAttribute="trailing" secondItem="uq8-S5-u02" secondAttribute="trailing" constant="40" id="YYu-xv-io7"/>
                                     <constraint firstItem="uq8-S5-u02" firstAttribute="leading" secondItem="6pY-ss-e0K" secondAttribute="leading" constant="40" id="aFf-wP-fyU"/>
-                                    <constraint firstItem="Qte-uJ-cL0" firstAttribute="leading" secondItem="6pY-ss-e0K" secondAttribute="leading" id="h1R-WA-Hrj"/>
-                                    <constraint firstAttribute="trailing" secondItem="Qte-uJ-cL0" secondAttribute="trailing" id="oNM-Ye-B3x"/>
                                     <constraint firstItem="1hl-8D-atr" firstAttribute="leading" secondItem="6pY-ss-e0K" secondAttribute="leading" constant="12" id="ryF-0D-57J"/>
                                 </constraints>
                             </view>
@@ -352,11 +323,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addBarButtonItem" destination="DFN-LB-4Im" id="Vkg-Il-g6V"/>
                         <outlet property="alarmSetBarButtonItem" destination="t6N-Pt-3ne" id="NJ8-0Z-NUV"/>
                         <outlet property="backgroundLeftSwipeGestureRecognizer" destination="jK0-c6-GFE" id="7KR-xq-Lkh"/>
                         <outlet property="backgroundRightSwipeGestureRecognizer" destination="9R4-wX-OXE" id="duC-Bc-RP1"/>
-                        <outlet property="bottomToolbar" destination="Qte-uJ-cL0" id="rvc-cA-SmW"/>
                         <outlet property="clearButton" destination="1hl-8D-atr" id="0x9-37-bSl"/>
                         <outlet property="containerView" destination="6pY-ss-e0K" id="dn1-t4-hBO"/>
                         <outlet property="finalSetButton" destination="bpG-gy-7Gm" id="TZ5-j1-jrq"/>
@@ -371,7 +340,6 @@
                         <outlet property="startupLogo" destination="sOf-1r-x28" id="wVw-5p-TY0"/>
                         <outlet property="stateLabel" destination="RRV-b8-AsH" id="Ndk-FU-fHg"/>
                         <outlet property="topLabelContainerView" destination="dXY-cj-mkS" id="FJt-Zb-pZ9"/>
-                        <outlet property="trashBarButtonItem" destination="p3d-KM-TEZ" id="bbP-eh-ElX"/>
                         <outlet property="warnSetButton" destination="aqL-cx-ehW" id="ZIz-Uw-CWn"/>
                         <segue destination="Gjb-Zz-XlA" kind="show" identifier="ShowAboutView" id="Cjg-du-upc"/>
                     </connections>
@@ -988,29 +956,50 @@
                                     <segue destination="xXq-tc-ySG" kind="embed" id="ubh-4i-z5O"/>
                                 </connections>
                             </containerView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="weI-FH-6MG">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZHN-tJ-989">
                                 <rect key="frame" x="20" y="813" width="374" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
-                                    <barButtonItem title="Item" id="hFT-mI-fKZ"/>
+                                    <barButtonItem enabled="NO" systemItem="trash" id="FIr-GB-Wg6">
+                                        <color key="tintColor" name="Delete-Color"/>
+                                        <connections>
+                                            <action selector="trashHit:" destination="Qiq-WG-dfl" id="RvS-6D-Nbk"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="qWF-cl-XDv"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="HPs-kU-MwH"/>
+                                    <barButtonItem enabled="NO" systemItem="add" id="Jdg-Ku-r6X">
+                                        <connections>
+                                            <action selector="addHit:" destination="Qiq-WG-dfl" id="rSX-91-AGE"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
+                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KAI-rk-ext"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ZHN-tJ-989" secondAttribute="trailing" constant="20" id="8bb-e7-sNL"/>
                             <constraint firstItem="LC2-Q2-GWU" firstAttribute="leading" secondItem="KAI-rk-ext" secondAttribute="leading" constant="20" id="FCA-Ji-vBG"/>
-                            <constraint firstItem="weI-FH-6MG" firstAttribute="leading" secondItem="KAI-rk-ext" secondAttribute="leading" constant="20" id="LGG-dt-RQ2"/>
-                            <constraint firstItem="KAI-rk-ext" firstAttribute="bottom" secondItem="weI-FH-6MG" secondAttribute="bottom" id="TNg-ke-Y8S"/>
-                            <constraint firstItem="KAI-rk-ext" firstAttribute="trailing" secondItem="weI-FH-6MG" secondAttribute="trailing" constant="20" id="XuL-GK-TNT"/>
-                            <constraint firstItem="weI-FH-6MG" firstAttribute="top" secondItem="LC2-Q2-GWU" secondAttribute="bottom" id="nUb-1B-enf"/>
+                            <constraint firstItem="ZHN-tJ-989" firstAttribute="top" secondItem="LC2-Q2-GWU" secondAttribute="bottom" id="aYa-xN-NSZ"/>
+                            <constraint firstItem="ZHN-tJ-989" firstAttribute="leading" secondItem="KAI-rk-ext" secondAttribute="leading" constant="20" id="bBu-LD-bKg"/>
                             <constraint firstItem="LC2-Q2-GWU" firstAttribute="top" secondItem="KAI-rk-ext" secondAttribute="top" id="raV-jZ-Stq"/>
+                            <constraint firstItem="KAI-rk-ext" firstAttribute="bottom" secondItem="ZHN-tJ-989" secondAttribute="bottom" id="xlV-1b-PaL"/>
                             <constraint firstItem="KAI-rk-ext" firstAttribute="trailing" secondItem="LC2-Q2-GWU" secondAttribute="trailing" constant="20" id="zMc-xe-N6d"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DKX-Dg-hRm"/>
                     <connections>
+                        <outlet property="addBarButtonItem" destination="Jdg-Ku-r6X" id="2hG-ap-IZ0"/>
                         <outlet property="pageViewContainer" destination="LC2-Q2-GWU" id="tNu-j0-uge"/>
-                        <outlet property="timerSelectionToolbar" destination="weI-FH-6MG" id="JTw-So-4G8"/>
+                        <outlet property="timerSelectionToolbar" destination="ZHN-tJ-989" id="RIA-YD-m2j"/>
+                        <outlet property="trashBarButtonItem" destination="FIr-GB-Wg6" id="2TA-ou-5G3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K4u-kY-rxh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1205,7 +1194,7 @@
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="84"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="0.44499999284744263" green="0.47600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.31400001049041748" green="0.37999999523162842" blue="0.89399999380111694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
