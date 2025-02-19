@@ -121,7 +121,6 @@ extension RVS_AmbiaMara_AppSceneDelegate: UIWindowSceneDelegate {
         DispatchQueue.main.async { [weak self] in
             if let viewControllers = self?.navigationController?.viewControllers {
                 if let setupScreen = viewControllers.first as? RVS_SetTimerAmbiaMara_ViewController {
-                    setupScreen.setUpToolbar()
                     setupScreen.setUpButtons()
                }
             }

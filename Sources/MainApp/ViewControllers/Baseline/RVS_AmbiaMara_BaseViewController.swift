@@ -62,7 +62,7 @@ class RVS_AmbiaMara_BaseViewController: UIViewController {
 extension RVS_AmbiaMara_BaseViewController {
     /* ############################################################## */
     /**
-     - returns true, indicating the status bar should be hidden.
+     - returns false, indicating the status bar should not be hidden.
      */
     override var prefersStatusBarHidden: Bool { false }
     

@@ -17,7 +17,7 @@ import RVS_Generic_Swift_Toolbox
 /**
  This is the view controller for the setup screen, where the timer is set, and started.
  */
-class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
+class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
     /* ################################################################################################################################## */
     // MARK: Time Sections Enum
     /* ################################################################################################################################## */
@@ -147,12 +147,6 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
      The ranges that we use to populate the picker (default).
     */
     private static let _defaultPickerViewDataRanges: [Range<Int>] = [0..<100, 0..<60, 0..<60]
-
-    /* ################################################################## */
-    /**
-     The maximum number of timers we can have.
-    */
-    private static let _maximumNumberOfTimers = 7
 
     /* ################################################################## */
     /**
@@ -293,26 +287,6 @@ class RVS_SetTimerAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
     */
     @IBOutlet weak var startButton: UIButton?
 
-    // MARK: Toolbar
-    
-    /* ################################################################## */
-    /**
-     This is the toolbar on the bottom, with the timers.
-    */
-    @IBOutlet weak var bottomToolbar: UIToolbar?
-    
-    /* ################################################################## */
-    /**
-     This is the leftmost button, the trash icon.
-    */
-    @IBOutlet weak var trashBarButtonItem: UIBarButtonItem?
-    
-    /* ################################################################## */
-    /**
-     This is the rightmost button, the add button.
-    */
-    @IBOutlet weak var addBarButtonItem: UIBarButtonItem?
-    
     // MARK: Gesture Recognizers
     
     /* ############################################################## */
@@ -339,52 +313,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     private var _currentTimer: RVS_AmbiaMara_Settings.TimerSettings {
         get { RVS_AmbiaMara_Settings().currentTimer }
         set { RVS_AmbiaMara_Settings().currentTimer = newValue  }
-    }
-
-    /* ################################################################## */
-    /**
-     This will list our timer toolbar items.
-    */
-    private var _timerBarItems: [UIBarButtonItem] {
-        var ret = [UIBarButtonItem]()
-        
-        guard let items = bottomToolbar?.items else { return [] }
-        
-        for item in items.enumerated() where (2..<(items.count - 2)).contains(item.offset) {
-            ret.append(item.element)
-        }
-        
-        return ret
-    }
-    
-    /* ############################################################## */
-    /**
-     - returns: The index of the following timer. Nil, if no following timer.
-                This "circles around," so the last timer points to the first timer.
-     */
-    private var _nextTimerIndex: Int? {
-        guard 1 < RVS_AmbiaMara_Settings().numberOfTimers else { return nil }
-        
-        let nextIndex = RVS_AmbiaMara_Settings().currentTimerIndex + 1
-        
-        guard nextIndex < RVS_AmbiaMara_Settings().numberOfTimers else { return nil }
-        
-        return nextIndex
-    }
-    
-    /* ############################################################## */
-    /**
-     - returns: The index of the previous timer. Nil, if no previous timer.
-                This "circles around," so the first timer points to the last timer.
-     */
-    private var _previousTimerIndex: Int? {
-        guard 1 < RVS_AmbiaMara_Settings().numberOfTimers else { return nil }
-        
-        let previousIndex = RVS_AmbiaMara_Settings().currentTimerIndex - 1
-        
-        guard 0 <= previousIndex else { return nil }
-        
-        return previousIndex
     }
 
     /* ################################################################## */
@@ -423,7 +351,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                 setPickerControl.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: true)
                 setPickerControl.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: true)
                 setPickerControl.reloadAllComponents()
-                self?.setUpToolbar()
                 self?.clearButton?.isHidden = 0 >= (self?._stateTime() ?? -1)
             }
         }
@@ -499,7 +426,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         finalSetButton?.accessibilityHint = "SLUG-ACC-STATE-BUTTON-HINT".accessibilityLocalizedVariant
         startButton?.accessibilityLabel = "SLUG-ACC-PLAY-BUTTON-LABEL".accessibilityLocalizedVariant
         startButton?.accessibilityHint = "SLUG-ACC-PLAY-BUTTON-HINT".accessibilityLocalizedVariant
-        addBarButtonItem?.accessibilityHint = "SLUG-ACC-ADD-TIMER-BUTTON".accessibilityLocalizedVariant
         clearButton?.accessibilityHint = "SLUG-ACC-CLEAR-BUTTON".accessibilityLocalizedVariant
         
         guard 2 < _pickerViewData.count else { return }
@@ -520,10 +446,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         if isHighContrastMode {
             finalSetButton?.setTitleColor(.black, for: .normal)
         }
-
-        // Makes the toolbar background transparent.
-        bottomToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
-        bottomToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
 
         _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
         _selectionFeedbackGenerator?.prepare()
@@ -625,56 +547,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
 /* ###################################################################################################################################### */
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
-extension RVS_SetTimerAmbiaMara_ViewController {
-    /* ################################################################## */
-    /**
-     This sets up the toolbar, by adding all the timers.
-    */
-    func setUpToolbar() {
-        if let items = bottomToolbar?.items {
-            guard 1 < items.count else { return }
-            var newItems: [UIBarButtonItem] = [items[0], items[1], items[items.count - 2], items[items.count - 1]]
-            if 1 < RVS_AmbiaMara_Settings().numberOfTimers {
-                let currentTag = _currentTimer.index + 1
-                navigationItem.title = String(format: "SLUG-TIMER-TITLE-FORMAT".localizedVariant, currentTag)
-                for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
-                    let tag = timer.offset + 1
-                    let timerButton = UIBarButtonItem()
-                    let startTimeAsComponents = timer.element.startTimeAsComponents
-                    if 2 < startTimeAsComponents.count {
-                        var timeString: String
-                        if 0 < startTimeAsComponents[0] {
-                            timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
-                        } else if 0 < startTimeAsComponents[1] {
-                            timeString = "\(String(format: "%d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
-                        } else {
-                            timeString = String(startTimeAsComponents[2])
-                        }
-                        
-                        timerButton.tag = tag
-                        let imageName = "\(tag).circle\(currentTag != tag ? "" : ".fill")"
-                        timerButton.image = UIImage(systemName: imageName)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large))
-                        timerButton.accessibilityLabel = String(format: "SLUG-ACC-TIMER-BUTTON-LABEL-FORMAT".accessibilityLocalizedVariant, tag)
-                        timerButton.accessibilityHint = String(format: "SLUG-ACC-TIMER-BUTTON-HINT-\(currentTag == tag ? "IS" : "NOT")-FORMAT".accessibilityLocalizedVariant, timeString)
-                        timerButton.isEnabled = currentTag != tag
-                        timerButton.target = self
-                        timerButton.tintColor = view?.tintColor
-                        timerButton.action = #selector(selectToolbarItem(_:))
-                        newItems.insert(timerButton, at: 2 + timer.offset)
-                    }
-                }
-                trashBarButtonItem?.accessibilityHint = String(format: "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT".accessibilityLocalizedVariant, currentTag)
-            } else {
-                navigationItem.title = nil
-            }
-            
-            bottomToolbar?.setItems(newItems, animated: false)
-            
-            trashBarButtonItem?.isEnabled = 1 < _timerBarItems.count
-            addBarButtonItem?.isEnabled = Self._maximumNumberOfTimers > _timerBarItems.count
-        }
-    }
-    
+extension RVS_SetTimerAmbiaMara_ViewController {    
     /* ################################################################## */
     /**
      This sets up the buttons and the picker to the current state.
@@ -746,40 +619,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             finalSetButton?.setTitle(nil, for: .normal)
         }
         
-        animateIntro()
+        setUpTime()
     }
     
-    /* ################################################################## */
-    /**
-     This animates the intro of the screen.
-    */
-    func animateIntro() {
-        view.layoutIfNeeded()
-        UIView.animate(withDuration: Self._selectionFadeAnimationPeriodInSeconds,
-                       animations: { [weak self] in
-            self?.topLabelContainerView?.backgroundColor = (self?.isHighContrastMode ?? false) ? .white : UIColor(named: "\(self?._state.stringValue ?? "ERROR")-Color")
-            self?.startSetButton?.backgroundColor = .start != self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Start-Color"))
-                                                        : ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Start-Color")?.withAlphaComponent(0.4))
-            self?.warnSetButton?.backgroundColor = .warn != self?._state && 1 < self?._currentTimer.startTime ?? 0 ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Warn-Color"))
-                                                        :  ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Warn-Color")?.withAlphaComponent(0.4))
-            self?.finalSetButton?.backgroundColor = .final != self?._state && 1 < self?._currentTimer.startTime ?? 0
-                                                    ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Final-Color"))
-                                                    :  ((self?.isHighContrastMode ?? false) ? .black : UIColor(named: "Final-Color")?.withAlphaComponent(0.4))
-            self?.startSetButton?.borderColor = .start == self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Start-Color")) : nil
-            self?.startSetButton?.borderWidth = .start == self?._state ? 4 : 0
-            self?.warnSetButton?.borderColor = .warn == self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Warn-Color")) : nil
-            self?.warnSetButton?.borderWidth = .warn == self?._state ? 4 : 0
-            self?.finalSetButton?.borderColor = .final == self?._state ? ((self?.isHighContrastMode ?? false) ? .white : UIColor(named: "Final-Color")) : nil
-            self?.finalSetButton?.borderWidth = .final == self?._state ? 4 : 0
-            self?.stateLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.hoursLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.minutesLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.secondsLabel?.textColor = (!(self?.isHighContrastMode ?? false) && .final == self?._state) ? .white : .black
-                                        self?.view.layoutIfNeeded()
-                                    },
-                       completion: nil
-        )
-
+    func setUpTime() {
         var timeAsComponents: [Int]
         switch _state {
         case .start:
@@ -813,33 +656,32 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      - parameter inGestureRecognizer: The swipe gesture recognizer.
      */
     @IBAction func swipeGestureReceived(_ inGestureRecognizer: UISwipeGestureRecognizer) {
-        guard 1 < RVS_AmbiaMara_Settings().numberOfTimers else { return }
-        
-        var selectTimerIndex = -1
-        
-        if inGestureRecognizer == backgroundLeftSwipeGestureRecognizer,
-           let nextTimerIndex = _nextTimerIndex {
-            selectTimerIndex = nextTimerIndex
-        } else if inGestureRecognizer == backgroundRightSwipeGestureRecognizer,
-                  let previousTimerIndex = _previousTimerIndex {
-            selectTimerIndex = previousTimerIndex
-        }
-        
-        guard (0..<RVS_AmbiaMara_Settings().numberOfTimers).contains(selectTimerIndex) else { return }
-        
-        if hapticsAreAvailable {
-            if 0 == selectTimerIndex || (RVS_AmbiaMara_Settings().numberOfTimers - 1) == selectTimerIndex {
-                _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
-                _impactFeedbackGenerator?.prepare()
-            } else {
-                _selectionFeedbackGenerator?.selectionChanged()
-                _selectionFeedbackGenerator?.prepare()
-            }
-        }
-
-        RVS_AmbiaMara_Settings().currentTimerIndex = selectTimerIndex
-        setUpToolbar()
-        _state = .start
+//        guard 1 < RVS_AmbiaMara_Settings().numberOfTimers else { return }
+//        
+//        var selectTimerIndex = -1
+//        
+//        if inGestureRecognizer == backgroundLeftSwipeGestureRecognizer,
+//           let nextTimerIndex = _nextTimerIndex {
+//            selectTimerIndex = nextTimerIndex
+//        } else if inGestureRecognizer == backgroundRightSwipeGestureRecognizer,
+//                  let previousTimerIndex = _previousTimerIndex {
+//            selectTimerIndex = previousTimerIndex
+//        }
+//        
+//        guard (0..<RVS_AmbiaMara_Settings().numberOfTimers).contains(selectTimerIndex) else { return }
+//        
+//        if hapticsAreAvailable {
+//            if 0 == selectTimerIndex || (RVS_AmbiaMara_Settings().numberOfTimers - 1) == selectTimerIndex {
+//                _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+//                _impactFeedbackGenerator?.prepare()
+//            } else {
+//                _selectionFeedbackGenerator?.selectionChanged()
+//                _selectionFeedbackGenerator?.prepare()
+//            }
+//        }
+//
+//        RVS_AmbiaMara_Settings().currentTimerIndex = selectTimerIndex
+//        _state = .start
     }
 
     /* ################################################################## */
@@ -899,103 +741,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     
     /* ################################################################## */
     /**
-     Called when the trash bar button item has been hit.
-     This puts up a confirmation screen, asking if the user is sure they want to delete the timer.
-     - parameter: ignored.
-    */
-    @IBAction func trashHit(_: Any) {
-        if 1 < _timerBarItems.count {
-            if hapticsAreAvailable {
-                _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
-                _impactFeedbackGenerator?.prepare()
-            }
-
-            let timerTag = _currentTimer.index + 1
-            let startTimeAsComponents = _currentTimer.startTimeAsComponents
-            guard 2 < startTimeAsComponents.count else { return }
-
-            var timeString: String
-
-            if 0 < startTimeAsComponents[0] {
-                timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
-            } else if 0 < startTimeAsComponents[1] {
-                timeString = "\(String(format: "%d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
-            } else {
-                timeString = String(startTimeAsComponents[2])
-            }
-            
-            let message = timeString.isEmpty || "0" == timeString
-                ? String(format: "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT-ZERO".localizedVariant, timerTag)
-                : String(format: "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT".localizedVariant, timerTag, timeString)
-            let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER".localizedVariant, message: message, preferredStyle: .alert
-            )
-
-            let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive, handler: { [weak self] _ in
-                if let currentTimer = self?._currentTimer {
-                    if self?.hapticsAreAvailable ?? false {
-                        self?._impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
-                        self?._impactFeedbackGenerator?.prepare()
-                    }
-                    RVS_AmbiaMara_Settings().remove(timer: currentTimer)
-                }
-                self?.setUpToolbar()
-                self?._state = .start
-                self?.setUpButtons()
-            })
-            
-            alertController.addAction(okAction)
-
-            let cancelAction = UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel, handler: { [weak self] _ in
-                if self?.hapticsAreAvailable ?? false {
-                    self?._selectionFeedbackGenerator?.selectionChanged()
-                    self?._selectionFeedbackGenerator?.prepare()
-                }
-            })
-
-            alertController.addAction(cancelAction)
-
-            present(alertController, animated: true, completion: nil)
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     Called when the add bar button item has been hit.
-     - parameter: ignored.
-    */
-    @IBAction func addHit(_: Any) {
-        if Self._maximumNumberOfTimers > _timerBarItems.count {
-            guard let setupContainerView = setupContainerView,
-                  let view = view
-            else { return }
-            if hapticsAreAvailable {
-                _selectionFeedbackGenerator?.selectionChanged()
-                _selectionFeedbackGenerator?.prepare()
-            }
-            
-            RVS_AmbiaMara_Settings().add(andSelect: true)
-            setupContainerView.transform = CGAffineTransform(translationX: view.bounds.size.width / 2, y: view.bounds.size.height / 2)
-            setupContainerView.transform = setupContainerView.transform.scaledBy(x: 0.1, y: 0.1)
-            setupContainerView.alpha = 0.0
-            _state = .start
-            clearButton?.isHidden = true
-            UIView.animate(withDuration: Self._addTimerAnimationPeriodInSeconds,
-                           animations: { setupContainerView.transform = CGAffineTransform.identity
-                                         setupContainerView.alpha = 1.0
-                                        },
-                           completion: { [weak self] _ in
-                                            if self?.hapticsAreAvailable ?? false {
-                                                self?._impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.soft.rawValue))
-                                                self?._impactFeedbackGenerator?.prepare()
-                                                self?.setUpToolbar()
-                                            }
-                                        }
-            )
-        }
-    }
-    
-    /* ################################################################## */
-    /**
      The timer start button was hit.
      
      - parameter: ignored (and can be omitted).
@@ -1050,23 +795,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             currentDisplayedPopover = popoverController
             present(popoverController, animated: true)
        }
-    }
-    
-    /* ################################################################## */
-    /**
-     Called when the add bar button item has been hit.
-     - parameter: ignored.
-    */
-    @objc func selectToolbarItem(_ inToolbarButton: UIBarButtonItem) {
-        let tag = inToolbarButton.tag
-        guard (1...RVS_AmbiaMara_Settings().numberOfTimers).contains(tag) else { return }
-        if hapticsAreAvailable {
-            _selectionFeedbackGenerator?.selectionChanged()
-            _selectionFeedbackGenerator?.prepare()
-        }
-        RVS_AmbiaMara_Settings().currentTimerIndex = tag - 1
-        setUpToolbar()
-        _state = .start
     }
 
     /* ################################################################## */
@@ -1167,7 +895,6 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
             inPickerView.reloadComponent(2)
         }
         
-        setUpToolbar()
         setUpButtons()
     }
     
