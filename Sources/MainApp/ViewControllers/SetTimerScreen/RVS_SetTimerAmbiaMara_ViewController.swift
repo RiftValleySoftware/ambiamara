@@ -96,12 +96,6 @@ class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
 
     /* ################################################################## */
     /**
-     The size of the two settings popovers.
-    */
-    private static let _settingsPopoverWidthInDisplayUnits = CGFloat(400)
-
-    /* ################################################################## */
-    /**
      The period that we use for the "fade in" animation.
     */
     private static let _fadeInAnimationPeriodInSeconds = CGFloat(1.0)
@@ -549,7 +543,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             print("Timer: \(_currentTimer).")
         #endif
 
-        navigationController?.isNavigationBarHidden = false
         UIApplication.shared.isIdleTimerDisabled = false    // Just in case...
         
         container?.setAlarmIcon()

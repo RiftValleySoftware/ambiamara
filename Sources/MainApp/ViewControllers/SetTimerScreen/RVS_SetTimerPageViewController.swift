@@ -67,6 +67,11 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
     /* ################################################################## */
     /**
      */
+    @IBOutlet weak var timerLabel: UILabel?
+    
+    /* ################################################################## */
+    /**
+     */
     weak var pageViewController: RVS_SetTimerPageViewController?
     
     /* ################################################################## */
@@ -355,7 +360,7 @@ extension RVS_SetTimerWrapper {
      It displays a popover, with various app settings.
      - parameter inButtonItem: the bar button item.
      */
-    @IBAction func displaySettingsPopover(_ inButtonItem: UIBarButtonItem) {
+    @IBAction func displaySettingsPopover(_ inButtonItem: UIButton) {
         if let popoverController = storyboard?.instantiateViewController(identifier: RVS_SettingsAmbiaMara_PopoverViewController.storyboardID) as? RVS_SettingsAmbiaMara_PopoverViewController {
             if hapticsAreAvailable {
                 _selectionFeedbackGenerator?.selectionChanged()
@@ -363,7 +368,7 @@ extension RVS_SetTimerWrapper {
             }
             popoverController.modalPresentationStyle = .popover
             popoverController.myController = self
-            popoverController.popoverPresentationController?.barButtonItem = inButtonItem
+            popoverController.popoverPresentationController?.sourceView = inButtonItem
             popoverController.popoverPresentationController?.delegate = self
             popoverController.preferredContentSize = CGSize(width: Self._settingsPopoverWidthInDisplayUnits, height: RVS_SettingsAmbiaMara_PopoverViewController.settingsPopoverHeightInDisplayUnits)
             currentDisplayedPopover = popoverController

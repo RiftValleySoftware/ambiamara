@@ -646,7 +646,6 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
-        navigationController?.isNavigationBarHidden = true
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure we don't fall asleep.
         stoplightsContainerView?.isHidden = !RVS_AmbiaMara_Settings().stoplightMode
         digitalDisplayContainerView?.isHidden = RVS_AmbiaMara_Settings().stoplightMode
