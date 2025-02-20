@@ -182,6 +182,7 @@ extension RVS_SetTimerWrapper {
         
         initialController.container = self
         pvc.dataSource = self
+        pvc.delegate = self
         pvc.setViewControllers( [initialController], direction: .forward, animated: false, completion: nil)
 
         pageViewContainer.addSubview(pvcView)
@@ -270,7 +271,7 @@ extension RVS_SetTimerWrapper {
             _selectionFeedbackGenerator?.prepare()
         }
         RVS_AmbiaMara_Settings().currentTimerIndex = tag - 1
-        setUpToolbar()
+        selectPageWithIndex(tag - 1)
     }
     
     /* ################################################################## */
@@ -356,6 +357,24 @@ extension RVS_SetTimerWrapper {
     
     /* ################################################################## */
     /**
+     This is called to select a specific page.
+     
+     - parameter inIndex: The 0-based index of the page to be selected.
+     - parameter direction: An optional forced direction. Leave nil, or don't specify, to automate.
+     */
+    func selectPageWithIndex(_ inIndex: Int, direction inDirection: UIPageViewController.NavigationDirection? = nil) {
+        guard (0..<RVS_AmbiaMara_Settings().numberOfTimers).contains(inIndex),
+              let viewControllers = pageViewController?.viewControllers,
+              !viewControllers.isEmpty,
+              let viewController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
+        else { return }
+        let direction: UIPageViewController.NavigationDirection = inDirection ?? (inIndex > RVS_AmbiaMara_Settings().currentTimerIndex ? .forward : .reverse)
+        pageViewController?.setViewControllers([viewController], direction: direction, animated: true)
+        setUpToolbar()
+    }
+
+    /* ################################################################## */
+    /**
      This is called, when someone selects the Settings Bar Button.
      It displays a popover, with various app settings.
      - parameter inButtonItem: the bar button item.
@@ -435,6 +454,18 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
         let ret = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
         ret?.container = self
         return ret
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UIPageViewControllerDelegate Conformance
+/* ###################################################################################################################################### */
+extension RVS_SetTimerWrapper: UIPageViewControllerDelegate {
+    /* ################################################################## */
+    /**
+     */
+    func pageViewController(_: UIPageViewController, didFinishAnimating inIsFinished: Bool, previousViewControllers: [UIViewController], transitionCompleted isCompleted: Bool) {
+        setUpToolbar()
     }
 }
 
