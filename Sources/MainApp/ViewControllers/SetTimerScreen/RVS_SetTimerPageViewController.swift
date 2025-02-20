@@ -375,6 +375,28 @@ extension RVS_SetTimerWrapper {
             present(popoverController, animated: true)
        }
     }
+    
+    /* ################################################################## */
+    /**
+     This is called, when someone selects the Alarm Set Bar Button.
+     It displays a popover, with tools to select the audible (or vibratory) alarm.
+     - parameter inButtonItem: the bar button item.
+     */
+    @IBAction func displayAlarmSetupPopover(_ inButtonItem: UIButton) {
+        if let popoverController = storyboard?.instantiateViewController(identifier: RVS_SetAlarmAmbiaMara_PopoverViewController.storyboardID) as? RVS_SetAlarmAmbiaMara_PopoverViewController {
+            if hapticsAreAvailable {
+                _selectionFeedbackGenerator?.selectionChanged()
+                _selectionFeedbackGenerator?.prepare()
+            }
+            popoverController.modalPresentationStyle = .popover
+            popoverController.myController = self
+            popoverController.popoverPresentationController?.sourceView = inButtonItem
+            popoverController.popoverPresentationController?.delegate = self
+            popoverController.preferredContentSize = CGSize(width: Self._settingsPopoverWidthInDisplayUnits, height: RVS_SetAlarmAmbiaMara_PopoverViewController.settingsPopoverHeightInDisplayUnits)
+            currentDisplayedPopover = popoverController
+            present(popoverController, animated: true)
+       }
+    }
 
     /* ################################################################## */
     /**

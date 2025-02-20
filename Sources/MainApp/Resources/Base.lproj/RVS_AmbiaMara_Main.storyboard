@@ -1003,6 +1003,9 @@
                                 <buttonConfiguration key="configuration" style="plain">
                                     <imageReference key="image" image="bell" catalog="system" symbolScale="large"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="displayAlarmSetupPopover:" destination="Qiq-WG-dfl" eventType="touchUpInside" id="7CN-nD-PsK"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcf-uI-1IX">
                                 <rect key="frame" x="73" y="48" width="268" height="36"/>
@@ -1064,7 +1067,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WmW-5S-HR2">
-                                <rect key="frame" x="20" y="68" width="374" height="138"/>
+                                <rect key="frame" x="20" y="68" width="374" height="74"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sJV-M8-EEI">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="31"/>
@@ -1087,16 +1090,19 @@
                                         </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vLl-KJ-LU0">
-                                        <rect key="frame" x="0.0" y="38" width="374" height="100"/>
+                                        <rect key="frame" x="0.0" y="38" width="374" height="36"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZMg-gt-lOZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="100"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="36"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="2TH-EY-ZzS"/>
+                                                </constraints>
                                                 <connections>
                                                     <action selector="vibrateSwitchChanged:" destination="Vbk-gE-tat" eventType="valueChanged" id="57D-Ee-mag"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehg-s1-KXq">
-                                                <rect key="frame" x="57" y="0.0" width="317" height="100"/>
+                                                <rect key="frame" x="57" y="0.0" width="317" height="36"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="SLUG-VIBRATE-BUTTON"/>
                                                 <connections>
@@ -1112,7 +1118,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9IW-EI-Muk">
-                                        <rect key="frame" x="0.0" y="138" width="374" height="100"/>
+                                        <rect key="frame" x="0.0" y="74" width="374" height="100"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="21l-2m-K2x">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="100"/>
