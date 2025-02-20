@@ -42,4 +42,20 @@ extension RVS_AboutAmbiaMara_ViewController {
       
         aboutText?.text = contents
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func viewWillAppear(_ inAnimated: Bool) {
+        super.viewWillAppear(inAnimated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func viewWillDisappear(_ inAnimated: Bool) {
+        super.viewWillDisappear(inAnimated)
+        navigationController?.isNavigationBarHidden = true
+    }
 }

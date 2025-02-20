@@ -217,7 +217,7 @@ extension RVS_SetTimerWrapper {
             var newItems: [UIBarButtonItem] = [items[0], items[1], items[items.count - 2], items[items.count - 1]]
             if 1 < RVS_AmbiaMara_Settings().numberOfTimers {
                 let currentTag = currentTimer.index + 1
-                navigationItem.title = String(format: "SLUG-TIMER-TITLE-FORMAT".localizedVariant, currentTag)
+                timerLabel?.text = String(format: "SLUG-TIMER-TITLE-FORMAT".localizedVariant, currentTag)
                 for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
                     let tag = timer.offset + 1
                     let timerButton = UIBarButtonItem()

@@ -339,7 +339,6 @@
                         <outlet property="stateLabel" destination="RRV-b8-AsH" id="Ndk-FU-fHg"/>
                         <outlet property="topLabelContainerView" destination="dXY-cj-mkS" id="FJt-Zb-pZ9"/>
                         <outlet property="warnSetButton" destination="aqL-cx-ehW" id="ZIz-Uw-CWn"/>
-                        <segue destination="Gjb-Zz-XlA" kind="show" identifier="ShowAboutView" id="Cjg-du-upc"/>
                     </connections>
                 </viewController>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" id="RGK-rp-qcY">
@@ -413,7 +412,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="131.8840579710145" y="107.8125"/>
+            <point key="canvasLocation" x="257" y="107"/>
         </scene>
         <!--Settings Popover View Controller-->
         <scene sceneID="IBu-gW-FEa">
@@ -588,7 +587,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KF-TF-nOv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="871" y="119"/>
+            <point key="canvasLocation" x="1003" y="118"/>
         </scene>
         <!--Running Timer View Controller-->
         <scene sceneID="62s-RG-oJ0">
@@ -937,7 +936,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="602.89855072463774" y="837.72321428571422"/>
+            <point key="canvasLocation" x="257" y="852"/>
         </scene>
         <!--Set Timer Wrapper-->
         <scene sceneID="Y8t-QI-CR3">
@@ -1044,6 +1043,7 @@
                         <outlet property="timerLabel" destination="pcf-uI-1IX" id="F81-FK-Ryj"/>
                         <outlet property="timerSelectionToolbar" destination="ZHN-tJ-989" id="RIA-YD-m2j"/>
                         <outlet property="trashBarButtonItem" destination="FIr-GB-Wg6" id="2TA-ou-5G3"/>
+                        <segue destination="Gjb-Zz-XlA" kind="show" identifier="ShowAboutView" id="sKn-v4-BxX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K4u-kY-rxh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1184,18 +1184,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3X-ku-fhZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="871" y="-113"/>
+            <point key="canvasLocation" x="1003" y="-114"/>
         </scene>
         <!--About AmbiaMara-->
         <scene sceneID="gkd-bp-rVp">
             <objects>
                 <viewController id="Gjb-Zz-XlA" userLabel="About AmbiaMara" customClass="RVS_AboutAmbiaMara_ViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u9V-bG-Ubc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" indicatorStyle="white" maximumZoomScale="2" editable="NO" text="SLUG-ABOUT-MAIN-TEXT" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Tz6-2I-hpj">
-                                <rect key="frame" x="20" y="0.0" width="366" height="886"/>
+                                <rect key="frame" x="20" y="48" width="366" height="814"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1221,7 +1221,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gya-oJ-oJu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-300" y="837.72321428571422"/>
+            <point key="canvasLocation" x="-568" y="106"/>
         </scene>
     </scenes>
     <resources>

@@ -250,7 +250,7 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
         }
-        dismiss(animated: true, completion: { [weak self] in self?.myController?.showAboutScreen()})
+        dismiss(animated: true, completion: { [weak self] in self?.myController?.showAboutScreen() })
     }
     
     /* ################################################################## */
