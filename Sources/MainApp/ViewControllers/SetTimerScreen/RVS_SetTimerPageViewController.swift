@@ -181,6 +181,7 @@ extension RVS_SetTimerWrapper {
         else { return }
         
         initialController.container = self
+        initialController.timerIndex = RVS_AmbiaMara_Settings().currentTimerIndex
         pvc.dataSource = self
         pvc.delegate = self
         pvc.setViewControllers( [initialController], direction: .forward, animated: false, completion: nil)
@@ -330,7 +331,6 @@ extension RVS_SetTimerWrapper {
                 }
                 self?.setUpToolbar()
                 self?.state = .start
-                self?.setUpButtons()
             })
             
             alertController.addAction(okAction)
@@ -442,8 +442,12 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
     /**
      */
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let vc = viewController as? RVS_SetTimerAmbiaMara_ViewController else { return nil }
         let ret = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
         ret?.container = self
+        let newIndex = vc.timerIndex - 1
+        ret?.timerIndex = 0 > newIndex ? RVS_AmbiaMara_Settings().numberOfTimers - 1 : newIndex
+        RVS_AmbiaMara_Settings().currentTimerIndex = newIndex
         return ret
     }
     
@@ -451,8 +455,12 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
     /**
      */
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let vc = viewController as? RVS_SetTimerAmbiaMara_ViewController else { return nil }
         let ret = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
         ret?.container = self
+        let newIndex = vc.timerIndex + 1
+        ret?.timerIndex = RVS_AmbiaMara_Settings().numberOfTimers < newIndex ? 0 : newIndex
+        RVS_AmbiaMara_Settings().currentTimerIndex = newIndex
         return ret
     }
 }

@@ -302,10 +302,6 @@
                             <constraint firstItem="sOf-1r-x28" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nhb-jF-CRl"/>
                             <constraint firstItem="sOf-1r-x28" firstAttribute="height" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.6" id="xgQ-ho-JYq"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="9R4-wX-OXE" appends="YES" id="tSq-pm-Yl0"/>
-                            <outletCollection property="gestureRecognizers" destination="jK0-c6-GFE" appends="YES" id="sGj-ut-DIP"/>
-                        </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="MNO-3D-wJv">
@@ -323,8 +319,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="backgroundLeftSwipeGestureRecognizer" destination="jK0-c6-GFE" id="7KR-xq-Lkh"/>
-                        <outlet property="backgroundRightSwipeGestureRecognizer" destination="9R4-wX-OXE" id="duC-Bc-RP1"/>
                         <outlet property="clearButton" destination="1hl-8D-atr" id="0x9-37-bSl"/>
                         <outlet property="containerView" destination="6pY-ss-e0K" id="dn1-t4-hBO"/>
                         <outlet property="finalSetButton" destination="bpG-gy-7Gm" id="TZ5-j1-jrq"/>
@@ -401,16 +395,6 @@
                     </constraints>
                 </stackView>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="9R4-wX-OXE" userLabel="Right Swipe Gesture Recognizer">
-                    <connections>
-                        <action selector="swipeGestureReceived:" destination="BYZ-38-t0r" id="kUK-mo-UFB"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="jK0-c6-GFE" userLabel="Left Swipe Gesture Recognizer">
-                    <connections>
-                        <action selector="swipeGestureReceived:" destination="BYZ-38-t0r" id="DgF-jx-Pje"/>
-                    </connections>
-                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="257" y="107"/>
         </scene>
@@ -1225,7 +1209,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="320" height="318"/>
+        <image name="CenterImage" width="883" height="877"/>
         <image name="Digits" width="60" height="20"/>
         <image name="Final-Image" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
@@ -1244,7 +1228,7 @@
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="84"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="0.44499999284744263" green="0.47600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.31400001049041748" green="0.37999999523162842" blue="0.89399999380111694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
