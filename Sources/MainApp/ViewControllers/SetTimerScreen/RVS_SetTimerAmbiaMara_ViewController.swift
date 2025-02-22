@@ -180,6 +180,18 @@ class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
     
     /* ################################################################## */
     /**
+     The actual timer instance for this screen.
+    */
+    var timer: RVS_AmbiaMara_Settings.TimerSettings? {
+        didSet {
+            if let timer {
+                RVS_AmbiaMara_Settings().currentTimer = timer
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      Shortcut to the overall container for this instance.
     */
     weak var container: RVS_SetTimerWrapper?
@@ -298,15 +310,6 @@ class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
 // MARK: Computed Properties
 /* ###################################################################################################################################### */
 extension RVS_SetTimerAmbiaMara_ViewController {
-    /* ################################################################## */
-    /**
-     The current timer, routed from the settings.
-    */
-    private var _currentTimer: RVS_AmbiaMara_Settings.TimerSettings {
-        get { container?.currentTimer ?? RVS_AmbiaMara_Settings.TimerSettings() }
-        set { container?.currentTimer = newValue  }
-    }
-    
     /* ############################################################## */
     /**
      - returns: The index of the following timer. Nil, if no following timer.
@@ -390,10 +393,12 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      - returns: The normalized time (clipped, if necessary).
     */
     private func _stateTime(from inTime: Int = -1) -> Int {
+        guard let timer else { return 0 }
+        
         var currentValue = -1 == inTime ? pickerTime : inTime
         
-        let startTimeInSeconds = _currentTimer.startTime
-        let warnTimeInSeconds = _currentTimer.warnTime
+        let startTimeInSeconds = timer.startTime
+        let warnTimeInSeconds = timer.warnTime
         
         let startTimeThreshold = startTimeInSeconds - 1
         let warnTimeThreshold = startTimeInSeconds > warnTimeInSeconds && 0 < warnTimeInSeconds
@@ -488,13 +493,20 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
         
+        guard (0..<RVS_AmbiaMara_Settings().timers.count).contains(timerIndex) else { return }
+        
+        timer = RVS_AmbiaMara_Settings().timers[timerIndex]
+        
+        RVS_AmbiaMara_Settings().currentTimerIndex = timerIndex
+        
         #if DEBUG
-            print("Timer Setup Loaded for Timer \(RVS_AmbiaMara_Settings().currentTimerIndex).")
-            print("Timer: \(_currentTimer).")
+            print("Timer Setup Loaded for Timer \(timerIndex).")
+        print("Timer: \(timer.debugDescription).")
         #endif
 
         UIApplication.shared.isIdleTimerDisabled = false    // Just in case...
         
+        container?.setUpToolbar()
         container?.setAlarmIcon()
         setUpButtons()
     }
@@ -509,24 +521,26 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      This sets up the buttons and the picker to the current state.
     */
     func setUpButtons() {
+        guard let timer else { return }
+        
         stateLabel?.text = "SLUG-STATE-\(_state.stringValue)".localizedVariant
         
         startSetButton?.isEnabled = .start != _state
         warnSetButton?.isEnabled = .warn != _state
-        && 1 < _currentTimer.startTime
+        && 1 < timer.startTime
         finalSetButton?.isEnabled = .final != _state
-        && 1 < _currentTimer.startTime
-        && (1 < _currentTimer.warnTime
-            || 0 == _currentTimer.warnTime)
-        startButton?.isEnabled = 0 < _currentTimer.startTime
+        && 1 < timer.startTime
+        && (1 < timer.warnTime
+            || 0 == timer.warnTime)
+        startButton?.isEnabled = 0 < timer.startTime
         clearButton?.isHidden = 0 >= _stateTime()
         
         stateLabel?.accessibilityHint = "SLUG-ACC-STATE-\(_state.stringValue)".accessibilityLocalizedVariant
         stateLabel?.accessibilityHint = "SLUG-ACC-STATE".accessibilityLocalizedVariant + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".accessibilityLocalizedVariant
         
-        if 0 < _currentTimer.startTime,
+        if 0 < timer.startTime,
            .start != _state {
-            let timeAsComponents = _currentTimer.startTimeAsComponents
+            let timeAsComponents = timer.startTimeAsComponents
             var label = ""
             guard 2 < timeAsComponents.count else { return }
             if 0 < timeAsComponents[0] {
@@ -541,9 +555,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             startSetButton?.setTitle(nil, for: .normal)
         }
         
-        if 0 < _currentTimer.warnTime,
+        if 0 < timer.warnTime,
            .warn != _state {
-            let timeAsComponents = _currentTimer.warnTimeAsComponents
+            let timeAsComponents = timer.warnTimeAsComponents
             var label = ""
             guard 2 < timeAsComponents.count else { return }
             if 0 < timeAsComponents[0] {
@@ -558,9 +572,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             warnSetButton?.setTitle(nil, for: .normal)
         }
         
-        if 0 < _currentTimer.finalTime,
+        if 0 < timer.finalTime,
            .final != _state {
-            let timeAsComponents = _currentTimer.finalTimeAsComponents
+            let timeAsComponents = timer.finalTimeAsComponents
             var label = ""
             guard 2 < timeAsComponents.count else { return }
             if 0 < timeAsComponents[0] {
@@ -583,19 +597,21 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      This animates the intro of the screen.
     */
     func animateIntro() {
+        guard let timer else { return }
+        
         view.layoutIfNeeded()
 
         var timeAsComponents: [Int]
         switch _state {
         case .start:
-            pickerTime = _currentTimer.startTime
-            timeAsComponents = _currentTimer.startTimeAsComponents
+            pickerTime = timer.startTime
+            timeAsComponents = timer.startTimeAsComponents
         case .warn:
-            pickerTime = _currentTimer.warnTime
-            timeAsComponents = _currentTimer.warnTimeAsComponents
+            pickerTime = timer.warnTime
+            timeAsComponents = timer.warnTimeAsComponents
         case .final:
-            pickerTime = _currentTimer.finalTime
-            timeAsComponents = _currentTimer.finalTimeAsComponents
+            pickerTime = timer.finalTime
+            timeAsComponents = timer.finalTimeAsComponents
         }
         
         guard 2 < timeAsComponents.count else { return }
@@ -620,13 +636,13 @@ extension RVS_SetTimerAmbiaMara_ViewController {
 
         switch _state {
         case .start:
-            _currentTimer.startTime = 0
+            timer?.startTime = 0
 
         case .warn:
-            _currentTimer.warnTime = 0
+            timer?.warnTime = 0
 
         case .final:
-            _currentTimer.finalTime = 0
+            timer?.finalTime = 0
         }
 
         if hapticsAreAvailable {
@@ -727,11 +743,11 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
         let originalPickerTime = _stateTime(from: pickerTime)
         
         if .start == _state {
-            _currentTimer.startTime = originalPickerTime
+            timer?.startTime = originalPickerTime
         } else if .warn == _state {
-            _currentTimer.warnTime = originalPickerTime
+            timer?.warnTime = originalPickerTime
         } else {
-            _currentTimer.finalTime = originalPickerTime
+            timer?.finalTime = originalPickerTime
         }
         
         var currentValue = originalPickerTime

@@ -180,8 +180,8 @@ extension RVS_SetTimerWrapper {
               let initialController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
         else { return }
         
-        initialController.container = self
         initialController.timerIndex = RVS_AmbiaMara_Settings().currentTimerIndex
+        initialController.container = self
         pvc.dataSource = self
         pvc.delegate = self
         pvc.setViewControllers( [initialController], direction: .forward, animated: false, completion: nil)
@@ -271,7 +271,6 @@ extension RVS_SetTimerWrapper {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
         }
-        RVS_AmbiaMara_Settings().currentTimerIndex = tag - 1
         selectPageWithIndex(tag - 1)
     }
     
@@ -329,7 +328,6 @@ extension RVS_SetTimerWrapper {
                     }
                     RVS_AmbiaMara_Settings().remove(timer: currentTimer)
                 }
-                self?.setUpToolbar()
                 self?.state = .start
             })
             
@@ -368,9 +366,10 @@ extension RVS_SetTimerWrapper {
               !viewControllers.isEmpty,
               let viewController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
         else { return }
+        viewController.container = self
+        viewController.timerIndex = inIndex
         let direction: UIPageViewController.NavigationDirection = inDirection ?? (inIndex > RVS_AmbiaMara_Settings().currentTimerIndex ? .forward : .reverse)
         pageViewController?.setViewControllers([viewController], direction: direction, animated: true)
-        setUpToolbar()
     }
 
     /* ################################################################## */
@@ -447,7 +446,6 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
         ret?.container = self
         let newIndex = vc.timerIndex - 1
         ret?.timerIndex = 0 > newIndex ? RVS_AmbiaMara_Settings().numberOfTimers - 1 : newIndex
-        RVS_AmbiaMara_Settings().currentTimerIndex = newIndex
         return ret
     }
     
@@ -460,7 +458,6 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
         ret?.container = self
         let newIndex = vc.timerIndex + 1
         ret?.timerIndex = RVS_AmbiaMara_Settings().numberOfTimers < newIndex ? 0 : newIndex
-        RVS_AmbiaMara_Settings().currentTimerIndex = newIndex
         return ret
     }
 }

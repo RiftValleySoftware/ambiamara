@@ -1624,7 +1624,6 @@ extension RVS_RunningTimerAmbiaMara_ViewController: RVS_BasicGCDTimerDelegate {
                 self?.flashRed()
                 return
             }
-            self?.setUpToolbar()
             self?.setTimerDisplay()
             guard let startingTime = self?._startingTime?.timeIntervalSince1970 else { return }
             let differenceInSeconds = Int(Date().timeIntervalSince1970 - startingTime)
