@@ -34,6 +34,12 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
      The ID for the segue, to show the about screen.
     */
     private static let _aboutViewSegueID = "ShowAboutView"
+    
+    /* ################################################################## */
+    /**
+     The ID for the segue, to start the timer.
+    */
+    private static let _startTimerSegueID = "start-timer"
 
     /* ################################################################## */
     /**
@@ -432,6 +438,14 @@ extension RVS_SetTimerWrapper {
     */
     func showAboutScreen() {
         performSegue(withIdentifier: Self._aboutViewSegueID, sender: nil)
+    }
+
+    /* ################################################################## */
+    /**
+     Start the timer.
+    */
+    func startTimer() {
+        performSegue(withIdentifier: Self._startTimerSegueID, sender: nil)
     }
 }
 

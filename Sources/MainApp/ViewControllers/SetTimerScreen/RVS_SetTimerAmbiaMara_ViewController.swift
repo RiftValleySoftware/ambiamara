@@ -87,12 +87,6 @@ class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
             }
         }
     }
-    
-    /* ################################################################## */
-    /**
-     The ID for the segue, to start the timer.
-    */
-    private static let _startTimerSegueID = "start-timer"
 
     /* ################################################################## */
     /**
@@ -203,13 +197,6 @@ class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
      The "startup" logo that we fade out.
     */
     @IBOutlet weak var startupLogo: UIImageView?
-
-    /* ################################################################## */
-    /**
-     This is an "overall container" view. It mainly exists to fix an issue with the toolbar,
-     but also makes the fade in more convenient.
-    */
-    @IBOutlet weak var containerView: UIView?
     
     // MARK: Bar Button Items
     
@@ -670,8 +657,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         }
         
         switch inButton {
-        case startSetButton:
-            _state = .start
         case warnSetButton:
             _state = .warn
         case finalSetButton:
@@ -688,11 +673,13 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      - parameter: ignored (and can be omitted).
     */
     @IBAction func startButtonHit(_: Any! = nil) {
+        _state = .start
+        container?.startTimer()
+        
         if hapticsAreAvailable {
             _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.heavy.rawValue))
             _impactFeedbackGenerator?.prepare()
         }
-        _state = .start
     }
 }
 
