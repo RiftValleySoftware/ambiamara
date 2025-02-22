@@ -176,15 +176,11 @@ extension RVS_SetTimerWrapper {
         super.viewDidLoad()
         guard let pageViewContainer,
               let pvc = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerPageViewController.storyboardID) as? RVS_SetTimerPageViewController,
-              let pvcView = pvc.view,
-              let initialController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
+              let pvcView = pvc.view
         else { return }
         
-        initialController.timerIndex = RVS_AmbiaMara_Settings().currentTimerIndex
-        initialController.container = self
         pvc.dataSource = self
         pvc.delegate = self
-        pvc.setViewControllers( [initialController], direction: .forward, animated: false, completion: nil)
 
         pageViewContainer.addSubview(pvcView)
         pvcView.translatesAutoresizingMaskIntoConstraints = false
@@ -206,7 +202,14 @@ extension RVS_SetTimerWrapper {
         timerSelectionToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
         timerSelectionToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
         
-        setUpToolbar()
+        if 0 == RVS_AmbiaMara_Settings().numberOfTimers {
+            addHit()
+        } else if let initialController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController {
+            initialController.timerIndex = RVS_AmbiaMara_Settings().currentTimerIndex
+            initialController.container = self
+            pvc.setViewControllers( [initialController], direction: .forward, animated: false, completion: nil)
+            setUpToolbar()
+        }
     }
     
     /* ################################################################## */
@@ -279,11 +282,14 @@ extension RVS_SetTimerWrapper {
      Called when the add bar button item has been hit.
      - parameter: ignored.
     */
-    @IBAction func addHit(_: Any) {
+    @IBAction func addHit(_: Any! = nil) {
         if Self._maximumNumberOfTimers > _timerBarItems.count {
             RVS_AmbiaMara_Settings().add(andSelect: true)
             state = .start
-            setUpToolbar()
+            guard let newController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController else { return }
+            newController.container = self
+            newController.timerIndex = RVS_AmbiaMara_Settings().numberOfTimers - 1
+            pageViewController?.setViewControllers( [newController], direction: .forward, animated: false, completion: nil)
         }
     }
     
@@ -326,9 +332,12 @@ extension RVS_SetTimerWrapper {
                         self?._impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
                         self?._impactFeedbackGenerator?.prepare()
                     }
+                    let nextIndex = max(0, currentTimer.index - 1)
                     RVS_AmbiaMara_Settings().remove(timer: currentTimer)
+                    self?.selectPageWithIndex(nextIndex)
                 }
                 self?.state = .start
+                self?.setUpToolbar()
             })
             
             alertController.addAction(okAction)
@@ -344,13 +353,6 @@ extension RVS_SetTimerWrapper {
 
             present(alertController, animated: true, completion: nil)
         }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func setUpButtons() {
-        
     }
     
     /* ################################################################## */
@@ -441,7 +443,9 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
     /**
      */
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let vc = viewController as? RVS_SetTimerAmbiaMara_ViewController else { return nil }
+        guard 1 < RVS_AmbiaMara_Settings().numberOfTimers,
+              let vc = viewController as? RVS_SetTimerAmbiaMara_ViewController
+        else { return nil }
         let ret = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
         ret?.container = self
         let newIndex = vc.timerIndex - 1
@@ -453,11 +457,13 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
     /**
      */
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let vc = viewController as? RVS_SetTimerAmbiaMara_ViewController else { return nil }
+        guard 1 < RVS_AmbiaMara_Settings().numberOfTimers,
+              let vc = viewController as? RVS_SetTimerAmbiaMara_ViewController
+        else { return nil }
         let ret = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
         ret?.container = self
         let newIndex = vc.timerIndex + 1
-        ret?.timerIndex = RVS_AmbiaMara_Settings().numberOfTimers < newIndex ? 0 : newIndex
+        ret?.timerIndex = RVS_AmbiaMara_Settings().numberOfTimers == newIndex ? 0 : newIndex
         return ret
     }
 }
