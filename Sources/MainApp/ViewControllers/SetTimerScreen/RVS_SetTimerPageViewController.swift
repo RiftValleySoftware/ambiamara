@@ -223,6 +223,11 @@ extension RVS_SetTimerWrapper {
             pvc.setViewControllers( [initialController], direction: .forward, animated: false, completion: nil)
             setUpToolbar()
         }
+        
+        settingsButton?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON-LABEL".accessibilityLocalizedVariant
+        settingsButton?.accessibilityHint = "SLUG-ACC-SETTINGS-BUTTON".accessibilityLocalizedVariant
+        alarmSetButton?.accessibilityLabel = "SLUG-ACC-ALARM-BUTTON-LABEL".accessibilityLocalizedVariant
+        alarmSetButton?.accessibilityHint = "SLUG-ACC-ALARM-BUTTON".accessibilityLocalizedVariant
     }
     
     /* ############################################################## */
@@ -450,13 +455,14 @@ extension RVS_SetTimerWrapper {
                 trashBarButtonItem?.accessibilityHint = String(format: "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT".accessibilityLocalizedVariant, currentTag)
             } else {
                 navigationItem.title = nil
+                trashBarButtonItem?.accessibilityHint = nil
             }
             
             timerSelectionToolbar?.setItems(newItems, animated: false)
             
             trashBarButtonItem?.isEnabled = 1 < _timerBarItems.count
             addBarButtonItem?.isEnabled = Self._maximumNumberOfTimers > _timerBarItems.count
-            addBarButtonItem?.accessibilityHint = "SLUG-ACC-ADD-TIMER-BUTTON".accessibilityLocalizedVariant
+            addBarButtonItem?.accessibilityHint = Self._maximumNumberOfTimers > _timerBarItems.count ? "SLUG-ACC-ADD-TIMER-BUTTON".accessibilityLocalizedVariant : nil
         }
     }
 
@@ -545,6 +551,26 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
             }
         }
         return ret
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UIPageViewControllerDelegate Conformance
+/* ###################################################################################################################################### */
+extension RVS_SetTimerWrapper: UIPageViewControllerDelegate {
+    /* ################################################################## */
+    /**
+     Called when a swipe has completed.
+     
+     - parameter: The page view controller (ignored).
+     - parameter didFinishAnimating: True, if the animation completed (ignored).
+     - parameter previousViewControllers: The previous view controllers (ignored).
+     - parameter transitionCompleted: True, if the transition completed (ignored).
+    */
+    func pageViewController(_: UIPageViewController, didFinishAnimating: Bool, previousViewControllers: [UIViewController], transitionCompleted: Bool) {
+        setUpToolbar()
+        setAlarmIcon()
+        setTimerLabel()
     }
 }
 

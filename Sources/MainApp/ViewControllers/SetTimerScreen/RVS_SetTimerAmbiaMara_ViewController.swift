@@ -198,20 +198,6 @@ class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
     */
     @IBOutlet weak var startupLogo: UIImageView?
     
-    // MARK: Bar Button Items
-    
-    /* ################################################################## */
-    /**
-     The set alarm popover bar button item.
-    */
-    @IBOutlet weak var alarmSetButton: UIBarButtonItem?
-    
-    /* ################################################################## */
-    /**
-     The settings popover bar button item.
-    */
-    @IBOutlet weak var settingsBarButtonItem: UIBarButtonItem?
-    
     // MARK: Timer Settings Area
     
     /* ################################################################## */
@@ -428,10 +414,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         minutesLabel?.text = (minutesLabel?.text ?? "ERROR").localizedVariant
         secondsLabel?.text = (secondsLabel?.text ?? "ERROR").localizedVariant
 
-        settingsBarButtonItem?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON-LABEL".accessibilityLocalizedVariant
-        settingsBarButtonItem?.accessibilityHint = "SLUG-ACC-SETTINGS-BUTTON".accessibilityLocalizedVariant
-        alarmSetButton?.accessibilityLabel = "SLUG-ACC-ALARM-BUTTON-LABEL".accessibilityLocalizedVariant
-        alarmSetButton?.accessibilityHint = "SLUG-ACC-ALARM-BUTTON".accessibilityLocalizedVariant
         startSetButton?.accessibilityLabel = "SLUG-ACC-STATE-BUTTON-LABEL-Start".accessibilityLocalizedVariant
         startSetButton?.accessibilityHint = "SLUG-ACC-STATE-BUTTON-HINT".accessibilityLocalizedVariant
         warnSetButton?.accessibilityLabel = "SLUG-ACC-STATE-BUTTON-LABEL-Warn".accessibilityLocalizedVariant
@@ -473,7 +455,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
      Called when the view is about to appear.
-     We use this to start the "fade in" animation.
      
      - parameter inIsAnimated: True, if the transition is to be animated (ignored, but sent to the superclass).
      */
@@ -492,7 +473,17 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         #endif
 
         UIApplication.shared.isIdleTimerDisabled = false    // Just in case...
-        
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when the view has appeared.
+     
+     - parameter inIsAnimated: True, if the transition was animated (ignored, but sent to the superclass).
+     */
+    override func viewDidAppear(_ inIsAnimated: Bool) {
+        super.viewDidAppear(inIsAnimated)
+        _state = .start
         container?.setUpToolbar()
         container?.setAlarmIcon()
         container?.setTimerLabel()
@@ -513,10 +504,10 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         
         stateLabel?.text = "SLUG-STATE-\(_state.stringValue)".localizedVariant
         
-        startSetButton?.isEnabled = .start != _state
-        warnSetButton?.isEnabled = .warn != _state
+        startSetButton?.isEnabled = .start != _state && 0 < timer.startTime
+        warnSetButton?.isEnabled = .warn != _state && 0 < timer.startTime
         && 1 < timer.startTime
-        finalSetButton?.isEnabled = .final != _state
+        finalSetButton?.isEnabled = .final != _state && 0 < timer.startTime
         && 1 < timer.startTime
         && (1 < timer.warnTime
             || 0 == timer.warnTime)
@@ -549,11 +540,11 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             var label = ""
             guard 2 < timeAsComponents.count else { return }
             if 0 < timeAsComponents[0] {
-                label = String(format: " %d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
+                label = String(format: "%d:%02d:%02d", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
             } else if 0 < timeAsComponents[1] {
-                label = String(format: " %d:%02d ", timeAsComponents[1], timeAsComponents[2])
+                label = String(format: "%d:%02d", timeAsComponents[1], timeAsComponents[2])
             } else if 0 < timeAsComponents[2] {
-                label = String(format: " %d ", timeAsComponents[2])
+                label = String(format: "%d", timeAsComponents[2])
             }
             warnSetButton?.setTitle(label, for: .normal)
         } else {
@@ -566,17 +557,52 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             var label = ""
             guard 2 < timeAsComponents.count else { return }
             if 0 < timeAsComponents[0] {
-                label = String(format: " %d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
+                label = String(format: "%d:%02d:%02d", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
             } else if 0 < timeAsComponents[1] {
-                label = String(format: " %d:%02d ", timeAsComponents[1], timeAsComponents[2])
+                label = String(format: "%d:%02d", timeAsComponents[1], timeAsComponents[2])
             } else if 0 < timeAsComponents[2] {
-                label = String(format: " %d ", timeAsComponents[2])
+                label = String(format: "%d", timeAsComponents[2])
             }
             finalSetButton?.setTitle(label, for: .normal)
         } else {
             finalSetButton?.setTitle(nil, for: .normal)
         }
         
+        setColors()
+    }
+    
+    /* ################################################################## */
+    /**
+     This sets the colors of the labels and the buttons.
+    */
+    func setColors() {
+        switch _state {
+        case .start:
+            stateLabel?.textColor = UIColor(named: "Start-Color")
+            hoursLabel?.textColor = UIColor(named: "Start-Color")
+            minutesLabel?.textColor = UIColor(named: "Start-Color")
+            secondsLabel?.textColor = UIColor(named: "Start-Color")
+            startSetButton?.backgroundColor = UIColor(named: "Start-Color")?.withAlphaComponent(0.5)
+            warnSetButton?.backgroundColor = UIColor(named: "Warn-Color")
+            finalSetButton?.backgroundColor = UIColor(named: "Final-Color")
+        case .warn:
+            stateLabel?.textColor = UIColor(named: "Warn-Color")
+            hoursLabel?.textColor = UIColor(named: "Warn-Color")
+            minutesLabel?.textColor = UIColor(named: "Warn-Color")
+            secondsLabel?.textColor = UIColor(named: "Warn-Color")
+            startSetButton?.backgroundColor = UIColor(named: "Start-Color")
+            warnSetButton?.backgroundColor = UIColor(named: "Warn-Color")?.withAlphaComponent(0.5)
+            finalSetButton?.backgroundColor = UIColor(named: "Final-Color")
+        case .final:
+            stateLabel?.textColor = UIColor(named: "Final-Color")
+            hoursLabel?.textColor = UIColor(named: "Final-Color")
+            minutesLabel?.textColor = UIColor(named: "Final-Color")
+            secondsLabel?.textColor = UIColor(named: "Final-Color")
+            startSetButton?.backgroundColor = UIColor(named: "Start-Color")
+            warnSetButton?.backgroundColor = UIColor(named: "Warn-Color")
+            finalSetButton?.backgroundColor = UIColor(named: "Final-Color")?.withAlphaComponent(0.5)
+        }
+
         animateIntro()
     }
     
