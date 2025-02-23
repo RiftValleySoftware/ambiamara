@@ -15,6 +15,8 @@ import RVS_Generic_Swift_Toolbox
 // MARK: - Overall "Wrapper" View Controller -
 /* ###################################################################################################################################### */
 /**
+ This view established an overall context for the set timer screen. It contains a page view controller, that is used to select the timer being edited.
+ It also has a toolbar, allowing selection of the timer, as well as adding and deleting timers.
  */
 class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
     /* ################################################################## */
@@ -55,11 +57,6 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
-     */
-    @IBOutlet weak var pageViewContainer: UIView?
-    
-    /* ################################################################## */
-    /**
      The settings popover bar button item.
     */
     @IBOutlet weak var settingsButton: UIButton?
@@ -72,16 +69,25 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
+     The label for the currently selected timer.
      */
     @IBOutlet weak var timerLabel: UILabel?
     
     /* ################################################################## */
     /**
+     This is a container view for our page view controller view.
+     */
+    @IBOutlet weak var pageViewContainer: UIView?
+    
+    /* ################################################################## */
+    /**
+     This is the page view controller that we use to swipe-select timers.
      */
     weak var pageViewController: RVS_SetTimerPageViewController?
     
     /* ################################################################## */
     /**
+     This is a reference to the current active timer screen.
      */
     weak var currentActiveTimerScreen: RVS_SetTimerAmbiaMara_ViewController?
 
@@ -99,6 +105,7 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
+     The toolbar at the bottom of the screen, allowing selection of timers, as well as adding and deleting timers.
      */
     @IBOutlet weak var timerSelectionToolbar: UIToolbar?
     
@@ -177,6 +184,7 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
 extension RVS_SetTimerWrapper {
     /* ################################################################## */
     /**
+     Called when the view hierarchy has been established, but before display.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -186,7 +194,6 @@ extension RVS_SetTimerWrapper {
         else { return }
         
         pvc.dataSource = self
-        pvc.delegate = self
 
         pageViewContainer.addSubview(pvcView)
         pvcView.translatesAutoresizingMaskIntoConstraints = false
@@ -218,60 +225,27 @@ extension RVS_SetTimerWrapper {
         }
     }
     
-    /* ################################################################## */
+    /* ############################################################## */
     /**
-     This sets up the toolbar, by adding all the timers.
-    */
-    func setUpToolbar() {
-        if let items = timerSelectionToolbar?.items {
-            guard 1 < items.count else { return }
-            var newItems: [UIBarButtonItem] = [items[0], items[1], items[items.count - 2], items[items.count - 1]]
-            if 1 < RVS_AmbiaMara_Settings().numberOfTimers {
-                let currentTag = currentTimer.index + 1
-                timerLabel?.text = String(format: "SLUG-TIMER-TITLE-FORMAT".localizedVariant, currentTag)
-                for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
-                    let tag = timer.offset + 1
-                    let timerButton = UIBarButtonItem()
-                    let startTimeAsComponents = timer.element.startTimeAsComponents
-                    if 2 < startTimeAsComponents.count {
-                        var timeString: String
-                        if 0 < startTimeAsComponents[0] {
-                            timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
-                        } else if 0 < startTimeAsComponents[1] {
-                            timeString = "\(String(format: "%d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
-                        } else {
-                            timeString = String(startTimeAsComponents[2])
-                        }
-                        
-                        timerButton.tag = tag
-                        let imageName = "\(tag).circle\(currentTag != tag ? "" : ".fill")"
-                        timerButton.image = UIImage(systemName: imageName)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large))
-                        timerButton.accessibilityLabel = String(format: "SLUG-ACC-TIMER-BUTTON-LABEL-FORMAT".accessibilityLocalizedVariant, tag)
-                        timerButton.accessibilityHint = String(format: "SLUG-ACC-TIMER-BUTTON-HINT-\(currentTag == tag ? "IS" : "NOT")-FORMAT".accessibilityLocalizedVariant, timeString)
-                        timerButton.isEnabled = currentTag != tag
-                        timerButton.target = self
-                        timerButton.tintColor = view?.tintColor
-                        timerButton.action = #selector(selectToolbarItem(_:))
-                        newItems.insert(timerButton, at: 2 + timer.offset)
-                    }
-                }
-                trashBarButtonItem?.accessibilityHint = String(format: "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT".accessibilityLocalizedVariant, currentTag)
-            } else {
-                navigationItem.title = nil
-            }
-            
-            timerSelectionToolbar?.setItems(newItems, animated: false)
-            
-            trashBarButtonItem?.isEnabled = 1 < _timerBarItems.count
-            addBarButtonItem?.isEnabled = Self._maximumNumberOfTimers > _timerBarItems.count
-            addBarButtonItem?.accessibilityHint = "SLUG-ACC-ADD-TIMER-BUTTON".accessibilityLocalizedVariant
-        }
+     Called when the view is about to appear.
+     We use this to start the "fade in" animation.
+     
+     - parameter inIsAnimated: True, if the transition is to be animated (ignored, but sent to the superclass).
+     */
+    override func viewWillAppear(_ inIsAnimated: Bool) {
+        super.viewWillAppear(inIsAnimated)
+        selectPageWithIndex(RVS_AmbiaMara_Settings().currentTimerIndex)
     }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: Callbacks
+/* ###################################################################################################################################### */
+extension RVS_SetTimerWrapper {
     /* ################################################################## */
     /**
-     Called when the add bar button item has been hit.
-     - parameter: ignored.
+     Called a timer bar button item has been hit.
+     - parameter inToolbarButton: the button for the selected timer.
     */
     @objc func selectToolbarItem(_ inToolbarButton: UIBarButtonItem) {
         let tag = inToolbarButton.tag
@@ -329,10 +303,9 @@ extension RVS_SetTimerWrapper {
             let message = timeString.isEmpty || "0" == timeString
                 ? String(format: "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT-ZERO".localizedVariant, timerTag)
                 : String(format: "SLUG-DELETE-CONFIRM-MESSAGE-FORMAT".localizedVariant, timerTag, timeString)
-            let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER".localizedVariant, message: message, preferredStyle: .alert
-            )
+            let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER".localizedVariant, message: message, preferredStyle: .alert)
 
-            let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive, handler: { [weak self] _ in
+            let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive) { [weak self] _ in
                 if let currentTimer = self?.currentTimer {
                     if self?.hapticsAreAvailable ?? false {
                         self?._impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
@@ -344,40 +317,21 @@ extension RVS_SetTimerWrapper {
                 }
                 self?.state = .start
                 self?.setUpToolbar()
-            })
+            }
             
             alertController.addAction(okAction)
 
-            let cancelAction = UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel, handler: { [weak self] _ in
+            let cancelAction = UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel) { [weak self] _ in
                 if self?.hapticsAreAvailable ?? false {
                     self?._selectionFeedbackGenerator?.selectionChanged()
                     self?._selectionFeedbackGenerator?.prepare()
                 }
-            })
+            }
 
             alertController.addAction(cancelAction)
 
             present(alertController, animated: true, completion: nil)
         }
-    }
-    
-    /* ################################################################## */
-    /**
-     This is called to select a specific page.
-     
-     - parameter inIndex: The 0-based index of the page to be selected.
-     - parameter direction: An optional forced direction. Leave nil, or don't specify, to automate.
-     */
-    func selectPageWithIndex(_ inIndex: Int, direction inDirection: UIPageViewController.NavigationDirection? = nil) {
-        guard (0..<RVS_AmbiaMara_Settings().numberOfTimers).contains(inIndex),
-              let viewControllers = pageViewController?.viewControllers,
-              !viewControllers.isEmpty,
-              let viewController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
-        else { return }
-        viewController.container = self
-        viewController.timerIndex = inIndex
-        let direction: UIPageViewController.NavigationDirection = inDirection ?? (inIndex > RVS_AmbiaMara_Settings().currentTimerIndex ? .forward : .reverse)
-        pageViewController?.setViewControllers([viewController], direction: direction, animated: true)
     }
 
     /* ################################################################## */
@@ -423,6 +377,80 @@ extension RVS_SetTimerWrapper {
             present(popoverController, animated: true)
        }
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension RVS_SetTimerWrapper {
+    /* ################################################################## */
+    /**
+     This is called to select a specific page.
+     
+     - parameter inIndex: The 0-based index of the page to be selected.
+     - parameter direction: An optional forced direction. Leave nil, or don't specify, to automate.
+     */
+    func selectPageWithIndex(_ inIndex: Int, direction inDirection: UIPageViewController.NavigationDirection? = nil) {
+        guard (0..<RVS_AmbiaMara_Settings().numberOfTimers).contains(inIndex),
+              let viewControllers = pageViewController?.viewControllers,
+              !viewControllers.isEmpty,
+              let viewController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
+        else { return }
+        viewController.container = self
+        viewController.timerIndex = inIndex
+        let direction: UIPageViewController.NavigationDirection = inDirection ?? (inIndex > RVS_AmbiaMara_Settings().currentTimerIndex ? .forward : .reverse)
+        pageViewController?.setViewControllers([viewController], direction: direction, animated: true)
+    }
+    
+    /* ################################################################## */
+    /**
+     This sets up the toolbar, by adding all the timers.
+    */
+    func setUpToolbar() {
+        if let items = timerSelectionToolbar?.items {
+            guard 1 < items.count else { return }
+            var newItems: [UIBarButtonItem] = [items[0], items[1], items[items.count - 2], items[items.count - 1]]
+            if 1 < RVS_AmbiaMara_Settings().numberOfTimers {
+                let currentTag = currentTimer.index + 1
+                timerLabel?.text = String(format: "SLUG-TIMER-TITLE-FORMAT".localizedVariant, currentTag)
+                for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
+                    let tag = timer.offset + 1
+                    let timerButton = UIBarButtonItem()
+                    let startTimeAsComponents = timer.element.startTimeAsComponents
+                    if 2 < startTimeAsComponents.count {
+                        var timeString: String
+                        if 0 < startTimeAsComponents[0] {
+                            timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+                        } else if 0 < startTimeAsComponents[1] {
+                            timeString = "\(String(format: "%d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+                        } else {
+                            timeString = String(startTimeAsComponents[2])
+                        }
+                        
+                        timerButton.tag = tag
+                        let imageName = "\(tag).circle\(currentTag != tag ? ".fill" : "")"
+                        timerButton.image = UIImage(systemName: imageName)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large))
+                        timerButton.accessibilityLabel = String(format: "SLUG-ACC-TIMER-BUTTON-LABEL-FORMAT".accessibilityLocalizedVariant, tag)
+                        timerButton.accessibilityHint = String(format: "SLUG-ACC-TIMER-BUTTON-HINT-\(currentTag == tag ? "IS" : "NOT")-FORMAT".accessibilityLocalizedVariant, timeString)
+                        timerButton.isEnabled = currentTag != tag
+                        timerButton.target = self
+                        timerButton.tintColor = view?.tintColor
+                        timerButton.action = #selector(selectToolbarItem(_:))
+                        newItems.insert(timerButton, at: 2 + timer.offset)
+                    }
+                }
+                trashBarButtonItem?.accessibilityHint = String(format: "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT".accessibilityLocalizedVariant, currentTag)
+            } else {
+                navigationItem.title = nil
+            }
+            
+            timerSelectionToolbar?.setItems(newItems, animated: false)
+            
+            trashBarButtonItem?.isEnabled = 1 < _timerBarItems.count
+            addBarButtonItem?.isEnabled = Self._maximumNumberOfTimers > _timerBarItems.count
+            addBarButtonItem?.accessibilityHint = "SLUG-ACC-ADD-TIMER-BUTTON".accessibilityLocalizedVariant
+        }
+    }
 
     /* ################################################################## */
     /**
@@ -455,42 +483,60 @@ extension RVS_SetTimerWrapper {
 extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
     /* ################################################################## */
     /**
+     Called to provide a new view controller, when swiping.
+     
+     - parameter: The page view controller (ignored).
+     - parameter viewControllerBefore: The view controller for the timer that will be AFTER ours
+     
+     > NOTE: We will "circle around," if we are at the first timer, so the next one will be that last timer.
      */
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_: UIPageViewController, viewControllerBefore inViewController: UIViewController) -> UIViewController? {
         guard 1 < RVS_AmbiaMara_Settings().numberOfTimers,
-              let vc = viewController as? RVS_SetTimerAmbiaMara_ViewController
+              let vc = inViewController as? RVS_SetTimerAmbiaMara_ViewController
         else { return nil }
         let ret = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
         ret?.container = self
-        let newIndex = vc.timerIndex - 1
-        ret?.timerIndex = 0 > newIndex ? RVS_AmbiaMara_Settings().numberOfTimers - 1 : newIndex
+        let newIndex = 0 > vc.timerIndex - 1 ? RVS_AmbiaMara_Settings().numberOfTimers - 1 : vc.timerIndex - 1
+        ret?.timerIndex = newIndex
+        if hapticsAreAvailable {
+            if 0 == newIndex || RVS_AmbiaMara_Settings().numberOfTimers - 1 == newIndex {
+                _impactFeedbackGenerator?.impactOccurred()
+                _impactFeedbackGenerator?.prepare()
+            } else {
+                _selectionFeedbackGenerator?.selectionChanged()
+                _selectionFeedbackGenerator?.prepare()
+            }
+        }
         return ret
     }
     
     /* ################################################################## */
     /**
-     */
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+     Called to provide a new view controller, when swiping.
+     
+     - parameter: The page view controller (ignored).
+     - parameter viewControllerAfter: The view controller for the timer that will be BEFORE ours
+     
+     > NOTE: We will "circle around," if we are at the last timer, so the next one will be that first timer.
+    */
+    func pageViewController(_: UIPageViewController, viewControllerAfter inViewController: UIViewController) -> UIViewController? {
         guard 1 < RVS_AmbiaMara_Settings().numberOfTimers,
-              let vc = viewController as? RVS_SetTimerAmbiaMara_ViewController
+              let vc = inViewController as? RVS_SetTimerAmbiaMara_ViewController
         else { return nil }
         let ret = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
         ret?.container = self
-        let newIndex = vc.timerIndex + 1
-        ret?.timerIndex = RVS_AmbiaMara_Settings().numberOfTimers == newIndex ? 0 : newIndex
+        let newIndex = RVS_AmbiaMara_Settings().numberOfTimers == vc.timerIndex + 1 ? 0 : vc.timerIndex + 1
+        ret?.timerIndex = newIndex
+        if hapticsAreAvailable {
+            if 0 == newIndex || RVS_AmbiaMara_Settings().numberOfTimers - 1 == newIndex {
+                _impactFeedbackGenerator?.impactOccurred()
+                _impactFeedbackGenerator?.prepare()
+            } else {
+                _selectionFeedbackGenerator?.selectionChanged()
+                _selectionFeedbackGenerator?.prepare()
+            }
+        }
         return ret
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: UIPageViewControllerDelegate Conformance
-/* ###################################################################################################################################### */
-extension RVS_SetTimerWrapper: UIPageViewControllerDelegate {
-    /* ################################################################## */
-    /**
-     */
-    func pageViewController(_: UIPageViewController, didFinishAnimating inIsFinished: Bool, previousViewControllers: [UIViewController], transitionCompleted isCompleted: Bool) {
-        setUpToolbar()
     }
 }
 
@@ -522,6 +568,7 @@ extension RVS_SetTimerWrapper: UIPopoverPresentationControllerDelegate {
 // MARK: - Timer Selection Page View Controller -
 /* ###################################################################################################################################### */
 /**
+ This is the page view controller that we use for swipe-selecting the timers.
  */
 class RVS_SetTimerPageViewController: UIPageViewController {
     /* ################################################################## */

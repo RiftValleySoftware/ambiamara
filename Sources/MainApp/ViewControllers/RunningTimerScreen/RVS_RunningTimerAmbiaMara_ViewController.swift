@@ -686,9 +686,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
            imageSize != bounds.size {
             DispatchQueue.global().async {
                 let image = self._generateHexOverlayImage(bounds)
-                DispatchQueue.main.async {
-                    self.hexGridImageView?.image = image
-                }
+                DispatchQueue.main.async { self.hexGridImageView?.image = image }
             }
         }
     }

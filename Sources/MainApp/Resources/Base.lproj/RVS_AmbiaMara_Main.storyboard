@@ -30,7 +30,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZRg-jC-302" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1425" y="-644"/>
+            <point key="canvasLocation" x="-1426" y="-624"/>
         </scene>
         <!--Set Timer View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -386,7 +386,7 @@
         <!--Settings Popover View Controller-->
         <scene sceneID="IBu-gW-FEa">
             <objects>
-                <viewController storyboardIdentifier="RVS_SettingsAmbiaMara_PopoverViewController" id="UOz-ud-dcU" userLabel="Settings Popover View Controller" customClass="RVS_SettingsAmbiaMara_PopoverViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RVS_SettingsAmbiaMara_PopoverViewController" title="Settings Popover View Contoller" id="UOz-ud-dcU" userLabel="Settings Popover View Controller" customClass="RVS_SettingsAmbiaMara_PopoverViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RiP-wE-HMj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="334"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -556,12 +556,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KF-TF-nOv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1003" y="118"/>
+            <point key="canvasLocation" x="-568" y="574"/>
         </scene>
         <!--Running Timer View Controller-->
         <scene sceneID="62s-RG-oJ0">
             <objects>
-                <viewController storyboardIdentifier="RVS_TimerAmbiaMara_ViewController" id="FWf-2O-eKE" userLabel="Running Timer View Controller" customClass="RVS_RunningTimerAmbiaMara_ViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RVS_TimerAmbiaMara_ViewController" title="Running Timer View Controller" id="FWf-2O-eKE" userLabel="Running Timer View Controller" customClass="RVS_RunningTimerAmbiaMara_ViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7tt-fn-aIE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -905,12 +905,12 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="257" y="-644"/>
+            <point key="canvasLocation" x="257" y="-624"/>
         </scene>
-        <!--Set Timer Wrapper-->
+        <!--Set Timer Screen Wrapper View Controller-->
         <scene sceneID="Y8t-QI-CR3">
             <objects>
-                <viewController id="Qiq-WG-dfl" customClass="RVS_SetTimerWrapper" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Set Timer Screen Wrapper View Controller" id="Qiq-WG-dfl" customClass="RVS_SetTimerWrapper" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="paH-kM-57N">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -969,9 +969,6 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LC2-Q2-GWU">
                                 <rect key="frame" x="20" y="84" width="374" height="729"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <segue destination="xXq-tc-ySG" kind="embed" id="ubh-4i-z5O"/>
-                                </connections>
                             </containerView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZHN-tJ-989">
                                 <rect key="frame" x="20" y="813" width="374" height="49"/>
@@ -1029,7 +1026,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K4u-kY-rxh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-568.1159420289855" y="-644.19642857142856"/>
+            <point key="canvasLocation" x="-568" y="-624"/>
         </scene>
         <!--Set Timer Page View Controller-->
         <scene sceneID="AsV-Zf-xXq">
@@ -1037,25 +1034,22 @@
                 <pageViewController storyboardIdentifier="RVS_SetTimerPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="xXq-tc-ySG" customClass="RVS_SetTimerPageViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4FC-ej-oQe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="257" y="49"/>
+            <point key="canvasLocation" x="-1426" y="104"/>
         </scene>
         <!--Set Alarm Popover View Controller-->
         <scene sceneID="L5y-aw-jD5">
             <objects>
-                <viewController storyboardIdentifier="RVS_SetAlarmAmbiaMara_ViewController" id="Vbk-gE-tat" userLabel="Set Alarm Popover View Controller" customClass="RVS_SetAlarmAmbiaMara_PopoverViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RVS_SetAlarmAmbiaMara_ViewController" title="Set Alarm Popover View Controller" id="Vbk-gE-tat" userLabel="Set Alarm Popover View Controller" customClass="RVS_SetAlarmAmbiaMara_PopoverViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ceo-jA-4Oa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="240"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WmW-5S-HR2">
-                                <rect key="frame" x="20" y="68" width="374" height="74"/>
+                                <rect key="frame" x="20" y="68" width="374" height="138"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sJV-M8-EEI">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="95"/>
                                         <color key="backgroundColor" name="SegSwitchColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="cxr-Ki-IZG"/>
-                                        </constraints>
                                         <segments>
                                             <segment title="">
                                                 <imageReference key="image" image="bell.slash.fill" catalog="system" symbolScale="large"/>
@@ -1071,7 +1065,7 @@
                                         </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vLl-KJ-LU0">
-                                        <rect key="frame" x="0.0" y="38" width="374" height="36"/>
+                                        <rect key="frame" x="0.0" y="102" width="374" height="36"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZMg-gt-lOZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="51" height="36"/>
@@ -1099,7 +1093,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9IW-EI-Muk">
-                                        <rect key="frame" x="0.0" y="74" width="374" height="100"/>
+                                        <rect key="frame" x="0.0" y="138" width="374" height="100"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="21l-2m-K2x">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="100"/>
@@ -1164,12 +1158,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3X-ku-fhZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1003" y="-114"/>
+            <point key="canvasLocation" x="-568" y="835"/>
         </scene>
         <!--About AmbiaMara-->
         <scene sceneID="gkd-bp-rVp">
             <objects>
-                <viewController id="Gjb-Zz-XlA" userLabel="About AmbiaMara" customClass="RVS_AboutAmbiaMara_ViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="About Screen View Controller" id="Gjb-Zz-XlA" userLabel="About AmbiaMara" customClass="RVS_AboutAmbiaMara_ViewController" customModule="Rift_Valley_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u9V-bG-Ubc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1201,11 +1195,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gya-oJ-oJu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1426" y="104"/>
+            <point key="canvasLocation" x="257" y="104"/>
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="320" height="318"/>
+        <image name="CenterImage" width="883" height="877"/>
         <image name="Digits" width="60" height="20"/>
         <image name="Final-Image" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
