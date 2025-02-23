@@ -488,13 +488,14 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         
         #if DEBUG
             print("Timer Setup Loaded for Timer \(timerIndex).")
-        print("Timer: \(timer.debugDescription).")
+            print("Timer: \(timer.debugDescription).")
         #endif
 
         UIApplication.shared.isIdleTimerDisabled = false    // Just in case...
         
         container?.setUpToolbar()
         container?.setAlarmIcon()
+        container?.setTimerLabel()
         setUpButtons()
     }
 }
@@ -774,13 +775,11 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
      - parameter inPickerView: The picker instance.
      - parameter viewForRow: The 0-based row index to be displayed.
      - parameter forComponent: The 0-based component index for the row.
-     - parameter reusing: If a row has been previously created, we use that, instead.
+     - parameter reusing: If a row has been previously created, it is sent in here (ignored).
      - returns: A new view, containing the row. If it is selected, it is displayed as reversed.
     */
-    func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inReusingView: UIView?) -> UIView {
+    func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing: UIView?) -> UIView {
         let selectedRow = inPickerView.selectedRow(inComponent: inComponent)
-        
-        guard nil == inReusingView else { return inReusingView ?? UIView() }
         
         let ret = UILabel()
         ret.font = Self._pickerFont

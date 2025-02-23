@@ -404,6 +404,14 @@ extension RVS_SetTimerWrapper {
     
     /* ################################################################## */
     /**
+     This sets the timer label, at the top.
+    */
+    func setTimerLabel() {
+        timerLabel?.text = 1 < RVS_AmbiaMara_Settings().numberOfTimers ? String(format: "SLUG-TIMER-TITLE-FORMAT".localizedVariant, currentTimer.index + 1) : " "
+    }
+    
+    /* ################################################################## */
+    /**
      This sets up the toolbar, by adding all the timers.
     */
     func setUpToolbar() {
@@ -412,7 +420,7 @@ extension RVS_SetTimerWrapper {
             var newItems: [UIBarButtonItem] = [items[0], items[1], items[items.count - 2], items[items.count - 1]]
             if 1 < RVS_AmbiaMara_Settings().numberOfTimers {
                 let currentTag = currentTimer.index + 1
-                timerLabel?.text = String(format: "SLUG-TIMER-TITLE-FORMAT".localizedVariant, currentTag)
+                setTimerLabel()
                 for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
                     let tag = timer.offset + 1
                     let timerButton = UIBarButtonItem()

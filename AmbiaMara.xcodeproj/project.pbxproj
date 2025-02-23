@@ -57,7 +57,6 @@
 		D4F70CED282872A500DC0E11 /* 25-telephone.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */; };
 		D4F70CEE282872A500DC0E11 /* 23-siren.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */; };
 		D4F70CEF282872A500DC0E11 /* 24-deep-alarm.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */; };
-		D4F83CAA2D63DB10009C4646 /* Rift Valley Timer Watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D4F83C9D2D63DB10009C4646 /* Rift Valley Timer Watch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D4F83CB52D63DB43009C4646 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F83CB42D63DB43009C4646 /* WidgetKit.framework */; };
 		D4F83CB72D63DB43009C4646 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F83CB62D63DB43009C4646 /* SwiftUI.framework */; };
 		D4F83CC02D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D4F83CB32D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -65,13 +64,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D4F83CA82D63DB10009C4646 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D4F83C9C2D63DB10009C4646;
-			remoteInfo = "Rift Valley Timer Watch Watch App";
-		};
 		D4F83CBE2D63DB43009C4646 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
@@ -116,17 +108,6 @@
 				D4F70CED282872A500DC0E11 /* 25-telephone.mp3 in Copy Sounds */,
 			);
 			name = "Copy Sounds";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D4F83CAE2D63DB10009C4646 /* Embed Watch Content */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
-			files = (
-				D4F83CAA2D63DB10009C4646 /* Rift Valley Timer Watch Watch App.app in Embed Watch Content */,
-			);
-			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4F83CC52D63DB43009C4646 /* Embed Foundation Extensions */ = {
@@ -458,12 +439,10 @@
 				D47C02982819CA6500D359F5 /* Frameworks */,
 				D47C02992819CA6500D359F5 /* Resources */,
 				D4B01F99281F59E200B07C56 /* Copy Sounds */,
-				D4F83CAE2D63DB10009C4646 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D4F83CA92D63DB10009C4646 /* PBXTargetDependency */,
 			);
 			name = "Rift Valley Timer";
 			packageProductDependencies = (
@@ -699,11 +678,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D4F83CA92D63DB10009C4646 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D4F83C9C2D63DB10009C4646 /* Rift Valley Timer Watch Watch App */;
-			targetProxy = D4F83CA82D63DB10009C4646 /* PBXContainerItemProxy */;
-		};
 		D4F83CBF2D63DB43009C4646 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D4F83CB22D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension */;
