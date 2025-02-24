@@ -673,14 +673,12 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
             _impactFeedbackGenerator?.prepare()
         }
-        setPickerControl.selectRow(0, inComponent: PickerComponents.hour.rawValue, animated: _animatePickerSet)
+        setPickerControl.selectRow(0, inComponent: PickerComponents.hour.rawValue, animated: true)
         pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.hour.rawValue)
-        setPickerControl.selectRow(0, inComponent: PickerComponents.minute.rawValue, animated: _animatePickerSet)
+        setPickerControl.selectRow(0, inComponent: PickerComponents.minute.rawValue, animated: true)
         pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.minute.rawValue)
-        setPickerControl.selectRow(0, inComponent: PickerComponents.second.rawValue, animated: _animatePickerSet)
+        setPickerControl.selectRow(0, inComponent: PickerComponents.second.rawValue, animated: true)
         pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.second.rawValue)
-        
-        _animatePickerSet = false
     }
 
     /* ################################################################## */
@@ -740,6 +738,8 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDataSource {
     /**
      - parameter: The picker view (ignored)
      - parameter numberOfRowsInComponent: The 0-based index of the component we are querying.
+     
+     - returns: The number of rows in the pickerview component.
     */
     func pickerView(_: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int {
         guard (0..<_pickerViewData.count).contains(inComponent) else { return 0 }
@@ -756,6 +756,8 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
      All picker rows are the same height.
      - parameter inPickerView: The picker instance.
      - parameter rowHeightForComponent: ignored (the component we're checking).
+     
+     - returns: The height, in display units, of the given picker row.
     */
     func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent: Int) -> CGFloat { inPickerView.bounds.height / 3 }
     

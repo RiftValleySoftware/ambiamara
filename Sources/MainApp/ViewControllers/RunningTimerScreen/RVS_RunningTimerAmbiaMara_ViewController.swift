@@ -58,19 +58,19 @@ class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
     /**
      The color of the digits, when the timer is running, and is still in "Start" mode.
      */
-    private static let _startLEDColor: UIColor? = UIColor(named: "Start-Color")
+    private static let _startLEDColor: UIColor? = UIColor(named: "Running-Start")
     
     /* ############################################################## */
     /**
      The color of the digits, when the timer is running, and is in "Warn" mode.
      */
-    private static let _warnLEDColor: UIColor? = UIColor(named: "Warn-Color")
+    private static let _warnLEDColor: UIColor? = UIColor(named: "Running-Warn")
     
     /* ############################################################## */
     /**
      The color of the digits, when the timer is running, and is in "Final" mode.
      */
-    private static let _finalLEDColor: UIColor? = UIColor(named: "Final-Color")
+    private static let _finalLEDColor: UIColor? = UIColor(named: "Running-Final")
 
     /* ############################################################## */
     /**
@@ -616,7 +616,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        overrideUserInterfaceStyle = .dark
+
         // Makes the toolbar background transparent.
         controlToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
         controlToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)

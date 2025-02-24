@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "BlueGradient.pdf",
+      "filename" : "LightGradient.pdf",
       "idiom" : "universal"
     },
     {
@@ -21,7 +21,7 @@
           "value" : "high"
         }
       ],
-      "filename" : "Background-Gradient-HC-Dark-1.pdf",
+      "filename" : "LightGradient-HC.pdf",
       "idiom" : "universal"
     },
     {
