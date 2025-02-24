@@ -202,6 +202,25 @@ extension RVS_SetTimerWrapper {
         settingsButton?.accessibilityHint = "SLUG-ACC-SETTINGS-BUTTON".accessibilityLocalizedVariant
         alarmSetButton?.accessibilityLabel = "SLUG-ACC-ALARM-BUTTON-LABEL".accessibilityLocalizedVariant
         alarmSetButton?.accessibilityHint = "SLUG-ACC-ALARM-BUTTON".accessibilityLocalizedVariant
+        
+        guard let pageViewContainer,
+              let pvc = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerPageViewController.storyboardID) as? RVS_SetTimerPageViewController,
+              let pvcView = pvc.view
+        else { return }
+        
+        pageViewController = pvc
+
+        pvc.dataSource = self
+        pvc.delegate = self
+        addChild(pvc)
+        pvc.didMove(toParent: self)
+
+        pageViewContainer.addSubview(pvcView)
+        pvcView.translatesAutoresizingMaskIntoConstraints = false
+        pvcView.topAnchor.constraint(equalTo: pageViewContainer.topAnchor).isActive = true
+        pvcView.bottomAnchor.constraint(equalTo: pageViewContainer.bottomAnchor).isActive = true
+        pvcView.leadingAnchor.constraint(equalTo: pageViewContainer.leadingAnchor).isActive = true
+        pvcView.trailingAnchor.constraint(equalTo: pageViewContainer.trailingAnchor).isActive = true
     }
     
     /* ############################################################## */
@@ -214,31 +233,12 @@ extension RVS_SetTimerWrapper {
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
         
-        guard let pageViewContainer,
-              let pvc = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerPageViewController.storyboardID) as? RVS_SetTimerPageViewController,
-              let pvcView = pvc.view
-        else { return }
-        
-        pageViewController = pvc
-
-        pvc.dataSource = self
-        pvc.delegate = self
-
-        pageViewContainer.addSubview(pvcView)
-        pvcView.translatesAutoresizingMaskIntoConstraints = false
-        pvcView.topAnchor.constraint(equalTo: pageViewContainer.topAnchor).isActive = true
-        pvcView.bottomAnchor.constraint(equalTo: pageViewContainer.bottomAnchor).isActive = true
-        pvcView.leadingAnchor.constraint(equalTo: pageViewContainer.leadingAnchor).isActive = true
-        pvcView.trailingAnchor.constraint(equalTo: pageViewContainer.trailingAnchor).isActive = true
-
-        pvc.didMove(toParent: self)
-        
         if 0 == RVS_AmbiaMara_Settings().numberOfTimers {
             addHit()
         } else if let initialController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController {
             initialController.timerIndex = RVS_AmbiaMara_Settings().currentTimerIndex
             initialController.container = self
-            pvc.setViewControllers( [initialController], direction: .forward, animated: false, completion: nil)
+            pageViewController?.setViewControllers( [initialController], direction: .forward, animated: false, completion: nil)
             setUpToolbar()
         }
     }
