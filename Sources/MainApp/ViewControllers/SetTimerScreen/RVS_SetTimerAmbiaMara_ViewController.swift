@@ -162,6 +162,12 @@ class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
     
     /* ################################################################## */
     /**
+     If ture, the next time the picker is set, it will be animated (reset each time to false).
+     */
+    private var _animatePickerSet: Bool = false
+    
+    /* ################################################################## */
+    /**
      The storyboard ID, for instantiating the class.
      */
     static let storyboardID = "RVS_SetTimerAmbiaMara_ViewController"
@@ -343,13 +349,14 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             let minutes = min(59, currentValue / 60)
             currentValue -= (minutes * 60)
             let seconds = min(59, currentValue)
-            DispatchQueue.main.async { [weak self] in
-                guard let setPickerControl = self?.setTimePickerView else { return }
-                setPickerControl.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: true)
-                setPickerControl.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: true)
-                setPickerControl.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: true)
+            DispatchQueue.main.async {
+                guard let setPickerControl = self.setTimePickerView else { return }
+                setPickerControl.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: self._animatePickerSet)
+                setPickerControl.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: self._animatePickerSet)
+                setPickerControl.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: self._animatePickerSet)
+                self._animatePickerSet = false
                 setPickerControl.reloadAllComponents()
-                self?.clearButton?.isHidden = 0 >= (self?._stateTime() ?? -1)
+                self.clearButton?.isHidden = 0 >= self._stateTime()
             }
         }
     }
@@ -473,6 +480,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         #endif
 
         UIApplication.shared.isIdleTimerDisabled = false    // Just in case...
+        setUpStrings()
+        setUpButtons()
     }
     
     /* ############################################################## */
@@ -487,7 +496,6 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         container?.setUpToolbar()
         container?.setAlarmIcon()
         container?.setTimerLabel()
-        setUpButtons()
     }
 }
 
@@ -603,14 +611,14 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             finalSetButton?.backgroundColor = UIColor(named: "Final-Color")?.withAlphaComponent(0.5)
         }
 
-        animateIntro()
+        setUpStrings()
     }
     
     /* ################################################################## */
     /**
      This animates the intro of the screen.
     */
-    func animateIntro() {
+    func setUpStrings() {
         guard let timer else { return }
         
         view.layoutIfNeeded()
@@ -647,7 +655,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     */
     @IBAction func clearButtonHit(_ inClearButton: UIButton) {
         guard let setPickerControl = setTimePickerView else { return }
-
+        
+        _animatePickerSet = true
+        
         switch _state {
         case .start:
             timer?.startTime = 0
@@ -663,12 +673,14 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
             _impactFeedbackGenerator?.prepare()
         }
-        setPickerControl.selectRow(0, inComponent: PickerComponents.hour.rawValue, animated: true)
+        setPickerControl.selectRow(0, inComponent: PickerComponents.hour.rawValue, animated: _animatePickerSet)
         pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.hour.rawValue)
-        setPickerControl.selectRow(0, inComponent: PickerComponents.minute.rawValue, animated: true)
+        setPickerControl.selectRow(0, inComponent: PickerComponents.minute.rawValue, animated: _animatePickerSet)
         pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.minute.rawValue)
-        setPickerControl.selectRow(0, inComponent: PickerComponents.second.rawValue, animated: true)
+        setPickerControl.selectRow(0, inComponent: PickerComponents.second.rawValue, animated: _animatePickerSet)
         pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.second.rawValue)
+        
+        _animatePickerSet = false
     }
 
     /* ################################################################## */
@@ -683,6 +695,8 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             _selectionFeedbackGenerator?.prepare()
         }
         
+        _animatePickerSet = true
+
         switch inButton {
         case warnSetButton:
             _state = .warn
@@ -773,16 +787,18 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
         let seconds = min(59, currentValue)
         
         if hours != inPickerView.selectedRow(inComponent: PickerComponents.hour.rawValue) {
-            inPickerView.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: true)
+            inPickerView.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: _animatePickerSet)
         }
         
         if minutes != inPickerView.selectedRow(inComponent: PickerComponents.minute.rawValue) {
-            inPickerView.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: true)
+            inPickerView.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: _animatePickerSet)
         }
         
         if seconds != inPickerView.selectedRow(inComponent: PickerComponents.second.rawValue) {
-            inPickerView.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: true)
+            inPickerView.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: _animatePickerSet)
         }
+        
+        _animatePickerSet = false
 
         if 0 == inComponent {
             inPickerView.reloadComponent(1)

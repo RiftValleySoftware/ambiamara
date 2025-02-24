@@ -84,14 +84,14 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		D4471BD82D6B46280080FC85 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
 				D4471BD52D6B46280080FC85 /* Rift Valley Timer Watch Watch App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4B01F99281F59E200B07C56 /* Copy Sounds */ = {
 			isa = PBXCopyFilesBuildPhase;

@@ -83,7 +83,7 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
     /**
      This is the page view controller that we use to swipe-select timers.
      */
-    weak var pageViewController: RVS_SetTimerPageViewController?
+    var pageViewController: RVS_SetTimerPageViewController?
     
     /* ################################################################## */
     /**
@@ -188,23 +188,6 @@ extension RVS_SetTimerWrapper {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let pageViewContainer,
-              let pvc = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerPageViewController.storyboardID) as? RVS_SetTimerPageViewController,
-              let pvcView = pvc.view
-        else { return }
-        
-        pvc.dataSource = self
-
-        pageViewContainer.addSubview(pvcView)
-        pvcView.translatesAutoresizingMaskIntoConstraints = false
-        pvcView.topAnchor.constraint(equalTo: pageViewContainer.topAnchor).isActive = true
-        pvcView.bottomAnchor.constraint(equalTo: pageViewContainer.bottomAnchor).isActive = true
-        pvcView.leadingAnchor.constraint(equalTo: pageViewContainer.leadingAnchor).isActive = true
-        pvcView.trailingAnchor.constraint(equalTo: pageViewContainer.trailingAnchor).isActive = true
-
-        addChild(pvc)
-        pvc.didMove(toParent: self)
-        pageViewController = pvc
 
         _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
         _selectionFeedbackGenerator?.prepare()
@@ -214,15 +197,6 @@ extension RVS_SetTimerWrapper {
 
         timerSelectionToolbar?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
         timerSelectionToolbar?.setShadowImage(UIImage(), forToolbarPosition: .any)
-        
-        if 0 == RVS_AmbiaMara_Settings().numberOfTimers {
-            addHit()
-        } else if let initialController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController {
-            initialController.timerIndex = RVS_AmbiaMara_Settings().currentTimerIndex
-            initialController.container = self
-            pvc.setViewControllers( [initialController], direction: .forward, animated: false, completion: nil)
-            setUpToolbar()
-        }
         
         settingsButton?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON-LABEL".accessibilityLocalizedVariant
         settingsButton?.accessibilityHint = "SLUG-ACC-SETTINGS-BUTTON".accessibilityLocalizedVariant
@@ -239,7 +213,34 @@ extension RVS_SetTimerWrapper {
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
-        selectPageWithIndex(RVS_AmbiaMara_Settings().currentTimerIndex)
+        
+        guard let pageViewContainer,
+              let pvc = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerPageViewController.storyboardID) as? RVS_SetTimerPageViewController,
+              let pvcView = pvc.view
+        else { return }
+        
+        pageViewController = pvc
+
+        pvc.dataSource = self
+        pvc.delegate = self
+
+        pageViewContainer.addSubview(pvcView)
+        pvcView.translatesAutoresizingMaskIntoConstraints = false
+        pvcView.topAnchor.constraint(equalTo: pageViewContainer.topAnchor).isActive = true
+        pvcView.bottomAnchor.constraint(equalTo: pageViewContainer.bottomAnchor).isActive = true
+        pvcView.leadingAnchor.constraint(equalTo: pageViewContainer.leadingAnchor).isActive = true
+        pvcView.trailingAnchor.constraint(equalTo: pageViewContainer.trailingAnchor).isActive = true
+
+        pvc.didMove(toParent: self)
+        
+        if 0 == RVS_AmbiaMara_Settings().numberOfTimers {
+            addHit()
+        } else if let initialController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController {
+            initialController.timerIndex = RVS_AmbiaMara_Settings().currentTimerIndex
+            initialController.container = self
+            pvc.setViewControllers( [initialController], direction: .forward, animated: false, completion: nil)
+            setUpToolbar()
+        }
     }
 }
 
@@ -501,19 +502,24 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
      
      - parameter: The page view controller (ignored).
      - parameter viewControllerBefore: The view controller for the timer that will be AFTER ours
-     
-     > NOTE: We will "circle around," if we are at the first timer, so the next one will be that last timer.
      */
-    func pageViewController(_: UIPageViewController, viewControllerBefore inViewController: UIViewController) -> UIViewController? {
-        guard 1 < RVS_AmbiaMara_Settings().numberOfTimers,
-              let vc = inViewController as? RVS_SetTimerAmbiaMara_ViewController
-        else { return nil }
+    func pageViewController(_: UIPageViewController, viewControllerBefore: UIViewController) -> UIViewController? {
+        guard 1 < RVS_AmbiaMara_Settings().numberOfTimers else { return nil }
         let ret = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
         ret?.container = self
-        let newIndex = 0 > vc.timerIndex - 1 ? RVS_AmbiaMara_Settings().numberOfTimers - 1 : vc.timerIndex - 1
+        let nextIndex = RVS_AmbiaMara_Settings().currentTimerIndex - 1
+        let lastIndex = RVS_AmbiaMara_Settings().numberOfTimers - 1
+        guard (0...lastIndex).contains(nextIndex) else {
+            if hapticsAreAvailable {
+                _impactFeedbackGenerator?.impactOccurred(intensity: 1.0)
+                _impactFeedbackGenerator?.prepare()
+            }
+            return nil
+        }
+        let newIndex = nextIndex
         ret?.timerIndex = newIndex
         if hapticsAreAvailable {
-            if 0 == newIndex || RVS_AmbiaMara_Settings().numberOfTimers - 1 == newIndex {
+            if 0 == newIndex || lastIndex == newIndex {
                 _impactFeedbackGenerator?.impactOccurred()
                 _impactFeedbackGenerator?.prepare()
             } else {
@@ -530,19 +536,24 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
      
      - parameter: The page view controller (ignored).
      - parameter viewControllerAfter: The view controller for the timer that will be BEFORE ours
-     
-     > NOTE: We will "circle around," if we are at the last timer, so the next one will be that first timer.
     */
-    func pageViewController(_: UIPageViewController, viewControllerAfter inViewController: UIViewController) -> UIViewController? {
-        guard 1 < RVS_AmbiaMara_Settings().numberOfTimers,
-              let vc = inViewController as? RVS_SetTimerAmbiaMara_ViewController
-        else { return nil }
+    func pageViewController(_: UIPageViewController, viewControllerAfter: UIViewController) -> UIViewController? {
+        guard 1 < RVS_AmbiaMara_Settings().numberOfTimers else { return nil }
         let ret = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
         ret?.container = self
-        let newIndex = RVS_AmbiaMara_Settings().numberOfTimers == vc.timerIndex + 1 ? 0 : vc.timerIndex + 1
+        let nextIndex = RVS_AmbiaMara_Settings().currentTimerIndex + 1
+        let lastIndex = RVS_AmbiaMara_Settings().numberOfTimers - 1
+        guard (0...lastIndex).contains(nextIndex) else {
+            if hapticsAreAvailable {
+                _impactFeedbackGenerator?.impactOccurred(intensity: 1.0)
+                _impactFeedbackGenerator?.prepare()
+            }
+            return nil
+        }
+        let newIndex = nextIndex
         ret?.timerIndex = newIndex
         if hapticsAreAvailable {
-            if 0 == newIndex || RVS_AmbiaMara_Settings().numberOfTimers - 1 == newIndex {
+            if 0 == newIndex || lastIndex == newIndex {
                 _impactFeedbackGenerator?.impactOccurred()
                 _impactFeedbackGenerator?.prepare()
             } else {
