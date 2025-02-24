@@ -630,11 +630,11 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
         _feedbackGenerator = UIImpactFeedbackGenerator()
 
-        if let longPressTimeSetGestureRecognizer = longPressTimeSetGestureRecognizer,
-           let tapGestureRecognizer = tapGestureRecognizer {
-            doubleTapGestureRecognizer?.require(toFail: longPressTimeSetGestureRecognizer)
-            doubleTapGestureRecognizer?.require(toFail: tapGestureRecognizer)
-            tapGestureRecognizer.require(toFail: longPressTimeSetGestureRecognizer)
+        if let longPressTimeSetGestureRecognizer,
+           let tapGestureRecognizer,
+           let doubleTapGestureRecognizer {
+            doubleTapGestureRecognizer.require(toFail: longPressTimeSetGestureRecognizer)
+            tapGestureRecognizer.require(toFail: doubleTapGestureRecognizer)
         }
         _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._clockPeriodInSeconds, delegate: self, leewayInMilliseconds: Self._leewayInMilliseconds, onlyFireOnce: false)
         _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDurationInSeconds, delegate: self, leewayInMilliseconds: Self._leewayInMilliseconds * 2, onlyFireOnce: false)
