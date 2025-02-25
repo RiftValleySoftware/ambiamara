@@ -904,10 +904,12 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         if _isAlarming || (!_isTimerRunning && _isAtStart || _isAtEnd),
            let nextTimerIndex = _nextTimerIndex {
             fastForwardBarButtonItem?.image = UIImage(systemName: "\(nextTimerIndex + 1).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+            fastForwardBarButtonItem?.tintColor = UIColor(named: "AccentColor")
             fastForwardBarButtonItem?.isEnabled = true
             fastForwardBarButtonItem?.accessibilityHint = String(format: "SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT".accessibilityLocalizedVariant, nextTimerIndex + 1)
         } else {
             fastForwardBarButtonItem?.image = UIImage(systemName: "forward.end.alt.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+            fastForwardBarButtonItem?.tintColor = UIColor(named: "AccentColor")
             fastForwardBarButtonItem?.isEnabled = (_isTimerRunning || nil != _nextTimerIndex)
             fastForwardBarButtonItem?.accessibilityHint = "SLUG-ACC-TOOLBAR-FF-ALARM".accessibilityLocalizedVariant
         }
@@ -916,10 +918,12 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
            _isAtStart,
            let previousTimerIndex = _previousTimerIndex {
             rewindToolbarItem?.image = UIImage(systemName: "\(previousTimerIndex + 1).circle.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+            rewindToolbarItem?.tintColor = UIColor(named: "AccentColor")
             rewindToolbarItem?.isEnabled = true
             rewindToolbarItem?.accessibilityHint = String(format: "SLUG-ACC-TOOLBAR-FF-CASCADE-FORMAT".accessibilityLocalizedVariant, previousTimerIndex + 1)
         } else {
             rewindToolbarItem?.image = UIImage(systemName: "backward.end.alt.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+            rewindToolbarItem?.tintColor = UIColor(named: "AccentColor")
             rewindToolbarItem?.isEnabled = _isAlarming || !_isAtStart
             rewindToolbarItem?.accessibilityHint = "SLUG-ACC-TOOLBAR-REWIND-ALARM".accessibilityLocalizedVariant
         }
@@ -931,6 +935,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         
         if nil != _nextTimerIndex {
             timerIndicatorToolbarItem?.image = UIImage(systemName: "\(RVS_AmbiaMara_Settings().currentTimerIndex + 1).circle")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large))
+            timerIndicatorToolbarItem?.tintColor = UIColor(named: "AccentColor")
             timerIndicatorToolbarItem?.accessibilityHint = String(format: "SLUG-ACC-TOOLBAR-TIMER-FORMAT".accessibilityLocalizedVariant, RVS_AmbiaMara_Settings().currentTimerIndex + 1)
         } else {
             timerIndicatorToolbarItem?.image = nil

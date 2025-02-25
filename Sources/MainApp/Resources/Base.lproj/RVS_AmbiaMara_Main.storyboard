@@ -224,10 +224,10 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42o-kL-hkS">
                                                 <rect key="frame" x="198" y="0.0" width="54" height="54"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="42o-kL-hkS" secondAttribute="height" multiplier="1:1" id="l4p-gf-QmG"/>
                                                 </constraints>
+                                                <color key="tintColor" name="AccentColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal">
                                                     <imageReference key="image" image="PlayTriangle" symbolScale="large"/>
@@ -802,12 +802,14 @@
                                 <items>
                                     <barButtonItem id="ABe-ev-oBz">
                                         <imageReference key="image" image="stop.fill" catalog="system" symbolScale="large"/>
+                                        <color key="tintColor" name="AccentColor"/>
                                         <connections>
                                             <action selector="toolbarItemHit:" destination="FWf-2O-eKE" id="wNX-CA-Ykw"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="Zrj-Yk-7Gp"/>
                                     <barButtonItem image="backward.end.alt.fill" catalog="system" id="5pr-zf-jro">
+                                        <color key="tintColor" name="AccentColor"/>
                                         <connections>
                                             <action selector="toolbarItemHit:" destination="FWf-2O-eKE" id="RKE-rw-Uyc"/>
                                         </connections>
@@ -820,12 +822,14 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="3bK-sI-jqF"/>
                                     <barButtonItem image="play.fill" catalog="system" id="LoP-qC-Bwy">
+                                        <color key="tintColor" name="AccentColor"/>
                                         <connections>
                                             <action selector="toolbarItemHit:" destination="FWf-2O-eKE" id="PAh-ug-5XH"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="FCU-Rx-VGs"/>
                                     <barButtonItem image="forward.end.alt.fill" catalog="system" id="T60-Qx-dgK">
+                                        <color key="tintColor" name="AccentColor"/>
                                         <connections>
                                             <action selector="toolbarItemHit:" destination="FWf-2O-eKE" id="gtV-lP-mZ7"/>
                                         </connections>
@@ -948,6 +952,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="DW9-yi-6uz" secondAttribute="height" multiplier="1:1" id="CuB-hv-X4B"/>
                                         </constraints>
+                                        <color key="tintColor" name="AccentColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <imageReference key="image" image="gear.circle" catalog="system" symbolScale="large"/>
@@ -961,6 +966,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="hof-OD-AWO" secondAttribute="height" multiplier="1:1" id="n9K-US-bph"/>
                                         </constraints>
+                                        <color key="tintColor" name="AccentColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <imageReference key="image" image="bell" catalog="system" symbolScale="large"/>
@@ -1231,7 +1237,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="320" height="318"/>
+        <image name="CenterImage" width="883" height="877"/>
         <image name="Digits" width="60" height="20"/>
         <image name="Final-Image" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
@@ -1259,7 +1265,7 @@
             <color red="0.5" green="0.5" blue="0.5" alpha="0.19799999892711639" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Final-Color">
-            <color red="0.76302083333333337" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.7630000114440918" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Paused-Color">
             <color red="0.012000000104308128" green="1" blue="0.82800000905990601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1268,7 +1274,7 @@
             <color red="1" green="1" blue="1" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Start-Color">
-            <color red="0.0" green="0.66784274578094482" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.6679999828338623" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Start-GradientTopColor">
             <color red="0.023000000044703484" green="1" blue="0.0040000001899898052" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1280,7 +1286,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Warn-Color">
-            <color red="0.81847993827160492" green="0.64411168981481481" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81800001859664917" green="0.64399999380111694" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
