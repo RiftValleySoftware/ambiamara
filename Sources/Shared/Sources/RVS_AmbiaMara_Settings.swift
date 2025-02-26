@@ -10,6 +10,7 @@
 
 import UIKit
 import RVS_Persistent_Prefs
+import RVS_Generic_Swift_Toolbox
 
 /* ###################################################################################################################################### */
 // MARK: - Persistent Settings Class -

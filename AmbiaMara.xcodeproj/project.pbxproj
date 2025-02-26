@@ -48,6 +48,8 @@
 		D4CE51B8281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B6281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift */; };
 		D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */; };
 		D4CE51BB281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51BA281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift */; };
+		D4E6ECB12D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */; };
+		D4E6ECB32D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4E6ECB22D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox */; };
 		D4F1448028293F4A001DD9E4 /* 01-low-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F1447928293F4A001DD9E4 /* 01-low-beep.mp3 */; };
 		D4F1448128293F4A001DD9E4 /* 03-high-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F1447A28293F4A001DD9E4 /* 03-high-beep.mp3 */; };
 		D4F1448228293F4A001DD9E4 /* 04-electronic-buzz.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F1447B28293F4A001DD9E4 /* 04-electronic-buzz.mp3 */; };
@@ -55,6 +57,12 @@
 		D4F1448428293F4A001DD9E4 /* 06-high-fast-beeps.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F1447D28293F4A001DD9E4 /* 06-high-fast-beeps.mp3 */; };
 		D4F1448528293F4A001DD9E4 /* 02-medium-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F1447E28293F4A001DD9E4 /* 02-medium-beep.mp3 */; };
 		D4F1448628293F4A001DD9E4 /* 05-fast-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F1447F28293F4A001DD9E4 /* 05-fast-beep.mp3 */; };
+		D4F3572A2D6F61C0005A815A /* RVS_WatchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F357292D6F61C0005A815A /* RVS_WatchDelegate.swift */; };
+		D4F3572B2D6F61C0005A815A /* RVS_WatchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F357292D6F61C0005A815A /* RVS_WatchDelegate.swift */; };
+		D4F3572E2D6F6253005A815A /* RVS_AmbiaMara_Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */; };
+		D4F3572F2D6F6253005A815A /* RVS_AmbiaMara_Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */; };
+		D4F357312D6F6271005A815A /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D4F357302D6F6271005A815A /* RVS_Persistent_Prefs */; };
+		D4F357332D6F6278005A815A /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D4F357322D6F6278005A815A /* RVS_Persistent_Prefs */; };
 		D4F70CED282872A500DC0E11 /* 25-telephone.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */; };
 		D4F70CEE282872A500DC0E11 /* 23-siren.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */; };
 		D4F70CEF282872A500DC0E11 /* 24-deep-alarm.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */; };
@@ -204,6 +212,7 @@
 		D4F1447D28293F4A001DD9E4 /* 06-high-fast-beeps.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "06-high-fast-beeps.mp3"; sourceTree = "<group>"; };
 		D4F1447E28293F4A001DD9E4 /* 02-medium-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "02-medium-beep.mp3"; sourceTree = "<group>"; };
 		D4F1447F28293F4A001DD9E4 /* 05-fast-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "05-fast-beep.mp3"; sourceTree = "<group>"; };
+		D4F357292D6F61C0005A815A /* RVS_WatchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_WatchDelegate.swift; sourceTree = "<group>"; };
 		D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "25-telephone.mp3"; sourceTree = "<group>"; };
 		D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "23-siren.mp3"; sourceTree = "<group>"; };
 		D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "24-deep-alarm.mp3"; sourceTree = "<group>"; };
@@ -230,6 +239,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E6ECB12D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */,
+				D4F357312D6F6271005A815A /* RVS_Persistent_Prefs in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,7 +248,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4F357332D6F6278005A815A /* RVS_Persistent_Prefs in Frameworks */,
 				D4F83CB72D63DB43009C4646 /* SwiftUI.framework in Frameworks */,
+				D4E6ECB32D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */,
 				D4F83CB52D63DB43009C4646 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,7 +334,6 @@
 		D47C029D2819CA6500D359F5 /* MainApp */ = {
 			isa = PBXGroup;
 			children = (
-				D4C4B7222819DD5100E22ECA /* Utility */,
 				D4F90F492819E53A00E4C664 /* MainApplication */,
 				D4C4B71D2819D70300E22ECA /* ViewControllers */,
 				D4C4B6FF2819CCF300E22ECA /* Resources */,
@@ -389,9 +401,10 @@
 		D4C4B6FE2819CCDB00E22ECA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D4F3572C2D6F61CD005A815A /* Shared */,
+				D47C029D2819CA6500D359F5 /* MainApp */,
 				D4A932212D64E9CB0028556E /* WatchApp */,
 				D4A932292D64E9CB0028556E /* WatchComplications */,
-				D47C029D2819CA6500D359F5 /* MainApp */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -421,14 +434,6 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		D4C4B7222819DD5100E22ECA /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */,
-			);
-			path = Utility;
-			sourceTree = "<group>";
-		};
 		D4CD2E7D284697E100400AB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -436,6 +441,23 @@
 				D4F83CB62D63DB43009C4646 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D4F3572C2D6F61CD005A815A /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				D4F3572D2D6F61E8005A815A /* Sources */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		D4F3572D2D6F61E8005A815A /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D4F357292D6F61C0005A815A /* RVS_WatchDelegate.swift */,
+				D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		D4F90F492819E53A00E4C664 /* MainApplication */ = {
@@ -494,6 +516,8 @@
 			);
 			name = "Rift Valley Timer Watch Watch App";
 			packageProductDependencies = (
+				D4F357302D6F6271005A815A /* RVS_Persistent_Prefs */,
+				D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */,
 			);
 			productName = "Rift Valley Timer Watch Watch App";
 			productReference = D4F83C9D2D63DB10009C4646 /* Rift Valley Timer Watch Watch App.app */;
@@ -514,6 +538,8 @@
 			);
 			name = "Rift Valley Timer ComplicationsExtension";
 			packageProductDependencies = (
+				D4F357322D6F6278005A815A /* RVS_Persistent_Prefs */,
+				D4E6ECB22D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox */,
 			);
 			productName = "Rift Valley Timer ComplicationsExtension";
 			productReference = D4F83CB32D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension.appex */;
@@ -671,6 +697,7 @@
 				D47C02A32819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift in Sources */,
 				D4010AF62D6514C300DBDC0B /* RVS_SetTimerPageViewController.swift in Sources */,
 				D47C029F2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift in Sources */,
+				D4F3572B2D6F61C0005A815A /* RVS_WatchDelegate.swift in Sources */,
 				D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift in Sources */,
 				D486C829281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift in Sources */,
 				D4CE51B8281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift in Sources */,
@@ -683,6 +710,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4F3572E2D6F6253005A815A /* RVS_AmbiaMara_Settings.swift in Sources */,
+				D4F3572A2D6F61C0005A815A /* RVS_WatchDelegate.swift in Sources */,
 				D4A932222D64E9CB0028556E /* ContentView.swift in Sources */,
 				D4A932232D64E9CB0028556E /* Rift_Valley_Timer_WatchApp.swift in Sources */,
 			);
@@ -692,6 +721,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4F3572F2D6F6253005A815A /* RVS_AmbiaMara_Settings.swift in Sources */,
 				D4A9322C2D64E9CB0028556E /* Rift_Valley_Timer_Complications.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1241,6 +1271,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
 			productName = RVS_Generic_Swift_Toolbox;
+		};
+		D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			productName = RVS_Generic_Swift_Toolbox;
+		};
+		D4E6ECB22D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			productName = RVS_Generic_Swift_Toolbox;
+		};
+		D4F357302D6F6271005A815A /* RVS_Persistent_Prefs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
+			productName = RVS_Persistent_Prefs;
+		};
+		D4F357322D6F6278005A815A /* RVS_Persistent_Prefs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
+			productName = RVS_Persistent_Prefs;
 		};
 		D4FEE5BB2846B30700EBED74 /* RVS_RetroLEDDisplay */ = {
 			isa = XCSwiftPackageProductDependency;
