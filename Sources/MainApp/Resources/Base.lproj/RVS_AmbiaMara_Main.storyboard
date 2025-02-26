@@ -1207,7 +1207,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" indicatorStyle="white" maximumZoomScale="2" editable="NO" text="SLUG-ABOUT-MAIN-TEXT" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Tz6-2I-hpj">
-                                <rect key="frame" x="20" y="48" width="366" height="814"/>
+                                <rect key="frame" x="20" y="122" width="366" height="740"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -1215,29 +1215,57 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
                             </textView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eJc-LO-dAY">
+                                <rect key="frame" x="180" y="48" width="54" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="lle-QE-r3o"/>
+                                    <constraint firstAttribute="width" secondItem="eJc-LO-dAY" secondAttribute="height" multiplier="1:1" id="wb5-Dd-fUc"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGs-2a-9fF">
+                                <rect key="frame" x="20" y="102" width="374" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="NEn-yg-iLN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CTe-gZ-jIr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="tintColor" name="AccentColor"/>
                         <constraints>
                             <constraint firstItem="CTe-gZ-jIr" firstAttribute="bottom" secondItem="Tz6-2I-hpj" secondAttribute="bottom" id="DCO-Yi-Fah"/>
+                            <constraint firstItem="eJc-LO-dAY" firstAttribute="top" secondItem="CTe-gZ-jIr" secondAttribute="top" id="Duv-qA-9rB"/>
                             <constraint firstItem="CTe-gZ-jIr" firstAttribute="trailing" secondItem="Tz6-2I-hpj" secondAttribute="trailing" constant="28" id="E3F-np-j0G"/>
-                            <constraint firstItem="Tz6-2I-hpj" firstAttribute="top" secondItem="CTe-gZ-jIr" secondAttribute="top" id="Fhw-QY-qXM"/>
+                            <constraint firstItem="Tz6-2I-hpj" firstAttribute="top" secondItem="xGs-2a-9fF" secondAttribute="bottom" id="Pgy-VQ-x53"/>
+                            <constraint firstItem="xGs-2a-9fF" firstAttribute="leading" secondItem="CTe-gZ-jIr" secondAttribute="leading" constant="20" id="e2G-tG-skr"/>
+                            <constraint firstItem="eJc-LO-dAY" firstAttribute="centerX" secondItem="u9V-bG-Ubc" secondAttribute="centerX" id="gN2-nl-fKQ"/>
+                            <constraint firstItem="CTe-gZ-jIr" firstAttribute="trailing" secondItem="xGs-2a-9fF" secondAttribute="trailing" constant="20" id="pYS-GG-XJX"/>
+                            <constraint firstItem="xGs-2a-9fF" firstAttribute="top" secondItem="eJc-LO-dAY" secondAttribute="bottom" id="sod-Dx-0V8"/>
                             <constraint firstItem="Tz6-2I-hpj" firstAttribute="leading" secondItem="CTe-gZ-jIr" secondAttribute="leading" constant="20" id="z25-Ai-ZV2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="SLUG-ABOUT-TITLE" id="jXe-I8-Htj"/>
                     <connections>
                         <outlet property="aboutText" destination="Tz6-2I-hpj" id="Nft-Ar-aDm"/>
+                        <outlet property="appIconImageView" destination="eJc-LO-dAY" id="CNx-ry-tEU"/>
+                        <outlet property="versionLabel" destination="xGs-2a-9fF" id="QR6-G6-jCB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gya-oJ-oJu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="257" y="104"/>
+            <point key="canvasLocation" x="256.52173913043481" y="103.79464285714285"/>
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="883" height="877"/>
+        <image name="CenterImage" width="320" height="318"/>
         <image name="Digits" width="60" height="20"/>
         <image name="Final-Image" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
@@ -1256,7 +1284,7 @@
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="84"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="0.31400001049041748" green="0.37999999523162842" blue="0.89399999380111694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.44499999284744263" green="0.47600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

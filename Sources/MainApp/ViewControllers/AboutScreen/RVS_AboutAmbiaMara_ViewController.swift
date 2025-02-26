@@ -10,6 +10,7 @@
 
 import UIKit
 import RVS_Generic_Swift_Toolbox
+import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
 // MARK: - About AmbiaMara Screen View Controller -
@@ -18,6 +19,18 @@ import RVS_Generic_Swift_Toolbox
  This is the view controller for the about screen.
  */
 class RVS_AboutAmbiaMara_ViewController: RVS_AmbiaMara_BaseViewController {
+    /* ################################################################## */
+    /**
+     The app icon is displayed here.
+    */
+    @IBOutlet weak var appIconImageView: UIImageView?
+    
+    /* ################################################################## */
+    /**
+     The version is displayed here.
+    */
+    @IBOutlet weak var versionLabel: UILabel?
+    
     /* ################################################################## */
     /**
      This is the main about text.
@@ -36,6 +49,12 @@ extension RVS_AboutAmbiaMara_ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = navigationItem.title?.localizedVariant
+        if let image = Bundle.main.appIcon {
+            appIconImageView?.image = image
+        } else {
+            appIconImageView?.isHidden = true
+        }
+        versionLabel?.text =  String(format: "%@ (%@)", Bundle.main.appVersionString, Bundle.main.appVersionBuildString)
         guard let file = Bundle.main.url(forResource: "Instructions", withExtension: "txt"),
               let contents = try? String(contentsOf: file, encoding: String.Encoding.utf8 )
         else { return }
