@@ -120,7 +120,12 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
      This is the rightmost button, the add button.
     */
     @IBOutlet weak var addBarButtonItem: UIBarButtonItem?
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: Computed Properties
+/* ###################################################################################################################################### */
+extension RVS_SetTimerWrapper {
     /* ################################################################## */
     /**
      The current timer, routed from the settings.
@@ -474,7 +479,12 @@ extension RVS_SetTimerWrapper {
     func setAlarmIcon() {
         alarmSetButton?.setImage(UIImage(systemName: RVS_AmbiaMara_Settings().alarmMode ? "bell.fill" : "bell.slash.fill"), for: .normal)
     }
+}
 
+/* ###################################################################################################################################### */
+// MARK: Segues
+/* ###################################################################################################################################### */
+extension RVS_SetTimerWrapper {
     /* ################################################################## */
     /**
      This shows the about screen.
