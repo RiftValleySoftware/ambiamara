@@ -566,20 +566,18 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      This sets the colors of the labels and the buttons.
     */
     func setColors() {
+        warnSetButton?.backgroundColor = UIColor(named: "Warn-Color")?.withAlphaComponent(Self._buttonOpacity)
+        finalSetButton?.backgroundColor = UIColor(named: "Final-Color")?.withAlphaComponent(Self._buttonOpacity)
+        startSetButton?.backgroundColor = UIColor(named: "Start-Color")?.withAlphaComponent(Self._buttonOpacity)
         guard let timer,
               1 < timer.startTime else {
-            warnSetButton?.backgroundColor = UIColor(named: "Warn-Color")?.withAlphaComponent(Self._buttonOpacity)
-            finalSetButton?.backgroundColor = UIColor(named: "Final-Color")?.withAlphaComponent(Self._buttonOpacity)
             if 1 == (timer?.startTime ?? 0) {
                 stateLabel?.textColor = UIColor(named: "Start-Color")
                 hoursLabel?.textColor = UIColor(named: "Start-Color")
                 minutesLabel?.textColor = UIColor(named: "Start-Color")
                 secondsLabel?.textColor = UIColor(named: "Start-Color")
-                startSetButton?.backgroundColor = UIColor(named: "Start-Color")
 
                 setUpStrings()
-            } else {
-                startSetButton?.backgroundColor = UIColor(named: "Start-Color")?.withAlphaComponent(Self._buttonOpacity)
             }
             return
         }
@@ -590,17 +588,13 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             hoursLabel?.textColor = UIColor(named: "Start-Color")
             minutesLabel?.textColor = UIColor(named: "Start-Color")
             secondsLabel?.textColor = UIColor(named: "Start-Color")
-            startSetButton?.backgroundColor = UIColor(named: "Start-Color")?.withAlphaComponent(Self._buttonOpacity)
             warnSetButton?.backgroundColor = UIColor(named: "Warn-Color")
-            finalSetButton?.backgroundColor = UIColor(named: "Final-Color")
         case .warn:
             stateLabel?.textColor = UIColor(named: "Warn-Color")
             hoursLabel?.textColor = UIColor(named: "Warn-Color")
             minutesLabel?.textColor = UIColor(named: "Warn-Color")
             secondsLabel?.textColor = UIColor(named: "Warn-Color")
             startSetButton?.backgroundColor = UIColor(named: "Start-Color")
-            warnSetButton?.backgroundColor = UIColor(named: "Warn-Color")?.withAlphaComponent(Self._buttonOpacity)
-            finalSetButton?.backgroundColor = UIColor(named: "Final-Color")
         case .final:
             stateLabel?.textColor = UIColor(named: "Final-Color")
             hoursLabel?.textColor = UIColor(named: "Final-Color")
@@ -608,7 +602,11 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             secondsLabel?.textColor = UIColor(named: "Final-Color")
             startSetButton?.backgroundColor = UIColor(named: "Start-Color")
             warnSetButton?.backgroundColor = UIColor(named: "Warn-Color")
-            finalSetButton?.backgroundColor = UIColor(named: "Final-Color")?.withAlphaComponent(Self._buttonOpacity)
+        }
+
+        if 1 != timer.warnTime,
+           .final != _state {
+            finalSetButton?.backgroundColor = UIColor(named: "Final-Color")
         }
 
         setUpStrings()
