@@ -246,11 +246,12 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
      - parameter: ignored.
     */
     @IBAction func showAboutScreen(_: Any) {
+        myController?.showAboutScreen()
         if hapticsAreAvailable {
             _selectionFeedbackGenerator?.selectionChanged()
             _selectionFeedbackGenerator?.prepare()
         }
-        dismiss(animated: true, completion: { [weak self] in self?.myController?.showAboutScreen() })
+        dismiss(animated: false)
     }
     
     /* ################################################################## */

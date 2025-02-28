@@ -90,27 +90,9 @@ class RVS_SetTimerAmbiaMara_ViewController: UIViewController {
 
     /* ################################################################## */
     /**
-     The period that we use for the "fade in" animation.
+     The opacity for the disabled state buttons.
     */
-    private static let _fadeInAnimationPeriodInSeconds = CGFloat(1.0)
-
-    /* ################################################################## */
-    /**
-     The period that we use for the selection fade animation.
-    */
-    private static let _selectionFadeAnimationPeriodInSeconds = CGFloat(0.25)
-    
-    /* ################################################################## */
-    /**
-     The period that we use for the add timer animation.
-    */
-    private static let _addTimerAnimationPeriodInSeconds = CGFloat(0.5)
-    
-    /* ################################################################## */
-    /**
-     The starting alpha for our settings items, in the initial animation.
-    */
-    private static let _initialSettingsItemAlpha = CGFloat(0.25)
+    private static let _buttonOpacity = CGFloat(0.25)
 
     /* ################################################################## */
     /**
@@ -584,13 +566,31 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      This sets the colors of the labels and the buttons.
     */
     func setColors() {
+        guard let timer,
+              1 < timer.startTime else {
+            warnSetButton?.backgroundColor = UIColor(named: "Warn-Color")?.withAlphaComponent(Self._buttonOpacity)
+            finalSetButton?.backgroundColor = UIColor(named: "Final-Color")?.withAlphaComponent(Self._buttonOpacity)
+            if 1 == (timer?.startTime ?? 0) {
+                stateLabel?.textColor = UIColor(named: "Start-Color")
+                hoursLabel?.textColor = UIColor(named: "Start-Color")
+                minutesLabel?.textColor = UIColor(named: "Start-Color")
+                secondsLabel?.textColor = UIColor(named: "Start-Color")
+                startSetButton?.backgroundColor = UIColor(named: "Start-Color")
+
+                setUpStrings()
+            } else {
+                startSetButton?.backgroundColor = UIColor(named: "Start-Color")?.withAlphaComponent(Self._buttonOpacity)
+            }
+            return
+        }
+        
         switch _state {
         case .start:
             stateLabel?.textColor = UIColor(named: "Start-Color")
             hoursLabel?.textColor = UIColor(named: "Start-Color")
             minutesLabel?.textColor = UIColor(named: "Start-Color")
             secondsLabel?.textColor = UIColor(named: "Start-Color")
-            startSetButton?.backgroundColor = UIColor(named: "Start-Color")?.withAlphaComponent(0.5)
+            startSetButton?.backgroundColor = UIColor(named: "Start-Color")?.withAlphaComponent(Self._buttonOpacity)
             warnSetButton?.backgroundColor = UIColor(named: "Warn-Color")
             finalSetButton?.backgroundColor = UIColor(named: "Final-Color")
         case .warn:
@@ -599,7 +599,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             minutesLabel?.textColor = UIColor(named: "Warn-Color")
             secondsLabel?.textColor = UIColor(named: "Warn-Color")
             startSetButton?.backgroundColor = UIColor(named: "Start-Color")
-            warnSetButton?.backgroundColor = UIColor(named: "Warn-Color")?.withAlphaComponent(0.5)
+            warnSetButton?.backgroundColor = UIColor(named: "Warn-Color")?.withAlphaComponent(Self._buttonOpacity)
             finalSetButton?.backgroundColor = UIColor(named: "Final-Color")
         case .final:
             stateLabel?.textColor = UIColor(named: "Final-Color")
@@ -608,7 +608,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             secondsLabel?.textColor = UIColor(named: "Final-Color")
             startSetButton?.backgroundColor = UIColor(named: "Start-Color")
             warnSetButton?.backgroundColor = UIColor(named: "Warn-Color")
-            finalSetButton?.backgroundColor = UIColor(named: "Final-Color")?.withAlphaComponent(0.5)
+            finalSetButton?.backgroundColor = UIColor(named: "Final-Color")?.withAlphaComponent(Self._buttonOpacity)
         }
 
         setUpStrings()
@@ -673,12 +673,12 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
             _impactFeedbackGenerator?.prepare()
         }
+        
         setPickerControl.selectRow(0, inComponent: PickerComponents.hour.rawValue, animated: true)
-        pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.hour.rawValue)
         setPickerControl.selectRow(0, inComponent: PickerComponents.minute.rawValue, animated: true)
-        pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.minute.rawValue)
         setPickerControl.selectRow(0, inComponent: PickerComponents.second.rawValue, animated: true)
-        pickerView(setPickerControl, didSelectRow: 0, inComponent: PickerComponents.second.rawValue)
+        setPickerControl.reloadAllComponents()
+        setUpButtons()
     }
 
     /* ################################################################## */
@@ -788,26 +788,13 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
         currentValue -= (minutes * 60)
         let seconds = min(59, currentValue)
         
-        if hours != inPickerView.selectedRow(inComponent: PickerComponents.hour.rawValue) {
-            inPickerView.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: _animatePickerSet)
-        }
-        
-        if minutes != inPickerView.selectedRow(inComponent: PickerComponents.minute.rawValue) {
-            inPickerView.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: _animatePickerSet)
-        }
-        
-        if seconds != inPickerView.selectedRow(inComponent: PickerComponents.second.rawValue) {
-            inPickerView.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: _animatePickerSet)
-        }
+        inPickerView.selectRow(hours, inComponent: PickerComponents.hour.rawValue, animated: _animatePickerSet)
+        inPickerView.selectRow(minutes, inComponent: PickerComponents.minute.rawValue, animated: _animatePickerSet)
+        inPickerView.selectRow(seconds, inComponent: PickerComponents.second.rawValue, animated: _animatePickerSet)
         
         _animatePickerSet = false
 
-        if 0 == inComponent {
-            inPickerView.reloadComponent(1)
-            inPickerView.reloadComponent(2)
-        } else if 1 == inComponent {
-            inPickerView.reloadComponent(2)
-        }
+        inPickerView.reloadAllComponents()
         
         setUpButtons()
     }
@@ -823,32 +810,38 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
      - returns: A new view, containing the row. If it is selected, it is displayed as reversed.
     */
     func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing: UIView?) -> UIView {
-        let selectedRow = inPickerView.selectedRow(inComponent: inComponent)
+        guard (0..<_pickerViewData.count).contains(inComponent) else { return UIView() }
+        
+        var currentValue = _stateTime(from: pickerTime)
+        
+        let hours = min(99, currentValue / (60 * 60))
+        currentValue -= (hours * 60 * 60)
+        let minutes = min(59, currentValue / 60)
+        currentValue -= (minutes * 60)
+        let seconds = min(59, currentValue)
+        
+        let selectedRow = inRow == inPickerView.selectedRow(inComponent: inComponent)
         
         let ret = UILabel()
         ret.font = Self._pickerFont
+        ret.cornerRadius = Self._pickerCornerRadiusInDisplayUnits
+        ret.clipsToBounds = true
         ret.textColor = .white
         ret.textAlignment = .center
 
-        let hasValue: [Bool] = [0 < inPickerView.selectedRow(inComponent: PickerComponents.hour.rawValue),
-                                0 < inPickerView.selectedRow(inComponent: PickerComponents.minute.rawValue)
-                                ]
-
-        if 2 == hasValue.count, // Belt and suspenders...
-           (0..<_pickerViewData.count).contains(inComponent),
-           0 < inRow
-            || (hasValue[0] && PickerComponents.minute.rawValue == inComponent)
-            || ((hasValue[0] || hasValue[1]) && PickerComponents.second.rawValue == inComponent) {
-            ret.text = String(_pickerViewData[inComponent][inRow])
-            if inRow == selectedRow {
-                ret.textColor = UIColor(named: "PickerTextColor")
-                ret.cornerRadius = Self._pickerCornerRadiusInDisplayUnits
-                ret.clipsToBounds = true
-                ret.backgroundColor = .white
-            }
-        } else {
-            ret.text = "0"
-       }
+        let maskColumn = selectedRow
+                            && (
+                                (0 < hours)
+                                || ((0 < minutes) && (inComponent > PickerComponents.hour.rawValue))
+                                || ((0 < seconds) && (inComponent > PickerComponents.minute.rawValue))
+                            )
+        
+        ret.text = String(_pickerViewData[inComponent][inRow])
+        
+        if maskColumn {
+            ret.textColor = UIColor(named: "PickerTextColor")
+            ret.backgroundColor = .white
+        }
         
         return ret
     }
