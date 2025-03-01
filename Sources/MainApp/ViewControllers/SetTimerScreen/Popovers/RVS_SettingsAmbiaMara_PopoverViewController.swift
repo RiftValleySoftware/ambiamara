@@ -185,7 +185,6 @@ extension RVS_SettingsAmbiaMara_PopoverViewController {
         _selectionFeedbackGenerator?.prepare()
 
         if let timerModeSegmentedSwitch = timerModeSegmentedSwitch {
-            timerModeSegmentedSwitch.selectedSegmentTintColor = .white
             timerModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
             timerModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
             timerModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.white.withAlphaComponent(0.25)], for: .disabled)

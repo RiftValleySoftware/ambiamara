@@ -175,7 +175,6 @@ extension RVS_SetAlarmAmbiaMara_PopoverViewController {
         _soundSelection = RVS_AmbiaMara_Settings.soundURIs
 
         if let alarmModeSegmentedSwitch = alarmModeSegmentedSwitch {
-//            alarmModeSegmentedSwitch.selectedSegmentTintColor = .white
             alarmModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
             alarmModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
             alarmModeSegmentedSwitch.setTitleTextAttributes([.foregroundColor: UIColor.white.withAlphaComponent(0.25)], for: .disabled)

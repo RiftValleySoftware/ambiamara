@@ -453,7 +453,7 @@ extension RVS_SetTimerWrapper {
                         timerButton.accessibilityHint = String(format: "SLUG-ACC-TIMER-BUTTON-HINT-\(currentTag == tag ? "IS" : "NOT")-FORMAT".accessibilityLocalizedVariant, timeString)
                         timerButton.isEnabled = currentTag != tag
                         timerButton.target = self
-                        timerButton.tintColor = UIColor(named: "AccentColor")
+                        timerButton.tintColor = timerButton.isEnabled ? UIColor(named: "AccentColor") : .label
                         timerButton.action = #selector(selectToolbarItem(_:))
                         newItems.insert(timerButton, at: 2 + timer.offset)
                     }

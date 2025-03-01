@@ -276,8 +276,8 @@
 		D4352A65281FF11200BEC5A4 /* Popovers */ = {
 			isa = PBXGroup;
 			children = (
-				D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */,
 				D4CE51BA281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift */,
+				D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */,
 			);
 			path = Popovers;
 			sourceTree = "<group>";

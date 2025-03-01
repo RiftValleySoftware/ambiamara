@@ -125,6 +125,7 @@
                                     </view>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hl-8D-atr">
                                         <rect key="frame" x="11" y="102" width="36" height="36"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="1hl-8D-atr" secondAttribute="height" multiplier="1:1" id="FaB-Fo-nLu"/>
                                             <constraint firstAttribute="height" constant="36" id="g1Z-gF-PF8"/>
@@ -137,6 +138,7 @@
                                         </state>
                                         <connections>
                                             <action selector="clearButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y1H-Ao-15R"/>
+                                            <outletCollection property="gestureRecognizers" destination="tL2-wI-eTz" appends="YES" id="rMx-Cw-HYO"/>
                                         </connections>
                                     </button>
                                     <pickerView contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="3QH-qQ-XP5">
@@ -384,6 +386,11 @@
                     </constraints>
                 </stackView>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="2" id="tL2-wI-eTz" userLabel="Clear Button Long Press Gesture Recognizer">
+                    <connections>
+                        <action selector="clearButtonHitLong:" destination="BYZ-38-t0r" id="ej7-G6-mK4"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-568" y="105"/>
         </scene>
@@ -537,6 +544,7 @@
                                             <segment title="" image="Digits"/>
                                             <segment title="" image="Stoplights"/>
                                         </segments>
+                                        <color key="selectedSegmentTintColor" name="AccentColor"/>
                                         <connections>
                                             <action selector="timerModeSegmentedSwitchChanged:" destination="UOz-ud-dcU" eventType="valueChanged" id="Ftr-KB-FuG"/>
                                         </connections>
@@ -1265,7 +1273,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CenterImage" width="883" height="877"/>
+        <image name="CenterImage" width="320" height="318"/>
         <image name="Digits" width="60" height="20"/>
         <image name="Final-Image" width="1024" height="1024"/>
         <image name="PlayTriangle" width="1024" height="1024"/>
@@ -1284,7 +1292,7 @@
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="84"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
-            <color red="0.0" green="0.54900002479553223" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.44499999284744263" green="0.47600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1308,7 +1316,7 @@
             <color red="0.023000000044703484" green="1" blue="0.0040000001899898052" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="StartupLogoColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ToolbarColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>

@@ -658,13 +658,9 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     /* ################################################################## */
     /**
      The clear button was hit.
-     - parameter inClearButton: the clear button instance.
+     - parameter: the clear button instance.
     */
-    @IBAction func clearButtonHit(_ inClearButton: UIButton) {
-        guard let setPickerControl = setTimePickerView else { return }
-        
-        _animatePickerSet = true
-        
+    @IBAction func clearButtonHit(_ : UIButton) {
         switch _state {
         case .start:
             timer?.startTime = 0
@@ -681,13 +677,38 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             _impactFeedbackGenerator?.prepare()
         }
         
-        setPickerControl.selectRow(0, inComponent: PickerComponents.hour.rawValue, animated: true)
-        setPickerControl.selectRow(0, inComponent: PickerComponents.minute.rawValue, animated: true)
-        setPickerControl.selectRow(0, inComponent: PickerComponents.second.rawValue, animated: true)
-        setPickerControl.reloadAllComponents()
+        setTimePickerView?.selectRow(0, inComponent: PickerComponents.hour.rawValue, animated: true)
+        setTimePickerView?.selectRow(0, inComponent: PickerComponents.minute.rawValue, animated: true)
+        setTimePickerView?.selectRow(0, inComponent: PickerComponents.second.rawValue, animated: true)
+        setTimePickerView?.reloadAllComponents()
         setUpButtons()
     }
-
+    
+    /* ################################################################## */
+    /**
+     The clear button was pressed for a long time (clear all).
+     - parameter: the gesture recognizer.
+    */
+    @IBAction func clearButtonHitLong(_: UIGestureRecognizer) {
+        if hapticsAreAvailable {
+            _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.rigid.rawValue))
+            _impactFeedbackGenerator?.prepare()
+        }
+        
+        timer?.startTime = 0
+        timer?.finalTime = 0
+        timer?.warnTime = 0
+        
+        setTimePickerView?.selectRow(0, inComponent: PickerComponents.hour.rawValue, animated: true)
+        setTimePickerView?.selectRow(0, inComponent: PickerComponents.minute.rawValue, animated: true)
+        setTimePickerView?.selectRow(0, inComponent: PickerComponents.second.rawValue, animated: true)
+        setTimePickerView?.reloadAllComponents()
+        
+        _state = .start
+        
+        setUpButtons()
+    }
+    
     /* ################################################################## */
     /**
      Called when one of the state buttons is hit. It sets the screen state.
