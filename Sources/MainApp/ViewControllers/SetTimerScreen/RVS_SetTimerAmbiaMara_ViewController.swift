@@ -479,6 +479,15 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         container?.setAlarmIcon()
         container?.setTimerLabel()
     }
+    
+    /* ############################################################## */
+    /**
+     Called after the view has laid out its subviews.
+     */
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setTimePickerView?.reloadAllComponents()
+    }
 }
 
 /* ###################################################################################################################################### */
