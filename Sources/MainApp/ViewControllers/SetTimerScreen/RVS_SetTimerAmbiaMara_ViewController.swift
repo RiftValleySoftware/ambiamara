@@ -660,7 +660,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
      The clear button was hit.
      - parameter: the clear button instance.
     */
-    @IBAction func clearButtonHit(_ : UIButton) {
+    @IBAction func clearButtonHit(_: UIButton) {
         switch _state {
         case .start:
             timer?.startTime = 0
