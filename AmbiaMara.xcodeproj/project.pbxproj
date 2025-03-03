@@ -43,6 +43,7 @@
 		D4B01F98281F58D200B07C56 /* 09-single-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F80281F58D200B07C56 /* 09-single-beep.mp3 */; };
 		D4C4B70C2819CEDB00E22ECA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4C4B70A2819CEDB00E22ECA /* Localizable.strings */; };
 		D4C4B71C2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */; };
+		D4C6DD482D7649EB00AA0FAD /* Rift Valley Timer Watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D4F83C9D2D63DB10009C4646 /* Rift Valley Timer Watch Watch App.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D4CD2E7F284697E100400AB0 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4CD2E7E284697E100400AB0 /* RVS_Generic_Swift_Toolbox */; };
 		D4CE51B8281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B6281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift */; };
 		D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */; };
@@ -72,6 +73,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D4C6DD492D7649EB00AA0FAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4F83C9C2D63DB10009C4646;
+			remoteInfo = "Rift Valley Timer Watch Watch App";
+		};
 		D4F83CBE2D63DB43009C4646 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
@@ -116,6 +124,17 @@
 				D4F70CED282872A500DC0E11 /* 25-telephone.mp3 in Copy Sounds */,
 			);
 			name = "Copy Sounds";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4C6DD4B2D7649EB00AA0FAD /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				D4C6DD482D7649EB00AA0FAD /* Rift Valley Timer Watch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4F83CC52D63DB43009C4646 /* Embed Foundation Extensions */ = {
@@ -461,10 +480,12 @@
 				D47C02982819CA6500D359F5 /* Frameworks */,
 				D47C02992819CA6500D359F5 /* Resources */,
 				D4B01F99281F59E200B07C56 /* Copy Sounds */,
+				D4C6DD4B2D7649EB00AA0FAD /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D4C6DD4A2D7649EB00AA0FAD /* PBXTargetDependency */,
 			);
 			name = "Rift Valley Timer";
 			packageProductDependencies = (
@@ -708,6 +729,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D4C6DD4A2D7649EB00AA0FAD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = D4F83C9C2D63DB10009C4646 /* Rift Valley Timer Watch Watch App */;
+			targetProxy = D4C6DD492D7649EB00AA0FAD /* PBXContainerItemProxy */;
+		};
 		D4F83CBF2D63DB43009C4646 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D4F83CB22D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension */;
@@ -921,7 +948,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ProjectMeta/AmbiaMara.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3039;
+				CURRENT_PROJECT_VERSION = 3040;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -940,7 +967,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -959,7 +986,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ProjectMeta/AmbiaMara.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3039;
+				CURRENT_PROJECT_VERSION = 3040;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -978,7 +1005,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -999,7 +1026,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchApp/WatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3038;
+				CURRENT_PROJECT_VERSION = 3040;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_PREVIEWS = YES;
@@ -1038,7 +1065,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchApp/WatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3038;
+				CURRENT_PROJECT_VERSION = 3040;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_PREVIEWS = YES;
@@ -1076,7 +1103,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3038;
+				CURRENT_PROJECT_VERSION = 3040;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1113,7 +1140,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3038;
+				CURRENT_PROJECT_VERSION = 3040;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
