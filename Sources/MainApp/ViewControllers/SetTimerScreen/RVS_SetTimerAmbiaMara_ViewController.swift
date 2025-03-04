@@ -462,7 +462,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         #endif
 
         UIApplication.shared.isIdleTimerDisabled = false    // Just in case...
-        setUpStrings()
+        setUpPicker()
         setUpButtons()
     }
     
@@ -502,16 +502,12 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         guard let timer else { return }
         
         stateLabel?.text = "SLUG-STATE-\(_state.stringValue)".localizedVariant
-        
-        startSetButton?.isEnabled = .start != _state && 0 < timer.startTime
-        warnSetButton?.isEnabled = .warn != _state && 0 < timer.startTime
-        && 1 < timer.startTime
-        finalSetButton?.isEnabled = .final != _state && 0 < timer.startTime
-        && 1 < timer.startTime
-        && (1 < timer.warnTime
-            || 0 == timer.warnTime)
         startButton?.isEnabled = 0 < timer.startTime
         clearButton?.isHidden = 0 >= _stateTime()
+
+        startSetButton?.isEnabled = .start != _state && 0 < timer.startTime
+        warnSetButton?.isEnabled = .warn != _state && 1 < timer.startTime
+        finalSetButton?.isEnabled = .final != _state && 1 < timer.startTime && 1 != timer.warnTime
         
         stateLabel?.accessibilityHint = "SLUG-ACC-STATE-\(_state.stringValue)".accessibilityLocalizedVariant
         stateLabel?.accessibilityHint = "SLUG-ACC-STATE".accessibilityLocalizedVariant + " " + "SLUG-ACC-STATE-PREFIX-\(_state.stringValue)".accessibilityLocalizedVariant
@@ -586,7 +582,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                 minutesLabel?.textColor = UIColor(named: "Start-Color")
                 secondsLabel?.textColor = UIColor(named: "Start-Color")
 
-                setUpStrings()
+                setUpPicker()
             }
             return
         }
@@ -618,17 +614,15 @@ extension RVS_SetTimerAmbiaMara_ViewController {
             finalSetButton?.backgroundColor = UIColor(named: "Final-Color")
         }
 
-        setUpStrings()
+        setUpPicker()
     }
     
     /* ################################################################## */
     /**
-     This animates the intro of the screen.
+     This sets up the timer display, and sets its accessibilty string.
     */
-    func setUpStrings() {
+    func setUpPicker() {
         guard let timer else { return }
-        
-        view.layoutIfNeeded()
 
         var timeAsComponents: [Int]
         switch _state {
