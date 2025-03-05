@@ -57,5 +57,9 @@ extension Rift_Valley_Timer_Watch_App {
         #if DEBUG
             print("Received Watch Context Update: \(inApplicationContext.debugDescription)")
         #endif
+        
+        guard let context = inApplicationContext["timers"] as? [[Int]] else { return }
+        
+        RVS_AmbiaMara_Settings().asWatchContextData = context
     }
 }

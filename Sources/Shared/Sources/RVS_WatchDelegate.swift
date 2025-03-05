@@ -151,7 +151,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         do {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            var contextData: [String: Any] = ["timers": RVS_AmbiaMara_Settings().timers]
+            var contextData: [String: Any] = ["timers": RVS_AmbiaMara_Settings().asWatchContextData]
             
             #if DEBUG
                 contextData["makeMeUnique"] = UUID().uuidString // This breaks the cache, and forces a send (debug)

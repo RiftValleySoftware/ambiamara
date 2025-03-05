@@ -179,6 +179,12 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
 
         /* ########################################################## */
         /**
+         Returns the timer as a simple array of int, with 0 = start, 1 = warn, and 2 = final.
+         */
+        var asWatchContextData: [Int] { [_startTime, _warnTime, _finalTime] }
+        
+        /* ########################################################## */
+        /**
          Initializer, from a KVP
          - parameter inKVP: The KVP, specifying this timer.
          */
@@ -316,6 +322,28 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
     /* ################################################################################################################################## */
     // MARK: Instance Computed Properties
     /* ################################################################################################################################## */
+    /* ########################################################## */
+    /**
+     Returns the timers as a simple array of arrays of int, with 0 = start, 1 = warn, and 2 = final.
+     */
+    var asWatchContextData: [[Int]] {
+        get {
+            return timers.reduce([[Int]]()) { current, next in
+                var ret = current
+                ret.append(next.asWatchContextData)
+                return ret
+            }
+        }
+        
+        set {
+            timers = newValue.compactMap { (3 == $0.count) ? TimerSettings(startTime: $0[0], warnTime: $0[1], finalTime: $0[2]) : TimerSettings() }
+            
+            #if DEBUG
+                print("Timers set: \(timers)")
+            #endif
+        }
+    }
+
     /* ################################################################## */
     /**
      The timers, as TimerSettings instances.
