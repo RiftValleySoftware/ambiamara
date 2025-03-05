@@ -417,56 +417,55 @@ extension RVS_SetTimerWrapper {
     */
     func setUpToolbar() {
         _timerBarItems = []
-        if let items = timerSelectionToolbar?.items {
-            guard 1 < items.count,
-                  let addItem = items.last
-            else { return }
+        guard let items = timerSelectionToolbar?.items,
+              1 < items.count,
+              let addItem = items.last
+        else { return }
             
-            var newItems: [UIBarButtonItem] = [items[0], UIBarButtonItem.flexibleSpace()]
-            if 1 < RVS_AmbiaMara_Settings().numberOfTimers {
-                let currentTag = currentTimer.index + 1
-                setTimerLabel()
-                for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
-                    let tag = timer.offset + 1
-                    let timerButton = UIBarButtonItem()
-                    let startTimeAsComponents = timer.element.startTimeAsComponents
-                    if 2 < startTimeAsComponents.count {
-                        var timeString: String
-                        if 0 < startTimeAsComponents[0] {
-                            timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
-                        } else if 0 < startTimeAsComponents[1] {
-                            timeString = "\(String(format: "%d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
-                        } else {
-                            timeString = String(startTimeAsComponents[2])
-                        }
-                        
-                        timerButton.tag = tag
-                        let imageName = "\(tag).circle\(currentTag != tag ? ".fill" : "")"
-                        timerButton.image = UIImage(systemName: imageName)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large))
-                        timerButton.accessibilityLabel = String(format: "SLUG-ACC-TIMER-BUTTON-LABEL-FORMAT".accessibilityLocalizedVariant, tag)
-                        timerButton.accessibilityHint = String(format: "SLUG-ACC-TIMER-BUTTON-HINT-\(currentTag == tag ? "IS" : "NOT")-FORMAT".accessibilityLocalizedVariant, timeString)
-                        timerButton.isEnabled = currentTag != tag
-                        timerButton.target = self
-                        timerButton.tintColor = timerButton.isEnabled ? UIColor(named: "AccentColor") : .label
-                        timerButton.action = #selector(selectToolbarItem(_:))
-                        newItems.append(timerButton)
-                        newItems.append(UIBarButtonItem.flexibleSpace())
-                        _timerBarItems.append(timerButton)
+        var newItems: [UIBarButtonItem] = [items[0], UIBarButtonItem.flexibleSpace()]
+        if 1 < RVS_AmbiaMara_Settings().numberOfTimers {
+            let currentTag = currentTimer.index + 1
+            setTimerLabel()
+            for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
+                let tag = timer.offset + 1
+                let timerButton = UIBarButtonItem()
+                let startTimeAsComponents = timer.element.startTimeAsComponents
+                if 2 < startTimeAsComponents.count {
+                    var timeString: String
+                    if 0 < startTimeAsComponents[0] {
+                        timeString = "\(String(format: "%d", startTimeAsComponents[0])):\(String(format: "%02d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+                    } else if 0 < startTimeAsComponents[1] {
+                        timeString = "\(String(format: "%d", startTimeAsComponents[1])):\(String(format: "%02d", startTimeAsComponents[2]))"
+                    } else {
+                        timeString = String(startTimeAsComponents[2])
                     }
+                    
+                    timerButton.tag = tag
+                    let imageName = "\(tag).circle\(currentTag != tag ? ".fill" : "")"
+                    timerButton.image = UIImage(systemName: imageName)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large))
+                    timerButton.accessibilityLabel = String(format: "SLUG-ACC-TIMER-BUTTON-LABEL-FORMAT".accessibilityLocalizedVariant, tag)
+                    timerButton.accessibilityHint = String(format: "SLUG-ACC-TIMER-BUTTON-HINT-\(currentTag == tag ? "IS" : "NOT")-FORMAT".accessibilityLocalizedVariant, timeString)
+                    timerButton.isEnabled = currentTag != tag
+                    timerButton.target = self
+                    timerButton.tintColor = timerButton.isEnabled ? UIColor(named: "AccentColor") : .label
+                    timerButton.action = #selector(selectToolbarItem(_:))
+                    newItems.append(timerButton)
+                    newItems.append(UIBarButtonItem.flexibleSpace())
+                    _timerBarItems.append(timerButton)
                 }
-                trashBarButtonItem?.accessibilityHint = String(format: "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT".accessibilityLocalizedVariant, currentTag)
-                newItems.append(addItem)
-            } else {
-                navigationItem.title = nil
-                trashBarButtonItem?.accessibilityHint = nil
             }
-            
-            timerSelectionToolbar?.setItems(newItems, animated: false)
-            
-            trashBarButtonItem?.isEnabled = 1 < _timerBarItems.count
-            addBarButtonItem?.isEnabled = Self._maximumNumberOfTimers > _timerBarItems.count
-            addBarButtonItem?.accessibilityHint = Self._maximumNumberOfTimers > _timerBarItems.count ? "SLUG-ACC-ADD-TIMER-BUTTON".accessibilityLocalizedVariant : nil
+            trashBarButtonItem?.accessibilityHint = String(format: "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT".accessibilityLocalizedVariant, currentTag)
+            newItems.append(addItem)
+        } else {
+            navigationItem.title = nil
+            trashBarButtonItem?.accessibilityHint = nil
         }
+        
+        timerSelectionToolbar?.setItems(newItems, animated: false)
+        
+        trashBarButtonItem?.isEnabled = 1 < _timerBarItems.count
+        addBarButtonItem?.isEnabled = Self._maximumNumberOfTimers > _timerBarItems.count
+        addBarButtonItem?.accessibilityHint = Self._maximumNumberOfTimers > _timerBarItems.count ? "SLUG-ACC-ADD-TIMER-BUTTON".accessibilityLocalizedVariant : nil
     }
 
     /* ################################################################## */
