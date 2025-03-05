@@ -21,12 +21,6 @@ import RVS_Generic_Swift_Toolbox
 class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
     /* ################################################################## */
     /**
-     The maximum number of timers we can have.
-    */
-    private static let _maximumNumberOfTimers = 6
-
-    /* ################################################################## */
-    /**
      The size of the two settings popovers.
     */
     private static let _settingsPopoverWidthInDisplayUnits = CGFloat(400)
@@ -132,6 +126,12 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
 // MARK: Computed Properties
 /* ###################################################################################################################################### */
 extension RVS_SetTimerWrapper {
+    /* ################################################################## */
+    /**
+     The maximum number of timers we can have.
+    */
+    private var _maximumNumberOfTimers: Int { .pad == UIDevice.current.userInterfaceIdiom ? 14 : 6 }
+
     /* ################################################################## */
     /**
      The current timer, routed from the settings.
@@ -264,7 +264,7 @@ extension RVS_SetTimerWrapper {
      - parameter: ignored.
     */
     @IBAction func addHit(_: Any! = nil) {
-        if Self._maximumNumberOfTimers > _timerBarItems.count {
+        if _maximumNumberOfTimers > _timerBarItems.count {
             RVS_AmbiaMara_Settings().add(andSelect: true)
             state = .start
             guard let newController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController else { return }
@@ -416,7 +416,6 @@ extension RVS_SetTimerWrapper {
      This sets up the toolbar, by adding all the timers.
     */
     func setUpToolbar() {
-        _timerBarItems = []
         guard let items = timerSelectionToolbar?.items,
               1 < items.count,
               let addItem = items.last
@@ -424,6 +423,7 @@ extension RVS_SetTimerWrapper {
             
         var newItems: [UIBarButtonItem] = [items[0], UIBarButtonItem.flexibleSpace()]
         if 1 < RVS_AmbiaMara_Settings().numberOfTimers {
+            _timerBarItems = []
             let currentTag = currentTimer.index + 1
             setTimerLabel()
             for timer in RVS_AmbiaMara_Settings().timers.enumerated() {
@@ -455,17 +455,18 @@ extension RVS_SetTimerWrapper {
                 }
             }
             trashBarButtonItem?.accessibilityHint = String(format: "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT".accessibilityLocalizedVariant, currentTag)
-            newItems.append(addItem)
         } else {
             navigationItem.title = nil
             trashBarButtonItem?.accessibilityHint = nil
         }
         
+        newItems.append(addItem)
+        
         timerSelectionToolbar?.setItems(newItems, animated: false)
         
         trashBarButtonItem?.isEnabled = 1 < _timerBarItems.count
-        addBarButtonItem?.isEnabled = Self._maximumNumberOfTimers > _timerBarItems.count
-        addBarButtonItem?.accessibilityHint = Self._maximumNumberOfTimers > _timerBarItems.count ? "SLUG-ACC-ADD-TIMER-BUTTON".accessibilityLocalizedVariant : nil
+        addBarButtonItem?.isEnabled = _maximumNumberOfTimers > _timerBarItems.count
+        addBarButtonItem?.accessibilityHint = _maximumNumberOfTimers > _timerBarItems.count ? "SLUG-ACC-ADD-TIMER-BUTTON".accessibilityLocalizedVariant : nil
     }
 
     /* ################################################################## */

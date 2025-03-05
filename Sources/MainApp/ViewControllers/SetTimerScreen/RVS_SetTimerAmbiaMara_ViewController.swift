@@ -848,7 +848,7 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
         ret.font = Self._pickerFont
         ret.cornerRadius = Self._pickerCornerRadiusInDisplayUnits
         ret.clipsToBounds = true
-        ret.textColor = .white
+        ret.textColor = .label
         ret.textAlignment = .center
 
         let maskColumn = selectedRow
@@ -862,7 +862,7 @@ extension RVS_SetTimerAmbiaMara_ViewController: UIPickerViewDelegate {
         
         if maskColumn {
             ret.textColor = UIColor(named: "PickerTextColor")
-            ret.backgroundColor = .white
+            ret.backgroundColor = UIColor(named: "PickerBackgroundColor")
         }
         
         return ret
