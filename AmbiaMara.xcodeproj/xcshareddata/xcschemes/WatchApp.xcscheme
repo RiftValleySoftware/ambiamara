@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D4F83C9C2D63DB10009C4646"
-               BuildableName = "Rift Valley Timer Watch Watch App.app"
-               BlueprintName = "Rift Valley Timer Watch Watch App"
+               BuildableName = "Rift Valley Timer WatchApp.app"
+               BlueprintName = "Rift Valley Timer WatchApp"
                ReferencedContainer = "container:AmbiaMara.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,6 +32,20 @@
                BlueprintIdentifier = "D47C029A2819CA6500D359F5"
                BuildableName = "Rift Valley Timer.app"
                BlueprintName = "Rift Valley Timer"
+               ReferencedContainer = "container:AmbiaMara.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D4F83CB22D63DB43009C4646"
+               BuildableName = "Rift Valley Timer ComplicationsExtension.appex"
+               BlueprintName = "Rift Valley Timer ComplicationsExtension"
                ReferencedContainer = "container:AmbiaMara.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -59,8 +73,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4F83C9C2D63DB10009C4646"
-            BuildableName = "Rift Valley Timer Watch Watch App.app"
-            BlueprintName = "Rift Valley Timer Watch Watch App"
+            BuildableName = "Rift Valley Timer WatchApp.app"
+            BlueprintName = "Rift Valley Timer WatchApp"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -76,8 +90,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4F83C9C2D63DB10009C4646"
-            BuildableName = "Rift Valley Timer Watch Watch App.app"
-            BlueprintName = "Rift Valley Timer Watch Watch App"
+            BuildableName = "Rift Valley Timer WatchApp.app"
+            BlueprintName = "Rift Valley Timer WatchApp"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -23,6 +23,12 @@ class RVS_AmbiaMara_AppSceneDelegate: UIResponder {
      The required window property.
      */
     var window: UIWindow?
+    
+    /* ############################################################## */
+    /**
+     This handles communications with the Watch app.
+     */
+    private var _watchDelegate: RVS_WatchDelegate?
 }
 
 /* ###################################################################################################################################### */
@@ -68,6 +74,21 @@ extension RVS_AmbiaMara_AppSceneDelegate {
 }
 
 /* ###################################################################################################################################### */
+// MARK: Callbacks
+/* ###################################################################################################################################### */
+extension RVS_AmbiaMara_AppSceneDelegate {
+    /* ################################################################## */
+    /**
+     This responds to updates from the Watch delegate.
+     
+     - parameter inApplicationContext: The application context from the Watch.
+     */
+    func watchUpdateHandler(_ inApplicationContext: [String: Any]) {
+        
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: UIApplicationDelegate Conformance
 /* ###################################################################################################################################### */
 extension RVS_AmbiaMara_AppSceneDelegate: UIApplicationDelegate {
@@ -99,6 +120,7 @@ extension RVS_AmbiaMara_AppSceneDelegate: UIWindowSceneDelegate {
      - parameter: The scene instance (ignored).
      */
     func sceneWillResignActive(_: UIScene) {
+        _watchDelegate = nil
         cleanPopoverAndStopAlarm()
     }
     
@@ -118,6 +140,7 @@ extension RVS_AmbiaMara_AppSceneDelegate: UIWindowSceneDelegate {
      - parameter: The scene instance (ignored).
      */
     func sceneDidBecomeActive(_: UIScene) {
+        _watchDelegate = RVS_WatchDelegate(updateHandler: watchUpdateHandler)
         DispatchQueue.main.async { [weak self] in
             if let viewControllers = self?.navigationController?.viewControllers {
                 if let setupScreen = viewControllers.first as? RVS_SetTimerAmbiaMara_ViewController {

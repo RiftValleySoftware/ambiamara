@@ -95,6 +95,8 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
     func session(_ inSession: WCSession, didReceiveApplicationContext inApplicationContext: [String: Any]) {
         guard !isUpdateInProgress else { return }
         isUpdateInProgress = true
+        RVS_AmbiaMara_Settings().timers = inApplicationContext["timers"] as? [RVS_AmbiaMara_Settings.TimerSettings] ?? []
+        
         #if DEBUG && os(watchOS)
             print("Watch App Received Context Update: \(inApplicationContext)")
         #elseif DEBUG
@@ -149,7 +151,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         do {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            var contextData: [String: Any] = [:]
+            var contextData: [String: Any] = ["timers": RVS_AmbiaMara_Settings().timers]
             
             #if DEBUG
                 contextData["makeMeUnique"] = UUID().uuidString // This breaks the cache, and forces a send (debug)

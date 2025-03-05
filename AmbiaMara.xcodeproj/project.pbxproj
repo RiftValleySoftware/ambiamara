@@ -43,7 +43,7 @@
 		D4B01F98281F58D200B07C56 /* 09-single-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F80281F58D200B07C56 /* 09-single-beep.mp3 */; };
 		D4C4B70C2819CEDB00E22ECA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4C4B70A2819CEDB00E22ECA /* Localizable.strings */; };
 		D4C4B71C2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */; };
-		D4C6DD482D7649EB00AA0FAD /* Rift Valley Timer Watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D4F83C9D2D63DB10009C4646 /* Rift Valley Timer Watch Watch App.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D4C6DD482D7649EB00AA0FAD /* Rift Valley Timer WatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D4F83C9D2D63DB10009C4646 /* Rift Valley Timer WatchApp.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D4CD2E7F284697E100400AB0 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4CD2E7E284697E100400AB0 /* RVS_Generic_Swift_Toolbox */; };
 		D4CE51B8281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B6281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift */; };
 		D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */; };
@@ -132,7 +132,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				D4C6DD482D7649EB00AA0FAD /* Rift Valley Timer Watch Watch App.app in Embed Watch Content */,
+				D4C6DD482D7649EB00AA0FAD /* Rift Valley Timer WatchApp.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,7 +215,7 @@
 		D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "25-telephone.mp3"; sourceTree = "<group>"; };
 		D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "23-siren.mp3"; sourceTree = "<group>"; };
 		D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "24-deep-alarm.mp3"; sourceTree = "<group>"; };
-		D4F83C9D2D63DB10009C4646 /* Rift Valley Timer Watch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rift Valley Timer Watch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4F83C9D2D63DB10009C4646 /* Rift Valley Timer WatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rift Valley Timer WatchApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F83CB32D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Rift Valley Timer ComplicationsExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F83CB42D63DB43009C4646 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		D4F83CB62D63DB43009C4646 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -323,7 +323,7 @@
 			isa = PBXGroup;
 			children = (
 				D47C029B2819CA6500D359F5 /* Rift Valley Timer.app */,
-				D4F83C9D2D63DB10009C4646 /* Rift Valley Timer Watch Watch App.app */,
+				D4F83C9D2D63DB10009C4646 /* Rift Valley Timer WatchApp.app */,
 				D4F83CB32D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension.appex */,
 			);
 			name = Products;
@@ -343,8 +343,8 @@
 		D4A932212D64E9CB0028556E /* WatchApp */ = {
 			isa = PBXGroup;
 			children = (
-				D4A9321F2D64E9CB0028556E /* Rift_Valley_Timer_Watch_App_MainContentView.swift */,
 				D4A932202D64E9CB0028556E /* Rift_Valley_Timer_Watch_App.swift */,
+				D4A9321F2D64E9CB0028556E /* Rift_Valley_Timer_Watch_App_MainContentView.swift */,
 				D4A9322F2D64EA8B0028556E /* Info.plist */,
 				D4A9322D2D64EA310028556E /* WatchApp.entitlements */,
 				D4A9321E2D64E9CB0028556E /* Assets.xcassets */,
@@ -497,9 +497,9 @@
 			productReference = D47C029B2819CA6500D359F5 /* Rift Valley Timer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D4F83C9C2D63DB10009C4646 /* Rift Valley Timer Watch Watch App */ = {
+		D4F83C9C2D63DB10009C4646 /* Rift Valley Timer WatchApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D4F83CAB2D63DB10009C4646 /* Build configuration list for PBXNativeTarget "Rift Valley Timer Watch Watch App" */;
+			buildConfigurationList = D4F83CAB2D63DB10009C4646 /* Build configuration list for PBXNativeTarget "Rift Valley Timer WatchApp" */;
 			buildPhases = (
 				D4A932312D64EC3D0028556E /* SwiftLint */,
 				D4F83C992D63DB10009C4646 /* Sources */,
@@ -512,13 +512,13 @@
 			dependencies = (
 				D4F83CBF2D63DB43009C4646 /* PBXTargetDependency */,
 			);
-			name = "Rift Valley Timer Watch Watch App";
+			name = "Rift Valley Timer WatchApp";
 			packageProductDependencies = (
 				D4F357302D6F6271005A815A /* RVS_Persistent_Prefs */,
 				D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */,
 			);
 			productName = "Rift Valley Timer Watch Watch App";
-			productReference = D4F83C9D2D63DB10009C4646 /* Rift Valley Timer Watch Watch App.app */;
+			productReference = D4F83C9D2D63DB10009C4646 /* Rift Valley Timer WatchApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D4F83CB22D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension */ = {
@@ -588,7 +588,7 @@
 			projectRoot = "";
 			targets = (
 				D47C029A2819CA6500D359F5 /* Rift Valley Timer */,
-				D4F83C9C2D63DB10009C4646 /* Rift Valley Timer Watch Watch App */,
+				D4F83C9C2D63DB10009C4646 /* Rift Valley Timer WatchApp */,
 				D4F83CB22D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension */,
 			);
 		};
@@ -730,7 +730,7 @@
 		D4C6DD4A2D7649EB00AA0FAD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
-			target = D4F83C9C2D63DB10009C4646 /* Rift Valley Timer Watch Watch App */;
+			target = D4F83C9C2D63DB10009C4646 /* Rift Valley Timer WatchApp */;
 			targetProxy = D4C6DD492D7649EB00AA0FAD /* PBXContainerItemProxy */;
 		};
 		D4F83CBF2D63DB43009C4646 /* PBXTargetDependency */ = {
@@ -1186,7 +1186,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D4F83CAB2D63DB10009C4646 /* Build configuration list for PBXNativeTarget "Rift Valley Timer Watch Watch App" */ = {
+		D4F83CAB2D63DB10009C4646 /* Build configuration list for PBXNativeTarget "Rift Valley Timer WatchApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D4F83CAC2D63DB10009C4646 /* Debug */,
