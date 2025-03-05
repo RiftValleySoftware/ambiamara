@@ -57,6 +57,12 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
+     This will list our timer toolbar items.
+    */
+    private var _timerBarItems: [UIBarButtonItem] = []
+
+    /* ################################################################## */
+    /**
      The settings popover bar button item.
     */
     @IBOutlet weak var settingsButton: UIButton?
@@ -133,22 +139,6 @@ extension RVS_SetTimerWrapper {
     var currentTimer: RVS_AmbiaMara_Settings.TimerSettings {
         get { RVS_AmbiaMara_Settings().currentTimer }
         set { RVS_AmbiaMara_Settings().currentTimer = newValue  }
-    }
-
-    /* ################################################################## */
-    /**
-     This will list our timer toolbar items.
-    */
-    private var _timerBarItems: [UIBarButtonItem] {
-        var ret = [UIBarButtonItem]()
-        
-        guard let items = timerSelectionToolbar?.items else { return [] }
-        
-        for item in items.enumerated() where (2..<(items.count - 2)).contains(item.offset) {
-            ret.append(item.element)
-        }
-        
-        return ret
     }
     
     /* ############################################################## */
@@ -426,9 +416,13 @@ extension RVS_SetTimerWrapper {
      This sets up the toolbar, by adding all the timers.
     */
     func setUpToolbar() {
+        _timerBarItems = []
         if let items = timerSelectionToolbar?.items {
-            guard 1 < items.count else { return }
-            var newItems: [UIBarButtonItem] = [items[0], items[1], items[items.count - 2], items[items.count - 1]]
+            guard 1 < items.count,
+                  let addItem = items.last
+            else { return }
+            
+            var newItems: [UIBarButtonItem] = [items[0], UIBarButtonItem.flexibleSpace()]
             if 1 < RVS_AmbiaMara_Settings().numberOfTimers {
                 let currentTag = currentTimer.index + 1
                 setTimerLabel()
@@ -455,10 +449,13 @@ extension RVS_SetTimerWrapper {
                         timerButton.target = self
                         timerButton.tintColor = timerButton.isEnabled ? UIColor(named: "AccentColor") : .label
                         timerButton.action = #selector(selectToolbarItem(_:))
-                        newItems.insert(timerButton, at: 2 + timer.offset)
+                        newItems.append(timerButton)
+                        newItems.append(UIBarButtonItem.flexibleSpace())
+                        _timerBarItems.append(timerButton)
                     }
                 }
                 trashBarButtonItem?.accessibilityHint = String(format: "SLUG-ACC-DELETE-TIMER-BUTTON-FORMAT".accessibilityLocalizedVariant, currentTag)
+                newItems.append(addItem)
             } else {
                 navigationItem.title = nil
                 trashBarButtonItem?.accessibilityHint = nil
