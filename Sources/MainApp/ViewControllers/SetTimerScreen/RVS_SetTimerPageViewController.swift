@@ -525,15 +525,6 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
         }
         let newIndex = nextIndex
         ret?.timerIndex = newIndex
-        if hapticsAreAvailable {
-            if 0 == newIndex || lastIndex == newIndex {
-                _impactFeedbackGenerator?.impactOccurred()
-                _impactFeedbackGenerator?.prepare()
-            } else {
-                _selectionFeedbackGenerator?.selectionChanged()
-                _selectionFeedbackGenerator?.prepare()
-            }
-        }
         return ret
     }
     
@@ -559,15 +550,6 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDataSource {
         }
         let newIndex = nextIndex
         ret?.timerIndex = newIndex
-        if hapticsAreAvailable {
-            if 0 == newIndex || lastIndex == newIndex {
-                _impactFeedbackGenerator?.impactOccurred()
-                _impactFeedbackGenerator?.prepare()
-            } else {
-                _selectionFeedbackGenerator?.selectionChanged()
-                _selectionFeedbackGenerator?.prepare()
-            }
-        }
         return ret
     }
 }
@@ -585,7 +567,17 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDelegate {
      - parameter previousViewControllers: The previous view controllers (ignored).
      - parameter transitionCompleted: True, if the transition completed (ignored).
     */
-    func pageViewController(_: UIPageViewController, didFinishAnimating: Bool, previousViewControllers: [UIViewController], transitionCompleted: Bool) {
+    func pageViewController(_: UIPageViewController, didFinishAnimating: Bool, previousViewControllers: [UIViewController], transitionCompleted inCompleted: Bool) {
+        if inCompleted,
+           hapticsAreAvailable {
+            if 0 == RVS_AmbiaMara_Settings().currentTimerIndex || (RVS_AmbiaMara_Settings().numberOfTimers - 1) == RVS_AmbiaMara_Settings().currentTimerIndex {
+                _impactFeedbackGenerator?.impactOccurred()
+                _impactFeedbackGenerator?.prepare()
+            } else {
+                _selectionFeedbackGenerator?.selectionChanged()
+                _selectionFeedbackGenerator?.prepare()
+            }
+        }
         setUpToolbar()
         setAlarmIcon()
         setTimerLabel()
