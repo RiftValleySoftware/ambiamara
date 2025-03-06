@@ -86,9 +86,9 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
             print("The Watch session is\(.activated == inActivationState ? "" : " not") activated.")
         #endif
         
-        #if os(iOS)    // Only necessary for iOS
-            sendApplicationContext()
-        #else
+        guard .activated == inActivationState else { return }
+        
+        #if !os(iOS)    // Only necessary for WatchOS
             sendContextRequest()
         #endif
     }
@@ -146,7 +146,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
             #if DEBUG
                 print("Reply from phone: \(inReply)")
             #endif
-            
+            retries = 0
             isUpdateInProgress = false
             session(wcSession, didReceiveApplicationContext: inReply)
         }
@@ -177,31 +177,52 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
             }
         }
 
-        /* ################################################################## */
-        /**
-         This sends a request to the phone, to send the latest context.
-         - parameter inRetries: The number of retries left. If omitted, it is five.
-         It tries up to 5 times, if the request failed.
-        */
-        func sendContextRequest(_ inRetries: Int = 5) {
+    /* ################################################################## */
+    /**
+     This sends a request to the phone, to send the latest context.
+     - parameter inRetries: The number of retries left. If omitted, it is five.
+     It tries up to 5 times, if the request failed.
+    */
+    func sendContextRequest(_ inRetries: Int = 5) {
+        #if DEBUG
+            print("Sending context request to the phone (\(inRetries) retries available)")
+        #endif
+        
+        retries = inRetries
+        
+        isUpdateInProgress = true
+        if .activated == wcSession.activationState {
+            wcSession.sendMessage(["requestContext": "requestContext"],
+                                  replyHandler: sessionReplyHandler,
+                                  errorHandler: sessionErrorHandler)
+        } else {
             #if DEBUG
-                print("Sending context request to the phone (\(inRetries) retries available)")
+                print("Session not active")
             #endif
-            
-            retries = inRetries
-            
-            isUpdateInProgress = true
-            if .activated == wcSession.activationState {
-                wcSession.sendMessage(["requestContext": "requestContext"],
-                                      replyHandler: sessionReplyHandler,
-                                      errorHandler: sessionErrorHandler)
-            } else {
-                #if DEBUG
-                    print("Session not active")
-                #endif
-            }
-            isUpdateInProgress = false
         }
+        isUpdateInProgress = false
+    }
+
+    /* ################################################################## */
+    /**
+     This sends a request to the phone, to send the latest context.
+     - parameter inTimerIndex: The 0-based timer index of the timer to start or stop. Required.
+    */
+    func sendStartStopTimer(_ inTimerIndex: Int) {
+        #if DEBUG
+            print("Sending timer start/stop request to the phone for timer \(inTimerIndex)")
+        #endif
+        
+        isUpdateInProgress = true
+        if .activated == wcSession.activationState {
+            wcSession.sendMessage(["startTimer": inTimerIndex], replyHandler: nil)
+        } else {
+            #if DEBUG
+                print("Session not active")
+            #endif
+        }
+        isUpdateInProgress = false
+    }
     #endif
     
     /* ################################################################## */
