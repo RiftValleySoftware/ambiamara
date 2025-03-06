@@ -57,6 +57,12 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
     
     /* ###################################################################### */
     /**
+     This is used for trying to recover from Watch sync errors.
+     */
+    var retries: Int = 0
+    
+    /* ###################################################################### */
+    /**
      This maintains a reference to the session.
      */
     var wcSession = WCSession.default
@@ -82,6 +88,8 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         
         #if os(iOS)    // Only necessary for iOS
             sendApplicationContext()
+        #else
+            sendContextRequest()
         #endif
     }
     
@@ -96,6 +104,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         guard !isUpdateInProgress else { return }
         isUpdateInProgress = true
         RVS_AmbiaMara_Settings().timers = inApplicationContext["timers"] as? [RVS_AmbiaMara_Settings.TimerSettings] ?? []
+        RVS_AmbiaMara_Settings().currentTimerIndex = inApplicationContext["currentTimerIndex"] as? Int ?? 0
         
         #if DEBUG && os(watchOS)
             print("Watch App Received Context Update: \(inApplicationContext)")
@@ -112,8 +121,10 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         /* ################################################################## */
         /**
          - parameter inSession: The session receiving the message.
+         - parameter didReceiveMessage: The message from the watch
+         - parameter replyHandler: A function to be executed, with the reply to the message.
         */
-        func session(_ inSession: WCSession, didReceiveMessage inMessage: [String: Any]) {
+        func session(_ inSession: WCSession, didReceiveMessage inMessage: [String: Any], replyHandler inReplyHandler: @escaping ([String: Any]) -> Void) {
             #if DEBUG
                 print("Received Message From Watch: \(inMessage)")
             #endif
@@ -122,20 +133,72 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 #if DEBUG
                     print("Responding to context request from the watch")
                 #endif
-                sendApplicationContext()
+                sendApplicationContext(inReplyHandler)
             }
         }
     #else
         /* ################################################################## */
         /**
+         Upon receiving a reply, we execute our standard context delegate function with the data.
+         - parameter inReply: The context data.
         */
-        func sendContextRequest() {
-            isUpdateInProgress = true
+        func sessionReplyHandler(_ inReply: [String: Any]) {
             #if DEBUG
-                print("Sending context request to the phone")
+                print("Reply from phone: \(inReply)")
             #endif
+            
+            isUpdateInProgress = false
+            session(wcSession, didReceiveApplicationContext: inReply)
+        }
+        
+        /* ################################################################## */
+        /**
+         Called, if the request failed.
+         If the failure is the random WC connection failure, we try again, after a random delay (from [this SO answer](https://stackoverflow.com/a/53994733/879365)).
+        */
+        func sessionErrorHandler(_ inError: Error) {
+            #if DEBUG
+                print("Error from session: \(inError.localizedDescription)")
+            #endif
+            isUpdateInProgress = false
+            let nsError = inError as NSError
+            if nsError.domain == "WCErrorDomain",
+               7007 == nsError.code,
+               0 < retries {
+                #if DEBUG
+                    print("Connection failure. Retrying...")
+                #endif
+                let randomDelay = Double.random(in: (0.3...1.0))
+                DispatchQueue.global().asyncAfter(deadline: .now() + randomDelay) { self.sendContextRequest(self.retries - 1) }
+            } else {
+                #if DEBUG
+                    print("Error Not Handled")
+                #endif
+            }
+        }
+
+        /* ################################################################## */
+        /**
+         This sends a request to the phone, to send the latest context.
+         - parameter inRetries: The number of retries left. If omitted, it is five.
+         It tries up to 5 times, if the request failed.
+        */
+        func sendContextRequest(_ inRetries: Int = 5) {
+            #if DEBUG
+                print("Sending context request to the phone (\(inRetries) retries available)")
+            #endif
+            
+            retries = inRetries
+            
+            isUpdateInProgress = true
             if .activated == wcSession.activationState {
-                wcSession.sendMessage(["requestContext": "requestContext"], replyHandler: nil)
+                wcSession.sendMessage(["requestContext": "requestContext"],
+                                      replyHandler: sessionReplyHandler,
+                                      errorHandler: sessionErrorHandler)
+            } else {
+                #if DEBUG
+                    print("Session not active")
+                #endif
             }
             isUpdateInProgress = false
         }
@@ -144,14 +207,17 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
     /* ################################################################## */
     /**
      This is called to send the current state of the prefs to the peer.
+     - parameter inReplyHandler: A function to be executed, with the context. Optional. If not provided, then the standard send context is done.
      */
-    func sendApplicationContext() {
+    func sendApplicationContext(_ inContextReceiver: (([String: Any]) -> Void)? = nil) {
         guard !isUpdateInProgress else { return }
         isUpdateInProgress = true
         do {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            var contextData: [String: Any] = ["timers": RVS_AmbiaMara_Settings().asWatchContextData]
+            var contextData: [String: Any] = ["timers": RVS_AmbiaMara_Settings().asWatchContextData,
+                                              "currentTimerIndex": RVS_AmbiaMara_Settings().currentTimerIndex
+            ]
             
             #if DEBUG
                 contextData["makeMeUnique"] = UUID().uuidString // This breaks the cache, and forces a send (debug)
@@ -162,8 +228,15 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 #endif
             #endif
 
-            if .activated == wcSession.activationState {
+            if nil == inContextReceiver,
+               .activated == wcSession.activationState {
                 try wcSession.updateApplicationContext(contextData)
+            } else if let inContextReceiver,
+                      .activated == wcSession.activationState {
+                #if DEBUG
+                    print("Context was sent as a message reply.")
+                #endif
+                inContextReceiver(contextData)
             }
         } catch {
             #if DEBUG
