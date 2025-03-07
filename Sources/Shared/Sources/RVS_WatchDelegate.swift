@@ -27,13 +27,14 @@ import WatchConnectivity
  This class exists to give the Watch Connectivity a place to work.
  */
 class RVS_WatchDelegate: NSObject, WCSessionDelegate {
-    /* ###################################################################### */
+    /* ################################################################## */
     /**
-     This is a template for the update callback.
+     This is a callback template for the message/context calls.
      
-     - parameter inApplicationContext: The new application context.
+     - parameter inWatchDelegate: The delegate handler calling this.
+     - parameter inApplicationContext: The application context from the Watch.
      */
-    typealias ApplicationContextHandler = (_ inApplicationContext: [String: Any]) -> Void
+    typealias ApplicationContextHandler = (_ inWatchDelegate: RVS_WatchDelegate?, _ inApplicationContext: [String: Any]) -> Void
 
     #if os(iOS)    // Only necessary for iOS
         /* ################################################################## */
@@ -112,7 +113,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
             print("iOS App Received Context Update: \(inApplicationContext)")
         #endif
         DispatchQueue.main.async {
-            self.updateHandler?(inApplicationContext)
+            self.updateHandler?(self, inApplicationContext)
             self.isUpdateInProgress = false
         }
     }

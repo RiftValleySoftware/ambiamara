@@ -103,9 +103,10 @@ extension RVS_AmbiaMara_AppSceneDelegate {
     /**
      This responds to updates from the Watch delegate.
      
+     - parameter inWatchDelegate: The delegate handler calling this.
      - parameter inApplicationContext: The application context from the Watch.
      */
-    func watchUpdateHandler(_ inApplicationContext: [String: Any]) {
+    func watchUpdateHandler(_ inWatchDelegate: RVS_WatchDelegate?, _ inApplicationContext: [String: Any]) {
         
     }
 }
