@@ -136,6 +136,37 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 sendApplicationContext(inReplyHandler)
             }
         }
+
+        /* ################################################################## */
+        /**
+         This sends a sync pulse to the phone.
+         
+         - parameter: timerStartTime: The date at which the timer began its countdown.
+         - parameter: timerTotalTime: The number of seconds that the timer started with.
+         - parameter: timerWarnTime: The number of seconds that the timer considers into the "warning" state. Optional. If left out, the warning time is ignored.
+         - parameter: timerFinalTime: The number of seconds that the timer considers into the "final" state. Optional. If left out, the final time is ignored.
+        */
+        func sendSync(timerStartTime inTimerStartTime: TimeInterval,
+                      timerTotalTime inTimerTotalTime: TimeInterval,
+                      timerWarnTime inTimerWarnTime: TimeInterval = 0.0,
+                      timerFinalTime inTimerFinalTime: TimeInterval = 0.0) {
+            #if DEBUG
+                print("Sending timer sync to the phone")
+            #endif
+            
+            isUpdateInProgress = true
+            if .activated == wcSession.activationState {
+                let totalTime = inTimerStartTime + inTimerTotalTime
+                let warnTime = 0 < inTimerWarnTime ? inTimerStartTime + inTimerWarnTime : inTimerTotalTime
+                let finalTime = 0 < inTimerFinalTime ? inTimerStartTime + inTimerFinalTime : inTimerTotalTime
+                wcSession.sendMessage(["sync": [inTimerStartTime, totalTime, warnTime, finalTime]], replyHandler: nil)
+            } else {
+                #if DEBUG
+                    print("Session not active")
+                #endif
+            }
+            isUpdateInProgress = false
+        }
     #else
         /* ################################################################## */
         /**
