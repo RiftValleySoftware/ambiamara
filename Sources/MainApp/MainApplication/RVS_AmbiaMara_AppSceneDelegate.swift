@@ -93,6 +93,14 @@ extension RVS_AmbiaMara_AppSceneDelegate {
                   timerFinalTime inTimerFinalTime: TimeInterval = 0.0) {
         _watchDelegate?.sendSync(timerStartTime: inTimerStartTime, timerTotalTime: inTimerTotalTime, timerWarnTime: inTimerWarnTime, timerFinalTime: inTimerFinalTime)
     }
+    
+    /* ################################################################## */
+    /**
+     This is called to send the current state of the prefs to the Watch.
+     */
+    func updateApplicationContext() {
+        _watchDelegate?.sendApplicationContext()
+    }
 }
 
 /* ###################################################################################################################################### */

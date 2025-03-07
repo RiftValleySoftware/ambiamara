@@ -17,7 +17,15 @@ import SwiftUI
  
  */
 struct Rift_Valley_Timer_Watch_App_MainContentView: View {
-    @State var timers: [RVS_AmbiaMara_Settings.TimerSettings] = []
+    /* ################################################################## */
+    /**
+    */
+    @Binding var timers: [RVS_AmbiaMara_Settings.TimerSettings]
+
+    /* ################################################################## */
+    /**
+    */
+    @Binding var selectedTimerID: String
     
     /* ################################################################## */
     /**
@@ -26,13 +34,18 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
         ScrollView {
             VStack {
                 ForEach(timers, id: \.id) { inTimer in
-                    Text("Start Time: \(inTimer.startTime)")
-                        .padding()
+                    if inTimer.id == selectedTimerID {
+                        Text("Selected Timer: \(inTimer.startTime)")
+                            .foregroundColor(.red)
+                    } else {
+                        Text("Unselected Timer: \(inTimer.startTime)")
+                    }
                 }
             }
         }
         .onAppear {
             timers = RVS_AmbiaMara_Settings().timers
+            selectedTimerID = RVS_AmbiaMara_Settings().currentTimerID
         }
     }
 }

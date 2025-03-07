@@ -32,10 +32,20 @@ struct Rift_Valley_Timer_Watch_App: App {
     
     /* ################################################################## */
     /**
+    */
+    @State var timers: [RVS_AmbiaMara_Settings.TimerSettings] = []
+
+    /* ################################################################## */
+    /**
+    */
+    @State var selectedTimerID: String = ""
+    
+    /* ################################################################## */
+    /**
      */
     var body: some Scene {
         WindowGroup {
-            Rift_Valley_Timer_Watch_App_MainContentView()
+            Rift_Valley_Timer_Watch_App_MainContentView(timers: $timers, selectedTimerID: $selectedTimerID)
                 .onAppear {
                     _watchDelegate = RVS_WatchDelegate(updateHandler: watchUpdateHandler)
                 }
@@ -64,5 +74,7 @@ extension Rift_Valley_Timer_Watch_App {
                 print("Received Sync: \(sync)")
             #endif
         }
+        
+        (timers, selectedTimerID) = (RVS_AmbiaMara_Settings().timers, RVS_AmbiaMara_Settings().currentTimerID)
     }
 }

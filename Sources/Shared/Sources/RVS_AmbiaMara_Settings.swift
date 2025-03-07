@@ -480,11 +480,9 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
             if ids.isEmpty {
                 add(timer: TimerSettings())
                 currentTimerIndex = 0
-            } else if -1 == currentTimerIndex {
-                currentTimerIndex = 0
             }
             
-            currentTimerIndex = min(currentTimerIndex, numberOfTimers - 1)
+            currentTimerIndex = max(0, min(currentTimerIndex, numberOfTimers - 1))
             return timers[currentTimerIndex]
         }
         

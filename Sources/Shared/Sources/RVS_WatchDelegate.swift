@@ -104,14 +104,30 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
     func session(_ inSession: WCSession, didReceiveApplicationContext inApplicationContext: [String: Any]) {
         guard !isUpdateInProgress else { return }
         isUpdateInProgress = true
-        RVS_AmbiaMara_Settings().timers = inApplicationContext["timers"] as? [RVS_AmbiaMara_Settings.TimerSettings] ?? []
-        RVS_AmbiaMara_Settings().currentTimerIndex = inApplicationContext["currentTimerIndex"] as? Int ?? 0
         
+        if let timersTemp = inApplicationContext["timers"] as? [[Int]] {
+            #if DEBUG
+                print("Received Timers: \(timersTemp)")
+            #endif
+            
+            RVS_AmbiaMara_Settings().timers = timersTemp.map { RVS_AmbiaMara_Settings.TimerSettings(startTime: $0[0], warnTime: $0[1], finalTime: $0[2]) }
+        }
+
+        if let currentIndex = inApplicationContext["currentTimerIndex"] as? Int {
+            #if DEBUG
+                print("Received Current Index: \(currentIndex)")
+            #endif
+            
+            RVS_AmbiaMara_Settings().currentTimerIndex = currentIndex
+        }
+
         #if DEBUG && os(watchOS)
             print("Watch App Received Context Update: \(inApplicationContext)")
+            print("Watch App Current Settings: \(RVS_AmbiaMara_Settings())")
         #elseif DEBUG
             print("iOS App Received Context Update: \(inApplicationContext)")
         #endif
+        
         DispatchQueue.main.async {
             self.updateHandler?(self, inApplicationContext)
             self.isUpdateInProgress = false
