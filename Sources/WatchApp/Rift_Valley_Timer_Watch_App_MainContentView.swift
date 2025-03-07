@@ -17,16 +17,22 @@ import SwiftUI
  
  */
 struct Rift_Valley_Timer_Watch_App_MainContentView: View {
+    @State var timers: [RVS_AmbiaMara_Settings.TimerSettings] = []
+    
     /* ################################################################## */
     /**
     */
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ScrollView {
+            VStack {
+                ForEach(timers, id: \.id) { inTimer in
+                    Text("Start Time: \(inTimer.startTime)")
+                        .padding()
+                }
+            }
         }
-        .padding()
+        .onAppear {
+            timers = RVS_AmbiaMara_Settings().timers
+        }
     }
 }
