@@ -240,7 +240,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         
         isUpdateInProgress = true
         if .activated == wcSession.activationState {
-            wcSession.sendMessage(["requestContext": "requestContext"],
+            wcSession.sendMessage(["messageType": "requestContext"],
                                   replyHandler: sessionReplyHandler,
                                   errorHandler: sessionErrorHandler)
         } else {
