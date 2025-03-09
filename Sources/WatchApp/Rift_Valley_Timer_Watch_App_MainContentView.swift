@@ -25,7 +25,7 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
     /* ################################################################## */
     /**
     */
-    @Binding var selectedTimerID: String
+    @Binding var selectedTimerIndex: Int
     
     /* ################################################################## */
     /**
@@ -34,7 +34,7 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
         ScrollView {
             VStack {
                 ForEach(timers, id: \.id) { inTimer in
-                    if inTimer.id == selectedTimerID {
+                    if inTimer.index == selectedTimerIndex {
                         Text("Selected Timer: \(inTimer.startTime)")
                             .foregroundColor(.red)
                     } else {
@@ -42,10 +42,6 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
                     }
                 }
             }
-        }
-        .onAppear {
-            timers = RVS_AmbiaMara_Settings().timers
-            selectedTimerID = RVS_AmbiaMara_Settings().currentTimerID
         }
     }
 }

@@ -12,6 +12,7 @@ disabled_rules:
 - private_over_fileprivate
 - legacy_hashing
 - redundant_discardable_let
+- unneeded_break_in_switch
 
 opt_in_rules:
 - control_statement

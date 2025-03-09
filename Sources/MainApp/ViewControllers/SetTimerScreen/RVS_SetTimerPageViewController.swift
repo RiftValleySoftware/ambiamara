@@ -397,11 +397,11 @@ extension RVS_SetTimerWrapper {
               !viewControllers.isEmpty,
               let viewController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
         else { return }
-        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
         viewController.container = self
         viewController.timerIndex = inIndex
         let direction: UIPageViewController.NavigationDirection = inDirection ?? (inIndex > RVS_AmbiaMara_Settings().currentTimerIndex ? .forward : .reverse)
         pageViewController?.setViewControllers([viewController], direction: direction, animated: true)
+        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
     }
     
     /* ################################################################## */
@@ -579,10 +579,10 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDelegate {
                 _selectionFeedbackGenerator?.prepare()
             }
         }
-        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
         setUpToolbar()
         setAlarmIcon()
         setTimerLabel()
+        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
     }
 }
 

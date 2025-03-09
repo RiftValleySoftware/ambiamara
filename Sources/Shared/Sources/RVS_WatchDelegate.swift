@@ -105,6 +105,8 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         guard !isUpdateInProgress else { return }
         isUpdateInProgress = true
         
+        RVS_AmbiaMara_Settings().flush()
+
         if let timersTemp = inApplicationContext["timers"] as? [[Int]] {
             #if DEBUG
                 print("Received Timers: \(timersTemp)")
@@ -145,12 +147,20 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
             #if DEBUG
                 print("Received Message From Watch: \(inMessage)")
             #endif
-            if let messageType = inMessage["messageType"] as? String,
-               "requestContext" == messageType {
-                #if DEBUG
-                    print("Responding to context request from the watch")
-                #endif
-                sendApplicationContext(inReplyHandler)
+            if let messageType = inMessage["messageType"] as? String {
+                switch messageType {
+                case "requestContext":
+                    #if DEBUG
+                        print("Responding to context request from the watch")
+                    #endif
+                    sendApplicationContext(inReplyHandler)
+                    
+                default:
+                    #if DEBUG
+                        print("Unknown Message Type: \(messageType)")
+                    #endif
+                    break
+                }
             }
         }
 
@@ -225,52 +235,70 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
             }
         }
 
-    /* ################################################################## */
-    /**
-     This sends a request to the phone, to send the latest context.
-     - parameter inRetries: The number of retries left. If omitted, it is five.
-     It tries up to 5 times, if the request failed.
-    */
-    func sendContextRequest(_ inRetries: Int = 5) {
-        #if DEBUG
-            print("Sending context request to the phone (\(inRetries) retries available)")
-        #endif
-        
-        retries = inRetries
-        
-        isUpdateInProgress = true
-        if .activated == wcSession.activationState {
-            wcSession.sendMessage(["messageType": "requestContext"],
-                                  replyHandler: sessionReplyHandler,
-                                  errorHandler: sessionErrorHandler)
-        } else {
+        /* ################################################################## */
+        /**
+         This sends a request to the phone, to send the latest context.
+         - parameter inRetries: The number of retries left. If omitted, it is five.
+         It tries up to 5 times, if the request failed.
+        */
+        func sendContextRequest(_ inRetries: Int = 5) {
             #if DEBUG
-                print("Session not active")
+                print("Sending context request to the phone (\(inRetries) retries available)")
             #endif
+            
+            retries = inRetries
+            
+            isUpdateInProgress = true
+            if .activated == wcSession.activationState {
+                wcSession.sendMessage(["messageType": "requestContext"],
+                                      replyHandler: sessionReplyHandler,
+                                      errorHandler: sessionErrorHandler)
+            } else {
+                #if DEBUG
+                    print("Session not active")
+                #endif
+            }
+            isUpdateInProgress = false
         }
-        isUpdateInProgress = false
-    }
 
-    /* ################################################################## */
-    /**
-     This sends a request to the phone, to send the latest context.
-     - parameter inTimerIndex: The 0-based timer index of the timer to start or stop. Required.
-    */
-    func sendStartStopTimer(_ inTimerIndex: Int) {
-        #if DEBUG
-            print("Sending timer start/stop request to the phone for timer \(inTimerIndex)")
-        #endif
-        
-        isUpdateInProgress = true
-        if .activated == wcSession.activationState {
-            wcSession.sendMessage(["startTimer": inTimerIndex], replyHandler: nil)
-        } else {
+        /* ################################################################## */
+        /**
+         This sends a request to the phone, to send the latest context.
+         - parameter inTimerIndex: The 0-based timer index of the timer to start or stop. Required.
+        */
+        func sendStartStopTimer(_ inTimerIndex: Int) {
             #if DEBUG
-                print("Session not active")
+                print("Sending timer start/stop request to the phone for timer \(inTimerIndex)")
             #endif
+            
+            isUpdateInProgress = true
+            if .activated == wcSession.activationState {
+                wcSession.sendMessage(["startTimer": inTimerIndex], replyHandler: nil)
+            } else {
+                #if DEBUG
+                    print("Session not active")
+                #endif
+            }
+            isUpdateInProgress = false
         }
-        isUpdateInProgress = false
-    }
+        
+        /* ################################################################## */
+        /**
+         - parameter inSession: The session receiving the message.
+         - parameter didReceiveMessage: The message from the watch
+         - parameter replyHandler: A function to be executed, with the reply to the message.
+        */
+        func session(_ inSession: WCSession, didReceiveMessage inMessage: [String: Any], replyHandler inReplyHandler: @escaping ([String: Any]) -> Void) {
+            #if DEBUG
+                print("Received Message From Watch: \(inMessage)")
+            #endif
+            if let sync = inMessage["sync"] as? [TimeInterval],
+               4 == sync.count {
+                #if DEBUG
+                    print("Sync Message Received: \(sync)")
+                #endif
+            }
+        }
     #endif
     
     /* ################################################################## */
@@ -281,6 +309,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
     func sendApplicationContext(_ inContextReceiver: (([String: Any]) -> Void)? = nil) {
         guard !isUpdateInProgress else { return }
         isUpdateInProgress = true
+        RVS_AmbiaMara_Settings().flush()
         do {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"

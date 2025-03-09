@@ -38,14 +38,14 @@ struct Rift_Valley_Timer_Watch_App: App {
     /* ################################################################## */
     /**
     */
-    @State var selectedTimerID: String = ""
+    @State var selectedTimerIndex: Int = 0
     
     /* ################################################################## */
     /**
      */
     var body: some Scene {
         WindowGroup {
-            Rift_Valley_Timer_Watch_App_MainContentView(timers: $timers, selectedTimerID: $selectedTimerID)
+            Rift_Valley_Timer_Watch_App_MainContentView(timers: $timers, selectedTimerIndex: $selectedTimerIndex)
                 .onAppear {
                     _watchDelegate = RVS_WatchDelegate(updateHandler: watchUpdateHandler)
                 }
@@ -75,6 +75,6 @@ extension Rift_Valley_Timer_Watch_App {
             #endif
         }
         
-        (timers, selectedTimerID) = (RVS_AmbiaMara_Settings().timers, RVS_AmbiaMara_Settings().currentTimerID)
+        (timers, selectedTimerIndex) = (RVS_AmbiaMara_Settings().timers, RVS_AmbiaMara_Settings().currentTimerIndex)
     }
 }
