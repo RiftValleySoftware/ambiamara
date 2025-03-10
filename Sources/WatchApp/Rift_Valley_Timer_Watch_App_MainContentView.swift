@@ -39,6 +39,9 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
                             .foregroundColor(.red)
                     } else {
                         Text("Unselected Timer: \(inTimer.startTime)")
+                            .onTapGesture {
+                                selectedTimerIndex = inTimer.index
+                            }
                     }
                 }
             }

@@ -57,6 +57,18 @@ class RVS_SetTimerWrapper: RVS_AmbiaMara_BaseViewController {
 
     /* ################################################################## */
     /**
+     We need this to track the currently displayed (as opposed to seetings selected) timer index.
+    */
+    private var _currentTimerIndex: Int = 0
+
+    /* ############################################################## */
+    /**
+     This holds the wrapper for the page view controller that is used to choose a timer.
+     */
+    static var pageSelectorWrapperInstance: RVS_SetTimerWrapper?
+
+    /* ################################################################## */
+    /**
      The settings popover bar button item.
     */
     @IBOutlet weak var settingsButton: UIButton?
@@ -138,7 +150,7 @@ extension RVS_SetTimerWrapper {
     */
     var currentTimer: RVS_AmbiaMara_Settings.TimerSettings {
         get { RVS_AmbiaMara_Settings().currentTimer }
-        set { RVS_AmbiaMara_Settings().currentTimer = newValue  }
+        set { RVS_AmbiaMara_Settings().currentTimer = newValue }
     }
     
     /* ############################################################## */
@@ -228,6 +240,8 @@ extension RVS_SetTimerWrapper {
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
         
+        Self.pageSelectorWrapperInstance = self
+
         if 0 == RVS_AmbiaMara_Settings().numberOfTimers {
             addHit()
         } else if let initialController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController {
@@ -399,8 +413,9 @@ extension RVS_SetTimerWrapper {
         else { return }
         viewController.container = self
         viewController.timerIndex = inIndex
-        let direction: UIPageViewController.NavigationDirection = inDirection ?? (inIndex > RVS_AmbiaMara_Settings().currentTimerIndex ? .forward : .reverse)
+        let direction: UIPageViewController.NavigationDirection = inDirection ?? (inIndex > _currentTimerIndex ? .forward : .reverse)
         pageViewController?.setViewControllers([viewController], direction: direction, animated: true)
+        _currentTimerIndex = inIndex
         RVS_AmbiaMara_Settings().currentTimerIndex = inIndex
         RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
     }
@@ -580,6 +595,8 @@ extension RVS_SetTimerWrapper: UIPageViewControllerDelegate {
                 _selectionFeedbackGenerator?.prepare()
             }
         }
+        
+        _currentTimerIndex = RVS_AmbiaMara_Settings().currentTimerIndex
         setUpToolbar()
         setAlarmIcon()
         setTimerLabel()
