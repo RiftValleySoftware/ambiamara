@@ -401,6 +401,7 @@ extension RVS_SetTimerWrapper {
         viewController.timerIndex = inIndex
         let direction: UIPageViewController.NavigationDirection = inDirection ?? (inIndex > RVS_AmbiaMara_Settings().currentTimerIndex ? .forward : .reverse)
         pageViewController?.setViewControllers([viewController], direction: direction, animated: true)
+        RVS_AmbiaMara_Settings().currentTimerIndex = inIndex
         RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
     }
     
