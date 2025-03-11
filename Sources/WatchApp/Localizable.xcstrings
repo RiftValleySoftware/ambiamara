@@ -4,11 +4,16 @@
     "Emoji:" : {
 
     },
-    "HOWDY!" : {
-
-    },
-    "My Widget" : {
-
+    "SLUG-TIMER-FORMAT" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer %d"
+          }
+        }
+      }
     },
     "SLUG-TIMER-LIST-TITLE" : {
       "extractionState" : "manual",
@@ -20,9 +25,6 @@
           }
         }
       }
-    },
-    "This is an example widget." : {
-
     },
     "Time:" : {
 
