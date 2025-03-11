@@ -51,8 +51,10 @@ struct Rift_Valley_Timer_Watch_App: App {
                 }
                 .onChange(of: selectedTimerIndex) {
                     RVS_AmbiaMara_Settings().flush()
-                    RVS_AmbiaMara_Settings().currentTimerIndex = selectedTimerIndex
-                    _watchDelegate?.sendApplicationContext()
+                    if selectedTimerIndex != RVS_AmbiaMara_Settings().currentTimerIndex {
+                        RVS_AmbiaMara_Settings().currentTimerIndex = selectedTimerIndex
+                        _watchDelegate?.sendApplicationContext()
+                    }
                 }
         }
     }
