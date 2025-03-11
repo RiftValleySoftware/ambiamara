@@ -99,7 +99,9 @@ extension RVS_AmbiaMara_AppSceneDelegate {
      This is called to send the current state of the prefs to the Watch.
      */
     func updateApplicationContext() {
-        _watchDelegate?.sendApplicationContext()
+        if !(_watchDelegate?.isUpdateInProgress ?? true) {
+            _watchDelegate?.sendApplicationContext()
+        }
     }
 }
 

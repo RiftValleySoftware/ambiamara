@@ -31,20 +31,24 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
     /**
     */
     var body: some View {
-        ScrollView {
-            VStack {
-                ForEach(timers, id: \.id) { inTimer in
-                    if inTimer.index == selectedTimerIndex {
-                        Text("Selected Timer: \(inTimer.startTime)")
-                            .foregroundColor(.red)
-                    } else {
-                        Text("Unselected Timer: \(inTimer.startTime)")
-                            .onTapGesture {
-                                selectedTimerIndex = inTimer.index
-                            }
-                    }
-                }
+        List(timers, id: \.id) { inTimer in
+            let hour = (Int(inTimer.startTime) / 60) / 60
+            let minute = (Int(inTimer.startTime) / 60) - (hour * 60)
+            let second = Int(inTimer.startTime) - ((hour * 60) * 60) - ((minute * 60))
+            let startTimeString = String(format: "%02d:%02d:%02d", hour, minute, second)
+            if inTimer.index == selectedTimerIndex {
+                Text(startTimeString)
+                    .foregroundColor(Color("SelectedColor"))
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .font(Font.custom("Let's go Digital Regular", size: 32))
+            } else {
+                Text(startTimeString)
+                    .foregroundColor(Color("AccentColor"))
+                    .font(Font.custom("Let's go Digital Regular", size: 32))
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .onTapGesture { selectedTimerIndex = inTimer.index }
             }
         }
+        .navigationTitle("SLUG-TIMER-LIST-TITLE")
     }
 }

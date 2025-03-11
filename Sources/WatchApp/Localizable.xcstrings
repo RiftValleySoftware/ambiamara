@@ -1,0 +1,29 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Emoji:" : {
+
+    },
+    "My Widget" : {
+
+    },
+    "SLUG-TIMER-LIST-TITLE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timers"
+          }
+        }
+      }
+    },
+    "This is an example widget." : {
+
+    },
+    "Time:" : {
+
+    }
+  },
+  "version" : "1.0"
+}
