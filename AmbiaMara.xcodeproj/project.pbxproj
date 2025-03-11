@@ -43,6 +43,7 @@
 		D4B01F95281F58D200B07C56 /* 08-videogame-beeps-high-frequency.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F7D281F58D200B07C56 /* 08-videogame-beeps-high-frequency.mp3 */; };
 		D4B01F96281F58D200B07C56 /* 10-annoying-alarm.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F7E281F58D200B07C56 /* 10-annoying-alarm.mp3 */; };
 		D4B01F98281F58D200B07C56 /* 09-single-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F80281F58D200B07C56 /* 09-single-beep.mp3 */; };
+		D4BC25122D809D1B0071C75C /* Rift_Valley_Timer_Watch_App_TimerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC25112D809D1B0071C75C /* Rift_Valley_Timer_Watch_App_TimerContentView.swift */; };
 		D4C1B6212D806D6E00CEA6BF /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4C1B6202D806D6E00CEA6BF /* Let's go Digital Regular.ttf */; };
 		D4C4B70C2819CEDB00E22ECA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4C4B70A2819CEDB00E22ECA /* Localizable.strings */; };
 		D4C4B71C2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */; };
@@ -193,6 +194,7 @@
 		D4B01F7D281F58D200B07C56 /* 08-videogame-beeps-high-frequency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "08-videogame-beeps-high-frequency.mp3"; sourceTree = "<group>"; };
 		D4B01F7E281F58D200B07C56 /* 10-annoying-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "10-annoying-alarm.mp3"; sourceTree = "<group>"; };
 		D4B01F80281F58D200B07C56 /* 09-single-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "09-single-beep.mp3"; sourceTree = "<group>"; };
+		D4BC25112D809D1B0071C75C /* Rift_Valley_Timer_Watch_App_TimerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_Watch_App_TimerContentView.swift; sourceTree = "<group>"; };
 		D4C1B6202D806D6E00CEA6BF /* Let's go Digital Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Let's go Digital Regular.ttf"; sourceTree = "<group>"; };
 		D4C4B70B2819CEDB00E22ECA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4C4B70E2819CF8F00E22ECA /* AmbiaMara.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = AmbiaMara.docc; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 			children = (
 				D4A932202D64E9CB0028556E /* Rift_Valley_Timer_Watch_App.swift */,
 				D4A9321F2D64E9CB0028556E /* Rift_Valley_Timer_Watch_App_MainContentView.swift */,
+				D4BC25112D809D1B0071C75C /* Rift_Valley_Timer_Watch_App_TimerContentView.swift */,
 				D4A9322F2D64EA8B0028556E /* Info.plist */,
 				D4A9322D2D64EA310028556E /* WatchApp.entitlements */,
 				D4C1B6202D806D6E00CEA6BF /* Let's go Digital Regular.ttf */,
@@ -721,6 +724,7 @@
 				D4F3572E2D6F6253005A815A /* RVS_AmbiaMara_Settings.swift in Sources */,
 				D4F3572A2D6F61C0005A815A /* RVS_WatchDelegate.swift in Sources */,
 				D4A932222D64E9CB0028556E /* Rift_Valley_Timer_Watch_App_MainContentView.swift in Sources */,
+				D4BC25122D809D1B0071C75C /* Rift_Valley_Timer_Watch_App_TimerContentView.swift in Sources */,
 				D4A932232D64E9CB0028556E /* Rift_Valley_Timer_Watch_App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

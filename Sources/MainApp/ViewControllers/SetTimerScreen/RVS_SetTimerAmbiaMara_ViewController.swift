@@ -339,6 +339,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
                 self._animatePickerSet = false
                 setPickerControl.reloadAllComponents()
                 self.clearButton?.isHidden = 0 >= self._stateTime()
+                RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
             }
         }
     }

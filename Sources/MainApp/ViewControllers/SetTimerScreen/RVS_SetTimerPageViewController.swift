@@ -285,7 +285,8 @@ extension RVS_SetTimerWrapper {
             newController.container = self
             newController.timerIndex = RVS_AmbiaMara_Settings().numberOfTimers - 1
             pageViewController?.setViewControllers( [newController], direction: .forward, animated: false, completion: nil)
-        }
+            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
+       }
     }
     
     /* ################################################################## */
@@ -329,6 +330,7 @@ extension RVS_SetTimerWrapper {
                     let nextIndex = max(0, currentTimer.index - 1)
                     RVS_AmbiaMara_Settings().remove(timer: currentTimer)
                     self?.selectPageWithIndex(nextIndex)
+                    RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
                 }
                 self?.state = .start
                 self?.setUpToolbar()
