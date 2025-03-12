@@ -34,18 +34,19 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
         if 1 < timers.count {
             NavigationStack {
                 List(timers, id: \.id) { inTimer in
-                    let hour = (Int(inTimer.startTime) / 60) / 60
-                    let minute = (Int(inTimer.startTime) / 60) - (hour * 60)
-                    let second = Int(inTimer.startTime) - ((hour * 60) * 60) - ((minute * 60))
-                    let startTimeString = String(format: "%02d:%02d:%02d", hour, minute, second)
+                    let startTimeString = inTimer.startTimeAsString
                         NavigationLink {
                             Rift_Valley_Timer_Watch_App_TimerContentView(timer: inTimer, selectedTimerIndex: $selectedTimerIndex)
                         } label: {
                             Text(startTimeString)
                                 .foregroundColor(Color(inTimer.index == selectedTimerIndex ? "SelectedColor" : "AccentColor"))
                                 .frame(maxWidth: .infinity, alignment: .center)
-                                .font(Font.custom("Let's go Digital Regular", size: 40))
-                        }
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(1)
+                                .font(Font.custom("Let's go Digital Regular", size: 60))
+                                .padding(0.1)
+                       }
+                        .padding(0.1)
                 }
                 .navigationTitle("SLUG-TIMER-LIST-TITLE")
             }

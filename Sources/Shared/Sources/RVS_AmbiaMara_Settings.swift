@@ -61,6 +61,34 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
          The ID, which is set from a UUID.
          */
         let id: String
+        
+        /* ########################################################## */
+        /**
+         Initializer, from a KVP
+         - parameter inKVP: The KVP, specifying this timer.
+         */
+        init(_ inKVP: KVP) {
+            id = inKVP.key
+            _startTime = inKVP.value[0]
+            _warnTime = inKVP.value[1]
+            _finalTime = inKVP.value[2]
+        }
+
+        /* ########################################################## */
+        /**
+         Initializer with values. All are optional.
+         - parameters:
+            - id: The unique ID string. If not provided, a new one is created as a UUID string.
+            - startTime: The start time, in seconds. If not provided, this is 0.
+            - warnTime: The warning time, in seconds. If not provided, this is 0.
+            - finalTime: The final time, in seconds. If not provided, this is 0.
+         */
+        init(id inID: String = UUID().uuidString, startTime inStartTime: Int = 0, warnTime inWarnTime: Int = 0, finalTime inFinalTime: Int = 0) {
+            id = inID
+            _startTime = inStartTime
+            _warnTime = inWarnTime
+            _finalTime = inFinalTime
+        }
 
         /* ########################################################## */
         /**
@@ -137,17 +165,17 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
        /**
         The final time (as hours, minutes, and seconds)
         */
-       var finalTimeAsComponents: [Int] {
-           var currentValue = finalTime
-           
-           let hours = min(99, currentValue / (60 * 60))
-           currentValue -= (hours * 60 * 60)
-           let minutes = min(59, currentValue / 60)
-           currentValue -= (minutes * 60)
-           let seconds = min(59, currentValue)
-           
-           return [hours, minutes, seconds]
-       }
+        var finalTimeAsComponents: [Int] {
+            var currentValue = finalTime
+            
+            let hours = min(99, currentValue / (60 * 60))
+            currentValue -= (hours * 60 * 60)
+            let minutes = min(59, currentValue / 60)
+            currentValue -= (minutes * 60)
+            let seconds = min(59, currentValue)
+            
+            return [hours, minutes, seconds]
+        }
 
         /* ########################################################## */
         /**
@@ -185,30 +213,41 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
         
         /* ########################################################## */
         /**
-         Initializer, from a KVP
-         - parameter inKVP: The KVP, specifying this timer.
+         Returns the start time, as a string, optimized for the maximum time.
          */
-        init(_ inKVP: KVP) {
-            id = inKVP.key
-            _startTime = inKVP.value[0]
-            _warnTime = inKVP.value[1]
-            _finalTime = inKVP.value[2]
+        var startTimeAsString: String {
+            guard 2 < startTimeAsComponents.count else { return "" }
+            let hour = startTimeAsComponents[0]
+            let minute = startTimeAsComponents[1]
+            let second = startTimeAsComponents[2]
+            
+            return RVS_AmbiaMara_Settings.optimizedTimeString(hours: hour, minutes: minute, seconds: second)
         }
-
+        
         /* ########################################################## */
         /**
-         Initializer with values. All are optional.
-         - parameters:
-            - id: The unique ID string. If not provided, a new one is created as a UUID string.
-            - startTime: The start time, in seconds. If not provided, this is 0.
-            - warnTime: The warning time, in seconds. If not provided, this is 0.
-            - finalTime: The final time, in seconds. If not provided, this is 0.
+         Returns the warn time, as a string, optimized for the maximum time.
          */
-        init(id inID: String = UUID().uuidString, startTime inStartTime: Int = 0, warnTime inWarnTime: Int = 0, finalTime inFinalTime: Int = 0) {
-            id = inID
-            _startTime = inStartTime
-            _warnTime = inWarnTime
-            _finalTime = inFinalTime
+        var warnTimeAsString: String {
+            guard 2 < warnTimeAsComponents.count else { return "" }
+            let hour = warnTimeAsComponents[0]
+            let minute = warnTimeAsComponents[1]
+            let second = warnTimeAsComponents[2]
+            
+            return RVS_AmbiaMara_Settings.optimizedTimeString(hours: hour, minutes: minute, seconds: second)
+        }
+        
+        /* ########################################################## */
+        /**
+         Returns the final time, as a string, optimized for the maximum time.
+         */
+        var finalTimeAsString: String {
+            guard 2 < finalTimeAsComponents.count else { return "" }
+            let hour = finalTimeAsComponents[0]
+            let minute = finalTimeAsComponents[1]
+            let second = finalTimeAsComponents[2]
+            
+            return RVS_AmbiaMara_Settings.optimizedTimeString(hours: hour, minutes: minute, seconds: second)
         }
     }
 
@@ -297,6 +336,27 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
         }
     }
     
+    /* ################################################################## */
+    /**
+     This is a utilty function, for casting three values into an optimized string.
+     
+     - parameters:
+        - hours: The number of hours (0 - 23). Can be omitted, in which case, it is 0.
+        - minutes: The number of minutes (0 - 59). Can be omitted, in which case, it is 0.
+        - seconds: The number of seconds (0 - 59). Can be omitted, in which case, it is 0.
+     */
+    static func optimizedTimeString(hours inHours: Int = 0, minutes inMinutes: Int = 0, seconds inSeconds: Int = 0) -> String {
+        if (1..<24).contains(inHours) {
+            return String(format: "%d:%02d:%02d", inHours, inMinutes, inSeconds)
+        } else if (1..<60).contains(inMinutes) {
+            return String(format: "%d:%02d", inMinutes, inSeconds)
+        } else if (1..<60).contains(inSeconds) {
+            return String(format: "%d", inSeconds)
+        } else {
+            return "0"
+        }
+    }
+
     /* ################################################################## */
     /**
      The keys (for determining storage).
