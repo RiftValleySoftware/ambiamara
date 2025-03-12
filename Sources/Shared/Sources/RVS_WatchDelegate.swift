@@ -27,6 +27,38 @@ import WatchConnectivity
  This class exists to give the Watch Connectivity a place to work.
  */
 class RVS_WatchDelegate: NSObject, WCSessionDelegate {
+    enum TimerOperation: String {
+        /* ############################################################## */
+        /**
+         */
+        case start
+
+        /* ############################################################## */
+        /**
+         */
+        case stop
+
+        /* ############################################################## */
+        /**
+         */
+        case pause
+
+        /* ############################################################## */
+        /**
+         */
+        case resume
+
+        /* ############################################################## */
+        /**
+         */
+        case fastForward
+
+        /* ############################################################## */
+        /**
+         */
+        case reset
+    }
+    
     /* ################################################################## */
     /**
      This is a callback template for the message/context calls.
@@ -136,34 +168,81 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         }
     }
     
-    #if os(iOS)    // Only necessary for iOS
-        /* ################################################################## */
-        /**
-         - parameter inSession: The session receiving the message.
-         - parameter didReceiveMessage: The message from the watch
-         - parameter replyHandler: A function to be executed, with the reply to the message.
-        */
-        func session(_ inSession: WCSession, didReceiveMessage inMessage: [String: Any], replyHandler inReplyHandler: @escaping ([String: Any]) -> Void) {
+    /* ###################################################################### */
+    /**
+     This sends a "flow control" operation to the phone or the watch.
+     
+     - parameter operation: The operation that we are sending.
+    */
+    func sendTimerControl(operation inOperation: TimerOperation) {
+        #if DEBUG
+            print("Sending timer control operation to the phone: \(inOperation)")
+        #endif
+
+        isUpdateInProgress = true
+        if .activated == wcSession.activationState {
+            wcSession.sendMessage(["messageType": "timerControl", "timerControl": inOperation.rawValue], replyHandler: nil)
+        } else {
             #if DEBUG
-                print("Received Message From Watch: \(inMessage)")
+                print("Session not active")
             #endif
-            if let messageType = inMessage["messageType"] as? String {
-                switch messageType {
-                case "requestContext":
+        }
+        isUpdateInProgress = false
+    }
+
+    /* ###################################################################### */
+    /**
+     - parameter inSession: The session receiving the message.
+     - parameter didReceiveMessage: The message from the watch
+     - parameter replyHandler: A function to be executed, with the reply to the message.
+    */
+    func session(_ inSession: WCSession, didReceiveMessage inMessage: [String: Any], replyHandler inReplyHandler: @escaping ([String: Any]) -> Void) {
+        #if DEBUG
+            #if os(iOS)
+                print("Received Message From Watch: \(inMessage)")
+            #else
+                print("Received Message From Phone: \(inMessage)")
+            #endif
+        #endif
+        if let messageType = inMessage["messageType"] as? String {
+            switch messageType {
+            case "requestContext":
+                #if DEBUG
+                    print("Responding to context request from the watch")
+                #endif
+                sendApplicationContext(inReplyHandler)
+                
+            case "sync":
+                if let sync = inMessage["sync"] as? [TimeInterval],
+                   4 == sync.count {
                     #if DEBUG
-                        print("Responding to context request from the watch")
+                        print("Sync Message Received: \(sync)")
                     #endif
-                    sendApplicationContext(inReplyHandler)
-                    
-                default:
+                }
+                
+            case "timerControl":
+                guard let operation = inMessage["operation"] as? String,
+                      let timerOperation = TimerOperation(rawValue: operation)
+                else {
                     #if DEBUG
-                        print("Unknown Message Type: \(messageType)")
+                        print("Unknown Operation Type: \(inMessage["operation"] as? String ?? "ERROR")")
                     #endif
                     break
                 }
+                #if DEBUG
+                    print("Operation Message Received: \(timerOperation)")
+                #endif
+
+            default:
+                #if DEBUG
+                    print("Unknown Message Type: \(messageType)")
+                #endif
+                break
             }
         }
+    }
 
+    #if os(iOS)    // Only necessary for iOS
         /* ################################################################## */
         /**
          This sends a sync pulse to the phone.
@@ -178,7 +257,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                       timerWarnTime inTimerWarnTime: TimeInterval = 0.0,
                       timerFinalTime inTimerFinalTime: TimeInterval = 0.0) {
             #if DEBUG
-                print("Sending timer sync to the phone")
+                print("Sending timer sync to the watch")
             #endif
             
             isUpdateInProgress = true
@@ -186,7 +265,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 let totalTime = inTimerStartTime + inTimerTotalTime
                 let warnTime = 0 < inTimerWarnTime ? inTimerStartTime + inTimerWarnTime : inTimerTotalTime
                 let finalTime = 0 < inTimerFinalTime ? inTimerStartTime + inTimerFinalTime : inTimerTotalTime
-                wcSession.sendMessage(["sync": [inTimerStartTime, totalTime, warnTime, finalTime]], replyHandler: nil)
+                wcSession.sendMessage(["messageType": "sync", "sync": [inTimerStartTime, totalTime, warnTime, finalTime]], replyHandler: nil)
             } else {
                 #if DEBUG
                     print("Session not active")
@@ -280,24 +359,6 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 #endif
             }
             isUpdateInProgress = false
-        }
-        
-        /* ################################################################## */
-        /**
-         - parameter inSession: The session receiving the message.
-         - parameter didReceiveMessage: The message from the watch
-         - parameter replyHandler: A function to be executed, with the reply to the message.
-        */
-        func session(_ inSession: WCSession, didReceiveMessage inMessage: [String: Any], replyHandler inReplyHandler: @escaping ([String: Any]) -> Void) {
-            #if DEBUG
-                print("Received Message From Watch: \(inMessage)")
-            #endif
-            if let sync = inMessage["sync"] as? [TimeInterval],
-               4 == sync.count {
-                #if DEBUG
-                    print("Sync Message Received: \(sync)")
-                #endif
-            }
         }
     #endif
     
