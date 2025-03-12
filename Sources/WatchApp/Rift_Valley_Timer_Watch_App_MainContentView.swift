@@ -26,7 +26,7 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
     /**
     */
     @Binding var selectedTimerIndex: Int
-    
+
     /* ################################################################## */
     /**
     */
@@ -39,7 +39,7 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
                             Rift_Valley_Timer_Watch_App_TimerContentView(timer: inTimer, selectedTimerIndex: $selectedTimerIndex)
                         } label: {
                             Text(startTimeString)
-                                .foregroundColor(Color(inTimer.index == selectedTimerIndex ? "SelectedColor" : "AccentColor"))
+                                .foregroundColor(Color(inTimer.index == selectedTimerIndex ? "Start-Color" : "Paused-Color"))
                                 .frame(maxWidth: .infinity, alignment: .center)
                                 .minimumScaleFactor(0.5)
                                 .lineLimit(1)
