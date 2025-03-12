@@ -70,6 +70,14 @@ struct Rift_Valley_Timer_Watch_App_TimerContentView: View {
                     }
                 }
             }
+            
+            Button {
+                    
+            } label: {
+                Image(systemName: "play.fill")
+                    .resizable()
+                    .scaledToFit()
+            }
         }
         .navigationTitle(Text(String(format: "SLUG-TIMER-FORMAT".localizedVariant, timer.index + 1)))
     }
