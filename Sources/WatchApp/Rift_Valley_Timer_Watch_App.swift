@@ -32,20 +32,29 @@ struct Rift_Valley_Timer_Watch_App: App {
     
     /* ################################################################## */
     /**
+     These are the timers the phone sent us.
     */
     @State var timers: [RVS_AmbiaMara_Settings.TimerSettings] = []
 
     /* ################################################################## */
     /**
+     The 0-based index of the selected timer.
     */
     @State var selectedTimerIndex: Int = 0
-    
+
     /* ################################################################## */
     /**
+     This is set to true, if the timer has started.
+    */
+    @State var timerIsRunning: Bool = false
+
+    /* ################################################################## */
+    /**
+     This is basically just a wrapper for the screens.
      */
     var body: some Scene {
         WindowGroup {
-            Rift_Valley_Timer_Watch_App_MainContentView(timers: $timers, selectedTimerIndex: $selectedTimerIndex)
+            Rift_Valley_Timer_Watch_App_MainContentView(timers: $timers, selectedTimerIndex: $selectedTimerIndex, timerIsRunning: $timerIsRunning)
                 .onAppear {
                     _watchDelegate = RVS_WatchDelegate(updateHandler: watchUpdateHandler)
                 }
@@ -76,12 +85,22 @@ extension Rift_Valley_Timer_Watch_App {
             print("Received WatchData: \(inApplicationContext.debugDescription)")
         #endif
         
+        var operation = RVS_WatchDelegate.TimerOperation.stop
+        
+        defer {
+            (timers, selectedTimerIndex) = (RVS_AmbiaMara_Settings().timers, RVS_AmbiaMara_Settings().currentTimerIndex)
+            timerIsRunning = (.start == operation) || (.resume == operation)
+        }
+
         if let sync = inApplicationContext["sync"] as? [TimeInterval] {
             #if DEBUG
                 print("Received Sync: \(sync)")
             #endif
+        } else if let operationTemp = inApplicationContext["operation"] as? RVS_WatchDelegate.TimerOperation {
+            #if DEBUG
+                print("Received Operation: \(operation.rawValue)")
+            #endif
+            operation = operationTemp
         }
-        
-        (timers, selectedTimerIndex) = (RVS_AmbiaMara_Settings().timers, RVS_AmbiaMara_Settings().currentTimerIndex)
     }
 }

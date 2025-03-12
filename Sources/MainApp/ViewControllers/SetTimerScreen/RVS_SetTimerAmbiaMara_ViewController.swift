@@ -515,51 +515,21 @@ extension RVS_SetTimerAmbiaMara_ViewController {
         
         if 0 < timer.startTime,
            .start != _state {
-            let timeAsComponents = timer.startTimeAsComponents
-            var label = ""
-            guard 2 < timeAsComponents.count else { return }
-            if 0 < timeAsComponents[0] {
-                label = String(format: " %d:%02d:%02d ", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
-            } else if 0 < timeAsComponents[1] {
-                label = String(format: " %d:%02d ", timeAsComponents[1], timeAsComponents[2])
-            } else if 0 < timeAsComponents[2] {
-                label = String(format: " %d ", timeAsComponents[2])
-            }
-            startSetButton?.setTitle(label, for: .normal)
+            startSetButton?.setTitle(timer.startTimeAsString, for: .normal)
         } else {
             startSetButton?.setTitle(nil, for: .normal)
         }
         
         if 0 < timer.warnTime,
            .warn != _state {
-            let timeAsComponents = timer.warnTimeAsComponents
-            var label = ""
-            guard 2 < timeAsComponents.count else { return }
-            if 0 < timeAsComponents[0] {
-                label = String(format: "%d:%02d:%02d", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
-            } else if 0 < timeAsComponents[1] {
-                label = String(format: "%d:%02d", timeAsComponents[1], timeAsComponents[2])
-            } else if 0 < timeAsComponents[2] {
-                label = String(format: "%d", timeAsComponents[2])
-            }
-            warnSetButton?.setTitle(label, for: .normal)
+            warnSetButton?.setTitle(timer.warnTimeAsString, for: .normal)
         } else {
             warnSetButton?.setTitle(nil, for: .normal)
         }
         
         if 0 < timer.finalTime,
            .final != _state {
-            let timeAsComponents = timer.finalTimeAsComponents
-            var label = ""
-            guard 2 < timeAsComponents.count else { return }
-            if 0 < timeAsComponents[0] {
-                label = String(format: "%d:%02d:%02d", timeAsComponents[0], timeAsComponents[1], timeAsComponents[2])
-            } else if 0 < timeAsComponents[1] {
-                label = String(format: "%d:%02d", timeAsComponents[1], timeAsComponents[2])
-            } else if 0 < timeAsComponents[2] {
-                label = String(format: "%d", timeAsComponents[2])
-            }
-            finalSetButton?.setTitle(label, for: .normal)
+            finalSetButton?.setTitle(timer.finalTimeAsString, for: .normal)
         } else {
             finalSetButton?.setTitle(nil, for: .normal)
         }

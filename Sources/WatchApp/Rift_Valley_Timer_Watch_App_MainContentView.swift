@@ -19,22 +19,36 @@ import SwiftUI
 struct Rift_Valley_Timer_Watch_App_MainContentView: View {
     /* ################################################################## */
     /**
+     These are the timers the phone sent us.
     */
     @Binding var timers: [RVS_AmbiaMara_Settings.TimerSettings]
 
     /* ################################################################## */
     /**
+     The 0-based index of the selected timer.
     */
     @Binding var selectedTimerIndex: Int
 
     /* ################################################################## */
     /**
+     This is set to true, if the timer has started.
+    */
+    @Binding var timerIsRunning: Bool
+
+    /* ################################################################## */
+    /**
+     This displays a navstack, if there are more than one timer, or it directly opens the timer screen, if just one.
+     
+     If the timer is running, it goes straight to that screen.
     */
     var body: some View {
-        if 1 < timers.count {
-            NavigationStack {
-                List(timers, id: \.id) { inTimer in
-                    let startTimeString = inTimer.startTimeAsString
+        if (0..<timers.count).contains(selectedTimerIndex) {
+            if timerIsRunning {
+                Rift_Valley_Timer_Watch_App_RunningTimerContentView(timer: timers[selectedTimerIndex])
+            } else if 1 < timers.count {
+                NavigationStack {
+                    List(timers, id: \.id) { inTimer in
+                        let startTimeString = inTimer.startTimeAsString
                         NavigationLink {
                             Rift_Valley_Timer_Watch_App_TimerContentView(timer: inTimer, selectedTimerIndex: $selectedTimerIndex)
                         } label: {
@@ -45,15 +59,16 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
                                 .lineLimit(1)
                                 .font(Font.custom("Let's go Digital Regular", size: 60))
                                 .padding(0.1)
-                       }
+                        }
                         .padding(0.1)
+                    }
+                    .navigationTitle("SLUG-TIMER-LIST-TITLE")
                 }
-                .navigationTitle("SLUG-TIMER-LIST-TITLE")
+            } else if 1 == timers.count {
+                Rift_Valley_Timer_Watch_App_TimerContentView(timer: timers[0], selectedTimerIndex: $selectedTimerIndex)
+            } else {
+                ProgressView()
             }
-        } else if 1 == timers.count {
-            Rift_Valley_Timer_Watch_App_TimerContentView(timer: timers[0], selectedTimerIndex: $selectedTimerIndex)
-        } else {
-            ProgressView()
         }
     }
 }

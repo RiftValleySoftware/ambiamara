@@ -218,7 +218,8 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                     #if DEBUG
                         print("Sync Message Received: \(sync)")
                     #endif
-                }
+                    self.updateHandler?(self, ["sync": sync])
+               }
                 
             case "timerControl":
                 guard let operation = inMessage["operation"] as? String,
@@ -232,6 +233,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 #if DEBUG
                     print("Operation Message Received: \(timerOperation)")
                 #endif
+                self.updateHandler?(self, ["operation": timerOperation])
 
             default:
                 #if DEBUG
