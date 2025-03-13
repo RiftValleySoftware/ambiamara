@@ -10,13 +10,11 @@
 
 import SwiftUI
 import RVS_Generic_Swift_Toolbox
-import RVS_BasicGCDTimer
 
 /* ###################################################################################################################################### */
 // MARK: - Main Watch Content View -
 /* ###################################################################################################################################### */
 /**
- 
  */
 struct Rift_Valley_Timer_Watch_App_TimerContentView: View {
     /* ################################################################## */
@@ -31,11 +29,11 @@ struct Rift_Valley_Timer_Watch_App_TimerContentView: View {
     */
     @Binding var selectedTimerIndex: Int
 
-    /* ############################################################## */
+    /* ################################################################## */
     /**
-     This will be the actual ticker for the running timer.
-     */
-    @Binding var runningTimerInstance: RVS_BasicGCDTimer?
+     This is set to true, if the timer is to be started
+    */
+    @Binding var timerIsRunning: Bool
 
     /* ################################################################## */
     /**
@@ -79,12 +77,7 @@ struct Rift_Valley_Timer_Watch_App_TimerContentView: View {
             }
             
             Button {
-                runningTimerInstance = RVS_BasicGCDTimer(timeIntervalInSeconds: 1.0,
-                                                         onlyFireOnce: false,
-                                                         isWallTime: true) { inTimer, inSuccess in
-                    print("HAI")
-                }
-                runningTimerInstance?.isRunning = true
+                timerIsRunning = true
             } label: {
                 Image(systemName: "play.fill")
                     .resizable()

@@ -117,7 +117,13 @@ extension RVS_AmbiaMara_AppSceneDelegate {
      - parameter inApplicationContext: The application context from the Watch.
      */
     func watchUpdateHandler(_ inWatchDelegate: RVS_WatchDelegate?, _ inApplicationContext: [String: Any]) {
-        RVS_SetTimerWrapper.pageSelectorWrapperInstance?.selectPageWithIndex(RVS_AmbiaMara_Settings().currentTimerIndex)
+        if let operation = inApplicationContext["operation"] as? RVS_WatchDelegate.TimerOperation {
+            #if DEBUG
+                print("Received operation from watch: \(operation.rawValue)")
+            #endif
+        } else {
+            RVS_SetTimerWrapper.pageSelectorWrapperInstance?.selectPageWithIndex(RVS_AmbiaMara_Settings().currentTimerIndex)
+        }
     }
 }
 

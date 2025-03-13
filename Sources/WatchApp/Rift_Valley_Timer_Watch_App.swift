@@ -9,7 +9,6 @@
  */
 
 import SwiftUI
-import RVS_BasicGCDTimer
 
 @main
 /* ###################################################################################################################################### */
@@ -24,12 +23,6 @@ struct Rift_Valley_Timer_Watch_App: App {
      Tracks scene activity.
      */
     @Environment(\.scenePhase) private var _scenePhase
-
-    /* ############################################################## */
-    /**
-     This will be the actual ticker for the running timer.
-     */
-    @State private var _runningTimerInstance: RVS_BasicGCDTimer?
     
     /* ############################################################## */
     /**
@@ -54,18 +47,18 @@ struct Rift_Valley_Timer_Watch_App: App {
      This is set to true, if the timer has started.
     */
     @State private var _timerIsRunning: Bool = false
-
-    /* ################################################################## */
-    /**
-     If the timer is running, this displays the current countdown time.
-    */
-    @State private var _runningTimerDisplay: String = "ERROR"
     
     /* ################################################################## */
     /**
      If the timer is running, this contains the latest sync.
     */
     @State private var _runningSync: [TimeInterval] = []
+
+    /* ################################################################## */
+    /**
+     If the timer is running, this displays the current countdown time.
+    */
+    @State private var _runningTimerDisplay: String = ""
 
     /* ################################################################## */
     /**
@@ -76,9 +69,7 @@ struct Rift_Valley_Timer_Watch_App: App {
             Rift_Valley_Timer_Watch_App_MainContentView(timers: $_timers,
                                                         selectedTimerIndex: $_selectedTimerIndex,
                                                         timerIsRunning: $_timerIsRunning,
-                                                        runningTimerInstance: $_runningTimerInstance,
-                                                        runningTimerDisplay: $_runningTimerDisplay,
-                                                        runningSync: $_runningSync
+                                                        runningTimerDisplay: $_runningTimerDisplay
             )
                 .onAppear {
                     _watchDelegate = RVS_WatchDelegate(updateHandler: watchUpdateHandler)
@@ -88,6 +79,15 @@ struct Rift_Valley_Timer_Watch_App: App {
                     if _selectedTimerIndex != RVS_AmbiaMara_Settings().currentTimerIndex {
                         RVS_AmbiaMara_Settings().currentTimerIndex = _selectedTimerIndex
                         _watchDelegate?.sendApplicationContext()
+                    }
+                }
+                .onChange(of: _runningSync) {
+                    _timerIsRunning = false
+                    print("Sync: \(_runningSync)")
+                }
+                .onChange(of: _timerIsRunning) {
+                    if _timerIsRunning {
+                        _watchDelegate?.sendTimerMessage(operation: .start)
                     }
                 }
         }

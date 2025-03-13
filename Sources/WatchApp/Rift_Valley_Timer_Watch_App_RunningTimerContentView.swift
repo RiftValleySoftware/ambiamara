@@ -10,13 +10,11 @@
 
 import SwiftUI
 import RVS_Generic_Swift_Toolbox
-import RVS_BasicGCDTimer
 
 /* ###################################################################################################################################### */
 // MARK: - Main Watch Content View -
 /* ###################################################################################################################################### */
 /**
- 
  */
 struct Rift_Valley_Timer_Watch_App_RunningTimerContentView: View {
     /* ################################################################## */
@@ -25,23 +23,11 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerContentView: View {
     */
     @State var timer: RVS_AmbiaMara_Settings.TimerSettings
 
-    /* ############################################################## */
-    /**
-     This will be the actual ticker for the running timer.
-     */
-    @Binding var runningTimerInstance: RVS_BasicGCDTimer?
-
     /* ################################################################## */
     /**
      If the timer is running, this displays the current countdown time.
     */
     @Binding var runningTimerDisplay: String
-    
-    /* ################################################################## */
-    /**
-     If the timer is running, this contains the latest sync.
-    */
-    @Binding var runningSync: [TimeInterval]
 
     /* ################################################################## */
     /**

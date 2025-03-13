@@ -342,26 +342,26 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
             isUpdateInProgress = false
         }
 
-        /* ################################################################## */
-        /**
-         This sends a request to the phone, to send the latest context.
-         - parameter inTimerIndex: The 0-based timer index of the timer to start or stop. Required.
-        */
-        func sendStartStopTimer(_ inTimerIndex: Int) {
+    /* ################################################################## */
+    /**
+     This sends a control message to the phone.
+     - parameter operation: The operation we want.
+    */
+    func sendTimerMessage(operation inOperation: RVS_WatchDelegate.TimerOperation) {
+        #if DEBUG
+            print("Sending timer operation to the phone: \(inOperation.rawValue)")
+        #endif
+        
+        isUpdateInProgress = true
+        if .activated == wcSession.activationState {
+            wcSession.sendMessage(["messageType": "operation", "operation": inOperation.rawValue], replyHandler: nil)
+        } else {
             #if DEBUG
-                print("Sending timer start/stop request to the phone for timer \(inTimerIndex)")
+                print("Session not active")
             #endif
-            
-            isUpdateInProgress = true
-            if .activated == wcSession.activationState {
-                wcSession.sendMessage(["startTimer": inTimerIndex], replyHandler: nil)
-            } else {
-                #if DEBUG
-                    print("Session not active")
-                #endif
-            }
-            isUpdateInProgress = false
         }
+        isUpdateInProgress = false
+    }
     #endif
     
     /* ################################################################## */
