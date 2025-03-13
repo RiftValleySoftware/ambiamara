@@ -232,15 +232,14 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="42o-kL-hkS" secondAttribute="height" multiplier="1:1" id="l4p-gf-QmG"/>
                                                 </constraints>
-                                                <color key="tintColor" name="AccentColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal">
-                                                    <imageReference key="image" image="PlayTriangle" symbolScale="large"/>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                                    <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="64" scale="large"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="8"/>
+                                                        <real key="value" value="0.0"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -818,7 +817,7 @@
                                             <action selector="toolbarItemHit:" destination="FWf-2O-eKE" id="wNX-CA-Ykw"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="Zrj-Yk-7Gp"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="edD-aP-ifS"/>
                                     <barButtonItem image="backward.end.alt.fill" catalog="system" id="5pr-zf-jro">
                                         <color key="tintColor" name="AccentColor"/>
                                         <connections>
@@ -838,7 +837,7 @@
                                             <action selector="toolbarItemHit:" destination="FWf-2O-eKE" id="PAh-ug-5XH"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="FCU-Rx-VGs"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="GRV-YX-TFu"/>
                                     <barButtonItem image="forward.end.alt.fill" catalog="system" id="T60-Qx-dgK">
                                         <color key="tintColor" name="AccentColor"/>
                                         <connections>
@@ -1279,7 +1278,6 @@
         <image name="CenterImage" width="883" height="877"/>
         <image name="Digits" width="60" height="20"/>
         <image name="Final-Image" width="1024" height="1024"/>
-        <image name="PlayTriangle" width="1024" height="1024"/>
         <image name="Start-Image" width="1024" height="1024"/>
         <image name="Stoplights" width="65" height="20"/>
         <image name="Warn-Image" width="1024" height="1024"/>
