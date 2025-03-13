@@ -662,6 +662,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
             blurFilterView?.isHidden = isHighContrastMode
         }
         hexGridImageView?.isHidden = isHighContrastMode
+        setUpToolbar()
     }
     
     /* ############################################################## */
