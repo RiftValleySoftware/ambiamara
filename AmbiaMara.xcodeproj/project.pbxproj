@@ -356,8 +356,8 @@
 			children = (
 				D4A932202D64E9CB0028556E /* Rift_Valley_Timer_Watch_App.swift */,
 				D4A9321F2D64E9CB0028556E /* Rift_Valley_Timer_Watch_App_MainContentView.swift */,
-				D4BC25112D809D1B0071C75C /* Rift_Valley_Timer_Watch_App_TimerContentView.swift */,
 				D4DD60F82D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerContentView.swift */,
+				D4BC25112D809D1B0071C75C /* Rift_Valley_Timer_Watch_App_TimerContentView.swift */,
 				D4A9322F2D64EA8B0028556E /* Info.plist */,
 				D4A9322D2D64EA310028556E /* WatchApp.entitlements */,
 				D4C1B6202D806D6E00CEA6BF /* Let's go Digital Regular.ttf */,

@@ -86,15 +86,7 @@ struct Rift_Valley_Timer_ComplicationsEntryView: View {
     /**
     */
     var body: some View {
-        VStack {
-            HStack {
-                Text("Time:")
-                Text(entry.date, style: .time)
-            }
-
-            Text("Emoji:")
-            Text(entry.emoji)
-        }
+        Text("ERROR")
     }
 }
 

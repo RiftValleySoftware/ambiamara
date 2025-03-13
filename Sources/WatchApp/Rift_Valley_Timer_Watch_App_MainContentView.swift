@@ -44,6 +44,18 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
 
     /* ################################################################## */
     /**
+     If the timer is running, this displays the current countdown time.
+    */
+    @Binding var runningTimerDisplay: String
+    
+    /* ################################################################## */
+    /**
+     If the timer is running, this contains the latest sync.
+    */
+    @Binding var runningSync: [TimeInterval]
+
+    /* ################################################################## */
+    /**
      This displays a navstack, if there are more than one timer, or it directly opens the timer screen, if just one.
      
      If the timer is running, it goes straight to that screen.
@@ -51,13 +63,17 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
     var body: some View {
         if (0..<timers.count).contains(selectedTimerIndex) {
             if nil != runningTimerInstance {
-                Rift_Valley_Timer_Watch_App_RunningTimerContentView(timer: timers[selectedTimerIndex])
+                Rift_Valley_Timer_Watch_App_RunningTimerContentView(timer: timers[selectedTimerIndex],
+                                                                    runningTimerInstance: $runningTimerInstance,
+                                                                    runningTimerDisplay: $runningTimerDisplay,
+                                                                    runningSync: $runningSync
+                )
             } else if 1 < timers.count {
                 NavigationStack {
                     List(timers, id: \.id) { inTimer in
                         let startTimeString = inTimer.startTimeAsString
                         NavigationLink {
-                            Rift_Valley_Timer_Watch_App_TimerContentView(timer: inTimer, selectedTimerIndex: $selectedTimerIndex)
+                            Rift_Valley_Timer_Watch_App_TimerContentView(timer: inTimer, selectedTimerIndex: $selectedTimerIndex, runningTimerInstance: $runningTimerInstance)
                         } label: {
                             Text(startTimeString)
                                 .foregroundColor(Color(inTimer.index == selectedTimerIndex ? "Start-Color" : "Paused-Color"))
@@ -72,7 +88,7 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
                     .navigationTitle("SLUG-TIMER-LIST-TITLE")
                 }
             } else if 1 == timers.count {
-                Rift_Valley_Timer_Watch_App_TimerContentView(timer: timers[0], selectedTimerIndex: $selectedTimerIndex)
+                Rift_Valley_Timer_Watch_App_TimerContentView(timer: timers[0], selectedTimerIndex: $selectedTimerIndex, runningTimerInstance: $runningTimerInstance)
             } else {
                 ProgressView()
             }

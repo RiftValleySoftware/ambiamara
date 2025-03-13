@@ -10,6 +10,7 @@
 
 import SwiftUI
 import RVS_Generic_Swift_Toolbox
+import RVS_BasicGCDTimer
 
 /* ###################################################################################################################################### */
 // MARK: - Main Watch Content View -
@@ -30,55 +31,64 @@ struct Rift_Valley_Timer_Watch_App_TimerContentView: View {
     */
     @Binding var selectedTimerIndex: Int
 
+    /* ############################################################## */
+    /**
+     This will be the actual ticker for the running timer.
+     */
+    @Binding var runningTimerInstance: RVS_BasicGCDTimer?
+
     /* ################################################################## */
     /**
      It's a fairly basic VStack, with the timer start
     */
     var body: some View {
         let timeString = timer.startTimeAsString
-        NavigationStack {
-            VStack {
-                Text(timeString)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .minimumScaleFactor(0.5)
-                    .lineLimit(1)
-                    .font(Font.custom("Let's go Digital Regular", size: 60))
-                    .foregroundColor(Color("Start-Color"))
-                    .onAppear { selectedTimerIndex = timer.index }
-                
-                if ((0 < timer.warnTime) && (timer.startTime > timer.warnTime)) || ((0 < timer.finalTime) && (timer.startTime > timer.finalTime)) {
-                    HStack {
-                        if 0 < timer.warnTime,
-                           timer.startTime > timer.warnTime {
-                            let timeString = timer.warnTimeAsString
-                            Text(timeString)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                                .minimumScaleFactor(0.5)
-                                .lineLimit(1)
-                                .font(Font.custom("Let's go Digital Regular", size: 30))
-                                .foregroundColor(Color("Warn-Color"))
-                        }
-                        
-                        if 0 < timer.finalTime,
-                           timer.startTime > timer.finalTime {
-                            let timeString = timer.finalTimeAsString
-                            Text(timeString)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                                .minimumScaleFactor(0.5)
-                                .lineLimit(1)
-                                .font(Font.custom("Let's go Digital Regular", size: 30))
-                                .foregroundColor(Color("Final-Color"))
-                        }
+        VStack {
+            Text(timeString)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .minimumScaleFactor(0.5)
+                .lineLimit(1)
+                .font(Font.custom("Let's go Digital Regular", size: 60))
+                .foregroundColor(Color("Start-Color"))
+                .onAppear { selectedTimerIndex = timer.index }
+            
+            if ((0 < timer.warnTime) && (timer.startTime > timer.warnTime)) || ((0 < timer.finalTime) && (timer.startTime > timer.finalTime)) {
+                HStack {
+                    if 0 < timer.warnTime,
+                       timer.startTime > timer.warnTime {
+                        let timeString = timer.warnTimeAsString
+                        Text(timeString)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                            .font(Font.custom("Let's go Digital Regular", size: 30))
+                            .foregroundColor(Color("Warn-Color"))
+                    }
+                    
+                    if 0 < timer.finalTime,
+                       timer.startTime > timer.finalTime {
+                        let timeString = timer.finalTimeAsString
+                        Text(timeString)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                            .font(Font.custom("Let's go Digital Regular", size: 30))
+                            .foregroundColor(Color("Final-Color"))
                     }
                 }
-                
-                NavigationLink {
-                    Rift_Valley_Timer_Watch_App_RunningTimerContentView(timer: timer)
-                } label: {
-                    Image(systemName: "play.fill")
-                        .resizable()
-                        .scaledToFit()
+            }
+            
+            Button {
+                runningTimerInstance = RVS_BasicGCDTimer(timeIntervalInSeconds: 1.0,
+                                                         onlyFireOnce: false,
+                                                         isWallTime: true) { inTimer, inSuccess in
+                    print("HAI")
                 }
+                runningTimerInstance?.isRunning = true
+            } label: {
+                Image(systemName: "play.fill")
+                    .resizable()
+                    .scaledToFit()
             }
         }
         .navigationTitle(Text(String(format: "SLUG-TIMER-FORMAT".localizedVariant, timer.index + 1)))

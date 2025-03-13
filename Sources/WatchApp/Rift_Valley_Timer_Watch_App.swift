@@ -57,11 +57,29 @@ struct Rift_Valley_Timer_Watch_App: App {
 
     /* ################################################################## */
     /**
+     If the timer is running, this displays the current countdown time.
+    */
+    @State private var _runningTimerDisplay: String = "ERROR"
+    
+    /* ################################################################## */
+    /**
+     If the timer is running, this contains the latest sync.
+    */
+    @State private var _runningSync: [TimeInterval] = []
+
+    /* ################################################################## */
+    /**
      This is basically just a wrapper for the screens.
      */
     var body: some Scene {
         WindowGroup {
-            Rift_Valley_Timer_Watch_App_MainContentView(timers: $_timers, selectedTimerIndex: $_selectedTimerIndex, timerIsRunning: $_timerIsRunning)
+            Rift_Valley_Timer_Watch_App_MainContentView(timers: $_timers,
+                                                        selectedTimerIndex: $_selectedTimerIndex,
+                                                        timerIsRunning: $_timerIsRunning,
+                                                        runningTimerInstance: $_runningTimerInstance,
+                                                        runningTimerDisplay: $_runningTimerDisplay,
+                                                        runningSync: $_runningSync
+            )
                 .onAppear {
                     _watchDelegate = RVS_WatchDelegate(updateHandler: watchUpdateHandler)
                 }
@@ -103,6 +121,7 @@ extension Rift_Valley_Timer_Watch_App {
             #if DEBUG
                 print("Received Sync: \(sync)")
             #endif
+            _runningSync = sync
         } else if let operationTemp = inApplicationContext["operation"] as? RVS_WatchDelegate.TimerOperation {
             #if DEBUG
                 print("Received Operation: \(operation.rawValue)")

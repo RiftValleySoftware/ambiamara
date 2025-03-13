@@ -33,8 +33,20 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerContentView: View {
 
     /* ################################################################## */
     /**
+     If the timer is running, this displays the current countdown time.
+    */
+    @Binding var runningTimerDisplay: String
+    
+    /* ################################################################## */
+    /**
+     If the timer is running, this contains the latest sync.
+    */
+    @Binding var runningSync: [TimeInterval]
+
+    /* ################################################################## */
+    /**
     */
     var body: some View {
-        Text("HAI")
+        Text(runningTimerDisplay)
     }
 }

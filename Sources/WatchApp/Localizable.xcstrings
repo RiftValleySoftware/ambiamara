@@ -1,10 +1,7 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Emoji:" : {
-
-    },
-    "HAI" : {
+    "ERROR" : {
 
     },
     "SLUG-TIMER-FORMAT" : {
@@ -28,9 +25,6 @@
           }
         }
       }
-    },
-    "Time:" : {
-
     }
   },
   "version" : "1.0"
