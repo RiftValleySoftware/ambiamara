@@ -15,6 +15,7 @@
 		D46850BB2D7F840300065D8C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D46850BA2D7F840300065D8C /* Localizable.xcstrings */; };
 		D46850BC2D7F840300065D8C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D46850BA2D7F840300065D8C /* Localizable.xcstrings */; };
 		D474E5DE282B26E900102B9B /* Instructions.txt in Resources */ = {isa = PBXBuildFile; fileRef = D474E5DC282B26E900102B9B /* Instructions.txt */; };
+		D475B55B2D83132D00A9A95B /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D475B55A2D83132D00A9A95B /* RVS_BasicGCDTimer */; };
 		D47C029F2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C029E2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift */; };
 		D47C02A32819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */; };
 		D47C02A62819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A42819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard */; };
@@ -248,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4E6ECB12D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */,
+				D475B55B2D83132D00A9A95B /* RVS_BasicGCDTimer in Frameworks */,
 				D4F357312D6F6271005A815A /* RVS_Persistent_Prefs in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -529,6 +531,7 @@
 			packageProductDependencies = (
 				D4F357302D6F6271005A815A /* RVS_Persistent_Prefs */,
 				D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */,
+				D475B55A2D83132D00A9A95B /* RVS_BasicGCDTimer */,
 			);
 			productName = "Rift Valley Timer Watch Watch App";
 			productReference = D4F83C9D2D63DB10009C4646 /* Rift Valley Timer WatchApp.app */;
@@ -1279,6 +1282,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
 			productName = RVS_Persistent_Prefs;
+		};
+		D475B55A2D83132D00A9A95B /* RVS_BasicGCDTimer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
+			productName = RVS_BasicGCDTimer;
 		};
 		D491F1352846A42A00759031 /* RVS_BasicGCDTimer */ = {
 			isa = XCSwiftPackageProductDependency;

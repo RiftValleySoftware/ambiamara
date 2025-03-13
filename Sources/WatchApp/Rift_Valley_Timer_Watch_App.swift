@@ -9,6 +9,7 @@
  */
 
 import SwiftUI
+import RVS_BasicGCDTimer
 
 @main
 /* ###################################################################################################################################### */
@@ -26,6 +27,12 @@ struct Rift_Valley_Timer_Watch_App: App {
 
     /* ############################################################## */
     /**
+     This will be the actual ticker for the running timer.
+     */
+    @State private var _runningTimerInstance: RVS_BasicGCDTimer?
+    
+    /* ############################################################## */
+    /**
      This handles communications with the Watch app.
      */
     @State private var _watchDelegate: RVS_WatchDelegate?
@@ -34,19 +41,19 @@ struct Rift_Valley_Timer_Watch_App: App {
     /**
      These are the timers the phone sent us.
     */
-    @State var timers: [RVS_AmbiaMara_Settings.TimerSettings] = []
+    @State private var _timers: [RVS_AmbiaMara_Settings.TimerSettings] = []
 
     /* ################################################################## */
     /**
      The 0-based index of the selected timer.
     */
-    @State var selectedTimerIndex: Int = 0
+    @State private var _selectedTimerIndex: Int = 0
 
     /* ################################################################## */
     /**
      This is set to true, if the timer has started.
     */
-    @State var timerIsRunning: Bool = false
+    @State private var _timerIsRunning: Bool = false
 
     /* ################################################################## */
     /**
@@ -54,14 +61,14 @@ struct Rift_Valley_Timer_Watch_App: App {
      */
     var body: some Scene {
         WindowGroup {
-            Rift_Valley_Timer_Watch_App_MainContentView(timers: $timers, selectedTimerIndex: $selectedTimerIndex, timerIsRunning: $timerIsRunning)
+            Rift_Valley_Timer_Watch_App_MainContentView(timers: $_timers, selectedTimerIndex: $_selectedTimerIndex, timerIsRunning: $_timerIsRunning)
                 .onAppear {
                     _watchDelegate = RVS_WatchDelegate(updateHandler: watchUpdateHandler)
                 }
-                .onChange(of: selectedTimerIndex) {
+                .onChange(of: _selectedTimerIndex) {
                     RVS_AmbiaMara_Settings().flush()
-                    if selectedTimerIndex != RVS_AmbiaMara_Settings().currentTimerIndex {
-                        RVS_AmbiaMara_Settings().currentTimerIndex = selectedTimerIndex
+                    if _selectedTimerIndex != RVS_AmbiaMara_Settings().currentTimerIndex {
+                        RVS_AmbiaMara_Settings().currentTimerIndex = _selectedTimerIndex
                         _watchDelegate?.sendApplicationContext()
                     }
                 }
@@ -88,8 +95,8 @@ extension Rift_Valley_Timer_Watch_App {
         var operation = RVS_WatchDelegate.TimerOperation.stop
         
         defer {
-            (timers, selectedTimerIndex) = (RVS_AmbiaMara_Settings().timers, RVS_AmbiaMara_Settings().currentTimerIndex)
-            timerIsRunning = (.start == operation) || (.resume == operation)
+            (_timers, _selectedTimerIndex) = (RVS_AmbiaMara_Settings().timers, RVS_AmbiaMara_Settings().currentTimerIndex)
+            _timerIsRunning = (.start == operation) || (.resume == operation)
         }
 
         if let sync = inApplicationContext["sync"] as? [TimeInterval] {
