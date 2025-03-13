@@ -25,6 +25,12 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerContentView: View {
     */
     @State var timer: RVS_AmbiaMara_Settings.TimerSettings
 
+    /* ############################################################## */
+    /**
+     This will be the actual ticker for the running timer.
+     */
+    @Binding var runningTimerInstance: RVS_BasicGCDTimer?
+
     /* ################################################################## */
     /**
     */

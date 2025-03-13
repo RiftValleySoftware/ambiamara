@@ -9,6 +9,7 @@
  */
 
 import SwiftUI
+import RVS_BasicGCDTimer
 
 /* ###################################################################################################################################### */
 // MARK: - Main Watch Content View -
@@ -35,6 +36,12 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
     */
     @Binding var timerIsRunning: Bool
 
+    /* ############################################################## */
+    /**
+     This will be the actual ticker for the running timer.
+     */
+    @Binding var runningTimerInstance: RVS_BasicGCDTimer?
+
     /* ################################################################## */
     /**
      This displays a navstack, if there are more than one timer, or it directly opens the timer screen, if just one.
@@ -43,7 +50,7 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
     */
     var body: some View {
         if (0..<timers.count).contains(selectedTimerIndex) {
-            if timerIsRunning {
+            if nil != runningTimerInstance {
                 Rift_Valley_Timer_Watch_App_RunningTimerContentView(timer: timers[selectedTimerIndex])
             } else if 1 < timers.count {
                 NavigationStack {
