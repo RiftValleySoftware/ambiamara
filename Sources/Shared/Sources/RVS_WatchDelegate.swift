@@ -245,7 +245,8 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 let totalTime = inTimerStartTime + inTimerTotalTime
                 let warnTime = 0 < inTimerWarnTime ? inTimerStartTime + inTimerWarnTime : inTimerTotalTime
                 let finalTime = 0 < inTimerFinalTime ? inTimerStartTime + inTimerFinalTime : inTimerTotalTime
-                wcSession.sendMessage(["messageType": "sync", "sync": [inTimerStartTime, totalTime, warnTime, finalTime]], replyHandler: nil)
+                /// > NOTE: Ignore the examples that show a nil replyHandler value. You *MUST* supply a reply handler, or the call fails.
+                wcSession.sendMessage(["messageType": "sync", "sync": [inTimerStartTime, totalTime, warnTime, finalTime]], replyHandler: { _ in })
             } else {
                 #if DEBUG
                     print("Session not active")
@@ -344,6 +345,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
 
             isUpdateInProgress = true
             if .activated == wcSession.activationState {
+                /// > NOTE: Ignore the examples that show a nil replyHandler value. You *MUST* supply a reply handler, or the call fails.
                 wcSession.sendMessage(["messageType": "timerControl", "timerControl": inOperation.rawValue], replyHandler: sessionReplyHandler, errorHandler: sessionOperationErrorHandler)
             } else {
                 #if DEBUG

@@ -121,6 +121,10 @@ extension RVS_AmbiaMara_AppSceneDelegate {
             #if DEBUG
                 print("Received \(operation.rawValue) operation from watch.")
             #endif
+            if .start == operation {
+                RVS_AmbiaMara_Settings().startTimerImmediately = true
+                (navigationController?.viewControllers.first as? RVS_SetTimerWrapper)?.startTimer()
+            }
         } else {
             RVS_SetTimerWrapper.pageSelectorWrapperInstance?.selectPageWithIndex(RVS_AmbiaMara_Settings().currentTimerIndex)
         }
