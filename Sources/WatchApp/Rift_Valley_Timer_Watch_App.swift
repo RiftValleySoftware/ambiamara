@@ -84,6 +84,15 @@ struct Rift_Valley_Timer_Watch_App: App {
                 .onChange(of: _runningSync) {
                     _timerIsRunning = false
                     print("Sync: \(_runningSync)")
+                    if !_runningSync.isEmpty {
+                        let timeLapsed = _runningSync[1] - _runningSync[0]
+                        let hour = Int(timeLapsed / 3600)
+                        let minute = Int(timeLapsed / 60) - (hour * 60)
+                        let second = Int(timeLapsed) - ((hour * 3600) + (minute * 60))
+                        _runningTimerDisplay = RVS_AmbiaMara_Settings.optimizedTimeString(hours: hour, minutes: minute, seconds: second)
+                    } else {
+                        _runningTimerDisplay = ""
+                    }
                 }
                 .onChange(of: _timerIsRunning) {
                     if _timerIsRunning {
