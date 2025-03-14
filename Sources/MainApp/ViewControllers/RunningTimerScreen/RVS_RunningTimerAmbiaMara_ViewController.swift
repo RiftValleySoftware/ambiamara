@@ -227,7 +227,7 @@ class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
      If the slider is up, it will be stored here.
      */
     private weak var _timeSetSlider: UISlider?
-    
+
     /* ################################################################################################################################## */
     // MARK: Internal IB Stored Properties
     /* ################################################################################################################################## */
@@ -391,6 +391,12 @@ class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
      The constraint for the bottom of the slider. We move it around, if we display the toolbar.
      */
     @IBOutlet weak var timeSetSliderViewBottomContraint: NSLayoutConstraint!
+
+    /* ############################################################## */
+    /**
+     If the timer should be started immediately, this is true
+     */
+    var oneTimeRun: Bool = RVS_AmbiaMara_Settings().startTimerImmediately
 }
 
 /* ###################################################################################################################################### */
@@ -961,7 +967,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         determineStoplightColor(RVS_AmbiaMara_Settings().currentTimer.startTime)
         _selectionFeedbackGenerator?.prepare()
         _feedbackGenerator?.prepare()
-        if RVS_AmbiaMara_Settings().startTimerImmediately {
+        if oneTimeRun {
             if !RVS_AmbiaMara_Settings().stoplightMode {
                 flashGreen()
             }
@@ -1082,7 +1088,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
     func continueTimer() {
         showToolbar()
         if nil == _autoHideTimer,
-           RVS_AmbiaMara_Settings().startTimerImmediately {
+           oneTimeRun {
             _autoHideTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._autoHidePeriodInSeconds, delegate: self, leewayInMilliseconds: 100, onlyFireOnce: true, queue: .main, isWallTime: true)
             _autoHideTimer?.isRunning = true
         }
@@ -1545,7 +1551,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
             _timeSetSlider?.removeFromSuperview()
             _timeSetSlider = nil
             
-            if RVS_AmbiaMara_Settings().startTimerImmediately {
+            if oneTimeRun {
                 if !_isFinal,
                    !_isWarning {
                     flashGreen()

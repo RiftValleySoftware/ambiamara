@@ -706,7 +706,7 @@ extension RVS_SetTimerAmbiaMara_ViewController {
     */
     @IBAction func startButtonHit(_: Any! = nil) {
         _state = .start
-        container?.startTimer()
+        container?.startTimer(RVS_AmbiaMara_Settings().startTimerImmediately)
         
         if hapticsAreAvailable {
             _impactFeedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.heavy.rawValue))

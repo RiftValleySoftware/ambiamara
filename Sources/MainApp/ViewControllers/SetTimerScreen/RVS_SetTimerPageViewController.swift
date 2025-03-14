@@ -251,6 +251,17 @@ extension RVS_SetTimerWrapper {
             setUpToolbar()
         }
     }
+    
+    /* ############################################################## */
+    /**
+     Called just before we switch to another screen.
+     */
+    override func prepare(for inSegue: UIStoryboardSegue, sender inSender: Any?) {
+        if let destination = inSegue.destination as? RVS_RunningTimerAmbiaMara_ViewController,
+           let immediateStart = inSender as? Bool {
+            destination.oneTimeRun = immediateStart
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -512,9 +523,11 @@ extension RVS_SetTimerWrapper {
     /* ################################################################## */
     /**
      Start the timer.
+     
+     - parameter inWithImmediateStart: If true, the timer starts immediately.
     */
-    func startTimer() {
-        performSegue(withIdentifier: Self._startTimerSegueID, sender: nil)
+    func startTimer(_ inWithImmediateStart: Bool = false) {
+        performSegue(withIdentifier: Self._startTimerSegueID, sender: inWithImmediateStart)
     }
 }
 

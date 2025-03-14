@@ -133,7 +133,6 @@ struct Rift_Valley_Timer_Watch_App: App {
                     }
                 }
                 .onChange(of: _runningSync) {
-                    _timerIsRunning = false
                     if let runningSync = _runningSync {
                         let totalTime = Int(TimeInterval(RVS_AmbiaMara_Settings().timers[_selectedTimerIndex].startTime) - TimeInterval(runningSync))
                         let warnThreshold = _timers[_selectedTimerIndex].warnTime
@@ -149,6 +148,8 @@ struct Rift_Valley_Timer_Watch_App: App {
                     }
                 }
                 .onChange(of: _timerIsRunning) {
+                    _timerState = .stopped
+                    _runningTimerDisplay = ""
                     if _timerIsRunning {
                         _watchDelegate?.sendTimerControl(operation: .start)
                     }
@@ -175,21 +176,24 @@ extension Rift_Valley_Timer_Watch_App {
         
         var operation = RVS_WatchDelegate.TimerOperation.stop
         
-        defer {
-            (_timers, _selectedTimerIndex) = (RVS_AmbiaMara_Settings().timers, RVS_AmbiaMara_Settings().currentTimerIndex)
-            _timerIsRunning = (.start == operation) || (.resume == operation)
-        }
+        defer { (_timers, _selectedTimerIndex) = (RVS_AmbiaMara_Settings().timers, RVS_AmbiaMara_Settings().currentTimerIndex) }
 
         if let sync = inApplicationContext["sync"] as? Int {
             #if DEBUG
                 print("Received Sync: \(sync)")
             #endif
             _runningSync = sync
+            _timerIsRunning = false
         } else if let operationTemp = inApplicationContext["timerControl"] as? RVS_WatchDelegate.TimerOperation {
             #if DEBUG
                 print("Received Operation: \(operation.rawValue)")
             #endif
             operation = operationTemp
+            _timerIsRunning = (.start == operation) || (.resume == operation)
+        } else {
+            _timerState = .stopped
+            _runningTimerDisplay = ""
+            _runningSync = nil
         }
     }
 }

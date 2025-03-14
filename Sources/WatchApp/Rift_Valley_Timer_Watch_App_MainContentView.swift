@@ -55,14 +55,17 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
     */
     var body: some View {
         if (0..<timers.count).contains(selectedTimerIndex) {
-            if !timerIsRunning,
-               !runningTimerDisplay.isEmpty {
-                Rift_Valley_Timer_Watch_App_RunningTimerContentView(timer: timers[selectedTimerIndex], timerState: $timerState, runningTimerDisplay: $runningTimerDisplay)
-            } else if !timerIsRunning,
+            if !runningTimerDisplay.isEmpty {
+                Rift_Valley_Timer_Watch_App_RunningTimerContentView(timer: timers[selectedTimerIndex],
+                                                                    timerState: $timerState,
+                                                                    runningTimerDisplay: $runningTimerDisplay
+                )
+            } else if runningTimerDisplay.isEmpty,
+                      !timerIsRunning,
                       1 == timers.count {
                 Rift_Valley_Timer_Watch_App_TimerContentView(timer: timers[0], selectedTimerIndex: $selectedTimerIndex, timerIsRunning: $timerIsRunning)
-            } else if !timerIsRunning,
-                      1 < timers.count {
+            } else if runningTimerDisplay.isEmpty,
+                      !timerIsRunning {
                 NavigationStack {
                     List(timers, id: \.id) { inTimer in
                         let startTimeString = inTimer.startTimeAsString
