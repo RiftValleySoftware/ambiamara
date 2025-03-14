@@ -34,5 +34,10 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerContentView: View {
     */
     var body: some View {
         Text(runningTimerDisplay)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .minimumScaleFactor(0.5)
+            .lineLimit(1)
+            .font(Font.custom("Let's go Digital Regular", size: 60))
+            .foregroundColor(Color("Start-Color"))
     }
 }

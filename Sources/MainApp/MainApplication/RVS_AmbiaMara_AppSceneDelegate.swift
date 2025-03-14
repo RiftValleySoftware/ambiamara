@@ -83,15 +83,9 @@ extension RVS_AmbiaMara_AppSceneDelegate {
      This sends a sync pulse to the phone.
      
      - parameter: timerStartTime: The date at which the timer began its countdown.
-     - parameter: timerTotalTime: The number of seconds that the timer started with.
-     - parameter: timerWarnTime: The number of seconds that the timer considers into the "warning" state. Optional. If left out, the warning time is ignored.
-     - parameter: timerFinalTime: The number of seconds that the timer considers into the "final" state. Optional. If left out, the final time is ignored.
     */
-    func sendSync(timerStartTime inTimerStartTime: TimeInterval,
-                  timerTotalTime inTimerTotalTime: TimeInterval,
-                  timerWarnTime inTimerWarnTime: TimeInterval = 0.0,
-                  timerFinalTime inTimerFinalTime: TimeInterval = 0.0) {
-        _watchDelegate?.sendSync(timerStartTime: inTimerStartTime, timerTotalTime: inTimerTotalTime, timerWarnTime: inTimerWarnTime, timerFinalTime: inTimerFinalTime)
+    func sendSync(timerStartTime inTimerStartTime: TimeInterval) {
+        _watchDelegate?.sendSync(timerStartTime: inTimerStartTime)
     }
     
     /* ################################################################## */

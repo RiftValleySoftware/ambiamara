@@ -191,12 +191,13 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 sendApplicationContext(inReplyHandler)
                 
             case "sync":
-                if let sync = inMessage["sync"] as? [TimeInterval],
-                   4 == sync.count {
+                if let sync = inMessage["sync"] as? TimeInterval {
                     #if DEBUG
                         print("Sync Message Received: \(sync)")
                     #endif
-                    DispatchQueue.main.async { self.updateHandler?(self, ["sync": sync]) }
+                    let timeLapsed = Date().timeIntervalSince1970 - sync
+                    
+                    DispatchQueue.main.async { self.updateHandler?(self, ["sync": timeLapsed]) }
                }
                 
             case "timerControl":
@@ -232,21 +233,15 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
          - parameter: timerWarnTime: The number of seconds that the timer considers into the "warning" state. Optional. If left out, the warning time is ignored.
          - parameter: timerFinalTime: The number of seconds that the timer considers into the "final" state. Optional. If left out, the final time is ignored.
         */
-        func sendSync(timerStartTime inTimerStartTime: TimeInterval,
-                      timerTotalTime inTimerTotalTime: TimeInterval,
-                      timerWarnTime inTimerWarnTime: TimeInterval = 0.0,
-                      timerFinalTime inTimerFinalTime: TimeInterval = 0.0) {
-            #if DEBUG
-                print("Sending timer sync to the watch")
-            #endif
-            
+        func sendSync(timerStartTime inTimerStartTime: TimeInterval) {
             isUpdateInProgress = true
             if .activated == wcSession.activationState {
-                let totalTime = inTimerStartTime + inTimerTotalTime
-                let warnTime = 0 < inTimerWarnTime ? inTimerStartTime + inTimerWarnTime : inTimerTotalTime
-                let finalTime = 0 < inTimerFinalTime ? inTimerStartTime + inTimerFinalTime : inTimerTotalTime
+                #if DEBUG
+                    print("Sending timer sync to the watch: \(inTimerStartTime)")
+                #endif
+
                 /// > NOTE: Ignore the examples that show a nil replyHandler value. You *MUST* supply a reply handler, or the call fails.
-                wcSession.sendMessage(["messageType": "sync", "sync": [inTimerStartTime, totalTime, warnTime, finalTime]], replyHandler: { _ in })
+                wcSession.sendMessage(["messageType": "sync", "sync": inTimerStartTime], replyHandler: { _ in })
             } else {
                 #if DEBUG
                     print("Session not active")

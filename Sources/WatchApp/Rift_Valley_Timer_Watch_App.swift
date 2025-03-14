@@ -52,7 +52,7 @@ struct Rift_Valley_Timer_Watch_App: App {
     /**
      If the timer is running, this contains the latest sync.
     */
-    @State private var _runningSync: [TimeInterval] = []
+    @State private var _runningSync: TimeInterval?
 
     /* ################################################################## */
     /**
@@ -83,12 +83,12 @@ struct Rift_Valley_Timer_Watch_App: App {
                 }
                 .onChange(of: _runningSync) {
                     _timerIsRunning = false
-                    print("Sync: \(_runningSync)")
-                    if !_runningSync.isEmpty {
-                        let timeLapsed = _runningSync[1] - _runningSync[0]
-                        let hour = Int(timeLapsed / 3600)
-                        let minute = Int(timeLapsed / 60) - (hour * 60)
-                        let second = Int(timeLapsed) - ((hour * 3600) + (minute * 60))
+                    print("Sync: \(_runningSync?.debugDescription ?? "nil")")
+                    if let runningSync = _runningSync {
+                        let totalTime = Int(TimeInterval(RVS_AmbiaMara_Settings().timers[_selectedTimerIndex].startTime) - runningSync)
+                        let hour = totalTime / 3600
+                        let minute = totalTime / 60 - (hour * 60)
+                        let second = totalTime - ((hour * 3600) + (minute * 60))
                         _runningTimerDisplay = RVS_AmbiaMara_Settings.optimizedTimeString(hours: hour, minutes: minute, seconds: second)
                     } else {
                         _runningTimerDisplay = ""
@@ -126,7 +126,7 @@ extension Rift_Valley_Timer_Watch_App {
             _timerIsRunning = (.start == operation) || (.resume == operation)
         }
 
-        if let sync = inApplicationContext["sync"] as? [TimeInterval] {
+        if let sync = inApplicationContext["sync"] as? TimeInterval {
             #if DEBUG
                 print("Received Sync: \(sync)")
             #endif
