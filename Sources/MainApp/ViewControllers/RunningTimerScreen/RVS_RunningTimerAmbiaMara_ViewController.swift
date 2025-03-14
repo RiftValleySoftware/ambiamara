@@ -1639,10 +1639,6 @@ extension RVS_RunningTimerAmbiaMara_ViewController: RVS_BasicGCDTimerDelegate {
             
             guard let startingTime = self?._startingTime?.timeIntervalSince1970 else { return }
             
-            if self?._isTimerRunning ?? false {
-                RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendSync(timerStartTime: startingTime)
-            }
-            
             let differenceInSeconds = Int(Date().timeIntervalSince1970 - startingTime)
             guard let previousTickTime = self?._tickTimeInSeconds,
                   differenceInSeconds != previousTickTime
@@ -1658,6 +1654,11 @@ extension RVS_RunningTimerAmbiaMara_ViewController: RVS_BasicGCDTimerDelegate {
 
             if 0 >= (RVS_AmbiaMara_Settings().currentTimer.startTime - differenceInSeconds) {
                 self?._isAlarming = true
+            }
+            
+            if self?._isTimerRunning ?? false,
+               let tickTime = self?._tickTimeInSeconds {
+                RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendSync(timerTickTime: tickTime)
             }
         }
     }

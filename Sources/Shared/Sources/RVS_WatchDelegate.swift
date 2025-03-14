@@ -191,13 +191,11 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 sendApplicationContext(inReplyHandler)
                 
             case "sync":
-                if let sync = inMessage["sync"] as? TimeInterval {
+                if let sync = inMessage["sync"] as? Int {
                     #if DEBUG
                         print("Sync Message Received: \(sync)")
                     #endif
-                    let timeLapsed = Date().timeIntervalSince1970 - sync
-                    
-                    DispatchQueue.main.async { self.updateHandler?(self, ["sync": timeLapsed]) }
+                    DispatchQueue.main.async { self.updateHandler?(self, ["sync": sync]) }
                }
                 
             case "timerControl":
@@ -228,20 +226,17 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         /**
          This sends a sync pulse to the phone.
          
-         - parameter: timerStartTime: The date at which the timer began its countdown.
-         - parameter: timerTotalTime: The number of seconds that the timer started with.
-         - parameter: timerWarnTime: The number of seconds that the timer considers into the "warning" state. Optional. If left out, the warning time is ignored.
-         - parameter: timerFinalTime: The number of seconds that the timer considers into the "final" state. Optional. If left out, the final time is ignored.
+         - parameter: timerTickTime: The number of seconds into the timer.
         */
-        func sendSync(timerStartTime inTimerStartTime: TimeInterval) {
+        func sendSync(timerTickTime inTimerTickTime: Int) {
             isUpdateInProgress = true
             if .activated == wcSession.activationState {
                 #if DEBUG
-                    print("Sending timer sync to the watch: \(inTimerStartTime)")
+                    print("Sending timer sync to the watch: \(inTimerTickTime)")
                 #endif
 
                 /// > NOTE: Ignore the examples that show a nil replyHandler value. You *MUST* supply a reply handler, or the call fails.
-                wcSession.sendMessage(["messageType": "sync", "sync": inTimerStartTime], replyHandler: { _ in })
+                wcSession.sendMessage(["messageType": "sync", "sync": inTimerTickTime], replyHandler: { _ in })
             } else {
                 #if DEBUG
                     print("Session not active")

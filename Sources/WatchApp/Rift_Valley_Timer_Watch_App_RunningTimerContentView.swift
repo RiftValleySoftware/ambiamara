@@ -23,6 +23,12 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerContentView: View {
     */
     @State var timer: RVS_AmbiaMara_Settings.TimerSettings
 
+    /* ############################################################## */
+    /**
+     The current state of the timer.
+     */
+    @Binding var timerState: Rift_Valley_Timer_Watch_App.TimerState
+
     /* ################################################################## */
     /**
      If the timer is running, this displays the current countdown time.
@@ -33,11 +39,12 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerContentView: View {
     /**
     */
     var body: some View {
+        let textColor = (.started == timerState) ? "Start-Color" : ((.warning == timerState) ? "Warn-Color" : "Final-Color")
         Text(runningTimerDisplay)
             .frame(maxWidth: .infinity, alignment: .center)
             .minimumScaleFactor(0.5)
             .lineLimit(1)
             .font(Font.custom("Let's go Digital Regular", size: 60))
-            .foregroundColor(Color("Start-Color"))
+            .foregroundColor(Color(textColor))
     }
 }

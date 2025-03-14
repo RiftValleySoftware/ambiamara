@@ -35,6 +35,12 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
     */
     @Binding var timerIsRunning: Bool
 
+    /* ############################################################## */
+    /**
+     The current state of the timer.
+     */
+    @Binding var timerState: Rift_Valley_Timer_Watch_App.TimerState
+    
     /* ################################################################## */
     /**
      If the timer is running, this displays the current countdown time.
@@ -51,7 +57,7 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
         if (0..<timers.count).contains(selectedTimerIndex) {
             if !timerIsRunning,
                !runningTimerDisplay.isEmpty {
-                Rift_Valley_Timer_Watch_App_RunningTimerContentView(timer: timers[selectedTimerIndex], runningTimerDisplay: $runningTimerDisplay)
+                Rift_Valley_Timer_Watch_App_RunningTimerContentView(timer: timers[selectedTimerIndex], timerState: $timerState, runningTimerDisplay: $runningTimerDisplay)
             } else if !timerIsRunning,
                       1 == timers.count {
                 Rift_Valley_Timer_Watch_App_TimerContentView(timer: timers[0], selectedTimerIndex: $selectedTimerIndex, timerIsRunning: $timerIsRunning)

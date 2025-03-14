@@ -82,10 +82,10 @@ extension RVS_AmbiaMara_AppSceneDelegate {
     /**
      This sends a sync pulse to the phone.
      
-     - parameter: timerStartTime: The date at which the timer began its countdown.
+     - parameter: timerTickTime: The number of seconds into the countdown.
     */
-    func sendSync(timerStartTime inTimerStartTime: TimeInterval) {
-        _watchDelegate?.sendSync(timerStartTime: inTimerStartTime)
+    func sendSync(timerTickTime inTimerTickTime: Int) {
+        _watchDelegate?.sendSync(timerTickTime: inTimerTickTime)
     }
     
     /* ################################################################## */

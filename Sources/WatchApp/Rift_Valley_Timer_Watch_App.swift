@@ -18,6 +18,50 @@ import SwiftUI
  This is the main context for the timer Watch app.
  */
 struct Rift_Valley_Timer_Watch_App: App {
+    /* ################################################################################################################################## */
+    // MARK: These are the states the timer can be in, at any given time.
+    /* ################################################################################################################################## */
+    /**
+     This is the main context for the timer Watch app.
+     */
+    enum TimerState: Int {
+        /* ############################################################## */
+        /**
+         The timer is in select mode.
+         */
+        case stopped
+        
+        /* ############################################################## */
+        /**
+         The timer is running, but has been paused.
+         */
+        case paused
+        
+        /* ############################################################## */
+        /**
+         The timer has started, and has not reached the warn or final thresholds
+         */
+        case started
+        
+        /* ############################################################## */
+        /**
+         The timer has started, and has reached the warn threshold
+         */
+        case warning
+        
+        /* ############################################################## */
+        /**
+         The timer has started, and has reached the final threshold
+         */
+        case final
+        
+        /* ############################################################## */
+        /**
+         The timer has completed its countdown
+         */
+        case alarming
+    }
+    
     /* ################################################################## */
     /**
      Tracks scene activity.
@@ -26,10 +70,16 @@ struct Rift_Valley_Timer_Watch_App: App {
     
     /* ############################################################## */
     /**
+     The current state of the timer.
+     */
+    @State private var _timerState: TimerState = .stopped
+    
+    /* ############################################################## */
+    /**
      This handles communications with the Watch app.
      */
     @State private var _watchDelegate: RVS_WatchDelegate?
-    
+
     /* ################################################################## */
     /**
      These are the timers the phone sent us.
@@ -52,7 +102,7 @@ struct Rift_Valley_Timer_Watch_App: App {
     /**
      If the timer is running, this contains the latest sync.
     */
-    @State private var _runningSync: TimeInterval?
+    @State private var _runningSync: Int?
 
     /* ################################################################## */
     /**
@@ -69,6 +119,7 @@ struct Rift_Valley_Timer_Watch_App: App {
             Rift_Valley_Timer_Watch_App_MainContentView(timers: $_timers,
                                                         selectedTimerIndex: $_selectedTimerIndex,
                                                         timerIsRunning: $_timerIsRunning,
+                                                        timerState: $_timerState,
                                                         runningTimerDisplay: $_runningTimerDisplay
             )
                 .onAppear {
@@ -83,14 +134,17 @@ struct Rift_Valley_Timer_Watch_App: App {
                 }
                 .onChange(of: _runningSync) {
                     _timerIsRunning = false
-                    print("Sync: \(_runningSync?.debugDescription ?? "nil")")
                     if let runningSync = _runningSync {
-                        let totalTime = Int(TimeInterval(RVS_AmbiaMara_Settings().timers[_selectedTimerIndex].startTime) - runningSync)
+                        let totalTime = Int(TimeInterval(RVS_AmbiaMara_Settings().timers[_selectedTimerIndex].startTime) - TimeInterval(runningSync))
+                        let warnThreshold = _timers[_selectedTimerIndex].warnTime
+                        let finalThreshold = _timers[_selectedTimerIndex].finalTime
+                        _timerState = (finalThreshold >= totalTime) ? .final : ((warnThreshold >= totalTime) ? .warning : .started)
                         let hour = totalTime / 3600
                         let minute = totalTime / 60 - (hour * 60)
                         let second = totalTime - ((hour * 3600) + (minute * 60))
                         _runningTimerDisplay = RVS_AmbiaMara_Settings.optimizedTimeString(hours: hour, minutes: minute, seconds: second)
                     } else {
+                        _timerState = .stopped
                         _runningTimerDisplay = ""
                     }
                 }
@@ -126,7 +180,7 @@ extension Rift_Valley_Timer_Watch_App {
             _timerIsRunning = (.start == operation) || (.resume == operation)
         }
 
-        if let sync = inApplicationContext["sync"] as? TimeInterval {
+        if let sync = inApplicationContext["sync"] as? Int {
             #if DEBUG
                 print("Received Sync: \(sync)")
             #endif
