@@ -105,7 +105,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
      This is a simple semaphore, to indicate that an update to/from the peer is in progress.
      */
     var isUpdateInProgress = false
-    
+
     /* ###################################################################### */
     /**
      Called when an activation change occurs.
@@ -167,28 +167,6 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
             self.isUpdateInProgress = false
         }
     }
-    
-    /* ###################################################################### */
-    /**
-     This sends a "flow control" operation to the phone or the watch.
-     
-     - parameter operation: The operation that we are sending.
-    */
-    func sendTimerControl(operation inOperation: TimerOperation) {
-        #if DEBUG
-            print("Sending timer control operation to the phone: \(inOperation)")
-        #endif
-
-        isUpdateInProgress = true
-        if .activated == wcSession.activationState {
-            wcSession.sendMessage(["messageType": "timerControl", "timerControl": inOperation.rawValue], replyHandler: nil)
-        } else {
-            #if DEBUG
-                print("Session not active")
-            #endif
-        }
-        isUpdateInProgress = false
-    }
 
     /* ###################################################################### */
     /**
@@ -218,22 +196,22 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                     #if DEBUG
                         print("Sync Message Received: \(sync)")
                     #endif
-                    self.updateHandler?(self, ["sync": sync])
+                    DispatchQueue.main.async { self.updateHandler?(self, ["sync": sync]) }
                }
                 
             case "timerControl":
-                guard let operation = inMessage["operation"] as? String,
+                guard let operation = inMessage["timerControl"] as? String,
                       let timerOperation = TimerOperation(rawValue: operation)
                 else {
                     #if DEBUG
-                        print("Unknown Operation Type: \(inMessage["operation"] as? String ?? "ERROR")")
+                        print("Unknown Operation Type: \(inMessage["timerControl"] as? String ?? "ERROR")")
                     #endif
                     break
                 }
                 #if DEBUG
                     print("Operation Message Received: \(timerOperation)")
                 #endif
-                self.updateHandler?(self, ["operation": timerOperation])
+                DispatchQueue.main.async { self.updateHandler?(self, ["timerControl": timerOperation]) }
 
             default:
                 #if DEBUG
@@ -341,27 +319,39 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
             }
             isUpdateInProgress = false
         }
-
-    /* ################################################################## */
-    /**
-     This sends a control message to the phone.
-     - parameter operation: The operation we want.
-    */
-    func sendTimerMessage(operation inOperation: RVS_WatchDelegate.TimerOperation) {
-        #if DEBUG
-            print("Sending timer operation to the phone: \(inOperation.rawValue)")
-        #endif
-        
-        isUpdateInProgress = true
-        if .activated == wcSession.activationState {
-            wcSession.sendMessage(["messageType": "operation", "operation": inOperation.rawValue], replyHandler: nil)
-        } else {
+    
+        /* ################################################################## */
+        /**
+         Called, if the request failed.
+        */
+        func sessionOperationErrorHandler(_ inError: Error) {
             #if DEBUG
-                print("Session not active")
+                print("Error from session: \(inError.localizedDescription)")
             #endif
+            isUpdateInProgress = false
         }
-        isUpdateInProgress = false
-    }
+
+        /* ###################################################################### */
+        /**
+         This sends a "flow control" operation to the phone or the watch.
+         
+         - parameter operation: The operation that we are sending.
+        */
+        func sendTimerControl(operation inOperation: TimerOperation) {
+            #if DEBUG
+                print("Sending timer control operation to the phone: \(inOperation)")
+            #endif
+
+            isUpdateInProgress = true
+            if .activated == wcSession.activationState {
+                wcSession.sendMessage(["messageType": "timerControl", "timerControl": inOperation.rawValue], replyHandler: sessionReplyHandler, errorHandler: sessionOperationErrorHandler)
+            } else {
+                #if DEBUG
+                    print("Session not active")
+                #endif
+            }
+            isUpdateInProgress = false
+        }
     #endif
     
     /* ################################################################## */

@@ -87,7 +87,7 @@ struct Rift_Valley_Timer_Watch_App: App {
                 }
                 .onChange(of: _timerIsRunning) {
                     if _timerIsRunning {
-                        _watchDelegate?.sendTimerMessage(operation: .start)
+                        _watchDelegate?.sendTimerControl(operation: .start)
                     }
                 }
         }
@@ -122,7 +122,7 @@ extension Rift_Valley_Timer_Watch_App {
                 print("Received Sync: \(sync)")
             #endif
             _runningSync = sync
-        } else if let operationTemp = inApplicationContext["operation"] as? RVS_WatchDelegate.TimerOperation {
+        } else if let operationTemp = inApplicationContext["timerControl"] as? RVS_WatchDelegate.TimerOperation {
             #if DEBUG
                 print("Received Operation: \(operation.rawValue)")
             #endif
