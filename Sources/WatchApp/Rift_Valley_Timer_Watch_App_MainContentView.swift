@@ -61,11 +61,9 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
                                                                     runningTimerDisplay: $runningTimerDisplay
                 )
             } else if runningTimerDisplay.isEmpty,
-                      !timerIsRunning,
                       1 == timers.count {
                 Rift_Valley_Timer_Watch_App_TimerContentView(timer: timers[0], selectedTimerIndex: $selectedTimerIndex, timerIsRunning: $timerIsRunning)
-            } else if runningTimerDisplay.isEmpty,
-                      !timerIsRunning {
+            } else if runningTimerDisplay.isEmpty {
                 NavigationStack {
                     List(timers, id: \.id) { inTimer in
                         let startTimeString = inTimer.startTimeAsString

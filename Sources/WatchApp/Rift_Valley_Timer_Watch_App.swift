@@ -149,9 +149,10 @@ struct Rift_Valley_Timer_Watch_App: App {
                 }
                 .onChange(of: _timerIsRunning) {
                     _timerState = .stopped
-                    _runningTimerDisplay = ""
                     if _timerIsRunning {
                         _watchDelegate?.sendTimerControl(operation: .start)
+                        _runningSync = 0
+                        _runningTimerDisplay = " "
                     }
                 }
         }

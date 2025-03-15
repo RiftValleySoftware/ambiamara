@@ -210,7 +210,9 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 #if DEBUG
                     print("Operation Message Received: \(timerOperation)")
                 #endif
-                DispatchQueue.main.async { self.updateHandler?(self, ["timerControl": timerOperation]) }
+                DispatchQueue.main.async {
+                    self.updateHandler?(self, ["timerControl": timerOperation])
+                }
 
             default:
                 #if DEBUG
