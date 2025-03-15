@@ -133,15 +133,8 @@ struct Rift_Valley_Timer_Watch_App: App {
                     }
                 }
                 .onChange(of: _runningSync) {
-                    if let runningSync = _runningSync {
-                        let totalTime = Int(TimeInterval(RVS_AmbiaMara_Settings().timers[_selectedTimerIndex].startTime) - TimeInterval(runningSync))
-                        let warnThreshold = _timers[_selectedTimerIndex].warnTime
-                        let finalThreshold = _timers[_selectedTimerIndex].finalTime
-                        _timerState = (finalThreshold >= totalTime) ? .final : ((warnThreshold >= totalTime) ? .warning : .started)
-                        let hour = totalTime / 3600
-                        let minute = totalTime / 60 - (hour * 60)
-                        let second = totalTime - ((hour * 3600) + (minute * 60))
-                        _runningTimerDisplay = RVS_AmbiaMara_Settings.optimizedTimeString(hours: hour, minutes: minute, seconds: second)
+                    if nil != _runningSync {
+                        setDisplayString()
                     } else {
                         _timerState = .stopped
                         _runningTimerDisplay = ""
@@ -152,10 +145,23 @@ struct Rift_Valley_Timer_Watch_App: App {
                     if _timerIsRunning {
                         _watchDelegate?.sendTimerControl(operation: .start)
                         _runningSync = 0
-                        _runningTimerDisplay = " "
+                        setDisplayString()
                     }
                 }
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     This builds a display string from the current timer state.
+     */
+    func setDisplayString() {
+        let runningSync = TimeInterval(_runningSync ?? 0)
+        let totalTime = Int(TimeInterval(RVS_AmbiaMara_Settings().timers[_selectedTimerIndex].startTime) - runningSync)
+        let hour = totalTime / 3600
+        let minute = totalTime / 60 - (hour * 60)
+        let second = totalTime - ((hour * 3600) + (minute * 60))
+        _runningTimerDisplay = RVS_AmbiaMara_Settings.optimizedTimeString(hours: hour, minutes: minute, seconds: second)
     }
 }
 
