@@ -40,11 +40,19 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerContentView: View {
     */
     var body: some View {
         let textColor = (.paused == timerState) ? "Paused-Color" : ((.final == timerState) ? "Final-Color" : ((.warning == timerState) ? "Warn-Color" : "Start-Color"))
-        Text(runningTimerDisplay)
-            .frame(maxWidth: .infinity, alignment: .center)
-            .minimumScaleFactor(0.5)
-            .lineLimit(1)
-            .font(Font.custom("Let's go Digital Regular", size: 60))
-            .foregroundColor(Color(textColor))
+        if .alarming == timerState {
+            Image(systemName: "bell.and.waves.left.and.right.fill")
+                .resizable()
+                .scaledToFit()
+                .foregroundColor(Color("Final-Color"))
+                .frame(width: 100, height: 100)
+        } else {
+            Text(runningTimerDisplay)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .minimumScaleFactor(0.5)
+                .lineLimit(1)
+                .font(Font.custom("Let's go Digital Regular", size: 60))
+                .foregroundColor(Color(textColor))
+        }
     }
 }

@@ -176,41 +176,49 @@ extension Rift_Valley_Timer_Watch_App {
      This responds to updates from the Watch delegate.
      
      - parameter inWatchDelegate: The delegate handler calling this.
-     - parameter inApplicationContext: The application context from the Watch.
+     - parameter inContext: The context from the Watch.
      */
-    func watchUpdateHandler(_ inWatchDelegate: RVS_WatchDelegate?, _ inApplicationContext: [String: Any]) {
+    func watchUpdateHandler(_ inWatchDelegate: RVS_WatchDelegate?, _ inContext: [String: Any]) {
         #if DEBUG
-            print("Received WatchData: \(inApplicationContext.debugDescription)")
+            print("Received WatchData: \(inContext.debugDescription)")
         #endif
-        
-        var operation = RVS_WatchDelegate.TimerOperation.stop
         
         defer { (_timers, _selectedTimerIndex) = (RVS_AmbiaMara_Settings().timers, RVS_AmbiaMara_Settings().currentTimerIndex) }
 
-        if let sync = inApplicationContext["sync"] as? Int {
+        if let sync = inContext["sync"] as? Int {
             #if DEBUG
                 print("Received Sync: \(sync)")
             #endif
             _runningSync = sync
             _timerIsRunning = false
-        } else if let operationTemp = inApplicationContext["timerControl"] as? RVS_WatchDelegate.TimerOperation {
+            if _runningSync == RVS_AmbiaMara_Settings().timers[_selectedTimerIndex].startTime {
+                _timerState = .alarming
+            }
+        } else if let operation = inContext["timerControl"] as? RVS_WatchDelegate.TimerOperation {
             #if DEBUG
                 print("Received Operation: \(operation.rawValue)")
             #endif
-            operation = operationTemp
             switch operation {
-            case .start:
-                _runningSync = 0
-                fallthrough
-                
-            case .resume:
+            case .resume where .alarming != _timerState:
                 _timerState = .started
                 
-            case .pause:
+            case .pause where .alarming != _timerState:
                 if .stopped == _timerState {
                     _timerIsRunning = true
                     _runningSync = 0
                 }
+                _timerState = .paused
+
+            case .fastForward where .alarming != _timerState:
+                _runningSync = RVS_AmbiaMara_Settings().timers[_selectedTimerIndex].startTime
+                _timerState = .alarming
+
+            case .start:
+                _runningSync = 0
+                _timerState = .started
+
+            case .reset:
+                _runningSync = 0
                 _timerState = .paused
 
             case .stop:

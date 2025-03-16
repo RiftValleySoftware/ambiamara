@@ -1111,6 +1111,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      Stops the timer, by popping the screen.
      */
     func stopTimer() {
+        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.stop)
         DispatchQueue.main.async { [weak self] in
             self?._timer?.invalidate()
             self?._timer = nil
@@ -1120,7 +1121,6 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
             self?._autoHideTimer = nil
             self?._isAlarming = false
             self?._isSoundPlaying = false
-            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.stop)
             self?.navigationController?.popViewController(animated: true)
         }
     }
@@ -1294,6 +1294,11 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
                 _feedbackGenerator?.impactOccurred(intensity: CGFloat(UIImpactFeedbackGenerator.FeedbackStyle.heavy.rawValue))
             }
         }
+        
+        if _isAlarming {
+            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendSync(timerTickTime: RVS_AmbiaMara_Settings().currentTimer.startTime)
+        }
+        
         flasherView?.backgroundColor = UIColor(named: "Final-Color")
         UIView.animate(withDuration: Self._flashDurationInSeconds,
                        animations: { [weak self] in
