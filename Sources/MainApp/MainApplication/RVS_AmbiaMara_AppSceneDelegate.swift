@@ -87,7 +87,17 @@ extension RVS_AmbiaMara_AppSceneDelegate {
     func sendSync(timerTickTime inTimerTickTime: Int) {
         _watchDelegate?.sendSync(timerTickTime: inTimerTickTime)
     }
-    
+
+    /* ################################################################## */
+    /**
+     This sends a sync pulse to the phone.
+     
+     - parameter: timerTickTime: The number of seconds into the countdown.
+    */
+    func sendTimerControl(_ inOperation: RVS_WatchDelegate.TimerOperation) {
+        _watchDelegate?.sendTimerControl(operation: inOperation)
+    }
+
     /* ################################################################## */
     /**
      This is called to send the current state of the prefs to the Watch.

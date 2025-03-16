@@ -39,7 +39,7 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerContentView: View {
     /**
     */
     var body: some View {
-        let textColor = (.final == timerState) ? "Final-Color" : ((.warning == timerState) ? "Warn-Color" : "Start-Color")
+        let textColor = (.paused == timerState) ? "Paused-Color" : ((.final == timerState) ? "Final-Color" : ((.warning == timerState) ? "Warn-Color" : "Start-Color"))
         Text(runningTimerDisplay)
             .frame(maxWidth: .infinity, alignment: .center)
             .minimumScaleFactor(0.5)

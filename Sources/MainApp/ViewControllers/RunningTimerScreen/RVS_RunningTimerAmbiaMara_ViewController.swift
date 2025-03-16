@@ -1040,6 +1040,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
             timer.isRunning = true
             setTimerDisplay()
             setUpToolbar()
+            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.start)
         }
     }
 
@@ -1056,17 +1057,19 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         stopSounds()
         setTimerDisplay()
         setUpToolbar()
+        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.reset)
     }
 
     /* ############################################################## */
     /**
-     This sets the timer to scratch, but does not start it.
+     This sets the timer to the end, and starts the alarm.
      */
     func finishTimer() {
         _startingTime = nil
         _tickTimeInSeconds = RVS_AmbiaMara_Settings().currentTimer.startTime
         _isAlarming = true
         setUpToolbar()
+        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.fastForward)
     }
 
     /* ############################################################## */
@@ -1079,6 +1082,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         stopSounds()
         setTimerDisplay()
         setUpToolbar()
+        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.pause)
     }
     
     /* ############################################################## */
@@ -1096,6 +1100,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         _startingTime = Date().addingTimeInterval(-TimeInterval(_tickTimeInSeconds))
         _tickTimeInSeconds = 0 // Doing this, ensures that the next tick will update.
         _timer?.isRunning = true
+        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.resume)
         if let timer = _timer { // Force an immediate update.
             basicGCDTimerCallback(timer)
         }
@@ -1115,6 +1120,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
             self?._autoHideTimer = nil
             self?._isAlarming = false
             self?._isSoundPlaying = false
+            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.stop)
             self?.navigationController?.popViewController(animated: true)
         }
     }

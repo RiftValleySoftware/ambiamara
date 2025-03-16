@@ -223,6 +223,58 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         }
     }
 
+    /* ###################################################################### */
+    /**
+     Upon receiving a reply, we execute our standard context delegate function with the data.
+     - parameter inReply: The context data.
+    */
+    func sessionReplyHandler(_ inReply: [String: Any]) {
+        #if DEBUG
+            print("Reply from peer: \(inReply)")
+        #endif
+        retries = 0
+        isUpdateInProgress = false
+        session(wcSession, didReceiveApplicationContext: inReply)
+    }
+    
+    /* ###################################################################### */
+    /**
+     Called, if the request failed.
+    */
+    func sessionOperationErrorHandler(_ inError: Error) {
+        #if DEBUG
+            print("Error from session: \(inError.localizedDescription)")
+        #endif
+        isUpdateInProgress = false
+    }
+
+    /* ########################################################################## */
+    /**
+     This sends a "flow control" operation to the phone or the watch.
+     
+     - parameter operation: The operation that we are sending.
+    */
+    func sendTimerControl(operation inOperation: TimerOperation) {
+        #if DEBUG
+            #if os(iOS)
+                print("Sending timer control operation to the watch: \(inOperation)")
+            #else
+                print("Sending timer control operation to the phone: \(inOperation)")
+            #endif
+        #endif
+
+        isUpdateInProgress = true
+        if .activated == wcSession.activationState {
+            /// > NOTE: Ignore the examples that show a nil replyHandler value. You *MUST* supply a reply handler, or the call fails.
+            wcSession.sendMessage(["messageType": "timerControl", "timerControl": inOperation.rawValue], replyHandler: sessionReplyHandler, errorHandler: sessionOperationErrorHandler)
+        } else {
+            #if DEBUG
+                print("Session not active")
+            #endif
+        }
+        isUpdateInProgress = false
+    }
+
     #if os(iOS)    // Only necessary for iOS
         /* ################################################################## */
         /**
@@ -247,20 +299,6 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
             isUpdateInProgress = false
         }
     #else
-        /* ################################################################## */
-        /**
-         Upon receiving a reply, we execute our standard context delegate function with the data.
-         - parameter inReply: The context data.
-        */
-        func sessionReplyHandler(_ inReply: [String: Any]) {
-            #if DEBUG
-                print("Reply from phone: \(inReply)")
-            #endif
-            retries = 0
-            isUpdateInProgress = false
-            session(wcSession, didReceiveApplicationContext: inReply)
-        }
-        
         /* ################################################################## */
         /**
          Called, if the request failed.
@@ -305,40 +343,6 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 wcSession.sendMessage(["messageType": "requestContext"],
                                       replyHandler: sessionReplyHandler,
                                       errorHandler: sessionErrorHandler)
-            } else {
-                #if DEBUG
-                    print("Session not active")
-                #endif
-            }
-            isUpdateInProgress = false
-        }
-    
-        /* ################################################################## */
-        /**
-         Called, if the request failed.
-        */
-        func sessionOperationErrorHandler(_ inError: Error) {
-            #if DEBUG
-                print("Error from session: \(inError.localizedDescription)")
-            #endif
-            isUpdateInProgress = false
-        }
-
-        /* ###################################################################### */
-        /**
-         This sends a "flow control" operation to the phone or the watch.
-         
-         - parameter operation: The operation that we are sending.
-        */
-        func sendTimerControl(operation inOperation: TimerOperation) {
-            #if DEBUG
-                print("Sending timer control operation to the phone: \(inOperation)")
-            #endif
-
-            isUpdateInProgress = true
-            if .activated == wcSession.activationState {
-                /// > NOTE: Ignore the examples that show a nil replyHandler value. You *MUST* supply a reply handler, or the call fails.
-                wcSession.sendMessage(["messageType": "timerControl", "timerControl": inOperation.rawValue], replyHandler: sessionReplyHandler, errorHandler: sessionOperationErrorHandler)
             } else {
                 #if DEBUG
                     print("Session not active")

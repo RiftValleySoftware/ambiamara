@@ -141,11 +141,13 @@ struct Rift_Valley_Timer_Watch_App: App {
                     }
                 }
                 .onChange(of: _timerIsRunning) {
-                    _timerState = .stopped
-                    if _timerIsRunning {
+                    if _timerIsRunning,
+                       .paused != _timerState {
+                        _timerState = .started
                         _watchDelegate?.sendTimerControl(operation: .start)
                         _runningSync = 0
-                        setDisplayString()
+                    } else if _timerIsRunning {
+                        _runningSync = 0
                     }
                 }
         }
@@ -196,7 +198,30 @@ extension Rift_Valley_Timer_Watch_App {
                 print("Received Operation: \(operation.rawValue)")
             #endif
             operation = operationTemp
-            _timerIsRunning = (.start == operation) || (.resume == operation)
+            switch operation {
+            case .start:
+                _runningSync = 0
+                fallthrough
+                
+            case .resume:
+                _timerState = .started
+                
+            case .pause:
+                if .stopped == _timerState {
+                    _timerIsRunning = true
+                    _runningSync = 0
+                }
+                _timerState = .paused
+
+            case .stop:
+                _timerState = .stopped
+                _runningTimerDisplay = ""
+                _runningSync = nil
+                
+            default:
+                break
+            }
+
         } else {
             _timerState = .stopped
             _runningTimerDisplay = ""
