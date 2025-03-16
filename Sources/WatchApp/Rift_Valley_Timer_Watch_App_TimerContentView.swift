@@ -83,6 +83,7 @@ struct Rift_Valley_Timer_Watch_App_TimerContentView: View {
                     .resizable()
                     .scaledToFit()
             }
+            .sensoryFeedback(.impact, trigger: timerIsRunning)
         }
         .navigationTitle(Text(String(format: "SLUG-TIMER-FORMAT".localizedVariant, timer.index + 1)))
     }

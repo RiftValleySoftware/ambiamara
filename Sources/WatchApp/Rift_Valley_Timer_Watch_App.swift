@@ -140,6 +140,14 @@ struct Rift_Valley_Timer_Watch_App: App {
                         _runningTimerDisplay = ""
                     }
                 }
+                .onChange(of: _timerState) {
+                    if .paused == _timerState {
+                        _watchDelegate?.sendTimerControl(operation: .pause)
+                    }
+                    if .stopped == _timerState {
+                        _watchDelegate?.sendTimerControl(operation: .stop)
+                    }
+                }
                 .onChange(of: _timerIsRunning) {
                     if _timerIsRunning,
                        .paused != _timerState {
@@ -185,7 +193,8 @@ extension Rift_Valley_Timer_Watch_App {
         
         defer { (_timers, _selectedTimerIndex) = (RVS_AmbiaMara_Settings().timers, RVS_AmbiaMara_Settings().currentTimerIndex) }
 
-        if let sync = inContext["sync"] as? Int {
+        if let sync = inContext["sync"] as? Int,
+           .stopped != _timerState {
             #if DEBUG
                 print("Received Sync: \(sync)")
             #endif

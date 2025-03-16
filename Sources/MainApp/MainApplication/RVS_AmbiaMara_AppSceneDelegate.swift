@@ -121,12 +121,24 @@ extension RVS_AmbiaMara_AppSceneDelegate {
      - parameter inApplicationContext: The application context from the Watch.
      */
     func watchUpdateHandler(_ inWatchDelegate: RVS_WatchDelegate?, _ inApplicationContext: [String: Any]) {
-        if let operation = inApplicationContext["timerControl"] as? RVS_WatchDelegate.TimerOperation {
+        if let operation = inApplicationContext["timerControl"] as? RVS_WatchDelegate.TimerOperation,
+           let viewControllers = navigationController?.viewControllers,
+           !viewControllers.isEmpty {
             #if DEBUG
                 print("Received \(operation.rawValue) operation from watch.")
             #endif
-            if .start == operation {
-                (navigationController?.viewControllers.first as? RVS_SetTimerWrapper)?.startTimer(true)
+            switch operation {
+            case .start:
+                (viewControllers.first as? RVS_SetTimerWrapper)?.startTimer(true)
+
+            case .stop:
+                (viewControllers.last as? RVS_RunningTimerAmbiaMara_ViewController)?.stopTimer()
+
+            case .pause:
+                (viewControllers.last as? RVS_RunningTimerAmbiaMara_ViewController)?.pauseTimer()
+
+            default:
+                break
             }
         } else {
             RVS_SetTimerWrapper.pageSelectorWrapperInstance?.selectPageWithIndex(RVS_AmbiaMara_Settings().currentTimerIndex)
