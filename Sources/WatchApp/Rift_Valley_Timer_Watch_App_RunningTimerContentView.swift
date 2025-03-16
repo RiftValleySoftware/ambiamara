@@ -58,9 +58,10 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerContentView: View {
         }
         .gesture(
             TapGesture()
-                .onEnded { timerState = .paused }
-                .simultaneously(with: TapGesture(count: 2)
-                    .onEnded { timerState = .stopped }
+                .onEnded { timerState = (.paused == timerState ? .started : .paused) }
+                .simultaneously(with:
+                                    TapGesture(count: 2)
+                                        .onEnded { timerState = .stopped }
                 )
             )
 

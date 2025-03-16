@@ -1090,6 +1090,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      Continues the timer, setting the counter to the last time.
      */
     func continueTimer() {
+        guard !(_timer?.isRunning ?? false) else { return }
         showToolbar()
         if nil == _autoHideTimer,
            oneTimeRun {
