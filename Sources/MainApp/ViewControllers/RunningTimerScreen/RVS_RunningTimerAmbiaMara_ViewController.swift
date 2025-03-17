@@ -621,6 +621,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      Called when the hierarchy is loaded.
      */
     override func viewDidLoad() {
+        _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._clockPeriodInSeconds, delegate: self, leewayInMilliseconds: Self._leewayInMilliseconds, onlyFireOnce: false)
+        _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDurationInSeconds, delegate: self, leewayInMilliseconds: Self._leewayInMilliseconds * 2, onlyFireOnce: false)
         super.viewDidLoad()
         overrideUserInterfaceStyle = .dark
 
@@ -642,8 +644,6 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
             doubleTapGestureRecognizer.require(toFail: longPressTimeSetGestureRecognizer)
             tapGestureRecognizer.require(toFail: doubleTapGestureRecognizer)
         }
-        _timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._clockPeriodInSeconds, delegate: self, leewayInMilliseconds: Self._leewayInMilliseconds, onlyFireOnce: false)
-        _alarmTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._alarmDurationInSeconds, delegate: self, leewayInMilliseconds: Self._leewayInMilliseconds * 2, onlyFireOnce: false)
     }
     
     /* ############################################################## */

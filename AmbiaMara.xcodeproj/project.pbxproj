@@ -17,13 +17,11 @@
 		D46BC2162D86122D0094B052 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D46BC2152D86122D0094B052 /* Assets.xcassets */; };
 		D46BC2182D8612DF0094B052 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D46BC2172D8612DF0094B052 /* Assets.xcassets */; };
 		D474E5DE282B26E900102B9B /* Instructions.txt in Resources */ = {isa = PBXBuildFile; fileRef = D474E5DC282B26E900102B9B /* Instructions.txt */; };
-		D475B55B2D83132D00A9A95B /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D475B55A2D83132D00A9A95B /* RVS_BasicGCDTimer */; };
 		D47C029F2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C029E2819CA6500D359F5 /* RVS_AmbiaMara_AppSceneDelegate.swift */; };
 		D47C02A32819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C02A22819CA6500D359F5 /* RVS_SetTimerAmbiaMara_ViewController.swift */; };
 		D47C02A62819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A42819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard */; };
 		D47C02AB2819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A92819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard */; };
 		D486C829281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */; };
-		D491F1362846A42A00759031 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D491F1352846A42A00759031 /* RVS_BasicGCDTimer */; };
 		D4A932222D64E9CB0028556E /* Rift_Valley_Timer_Watch_App_MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A9321F2D64E9CB0028556E /* Rift_Valley_Timer_Watch_App_MainContentView.swift */; };
 		D4A932232D64E9CB0028556E /* Rift_Valley_Timer_Watch_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A932202D64E9CB0028556E /* Rift_Valley_Timer_Watch_App.swift */; };
 		D4A9322A2D64E9CB0028556E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4A932262D64E9CB0028556E /* Assets.xcassets */; };
@@ -53,6 +51,7 @@
 		D4CE51B8281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B6281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift */; };
 		D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */; };
 		D4CE51BB281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51BA281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift */; };
+		D4D193BA2D883843008DA06F /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4D193B92D883843008DA06F /* RVS_BasicGCDTimer */; };
 		D4DD60F92D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DD60F82D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerContentView.swift */; };
 		D4E6ECB12D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */; };
 		D4E6ECB32D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4E6ECB22D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox */; };
@@ -238,7 +237,7 @@
 			files = (
 				D4FEE5BC2846B30700EBED74 /* RVS_RetroLEDDisplay in Frameworks */,
 				D4079934287731860058EAF4 /* RVS_UIKit_Toolbox in Frameworks */,
-				D491F1362846A42A00759031 /* RVS_BasicGCDTimer in Frameworks */,
+				D4D193BA2D883843008DA06F /* RVS_BasicGCDTimer in Frameworks */,
 				D4CD2E7F284697E100400AB0 /* RVS_Generic_Swift_Toolbox in Frameworks */,
 				D40A69392846A05D0010A58E /* RVS_Persistent_Prefs in Frameworks */,
 			);
@@ -249,7 +248,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4E6ECB12D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */,
-				D475B55B2D83132D00A9A95B /* RVS_BasicGCDTimer in Frameworks */,
 				D4F357312D6F6271005A815A /* RVS_Persistent_Prefs in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,9 +502,9 @@
 			packageProductDependencies = (
 				D4CD2E7E284697E100400AB0 /* RVS_Generic_Swift_Toolbox */,
 				D40A69382846A05D0010A58E /* RVS_Persistent_Prefs */,
-				D491F1352846A42A00759031 /* RVS_BasicGCDTimer */,
 				D4FEE5BB2846B30700EBED74 /* RVS_RetroLEDDisplay */,
 				D4079933287731860058EAF4 /* RVS_UIKit_Toolbox */,
+				D4D193B92D883843008DA06F /* RVS_BasicGCDTimer */,
 			);
 			productName = AmbiaMara;
 			productReference = D47C029B2819CA6500D359F5 /* Rift Valley Timer.app */;
@@ -531,7 +529,6 @@
 			packageProductDependencies = (
 				D4F357302D6F6271005A815A /* RVS_Persistent_Prefs */,
 				D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */,
-				D475B55A2D83132D00A9A95B /* RVS_BasicGCDTimer */,
 			);
 			productName = "Rift Valley Timer Watch Watch App";
 			productReference = D4F83C9D2D63DB10009C4646 /* Rift Valley Timer WatchApp.app */;
@@ -596,7 +593,6 @@
 				D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
 				D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */,
 				D4C4B7152819D3D300E22ECA /* XCRemoteSwiftPackageReference "RVS_RetroLEDDisplay" */,
-				D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */,
 				D4079932287731860058EAF4 /* XCRemoteSwiftPackageReference "RVS_UIKit_Toolbox" */,
 			);
 			productRefGroup = D47C029C2819CA6500D359F5 /* Products */;
@@ -1262,14 +1258,6 @@
 				minimumVersion = 1.4.5;
 			};
 		};
-		D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RiftValleySoftware/RVS_BasicGCDTimer.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.7.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1283,20 +1271,14 @@
 			package = D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
 			productName = RVS_Persistent_Prefs;
 		};
-		D475B55A2D83132D00A9A95B /* RVS_BasicGCDTimer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
-			productName = RVS_BasicGCDTimer;
-		};
-		D491F1352846A42A00759031 /* RVS_BasicGCDTimer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4C4B7182819D40500E22ECA /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
-			productName = RVS_BasicGCDTimer;
-		};
 		D4CD2E7E284697E100400AB0 /* RVS_Generic_Swift_Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
 			productName = RVS_Generic_Swift_Toolbox;
+		};
+		D4D193B92D883843008DA06F /* RVS_BasicGCDTimer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RVS_BasicGCDTimer;
 		};
 		D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
