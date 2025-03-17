@@ -123,7 +123,7 @@ struct Rift_Valley_Timer_Watch_App: App {
                                                         runningTimerDisplay: $_runningTimerDisplay
             )
             .onAppear {
-                _watchDelegate = RVS_WatchDelegate(updateHandler: watchUpdateHandler)
+                _watchDelegate = _watchDelegate ?? RVS_WatchDelegate(updateHandler: watchUpdateHandler)
             }
             .onChange(of: _selectedTimerIndex) {
                 RVS_AmbiaMara_Settings().flush()
@@ -159,6 +159,7 @@ struct Rift_Valley_Timer_Watch_App: App {
                     _watchDelegate?.sendTimerControl(operation: .start)
                     _runningSync = 0
                 } else if _timerIsRunning {
+                    _timerState = .stopped
                     _runningSync = 0
                 }
             }
@@ -212,17 +213,17 @@ extension Rift_Valley_Timer_Watch_App {
                 print("Received Operation: \(operation.rawValue)")
             #endif
             switch operation {
-            case .resume where .alarming != _timerState:
+            case .resume where .paused == _timerState:
                 _timerState = .started
                 
-            case .pause where .alarming != _timerState:
+            case .pause where .alarming != _timerState && .stopped != _timerState:
                 if .stopped == _timerState {
                     _timerIsRunning = true
                     _runningSync = 0
                 }
                 _timerState = .paused
 
-            case .fastForward where .alarming != _timerState:
+            case .fastForward where .alarming != _timerState && .stopped != _timerState:
                 _runningSync = RVS_AmbiaMara_Settings().timers[_selectedTimerIndex].startTime
                 _timerState = .alarming
 

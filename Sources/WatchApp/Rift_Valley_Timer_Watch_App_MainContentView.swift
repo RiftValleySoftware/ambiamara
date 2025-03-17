@@ -57,7 +57,8 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
      The main display body.
     */
     var body: some View {
-        if !runningTimerDisplay.isEmpty {
+        if !runningTimerDisplay.isEmpty,
+           .stopped != timerState {
             Rift_Valley_Timer_Watch_App_RunningTimerContentView(timer: timers[selectedTimerIndex],
                                                                 timerState: $timerState,
                                                                 runningTimerDisplay: $runningTimerDisplay
