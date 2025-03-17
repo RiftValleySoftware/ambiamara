@@ -11,17 +11,12 @@
 import SwiftUI
 
 /* ###################################################################################################################################### */
-// MARK: - Main Watch Content View -
+// MARK: - List of Timers View -
 /* ###################################################################################################################################### */
 /**
  This displays a navigation list of timers (may only be one, in which case it automatically opens to that timer).
  */
-struct Rift_Valley_Timer_Watch_App_MainContentView: View {
-    /* ################################################################## */
-    /**
-    */
-    @State private var _selectedTimer: String?
-    
+struct Rift_Valley_Timer_Watch_App_TimerList: View {
     /* ################################################################## */
     /**
      These are the timers the phone sent us.
@@ -39,12 +34,6 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
      This is set to true, if the timer has started.
     */
     @Binding var timerIsRunning: Bool
-
-    /* ############################################################## */
-    /**
-     The current state of the timer.
-     */
-    @Binding var timerState: Rift_Valley_Timer_Watch_App.TimerState
     
     /* ################################################################## */
     /**
@@ -54,20 +43,28 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
 
     /* ################################################################## */
     /**
-     The main display body.
+     This displays a navstack, if there are more than one timer, or it directly opens the timer screen, if just one.
+     
+     If the timer is running, it goes straight to that screen.
     */
     var body: some View {
-        if (0..<timers.count).contains(selectedTimerIndex) {
-            if !runningTimerDisplay.isEmpty {
-                Rift_Valley_Timer_Watch_App_RunningTimerContentView(timer: timers[selectedTimerIndex],
-                                                                    timerState: $timerState,
-                                                                    runningTimerDisplay: $runningTimerDisplay
-                )
-            } else if runningTimerDisplay.isEmpty {
-                Rift_Valley_Timer_Watch_App_TimerList(timers: $timers, selectedTimerIndex: $selectedTimerIndex, timerIsRunning: $timerIsRunning, runningTimerDisplay: $runningTimerDisplay)
-            } else {
-                ProgressView()
+        NavigationStack {
+            List(timers, id: \.id) { inTimer in
+                let startTimeString = inTimer.startTimeAsString
+                NavigationLink {
+                    Rift_Valley_Timer_Watch_App_TimerContentView(timer: inTimer, selectedTimerIndex: $selectedTimerIndex, timerIsRunning: $timerIsRunning)
+                } label: {
+                    Text(startTimeString)
+                        .foregroundColor(Color(inTimer.index == selectedTimerIndex ? "Start-Color" : "Paused-Color"))
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
+                        .font(Font.custom("Let's go Digital Regular", size: 60))
+                        .padding(0.1)
+                }
+                .padding(0.1)
             }
+            .navigationTitle("SLUG-TIMER-LIST-TITLE")
         }
     }
 }
