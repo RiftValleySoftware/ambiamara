@@ -122,45 +122,46 @@ struct Rift_Valley_Timer_Watch_App: App {
                                                         timerState: $_timerState,
                                                         runningTimerDisplay: $_runningTimerDisplay
             )
-                .onAppear {
-                    _watchDelegate = RVS_WatchDelegate(updateHandler: watchUpdateHandler)
+            .onAppear {
+                _watchDelegate = RVS_WatchDelegate(updateHandler: watchUpdateHandler)
+            }
+            .onChange(of: _selectedTimerIndex) {
+                RVS_AmbiaMara_Settings().flush()
+                if _selectedTimerIndex != RVS_AmbiaMara_Settings().currentTimerIndex {
+                    RVS_AmbiaMara_Settings().currentTimerIndex = _selectedTimerIndex
+                    _watchDelegate?.sendApplicationContext()
                 }
-                .onChange(of: _selectedTimerIndex) {
-                    RVS_AmbiaMara_Settings().flush()
-                    if _selectedTimerIndex != RVS_AmbiaMara_Settings().currentTimerIndex {
-                        RVS_AmbiaMara_Settings().currentTimerIndex = _selectedTimerIndex
-                        _watchDelegate?.sendApplicationContext()
-                    }
+            }
+            .onChange(of: _runningSync) {
+                _timerIsRunning = false
+                if nil != _runningSync {
+                    setDisplayString()
+                } else {
+                    _runningTimerDisplay = ""
+                    _timerState = .stopped
                 }
-                .onChange(of: _runningSync) {
-                    if nil != _runningSync {
-                        setDisplayString()
-                    } else {
-                        _timerState = .stopped
-                        _runningTimerDisplay = ""
-                    }
+            }
+            .onChange(of: _timerState) {
+                if .paused == _timerState {
+                    _watchDelegate?.sendTimerControl(operation: .pause)
                 }
-                .onChange(of: _timerState) {
-                    if .paused == _timerState {
-                        _watchDelegate?.sendTimerControl(operation: .pause)
-                    }
-                    if .stopped == _timerState {
-                        _watchDelegate?.sendTimerControl(operation: .stop)
-                    }
-                    if .started == _timerState {
-                        _watchDelegate?.sendTimerControl(operation: .resume)
-                    }
+                if .stopped == _timerState {
+                    _watchDelegate?.sendTimerControl(operation: .stop)
                 }
-                .onChange(of: _timerIsRunning) {
-                    if _timerIsRunning,
-                       .paused != _timerState {
-                        _timerState = .started
-                        _watchDelegate?.sendTimerControl(operation: .start)
-                        _runningSync = 0
-                    } else if _timerIsRunning {
-                        _runningSync = 0
-                    }
+                if .started == _timerState {
+                    _watchDelegate?.sendTimerControl(operation: .resume)
                 }
+            }
+            .onChange(of: _timerIsRunning) {
+                if _timerIsRunning,
+                   .paused != _timerState {
+                    _timerState = .started
+                    _watchDelegate?.sendTimerControl(operation: .start)
+                    _runningSync = 0
+                } else if _timerIsRunning {
+                    _runningSync = 0
+                }
+            }
         }
     }
     
@@ -202,10 +203,10 @@ extension Rift_Valley_Timer_Watch_App {
                 print("Received Sync: \(sync)")
             #endif
             _runningSync = sync
-            _timerIsRunning = false
             if _runningSync == RVS_AmbiaMara_Settings().timers[_selectedTimerIndex].startTime {
                 _timerState = .alarming
             }
+            _timerIsRunning = false
         } else if let operation = inContext["timerControl"] as? RVS_WatchDelegate.TimerOperation {
             #if DEBUG
                 print("Received Operation: \(operation.rawValue)")
@@ -234,6 +235,7 @@ extension Rift_Valley_Timer_Watch_App {
                 _timerState = .paused
 
             case .stop:
+                _timerIsRunning = false
                 _timerState = .stopped
                 _runningTimerDisplay = ""
                 _runningSync = nil

@@ -57,17 +57,16 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
      The main display body.
     */
     var body: some View {
-        if (0..<timers.count).contains(selectedTimerIndex) {
-            if !runningTimerDisplay.isEmpty {
-                Rift_Valley_Timer_Watch_App_RunningTimerContentView(timer: timers[selectedTimerIndex],
-                                                                    timerState: $timerState,
-                                                                    runningTimerDisplay: $runningTimerDisplay
-                )
-            } else if runningTimerDisplay.isEmpty {
-                Rift_Valley_Timer_Watch_App_TimerList(timers: $timers, selectedTimerIndex: $selectedTimerIndex, timerIsRunning: $timerIsRunning, runningTimerDisplay: $runningTimerDisplay)
-            } else {
-                ProgressView()
-            }
+        if !runningTimerDisplay.isEmpty {
+            Rift_Valley_Timer_Watch_App_RunningTimerContentView(timer: timers[selectedTimerIndex],
+                                                                timerState: $timerState,
+                                                                runningTimerDisplay: $runningTimerDisplay
+            )
+        } else if runningTimerDisplay.isEmpty,
+                  .stopped == timerState {
+            Rift_Valley_Timer_Watch_App_TimerList(timers: $timers, selectedTimerIndex: $selectedTimerIndex, timerIsRunning: $timerIsRunning, runningTimerDisplay: $runningTimerDisplay)
+        } else {
+            ProgressView()
         }
     }
 }
