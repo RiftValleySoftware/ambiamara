@@ -94,6 +94,12 @@ struct Rift_Valley_Timer_Watch_App: App {
 
     /* ################################################################## */
     /**
+     This is set to true, if we want to show the timer list, as opposed to the selected timer screen. If false, the screen representing the _selectedTimerIndex is focused.
+    */
+    @State private var _showTimerList: Bool = true
+
+    /* ################################################################## */
+    /**
      This is set to true, if the timer has started.
     */
     @State private var _timerIsRunning: Bool = false
@@ -112,11 +118,19 @@ struct Rift_Valley_Timer_Watch_App: App {
 
     /* ################################################################## */
     /**
+     This forces the display to reload.
+    */
+    @State private var _reloadDisplay: Bool = false
+
+    /* ################################################################## */
+    /**
      This is basically just a wrapper for the screens.
      */
     var body: some Scene {
         WindowGroup {
-            Rift_Valley_Timer_Watch_App_MainContentView(timers: $_timers,
+            Rift_Valley_Timer_Watch_App_MainContentView(reloadDisplay: $_reloadDisplay,
+                                                        showTimerList: $_showTimerList,
+                                                        timers: $_timers,
                                                         selectedTimerIndex: $_selectedTimerIndex,
                                                         timerIsRunning: $_timerIsRunning,
                                                         timerState: $_timerState,
@@ -246,9 +260,14 @@ extension Rift_Valley_Timer_Watch_App {
             }
 
         } else {
-            _timerState = .stopped
-            _runningTimerDisplay = ""
-            _runningSync = nil
+            (_timers,
+            _selectedTimerIndex,
+            _timerState,
+            _showTimerList,
+            _runningTimerDisplay,
+            _runningSync,
+            _reloadDisplay) =
+            (RVS_AmbiaMara_Settings().timers, RVS_AmbiaMara_Settings().currentTimerIndex, .stopped, false, "", nil, true)
         }
     }
 }

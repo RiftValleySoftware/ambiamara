@@ -16,12 +16,18 @@ import RVS_Generic_Swift_Toolbox
 /* ###################################################################################################################################### */
 /**
  */
-struct Rift_Valley_Timer_Watch_App_TimerContentView: View {
+struct Rift_Valley_Timer_Watch_App_IndividualTimerView: View {
     /* ################################################################## */
     /**
      This is the timer instance, associated with this screen.
     */
     @State var timer: RVS_AmbiaMara_Settings.TimerSettings
+
+    /* ################################################################## */
+    /**
+     This is set to true, if we want to show the timer list, as opposed to the selected timer screen.
+    */
+    @Binding var showTimerList: Bool
 
     /* ################################################################## */
     /**
@@ -42,13 +48,24 @@ struct Rift_Valley_Timer_Watch_App_TimerContentView: View {
     var body: some View {
         let timeString = timer.startTimeAsString
         VStack {
-            Text(timeString)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .minimumScaleFactor(0.5)
-                .lineLimit(1)
-                .font(Font.custom("Let's go Digital Regular", size: 60))
-                .foregroundColor(Color("Start-Color"))
-                .onAppear { selectedTimerIndex = timer.index }
+            HStack {
+                Button {
+                    showTimerList = true
+                } label: {
+                    Image(systemName: "list.bullet")
+                        .padding(0.1)
+                }
+                .frame(width: 24)
+                .padding(0.1)
+                
+                Text(timeString)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
+                    .font(Font.custom("Let's go Digital Regular", size: 60))
+                    .foregroundColor(Color("Start-Color"))
+                    .onAppear { selectedTimerIndex = timer.index }
+            }
             
             if ((0 < timer.warnTime) && (timer.startTime > timer.warnTime)) || ((0 < timer.finalTime) && (timer.startTime > timer.finalTime)) {
                 HStack {
@@ -85,6 +102,5 @@ struct Rift_Valley_Timer_Watch_App_TimerContentView: View {
             }
             .sensoryFeedback(.impact, trigger: timerIsRunning)
         }
-        .navigationTitle(Text(String(format: "SLUG-TIMER-FORMAT".localizedVariant, timer.index + 1)))
     }
 }

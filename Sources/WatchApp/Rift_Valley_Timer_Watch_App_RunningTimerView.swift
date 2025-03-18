@@ -16,7 +16,7 @@ import RVS_Generic_Swift_Toolbox
 /* ###################################################################################################################################### */
 /**
  */
-struct Rift_Valley_Timer_Watch_App_RunningTimerContentView: View {
+struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
     /* ################################################################## */
     /**
      This is the timer instance, associated with this screen.

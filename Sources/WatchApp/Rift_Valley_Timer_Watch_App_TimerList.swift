@@ -25,6 +25,12 @@ struct Rift_Valley_Timer_Watch_App_TimerList: View {
 
     /* ################################################################## */
     /**
+     This is set to true, if we want to show the timer list, as opposed to the selected timer screen.
+    */
+    @Binding var showTimerList: Bool
+
+    /* ################################################################## */
+    /**
      The 0-based index of the selected timer.
     */
     @Binding var selectedTimerIndex: Int
@@ -48,23 +54,20 @@ struct Rift_Valley_Timer_Watch_App_TimerList: View {
      If the timer is running, it goes straight to that screen.
     */
     var body: some View {
-        NavigationStack {
-            List(timers, id: \.id) { inTimer in
-                let startTimeString = inTimer.startTimeAsString
-                NavigationLink {
-                    Rift_Valley_Timer_Watch_App_TimerContentView(timer: inTimer, selectedTimerIndex: $selectedTimerIndex, timerIsRunning: $timerIsRunning)
-                } label: {
-                    Text(startTimeString)
-                        .foregroundColor(Color(inTimer.index == selectedTimerIndex ? "Start-Color" : "Paused-Color"))
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .minimumScaleFactor(0.5)
-                        .lineLimit(1)
-                        .font(Font.custom("Let's go Digital Regular", size: 60))
-                        .padding(0.1)
-                }
-                .padding(0.1)
+        List(timers, id: \.id) { inTimer in
+            let startTimeString = inTimer.startTimeAsString
+            Button {
+                (selectedTimerIndex, showTimerList) = (inTimer.index, false)
+            } label: {
+                Text(startTimeString)
+                    .foregroundColor(Color(inTimer.index == selectedTimerIndex ? "Start-Color" : "Paused-Color"))
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
+                    .font(Font.custom("Let's go Digital Regular", size: 60))
+                    .padding(0.1)
             }
-            .navigationTitle("SLUG-TIMER-LIST-TITLE")
+            .padding(0.1)
         }
     }
 }
