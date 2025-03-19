@@ -30,38 +30,44 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
     enum TimerOperation: String {
         /* ############################################################## */
         /**
+         Start the timer from the beginning.
          */
         case start
 
         /* ############################################################## */
         /**
+         Stop the timer, and return to the main set timer screen/details screen.
          */
         case stop
 
         /* ############################################################## */
         /**
+         Pause a running timer.
          */
         case pause
 
         /* ############################################################## */
         /**
+         Resume a paused timer.
          */
         case resume
 
         /* ############################################################## */
         /**
+         Go to the end of the timer (alarm).
          */
         case fastForward
 
         /* ############################################################## */
         /**
+         Reset to the beginning, and pause.
          */
         case reset
     }
     
     /* ################################################################## */
     /**
-     This is a callback template for the message/context calls.
+     This is a callback template for the message/context calls. It is always called in the main thread.
      
      - parameter inWatchDelegate: The delegate handler calling this.
      - parameter inApplicationContext: The application context from the Watch.

@@ -28,6 +28,15 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
      The main display body.
     */
     var body: some View {
-        Text("List")
+        switch timerStatus.screen {
+        case .timerList:
+            Text("List")
+        case .timerDetails:
+            Text("Details")
+        case .runningTimer:
+            Text("Running")
+        case .busy:
+            ProgressView()
+        }
     }
 }
