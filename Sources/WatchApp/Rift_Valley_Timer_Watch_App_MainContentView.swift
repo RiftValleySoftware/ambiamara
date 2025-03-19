@@ -19,80 +19,15 @@ import SwiftUI
 struct Rift_Valley_Timer_Watch_App_MainContentView: View {
     /* ################################################################## */
     /**
-     This forces the display to reload.
+     This contains the state for the app.
     */
-    @Binding var reloadDisplay: Bool
-
-    /* ################################################################## */
-    /**
-     This is set to true, if we want to show the timer list, as opposed to the selected timer screen. If false, the screen representing the _selectedTimerIndex is focused.
-    */
-    @Binding var showTimerList: Bool
-
-    /* ################################################################## */
-    /**
-     These are the timers the phone sent us.
-    */
-    @Binding var timers: [RVS_AmbiaMara_Settings.TimerSettings]
-
-    /* ################################################################## */
-    /**
-     The 0-based index of the selected timer.
-    */
-    @Binding var selectedTimerIndex: Int
-
-    /* ################################################################## */
-    /**
-     This is set to true, if the timer has started.
-    */
-    @Binding var timerIsRunning: Bool
-
-    /* ############################################################## */
-    /**
-     The current state of the timer.
-     */
-    @Binding var timerState: Rift_Valley_Timer_Watch_App.TimerState
-    
-    /* ################################################################## */
-    /**
-     If the timer is running, this displays the current countdown time.
-    */
-    @Binding var runningTimerDisplay: String
+    @Binding var timerStatus: Rift_Valley_Timer_Watch_App.TimerStatus
 
     /* ################################################################## */
     /**
      The main display body.
     */
     var body: some View {
-        if (0..<timers.count).contains(selectedTimerIndex) {
-            let selectedTimer = timers[selectedTimerIndex]
-            ZStack {
-                if !runningTimerDisplay.isEmpty,
-                   .started == timerState || .paused == timerState {
-                    Rift_Valley_Timer_Watch_App_RunningTimerView(timer: selectedTimer,
-                                                                 timerState: $timerState,
-                                                                 runningTimerDisplay: $runningTimerDisplay
-                    )
-                } else if .stopped == timerState {
-                    if showTimerList {
-                        Rift_Valley_Timer_Watch_App_TimerList(timers: $timers,
-                                                              showTimerList: $showTimerList,
-                                                              selectedTimerIndex: $selectedTimerIndex,
-                                                              timerIsRunning: $timerIsRunning,
-                                                              runningTimerDisplay: $runningTimerDisplay
-                        )
-                    } else {
-                        Rift_Valley_Timer_Watch_App_IndividualTimerView(timer: selectedTimer,
-                                                                        showTimerList: $showTimerList,
-                                                                        selectedTimerIndex: $selectedTimerIndex,
-                                                                        timerIsRunning: $timerIsRunning
-                        )
-                    }
-                } else {
-                    ProgressView()
-                }
-            }
-            .onAppear { reloadDisplay = false }
-        }
+        Text("List")
     }
 }

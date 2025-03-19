@@ -22,7 +22,7 @@ struct Rift_Valley_Timer_Watch_App: App {
     // MARK: These are the states the timer can be in, at any given time.
     /* ################################################################################################################################## */
     /**
-     This is the main context for the timer Watch app.
+     The app can be in any one of these states.
      */
     enum TimerState: Int {
         /* ############################################################## */
@@ -62,6 +62,162 @@ struct Rift_Valley_Timer_Watch_App: App {
         case alarming
     }
     
+    /* ################################################################################################################################## */
+    // MARK: The display screen to be shown.
+    /* ################################################################################################################################## */
+    /**
+     Determines which screen is shown.
+     */
+    enum DisplayScreen {
+        /* ############################################################## */
+        /**
+         The list of timers.
+        */
+        case timerList
+        
+        /* ############################################################## */
+        /**
+         The details screen, for the selected timer.
+        */
+        case timerDetails
+        
+        /* ############################################################## */
+        /**
+         The running timer screen, for the selected timer.
+        */
+        case runningTimer
+    }
+    
+    /* ################################################################################################################################## */
+    // MARK: This holds the current state of the timers and selection.
+    /* ################################################################################################################################## */
+    /**
+     */
+    struct TimerStatus {
+        /* ############################################################## */
+        /**
+         These are the timers the phone sent us.
+        */
+        var timers: [RVS_AmbiaMara_Settings.TimerSettings]
+
+        /* ############################################################## */
+        /**
+         The 0-based index of the selected timer.
+        */
+        var selectedTimerIndex: Int
+        
+        /* ################################################################## */
+        /**
+         If the timer is running, this contains the latest sync.
+        */
+        var runningSync: Int?
+
+        /* ############################################################## */
+        /**
+         The current state of the timer.
+         */
+        private var _timerState: TimerState = .stopped
+
+        /* ############################################################## */
+        /**
+         The screen we are displaying.
+         */
+        var screen: DisplayScreen
+        
+        /* ############################################################## */
+        /**
+         This handles communications with the Watch app.
+         */
+        weak var watchDelegate: RVS_WatchDelegate?
+
+        /* ################################################################## */
+        /**
+         If the timer is running, this displays the current countdown time.
+        */
+        var _runningTimerDisplay: String {
+            let runningSync = TimeInterval(runningSync ?? 0)
+            let totalTime = Int(TimeInterval(timers[selectedTimerIndex].startTime) - runningSync)
+            let hour = totalTime / 3600
+            let minute = totalTime / 60 - (hour * 60)
+            let second = totalTime - ((hour * 3600) + (minute * 60))
+            return RVS_AmbiaMara_Settings.optimizedTimeString(hours: hour, minutes: minute, seconds: second)
+        }
+        
+        /* ################################################################## */
+        /**
+         The currently selected timer.
+        */
+        var selectedTimer: RVS_AmbiaMara_Settings.TimerSettings? { (0..<timers.count).contains(selectedTimerIndex) ? timers[selectedTimerIndex] : nil }
+        
+        /* ################################################################## */
+        /**
+         True, if the timer is at the beginning of its countdown.
+        */
+        var isAtStart: Bool { nil != runningSync && 0 == runningSync! }
+        
+        /* ################################################################## */
+        /**
+         True, if the timer is running.
+        */
+        var isRunning: Bool { nil != runningSync && .paused != _timerState && .stopped != _timerState }
+
+        /* ################################################################## */
+        /**
+         True, if the timer is at the end of its countdown.
+        */
+        var isAtEnd: Bool { nil != runningSync && nil != selectedTimer && runningSync! == selectedTimer!.startTime }
+        
+        /* ################################################################## */
+        /**
+         True, if the timer is in the "warning" phase.
+        */
+        var isWarning: Bool { nil != runningSync && nil != selectedTimer && runningSync! >= selectedTimer!.warnTime }
+        
+        /* ################################################################## */
+        /**
+         True, if the timer is in the "final" phase.
+        */
+        var isFinal: Bool { nil != runningSync && nil != selectedTimer && runningSync! >= selectedTimer!.finalTime }
+
+        /* ############################################################## */
+        /**
+         The current state of the timer (computed).
+         
+         > NOTE: Setting only cares about `.paused` or `.stopped`. All the others are computed.
+         */
+        var timerState: TimerState {
+            get { isAtEnd ? .alarming : nil == runningSync ? .stopped : isWarning ? .warning : isFinal ? .final : isRunning ? .started : _timerState }
+            set { _timerState = newValue }
+        }
+        
+        /* ############################################################## */
+        /**
+         Initializer
+         
+         - parameters:
+            - timers: The list of timer instances managed by the app. Optional. Default is empty list.
+            - selectedTimerIndex: The selected timer (0-based index). Optional. Default is 0.
+            - runningSync: The current sync time for the selected timer. Optional. Default is nil (timer is not running).
+            - timerState: The state of the timer. Optional. Default is `.stopped`
+            - screen: The currently displayed screen. Optional. Default is timer list.
+            - watchDelegate: The watch delegate instance. Optional. Default is nil.
+         */
+        init(timers inTimers: [RVS_AmbiaMara_Settings.TimerSettings] = [],
+             selectedTimerIndex inSelectedTimerIndex: Int = 0,
+             runningSync inRunningSync: Int? = nil,
+             timerState inTimerState: TimerState = .stopped,
+             screen inScreen: DisplayScreen = .timerList,
+             watchDelegate inDelegate: RVS_WatchDelegate? = nil
+        ) {
+            timers = inTimers
+            selectedTimerIndex = inSelectedTimerIndex
+            runningSync = inRunningSync
+            _timerState = inTimerState
+            screen = inScreen
+            watchDelegate = inDelegate
+        }
+    }
+    
     /* ################################################################## */
     /**
      Tracks scene activity.
@@ -70,9 +226,9 @@ struct Rift_Valley_Timer_Watch_App: App {
     
     /* ############################################################## */
     /**
-     The current state of the timer.
+     The current variables for the timers.
      */
-    @State private var _timerState: TimerState = .stopped
+    @State private var _timerStatus: TimerStatus = TimerStatus(timers: [], selectedTimerIndex: 0, runningSync: nil, screen: .timerList, watchDelegate: nil)
     
     /* ############################################################## */
     /**
@@ -82,115 +238,21 @@ struct Rift_Valley_Timer_Watch_App: App {
 
     /* ################################################################## */
     /**
-     These are the timers the phone sent us.
-    */
-    @State private var _timers: [RVS_AmbiaMara_Settings.TimerSettings] = []
-
-    /* ################################################################## */
-    /**
-     The 0-based index of the selected timer.
-    */
-    @State private var _selectedTimerIndex: Int = 0
-
-    /* ################################################################## */
-    /**
-     This is set to true, if we want to show the timer list, as opposed to the selected timer screen. If false, the screen representing the _selectedTimerIndex is focused.
-    */
-    @State private var _showTimerList: Bool = true
-
-    /* ################################################################## */
-    /**
-     This is set to true, if the timer has started.
-    */
-    @State private var _timerIsRunning: Bool = false
-    
-    /* ################################################################## */
-    /**
-     If the timer is running, this contains the latest sync.
-    */
-    @State private var _runningSync: Int?
-
-    /* ################################################################## */
-    /**
-     If the timer is running, this displays the current countdown time.
-    */
-    @State private var _runningTimerDisplay: String = ""
-
-    /* ################################################################## */
-    /**
-     This forces the display to reload.
-    */
-    @State private var _reloadDisplay: Bool = false
-
-    /* ################################################################## */
-    /**
      This is basically just a wrapper for the screens.
      */
     var body: some Scene {
         WindowGroup {
-            Rift_Valley_Timer_Watch_App_MainContentView(reloadDisplay: $_reloadDisplay,
-                                                        showTimerList: $_showTimerList,
-                                                        timers: $_timers,
-                                                        selectedTimerIndex: $_selectedTimerIndex,
-                                                        timerIsRunning: $_timerIsRunning,
-                                                        timerState: $_timerState,
-                                                        runningTimerDisplay: $_runningTimerDisplay
-            )
-            .onAppear {
-                _watchDelegate = _watchDelegate ?? RVS_WatchDelegate(updateHandler: watchUpdateHandler)
-            }
-            .onChange(of: _selectedTimerIndex) {
-                RVS_AmbiaMara_Settings().flush()
-                if _selectedTimerIndex != RVS_AmbiaMara_Settings().currentTimerIndex {
-                    RVS_AmbiaMara_Settings().currentTimerIndex = _selectedTimerIndex
-                    _watchDelegate?.sendApplicationContext()
+            Rift_Valley_Timer_Watch_App_MainContentView(timerStatus: $_timerStatus)
+                .onAppear {
+                    _watchDelegate = _watchDelegate ?? RVS_WatchDelegate(updateHandler: watchUpdateHandler)
+                    _timerStatus = TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
+                                               selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
+                                               runningSync: nil,
+                                               screen: RVS_AmbiaMara_Settings().timers.isEmpty ? .timerList : .timerDetails,
+                                               watchDelegate: _watchDelegate
+                    )
                 }
-            }
-            .onChange(of: _runningSync) {
-                _timerIsRunning = false
-                if nil != _runningSync {
-                    setDisplayString()
-                } else {
-                    _runningTimerDisplay = ""
-                    _timerState = .stopped
-                }
-            }
-            .onChange(of: _timerState) {
-                if .paused == _timerState {
-                    _watchDelegate?.sendTimerControl(operation: .pause)
-                }
-                if .stopped == _timerState {
-                    _watchDelegate?.sendTimerControl(operation: .stop)
-                }
-                if .started == _timerState {
-                    _watchDelegate?.sendTimerControl(operation: .resume)
-                }
-            }
-            .onChange(of: _timerIsRunning) {
-                if _timerIsRunning,
-                   .paused != _timerState {
-                    _timerState = .started
-                    _watchDelegate?.sendTimerControl(operation: .start)
-                    _runningSync = 0
-                } else if _timerIsRunning {
-                    _timerState = .stopped
-                    _runningSync = 0
-                }
-            }
         }
-    }
-    
-    /* ################################################################## */
-    /**
-     This builds a display string from the current timer state.
-     */
-    func setDisplayString() {
-        let runningSync = TimeInterval(_runningSync ?? 0)
-        let totalTime = Int(TimeInterval(RVS_AmbiaMara_Settings().timers[_selectedTimerIndex].startTime) - runningSync)
-        let hour = totalTime / 3600
-        let minute = totalTime / 60 - (hour * 60)
-        let second = totalTime - ((hour * 3600) + (minute * 60))
-        _runningTimerDisplay = RVS_AmbiaMara_Settings.optimizedTimeString(hours: hour, minutes: minute, seconds: second)
     }
 }
 
@@ -209,65 +271,60 @@ extension Rift_Valley_Timer_Watch_App {
         #if DEBUG
             print("Received WatchData: \(inContext.debugDescription)")
         #endif
-        
-        defer { (_timers, _selectedTimerIndex) = (RVS_AmbiaMara_Settings().timers, RVS_AmbiaMara_Settings().currentTimerIndex) }
 
+        var newStatus = TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
+                                    selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
+                                    runningSync: _timerStatus.runningSync,
+                                    timerState: _timerStatus.timerState,
+                                    screen: .timerList,
+                                    watchDelegate: inWatchDelegate
+        )
+        
         if let sync = inContext["sync"] as? Int,
-           .stopped != _timerState {
+           .stopped != newStatus.timerState,
+           .paused != newStatus.timerState {
             #if DEBUG
                 print("Received Sync: \(sync)")
             #endif
-            _runningSync = sync
-            if _runningSync == RVS_AmbiaMara_Settings().timers[_selectedTimerIndex].startTime {
-                _timerState = .alarming
-            }
-            _timerIsRunning = false
+            newStatus.runningSync = sync
         } else if let operation = inContext["timerControl"] as? RVS_WatchDelegate.TimerOperation {
             #if DEBUG
                 print("Received Operation: \(operation.rawValue)")
             #endif
             switch operation {
-            case .resume where .paused == _timerState:
-                _timerState = .started
+            case .resume where .paused == newStatus.timerState:
+                newStatus.timerState = .started
+                newStatus.screen = .runningTimer
                 
-            case .pause where .alarming != _timerState && .stopped != _timerState:
-                if .stopped == _timerState {
-                    _timerIsRunning = true
-                    _runningSync = 0
-                }
-                _timerState = .paused
+            case .pause where .alarming != newStatus.timerState && .stopped != newStatus.timerState:
+                newStatus.timerState = .paused
+                newStatus.screen = .runningTimer
 
-            case .fastForward where .alarming != _timerState && .stopped != _timerState:
-                _runningSync = RVS_AmbiaMara_Settings().timers[_selectedTimerIndex].startTime
-                _timerState = .alarming
+            case .fastForward where .alarming != newStatus.timerState && .stopped != newStatus.timerState:
+                newStatus.runningSync = newStatus.selectedTimer?.startTime
+                newStatus.timerState = .alarming
+                newStatus.screen = .runningTimer
 
             case .start:
-                _runningSync = 0
-                _timerState = .started
+                newStatus.runningSync = 0
+                newStatus.timerState = .started
+                newStatus.screen = .runningTimer
 
             case .reset:
-                _runningSync = 0
-                _timerState = .paused
+                newStatus.runningSync = 0
+                newStatus.timerState = .paused
+                newStatus.screen = .runningTimer
 
             case .stop:
-                _timerIsRunning = false
-                _timerState = .stopped
-                _runningTimerDisplay = ""
-                _runningSync = nil
-                
+                newStatus.runningSync = nil
+                newStatus.timerState = .stopped
+                newStatus.screen = .timerDetails
+
             default:
                 break
             }
-
-        } else {
-            (_timers,
-            _selectedTimerIndex,
-            _timerState,
-            _showTimerList,
-            _runningTimerDisplay,
-            _runningSync,
-            _reloadDisplay) =
-            (RVS_AmbiaMara_Settings().timers, RVS_AmbiaMara_Settings().currentTimerIndex, .stopped, false, "", nil, true)
         }
+        
+        _timerStatus = newStatus
     }
 }

@@ -19,48 +19,28 @@ import SwiftUI
 struct Rift_Valley_Timer_Watch_App_TimerList: View {
     /* ################################################################## */
     /**
-     These are the timers the phone sent us.
+     This contains the state for the app.
     */
-    @Binding var timers: [RVS_AmbiaMara_Settings.TimerSettings]
+    @Binding var timerStatus: Rift_Valley_Timer_Watch_App.TimerStatus
 
     /* ################################################################## */
     /**
-     This is set to true, if we want to show the timer list, as opposed to the selected timer screen.
-    */
-    @Binding var showTimerList: Bool
-
-    /* ################################################################## */
-    /**
-     The 0-based index of the selected timer.
-    */
-    @Binding var selectedTimerIndex: Int
-
-    /* ################################################################## */
-    /**
-     This is set to true, if the timer has started.
-    */
-    @Binding var timerIsRunning: Bool
-    
-    /* ################################################################## */
-    /**
-     If the timer is running, this displays the current countdown time.
-    */
-    @Binding var runningTimerDisplay: String
-
-    /* ################################################################## */
-    /**
-     This displays a navstack, if there are more than one timer, or it directly opens the timer screen, if just one.
-     
-     If the timer is running, it goes straight to that screen.
+     This displays a list of all the available timers. Tapping on a timer will open the details screen for that timer.
     */
     var body: some View {
-        List(timers, id: \.id) { inTimer in
+        List(timerStatus.timers, id: \.id) { inTimer in
             let startTimeString = inTimer.startTimeAsString
             Button {
-                (selectedTimerIndex, showTimerList) = (inTimer.index, false)
+                timerStatus = Rift_Valley_Timer_Watch_App.TimerStatus(timers: timerStatus.timers,
+                                                                      selectedTimerIndex: inTimer.index,
+                                                                      runningSync: timerStatus.runningSync,
+                                                                      timerState: timerStatus.timerState,
+                                                                      screen: .timerDetails,
+                                                                      watchDelegate: timerStatus.watchDelegate
+                )
             } label: {
                 Text(startTimeString)
-                    .foregroundColor(Color(inTimer.index == selectedTimerIndex ? "Start-Color" : "Paused-Color"))
+                    .foregroundColor(Color(inTimer.index == timerStatus.selectedTimerIndex ? "Start-Color" : "Paused-Color"))
                     .frame(maxWidth: .infinity, alignment: .center)
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
