@@ -19,36 +19,27 @@ import RVS_Generic_Swift_Toolbox
 struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
     /* ################################################################## */
     /**
-     This is the timer instance, associated with this screen.
+     This contains the state for the app.
     */
-    @State var timer: RVS_AmbiaMara_Settings.TimerSettings
-
-    /* ############################################################## */
-    /**
-     The current state of the timer.
-     */
-    @Binding var timerState: Rift_Valley_Timer_Watch_App.TimerState
-
-    /* ################################################################## */
-    /**
-     If the timer is running, this displays the current countdown time.
-    */
-    @Binding var runningTimerDisplay: String
+    @Binding var timerStatus: Rift_Valley_Timer_Watch_App.TimerStatus
 
     /* ################################################################## */
     /**
     */
     var body: some View {
-        let textColor = (.paused == timerState) ? "Paused-Color" : ((.final == timerState) ? "Final-Color" : ((.warning == timerState) ? "Warn-Color" : "Start-Color"))
+        let textColor = (.paused == timerStatus.timerState)
+                ? "Paused-Color" : ((.final == timerStatus.timerState)
+                                ? "Final-Color" : ((.warning == timerStatus.timerState)
+                                                   ? "Warn-Color" : "Start-Color"))
         VStack {
-            if .alarming == timerState {
+            if .alarming == timerStatus.timerState {
                 Image(systemName: "bell.and.waves.left.and.right.fill")
                     .resizable()
                     .scaledToFit()
                     .foregroundColor(Color("Final-Color"))
                     .frame(width: 100, height: 100)
             } else {
-                Text(runningTimerDisplay)
+                Text(timerStatus.runningTimerDisplay)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
@@ -58,12 +49,9 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
         }
         .gesture(
             TapGesture()
-                .onEnded { timerState = (.paused == timerState ? .started : .paused) }
-                .simultaneously(with:
-                                    TapGesture(count: 2)
-                                        .onEnded { timerState = .stopped }
-                )
-            )
-
+                .onEnded { timerStatus.timerState = (.paused == timerStatus.timerState ? .started : .paused) }
+                .simultaneously(with: TapGesture(count: 2).onEnded { timerStatus.timerState = .stopped })
+        )
+        
     }
 }

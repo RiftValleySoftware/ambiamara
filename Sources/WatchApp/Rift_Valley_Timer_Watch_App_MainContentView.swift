@@ -30,11 +30,11 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
     var body: some View {
         switch timerStatus.screen {
         case .timerList:
-            Text("List")
+            Rift_Valley_Timer_Watch_App_TimerList(timerStatus: $timerStatus)
         case .timerDetails:
-            Text("Details")
+            Rift_Valley_Timer_Watch_App_IndividualTimerView(timerStatus: $timerStatus)
         case .runningTimer:
-            Text("Running")
+            Rift_Valley_Timer_Watch_App_RunningTimerView(timerStatus: $timerStatus)
         case .busy:
             ProgressView()
         }
