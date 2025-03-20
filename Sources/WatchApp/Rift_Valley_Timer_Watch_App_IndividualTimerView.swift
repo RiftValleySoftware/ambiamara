@@ -75,15 +75,13 @@ struct Rift_Valley_Timer_Watch_App_IndividualTimerView: View {
                 }
                 
                 Button {
+                    timerStatus.watchDelegate?.sendTimerControl(operation: .start)
                     timerStatus.screen = .runningTimer
                 } label: {
                     Image(systemName: "play.fill")
                         .resizable()
                         .scaledToFit()
                 }
-            }
-            .onAppear {
-                timerStatus.watchDelegate?.sendApplicationContext()
             }
         } else {
             Text("ERROR")

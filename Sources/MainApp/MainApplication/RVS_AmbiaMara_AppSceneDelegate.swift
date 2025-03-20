@@ -132,13 +132,13 @@ extension RVS_AmbiaMara_AppSceneDelegate {
                 (viewControllers.first as? RVS_SetTimerWrapper)?.startTimer(true)
 
             case .stop:
-                (viewControllers.last as? RVS_RunningTimerAmbiaMara_ViewController)?.stopTimer()
+                (viewControllers.last as? RVS_RunningTimerAmbiaMara_ViewController)?.stopTimer(true)
 
             case .pause:
-                (viewControllers.last as? RVS_RunningTimerAmbiaMara_ViewController)?.pauseTimer()
+                (viewControllers.last as? RVS_RunningTimerAmbiaMara_ViewController)?.pauseTimer(true)
 
             case .resume:
-                (viewControllers.last as? RVS_RunningTimerAmbiaMara_ViewController)?.continueTimer()
+                (viewControllers.last as? RVS_RunningTimerAmbiaMara_ViewController)?.continueTimer(true)
 
             default:
                 break

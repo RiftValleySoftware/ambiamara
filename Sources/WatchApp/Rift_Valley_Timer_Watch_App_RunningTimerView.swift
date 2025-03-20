@@ -49,8 +49,33 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
         }
         .gesture(
             TapGesture()
-                .onEnded { timerStatus.timerState = (.paused == timerStatus.timerState ? .started : .paused) }
-                .simultaneously(with: TapGesture(count: 2).onEnded { timerStatus.timerState = .stopped })
+                .onEnded {
+                    let newStatus = Rift_Valley_Timer_Watch_App.TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
+                                                                            selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
+                                                                            runningSync: timerStatus.runningSync,
+                                                                            timerState: timerStatus.timerState == .paused ? .started : .paused,
+                                                                            screen: .runningTimer,
+                                                                            watchDelegate: timerStatus.watchDelegate
+                    )
+                    
+                    if newStatus.timerState == .started {
+                        newStatus.watchDelegate?.sendTimerControl(operation: .resume)
+                    } else {
+                        newStatus.watchDelegate?.sendTimerControl(operation: .pause)
+                    }
+                    timerStatus = newStatus
+                }
+                .simultaneously(with: TapGesture(count: 2).onEnded {
+                    let newStatus = Rift_Valley_Timer_Watch_App.TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
+                                                                            selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
+                                                                            runningSync: timerStatus.runningSync,
+                                                                            timerState: .stopped,
+                                                                            screen: .timerDetails,
+                                                                            watchDelegate: timerStatus.watchDelegate
+                    )
+                    newStatus.watchDelegate?.sendTimerControl(operation: .stop)
+                    timerStatus = newStatus
+                })
         )
         
     }

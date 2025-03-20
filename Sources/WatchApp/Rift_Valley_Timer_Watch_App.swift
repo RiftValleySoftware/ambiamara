@@ -177,13 +177,13 @@ struct Rift_Valley_Timer_Watch_App: App {
         /**
          True, if the timer is in the "warning" phase.
         */
-        var isWarning: Bool { nil != runningSync && nil != selectedTimer && runningSync! >= selectedTimer!.warnTime }
+        var isWarning: Bool { nil != runningSync && nil != selectedTimer && 0 < selectedTimer!.warnTime && runningSync! >= selectedTimer!.warnTime }
         
         /* ################################################################## */
         /**
          True, if the timer is in the "final" phase.
         */
-        var isFinal: Bool { nil != runningSync && nil != selectedTimer && runningSync! >= selectedTimer!.finalTime }
+        var isFinal: Bool { nil != runningSync && nil != selectedTimer && 0 < selectedTimer!.finalTime && runningSync! >= selectedTimer!.finalTime }
 
         /* ############################################################## */
         /**
@@ -295,12 +295,13 @@ extension Rift_Valley_Timer_Watch_App {
         if let sync = inContext["sync"] as? Int,
            let timerMax = _timerStatus.selectedTimer?.startTime,
            (0..<timerMax).contains(sync),
-           .stopped != newStatus.timerState,
            .paused != newStatus.timerState {
             #if DEBUG
                 print("Received Sync: \(sync)")
             #endif
             newStatus.runningSync = sync
+            newStatus.timerState = .started
+            newStatus.screen = .runningTimer
         } else if let operation = inContext["timerControl"] as? RVS_WatchDelegate.TimerOperation {
             #if DEBUG
                 print("Received Operation: \(operation.rawValue)")
@@ -332,13 +333,17 @@ extension Rift_Valley_Timer_Watch_App {
                 newStatus.timerState = .stopped
                 newStatus.screen = .timerDetails
             }
-        } else if !RVS_AmbiaMara_Settings().timers.isEmpty {
+        } else if _timerStatus.selectedTimerIndex != newStatus.selectedTimerIndex
+                    || (!RVS_AmbiaMara_Settings().timers.isEmpty && newStatus.timerState != .paused) {
             #if DEBUG
                 print("Set Up Timers: \(newStatus)")
             #endif
             newStatus.runningSync = nil
             newStatus.timerState = .stopped
             newStatus.screen = .timerDetails
+        } else if !RVS_AmbiaMara_Settings().timers.isEmpty,
+                  newStatus.timerState == .paused {
+            newStatus.screen = .runningTimer
         }
         
         _timerStatus = newStatus

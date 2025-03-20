@@ -1032,23 +1032,27 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
      This starts the timer from scratch.
+     - parameter inDontSend: If true (default is false), then the watch will not be notified.
      */
-    func startTimer() {
+    func startTimer(_ inDontSend: Bool = false) {
         if let timer = _timer { // Force an immediate update.
             _startingTime = Date()
             _tickTimeInSeconds = 0
             timer.isRunning = true
             setTimerDisplay()
             setUpToolbar()
-            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.start)
+            if !inDontSend {
+                RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.start)
+            }
         }
     }
 
     /* ############################################################## */
     /**
      This sets the timer to scratch, but does not start it.
+     - parameter inDontSend: If true (default is false), then the watch will not be notified.
      */
-    func resetTimer() {
+    func resetTimer(_ inDontSend: Bool = false) {
         _isAlarming = false
         _alarmTimer?.isRunning = false
         _timer?.isRunning = false
@@ -1057,39 +1061,33 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         stopSounds()
         setTimerDisplay()
         setUpToolbar()
-        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.reset)
-    }
-
-    /* ############################################################## */
-    /**
-     This sets the timer to the end, and starts the alarm.
-     */
-    func finishTimer() {
-        _startingTime = nil
-        _tickTimeInSeconds = RVS_AmbiaMara_Settings().currentTimer.startTime
-        _isAlarming = true
-        setUpToolbar()
-        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.fastForward)
+        if !inDontSend {
+            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.reset)
+        }
     }
 
     /* ############################################################## */
     /**
      Pauses the timer, without resetting anything.
      Any playing sounds are stopped.
+     - parameter inDontSend: If true (default is false), then the watch will not be notified.
      */
-    func pauseTimer() {
+    func pauseTimer(_ inDontSend: Bool = false) {
         _timer?.isRunning = false
         stopSounds()
         setTimerDisplay()
         setUpToolbar()
-        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.pause)
+        if !inDontSend {
+            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.pause)
+        }
     }
     
     /* ############################################################## */
     /**
      Continues the timer, setting the counter to the last time.
+     - parameter inDontSend: If true (default is false), then the watch will not be notified.
      */
-    func continueTimer() {
+    func continueTimer(_ inDontSend: Bool = false) {
         guard !(_timer?.isRunning ?? false) else { return }
         showToolbar()
         if nil == _autoHideTimer,
@@ -1101,7 +1099,9 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         _startingTime = Date().addingTimeInterval(-TimeInterval(_tickTimeInSeconds))
         _tickTimeInSeconds = 0 // Doing this, ensures that the next tick will update.
         _timer?.isRunning = true
-        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.resume)
+        if !inDontSend {
+            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.resume)
+        }
         if let timer = _timer { // Force an immediate update.
             basicGCDTimerCallback(timer)
         }
@@ -1110,9 +1110,12 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
      Stops the timer, by popping the screen.
+     - parameter inDontSend: If true (default is false), then the watch will not be notified.
      */
-    func stopTimer() {
-        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.stop)
+    func stopTimer(_ inDontSend: Bool = false) {
+        if !inDontSend {
+            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.stop)
+        }
         DispatchQueue.main.async { [weak self] in
             self?._timer?.invalidate()
             self?._timer = nil
