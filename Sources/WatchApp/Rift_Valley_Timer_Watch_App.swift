@@ -192,7 +192,7 @@ struct Rift_Valley_Timer_Watch_App: App {
          > NOTE: Setting only cares about `.paused` or `.stopped`. All the others are computed.
          */
         var timerState: TimerState {
-            get { isAtEnd ? .alarming : nil == runningSync ? .stopped : isWarning ? .warning : isFinal ? .final : isRunning ? .started : _timerState }
+            get { isAtEnd ? .alarming : .paused == _timerState ? .paused : nil == runningSync ? .stopped : isWarning ? .warning : isFinal ? .final : isRunning ? .started : _timerState }
             set { _timerState = newValue }
         }
         
@@ -289,8 +289,7 @@ extension Rift_Valley_Timer_Watch_App {
         
         if let sync = inContext["sync"] as? Int,
            let timerMax = _timerStatus.selectedTimer?.startTime,
-           (0..<timerMax).contains(sync),
-           .paused != newStatus.timerState {
+           (0..<timerMax).contains(sync) {
             #if DEBUG
                 print("Received Sync: \(sync)")
             #endif
@@ -310,16 +309,14 @@ extension Rift_Valley_Timer_Watch_App {
                 newStatus.runningSync = 0
                 newStatus.timerState = .start == operation ? .started : .paused
                 
-            case .resume:
-                newStatus.timerState = .started
-                
-            case .pause:
-                newStatus.timerState = .paused
-                
             case .fastForward:
                 newStatus.runningSync = newStatus.selectedTimer?.startTime
                 newStatus.timerState = .started
                 
+            case .resume, .pause:
+                newStatus.runningSync = newStatus.runningSync ?? 0
+                newStatus.timerState = .resume == operation ? .started : .paused
+
             case .stop:
                 newStatus.runningSync = nil
                 newStatus.timerState = .stopped
@@ -332,10 +329,9 @@ extension Rift_Valley_Timer_Watch_App {
             #if DEBUG
                 print("Set Up Timers: \(newStatus)")
             #endif
-            let wasRunning = .stopped != newStatus.timerState
-            newStatus.runningSync = wasRunning ? 0 : nil
-            newStatus.timerState = wasRunning ? .paused : .stopped
-            newStatus.screen = wasRunning ? .runningTimer : .timerDetails
+            newStatus.runningSync = nil
+            newStatus.timerState = .stopped
+            newStatus.screen = .timerDetails
         }
         
         _timerStatus = newStatus

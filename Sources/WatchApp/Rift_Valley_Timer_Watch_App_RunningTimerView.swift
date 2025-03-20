@@ -27,10 +27,6 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
     /**
     */
     var body: some View {
-        let textColor = (.paused == timerStatus.timerState)
-                ? "Paused-Color" : ((.final == timerStatus.timerState)
-                                ? "Final-Color" : ((.warning == timerStatus.timerState)
-                                                   ? "Warn-Color" : "Start-Color"))
         VStack {
             if .alarming == timerStatus.timerState {
                 Image(systemName: "bell.and.waves.left.and.right.fill")
@@ -39,6 +35,10 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
                     .foregroundColor(Color("Final-Color"))
                     .frame(width: 100, height: 100)
             } else {
+                let textColor = (timerStatus.timerState == .paused)
+                        ? "Paused-Color" : ((timerStatus.timerState == .final)
+                                        ? "Final-Color" : ((timerStatus.timerState == .warning)
+                                                           ? "Warn-Color" : "Start-Color"))
                 Text(timerStatus.runningTimerDisplay)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .minimumScaleFactor(0.5)
