@@ -996,6 +996,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
                   !RVS_AmbiaMara_Settings().stoplightMode {
             flashCyan()
         }
+        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
+        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.pause)
     }
 
     /* ############################################################## */
@@ -1019,6 +1021,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         }
         
         setUpToolbar()
+        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
+        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.pause)
     }
 
     /* ############################################################## */
@@ -1498,6 +1502,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         }
         
         flashRed()
+        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.stop)
     }
     
     /* ############################################################## */

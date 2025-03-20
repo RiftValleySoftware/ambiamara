@@ -122,7 +122,7 @@ struct Rift_Valley_Timer_Watch_App: App {
         /**
          The current state of the timer.
          */
-        private var _timerState: TimerState = .stopped
+        private var _timerState: TimerState = .paused
 
         /* ############################################################## */
         /**
@@ -254,14 +254,9 @@ struct Rift_Valley_Timer_Watch_App: App {
                 _watchDelegate = _watchDelegate ?? RVS_WatchDelegate(updateHandler: watchUpdateHandler)
                 _timerStatus = TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
                                            selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
-                                           runningSync: nil,
                                            screen: !RVS_AmbiaMara_Settings().timers.isEmpty ? .timerList : .busy,
                                            watchDelegate: _watchDelegate
                 )
-                
-                if !RVS_AmbiaMara_Settings().timers.isEmpty {
-                    _timerStatus.screen = .timerList
-                }
             }
         }
     }
@@ -299,8 +294,9 @@ extension Rift_Valley_Timer_Watch_App {
             #if DEBUG
                 print("Received Sync: \(sync)")
             #endif
+            let wasPaused = .paused == newStatus.timerState
             newStatus.runningSync = sync
-            newStatus.timerState = .started
+            newStatus.timerState = wasPaused ? .paused : .started
             newStatus.screen = .runningTimer
         } else if let operation = inContext["timerControl"] as? RVS_WatchDelegate.TimerOperation {
             #if DEBUG
@@ -310,40 +306,36 @@ extension Rift_Valley_Timer_Watch_App {
             newStatus.screen = .runningTimer
             
             switch operation {
-            case .start:
+            case .start, .reset:
                 newStatus.runningSync = 0
+                newStatus.timerState = .start == operation ? .started : .paused
+                
+            case .resume:
                 newStatus.timerState = .started
                 
-            case .resume where .paused == newStatus.timerState:
-                newStatus.timerState = .started
-                
-            case .pause where !newStatus.isAtEnd:
+            case .pause:
                 newStatus.timerState = .paused
                 
-            case .fastForward where !newStatus.isAtEnd && .stopped != newStatus.timerState:
+            case .fastForward:
                 newStatus.runningSync = newStatus.selectedTimer?.startTime
-                newStatus.timerState = .alarming
+                newStatus.timerState = .started
                 
-            case .reset:
-                newStatus.runningSync = 0
-                newStatus.timerState = .paused
-                
-            default:
+            case .stop:
                 newStatus.runningSync = nil
                 newStatus.timerState = .stopped
                 newStatus.screen = .timerDetails
             }
-        } else if _timerStatus.selectedTimerIndex != newStatus.selectedTimerIndex
-                    || (!RVS_AmbiaMara_Settings().timers.isEmpty && newStatus.timerState != .paused) {
+        } else if !RVS_AmbiaMara_Settings().timers.isEmpty,
+                  .stopped == newStatus.timerState {
+            newStatus.screen = .timerDetails
+        } else if _timerStatus.selectedTimerIndex != newStatus.selectedTimerIndex {
             #if DEBUG
                 print("Set Up Timers: \(newStatus)")
             #endif
-            newStatus.runningSync = nil
-            newStatus.timerState = .stopped
-            newStatus.screen = .timerDetails
-        } else if !RVS_AmbiaMara_Settings().timers.isEmpty,
-                  newStatus.timerState == .paused {
-            newStatus.screen = .runningTimer
+            let wasRunning = .stopped != newStatus.timerState
+            newStatus.runningSync = wasRunning ? 0 : nil
+            newStatus.timerState = wasRunning ? .paused : .stopped
+            newStatus.screen = wasRunning ? .runningTimer : .timerDetails
         }
         
         _timerStatus = newStatus
