@@ -66,8 +66,11 @@ struct Rift_Valley_Timer_Watch_App_IndividualTimerView: View {
                     }
                     
                     Button {
-                        timerStatus.watchDelegate?.sendTimerControl(operation: .start)
-                        timerStatus.screen = .runningTimer
+                        var newStatus = Rift_Valley_Timer_Watch_App.TimerStatus(timerStatus)
+                        newStatus.timerState = .started
+                        newStatus.screen = .runningTimer
+                        timerStatus = newStatus
+                        newStatus.watchDelegate?.sendTimerControl(operation: .start)
                     } label: {
                         Image(systemName: "play.fill")
                             .resizable()
