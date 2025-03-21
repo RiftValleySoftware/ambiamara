@@ -36,9 +36,9 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
                         .foregroundColor(Color("Final-Color"))
                         .frame(width: 100, height: 100)
                 } else {
-                    let textColor = (timerStatus.timerState == .paused)
-                    ? "Paused-Color" : ((timerStatus.timerState == .final)
-                                        ? "Final-Color" : ((timerStatus.timerState == .warning)
+                    let textColor = (.paused == timerStatus.timerState)
+                            ? "Paused-Color" : ((.final == timerStatus.timerState)
+                                        ? "Final-Color" : ((.warning == timerStatus.timerState)
                                                            ? "Warn-Color" : "Start-Color"))
                     Text(timerStatus.runningTimerDisplay)
                         .frame(maxWidth: .infinity, alignment: .center)
@@ -57,9 +57,9 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
                 .onEnded {
                     let newStatus = Rift_Valley_Timer_Watch_App.TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
                                                                             selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
-                                                                            runningSync: timerStatus.runningSync,
+                                                                            runningSync: nil,
                                                                             timerState: .stopped,
-                                                                            screen: .timerDetails,
+                                                                            screen: .busy,
                                                                             watchDelegate: timerStatus.watchDelegate
                     )
                     newStatus.watchDelegate?.sendTimerControl(operation: .stop)
@@ -69,7 +69,7 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
                     let newStatus = Rift_Valley_Timer_Watch_App.TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
                                                                             selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
                                                                             runningSync: timerStatus.runningSync,
-                                                                            timerState: timerStatus.timerState == .paused ? .started : .paused,
+                                                                            timerState: .paused == timerStatus.timerState ? .started : .paused,
                                                                             screen: .runningTimer,
                                                                             watchDelegate: timerStatus.watchDelegate
                     )

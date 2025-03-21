@@ -706,7 +706,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      */
     override func viewWillDisappear(_ inIsAnimated: Bool) {
         stopAlarm()
-        pauseTimer()
+        pauseTimer(true)
         _timer?.invalidate()
         _timer = nil
         _alarmTimer?.invalidate()

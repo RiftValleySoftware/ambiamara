@@ -122,7 +122,7 @@ struct Rift_Valley_Timer_Watch_App: App {
         /**
          The current state of the timer.
          */
-        private var _timerState: TimerState = .paused
+        private var _timerState: TimerState = .stopped
 
         /* ############################################################## */
         /**
@@ -329,9 +329,18 @@ extension Rift_Valley_Timer_Watch_App {
                 newStatus.runningSync = newStatus.selectedTimer?.startTime
                 newStatus.timerState = .started
                 
-            case .resume, .pause:
-                newStatus.runningSync = newStatus.runningSync ?? 0
-                newStatus.timerState = .resume == operation ? .started : .paused
+            case .resume:
+                if .paused == newStatus.timerState {
+                    newStatus.runningSync = newStatus.runningSync ?? 0
+                    newStatus.timerState = .started
+                }
+                
+            case .pause:
+                if .stopped != newStatus.timerState,
+                   .paused != newStatus.timerState {
+                    newStatus.runningSync = newStatus.runningSync ?? 0
+                    newStatus.timerState = .paused
+                }
 
             case .stop:
                 newStatus.runningSync = nil

@@ -32,9 +32,6 @@ struct Rift_Valley_Timer_Watch_App_IndividualTimerView: View {
             let timeString = timer.startTimeAsString
             NavigationStack {
                 VStack {
-                    NavigationStack {
-                        Text("HAI")
-                    }
                     Text(timeString)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .minimumScaleFactor(0.5)
