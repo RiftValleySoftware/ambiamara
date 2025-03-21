@@ -129,7 +129,13 @@ struct Rift_Valley_Timer_Watch_App: App {
          The screen we are displaying.
          */
         var screen: DisplayScreen
-        
+
+        /* ############################################################## */
+        /**
+         This means that we ignore any syncs that come in.
+         */
+        var ignoreSync: Bool = false
+
         /* ############################################################## */
         /**
          This handles communications with the Watch app.
@@ -193,12 +199,17 @@ struct Rift_Valley_Timer_Watch_App: App {
          */
         var timerState: TimerState {
             get { isAtEnd ? .alarming : .paused == _timerState ? .paused : nil == runningSync ? .stopped : isWarning ? .warning : isFinal ? .final : isRunning ? .started : _timerState }
-            set { _timerState = newValue }
+            set {
+                _timerState = newValue
+                if .started == newValue {
+                    ignoreSync = false
+                }
+            }
         }
         
         /* ############################################################## */
         /**
-         Initializer
+         Initializer. All parameters are optional.
          
          - parameters:
             - timers: The list of timer instances managed by the app. Optional. Default is empty list.
@@ -206,6 +217,7 @@ struct Rift_Valley_Timer_Watch_App: App {
             - runningSync: The current sync time for the selected timer. Optional. Default is nil (timer is not running).
             - timerState: The state of the timer. Optional. Default is `.stopped`
             - screen: The currently displayed screen. Optional. Default is busy throbber.
+            - ignoreSync: If true, the next sync will be ignored. Default is false.
             - watchDelegate: The watch delegate instance. Optional. Default is nil.
          */
         init(timers inTimers: [RVS_AmbiaMara_Settings.TimerSettings] = [],
@@ -213,6 +225,7 @@ struct Rift_Valley_Timer_Watch_App: App {
              runningSync inRunningSync: Int? = nil,
              timerState inTimerState: TimerState = .stopped,
              screen inScreen: DisplayScreen = .busy,
+             ignoreSync inIgnoreSync: Bool = false,
              watchDelegate inDelegate: RVS_WatchDelegate? = nil
         ) {
             timers = inTimers
@@ -297,11 +310,10 @@ extension Rift_Valley_Timer_Watch_App {
                                     selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
                                     runningSync: _timerStatus.runningSync,
                                     timerState: _timerStatus.timerState,
-                                    screen: .timerList,
+                                    screen: _timerStatus.screen,
+                                    ignoreSync: _timerStatus.ignoreSync,
                                     watchDelegate: inWatchDelegate
         )
-        
-        newStatus.screen = .busy
         
         if let sync = inContext["sync"] as? Int,
            let timerMax = _timerStatus.selectedTimer?.startTime,
@@ -309,10 +321,12 @@ extension Rift_Valley_Timer_Watch_App {
             #if DEBUG
                 print("Received Sync: \(sync)")
             #endif
-            let wasPaused = .paused == newStatus.timerState
-            newStatus.runningSync = sync
-            newStatus.timerState = wasPaused ? .paused : .started
-            newStatus.screen = .runningTimer
+            if !_timerStatus.ignoreSync {
+                newStatus.runningSync = sync
+                if .started != newStatus.timerState {
+                    newStatus.timerState = .started
+                }
+            }
         } else if let operation = inContext["timerControl"] as? RVS_WatchDelegate.TimerOperation {
             #if DEBUG
                 print("Received Operation: \(operation.rawValue)")
@@ -321,14 +335,18 @@ extension Rift_Valley_Timer_Watch_App {
             newStatus.screen = .runningTimer
             
             switch operation {
-            case .start, .reset:
+            case .start:
                 newStatus.runningSync = 0
-                newStatus.timerState = .start == operation ? .started : .paused
+                newStatus.timerState = .started
+                
+            case .reset:
+                newStatus.runningSync = 0
+                newStatus.timerState = .paused
                 
             case .fastForward:
                 newStatus.runningSync = newStatus.selectedTimer?.startTime
                 newStatus.timerState = .started
-                
+
             case .resume:
                 if .paused == newStatus.timerState {
                     newStatus.runningSync = newStatus.runningSync ?? 0

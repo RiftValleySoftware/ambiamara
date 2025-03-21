@@ -161,6 +161,14 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 
                 RVS_AmbiaMara_Settings().currentTimerIndex = currentIndex
             }
+            
+            if let startTimerImmediately = inApplicationContext["startTimerImmediately"] as? Bool {
+                #if DEBUG
+                    print("Received Startup Option: \(startTimerImmediately)")
+                #endif
+
+                RVS_AmbiaMara_Settings().startTimerImmediately = startTimerImmediately
+            }
 
             #if DEBUG && os(watchOS)
                 print("Watch App Received Context Update: \(inApplicationContext)")
@@ -371,7 +379,8 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             var contextData: [String: Any] = ["timers": RVS_AmbiaMara_Settings().asWatchContextData,
-                                              "currentTimerIndex": RVS_AmbiaMara_Settings().currentTimerIndex
+                                              "currentTimerIndex": RVS_AmbiaMara_Settings().currentTimerIndex,
+                                              "startTimerImmediately": RVS_AmbiaMara_Settings().startTimerImmediately
             ]
             
             #if DEBUG

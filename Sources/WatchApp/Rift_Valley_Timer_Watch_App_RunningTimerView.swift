@@ -36,7 +36,7 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
                         .foregroundColor(Color("Final-Color"))
                         .frame(width: 100, height: 100)
                 } else {
-                    let textColor = (.paused == timerStatus.timerState)
+                    let textColor = (.paused == timerStatus.timerState || .stopped == timerStatus.timerState)
                             ? "Paused-Color" : ((.final == timerStatus.timerState)
                                         ? "Final-Color" : ((.warning == timerStatus.timerState)
                                                            ? "Warn-Color" : "Start-Color"))
@@ -59,7 +59,8 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
                                                                             selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
                                                                             runningSync: nil,
                                                                             timerState: .stopped,
-                                                                            screen: .busy,
+                                                                            screen: .timerDetails,
+                                                                            ignoreSync: true,
                                                                             watchDelegate: timerStatus.watchDelegate
                     )
                     newStatus.watchDelegate?.sendTimerControl(operation: .stop)
@@ -69,8 +70,9 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
                     let newStatus = Rift_Valley_Timer_Watch_App.TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
                                                                             selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
                                                                             runningSync: timerStatus.runningSync,
-                                                                            timerState: .paused == timerStatus.timerState ? .started : .paused,
+                                                                            timerState: (.stopped == timerStatus.timerState || .paused == timerStatus.timerState) ? .started : .paused,
                                                                             screen: .runningTimer,
+                                                                            ignoreSync: true,
                                                                             watchDelegate: timerStatus.watchDelegate
                     )
                     
