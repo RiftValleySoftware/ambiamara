@@ -32,7 +32,9 @@ struct Rift_Valley_Timer_Watch_App_TimerList: View {
             let startTimeString = inTimer.startTimeAsString
             Button {
                 RVS_AmbiaMara_Settings().currentTimerIndex = inTimer.index
-                timerStatus.watchDelegate?.sendApplicationContext()
+                if inTimer.index != timerStatus.selectedTimerIndex {
+                    timerStatus.watchDelegate?.sendApplicationContext()
+                }
                 timerStatus = Rift_Valley_Timer_Watch_App.TimerStatus(timers: timerStatus.timers,
                                                                       selectedTimerIndex: inTimer.index,
                                                                       runningSync: timerStatus.runningSync,

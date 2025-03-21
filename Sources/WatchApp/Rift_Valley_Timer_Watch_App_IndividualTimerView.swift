@@ -30,57 +30,62 @@ struct Rift_Valley_Timer_Watch_App_IndividualTimerView: View {
     var body: some View {
         if let timer = timerStatus.selectedTimer {
             let timeString = timer.startTimeAsString
-            VStack {
-                HStack {
-                    Button {
-                        timerStatus.screen = .timerList
-                    } label: {
-                        Image(systemName: "list.bullet")
-                            .padding(0.1)
+            NavigationStack {
+                VStack {
+                    NavigationStack {
+                        Text("HAI")
                     }
-                    .frame(width: 24, height: 24, alignment: .center)
-                    
                     Text(timeString)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
                         .font(Font.custom("Let's go Digital Regular", size: 60))
                         .foregroundColor(Color("Start-Color"))
-                }
-                
-                if ((0 < timer.warnTime) && (timer.startTime > timer.warnTime)) || ((0 < timer.finalTime) && (timer.startTime > timer.finalTime)) {
-                    HStack {
-                        if 0 < timer.warnTime,
-                           timer.startTime > timer.warnTime {
-                            let timeString = timer.warnTimeAsString
-                            Text(timeString)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                                .minimumScaleFactor(0.5)
-                                .lineLimit(1)
-                                .font(Font.custom("Let's go Digital Regular", size: 30))
-                                .foregroundColor(Color("Warn-Color"))
-                        }
-                        
-                        if 0 < timer.finalTime,
-                           timer.startTime > timer.finalTime {
-                            let timeString = timer.finalTimeAsString
-                            Text(timeString)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                                .minimumScaleFactor(0.5)
-                                .lineLimit(1)
-                                .font(Font.custom("Let's go Digital Regular", size: 30))
-                                .foregroundColor(Color("Final-Color"))
+                    
+                    if ((0 < timer.warnTime) && (timer.startTime > timer.warnTime)) || ((0 < timer.finalTime) && (timer.startTime > timer.finalTime)) {
+                        HStack {
+                            if 0 < timer.warnTime,
+                               timer.startTime > timer.warnTime {
+                                let timeString = timer.warnTimeAsString
+                                Text(timeString)
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .minimumScaleFactor(0.5)
+                                    .lineLimit(1)
+                                    .font(Font.custom("Let's go Digital Regular", size: 30))
+                                    .foregroundColor(Color("Warn-Color"))
+                            }
+                            
+                            if 0 < timer.finalTime,
+                               timer.startTime > timer.finalTime {
+                                let timeString = timer.finalTimeAsString
+                                Text(timeString)
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .minimumScaleFactor(0.5)
+                                    .lineLimit(1)
+                                    .font(Font.custom("Let's go Digital Regular", size: 30))
+                                    .foregroundColor(Color("Final-Color"))
+                            }
                         }
                     }
+                    
+                    Button {
+                        timerStatus.watchDelegate?.sendTimerControl(operation: .start)
+                        timerStatus.screen = .runningTimer
+                    } label: {
+                        Image(systemName: "play.fill")
+                            .resizable()
+                            .scaledToFit()
+                    }
                 }
-                
-                Button {
-                    timerStatus.watchDelegate?.sendTimerControl(operation: .start)
-                    timerStatus.screen = .runningTimer
-                } label: {
-                    Image(systemName: "play.fill")
-                        .resizable()
-                        .scaledToFit()
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            timerStatus.screen = .timerList
+                        } label: {
+                            Image(systemName: "list.bullet")
+                        }
+                        .frame(width: 24)
+                    }
                 }
             }
         } else {
