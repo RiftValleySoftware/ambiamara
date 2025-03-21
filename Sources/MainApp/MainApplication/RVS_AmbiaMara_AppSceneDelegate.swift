@@ -140,8 +140,11 @@ extension RVS_AmbiaMara_AppSceneDelegate {
             case .resume:
                 (viewControllers.last as? RVS_RunningTimerAmbiaMara_ViewController)?.continueTimer(true)
 
-            default:
-                break
+            case .reset:
+                (viewControllers.last as? RVS_RunningTimerAmbiaMara_ViewController)?.resetTimer(true)
+
+            case .fastForward:
+                (viewControllers.last as? RVS_RunningTimerAmbiaMara_ViewController)?.fastForwardHit(true)
             }
         } else {
             RVS_SetTimerWrapper.pageSelectorWrapperInstance?.selectPageWithIndex(RVS_AmbiaMara_Settings().currentTimerIndex)

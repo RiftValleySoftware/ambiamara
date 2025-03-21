@@ -222,6 +222,22 @@ struct Rift_Valley_Timer_Watch_App: App {
             screen = inScreen
             watchDelegate = inDelegate
         }
+        
+        /* ############################################################## */
+        /**
+         Copy Initializer
+         
+         - parameter inCopyFrom: The struct to copy.
+         */
+        init(_ inCopyFrom: TimerStatus) {
+            self.init(timers: inCopyFrom.timers,
+                      selectedTimerIndex: inCopyFrom.selectedTimerIndex,
+                      runningSync: inCopyFrom.runningSync,
+                      timerState: inCopyFrom.timerState,
+                      screen: inCopyFrom.screen,
+                      watchDelegate: inCopyFrom.watchDelegate
+            )
+        }
     }
     
     /* ################################################################## */

@@ -28,15 +28,18 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
      The main display body.
     */
     var body: some View {
-        switch timerStatus.screen {
-        case .timerList:
-            Rift_Valley_Timer_Watch_App_TimerList(timerStatus: $timerStatus)
-        case .timerDetails:
-            Rift_Valley_Timer_Watch_App_IndividualTimerView(timerStatus: $timerStatus)
-        case .runningTimer:
-            Rift_Valley_Timer_Watch_App_RunningTimerView(timerStatus: $timerStatus)
-        case .busy:
-            ProgressView()
+        ViewThatFits {
+            switch timerStatus.screen {
+            case .timerList:
+                Rift_Valley_Timer_Watch_App_TimerList(timerStatus: $timerStatus)
+            case .timerDetails:
+                Rift_Valley_Timer_Watch_App_IndividualTimerView(timerStatus: $timerStatus)
+            case .runningTimer:
+                Rift_Valley_Timer_Watch_App_RunningTimerView(timerStatus: $timerStatus)
+            case .busy:
+                ProgressView()
+            }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

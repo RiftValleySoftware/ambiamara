@@ -985,19 +985,24 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
      Fast forward will either sto the alarm, or cascade to the next timer.
+     - parameter inDontSend: If true (default is false), then the watch will not be notified.
      */
-    func fastForwardHit() {
-        if _isAlarming {
+    func fastForwardHit(_ inDontSend: Bool = false) {
+        if !inDontSend,
+           _isAlarming {
             stopAlarm()
             cascadeTimer()
         } else if _isTimerRunning || !(_isAtStart || _isAtEnd) {
             _isAlarming = true
-        } else if !cascadeTimer(),
+        } else if !inDontSend,
+                  !cascadeTimer(),
                   !RVS_AmbiaMara_Settings().stoplightMode {
             flashCyan()
         }
-        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
-        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.pause)
+        if !inDontSend {
+            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
+            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.pause)
+        }
     }
 
     /* ############################################################## */
