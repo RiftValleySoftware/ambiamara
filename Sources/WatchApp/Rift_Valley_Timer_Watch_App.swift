@@ -327,7 +327,9 @@ extension Rift_Valley_Timer_Watch_App {
                     newStatus.timerState = .started
                 }
             }
-        } else if let operation = inContext["timerControl"] as? RVS_WatchDelegate.TimerOperation {
+        }
+        
+        if let operation = inContext["timerControl"] as? RVS_WatchDelegate.TimerOperation {
             #if DEBUG
                 print("Received Operation: \(operation.rawValue)")
             #endif
@@ -365,16 +367,18 @@ extension Rift_Valley_Timer_Watch_App {
                 newStatus.timerState = .stopped
                 newStatus.screen = .timerDetails
             }
-        } else if !RVS_AmbiaMara_Settings().timers.isEmpty,
-                  .stopped == newStatus.timerState {
-            newStatus.screen = .timerDetails
-        } else if _timerStatus.selectedTimerIndex != newStatus.selectedTimerIndex {
+        }
+                
+        // Change in selected timer resets the count.
+        if (!RVS_AmbiaMara_Settings().timers.isEmpty && .stopped == newStatus.timerState)
+            || (_timerStatus.selectedTimerIndex != newStatus.selectedTimerIndex)
+            || (_timerStatus.timers.count != newStatus.timers.count) {
             #if DEBUG
-                print("Set Up Timers: \(newStatus)")
+                print("Resetting to Timer List.")
             #endif
             newStatus.runningSync = nil
             newStatus.timerState = .stopped
-            newStatus.screen = .timerDetails
+            newStatus.screen = !RVS_AmbiaMara_Settings().timers.isEmpty ? .timerDetails : .timerList
         }
         
         _timerStatus = newStatus
