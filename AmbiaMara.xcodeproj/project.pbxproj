@@ -363,7 +363,6 @@
 				D4DD60F82D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerView.swift */,
 				D4A9322F2D64EA8B0028556E /* Info.plist */,
 				D4A9322D2D64EA310028556E /* WatchApp.entitlements */,
-				D4C1B6202D806D6E00CEA6BF /* Let's go Digital Regular.ttf */,
 				D46BC2172D8612DF0094B052 /* Assets.xcassets */,
 				D46850BA2D7F840300065D8C /* Localizable.xcstrings */,
 			);
@@ -459,9 +458,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D4EDB3002D90549700419E6C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D4C1B6202D806D6E00CEA6BF /* Let's go Digital Regular.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		D4F3572C2D6F61CD005A815A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				D4EDB3002D90549700419E6C /* Resources */,
 				D4F3572D2D6F61E8005A815A /* Sources */,
 			);
 			path = Shared;

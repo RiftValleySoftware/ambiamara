@@ -259,6 +259,24 @@ struct Rift_Valley_Timer_Watch_App: App {
      */
     @Environment(\.scenePhase) private var _scenePhase
     
+    /* ################################################################## */
+    /**
+     This is the font that we'll be using for the main details time.
+     */
+    static let mainDetailsDisplayFont = Font.custom("Let's go Digital", size: 60)
+    
+    /* ################################################################## */
+    /**
+     This is the font that we'll be using for the warn/final details time.
+     */
+    static let subDetailsDisplayFont = Font.custom("Let's go Digital", size: 30)
+
+    /* ################################################################## */
+    /**
+     This is the font that we'll be using for the running display.
+     */
+    static let runningDisplayFont = Font.custom("Let's go Digital", size: 60)
+
     /* ############################################################## */
     /**
      The current variables for the timers.

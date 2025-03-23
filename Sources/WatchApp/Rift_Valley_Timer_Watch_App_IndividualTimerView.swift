@@ -36,7 +36,7 @@ struct Rift_Valley_Timer_Watch_App_IndividualTimerView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
-                        .font(Font.custom("Let's go Digital Regular", size: 60))
+                        .font(Rift_Valley_Timer_Watch_App.mainDetailsDisplayFont)
                         .foregroundColor(Color("Start-Color"))
                     
                     if ((0 < timer.warnTime) && (timer.startTime > timer.warnTime)) || ((0 < timer.finalTime) && (timer.startTime > timer.finalTime)) {
@@ -48,7 +48,7 @@ struct Rift_Valley_Timer_Watch_App_IndividualTimerView: View {
                                     .frame(maxWidth: .infinity, alignment: .center)
                                     .minimumScaleFactor(0.5)
                                     .lineLimit(1)
-                                    .font(Font.custom("Let's go Digital Regular", size: 30))
+                                    .font(Rift_Valley_Timer_Watch_App.subDetailsDisplayFont)
                                     .foregroundColor(Color("Warn-Color"))
                             }
                             
@@ -59,7 +59,7 @@ struct Rift_Valley_Timer_Watch_App_IndividualTimerView: View {
                                     .frame(maxWidth: .infinity, alignment: .center)
                                     .minimumScaleFactor(0.5)
                                     .lineLimit(1)
-                                    .font(Font.custom("Let's go Digital Regular", size: 30))
+                                    .font(Rift_Valley_Timer_Watch_App.subDetailsDisplayFont)
                                     .foregroundColor(Color("Final-Color"))
                             }
                         }
