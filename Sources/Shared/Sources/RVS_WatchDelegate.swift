@@ -276,16 +276,51 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 print("Sending timer control operation to the phone: \(inOperation)")
             #endif
         #endif
+        
+        var syncSpot = -1
+        
+        switch inOperation {
+        case .start:
+            syncSpot = 0
+            
+        case .stop:
+            break
+            
+        case .fastForward:
+            syncSpot = RVS_AmbiaMara_Settings().currentTimer.startTime
+            
+        case .pause:
+            break
+            
+        case .resume:
+            break
+            
+        case .reset:
+            syncSpot = 0
+        }
 
+        var message: [String: Any] = ["messageType": "timerControl",
+                                      "timerControl": inOperation.rawValue
+                                     ]
+        
+        if 0 <= syncSpot {
+            message["sync"] = syncSpot
+        }
+        
+        #if DEBUG
+            print("Sending Operation: \(message)")
+        #endif
+        
         isUpdateInProgress = true
         if .activated == wcSession.activationState {
             /// > NOTE: Ignore the examples that show a nil replyHandler value. You *MUST* supply a reply handler, or the call fails.
-            wcSession.sendMessage(["messageType": "timerControl", "timerControl": inOperation.rawValue], replyHandler: sessionReplyHandler, errorHandler: sessionOperationErrorHandler)
+            wcSession.sendMessage(message, replyHandler: sessionReplyHandler, errorHandler: sessionOperationErrorHandler)
         } else {
             #if DEBUG
                 print("Session not active")
             #endif
         }
+        
         isUpdateInProgress = false
     }
 
