@@ -9,6 +9,7 @@
  */
 
 import SwiftUI
+import WatchConnectivity
 
 @main
 /* ###################################################################################################################################### */
@@ -92,6 +93,12 @@ struct Rift_Valley_Timer_Watch_App: App {
          This simply displays a throbber.
         */
         case busy
+        
+        /* ############################################################## */
+        /**
+         This displays a page, telling the user that the iPhone app is unreachable.
+        */
+        case appNotReachable
     }
     
     /* ################################################################################################################################## */
@@ -213,7 +220,7 @@ struct Rift_Valley_Timer_Watch_App: App {
              selectedTimerIndex inSelectedTimerIndex: Int = 0,
              runningSync inRunningSync: Int? = nil,
              timerState inTimerState: TimerState = .stopped,
-             screen inScreen: DisplayScreen = .busy,
+             screen inScreen: DisplayScreen = .appNotReachable,
              ignoreSync inIgnoreSync: Bool = false,
              watchDelegate inDelegate: RVS_WatchDelegate? = nil
         ) {
@@ -288,6 +295,7 @@ struct Rift_Valley_Timer_Watch_App: App {
             if .active == _scenePhase {
                 RVS_AmbiaMara_Settings().deleteAll()
                 _watchDelegate = _watchDelegate ?? RVS_WatchDelegate(updateHandler: watchUpdateHandler)
+                _watchDelegate?.sendContextRequest(5)
                 _timerStatus = TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
                                            selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
                                            screen: !RVS_AmbiaMara_Settings().timers.isEmpty ? .timerList : .busy,
@@ -328,10 +336,15 @@ extension Rift_Valley_Timer_Watch_App {
                 print("Received Sync: \(sync)")
             #endif
             
+            newStatus.screen = .runningTimer
             newStatus.runningSync = 0 <= sync ? sync : nil
             
             if .started != newStatus.timerState {
                 newStatus.timerState = .started
+            } else if .appNotReachable == newStatus.screen,
+                      .started != newStatus.timerState,
+                      .paused != newStatus.timerState {
+                newStatus.screen = .timerDetails
             }
         }
         

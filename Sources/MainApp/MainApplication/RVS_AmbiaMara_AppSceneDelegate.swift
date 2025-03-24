@@ -143,7 +143,7 @@ extension RVS_AmbiaMara_AppSceneDelegate {
             case .reset:
                 (viewControllers.last as? RVS_RunningTimerAmbiaMara_ViewController)?.resetTimer(true)
 
-            case .fastForward:
+            case .fastForward, .alarm:
                 (viewControllers.last as? RVS_RunningTimerAmbiaMara_ViewController)?.fastForwardHit(true)
             }
         } else {

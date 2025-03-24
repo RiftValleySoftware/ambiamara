@@ -9,6 +9,7 @@
  */
 
 import SwiftUI
+import RVS_Generic_Swift_Toolbox
 
 /* ###################################################################################################################################### */
 // MARK: - Main Watch Content View -
@@ -38,6 +39,8 @@ struct Rift_Valley_Timer_Watch_App_MainContentView: View {
                 Rift_Valley_Timer_Watch_App_RunningTimerView(timerStatus: $timerStatus)
             case .busy:
                 ProgressView()
+            case .appNotReachable:
+                Text("SLUG-CANT-REACH-PHONE-APP".localizedVariant)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
