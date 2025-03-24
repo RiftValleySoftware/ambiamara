@@ -312,6 +312,20 @@ struct Rift_Valley_Timer_Watch_App: App {
 extension Rift_Valley_Timer_Watch_App {
     /* ################################################################## */
     /**
+     This is a callback for errors. It is always called in the main thread.
+     
+     - parameter inWatchDelegate: The delegate handler calling this.
+     - parameter inError: Possible error. May be nil.
+     */
+    func _errorHandler(_ inWatchDelegate: RVS_WatchDelegate?, _ inError: Error?) {
+        #if DEBUG
+            print("Error: \(inError?.localizedDescription ?? "ERROR")")
+        #endif
+        _timerStatus.screen = .appNotReachable
+    }
+    
+    /* ################################################################## */
+    /**
      This responds to updates from the Watch delegate.
      
      - parameter inWatchDelegate: The delegate handler calling this.
@@ -329,6 +343,8 @@ extension Rift_Valley_Timer_Watch_App {
                                     watchDelegate: inWatchDelegate
         )
         
+        inWatchDelegate?.errorHandler = _errorHandler
+        
         if let sync = inContext["sync"] as? Int,
            let timerMax = _timerStatus.selectedTimer?.startTime,
            (0..<timerMax).contains(sync) {
@@ -339,7 +355,8 @@ extension Rift_Valley_Timer_Watch_App {
             newStatus.screen = .runningTimer
             newStatus.runningSync = 0 <= sync ? sync : nil
             
-            if .started != newStatus.timerState {
+            if .started != newStatus.timerState,
+               .alarming != newStatus.timerState {
                 newStatus.timerState = .started
             } else if .appNotReachable == newStatus.screen,
                       .started != newStatus.timerState,
@@ -361,8 +378,13 @@ extension Rift_Valley_Timer_Watch_App {
                 newStatus.timerState = .started
                 
             case .reset:
-                newStatus.runningSync = 0
-                newStatus.timerState = .paused
+                if .timerDetails != _timerStatus.screen {
+                    newStatus.runningSync = 0
+                    newStatus.timerState = .paused
+                } else {
+                    newStatus.runningSync = nil
+                    newStatus.timerState = .stopped
+                }
                 
             case .fastForward:
                 newStatus.runningSync = newStatus.selectedTimer?.startTime

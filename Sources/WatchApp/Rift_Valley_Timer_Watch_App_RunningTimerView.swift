@@ -67,7 +67,7 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
                     timerStatus = newStatus
                 }
                 .exclusively(before: TapGesture().onEnded {
-                    let newStatus = Rift_Valley_Timer_Watch_App.TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
+                    var newStatus = Rift_Valley_Timer_Watch_App.TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
                                                                             selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
                                                                             runningSync: timerStatus.runningSync,
                                                                             timerState: (.stopped == timerStatus.timerState || .paused == timerStatus.timerState) ? .started : .paused,
@@ -76,8 +76,12 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
                                                                             watchDelegate: timerStatus.watchDelegate
                     )
                     
-                    if newStatus.timerState == .started {
+                    if .started == newStatus.timerState {
                         newStatus.watchDelegate?.sendTimerControl(operation: .resume)
+                    } else if .alarming == newStatus.timerState {
+                        newStatus.runningSync = nil
+                        newStatus.screen = .timerDetails
+                        newStatus.watchDelegate?.sendTimerControl(operation: .stop)
                     } else {
                         newStatus.watchDelegate?.sendTimerControl(operation: .pause)
                     }

@@ -78,13 +78,15 @@ struct Rift_Valley_Timer_Watch_App_IndividualTimerView: View {
                     }
                 }
                 .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button {
-                            timerStatus.screen = .timerList
-                        } label: {
-                            Image(systemName: "list.bullet")
+                    if 1 < _timerStatus.timers.count {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button {
+                                timerStatus.screen = .timerList
+                            } label: {
+                                Image(systemName: "list.bullet")
+                            }
+                            .frame(width: 24)
                         }
-                        .frame(width: 24)
                     }
                 }
             }

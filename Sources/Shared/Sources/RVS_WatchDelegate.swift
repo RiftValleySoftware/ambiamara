@@ -79,6 +79,15 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
      - parameter inApplicationContext: The application context from the Watch.
      */
     typealias ApplicationContextHandler = (_ inWatchDelegate: RVS_WatchDelegate?, _ inApplicationContext: [String: Any]) -> Void
+    
+    /* ################################################################## */
+    /**
+     This is a callback template for errors. It is always called in the main thread.
+     
+     - parameter inWatchDelegate: The delegate handler calling this.
+     - parameter inError: Possible error. May be nil.
+     */
+    typealias ErrorContextHandler = (_ inWatchDelegate: RVS_WatchDelegate?, _ inError: Error?) -> Void
 
     #if os(iOS)    // Only necessary for iOS
         /* ################################################################## */
@@ -99,6 +108,12 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
      This will be called when the context changes. This is always called in the main thread.
      */
     var updateHandler: ApplicationContextHandler?
+    
+    /* ###################################################################### */
+    /**
+     This will be called when there are errors. This is always called in the main thread.
+     */
+    var errorHandler: ErrorContextHandler?
     
     /* ###################################################################### */
     /**
@@ -364,6 +379,8 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                     print("Error Not Handled")
                 #endif
             }
+            
+            DispatchQueue.main.async { self.errorHandler?(self, inError) }
         }
 
         /* ################################################################## */
@@ -388,7 +405,10 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 #if DEBUG
                     print("Session not active")
                 #endif
+                
+                DispatchQueue.main.async { self.errorHandler?(self, nil) }
             }
+            
             isUpdateInProgress = false
         }
     #endif
@@ -433,6 +453,8 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
             #if DEBUG
                 print("WC Session Error: \(error.localizedDescription)")
             #endif
+            
+            DispatchQueue.main.async { self.errorHandler?(self, error) }
         }
         isUpdateInProgress = false
     }
