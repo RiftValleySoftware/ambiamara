@@ -196,14 +196,14 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 print("Received Message From Phone: \(inMessage)")
             #endif
         #endif
-        if let messageType = inMessage["messageType"] as? String {
+        if let messageType = inMessage["messageType"] as? String,
+           "requestContext" == messageType {
+            #if DEBUG
+                print("Responding to context request from the watch")
+            #endif
+            sendApplicationContext(inReplyHandler)
+        } else if let messageType = inMessage["messageType"] as? String {
             switch messageType {
-            case "requestContext":
-                #if DEBUG
-                    print("Responding to context request from the watch")
-                #endif
-                sendApplicationContext(inReplyHandler)
-                
             case "sync":
                 if let sync = inMessage["sync"] as? Int {
                     #if DEBUG
@@ -224,9 +224,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 #if DEBUG
                     print("Operation Message Received: \(timerOperation)")
                 #endif
-                DispatchQueue.main.async {
-                    self.updateHandler?(self, ["timerControl": timerOperation])
-                }
+                DispatchQueue.main.async { self.updateHandler?(self, ["timerControl": timerOperation]) }
 
             default:
                 #if DEBUG
@@ -280,32 +278,20 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         var syncSpot = -1
         
         switch inOperation {
-        case .start:
+        case .start, .reset:
             syncSpot = 0
-            
-        case .stop:
-            break
-            
+        
         case .fastForward:
             syncSpot = RVS_AmbiaMara_Settings().currentTimer.startTime
-            
-        case .pause:
+
+        default:
             break
-            
-        case .resume:
-            break
-            
-        case .reset:
-            syncSpot = 0
         }
 
-        var message: [String: Any] = ["messageType": "timerControl",
-                                      "timerControl": inOperation.rawValue
+        let message: [String: Any] = ["messageType": "timerControl",
+                                      "timerControl": inOperation.rawValue,
+                                      "sync": syncSpot
                                      ]
-        
-        if 0 <= syncSpot {
-            message["sync"] = syncSpot
-        }
         
         #if DEBUG
             print("Sending Operation: \(message)")

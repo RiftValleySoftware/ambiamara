@@ -132,12 +132,6 @@ struct Rift_Valley_Timer_Watch_App: App {
 
         /* ############################################################## */
         /**
-         This means that we ignore any syncs that come in.
-         */
-        var ignoreSync: Bool = false
-
-        /* ############################################################## */
-        /**
          This handles communications with the Watch app.
          */
         weak var watchDelegate: RVS_WatchDelegate?
@@ -199,12 +193,7 @@ struct Rift_Valley_Timer_Watch_App: App {
          */
         var timerState: TimerState {
             get { isAtEnd ? .alarming : .paused == _timerState ? .paused : nil == runningSync ? .stopped : isWarning ? .warning : isFinal ? .final : isRunning ? .started : _timerState }
-            set {
-                _timerState = newValue
-                if .started == newValue {
-                    ignoreSync = false
-                }
-            }
+            set { _timerState = newValue }
         }
         
         /* ############################################################## */
@@ -329,7 +318,6 @@ extension Rift_Valley_Timer_Watch_App {
                                     runningSync: _timerStatus.runningSync,
                                     timerState: _timerStatus.timerState,
                                     screen: _timerStatus.screen,
-                                    ignoreSync: _timerStatus.ignoreSync,
                                     watchDelegate: inWatchDelegate
         )
         
@@ -339,11 +327,11 @@ extension Rift_Valley_Timer_Watch_App {
             #if DEBUG
                 print("Received Sync: \(sync)")
             #endif
-            if !_timerStatus.ignoreSync {
-                newStatus.runningSync = sync
-                if .started != newStatus.timerState {
-                    newStatus.timerState = .started
-                }
+            
+            newStatus.runningSync = 0 <= sync ? sync : nil
+            
+            if .started != newStatus.timerState {
+                newStatus.timerState = .started
             }
         }
         
@@ -374,10 +362,9 @@ extension Rift_Valley_Timer_Watch_App {
                 }
                 
             case .pause:
-                if .stopped != newStatus.timerState,
-                   .paused != newStatus.timerState {
+                newStatus.timerState = .paused
+                if .started != _timerStatus.timerState {
                     newStatus.runningSync = newStatus.runningSync ?? 0
-                    newStatus.timerState = .paused
                 }
 
             case .stop:
