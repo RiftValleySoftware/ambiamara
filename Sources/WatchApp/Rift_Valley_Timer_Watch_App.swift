@@ -371,6 +371,10 @@ extension Rift_Valley_Timer_Watch_App {
                 newStatus.runningSync = nil
                 newStatus.timerState = .stopped
                 newStatus.screen = .timerDetails
+                
+            case .alarm:
+                newStatus.timerState = .alarming
+                newStatus.runningSync = newStatus.selectedTimer?.startTime
             }
         }
                 

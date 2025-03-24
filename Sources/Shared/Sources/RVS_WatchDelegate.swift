@@ -63,6 +63,12 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
          Reset to the beginning, and pause.
          */
         case reset
+
+        /* ############################################################## */
+        /**
+         Sound the alarm.
+         */
+        case alarm
     }
     
     /* ################################################################## */
@@ -281,7 +287,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         case .start, .reset:
             syncSpot = 0
         
-        case .fastForward:
+        case .fastForward, .alarm:
             syncSpot = RVS_AmbiaMara_Settings().currentTimer.startTime
 
         default:

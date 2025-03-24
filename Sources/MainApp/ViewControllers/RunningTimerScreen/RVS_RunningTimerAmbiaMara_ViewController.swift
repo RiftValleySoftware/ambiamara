@@ -999,9 +999,10 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
                   !RVS_AmbiaMara_Settings().stoplightMode {
             flashCyan()
         }
+        
         if !inDontSend {
             RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
-            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.pause)
+            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.alarm)
         }
     }
 
