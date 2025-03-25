@@ -48,7 +48,7 @@ struct Rift_Valley_Timer_Watch_App_TimerList: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
-                    .font(Font.custom("Let's go Digital Regular", size: 60))
+                    .font(Rift_Valley_Timer_Watch_App.listDisplayFont)
                     .padding(0.1)
             }
             .padding(0.1)

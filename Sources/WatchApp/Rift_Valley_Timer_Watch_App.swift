@@ -260,6 +260,12 @@ struct Rift_Valley_Timer_Watch_App: App {
     /**
      This is the font that we'll be using for the main details time.
      */
+    static let listDisplayFont = Font.custom("Let's go Digital", size: 60)
+    
+    /* ################################################################## */
+    /**
+     This is the font that we'll be using for the main details time.
+     */
     static let mainDetailsDisplayFont = Font.custom("Let's go Digital", size: 60)
     
     /* ################################################################## */
