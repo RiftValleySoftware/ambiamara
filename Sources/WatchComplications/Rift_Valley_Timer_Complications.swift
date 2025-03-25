@@ -10,6 +10,7 @@
 
 import WidgetKit
 import SwiftUI
+import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
 // MARK: - Watch Complications Widget Provider -
@@ -84,11 +85,8 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
      */
     var image: UIImage {
         switch family {
-        case .accessoryRectangular:
-            return UIImage(named: "VectorLogo") ?? UIImage()
-
         default:
-            return UIImage(named: "LogoMask") ?? UIImage()
+            return UIImage(named: "VectorLogo") ?? UIImage()
         }
     }
     
@@ -98,11 +96,8 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
      */
     var text: String {
         switch family {
-        case .accessoryRectangular, .accessoryInline:
-            return "ERROR"
-
         default:
-            return "ERROR"
+            return ""
         }
     }
 }
@@ -116,14 +111,40 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
 struct Rift_Valley_Timer_ComplicationsEntryView: View {
     /* ################################################################## */
     /**
-    */
-    var entry: Rift_Valley_Timer_Watch_App_Provider.Entry
+     This is the display family variant for this complication.
+     */
+    @Environment(\.widgetFamily) private var _family
 
     /* ################################################################## */
     /**
-    */
+     The timeline entry to be displayed by this view.
+     */
+    @State var entry: Rift_Valley_Timer_Watch_App_Provider.Entry
+
+    /* ################################################################## */
+    /**
+     We deliver different views, depending on the family.
+     */
     var body: some View {
-        Text("ERROR")
+        GeometryReader { inGeom in
+            if .accessoryCorner == _family || .accessoryCircular == _family {
+                Image(uiImage: entry.image.resized(toNewHeight: inGeom.size.height) ?? UIImage())
+                    .widgetLabel(entry.text)
+                    .onAppear { entry.family = _family }
+            } else if .accessoryInline == _family,
+                      !entry.text.isEmpty {
+                Text(entry.text)
+                    .onAppear { entry.family = _family }
+            } else {
+                HStack(alignment: .top) {
+                    Image(uiImage: entry.image.resized(toNewHeight: inGeom.size.height) ?? UIImage())
+                    if !entry.text.isEmpty {
+                        Text(entry.text)
+                    }
+                }
+                .onAppear { entry.family = _family }
+            }
+        }
     }
 }
 
