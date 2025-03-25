@@ -193,6 +193,7 @@ class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
                 }
                 setDigitalTimeAs(hours: -2, minutes: -2, seconds: 0)
                 determineStoplightColor()
+                RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.alarm)
             }
         }
     }
@@ -405,12 +406,6 @@ class RVS_RunningTimerAmbiaMara_ViewController: UIViewController {
 extension RVS_RunningTimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
-     - returns: The remaining countdown time, in seconds.
-     */
-    private var _remainingTime: Int { RVS_AmbiaMara_Settings().currentTimer.startTime - _tickTimeInSeconds }
-    
-    /* ############################################################## */
-    /**
      - returns: True, if the timer is currently running.
      */
     private var _isTimerRunning: Bool { _timer?.isRunning ?? false }
@@ -419,25 +414,25 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
     /**
      - returns: True, if the current time is at the "starting gate."
      */
-    private var _isAtStart: Bool { RVS_AmbiaMara_Settings().currentTimer.startTime <= _remainingTime }
+    private var _isAtStart: Bool { RVS_AmbiaMara_Settings().currentTimer.startTime <= remainingTime }
 
     /* ############################################################## */
     /**
      - returns: True, if the current time is at the end.
      */
-    private var _isAtEnd: Bool { 0 >= _remainingTime }
+    private var _isAtEnd: Bool { 0 >= remainingTime }
 
     /* ############################################################## */
     /**
      - returns: True, if the current time is within the "warning" window.
      */
-    private var _isWarning: Bool { _remainingTime <= RVS_AmbiaMara_Settings().currentTimer.warnTime }
+    private var _isWarning: Bool { remainingTime <= RVS_AmbiaMara_Settings().currentTimer.warnTime }
 
     /* ############################################################## */
     /**
      - returns: True, if the current time is within the "final countdown" window.
      */
-    private var _isFinal: Bool { _remainingTime <= RVS_AmbiaMara_Settings().currentTimer.finalTime }
+    private var _isFinal: Bool { remainingTime <= RVS_AmbiaMara_Settings().currentTimer.finalTime }
     
     /* ############################################################## */
     /**
@@ -598,6 +593,17 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
         
         return UIGraphicsGetImageFromCurrentImageContext()
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Computed Properties
+/* ###################################################################################################################################### */
+extension RVS_RunningTimerAmbiaMara_ViewController {
+    /* ############################################################## */
+    /**
+     - returns: The remaining countdown time, in seconds.
+     */
+    var remainingTime: Int { RVS_AmbiaMara_Settings().currentTimer.startTime - _tickTimeInSeconds }
 }
 
 /* ###################################################################################################################################### */
@@ -971,6 +977,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
             if !RVS_AmbiaMara_Settings().stoplightMode {
                 flashGreen()
             }
+            oneTimeRun = false
             startTimer()
         } else {
             if !RVS_AmbiaMara_Settings().stoplightMode {
@@ -1104,6 +1111,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
            oneTimeRun {
             _autoHideTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._autoHidePeriodInSeconds, delegate: self, leewayInMilliseconds: 100, onlyFireOnce: true, queue: .main, isWallTime: true)
             _autoHideTimer?.isRunning = true
+            oneTimeRun = false
         }
         setTimerDisplay()
         _startingTime = Date().addingTimeInterval(-TimeInterval(_tickTimeInSeconds))
@@ -1153,8 +1161,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      */
     func setTimerDisplay() {
         setDigitDisplayTime()
-        determineDigitLEDColor(_remainingTime)
-        determineStoplightColor(_remainingTime)
+        determineDigitLEDColor(remainingTime)
+        determineStoplightColor(remainingTime)
     }
     
     /* ############################################################## */
@@ -1225,8 +1233,8 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
     func flashIfNecessary(previousTickTime inTickTime: Int) {
         // Look for a threshold crossing.
         let previousTime = RVS_AmbiaMara_Settings().currentTimer.startTime - inTickTime
-        determineDigitLEDColor(_remainingTime)
-        determineStoplightColor(_remainingTime)
+        determineDigitLEDColor(remainingTime)
+        determineStoplightColor(remainingTime)
         
         guard !RVS_AmbiaMara_Settings().stoplightMode else { return }   // No flashes for stoplight mode.
         
@@ -1382,7 +1390,7 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
      This calculates the current time, and sets the digital display to that time.
      */
     func setDigitDisplayTime() {
-        var differenceInSeconds = _isTimerRunning || 0 < _remainingTime ? _remainingTime : RVS_AmbiaMara_Settings().currentTimer.startTime
+        var differenceInSeconds = _isTimerRunning || 0 < remainingTime ? remainingTime : RVS_AmbiaMara_Settings().currentTimer.startTime
         
         let hours = Int(differenceInSeconds / (60 * 60))
         differenceInSeconds -= (hours * 60 * 60)
