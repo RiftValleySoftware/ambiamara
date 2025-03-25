@@ -20,16 +20,22 @@ import SwiftUI
 struct Rift_Valley_Timer_Watch_App_Provider: TimelineProvider {
     /* ################################################################## */
     /**
+     This is the display family variant for this complication.
+     */
+    @Environment(\.widgetFamily) private var _family
+    
+    /* ################################################################## */
+    /**
     */
     func placeholder(in context: Context) -> Rift_Valley_Timer_Watch_App_Entry {
-        Rift_Valley_Timer_Watch_App_Entry(date: Date(), emoji: "😀")
+        Rift_Valley_Timer_Watch_App_Entry(date: Date())
     }
 
     /* ################################################################## */
     /**
     */
     func getSnapshot(in context: Context, completion: @escaping (Rift_Valley_Timer_Watch_App_Entry) -> Void) {
-        let entry = Rift_Valley_Timer_Watch_App_Entry(date: Date(), emoji: "😀")
+        let entry = Rift_Valley_Timer_Watch_App_Entry(date: Date())
         completion(entry)
     }
 
@@ -37,13 +43,14 @@ struct Rift_Valley_Timer_Watch_App_Provider: TimelineProvider {
     /**
     */
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
+        RVS_AmbiaMara_Settings().flush()
         var entries: [Rift_Valley_Timer_Watch_App_Entry] = []
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = Rift_Valley_Timer_Watch_App_Entry(date: entryDate, emoji: "😀")
+            let entry = Rift_Valley_Timer_Watch_App_Entry(date: entryDate)
             entries.append(entry)
         }
 
@@ -61,13 +68,43 @@ struct Rift_Valley_Timer_Watch_App_Provider: TimelineProvider {
 struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
     /* ################################################################## */
     /**
-    */
+     The entry display date
+     */
     let date: Date
+
+    /* ################################################################## */
+    /**
+     This is the display family variant for this complication.
+     */
+    var family: WidgetFamily = .accessoryCircular
     
     /* ################################################################## */
     /**
-    */
-    let emoji: String
+     The image to be displayed (based upon the family)
+     */
+    var image: UIImage {
+        switch family {
+        case .accessoryRectangular:
+            return UIImage(named: "VectorLogo") ?? UIImage()
+
+        default:
+            return UIImage(named: "LogoMask") ?? UIImage()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     The text to be displayed (based upon the family)
+     */
+    var text: String {
+        switch family {
+        case .accessoryRectangular, .accessoryInline:
+            return "ERROR"
+
+        default:
+            return "ERROR"
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -105,19 +142,17 @@ struct Rift_Valley_Timer_Complications: Widget {
 
     /* ################################################################## */
     /**
-    */
+     This returns a view for the complication.
+     */
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Rift_Valley_Timer_Watch_App_Provider()) { entry in
-            if #available(watchOS 10.0, *) {
-                Rift_Valley_Timer_ComplicationsEntryView(entry: entry)
-                    .containerBackground(.fill.tertiary, for: .widget)
-            } else {
-                Rift_Valley_Timer_ComplicationsEntryView(entry: entry)
-                    .padding()
-                    .background()
-            }
+        StaticConfiguration(kind: kind, provider: Rift_Valley_Timer_Watch_App_Provider()) { inEntry in
+            Rift_Valley_Timer_ComplicationsEntryView(entry: inEntry)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("Rift Valley Timer")
+        .supportedFamilies([.accessoryInline,
+                            .accessoryCircular,
+                            .accessoryRectangular,
+                            .accessoryCorner
+        ])
     }
 }
