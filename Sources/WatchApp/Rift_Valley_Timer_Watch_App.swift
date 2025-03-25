@@ -148,6 +148,7 @@ struct Rift_Valley_Timer_Watch_App: App {
          If the timer is running, this displays the current countdown time.
         */
         var runningTimerDisplay: String {
+            guard (0..<timers.count).contains(selectedTimerIndex) else { return "" }
             let runningSync = TimeInterval(runningSync ?? 0)
             let totalTime = Int(TimeInterval(timers[selectedTimerIndex].startTime) - runningSync)
             let hour = totalTime / 3600

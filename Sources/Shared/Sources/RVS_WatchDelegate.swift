@@ -217,6 +217,30 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 print("Received Message From Phone: \(inMessage)")
             #endif
         #endif
+        if let timersTemp = inMessage["timers"] as? [[Int]] {
+            #if DEBUG
+                print("Received Timers: \(timersTemp)")
+            #endif
+            
+            RVS_AmbiaMara_Settings().timers = timersTemp.map { RVS_AmbiaMara_Settings.TimerSettings(startTime: $0[0], warnTime: $0[1], finalTime: $0[2]) }
+        }
+
+        if let currentIndex = inMessage["currentTimerIndex"] as? Int {
+            #if DEBUG
+                print("Received Current Index: \(currentIndex)")
+            #endif
+            
+            RVS_AmbiaMara_Settings().currentTimerIndex = currentIndex
+        }
+        
+        if let startTimerImmediately = inMessage["startTimerImmediately"] as? Bool {
+            #if DEBUG
+                print("Received Startup Option: \(startTimerImmediately)")
+            #endif
+
+            RVS_AmbiaMara_Settings().startTimerImmediately = startTimerImmediately
+        }
+
         if let messageType = inMessage["messageType"] as? String,
            "requestContext" == messageType {
             #if DEBUG
@@ -232,7 +256,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                     #endif
                     DispatchQueue.main.async { self.updateHandler?(self, ["sync": sync]) }
                }
-                
+
             case "timerControl":
                 guard let operation = inMessage["timerControl"] as? String,
                       let timerOperation = TimerOperation(rawValue: operation)
@@ -345,8 +369,15 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                     print("Sending timer sync to the watch: \(inTimerTickTime)")
                 #endif
 
+                let messageData: [String: Any] = ["timers": RVS_AmbiaMara_Settings().asWatchContextData,
+                                                  "currentTimerIndex": RVS_AmbiaMara_Settings().currentTimerIndex,
+                                                  "startTimerImmediately": RVS_AmbiaMara_Settings().startTimerImmediately,
+                                                  "messageType": "sync",
+                                                  "sync": inTimerTickTime
+                ]
+
                 /// > NOTE: Ignore the examples that show a nil replyHandler value. You *MUST* supply a reply handler, or the call fails.
-                wcSession.sendMessage(["messageType": "sync", "sync": inTimerTickTime], replyHandler: { _ in })
+                wcSession.sendMessage(messageData, replyHandler: { _ in })
             } else {
                 #if DEBUG
                     print("Session not active")
@@ -423,8 +454,6 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         isUpdateInProgress = true
         RVS_AmbiaMara_Settings().flush()
         do {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
             var contextData: [String: Any] = ["timers": RVS_AmbiaMara_Settings().asWatchContextData,
                                               "currentTimerIndex": RVS_AmbiaMara_Settings().currentTimerIndex,
                                               "startTimerImmediately": RVS_AmbiaMara_Settings().startTimerImmediately
