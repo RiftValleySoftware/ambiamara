@@ -179,19 +179,37 @@ struct Rift_Valley_Timer_Watch_App: App {
         /**
          True, if the timer is at the end of its countdown.
         */
-        var isAtEnd: Bool { isRunning && nil != runningSync && nil != selectedTimer && selectedTimer!.startTime == runningSync! }
+        var isAtEnd: Bool {
+            guard isRunning,
+                  let selectedTimer,
+                  let runningSync
+            else { return false }
+            return selectedTimer.startTime == runningSync
+        }
         
         /* ################################################################## */
         /**
          True, if the timer is in the "warning" phase.
         */
-        var isWarning: Bool { isRunning && nil != runningSync && nil != selectedTimer && 0 < selectedTimer!.warnTime && runningSync! >= selectedTimer!.warnTime }
+        var isWarning: Bool {
+            guard isRunning,
+                  let selectedTimer,
+                  let runningSync
+            else { return false }
+            return 0 < selectedTimer.warnTime && runningSync >= (selectedTimer.startTime - selectedTimer.warnTime)
+        }
         
         /* ################################################################## */
         /**
          True, if the timer is in the "final" phase.
         */
-        var isFinal: Bool { isRunning && nil != runningSync && nil != selectedTimer && 0 < selectedTimer!.finalTime && runningSync! >= selectedTimer!.finalTime }
+        var isFinal: Bool {
+            guard isRunning,
+                  let selectedTimer,
+                  let runningSync
+            else { return false }
+            return 0 < selectedTimer.finalTime && runningSync >= (selectedTimer.startTime - selectedTimer.finalTime)
+        }
 
         /* ############################################################## */
         /**
@@ -200,7 +218,7 @@ struct Rift_Valley_Timer_Watch_App: App {
          > NOTE: Setting only cares about `.paused` or `.stopped`. All the others are computed.
          */
         var timerState: TimerState {
-            get { isAtEnd ? .alarming : .paused == _timerState ? .paused : nil == runningSync ? .stopped : isWarning ? .warning : isFinal ? .final : isRunning ? .started : _timerState }
+            get { isAtEnd ? .alarming : .paused == _timerState ? .paused : nil == runningSync ? .stopped : isFinal ? .final : isWarning ? .warning : isRunning ? .started : _timerState }
             set { _timerState = newValue }
         }
         

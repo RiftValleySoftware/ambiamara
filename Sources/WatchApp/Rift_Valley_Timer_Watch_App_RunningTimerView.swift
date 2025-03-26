@@ -70,23 +70,36 @@ struct Rift_Valley_Timer_Watch_App_RunningTimerView: View {
                     var newStatus = Rift_Valley_Timer_Watch_App.TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
                                                                             selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
                                                                             runningSync: timerStatus.runningSync,
-                                                                            timerState: (.stopped == timerStatus.timerState || .paused == timerStatus.timerState) ? .started : .paused,
                                                                             screen: .runningTimer,
                                                                             ignoreSync: true,
                                                                             watchDelegate: timerStatus.watchDelegate
                     )
                     
-                    if .started == newStatus.timerState {
+                    switch timerStatus.timerState {
+                    case .stopped:
+                        newStatus.timerState = .started
+                        newStatus.watchDelegate?.sendTimerControl(operation: .start)
+
+                    case .paused:
+                        newStatus.timerState = .started
                         newStatus.watchDelegate?.sendTimerControl(operation: .resume)
-                    } else if .alarming == newStatus.timerState {
-                        newStatus.runningSync = nil
-                        newStatus.screen = .timerDetails
-                        newStatus.watchDelegate?.sendTimerControl(operation: .stop)
-                    } else {
+
+                    case .started:
+                        newStatus.timerState = .paused
                         newStatus.watchDelegate?.sendTimerControl(operation: .pause)
+
+                    case .alarming:
+                        newStatus.runningSync = 0
+                        newStatus.timerState = .paused
+                        newStatus.watchDelegate?.sendTimerControl(operation: .reset)
+                        
+                    default:
+                        break
                     }
+
                     timerStatus = newStatus
                 })
+            
                 .simultaneously(with: DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
                     .onEnded { inValue in
                         var newStatus = Rift_Valley_Timer_Watch_App.TimerStatus(timerStatus)
