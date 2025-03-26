@@ -92,14 +92,9 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
     
     /* ################################################################## */
     /**
-     The text to be displayed (based upon the family)
+     The text to be displayed (current timer time).
      */
-    var text: String {
-        switch family {
-        default:
-            return ""
-        }
-    }
+    var text: String { RVS_AmbiaMara_Settings().currentTimer.startTimeAsString }
 }
 
 /* ###################################################################################################################################### */
