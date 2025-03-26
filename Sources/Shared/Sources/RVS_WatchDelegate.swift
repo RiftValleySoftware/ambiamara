@@ -19,6 +19,7 @@
 */
 
 import WatchConnectivity
+import RVS_BasicGCDTimer
 
 /* ###################################################################################################################################### */
 // MARK: Watch Connecvtivity Handler
@@ -103,6 +104,35 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         func sessionDidDeactivate(_: WCSession) { }
     #endif
     
+    /* ################################################################## */
+    /**
+     This is how many seconds we wait for a response from the phone, before giving up.
+     */
+    static let testTimeoutInSeconds = TimeInterval(10)
+    
+    /* ################################################################## */
+    /**
+     This is a timeout handler for communications with the phone.
+     */
+    private var _timeoutHandler: RVS_BasicGCDTimer?
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _startTimeoutHandler(completion inCompletion: @escaping ErrorContextHandler) {
+        _timeoutHandler = RVS_BasicGCDTimer(RVS_WatchDelegate.testTimeoutInSeconds) { _, _  in
+            self._killTimeoutHandler()
+            self.errorHandler?(self, nil)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _killTimeoutHandler() {
+        _timeoutHandler = nil
+    }
+    
     /* ###################################################################### */
     /**
      This will be called when the context changes. This is always called in the main thread.
@@ -145,6 +175,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         #if DEBUG
             print("The Watch session is\(.activated == inActivationState ? "" : " not") activated.")
         #endif
+        _killTimeoutHandler()
         
         guard .activated == inActivationState else { return }
         
@@ -163,6 +194,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
     func session(_ inSession: WCSession, didReceiveApplicationContext inApplicationContext: [String: Any]) {
         guard !isUpdateInProgress else { return }
         isUpdateInProgress = true
+        _killTimeoutHandler()
         
         DispatchQueue.main.async {
             RVS_AmbiaMara_Settings().flush()
@@ -210,6 +242,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
      - parameter replyHandler: A function to be executed, with the reply to the message.
     */
     func session(_ inSession: WCSession, didReceiveMessage inMessage: [String: Any], replyHandler inReplyHandler: @escaping ([String: Any]) -> Void) {
+        _killTimeoutHandler()
         #if DEBUG
             #if os(iOS)
                 print("Received Message From Watch: \(inMessage)")
@@ -286,6 +319,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
      - parameter inReply: The context data.
     */
     func sessionReplyHandler(_ inReply: [String: Any]) {
+        _killTimeoutHandler()
         #if DEBUG
             print("Reply from peer: \(inReply)")
         #endif
@@ -299,10 +333,12 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
      Called, if the request failed.
     */
     func sessionOperationErrorHandler(_ inError: Error) {
+        _killTimeoutHandler()
+        isUpdateInProgress = false
         #if DEBUG
             print("Error from session: \(inError.localizedDescription)")
         #endif
-        isUpdateInProgress = false
+        DispatchQueue.main.async { self.errorHandler?(self, inError) }
     }
 
     /* ########################################################################## */
@@ -344,11 +380,14 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         
         isUpdateInProgress = true
         if .activated == wcSession.activationState {
+            if let errorHandler {
+                _startTimeoutHandler(completion: errorHandler)
+            }
             /// > NOTE: Ignore the examples that show a nil replyHandler value. You *MUST* supply a reply handler, or the call fails.
             wcSession.sendMessage(message, replyHandler: sessionReplyHandler, errorHandler: sessionOperationErrorHandler)
         } else {
             #if DEBUG
-                print("Session not active")
+                print("Session not active, or no error handler.")
             #endif
         }
         
@@ -376,12 +415,17 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                                                   "sync": inTimerTickTime
                 ]
 
+                if let errorHandler {
+                    _startTimeoutHandler(completion: errorHandler)
+                }
                 /// > NOTE: Ignore the examples that show a nil replyHandler value. You *MUST* supply a reply handler, or the call fails.
-                wcSession.sendMessage(messageData, replyHandler: { _ in })
+                wcSession.sendMessage(messageData, replyHandler: { _ in self._killTimeoutHandler() })
             } else {
                 #if DEBUG
                     print("Session not active")
                 #endif
+                
+                DispatchQueue.main.async { self.errorHandler?(self, nil) }
             }
             isUpdateInProgress = false
         }
@@ -395,6 +439,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
             #if DEBUG
                 print("Error from session: \(inError.localizedDescription)")
             #endif
+            _killTimeoutHandler()
             isUpdateInProgress = false
             let nsError = inError as NSError
             if nsError.domain == "WCErrorDomain",
@@ -405,6 +450,7 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
                 #endif
                 let randomDelay = Double.random(in: (0.3...1.0))
                 DispatchQueue.global().asyncAfter(deadline: .now() + randomDelay) { self.sendContextRequest(self.retries - 1) }
+                return
             } else {
                 #if DEBUG
                     print("Error Not Handled")
@@ -429,6 +475,9 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
             
             isUpdateInProgress = true
             if .activated == wcSession.activationState {
+                if let errorHandler {
+                    _startTimeoutHandler(completion: errorHandler)
+                }
                 wcSession.sendMessage(["messageType": "requestContext"],
                                       replyHandler: sessionReplyHandler,
                                       errorHandler: sessionErrorHandler)

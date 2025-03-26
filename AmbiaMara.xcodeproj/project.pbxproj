@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,7 @@
 		D4079934287731860058EAF4 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4079933287731860058EAF4 /* RVS_UIKit_Toolbox */; };
 		D40A69392846A05D0010A58E /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D40A69382846A05D0010A58E /* RVS_Persistent_Prefs */; };
 		D4291733282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */; };
+		D43ED8362D942C76001B1B68 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D43ED8352D942C76001B1B68 /* RVS_BasicGCDTimer */; };
 		D45EDFAD2D88735C0024CB6D /* Rift_Valley_Timer_Watch_App_TimerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EDFAC2D88735C0024CB6D /* Rift_Valley_Timer_Watch_App_TimerList.swift */; };
 		D46850BB2D7F840300065D8C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D46850BA2D7F840300065D8C /* Localizable.xcstrings */; };
 		D46850BC2D7F840300065D8C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D46850BA2D7F840300065D8C /* Localizable.xcstrings */; };
@@ -253,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4E6ECB12D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */,
+				D43ED8362D942C76001B1B68 /* RVS_BasicGCDTimer in Frameworks */,
 				D4F357312D6F6271005A815A /* RVS_Persistent_Prefs in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -545,6 +547,7 @@
 			packageProductDependencies = (
 				D4F357302D6F6271005A815A /* RVS_Persistent_Prefs */,
 				D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */,
+				D43ED8352D942C76001B1B68 /* RVS_BasicGCDTimer */,
 			);
 			productName = "Rift Valley Timer Watch Watch App";
 			productReference = D4F83C9D2D63DB10009C4646 /* Rift Valley Timer WatchApp.app */;
@@ -595,7 +598,7 @@
 				};
 			};
 			buildConfigurationList = D47C02962819CA6500D359F5 /* Build configuration list for PBXProject "AmbiaMara" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1139,7 +1142,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3053;
+				CURRENT_PROJECT_VERSION = 3054;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1176,7 +1179,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3053;
+				CURRENT_PROJECT_VERSION = 3054;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1297,6 +1300,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
 			productName = RVS_Persistent_Prefs;
+		};
+		D43ED8352D942C76001B1B68 /* RVS_BasicGCDTimer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4D193BB2D883DEA008DA06F /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
+			productName = RVS_BasicGCDTimer;
 		};
 		D48A5E342D934ED200770606 /* RVS_UIKit_Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;

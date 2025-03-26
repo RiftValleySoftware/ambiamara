@@ -179,19 +179,19 @@ struct Rift_Valley_Timer_Watch_App: App {
         /**
          True, if the timer is at the end of its countdown.
         */
-        var isAtEnd: Bool { nil != runningSync && nil != selectedTimer && runningSync! == selectedTimer!.startTime }
+        var isAtEnd: Bool { isRunning && nil != runningSync && nil != selectedTimer && selectedTimer!.startTime == runningSync! }
         
         /* ################################################################## */
         /**
          True, if the timer is in the "warning" phase.
         */
-        var isWarning: Bool { nil != runningSync && nil != selectedTimer && 0 < selectedTimer!.warnTime && runningSync! >= selectedTimer!.warnTime }
+        var isWarning: Bool { isRunning && nil != runningSync && nil != selectedTimer && 0 < selectedTimer!.warnTime && runningSync! >= selectedTimer!.warnTime }
         
         /* ################################################################## */
         /**
          True, if the timer is in the "final" phase.
         */
-        var isFinal: Bool { nil != runningSync && nil != selectedTimer && 0 < selectedTimer!.finalTime && runningSync! >= selectedTimer!.finalTime }
+        var isFinal: Bool { isRunning && nil != runningSync && nil != selectedTimer && 0 < selectedTimer!.finalTime && runningSync! >= selectedTimer!.finalTime }
 
         /* ############################################################## */
         /**
@@ -221,7 +221,7 @@ struct Rift_Valley_Timer_Watch_App: App {
              selectedTimerIndex inSelectedTimerIndex: Int = 0,
              runningSync inRunningSync: Int? = nil,
              timerState inTimerState: TimerState = .stopped,
-             screen inScreen: DisplayScreen = .appNotReachable,
+             screen inScreen: DisplayScreen = .busy,
              ignoreSync inIgnoreSync: Bool = false,
              watchDelegate inDelegate: RVS_WatchDelegate? = nil
         ) {
@@ -255,13 +255,13 @@ struct Rift_Valley_Timer_Watch_App: App {
      Tracks scene activity.
      */
     @Environment(\.scenePhase) private var _scenePhase
-    
+
     /* ################################################################## */
     /**
      This is the font that we'll be using for the main details time.
      */
     static let listDisplayFont = Font.custom("Let's go Digital", size: 60)
-    
+
     /* ################################################################## */
     /**
      This is the font that we'll be using for the main details time.
@@ -365,7 +365,7 @@ extension Rift_Valley_Timer_Watch_App {
             if .started != newStatus.timerState,
                .alarming != newStatus.timerState {
                 newStatus.timerState = .started
-            } else if .appNotReachable == newStatus.screen,
+            } else if .appNotReachable == newStatus.screen || .busy == newStatus.screen,
                       .started != newStatus.timerState,
                       .paused != newStatus.timerState {
                 newStatus.screen = .timerDetails
