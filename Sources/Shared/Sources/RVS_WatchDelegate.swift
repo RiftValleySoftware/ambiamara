@@ -380,9 +380,9 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         
         isUpdateInProgress = true
         if .activated == wcSession.activationState {
-            if let errorHandler {
-                _startTimeoutHandler(completion: errorHandler)
-            }
+//            if let errorHandler {
+//                _startTimeoutHandler(completion: errorHandler)
+//            }
             /// > NOTE: Ignore the examples that show a nil replyHandler value. You *MUST* supply a reply handler, or the call fails.
             wcSession.sendMessage(message, replyHandler: sessionReplyHandler, errorHandler: sessionOperationErrorHandler)
         } else {

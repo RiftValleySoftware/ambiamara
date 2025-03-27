@@ -1128,15 +1128,18 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
     /* ############################################################## */
     /**
      Stops the timer, by popping the screen.
+     - parameter inDontSend: If true (default is false), then the watch will not be notified.
      */
-    func stopTimer() {
+    func stopTimer(_ inDontSend: Bool = false) {
         _timer?.invalidate()
         _timer = nil
         _alarmTimer?.invalidate()
         _alarmTimer = nil
         _autoHideTimer?.invalidate()
         _autoHideTimer = nil
-        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.stop)
+        if !inDontSend {
+            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.stop)
+        }
         DispatchQueue.main.async { [weak self] in
             self?._isAlarming = false
             self?._isSoundPlaying = false

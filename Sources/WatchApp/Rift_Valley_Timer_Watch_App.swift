@@ -10,6 +10,7 @@
 
 import SwiftUI
 import WatchConnectivity
+import WatchKit
 
 @main
 /* ###################################################################################################################################### */
@@ -129,7 +130,7 @@ struct Rift_Valley_Timer_Watch_App: App {
         /**
          The current state of the timer.
          */
-        private var _timerState: TimerState = .stopped
+        private var _timerState: TimerState
 
         /* ############################################################## */
         /**
@@ -297,6 +298,12 @@ struct Rift_Valley_Timer_Watch_App: App {
      This is the font that we'll be using for the running display.
      */
     static let runningDisplayFont = Font.custom("Let's go Digital", size: 60)
+    
+    /* ############################################################## */
+    /**
+     Set to true, if the app is in the background.
+     */
+    @State private var _isBackgrounded = false
 
     /* ############################################################## */
     /**
@@ -316,18 +323,23 @@ struct Rift_Valley_Timer_Watch_App: App {
      */
     var body: some Scene {
         WindowGroup { Rift_Valley_Timer_Watch_App_MainContentView(timerStatus: $_timerStatus) }
-        .onChange(of: _scenePhase) {
-            if .active == _scenePhase {
-                RVS_AmbiaMara_Settings().flush()
-                _watchDelegate = _watchDelegate ?? RVS_WatchDelegate(updateHandler: watchUpdateHandler)
-                _watchDelegate?.sendContextRequest(5)
-                _timerStatus = TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
-                                           selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
-                                           screen: !RVS_AmbiaMara_Settings().timers.isEmpty ? .timerList : .busy,
-                                           watchDelegate: _watchDelegate
-                )
+            .onChange(of: _scenePhase) {
+                var newValue = _isBackgrounded
+                if .background == _scenePhase {
+                    newValue = true
+                } else if .active == _scenePhase {
+                    RVS_AmbiaMara_Settings().flush()
+                    _watchDelegate = _watchDelegate ?? RVS_WatchDelegate(updateHandler: watchUpdateHandler)
+                    _watchDelegate?.sendContextRequest(5)
+                    _timerStatus = TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
+                                               selectedTimerIndex: RVS_AmbiaMara_Settings().currentTimerIndex,
+                                               screen: !RVS_AmbiaMara_Settings().timers.isEmpty ? .timerList : .busy,
+                                               watchDelegate: _watchDelegate
+                    )
+                }
+                
+                _isBackgrounded = newValue
             }
-        }
     }
 }
 
@@ -371,7 +383,9 @@ extension Rift_Valley_Timer_Watch_App {
         inWatchDelegate?.errorHandler = _errorHandler
         
         if let sync = inContext["sync"] as? Int,
+           newStatus.runningSync != sync,
            let timerMax = _timerStatus.selectedTimer?.startTime,
+           (0..<_timerStatus.timers.count).contains(newStatus.selectedTimerIndex),
            (0..<timerMax).contains(sync) {
             #if DEBUG
                 print("Received Sync: \(sync)")
@@ -428,22 +442,43 @@ extension Rift_Valley_Timer_Watch_App {
             case .alarm:
                 newStatus.timerState = .alarming
                 newStatus.runningSync = newStatus.selectedTimer?.startTime
-                newStatus.screen = .runningTimer
             }
         }
                 
         // Change in selected timer resets the count.
-        if (!RVS_AmbiaMara_Settings().timers.isEmpty && .stopped == newStatus.timerState)
+        if (0..<_timerStatus.timers.count).contains(newStatus.selectedTimerIndex),
+           (!RVS_AmbiaMara_Settings().timers.isEmpty && .stopped == newStatus.timerState)
             || (_timerStatus.selectedTimerIndex != newStatus.selectedTimerIndex)
             || (_timerStatus.timers.count != newStatus.timers.count) {
             #if DEBUG
                 print("Resetting to Timer List.")
             #endif
             newStatus.runningSync = nil
-            newStatus.timerState = .stopped
-            newStatus.screen = !RVS_AmbiaMara_Settings().timers.isEmpty ? .timerDetails : .timerList
+            newStatus.timerState = (_timerStatus.selectedTimerIndex != newStatus.selectedTimerIndex)
+                                    || (_timerStatus.timers.count != newStatus.timers.count) ? .stopped : _timerStatus.timerState
+            newStatus.screen = !newStatus.timers.isEmpty ? .timerDetails : .timerList
         }
         
         _timerStatus = newStatus
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Handle Background Screengrab Notifications -
+/* ###################################################################################################################################### */
+/**
+ This is actually an approach that was suggested by ChatGPT.
+ 
+ This receives background tasks, and asks the system to snapshot the screen.
+ */
+class ExtensionDelegate: NSObject, WKExtensionDelegate {
+    func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
+        for task in backgroundTasks {
+            if let snapshotTask = task as? WKSnapshotRefreshBackgroundTask {
+                snapshotTask.setTaskCompletedWithSnapshot(true)
+            } else {
+                task.setTaskCompletedWithSnapshot(false)
+            }
+        }
     }
 }
