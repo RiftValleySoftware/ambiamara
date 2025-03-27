@@ -163,6 +163,7 @@ struct Rift_Valley_Timer_Complications: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Rift_Valley_Timer_Watch_App_Provider()) { inEntry in
             Rift_Valley_Timer_ComplicationsEntryView(entry: inEntry)
+                .onAppear { RVS_AmbiaMara_Settings().flush() }
         }
         .configurationDisplayName("Rift Valley Timer")
         .supportedFamilies([.accessoryInline,

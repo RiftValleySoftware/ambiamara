@@ -353,7 +353,7 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
         } else if (1..<60).contains(inSeconds) {
             return String(format: "%d", inSeconds)
         } else {
-            return "0"
+            return ""
         }
     }
 

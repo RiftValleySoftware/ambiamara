@@ -318,7 +318,7 @@ struct Rift_Valley_Timer_Watch_App: App {
         WindowGroup { Rift_Valley_Timer_Watch_App_MainContentView(timerStatus: $_timerStatus) }
         .onChange(of: _scenePhase) {
             if .active == _scenePhase {
-                RVS_AmbiaMara_Settings().deleteAll()
+                RVS_AmbiaMara_Settings().flush()
                 _watchDelegate = _watchDelegate ?? RVS_WatchDelegate(updateHandler: watchUpdateHandler)
                 _watchDelegate?.sendContextRequest(5)
                 _timerStatus = TimerStatus(timers: RVS_AmbiaMara_Settings().timers,
@@ -377,7 +377,6 @@ extension Rift_Valley_Timer_Watch_App {
                 print("Received Sync: \(sync)")
             #endif
             
-            newStatus.screen = .runningTimer
             newStatus.runningSync = 0 <= sync ? sync : nil
             
             if .started != newStatus.timerState,
@@ -394,22 +393,16 @@ extension Rift_Valley_Timer_Watch_App {
             #if DEBUG
                 print("Received Operation: \(operation.rawValue)")
             #endif
-            
-            newStatus.screen = .runningTimer
-            
+                        
             switch operation {
             case .start:
                 newStatus.runningSync = 0
                 newStatus.timerState = .started
-                
+                newStatus.screen = .runningTimer
+
             case .reset:
-                if .timerDetails != _timerStatus.screen {
-                    newStatus.runningSync = 0
-                    newStatus.timerState = .paused
-                } else {
-                    newStatus.runningSync = nil
-                    newStatus.timerState = .stopped
-                }
+                newStatus.runningSync = 0
+                newStatus.timerState = .paused
                 
             case .fastForward:
                 newStatus.runningSync = newStatus.selectedTimer?.startTime
@@ -435,6 +428,7 @@ extension Rift_Valley_Timer_Watch_App {
             case .alarm:
                 newStatus.timerState = .alarming
                 newStatus.runningSync = newStatus.selectedTimer?.startTime
+                newStatus.screen = .runningTimer
             }
         }
                 
