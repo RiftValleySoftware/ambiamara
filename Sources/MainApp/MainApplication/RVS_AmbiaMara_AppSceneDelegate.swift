@@ -147,7 +147,8 @@ extension RVS_AmbiaMara_AppSceneDelegate {
                 (viewControllers.last as? RVS_RunningTimerAmbiaMara_ViewController)?.fastForwardHit(true)
             }
         } else {
-            RVS_SetTimerWrapper.pageSelectorWrapperInstance?.selectPageWithIndex(RVS_AmbiaMara_Settings().currentTimerIndex)
+            let settings = RVS_AmbiaMara_Settings()
+            RVS_SetTimerWrapper.pageSelectorWrapperInstance?.selectPageWithIndex(settings.currentTimerIndex)
         }
     }
 }

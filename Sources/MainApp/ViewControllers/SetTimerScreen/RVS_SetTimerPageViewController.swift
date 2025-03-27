@@ -420,6 +420,8 @@ extension RVS_SetTimerWrapper {
      */
     func selectPageWithIndex(_ inIndex: Int, direction inDirection: UIPageViewController.NavigationDirection? = nil) {
         guard (0..<RVS_AmbiaMara_Settings().numberOfTimers).contains(inIndex),
+              !(pageViewController?.viewControllers?.isEmpty ?? true),
+              (pageViewController?.viewControllers?[0] as? RVS_SetTimerAmbiaMara_ViewController)?.timerIndex != inIndex,
               let viewControllers = pageViewController?.viewControllers,
               !viewControllers.isEmpty,
               let viewController = storyboard?.instantiateViewController(withIdentifier: RVS_SetTimerAmbiaMara_ViewController.storyboardID) as? RVS_SetTimerAmbiaMara_ViewController
