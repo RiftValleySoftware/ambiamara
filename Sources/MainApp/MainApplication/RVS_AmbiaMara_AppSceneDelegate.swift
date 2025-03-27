@@ -163,6 +163,19 @@ extension RVS_AmbiaMara_AppSceneDelegate: UIApplicationDelegate {
      */
     func application(_: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         _watchDelegate = RVS_WatchDelegate(updateHandler: watchUpdateHandler)
+        
+        // This loads any previous prefs, and fetches the cleandate from them (then removes them).
+        // We are changing the type of UserDefaults that we're storing, so we'll store them in our new format from now on.
+        if let loadedPrefs = UserDefaults.standard.object(forKey: "RVS_AmbiaMara_Settings") as? [String: Any] {
+            if let kvpArray = (loadedPrefs["timers"] as? [String: [Int]])?.values,
+               !kvpArray.isEmpty {
+                RVS_AmbiaMara_Settings().timers = kvpArray.map { RVS_AmbiaMara_Settings.TimerSettings(startTime: $0[0], warnTime: $0[1], finalTime: $0[2]) }
+                RVS_AmbiaMara_Settings().currentTimerIndex = 0
+            }
+            
+            UserDefaults.standard.removeObject(forKey: "RVS_AmbiaMara_Settings")
+        }
+
         return true
     }
 

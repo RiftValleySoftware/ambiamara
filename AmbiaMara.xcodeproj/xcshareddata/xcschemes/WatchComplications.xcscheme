@@ -75,12 +75,21 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D4F83CB22D63DB43009C4646"
+            BuildableName = "Rift Valley Timer ComplicationsExtension.appex"
+            BlueprintName = "Rift Valley Timer ComplicationsExtension"
+            ReferencedContainer = "container:AmbiaMara.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4F83C9C2D63DB10009C4646"
             BuildableName = "Rift Valley Timer WatchApp.app"
             BlueprintName = "Rift Valley Timer WatchApp"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

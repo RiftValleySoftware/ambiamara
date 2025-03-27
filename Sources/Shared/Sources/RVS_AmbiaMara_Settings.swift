@@ -597,4 +597,20 @@ class RVS_AmbiaMara_Settings: RVS_PersistentPrefs {
             currentTimerIndex = index
         }
     }
+
+    /* ################################################################## */
+    /**
+     We just make sure that we use the shared group for our prefs.
+     
+     We extract the group string from our info.plist.
+     */
+    override init() {
+        if Self.groupID?.isEmpty ?? true,
+           let appGroupString = Bundle.main.infoDictionary?["appGroup"] as? String,
+           !appGroupString.isEmpty {
+            Self.groupID = appGroupString
+        }
+        
+        super.init()
+    }
 }
