@@ -999,17 +999,24 @@ extension RVS_RunningTimerAmbiaMara_ViewController {
            _isAlarming {
             stopAlarm()
             cascadeTimer()
+            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
+            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.reset)
         } else if _isTimerRunning || !(_isAtStart || _isAtEnd) {
             _isAlarming = true
+            if !inDontSend {
+                RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
+                RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.alarm)
+            }
         } else if !inDontSend,
                   !cascadeTimer(),
                   !RVS_AmbiaMara_Settings().stoplightMode {
             flashCyan()
-        }
-        
-        if !inDontSend {
             RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
-            RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.alarm)
+        } else {
+            if !inDontSend {
+                RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
+                RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.sendTimerControl(.reset)
+            }
         }
     }
 

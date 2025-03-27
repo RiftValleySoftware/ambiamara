@@ -410,29 +410,33 @@ extension Rift_Valley_Timer_Watch_App {
                         
             switch operation {
             case .start:
-                newStatus.runningSync = 0
                 newStatus.timerState = .started
+                newStatus.runningSync = 0
                 newStatus.screen = .runningTimer
 
             case .reset:
-                newStatus.runningSync = 0
                 newStatus.timerState = .paused
-                
+                newStatus.runningSync = 0
+                newStatus.screen = .runningTimer
+
             case .fastForward:
-                newStatus.runningSync = newStatus.selectedTimer?.startTime
                 newStatus.timerState = .started
+                newStatus.runningSync = newStatus.selectedTimer?.startTime
+                newStatus.screen = .runningTimer
 
             case .resume:
                 if .paused == newStatus.timerState {
-                    newStatus.runningSync = newStatus.runningSync ?? 0
                     newStatus.timerState = .started
+                    newStatus.runningSync = newStatus.runningSync ?? 0
+                    newStatus.screen = .runningTimer
                 }
                 
             case .pause:
                 newStatus.timerState = .paused
                 if .started != _timerStatus.timerState {
-                    newStatus.runningSync = newStatus.runningSync ?? 0
+                    newStatus.runningSync = 0
                 }
+                newStatus.screen = .runningTimer
 
             case .stop:
                 newStatus.runningSync = nil
@@ -442,6 +446,7 @@ extension Rift_Valley_Timer_Watch_App {
             case .alarm:
                 newStatus.timerState = .alarming
                 newStatus.runningSync = newStatus.selectedTimer?.startTime
+                newStatus.screen = .runningTimer
             }
         }
                 
