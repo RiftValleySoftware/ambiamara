@@ -28,6 +28,50 @@ import RVS_BasicGCDTimer
  This class exists to give the Watch Connectivity a place to work.
  */
 class RVS_WatchDelegate: NSObject, WCSessionDelegate {
+    /* ################################################################################################################################## */
+    // MARK: The display screen to be shown.
+    /* ################################################################################################################################## */
+    /**
+     Determines which screen is shown.
+     */
+    enum DisplayScreen: String {
+        /* ############################################################## */
+        /**
+         The list of timers.
+        */
+        case timerList
+        
+        /* ############################################################## */
+        /**
+         The details screen, for the selected timer.
+        */
+        case timerDetails
+        
+        /* ############################################################## */
+        /**
+         The running timer screen, for the selected timer.
+        */
+        case runningTimer
+        
+        /* ############################################################## */
+        /**
+         This simply displays a throbber.
+        */
+        case busy
+        
+        /* ############################################################## */
+        /**
+         This displays a page, telling the user that the iPhone app is unreachable.
+        */
+        case appNotReachable
+    }
+
+    /* ################################################################################################################################## */
+    // MARK: The Timer Operation Code.
+    /* ################################################################################################################################## */
+    /**
+     This is a state code, to tell the receiver which state it should be in.
+     */
     enum TimerOperation: String {
         /* ############################################################## */
         /**
@@ -371,18 +415,21 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
 
         let message: [String: Any] = ["messageType": "timerControl",
                                       "timerControl": inOperation.rawValue,
-                                      "sync": syncSpot
-                                     ]
-        
+                                      "sync": syncSpot,
+                                      "timers": RVS_AmbiaMara_Settings().asWatchContextData,
+                                      "currentTimerIndex": RVS_AmbiaMara_Settings().currentTimerIndex,
+                                      "startTimerImmediately": RVS_AmbiaMara_Settings().startTimerImmediately
+        ]
+
         #if DEBUG
             print("Sending Operation: \(message)")
         #endif
         
         isUpdateInProgress = true
         if .activated == wcSession.activationState {
-//            if let errorHandler {
-//                _startTimeoutHandler(completion: errorHandler)
-//            }
+            if let errorHandler {
+                _startTimeoutHandler(completion: errorHandler)
+            }
             /// > NOTE: Ignore the examples that show a nil replyHandler value. You *MUST* supply a reply handler, or the call fails.
             wcSession.sendMessage(message, replyHandler: sessionReplyHandler, errorHandler: sessionOperationErrorHandler)
         } else {

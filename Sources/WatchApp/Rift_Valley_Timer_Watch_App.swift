@@ -65,44 +65,6 @@ struct Rift_Valley_Timer_Watch_App: App {
     }
     
     /* ################################################################################################################################## */
-    // MARK: The display screen to be shown.
-    /* ################################################################################################################################## */
-    /**
-     Determines which screen is shown.
-     */
-    enum DisplayScreen {
-        /* ############################################################## */
-        /**
-         The list of timers.
-        */
-        case timerList
-        
-        /* ############################################################## */
-        /**
-         The details screen, for the selected timer.
-        */
-        case timerDetails
-        
-        /* ############################################################## */
-        /**
-         The running timer screen, for the selected timer.
-        */
-        case runningTimer
-        
-        /* ############################################################## */
-        /**
-         This simply displays a throbber.
-        */
-        case busy
-        
-        /* ############################################################## */
-        /**
-         This displays a page, telling the user that the iPhone app is unreachable.
-        */
-        case appNotReachable
-    }
-    
-    /* ################################################################################################################################## */
     // MARK: This holds the current state of the timers and selection.
     /* ################################################################################################################################## */
     /**
@@ -136,7 +98,7 @@ struct Rift_Valley_Timer_Watch_App: App {
         /**
          The screen we are displaying.
          */
-        var screen: DisplayScreen
+        var screen: RVS_WatchDelegate.DisplayScreen
 
         /* ############################################################## */
         /**
@@ -240,7 +202,7 @@ struct Rift_Valley_Timer_Watch_App: App {
              selectedTimerIndex inSelectedTimerIndex: Int = 0,
              runningSync inRunningSync: Int? = nil,
              timerState inTimerState: TimerState = .stopped,
-             screen inScreen: DisplayScreen = .busy,
+             screen inScreen: RVS_WatchDelegate.DisplayScreen = .busy,
              ignoreSync inIgnoreSync: Bool = false,
              watchDelegate inDelegate: RVS_WatchDelegate? = nil
         ) {

@@ -90,9 +90,7 @@ struct Rift_Valley_Timer_Watch_App_IndividualTimerView: View {
                     }
                 }
             }
-            .onAppear {
-                timerStatus.watchDelegate?.sendApplicationContext()
-            }
+            .onAppear { timerStatus.watchDelegate?.sendApplicationContext() }
         } else {
             Text("ERROR")
         }
