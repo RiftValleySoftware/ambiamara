@@ -243,15 +243,18 @@ class RVS_WatchDelegate: NSObject, WCSessionDelegate {
         DispatchQueue.main.async {
             RVS_AmbiaMara_Settings().flush()
 
-            if let timersTemp = inApplicationContext["timers"] as? [[Int]] {
-                #if DEBUG
-                    print("Received Timers: \(timersTemp)")
-                #endif
-                
-                RVS_AmbiaMara_Settings().timers = timersTemp.map { RVS_AmbiaMara_Settings.TimerSettings(startTime: $0[0], warnTime: $0[1], finalTime: $0[2]) }
-            }
-
-            if let currentIndex = inApplicationContext["currentTimerIndex"] as? Int {
+            #if os(watchOS)
+                if let timersTemp = inApplicationContext["timers"] as? [[Int]] {
+                    #if DEBUG
+                        print("Received Timers from Phone: \(timersTemp)")
+                    #endif
+                    
+                    RVS_AmbiaMara_Settings().timers = timersTemp.map { RVS_AmbiaMara_Settings.TimerSettings(startTime: $0[0], warnTime: $0[1], finalTime: $0[2]) }
+                }
+            #endif
+            
+            if let currentIndex = inApplicationContext["currentTimerIndex"] as? Int,
+               (0..<RVS_AmbiaMara_Settings().timers.count).contains(currentIndex) {
                 #if DEBUG
                     print("Received Current Index: \(currentIndex)")
                 #endif
