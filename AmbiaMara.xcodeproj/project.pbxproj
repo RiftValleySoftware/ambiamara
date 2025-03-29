@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,9 @@
 		D45EDFAD2D88735C0024CB6D /* Rift_Valley_Timer_Watch_App_TimerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EDFAC2D88735C0024CB6D /* Rift_Valley_Timer_Watch_App_TimerList.swift */; };
 		D46850BB2D7F840300065D8C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D46850BA2D7F840300065D8C /* Localizable.xcstrings */; };
 		D46850BC2D7F840300065D8C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D46850BA2D7F840300065D8C /* Localizable.xcstrings */; };
+		D46B84EF2D986AD500199220 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D46B84EE2D986AD500199220 /* RVS_Generic_Swift_Toolbox */; };
+		D46B84F12D986AD500199220 /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D46B84F02D986AD500199220 /* RVS_Persistent_Prefs */; };
+		D46B84F32D986AD500199220 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D46B84F22D986AD500199220 /* RVS_BasicGCDTimer */; };
 		D46BC2162D86122D0094B052 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D46BC2152D86122D0094B052 /* Assets.xcassets */; };
 		D46BC2182D8612DF0094B052 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D46BC2172D8612DF0094B052 /* Assets.xcassets */; };
 		D474E5DE282B26E900102B9B /* Instructions.txt in Resources */ = {isa = PBXBuildFile; fileRef = D474E5DC282B26E900102B9B /* Instructions.txt */; };
@@ -166,6 +169,7 @@
 		D44E7712281AD1B000B491EF /* AmbiaMara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AmbiaMara.entitlements; sourceTree = "<group>"; };
 		D45EDFAC2D88735C0024CB6D /* Rift_Valley_Timer_Watch_App_TimerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_Watch_App_TimerList.swift; sourceTree = "<group>"; };
 		D46850BA2D7F840300065D8C /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		D46B84DF2D986AB600199220 /* TimerEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimerEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46BC2152D86122D0094B052 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D46BC2172D8612DF0094B052 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D474E5DD282B26E900102B9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text; name = Base; path = Base.lproj/Instructions.txt; sourceTree = "<group>"; };
@@ -235,7 +239,21 @@
 		D4F83CB62D63DB43009C4646 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		D46B84E02D986AB600199220 /* TimerEngine */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TimerEngine; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		D46B84DC2D986AB600199220 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D46B84F12D986AD500199220 /* RVS_Persistent_Prefs in Frameworks */,
+				D46B84F32D986AD500199220 /* RVS_BasicGCDTimer in Frameworks */,
+				D46B84EF2D986AD500199220 /* RVS_Generic_Swift_Toolbox in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D47C02982819CA6500D359F5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -331,6 +349,7 @@
 			children = (
 				D4C4B6FE2819CCDB00E22ECA /* Sources */,
 				D44E7714281AD24F00B491EF /* ProjectMeta */,
+				D46B84E02D986AB600199220 /* TimerEngine */,
 				D47C029C2819CA6500D359F5 /* Products */,
 				D4CD2E7D284697E100400AB0 /* Frameworks */,
 			);
@@ -342,6 +361,7 @@
 				D47C029B2819CA6500D359F5 /* Rift Valley Timer.app */,
 				D4F83C9D2D63DB10009C4646 /* Rift Valley Timer WatchApp.app */,
 				D4F83CB32D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension.appex */,
+				D46B84DF2D986AB600199220 /* TimerEngine.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -499,6 +519,31 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D46B84DE2D986AB600199220 /* TimerEngine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D46B84ED2D986AB600199220 /* Build configuration list for PBXNativeTarget "TimerEngine" */;
+			buildPhases = (
+				D46B84DB2D986AB600199220 /* Sources */,
+				D46B84DC2D986AB600199220 /* Frameworks */,
+				D46B84DD2D986AB600199220 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				D46B84E02D986AB600199220 /* TimerEngine */,
+			);
+			name = TimerEngine;
+			packageProductDependencies = (
+				D46B84EE2D986AD500199220 /* RVS_Generic_Swift_Toolbox */,
+				D46B84F02D986AD500199220 /* RVS_Persistent_Prefs */,
+				D46B84F22D986AD500199220 /* RVS_BasicGCDTimer */,
+			);
+			productName = TimerEngine;
+			productReference = D46B84DF2D986AB600199220 /* TimerEngine.app */;
+			productType = "com.apple.product-type.application";
+		};
 		D47C029A2819CA6500D359F5 /* Rift Valley Timer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D47C02AF2819CA6800D359F5 /* Build configuration list for PBXNativeTarget "Rift Valley Timer" */;
@@ -586,6 +631,9 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					D46B84DE2D986AB600199220 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					D47C029A2819CA6500D359F5 = {
 						CreatedOnToolsVersion = 13.3.1;
 					};
@@ -623,11 +671,19 @@
 				D47C029A2819CA6500D359F5 /* Rift Valley Timer */,
 				D4F83C9C2D63DB10009C4646 /* Rift Valley Timer WatchApp */,
 				D4F83CB22D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension */,
+				D46B84DE2D986AB600199220 /* TimerEngine */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D46B84DD2D986AB600199220 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D47C02992819CA6500D359F5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -723,6 +779,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D46B84DB2D986AB600199220 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D47C02972819CA6500D359F5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -856,6 +919,91 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D46B84EB2D986AB600199220 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = TimerEngine/TimerEngine.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TimerEngine/Preview Content\"";
+				DEVELOPMENT_TEAM = P53V4JS928;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.littlegreenviper.TimerEngine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		D46B84EC2D986AB600199220 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = TimerEngine/TimerEngine.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TimerEngine/Preview Content\"";
+				DEVELOPMENT_TEAM = P53V4JS928;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.littlegreenviper.TimerEngine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
 		D47C02AD2819CA6800D359F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D488F2EE281D6D960045E999 /* Warnings.xcconfig */;
@@ -1209,6 +1357,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D46B84ED2D986AB600199220 /* Build configuration list for PBXNativeTarget "TimerEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D46B84EB2D986AB600199220 /* Debug */,
+				D46B84EC2D986AB600199220 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D47C02962819CA6500D359F5 /* Build configuration list for PBXProject "AmbiaMara" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1302,6 +1459,21 @@
 			productName = RVS_Persistent_Prefs;
 		};
 		D43ED8352D942C76001B1B68 /* RVS_BasicGCDTimer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4D193BB2D883DEA008DA06F /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
+			productName = RVS_BasicGCDTimer;
+		};
+		D46B84EE2D986AD500199220 /* RVS_Generic_Swift_Toolbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			productName = RVS_Generic_Swift_Toolbox;
+		};
+		D46B84F02D986AD500199220 /* RVS_Persistent_Prefs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
+			productName = RVS_Persistent_Prefs;
+		};
+		D46B84F22D986AD500199220 /* RVS_BasicGCDTimer */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4D193BB2D883DEA008DA06F /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
 			productName = RVS_BasicGCDTimer;
