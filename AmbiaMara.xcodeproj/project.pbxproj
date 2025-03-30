@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -62,6 +62,10 @@
 		D4DD60F92D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DD60F82D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerView.swift */; };
 		D4E6ECB12D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */; };
 		D4E6ECB32D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4E6ECB22D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox */; };
+		D4E869502D99912D00D56802 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4E8694A2D99912D00D56802 /* Assets.xcassets */; };
+		D4E869512D99912D00D56802 /* TimerEngineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E8694C2D99912D00D56802 /* TimerEngineApp.swift */; };
+		D4E869522D99912D00D56802 /* TimerEngineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E8694D2D99912D00D56802 /* TimerEngineContentView.swift */; };
+		D4E869542D99916200D56802 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E869532D99916200D56802 /* TimerEngine.swift */; };
 		D4F1448028293F4A001DD9E4 /* 01-low-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F1447928293F4A001DD9E4 /* 01-low-beep.mp3 */; };
 		D4F1448128293F4A001DD9E4 /* 03-high-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F1447A28293F4A001DD9E4 /* 03-high-beep.mp3 */; };
 		D4F1448228293F4A001DD9E4 /* 04-electronic-buzz.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F1447B28293F4A001DD9E4 /* 04-electronic-buzz.mp3 */; };
@@ -222,6 +226,11 @@
 		D4D02B5D283430F90024DF06 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D4D02B5E283430F90024DF06 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Accessibility.strings"; sourceTree = "<group>"; };
 		D4DD60F82D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_Watch_App_RunningTimerView.swift; sourceTree = "<group>"; };
+		D4E8694A2D99912D00D56802 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D4E8694B2D99912D00D56802 /* TimerEngine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimerEngine.entitlements; sourceTree = "<group>"; };
+		D4E8694C2D99912D00D56802 /* TimerEngineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineApp.swift; sourceTree = "<group>"; };
+		D4E8694D2D99912D00D56802 /* TimerEngineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineContentView.swift; sourceTree = "<group>"; };
+		D4E869532D99916200D56802 /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
 		D4F1447928293F4A001DD9E4 /* 01-low-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "01-low-beep.mp3"; sourceTree = "<group>"; };
 		D4F1447A28293F4A001DD9E4 /* 03-high-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "03-high-beep.mp3"; sourceTree = "<group>"; };
 		D4F1447B28293F4A001DD9E4 /* 04-electronic-buzz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "04-electronic-buzz.mp3"; sourceTree = "<group>"; };
@@ -238,10 +247,6 @@
 		D4F83CB42D63DB43009C4646 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		D4F83CB62D63DB43009C4646 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		D46B84E02D986AB600199220 /* TimerEngine */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TimerEngine; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		D46B84DC2D986AB600199220 /* Frameworks */ = {
@@ -349,7 +354,7 @@
 			children = (
 				D4C4B6FE2819CCDB00E22ECA /* Sources */,
 				D44E7714281AD24F00B491EF /* ProjectMeta */,
-				D46B84E02D986AB600199220 /* TimerEngine */,
+				D4E8694E2D99912D00D56802 /* TimerEngine */,
 				D47C029C2819CA6500D359F5 /* Products */,
 				D4CD2E7D284697E100400AB0 /* Frameworks */,
 			);
@@ -482,6 +487,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D4E8694E2D99912D00D56802 /* TimerEngine */ = {
+			isa = PBXGroup;
+			children = (
+				D4E869532D99916200D56802 /* TimerEngine.swift */,
+				D4E8694C2D99912D00D56802 /* TimerEngineApp.swift */,
+				D4E8694D2D99912D00D56802 /* TimerEngineContentView.swift */,
+				D4E8694A2D99912D00D56802 /* Assets.xcassets */,
+				D4E8694B2D99912D00D56802 /* TimerEngine.entitlements */,
+			);
+			path = TimerEngine;
+			sourceTree = "<group>";
+		};
 		D4EDB3002D90549700419E6C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,9 +547,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				D46B84E02D986AB600199220 /* TimerEngine */,
 			);
 			name = TimerEngine;
 			packageProductDependencies = (
@@ -681,6 +695,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E869502D99912D00D56802 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -783,6 +798,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E869512D99912D00D56802 /* TimerEngineApp.swift in Sources */,
+				D4E869542D99916200D56802 /* TimerEngine.swift in Sources */,
+				D4E869522D99912D00D56802 /* TimerEngineContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
