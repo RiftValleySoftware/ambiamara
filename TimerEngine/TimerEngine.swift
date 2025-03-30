@@ -214,17 +214,18 @@ class TimerEngine {
      We specify all three thresholds. The starting threshold is required. The other two are optional, and will be ignored, if not specified.
      We also require at least a tick handler callback. A threshold handler callback is optional.
      
-     - parameters:
-        - startingTimeInSeconds: This is the beginning (total) countdown time.
-        - warningTimeInSeconds: This is the threshold, at which the clock switches into "warning" mode.
-        - finalTimeInSeconds: This is the threshold, at which the clock switches into "final" mode.
-        - transitionHandler: The callback for each transition. This is optional.
-        - tickHandler: The callback for each tick. This is required, and can be a tail completion.
+    - parameter startingTimeInSeconds: This is the beginning (total) countdown time.
+    - parameter warningTimeInSeconds: This is the threshold, at which the clock switches into "warning" mode.
+    - parameter finalTimeInSeconds: This is the threshold, at which the clock switches into "final" mode.
+    - parameter transitionHandler: The callback for each transition. This is optional.
+    - parameter startImmediately: If true (default is false), the timer will start as soon as the instance is initialized.
+    - parameter tickHandler: The callback for each tick. This is required, and can be a tail completion.
      */
     init(startingTimeInSeconds inStartingTimeInSeconds: TimeInterval,
          warningTimeInSeconds inWarningTimeInSeconds: TimeInterval = 0,
          finalTimeInSeconds inFinalTimeInSeconds: TimeInterval = 0,
          transitionHandler inTransitionHandler: TimerTransitionHandler? = nil,
+         startImmediately inStartImmediately: Bool = false,
          tickHandler inTickHandler: @escaping TimerTickHandler
     ) {
         // NOTE: Starting from now, I am ignoring previous convention, and always specifying "self.", when referencing properties and methods.
@@ -234,6 +235,10 @@ class TimerEngine {
         self.currentTime = inStartingTimeInSeconds
         self._transitionHandler = inTransitionHandler
         self._tickHandler = inTickHandler
+        
+        if inStartImmediately {
+            self.start()
+        }
     }
 }
 
@@ -321,9 +326,9 @@ extension TimerEngine {
 extension TimerEngine {
     /* ################################################################## */
     /**
-     Starts the timer from the beginning.
+     Starts the timer from the beginning. It will do so, from any timer state.
      
-     This will interrupt any previous timer.
+     This will interrupt any current timer.
      */
     func start() {
         self._timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._timerInterval,
@@ -341,7 +346,9 @@ extension TimerEngine {
 
     /* ################################################################## */
     /**
-     This stops the timer, and resets it to the starting point, with no alarm.
+     This stops the timer, and resets it to the starting point, with no alarm. It will do so, from any timer state.
+     
+     This will interrupt any current timer.
      */
     func stop() {
         self._timer?.isRunning = false
@@ -353,7 +360,9 @@ extension TimerEngine {
 
     /* ################################################################## */
     /**
-     This forces the timer into alarm mode.
+     This forces the timer into alarm mode. It will do so, from any timer state.
+     
+     This will interrupt any current timer.
      */
     func end() {
         self._timer?.isRunning = false
@@ -365,7 +374,7 @@ extension TimerEngine {
 
     /* ################################################################## */
     /**
-     This pauses a running timer.
+     This pauses a running timer. The timer must already be in ``.countdown`` state.
      */
     func pause() {
         if case .countdown = self.mode {
@@ -375,7 +384,7 @@ extension TimerEngine {
     
     /* ################################################################## */
     /**
-     This resumes a paused timer.
+     This resumes a paused timer. The timer must already be in ``.paused`` state.
      */
     func resume() {
         if case .paused = self.mode {
