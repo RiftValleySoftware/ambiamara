@@ -16,11 +16,13 @@ import RVS_BasicGCDTimer
 // MARK: - Main Timer Engine -
 /* ###################################################################################################################################### */
 /**
- This struct implements the "executable heart" of the timer app.
+ This class implements the "executable heart" of the timer app.
  
  # BASIC OVERVIEW
  
  This is a countdown timer, in seconds. It starts from a "starting" time, and counts down to 0, at which time it starts an alarm.
+ 
+ It is a class, as opposed to a struct, so it can be referenced, and so that it can be easily mutated.
  
  The "granularity" of the timer is seconds. It does not deal with fractions of a second. Anything over a fraction of a second is rounded down, when pausing. Callbacks only happen on the second transitions.
  
@@ -50,7 +52,7 @@ import RVS_BasicGCDTimer
  
  The timer countdown is in one of the above ranges, but has been "paused." It is not running.
  */
-struct TimerEngine {
+class TimerEngine {
     /* ################################################################################################################################## */
     // MARK: Timer Completion Handler
     /* ################################################################################################################################## */
@@ -68,9 +70,10 @@ struct TimerEngine {
      This is the structure of the callback for mode transitions, handed to the instance. It is called, once only, when the timer mode changes. It may be called in any thread.
      
      - parameter: The timer engine instance calling it.
+     - parameter: The mode we have transitioned from.
      - parameter: The mode we have transitioned into.
      */
-    typealias TimerTransitionHandler = (_: TimerEngine, _: Mode) -> Void
+    typealias TimerTransitionHandler = (_: TimerEngine, _: Mode, _: Mode) -> Void
     
     /* ################################################################################################################################## */
     // MARK: Timer Mode State Enum
@@ -78,7 +81,7 @@ struct TimerEngine {
     /**
      This defines the six timer states
      */
-    indirect enum Mode {
+    indirect enum Mode: Equatable, CustomStringConvertible {
         /* ############################################################## */
         /**
          The timer is "stopped." It is set to the starting time, and the timer is not running.
@@ -116,6 +119,32 @@ struct TimerEngine {
          - parameter: The mode (countdown, warning, or final) that the timer is in.
          */
         case paused(Mode)
+        
+        /* ############################################################## */
+        /**
+         Debug description (CustomStringConvertible conformance)
+         */
+        var description: String {
+            switch self {
+            case .stopped:
+                return "stopped"
+                
+            case .countdown:
+                return "countdown"
+                
+            case .warning:
+                return "warning"
+                
+            case .final:
+                return "final"
+                
+            case .alarm:
+                return "alarm"
+                
+            case let .paused(mode):
+                return "paused(\(mode.description))"
+            }
+        }
     }
     
     /* ################################################################## */
@@ -130,6 +159,18 @@ struct TimerEngine {
      */
     private var _timer: RVS_BasicGCDTimer?
     
+    /* ################################################################## */
+    /**
+     This is the date of the last tick. Nil, to start.
+     */
+    private var _lastTick: Date?
+    
+    /* ################################################################## */
+    /**
+     This is the previous timer mode (to track transitions).
+     */
+    private var _lastMode: Mode = .stopped
+
     /* ################################################################## */
     /**
      The callback for the tick handler. This can be called in any thread.
@@ -162,9 +203,9 @@ struct TimerEngine {
     
     /* ################################################################## */
     /**
-     This is the current time.
+     This is the current time. It can be set to change the time in the timer. The new value is clamped to the timer range.
      */
-    var currentTime: TimeInterval
+    var currentTime: TimeInterval { didSet { self.currentTime = min(max(currentTime, 0), startingTimeInSeconds) } }
     
     /* ################################################################## */
     /**
@@ -186,20 +227,13 @@ struct TimerEngine {
          transitionHandler inTransitionHandler: TimerTransitionHandler? = nil,
          tickHandler inTickHandler: @escaping TimerTickHandler
     ) {
-        // NOTE: Starting from now, I am ignoring previous convention, and always specifying "self."
+        // NOTE: Starting from now, I am ignoring previous convention, and always specifying "self.", when referencing properties and methods.
         self.startingTimeInSeconds = inStartingTimeInSeconds
         self.warningTimeInSeconds = inWarningTimeInSeconds
         self.finalTimeInSeconds = inFinalTimeInSeconds
         self.currentTime = inStartingTimeInSeconds
         self._transitionHandler = inTransitionHandler
         self._tickHandler = inTickHandler
-
-        self._timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._timerInterval,
-                                        onlyFireOnce: false,
-                                        queue: .global(),
-                                        isWallTime: true,
-                                        completion: self.timerCallback
-        )
     }
 }
 
@@ -212,8 +246,28 @@ extension TimerEngine {
      This is the timer mode (computed from the timer state).
      */
     var mode: Mode {
-        .stopped
+        let timeMode: Mode = (self.currentTime <= self.finalTimeInSeconds) ? .final
+                                : (self.currentTime <= self.warningTimeInSeconds) ? .warning
+                                    : (0 == self.currentTime) ? .alarm
+                                        : (self.startingTimeInSeconds >= self.currentTime && self._timer?.isRunning ?? false) ? .countdown
+                                            : .stopped
+        
+        return (self._timer?.isRunning ?? false) ? timeMode
+                    : (.alarm != timeMode && .stopped != timeMode) ? .countdown
+                        : .paused(self._lastMode)
     }
+    
+    /* ################################################################## */
+    /**
+     This is the entire timer range, expressed as a closed seconds range.
+     */
+    var range: ClosedRange<TimeInterval> { return 0...self.finalTimeInSeconds }
+    
+    /* ################################################################## */
+    /**
+     Returns true, if the timer is currently "ticking."
+     */
+    var isTicking: Bool { return self._timer?.isRunning ?? false }
 }
 
 /* ###################################################################################################################################### */
@@ -222,8 +276,110 @@ extension TimerEngine {
 extension TimerEngine {
     /* ################################################################## */
     /**
+     This is the "first-level" callback from the timer. It can be called in any thread.
+     
+     - parameter inTimer: The timer object.
+     - parameter inSuccess: True, if the timer completed its term.
      */
     func timerCallback(_ inTimer: RVS_BasicGCDTimer, _ inSuccess: Bool) {
+        let currentMode = self.mode
         
+        #if DEBUG
+            print("TimerEngine: timerCallback(\(inSuccess))")
+            print("TimerEngine: previous tick: \(self._lastTick ?? .now), current: \(Date.now), difference: \(self._lastTick?.timeIntervalSinceNow ?? 0)")
+        #endif
+        
+        if 1.0 <= -(self._lastTick?.timeIntervalSinceNow ?? 0) {
+            self.currentTime -= 1.0
+            self._tickHandler(self)
+            
+            if currentMode != self._lastMode,
+               let transitionHandler = self._transitionHandler {
+                #if DEBUG
+                    print("TimerEngine: transitionHandler(\(self._lastMode), \(currentMode))")
+                #endif
+                transitionHandler(self, self._lastMode, currentMode)
+            }
+            
+            self._lastTick = .now
+            self._lastMode = currentMode
+        } else if nil == self._lastTick {
+            self._lastTick = .now
+            self.currentTime = self.startingTimeInSeconds
+            self._tickHandler(self)
+        }
+        
+        if .alarm == currentMode || .stopped == currentMode {
+            self._timer?.isRunning = false
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension TimerEngine {
+    /* ################################################################## */
+    /**
+     Starts the timer from the beginning.
+     
+     This will interrupt any previous timer.
+     */
+    func start() {
+        self._timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._timerInterval,
+                                        onlyFireOnce: false,
+                                        queue: .global(),
+                                        isWallTime: true,
+                                        completion: self.timerCallback
+        )
+        
+        self._lastMode = .stopped
+        self.currentTime = self.startingTimeInSeconds
+        self._timer?.isRunning = true
+        self._transitionHandler?(self, .stopped, .countdown)
+    }
+
+    /* ################################################################## */
+    /**
+     This stops the timer, and resets it to the starting point, with no alarm.
+     */
+    func stop() {
+        self._timer?.isRunning = false
+        self._timer?.invalidate()
+        self._timer = nil
+        self.currentTime = self.startingTimeInSeconds
+        self._transitionHandler?(self, self._lastMode, .stopped)
+    }
+
+    /* ################################################################## */
+    /**
+     This forces the timer into alarm mode.
+     */
+    func end() {
+        self._timer?.isRunning = false
+        self._timer?.invalidate()
+        self._timer = nil
+        self.currentTime = 0
+        self._transitionHandler?(self, self._lastMode, .alarm)
+    }
+
+    /* ################################################################## */
+    /**
+     This pauses a running timer.
+     */
+    func pause() {
+        if case .countdown = self.mode {
+            self._timer?.isRunning = false
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This resumes a paused timer.
+     */
+    func resume() {
+        if case .paused = self.mode {
+            self._timer?.isRunning = true
+        }
     }
 }
