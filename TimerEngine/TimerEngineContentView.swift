@@ -41,41 +41,80 @@ struct TimerEngineContentView: View {
         VStack {
             Image(systemName: self._displayIconName)
                 .imageScale(.large)
-            Text(self._displayText)
                 .padding(10)
-            Button("Restart") { self.startTimer() }
-                .padding(10)
-            if .alarm != timerMode,
-               .stopped != timerMode {
-                if let timerEngine = self._timerEngine {
-                    if case .paused = timerEngine.mode {
-                        Button("Continue") { timerEngine.resume() }
-                    } else {
-                        Button("Pause") { timerEngine.pause() }
-                    }
+            if .alarm != timerMode {
+                Text(self._displayText)
+                    .padding(10)
+            }
+            switch timerMode {
+            case .stopped:
+                Button("Start") { self.startTimer() }
+                    .padding(10)
+                Text(" ")
+
+            case .alarm:
+                Button("Reset") { self.stopTimer() }
+                    .padding(10)
+                Text(" ")
+
+            default:
+                Button("Stop") { self.stopTimer() }
+                    .padding(10)
+                switch timerMode {
+                case .countdown, .final, .warning:
+                    Button("Pause") { self.pauseTimer() }
+                    
+                case .paused:
+                    Button("Continue") { self.resumeTimer() }
+                    
+                default:
+                    Text("")
                 }
             }
         }
-        .onAppear { self.startTimer() }
+        .onAppear {
+            self._displayIconName = "clock.fill"
+            self._timerEngine = TimerEngine(startingTimeInSeconds: 10,
+                                            warningTimeInSeconds: 5,
+                                            finalTimeInSeconds: 2,
+                                            transitionHandler: self.transitionHandler
+            ) { inTimerEngine in
+                DispatchQueue.main.async {
+                    self._displayText = inTimerEngine.timerDisplay
+                }
+            }
+            self._displayText = self._timerEngine?.timerDisplay ?? "ERROR"
+        }
     }
     
     /* ################################################################## */
     /**
      */
     func startTimer() {
-        self._displayIconName = "clock"
-        self._timerEngine = TimerEngine(startingTimeInSeconds: 10,
-                                        warningTimeInSeconds: 5,
-                                        finalTimeInSeconds: 2,
-                                        transitionHandler: self.transitionHandler,
-                                        startImmediately: true
-        ) { inTimerEngine in
-            DispatchQueue.main.async {
-                self._displayText = String(inTimerEngine.currentTime)
-            }
-        }
+        self._timerEngine?.start()
     }
     
+    /* ################################################################## */
+    /**
+     */
+    func stopTimer() {
+        self._timerEngine?.stop()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func pauseTimer() {
+        self._timerEngine?.pause()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func resumeTimer() {
+        self._timerEngine?.resume()
+    }
+
     /* ################################################################## */
     /**
      */
@@ -84,17 +123,30 @@ struct TimerEngineContentView: View {
         
         DispatchQueue.main.async {
             switch inToMode {
+            case .stopped:
+                self._displayIconName = "clock.fill"
+                self._displayText = inTimerEngine.timerDisplay
+                
             case .warning:
                 self._displayIconName = "exclamationmark.triangle"
-                
+
             case .final:
                 self._displayIconName = "xmark.circle"
                 
             case .alarm:
                 self._displayIconName = "bell.and.waves.left.and.right.fill"
             
-            case .paused:
-                self._displayIconName = "clock.fill"
+            case .paused(let subMode):
+                switch subMode {
+                case .warning:
+                    self._displayIconName = "exclamationmark.triangle.fill"
+                    
+                case .final:
+                    self._displayIconName = "xmark.circle.fill"
+                    
+                default:
+                    self._displayIconName = "clock.fill"
+                }
 
             default:
                 self._displayIconName = "clock"

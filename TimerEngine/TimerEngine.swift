@@ -260,7 +260,8 @@ extension TimerEngine {
     var mode: Mode {
         var timeMode: Mode = self._timer?.isRunning ?? false ? .countdown
                         : 0 == self.currentTime ? .alarm
-                            : .paused(self._lastMode)
+                            : nil == self._timer ? .stopped
+                                : .paused(self._lastMode)
         
         if self._timer?.isRunning ?? false {
             switch self.currentTime {
@@ -339,6 +340,25 @@ extension TimerEngine {
      Returns true, if the timer is currently "ticking."
      */
     var isTicking: Bool { return self._timer?.isRunning ?? false }
+    
+    /* ################################################################## */
+    /**
+     This returns an "optimized" string, with the current countdown time.
+    */
+    var timerDisplay: String {
+        let hour = self.currentTime / 3600
+        let minute = self.currentTime / 60 - (hour * 60)
+        let second = self.currentTime - ((hour * 3600) + (minute * 60))
+        if (1..<24).contains(hour) {
+            return String(format: "%d:%02d:%02d", hour, minute, second)
+        } else if (1..<60).contains(minute) {
+            return String(format: "%d:%02d", minute, second)
+        } else if (1..<60).contains(second) {
+            return String(format: "%d", second)
+        } else {
+            return ""
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
