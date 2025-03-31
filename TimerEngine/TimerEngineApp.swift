@@ -23,7 +23,7 @@ struct TimerEngineApp: App {
      */
     var body: some Scene {
         WindowGroup {
-            TimerEngineContentView()
+            TimerEngineContentView(seconds: 0)
         }
     }
 }
