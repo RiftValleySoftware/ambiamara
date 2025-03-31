@@ -149,9 +149,9 @@ class TimerEngine {
     
     /* ################################################################## */
     /**
-     We will ask for a callback, every tenth-second. Since our granularity is a second, this should be fine.
+     We will ask for a callback, every ten milliseconds. Since our granularity is a second, this should be fine.
      */
-    private static let _timerInterval = TimeInterval(0.1)
+    private static let _timerInterval = TimeInterval(0.01)
     
     /* ################################################################## */
     /**
@@ -187,25 +187,25 @@ class TimerEngine {
     /**
      This is the beginning (total) countdown time.
      */
-    let startingTimeInSeconds: TimeInterval
+    let startingTimeInSeconds: Int
     
     /* ################################################################## */
     /**
      This is the threshold, at which the clock switches into "warning" mode.
      */
-    let warningTimeInSeconds: TimeInterval
+    let warningTimeInSeconds: Int
     
     /* ################################################################## */
     /**
      This is the threshold, at which the clock switches into "final" mode.
      */
-    let finalTimeInSeconds: TimeInterval
+    let finalTimeInSeconds: Int
     
     /* ################################################################## */
     /**
      This is the current time. It can be set to change the time in the timer. The new value is clamped to the timer range.
      */
-    var currentTime: TimeInterval { didSet { self.currentTime = min(max(currentTime, 0), startingTimeInSeconds) } }
+    var currentTime: Int { didSet { self.currentTime = Int(min(max(currentTime, 0), startingTimeInSeconds)) } }
     
     /* ################################################################## */
     /**
@@ -221,9 +221,9 @@ class TimerEngine {
     - parameter startImmediately: If true (default is false), the timer will start as soon as the instance is initialized.
     - parameter tickHandler: The callback for each tick. This is required, and can be a tail completion.
      */
-    init(startingTimeInSeconds inStartingTimeInSeconds: TimeInterval,
-         warningTimeInSeconds inWarningTimeInSeconds: TimeInterval = 0,
-         finalTimeInSeconds inFinalTimeInSeconds: TimeInterval = 0,
+    init(startingTimeInSeconds inStartingTimeInSeconds: Int,
+         warningTimeInSeconds inWarningTimeInSeconds: Int = 0,
+         finalTimeInSeconds inFinalTimeInSeconds: Int = 0,
          transitionHandler inTransitionHandler: TimerTransitionHandler? = nil,
          startImmediately inStartImmediately: Bool = false,
          tickHandler inTickHandler: @escaping TimerTickHandler
@@ -236,6 +236,13 @@ class TimerEngine {
         self._transitionHandler = inTransitionHandler
         self._tickHandler = inTickHandler
         
+        #if DEBUG
+            print("TimerEngine: fullRange: \(self.fullRange)")
+            print("TimerEngine: startRange: \(self.startRange)")
+            print("TimerEngine: warnRange: \(self.warnRange)")
+            print("TimerEngine: finalRange: \(self.finalRange)")
+        #endif
+
         if inStartImmediately {
             self.start()
         }
@@ -248,26 +255,85 @@ class TimerEngine {
 extension TimerEngine {
     /* ################################################################## */
     /**
-     This is the timer mode (computed from the timer state).
+     This is the timer mode (computed from the timer state). Read-Only.
      */
     var mode: Mode {
-        let timeMode: Mode = (self.currentTime <= self.finalTimeInSeconds) ? .final
-                                : (self.currentTime <= self.warningTimeInSeconds) ? .warning
-                                    : (0 == self.currentTime) ? .alarm
-                                        : (self.startingTimeInSeconds >= self.currentTime && self._timer?.isRunning ?? false) ? .countdown
-                                            : .stopped
+        var timeMode: Mode = self._timer?.isRunning ?? false ? .countdown
+                        : 0 == self.currentTime ? .alarm
+                            : .paused(self._lastMode)
         
-        return (self._timer?.isRunning ?? false) ? timeMode
-                    : (.alarm != timeMode && .stopped != timeMode) ? .countdown
-                        : .paused(self._lastMode)
+        if self._timer?.isRunning ?? false {
+            switch self.currentTime {
+            case finalRange:
+                timeMode = .final
+                
+            case warnRange:
+                timeMode = .warning
+                
+            case startRange:
+                timeMode = .countdown
+                
+            default:
+                break
+            }
+        }
+        
+        return timeMode
     }
     
     /* ################################################################## */
     /**
+     This is a closed range, from one second after the warn or final (if no warn), or the very beginning (if no final), to (and including) the start time.
+     
+     > NOTE: The range needs to be at least one second long, to be valid.
+     */
+    var startRange: ClosedRange<Int> {
+        if 0 < self.warnRange.upperBound,
+           self.warnRange.upperBound < self.startingTimeInSeconds {
+            return (self.warnRange.upperBound + 1)...self.startingTimeInSeconds
+        } else if 0 < self.finalRange.upperBound,
+                  self.finalRange.upperBound < self.startingTimeInSeconds {
+            return (self.finalRange.upperBound + 1)...self.startingTimeInSeconds
+        } else {
+            return self.fullRange
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     This is a closed range, from one second after the final, or the very beginning, to (and including) the warn time.
+     
+     > NOTE: If no warn time (set to 0), then this returns an empty range. The range needs to be at least one second long, to be valid.
+     */
+    var warnRange: ClosedRange<Int> {
+        if 0 < self.finalRange.upperBound,
+           self.finalRange.upperBound < self.warningTimeInSeconds {
+            return (self.finalRange.upperBound + 1)...self.warningTimeInSeconds
+        } else {
+            return 0...0
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is a closed range, from the very beginning, to (and including) the final time.
+     
+     > NOTE: If no final time (set to 0), then this returns an empty range. The range needs to be at least one second long, to be valid.
+     */
+    var finalRange: ClosedRange<Int> {
+        if 0 < (self.finalTimeInSeconds - 1) {
+            return 1...self.finalTimeInSeconds
+        } else {
+            return 0...0
+        }
+    }
+
+    /* ################################################################## */
+    /**
      This is the entire timer range, expressed as a closed seconds range.
      */
-    var range: ClosedRange<TimeInterval> { return 0...self.finalTimeInSeconds }
-    
+    var fullRange: ClosedRange<Int> { return 0...self.startingTimeInSeconds }
+
     /* ################################################################## */
     /**
      Returns true, if the timer is currently "ticking."
@@ -287,34 +353,54 @@ extension TimerEngine {
      - parameter inSuccess: True, if the timer completed its term.
      */
     func timerCallback(_ inTimer: RVS_BasicGCDTimer, _ inSuccess: Bool) {
-        let currentMode = self.mode
+        guard inSuccess else {
+            #if DEBUG
+                print("TimerEngine: timerCallback(\(inSuccess))")
+            #endif
+            return
+        }
         
         #if DEBUG
             print("TimerEngine: timerCallback(\(inSuccess))")
-            print("TimerEngine: previous tick: \(self._lastTick ?? .now), current: \(Date.now), difference: \(self._lastTick?.timeIntervalSinceNow ?? 0)")
         #endif
         
-        if 1.0 <= -(self._lastTick?.timeIntervalSinceNow ?? 0) {
-            self.currentTime -= 1.0
-            self._tickHandler(self)
-            
-            if currentMode != self._lastMode,
+        if let lastTick = self._lastTick,
+           1 <= Int(-lastTick.timeIntervalSinceNow) {
+            self.currentTime -= 1
+            #if DEBUG
+                if self._lastTick != .now {
+                    print("\tTimerEngine: difference from last tick, in seconds: \(self._lastTick?.timeIntervalSinceNow ?? 0)")
+                }
+                print("\tTimerEngine: updated currentTime: \(self.currentTime)")
+                if self.mode != self._lastMode {
+                    print("\tTimerEngine: last mode: \(self._lastMode), new mode: \(self.mode)")
+                }
+            #endif
+
+            if self.mode != self._lastMode,
                let transitionHandler = self._transitionHandler {
                 #if DEBUG
-                    print("TimerEngine: transitionHandler(\(self._lastMode), \(currentMode))")
+                    print("\tTimerEngine: transitionHandler(\(self._lastMode), \(self.mode))")
                 #endif
-                transitionHandler(self, self._lastMode, currentMode)
+                transitionHandler(self, self._lastMode, self.mode)
             }
             
-            self._lastTick = .now
-            self._lastMode = currentMode
+            self._tickHandler(self)
+
+            if 0 < self.currentTime {
+                self._lastTick = .now
+                self._lastMode = self.mode
+            } else {
+                self.end()
+            }
         } else if nil == self._lastTick {
             self._lastTick = .now
             self.currentTime = self.startingTimeInSeconds
+            self._transitionHandler?(self, .stopped, .countdown)
             self._tickHandler(self)
         }
         
-        if .alarm == currentMode || .stopped == currentMode {
+        if .alarm == self.mode || .stopped == self.mode {
             self._timer?.isRunning = false
         }
     }
@@ -374,21 +460,31 @@ extension TimerEngine {
 
     /* ################################################################## */
     /**
-     This pauses a running timer. The timer must already be in ``.countdown`` state.
+     This pauses a running timer. The timer must already be in `.countdown` state.
      */
     func pause() {
-        if case .countdown = self.mode {
+        if case .paused(let lastMode) = self.mode {
+            #if DEBUG
+                print("TimerEngine: trying to pause a paused timer. Last mode was: \(lastMode)")
+            #endif
+        } else {
             self._timer?.isRunning = false
+            self._transitionHandler?(self, self._lastMode, .paused(self._lastMode))
         }
     }
     
     /* ################################################################## */
     /**
-     This resumes a paused timer. The timer must already be in ``.paused`` state.
+     This resumes a paused timer. The timer must already be in `.paused` state.
      */
     func resume() {
-        if case .paused = self.mode {
+        if case .paused(let lastMode) = self.mode {
             self._timer?.isRunning = true
+            self._transitionHandler?(self, .paused(lastMode), lastMode)
+        } else {
+            #if DEBUG
+                print("TimerEngine: trying to resume a running timer.")
+            #endif
         }
     }
 }
