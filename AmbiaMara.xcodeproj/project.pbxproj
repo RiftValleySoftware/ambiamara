@@ -11,6 +11,7 @@
 		D404247F282BEAA3004FD65A /* Accessibility.strings in Resources */ = {isa = PBXBuildFile; fileRef = D404247D282BEAA3004FD65A /* Accessibility.strings */; };
 		D4079934287731860058EAF4 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4079933287731860058EAF4 /* RVS_UIKit_Toolbox */; };
 		D40A69392846A05D0010A58E /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D40A69382846A05D0010A58E /* RVS_Persistent_Prefs */; };
+		D41BBFFD2D9B460B00C640D6 /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41BBFFC2D9B460B00C640D6 /* TimePicker.swift */; };
 		D4291733282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */; };
 		D43ED8362D942C76001B1B68 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D43ED8352D942C76001B1B68 /* RVS_BasicGCDTimer */; };
 		D45EDFAD2D88735C0024CB6D /* Rift_Valley_Timer_Watch_App_TimerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EDFAC2D88735C0024CB6D /* Rift_Valley_Timer_Watch_App_TimerList.swift */; };
@@ -169,6 +170,7 @@
 /* Begin PBXFileReference section */
 		D4010AF52D6514C300DBDC0B /* RVS_SetTimerPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_SetTimerPageViewController.swift; sourceTree = "<group>"; };
 		D404247E282BEAA3004FD65A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Accessibility.strings; sourceTree = "<group>"; };
+		D41BBFFC2D9B460B00C640D6 /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AboutAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
 		D44E7712281AD1B000B491EF /* AmbiaMara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AmbiaMara.entitlements; sourceTree = "<group>"; };
 		D45EDFAC2D88735C0024CB6D /* Rift_Valley_Timer_Watch_App_TimerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_Watch_App_TimerList.swift; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 				D4E869532D99916200D56802 /* TimerEngine.swift */,
 				D4E8694C2D99912D00D56802 /* TimerEngineApp.swift */,
 				D4E8694D2D99912D00D56802 /* TimerEngineContentView.swift */,
+				D41BBFFC2D9B460B00C640D6 /* TimePicker.swift */,
 				D4E8694A2D99912D00D56802 /* Assets.xcassets */,
 				D4E8694B2D99912D00D56802 /* TimerEngine.entitlements */,
 			);
@@ -798,6 +801,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D41BBFFD2D9B460B00C640D6 /* TimePicker.swift in Sources */,
 				D4E869512D99912D00D56802 /* TimerEngineApp.swift in Sources */,
 				D4E869542D99916200D56802 /* TimerEngine.swift in Sources */,
 				D4E869522D99912D00D56802 /* TimerEngineContentView.swift in Sources */,
