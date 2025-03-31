@@ -45,6 +45,8 @@ struct TimerEngineContentView: View {
                 .foregroundStyle(self._timerEngine?.isTicking ?? false ? .green : .red)
             if .alarm != timerMode {
                 Text(self._displayText)
+                    .font(.largeTitle)
+                    .fontWeight(self._timerEngine?.isTicking ?? false ? .bold : .ultraLight)
                     .padding(10)
                     .foregroundStyle(self._timerEngine?.isTicking ?? false ? .green : .red)
             }
