@@ -42,9 +42,11 @@ struct TimerEngineContentView: View {
             Image(systemName: self._displayIconName)
                 .imageScale(.large)
                 .padding(10)
+                .foregroundStyle(self._timerEngine?.isTicking ?? false ? .green : .red)
             if .alarm != timerMode {
                 Text(self._displayText)
                     .padding(10)
+                    .foregroundStyle(self._timerEngine?.isTicking ?? false ? .green : .red)
             }
             switch timerMode {
             case .stopped:
@@ -73,10 +75,10 @@ struct TimerEngineContentView: View {
             }
         }
         .onAppear {
-            self._displayIconName = "clock.fill"
-            self._timerEngine = TimerEngine(startingTimeInSeconds: 10,
-                                            warningTimeInSeconds: 5,
-                                            finalTimeInSeconds: 2,
+            self._displayIconName = "clock"
+            self._timerEngine = TimerEngine(startingTimeInSeconds: 90,
+                                            warningTimeInSeconds: 60,
+                                            finalTimeInSeconds: 10,
                                             transitionHandler: self.transitionHandler
             ) { inTimerEngine in
                 DispatchQueue.main.async {
@@ -124,32 +126,32 @@ struct TimerEngineContentView: View {
         DispatchQueue.main.async {
             switch inToMode {
             case .stopped:
-                self._displayIconName = "clock.fill"
+                self._displayIconName = "clock"
                 self._displayText = inTimerEngine.timerDisplay
                 
             case .warning:
-                self._displayIconName = "exclamationmark.triangle"
+                self._displayIconName = "exclamationmark.triangle.fill"
 
             case .final:
-                self._displayIconName = "xmark.circle"
+                self._displayIconName = "xmark.circle.fill"
                 
             case .alarm:
-                self._displayIconName = "bell.and.waves.left.and.right.fill"
+                self._displayIconName = "bell.and.waves.left.and.right"
             
             case .paused(let subMode):
                 switch subMode {
                 case .warning:
-                    self._displayIconName = "exclamationmark.triangle.fill"
+                    self._displayIconName = "exclamationmark.triangle"
                     
                 case .final:
-                    self._displayIconName = "xmark.circle.fill"
+                    self._displayIconName = "xmark.circle"
                     
                 default:
-                    self._displayIconName = "clock.fill"
+                    self._displayIconName = "clock"
                 }
 
             default:
-                self._displayIconName = "clock"
+                self._displayIconName = "clock.fill"
             }
         }
     }
