@@ -55,7 +55,7 @@ struct TimerEngineContentView: View {
     /**
      The current time, as seconds.
      */
-    @State var seconds: Int
+    @State var seconds: Int = 0
     
     /* ################################################################## */
     /**

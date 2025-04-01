@@ -4,19 +4,20 @@
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES">
+      buildImplicitDependencies = "YES"
+      buildArchitectures = "Automatic">
       <BuildActionEntries>
          <BuildActionEntry
-            buildForTesting = "NO"
+            buildForTesting = "YES"
             buildForRunning = "YES"
             buildForProfiling = "YES"
             buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D47C029A2819CA6500D359F5"
-               BuildableName = "Rift Valley Timer.app"
-               BlueprintName = "Rift Valley Timer"
+               BlueprintIdentifier = "D46B84DE2D986AB600199220"
+               BuildableName = "TimerEngineTestHarness.app"
+               BlueprintName = "TimerEngineTestHarness"
                ReferencedContainer = "container:AmbiaMara.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,8 +27,13 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      shouldAutocreateTestPlan = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:Tests/TimerEngineTests/TimerEngineTestHarness.xctestplan"
+            default = "YES">
+         </TestPlanReference>
+      </TestPlans>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -43,9 +49,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D47C029A2819CA6500D359F5"
-            BuildableName = "Rift Valley Timer.app"
-            BlueprintName = "Rift Valley Timer"
+            BlueprintIdentifier = "D46B84DE2D986AB600199220"
+            BuildableName = "TimerEngineTestHarness.app"
+            BlueprintName = "TimerEngineTestHarness"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -60,9 +66,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D47C029A2819CA6500D359F5"
-            BuildableName = "Rift Valley Timer.app"
-            BlueprintName = "Rift Valley Timer"
+            BlueprintIdentifier = "D46B84DE2D986AB600199220"
+            BuildableName = "TimerEngineTestHarness.app"
+            BlueprintName = "TimerEngineTestHarness"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

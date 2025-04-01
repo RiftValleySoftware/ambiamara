@@ -116,7 +116,7 @@ class TimerEngine {
         /**
          The timer is between 0 and the "starting time," but is not running.
          
-         - parameter: The mode (countdown, warning, or final) that the timer is in.
+         - parameter: The mode (countdown, warning, or final) that the timer was in, before the pause.
          */
         case paused(Mode)
         
@@ -153,6 +153,36 @@ class TimerEngine {
      */
     private static let _timerInterval = TimeInterval(0.01)
     
+    /* ################################################################## */
+    /**
+     The integer above our maximum number of hours.
+     */
+    private static let _maxHours = 24
+    
+    /* ################################################################## */
+    /**
+     The integer above our maximum number of minutes.
+     */
+    private static let _maxMinutes = 60
+    
+    /* ################################################################## */
+    /**
+     The integer above our maximum number of seconds.
+     */
+    private static let _maxSeconds = 60
+
+    /* ################################################################## */
+    /**
+     The number of seconds in a minute.
+     */
+    private static let _secondsInMinute = 60
+
+    /* ################################################################## */
+    /**
+     The number of seconds in an hour.
+     */
+    private static let _secondsInHour = 3600
+
     /* ################################################################## */
     /**
      This is the actual timer instance that runs the clock.
@@ -205,7 +235,7 @@ class TimerEngine {
     /**
      This is the current time. It can be set to change the time in the timer. The new value is clamped to the timer range.
      */
-    var currentTime: Int { didSet { self.currentTime = Int(min(max(currentTime, 0), startingTimeInSeconds)) } }
+    var currentTime: Int { didSet { self.currentTime = Int(min(max(currentTime, 0), self.startingTimeInSeconds)) } }
     
     /* ################################################################## */
     /**
@@ -346,14 +376,15 @@ extension TimerEngine {
      This returns an "optimized" string, with the current countdown time.
     */
     var timerDisplay: String {
-        let hour = self.currentTime / 3600
-        let minute = self.currentTime / 60 - (hour * 60)
-        let second = self.currentTime - ((hour * 3600) + (minute * 60))
-        if (1..<24).contains(hour) {
+        let currentTime = self.currentTime
+        let hour = currentTime / Self._secondsInHour
+        let minute = currentTime / Self._secondsInMinute - (hour * Self._secondsInMinute)
+        let second = currentTime - ((hour * Self._secondsInHour) + (minute * Self._secondsInMinute))
+        if (1..<Self._maxHours).contains(hour) {
             return String(format: "%d:%02d:%02d", hour, minute, second)
-        } else if (1..<60).contains(minute) {
+        } else if (1..<Self._maxMinutes).contains(minute) {
             return String(format: "%d:%02d", minute, second)
-        } else if (1..<60).contains(second) {
+        } else if (1..<Self._maxSeconds).contains(second) {
             return String(format: "%d", second)
         } else {
             return ""

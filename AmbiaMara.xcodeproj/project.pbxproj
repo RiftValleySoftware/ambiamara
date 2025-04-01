@@ -11,11 +11,9 @@
 		D404247F282BEAA3004FD65A /* Accessibility.strings in Resources */ = {isa = PBXBuildFile; fileRef = D404247D282BEAA3004FD65A /* Accessibility.strings */; };
 		D4079934287731860058EAF4 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4079933287731860058EAF4 /* RVS_UIKit_Toolbox */; };
 		D40A69392846A05D0010A58E /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D40A69382846A05D0010A58E /* RVS_Persistent_Prefs */; };
-		D41BBFFD2D9B460B00C640D6 /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41BBFFC2D9B460B00C640D6 /* TimePicker.swift */; };
 		D4291733282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */; };
 		D43ED8362D942C76001B1B68 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D43ED8352D942C76001B1B68 /* RVS_BasicGCDTimer */; };
 		D45EDFAD2D88735C0024CB6D /* Rift_Valley_Timer_Watch_App_TimerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EDFAC2D88735C0024CB6D /* Rift_Valley_Timer_Watch_App_TimerList.swift */; };
-		D463F4912D9C00A90037E211 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D463F4902D9C00A90037E211 /* Localizable.xcstrings */; };
 		D46850BB2D7F840300065D8C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D46850BA2D7F840300065D8C /* Localizable.xcstrings */; };
 		D46850BC2D7F840300065D8C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D46850BA2D7F840300065D8C /* Localizable.xcstrings */; };
 		D46B84EF2D986AD500199220 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D46B84EE2D986AD500199220 /* RVS_Generic_Swift_Toolbox */; };
@@ -50,6 +48,13 @@
 		D4B01F95281F58D200B07C56 /* 08-videogame-beeps-high-frequency.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F7D281F58D200B07C56 /* 08-videogame-beeps-high-frequency.mp3 */; };
 		D4B01F96281F58D200B07C56 /* 10-annoying-alarm.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F7E281F58D200B07C56 /* 10-annoying-alarm.mp3 */; };
 		D4B01F98281F58D200B07C56 /* 09-single-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F80281F58D200B07C56 /* 09-single-beep.mp3 */; };
+		D4BB900C2D9C3B7500F3DB80 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E869532D99916200D56802 /* TimerEngine.swift */; };
+		D4BB901D2D9C3E1300F3DB80 /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB90142D9C3E1300F3DB80 /* TimePicker.swift */; };
+		D4BB901E2D9C3E1300F3DB80 /* TimerEngineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB90172D9C3E1300F3DB80 /* TimerEngineContentView.swift */; };
+		D4BB901F2D9C3E1300F3DB80 /* TimerEngineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB90162D9C3E1300F3DB80 /* TimerEngineApp.swift */; };
+		D4BB90202D9C3E1300F3DB80 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D4BB90132D9C3E1300F3DB80 /* Localizable.xcstrings */; };
+		D4BB90212D9C3E1300F3DB80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4BB90122D9C3E1300F3DB80 /* Assets.xcassets */; };
+		D4BB90222D9C3E1300F3DB80 /* TimerEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB901A2D9C3E1300F3DB80 /* TimerEngineTests.swift */; };
 		D4BC25122D809D1B0071C75C /* Rift_Valley_Timer_Watch_App_IndividualTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC25112D809D1B0071C75C /* Rift_Valley_Timer_Watch_App_IndividualTimerView.swift */; };
 		D4C1B6212D806D6E00CEA6BF /* Let's go Digital Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4C1B6202D806D6E00CEA6BF /* Let's go Digital Regular.ttf */; };
 		D4C4B70C2819CEDB00E22ECA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4C4B70A2819CEDB00E22ECA /* Localizable.strings */; };
@@ -64,9 +69,6 @@
 		D4DD60F92D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DD60F82D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerView.swift */; };
 		D4E6ECB12D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */; };
 		D4E6ECB32D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4E6ECB22D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox */; };
-		D4E869502D99912D00D56802 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4E8694A2D99912D00D56802 /* Assets.xcassets */; };
-		D4E869512D99912D00D56802 /* TimerEngineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E8694C2D99912D00D56802 /* TimerEngineApp.swift */; };
-		D4E869522D99912D00D56802 /* TimerEngineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E8694D2D99912D00D56802 /* TimerEngineContentView.swift */; };
 		D4E869542D99916200D56802 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E869532D99916200D56802 /* TimerEngine.swift */; };
 		D4F1448028293F4A001DD9E4 /* 01-low-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F1447928293F4A001DD9E4 /* 01-low-beep.mp3 */; };
 		D4F1448128293F4A001DD9E4 /* 03-high-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F1447A28293F4A001DD9E4 /* 03-high-beep.mp3 */; };
@@ -91,6 +93,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D4BB90032D9C3B0900F3DB80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D47C029A2819CA6500D359F5;
+			remoteInfo = "Rift Valley Timer";
+		};
+		D4BB90102D9C3D7600F3DB80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D46B84DE2D986AB600199220;
+			remoteInfo = TimerEngineTestHarness;
+		};
 		D4C6DD492D7649EB00AA0FAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
@@ -171,13 +187,11 @@
 /* Begin PBXFileReference section */
 		D4010AF52D6514C300DBDC0B /* RVS_SetTimerPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_SetTimerPageViewController.swift; sourceTree = "<group>"; };
 		D404247E282BEAA3004FD65A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Accessibility.strings; sourceTree = "<group>"; };
-		D41BBFFC2D9B460B00C640D6 /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AboutAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
 		D44E7712281AD1B000B491EF /* AmbiaMara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AmbiaMara.entitlements; sourceTree = "<group>"; };
 		D45EDFAC2D88735C0024CB6D /* Rift_Valley_Timer_Watch_App_TimerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_Watch_App_TimerList.swift; sourceTree = "<group>"; };
-		D463F4902D9C00A90037E211 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		D46850BA2D7F840300065D8C /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		D46B84DF2D986AB600199220 /* TimerEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimerEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D46B84DF2D986AB600199220 /* TimerEngineTestHarness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimerEngineTestHarness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46BC2152D86122D0094B052 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D46BC2172D8612DF0094B052 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D474E5DD282B26E900102B9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text; name = Base; path = Base.lproj/Instructions.txt; sourceTree = "<group>"; };
@@ -212,6 +226,15 @@
 		D4B01F7D281F58D200B07C56 /* 08-videogame-beeps-high-frequency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "08-videogame-beeps-high-frequency.mp3"; sourceTree = "<group>"; };
 		D4B01F7E281F58D200B07C56 /* 10-annoying-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "10-annoying-alarm.mp3"; sourceTree = "<group>"; };
 		D4B01F80281F58D200B07C56 /* 09-single-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "09-single-beep.mp3"; sourceTree = "<group>"; };
+		D4BB8FFF2D9C3B0900F3DB80 /* TimerEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimerEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4BB90122D9C3E1300F3DB80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D4BB90132D9C3E1300F3DB80 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		D4BB90142D9C3E1300F3DB80 /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
+		D4BB90152D9C3E1300F3DB80 /* TimerEngine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimerEngine.entitlements; sourceTree = "<group>"; };
+		D4BB90162D9C3E1300F3DB80 /* TimerEngineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineApp.swift; sourceTree = "<group>"; };
+		D4BB90172D9C3E1300F3DB80 /* TimerEngineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineContentView.swift; sourceTree = "<group>"; };
+		D4BB90192D9C3E1300F3DB80 /* TimerEngineTestHarness.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TimerEngineTestHarness.xctestplan; sourceTree = "<group>"; };
+		D4BB901A2D9C3E1300F3DB80 /* TimerEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineTests.swift; sourceTree = "<group>"; };
 		D4BC25112D809D1B0071C75C /* Rift_Valley_Timer_Watch_App_IndividualTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_Watch_App_IndividualTimerView.swift; sourceTree = "<group>"; };
 		D4C1B6202D806D6E00CEA6BF /* Let's go Digital Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Let's go Digital Regular.ttf"; sourceTree = "<group>"; };
 		D4C4B70B2819CEDB00E22ECA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -230,10 +253,6 @@
 		D4D02B5D283430F90024DF06 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D4D02B5E283430F90024DF06 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Accessibility.strings"; sourceTree = "<group>"; };
 		D4DD60F82D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_Watch_App_RunningTimerView.swift; sourceTree = "<group>"; };
-		D4E8694A2D99912D00D56802 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D4E8694B2D99912D00D56802 /* TimerEngine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimerEngine.entitlements; sourceTree = "<group>"; };
-		D4E8694C2D99912D00D56802 /* TimerEngineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineApp.swift; sourceTree = "<group>"; };
-		D4E8694D2D99912D00D56802 /* TimerEngineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineContentView.swift; sourceTree = "<group>"; };
 		D4E869532D99916200D56802 /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
 		D4F1447928293F4A001DD9E4 /* 01-low-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "01-low-beep.mp3"; sourceTree = "<group>"; };
 		D4F1447A28293F4A001DD9E4 /* 03-high-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "03-high-beep.mp3"; sourceTree = "<group>"; };
@@ -273,6 +292,13 @@
 				D4CD2E7F284697E100400AB0 /* RVS_Generic_Swift_Toolbox in Frameworks */,
 				D4D193BD2D883DEA008DA06F /* RVS_BasicGCDTimer in Frameworks */,
 				D40A69392846A05D0010A58E /* RVS_Persistent_Prefs in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4BB8FFC2D9C3B0900F3DB80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,8 +383,8 @@
 			isa = PBXGroup;
 			children = (
 				D4C4B6FE2819CCDB00E22ECA /* Sources */,
+				D4BB901C2D9C3E1300F3DB80 /* Tests */,
 				D44E7714281AD24F00B491EF /* ProjectMeta */,
-				D4E8694E2D99912D00D56802 /* TimerEngine */,
 				D47C029C2819CA6500D359F5 /* Products */,
 				D4CD2E7D284697E100400AB0 /* Frameworks */,
 			);
@@ -370,7 +396,8 @@
 				D47C029B2819CA6500D359F5 /* Rift Valley Timer.app */,
 				D4F83C9D2D63DB10009C4646 /* Rift Valley Timer WatchApp.app */,
 				D4F83CB32D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension.appex */,
-				D46B84DF2D986AB600199220 /* TimerEngine.app */,
+				D46B84DF2D986AB600199220 /* TimerEngineTestHarness.app */,
+				D4BB8FFF2D9C3B0900F3DB80 /* TimerEngineTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -446,6 +473,37 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		D4BB90182D9C3E1300F3DB80 /* TimerEngineTestHarness */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB90162D9C3E1300F3DB80 /* TimerEngineApp.swift */,
+				D4BB90172D9C3E1300F3DB80 /* TimerEngineContentView.swift */,
+				D4BB90142D9C3E1300F3DB80 /* TimePicker.swift */,
+				D4BB90122D9C3E1300F3DB80 /* Assets.xcassets */,
+				D4BB90132D9C3E1300F3DB80 /* Localizable.xcstrings */,
+				D4BB90152D9C3E1300F3DB80 /* TimerEngine.entitlements */,
+			);
+			path = TimerEngineTestHarness;
+			sourceTree = "<group>";
+		};
+		D4BB901B2D9C3E1300F3DB80 /* TimerEngineTests */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB901A2D9C3E1300F3DB80 /* TimerEngineTests.swift */,
+				D4BB90192D9C3E1300F3DB80 /* TimerEngineTestHarness.xctestplan */,
+			);
+			path = TimerEngineTests;
+			sourceTree = "<group>";
+		};
+		D4BB901C2D9C3E1300F3DB80 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB90182D9C3E1300F3DB80 /* TimerEngineTestHarness */,
+				D4BB901B2D9C3E1300F3DB80 /* TimerEngineTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		D4C4B6FE2819CCDB00E22ECA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -491,20 +549,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D4E8694E2D99912D00D56802 /* TimerEngine */ = {
-			isa = PBXGroup;
-			children = (
-				D4E869532D99916200D56802 /* TimerEngine.swift */,
-				D4E8694C2D99912D00D56802 /* TimerEngineApp.swift */,
-				D4E8694D2D99912D00D56802 /* TimerEngineContentView.swift */,
-				D41BBFFC2D9B460B00C640D6 /* TimePicker.swift */,
-				D4E8694A2D99912D00D56802 /* Assets.xcassets */,
-				D4E8694B2D99912D00D56802 /* TimerEngine.entitlements */,
-				D463F4902D9C00A90037E211 /* Localizable.xcstrings */,
-			);
-			path = TimerEngine;
-			sourceTree = "<group>";
-		};
 		D4EDB3002D90549700419E6C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -525,6 +569,7 @@
 		D4F3572D2D6F61E8005A815A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D4E869532D99916200D56802 /* TimerEngine.swift */,
 				D4F357292D6F61C0005A815A /* RVS_WatchDelegate.swift */,
 				D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */,
 			);
@@ -542,9 +587,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D46B84DE2D986AB600199220 /* TimerEngine */ = {
+		D46B84DE2D986AB600199220 /* TimerEngineTestHarness */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D46B84ED2D986AB600199220 /* Build configuration list for PBXNativeTarget "TimerEngine" */;
+			buildConfigurationList = D46B84ED2D986AB600199220 /* Build configuration list for PBXNativeTarget "TimerEngineTestHarness" */;
 			buildPhases = (
 				D46B84DB2D986AB600199220 /* Sources */,
 				D46B84DC2D986AB600199220 /* Frameworks */,
@@ -554,14 +599,14 @@
 			);
 			dependencies = (
 			);
-			name = TimerEngine;
+			name = TimerEngineTestHarness;
 			packageProductDependencies = (
 				D46B84EE2D986AD500199220 /* RVS_Generic_Swift_Toolbox */,
 				D46B84F02D986AD500199220 /* RVS_Persistent_Prefs */,
 				D46B84F22D986AD500199220 /* RVS_BasicGCDTimer */,
 			);
 			productName = TimerEngine;
-			productReference = D46B84DF2D986AB600199220 /* TimerEngine.app */;
+			productReference = D46B84DF2D986AB600199220 /* TimerEngineTestHarness.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D47C029A2819CA6500D359F5 /* Rift Valley Timer */ = {
@@ -592,6 +637,27 @@
 			productName = AmbiaMara;
 			productReference = D47C029B2819CA6500D359F5 /* Rift Valley Timer.app */;
 			productType = "com.apple.product-type.application";
+		};
+		D4BB8FFE2D9C3B0900F3DB80 /* TimerEngineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4BB90052D9C3B0900F3DB80 /* Build configuration list for PBXNativeTarget "TimerEngineTests" */;
+			buildPhases = (
+				D4BB8FFB2D9C3B0900F3DB80 /* Sources */,
+				D4BB8FFC2D9C3B0900F3DB80 /* Frameworks */,
+				D4BB8FFD2D9C3B0900F3DB80 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D4BB90042D9C3B0900F3DB80 /* PBXTargetDependency */,
+				D4BB90112D9C3D7600F3DB80 /* PBXTargetDependency */,
+			);
+			name = TimerEngineTests;
+			packageProductDependencies = (
+			);
+			productName = TimerEngineTests;
+			productReference = D4BB8FFF2D9C3B0900F3DB80 /* TimerEngineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		D4F83C9C2D63DB10009C4646 /* Rift Valley Timer WatchApp */ = {
 			isa = PBXNativeTarget;
@@ -648,14 +714,18 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					D46B84DE2D986AB600199220 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 					D47C029A2819CA6500D359F5 = {
 						CreatedOnToolsVersion = 13.3.1;
+					};
+					D4BB8FFE2D9C3B0900F3DB80 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = D46B84DE2D986AB600199220;
 					};
 					D4F83C9C2D63DB10009C4646 = {
 						CreatedOnToolsVersion = 16.2;
@@ -691,7 +761,8 @@
 				D47C029A2819CA6500D359F5 /* Rift Valley Timer */,
 				D4F83C9C2D63DB10009C4646 /* Rift Valley Timer WatchApp */,
 				D4F83CB22D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension */,
-				D46B84DE2D986AB600199220 /* TimerEngine */,
+				D46B84DE2D986AB600199220 /* TimerEngineTestHarness */,
+				D4BB8FFE2D9C3B0900F3DB80 /* TimerEngineTests */,
 			);
 		};
 /* End PBXProject section */
@@ -701,8 +772,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D463F4912D9C00A90037E211 /* Localizable.xcstrings in Resources */,
-				D4E869502D99912D00D56802 /* Assets.xcassets in Resources */,
+				D4BB90202D9C3E1300F3DB80 /* Localizable.xcstrings in Resources */,
+				D4BB90212D9C3E1300F3DB80 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -716,6 +787,13 @@
 				D47C02A62819CA6500D359F5 /* RVS_AmbiaMara_Main.storyboard in Resources */,
 				D474E5DE282B26E900102B9B /* Instructions.txt in Resources */,
 				D404247F282BEAA3004FD65A /* Accessibility.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4BB8FFD2D9C3B0900F3DB80 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -805,10 +883,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D41BBFFD2D9B460B00C640D6 /* TimePicker.swift in Sources */,
-				D4E869512D99912D00D56802 /* TimerEngineApp.swift in Sources */,
 				D4E869542D99916200D56802 /* TimerEngine.swift in Sources */,
-				D4E869522D99912D00D56802 /* TimerEngineContentView.swift in Sources */,
+				D4BB901D2D9C3E1300F3DB80 /* TimePicker.swift in Sources */,
+				D4BB901E2D9C3E1300F3DB80 /* TimerEngineContentView.swift in Sources */,
+				D4BB901F2D9C3E1300F3DB80 /* TimerEngineApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -826,6 +904,15 @@
 				D4CE51B8281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift in Sources */,
 				D4291733282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift in Sources */,
 				D4C4B71C2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4BB8FFB2D9C3B0900F3DB80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4BB900C2D9C3B7500F3DB80 /* TimerEngine.swift in Sources */,
+				D4BB90222D9C3E1300F3DB80 /* TimerEngineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -855,6 +942,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D4BB90042D9C3B0900F3DB80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D47C029A2819CA6500D359F5 /* Rift Valley Timer */;
+			targetProxy = D4BB90032D9C3B0900F3DB80 /* PBXContainerItemProxy */;
+		};
+		D4BB90112D9C3D7600F3DB80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D46B84DE2D986AB600199220 /* TimerEngineTestHarness */;
+			targetProxy = D4BB90102D9C3D7600F3DB80 /* PBXContainerItemProxy */;
+		};
 		D4C6DD4A2D7649EB00AA0FAD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
@@ -951,9 +1048,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = TimerEngine/TimerEngine.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Tests/TimerEngineTestHarness/TimerEngine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = P53V4JS928;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -994,9 +1092,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = TimerEngine/TimerEngine.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Tests/TimerEngineTestHarness/TimerEngine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = P53V4JS928;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1230,6 +1329,51 @@
 			};
 			name = Release;
 		};
+		D4BB90062D9C3B0900F3DB80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53V4JS928;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.littlegreenviper.TimerEngineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimerEngineTestHarness.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TimerEngineTestHarness";
+			};
+			name = Debug;
+		};
+		D4BB90072D9C3B0900F3DB80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53V4JS928;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.littlegreenviper.TimerEngineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimerEngineTestHarness.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TimerEngineTestHarness";
+			};
+			name = Release;
+		};
 		D4F83CAC2D63DB10009C4646 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1383,7 +1527,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D46B84ED2D986AB600199220 /* Build configuration list for PBXNativeTarget "TimerEngine" */ = {
+		D46B84ED2D986AB600199220 /* Build configuration list for PBXNativeTarget "TimerEngineTestHarness" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D46B84EB2D986AB600199220 /* Debug */,
@@ -1406,6 +1550,15 @@
 			buildConfigurations = (
 				D47C02B02819CA6800D359F5 /* Debug */,
 				D47C02B12819CA6800D359F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4BB90052D9C3B0900F3DB80 /* Build configuration list for PBXNativeTarget "TimerEngineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4BB90062D9C3B0900F3DB80 /* Debug */,
+				D4BB90072D9C3B0900F3DB80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

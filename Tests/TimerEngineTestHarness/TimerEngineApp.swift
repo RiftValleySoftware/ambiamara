@@ -14,16 +14,13 @@ import SwiftUI
 // MARK: - Main App Frame -
 /* ###################################################################################################################################### */
 /**
- 
+ This is just the container for the simple test harness app.
  */
 @main
 struct TimerEngineApp: App {
     /* ################################################################## */
     /**
+     The main container for the app.
      */
-    var body: some Scene {
-        WindowGroup {
-            TimerEngineContentView(seconds: 0)
-        }
-    }
+    var body: some Scene { WindowGroup { TimerEngineContentView() } }
 }

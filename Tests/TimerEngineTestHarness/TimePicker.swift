@@ -15,9 +15,15 @@ import SwiftUI
 /* ###################################################################################################################################### */
 /**
  This displays a set of wheel pickers, representing hours, minutes, and seconds.
- The value of the view is the `seconds` binding. This represents the total number of seconds, selected by the wheels. It can be set.
+ The value of the view is the `seconds` binding. This represents the total number of seconds, selected by the wheels. It can be set externally, which should set the wheels.
  */
 struct TimePicker: View {
+    /* ################################################################## */
+    /**
+     The number of seconds in a minute.
+     */
+    private static let _displayFont = Font.system(size: 10, weight: .medium, design: .default)
+
     /* ################################################################## */
     /**
      The number of seconds in a minute.
@@ -68,7 +74,7 @@ struct TimePicker: View {
             HStack(spacing: 0) {
                 VStack {
                     Text("SLUG-HOURS")
-                        .font(Font.custom("HelveticaNeue", size: 10))
+                        .font(Self._displayFont)
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
                     Picker(selection: self.$_hourSelection, label: Text("SLUG-HOURS")) {
@@ -83,7 +89,7 @@ struct TimePicker: View {
                 
                 VStack {
                     Text("SLUG-MINUTES")
-                        .font(Font.custom("HelveticaNeue", size: 10))
+                        .font(Self._displayFont)
                         .lineLimit(1)
                     Picker(selection: self.$_minuteSelection, label: Text("SLUG-MINUTES")) {
                         ForEach(0..<60) { index in Text(String(format: minuteFormat, index)) }
@@ -96,7 +102,7 @@ struct TimePicker: View {
                 
                 VStack {
                     Text("SLUG-SECONDS")
-                        .font(Font.custom("HelveticaNeue", size: 10))
+                        .font(Self._displayFont)
                         .lineLimit(1)
                     Picker(selection: self.$_secondSelection, label: Text("SLUG-SECONDS")) {
                         ForEach(0..<60) { index in Text(String(format: secondFormat, index)) }
