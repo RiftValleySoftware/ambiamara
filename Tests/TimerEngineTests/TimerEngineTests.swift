@@ -65,7 +65,7 @@ class TimerEngineTests: XCTestCase {
      */
     func testTransition() {
         print("TimerEngineTests.testTransition (START)\n")
-        let totalTimeInSeconds = 8
+        let totalTimeInSeconds = 6  // Six is the minimum time, if we want both a warning and a final, as each range needs to be at least one full second long.
         let warnTimeInSeconds = 4
         let finalTimeInSeconds = 2
         
@@ -101,10 +101,45 @@ class TimerEngineTests: XCTestCase {
             seconds -= 1
             expectation.fulfill()
         }
+        /* ################################################################## */
+        /**
+         Called when the timer experiences a state transition.
+         
+         - parameter inTimerEngine: The timer engine.
+         - parameter inFromMode: The previous mode (state).
+         - parameter inToMode: The current (new) mode (state).
+         */
+        func transitionHandler(_ inTimerEngine: TimerEngine, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
+            let currentTime = inTimerEngine.currentTime
+            print("\tTimerEngineTests.testTransition - Transition at \(currentTime) seconds, from \(inFromMode) to \(inToMode)")
+            XCTAssertEqual(inTimerEngine.mode, inToMode, "To should be equal to the mode.")
+
+            switch currentTime {
+            case 0:
+                XCTAssertEqual(inTimerEngine.mode, .alarm, "We should be in alarm mode (\(currentTime)).")
+                XCTAssertEqual(.final, inFromMode, "From should be final.")
+                XCTAssertEqual(.alarm, inToMode, "To should be alarm.")
+            case inTimerEngine.startRange:
+                XCTAssertEqual(inTimerEngine.mode, .countdown, "We should be in countdown mode (\(currentTime)).")
+                XCTAssertEqual(.stopped, inFromMode, "From should be stopped.")
+                XCTAssertEqual(.countdown, inToMode, "To should be countdown.")
+            case inTimerEngine.warnRange:
+                XCTAssertEqual(inTimerEngine.mode, .warning, "We should be in warning mode (\(currentTime)).")
+                XCTAssertEqual(.countdown, inFromMode, "From should be countdown.")
+                XCTAssertEqual(.warning, inToMode, "To should be warning.")
+            case inTimerEngine.finalRange:
+                XCTAssertEqual(inTimerEngine.mode, .final, "We should be in final mode (\(currentTime)).")
+                XCTAssertEqual(.warning, inFromMode, "From should be warning.")
+                XCTAssertEqual(.final, inToMode, "To should be final.")
+            default :
+                XCTFail( "Unhandled case: \(currentTime)" )
+            }
+        }
         
         let instanceUnderTest = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                                             warningTimeInSeconds: warnTimeInSeconds,
                                             finalTimeInSeconds: finalTimeInSeconds,
+                                            transitionHandler: transitionHandler,
                                             startImmediately: true,
                                             tickHandler: tickHandler)
         

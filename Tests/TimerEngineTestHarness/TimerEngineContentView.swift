@@ -201,7 +201,9 @@ extension TimerEngineContentView {
      - parameter inToMode: The current (new) mode (state).
      */
     func transitionHandler(_ inTimerEngine: TimerEngine, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
-        print("Transition from \(inFromMode) to \(inToMode)")
+        #if DEBUG
+            print("Transition from \(inFromMode) to \(inToMode)")
+        #endif
         
         DispatchQueue.main.async {
             switch inToMode {
