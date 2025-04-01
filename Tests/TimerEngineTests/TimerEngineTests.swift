@@ -29,6 +29,12 @@ class TimerEngineTests: XCTestCase {
         let expectation = XCTestExpectation()
         expectation.expectedFulfillmentCount = seconds + 1
         
+        /* ############################################################## */
+        /**
+         The callback for the individual second ticks. May be called in any thread.
+         
+         - parameter inTimerEngine: The timer engine.
+         */
         func tickHandler(_ inTimerEngine: TimerEngine) {
             print("\tTimerEngineTests.testSimpleInstantiation - Tick: \(inTimerEngine.currentTime)")
             XCTAssertEqual(inTimerEngine.currentTime, seconds, "The current time should match the seconds.")
@@ -59,15 +65,21 @@ class TimerEngineTests: XCTestCase {
      */
     func testTransition() {
         print("TimerEngineTests.testTransition (START)\n")
-        let totalTimeInSeconds = 4
-        let warnTimeInSeconds = 2
-        let finalTimeInSeconds = 1
+        let totalTimeInSeconds = 8
+        let warnTimeInSeconds = 4
+        let finalTimeInSeconds = 2
         
         var seconds = totalTimeInSeconds
 
         let expectation = XCTestExpectation()
         expectation.expectedFulfillmentCount = totalTimeInSeconds + 1
         
+        /* ############################################################## */
+        /**
+         The callback for the individual second ticks. May be called in any thread.
+         
+         - parameter inTimerEngine: The timer engine.
+         */
         func tickHandler(_ inTimerEngine: TimerEngine) {
             let currentTime = inTimerEngine.currentTime
             
@@ -75,6 +87,8 @@ class TimerEngineTests: XCTestCase {
             XCTAssertEqual(currentTime, seconds, "The current time should match the seconds.")
             
             switch currentTime {
+            case 0:
+                XCTAssertEqual(inTimerEngine.mode, .alarm, "We should be in alarm mode (\(currentTime)).")
             case inTimerEngine.startRange:
                 XCTAssertEqual(inTimerEngine.mode, .countdown, "We should be in countdown mode (\(currentTime)).")
             case inTimerEngine.warnRange:

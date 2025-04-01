@@ -288,7 +288,7 @@ extension TimerEngine {
      This is the timer mode (computed from the timer state). Read-Only.
      */
     var mode: Mode {
-        var timeMode: Mode = self._timer?.isRunning ?? false ? .countdown
+        var timeMode: Mode = (self._timer?.isRunning ?? false) && (0 < self.currentTime) ? .countdown
                         : 0 == self.currentTime ? .alarm
                             : nil == self._timer ? .stopped
                                 : .paused(self._lastMode)
@@ -349,10 +349,10 @@ extension TimerEngine {
     /**
      This is a closed range, from the very beginning, to (and including) the final time.
      
-     > NOTE: If no final time (set to 0), then this returns an empty range. The range needs to be at least one second long, to be valid.
+     > NOTE: If no final time (set to 0), then this returns an empty range. The range needs to be at least one second long (value of 2), to be valid.
      */
     var finalRange: ClosedRange<Int> {
-        if 0 < (self.finalTimeInSeconds - 1) {
+        if 1 < self.finalTimeInSeconds {
             return 1...self.finalTimeInSeconds
         } else {
             return 0...0
