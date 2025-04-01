@@ -72,7 +72,7 @@ class TimerEngineTests: XCTestCase {
         var seconds = totalTimeInSeconds
 
         let expectation = XCTestExpectation()
-        expectation.expectedFulfillmentCount = totalTimeInSeconds + 1
+        expectation.expectedFulfillmentCount = totalTimeInSeconds + 6
         
         /* ############################################################## */
         /**
@@ -101,6 +101,7 @@ class TimerEngineTests: XCTestCase {
             seconds -= 1
             expectation.fulfill()
         }
+        
         /* ################################################################## */
         /**
          Called when the timer experiences a state transition.
@@ -134,6 +135,7 @@ class TimerEngineTests: XCTestCase {
             default :
                 XCTFail( "Unhandled case: \(currentTime)" )
             }
+            expectation.fulfill()
         }
         
         let instanceUnderTest = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
