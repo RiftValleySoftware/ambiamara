@@ -50,7 +50,7 @@ class TimerEngineTests: XCTestCase {
         
         XCTAssertTrue(instanceUnderTest.isTicking, "The timer should be ticking.")
         
-        wait(for: [expectation], timeout: 2.5)
+        wait(for: [expectation], timeout: 2.25)
         
         XCTAssertEqual(instanceUnderTest.mode, .alarm, "We should be in alarm mode.")
         XCTAssertEqual(-1, seconds, "We should be out of seconds.")
@@ -145,7 +145,7 @@ class TimerEngineTests: XCTestCase {
                                             startImmediately: true,
                                             tickHandler: tickHandler)
         
-        wait(for: [expectation], timeout: TimeInterval(totalTimeInSeconds) + 0.5)
+        wait(for: [expectation], timeout: TimeInterval(totalTimeInSeconds) + 0.25)
         
         XCTAssertEqual(instanceUnderTest.mode, .alarm, "We should be in alarm mode.")
         XCTAssertEqual(-1, seconds, "We should be out of seconds.")
