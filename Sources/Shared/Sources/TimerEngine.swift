@@ -24,9 +24,12 @@ private extension TimerEngine {
      - parameter inSuccess: True, if the timer completed its term.
      */
     func _timerCallback(_ inTimer: RVS_BasicGCDTimer, _ inSuccess: Bool) {
-        guard inSuccess else {
+        guard inSuccess,
+              !inTimer.isInvalid,
+              inTimer.isRunning
+        else {
             #if DEBUG
-                print("TimerEngine: timerCallback(\(inSuccess)) -Last Call")
+                print("TimerEngine: timerCallback(\(inSuccess)) -Rejected Call")
             #endif
             return
         }
