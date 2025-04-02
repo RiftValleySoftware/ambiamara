@@ -608,7 +608,7 @@ extension TimerEngine {
 
     /* ################################################################## */
     /**
-     This pauses a running timer. The timer must already be in `.countdown` state.
+     This pauses a running timer. The timer must already be in `.countdown`, `warning`, or `final` state.
      */
     func pause() {
         if case .paused(let lastMode) = self.mode {
@@ -616,6 +616,7 @@ extension TimerEngine {
                 print("TimerEngine: trying to pause a paused timer. Last mode was: \(lastMode)")
             #endif
         } else {
+            self._lastMode = self.mode
             self._remainder = self._lastTick?.timeIntervalSinceNow ?? 0
             self._timer?.isRunning = false
             self._transitionHandler?(self, self._lastMode, .paused(self._lastMode))
