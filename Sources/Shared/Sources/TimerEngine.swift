@@ -13,7 +13,72 @@ import RVS_Generic_Swift_Toolbox
 import RVS_BasicGCDTimer
 
 /* ###################################################################################################################################### */
-// MARK: - Main Timer Engine -
+// MARK: Private API (Callbacks)
+/* ###################################################################################################################################### */
+private extension TimerEngine {
+    /* ################################################################## */
+    /**
+     This is the "first-level" callback from the timer. It can be called in any thread.
+     
+     - parameter inTimer: The timer object.
+     - parameter inSuccess: True, if the timer completed its term.
+     */
+    func _timerCallback(_ inTimer: RVS_BasicGCDTimer, _ inSuccess: Bool) {
+        guard inSuccess else {
+            #if DEBUG
+                print("TimerEngine: timerCallback(\(inSuccess)) -Last Call")
+            #endif
+            return
+        }
+        
+        #if DEBUG
+            print("TimerEngine: timerCallback(\(inSuccess))")
+        #endif
+        
+        if let lastTick = self._lastTick,
+           1 <= Int(-lastTick.timeIntervalSinceNow) {
+            self.currentTime -= 1
+            #if DEBUG
+                if self._lastTick != .now {
+                    print("\tTimerEngine: difference from last tick, in seconds: \(self._lastTick?.timeIntervalSinceNow ?? 0)")
+                }
+                print("\tTimerEngine: updated currentTime: \(self.currentTime)")
+                if self.mode != self._lastMode {
+                    print("\tTimerEngine: last mode: \(self._lastMode), new mode: \(self.mode)")
+                }
+            #endif
+
+            if self.mode != self._lastMode,
+               let transitionHandler = self.transitionHandler {
+                #if DEBUG
+                    print("\tTimerEngine: transitionHandler(\(self._lastMode), \(self.mode))")
+                #endif
+                transitionHandler(self, self._lastMode, self.mode)
+            }
+            
+            self.tickHandler?(self)
+
+            if 0 < self.currentTime {
+                self._lastTick = .now
+                self._lastMode = self.mode
+            } else {
+                self.end()
+            }
+        } else if nil == self._lastTick {
+            self._lastTick = .now
+            self.currentTime = self.startingTimeInSeconds
+            self.transitionHandler?(self, .stopped, .countdown)
+            self.tickHandler?(self)
+        }
+        
+        if .alarm == self.mode || .stopped == self.mode {
+            self._timer?.isRunning = false
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Main Timer Engine Class -
 /* ###################################################################################################################################### */
 /**
  This class implements the "executable heart" of the timer app.
@@ -24,7 +89,7 @@ import RVS_BasicGCDTimer
  
  It is a class, as opposed to a struct, so it can be referenced, and so that it can be easily mutated.
  
- The "granularity" of the timer is seconds. It does not deal with fractions of a second. Anything over a fraction of a second is rounded down, when pausing. Callbacks only happen on the second transitions.
+ The "granularity" of the timer is seconds. It does not deal with fractions of a second. Callbacks only happen on the second or state transitions, and can occur in any thread.
  
  It has six "modes" of operation:
  
@@ -52,20 +117,85 @@ import RVS_BasicGCDTimer
  
  The timer countdown is in one of the above ranges, but has been "paused." It is not running.
  */
-class TimerEngine: Codable, Identifiable {
-    /* ################################################################################################################################## */
-    // MARK: Timer Completion Handler
-    /* ################################################################################################################################## */
+open class TimerEngine: Codable, Identifiable {
+    /* ###################################################################################################################################### */
+    // MARK: Private API (Static Properties)
+    /* ###################################################################################################################################### */
+    /* ################################################################## */
+    /**
+     We will ask for a callback, every ten milliseconds. Since our granularity is a second, this should be fine.
+     */
+    private static let _timerInterval = TimeInterval(0.01)
+    
+    /* ################################################################## */
+    /**
+     The integer above our maximum number of hours.
+     */
+    private static let _maxHours = 24
+    
+    /* ################################################################## */
+    /**
+     The integer above our maximum number of minutes.
+     */
+    private static let _maxMinutes = 60
+    
+    /* ################################################################## */
+    /**
+     The integer above our maximum number of seconds.
+     */
+    private static let _maxSeconds = 60
+
+    /* ################################################################## */
+    /**
+     The number of seconds in a minute.
+     */
+    private static let _secondsInMinute = 60
+
+    /* ################################################################## */
+    /**
+     The number of seconds in an hour.
+     */
+    private static let _secondsInHour = 3600
+
+    /* ###################################################################################################################################### */
+    // MARK: Private API (Instance Properties)
+    /* ###################################################################################################################################### */
+    /* ################################################################## */
+    /**
+     This is the actual timer instance that runs the clock.
+     */
+    private var _timer: RVS_BasicGCDTimer?
+    
+    /* ################################################################## */
+    /**
+     This is only used for pausing and resuming. It contains the fraction of a second that was left, when the timer was paused.
+     */
+    private var _remainder: TimeInterval = 0
+    
+    /* ################################################################## */
+    /**
+     This is the date of the last tick. Nil, to start.
+     */
+    private var _lastTick: Date?
+
+    /* ################################################################## */
+    /**
+     This is the previous timer mode (to track transitions).
+     */
+    private var _lastMode: Mode = .stopped
+
+    /* ###################################################################################################################################### */
+    // MARK: Public API (Typealias)
+    /* ###################################################################################################################################### */
+    /* ################################################################## */
     /**
      This is the structure of the callback for each "tick," handed to the instance. It is called once a second. It may be called in any thread.
      
      - parameter: The timer engine instance calling it.
      */
-    typealias TimerTickHandler = (_: TimerEngine) -> Void
+    public typealias TimerTickHandler = (_: TimerEngine) -> Void
     
-    /* ################################################################################################################################## */
-    // MARK: Timer Transition Handler
-    /* ################################################################################################################################## */
+    /* ################################################################## */
     /**
      This is the structure of the callback for mode transitions, handed to the instance. It is called, once only, when the timer mode changes. It may be called in any thread.
      
@@ -73,14 +203,18 @@ class TimerEngine: Codable, Identifiable {
      - parameter: The mode we have transitioned from.
      - parameter: The mode we have transitioned into.
      */
-    typealias TimerTransitionHandler = (_: TimerEngine, _: Mode, _: Mode) -> Void
+    public typealias TimerTransitionHandler = (_: TimerEngine, _: Mode, _: Mode) -> Void
     
+    /* ###################################################################################################################################### */
+    // MARK: Public API (Enums)
+    /* ###################################################################################################################################### */
     /* ################################################################################################################################## */
     // MARK: Codable Coding Keys Enum
     /* ################################################################################################################################## */
     /**
+     These are part of the Codable conformance. They are used to mark the various field in the encoder/decoder.
      */
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         /* ############################################################## */
         /**
          The instance ID (UUID)
@@ -130,7 +264,7 @@ class TimerEngine: Codable, Identifiable {
     /**
      This defines the six timer states
      */
-    indirect enum Mode: Equatable, CustomStringConvertible {
+    public indirect enum Mode: Equatable, CustomStringConvertible {
         /* ############################################################## */
         /**
          The timer is "stopped." It is set to the starting time, and the timer is not running.
@@ -173,7 +307,7 @@ class TimerEngine: Codable, Identifiable {
         /**
          Debug description (CustomStringConvertible conformance)
          */
-        var description: String {
+        public var description: String {
             switch self {
             case .stopped:
                 return "stopped"
@@ -196,108 +330,54 @@ class TimerEngine: Codable, Identifiable {
         }
     }
     
+    /* ###################################################################################################################################### */
+    // MARK: Public API (Instance Properties)
+    /* ###################################################################################################################################### */
     /* ################################################################## */
     /**
-     We will ask for a callback, every ten milliseconds. Since our granularity is a second, this should be fine.
+     This is the unique ID of this instance.
      */
-    private static let _timerInterval = TimeInterval(0.01)
-    
-    /* ################################################################## */
-    /**
-     The integer above our maximum number of hours.
-     */
-    private static let _maxHours = 24
-    
-    /* ################################################################## */
-    /**
-     The integer above our maximum number of minutes.
-     */
-    private static let _maxMinutes = 60
-    
-    /* ################################################################## */
-    /**
-     The integer above our maximum number of seconds.
-     */
-    private static let _maxSeconds = 60
-
-    /* ################################################################## */
-    /**
-     The number of seconds in a minute.
-     */
-    private static let _secondsInMinute = 60
-
-    /* ################################################################## */
-    /**
-     The number of seconds in an hour.
-     */
-    private static let _secondsInHour = 3600
-
-    /* ################################################################## */
-    /**
-     This is the actual timer instance that runs the clock.
-     */
-    private var _timer: RVS_BasicGCDTimer?
-    
-    /* ################################################################## */
-    /**
-     This is only used for pausing and resuming. It contains the fraction of a second that was left, when the timer was paused.
-     */
-    private var _remainder: TimeInterval = 0
-    
-    /* ################################################################## */
-    /**
-     This is the date of the last tick. Nil, to start.
-     */
-    private var _lastTick: Date?
-
-    /* ################################################################## */
-    /**
-     This is the previous timer mode (to track transitions).
-     */
-    private var _lastMode: Mode = .stopped
-
-    /* ################################################################## */
-    /**
-     The callback for the tick handler. This can be called in any thread.
-     */
-    private let _tickHandler: TimerTickHandler?
-    
-    /* ################################################################## */
-    /**
-     The callback for the transition handler. This can be called in any thread. It may also be nil.
-     */
-    private let _transitionHandler: TimerTransitionHandler?
+    public var id: UUID
 
     /* ################################################################## */
     /**
      This is the beginning (total) countdown time.
      */
-    let id: UUID
-
-    /* ################################################################## */
-    /**
-     This is the beginning (total) countdown time.
-     */
-    let startingTimeInSeconds: Int
+    public var startingTimeInSeconds: Int
 
     /* ################################################################## */
     /**
      This is the threshold, at which the clock switches into "warning" mode.
      */
-    let warningTimeInSeconds: Int
+    public var warningTimeInSeconds: Int
     
     /* ################################################################## */
     /**
      This is the threshold, at which the clock switches into "final" mode.
      */
-    let finalTimeInSeconds: Int
+    public var finalTimeInSeconds: Int
+
+    /* ################################################################## */
+    /**
+     The callback for the tick handler. This can be called in any thread.
+     */
+    public var tickHandler: TimerTickHandler?
     
+    /* ################################################################## */
+    /**
+     The callback for the transition handler. This can be called in any thread. It may also be nil.
+     */
+    public var transitionHandler: TimerTransitionHandler?
+
     /* ################################################################## */
     /**
      This is the current time. It can be set to change the time in the timer. The new value is clamped to the timer range.
      */
-    var currentTime: Int { didSet { self.currentTime = Int(min(max(currentTime, 0), self.startingTimeInSeconds)) } }
+    public var currentTime: Int { didSet { self.currentTime = Int(min(max(currentTime, 0), self.startingTimeInSeconds)) } }
     
+    /* ###################################################################################################################################### */
+    // MARK: Public API (Initializers)
+    /* ###################################################################################################################################### */
     /* ################################################################## */
     /**
      Default initializer
@@ -308,26 +388,27 @@ class TimerEngine: Codable, Identifiable {
      - parameter warningTimeInSeconds: This is the threshold, at which the clock switches into "warning" mode.
      - parameter finalTimeInSeconds: This is the threshold, at which the clock switches into "final" mode.
      - parameter transitionHandler: The callback for each transition. This is optional.
-     - parameter id: The ID of this instance. It must be unique, in the scope of this app (Standard UUID).
+     - parameter id: The ID of this instance (Standard UUID). It must be unique, in the scope of this app. A new UUID is assigned, if not provided.
      - parameter startImmediately: If true (default is false), the timer will start as soon as the instance is initialized.
      - parameter tickHandler: The callback for each tick. This can be a tail completion.
      */
-    init(startingTimeInSeconds inStartingTimeInSeconds: Int,
-         warningTimeInSeconds inWarningTimeInSeconds: Int = 0,
-         finalTimeInSeconds inFinalTimeInSeconds: Int = 0,
-         transitionHandler inTransitionHandler: TimerTransitionHandler? = nil,
-         id inID: UUID = UUID(),
-         startImmediately inStartImmediately: Bool = false,
-         tickHandler inTickHandler: TimerTickHandler? = nil
+    public init(startingTimeInSeconds inStartingTimeInSeconds: Int,
+                warningTimeInSeconds inWarningTimeInSeconds: Int = 0,
+                finalTimeInSeconds inFinalTimeInSeconds: Int = 0,
+                transitionHandler inTransitionHandler: TimerTransitionHandler? = nil,
+                id inID: UUID = UUID(),
+                startImmediately inStartImmediately: Bool = false,
+                tickHandler inTickHandler: TimerTickHandler? = nil
     ) {
         // NOTE: Starting from now, I am ignoring previous convention, and always specifying "self.", when referencing properties and methods.
         self.startingTimeInSeconds = inStartingTimeInSeconds
         self.warningTimeInSeconds = inWarningTimeInSeconds
         self.finalTimeInSeconds = inFinalTimeInSeconds
         self.currentTime = inStartingTimeInSeconds
-        self._transitionHandler = inTransitionHandler
+        self.transitionHandler = inTransitionHandler
         self.id = inID
-        self._tickHandler = inTickHandler
+        self.tickHandler = inTickHandler
+        self._remainder = 0
         
         #if DEBUG
             print("TimerEngine: fullRange: \(self.fullRange)")
@@ -347,10 +428,11 @@ class TimerEngine: Codable, Identifiable {
      
      - parameter from: The decoder with the state.
      */
-    required init(from inDecoder: any Decoder) throws {
-        self._tickHandler = nil
-        self._transitionHandler = nil
-        
+    public required init(from inDecoder: any Decoder) throws {
+        self.tickHandler = nil
+        self.transitionHandler = nil
+        self._timer = nil
+
         let values = try inDecoder.container(keyedBy: CodingKeys.self)
         
         self.startingTimeInSeconds = try values.decode(Int.self, forKey: .startingTimeInSeconds)
@@ -377,9 +459,75 @@ class TimerEngine: Codable, Identifiable {
 }
 
 /* ###################################################################################################################################### */
-// MARK: Computed Properties
+// MARK: Public API (Computed Read/Write Properties)
 /* ###################################################################################################################################### */
-extension TimerEngine {
+public extension TimerEngine {
+    /* ################################################################## */
+    /**
+     This returns the entire timer state as a simple dictionary, suitable for use in plists.
+     The instance can be saved or restored from this.
+     */
+    var asDictionary: [String: any Hashable] {
+        get {
+            var ret = [String: any Hashable]()
+            
+            ret[CodingKeys.startingTimeInSeconds.rawValue] = self.startingTimeInSeconds
+            ret[CodingKeys.warningTimeInSeconds.rawValue] = self.warningTimeInSeconds
+            ret[CodingKeys.finalTimeInSeconds.rawValue] = self.finalTimeInSeconds
+            ret[CodingKeys.currentTime.rawValue] = self.currentTime
+            ret[CodingKeys.id.rawValue] = self.id
+            ret[CodingKeys.remainder.rawValue] = self._remainder
+            
+            switch self._lastMode {
+            case .countdown:
+                ret[CodingKeys.lastMode.rawValue] = "countdown"
+
+            case .warning:
+                ret[CodingKeys.lastMode.rawValue] = "warning"
+
+            case .final:
+                ret[CodingKeys.lastMode.rawValue] = "final"
+
+            default:
+                ret[CodingKeys.lastMode.rawValue] = "stopped"
+            }
+            
+            return ret
+        }
+        
+        set {
+            self._timer?.isRunning = false
+            self._timer?.invalidate()
+            self._timer = nil
+            
+            self.startingTimeInSeconds = newValue[CodingKeys.startingTimeInSeconds.rawValue] as? Int ?? 0
+            self.warningTimeInSeconds = newValue[CodingKeys.warningTimeInSeconds.rawValue] as? Int ?? 0
+            self.finalTimeInSeconds = newValue[CodingKeys.finalTimeInSeconds.rawValue] as? Int ?? 0
+            self.currentTime = newValue[CodingKeys.currentTime.rawValue] as? Int ?? 0
+            self.id = newValue[CodingKeys.id.rawValue] as? UUID ?? UUID()
+            self._remainder = newValue[CodingKeys.remainder.rawValue] as? TimeInterval ?? 0
+
+            switch newValue[CodingKeys.lastMode.rawValue] as? String {
+            case "countdown":
+                self._lastMode = .countdown
+                
+            case "warning":
+                self._lastMode = .warning
+                
+            case "final":
+                self._lastMode = .final
+                
+            default:
+                self._lastMode = .stopped
+            }
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Public API (Computed Read-Only Properties)
+/* ###################################################################################################################################### */
+public extension TimerEngine {
     /* ################################################################## */
     /**
      This is the timer mode (computed from the timer state). Read-Only.
@@ -490,74 +638,9 @@ extension TimerEngine {
 }
 
 /* ###################################################################################################################################### */
-// MARK: Callbacks
+// MARK: Public API (Instance Methods)
 /* ###################################################################################################################################### */
-extension TimerEngine {
-    /* ################################################################## */
-    /**
-     This is the "first-level" callback from the timer. It can be called in any thread.
-     
-     - parameter inTimer: The timer object.
-     - parameter inSuccess: True, if the timer completed its term.
-     */
-    func timerCallback(_ inTimer: RVS_BasicGCDTimer, _ inSuccess: Bool) {
-        guard inSuccess else {
-            #if DEBUG
-                print("TimerEngine: timerCallback(\(inSuccess)) -Last Call")
-            #endif
-            return
-        }
-        
-        #if DEBUG
-            print("TimerEngine: timerCallback(\(inSuccess))")
-        #endif
-        
-        if let lastTick = self._lastTick,
-           1 <= Int(-lastTick.timeIntervalSinceNow) {
-            self.currentTime -= 1
-            #if DEBUG
-                if self._lastTick != .now {
-                    print("\tTimerEngine: difference from last tick, in seconds: \(self._lastTick?.timeIntervalSinceNow ?? 0)")
-                }
-                print("\tTimerEngine: updated currentTime: \(self.currentTime)")
-                if self.mode != self._lastMode {
-                    print("\tTimerEngine: last mode: \(self._lastMode), new mode: \(self.mode)")
-                }
-            #endif
-
-            if self.mode != self._lastMode,
-               let transitionHandler = self._transitionHandler {
-                #if DEBUG
-                    print("\tTimerEngine: transitionHandler(\(self._lastMode), \(self.mode))")
-                #endif
-                transitionHandler(self, self._lastMode, self.mode)
-            }
-            
-            self._tickHandler?(self)
-
-            if 0 < self.currentTime {
-                self._lastTick = .now
-                self._lastMode = self.mode
-            } else {
-                self.end()
-            }
-        } else if nil == self._lastTick {
-            self._lastTick = .now
-            self.currentTime = self.startingTimeInSeconds
-            self._transitionHandler?(self, .stopped, .countdown)
-            self._tickHandler?(self)
-        }
-        
-        if .alarm == self.mode || .stopped == self.mode {
-            self._timer?.isRunning = false
-        }
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: Instance Methods
-/* ###################################################################################################################################### */
-extension TimerEngine {
+public extension TimerEngine {
     /* ################################################################## */
     /**
      Starts the timer from the beginning. It will do so, from any timer state.
@@ -567,15 +650,13 @@ extension TimerEngine {
     func start() {
         self._timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._timerInterval,
                                         onlyFireOnce: false,
-                                        queue: .global(),
-                                        isWallTime: true,
-                                        completion: self.timerCallback
+                                        completion: self._timerCallback
         )
         
         self._lastMode = .stopped
         self.currentTime = self.startingTimeInSeconds
         self._timer?.isRunning = true
-        self._transitionHandler?(self, .stopped, .countdown)
+        self.transitionHandler?(self, .stopped, .countdown)
     }
 
     /* ################################################################## */
@@ -589,7 +670,7 @@ extension TimerEngine {
         self._timer?.invalidate()
         self._timer = nil
         self.currentTime = self.startingTimeInSeconds
-        self._transitionHandler?(self, self._lastMode, .stopped)
+        self.transitionHandler?(self, self._lastMode, .stopped)
     }
 
     /* ################################################################## */
@@ -603,7 +684,7 @@ extension TimerEngine {
         self._timer?.invalidate()
         self._timer = nil
         self.currentTime = 0
-        self._transitionHandler?(self, self._lastMode, .alarm)
+        self.transitionHandler?(self, self._lastMode, .alarm)
     }
 
     /* ################################################################## */
@@ -616,7 +697,7 @@ extension TimerEngine {
             self._lastMode = self.mode
             self._timer?.isRunning = false
             self._remainder = self._lastTick?.timeIntervalSinceNow ?? 0
-            self._transitionHandler?(self, self._lastMode, .paused(self._lastMode))
+            self.transitionHandler?(self, self._lastMode, .paused(self._lastMode))
             
         case .paused(let lastMode):
             #if DEBUG
@@ -638,16 +719,27 @@ extension TimerEngine {
      */
     func resume() {
         if case .paused(let lastMode) = self.mode {
+            if nil == self._timer {
+                self._timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._timerInterval,
+                                                onlyFireOnce: false,
+                                                completion: self._timerCallback
+                )
+            }
             self._lastTick = Date.now.addingTimeInterval(self._remainder)
             self._timer?.isRunning = true
-            self._transitionHandler?(self, .paused(lastMode), lastMode)
+            self.transitionHandler?(self, .paused(lastMode), lastMode)
         } else {
             #if DEBUG
                 print("TimerEngine: trying to resume a running timer.")
             #endif
         }
     }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: Public API (Codable Conformance)
+/* ###################################################################################################################################### */
+public extension TimerEngine {
     /* ################################################################## */
     /**
      Codable Conformance: The Encoder.
