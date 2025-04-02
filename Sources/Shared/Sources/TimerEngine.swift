@@ -465,7 +465,7 @@ public extension TimerEngine {
     /* ################################################################## */
     /**
      This returns the entire timer state as a simple dictionary, suitable for use in plists.
-     The instance can be saved or restored from this.
+     The instance can be saved or restored from this. Restoring stops the timer.
      */
     var asDictionary: [String: any Hashable] {
         get {
