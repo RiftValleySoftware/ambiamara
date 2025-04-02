@@ -152,4 +152,10 @@ class TimerEngineTests: XCTestCase {
 
         print("TimerEngineTests.testTransition (END)\n")
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    func testPauseResume() {
+    }
 }
