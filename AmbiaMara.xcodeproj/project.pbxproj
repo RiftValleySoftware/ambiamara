@@ -560,8 +560,8 @@
 		D4F3572C2D6F61CD005A815A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				D4EDB3002D90549700419E6C /* Resources */,
 				D4F3572D2D6F61E8005A815A /* Sources */,
+				D4EDB3002D90549700419E6C /* Resources */,
 			);
 			path = Shared;
 			sourceTree = "<group>";

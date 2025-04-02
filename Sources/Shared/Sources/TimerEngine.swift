@@ -52,7 +52,7 @@ import RVS_BasicGCDTimer
  
  The timer countdown is in one of the above ranges, but has been "paused." It is not running.
  */
-class TimerEngine {
+class TimerEngine: Codable, Identifiable {
     /* ################################################################################################################################## */
     // MARK: Timer Completion Handler
     /* ################################################################################################################################## */
@@ -74,6 +74,55 @@ class TimerEngine {
      - parameter: The mode we have transitioned into.
      */
     typealias TimerTransitionHandler = (_: TimerEngine, _: Mode, _: Mode) -> Void
+    
+    /* ################################################################################################################################## */
+    // MARK: Codable Coding Keys Enum
+    /* ################################################################################################################################## */
+    /**
+     */
+    enum CodingKeys: String, CodingKey {
+        /* ############################################################## */
+        /**
+         The instance ID (UUID)
+         */
+        case id
+
+        /* ############################################################## */
+        /**
+         The starting (total) time (Int).
+         */
+        case startingTimeInSeconds
+
+        /* ############################################################## */
+        /**
+         The warning threshold time (Int).
+         */
+        case warningTimeInSeconds
+
+        /* ############################################################## */
+        /**
+         The final threshold time (Int).
+         */
+        case finalTimeInSeconds
+
+        /* ############################################################## */
+        /**
+         The current countdown time (Int).
+         */
+        case currentTime
+
+        /* ############################################################## */
+        /**
+         The time remaining, between the last tick, and the time of the pause (TimeInterval).
+         */
+        case remainder
+        
+        /* ############################################################## */
+        /**
+         The last mode (String).
+         */
+        case lastMode
+    }
     
     /* ################################################################################################################################## */
     // MARK: Timer Mode State Enum
@@ -191,10 +240,16 @@ class TimerEngine {
     
     /* ################################################################## */
     /**
+     This is only used for pausing and resuming. It contains the fraction of a second that was left, when the timer was paused.
+     */
+    private var _remainder: TimeInterval = 0
+    
+    /* ################################################################## */
+    /**
      This is the date of the last tick. Nil, to start.
      */
     private var _lastTick: Date?
-    
+
     /* ################################################################## */
     /**
      This is the previous timer mode (to track transitions).
@@ -205,7 +260,7 @@ class TimerEngine {
     /**
      The callback for the tick handler. This can be called in any thread.
      */
-    private let _tickHandler: TimerTickHandler
+    private let _tickHandler: TimerTickHandler?
     
     /* ################################################################## */
     /**
@@ -217,8 +272,14 @@ class TimerEngine {
     /**
      This is the beginning (total) countdown time.
      */
+    let id: UUID
+
+    /* ################################################################## */
+    /**
+     This is the beginning (total) countdown time.
+     */
     let startingTimeInSeconds: Int
-    
+
     /* ################################################################## */
     /**
      This is the threshold, at which the clock switches into "warning" mode.
@@ -242,21 +303,22 @@ class TimerEngine {
      Default initializer
      
      We specify all three thresholds. The starting threshold is required. The other two are optional, and will be ignored, if not specified.
-     We also require at least a tick handler callback. A threshold handler callback is optional.
-     
-    - parameter startingTimeInSeconds: This is the beginning (total) countdown time.
-    - parameter warningTimeInSeconds: This is the threshold, at which the clock switches into "warning" mode.
-    - parameter finalTimeInSeconds: This is the threshold, at which the clock switches into "final" mode.
-    - parameter transitionHandler: The callback for each transition. This is optional.
-    - parameter startImmediately: If true (default is false), the timer will start as soon as the instance is initialized.
-    - parameter tickHandler: The callback for each tick. This is required, and can be a tail completion.
+  
+     - parameter startingTimeInSeconds: This is the beginning (total) countdown time (REQUIRED).
+     - parameter warningTimeInSeconds: This is the threshold, at which the clock switches into "warning" mode.
+     - parameter finalTimeInSeconds: This is the threshold, at which the clock switches into "final" mode.
+     - parameter transitionHandler: The callback for each transition. This is optional.
+     - parameter id: The ID of this instance. It must be unique, in the scope of this app (Standard UUID).
+     - parameter startImmediately: If true (default is false), the timer will start as soon as the instance is initialized.
+     - parameter tickHandler: The callback for each tick. This can be a tail completion.
      */
     init(startingTimeInSeconds inStartingTimeInSeconds: Int,
          warningTimeInSeconds inWarningTimeInSeconds: Int = 0,
          finalTimeInSeconds inFinalTimeInSeconds: Int = 0,
          transitionHandler inTransitionHandler: TimerTransitionHandler? = nil,
+         id inID: UUID = UUID(),
          startImmediately inStartImmediately: Bool = false,
-         tickHandler inTickHandler: @escaping TimerTickHandler
+         tickHandler inTickHandler: TimerTickHandler? = nil
     ) {
         // NOTE: Starting from now, I am ignoring previous convention, and always specifying "self.", when referencing properties and methods.
         self.startingTimeInSeconds = inStartingTimeInSeconds
@@ -264,6 +326,7 @@ class TimerEngine {
         self.finalTimeInSeconds = inFinalTimeInSeconds
         self.currentTime = inStartingTimeInSeconds
         self._transitionHandler = inTransitionHandler
+        self.id = inID
         self._tickHandler = inTickHandler
         
         #if DEBUG
@@ -275,6 +338,40 @@ class TimerEngine {
 
         if inStartImmediately {
             self.start()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Codable Conformance. Decoder Initializer.
+     
+     - parameter from: The decoder with the state.
+     */
+    required init(from inDecoder: any Decoder) throws {
+        self._tickHandler = nil
+        self._transitionHandler = nil
+        
+        let values = try inDecoder.container(keyedBy: CodingKeys.self)
+        
+        self.startingTimeInSeconds = try values.decode(Int.self, forKey: .startingTimeInSeconds)
+        self.warningTimeInSeconds = try values.decode(Int.self, forKey: .warningTimeInSeconds)
+        self.finalTimeInSeconds = try values.decode(Int.self, forKey: .finalTimeInSeconds)
+        self.currentTime = try values.decode(Int.self, forKey: .currentTime)
+        self.id = try values.decode(UUID.self, forKey: .id)
+        self._remainder = try values.decode(TimeInterval.self, forKey: .remainder)
+        
+        switch try values.decode(String.self, forKey: .lastMode) {
+        case "countdown":
+            self._lastMode = .countdown
+            
+        case "warning":
+            self._lastMode = .warning
+            
+        case "final":
+            self._lastMode = .final
+            
+        default:
+            self._lastMode = .stopped
         }
     }
 }
@@ -436,7 +533,7 @@ extension TimerEngine {
                 transitionHandler(self, self._lastMode, self.mode)
             }
             
-            self._tickHandler(self)
+            self._tickHandler?(self)
 
             if 0 < self.currentTime {
                 self._lastTick = .now
@@ -448,7 +545,7 @@ extension TimerEngine {
             self._lastTick = .now
             self.currentTime = self.startingTimeInSeconds
             self._transitionHandler?(self, .stopped, .countdown)
-            self._tickHandler(self)
+            self._tickHandler?(self)
         }
         
         if .alarm == self.mode || .stopped == self.mode {
@@ -519,6 +616,7 @@ extension TimerEngine {
                 print("TimerEngine: trying to pause a paused timer. Last mode was: \(lastMode)")
             #endif
         } else {
+            self._remainder = self._lastTick?.timeIntervalSinceNow ?? 0
             self._timer?.isRunning = false
             self._transitionHandler?(self, self._lastMode, .paused(self._lastMode))
         }
@@ -530,12 +628,44 @@ extension TimerEngine {
      */
     func resume() {
         if case .paused(let lastMode) = self.mode {
+            self._lastTick = Date.now.addingTimeInterval(self._remainder)
             self._timer?.isRunning = true
             self._transitionHandler?(self, .paused(lastMode), lastMode)
         } else {
             #if DEBUG
                 print("TimerEngine: trying to resume a running timer.")
             #endif
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Codable Conformance: The Encoder.
+     
+     - parameter to: The Encoder to be loaded with our state.
+     */
+    func encode(to inEncoder: any Encoder) throws {
+        var container = inEncoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(self.startingTimeInSeconds, forKey: .startingTimeInSeconds)
+        try container.encode(self.warningTimeInSeconds, forKey: .warningTimeInSeconds)
+        try container.encode(self.finalTimeInSeconds, forKey: .finalTimeInSeconds)
+        try container.encode(self.currentTime, forKey: .currentTime)
+        try container.encode(self.id, forKey: .id)
+        try container.encode(self._remainder, forKey: .remainder)
+        
+        switch self._lastMode {
+        case .countdown:
+            try container.encode("countdown", forKey: .lastMode)
+
+        case .warning:
+            try container.encode("warning", forKey: .lastMode)
+
+        case .final:
+            try container.encode("final", forKey: .lastMode)
+
+        default:
+            try container.encode("stopped", forKey: .lastMode)
         }
     }
 }
