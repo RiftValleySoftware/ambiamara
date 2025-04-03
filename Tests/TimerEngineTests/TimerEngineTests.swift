@@ -345,9 +345,10 @@ class TimerEngineTests: XCTestCase {
         let testEngine0 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                                       warningTimeInSeconds: warnTimeInSeconds,
                                       finalTimeInSeconds: finalTimeInSeconds,
-                                      transitionHandler: { _, fromMode, toMode in
+                                      transitionHandler: { inTimer, fromMode, toMode in
                                           print("\tTimerEngineTests.testFastForward: Transition from \(fromMode) to \(toMode) (Immediate)")
                                           if .alarm == toMode {
+                                              XCTAssertEqual(0, inTimer.currentTime, "We should be at 0.")
                                               XCTAssertEqual(fromMode, .countdown, "We should be in countdown mode.")
                                               expectation.fulfill()
                                           }
@@ -358,9 +359,10 @@ class TimerEngineTests: XCTestCase {
         let testEngine1 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                                       warningTimeInSeconds: warnTimeInSeconds,
                                       finalTimeInSeconds: finalTimeInSeconds,
-                                      transitionHandler: { _, fromMode, toMode in
+                                      transitionHandler: { inTimer, fromMode, toMode in
                                           print("\tTimerEngineTests.testFastForward: Transition from \(fromMode) to \(toMode) (Countdown)")
                                           if .alarm == toMode {
+                                              XCTAssertEqual(0, inTimer.currentTime, "We should be at 0.")
                                               XCTAssertEqual(fromMode, .countdown, "We should be in countdown mode.")
                                               expectation.fulfill()
                                           }
@@ -372,9 +374,10 @@ class TimerEngineTests: XCTestCase {
         let testEngine2 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                                       warningTimeInSeconds: warnTimeInSeconds,
                                       finalTimeInSeconds: finalTimeInSeconds,
-                                      transitionHandler: { _, fromMode, toMode in
+                                      transitionHandler: { inTimer, fromMode, toMode in
                                           print("\tTimerEngineTests.testFastForward: Transition from \(fromMode) to \(toMode) (Warning)")
                                           if .alarm == toMode {
+                                              XCTAssertEqual(0, inTimer.currentTime, "We should be at 0.")
                                               XCTAssertEqual(fromMode, .warning, "We should be in warning mode.")
                                               expectation.fulfill()
                                           }
@@ -386,9 +389,10 @@ class TimerEngineTests: XCTestCase {
         let testEngine3 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                                       warningTimeInSeconds: warnTimeInSeconds,
                                       finalTimeInSeconds: finalTimeInSeconds,
-                                      transitionHandler: { _, fromMode, toMode in
+                                      transitionHandler: { inTimer, fromMode, toMode in
                                           print("\tTimerEngineTests.testFastForward: Transition from \(fromMode) to \(toMode) (Final)")
                                           if .alarm == toMode {
+                                              XCTAssertEqual(0, inTimer.currentTime, "We should be at 0.")
                                               XCTAssertEqual(fromMode, .final, "We should be in final mode.")
                                               expectation.fulfill()
                                           }
@@ -423,18 +427,19 @@ class TimerEngineTests: XCTestCase {
 
     /* ################################################################## */
     /**
-     */
+     This spins up 4 concurrent timers, and forces each to stop (rewind), at different times.
+    */
     func testRewind() {
         print("TimerEngineTests.testRewind (START)")
         let totalTimeInSeconds = 6  // Six is the minimum time, if we want both a warning and a final, as each range needs to be at least one full second long.
         let warnTimeInSeconds = 4
         let finalTimeInSeconds = 2
-        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.25
+        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.5
 
         let expectation = XCTestExpectation()
-        expectation.expectedFulfillmentCount = 4
+        expectation.expectedFulfillmentCount = 5
 
-        // First, we test for an immediate transition to alarm.
+        // First, we test for an immediate transition to stop.
         let testEngine0 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                                       warningTimeInSeconds: warnTimeInSeconds,
                                       finalTimeInSeconds: finalTimeInSeconds,
@@ -448,7 +453,7 @@ class TimerEngineTests: XCTestCase {
                                       }
         )
 
-        // Next, we test for countdown to alarm.
+        // Next, we test for countdown to stop.
         let testEngine1 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                                       warningTimeInSeconds: warnTimeInSeconds,
                                       finalTimeInSeconds: finalTimeInSeconds,
@@ -463,7 +468,7 @@ class TimerEngineTests: XCTestCase {
                                       startImmediately: true
         )
 
-        // Next, we test for warning to alarm.
+        // Next, we test for warning to stop.
         let testEngine2 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                                       warningTimeInSeconds: warnTimeInSeconds,
                                       finalTimeInSeconds: finalTimeInSeconds,
@@ -478,7 +483,7 @@ class TimerEngineTests: XCTestCase {
                                       startImmediately: true
         )
 
-        // Next, we test for final to alarm.
+        // Next, we test for final to stop.
         let testEngine3 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                                       warningTimeInSeconds: warnTimeInSeconds,
                                       finalTimeInSeconds: finalTimeInSeconds,
@@ -492,7 +497,25 @@ class TimerEngineTests: XCTestCase {
                                       },
                                       startImmediately: true
         )
-        
+
+        // Finally, we let the timer go to the end, and stop it in alarm mode.
+        let testEngine4 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
+                                      warningTimeInSeconds: warnTimeInSeconds,
+                                      finalTimeInSeconds: finalTimeInSeconds,
+                                      transitionHandler: { inTimer, fromMode, toMode in
+                                          print("\tTimerEngineTests.testRewind: Transition from \(fromMode) to \(toMode) (Alarm)")
+                                          if .alarm == toMode {
+                                              XCTAssertEqual(fromMode, .final, "We should be in final mode.")
+                                              XCTAssertEqual(0, inTimer.currentTime, "We should be at 0.")
+                                              inTimer.stop()
+                                          } else if .stopped == toMode {
+                                              XCTAssertEqual(totalTimeInSeconds, inTimer.currentTime, "We should be at the start time.")
+                                              expectation.fulfill()
+                                          }
+                                      },
+                                      startImmediately: true
+        )
+
         testEngine0.start()
         testEngine0.stop()
 
@@ -514,7 +537,8 @@ class TimerEngineTests: XCTestCase {
         XCTAssertEqual(testEngine1.mode, .stopped, "We should be in stopped mode.")
         XCTAssertEqual(testEngine2.mode, .stopped, "We should be in stopped mode.")
         XCTAssertEqual(testEngine3.mode, .stopped, "We should be in stopped mode.")
-        
+        XCTAssertEqual(testEngine4.mode, .stopped, "We should be in stopped mode.")
+
         print("TimerEngineTests.testRewind (END)\n")
     }
 }
