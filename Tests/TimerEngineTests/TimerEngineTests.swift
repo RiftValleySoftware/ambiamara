@@ -351,8 +351,7 @@ class TimerEngineTests: XCTestCase {
                                               XCTAssertEqual(fromMode, .countdown, "We should be in countdown mode.")
                                               expectation.fulfill()
                                           }
-                                      },
-                                      startImmediately: true
+                                      }
         )
 
         // Next, we test for countdown to alarm.
@@ -397,6 +396,7 @@ class TimerEngineTests: XCTestCase {
                                       startImmediately: true
         )
         
+        testEngine0.start()
         testEngine0.end()
 
         DispatchQueue.global().asyncAfter(wallDeadline: .now() + 1) {
@@ -419,5 +419,14 @@ class TimerEngineTests: XCTestCase {
         XCTAssertEqual(testEngine3.mode, .alarm, "We should be in alarm mode.")
         
         print("TimerEngineTests.testFastForward (END)\n")
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    func testRewind() {
+        print("TimerEngineTests.testRewind (START)")
+        
+        print("TimerEngineTests.testRewind (END)\n")
     }
 }
