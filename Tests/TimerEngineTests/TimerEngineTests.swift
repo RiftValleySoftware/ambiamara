@@ -284,7 +284,6 @@ class TimerEngineTests: XCTestCase {
      */
     func testPauseResume2() {
         print("TimerEngineTests.testPauseResume2 (START)\n")
-        print("TimerEngineTests.testPauseResume2 (END)\n")
         let totalTimeInSeconds = 4
         let firstPauseStart = TimeInterval(2.3)
         let firstPauseLength = TimeInterval(4.7)
@@ -317,5 +316,6 @@ class TimerEngineTests: XCTestCase {
         initialInstanceUnderTest?.start()
         
         wait(for: [expectation], timeout: expectationWaitTimeout)
+        print("TimerEngineTests.testPauseResume2 (END)\n")
     }
 }
