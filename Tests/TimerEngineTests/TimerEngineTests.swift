@@ -177,7 +177,7 @@ class TimerEngineTests: XCTestCase {
         let secondPauseStart = TimeInterval(4.5)
         let secondPauseLength = TimeInterval(0.2)
 
-        let thirdPauseStart = TimeInterval(7.1)
+        let thirdPauseStart = TimeInterval(6.8)
         let thirdPauseLength = TimeInterval(6.85)
 
         var seconds = totalTimeInSeconds
@@ -564,7 +564,7 @@ class TimerEngineTests: XCTestCase {
                                       warningTimeInSeconds: warnTimeInSeconds,
                                       finalTimeInSeconds: finalTimeInSeconds,
                                       transitionHandler: { inTimer, fromMode, toMode in
-                                          print("\tTimerEngineTests.testAccuracy: Transition from \(fromMode) to \(toMode) (Alarm)")
+                                          print("\tTimerEngineTests.testAccuracy: Transition from \(fromMode) to \(toMode).")
                                           if .alarm == toMode {
                                               XCTAssertEqual(fromMode, .final, "We should be in final mode.")
                                               XCTAssertEqual(0, inTimer.currentTime, "We should be at 0.")
@@ -576,7 +576,6 @@ class TimerEngineTests: XCTestCase {
                                           let realTime = Date().timeIntervalSince(startingTimeInSeconds)
                                           let asDouble = TimeInterval(inTimer.startingTimeInSeconds - inTimer.currentTime)
                                           let timerTime = asDouble + slopInSeconds
-                                          print("\tTimerEngineTests.testAccuracy: Tick: Timer Allowance: \(timerTime), Actual: \(realTime)")
                                           XCTAssertTrue((asDouble...timerTime).contains(realTime), "Timer (\(realTime)) is off by more than \(slopInSeconds) seconds.")
                                       }
         )

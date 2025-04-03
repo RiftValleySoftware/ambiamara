@@ -134,7 +134,7 @@ open class TimerEngine: Codable, Identifiable {
     /* ###################################################################################################################################### */
     /* ################################################################## */
     /**
-     We will ask for a callback, every second.
+     We will ask for a callback, every millisecond.
      */
     private static let _timerInterval = TimeInterval(0.001)
     
