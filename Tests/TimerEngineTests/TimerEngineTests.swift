@@ -278,19 +278,21 @@ class TimerEngineTests: XCTestCase {
     /* ################################################################## */
     /**
      This will pause and resume the timer, but save and restore the state.
+     
+     It creates an instance, starts it, then pauses it, and saves the state returned from the `pause()` method.
+     It then deletes that instance, and creates a new one. It then sets and starts the new one, with the `resume()` method, passing in the state saved previously.
      */
     func testPauseResume2() {
         print("TimerEngineTests.testPauseResume2 (START)\n")
         print("TimerEngineTests.testPauseResume2 (END)\n")
         let totalTimeInSeconds = 4
         let firstPauseStart = TimeInterval(2.3)
-        let firstPauseLength = TimeInterval(4)
+        let firstPauseLength = TimeInterval(4.7)
         let expectation = XCTestExpectation()
         expectation.expectedFulfillmentCount = 1
         let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + firstPauseLength + 0.5
 
         var initialInstanceUnderTest: TimerEngine? = TimerEngine(startingTimeInSeconds: totalTimeInSeconds)
-        var secondInstanceUnderTest: TimerEngine?
         
         var savedState: Dictionary<String, any Hashable>?
         
@@ -299,23 +301,21 @@ class TimerEngineTests: XCTestCase {
         DispatchQueue.global().asyncAfter(wallDeadline: .now() + firstPauseStart) {
             let difference = Date.now.timeIntervalSince(marker)
             marker = Date.now
-            print("\tTimerEngineTests.testPauseResume2 - Pausing at \(difference) seconds.")
+            print("\tTimerEngineTests.testPauseResume2 - Pausing at \(difference) seconds, saving the state, and deleting the initial timer.")
             savedState = initialInstanceUnderTest?.pause()
             initialInstanceUnderTest = nil
         }
        
         DispatchQueue.global().asyncAfter(wallDeadline: .now() + firstPauseStart + firstPauseLength) {
+            XCTAssertNil(initialInstanceUnderTest, "This should be gone.")
             let difference = Date.now.timeIntervalSince(marker)
-            secondInstanceUnderTest = TimerEngine(startingTimeInSeconds: 0, transitionHandler: { _, _, inTo in if .alarm == inTo { expectation.fulfill() } })
-            secondInstanceUnderTest?.resume(savedState)
-            print("\tTimerEngineTests.testPauseResume2 - Resuming, after \(difference) seconds paused, at \(secondInstanceUnderTest?.currentTime ?? 0) seconds.")
+            marker = Date.now
+            TimerEngine(transitionHandler: { _, _, inTo in if .alarm == inTo { expectation.fulfill() } }).resume(savedState)
+            print("\tTimerEngineTests.testPauseResume2 - Resuming, with a new, temporary timer, after \(difference) seconds paused.")
         }
         
         initialInstanceUnderTest?.start()
         
         wait(for: [expectation], timeout: expectationWaitTimeout)
-        
-        XCTAssertNil(initialInstanceUnderTest, "This should be gone.")
-        XCTAssertEqual(secondInstanceUnderTest?.mode, .alarm, "We should be in alarm mode.")
     }
 }

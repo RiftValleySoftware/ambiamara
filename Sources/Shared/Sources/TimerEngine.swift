@@ -387,15 +387,15 @@ open class TimerEngine: Codable, Identifiable {
      
      We specify all three thresholds. The starting threshold is required. The other two are optional, and will be ignored, if not specified.
   
-     - parameter startingTimeInSeconds: This is the beginning (total) countdown time (REQUIRED).
-     - parameter warningTimeInSeconds: This is the threshold, at which the clock switches into "warning" mode.
-     - parameter finalTimeInSeconds: This is the threshold, at which the clock switches into "final" mode.
+     - parameter startingTimeInSeconds: This is the beginning (total) countdown time. If not supplied, is set to 0.
+     - parameter warningTimeInSeconds: This is the threshold, at which the clock switches into "warning" mode. If not supplied, is set to 0.
+     - parameter finalTimeInSeconds: This is the threshold, at which the clock switches into "final" mode. If not supplied, is set to 0.
      - parameter transitionHandler: The callback for each transition. This is optional.
      - parameter id: The ID of this instance (Standard UUID). It must be unique, in the scope of this app. A new UUID is assigned, if not provided.
      - parameter startImmediately: If true (default is false), the timer will start as soon as the instance is initialized.
      - parameter tickHandler: The callback for each tick. This can be a tail completion, and is optional.
      */
-    public init(startingTimeInSeconds inStartingTimeInSeconds: Int,
+    public init(startingTimeInSeconds inStartingTimeInSeconds: Int = 0,
                 warningTimeInSeconds inWarningTimeInSeconds: Int = 0,
                 finalTimeInSeconds inFinalTimeInSeconds: Int = 0,
                 transitionHandler inTransitionHandler: TimerTransitionHandler? = nil,
