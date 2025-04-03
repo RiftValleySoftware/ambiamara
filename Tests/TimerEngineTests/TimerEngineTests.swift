@@ -24,7 +24,7 @@ class TimerEngineTests: XCTestCase {
      It ticks twice (so three callbacks, because the first callback is made at start).
      */
     func testSimpleInstantiation() {
-        print("TimerEngineTests.testSimpleInstantiation (START)\n")
+        print("TimerEngineTests.testSimpleInstantiation (START)")
         var seconds = 2
         let expectation = XCTestExpectation()
         expectation.expectedFulfillmentCount = seconds + 1
@@ -64,12 +64,14 @@ class TimerEngineTests: XCTestCase {
      It also tests the immediate start.
      */
     func testTransition() {
-        print("TimerEngineTests.testTransition (START)\n")
+        print("TimerEngineTests.testTransition (START)")
         let totalTimeInSeconds = 6  // Six is the minimum time, if we want both a warning and a final, as each range needs to be at least one full second long.
         let warnTimeInSeconds = 4
         let finalTimeInSeconds = 2
         
         var seconds = totalTimeInSeconds
+        var previousExpectedState: TimerEngine.Mode = .stopped
+        var nextExpectedState: TimerEngine.Mode = .countdown
 
         let expectation = XCTestExpectation()
         expectation.expectedFulfillmentCount = totalTimeInSeconds + 5
@@ -118,20 +120,26 @@ class TimerEngineTests: XCTestCase {
             switch currentTime {
             case 0:
                 XCTAssertEqual(inTimerEngine.mode, .alarm, "We should be in alarm mode (\(currentTime)).")
-                XCTAssertEqual(.final, inFromMode, "From should be final.")
-                XCTAssertEqual(.alarm, inToMode, "To should be alarm.")
+                XCTAssertEqual(inFromMode, previousExpectedState, "The previous mode is not \(previousExpectedState) (\(currentTime)).")
+                XCTAssertEqual(inToMode, nextExpectedState, "The current mode is not \(nextExpectedState) (\(currentTime)).")
             case inTimerEngine.startRange:
+                XCTAssertEqual(inFromMode, previousExpectedState, "The previous mode is not \(previousExpectedState) (\(currentTime)).")
+                XCTAssertEqual(inToMode, nextExpectedState, "The current mode is not \(nextExpectedState) (\(currentTime)).")
                 XCTAssertEqual(inTimerEngine.mode, .countdown, "We should be in countdown mode (\(currentTime)).")
-                XCTAssertEqual(.stopped, inFromMode, "From should be stopped.")
-                XCTAssertEqual(.countdown, inToMode, "To should be countdown.")
+                previousExpectedState = .countdown
+                nextExpectedState = .warning
             case inTimerEngine.warnRange:
                 XCTAssertEqual(inTimerEngine.mode, .warning, "We should be in warning mode (\(currentTime)).")
-                XCTAssertEqual(.countdown, inFromMode, "From should be countdown.")
-                XCTAssertEqual(.warning, inToMode, "To should be warning.")
+                XCTAssertEqual(inFromMode, previousExpectedState, "The previous mode is not \(previousExpectedState) (\(currentTime)).")
+                XCTAssertEqual(inToMode, nextExpectedState, "The current mode is not \(nextExpectedState) (\(currentTime)).")
+                previousExpectedState = .warning
+                nextExpectedState = .final
             case inTimerEngine.finalRange:
                 XCTAssertEqual(inTimerEngine.mode, .final, "We should be in final mode (\(currentTime)).")
-                XCTAssertEqual(.warning, inFromMode, "From should be warning.")
-                XCTAssertEqual(.final, inToMode, "To should be final.")
+                XCTAssertEqual(inFromMode, previousExpectedState, "The previous mode is not \(previousExpectedState) (\(currentTime)).")
+                XCTAssertEqual(inToMode, nextExpectedState, "The current mode is not \(nextExpectedState) (\(currentTime)).")
+                previousExpectedState = .final
+                nextExpectedState = .alarm
             default :
                 XCTFail( "Unhandled case: \(currentTime)" )
             }
@@ -158,7 +166,7 @@ class TimerEngineTests: XCTestCase {
      This will pause and resume the timer, in each of its phases.
      */
     func testPauseResume1() {
-        print("TimerEngineTests.testPauseResume1 (START)\n")
+        print("TimerEngineTests.testPauseResume1 (START)")
         let totalTimeInSeconds = 8
         let warnTimeInSeconds = 4
         let finalTimeInSeconds = 2
@@ -283,7 +291,7 @@ class TimerEngineTests: XCTestCase {
      It then deletes that instance, and creates a new one. It then sets and starts the new one, with the `resume()` method, passing in the state saved previously.
      */
     func testPauseResume2() {
-        print("TimerEngineTests.testPauseResume2 (START)\n")
+        print("TimerEngineTests.testPauseResume2 (START)")
         let totalTimeInSeconds = 4
         let firstPauseStart = TimeInterval(2.3)
         let firstPauseLength = TimeInterval(4.7)

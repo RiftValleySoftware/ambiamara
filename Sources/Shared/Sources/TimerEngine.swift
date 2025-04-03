@@ -666,6 +666,7 @@ public extension TimerEngine {
         self.currentTime = self.startingTimeInSeconds
         self._timer?.isRunning = true
         self.transitionHandler?(self, .stopped, .countdown)
+        self._lastMode = .countdown
     }
 
     /* ################################################################## */
