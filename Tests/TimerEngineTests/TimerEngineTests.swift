@@ -175,10 +175,10 @@ class TimerEngineTests: XCTestCase {
         let firstPauseLength = TimeInterval(5.3)
 
         let secondPauseStart = TimeInterval(4.5)
-        let secondPauseLength = TimeInterval(1.1)
+        let secondPauseLength = TimeInterval(0.2)
 
         let thirdPauseStart = TimeInterval(7.1)
-        let thirdPauseLength = TimeInterval(6.1)
+        let thirdPauseLength = TimeInterval(6.85)
 
         var seconds = totalTimeInSeconds
         let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + firstPauseLength + secondPauseLength + thirdPauseLength + 0.5
@@ -325,5 +325,99 @@ class TimerEngineTests: XCTestCase {
         
         wait(for: [expectation], timeout: expectationWaitTimeout)
         print("TimerEngineTests.testPauseResume2 (END)\n")
+    }
+
+    /* ################################################################## */
+    /**
+     This spins up 4 concurrent timers, and forces each to end, at different times.
+     */
+    func testFastForward() {
+        print("TimerEngineTests.testFastForward (START)")
+        let totalTimeInSeconds = 6  // Six is the minimum time, if we want both a warning and a final, as each range needs to be at least one full second long.
+        let warnTimeInSeconds = 4
+        let finalTimeInSeconds = 2
+        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.25
+
+        let expectation = XCTestExpectation()
+        expectation.expectedFulfillmentCount = 4
+
+        // First, we test for an immediate transition to alarm.
+        let testEngine0 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
+                                      warningTimeInSeconds: warnTimeInSeconds,
+                                      finalTimeInSeconds: finalTimeInSeconds,
+                                      transitionHandler: { _, fromMode, toMode in
+                                          print("\tTimerEngineTests.testFastForward: Transition from \(fromMode) to \(toMode) (Immediate)")
+                                          if .alarm == toMode {
+                                              XCTAssertEqual(fromMode, .countdown, "We should be in countdown mode.")
+                                              expectation.fulfill()
+                                          }
+                                      },
+                                      startImmediately: true
+        )
+
+        // Next, we test for countdown to alarm.
+        let testEngine1 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
+                                      warningTimeInSeconds: warnTimeInSeconds,
+                                      finalTimeInSeconds: finalTimeInSeconds,
+                                      transitionHandler: { _, fromMode, toMode in
+                                          print("\tTimerEngineTests.testFastForward: Transition from \(fromMode) to \(toMode) (Countdown)")
+                                          if .alarm == toMode {
+                                              XCTAssertEqual(fromMode, .countdown, "We should be in countdown mode.")
+                                              expectation.fulfill()
+                                          }
+                                      },
+                                      startImmediately: true
+        )
+
+        // Next, we test for warning to alarm.
+        let testEngine2 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
+                                      warningTimeInSeconds: warnTimeInSeconds,
+                                      finalTimeInSeconds: finalTimeInSeconds,
+                                      transitionHandler: { _, fromMode, toMode in
+                                          print("\tTimerEngineTests.testFastForward: Transition from \(fromMode) to \(toMode) (Warning)")
+                                          if .alarm == toMode {
+                                              XCTAssertEqual(fromMode, .warning, "We should be in warning mode.")
+                                              expectation.fulfill()
+                                          }
+                                      },
+                                      startImmediately: true
+        )
+
+        // Next, we test for final to alarm.
+        let testEngine3 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
+                                      warningTimeInSeconds: warnTimeInSeconds,
+                                      finalTimeInSeconds: finalTimeInSeconds,
+                                      transitionHandler: { _, fromMode, toMode in
+                                          print("\tTimerEngineTests.testFastForward: Transition from \(fromMode) to \(toMode) (Final)")
+                                          if .alarm == toMode {
+                                              XCTAssertEqual(fromMode, .final, "We should be in final mode.")
+                                              expectation.fulfill()
+                                          }
+                                      },
+                                      startImmediately: true
+        )
+        
+        testEngine0.end()
+
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + 1) {
+            testEngine1.end()
+        }
+
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + TimeInterval(warnTimeInSeconds)) {
+            testEngine2.end()
+        }
+
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + TimeInterval(finalTimeInSeconds) + TimeInterval(warnTimeInSeconds)) {
+            testEngine3.end()
+        }
+        
+        wait(for: [expectation], timeout: expectationWaitTimeout)
+
+        XCTAssertEqual(testEngine0.mode, .alarm, "We should be in alarm mode.")
+        XCTAssertEqual(testEngine1.mode, .alarm, "We should be in alarm mode.")
+        XCTAssertEqual(testEngine2.mode, .alarm, "We should be in alarm mode.")
+        XCTAssertEqual(testEngine3.mode, .alarm, "We should be in alarm mode.")
+        
+        print("TimerEngineTests.testFastForward (END)\n")
     }
 }
