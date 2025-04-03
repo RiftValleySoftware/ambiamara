@@ -664,9 +664,12 @@ public extension TimerEngine {
         )
         
         self.currentTime = self.startingTimeInSeconds
+        self._remainder = 0
         self._timer?.isRunning = true
-        self.transitionHandler?(self, .stopped, .countdown)
-        self._lastMode = .countdown
+        if .countdown != self._lastMode {
+            self.transitionHandler?(self, self._lastMode, .countdown)
+            self._lastMode = .countdown
+        }
     }
 
     /* ################################################################## */
@@ -679,6 +682,7 @@ public extension TimerEngine {
         self._timer?.isRunning = false
         self._timer?.invalidate()
         self._timer = nil
+        self._remainder = 0
         self.currentTime = self.startingTimeInSeconds
         if .stopped != self._lastMode {
             self.transitionHandler?(self, self._lastMode, .stopped)
@@ -696,6 +700,7 @@ public extension TimerEngine {
         self._timer?.isRunning = false
         self._timer?.invalidate()
         self._timer = nil
+        self._remainder = 0
         self.currentTime = 0
         if .alarm != self._lastMode {
             self.transitionHandler?(self, self._lastMode, .alarm)
@@ -714,6 +719,9 @@ public extension TimerEngine {
         
         switch self.mode {
         case .countdown, .warning, .final:
+            #if DEBUG
+                print("TimerEngine: Pausing a running timer.")
+            #endif
             ret = self.asDictionary
             self._lastMode = self.mode
             self._timer?.isRunning = false
@@ -722,13 +730,13 @@ public extension TimerEngine {
             
         case .paused(let lastMode):
             #if DEBUG
-                print("TimerEngine: trying to pause a paused timer. Last mode was: \(lastMode)")
+                print("TimerEngine: ERROR: trying to pause a paused timer. Last mode was: \(lastMode).")
             #endif
-            fallthrough
-            
+            break
+
         default:
             #if DEBUG
-                print("TimerEngine: pause not performed.")
+                print("TimerEngine: ERROR: pause not performed.")
             #endif
             break
         }
@@ -781,7 +789,7 @@ public extension TimerEngine {
         
         if case .paused(let lastMode) = self.mode {
             #if DEBUG
-                print("TimerEngine: resuming a paused timer.")
+                print("TimerEngine: resuming a paused timer. Last mode was: \(lastMode).")
             #endif
             if nil == self._timer {
                 self._timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._timerInterval,

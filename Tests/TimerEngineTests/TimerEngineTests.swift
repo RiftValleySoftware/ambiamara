@@ -426,6 +426,94 @@ class TimerEngineTests: XCTestCase {
      */
     func testRewind() {
         print("TimerEngineTests.testRewind (START)")
+        let totalTimeInSeconds = 6  // Six is the minimum time, if we want both a warning and a final, as each range needs to be at least one full second long.
+        let warnTimeInSeconds = 4
+        let finalTimeInSeconds = 2
+        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.25
+
+        let expectation = XCTestExpectation()
+        expectation.expectedFulfillmentCount = 4
+
+        // First, we test for an immediate transition to alarm.
+        let testEngine0 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
+                                      warningTimeInSeconds: warnTimeInSeconds,
+                                      finalTimeInSeconds: finalTimeInSeconds,
+                                      transitionHandler: { inTimer, fromMode, toMode in
+                                          print("\tTimerEngineTests.testRewind: Transition from \(fromMode) to \(toMode) (Immediate)")
+                                          if .stopped == toMode {
+                                              XCTAssertEqual(fromMode, .countdown, "We should be in countdown mode.")
+                                              XCTAssertEqual(totalTimeInSeconds, inTimer.currentTime, "We should be at the start time.")
+                                              expectation.fulfill()
+                                          }
+                                      }
+        )
+
+        // Next, we test for countdown to alarm.
+        let testEngine1 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
+                                      warningTimeInSeconds: warnTimeInSeconds,
+                                      finalTimeInSeconds: finalTimeInSeconds,
+                                      transitionHandler: { inTimer, fromMode, toMode in
+                                          print("\tTimerEngineTests.testRewind: Transition from \(fromMode) to \(toMode) (Countdown)")
+                                          if .stopped == toMode {
+                                              XCTAssertEqual(fromMode, .countdown, "We should be in countdown mode.")
+                                              XCTAssertEqual(totalTimeInSeconds, inTimer.currentTime, "We should be at the start time.")
+                                              expectation.fulfill()
+                                          }
+                                      },
+                                      startImmediately: true
+        )
+
+        // Next, we test for warning to alarm.
+        let testEngine2 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
+                                      warningTimeInSeconds: warnTimeInSeconds,
+                                      finalTimeInSeconds: finalTimeInSeconds,
+                                      transitionHandler: { inTimer, fromMode, toMode in
+                                          print("\tTimerEngineTests.testRewind: Transition from \(fromMode) to \(toMode) (Warning)")
+                                          if .stopped == toMode {
+                                              XCTAssertEqual(fromMode, .warning, "We should be in warning mode.")
+                                              XCTAssertEqual(totalTimeInSeconds, inTimer.currentTime, "We should be at the start time.")
+                                              expectation.fulfill()
+                                          }
+                                      },
+                                      startImmediately: true
+        )
+
+        // Next, we test for final to alarm.
+        let testEngine3 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
+                                      warningTimeInSeconds: warnTimeInSeconds,
+                                      finalTimeInSeconds: finalTimeInSeconds,
+                                      transitionHandler: { inTimer, fromMode, toMode in
+                                          print("\tTimerEngineTests.testRewind: Transition from \(fromMode) to \(toMode) (Final)")
+                                          if .stopped == toMode {
+                                              XCTAssertEqual(fromMode, .final, "We should be in final mode.")
+                                              XCTAssertEqual(totalTimeInSeconds, inTimer.currentTime, "We should be at the start time.")
+                                              expectation.fulfill()
+                                          }
+                                      },
+                                      startImmediately: true
+        )
+        
+        testEngine0.start()
+        testEngine0.stop()
+
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + 1) {
+            testEngine1.stop()
+        }
+
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + TimeInterval(warnTimeInSeconds)) {
+            testEngine2.stop()
+        }
+
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + TimeInterval(finalTimeInSeconds) + TimeInterval(warnTimeInSeconds)) {
+            testEngine3.stop()
+        }
+        
+        wait(for: [expectation], timeout: expectationWaitTimeout)
+
+        XCTAssertEqual(testEngine0.mode, .stopped, "We should be in stopped mode.")
+        XCTAssertEqual(testEngine1.mode, .stopped, "We should be in stopped mode.")
+        XCTAssertEqual(testEngine2.mode, .stopped, "We should be in stopped mode.")
+        XCTAssertEqual(testEngine3.mode, .stopped, "We should be in stopped mode.")
         
         print("TimerEngineTests.testRewind (END)\n")
     }
