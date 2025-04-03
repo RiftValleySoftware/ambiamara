@@ -72,7 +72,7 @@ class TimerEngineTests: XCTestCase {
         var seconds = totalTimeInSeconds
 
         let expectation = XCTestExpectation()
-        expectation.expectedFulfillmentCount = totalTimeInSeconds + 6
+        expectation.expectedFulfillmentCount = totalTimeInSeconds + 5
         
         /* ############################################################## */
         /**

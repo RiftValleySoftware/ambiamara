@@ -51,12 +51,14 @@ private extension TimerEngine {
                 }
             #endif
 
-            if self.mode != self._lastMode,
-               let transitionHandler = self.transitionHandler {
-                #if DEBUG
-                    print("\tTimerEngine: transitionHandler(\(self._lastMode), \(self.mode))")
-                #endif
-                transitionHandler(self, self._lastMode, self.mode)
+            if self.mode != self._lastMode {
+                if let transitionHandler = self.transitionHandler {
+                    #if DEBUG
+                        print("\tTimerEngine: transitionHandler(\(self._lastMode), \(self.mode))")
+                    #endif
+                    transitionHandler(self, self._lastMode, self.mode)
+                }
+                self._lastMode = self.mode
             }
             
             self.tickHandler?(self)
@@ -70,7 +72,10 @@ private extension TimerEngine {
         } else if nil == self._lastTick {
             self._lastTick = .now
             self.currentTime = self.startingTimeInSeconds
-            self.transitionHandler?(self, .stopped, .countdown)
+            if self._lastMode != self.mode {
+                self.transitionHandler?(self, self._lastMode, self.mode)
+                self._lastMode = self.mode
+            }
             self.tickHandler?(self)
         }
         
@@ -658,7 +663,6 @@ public extension TimerEngine {
                                         completion: self._timerCallback
         )
         
-        self._lastMode = .stopped
         self.currentTime = self.startingTimeInSeconds
         self._timer?.isRunning = true
         self.transitionHandler?(self, .stopped, .countdown)
@@ -675,7 +679,10 @@ public extension TimerEngine {
         self._timer?.invalidate()
         self._timer = nil
         self.currentTime = self.startingTimeInSeconds
-        self.transitionHandler?(self, self._lastMode, .stopped)
+        if .stopped != self._lastMode {
+            self.transitionHandler?(self, self._lastMode, .stopped)
+            self._lastMode = .stopped
+        }
     }
 
     /* ################################################################## */
@@ -689,7 +696,10 @@ public extension TimerEngine {
         self._timer?.invalidate()
         self._timer = nil
         self.currentTime = 0
-        self.transitionHandler?(self, self._lastMode, .alarm)
+        if .alarm != self._lastMode {
+            self.transitionHandler?(self, self._lastMode, .alarm)
+            self._lastMode = .alarm
+        }
     }
 
     /* ################################################################## */
