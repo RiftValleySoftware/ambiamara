@@ -157,8 +157,8 @@ class TimerEngineTests: XCTestCase {
     /**
      This will pause and resume the timer, in each of its phases.
      */
-    func testPauseResume() {
-        print("TimerEngineTests.testPauseResume (START)\n")
+    func testPauseResume1() {
+        print("TimerEngineTests.testPauseResume1 (START)\n")
         let totalTimeInSeconds = 8
         let warnTimeInSeconds = 4
         let finalTimeInSeconds = 2
@@ -187,7 +187,7 @@ class TimerEngineTests: XCTestCase {
         func tickHandler(_ inTimerEngine: TimerEngine) {
             let currentTime = inTimerEngine.currentTime
             
-            print("\tTimerEngineTests.testPauseResume - Tick: \(currentTime), Mode: \(inTimerEngine.mode)")
+            print("\tTimerEngineTests.testPauseResume1 - Tick: \(currentTime), Mode: \(inTimerEngine.mode)")
             XCTAssertEqual(currentTime, seconds, "The current time should match the seconds.")
             
             switch currentTime {
@@ -213,13 +213,13 @@ class TimerEngineTests: XCTestCase {
         
         DispatchQueue(label: "first").asyncAfter(wallDeadline: .now() + firstPauseStart) {
             instanceUnderTest.pause()
-            print("\tTimerEngineTests.testPauseResume - Pausing at \(instanceUnderTest.currentTime) seconds.")
+            print("\tTimerEngineTests.testPauseResume1 - Pausing at \(instanceUnderTest.currentTime) seconds.")
             let marker = Date.now
             XCTAssertEqual(.paused(.countdown), instanceUnderTest.mode, "We should be in paused(countdown) mode.")
             XCTAssertEqual(6, instanceUnderTest.currentTime, "We should be at six seconds.")
             DispatchQueue(label: "first.wait").asyncAfter(deadline: .now() + firstPauseLength) {
                 let difference = Date.now.timeIntervalSince(marker)
-                print("\tTimerEngineTests.testPauseResume - Resuming, after \(difference) seconds paused, at \(instanceUnderTest.currentTime) seconds.")
+                print("\tTimerEngineTests.testPauseResume1 - Resuming, after \(difference) seconds paused, at \(instanceUnderTest.currentTime) seconds.")
                 instanceUnderTest.resume()
                 XCTAssertTrue((firstPauseLength..<(firstPauseLength + 0.1)).contains(difference), "Resume should have occurred within \(firstPauseLength + 0.1) seconds.")
                 XCTAssert(.countdown == instanceUnderTest.mode, "We should be in countdown mode.")
@@ -231,13 +231,13 @@ class TimerEngineTests: XCTestCase {
         
         DispatchQueue(label: "second").asyncAfter(wallDeadline: .now() + firstPauseLength + secondPauseStart) {
             instanceUnderTest.pause()
-            print("\tTimerEngineTests.testPauseResume - Pausing at \(instanceUnderTest.currentTime) seconds.")
+            print("\tTimerEngineTests.testPauseResume1 - Pausing at \(instanceUnderTest.currentTime) seconds.")
             let marker = Date.now
             XCTAssertEqual(.paused(.warning), instanceUnderTest.mode, "We should be in paused(warning) mode.")
             XCTAssertEqual(4, instanceUnderTest.currentTime, "We should be at four seconds.")
             DispatchQueue(label: "second.wait").asyncAfter(deadline: .now() + secondPauseLength) {
                 let difference = Date.now.timeIntervalSince(marker)
-                print("\tTimerEngineTests.testPauseResume - Resuming, after \(difference) seconds paused, at \(instanceUnderTest.currentTime) seconds.")
+                print("\tTimerEngineTests.testPauseResume1 - Resuming, after \(difference) seconds paused, at \(instanceUnderTest.currentTime) seconds.")
                 instanceUnderTest.resume()
                 XCTAssertTrue((secondPauseLength..<(secondPauseLength + 0.1)).contains(difference), "Resume should have occurred within \(secondPauseLength + 0.1) seconds.")
                 XCTAssertEqual(.warning, instanceUnderTest.mode, "We should be in warning mode.")
@@ -249,13 +249,13 @@ class TimerEngineTests: XCTestCase {
         
         DispatchQueue(label: "third").asyncAfter(wallDeadline: .now() + firstPauseLength + secondPauseLength + thirdPauseStart) {
             instanceUnderTest.pause()
-            print("\tTimerEngineTests.testPauseResume - Pausing at \(instanceUnderTest.currentTime) seconds.")
+            print("\tTimerEngineTests.testPauseResume1 - Pausing at \(instanceUnderTest.currentTime) seconds.")
             let marker = Date.now
             XCTAssertEqual(.paused(.final), instanceUnderTest.mode, "We should be in paused(final) mode.")
             XCTAssertEqual(2, instanceUnderTest.currentTime, "We should be at two seconds.")
             DispatchQueue(label: "third.wait").asyncAfter(deadline: .now() + thirdPauseLength) {
                 let difference = Date.now.timeIntervalSince(marker)
-                print("\tTimerEngineTests.testPauseResume - Resuming, after \(difference) seconds paused, at \(instanceUnderTest.currentTime) seconds.")
+                print("\tTimerEngineTests.testPauseResume1 - Resuming, after \(difference) seconds paused, at \(instanceUnderTest.currentTime) seconds.")
                 instanceUnderTest.resume()
                 XCTAssertTrue((thirdPauseLength..<(thirdPauseLength + 0.1)).contains(difference), "Resume should have occurred within \(thirdPauseLength + 0.1) seconds.")
                 XCTAssertEqual(.final, instanceUnderTest.mode, "We should be in final mode.")
@@ -272,6 +272,50 @@ class TimerEngineTests: XCTestCase {
         XCTAssertEqual(instanceUnderTest.mode, .alarm, "We should be in alarm mode.")
         XCTAssertEqual(-1, seconds, "We should be out of seconds.")
 
-        print("TimerEngineTests.testPauseResume (END)\n")
+        print("TimerEngineTests.testPauseResume1 (END)\n")
+    }
+    
+    /* ################################################################## */
+    /**
+     This will pause and resume the timer, but save and restore the state.
+     */
+    func testPauseResume2() {
+        print("TimerEngineTests.testPauseResume2 (START)\n")
+        print("TimerEngineTests.testPauseResume2 (END)\n")
+        let totalTimeInSeconds = 4
+        let firstPauseStart = TimeInterval(2.3)
+        let firstPauseLength = TimeInterval(4)
+        let expectation = XCTestExpectation()
+        expectation.expectedFulfillmentCount = 1
+        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + firstPauseLength + 0.5
+
+        var initialInstanceUnderTest: TimerEngine? = TimerEngine(startingTimeInSeconds: totalTimeInSeconds)
+        var secondInstanceUnderTest: TimerEngine?
+        
+        var savedState: Dictionary<String, any Hashable>?
+        
+        var marker = Date.now
+
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + firstPauseStart) {
+            let difference = Date.now.timeIntervalSince(marker)
+            marker = Date.now
+            print("\tTimerEngineTests.testPauseResume2 - Pausing at \(difference) seconds.")
+            savedState = initialInstanceUnderTest?.pause()
+            initialInstanceUnderTest = nil
+        }
+       
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + firstPauseStart + firstPauseLength) {
+            let difference = Date.now.timeIntervalSince(marker)
+            secondInstanceUnderTest = TimerEngine(startingTimeInSeconds: 0, transitionHandler: { _, _, inTo in if .alarm == inTo { expectation.fulfill() } })
+            secondInstanceUnderTest?.resume(savedState)
+            print("\tTimerEngineTests.testPauseResume2 - Resuming, after \(difference) seconds paused, at \(secondInstanceUnderTest?.currentTime ?? 0) seconds.")
+        }
+        
+        initialInstanceUnderTest?.start()
+        
+        wait(for: [expectation], timeout: expectationWaitTimeout)
+        
+        XCTAssertNil(initialInstanceUnderTest, "This should be gone.")
+        XCTAssertEqual(secondInstanceUnderTest?.mode, .alarm, "We should be in alarm mode.")
     }
 }

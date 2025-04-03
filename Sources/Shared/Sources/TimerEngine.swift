@@ -393,7 +393,7 @@ open class TimerEngine: Codable, Identifiable {
      - parameter transitionHandler: The callback for each transition. This is optional.
      - parameter id: The ID of this instance (Standard UUID). It must be unique, in the scope of this app. A new UUID is assigned, if not provided.
      - parameter startImmediately: If true (default is false), the timer will start as soon as the instance is initialized.
-     - parameter tickHandler: The callback for each tick. This can be a tail completion.
+     - parameter tickHandler: The callback for each tick. This can be a tail completion, and is optional.
      */
     public init(startingTimeInSeconds inStartingTimeInSeconds: Int,
                 warningTimeInSeconds inWarningTimeInSeconds: Int = 0,
@@ -469,6 +469,8 @@ public extension TimerEngine {
     /**
      This returns the entire timer state as a simple dictionary, suitable for use in plists.
      The instance can be saved or restored from this. Restoring stops the timer.
+     
+     > NOTE: This does not affect the `tickHandler` or `transitionHandler` properties.
      */
     var asDictionary: [String: any Hashable] {
         get {
@@ -693,10 +695,15 @@ public extension TimerEngine {
     /* ################################################################## */
     /**
      This pauses a running timer. The timer must already be in `.countdown`, `warning`, or `final` state.
+     - returns: The state of the instance, just prior to pausing (empty, if failed). Can be ignored.
      */
-    func pause() {
+    @discardableResult
+    func pause() -> [String: any Hashable] {
+        var ret = [String: any Hashable]()
+        
         switch self.mode {
         case .countdown, .warning, .final:
+            ret = self.asDictionary
             self._lastMode = self.mode
             self._timer?.isRunning = false
             self._remainder = self._lastTick?.timeIntervalSinceNow ?? 0
@@ -714,14 +721,57 @@ public extension TimerEngine {
             #endif
             break
         }
+        
+        return ret
     }
     
     /* ################################################################## */
     /**
-     This resumes a paused timer. The timer must already be in `.paused` state.
+     This resumes a paused timer. The timer must already be in `.paused` state, or a new state should be provided.
+     
+     You can use this method to set a timer to a saved state, and start it going immediately.
+     
+     > NOTE: This does not affect the `tickHandler` or `transitionHandler` properties, unless they are provided as method arguments.
+            If the `tickHandler` or `transitionHandler` method arguments are supplied, and the resume fails, they will not be applied.
+
+     - parameter inState: The saved state of the timer. If provided, the timer is set to that state, and started immediately, as opposed to a regular resume.
+     - parameter transitionHandler: The callback for each transition. This is optional.
+     - parameter tickHandler: The callback for each tick. This can be a tail completion, and is optional.
+     - returns: True, if the resume was successful.
      */
-    func resume() {
+    @discardableResult
+    func resume(_ inState: [String: any Hashable]? = nil,
+                transitionHandler inTransitionHandler: TimerTransitionHandler? = nil,
+                tickHandler inTickHandler: TimerTickHandler? = nil
+                ) -> Bool {
+        guard (inState ?? [:]).isEmpty else {
+            if let state = inState {
+                #if DEBUG
+                    print("TimerEngine: restoring to state as resume.")
+                #endif
+                asDictionary = state
+                self.transitionHandler = inTransitionHandler ?? transitionHandler
+                self.tickHandler = inTickHandler ?? tickHandler
+                self._timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._timerInterval,
+                                                onlyFireOnce: false,
+                                                completion: self._timerCallback
+                )
+                self._lastTick = Date.now.addingTimeInterval(self._remainder)
+                self._timer?.isRunning = true
+                self.transitionHandler?(self, self._lastMode, self.mode)
+                return true
+            } else {
+                #if DEBUG
+                    print("TimerEngine: ERROR: bad state supplied for resume.")
+                #endif
+                return false
+            }
+        }
+        
         if case .paused(let lastMode) = self.mode {
+            #if DEBUG
+                print("TimerEngine: resuming a paused timer.")
+            #endif
             if nil == self._timer {
                 self._timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._timerInterval,
                                                 onlyFireOnce: false,
@@ -731,10 +781,14 @@ public extension TimerEngine {
             self._lastTick = Date.now.addingTimeInterval(self._remainder)
             self._timer?.isRunning = true
             self.transitionHandler?(self, .paused(lastMode), lastMode)
+            self.transitionHandler = inTransitionHandler ?? transitionHandler
+            self.tickHandler = inTickHandler ?? tickHandler
+            return true
         } else {
             #if DEBUG
-                print("TimerEngine: trying to resume a running timer.")
+                print("TimerEngine: ERROR: trying to resume a running timer.")
             #endif
+            return false
         }
     }
 }
