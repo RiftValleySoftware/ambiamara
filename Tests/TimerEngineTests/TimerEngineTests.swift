@@ -541,4 +541,13 @@ class TimerEngineTests: XCTestCase {
 
         print("TimerEngineTests.testRewind (END)\n")
     }
+
+    /* ################################################################## */
+    /**
+    */
+    func testAccuracy() {
+        print("TimerEngineTests.testAccuracy (START)")
+        
+        print("TimerEngineTests.testAccuracy (END)\n")
+    }
 }
