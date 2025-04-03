@@ -548,6 +548,41 @@ class TimerEngineTests: XCTestCase {
     func testAccuracy() {
         print("TimerEngineTests.testAccuracy (START)")
         
+        let totalTimeInSeconds = 90
+        let warnTimeInSeconds = totalTimeInSeconds / 2
+        let finalTimeInSeconds = warnTimeInSeconds / 2
+        
+        let slopInSeconds: TimeInterval = 0.0015    // Each tick cannot be more that 1.5ms late.
+        
+        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.5
+
+        let expectation = XCTestExpectation()
+        expectation.expectedFulfillmentCount = 1
+        let startingTimeInSeconds: Date = .now
+        
+        _ = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
+                                      warningTimeInSeconds: warnTimeInSeconds,
+                                      finalTimeInSeconds: finalTimeInSeconds,
+                                      transitionHandler: { inTimer, fromMode, toMode in
+                                          print("\tTimerEngineTests.testAccuracy: Transition from \(fromMode) to \(toMode) (Alarm)")
+                                          if .alarm == toMode {
+                                              XCTAssertEqual(fromMode, .final, "We should be in final mode.")
+                                              XCTAssertEqual(0, inTimer.currentTime, "We should be at 0.")
+                                              expectation.fulfill()
+                                          }
+                                      },
+                                      startImmediately: true,
+                                      tickHandler: { inTimer in
+                                          let realTime = Date().timeIntervalSince(startingTimeInSeconds)
+                                          let asDouble = TimeInterval(inTimer.startingTimeInSeconds - inTimer.currentTime)
+                                          let timerTime = asDouble + slopInSeconds
+                                          print("\tTimerEngineTests.testAccuracy: Tick: Timer Allowance: \(timerTime), Actual: \(realTime)")
+                                          XCTAssertTrue((asDouble...timerTime).contains(realTime), "Timer (\(realTime)) is off by more than \(slopInSeconds) seconds.")
+                                      }
+        )
+
+        wait(for: [expectation], timeout: expectationWaitTimeout)
+
         print("TimerEngineTests.testAccuracy (END)\n")
     }
 }

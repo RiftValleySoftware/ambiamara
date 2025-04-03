@@ -37,9 +37,10 @@ private extension TimerEngine {
         #if DEBUG
             print("TimerEngine: timerCallback(\(inSuccess))")
         #endif
+        let inTime = Date.now
         
         if let lastTick = self._lastTick,
-           1 <= Int(-lastTick.timeIntervalSinceNow) {
+           1 <= -lastTick.timeIntervalSinceNow {
             self.currentTime -= 1
             #if DEBUG
                 if self._lastTick != .now {
@@ -78,6 +79,8 @@ private extension TimerEngine {
             }
             self.tickHandler?(self)
         }
+        
+        self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
         
         if .alarm == self.mode || .stopped == self.mode {
             self._timer?.isRunning = false
@@ -131,9 +134,9 @@ open class TimerEngine: Codable, Identifiable {
     /* ###################################################################################################################################### */
     /* ################################################################## */
     /**
-     We will ask for a callback, every ten milliseconds. Since our granularity is a second, this should be fine.
+     We will ask for a callback, every second.
      */
-    private static let _timerInterval = TimeInterval(0.01)
+    private static let _timerInterval = TimeInterval(0.001)
     
     /* ################################################################## */
     /**
@@ -660,6 +663,7 @@ public extension TimerEngine {
     func start() {
         self._timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._timerInterval,
                                         onlyFireOnce: false,
+                                        isWallTime: true,
                                         completion: self._timerCallback
         )
         
@@ -667,7 +671,10 @@ public extension TimerEngine {
         self._remainder = 0
         self._timer?.isRunning = true
         if .countdown != self._lastMode {
+            let inTime = Date.now
             self.transitionHandler?(self, self._lastMode, .countdown)
+            self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
+
             self._lastMode = .countdown
         }
     }
@@ -685,7 +692,9 @@ public extension TimerEngine {
         self._remainder = 0
         self.currentTime = self.startingTimeInSeconds
         if .stopped != self._lastMode {
+            let inTime = Date.now
             self.transitionHandler?(self, self._lastMode, .stopped)
+            self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
             self._lastMode = .stopped
         }
     }
@@ -703,7 +712,9 @@ public extension TimerEngine {
         self._remainder = 0
         self.currentTime = 0
         if .alarm != self._lastMode {
+            let inTime = Date.now
             self.transitionHandler?(self, self._lastMode, .alarm)
+            self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
             self._lastMode = .alarm
         }
     }
@@ -726,8 +737,10 @@ public extension TimerEngine {
             self._lastMode = self.mode
             self._timer?.isRunning = false
             self._remainder = self._lastTick?.timeIntervalSinceNow ?? 0
+            let inTime = Date.now
             self.transitionHandler?(self, self._lastMode, .paused(self._lastMode))
-            
+            self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
+
         case .paused(let lastMode):
             #if DEBUG
                 print("TimerEngine: ERROR: trying to pause a paused timer. Last mode was: \(lastMode).")
@@ -773,11 +786,14 @@ public extension TimerEngine {
                 self.tickHandler = inTickHandler ?? tickHandler
                 self._timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._timerInterval,
                                                 onlyFireOnce: false,
+                                                isWallTime: true,
                                                 completion: self._timerCallback
                 )
                 self._lastTick = Date.now.addingTimeInterval(self._remainder)
                 self._timer?.isRunning = true
+                let inTime = Date.now
                 self.transitionHandler?(self, self._lastMode, self.mode)
+                self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
                 return true
             } else {
                 #if DEBUG
@@ -794,13 +810,16 @@ public extension TimerEngine {
             if nil == self._timer {
                 self._timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._timerInterval,
                                                 onlyFireOnce: false,
+                                                isWallTime: true,
                                                 completion: self._timerCallback
                 )
             }
             self._lastTick = Date.now.addingTimeInterval(self._remainder)
             self._timer?.isRunning = true
             self.transitionHandler?(self, .paused(lastMode), lastMode)
+            let inTime = Date.now
             self.transitionHandler = inTransitionHandler ?? transitionHandler
+            self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
             self.tickHandler = inTickHandler ?? tickHandler
             return true
         } else {
