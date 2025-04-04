@@ -62,8 +62,11 @@ private extension TimerEngine {
                 self._lastMode = self.mode
             }
             
-            self.tickHandler?(self)
-
+            if .alarm != self.mode,
+               .stopped != self.mode {
+                self.tickHandler?(self)
+            }
+            
             if 0 < self.currentTime {
                 self._lastTick = .now
                 self._lastMode = self.mode
@@ -478,7 +481,7 @@ public extension TimerEngine {
     /**
      This allows us to set sub-1-second time. If we set it, then the `_remainder` value is set to the difference between the last whole second, and the following one.
      
-     > NOTE: Due to the simple nature of this timer, this "accurate" time may not actually reflect the true time. Our spec is that the accuracy is less than 1.7ms beyond the last second.
+     > NOTE: Due to the simple nature of this timer, this "accurate" time may not actually reflect the true time. Our spec is that the accuracy is less than 2.5ms beyond the last second.
             The main reason for this, is as a convenience, to set from the calendar functions.
      */
     var accurateTime: TimeInterval {

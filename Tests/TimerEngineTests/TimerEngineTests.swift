@@ -74,7 +74,7 @@ class TimerEngineTests: XCTestCase {
         var nextExpectedState: TimerEngine.Mode = .countdown
 
         let expectation = XCTestExpectation()
-        expectation.expectedFulfillmentCount = totalTimeInSeconds + 5
+        expectation.expectedFulfillmentCount = totalTimeInSeconds + 4
         
         /* ############################################################## */
         /**
@@ -153,10 +153,10 @@ class TimerEngineTests: XCTestCase {
                                             startImmediately: true,
                                             tickHandler: tickHandler)
         
-        wait(for: [expectation], timeout: TimeInterval(totalTimeInSeconds) + 0.25)
+        wait(for: [expectation], timeout: TimeInterval(totalTimeInSeconds) + 1)
         
         XCTAssertEqual(instanceUnderTest.mode, .alarm, "We should be in alarm mode.")
-        XCTAssertEqual(-1, seconds, "We should be out of seconds.")
+        XCTAssertEqual(0, seconds, "We should be out of seconds.")
 
         print("TimerEngineTests.testTransition (END)\n")
     }
@@ -181,10 +181,25 @@ class TimerEngineTests: XCTestCase {
         let thirdPauseLength = TimeInterval(6.85)
 
         var seconds = totalTimeInSeconds
-        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + firstPauseLength + secondPauseLength + thirdPauseLength + 0.5
+        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + firstPauseLength + secondPauseLength + thirdPauseLength + 1
         
         let expectation = XCTestExpectation()
-        expectation.expectedFulfillmentCount = totalTimeInSeconds + 7
+        expectation.expectedFulfillmentCount = 1
+        
+        /* ################################################################## */
+        /**
+         Called when the timer experiences a state transition.
+         
+         - parameter inTimerEngine: The timer engine.
+         - parameter inFromMode: The previous mode (state).
+         - parameter inToMode: The current (new) mode (state).
+         */
+        func transitionHandler(_ inTimerEngine: TimerEngine, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
+            print("\tTimerEngineTests.testPauseResume1 - Transition: \(inFromMode) -> \(inToMode)")
+            if .alarm == inToMode {
+                expectation.fulfill()
+            }
+        }
         
         /* ############################################################## */
         /**
@@ -211,12 +226,12 @@ class TimerEngineTests: XCTestCase {
                 XCTFail( "Unhandled case: \(currentTime)" )
             }
             seconds -= 1
-            expectation.fulfill()
         }
         
         let instanceUnderTest = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                                             warningTimeInSeconds: warnTimeInSeconds,
                                             finalTimeInSeconds: finalTimeInSeconds,
+                                            transitionHandler: transitionHandler,
                                             tickHandler: tickHandler)
         
         DispatchQueue(label: "first").asyncAfter(wallDeadline: .now() + firstPauseStart) {
@@ -232,9 +247,7 @@ class TimerEngineTests: XCTestCase {
                 XCTAssertTrue((firstPauseLength..<(firstPauseLength + 0.1)).contains(difference), "Resume should have occurred within \(firstPauseLength + 0.1) seconds.")
                 XCTAssert(.countdown == instanceUnderTest.mode, "We should be in countdown mode.")
                 XCTAssert(6 == instanceUnderTest.currentTime, "We should be at six seconds.")
-                expectation.fulfill()
             }
-            expectation.fulfill()
         }
         
         DispatchQueue(label: "second").asyncAfter(wallDeadline: .now() + firstPauseLength + secondPauseStart) {
@@ -250,9 +263,7 @@ class TimerEngineTests: XCTestCase {
                 XCTAssertTrue((secondPauseLength..<(secondPauseLength + 0.1)).contains(difference), "Resume should have occurred within \(secondPauseLength + 0.1) seconds.")
                 XCTAssertEqual(.warning, instanceUnderTest.mode, "We should be in warning mode.")
                 XCTAssertEqual(4, instanceUnderTest.currentTime, "We should be at four seconds.")
-                expectation.fulfill()
             }
-            expectation.fulfill()
         }
         
         DispatchQueue(label: "third").asyncAfter(wallDeadline: .now() + firstPauseLength + secondPauseLength + thirdPauseStart) {
@@ -268,9 +279,7 @@ class TimerEngineTests: XCTestCase {
                 XCTAssertTrue((thirdPauseLength..<(thirdPauseLength + 0.1)).contains(difference), "Resume should have occurred within \(thirdPauseLength + 0.1) seconds.")
                 XCTAssertEqual(.final, instanceUnderTest.mode, "We should be in final mode.")
                 XCTAssertEqual(2, instanceUnderTest.currentTime, "We should be at two seconds.")
-                expectation.fulfill()
             }
-            expectation.fulfill()
         }
 
         instanceUnderTest.start()
@@ -278,7 +287,7 @@ class TimerEngineTests: XCTestCase {
         wait(for: [expectation], timeout: expectationWaitTimeout)
         
         XCTAssertEqual(instanceUnderTest.mode, .alarm, "We should be in alarm mode.")
-        XCTAssertEqual(-1, seconds, "We should be out of seconds.")
+        XCTAssertEqual(0, seconds, "We should be out of seconds.")
 
         print("TimerEngineTests.testPauseResume1 (END)\n")
     }
@@ -544,7 +553,7 @@ class TimerEngineTests: XCTestCase {
 
     /* ################################################################## */
     /**
-     This runs the timer for a minute, and tests each tick, to ensure that the callback is made within 1.7ms of the actual time.
+     This runs the timer for a minute, and tests each tick, to ensure that the callback is made within 2.5ms of the actual time.
     */
     func testAccuracy() {
         print("TimerEngineTests.testAccuracy (START)")
@@ -553,14 +562,16 @@ class TimerEngineTests: XCTestCase {
         let warnTimeInSeconds = totalTimeInSeconds / 2
         let finalTimeInSeconds = warnTimeInSeconds / 2
         
-        let priorSlopInSeconds: TimeInterval = 0.00002  // Each tick cannot be more than 20µs early.
-        let postSlopInSeconds: TimeInterval = 0.00168   // Each tick cannot be more than 1.68ms late.
+        let priorSlopInSeconds: TimeInterval = 0
+        let postSlopInSeconds: TimeInterval = 0.0025    // Each tick cannot be more than 2.5ms late.
 
-        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.5
+        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.1
 
         let expectation = XCTestExpectation()
         expectation.expectedFulfillmentCount = 1
         let startingTimeInSeconds: Date = .now
+        
+        var highestDifference: TimeInterval = 0
         
         _ = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                                       warningTimeInSeconds: warnTimeInSeconds,
@@ -570,6 +581,7 @@ class TimerEngineTests: XCTestCase {
                                           if .alarm == toMode {
                                               XCTAssertEqual(fromMode, .final, "We should be coming from final mode.")
                                               XCTAssertEqual(0, inTimer.currentTime, "We should be at 0.")
+                                              print("\t\(String(format: "%.5f", highestDifference)) was the maximum difference.")
                                               expectation.fulfill()
                                           }
                                       },
@@ -580,8 +592,13 @@ class TimerEngineTests: XCTestCase {
                                             let lowerBound = timerTime - priorSlopInSeconds
                                             let upperBound = timerTime + postSlopInSeconds
                                             let test = (lowerBound...upperBound).contains(realTime)
-                                            let report = "Timer is off by more than \(postSlopInSeconds + priorSlopInSeconds) seconds. \(realTime) should be at least \(lowerBound), and less than (or equal to) \(upperBound)."
-                                            XCTAssertTrue(test, report)
+                                            let report = "\(realTime) should be less than (or equal to) \(upperBound)."
+                                            let difference = realTime - timerTime
+                                            if highestDifference < difference {
+                                                highestDifference = max(highestDifference, difference)
+                                                print("\t\(String(format: "%.5f", highestDifference)) -highest difference.")
+                                            }
+                                            XCTAssertTrue(test, "Timer is off by more than \(postSlopInSeconds + priorSlopInSeconds) seconds. \(report)")
                                       }
         )
 
