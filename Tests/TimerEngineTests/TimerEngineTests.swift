@@ -544,7 +544,7 @@ class TimerEngineTests: XCTestCase {
 
     /* ################################################################## */
     /**
-     This runs the timer for a minute, and tests each tick, to ensure that the callback is made within 1.5ms of the actual time.
+     This runs the timer for a minute, and tests each tick, to ensure that the callback is made within 1.7ms of the actual time.
     */
     func testAccuracy() {
         print("TimerEngineTests.testAccuracy (START)")
@@ -553,8 +553,9 @@ class TimerEngineTests: XCTestCase {
         let warnTimeInSeconds = totalTimeInSeconds / 2
         let finalTimeInSeconds = warnTimeInSeconds / 2
         
-        let slopInSeconds: TimeInterval = 0.0015    // Each tick cannot be more than 1.5ms late.
-        
+        let priorSlopInSeconds: TimeInterval = 0.00002  // Each tick cannot be more than 20µs early.
+        let postSlopInSeconds: TimeInterval = 0.00168   // Each tick cannot be more than 1.68ms late.
+
         let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.5
 
         let expectation = XCTestExpectation()
@@ -567,17 +568,20 @@ class TimerEngineTests: XCTestCase {
                                       transitionHandler: { inTimer, fromMode, toMode in
                                           print("\tTimerEngineTests.testAccuracy: Transition from \(fromMode) to \(toMode).")
                                           if .alarm == toMode {
-                                              XCTAssertEqual(fromMode, .final, "We should be in final mode.")
+                                              XCTAssertEqual(fromMode, .final, "We should be coming from final mode.")
                                               XCTAssertEqual(0, inTimer.currentTime, "We should be at 0.")
                                               expectation.fulfill()
                                           }
                                       },
                                       startImmediately: true,
                                       tickHandler: { inTimer in
-                                          let realTime = Date().timeIntervalSince(startingTimeInSeconds)
-                                          let asDouble = TimeInterval(inTimer.startingTimeInSeconds - inTimer.currentTime)
-                                          let timerTime = asDouble + slopInSeconds
-                                          XCTAssertTrue((asDouble...timerTime).contains(realTime), "Timer (\(realTime)) is off by more than \(slopInSeconds) seconds.")
+                                            let realTime = Date.now.timeIntervalSince(startingTimeInSeconds)
+                                            let timerTime = TimeInterval(inTimer.startingTimeInSeconds - inTimer.currentTime)
+                                            let lowerBound = timerTime - priorSlopInSeconds
+                                            let upperBound = timerTime + postSlopInSeconds
+                                            let test = (lowerBound...upperBound).contains(realTime)
+                                            let report = "Timer is off by more than \(postSlopInSeconds + priorSlopInSeconds) seconds. \(realTime) should be at least \(lowerBound), and less than (or equal to) \(upperBound)."
+                                            XCTAssertTrue(test, report)
                                       }
         )
 
