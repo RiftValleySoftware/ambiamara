@@ -85,13 +85,16 @@ struct TimerEngineContentView: View {
             if 0 < self.seconds {
                 switch timerMode {
                 case .stopped:
-                    Button("Start") { self.startTimer() }
-                        .padding(10)
+                    HStack {
+                        Button("Reset") { self.stopTimer() }
+                            .padding(10)
+                        Button("Start") { self.startTimer() }
+                            .padding(10)
+                    }
 
                 case .alarm:
                     Button("Reset") { self.stopTimer() }
                         .padding(10)
-                    Text(" ")
                     
                 default:
                     switch timerMode {
@@ -114,13 +117,16 @@ struct TimerEngineContentView: View {
                         }
 
                     default:
-                        Text("")
+                        Text(" ")
+                            .padding(10)
                     }
                 }
             } else if .alarm == timerMode {
                 Button("Reset") { self.stopTimer() }
                     .padding(10)
+            } else {
                 Text(" ")
+                    .padding(10)
             }
         }
     }
@@ -169,11 +175,13 @@ extension TimerEngineContentView {
      */
     func stopTimer() {
         self._timerEngine?.stop()
+        self.seconds = 0
         self._timerEngine?.startingTimeInSeconds = 0
         self._timerEngine?.warningTimeInSeconds = 0
         self._timerEngine?.finalTimeInSeconds = 0
         self._timerEngine?.currentTime = 0
-        self.seconds = 0
+        self._displayIconName = "clock"
+        self._displayText = ""
     }
     
     /* ################################################################## */

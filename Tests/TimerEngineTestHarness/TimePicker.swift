@@ -56,9 +56,31 @@ struct TimePicker: View {
     
     /* ################################################################## */
     /**
+     This sums up the wheels, and sets our value.
+     */
+    private func _updateSeconds() {
+        self.seconds = (self._hourSelection * Self._secondsInHour) + (self._minuteSelection * Self._secondsInMinute) + self._secondSelection
+    }
+
+    /* ################################################################## */
+    /**
+     This updates the wheels to the current value.
+     */
+    private func _updatePickers() {
+        let hours = Int(self.seconds / Self._secondsInHour)
+        let minutes = Int((self.seconds - (hours * Self._secondsInHour)) / Self._secondsInMinute)
+        let seconds = Int(self.seconds - ((hours * Self._secondsInHour) + (minutes * Self._secondsInMinute)))
+        
+        self._hourSelection = hours
+        self._minuteSelection = minutes
+        self._secondSelection = seconds
+    }
+
+    /* ################################################################## */
+    /**
      The value of the view. The total number of seconds, represented by the wheels.
      */
-    @Binding var seconds: Int { didSet { self._updatePickers() } }
+    @Binding var seconds: Int
     
     /* ################################################################## */
     /**
@@ -114,27 +136,6 @@ struct TimePicker: View {
                 }
             }
         }
-    }
-    
-    /* ################################################################## */
-    /**
-     This sums up the wheels, and sets our value.
-     */
-    private func _updateSeconds() {
-        self.seconds = (self._hourSelection * Self._secondsInHour) + (self._minuteSelection * Self._secondsInMinute) + self._secondSelection
-    }
-
-    /* ################################################################## */
-    /**
-     This updates the wheels to the current value.
-     */
-    private func _updatePickers() {
-        let hours = Int(self.seconds / Self._secondsInHour)
-        let minutes = Int((self.seconds - (hours * Self._secondsInHour)) / Self._secondsInMinute)
-        let seconds = Int(self.seconds - ((hours * Self._secondsInHour) + (minutes * Self._secondsInMinute)))
-        
-        self._hourSelection = hours
-        self._minuteSelection = minutes
-        self._secondSelection = seconds
+        .onChange(of: self.seconds) { self._updatePickers() }
     }
 }
