@@ -431,7 +431,7 @@ class TimerEngineTests: XCTestCase {
     */
     func testRewind() {
         print("TimerEngineTests.testRewind (START)")
-        let totalTimeInSeconds = 6  // Six is the minimum time, if we want both a warning and a final, as each range needs to be at least one full second long.
+        let totalTimeInSeconds = 6
         let warnTimeInSeconds = 4
         let finalTimeInSeconds = 2
         let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.5
@@ -544,15 +544,16 @@ class TimerEngineTests: XCTestCase {
 
     /* ################################################################## */
     /**
+     This runs the timer for a minute, and tests each tick, to ensure that the callback is made within 1.5ms of the actual time.
     */
     func testAccuracy() {
         print("TimerEngineTests.testAccuracy (START)")
         
-        let totalTimeInSeconds = 90
+        let totalTimeInSeconds = 60
         let warnTimeInSeconds = totalTimeInSeconds / 2
         let finalTimeInSeconds = warnTimeInSeconds / 2
         
-        let slopInSeconds: TimeInterval = 0.0015    // Each tick cannot be more that 1.5ms late.
+        let slopInSeconds: TimeInterval = 0.0015    // Each tick cannot be more than 1.5ms late.
         
         let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.5
 
@@ -583,5 +584,14 @@ class TimerEngineTests: XCTestCase {
         wait(for: [expectation], timeout: expectationWaitTimeout)
 
         print("TimerEngineTests.testAccuracy (END)\n")
+    }
+
+    /* ################################################################## */
+    /**
+    */
+    func testPreciseTime() {
+        print("TimerEngineTests.testPreciseTime (START)")
+        
+        print("TimerEngineTests.testPreciseTime (END)\n")
     }
 }

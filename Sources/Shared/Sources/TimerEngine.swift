@@ -81,7 +81,8 @@ private extension TimerEngine {
         }
         
         self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
-        
+        self._remainder = self._lastTick?.timeIntervalSinceNow ?? 0
+
         if .alarm == self.mode || .stopped == self.mode {
             self._timer?.isRunning = false
         }
@@ -179,7 +180,7 @@ open class TimerEngine: Codable, Identifiable {
     
     /* ################################################################## */
     /**
-     This is only used for pausing and resuming. It contains the fraction of a second that was left, when the timer was paused.
+     This is used for pausing and resuming, as well as accurate time measurement. It contains the fraction of a second that was left, when the timer was paused.
      */
     private var _remainder: TimeInterval = 0
     
@@ -473,6 +474,22 @@ open class TimerEngine: Codable, Identifiable {
 // MARK: Public API (Computed Read/Write Properties)
 /* ###################################################################################################################################### */
 public extension TimerEngine {
+    /* ################################################################## */
+    /**
+     This allows us to set sub-1-second time. If we set it, then the `_remainder` value is set to the difference between the last whole second, and the following one.
+     
+     > NOTE: Due to the simple nature of this timer, this "accurate" time may not actually reflect the true time. Our spec is that the accuracy is less than 1.5ms beyond the last second.
+            The main reason for this, is as a convenience, to set from the calendar functions.
+     */
+    var accurateTime: TimeInterval {
+        get { TimeInterval(self.currentTime) + self._remainder }
+        
+        set {
+            self.currentTime = Int(newValue)
+            self._remainder = newValue - TimeInterval(self.currentTime)
+        }
+    }
+    
     /* ################################################################## */
     /**
      This returns the entire timer state as a simple dictionary, suitable for use in plists.
