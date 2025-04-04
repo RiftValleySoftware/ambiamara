@@ -94,16 +94,24 @@ struct TimerEngineContentView: View {
                     Text(" ")
                     
                 default:
-                    Button("Stop") { self.stopTimer() }
-                        .padding(10)
                     switch timerMode {
                     case .countdown, .final, .warning:
-                        Button("Pause") { self.pauseTimer() }
-                            .padding(10)
+                        HStack {
+                            Button("Stop") { self.stopTimer() }
+                                .padding(10)
+                            Button("Pause") { self.pauseTimer() }
+                                .padding(10)
+                            Button("Fast Forward") { self.fastForwardTimer() }
+                                .padding(10)
+                        }
 
                     case .paused:
-                        Button("Continue") { self.resumeTimer() }
-                            .padding(10)
+                        HStack {
+                            Button("Stop") { self.stopTimer() }
+                                .padding(10)
+                            Button("Continue") { self.resumeTimer() }
+                                .padding(10)
+                        }
 
                     default:
                         Text("")
@@ -149,11 +157,23 @@ extension TimerEngineContentView {
 
     /* ################################################################## */
     /**
+     */
+    func fastForwardTimer() {
+        self._timerEngine?.end()
+        self.seconds = 0
+    }
+
+    /* ################################################################## */
+    /**
      Stops the timer, and resets it.
      */
     func stopTimer() {
         self._timerEngine?.stop()
-        self.seconds = self._timerEngine?.currentTime ?? 0
+        self._timerEngine?.startingTimeInSeconds = 0
+        self._timerEngine?.warningTimeInSeconds = 0
+        self._timerEngine?.finalTimeInSeconds = 0
+        self._timerEngine?.currentTime = 0
+        self.seconds = 0
     }
     
     /* ################################################################## */

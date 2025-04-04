@@ -566,10 +566,11 @@ public extension TimerEngine {
      This is the timer mode (computed from the timer state). Read-Only.
      */
     var mode: Mode {
-        var timeMode: Mode = (self._timer?.isRunning ?? false) && (0 < self.currentTime) ? .countdown
-                        : 0 == self.currentTime ? .alarm
-                            : nil == self._timer ? .stopped
-                                : .paused(self._lastMode)
+        var timeMode: Mode = (0 == self.startingTimeInSeconds) ? .stopped
+                        : (self._timer?.isRunning ?? false) && (0 < self.currentTime) ? .countdown
+                            : 0 == self.currentTime ? .alarm
+                                : nil == self._timer ? .stopped
+                                    : .paused(self._lastMode)
         
         if self._timer?.isRunning ?? false {
             switch self.currentTime {
