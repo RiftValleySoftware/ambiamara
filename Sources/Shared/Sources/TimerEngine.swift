@@ -206,19 +206,19 @@ open class TimerEngine: Codable, Identifiable {
     /**
      This is the structure of the callback for each "tick," handed to the instance. It is called once a second. It may be called in any thread.
      
-     - parameter: The timer engine instance calling it.
+     - parameter timerEngine: The timer engine instance calling it.
      */
-    public typealias TimerTickHandler = (_: TimerEngine) -> Void
+    public typealias TimerTickHandler = (_ timerEngine: TimerEngine) -> Void
     
     /* ################################################################## */
     /**
      This is the structure of the callback for mode transitions, handed to the instance. It is called, once only, when the timer mode changes. It may be called in any thread.
      
-     - parameter: The timer engine instance calling it.
-     - parameter: The mode we have transitioned from.
-     - parameter: The mode we have transitioned into.
+     - parameter timerEngine: The timer engine instance calling it.
+     - parameter fromMode: The mode we have transitioned from.
+     - parameter toMode: The mode we have transitioned into.
      */
-    public typealias TimerTransitionHandler = (_: TimerEngine, _: Mode, _: Mode) -> Void
+    public typealias TimerTransitionHandler = (_ timerEngine: TimerEngine, _ fromMode: Mode, _ toMode: Mode) -> Void
     
     /* ###################################################################################################################################### */
     // MARK: Public API (Enums)
@@ -399,13 +399,13 @@ open class TimerEngine: Codable, Identifiable {
      
      We specify all three thresholds. The starting threshold is required. The other two are optional, and will be ignored, if not specified.
   
-     - parameter startingTimeInSeconds: This is the beginning (total) countdown time. If not supplied, is set to 0.
-     - parameter warningTimeInSeconds: This is the threshold, at which the clock switches into "warning" mode. If not supplied, is set to 0.
-     - parameter finalTimeInSeconds: This is the threshold, at which the clock switches into "final" mode. If not supplied, is set to 0.
-     - parameter transitionHandler: The callback for each transition. This is optional.
-     - parameter id: The ID of this instance (Standard UUID). It must be unique, in the scope of this app. A new UUID is assigned, if not provided.
-     - parameter startImmediately: If true (default is false), the timer will start as soon as the instance is initialized.
-     - parameter tickHandler: The callback for each tick. This can be a tail completion, and is optional.
+     - parameter inStartingTimeInSeconds: This is the beginning (total) countdown time. If not supplied, is set to 0.
+     - parameter inWarningTimeInSeconds: This is the threshold, at which the clock switches into "warning" mode. If not supplied, is set to 0.
+     - parameter inFinalTimeInSeconds: This is the threshold, at which the clock switches into "final" mode. If not supplied, is set to 0.
+     - parameter inTransitionHandler: The callback for each transition. This is optional.
+     - parameter inID: The ID of this instance (Standard UUID). It must be unique, in the scope of this app. A new UUID is assigned, if not provided.
+     - parameter inStartImmediately: If true (default is false), the timer will start as soon as the instance is initialized.
+     - parameter inTickHandler: The callback for each tick. This can be a tail completion, and is optional.
      */
     public init(startingTimeInSeconds inStartingTimeInSeconds: Int = 0,
                 warningTimeInSeconds inWarningTimeInSeconds: Int = 0,
@@ -441,7 +441,7 @@ open class TimerEngine: Codable, Identifiable {
     /**
      Codable Conformance. Decoder Initializer.
      
-     - parameter from: The decoder with the state.
+     - parameter inDecoder: The decoder with the state.
      */
     public required init(from inDecoder: any Decoder) throws {
         self.tickHandler = nil
@@ -677,6 +677,19 @@ public extension TimerEngine {
 public extension TimerEngine {
     /* ################################################################## */
     /**
+     This forces the timer to sync directly to the given seconds. The date is the time that corresponds to the exact second. The timer is started, if it was not already running.
+     
+     > NOTE: This directly sets the timer to a running state, but the `tickHandler` and `transitionHandler` callbacks may not be immediately executed.
+     
+     - parameter inSeconds: The actual integer second.
+     - parameter inDate: The date that corresponds to the given second. If not supplied, .now is used.
+     */
+    func sync(to inSeconds: Int, date inDate: Date = .now) {
+        
+    }
+    
+    /* ################################################################## */
+    /**
      Starts the timer from the beginning. It will do so, from any timer state.
      
      This will interrupt any current timer.
@@ -788,8 +801,8 @@ public extension TimerEngine {
             If the `tickHandler` or `transitionHandler` method arguments are supplied, and the resume fails, they will not be applied.
 
      - parameter inState: The saved state of the timer. If provided, the timer is set to that state, and started immediately, as opposed to a regular resume.
-     - parameter transitionHandler: The callback for each transition. This is optional.
-     - parameter tickHandler: The callback for each tick. This can be a tail completion, and is optional.
+     - parameter inTransitionHandler: The callback for each transition. This is optional.
+     - parameter inTickHandler: The callback for each tick. This can be a tail completion, and is optional.
      - returns: True, if the resume was successful.
      */
     @discardableResult
@@ -860,7 +873,7 @@ public extension TimerEngine {
     /**
      Codable Conformance: The Encoder.
      
-     - parameter to: The Encoder to be loaded with our state.
+     - parameter inEncoder: The Encoder to be loaded with our state.
      */
     func encode(to inEncoder: any Encoder) throws {
         var container = inEncoder.container(keyedBy: CodingKeys.self)

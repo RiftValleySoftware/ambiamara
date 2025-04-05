@@ -78,8 +78,13 @@ struct TimerEngineContentView: View {
                 Text(self._displayText)
                     .font(.largeTitle)
                     .fontWeight(self._timerEngine?.isTicking ?? false ? .bold : .ultraLight)
-                    .padding(10)
                     .foregroundStyle(self._timerEngine?.isTicking ?? false ? .green : .red)
+                    .frame(height: 90)
+                    .padding([.top], 20)
+                    .padding([.bottom], 10)
+            } else if .alarm == timerMode {
+                Text(" ")
+                    .padding([.top], 100)
             }
             
             if 0 < self.seconds {
