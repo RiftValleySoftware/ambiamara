@@ -14,16 +14,12 @@
 					<key>UISceneConfigurationName</key>
 					<string>Default Configuration</string>
 					<key>UISceneDelegateClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).RVS_AmbiaMara_AppSceneDelegate</string>
+					<string>$(PRODUCT_MODULE_NAME).RiValT_SceneDelegate</string>
 					<key>UISceneStoryboardFile</key>
-					<string>RVS_AmbiaMara_Main</string>
+					<string>RiValT</string>
 				</dict>
 			</array>
 		</dict>
 	</dict>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
-	<key>appGroup</key>
-	<string>group.rvs.ambiamara</string>
 </dict>
 </plist>
