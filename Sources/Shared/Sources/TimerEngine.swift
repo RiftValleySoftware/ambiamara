@@ -41,7 +41,11 @@ private extension TimerEngine {
         
         if let lastTick = self._lastTick,
            1 <= -lastTick.timeIntervalSinceNow {
-            self.currentTime -= 1
+            let seconds = Int(-lastTick.timeIntervalSinceNow)
+            #if DEBUG
+                print("\tTimerEngine: passed \(-lastTick.timeIntervalSinceNow) seconds")
+            #endif
+            self.currentTime -= seconds
             #if DEBUG
                 if self._lastTick != .now {
                     print("\tTimerEngine: difference from last tick, in seconds: \(self._lastTick?.timeIntervalSinceNow ?? 0)")
@@ -83,7 +87,7 @@ private extension TimerEngine {
             self.tickHandler?(self)
         }
         
-        self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
+        self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))  // Accounts for time spent in the callback.
         self._remainder = self._lastTick?.timeIntervalSinceNow ?? 0
 
         if .alarm == self.mode || .stopped == self.mode {
