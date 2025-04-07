@@ -43,9 +43,9 @@ private extension TimerEngine {
             let accurateTimeInterval = TimeInterval(self.startingTimeInSeconds) + startTime.timeIntervalSinceNow
             let seconds = Int(ceil(accurateTimeInterval))
             
-            guard self.currentTime != seconds else { return }
+            guard self._countdownTime != seconds else { return }
             
-            self.currentTime = seconds
+            self._countdownTime = seconds
             
             print("\tTimerEngine: difference from last tick, in seconds: \(accurateTimeInterval)")
             print("\tTimerEngine: updated currentTime: \(self.currentTime)")
@@ -63,7 +63,7 @@ private extension TimerEngine {
                 self.tickHandler?(self)
             }
             
-            if 0 < self.currentTime {
+            if 0 < self._countdownTime {
                 self._lastMode = self.mode
             } else {
                 self.end()
@@ -172,6 +172,12 @@ open class TimerEngine: Codable, Identifiable {
      It is adjusted, when pausing.
      */
     private var _startTime: Date?
+    
+    /* ################################################################## */
+    /**
+     This is used to determine whether or not to move to the next second.
+     */
+    private var _countdownTime: Int
     
     /* ################################################################## */
     /**
@@ -364,12 +370,6 @@ open class TimerEngine: Codable, Identifiable {
      The callback for the transition handler. This can be called in any thread. It may also be nil.
      */
     public var transitionHandler: TimerTransitionHandler?
-
-    /* ################################################################## */
-    /**
-     This is the current time. It can be set to change the time in the timer. The new value is clamped to the timer range.
-     */
-    public var currentTime: Int { didSet { self.currentTime = Int(min(max(currentTime, 0), self.startingTimeInSeconds)) } }
     
     /* ###################################################################################################################################### */
     // MARK: Public API (Initializers)
@@ -400,10 +400,12 @@ open class TimerEngine: Codable, Identifiable {
         self.startingTimeInSeconds = inStartingTimeInSeconds
         self.warningTimeInSeconds = inWarningTimeInSeconds
         self.finalTimeInSeconds = inFinalTimeInSeconds
-        self.currentTime = inStartingTimeInSeconds
         self.transitionHandler = inTransitionHandler
         self.id = inID
         self.tickHandler = inTickHandler
+
+        self._countdownTime = self.startingTimeInSeconds
+        self.currentTime = self.startingTimeInSeconds
         
         #if DEBUG
             print("TimerEngine: fullRange: \(self.fullRange)")
@@ -433,7 +435,6 @@ open class TimerEngine: Codable, Identifiable {
         self.startingTimeInSeconds = try values.decode(Int.self, forKey: .startingTimeInSeconds)
         self.warningTimeInSeconds = try values.decode(Int.self, forKey: .warningTimeInSeconds)
         self.finalTimeInSeconds = try values.decode(Int.self, forKey: .finalTimeInSeconds)
-        self.currentTime = try values.decode(Int.self, forKey: .currentTime)
         self.id = try values.decode(UUID.self, forKey: .id)
         
         switch try values.decode(String.self, forKey: .lastMode) {
@@ -449,6 +450,9 @@ open class TimerEngine: Codable, Identifiable {
         default:
             self._lastMode = .stopped
         }
+        
+        self._countdownTime = self.startingTimeInSeconds
+        self.currentTime = try values.decode(Int.self, forKey: .currentTime)
     }
 }
 
@@ -514,6 +518,24 @@ public extension TimerEngine {
             default:
                 self._lastMode = .stopped
             }
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     This is the current time. It can be set to change the time in the timer. The new value is clamped to the timer range.
+     */
+    var currentTime: Int {
+        get {
+            guard let startTime = self._startTime else { return 0 }
+            
+            return self.startingTimeInSeconds - Int(floor(Date().timeIntervalSince(startTime)))
+        }
+        
+        set {
+            let newCurrent = TimeInterval(max(0, min(self.startingTimeInSeconds, self.startingTimeInSeconds - newValue)))
+            
+            self._startTime = Date.now.addingTimeInterval(-newCurrent)
         }
     }
 }
