@@ -180,7 +180,7 @@ class TimerEngineTests: XCTestCase {
         let thirdPauseStart = TimeInterval(6.8)
         let thirdPauseLength = TimeInterval(6.85)
 
-        var seconds = totalTimeInSeconds
+        var seconds = totalTimeInSeconds - 1
         let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + firstPauseLength + secondPauseLength + thirdPauseLength + 1
         
         let expectation = XCTestExpectation()
@@ -283,7 +283,7 @@ class TimerEngineTests: XCTestCase {
         }
 
         instanceUnderTest.start()
-        
+
         wait(for: [expectation], timeout: expectationWaitTimeout)
         
         XCTAssertEqual(instanceUnderTest.mode, .alarm, "We should be in alarm mode.")

@@ -34,10 +34,6 @@ private extension TimerEngine {
             return
         }
         
-        #if DEBUG
-            print("TimerEngine: timerCallback(\(inSuccess))")
-        #endif
-        
         if let startTime = self._startTime,
            -1 >= startTime.timeIntervalSinceNow {
             let accurateTimeInterval = TimeInterval(self.startingTimeInSeconds) + startTime.timeIntervalSinceNow
@@ -117,9 +113,9 @@ private extension TimerEngine {
  The timer countdown is in one of the above ranges, but has been "paused." It is not running.
  */
 open class TimerEngine: Codable, Identifiable {
-    /* ###################################################################################################################################### */
+    /* ################################################################################################################################## */
     // MARK: Private API (Static Properties)
-    /* ###################################################################################################################################### */
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      We will ask for a callback, every millisecond.
@@ -156,9 +152,9 @@ open class TimerEngine: Codable, Identifiable {
      */
     private static let _secondsInHour = 3600
 
-    /* ###################################################################################################################################### */
+    /* ################################################################################################################################## */
     // MARK: Private API (Instance Properties)
-    /* ###################################################################################################################################### */
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This is the actual timer instance that runs the clock.
@@ -175,6 +171,12 @@ open class TimerEngine: Codable, Identifiable {
     
     /* ################################################################## */
     /**
+     This saves the last paused time.
+     */
+    private var _lastPausedTime: TimeInterval = 0
+
+    /* ################################################################## */
+    /**
      This is used to determine whether or not to move to the next second.
      */
     private var _countdownTime: Int
@@ -185,9 +187,9 @@ open class TimerEngine: Codable, Identifiable {
      */
     private var _lastMode: Mode = .stopped
 
-    /* ###################################################################################################################################### */
+    /* ################################################################################################################################## */
     // MARK: Public API (Typealias)
-    /* ###################################################################################################################################### */
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This is the structure of the callback for each "tick," handed to the instance. It is called once a second. It may be called in any thread.
@@ -206,9 +208,8 @@ open class TimerEngine: Codable, Identifiable {
      */
     public typealias TimerTransitionHandler = (_ timerEngine: TimerEngine, _ fromMode: Mode, _ toMode: Mode) -> Void
     
-    /* ###################################################################################################################################### */
+    /* ################################################################################################################################## */
     // MARK: Public API (Enums)
-    /* ###################################################################################################################################### */
     /* ################################################################################################################################## */
     // MARK: Codable Coding Keys Enum
     /* ################################################################################################################################## */
@@ -248,7 +249,7 @@ open class TimerEngine: Codable, Identifiable {
 
         /* ############################################################## */
         /**
-         The actual last start time (TimeInterval).
+         The number of seconds from the actual last start time (TimeInterval).
          */
         case startTime
         
@@ -332,9 +333,9 @@ open class TimerEngine: Codable, Identifiable {
         }
     }
     
-    /* ###################################################################################################################################### */
+    /* ################################################################################################################################## */
     // MARK: Public API (Instance Properties)
-    /* ###################################################################################################################################### */
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This is the unique ID of this instance.
@@ -371,9 +372,9 @@ open class TimerEngine: Codable, Identifiable {
      */
     public var transitionHandler: TimerTransitionHandler?
     
-    /* ###################################################################################################################################### */
+    /* ################################################################################################################################## */
     // MARK: Public API (Initializers)
-    /* ###################################################################################################################################### */
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      Default initializer
@@ -469,13 +470,15 @@ public extension TimerEngine {
      */
     var asDictionary: [String: any Hashable] {
         get {
+            guard let startTime = self._startTime else { return [:] }
+            
             var ret = [String: any Hashable]()
             
             ret[CodingKeys.startingTimeInSeconds.rawValue] = self.startingTimeInSeconds
             ret[CodingKeys.warningTimeInSeconds.rawValue] = self.warningTimeInSeconds
             ret[CodingKeys.finalTimeInSeconds.rawValue] = self.finalTimeInSeconds
-            ret[CodingKeys.currentTime.rawValue] = self.currentTime
             ret[CodingKeys.id.rawValue] = self.id
+            ret[CodingKeys.startTime.rawValue] = Date.now.timeIntervalSince(startTime)
             
             switch self._lastMode {
             case .countdown:
@@ -498,13 +501,15 @@ public extension TimerEngine {
             self._timer?.isRunning = false
             self._timer?.invalidate()
             self._timer = nil
-            
+            self._lastPausedTime = 0
             self.startingTimeInSeconds = newValue[CodingKeys.startingTimeInSeconds.rawValue] as? Int ?? 0
             self.warningTimeInSeconds = newValue[CodingKeys.warningTimeInSeconds.rawValue] as? Int ?? 0
             self.finalTimeInSeconds = newValue[CodingKeys.finalTimeInSeconds.rawValue] as? Int ?? 0
-            self.currentTime = newValue[CodingKeys.currentTime.rawValue] as? Int ?? 0
             self.id = newValue[CodingKeys.id.rawValue] as? UUID ?? UUID()
-
+            if let startTime = newValue[CodingKeys.startTime.rawValue] as? TimeInterval {
+                self._startTime = Date.now.addingTimeInterval(-startTime)
+            }
+            
             switch newValue[CodingKeys.lastMode.rawValue] as? String {
             case "countdown":
                 self._lastMode = .countdown
@@ -554,7 +559,7 @@ public extension TimerEngine {
                             : 0 == self.currentTime ? .alarm
                                 : nil == self._timer ? .stopped
                                     : .paused(mode: self._lastMode,
-                                              pauseTime: Date.now.timeIntervalSince(self._startTime ?? .now))
+                                              pauseTime: self._lastPausedTime)
         
         if self._timer?.isRunning ?? false {
             switch self.currentTime {
@@ -745,7 +750,8 @@ public extension TimerEngine {
             ret = self.asDictionary
             self._lastMode = self.mode
             self._timer?.isRunning = false
-            self.transitionHandler?(self, self._lastMode, .paused(mode: self._lastMode, pauseTime: Date.now.timeIntervalSince(self._startTime ?? .now)))
+            self._lastPausedTime = Date.now.timeIntervalSince(self._startTime ?? .now)
+            self.transitionHandler?(self, self._lastMode, .paused(mode: self._lastMode, pauseTime: self._lastPausedTime))
 
         case .paused(let lastMode, let pauseTime):
             #if DEBUG
