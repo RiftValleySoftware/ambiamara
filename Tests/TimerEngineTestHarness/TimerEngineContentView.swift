@@ -253,7 +253,7 @@ extension TimerEngineContentView {
             case .alarm:
                 self._displayIconName = "bell.and.waves.left.and.right"
             
-            case .paused(let subMode):
+            case .paused(let subMode, _):
                 switch subMode {
                 case .warning:
                     self._displayIconName = "exclamationmark.triangle"

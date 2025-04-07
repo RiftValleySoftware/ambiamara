@@ -294,9 +294,10 @@ open class TimerEngine: Codable, Identifiable {
         /**
          The timer is between 0 and the "starting time," but is not running.
          
-         - parameter: The mode (countdown, warning, or final) that the timer was in, before the pause.
+         - parameter mode: The mode (countdown, warning, or final) that the timer was in, before the pause.
+         - parameter pauseTime: The precise progress along the countdown that the timer had achieved, at the time of the pause.
          */
-        case paused(Mode)
+        case paused(mode: Mode, pauseTime: TimeInterval)
         
         /* ############################################################## */
         /**
@@ -319,8 +320,8 @@ open class TimerEngine: Codable, Identifiable {
             case .alarm:
                 return "alarm"
                 
-            case let .paused(mode):
-                return "paused(\(mode.description))"
+            case let .paused(mode, pauseTime):
+                return "paused(\(mode.description), \(pauseTime))"
             }
         }
     }
@@ -530,7 +531,8 @@ public extension TimerEngine {
                         : (self._timer?.isRunning ?? false) && (0 < self.currentTime) ? .countdown
                             : 0 == self.currentTime ? .alarm
                                 : nil == self._timer ? .stopped
-                                    : .paused(self._lastMode)
+                                    : .paused(mode: self._lastMode,
+                                              pauseTime: Date.now.timeIntervalSince(self._startTime ?? .now))
         
         if self._timer?.isRunning ?? false {
             switch self.currentTime {
@@ -721,11 +723,11 @@ public extension TimerEngine {
             ret = self.asDictionary
             self._lastMode = self.mode
             self._timer?.isRunning = false
-            self.transitionHandler?(self, self._lastMode, .paused(self._lastMode))
+            self.transitionHandler?(self, self._lastMode, .paused(mode: self._lastMode, pauseTime: Date.now.timeIntervalSince(self._startTime ?? .now)))
 
-        case .paused(let lastMode):
+        case .paused(let lastMode, let pauseTime):
             #if DEBUG
-                print("TimerEngine: ERROR: trying to pause a paused timer. Last mode was: \(lastMode).")
+                print("TimerEngine: ERROR: trying to pause a paused timer. Last mode was: \(lastMode). Pause time was \(pauseTime).")
             #endif
             break
 
@@ -782,7 +784,7 @@ public extension TimerEngine {
             }
         }
         
-        if case .paused(let lastMode) = self.mode {
+        if case .paused(let lastMode, let pauseTime) = self.mode {
             #if DEBUG
                 print("TimerEngine: resuming a paused timer. Last mode was: \(lastMode).")
             #endif
@@ -793,8 +795,9 @@ public extension TimerEngine {
                                                 completion: self._timerCallback
                 )
             }
+            self._startTime = Date.now.addingTimeInterval(-pauseTime)
             self._timer?.isRunning = true
-            self.transitionHandler?(self, .paused(lastMode), lastMode)
+            self.transitionHandler?(self, .paused(mode: lastMode, pauseTime: pauseTime), lastMode)
             self.transitionHandler = inTransitionHandler ?? transitionHandler
             self.tickHandler = inTickHandler ?? tickHandler
             return true
