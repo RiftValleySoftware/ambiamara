@@ -558,12 +558,12 @@ class TimerEngineTests: XCTestCase {
     func testAccuracy() {
         print("TimerEngineTests.testAccuracy (START)")
         
-        let totalTimeInSeconds = 60
+        let totalTimeInSeconds = 30
         let warnTimeInSeconds = totalTimeInSeconds / 2
         let finalTimeInSeconds = warnTimeInSeconds / 2
         
-        let priorSlopInSeconds: TimeInterval = 0
-        let postSlopInSeconds: TimeInterval = 0.0025    // Each tick cannot be more than 2.5ms late.
+        let priorSlopInSeconds: TimeInterval = 0.0005   // Each tick cannot be more than 0.5ms early.
+        let postSlopInSeconds: TimeInterval = 0.0015    // Each tick cannot be more than 1.5ms late.
 
         let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.1
 
@@ -574,32 +574,32 @@ class TimerEngineTests: XCTestCase {
         var highestDifference: TimeInterval = 0
         
         _ = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
-                                      warningTimeInSeconds: warnTimeInSeconds,
-                                      finalTimeInSeconds: finalTimeInSeconds,
-                                      transitionHandler: { inTimer, fromMode, toMode in
-                                          print("\tTimerEngineTests.testAccuracy: Transition from \(fromMode) to \(toMode).")
-                                          if .alarm == toMode {
-                                              XCTAssertEqual(fromMode, .final, "We should be coming from final mode.")
-                                              XCTAssertEqual(0, inTimer.currentTime, "We should be at 0.")
-                                              print("\t\(String(format: "%.5f", highestDifference)) was the maximum difference.")
-                                              expectation.fulfill()
-                                          }
-                                      },
-                                      startImmediately: true,
-                                      tickHandler: { inTimer in
-                                            let realTime = Date.now.timeIntervalSince(startingTimeInSeconds)
-                                            let timerTime = TimeInterval(inTimer.startingTimeInSeconds - inTimer.currentTime)
-                                            let lowerBound = timerTime - priorSlopInSeconds
-                                            let upperBound = timerTime + postSlopInSeconds
-                                            let test = (lowerBound...upperBound).contains(realTime)
-                                            let report = "\(realTime) should be less than (or equal to) \(upperBound)."
-                                            let difference = realTime - timerTime
-                                            if highestDifference < difference {
-                                                highestDifference = max(highestDifference, difference)
-                                                print("\t\(String(format: "%.5f", highestDifference)) -highest difference.")
-                                            }
-                                            XCTAssertTrue(test, "Timer is off by more than \(postSlopInSeconds + priorSlopInSeconds) seconds. \(report)")
-                                      }
+                        warningTimeInSeconds: warnTimeInSeconds,
+                        finalTimeInSeconds: finalTimeInSeconds,
+                        transitionHandler: { inTimer, fromMode, toMode in
+            print("\tTimerEngineTests.testAccuracy: Transition from \(fromMode) to \(toMode).")
+            if .alarm == toMode {
+                XCTAssertEqual(fromMode, .final, "We should be coming from final mode.")
+                XCTAssertEqual(0, inTimer.currentTime, "We should be at 0.")
+                print("\t\(String(format: "%.5f", highestDifference)) was the maximum difference.")
+                expectation.fulfill()
+            }
+        },
+                        startImmediately: true,
+                        tickHandler: { inTimer in
+            let realTime = Date.now.timeIntervalSince(startingTimeInSeconds)
+            let timerTime = TimeInterval(inTimer.startingTimeInSeconds - inTimer.currentTime)
+            let lowerBound = timerTime - priorSlopInSeconds
+            let upperBound = timerTime + postSlopInSeconds
+            let test = (lowerBound...upperBound).contains(realTime)
+            let report = "\(realTime) should be less than (or equal to) \(upperBound)."
+            let difference = realTime - timerTime
+            if highestDifference < difference {
+                highestDifference = max(highestDifference, difference)
+                print("\t\(String(format: "%.5f", highestDifference)) -highest difference.")
+            }
+            XCTAssertTrue(test, "Timer is off by more than \(postSlopInSeconds + priorSlopInSeconds) seconds. \(report)")
+        }
         )
 
         wait(for: [expectation], timeout: expectationWaitTimeout)

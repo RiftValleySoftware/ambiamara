@@ -37,30 +37,22 @@ private extension TimerEngine {
         #if DEBUG
             print("TimerEngine: timerCallback(\(inSuccess))")
         #endif
-        let inTime = Date.now
         
-        if let lastTick = self._lastTick,
-           1 <= -lastTick.timeIntervalSinceNow {
-            let seconds = Int(-lastTick.timeIntervalSinceNow)
-            #if DEBUG
-                print("\tTimerEngine: passed \(-lastTick.timeIntervalSinceNow) seconds")
-            #endif
-            self.currentTime -= seconds
-            #if DEBUG
-                if self._lastTick != .now {
-                    print("\tTimerEngine: difference from last tick, in seconds: \(self._lastTick?.timeIntervalSinceNow ?? 0)")
-                }
-                print("\tTimerEngine: updated currentTime: \(self.currentTime)")
-                if self.mode != self._lastMode {
-                    print("\tTimerEngine: last mode: \(self._lastMode), new mode: \(self.mode)")
-                }
-            #endif
-
+        if let startTime = self._startTime,
+           -1 >= startTime.timeIntervalSinceNow {
+            let accurateTimeInterval = TimeInterval(self.startingTimeInSeconds) + startTime.timeIntervalSinceNow
+            let seconds = Int(ceil(accurateTimeInterval))
+            
+            guard self.currentTime != seconds else { return }
+            
+            self.currentTime = seconds
+            
+            print("\tTimerEngine: difference from last tick, in seconds: \(accurateTimeInterval)")
+            print("\tTimerEngine: updated currentTime: \(self.currentTime)")
+            
             if self.mode != self._lastMode {
+                print("\tTimerEngine: last mode: \(self._lastMode), new mode: \(self.mode)")
                 if let transitionHandler = self.transitionHandler {
-                    #if DEBUG
-                        print("\tTimerEngine: transitionHandler(\(self._lastMode), \(self.mode))")
-                    #endif
                     transitionHandler(self, self._lastMode, self.mode)
                 }
                 self._lastMode = self.mode
@@ -87,7 +79,6 @@ private extension TimerEngine {
             self.tickHandler?(self)
         }
         
-        self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))  // Accounts for time spent in the callback.
         self._remainder = self._lastTick?.timeIntervalSinceNow ?? 0
 
         if .alarm == self.mode || .stopped == self.mode {
@@ -184,6 +175,14 @@ open class TimerEngine: Codable, Identifiable {
      This is the actual timer instance that runs the clock.
      */
     private var _timer: RVS_BasicGCDTimer?
+    
+    /* ################################################################## */
+    /**
+     The time to be used as the starting point of the current countdown.
+     
+     It is adjusted, when pausing.
+     */
+    private var _startTime: Date?
     
     /* ################################################################## */
     /**
@@ -705,6 +704,7 @@ public extension TimerEngine {
                                         completion: self._timerCallback
         )
         
+        self._startTime = .now
         self.currentTime = self.startingTimeInSeconds
         self._remainder = 0
         self._timer?.isRunning = true
@@ -712,7 +712,6 @@ public extension TimerEngine {
             let inTime = Date.now
             self.transitionHandler?(self, self._lastMode, .countdown)
             self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
-
             self._lastMode = .countdown
         }
     }
