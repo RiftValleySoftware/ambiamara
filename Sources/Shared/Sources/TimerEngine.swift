@@ -64,23 +64,12 @@ private extension TimerEngine {
             }
             
             if 0 < self.currentTime {
-                self._lastTick = .now
                 self._lastMode = self.mode
             } else {
                 self.end()
             }
-        } else if nil == self._lastTick {
-            self._lastTick = .now
-            self.currentTime = self.startingTimeInSeconds
-            if self._lastMode != self.mode {
-                self.transitionHandler?(self, self._lastMode, self.mode)
-                self._lastMode = self.mode
-            }
-            self.tickHandler?(self)
         }
         
-        self._remainder = self._lastTick?.timeIntervalSinceNow ?? 0
-
         if .alarm == self.mode || .stopped == self.mode {
             self._timer?.isRunning = false
         }
@@ -186,18 +175,6 @@ open class TimerEngine: Codable, Identifiable {
     
     /* ################################################################## */
     /**
-     This is used for pausing and resuming, as well as accurate time measurement. It contains the fraction of a second that was left, when the timer was paused.
-     */
-    private var _remainder: TimeInterval = 0
-    
-    /* ################################################################## */
-    /**
-     This is the date of the last tick. Nil, to start.
-     */
-    private var _lastTick: Date?
-
-    /* ################################################################## */
-    /**
      This is the previous timer mode (to track transitions).
      */
     private var _lastMode: Mode = .stopped
@@ -265,9 +242,9 @@ open class TimerEngine: Codable, Identifiable {
 
         /* ############################################################## */
         /**
-         The time remaining, between the last tick, and the time of the pause (TimeInterval).
+         The actual last start time (TimeInterval).
          */
-        case remainder
+        case startTime
         
         /* ############################################################## */
         /**
@@ -426,7 +403,6 @@ open class TimerEngine: Codable, Identifiable {
         self.transitionHandler = inTransitionHandler
         self.id = inID
         self.tickHandler = inTickHandler
-        self._remainder = 0
         
         #if DEBUG
             print("TimerEngine: fullRange: \(self.fullRange)")
@@ -458,7 +434,6 @@ open class TimerEngine: Codable, Identifiable {
         self.finalTimeInSeconds = try values.decode(Int.self, forKey: .finalTimeInSeconds)
         self.currentTime = try values.decode(Int.self, forKey: .currentTime)
         self.id = try values.decode(UUID.self, forKey: .id)
-        self._remainder = try values.decode(TimeInterval.self, forKey: .remainder)
         
         switch try values.decode(String.self, forKey: .lastMode) {
         case "countdown":
@@ -482,22 +457,6 @@ open class TimerEngine: Codable, Identifiable {
 public extension TimerEngine {
     /* ################################################################## */
     /**
-     This allows us to set sub-1-second time. If we set it, then the `_remainder` value is set to the difference between the last whole second, and the following one.
-     
-     > NOTE: Due to the simple nature of this timer, this "accurate" time may not actually reflect the true time. Our spec is that the accuracy is less than 2.5ms beyond the last second.
-            The main reason for this, is as a convenience, to set from the calendar functions.
-     */
-    var accurateTime: TimeInterval {
-        get { TimeInterval(self.currentTime) + self._remainder }
-        
-        set {
-            self.currentTime = Int(newValue)
-            self._remainder = newValue - TimeInterval(self.currentTime)
-        }
-    }
-    
-    /* ################################################################## */
-    /**
      This returns the entire timer state as a simple dictionary, suitable for use in plists.
      The instance can be saved or restored from this. Restoring stops the timer.
      
@@ -512,7 +471,6 @@ public extension TimerEngine {
             ret[CodingKeys.finalTimeInSeconds.rawValue] = self.finalTimeInSeconds
             ret[CodingKeys.currentTime.rawValue] = self.currentTime
             ret[CodingKeys.id.rawValue] = self.id
-            ret[CodingKeys.remainder.rawValue] = self._remainder
             
             switch self._lastMode {
             case .countdown:
@@ -541,7 +499,6 @@ public extension TimerEngine {
             self.finalTimeInSeconds = newValue[CodingKeys.finalTimeInSeconds.rawValue] as? Int ?? 0
             self.currentTime = newValue[CodingKeys.currentTime.rawValue] as? Int ?? 0
             self.id = newValue[CodingKeys.id.rawValue] as? UUID ?? UUID()
-            self._remainder = newValue[CodingKeys.remainder.rawValue] as? TimeInterval ?? 0
 
             switch newValue[CodingKeys.lastMode.rawValue] as? String {
             case "countdown":
@@ -706,12 +663,9 @@ public extension TimerEngine {
         
         self._startTime = .now
         self.currentTime = self.startingTimeInSeconds
-        self._remainder = 0
         self._timer?.isRunning = true
         if .countdown != self._lastMode {
-            let inTime = Date.now
             self.transitionHandler?(self, self._lastMode, .countdown)
-            self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
             self._lastMode = .countdown
         }
     }
@@ -726,12 +680,9 @@ public extension TimerEngine {
         self._timer?.isRunning = false
         self._timer?.invalidate()
         self._timer = nil
-        self._remainder = 0
         self.currentTime = self.startingTimeInSeconds
         if .stopped != self._lastMode {
-            let inTime = Date.now
             self.transitionHandler?(self, self._lastMode, .stopped)
-            self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
             self._lastMode = .stopped
         }
     }
@@ -746,12 +697,9 @@ public extension TimerEngine {
         self._timer?.isRunning = false
         self._timer?.invalidate()
         self._timer = nil
-        self._remainder = 0
         self.currentTime = 0
         if .alarm != self._lastMode {
-            let inTime = Date.now
             self.transitionHandler?(self, self._lastMode, .alarm)
-            self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
             self._lastMode = .alarm
         }
     }
@@ -773,10 +721,7 @@ public extension TimerEngine {
             ret = self.asDictionary
             self._lastMode = self.mode
             self._timer?.isRunning = false
-            self._remainder = self._lastTick?.timeIntervalSinceNow ?? 0
-            let inTime = Date.now
             self.transitionHandler?(self, self._lastMode, .paused(self._lastMode))
-            self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
 
         case .paused(let lastMode):
             #if DEBUG
@@ -826,11 +771,8 @@ public extension TimerEngine {
                                                 isWallTime: true,
                                                 completion: self._timerCallback
                 )
-                self._lastTick = Date.now.addingTimeInterval(self._remainder)
                 self._timer?.isRunning = true
-                let inTime = Date.now
                 self.transitionHandler?(self, self._lastMode, self.mode)
-                self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
                 return true
             } else {
                 #if DEBUG
@@ -851,12 +793,9 @@ public extension TimerEngine {
                                                 completion: self._timerCallback
                 )
             }
-            self._lastTick = Date.now.addingTimeInterval(self._remainder)
             self._timer?.isRunning = true
             self.transitionHandler?(self, .paused(lastMode), lastMode)
-            let inTime = Date.now
             self.transitionHandler = inTransitionHandler ?? transitionHandler
-            self._lastTick = self._lastTick?.advanced(by: -Date.now.timeIntervalSince(inTime))
             self.tickHandler = inTickHandler ?? tickHandler
             return true
         } else {
@@ -886,7 +825,6 @@ public extension TimerEngine {
         try container.encode(self.finalTimeInSeconds, forKey: .finalTimeInSeconds)
         try container.encode(self.currentTime, forKey: .currentTime)
         try container.encode(self.id, forKey: .id)
-        try container.encode(self._remainder, forKey: .remainder)
         
         switch self._lastMode {
         case .countdown:
