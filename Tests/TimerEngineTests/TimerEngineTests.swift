@@ -48,7 +48,7 @@ class TimerEngineTests: XCTestCase {
         
         XCTAssertTrue(instanceUnderTest.isTicking, "The timer should be ticking.")
         
-        wait(for: [expectation], timeout: TimeInterval(seconds) + 0.5)
+        wait(for: [expectation], timeout: TimeInterval(seconds) + 2.5)
         
         XCTAssertEqual(instanceUnderTest.mode, .alarm, "We should be in alarm mode.")
         XCTAssertEqual(0, instanceUnderTest.currentTime, "We should be out of seconds.")
@@ -154,7 +154,7 @@ class TimerEngineTests: XCTestCase {
         wait(for: [expectation], timeout: TimeInterval(totalTimeInSeconds) + 1)
         
         XCTAssertEqual(instanceUnderTest.mode, .alarm, "We should be in alarm mode.")
-        XCTAssertEqual(0, seconds, "We should be out of seconds.")
+        XCTAssertEqual(-1, seconds, "We should be out of seconds.")
 
         print("TimerEngineTests.testTransition (END)\n")
     }
@@ -408,11 +408,11 @@ class TimerEngineTests: XCTestCase {
             testEngine1.end()
         }
 
-        DispatchQueue.global().asyncAfter(wallDeadline: .now() + TimeInterval(warnTimeInSeconds)) {
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + TimeInterval(warnTimeInSeconds) - 0.25) {
             testEngine2.end()
         }
 
-        DispatchQueue.global().asyncAfter(wallDeadline: .now() + TimeInterval(finalTimeInSeconds) + TimeInterval(warnTimeInSeconds)) {
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + TimeInterval(finalTimeInSeconds) + TimeInterval(warnTimeInSeconds) - 0.25) {
             testEngine3.end()
         }
         

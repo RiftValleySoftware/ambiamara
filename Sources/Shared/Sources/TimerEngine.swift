@@ -54,8 +54,7 @@ private extension TimerEngine {
                 self._lastMode = self.mode
             }
             
-            if .alarm != self.mode,
-               .stopped != self.mode {
+            if .stopped != self.mode {
                 self.tickHandler?(self)
             }
             
@@ -745,7 +744,8 @@ public extension TimerEngine {
         self._timer?.isRunning = false
         self.currentTime = 0
         self._lastPausedTime = 0
-        if .alarm != self._lastMode {
+        if .alarm != self._lastMode,
+           .stopped != self._lastMode {
             self.transitionHandler?(self, self._lastMode, .alarm)
             self._lastMode = .alarm
         }
