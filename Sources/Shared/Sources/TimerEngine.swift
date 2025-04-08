@@ -43,11 +43,15 @@ private extension TimerEngine {
             
             self._countdownTime = seconds
             
-            print("\tTimerEngine: difference from last tick, in seconds: \(accurateTimeInterval)")
-            print("\tTimerEngine: updated currentTime: \(self.currentTime)")
+            #if DEBUG
+                print("\tTimerEngine: difference from last tick, in seconds: \(accurateTimeInterval)")
+                print("\tTimerEngine: updated currentTime: \(self.currentTime)")
+            #endif
             
             if self.mode != self._lastMode {
-                print("\tTimerEngine: last mode: \(self._lastMode), new mode: \(self.mode)")
+                #if DEBUG
+                    print("\tTimerEngine: last mode: \(self._lastMode), new mode: \(self.mode)")
+                #endif
                 if let transitionHandler = self.transitionHandler {
                     transitionHandler(self, self._lastMode, self.mode)
                 }
@@ -545,6 +549,26 @@ public extension TimerEngine {
             self._startTime = Date.now.addingTimeInterval(-newCurrent)
         }
     }
+
+    /* ################################################################## */
+    /**
+     This returns the time, in a precise manner.
+     
+     You can also use this to set the timer to a specific time.
+     */
+    var currentPreciseTime: TimeInterval? {
+        get {
+            guard let startTime = self._startTime else { return nil }
+            
+            return max(0, min(TimeInterval(self.startingTimeInSeconds), TimeInterval(self.startingTimeInSeconds) - Date.now.timeIntervalSince(startTime)))
+        }
+        
+        set {
+            if let newValue {
+                self._startTime = Date.now.addingTimeInterval(-max(0, min(TimeInterval(self.startingTimeInSeconds), newValue)))
+            }
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -557,11 +581,11 @@ public extension TimerEngine {
      */
     var mode: Mode {
         guard 0 < self.startingTimeInSeconds,
-              (nil != self._timer || 0 < self._lastPausedTime)
+              nil != self._timer || 0 < self._lastPausedTime
         else { return .stopped }
         
         guard 0 == self._lastPausedTime else {
-            if case .paused(_, _) = self._lastMode {
+            if case .paused = self._lastMode {
                 return self._lastMode
             } else {
                 return .paused(mode: self._lastMode, pauseTime: self._lastPausedTime)
@@ -727,7 +751,6 @@ public extension TimerEngine {
         self._timer?.invalidate()
         self._timer = nil
         self._lastPausedTime = 0
-//        self.currentTime = self.startingTimeInSeconds
         if .stopped != self._lastMode {
             self.transitionHandler?(self, self._lastMode, .stopped)
         }

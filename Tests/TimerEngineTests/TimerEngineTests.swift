@@ -545,17 +545,17 @@ class TimerEngineTests: XCTestCase {
 
     /* ################################################################## */
     /**
-     This runs the timer for a minute, and tests each tick, to ensure that the callback is made within 2.5ms of the actual time.
+     This runs the timer for a minute, and tests each tick, to ensure that the callback is made within 1.5ms of the actual time.
     */
     func testAccuracy() {
         print("TimerEngineTests.testAccuracy (START)")
         
-        let totalTimeInSeconds = 30
+        let totalTimeInSeconds = 60
         let warnTimeInSeconds = totalTimeInSeconds / 2
         let finalTimeInSeconds = warnTimeInSeconds / 2
         
-        let priorSlopInSeconds: TimeInterval = 0.0005   // Each tick cannot be more than 0.5ms early.
-        let postSlopInSeconds: TimeInterval = 0.0015    // Each tick cannot be more than 1.5ms late.
+        let priorSlopInSeconds: TimeInterval = 0.00125   // Each tick cannot be more than 1.25ms early.
+        let postSlopInSeconds: TimeInterval = 0.00125    // Each tick cannot be more than 1.25ms late.
 
         let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.1
 
@@ -573,23 +573,24 @@ class TimerEngineTests: XCTestCase {
             if .alarm == toMode {
                 XCTAssertEqual(fromMode, .final, "We should be coming from final mode.")
                 XCTAssertEqual(0, inTimer.currentTime, "We should be at 0.")
-                print("\t\(String(format: "%.5f", highestDifference)) was the maximum difference.")
+                print("\t\(String(format: "%.3f", highestDifference))µs was the maximum difference.")
                 expectation.fulfill()
             }
         },
                         startImmediately: true,
                         tickHandler: { inTimer in
             let realTime = Date.now.timeIntervalSince(startingTimeInSeconds)
-            let timerTime = TimeInterval(inTimer.startingTimeInSeconds - inTimer.currentTime)
+            guard let time = inTimer.currentPreciseTime else { return }
+            let timerTime = TimeInterval(inTimer.startingTimeInSeconds) - time
+            let difference = 1000000 * (realTime - timerTime)
+            if .alarm != inTimer.mode,
+               highestDifference < difference {
+                highestDifference = max(highestDifference, difference)
+            }
             let lowerBound = timerTime - priorSlopInSeconds
             let upperBound = timerTime + postSlopInSeconds
             let test = (lowerBound...upperBound).contains(realTime)
-            let report = "\(realTime) should be less than (or equal to) \(upperBound)."
-            let difference = realTime - timerTime
-            if highestDifference < difference {
-                highestDifference = max(highestDifference, difference)
-                print("\t\(String(format: "%.5f", highestDifference)) -highest difference.")
-            }
+            let report = "\(realTime) should be at least \(lowerBound), and less than (or equal to) \(upperBound)."
             XCTAssertTrue(test, "Timer is off by more than \(postSlopInSeconds + priorSlopInSeconds) seconds. \(report)")
         }
         )
@@ -601,10 +602,66 @@ class TimerEngineTests: XCTestCase {
 
     /* ################################################################## */
     /**
+     This tests the precise time report, and indicates that it is in within 0.5ms of the expected second (not realtime, clock time).
     */
     func testPreciseTime() {
+        let totalTimeInSeconds = 30
+        let warnTimeInSeconds = totalTimeInSeconds / 2
+        let finalTimeInSeconds = warnTimeInSeconds / 2
+        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.5
+
+        let expectation = XCTestExpectation()
+        expectation.expectedFulfillmentCount = 1
+        
+        var testRange = (TimeInterval(totalTimeInSeconds) - 0.0005)...(TimeInterval(totalTimeInSeconds) + 0.0005)
+
+        /* ############################################################## */
+        /**
+         The callback for the individual second ticks. May be called in any thread.
+         
+         - parameter inTimerEngine: The timer engine.
+         */
+        func tickHandler(_ inTimerEngine: TimerEngine) {
+            guard let realTime = inTimerEngine.currentPreciseTime else { return }
+            let currentTime = inTimerEngine.currentTime
+                                                                         
+            print("\tTimerEngineTests.testPreciseTime - Tick: \(currentTime), (\(realTime)) Mode: \(inTimerEngine.mode)")
+
+            XCTAssertTrue(testRange.contains(realTime), "\(realTime) should be at least \(testRange.lowerBound), and less than (or equal to) \(testRange.upperBound).")
+
+            let newLowerBound = TimeInterval(currentTime - 1) - 0.0005
+            let newUpperBound = TimeInterval(currentTime - 1) + 0.0005
+
+            testRange = newLowerBound...newUpperBound
+        }
+        
+        /* ################################################################## */
+        /**
+         Called when the timer experiences a state transition.
+         
+         - parameter inTimerEngine: The timer engine.
+         - parameter inFromMode: The previous mode (state).
+         - parameter inToMode: The current (new) mode (state).
+         */
+        func transitionHandler(_ inTimerEngine: TimerEngine, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
+            print("\tTimerEngineTests.testPreciseTime - Transition: \(inFromMode) -> \(inToMode)")
+            if .alarm == inToMode {
+                expectation.fulfill()
+            }
+        }
+
         print("TimerEngineTests.testPreciseTime (START)")
         
+        _ = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
+                        warningTimeInSeconds: warnTimeInSeconds,
+                        finalTimeInSeconds: finalTimeInSeconds,
+                        transitionHandler: transitionHandler,
+                        startImmediately: true,
+                        tickHandler: tickHandler
+                        )
+
+        wait(for: [expectation], timeout: expectationWaitTimeout)
+
         print("TimerEngineTests.testPreciseTime (END)\n")
     }
 }
