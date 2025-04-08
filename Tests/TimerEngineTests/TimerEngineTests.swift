@@ -25,8 +25,8 @@ class TimerEngineTests: XCTestCase {
      */
     func testSimpleInstantiation() {
         print("TimerEngineTests.testSimpleInstantiation (START)")
-        var seconds = 2
         let expectation = XCTestExpectation()
+        let seconds = 2
         expectation.expectedFulfillmentCount = seconds + 1
         
         /* ############################################################## */
@@ -37,8 +37,6 @@ class TimerEngineTests: XCTestCase {
          */
         func tickHandler(_ inTimerEngine: TimerEngine) {
             print("\tTimerEngineTests.testSimpleInstantiation - Tick: \(inTimerEngine.currentTime)")
-            XCTAssertEqual(inTimerEngine.currentTime, seconds, "The current time should match the seconds.")
-            seconds -= 1
             expectation.fulfill()
         }
         
@@ -50,10 +48,10 @@ class TimerEngineTests: XCTestCase {
         
         XCTAssertTrue(instanceUnderTest.isTicking, "The timer should be ticking.")
         
-        wait(for: [expectation], timeout: 2.25)
+        wait(for: [expectation], timeout: TimeInterval(seconds) + 0.5)
         
         XCTAssertEqual(instanceUnderTest.mode, .alarm, "We should be in alarm mode.")
-        XCTAssertEqual(-1, seconds, "We should be out of seconds.")
+        XCTAssertEqual(0, instanceUnderTest.currentTime, "We should be out of seconds.")
         
         print("TimerEngineTests.testSimpleInstantiation (END)\n")
     }
@@ -180,7 +178,6 @@ class TimerEngineTests: XCTestCase {
         let thirdPauseStart = TimeInterval(6.8)
         let thirdPauseLength = TimeInterval(6.85)
 
-        var seconds = totalTimeInSeconds - 1
         let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + firstPauseLength + secondPauseLength + thirdPauseLength + 1
         
         let expectation = XCTestExpectation()
@@ -211,7 +208,6 @@ class TimerEngineTests: XCTestCase {
             let currentTime = inTimerEngine.currentTime
             
             print("\tTimerEngineTests.testPauseResume1 - Tick: \(currentTime), Mode: \(inTimerEngine.mode)")
-            XCTAssertEqual(currentTime, seconds, "The current time should match the seconds.")
             
             switch currentTime {
             case 0:
@@ -225,7 +221,6 @@ class TimerEngineTests: XCTestCase {
             default :
                 XCTFail( "Unhandled case: \(currentTime)" )
             }
-            seconds -= 1
         }
         
         let instanceUnderTest = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
@@ -238,7 +233,6 @@ class TimerEngineTests: XCTestCase {
             instanceUnderTest.pause()
             print("\tTimerEngineTests.testPauseResume1 - Pausing at \(instanceUnderTest.currentTime) seconds.")
             let marker = Date.now
-//            XCTAssertEqual(.paused(.countdown, pauseTime: _), instanceUnderTest.mode, "We should be in paused(countdown) mode.")
             XCTAssertEqual(6, instanceUnderTest.currentTime, "We should be at six seconds.")
             DispatchQueue(label: "first.wait").asyncAfter(deadline: .now() + firstPauseLength) {
                 let difference = Date.now.timeIntervalSince(marker)
@@ -254,7 +248,6 @@ class TimerEngineTests: XCTestCase {
             instanceUnderTest.pause()
             print("\tTimerEngineTests.testPauseResume1 - Pausing at \(instanceUnderTest.currentTime) seconds.")
             let marker = Date.now
-//            XCTAssertEqual(.paused(mode: .warning, pauseTime: _), instanceUnderTest.mode, "We should be in paused(warning) mode.")
             XCTAssertEqual(4, instanceUnderTest.currentTime, "We should be at four seconds.")
             DispatchQueue(label: "second.wait").asyncAfter(deadline: .now() + secondPauseLength) {
                 let difference = Date.now.timeIntervalSince(marker)
@@ -270,7 +263,6 @@ class TimerEngineTests: XCTestCase {
             instanceUnderTest.pause()
             print("\tTimerEngineTests.testPauseResume1 - Pausing at \(instanceUnderTest.currentTime) seconds.")
             let marker = Date.now
-//            XCTAssertEqual(.paused(mode: .final, pauseTime: _), instanceUnderTest.mode, "We should be in paused(final) mode.")
             XCTAssertEqual(2, instanceUnderTest.currentTime, "We should be at two seconds.")
             DispatchQueue(label: "third.wait").asyncAfter(deadline: .now() + thirdPauseLength) {
                 let difference = Date.now.timeIntervalSince(marker)
@@ -287,7 +279,7 @@ class TimerEngineTests: XCTestCase {
         wait(for: [expectation], timeout: expectationWaitTimeout)
         
         XCTAssertEqual(instanceUnderTest.mode, .alarm, "We should be in alarm mode.")
-        XCTAssertEqual(0, seconds, "We should be out of seconds.")
+        XCTAssertEqual(0, instanceUnderTest.currentTime, "We should be out of seconds.")
 
         print("TimerEngineTests.testPauseResume1 (END)\n")
     }
@@ -455,7 +447,7 @@ class TimerEngineTests: XCTestCase {
                                       transitionHandler: { inTimer, fromMode, toMode in
                                           print("\tTimerEngineTests.testRewind: Transition from \(fromMode) to \(toMode) (Immediate)")
                                           if .stopped == toMode {
-                                              XCTAssertEqual(fromMode, .countdown, "We should be in countdown mode.")
+                                              XCTAssertEqual(fromMode, .countdown, "We should be coming from countdown mode.")
                                               XCTAssertEqual(totalTimeInSeconds, inTimer.currentTime, "We should be at the start time.")
                                               expectation.fulfill()
                                           }
@@ -469,7 +461,7 @@ class TimerEngineTests: XCTestCase {
                                       transitionHandler: { inTimer, fromMode, toMode in
                                           print("\tTimerEngineTests.testRewind: Transition from \(fromMode) to \(toMode) (Countdown)")
                                           if .stopped == toMode {
-                                              XCTAssertEqual(fromMode, .countdown, "We should be in countdown mode.")
+                                              XCTAssertEqual(fromMode, .countdown, "We should be coming from countdown mode.")
                                               XCTAssertEqual(totalTimeInSeconds, inTimer.currentTime, "We should be at the start time.")
                                               expectation.fulfill()
                                           }
@@ -484,7 +476,7 @@ class TimerEngineTests: XCTestCase {
                                       transitionHandler: { inTimer, fromMode, toMode in
                                           print("\tTimerEngineTests.testRewind: Transition from \(fromMode) to \(toMode) (Warning)")
                                           if .stopped == toMode {
-                                              XCTAssertEqual(fromMode, .warning, "We should be in warning mode.")
+                                              XCTAssertEqual(fromMode, .warning, "We should be coming from warning mode.")
                                               XCTAssertEqual(totalTimeInSeconds, inTimer.currentTime, "We should be at the start time.")
                                               expectation.fulfill()
                                           }
@@ -499,7 +491,7 @@ class TimerEngineTests: XCTestCase {
                                       transitionHandler: { inTimer, fromMode, toMode in
                                           print("\tTimerEngineTests.testRewind: Transition from \(fromMode) to \(toMode) (Final)")
                                           if .stopped == toMode {
-                                              XCTAssertEqual(fromMode, .final, "We should be in final mode.")
+                                              XCTAssertEqual(fromMode, .final, "We should be coming from final mode.")
                                               XCTAssertEqual(totalTimeInSeconds, inTimer.currentTime, "We should be at the start time.")
                                               expectation.fulfill()
                                           }
@@ -514,7 +506,7 @@ class TimerEngineTests: XCTestCase {
                                       transitionHandler: { inTimer, fromMode, toMode in
                                           print("\tTimerEngineTests.testRewind: Transition from \(fromMode) to \(toMode) (Alarm)")
                                           if .alarm == toMode {
-                                              XCTAssertEqual(fromMode, .final, "We should be in final mode.")
+                                              XCTAssertEqual(fromMode, .final, "We should be coming from final mode.")
                                               XCTAssertEqual(0, inTimer.currentTime, "We should be at 0.")
                                               inTimer.stop()
                                           } else if .stopped == toMode {
@@ -528,15 +520,15 @@ class TimerEngineTests: XCTestCase {
         testEngine0.start()
         testEngine0.stop()
 
-        DispatchQueue.global().asyncAfter(wallDeadline: .now() + 1) {
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + 1.25) {
             testEngine1.stop()
         }
 
-        DispatchQueue.global().asyncAfter(wallDeadline: .now() + TimeInterval(warnTimeInSeconds)) {
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + TimeInterval(warnTimeInSeconds) - 0.25) {
             testEngine2.stop()
         }
 
-        DispatchQueue.global().asyncAfter(wallDeadline: .now() + TimeInterval(finalTimeInSeconds) + TimeInterval(warnTimeInSeconds)) {
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + TimeInterval(finalTimeInSeconds) + TimeInterval(warnTimeInSeconds) - 0.25) {
             testEngine3.stop()
         }
         

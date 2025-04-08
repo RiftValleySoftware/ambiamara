@@ -69,6 +69,8 @@ private extension TimerEngine {
         if .alarm == self.mode || .stopped == self.mode {
             self._timer?.isRunning = false
         }
+        
+        self._lastPausedTime = 0
     }
 }
 
@@ -532,9 +534,10 @@ public extension TimerEngine {
      */
     var currentTime: Int {
         get {
+            guard nil != self._timer || 0 < self._lastPausedTime else { return self.startingTimeInSeconds }
             guard let startTime = self._startTime else { return 0 }
-            
-            return self.startingTimeInSeconds - Int(floor(Date().timeIntervalSince(startTime)))
+            let ret = self.startingTimeInSeconds - Int(floor(Date.now.timeIntervalSince(startTime)))
+            return max(0, min(self.startingTimeInSeconds, ret))
         }
         
         set {
@@ -554,15 +557,28 @@ public extension TimerEngine {
      This is the timer mode (computed from the timer state). Read-Only.
      */
     var mode: Mode {
-        var timeMode: Mode = (0 == self.startingTimeInSeconds) ? .stopped
-                        : (self._timer?.isRunning ?? false) && (0 < self.currentTime) ? .countdown
-                            : 0 == self.currentTime ? .alarm
-                                : nil == self._timer ? .stopped
-                                    : .paused(mode: self._lastMode,
-                                              pauseTime: self._lastPausedTime)
+        guard 0 < self.startingTimeInSeconds,
+              (nil != self._timer || 0 < self._lastPausedTime)
+        else { return .stopped }
+        
+        guard 0 == self._lastPausedTime else {
+            if case .paused(_, _) = self._lastMode {
+                return self._lastMode
+            } else {
+                return .paused(mode: self._lastMode, pauseTime: self._lastPausedTime)
+            }
+        }
+        
+        let currentTime = self.currentTime
+
+        guard 0 < currentTime,
+              self._timer?.isRunning ?? false
+        else { return .alarm }
+        
+        var timeMode: Mode = .countdown
         
         if self._timer?.isRunning ?? false {
-            switch self.currentTime {
+            switch currentTime {
             case finalRange:
                 timeMode = .final
                 
@@ -693,10 +709,12 @@ public extension TimerEngine {
         self._startTime = .now
         self.currentTime = self.startingTimeInSeconds
         self._timer?.isRunning = true
+        self._lastPausedTime = 0
         if .countdown != self._lastMode {
             self.transitionHandler?(self, self._lastMode, .countdown)
             self._lastMode = .countdown
         }
+        self.tickHandler?(self)
     }
 
     /* ################################################################## */
@@ -709,11 +727,12 @@ public extension TimerEngine {
         self._timer?.isRunning = false
         self._timer?.invalidate()
         self._timer = nil
-        self.currentTime = self.startingTimeInSeconds
+        self._lastPausedTime = 0
+//        self.currentTime = self.startingTimeInSeconds
         if .stopped != self._lastMode {
             self.transitionHandler?(self, self._lastMode, .stopped)
-            self._lastMode = .stopped
         }
+        self._lastMode = .stopped
     }
 
     /* ################################################################## */
@@ -724,9 +743,8 @@ public extension TimerEngine {
      */
     func end() {
         self._timer?.isRunning = false
-        self._timer?.invalidate()
-        self._timer = nil
         self.currentTime = 0
+        self._lastPausedTime = 0
         if .alarm != self._lastMode {
             self.transitionHandler?(self, self._lastMode, .alarm)
             self._lastMode = .alarm
@@ -751,7 +769,7 @@ public extension TimerEngine {
             self._lastMode = self.mode
             self._timer?.isRunning = false
             self._lastPausedTime = Date.now.timeIntervalSince(self._startTime ?? .now)
-            self.transitionHandler?(self, self._lastMode, .paused(mode: self._lastMode, pauseTime: self._lastPausedTime))
+            self.transitionHandler?(self, self._lastMode, self.mode)
 
         case .paused(let lastMode, let pauseTime):
             #if DEBUG
@@ -802,7 +820,9 @@ public extension TimerEngine {
                                                 completion: self._timerCallback
                 )
                 self._timer?.isRunning = true
-                self.transitionHandler?(self, self._lastMode, self.mode)
+                if self._lastMode != self.mode {
+                    self.transitionHandler?(self, self._lastMode, self.mode)
+                }
                 return true
             } else {
                 #if DEBUG
@@ -812,7 +832,9 @@ public extension TimerEngine {
             }
         }
         
-        if case .paused(let lastMode, let pauseTime) = self.mode {
+        let currentMode = self.mode
+        
+        if case .paused(let lastMode, let pauseTime) = currentMode {
             #if DEBUG
                 print("TimerEngine: resuming a paused timer. Last mode was: \(lastMode).")
             #endif
@@ -823,10 +845,11 @@ public extension TimerEngine {
                                                 completion: self._timerCallback
                 )
             }
+            self._lastPausedTime = 0
             self._startTime = Date.now.addingTimeInterval(-pauseTime)
             self._timer?.isRunning = true
-            self.transitionHandler?(self, .paused(mode: lastMode, pauseTime: pauseTime), lastMode)
             self.transitionHandler = inTransitionHandler ?? transitionHandler
+            self.transitionHandler?(self, .paused(mode: lastMode, pauseTime: pauseTime), lastMode)
             self.tickHandler = inTickHandler ?? tickHandler
             return true
         } else {
