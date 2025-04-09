@@ -758,23 +758,34 @@ class TimerEngineTests: XCTestCase {
             }
         }
         
+        let resetTimeInSeconds = TimeInterval(13)
+        let resetToTimeInSeconds = 24
+        let resetTargetTimeInSeconds = TimeInterval(14)
         let totalTimeInSeconds = 30
         let warnTimeInSeconds = totalTimeInSeconds / 2
         let finalTimeInSeconds = warnTimeInSeconds / 2
-        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.5
+        let expectationWaitTimeout: TimeInterval = 60
 
         let expectation = XCTestExpectation()
         expectation.expectedFulfillmentCount = 1
+        let outsideTime = Date.now
 
         let instanceUnderTest = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                                             warningTimeInSeconds: warnTimeInSeconds,
                                             finalTimeInSeconds: finalTimeInSeconds,
                                             transitionHandler: transitionHandler,
-                                            tickHandler: { inTimer in
+                                            tickHandler: { inTimerEngine in
+                                                let currentTime = inTimerEngine.currentTime
+                                                let actualTime = Int(totalTimeInSeconds > currentTime ? Date.now.timeIntervalSince(outsideTime) : 0)
+                                                print("\tTimerEngineTests.testSync - Tick: \(currentTime), (\(actualTime)) Mode: \(inTimerEngine.mode)")
                                             }
         )
 
         instanceUnderTest.start()
+        
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + resetTimeInSeconds) {
+            instanceUnderTest.sync(to: resetToTimeInSeconds, date: .now.addingTimeInterval(-resetTargetTimeInSeconds))
+        }
         
         wait(for: [expectation], timeout: expectationWaitTimeout)
 
