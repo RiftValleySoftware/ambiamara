@@ -40,18 +40,17 @@ private extension TimerEngine {
            -1 >= startTime {
             self._countdownTime = Int(ceil(accurateTimeInterval))
             
+            #if DEBUG
+                print("\tTimerEngine: timerCallback(\(inSuccess)): difference from last tick, in seconds: \(accurateTimeInterval), updated currentTime: \(self.currentTime)")
+            #endif
+
             if .stopped != self.mode {
                 self.tickHandler?(self)
             }
-            
-            #if DEBUG
-                print("\tTimerEngine: difference from last tick, in seconds: \(accurateTimeInterval)")
-                print("\tTimerEngine: updated currentTime: \(self.currentTime)")
-            #endif
 
             if self.mode != self._lastMode {
                 #if DEBUG
-                    print("\tTimerEngine: last mode: \(self._lastMode), new mode: \(self.mode)")
+                    print("\tTimerEngine: Transition: last mode: \(self._lastMode), new mode: \(self.mode)")
                 #endif
                 if let transitionHandler = self.transitionHandler {
                     transitionHandler(self, self._lastMode, self.mode)
@@ -65,8 +64,6 @@ private extension TimerEngine {
         if .alarm == self.mode || .stopped == self.mode {
             self._timer?.isRunning = false
         }
-        
-        self._lastPausedTime = 0
     }
 }
 
@@ -849,7 +846,8 @@ public extension TimerEngine {
         }
         
         let currentMode = self.mode
-        
+        self._lastPausedTime = 0
+
         if case .paused(let lastMode, let pauseTime) = currentMode {
             #if DEBUG
                 print("TimerEngine: resuming a paused timer. Last mode was: \(lastMode).")
@@ -861,7 +859,6 @@ public extension TimerEngine {
                                                 completion: self._timerCallback
                 )
             }
-            self._lastPausedTime = 0
             self._startTime = Date.now.addingTimeInterval(-pauseTime)
             self._timer?.isRunning = true
             self.transitionHandler = inTransitionHandler ?? transitionHandler
