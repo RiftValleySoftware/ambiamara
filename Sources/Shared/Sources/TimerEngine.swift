@@ -34,20 +34,24 @@ private extension TimerEngine {
             return
         }
         
-        if let startTime = self._startTime,
-           -1 >= startTime.timeIntervalSinceNow {
-            let accurateTimeInterval = TimeInterval(self.startingTimeInSeconds) + startTime.timeIntervalSinceNow
+        if let startTime = self._startTime?.timeIntervalSinceNow,
+           let accurateTimeInterval = self.currentPreciseTime,
+           -1 >= startTime {
             let seconds = Int(ceil(accurateTimeInterval))
             
             guard self._countdownTime != seconds else { return }
             
             self._countdownTime = seconds
             
+            if .stopped != self.mode {
+                self.tickHandler?(self)
+            }
+            
             #if DEBUG
                 print("\tTimerEngine: difference from last tick, in seconds: \(accurateTimeInterval)")
                 print("\tTimerEngine: updated currentTime: \(self.currentTime)")
             #endif
-            
+
             if self.mode != self._lastMode {
                 #if DEBUG
                     print("\tTimerEngine: last mode: \(self._lastMode), new mode: \(self.mode)")
@@ -56,15 +60,7 @@ private extension TimerEngine {
                     transitionHandler(self, self._lastMode, self.mode)
                 }
                 self._lastMode = self.mode
-            }
-            
-            if .stopped != self.mode {
-                self.tickHandler?(self)
-            }
-            
-            if 0 < self._countdownTime {
-                self._lastMode = self.mode
-            } else {
+            } else if 0 >= self._countdownTime {
                 self.end()
             }
         }
