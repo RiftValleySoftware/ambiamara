@@ -705,6 +705,8 @@ class TimerEngineTests: XCTestCase {
         
         let pauseTime = TimeInterval(1.25)
         let resumeTime = TimeInterval(6.3)
+        
+        print("\tTimerEngineTests.testPreciseTime Testing Pause/Resume Precision...")
 
         let instanceUnderTest = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                                             warningTimeInSeconds: warnTimeInSeconds,
@@ -731,5 +733,51 @@ class TimerEngineTests: XCTestCase {
         wait(for: [expectation], timeout: expectationWaitTimeout + resumeTime)
 
         print("TimerEngineTests.testPreciseTime (END)\n")
+    }
+    
+    /* ################################################################## */
+    /**
+     This tests the ability to "synchronize" a running timer.
+    */
+    func testSync() {
+        print("TimerEngineTests.testSync (START)")
+        
+        /* ################################################################## */
+        /**
+         Called when the timer experiences a state transition.
+         
+         - parameter inTimerEngine: The timer engine.
+         - parameter inFromMode: The previous mode (state).
+         - parameter inToMode: The current (new) mode (state).
+         */
+        func transitionHandler(_ inTimerEngine: TimerEngine, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
+            print("\tTimerEngineTests.testSync - Transition: \(inFromMode) -> \(inToMode)")
+
+            if .alarm == inToMode {
+                expectation.fulfill()
+            }
+        }
+        
+        let totalTimeInSeconds = 30
+        let warnTimeInSeconds = totalTimeInSeconds / 2
+        let finalTimeInSeconds = warnTimeInSeconds / 2
+        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.5
+
+        let expectation = XCTestExpectation()
+        expectation.expectedFulfillmentCount = 1
+
+        let instanceUnderTest = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
+                                            warningTimeInSeconds: warnTimeInSeconds,
+                                            finalTimeInSeconds: finalTimeInSeconds,
+                                            transitionHandler: transitionHandler,
+                                            tickHandler: { inTimer in
+                                            }
+        )
+
+        instanceUnderTest.start()
+        
+        wait(for: [expectation], timeout: expectationWaitTimeout)
+
+        print("TimerEngineTests.testSync (END)\n")
     }
 }

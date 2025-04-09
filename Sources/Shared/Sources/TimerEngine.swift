@@ -548,6 +548,7 @@ public extension TimerEngine {
      */
     var currentPreciseTime: TimeInterval? {
         get {
+            guard nil != self._timer || 0 < self._lastPausedTime else { return TimeInterval(self.startingTimeInSeconds) }
             guard let startTime = self._startTime else { return nil }
             
             return max(0, min(TimeInterval(self.startingTimeInSeconds), TimeInterval(self.startingTimeInSeconds) - Date.now.timeIntervalSince(startTime)))
@@ -703,7 +704,7 @@ public extension TimerEngine {
      - parameter inDate: The date that corresponds to the given second. If not supplied, .now is used.
      */
     func sync(to inSeconds: Int, date inDate: Date = .now) {
-        
+        self._startTime = inDate.addingTimeInterval(-TimeInterval(inSeconds))
     }
     
     /* ################################################################## */
