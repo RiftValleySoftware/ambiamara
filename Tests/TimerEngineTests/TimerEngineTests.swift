@@ -610,30 +610,11 @@ class TimerEngineTests: XCTestCase {
         let finalTimeInSeconds = warnTimeInSeconds / 2
         let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.5
 
-        let expectation = XCTestExpectation()
+        var expectation = XCTestExpectation()
         expectation.expectedFulfillmentCount = 1
         
-        var testRange = (TimeInterval(totalTimeInSeconds) - 0.0005)...(TimeInterval(totalTimeInSeconds) + 0.0005)
-
-        /* ############################################################## */
-        /**
-         The callback for the individual second ticks. May be called in any thread.
-         
-         - parameter inTimerEngine: The timer engine.
-         */
-        func tickHandler(_ inTimerEngine: TimerEngine) {
-            guard let realTime = inTimerEngine.currentPreciseTime else { return }
-            let currentTime = inTimerEngine.currentTime
-                                                                         
-            print("\tTimerEngineTests.testPreciseTime - Tick: \(currentTime), (\(realTime)) Mode: \(inTimerEngine.mode)")
-
-            XCTAssertTrue(testRange.contains(realTime), "\(realTime) should be at least \(testRange.lowerBound), and less than (or equal to) \(testRange.upperBound).")
-
-            let newLowerBound = TimeInterval(currentTime - 1) - 0.0005
-            let newUpperBound = TimeInterval(currentTime - 1) + 0.0005
-
-            testRange = newLowerBound...newUpperBound
-        }
+        var outsideTime = Date.now
+        var offset = TimeInterval(0)
         
         /* ################################################################## */
         /**
@@ -645,22 +626,109 @@ class TimerEngineTests: XCTestCase {
          */
         func transitionHandler(_ inTimerEngine: TimerEngine, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
             print("\tTimerEngineTests.testPreciseTime - Transition: \(inFromMode) -> \(inToMode)")
+
             if .alarm == inToMode {
                 expectation.fulfill()
             }
+            
+            if case .paused = inFromMode {
+                offset = (Date.now.timeIntervalSinceReferenceDate - offset)
+                let newLowerBound =  testRange.lowerBound + offset
+                let newUpperBound =  testRange.upperBound + offset
+                offset = 0
+                testRange = newLowerBound...newUpperBound
+            }
+        }
+
+        var testRange = (TimeInterval(totalTimeInSeconds) - 0.0005)...(TimeInterval(totalTimeInSeconds) + 0.0005)
+
+        /* ############################################################## */
+        /**
+         The callback for the individual second ticks. May be called in any thread.
+         
+         - parameter inTimerEngine: The timer engine.
+         */
+        func tickHandler1(_ inTimerEngine: TimerEngine) {
+            guard let realTime = inTimerEngine.currentPreciseTime else { return }
+            let currentTime = inTimerEngine.currentTime
+                                                                         
+            print("\tTimerEngineTests.testPreciseTime - Tick1: \(currentTime), (\(realTime)) Mode: \(inTimerEngine.mode)")
+
+            XCTAssertTrue(testRange.contains(realTime), "\(realTime) should be at least \(testRange.lowerBound), and less than (or equal to) \(testRange.upperBound).")
+            
+            let newLowerBound = TimeInterval(currentTime - 1) - 0.0005
+            let newUpperBound = TimeInterval(currentTime - 1) + 0.0005
+
+            testRange = newLowerBound...newUpperBound
         }
 
         print("TimerEngineTests.testPreciseTime (START)")
+        
+        print("\tTimerEngineTests.testPreciseTime Testing Read Precision...")
         
         _ = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                         warningTimeInSeconds: warnTimeInSeconds,
                         finalTimeInSeconds: finalTimeInSeconds,
                         transitionHandler: transitionHandler,
                         startImmediately: true,
-                        tickHandler: tickHandler
-                        )
+                        tickHandler: tickHandler1
+        )
 
         wait(for: [expectation], timeout: expectationWaitTimeout)
+
+        /* ############################################################## */
+        /**
+         The callback for the individual second ticks. May be called in any thread.
+         
+         - parameter inTimerEngine: The timer engine.
+         */
+        func tickHandler2(_ inTimerEngine: TimerEngine) {
+            guard let realTime = inTimerEngine.currentPreciseTime else { return }
+            let currentTime = inTimerEngine.currentTime
+            let timerSecondsElapsed = TimeInterval(totalTimeInSeconds) - realTime
+            let realSecondsElapsed = Date.now.timeIntervalSince(outsideTime)
+
+            if 1 <= timerSecondsElapsed {
+                print("\tTimerEngineTests.testPreciseTime - Tick2: \(currentTime), (\(timerSecondsElapsed), \(realSecondsElapsed)) Mode: \(inTimerEngine.mode)")
+            } else {
+                print("\tTimerEngineTests.testPreciseTime - Tick2: \(currentTime) Mode: \(inTimerEngine.mode)")
+            }
+            
+            if 0 == offset {
+                XCTAssertTrue(testRange.contains(realSecondsElapsed), "\(realSecondsElapsed) should be at least \(testRange.lowerBound), and less than (or equal to) \(testRange.upperBound).")
+            }
+            
+            let newLowerBound =  testRange.lowerBound + 1.0
+            let newUpperBound =  testRange.upperBound + 1.0
+            testRange = newLowerBound...newUpperBound
+        }
+        
+        let pauseTime = TimeInterval(1.25)
+        let resumeTime = TimeInterval(6.3)
+
+        let instanceUnderTest = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
+                                            warningTimeInSeconds: warnTimeInSeconds,
+                                            finalTimeInSeconds: finalTimeInSeconds,
+                                            transitionHandler: transitionHandler,
+                                            tickHandler: tickHandler2
+        )
+        
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + pauseTime) {
+            offset = Date.now.timeIntervalSinceReferenceDate
+            instanceUnderTest.pause()
+        }
+        
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + resumeTime) {
+            instanceUnderTest.resume()
+        }
+
+        testRange = -0.0005...0.0005
+        expectation = XCTestExpectation()
+        expectation.expectedFulfillmentCount = 1
+        outsideTime = .now
+        instanceUnderTest.start()
+
+        wait(for: [expectation], timeout: expectationWaitTimeout + resumeTime)
 
         print("TimerEngineTests.testPreciseTime (END)\n")
     }
