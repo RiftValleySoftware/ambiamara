@@ -36,12 +36,9 @@ private extension TimerEngine {
         
         if let startTime = self._startTime?.timeIntervalSinceNow,
            let accurateTimeInterval = self.currentPreciseTime,
+           self._countdownTime != Int(ceil(accurateTimeInterval)),  // This ensures that we catch the transition, at the first opportunity.
            -1 >= startTime {
-            let seconds = Int(ceil(accurateTimeInterval))
-            
-            guard self._countdownTime != seconds else { return }
-            
-            self._countdownTime = seconds
+            self._countdownTime = Int(ceil(accurateTimeInterval))
             
             if .stopped != self.mode {
                 self.tickHandler?(self)
