@@ -758,12 +758,12 @@ class TimerEngineTests: XCTestCase {
             }
         }
         
-        let resetTimeInSeconds = TimeInterval(20)
-        let resetToTimeInSeconds = 28
+        let resetTimeInSeconds1 = TimeInterval(20)
+        let resetToTimeInSeconds1 = 28
         let totalTimeInSeconds = 30
         let warnTimeInSeconds = totalTimeInSeconds / 2
         let finalTimeInSeconds = warnTimeInSeconds / 2
-        let expectationWaitTimeout: TimeInterval = 60
+        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + (resetTimeInSeconds1 - TimeInterval(totalTimeInSeconds - resetToTimeInSeconds1)) + 0.5
 
         let expectation = XCTestExpectation()
         expectation.expectedFulfillmentCount = 1
@@ -782,9 +782,9 @@ class TimerEngineTests: XCTestCase {
 
         instanceUnderTest1.start()
         
-        DispatchQueue.global().asyncAfter(wallDeadline: .now() + resetTimeInSeconds) {
-            print("\tTimerEngineTests.testSync - Sync: \(resetToTimeInSeconds)")
-            instanceUnderTest1.sync(to: resetToTimeInSeconds)
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + resetTimeInSeconds1) {
+            print("\tTimerEngineTests.testSync - Sync: \(resetToTimeInSeconds1)")
+            instanceUnderTest1.sync(to: resetToTimeInSeconds1)
         }
         
         wait(for: [expectation], timeout: expectationWaitTimeout)

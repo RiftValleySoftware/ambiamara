@@ -705,6 +705,7 @@ public extension TimerEngine {
      */
     func sync(to inSeconds: Int, date inDate: Date = .now) {
         self._startTime = inDate.addingTimeInterval(-TimeInterval(self.startingTimeInSeconds - inSeconds))
+        self._countdownTime = inSeconds
     }
     
     /* ################################################################## */
