@@ -704,7 +704,7 @@ public extension TimerEngine {
      - parameter inDate: The date that corresponds to the given second. If not supplied, .now is used.
      */
     func sync(to inSeconds: Int, date inDate: Date = .now) {
-        self._startTime = inDate.addingTimeInterval(-TimeInterval(inSeconds))
+        self._startTime = inDate.addingTimeInterval(-TimeInterval(self.startingTimeInSeconds - inSeconds))
     }
     
     /* ################################################################## */
