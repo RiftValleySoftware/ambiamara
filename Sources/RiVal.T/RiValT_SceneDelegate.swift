@@ -14,18 +14,29 @@ import UIKit
 // MARK: - Main Scene Delegate Class -
 /* ###################################################################################################################################### */
 /**
- 
+ This is the scene delegate for the main app.
  */
 class RiValT_SceneDelegate: UIResponder, UIWindowSceneDelegate {
     /* ################################################################## */
     /**
+     Accessor for this instance
+     */
+    static var sceneDelegateInstance: RiValT_SceneDelegate?
+    
+    /* ################################################################## */
+    /**
+     The required window property.
      */
     var window: UIWindow?
 
     /* ################################################################## */
     /**
+     - parameter inScene: The scene we're connecting.
+     - parameter willConnectTo: The session we're connecting to (ignored).
+     - parameter options: The connection options (ignored).
      */
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let _ = (scene as? UIWindowScene) else { return }
+    func scene(_ inScene: UIScene, willConnectTo: UISceneSession, options: UIScene.ConnectionOptions) {
+        Self.sceneDelegateInstance = self
+        guard let _ = (inScene as? UIWindowScene) else { return }
     }
 }

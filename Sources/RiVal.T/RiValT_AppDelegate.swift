@@ -14,14 +14,27 @@ import UIKit
 // MARK: - Main App Delegate Class -
 /* ###################################################################################################################################### */
 /**
- 
+ This is the app delegate for the main app.
  */
 @main
 class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
     /* ################################################################## */
     /**
+     Accessor for this instance
      */
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    static var appDelegateInstance: RiValT_AppDelegate?
+    
+    /* ################################################################## */
+    /**
+     Called when the application has set up, and is preparing to "go live."
+     
+     - parameter: The application instance that this is delegated to (ignored).
+     - parameter didFinishLaunchingWithOptions: The launch options (ignored)
+     
+     - returns: True (all the time).
+     */
+    func application(_: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        Self.appDelegateInstance = self
         return true
     }
 
@@ -29,10 +42,14 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
 
     /* ################################################################## */
     /**
+     Returns a new scene configuration.
+     
+     - parameter: The application instance that this is delegated to (ignored).
+     - parameter inConnectingSceneSession: The session we're generating a scene for.
+     
+     - returns: A new scene configuration for the session.
      */
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    func application(_: UIApplication, configurationForConnecting inConnectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        return UISceneConfiguration(name: "Default Configuration", sessionRole: inConnectingSceneSession.role)
     }
 }
