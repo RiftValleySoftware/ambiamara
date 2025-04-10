@@ -759,11 +759,18 @@ class TimerEngineTests: XCTestCase {
         }
         
         let resetTimeInSeconds1 = TimeInterval(20)
+        let resetTimeInSeconds2 = TimeInterval(48)
+        let resetTimeInSeconds3 = TimeInterval(53)
         let resetToTimeInSeconds1 = 28
+        let resetToTimeInSeconds2 = 30
+        let resetToTimeInSeconds3 = 14
         let totalTimeInSeconds = 30
         let warnTimeInSeconds = totalTimeInSeconds / 2
         let finalTimeInSeconds = warnTimeInSeconds / 2
-        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + (resetTimeInSeconds1 - TimeInterval(totalTimeInSeconds - resetToTimeInSeconds1)) + 0.5
+        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds)
+                                                    + (resetTimeInSeconds1 - TimeInterval(totalTimeInSeconds - resetToTimeInSeconds1))
+                                                    + (resetTimeInSeconds2 - TimeInterval(totalTimeInSeconds - resetToTimeInSeconds2))
+                                                    + 0.5
 
         let expectation = XCTestExpectation()
         expectation.expectedFulfillmentCount = 1
@@ -783,10 +790,20 @@ class TimerEngineTests: XCTestCase {
         instanceUnderTest1.start()
         
         DispatchQueue.global().asyncAfter(wallDeadline: .now() + resetTimeInSeconds1) {
-            print("\tTimerEngineTests.testSync - Sync: \(resetToTimeInSeconds1)")
+            print("\tTimerEngineTests.testSync - Sync (Now): \(resetToTimeInSeconds1)")
             instanceUnderTest1.sync(to: resetToTimeInSeconds1)
         }
         
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + resetTimeInSeconds2) {
+            print("\tTimerEngineTests.testSync - Sync (3 seconds advanced): \(resetToTimeInSeconds2)")
+            instanceUnderTest1.sync(to: resetToTimeInSeconds2, date: .now.advanced(by: -3.25))
+        }
+        
+        DispatchQueue.global().asyncAfter(wallDeadline: .now() + resetTimeInSeconds3) {
+            print("\tTimerEngineTests.testSync - Sync (3 seconds behind): \(resetToTimeInSeconds3)")
+            instanceUnderTest1.sync(to: resetToTimeInSeconds2, date: .now.advanced(by: 3.25))
+        }
+
         wait(for: [expectation], timeout: expectationWaitTimeout)
 
         print("TimerEngineTests.testSync (END)\n")

@@ -216,12 +216,11 @@ extension TimerEngineContentView {
      
      - parameter inTimerEngine: The timer engine.
      */
+    @MainActor
     func tickHandler(_ inTimerEngine: TimerEngine) {
         if inTimerEngine.isTicking {
-            DispatchQueue.main.async {
-                self.seconds = inTimerEngine.currentTime
-                self._displayText = inTimerEngine.timerDisplay
-            }
+            self.seconds = inTimerEngine.currentTime
+            self._displayText = inTimerEngine.timerDisplay
         }
     }
 
@@ -233,41 +232,40 @@ extension TimerEngineContentView {
      - parameter inFromMode: The previous mode (state).
      - parameter inToMode: The current (new) mode (state).
      */
+    @MainActor
     func transitionHandler(_ inTimerEngine: TimerEngine, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
         #if DEBUG
             print("Transition from \(inFromMode) to \(inToMode)")
         #endif
         
-        DispatchQueue.main.async {
-            switch inToMode {
-            case .stopped:
-                self._displayIconName = "clock"
-                self._displayText = inTimerEngine.timerDisplay
-                
-            case .warning:
-                self._displayIconName = "exclamationmark.triangle.fill"
-
-            case .final:
-                self._displayIconName = "xmark.circle.fill"
-                
-            case .alarm:
-                self._displayIconName = "bell.and.waves.left.and.right"
+        switch inToMode {
+        case .stopped:
+            self._displayIconName = "clock"
+            self._displayText = inTimerEngine.timerDisplay
             
-            case .paused(let subMode, _):
-                switch subMode {
-                case .warning:
-                    self._displayIconName = "exclamationmark.triangle"
-                    
-                case .final:
-                    self._displayIconName = "xmark.circle"
-                    
-                default:
-                    self._displayIconName = "clock"
-                }
+        case .warning:
+            self._displayIconName = "exclamationmark.triangle.fill"
 
+        case .final:
+            self._displayIconName = "xmark.circle.fill"
+            
+        case .alarm:
+            self._displayIconName = "bell.and.waves.left.and.right"
+        
+        case .paused(let subMode, _):
+            switch subMode {
+            case .warning:
+                self._displayIconName = "exclamationmark.triangle"
+                
+            case .final:
+                self._displayIconName = "xmark.circle"
+                
             default:
-                self._displayIconName = "clock.fill"
+                self._displayIconName = "clock"
             }
+
+        default:
+            self._displayIconName = "clock.fill"
         }
     }
 }

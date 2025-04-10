@@ -709,8 +709,10 @@ public extension TimerEngine {
             #if DEBUG
                 print("Sync: \(inSeconds), \(inDate)")
             #endif
+            let newStartTime = min(.now, inDate.addingTimeInterval(-TimeInterval(max(0, self.startingTimeInSeconds - inSeconds))))
+            
             self._timer?.isRunning = false
-            self._startTime = inDate.addingTimeInterval(-TimeInterval(max(0, self.startingTimeInSeconds - inSeconds)))
+            self._startTime = newStartTime
             self._countdownTime = inSeconds
             self._timer?.isRunning = true
             
