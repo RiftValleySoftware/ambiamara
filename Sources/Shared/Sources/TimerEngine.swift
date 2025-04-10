@@ -698,14 +698,28 @@ public extension TimerEngine {
     /**
      This forces the timer to sync directly to the given seconds. The date is the time that corresponds to the exact second. The timer is started, if it was not already running.
      
-     > NOTE: This directly sets the timer to a running state, but the `tickHandler` and `transitionHandler` callbacks may not be immediately executed.
+     > NOTE: This directly sets the timer to a running state, but the `tickHandler` and `transitionHandler` callbacks may not be immediately executed. The timer must already be in `.countdown`, `.warning`, or `.final` state.
      
      - parameter inSeconds: The actual integer second.
      - parameter inDate: The date that corresponds to the given second. If not supplied, .now is used.
      */
     func sync(to inSeconds: Int, date inDate: Date = .now) {
-        self._startTime = inDate.addingTimeInterval(-TimeInterval(self.startingTimeInSeconds - inSeconds))
-        self._countdownTime = inSeconds
+        switch self.mode {
+        case .countdown, .warning, .final:
+            #if DEBUG
+                print("Sync: \(inSeconds), \(inDate)")
+            #endif
+            self._timer?.isRunning = false
+            self._startTime = inDate.addingTimeInterval(-TimeInterval(max(0, self.startingTimeInSeconds - inSeconds)))
+            self._countdownTime = inSeconds
+            self._timer?.isRunning = true
+            
+        default:
+            #if DEBUG
+                print("Sync: Cannot sync when in \(self.mode) mode.")
+            #endif
+            break
+        }
     }
     
     /* ################################################################## */
