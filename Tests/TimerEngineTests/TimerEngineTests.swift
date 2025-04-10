@@ -775,7 +775,8 @@ class TimerEngineTests: XCTestCase {
         let expectation = XCTestExpectation()
         expectation.expectedFulfillmentCount = 1
         let outsideTime = Date.now
-
+        var expectedTime = 0
+        
         let instanceUnderTest1 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
                                              warningTimeInSeconds: warnTimeInSeconds,
                                              finalTimeInSeconds: finalTimeInSeconds,
@@ -783,24 +784,30 @@ class TimerEngineTests: XCTestCase {
                                              tickHandler: { inTimerEngine in
                                                 let currentTime = inTimerEngine.currentTime
                                                 let actualTime = Int(totalTimeInSeconds > currentTime ? Date.now.timeIntervalSince(outsideTime) : 0)
+                                                XCTAssertEqual(expectedTime, inTimerEngine.currentTime, "Not what we're expecting!")
+                                                expectedTime -= 1
                                                 print("\tTimerEngineTests.testSync - Tick: \(currentTime), (\(actualTime)) Mode: \(inTimerEngine.mode)")
                                              }
         )
-
+        
+        expectedTime = instanceUnderTest1.startingTimeInSeconds
         instanceUnderTest1.start()
         
         DispatchQueue.global().asyncAfter(wallDeadline: .now() + resetTimeInSeconds1) {
             print("\tTimerEngineTests.testSync - Sync (Now): \(resetToTimeInSeconds1)")
+            expectedTime = resetToTimeInSeconds1 - 1
             instanceUnderTest1.sync(to: resetToTimeInSeconds1)
         }
         
         DispatchQueue.global().asyncAfter(wallDeadline: .now() + resetTimeInSeconds2) {
             print("\tTimerEngineTests.testSync - Sync (3 seconds advanced): \(resetToTimeInSeconds2)")
+            expectedTime = resetToTimeInSeconds2 - 3
             instanceUnderTest1.sync(to: resetToTimeInSeconds2, date: .now.advanced(by: -3.25))
         }
         
         DispatchQueue.global().asyncAfter(wallDeadline: .now() + resetTimeInSeconds3) {
             print("\tTimerEngineTests.testSync - Sync (3 seconds behind): \(resetToTimeInSeconds3)")
+            expectedTime = instanceUnderTest1.startingTimeInSeconds - 1
             instanceUnderTest1.sync(to: resetToTimeInSeconds2, date: .now.advanced(by: 3.25))
         }
 
