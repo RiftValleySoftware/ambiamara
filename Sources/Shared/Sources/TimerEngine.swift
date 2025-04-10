@@ -768,7 +768,8 @@ public extension TimerEngine {
 
     /* ################################################################## */
     /**
-     This pauses a running timer. The timer must already be in `.countdown`, `warning`, or `final` state.
+     This pauses a running timer. The timer must already be in `.countdown`, `.warning`, or `.final` state.
+     
      - returns: The state of the instance, just prior to pausing (empty, if failed). Can be ignored.
      */
     @discardableResult
