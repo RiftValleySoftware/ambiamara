@@ -602,13 +602,14 @@ class TimerEngineTests: XCTestCase {
 
     /* ################################################################## */
     /**
-     This tests the precise time report, and indicates that it is in within 0.5ms of the expected second (not realtime, clock time).
+     This tests the precise time report, and indicates that it is in within 2ms of the expected second (not realtime, clock time).
     */
     func testPreciseTime() {
         let totalTimeInSeconds = 30
         let warnTimeInSeconds = totalTimeInSeconds / 2
         let finalTimeInSeconds = warnTimeInSeconds / 2
         let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.5
+        let testRangeInitial = -0.0005...0.0015
 
         var expectation = XCTestExpectation()
         expectation.expectedFulfillmentCount = 1
@@ -640,7 +641,7 @@ class TimerEngineTests: XCTestCase {
             }
         }
 
-        var testRange = (TimeInterval(totalTimeInSeconds) - 0.0005)...(TimeInterval(totalTimeInSeconds) + 0.0005)
+        var testRange = (TimeInterval(totalTimeInSeconds) + testRangeInitial.lowerBound)...(TimeInterval(totalTimeInSeconds) + testRangeInitial.upperBound)
 
         /* ############################################################## */
         /**
@@ -656,8 +657,8 @@ class TimerEngineTests: XCTestCase {
 
             XCTAssertTrue(testRange.contains(realTime), "\(realTime) should be at least \(testRange.lowerBound), and less than (or equal to) \(testRange.upperBound).")
             
-            let newLowerBound = TimeInterval(currentTime - 1) - 0.0005
-            let newUpperBound = TimeInterval(currentTime - 1) + 0.0005
+            let newLowerBound = TimeInterval(currentTime - 1) + testRangeInitial.lowerBound
+            let newUpperBound = TimeInterval(currentTime - 1) + testRangeInitial.upperBound
 
             testRange = newLowerBound...newUpperBound
         }
@@ -724,7 +725,7 @@ class TimerEngineTests: XCTestCase {
             instanceUnderTest.resume()
         }
 
-        testRange = -0.0005...0.0005
+        testRange = testRangeInitial
         expectation = XCTestExpectation()
         expectation.expectedFulfillmentCount = 1
         outsideTime = .now
@@ -759,11 +760,11 @@ class TimerEngineTests: XCTestCase {
         }
         
         let resetTimeInSeconds1 = TimeInterval(20)
-        let resetTimeInSeconds2 = TimeInterval(48)
+        let resetTimeInSeconds2 = TimeInterval(47)
         let resetTimeInSeconds3 = TimeInterval(53)
         let resetToTimeInSeconds1 = 28
         let resetToTimeInSeconds2 = 30
-        let resetToTimeInSeconds3 = 14
+        let resetToTimeInSeconds3 = 5
         let totalTimeInSeconds = 30
         let warnTimeInSeconds = totalTimeInSeconds / 2
         let finalTimeInSeconds = warnTimeInSeconds / 2

@@ -586,12 +586,12 @@ public extension TimerEngine {
         let currentTime = self.currentTime
 
         guard 0 < currentTime,
-              self._timer?.isRunning ?? false
+              self.isTicking
         else { return .alarm }
         
         var timeMode: Mode = .countdown
         
-        if self._timer?.isRunning ?? false {
+        if self.isTicking {
             switch currentTime {
             case finalRange:
                 timeMode = .final
