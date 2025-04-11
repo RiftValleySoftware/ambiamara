@@ -110,6 +110,16 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
+    let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(80), heightDimension: .absolute(80))
+
+    /* ############################################################## */
+    /**
+     */
+    let itemGuttersInDisplayUnits = CGFloat(4)
+
+    /* ############################################################## */
+    /**
+     */
     @IBOutlet weak var collectionView: UICollectionView?
 
     /* ############################################################## */
@@ -174,18 +184,15 @@ extension RiValT_TimerArray_ViewController {
     /**
      */
     func createLayout() {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(80), heightDimension: .absolute(80))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(self.itemSize.heightDimension.dimension))
 
-        item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4)
+        let item = NSCollectionLayoutItem(layoutSize: self.itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(80))
+        item.contentInsets = NSDirectionalEdgeInsets(top: self.itemGuttersInDisplayUnits, leading: self.itemGuttersInDisplayUnits, bottom: self.itemGuttersInDisplayUnits, trailing: self.itemGuttersInDisplayUnits)
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
-        
-        section.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 0)
         
         self.collectionView?.collectionViewLayout = UICollectionViewCompositionalLayout(section: section)
     }
@@ -195,11 +202,10 @@ extension RiValT_TimerArray_ViewController {
      */
     func setupDataSource() {
         guard let collectionView = self.collectionView else { return }
-        self.dataSource = UICollectionViewDiffableDataSource<Int, RiValT_TimerArray_IconItem>(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell? in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: indexPath) as! RiValT_TimerArray_IconCell
-            cell.configure(with: item)
-            let isSelected = indexPath == self.selectedIndexPath
-            cell.setSelected(isSelected)
+        self.dataSource = UICollectionViewDiffableDataSource<Int, RiValT_TimerArray_IconItem>(collectionView: collectionView) { (inCollectionView, inIndexPath, inItem) -> UICollectionViewCell? in
+            let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: inIndexPath) as! RiValT_TimerArray_IconCell
+            cell.configure(with: inItem)
+            cell.setSelected(inIndexPath == self.selectedIndexPath)
             return cell
         }
 
@@ -298,9 +304,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
     /* ############################################################## */
     /**
      */
-    func collectionView(_: UICollectionView, canHandle inSession: UIDropSession) -> Bool {
-        nil != inSession.localDragSession
-    }
+    func collectionView(_: UICollectionView, canHandle inSession: UIDropSession) -> Bool { nil != inSession.localDragSession }
     
     /* ############################################################## */
     /**
@@ -383,10 +387,6 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDelegate {
     /**
      */
     func collectionView(_: UICollectionView, didSelectItemAt inIndexPath: IndexPath) {
-        if self.selectedIndexPath == inIndexPath {
-            self.selectedIndexPath = nil // toggle off if tapping again
-        } else {
-            self.selectedIndexPath = inIndexPath
-        }
+        self.selectedIndexPath = self.selectedIndexPath == inIndexPath ? nil : inIndexPath
     }
 }
