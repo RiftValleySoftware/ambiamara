@@ -38,19 +38,6 @@ extension UIColor {
 /**
  
  */
-extension Array where Element: Hashable, Element: Comparable {
-    /* ############################################################## */
-    /**
-     */
-    var unique: [Element] { Array(Set(self)).sorted() }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - -
-/* ###################################################################################################################################### */
-/**
- 
- */
 struct RiValT_TimerArray_IconItem: Hashable {
     /* ############################################################## */
     /**
@@ -69,14 +56,6 @@ struct RiValT_TimerArray_IconItem: Hashable {
 /**
  
  */
-typealias RiValT_TimerArray_IconRow = [RiValT_TimerArray_IconItem]
-
-/* ###################################################################################################################################### */
-// MARK: - -
-/* ###################################################################################################################################### */
-/**
- 
- */
 class RiValT_TimerArray_IconCell: UICollectionViewCell {
     /* ############################################################## */
     /**
@@ -88,7 +67,6 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
      */
     func configure(with inItem: RiValT_TimerArray_IconItem) {
         self.contentView.backgroundColor = inItem.color
-        self.contentView.cornerRadius = 10
     }
     
     /* ############################################################## */
@@ -161,10 +139,19 @@ extension RiValT_TimerArray_ViewController {
     /**
      */
     override func viewDidLoad() {
+        /* ########################################################## */
+        /**
+         */
+        func _generateRandomRows() {
+            self.rows = (0..<5).map { _ in (0..<Int.random(in: 1...3)).map { _ in RiValT_TimerArray_IconItem(color: .random) } }
+        }
+
         super.viewDidLoad()
-        self.createLayout()
-        self.generateRandomRows()
+        
+        _generateRandomRows()
+        
         self.setupDataSource()
+        self.createLayout()
         self.updateToolbarButtons()
     }
 }
@@ -173,13 +160,6 @@ extension RiValT_TimerArray_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_TimerArray_ViewController {
-    /* ############################################################## */
-    /**
-     */
-    func generateRandomRows() {
-        self.rows = (0..<5).map { _ in (0..<Int.random(in: 1...3)).map { _ in RiValT_TimerArray_IconItem(color: .random) } }
-    }
-
     /* ############################################################## */
     /**
      */
@@ -321,11 +301,11 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
         /**
          */
         func _indexForNewRow(at inLocation: CGPoint) -> Int? {
-            let sortedFrames = collectionView?.visibleCells.compactMap { collectionView?.indexPath(for: $0)?.section }.unique ?? []
-
+            let frames = self.collectionView?.visibleCells.compactMap { self.collectionView?.indexPath(for: $0)?.section } ?? []
+            let sortedFrames = Array(Set(frames)).sorted()
             for section in sortedFrames {
                 let indexPath = IndexPath(item: 0, section: section)
-                if let attributes = collectionView?.layoutAttributesForItem(at: indexPath),
+                if let attributes = self.collectionView?.layoutAttributesForItem(at: indexPath),
                    inLocation.y < attributes.frame.minY {
                     return section
                 }
