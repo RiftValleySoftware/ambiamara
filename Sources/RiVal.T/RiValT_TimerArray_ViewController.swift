@@ -79,6 +79,53 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
 }
 
 /* ###################################################################################################################################### */
+// MARK: UICollectionViewDropProposal Special Class
+/* ###################################################################################################################################### */
+/**
+ 
+ */
+class RiValT_TimerArray_DropProposal: UICollectionViewDropProposal {
+    /* ############################################################## */
+    /**
+     */
+    weak var viewController: RiValT_TimerArray_ViewController?
+    
+    /* ############################################################## */
+    /**
+     */
+    let session: UIDropSession
+    
+    /* ############################################################## */
+    /**
+     */
+    let indexPath: IndexPath?
+    
+    /* ############################################################## */
+    /**
+     */
+    init(_ inViewController: RiValT_TimerArray_ViewController, dropSessionDidUpdate inSession: UIDropSession, forIndexPath inIndexPath: IndexPath?) {
+        self.viewController = inViewController
+        self.session = inSession
+        self.indexPath = inIndexPath
+        super.init(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    override var intent: UICollectionViewDropProposal.Intent {
+        guard let indexPath = self.indexPath,
+              let row = self.viewController?.rows[indexPath.section],
+              !row.isEmpty,
+              3 > row.count,
+              indexPath.row < row.count
+        else { return .unspecified }
+        
+        return .insertAtDestinationIndexPath
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - -
 /* ###################################################################################################################################### */
 /**
@@ -278,49 +325,18 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
         dragItem.localObject = item
         return [dragItem]
     }
-}
-
-/* ###################################################################################################################################### */
-// MARK: UICollectionViewDropProposal Special Class
-/* ###################################################################################################################################### */
-class RiValT_TimerArray_DropProposal: UICollectionViewDropProposal {
-    /* ############################################################## */
-    /**
-     */
-    weak var viewController: RiValT_TimerArray_ViewController?
     
     /* ############################################################## */
     /**
      */
-    let session: UIDropSession
-    
-    /* ############################################################## */
-    /**
-     */
-    let indexPath: IndexPath?
-    
-    /* ############################################################## */
-    /**
-     */
-    init(_ inViewController: RiValT_TimerArray_ViewController, dropSessionDidUpdate inSession: UIDropSession, forIndexPath inIndexPath: IndexPath?) {
-        self.viewController = inViewController
-        self.session = inSession
-        self.indexPath = inIndexPath
-        super.init(operation: .move, intent: .insertAtDestinationIndexPath)
-    }
-    
-    /* ############################################################## */
-    /**
-     */
-    override var intent: UICollectionViewDropProposal.Intent {
-        guard let indexPath = self.indexPath,
-              let row = self.viewController?.rows[indexPath.section],
-              !row.isEmpty,
-              3 > row.count,
-              indexPath.row < row.count
-        else { return .unspecified }
-        
-        return .insertAtDestinationIndexPath
+    func collectionView(_ inCollectionView: UICollectionView,
+                        dragPreviewParametersForItemAt inIndexPath: IndexPath) -> UIDragPreviewParameters? {
+        let parameters = UIDragPreviewParameters()
+        parameters.backgroundColor = .clear
+        if let cell = inCollectionView.cellForItem(at: inIndexPath) {
+            parameters.visiblePath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.cornerRadius)
+        }
+        return parameters
     }
 }
 
@@ -343,11 +359,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
     func collectionView(_: UICollectionView,
                         dropSessionDidUpdate inSession: UIDropSession,
                         withDestinationIndexPath inIndexPath: IndexPath?
-    ) -> UICollectionViewDropProposal {
-        print("Session: \(inSession), Index Path: \(inIndexPath.debugDescription)")
-
-        return RiValT_TimerArray_DropProposal(self, dropSessionDidUpdate: inSession, forIndexPath: inIndexPath)
-    }
+    ) -> UICollectionViewDropProposal { RiValT_TimerArray_DropProposal(self, dropSessionDidUpdate: inSession, forIndexPath: inIndexPath) }
 
     /* ############################################################## */
     /**
@@ -359,7 +371,10 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
         /**
          */
         func _indexForNewRow(at inLocation: CGPoint) -> Int? {
-            let frames = self.collectionView?.visibleCells.compactMap { self.collectionView?.indexPath(for: $0)?.section } ?? []
+            let frames: [Int] = self.collectionView?.visibleCells.compactMap {
+                let ret = self.collectionView?.indexPath(for: $0)?.section
+                return ret
+            } ?? []
             let sortedFrames = Array(Set(frames)).sorted()
             for section in sortedFrames {
                 let indexPath = IndexPath(item: 0, section: section)
@@ -380,25 +395,22 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
         let destinationIndexPath = inCoordinator.destinationIndexPath
         
         inCollectionView.performBatchUpdates {
-            // Remove from source
             if let source = sourceIndexPath {
                 self.rows[source.section].remove(at: source.item)
-                // If that row is now empty, remove the row
                 if self.rows[source.section].isEmpty {
                     self.rows.remove(at: source.section)
                 }
             }
 
-            if let destIndexPath = destinationIndexPath {
-                // Drop into existing row
+            if let destIndexPath = destinationIndexPath,
+               3 > self.rows[destIndexPath.section].count {
                 self.rows[destIndexPath.section].insert(draggedItem, at: destIndexPath.item)
             } else {
-                // Drop between sections: insert a new section
                 let location = inCoordinator.session.location(in: inCollectionView)
-                if let newSectionIndex = _indexForNewRow(at: location) {
+                if let newSectionIndex = _indexForNewRow(at: location),
+                   newSectionIndex < self.rows.count {
                     self.rows.insert([draggedItem], at: newSectionIndex)
                 } else {
-                    // fallback: append at end
                     self.rows.append([draggedItem])
                 }
             }
