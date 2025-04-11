@@ -9,6 +9,8 @@
  */
 
 import UIKit
+import RVS_Generic_Swift_Toolbox
+import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
 // MARK: - -
@@ -22,9 +24,9 @@ extension UIColor {
      */
     static var random: UIColor {
         return UIColor(
-            red: CGFloat.random(in: 0.3...1.0),
-            green: CGFloat.random(in: 0.3...1.0),
-            blue: CGFloat.random(in: 0.3...1.0),
+            red: CGFloat.random(in: 0.3...0.9),
+            green: CGFloat.random(in: 0.3...0.9),
+            blue: CGFloat.random(in: 0.3...0.9),
             alpha: 1.0
         )
     }
@@ -84,45 +86,17 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
     /* ############################################################## */
     /**
      */
-    private let squareView = UIView()
-
-    /* ############################################################## */
-    /**
-     */
-    override init(frame inFrame: CGRect) {
-        super.init(frame: inFrame)
-        contentView.addSubview(self.squareView)
-        self.squareView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            self.squareView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            self.squareView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            self.squareView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            self.squareView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        ])
-        self.squareView.layer.cornerRadius = 10
-        self.squareView.clipsToBounds = true
-    }
-    
-    /* ############################################################## */
-    /**
-     */
     func configure(with inItem: RiValT_TimerArray_IconItem) {
-        self.squareView.backgroundColor = inItem.color
-    }
-    
-    /* ############################################################## */
-    /**
-     */
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        self.contentView.backgroundColor = inItem.color
+        self.contentView.cornerRadius = 10
     }
     
     /* ############################################################## */
     /**
      */
     func setSelected(_ inIsSelected: Bool) {
-        self.squareView.layer.borderColor = inIsSelected ? UIColor.systemBlue.cgColor : UIColor.clear.cgColor
-        self.squareView.layer.borderWidth = inIsSelected ? 3 : 0
+        self.contentView.layer.borderColor = inIsSelected ? UIColor.systemBlue.cgColor : UIColor.clear.cgColor
+        self.contentView.layer.borderWidth = inIsSelected ? 3 : 0
     }
 }
 
@@ -136,8 +110,18 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    var collectionView: UICollectionView?
-    
+    @IBOutlet weak var collectionView: UICollectionView?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var addButton: UIBarButtonItem?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var deleteButton: UIBarButtonItem?
+
     /* ############################################################## */
     /**
      */
@@ -147,16 +131,6 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /**
      */
     var rows: [[RiValT_TimerArray_IconItem]] = []
-
-    /* ############################################################## */
-    /**
-     */
-    var addButton: UIBarButtonItem?
-
-    /* ############################################################## */
-    /**
-     */
-    var deleteButton: UIBarButtonItem?
     
     /* ############################################################## */
     /**
@@ -167,113 +141,39 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
             self.updateToolbarButtons()
         }
     }
+}
 
-    /* ############################################################## */
-    /**
-     */
-    @objc func addItem() {
-        guard let section = self.selectedIndexPath?.section,
-              3 > self.rows[section].count
-        else { return }
-        
-        self.rows[section].append(RiValT_TimerArray_IconItem(color: .random))
-        self.updateSnapshot()
-        self.updateToolbarButtons()
-    }
-
-    /* ############################################################## */
-    /**
-     */
-    @objc func deleteItem() {
-        guard let section = self.selectedIndexPath?.section,
-              !self.rows[section].isEmpty
-        else { return }
-        
-        self.rows[section].removeLast()
-        self.updateSnapshot()
-        self.updateToolbarButtons()
-    }
-    
-    /* ############################################################## */
-    /**
-     */
-    func updateCellSelectionAppearance() {
-        for case let cell as RiValT_TimerArray_IconCell in collectionView?.visibleCells ?? [] {
-            if let indexPath = self.collectionView?.indexPath(for: cell) {
-                cell.setSelected(indexPath == self.selectedIndexPath)
-            }
-        }
-    }
-    
-    /* ############################################################## */
-    /**
-     */
-    func updateToolbarButtons() {
-        guard let section = selectedIndexPath?.section else {
-            self.addButton?.isEnabled = false
-            self.deleteButton?.isEnabled = false
-            return
-        }
-        self.addButton?.isEnabled = 3 > self.rows[section].count
-        self.deleteButton?.isEnabled = !self.rows[section].isEmpty
-    }
-    
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension RiValT_TimerArray_ViewController {
     /* ############################################################## */
     /**
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.createLayout()
         self.generateRandomRows()
-        self.setupCollectionView()
         self.setupDataSource()
-        self.title = "Icon Grid"
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addItem))
-        let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.deleteItem))
-
-        self.navigationItem.rightBarButtonItems = [addButton]
-        self.navigationItem.leftBarButtonItems = [deleteButton]
-
-        self.addButton = addButton
-        self.deleteButton = deleteButton
-        
         self.updateToolbarButtons()
     }
+}
 
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension RiValT_TimerArray_ViewController {
     /* ############################################################## */
     /**
      */
     func generateRandomRows() {
-        // Create 10 rows, each with 1 to 3 random items
-        self.rows = (0..<5).map { _ in
-            (0..<Int.random(in: 1...3)).map { _ in RiValT_TimerArray_IconItem(color: .random) }
-        }
+        self.rows = (0..<5).map { _ in (0..<Int.random(in: 1...3)).map { _ in RiValT_TimerArray_IconItem(color: .random) } }
     }
 
     /* ############################################################## */
     /**
      */
-    func setupCollectionView() {
-        let layout = self.createLayout()
-        guard let view = self.view else { return }
-        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
-        self.collectionView = collectionView
-        view.addSubview(collectionView)
-        
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .systemBackground
-        collectionView.register(RiValT_TimerArray_IconCell.self, forCellWithReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier)
-        collectionView.dragInteractionEnabled = true
-        collectionView.dragDelegate = self
-        collectionView.dropDelegate = self
-        collectionView.delegate = self
-    }
-
-    /* ############################################################## */
-    /**
-     */
-    func createLayout() -> UICollectionViewLayout {
+    func createLayout() {
         let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(80), heightDimension: .absolute(80))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
@@ -287,7 +187,7 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
         
         section.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 0)
         
-        return UICollectionViewCompositionalLayout(section: section)
+        self.collectionView?.collectionViewLayout = UICollectionViewCompositionalLayout(section: section)
     }
     
     /* ############################################################## */
@@ -318,12 +218,67 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
         
         self.dataSource?.apply(snapshot, animatingDifferences: true)
     }
+    
+    /* ############################################################## */
+    /**
+     */
+    func updateCellSelectionAppearance() {
+        for case let cell as RiValT_TimerArray_IconCell in collectionView?.visibleCells ?? [] {
+            if let indexPath = self.collectionView?.indexPath(for: cell) {
+                cell.setSelected(indexPath == self.selectedIndexPath)
+            }
+        }
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    func updateToolbarButtons() {
+        guard let section = selectedIndexPath?.section else {
+            self.addButton?.isEnabled = false
+            self.deleteButton?.isEnabled = false
+            return
+        }
+        self.addButton?.isEnabled = 3 > self.rows[section].count
+        self.deleteButton?.isEnabled = !self.rows[section].isEmpty
+    }
 }
 
 /* ###################################################################################################################################### */
-// MARK: Drag and Drop Delegate Conformance
+// MARK: Callbacks
 /* ###################################################################################################################################### */
-extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+extension RiValT_TimerArray_ViewController {
+    /* ############################################################## */
+    /**
+     */
+    @IBAction func addItem(_: Any) {
+        guard let section = self.selectedIndexPath?.section,
+              3 > self.rows[section].count
+        else { return }
+        
+        self.rows[section].append(RiValT_TimerArray_IconItem(color: .random))
+        self.updateSnapshot()
+        self.updateToolbarButtons()
+    }
+
+    /* ############################################################## */
+    /**
+     */
+    @IBAction func deleteItem(_: Any) {
+        guard let section = self.selectedIndexPath?.section,
+              !self.rows[section].isEmpty
+        else { return }
+        
+        self.rows[section].removeLast()
+        self.updateSnapshot()
+        self.updateToolbarButtons()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UICollectionViewDragDelegate Conformance
+/* ###################################################################################################################################### */
+extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
     /* ############################################################## */
     /**
      */
@@ -334,6 +289,25 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate, UIColl
         dragItem.localObject = item
         return [dragItem]
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UICollectionViewDropDelegate Conformance
+/* ###################################################################################################################################### */
+extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
+    /* ############################################################## */
+    /**
+     */
+    func collectionView(_: UICollectionView, canHandle inSession: UIDropSession) -> Bool {
+        nil != inSession.localDragSession
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    func collectionView(_: UICollectionView, dropSessionDidUpdate: UIDropSession, withDestinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
 
     /* ############################################################## */
     /**
@@ -342,7 +316,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate, UIColl
         /* ########################################################## */
         /**
          */
-        func indexForNewRow(at inLocation: CGPoint) -> Int? {
+        func _indexForNewRow(at inLocation: CGPoint) -> Int? {
             let sortedFrames = collectionView?.visibleCells.compactMap { collectionView?.indexPath(for: $0)?.section }.unique ?? []
 
             for section in sortedFrames {
@@ -356,9 +330,8 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate, UIColl
             return self.rows.count
         }
         
-        guard
-            let item = inCoordinator.items.first,
-            let draggedItem = item.dragItem.localObject as? RiValT_TimerArray_IconItem
+        guard let item = inCoordinator.items.first,
+              let draggedItem = item.dragItem.localObject as? RiValT_TimerArray_IconItem
         else { return }
 
         let sourceIndexPath = item.sourceIndexPath
@@ -380,7 +353,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate, UIColl
             } else {
                 // Drop between sections: insert a new section
                 let location = inCoordinator.session.location(in: inCollectionView)
-                if let newSectionIndex = indexForNewRow(at: location) {
+                if let newSectionIndex = _indexForNewRow(at: location) {
                     self.rows.insert([draggedItem], at: newSectionIndex)
                 } else {
                     // fallback: append at end
@@ -399,20 +372,6 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate, UIColl
                 reuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier)
             )
         }
-    }
-    
-    /* ############################################################## */
-    /**
-     */
-    func collectionView(_: UICollectionView, dropSessionDidUpdate: UIDropSession, withDestinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
-        UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-    }
-
-    /* ############################################################## */
-    /**
-     */
-    func collectionView(_: UICollectionView, canHandle inSession: UIDropSession) -> Bool {
-        nil != inSession.localDragSession
     }
 }
 

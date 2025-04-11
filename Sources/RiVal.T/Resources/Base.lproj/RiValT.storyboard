@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,14 +16,67 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DVH-QM-2oZ">
+                                <rect key="frame" x="16" y="162" width="361" height="622"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="4" minimumInteritemSpacing="4" id="Bpu-9n-KJZ">
+                                    <size key="itemSize" width="80" height="80"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RiValT_TimerArray_IconCell" id="qBy-dr-TkH" customClass="RiValT_TimerArray_IconCell" customModule="RiVal_T" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="R81-a2-6vM">
+                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </collectionViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="TZn-OL-KPE"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="B0U-Xg-99U"/>
+                                    <outlet property="dragDelegate" destination="BYZ-38-t0r" id="R37-TH-Sda"/>
+                                    <outlet property="dropDelegate" destination="BYZ-38-t0r" id="nzx-Lg-0WA"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DVH-QM-2oZ" secondAttribute="trailing" constant="16" id="9yP-SE-V6I"/>
+                            <constraint firstItem="DVH-QM-2oZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bXJ-rq-mYS"/>
+                            <constraint firstItem="DVH-QM-2oZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="fCu-yL-aA6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="DVH-QM-2oZ" secondAttribute="bottom" id="voD-aR-nvp"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="DJn-d6-GdS"/>
+                    <navigationItem key="navigationItem" id="DJn-d6-GdS">
+                        <barButtonItem key="leftBarButtonItem" systemItem="trash" id="PMK-52-CGY">
+                            <connections>
+                                <action selector="deleteItem:" destination="BYZ-38-t0r" id="1W2-LZ-Klc"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="UCT-uF-lLY">
+                            <connections>
+                                <action selector="addItem:" destination="BYZ-38-t0r" id="4ZC-wO-ufY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addButton" destination="UCT-uF-lLY" id="5kX-8E-Vqs"/>
+                        <outlet property="collectionView" destination="DVH-QM-2oZ" id="9aH-vt-SVg"/>
+                        <outlet property="deleteButton" destination="PMK-52-CGY" id="n1v-lL-Sfi"/>
+                        <outlet property="view" destination="8bC-Xf-vdC" id="iB1-Rw-Leg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="744" y="-211"/>
+            <point key="canvasLocation" x="739.69465648854964" y="-211.26760563380282"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CJq-mF-a4b">
