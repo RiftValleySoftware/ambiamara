@@ -21,35 +21,27 @@ class RiValT_Base_ViewController: UIViewController {
     /**
      This can be overloaded or set, to provide the image to be used as a background gradient.
      */
-    private var _backgroundGradientImage: UIImage? = UIImage(named: "Background-Gradient")
+    private let _backgroundGradientImage: UIImage? = UIImage(named: "Background-Gradient")
 
     /* ################################################################## */
     /**
-     This is the background image view.
-     */
-    private var _myBackgroundGradientView: UIImageView?
-
-    /* ################################################################## */
-    /**
+     Called when the view hierarchy has been set up.
+     
+     We use this to set the background.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // This ensures that our navigation bar will be transparent.
         let appearance = UINavigationBarAppearance()
-        
         appearance.configureWithTransparentBackground()
-        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         self.navigationItem.compactAppearance = appearance
         self.navigationItem.scrollEdgeAppearance = appearance
         self.navigationItem.standardAppearance = appearance
         
-        guard let view = self.view else { return }   // Oooh... If this fails, we in deep shit.
-        
-        self._myBackgroundGradientView = UIImageView()
-        
-        if let backgroundGradientView = self._myBackgroundGradientView {
-            backgroundGradientView.image = self._backgroundGradientImage
+        // Set the gradient background.
+        if let view = self.view {
+            let backgroundGradientView = UIImageView(image: self._backgroundGradientImage)
             backgroundGradientView.translatesAutoresizingMaskIntoConstraints = false
             backgroundGradientView.contentMode = .scaleToFill
             view.insertSubview(backgroundGradientView, at: 0)
