@@ -73,8 +73,8 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
     /**
      */
     func setSelected(_ inIsSelected: Bool) {
-        self.contentView.layer.borderColor = inIsSelected ? UIColor.systemBlue.cgColor : UIColor.clear.cgColor
-        self.contentView.layer.borderWidth = inIsSelected ? 3 : 0
+        self.contentView.borderColor = inIsSelected ? .systemBlue : .clear
+        self.contentView.borderWidth = inIsSelected ? 3 : 0
     }
 }
 
@@ -88,12 +88,12 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(80), heightDimension: .absolute(80))
+    private static let _itemSize = NSCollectionLayoutSize(widthDimension: .absolute(80), heightDimension: .absolute(80))
 
     /* ############################################################## */
     /**
      */
-    let itemGuttersInDisplayUnits = CGFloat(4)
+    private static let _itemGuttersInDisplayUnits = CGFloat(4)
 
     /* ############################################################## */
     /**
@@ -164,11 +164,11 @@ extension RiValT_TimerArray_ViewController {
     /**
      */
     func createLayout() {
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(self.itemSize.heightDimension.dimension))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(Self._itemSize.heightDimension.dimension))
 
-        let item = NSCollectionLayoutItem(layoutSize: self.itemSize)
+        let item = NSCollectionLayoutItem(layoutSize: Self._itemSize)
 
-        item.contentInsets = NSDirectionalEdgeInsets(top: self.itemGuttersInDisplayUnits, leading: self.itemGuttersInDisplayUnits, bottom: self.itemGuttersInDisplayUnits, trailing: self.itemGuttersInDisplayUnits)
+        item.contentInsets = NSDirectionalEdgeInsets(top: Self._itemGuttersInDisplayUnits, leading: Self._itemGuttersInDisplayUnits, bottom: Self._itemGuttersInDisplayUnits, trailing: Self._itemGuttersInDisplayUnits)
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
@@ -268,12 +268,59 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
     /* ############################################################## */
     /**
      */
-    func collectionView(_: UICollectionView, itemsForBeginning: UIDragSession, at inIndexPath: IndexPath) -> [UIDragItem] {
+    func collectionView(_: UICollectionView,
+                        itemsForBeginning: UIDragSession,
+                        at inIndexPath: IndexPath
+    ) -> [UIDragItem] {
         let item = self.rows[inIndexPath.section][inIndexPath.item]
         let provider = NSItemProvider(object: item.id.uuidString as NSString)
         let dragItem = UIDragItem(itemProvider: provider)
         dragItem.localObject = item
         return [dragItem]
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UICollectionViewDropProposal Special Class
+/* ###################################################################################################################################### */
+class RiValT_TimerArray_DropProposal: UICollectionViewDropProposal {
+    /* ############################################################## */
+    /**
+     */
+    weak var viewController: RiValT_TimerArray_ViewController?
+    
+    /* ############################################################## */
+    /**
+     */
+    let session: UIDropSession
+    
+    /* ############################################################## */
+    /**
+     */
+    let indexPath: IndexPath?
+    
+    /* ############################################################## */
+    /**
+     */
+    init(_ inViewController: RiValT_TimerArray_ViewController, dropSessionDidUpdate inSession: UIDropSession, forIndexPath inIndexPath: IndexPath?) {
+        self.viewController = inViewController
+        self.session = inSession
+        self.indexPath = inIndexPath
+        super.init(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    override var intent: UICollectionViewDropProposal.Intent {
+        guard let indexPath = self.indexPath,
+              let row = self.viewController?.rows[indexPath.section],
+              !row.isEmpty,
+              3 > row.count,
+              indexPath.row < row.count
+        else { return .unspecified }
+        
+        return .insertAtDestinationIndexPath
     }
 }
 
@@ -284,19 +331,30 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
     /* ############################################################## */
     /**
      */
-    func collectionView(_: UICollectionView, canHandle inSession: UIDropSession) -> Bool { nil != inSession.localDragSession }
+    func collectionView(_: UICollectionView,
+                        canHandle inSession: UIDropSession
+    ) -> Bool {
+        nil != inSession.localDragSession
+    }
     
     /* ############################################################## */
     /**
      */
-    func collectionView(_: UICollectionView, dropSessionDidUpdate: UIDropSession, withDestinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
-        UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    func collectionView(_: UICollectionView,
+                        dropSessionDidUpdate inSession: UIDropSession,
+                        withDestinationIndexPath inIndexPath: IndexPath?
+    ) -> UICollectionViewDropProposal {
+        print("Session: \(inSession), Index Path: \(inIndexPath.debugDescription)")
+
+        return RiValT_TimerArray_DropProposal(self, dropSessionDidUpdate: inSession, forIndexPath: inIndexPath)
     }
 
     /* ############################################################## */
     /**
      */
-    func collectionView(_ inCollectionView: UICollectionView, performDropWith inCoordinator: UICollectionViewDropCoordinator) {
+    func collectionView(_ inCollectionView: UICollectionView,
+                        performDropWith inCoordinator: UICollectionViewDropCoordinator
+    ) {
         /* ########################################################## */
         /**
          */
@@ -320,7 +378,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
 
         let sourceIndexPath = item.sourceIndexPath
         let destinationIndexPath = inCoordinator.destinationIndexPath
-
+        
         inCollectionView.performBatchUpdates {
             // Remove from source
             if let source = sourceIndexPath {
@@ -366,7 +424,9 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDelegate {
     /* ############################################################## */
     /**
      */
-    func collectionView(_: UICollectionView, didSelectItemAt inIndexPath: IndexPath) {
+    func collectionView(_: UICollectionView,
+                        didSelectItemAt inIndexPath: IndexPath
+    ) {
         self.selectedIndexPath = self.selectedIndexPath == inIndexPath ? nil : inIndexPath
     }
 }
