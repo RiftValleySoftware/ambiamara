@@ -121,7 +121,7 @@ class RiValT_TimerArray_DropProposal: UICollectionViewDropProposal {
               indexPath.row < row.count
         else { return .unspecified }
         
-        return .insertAtDestinationIndexPath
+        return .insertIntoDestinationIndexPath  // We use "into," in order to prevent reflowing.
     }
 }
 
@@ -141,6 +141,16 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /**
      */
     private static let _itemGuttersInDisplayUnits = CGFloat(4)
+
+    /* ############################################################## */
+    /**
+     */
+    private var reorderIndicatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBlue
+        view.isHidden = true
+        return view
+    }()
 
     /* ############################################################## */
     /**
@@ -200,6 +210,7 @@ extension RiValT_TimerArray_ViewController {
         self.setupDataSource()
         self.createLayout()
         self.updateToolbarButtons()
+        self.collectionView?.addSubview(self.reorderIndicatorView)
     }
 }
 
@@ -359,7 +370,32 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
     func collectionView(_: UICollectionView,
                         dropSessionDidUpdate inSession: UIDropSession,
                         withDestinationIndexPath inIndexPath: IndexPath?
-    ) -> UICollectionViewDropProposal { RiValT_TimerArray_DropProposal(self, dropSessionDidUpdate: inSession, forIndexPath: inIndexPath) }
+    ) -> UICollectionViewDropProposal {
+        guard let collectionView = self.collectionView,
+              let location = inSession.location(in: collectionView) as CGPoint?,
+              let layoutAttributes = collectionView.indexPathForItem(at: location).flatMap({
+                  collectionView.layoutAttributesForItem(at: $0)
+              })
+        else {
+            self.reorderIndicatorView.isHidden = true
+            return UICollectionViewDropProposal(operation: .cancel)
+        }
+        
+        // Get target frame and determine if it's vertical or horizontal.
+        let frame = layoutAttributes.frame
+        let isHorizontal = true // You can tweak this if you want vertical logic.
+        
+        let lineThickness: CGFloat = 4.0
+        if isHorizontal {
+            self.reorderIndicatorView.frame = CGRect(x: max(0, frame.minX - ((lineThickness / 2) + Self._itemGuttersInDisplayUnits)), y: frame.minY, width: lineThickness, height: frame.height)
+//        } else {
+//            self.reorderIndicatorView.frame = CGRect(x: frame.minX, y: frame.minY - (lineThickness / 2), width: frame.width, height: lineThickness)
+        }
+        
+        reorderIndicatorView.isHidden = false
+
+        return RiValT_TimerArray_DropProposal(self, dropSessionDidUpdate: inSession, forIndexPath: inIndexPath)
+    }
 
     /* ############################################################## */
     /**
@@ -426,6 +462,8 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                 reuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier)
             )
         }
+        
+        self.reorderIndicatorView.isHidden = true
     }
 }
 
