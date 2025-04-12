@@ -221,6 +221,7 @@ extension RiValT_TimerArray_ViewController {
          */
         func _generateRandomRows() {
             self.rows = (0..<5).map { _ in (0..<Int.random(in: 1...Self._itemsPerRow)).map { _ in RiValT_TimerArray_IconItem(color: .random) } }
+            self.rows.append([RiValT_TimerArray_IconItem(color: .gray)])
         }
 
         super.viewDidLoad()
@@ -350,13 +351,17 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
                         itemsForBeginning inSession: UIDragSession,
                         at inIndexPath: IndexPath
     ) -> [UIDragItem] {
-        inSession.localContext = inIndexPath
-        let item = self.rows[inIndexPath.section][inIndexPath.item]
-        let provider = NSItemProvider(object: item.id.uuidString as NSString)
-        let dragItem = UIDragItem(itemProvider: provider)
-        self.selectedIndexPath = inIndexPath
-        dragItem.localObject = item
-        return [dragItem]
+        if inIndexPath.item < (self.rows[inIndexPath.section].count - 1) {
+            inSession.localContext = inIndexPath
+            let item = self.rows[inIndexPath.section][inIndexPath.item]
+            let provider = NSItemProvider(object: item.id.uuidString as NSString)
+            let dragItem = UIDragItem(itemProvider: provider)
+            self.selectedIndexPath = inIndexPath
+            dragItem.localObject = item
+            return [dragItem]
+        } else {
+            return []
+        }
     }
     
     /* ############################################################## */
@@ -383,7 +388,11 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
     func collectionView(_: UICollectionView,
                         canHandle inSession: UIDropSession
     ) -> Bool {
-        nil != inSession.localDragSession
+        guard let sourceIndexPath = inSession.localDragSession?.localContext as? IndexPath,
+              sourceIndexPath.section < rows.count - 1
+        else { return false }
+        
+        return true
     }
     
     /* ############################################################## */
@@ -393,7 +402,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                         dropSessionDidUpdate inSession: UIDropSession,
                         withDestinationIndexPath inIndexPath: IndexPath?
     ) -> UICollectionViewDropProposal {
-        let lastItemIndex = IndexPath(row: rows[rows.count - 1].count - 1, section: rows.count - 1)
+        let lastItemIndex = IndexPath(row: rows[rows.count - 1].count - 1, section: rows.count - 2)
         guard let collectionView = self.collectionView,
               let destinationIndexPath = inIndexPath,
               let lastItemAttributes = collectionView.layoutAttributesForItem(at: lastItemIndex),
@@ -407,9 +416,9 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
         self.appendRow = false
 
         if location.y > lastItemAttributes.frame.maxY - (Self._itemGuttersInDisplayUnits * 2),
-           sourceIndexPath.section < (self.rows.count - 1) || 1 < self.rows[sourceIndexPath.section].count {
+           sourceIndexPath.section < (self.rows.count - 2) || 1 < self.rows[sourceIndexPath.section].count {
             self._reorderIndicatorView.frame = CGRect(x: collectionView.frame.minX,
-                                                      y: lastItemAttributes.frame.maxY + Self._itemGuttersInDisplayUnits,
+                                                      y: (lastItemAttributes.frame.maxY + Self._itemGuttersInDisplayUnits) - (Self._dropLineWidthInDisplayUnits / 2),
                                                       width: collectionView.frame.width,
                                                       height: Self._dropLineWidthInDisplayUnits)
             self._reorderIndicatorView.isHidden = false
@@ -490,8 +499,8 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                 var newRows = self.rows
                 inCollectionView.performBatchUpdates {
                     newRows[sourceIndexPath.section].remove(at: sourceIndexPath.item)
-                    newRows.append([draggedItem])
-                    
+                    newRows.insert([draggedItem], at: newRows.count - 1)
+
                     for section in stride(from: self.rows.count - 1, to: 0, by: -1) {
                         if newRows[section].isEmpty {
                             newRows.remove(at: section)
@@ -500,7 +509,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                     
                     self.rows = newRows
                     
-                    deferringSelection = IndexPath(row: 0, section: newRows.count - 1)
+                    deferringSelection = IndexPath(row: 0, section: newRows.count - 2)
                 }
             } else {
                 var newRows = self.rows
