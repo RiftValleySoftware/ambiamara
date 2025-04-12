@@ -99,23 +99,17 @@ class RiValT_TimerArray_DropProposal: UICollectionViewDropProposal {
     /**
      */
     let indexPath: IndexPath?
-    
-    /* ############################################################## */
-    /**
-     */
-    let append: Bool
 
     /* ############################################################## */
     /**
      */
     init(_ inViewController: RiValT_TimerArray_ViewController,
          dropSessionDidUpdate inSession: UIDropSession,
-         forIndexPath inIndexPath: IndexPath?,
-         append inAppend: Bool = false) {
+         forIndexPath inIndexPath: IndexPath?
+    ) {
         self.viewController = inViewController
         self.session = inSession
         self.indexPath = inIndexPath
-        self.append = inAppend
         super.init(operation: .move, intent: .insertAtDestinationIndexPath)
     }
     
@@ -130,7 +124,7 @@ class RiValT_TimerArray_DropProposal: UICollectionViewDropProposal {
               indexPath.row < row.count
         else { return .unspecified }
         
-        return self.append ? .insertAtDestinationIndexPath : .insertIntoDestinationIndexPath  // We use "into," in order to prevent reflowing.
+        return .insertIntoDestinationIndexPath  // We use "into," in order to prevent reflowing.
     }
 }
 
@@ -336,9 +330,10 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
     /**
      */
     func collectionView(_: UICollectionView,
-                        itemsForBeginning: UIDragSession,
+                        itemsForBeginning inSession: UIDragSession,
                         at inIndexPath: IndexPath
     ) -> [UIDragItem] {
+        inSession.localContext = inIndexPath
         let item = self.rows[inIndexPath.section][inIndexPath.item]
         let provider = NSItemProvider(object: item.id.uuidString as NSString)
         let dragItem = UIDragItem(itemProvider: provider)
@@ -381,7 +376,8 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                         withDestinationIndexPath inIndexPath: IndexPath?
     ) -> UICollectionViewDropProposal {
         guard let collectionView = self.collectionView,
-              let indexPath = inIndexPath
+              let indexPath = inIndexPath,
+              let sourceIndexPath = inSession.localDragSession?.localContext as? IndexPath
         else {
             self.reorderIndicatorView.isHidden = true
             return UICollectionViewDropProposal(operation: .cancel)
@@ -390,8 +386,9 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
         let row = self.rows[indexPath.section]
         let location = inSession.location(in: collectionView)
 
-        if row.count < 3 {
-            // Get layout attributes for last item in the section
+        if (row.count < 3 || sourceIndexPath.section == indexPath.section),
+           (sourceIndexPath.section != indexPath.section || (sourceIndexPath.row != indexPath.row && sourceIndexPath.row + 1 != indexPath.row)) {
+            // Get layout attributes for last item in the section. We use this, to see if we will be appending.
             if let lastItemIndex = row.indices.last,
                let lastAttributes = collectionView.layoutAttributesForItem(at: IndexPath(item: lastItemIndex, section: indexPath.section)) {
                 
@@ -450,30 +447,28 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
               let draggedItem = item.dragItem.localObject as? RiValT_TimerArray_IconItem
         else { return }
 
-        let sourceIndexPath = item.sourceIndexPath
-        let destinationIndexPath = inCoordinator.destinationIndexPath
-        
-        inCollectionView.performBatchUpdates {
-            if let source = sourceIndexPath {
-                self.rows[source.section].remove(at: source.item)
-                if self.rows[source.section].isEmpty {
-                    self.rows.remove(at: source.section)
-                }
-            }
+        if let sourceIndexPath = item.sourceIndexPath,
+           let destinationIndexPath = inCoordinator.destinationIndexPath {
+            var newRows = self.rows
+            
+            inCollectionView.performBatchUpdates {
+                newRows[sourceIndexPath.section].remove(at: sourceIndexPath.item)
 
-            if let destIndexPath = destinationIndexPath,
-               3 > self.rows[destIndexPath.section].count {
-                self.rows[destIndexPath.section].insert(draggedItem, at: destIndexPath.item)
-            } else {
-                let location = inCoordinator.session.location(in: inCollectionView)
-                if let newSectionIndex = _indexForNewRow(at: location),
-                   newSectionIndex < self.rows.count {
-                    self.rows.insert([draggedItem], at: newSectionIndex)
+                if destinationIndexPath.row < (self.rows[destinationIndexPath.section].count - 1) {
+                    newRows[destinationIndexPath.section].insert(draggedItem, at: destinationIndexPath.row)
                 } else {
-                    self.rows.append([draggedItem])
+                    newRows[destinationIndexPath.section].append(draggedItem)
                 }
+                
+                for section in stride(from: self.rows.count - 1, to: 0, by: -1) {
+                    if newRows[section].isEmpty {
+                        newRows.remove(at: section)
+                    }
+                }
+                
+                self.rows = newRows
             }
-
+            
             updateSnapshot()
         }
 
