@@ -103,10 +103,19 @@ class RiValT_TimerArray_DropProposal: UICollectionViewDropProposal {
     /* ############################################################## */
     /**
      */
-    init(_ inViewController: RiValT_TimerArray_ViewController, dropSessionDidUpdate inSession: UIDropSession, forIndexPath inIndexPath: IndexPath?) {
+    let append: Bool
+
+    /* ############################################################## */
+    /**
+     */
+    init(_ inViewController: RiValT_TimerArray_ViewController,
+         dropSessionDidUpdate inSession: UIDropSession,
+         forIndexPath inIndexPath: IndexPath?,
+         append inAppend: Bool = false) {
         self.viewController = inViewController
         self.session = inSession
         self.indexPath = inIndexPath
+        self.append = inAppend
         super.init(operation: .move, intent: .insertAtDestinationIndexPath)
     }
     
@@ -121,7 +130,7 @@ class RiValT_TimerArray_DropProposal: UICollectionViewDropProposal {
               indexPath.row < row.count
         else { return .unspecified }
         
-        return .insertIntoDestinationIndexPath  // We use "into," in order to prevent reflowing.
+        return self.append ? .insertAtDestinationIndexPath : .insertIntoDestinationIndexPath  // We use "into," in order to prevent reflowing.
     }
 }
 
@@ -372,29 +381,50 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                         withDestinationIndexPath inIndexPath: IndexPath?
     ) -> UICollectionViewDropProposal {
         guard let collectionView = self.collectionView,
-              let location = inSession.location(in: collectionView) as CGPoint?,
-              let layoutAttributes = collectionView.indexPathForItem(at: location).flatMap({
-                  collectionView.layoutAttributesForItem(at: $0)
-              })
+              let indexPath = inIndexPath
         else {
             self.reorderIndicatorView.isHidden = true
             return UICollectionViewDropProposal(operation: .cancel)
         }
         
-        // Get target frame and determine if it's vertical or horizontal.
-        let frame = layoutAttributes.frame
-        let isHorizontal = true // You can tweak this if you want vertical logic.
-        
-        let lineThickness: CGFloat = 4.0
-        if isHorizontal {
-            self.reorderIndicatorView.frame = CGRect(x: max(0, frame.minX - ((lineThickness / 2) + Self._itemGuttersInDisplayUnits)), y: frame.minY, width: lineThickness, height: frame.height)
-//        } else {
-//            self.reorderIndicatorView.frame = CGRect(x: frame.minX, y: frame.minY - (lineThickness / 2), width: frame.width, height: lineThickness)
-        }
-        
-        reorderIndicatorView.isHidden = false
+        let row = self.rows[indexPath.section]
+        let location = inSession.location(in: collectionView)
 
-        return RiValT_TimerArray_DropProposal(self, dropSessionDidUpdate: inSession, forIndexPath: inIndexPath)
+        // Try to detect if we're hovering *past* the last item in a short row
+        if row.count < 3 {
+            let section = indexPath.section
+
+            // Get layout attributes for last item in the section
+            if let lastItemIndex = row.indices.last,
+               let lastAttributes = collectionView.layoutAttributesForItem(at: IndexPath(item: lastItemIndex, section: section)) {
+
+                print("end location: \(lastAttributes.frame.minX), drag location: \(location.x)")
+
+                // If we're far enough to the right the last item, treat it as an append.
+                if location.x > (lastAttributes.frame.midX + Self._itemGuttersInDisplayUnits) {
+                    self.reorderIndicatorView.frame = CGRect(x: lastAttributes.frame.maxX + Self._itemGuttersInDisplayUnits,
+                                                             y: lastAttributes.frame.minY,
+                                                             width: 4,
+                                                             height: lastAttributes.frame.height)
+                    self.reorderIndicatorView.isHidden = false
+                    return RiValT_TimerArray_DropProposal(self, dropSessionDidUpdate: inSession, forIndexPath: indexPath)
+                }
+            }
+        }
+
+        // Fallback to existing logic
+        if row.count < 3,
+           let indexPath = collectionView.indexPathForItem(at: location),
+           let layoutAttributes = collectionView.layoutAttributesForItem(at: indexPath) {
+            let frame = layoutAttributes.frame
+            let lineThickness = 3.0
+            self.reorderIndicatorView.frame = CGRect(x: max(0, frame.minX - ((lineThickness / 2) + Self._itemGuttersInDisplayUnits)), y: frame.minY, width: lineThickness, height: frame.height)
+            self.reorderIndicatorView.isHidden = false
+            return RiValT_TimerArray_DropProposal(self, dropSessionDidUpdate: inSession, forIndexPath: indexPath)
+        }
+
+        self.reorderIndicatorView.isHidden = true
+        return UICollectionViewDropProposal(operation: .cancel)
     }
 
     /* ############################################################## */
