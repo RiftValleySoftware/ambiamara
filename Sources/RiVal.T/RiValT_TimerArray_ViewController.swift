@@ -18,46 +18,6 @@ import RVS_UIKit_Toolbox
 /**
  
  */
-struct RiValT_TimerArray_IconItem: Hashable {
-    /* ############################################################## */
-    /**
-     */
-    static func == (lhs: RiValT_TimerArray_IconItem, rhs: RiValT_TimerArray_IconItem) -> Bool { lhs.id == rhs.id }
-    
-    /* ############################################################## */
-    /**
-     */
-    func hash(into inOutHasher: inout Hasher) {
-        inOutHasher.combine(id)
-    }
-    
-    /* ############################################################## */
-    /**
-     */
-    let id = UUID()
-    
-    /* ############################################################## */
-    /**
-     */
-    private var _timerState: String = ""
-
-    /* ############################################################## */
-    /**
-     */
-    let timer: TimerEngine = TimerEngine()
-    
-    /* ############################################################## */
-    /**
-     */
-    var label: String { timer.timerDisplay }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - -
-/* ###################################################################################################################################### */
-/**
- 
- */
 class RiValT_TimerArray_IconCell: UICollectionViewCell {
     /* ############################################################## */
     /**
@@ -67,7 +27,7 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
     /* ############################################################## */
     /**
      */
-    func configure(with inItem: RiValT_TimerArray_IconItem) {
+    func configure(with inItem: RiValT_TimerContainer) {
         self.contentView.backgroundColor = UIViewController().isDarkMode ? .white : .black
         self.contentView.layer.cornerRadius = 12
         self.contentView.layer.masksToBounds = true
@@ -75,7 +35,7 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
         let newLabel = UILabel()
         newLabel.textColor = UIViewController().isDarkMode ? .black : .white
         newLabel.numberOfLines = 2
-        newLabel.text = inItem.label
+        newLabel.text = inItem.timerDisplay
         newLabel.textAlignment = .center
         newLabel.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(newLabel)
@@ -198,16 +158,16 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    var dataSource: UICollectionViewDiffableDataSource<Int, RiValT_TimerArray_IconItem>?
+    var dataSource: UICollectionViewDiffableDataSource<Int, RiValT_TimerContainer>?
 
     /* ############################################################## */
     /**
      */
-    var rows = [[RiValT_TimerArray_IconItem()]] {
+    var rows = [[RiValT_TimerContainer()]] {
         didSet {
             for (section, items) in rows.enumerated() {
                 for (index, _) in items.enumerated() {
-                    let newItem = RiValT_TimerArray_IconItem()
+                    let newItem = RiValT_TimerContainer()
                     self.rows[section][index] = newItem
                 }
             }
@@ -217,8 +177,8 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    var allTimers: [RiValT_TimerArray_IconItem] {
-        var ret = [RiValT_TimerArray_IconItem]()
+    var allTimers: [RiValT_TimerContainer] {
+        var ret = [RiValT_TimerContainer]()
         
         rows.forEach {
             for (_, item) in $0.enumerated() {
@@ -323,7 +283,7 @@ extension RiValT_TimerArray_ViewController {
      */
     func setupDataSource() {
         guard let collectionView = self.collectionView else { return }
-        self.dataSource = UICollectionViewDiffableDataSource<Int, RiValT_TimerArray_IconItem>(collectionView: collectionView) { (inCollectionView, inIndexPath, inItem) -> UICollectionViewCell? in
+        self.dataSource = UICollectionViewDiffableDataSource<Int, RiValT_TimerContainer>(collectionView: collectionView) { (inCollectionView, inIndexPath, inItem) -> UICollectionViewCell? in
             let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: inIndexPath) as! RiValT_TimerArray_IconCell
             cell.configure(with: inItem)
             cell.setSelected(inIndexPath == self.selectedIndexPath)
@@ -337,7 +297,7 @@ extension RiValT_TimerArray_ViewController {
     /**
      */
     func updateSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, RiValT_TimerArray_IconItem>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, RiValT_TimerContainer>()
         for (sectionIndex, row) in self.rows.enumerated() {
             snapshot.appendSections([sectionIndex])
             snapshot.appendItems(row, toSection: sectionIndex)
@@ -391,14 +351,14 @@ extension RiValT_TimerArray_ViewController {
         for (section, items) in newRows.enumerated() {
             for (index, _) in items.enumerated() {
                 if self.lastItemIndexPath != IndexPath(item: index, section: section) {
-                    newRows[section][index] = RiValT_TimerArray_IconItem()
+                    newRows[section][index] = RiValT_TimerContainer()
                 }
             }
         }
 
         var newIndexPath: IndexPath = IndexPath(item: 0, section: section)
         
-        let item = RiValT_TimerArray_IconItem()
+        let item = RiValT_TimerContainer()
         
         if section < (newRows.count - 1) {
             newRows[section].append(item)
@@ -427,7 +387,7 @@ extension RiValT_TimerArray_ViewController {
         for (section, items) in newRows.enumerated() {
             for (index, _) in items.enumerated() {
                 if self.lastItemIndexPath != IndexPath(item: index, section: section) {
-                    newRows[section][index] = RiValT_TimerArray_IconItem()
+                    newRows[section][index] = RiValT_TimerContainer()
                 }
             }
         }
@@ -641,7 +601,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                 var newRows = self.rows
                 inCollectionView.performBatchUpdates {
                     newRows[sourceIndexPath.section].remove(at: sourceIndexPath.item)
-                    let newItem = RiValT_TimerArray_IconItem()
+                    let newItem = RiValT_TimerContainer()
                     newRows.insert([newItem], at: newRows.count - 1)
 
                     for section in stride(from: self.rows.count - 1, to: 0, by: -1) {
@@ -660,7 +620,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                 inCollectionView.performBatchUpdates {
                     newRows[sourceIndexPath.section].remove(at: sourceIndexPath.item)
                     
-                    let newItem = RiValT_TimerArray_IconItem()
+                    let newItem = RiValT_TimerContainer()
 
                     if self.appendItem {
                         self.appendItem = false
