@@ -181,7 +181,7 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    var rows = [[RiValT_TimerArray_IconItem(label: "0, 0")]] {
+    var rows = [[RiValT_TimerArray_IconItem(label: "MAIN")]] {
         didSet {
             for (section, items) in rows.enumerated() {
                 for (index, item) in items.enumerated() {
@@ -357,7 +357,9 @@ extension RiValT_TimerArray_ViewController {
         
         for (section, items) in newRows.enumerated() {
             for (index, _) in items.enumerated() {
-                newRows[section][index] = RiValT_TimerArray_IconItem(label: "")
+                if self.lastItemIndexPath != IndexPath(item: index, section: section) {
+                    newRows[section][index] = RiValT_TimerArray_IconItem(label: "")
+                }
             }
         }
 
@@ -391,7 +393,9 @@ extension RiValT_TimerArray_ViewController {
         
         for (section, items) in newRows.enumerated() {
             for (index, _) in items.enumerated() {
-                newRows[section][index] = RiValT_TimerArray_IconItem(label: "")
+                if self.lastItemIndexPath != IndexPath(item: index, section: section) {
+                    newRows[section][index] = RiValT_TimerArray_IconItem(label: "")
+                }
             }
         }
 
@@ -448,6 +452,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
         parameters.backgroundColor = .clear
         if let cell = inCollectionView.cellForItem(at: inIndexPath) {
             parameters.visiblePath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.cornerRadius)
+            parameters.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.cornerRadius)
         }
         return parameters
     }
