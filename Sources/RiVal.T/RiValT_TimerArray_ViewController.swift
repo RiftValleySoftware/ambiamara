@@ -18,26 +18,6 @@ import RVS_UIKit_Toolbox
 /**
  
  */
-extension UIColor {
-    /* ############################################################## */
-    /**
-     */
-    static var random: UIColor {
-        return UIColor(
-            red: CGFloat.random(in: 0.3...0.9),
-            green: CGFloat.random(in: 0.3...0.9),
-            blue: CGFloat.random(in: 0.3...0.9),
-            alpha: 1.0
-        )
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - -
-/* ###################################################################################################################################### */
-/**
- 
- */
 struct RiValT_TimerArray_IconItem: Hashable {
     /* ############################################################## */
     /**
@@ -190,7 +170,7 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    var rows: [[RiValT_TimerArray_IconItem]] = []
+    var rows = [[RiValT_TimerArray_IconItem(color: .gray)]]
 
     /* ############################################################## */
     /**
@@ -234,17 +214,19 @@ extension RiValT_TimerArray_ViewController {
     /**
      */
     override func viewDidLoad() {
-        /* ########################################################## */
+        /* ############################################################## */
         /**
          */
-        func _generateRandomRows() {
-            self.rows = (0..<5).map { _ in (0..<Int.random(in: 1...Self._itemsPerRow)).map { _ in RiValT_TimerArray_IconItem(color: .random) } }
-            self.rows.append([RiValT_TimerArray_IconItem(color: .gray)])
+        func _randomColor() -> UIColor {
+            return UIColor(
+                red: CGFloat.random(in: 0.3...0.9),
+                green: CGFloat.random(in: 0.3...0.9),
+                blue: CGFloat.random(in: 0.3...0.9),
+                alpha: 1.0
+            )
         }
 
         super.viewDidLoad()
-        
-        _generateRandomRows()
         
         self.setupDataSource()
         self.createLayout()
@@ -335,13 +317,43 @@ extension RiValT_TimerArray_ViewController {
     /**
      */
     @IBAction func addItem(_: Any) {
+        /* ############################################################## */
+        /**
+         */
+        func _randomColor() -> UIColor {
+            return UIColor(
+                red: CGFloat.random(in: 0.3...0.9),
+                green: CGFloat.random(in: 0.3...0.9),
+                blue: CGFloat.random(in: 0.3...0.9),
+                alpha: 1.0
+            )
+        }
+
         guard let section = self.selectedIndexPath?.section,
               Self._itemsPerRow > self.rows[section].count
         else { return }
         
-        self.rows[section].append(RiValT_TimerArray_IconItem(color: .random))
+        var newRows = self.rows
+        
+        var newIndexPath: IndexPath = IndexPath(item: 0, section: section)
+        
+        let item = RiValT_TimerArray_IconItem(color: _randomColor())
+        
+        if section < (newRows.count - 1) {
+            newRows[section].append(item)
+            newIndexPath.item = newRows[section].count - 1
+        } else if 1 < newRows.count {
+            newRows.insert([item], at: newRows.count - 1)
+            newIndexPath.section = newRows.count - 2
+        } else {
+            newRows.insert([item], at: 0)
+            newIndexPath.section = 0
+        }
+        
+        self.rows = newRows
         self.updateSnapshot()
         self.updateToolbarButtons()
+        self.selectedIndexPath = newIndexPath
     }
 
     /* ############################################################## */
@@ -424,6 +436,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
         let lastItemIndex = IndexPath(row: rows[rows.count - 1].count - 1, section: rows.count - 2)
         guard let collectionView = self.collectionView,
               let destinationIndexPath = inIndexPath,
+              destinationIndexPath.section <= lastItemIndex.section,
               let lastItemAttributes = collectionView.layoutAttributesForItem(at: lastItemIndex),
               let sourceIndexPath = inSession.localDragSession?.localContext as? IndexPath
         else {
@@ -447,8 +460,9 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
         } else {
             let row = self.rows[destinationIndexPath.section]
             
-            if row.count < Self._itemsPerRow || sourceIndexPath.section == destinationIndexPath.section,
-               destinationIndexPath.item != sourceIndexPath.item || sourceIndexPath.section != destinationIndexPath.section {
+            if Self._itemsPerRow > row.count || sourceIndexPath.section == destinationIndexPath.section,
+               destinationIndexPath.item != sourceIndexPath.item
+                || sourceIndexPath.section != destinationIndexPath.section {
                 // Get layout attributes for last item in the section. We use this, to see if we will be appending.
                 if let lastItemIndex = row.indices.last,
                    let lastAttributes = collectionView.layoutAttributesForItem(at: IndexPath(item: lastItemIndex, section: destinationIndexPath.section)) {
@@ -456,7 +470,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                     // If we are more than halfway across the last item in the row, we append at the end.
                     if location.x > (lastAttributes.frame.maxX - Self._itemGuttersInDisplayUnits) {
                         self.appendItem = true
-                        self._reorderIndicatorView.frame = CGRect(x: lastAttributes.frame.maxX + Self._itemGuttersInDisplayUnits,
+                        self._reorderIndicatorView.frame = CGRect(x: lastAttributes.frame.maxX + Self._itemGuttersInDisplayUnits - (Self._dropLineWidthInDisplayUnits / 2),
                                                                   y: lastAttributes.frame.minY,
                                                                   width: Self._dropLineWidthInDisplayUnits,
                                                                   height: lastAttributes.frame.height)
@@ -468,7 +482,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                 if let indexPath = collectionView.indexPathForItem(at: location),
                    let layoutAttributes = collectionView.layoutAttributesForItem(at: indexPath) {
                     let frame = layoutAttributes.frame
-                    self._reorderIndicatorView.frame = CGRect(x: max(0, frame.minX - ((Self._dropLineWidthInDisplayUnits / 2) + Self._itemGuttersInDisplayUnits)),
+                    self._reorderIndicatorView.frame = CGRect(x: max(0, frame.minX - (Self._itemGuttersInDisplayUnits + (Self._dropLineWidthInDisplayUnits / 2))),
                                                               y: frame.minY, width: Self._dropLineWidthInDisplayUnits, height: frame.height)
                     self._reorderIndicatorView.isHidden = false
                     return RiValT_TimerArray_DropProposal(self, dropSessionDidUpdate: inSession, forIndexPath: indexPath)
