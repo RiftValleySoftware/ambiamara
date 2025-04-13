@@ -489,7 +489,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                    let layoutAttributes = collectionView.layoutAttributesForItem(at: indexPath) {
                     let frame = layoutAttributes.frame
                     var xPos = max(0, frame.maxX + (Self._itemGuttersInDisplayUnits - (Self._dropLineWidthInDisplayUnits / 2)))
-                    if 0 == destinationIndexPath.item || destinationIndexPath.item < sourceIndexPath.item {
+                    if 0 == destinationIndexPath.item || destinationIndexPath.item < sourceIndexPath.item || sourceIndexPath.section != destinationIndexPath.section {
                         xPos = max(0, frame.minX - (Self._itemGuttersInDisplayUnits + (Self._dropLineWidthInDisplayUnits / 2)))
                     }
                     self._reorderIndicatorView.frame = CGRect(x: xPos,
