@@ -22,12 +22,34 @@ struct RiValT_TimerArray_IconItem: Hashable {
     /* ############################################################## */
     /**
      */
+    static func == (lhs: RiValT_TimerArray_IconItem, rhs: RiValT_TimerArray_IconItem) -> Bool { lhs.id == rhs.id }
+    
+    /* ############################################################## */
+    /**
+     */
+    func hash(into inOutHasher: inout Hasher) {
+        inOutHasher.combine(id)
+    }
+    
+    /* ############################################################## */
+    /**
+     */
     let id = UUID()
     
     /* ############################################################## */
     /**
      */
-    let label: String
+    private var _timerState: String = ""
+
+    /* ############################################################## */
+    /**
+     */
+    let timer: TimerEngine = TimerEngine()
+    
+    /* ############################################################## */
+    /**
+     */
+    var label: String { timer.timerDisplay }
 }
 
 /* ###################################################################################################################################### */
@@ -181,15 +203,11 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    var rows = [[RiValT_TimerArray_IconItem(label: "MAIN")]] {
+    var rows = [[RiValT_TimerArray_IconItem()]] {
         didSet {
             for (section, items) in rows.enumerated() {
-                for (index, item) in items.enumerated() {
-                    var label = "\(section), \(index)"
-                    if !item.label.isEmpty {
-                        label = item.label
-                    }
-                    let newItem = RiValT_TimerArray_IconItem(label: label)
+                for (index, _) in items.enumerated() {
+                    let newItem = RiValT_TimerArray_IconItem()
                     self.rows[section][index] = newItem
                 }
             }
@@ -373,14 +391,14 @@ extension RiValT_TimerArray_ViewController {
         for (section, items) in newRows.enumerated() {
             for (index, _) in items.enumerated() {
                 if self.lastItemIndexPath != IndexPath(item: index, section: section) {
-                    newRows[section][index] = RiValT_TimerArray_IconItem(label: "")
+                    newRows[section][index] = RiValT_TimerArray_IconItem()
                 }
             }
         }
 
         var newIndexPath: IndexPath = IndexPath(item: 0, section: section)
         
-        let item = RiValT_TimerArray_IconItem(label: "")
+        let item = RiValT_TimerArray_IconItem()
         
         if section < (newRows.count - 1) {
             newRows[section].append(item)
@@ -409,7 +427,7 @@ extension RiValT_TimerArray_ViewController {
         for (section, items) in newRows.enumerated() {
             for (index, _) in items.enumerated() {
                 if self.lastItemIndexPath != IndexPath(item: index, section: section) {
-                    newRows[section][index] = RiValT_TimerArray_IconItem(label: "")
+                    newRows[section][index] = RiValT_TimerArray_IconItem()
                 }
             }
         }
@@ -623,7 +641,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                 var newRows = self.rows
                 inCollectionView.performBatchUpdates {
                     newRows[sourceIndexPath.section].remove(at: sourceIndexPath.item)
-                    let newItem = RiValT_TimerArray_IconItem(label: "\(sourceIndexPath.section), \(sourceIndexPath.item)\n\(destinationIndexPath.section), \(destinationIndexPath.item)")
+                    let newItem = RiValT_TimerArray_IconItem()
                     newRows.insert([newItem], at: newRows.count - 1)
 
                     for section in stride(from: self.rows.count - 1, to: 0, by: -1) {
@@ -642,7 +660,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                 inCollectionView.performBatchUpdates {
                     newRows[sourceIndexPath.section].remove(at: sourceIndexPath.item)
                     
-                    let newItem = RiValT_TimerArray_IconItem(label: "\(sourceIndexPath.section), \(sourceIndexPath.item)\n\(destinationIndexPath.section), \(destinationIndexPath.item)")
+                    let newItem = RiValT_TimerArray_IconItem()
 
                     if self.appendItem {
                         self.appendItem = false
