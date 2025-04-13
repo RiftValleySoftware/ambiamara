@@ -185,6 +185,11 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
+    private var _previousIndexPath: IndexPath?
+    
+    /* ############################################################## */
+    /**
+     */
     private var _selectedIndexPath: IndexPath? {
         didSet {
             self.updateCellSelectionAppearance()
@@ -350,6 +355,7 @@ extension RiValT_TimerArray_ViewController {
             newIndexPath.section = 0
         }
         
+        self.impactHaptic(1.0)
         self.rows = newRows
         self.updateSnapshot()
         self.updateToolbarButtons()
@@ -364,6 +370,7 @@ extension RiValT_TimerArray_ViewController {
               !self.rows[section].isEmpty
         else { return }
         
+        self.impactHaptic(1.0)
         self.rows[section].removeLast()
         self.updateSnapshot()
         self.updateToolbarButtons()
@@ -382,6 +389,10 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
                         itemsForBeginning inSession: UIDragSession,
                         at inIndexPath: IndexPath
     ) -> [UIDragItem] {
+        self._previousIndexPath = nil
+        self.appendRow = false
+        self.appendItem = false
+
         if inIndexPath != self.lastItemIndexPath {
             inSession.localContext = inIndexPath
             let item = self.rows[inIndexPath.section][inIndexPath.item]
@@ -389,6 +400,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
             let dragItem = UIDragItem(itemProvider: provider)
             self.selectedIndexPath = inIndexPath
             dragItem.localObject = item
+            self.impactHaptic()
             return [dragItem]
         } else {
             return []
@@ -448,8 +460,6 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
         
         self._reorderIndicatorView.isHidden = true
         let location = inSession.location(in: collectionView)
-        self.appendRow = false
-        self.appendItem = false
         
         let row = self.rows[destinationIndexPath.section]
         
@@ -464,19 +474,28 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
 
         if location.y > lastItemAttributes.frame.maxY - (Self._itemGuttersInDisplayUnits * 2),
            sourceIndexPath.section < (self.rows.count - 2) || 1 < self.rows[sourceIndexPath.section].count {
+            if !self.appendRow {
+                self.impactHaptic()
+            }
+            self.appendRow = true
+            self.appendItem = false
+            self._previousIndexPath = nil
             self._reorderIndicatorView.frame = CGRect(x: collectionView.frame.minX,
                                                       y: (lastItemAttributes.frame.maxY + Self._itemGuttersInDisplayUnits) - (Self._dropLineWidthInDisplayUnits / 2),
                                                       width: collectionView.frame.width,
                                                       height: Self._dropLineWidthInDisplayUnits)
             self._reorderIndicatorView.isHidden = false
-            self.appendRow = true
             return RiValT_TimerArray_DropProposal(self, dropSessionDidUpdate: inSession, forIndexPath: sourceIndexPath)
         } else {
-            if Self._itemsPerRow > row.count || sourceIndexPath.section == destinationIndexPath.section,
-               destinationIndexPath.item != sourceIndexPath.item
-                || sourceIndexPath.section != destinationIndexPath.section {
+            self.appendRow = false
+            if destinationIndexPath != sourceIndexPath,
+               Self._itemsPerRow > row.count || sourceIndexPath.section == destinationIndexPath.section {
                 if location.x > (lastRowItemAttributes.frame.maxX - lastItemSlopInDisplayUnits) {
+                    if !self.appendItem {
+                        self.impactHaptic()
+                    }
                     self.appendItem = true
+                    self._previousIndexPath = nil
                     self._reorderIndicatorView.frame = CGRect(x: lastRowItemAttributes.frame.maxX + Self._itemGuttersInDisplayUnits - (Self._dropLineWidthInDisplayUnits / 2),
                                                               y: lastRowItemAttributes.frame.minY,
                                                               width: Self._dropLineWidthInDisplayUnits,
@@ -487,6 +506,13 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                 
                 if let indexPath = collectionView.indexPathForItem(at: location),
                    let layoutAttributes = collectionView.layoutAttributesForItem(at: indexPath) {
+                    if destinationIndexPath != self._previousIndexPath {
+                        self.impactHaptic()
+                    }
+                    
+                    self.appendItem = false
+                    self._previousIndexPath = destinationIndexPath
+
                     let frame = layoutAttributes.frame
                     var xPos = max(0, frame.maxX + (Self._itemGuttersInDisplayUnits - (Self._dropLineWidthInDisplayUnits / 2)))
                     if 0 == destinationIndexPath.item || destinationIndexPath.item < sourceIndexPath.item || sourceIndexPath.section != destinationIndexPath.section {
@@ -529,9 +555,13 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
             return self.rows.count
         }
         
+        self._reorderIndicatorView.isHidden = true
+
         guard let item = inCoordinator.items.first,
               let draggedItem = item.dragItem.localObject as? RiValT_TimerArray_IconItem
         else { return }
+
+        self.impactHaptic(1.0)
 
         var deferringSelection: IndexPath?
         

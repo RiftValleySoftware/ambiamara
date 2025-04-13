@@ -9,12 +9,13 @@
  */
 
 import UIKit
+import CoreHaptics
 
 /* ###################################################################################################################################### */
 // MARK: - Baseline View Controller Class -
 /* ###################################################################################################################################### */
 /**
- 
+ This provides basic utilities and UI for all screens in the app.
  */
 class RiValT_Base_ViewController: UIViewController {
     /* ############################################################## */
@@ -22,7 +23,19 @@ class RiValT_Base_ViewController: UIViewController {
      This can be overloaded or set, to provide the image to be used as a background gradient.
      */
     private let _backgroundGradientImage: UIImage? = UIImage(named: "Background-Gradient")
-
+    
+    /* ################################################################## */
+    /**
+     This will provide haptic/audio feedback for subtle events.
+     */
+    private let _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+    
+    /* ################################################################## */
+    /**
+     This will provide haptic/audio feedback for more significant events.
+     */
+    private let _impactFeedbackGenerator = UIImpactFeedbackGenerator()
+    
     /* ################################################################## */
     /**
      Called when the view hierarchy has been set up.
@@ -39,6 +52,9 @@ class RiValT_Base_ViewController: UIViewController {
         self.navigationItem.scrollEdgeAppearance = appearance
         self.navigationItem.standardAppearance = appearance
         
+        self._selectionFeedbackGenerator.prepare()
+        self._impactFeedbackGenerator.prepare()
+        
         // Set the gradient background.
         if let view = self.view {
             let backgroundGradientView = UIImageView(image: self._backgroundGradientImage)
@@ -52,5 +68,30 @@ class RiValT_Base_ViewController: UIViewController {
             backgroundGradientView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
             backgroundGradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension RiValT_Base_ViewController {
+    /* ################################################################## */
+    /**
+     Triggers a selection haptic.
+     */
+    func selectionHaptic() {
+        self._selectionFeedbackGenerator.selectionChanged()
+        self._selectionFeedbackGenerator.prepare()
+    }
+    
+    /* ################################################################## */
+    /**
+     Triggers an impact haptic.
+     
+     - parameter inIntensity: 0.0 -> 1.0, with 0 being the least, and 1 being the most. Optional (default is 0.5)
+     */
+    func impactHaptic(_ inIntensity: CGFloat = 0.5) {
+        self._impactFeedbackGenerator.impactOccurred(intensity: inIntensity)
+        self._impactFeedbackGenerator.prepare()
     }
 }
