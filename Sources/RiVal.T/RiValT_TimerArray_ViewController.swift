@@ -27,7 +27,7 @@ struct RiValT_TimerArray_IconItem: Hashable {
     /* ############################################################## */
     /**
      */
-    let color: UIColor
+    let label: String
 }
 
 /* ###################################################################################################################################### */
@@ -46,9 +46,20 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
     /**
      */
     func configure(with inItem: RiValT_TimerArray_IconItem) {
-        self.contentView.backgroundColor = inItem.color
+        self.contentView.backgroundColor = UIViewController().isDarkMode ? .white : .black
         self.contentView.layer.cornerRadius = 12
         self.contentView.layer.masksToBounds = true
+        self.contentView.subviews.forEach { $0.removeFromSuperview() }
+        let newLabel = UILabel()
+        newLabel.textColor = UIViewController().isDarkMode ? .black : .white
+        newLabel.numberOfLines = 2
+        newLabel.text = inItem.label
+        newLabel.textAlignment = .center
+        newLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(newLabel)
+        newLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
+        newLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
+        newLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
     }
     
     /* ############################################################## */
@@ -170,7 +181,20 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    var rows = [[RiValT_TimerArray_IconItem(color: .gray)]]
+    var rows = [[RiValT_TimerArray_IconItem(label: "0, 0")]] {
+        didSet {
+            for (section, items) in rows.enumerated() {
+                for (index, item) in items.enumerated() {
+                    var label = "\(section), \(index)"
+                    if !item.label.isEmpty {
+                        label = item.label
+                    }
+                    let newItem = RiValT_TimerArray_IconItem(label: label)
+                    self.rows[section][index] = newItem
+                }
+            }
+        }
+    }
 
     /* ############################################################## */
     /**
@@ -209,6 +233,11 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /**
      */
     var lastItemIndexPath: IndexPath { IndexPath(item: 0, section: self.rows.count - 1) }
+    
+    /* ############################################################## */
+    /**
+     */
+    var canReorder: Bool { 2 < rows.count || (2 == rows.count && 1 < rows[0].count) }
 }
 
 /* ###################################################################################################################################### */
@@ -219,24 +248,19 @@ extension RiValT_TimerArray_ViewController {
     /**
      */
     override func viewDidLoad() {
-        /* ############################################################## */
-        /**
-         */
-        func _randomColor() -> UIColor {
-            return UIColor(
-                red: CGFloat.random(in: 0.3...0.9),
-                green: CGFloat.random(in: 0.3...0.9),
-                blue: CGFloat.random(in: 0.3...0.9),
-                alpha: 1.0
-            )
-        }
-
         super.viewDidLoad()
-        
+        self.collectionView?.addSubview(self._reorderIndicatorView)
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         self.setupDataSource()
         self.createLayout()
         self.updateToolbarButtons()
-        self.collectionView?.addSubview(self._reorderIndicatorView)
+        self.updateSnapshot()
     }
 }
 
@@ -325,24 +349,21 @@ extension RiValT_TimerArray_ViewController {
         /* ############################################################## */
         /**
          */
-        func _randomColor() -> UIColor {
-            return UIColor(
-                red: CGFloat.random(in: 0.3...0.9),
-                green: CGFloat.random(in: 0.3...0.9),
-                blue: CGFloat.random(in: 0.3...0.9),
-                alpha: 1.0
-            )
-        }
-
         guard let section = self.selectedIndexPath?.section,
               Self._itemsPerRow > self.rows[section].count
         else { return }
         
         var newRows = self.rows
         
+        for (section, items) in newRows.enumerated() {
+            for (index, _) in items.enumerated() {
+                newRows[section][index] = RiValT_TimerArray_IconItem(label: "")
+            }
+        }
+
         var newIndexPath: IndexPath = IndexPath(item: 0, section: section)
         
-        let item = RiValT_TimerArray_IconItem(color: _randomColor())
+        let item = RiValT_TimerArray_IconItem(label: "")
         
         if section < (newRows.count - 1) {
             newRows[section].append(item)
@@ -366,12 +387,22 @@ extension RiValT_TimerArray_ViewController {
     /**
      */
     @IBAction func deleteItem(_: Any) {
+        var newRows = self.rows
+        
+        for (section, items) in newRows.enumerated() {
+            for (index, _) in items.enumerated() {
+                newRows[section][index] = RiValT_TimerArray_IconItem(label: "")
+            }
+        }
+
         guard let section = self.selectedIndexPath?.section,
-              !self.rows[section].isEmpty
+              let column = self.selectedIndexPath?.item,
+              !newRows[section].isEmpty
         else { return }
         
         self.impactHaptic(1.0)
-        self.rows[section].removeLast()
+        newRows[section].remove(at: column)
+        self.rows = newRows
         self.updateSnapshot()
         self.updateToolbarButtons()
         self.selectedIndexPath = self.lastItemIndexPath
@@ -393,7 +424,8 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
         self.appendRow = false
         self.appendItem = false
 
-        if inIndexPath != self.lastItemIndexPath {
+        if self.canReorder,
+           inIndexPath != self.lastItemIndexPath {
             inSession.localContext = inIndexPath
             let item = self.rows[inIndexPath.section][inIndexPath.item]
             let provider = NSItemProvider(object: item.id.uuidString as NSString)
@@ -446,7 +478,8 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                         withDestinationIndexPath inIndexPath: IndexPath?
     ) -> UICollectionViewDropProposal {
         let lastItemIndex = IndexPath(row: rows[rows.count - 1].count - 1, section: rows.count - 2)
-        guard let collectionView = self.collectionView,
+        guard self.canReorder,
+              let collectionView = self.collectionView,
               let destinationIndexPath = inIndexPath,
               destinationIndexPath.section <= lastItemIndex.section,
               let lastItemAttributes = collectionView.layoutAttributesForItem(at: lastItemIndex),
@@ -557,9 +590,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
         
         self._reorderIndicatorView.isHidden = true
 
-        guard let item = inCoordinator.items.first,
-              let draggedItem = item.dragItem.localObject as? RiValT_TimerArray_IconItem
-        else { return }
+        guard let item = inCoordinator.items.first else { return }
 
         self.impactHaptic(1.0)
 
@@ -572,7 +603,8 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                 var newRows = self.rows
                 inCollectionView.performBatchUpdates {
                     newRows[sourceIndexPath.section].remove(at: sourceIndexPath.item)
-                    newRows.insert([draggedItem], at: newRows.count - 1)
+                    let newItem = RiValT_TimerArray_IconItem(label: "\(sourceIndexPath.section), \(sourceIndexPath.item)\n\(destinationIndexPath.section), \(destinationIndexPath.item)")
+                    newRows.insert([newItem], at: newRows.count - 1)
 
                     for section in stride(from: self.rows.count - 1, to: 0, by: -1) {
                         if newRows[section].isEmpty {
@@ -590,12 +622,14 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                 inCollectionView.performBatchUpdates {
                     newRows[sourceIndexPath.section].remove(at: sourceIndexPath.item)
                     
+                    let newItem = RiValT_TimerArray_IconItem(label: "\(sourceIndexPath.section), \(sourceIndexPath.item)\n\(destinationIndexPath.section), \(destinationIndexPath.item)")
+
                     if self.appendItem {
                         self.appendItem = false
-                        newRows[destinationIndexPath.section].append(draggedItem)
+                        newRows[destinationIndexPath.section].append(newItem)
                         destinationIndexPath.item += 1
                     } else if destinationIndexPath.item < newRows[destinationIndexPath.section].count {
-                        newRows[destinationIndexPath.section].insert(draggedItem, at: destinationIndexPath.item)
+                        newRows[destinationIndexPath.section].insert(newItem, at: destinationIndexPath.item)
                     }
                     
                     for section in stride(from: self.rows.count - 1, to: 0, by: -1) {
