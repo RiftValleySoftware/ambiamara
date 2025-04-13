@@ -444,6 +444,8 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
             return UICollectionViewDropProposal(operation: .cancel)
         }
         
+        let lastItemSlopInDisplayUnits = Self._itemGuttersInDisplayUnits * 2
+        
         self._reorderIndicatorView.isHidden = true
         let location = inSession.location(in: collectionView)
         self.appendRow = false
@@ -451,12 +453,10 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
         
         let row = self.rows[destinationIndexPath.section]
         
-        let lastRowIndex = IndexPath(item: row.count - 1, section: destinationIndexPath.section)
-        guard // let firstRowItemAttributes = collectionView.layoutAttributesForItem(at: IndexPath(item: 0, section: destinationIndexPath.section)),
-              let lastRowItemAttributes = collectionView.layoutAttributesForItem(at: lastRowIndex)
+        guard let lastRowItemAttributes = collectionView.layoutAttributesForItem(at: IndexPath(item: row.count - 1, section: destinationIndexPath.section))
         else { return UICollectionViewDropProposal(operation: .cancel) }
         
-        let noFlyZone = (lastRowItemAttributes.frame.minX - (Self._itemGuttersInDisplayUnits * 2))...(lastRowItemAttributes.frame.maxX - Self._itemGuttersInDisplayUnits)
+        let noFlyZone = (lastRowItemAttributes.frame.minX - (Self._itemGuttersInDisplayUnits * 2))...(lastRowItemAttributes.frame.maxX - lastItemSlopInDisplayUnits)
         if noFlyZone.contains(location.x),
            sourceIndexPath.section == destinationIndexPath.section {
             return UICollectionViewDropProposal(operation: .cancel)
@@ -475,7 +475,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
             if Self._itemsPerRow > row.count || sourceIndexPath.section == destinationIndexPath.section,
                destinationIndexPath.item != sourceIndexPath.item
                 || sourceIndexPath.section != destinationIndexPath.section {
-                if location.x > (lastRowItemAttributes.frame.maxX - Self._itemGuttersInDisplayUnits) {
+                if location.x > (lastRowItemAttributes.frame.maxX - lastItemSlopInDisplayUnits) {
                     self.appendItem = true
                     self._reorderIndicatorView.frame = CGRect(x: lastRowItemAttributes.frame.maxX + Self._itemGuttersInDisplayUnits - (Self._dropLineWidthInDisplayUnits / 2),
                                                               y: lastRowItemAttributes.frame.minY,
@@ -489,8 +489,8 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                    let layoutAttributes = collectionView.layoutAttributesForItem(at: indexPath) {
                     let frame = layoutAttributes.frame
                     var xPos = max(0, frame.maxX + (Self._itemGuttersInDisplayUnits - (Self._dropLineWidthInDisplayUnits / 2)))
-                    if 0 == destinationIndexPath.item {
-                        xPos = max(0, frame.minX - (Self._itemGuttersInDisplayUnits - (Self._dropLineWidthInDisplayUnits / 2)))
+                    if 0 == destinationIndexPath.item || destinationIndexPath.item < sourceIndexPath.item {
+                        xPos = max(0, frame.minX - (Self._itemGuttersInDisplayUnits + (Self._dropLineWidthInDisplayUnits / 2)))
                     }
                     self._reorderIndicatorView.frame = CGRect(x: xPos,
                                                               y: frame.minY, width: Self._dropLineWidthInDisplayUnits, height: frame.height)
