@@ -136,12 +136,12 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    private static let _itemGuttersInDisplayUnits = CGFloat(4)
+    private static let _itemGuttersInDisplayUnits = CGFloat(8)
 
     /* ############################################################## */
     /**
      */
-    private static let _dropLineWidthInDisplayUnits = CGFloat(3)
+    private static let _dropLineWidthInDisplayUnits = CGFloat(4)
 
     /* ############################################################## */
     /**
@@ -151,12 +151,12 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    private var _reorderIndicatorView: UIView = {
+    private var _reorderIndicatorView: UIView {
         let view = UIView()
         view.backgroundColor = .systemBlue
         view.isHidden = true
         return view
-    }()
+    }
 
     /* ############################################################## */
     /**
@@ -194,6 +194,21 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
                 }
             }
         }
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    var allTimers: [RiValT_TimerArray_IconItem] {
+        var ret = [RiValT_TimerArray_IconItem]()
+        
+        rows.forEach {
+            for (_, item) in $0.enumerated() {
+                ret.append(item)
+            }
+        }
+        
+        return ret
     }
 
     /* ############################################################## */
@@ -237,7 +252,7 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    var canReorder: Bool { 2 < rows.count || (2 == rows.count && 1 < rows[0].count) }
+    var canReorder: Bool { 2 < self.allTimers.count }
 }
 
 /* ###################################################################################################################################### */
@@ -281,7 +296,7 @@ extension RiValT_TimerArray_ViewController {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
-        
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: Self._itemGuttersInDisplayUnits, bottom: 0, trailing: Self._itemGuttersInDisplayUnits)
         self.collectionView?.collectionViewLayout = UICollectionViewCompositionalLayout(section: section)
     }
     
