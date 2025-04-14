@@ -37,6 +37,6 @@ class RiValT_SceneDelegate: UIResponder, UIWindowSceneDelegate {
      */
     func scene(_ inScene: UIScene, willConnectTo: UISceneSession, options: UIScene.ConnectionOptions) {
         Self.sceneDelegateInstance = self
-        guard let _ = (inScene as? UIWindowScene) else { return }
+        guard nil != (inScene as? UIWindowScene) else { return }
     }
 }

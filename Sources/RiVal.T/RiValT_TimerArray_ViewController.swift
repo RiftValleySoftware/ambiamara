@@ -166,7 +166,7 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     var rows = [[RiValT_TimerContainer()]] {
         didSet {
             for (section, items) in rows.enumerated() {
-                for (index, _) in items.enumerated() {
+                for index in items.indices {
                     let newItem = RiValT_TimerContainer()
                     self.rows[section][index] = newItem
                 }
@@ -181,7 +181,7 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
         var ret = [RiValT_TimerContainer]()
         
         rows.forEach {
-            for (_, item) in $0.enumerated() {
+            for item in $0 {
                 ret.append(item)
             }
         }
@@ -284,10 +284,13 @@ extension RiValT_TimerArray_ViewController {
     func setupDataSource() {
         guard let collectionView = self.collectionView else { return }
         self.dataSource = UICollectionViewDiffableDataSource<Int, RiValT_TimerContainer>(collectionView: collectionView) { (inCollectionView, inIndexPath, inItem) -> UICollectionViewCell? in
-            let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: inIndexPath) as! RiValT_TimerArray_IconCell
-            cell.configure(with: inItem)
-            cell.setSelected(inIndexPath == self.selectedIndexPath)
-            return cell
+            if let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_IconCell {
+                cell.configure(with: inItem)
+                cell.setSelected(inIndexPath == self.selectedIndexPath)
+                return cell
+            }
+            
+            return nil
         }
 
         self.updateSnapshot()
@@ -349,10 +352,8 @@ extension RiValT_TimerArray_ViewController {
         var newRows = self.rows
         
         for (section, items) in newRows.enumerated() {
-            for (index, _) in items.enumerated() {
-                if self.lastItemIndexPath != IndexPath(item: index, section: section) {
-                    newRows[section][index] = RiValT_TimerContainer()
-                }
+            for index in items.indices where self.lastItemIndexPath != IndexPath(item: index, section: section) {
+                newRows[section][index] = RiValT_TimerContainer()
             }
         }
 
@@ -385,10 +386,8 @@ extension RiValT_TimerArray_ViewController {
         var newRows = self.rows
         
         for (section, items) in newRows.enumerated() {
-            for (index, _) in items.enumerated() {
-                if self.lastItemIndexPath != IndexPath(item: index, section: section) {
-                    newRows[section][index] = RiValT_TimerContainer()
-                }
+            for index in items.indices where self.lastItemIndexPath != IndexPath(item: index, section: section) {
+                newRows[section][index] = RiValT_TimerContainer()
             }
         }
 
@@ -604,11 +603,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                     let newItem = RiValT_TimerContainer()
                     newRows.insert([newItem], at: newRows.count - 1)
 
-                    for section in stride(from: self.rows.count - 1, to: 0, by: -1) {
-                        if newRows[section].isEmpty {
-                            newRows.remove(at: section)
-                        }
-                    }
+                    for section in stride(from: self.rows.count - 1, to: 0, by: -1) where newRows[section].isEmpty { newRows.remove(at: section) }
                     
                     self.rows = newRows
                     
@@ -630,12 +625,10 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                         newRows[destinationIndexPath.section].insert(newItem, at: destinationIndexPath.item)
                     }
                     
-                    for section in stride(from: self.rows.count - 1, to: 0, by: -1) {
-                        if newRows[section].isEmpty {
-                            newRows.remove(at: section)
-                            if section <= destinationIndexPath.section {
-                                destinationIndexPath.section -= 1
-                            }
+                    for section in stride(from: self.rows.count - 1, to: 0, by: -1) where newRows[section].isEmpty {
+                        newRows.remove(at: section)
+                        if section <= destinationIndexPath.section {
+                            destinationIndexPath.section -= 1
                         }
                     }
 
