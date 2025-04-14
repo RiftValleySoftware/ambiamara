@@ -62,56 +62,6 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
 }
 
 /* ###################################################################################################################################### */
-// MARK: UICollectionViewDropProposal Special Class
-/* ###################################################################################################################################### */
-/**
- 
- */
-class RiValT_TimerArray_DropProposal: UICollectionViewDropProposal {
-    /* ############################################################## */
-    /**
-     */
-    weak var viewController: RiValT_TimerArray_ViewController?
-    
-    /* ############################################################## */
-    /**
-     */
-    let session: UIDropSession
-    
-    /* ############################################################## */
-    /**
-     */
-    let indexPath: IndexPath?
-
-    /* ############################################################## */
-    /**
-     */
-    init(_ inViewController: RiValT_TimerArray_ViewController,
-         dropSessionDidUpdate inSession: UIDropSession,
-         forIndexPath inIndexPath: IndexPath?
-    ) {
-        self.viewController = inViewController
-        self.session = inSession
-        self.indexPath = inIndexPath
-        super.init(operation: .move, intent: .insertAtDestinationIndexPath)
-    }
-    
-    /* ############################################################## */
-    /**
-     */
-    override var intent: UICollectionViewDropProposal.Intent {
-        guard let indexPath = self.indexPath,
-              let row = self.viewController?.rows[indexPath.section],
-              !row.isEmpty,
-              3 > row.count,
-              indexPath.row < row.count
-        else { return .unspecified }
-        
-        return .insertIntoDestinationIndexPath  // We use "into," in order to prevent reflowing.
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - -
 /* ###################################################################################################################################### */
 /**
@@ -136,7 +86,7 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    private static let _itemsPerRow = 4
+    static let itemsPerRow = 4
     
     /* ############################################################## */
     /**
@@ -178,6 +128,11 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /**
      */
     var rows = [[RiValT_TimerContainer()]]
+    
+    /* ############################################################## */
+    /**
+     */
+    var timers = [RiValT_TimerContainer_Group]()
     
     /* ############################################################## */
     /**
@@ -334,7 +289,7 @@ extension RiValT_TimerArray_ViewController {
             self.deleteButton?.isEnabled = false
             return
         }
-        self.addButton?.isEnabled = Self._itemsPerRow > self.rows[section].count
+        self.addButton?.isEnabled = Self.itemsPerRow > self.rows[section].count
         self.deleteButton?.isEnabled = self.selectedIndexPath != self.lastItemIndexPath && !self.rows[section].isEmpty
     }
 }
@@ -351,7 +306,7 @@ extension RiValT_TimerArray_ViewController {
         /**
          */
         guard let section = self.selectedIndexPath?.section,
-              Self._itemsPerRow > self.rows[section].count
+              Self.itemsPerRow > self.rows[section].count
         else { return }
         
         var newRows = self.rows
@@ -480,6 +435,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
               let sourceIndexPath = inSession.localDragSession?.localContext as? IndexPath
         else {
             self._reorderIndicatorView.isHidden = true
+            print("Cancel 1")
             return UICollectionViewDropProposal(operation: .cancel)
         }
         
@@ -496,6 +452,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
         let noFlyZone = (lastRowItemAttributes.frame.minX - (Self._itemGuttersInDisplayUnits * 2))...(lastRowItemAttributes.frame.maxX - lastItemSlopInDisplayUnits)
         if noFlyZone.contains(location.x),
            sourceIndexPath.section == destinationIndexPath.section {
+            print("Cancel 2")
             return UICollectionViewDropProposal(operation: .cancel)
         }
 
@@ -512,11 +469,11 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                                                       width: collectionView.frame.width,
                                                       height: Self._dropLineWidthInDisplayUnits)
             self._reorderIndicatorView.isHidden = false
-            return RiValT_TimerArray_DropProposal(self, dropSessionDidUpdate: inSession, forIndexPath: sourceIndexPath)
+            return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
         } else {
             self.appendRow = false
             if destinationIndexPath != sourceIndexPath,
-               Self._itemsPerRow > row.count || sourceIndexPath.section == destinationIndexPath.section {
+               Self.itemsPerRow > row.count || sourceIndexPath.section == destinationIndexPath.section {
                 if location.x > (lastRowItemAttributes.frame.maxX - lastItemSlopInDisplayUnits) {
                     if !self.appendItem {
                         self.impactHaptic()
@@ -528,7 +485,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                                                               width: Self._dropLineWidthInDisplayUnits,
                                                               height: lastRowItemAttributes.frame.height)
                     self._reorderIndicatorView.isHidden = false
-                    return RiValT_TimerArray_DropProposal(self, dropSessionDidUpdate: inSession, forIndexPath: destinationIndexPath)
+                    return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
                 }
                 
                 if let indexPath = collectionView.indexPathForItem(at: location),
@@ -548,12 +505,12 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                     self._reorderIndicatorView.frame = CGRect(x: xPos,
                                                               y: frame.minY, width: Self._dropLineWidthInDisplayUnits, height: frame.height)
                     self._reorderIndicatorView.isHidden = false
-                    return RiValT_TimerArray_DropProposal(self, dropSessionDidUpdate: inSession, forIndexPath: indexPath)
+                    return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
                 }
             }
         }
         
-        return UICollectionViewDropProposal(operation: .cancel)
+        return UICollectionViewDropProposal(operation: .move, intent: .insertIntoDestinationIndexPath)
     }
 
     /* ############################################################## */
