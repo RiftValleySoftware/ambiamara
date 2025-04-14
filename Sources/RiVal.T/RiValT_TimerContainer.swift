@@ -46,12 +46,6 @@ class RiValT_TimerContainer: Hashable, Equatable {
 
     /* ############################################################## */
     /**
-     The timer's index (temporary)
-     */
-    var index: Int = -1
-
-    /* ############################################################## */
-    /**
      This is the 00:00:00 format of the time, as a string.
      */
     var timerDisplay: String { self.timer.timerDisplay }

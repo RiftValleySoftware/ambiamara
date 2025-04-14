@@ -43,7 +43,7 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
         newLabel.textColor = UIViewController().isDarkMode ? .black : .white
         newLabel.numberOfLines = 2
         newLabel.font = .systemFont(ofSize: 30, weight: .bold)
-        newLabel.text = String(format: "%d", item?.index ?? -1)
+        newLabel.text = item?.timer.timerDisplay ?? ""
         newLabel.textAlignment = .center
         newLabel.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(newLabel)
@@ -141,7 +141,7 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    private static var counter = 0
+    private static var counter = 1
 
     /* ############################################################## */
     /**
@@ -150,6 +150,7 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
         let view = UIView()
         view.backgroundColor = .systemBlue
         view.isHidden = true
+        view.cornerRadius = RiValT_TimerArray_ViewController._dropLineWidthInDisplayUnits / 2
         return view
     }()
 
@@ -176,21 +177,7 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    var rows = [[RiValT_TimerContainer()]] {
-        didSet {
-            Self.counter = 0
-            for (section, items) in rows.enumerated() {
-                for index in items.indices {
-                    let newItem = RiValT_TimerContainer()
-                    newItem.index = Self.counter
-                    Self.counter += 1
-                    self.rows[section][index] = newItem
-                }
-            }
-            
-            self.rows.last?.last?.index = -1
-        }
-    }
+    var rows = [[RiValT_TimerContainer()]]
     
     /* ############################################################## */
     /**
@@ -368,17 +355,13 @@ extension RiValT_TimerArray_ViewController {
         else { return }
         
         var newRows = self.rows
-        
-        for (section, items) in newRows.enumerated() {
-            for index in items.indices where self.lastItemIndexPath != IndexPath(item: index, section: section) {
-                newRows[section][index] = RiValT_TimerContainer()
-            }
-        }
 
         var newIndexPath: IndexPath = IndexPath(item: 0, section: section)
         
         let item = RiValT_TimerContainer()
-        
+        item.startingTimeInSeconds = Self.counter
+        Self.counter += 1
+
         if section < (newRows.count - 1) {
             newRows[section].append(item)
             newIndexPath.item = newRows[section].count - 1
@@ -402,12 +385,6 @@ extension RiValT_TimerArray_ViewController {
      */
     @IBAction func deleteItem(_: Any) {
         var newRows = self.rows
-        
-        for (section, items) in newRows.enumerated() {
-            for index in items.indices where self.lastItemIndexPath != IndexPath(item: index, section: section) {
-                newRows[section][index] = RiValT_TimerContainer()
-            }
-        }
 
         guard let section = self.selectedIndexPath?.section,
               let column = self.selectedIndexPath?.item,
@@ -494,8 +471,6 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
     ) -> UICollectionViewDropProposal {
         guard 1 < rows.count else { return UICollectionViewDropProposal(operation: .cancel) }
         let lastItemIndex = IndexPath(item: rows[rows.count - 2].count - 1, section: rows.count - 2)
-        print("rows: \(rows)")
-        print("lastItemIndex: \(lastItemIndex)")
 
         guard self.canReorder,
               let collectionView = self.collectionView,
@@ -505,12 +480,6 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
               let sourceIndexPath = inSession.localDragSession?.localContext as? IndexPath
         else {
             self._reorderIndicatorView.isHidden = true
-            print("first cancel")
-            print("canReorder: \(self.canReorder ? "true" : "false")")
-            print("collectionView: \(collectionView.debugDescription)")
-            print("destinationIndexPath: \(inIndexPath.debugDescription)")
-            print("lastItemAttributes: \(collectionView?.layoutAttributesForItem(at: lastItemIndex).debugDescription ?? "nil")")
-            print("sourceIndexPath: \((inSession.localDragSession?.localContext as? IndexPath)?.debugDescription ?? "nil")")
             return UICollectionViewDropProposal(operation: .cancel)
         }
         
@@ -584,7 +553,6 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
             }
         }
         
-        print("last cancel")
         return UICollectionViewDropProposal(operation: .cancel)
     }
 
@@ -624,13 +592,13 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
         
         if let sourceIndexPath = item.sourceIndexPath,
            var destinationIndexPath = inCoordinator.destinationIndexPath {
+            let rowItem = rows[sourceIndexPath.section][sourceIndexPath.item]
             if self.appendRow {
                 self.appendRow = false
                 var newRows = self.rows
                 inCollectionView.performBatchUpdates {
                     newRows[sourceIndexPath.section].remove(at: sourceIndexPath.item)
-                    let newItem = RiValT_TimerContainer()
-                    newRows.insert([newItem], at: newRows.count - 1)
+                    newRows.insert([rowItem], at: newRows.count - 1)
 
                     for section in stride(from: self.rows.count - 1, to: 0, by: -1) where newRows[section].isEmpty { newRows.remove(at: section) }
                     
@@ -643,15 +611,13 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                 
                 inCollectionView.performBatchUpdates {
                     newRows[sourceIndexPath.section].remove(at: sourceIndexPath.item)
-                    
-                    let newItem = RiValT_TimerContainer()
 
                     if self.appendItem {
                         self.appendItem = false
-                        newRows[destinationIndexPath.section].append(newItem)
+                        newRows[destinationIndexPath.section].append(rowItem)
                         destinationIndexPath.item += 1
                     } else if destinationIndexPath.item < newRows[destinationIndexPath.section].count {
-                        newRows[destinationIndexPath.section].insert(newItem, at: destinationIndexPath.item)
+                        newRows[destinationIndexPath.section].insert(rowItem, at: destinationIndexPath.item)
                     }
                     
                     for section in stride(from: self.rows.count - 1, to: 0, by: -1) where newRows[section].isEmpty {
