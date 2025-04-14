@@ -146,12 +146,12 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    private var _reorderIndicatorView: UIView {
+    private var _reorderIndicatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBlue
         view.isHidden = true
         return view
-    }
+    }()
 
     /* ############################################################## */
     /**
