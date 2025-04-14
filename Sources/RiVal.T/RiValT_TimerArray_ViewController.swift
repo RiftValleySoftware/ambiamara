@@ -26,8 +26,15 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
     
     /* ############################################################## */
     /**
+     The timer item associated with this cell.
+     */
+    var item: RiValT_TimerContainer?
+    
+    /* ############################################################## */
+    /**
      */
     func configure(with inItem: RiValT_TimerContainer) {
+        self.item = inItem
         self.contentView.backgroundColor = UIViewController().isDarkMode ? .white : .black
         self.contentView.layer.cornerRadius = 12
         self.contentView.layer.masksToBounds = true
@@ -35,7 +42,8 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
         let newLabel = UILabel()
         newLabel.textColor = UIViewController().isDarkMode ? .black : .white
         newLabel.numberOfLines = 2
-        newLabel.text = inItem.timerDisplay
+        newLabel.font = .systemFont(ofSize: 30, weight: .bold)
+        newLabel.text = String(format: "%d", item?.index ?? -1)
         newLabel.textAlignment = .center
         newLabel.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(newLabel)
@@ -129,6 +137,11 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /**
      */
     private static let _itemsPerRow = 4
+    
+    /* ############################################################## */
+    /**
+     */
+    private static var counter = 0
 
     /* ############################################################## */
     /**
@@ -165,12 +178,17 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
      */
     var rows = [[RiValT_TimerContainer()]] {
         didSet {
+            Self.counter = 0
             for (section, items) in rows.enumerated() {
                 for index in items.indices {
                     let newItem = RiValT_TimerContainer()
+                    newItem.index = Self.counter
+                    Self.counter += 1
                     self.rows[section][index] = newItem
                 }
             }
+            
+            self.rows.last?.last?.index = -1
         }
     }
     
@@ -420,19 +438,19 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
         self.appendRow = false
         self.appendItem = false
 
-        if self.canReorder,
-           inIndexPath != self.lastItemIndexPath {
-            inSession.localContext = inIndexPath
-            let item = self.rows[inIndexPath.section][inIndexPath.item]
-            let provider = NSItemProvider(object: item.id.uuidString as NSString)
-            let dragItem = UIDragItem(itemProvider: provider)
-            self.selectedIndexPath = inIndexPath
-            dragItem.localObject = item
-            self.impactHaptic()
-            return [dragItem]
-        } else {
-            return []
-        }
+        guard self.canReorder,
+              inIndexPath != self.lastItemIndexPath
+        else { return [] }
+        
+        inSession.localContext = inIndexPath
+        let item = self.rows[inIndexPath.section][inIndexPath.item]
+        let provider = NSItemProvider(object: item.id.uuidString as NSString)
+        let dragItem = UIDragItem(itemProvider: provider)
+        self.selectedIndexPath = inIndexPath
+        dragItem.localObject = item
+        self.impactHaptic()
+
+        return [dragItem]
     }
     
     /* ############################################################## */
@@ -474,7 +492,11 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                         dropSessionDidUpdate inSession: UIDropSession,
                         withDestinationIndexPath inIndexPath: IndexPath?
     ) -> UICollectionViewDropProposal {
-        let lastItemIndex = IndexPath(row: rows[rows.count - 1].count - 1, section: rows.count - 2)
+        guard 1 < rows.count else { return UICollectionViewDropProposal(operation: .cancel) }
+        let lastItemIndex = IndexPath(item: rows[rows.count - 2].count - 1, section: rows.count - 2)
+        print("rows: \(rows)")
+        print("lastItemIndex: \(lastItemIndex)")
+
         guard self.canReorder,
               let collectionView = self.collectionView,
               let destinationIndexPath = inIndexPath,
@@ -483,6 +505,12 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
               let sourceIndexPath = inSession.localDragSession?.localContext as? IndexPath
         else {
             self._reorderIndicatorView.isHidden = true
+            print("first cancel")
+            print("canReorder: \(self.canReorder ? "true" : "false")")
+            print("collectionView: \(collectionView.debugDescription)")
+            print("destinationIndexPath: \(inIndexPath.debugDescription)")
+            print("lastItemAttributes: \(collectionView?.layoutAttributesForItem(at: lastItemIndex).debugDescription ?? "nil")")
+            print("sourceIndexPath: \((inSession.localDragSession?.localContext as? IndexPath)?.debugDescription ?? "nil")")
             return UICollectionViewDropProposal(operation: .cancel)
         }
         
@@ -556,6 +584,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
             }
         }
         
+        print("last cancel")
         return UICollectionViewDropProposal(operation: .cancel)
     }
 
