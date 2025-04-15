@@ -98,6 +98,18 @@ extension TimerModel {
         get { return self._groups.map { $0.asArray } }
         set { self._groups = newValue.map { TimerGroup(container: self, dictionary: $0) } }
     }
+    
+    /* ############################################################## */
+    /**
+     The first timer group
+     */
+    var first: TimerGroup? { self._groups.first }
+    
+    /* ############################################################## */
+    /**
+     The last timer group
+     */
+    var last: TimerGroup? { self._groups.last }
 }
 
 /* ###################################################################################################################################### */
@@ -176,8 +188,12 @@ extension TimerModel {
      */
     @discardableResult
     func createNewTimerAtEndOf(section inSection: Int) -> Timer {
-        precondition((0..<self._groups.count).contains(inSection), "Group Index out of bounds")
-        return self.createNewTimer(at: IndexPath(item: self._groups[inSection].count, section: inSection))
+        precondition((0...self._groups.count).contains(inSection), "Group Index out of bounds")
+        if self._groups.count == inSection {
+            return self.createNewTimer(at: IndexPath(item: 0, section: inSection))
+        } else {
+            return self.createNewTimer(at: IndexPath(item: self._groups[inSection].count, section: inSection))
+        }
     }
 
     /* ############################################################## */
@@ -400,6 +416,18 @@ extension TimerGroup {
     var allTimers: [Timer] {
         self._timers
     }
+    
+    /* ############################################################## */
+    /**
+     The first timer
+     */
+    var first: Timer? { self._timers.first }
+    
+    /* ############################################################## */
+    /**
+     The last timer
+     */
+    var last: Timer? { self._timers.last }
 }
 
 /* ###################################################################################################################################### */
