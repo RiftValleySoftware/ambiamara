@@ -43,7 +43,7 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
         newLabel.textColor = UIViewController().isDarkMode ? .black : .white
         newLabel.numberOfLines = 2
         newLabel.font = .systemFont(ofSize: 30, weight: .bold)
-        newLabel.text = item?.timer.timerDisplay ?? ""
+        newLabel.text = item?.timerDisplay ?? ""
         newLabel.textAlignment = .center
         newLabel.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(newLabel)

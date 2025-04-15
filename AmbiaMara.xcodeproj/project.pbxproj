@@ -659,8 +659,8 @@
 		D4F3572D2D6F61E8005A815A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D4181D0C2DAC7364002CF428 /* TimerModel.swift */,
 				D4E869532D99916200D56802 /* TimerEngine.swift */,
+				D4181D0C2DAC7364002CF428 /* TimerModel.swift */,
 				D4F357292D6F61C0005A815A /* RVS_WatchDelegate.swift */,
 				D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */,
 			);
