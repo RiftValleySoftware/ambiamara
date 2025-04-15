@@ -127,7 +127,7 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
-    var rows = [[Timer()]]
+    var rows = [[Timer]]()
     
     /* ############################################################## */
     /**
@@ -284,13 +284,13 @@ extension RiValT_TimerArray_ViewController {
     /**
      */
     func updateToolbarButtons() {
-        guard let section = selectedIndexPath?.section else {
+//        guard let section = selectedIndexPath?.section else {
             self.addButton?.isEnabled = false
             self.deleteButton?.isEnabled = false
-            return
-        }
-        self.addButton?.isEnabled = Self.itemsPerRow > self.rows[section].count
-        self.deleteButton?.isEnabled = self.selectedIndexPath != self.lastItemIndexPath && !self.rows[section].isEmpty
+//            return
+//        }
+//        self.addButton?.isEnabled = Self.itemsPerRow > self.rows[section].count
+//        self.deleteButton?.isEnabled = self.selectedIndexPath != self.lastItemIndexPath && !self.rows[section].isEmpty
     }
 }
 
@@ -309,30 +309,30 @@ extension RiValT_TimerArray_ViewController {
               Self.itemsPerRow > self.rows[section].count
         else { return }
         
-        var newRows = self.rows
-
-        var newIndexPath: IndexPath = IndexPath(item: 0, section: section)
-        
-        let item = Timer()
-        item.startingTimeInSeconds = Self.counter
-        Self.counter += 1
-
-        if section < (newRows.count - 1) {
-            newRows[section].append(item)
-            newIndexPath.item = newRows[section].count - 1
-        } else if 1 < newRows.count {
-            newRows.insert([item], at: newRows.count - 1)
-            newIndexPath.section = newRows.count - 2
-        } else {
-            newRows.insert([item], at: 0)
-            newIndexPath.section = 0
-        }
-        
-        self.impactHaptic(1.0)
-        self.rows = newRows
-        self.updateSnapshot()
-        self.updateToolbarButtons()
-        self.selectedIndexPath = newIndexPath
+//        var newRows = self.rows
+//
+//        var newIndexPath: IndexPath = IndexPath(item: 0, section: section)
+//        
+//        let item = Timer()
+//        item.startingTimeInSeconds = Self.counter
+//        Self.counter += 1
+//
+//        if section < (newRows.count - 1) {
+//            newRows[section].append(item)
+//            newIndexPath.item = newRows[section].count - 1
+//        } else if 1 < newRows.count {
+//            newRows.insert([item], at: newRows.count - 1)
+//            newIndexPath.section = newRows.count - 2
+//        } else {
+//            newRows.insert([item], at: 0)
+//            newIndexPath.section = 0
+//        }
+//        
+//        self.impactHaptic(1.0)
+//        self.rows = newRows
+//        self.updateSnapshot()
+//        self.updateToolbarButtons()
+//        self.selectedIndexPath = newIndexPath
     }
 
     /* ############################################################## */

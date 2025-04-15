@@ -44,8 +44,23 @@ extension TimerEngine {
  The model consists of groups, which consist of timers.
  
  This doesn't really do anything more than aggregate timers. Things like selection, and whatnot, should be done outside the model.
+ 
+ This is a class, so it can be referenced.
  */
-struct TimerModel {
+class TimerModel: Equatable {
+    /* ############################################################## */
+    /**
+     Equatable Conformance
+     
+     - parameter lhs: The left-hand side of the comparison.
+     - parameter rhs: The right-hand side of the comparison.
+     
+     - returns: True, if the two models are the same.
+     */
+    static func == (lhs: TimerModel, rhs: TimerModel) -> Bool {
+        lhs._groups == rhs._groups
+    }
+    
     /* ############################################################## */
     /**
      The groups that aggregate timers.
@@ -122,7 +137,7 @@ extension TimerModel {
      - returns: The new timer instance (can be ignored).
      */
     @discardableResult
-    mutating func createNewTimer(at inTo: IndexPath) -> Timer {
+    func createNewTimer(at inTo: IndexPath) -> Timer {
         precondition((0...self._groups.count).contains(inTo.section), "Group Index out of bounds")
         
         if self._groups.count == inTo.section {
@@ -152,7 +167,7 @@ extension TimerModel {
      - returns: The new timer instance. Can be ignored.
      */
     @discardableResult
-    mutating func createNewTimerAtEndOf(section inSection: Int) -> Timer {
+    func createNewTimerAtEndOf(section inSection: Int) -> Timer {
         precondition((0..<self._groups.count).contains(inSection), "Group Index out of bounds")
         return self.createNewTimer(at: IndexPath(item: self._groups[inSection].count, section: inSection))
     }
@@ -166,7 +181,7 @@ extension TimerModel {
      - returns: The deleted timer (can be ignored).
      */
     @discardableResult
-    mutating func removeTimer(from inFrom: IndexPath) -> Timer {
+    func removeTimer(from inFrom: IndexPath) -> Timer {
         precondition((0..<self._groups.count).contains(inFrom.section), "Group Index out of bounds")
         precondition((0..<self._groups[inFrom.section].count).contains(inFrom.item), "Timer Index out of bounds")
         
@@ -187,7 +202,7 @@ extension TimerModel {
      - returns: The moved timer (can be ignored).
      */
     @discardableResult
-    mutating func moveTimer(from inFrom: IndexPath, to inTo: IndexPath) -> Timer {
+    func moveTimer(from inFrom: IndexPath, to inTo: IndexPath) -> Timer {
         precondition((0...self._groups.count).contains(inFrom.section), "Group Index out of bounds")
         precondition((0...self._groups[inFrom.section].count).contains(inFrom.item), "Timer Index out of bounds")
 
@@ -278,8 +293,10 @@ extension TimerModel: Sequence {
  This is a group of sequential timers.
  
  The timers are executed in the order of their storage in the `_timers` array.
+ 
+ This is a class, so it can be referenced.
  */
-struct TimerGroup: Equatable {
+class TimerGroup: Equatable {
     /* ############################################################## */
     /**
      Equatable Conformance
@@ -287,7 +304,7 @@ struct TimerGroup: Equatable {
      - parameter lhs: The left-hand side of the comparison.
      - parameter rhs: The right-hand side of the comparison.
      
-     - returns: True, if the two grous are the same.
+     - returns: True, if the two groups are the same.
      */
     static func == (lhs: TimerGroup, rhs: TimerGroup) -> Bool { lhs.id == rhs.id }
     
@@ -399,10 +416,10 @@ extension TimerGroup {
      
      - returns: A reference to the new timer instance. Nil, if the timer was not created.
      */
-    mutating func addTimer() -> Timer? {
+    func addTimer() -> Timer? {
         guard Self.maxTimersInGroup > _timers.count else { return nil }
         
-        let newInstance = Timer()
+        let newInstance = Timer(group: self)
         
         self._timers.append(newInstance)
         
@@ -416,7 +433,7 @@ extension TimerGroup {
      - parameter inIndex: A 0-based index of the timer to be deleted. Must be 0..`timers.count`
      - returns: A reference to the deleted timer instance. Nil, if the timer was not found.
      */
-    mutating func deleteTimer(at inIndex: Int) -> Timer? {
+    func deleteTimer(at inIndex: Int) -> Timer? {
         guard (0..<self._timers.count).contains(inIndex) else { return nil }
         return self._timers.remove(at: inIndex)
     }
@@ -558,14 +575,14 @@ class Timer: Equatable {
     /**
      Default initializer.
      
-     - parameter inGroup: The group to which this container belongs. This is optional.
+     - parameter inGroup: The group to which this container belongs. This is required.
      - parameter inStartingTimeInSeconds: This is the beginning (total) countdown time. If not supplied, is set to 0.
      - parameter inWarningTimeInSeconds: This is the threshold, at which the clock switches into "warning" mode. If not supplied, is set to 0.
      - parameter inFinalTimeInSeconds: This is the threshold, at which the clock switches into "final" mode. If not supplied, is set to 0.
      - parameter inTransitionHandler: The callback for each transition. This is optional.
      - parameter inTickHandler: The callback for each tick. This can be a tail completion, and is optional.
      */
-    init(group inGroup: TimerGroup? = nil,
+    init(group inGroup: TimerGroup,
          startingTimeInSeconds inStartingTimeInSeconds: Int = 0,
          warningTimeInSeconds inWarningTimeInSeconds: Int = 0,
          finalTimeInSeconds inFinalTimeInSeconds: Int = 0,
@@ -618,6 +635,12 @@ extension Timer {
      The timer's unique ID.
      */
     var id: UUID { self._engine.id }
+    
+    /* ############################################################## */
+    /**
+     The timer's ultimate model.
+     */
+    var model: TimerModel? { self.group?.model }
     
     /* ############################################################## */
     /**
