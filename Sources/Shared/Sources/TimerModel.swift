@@ -20,13 +20,13 @@ extension TimerEngine {
     /**
      Simple cast to the wrapper instance that "owns" this timer.
      */
-    var wrapper: TimerContainer? { refCon as? TimerContainer }
+    var wrapper: Timer? { refCon as? Timer }
     
     /* ############################################################## */
     /**
      The group to which this timer's container belongs.
      */
-    var group: TimerContainer_Group? { wrapper?.group }
+    var group: TimerGroup? { wrapper?.group }
 }
 
 /* ###################################################################################################################################### */
@@ -37,7 +37,7 @@ extension TimerEngine {
  
  We make it a class, so it can be easily mutated and referenced.
  */
-class TimerContainer: Equatable {
+class Timer: Equatable {
     /* ############################################################## */
     /**
      Equatable Conformance
@@ -47,7 +47,7 @@ class TimerContainer: Equatable {
      
      - returns: True, if they are equal (same ID).
      */
-    static func == (lhs: TimerContainer, rhs: TimerContainer) -> Bool { lhs.id == rhs.id }
+    static func == (lhs: Timer, rhs: Timer) -> Bool { lhs.id == rhs.id }
     
     /* ############################################################## */
     /**
@@ -59,7 +59,7 @@ class TimerContainer: Equatable {
     /**
      The group to which this container belongs.
      */
-    var group: TimerContainer_Group?
+    var group: TimerGroup?
 
     /* ############################################################## */
     /**
@@ -75,7 +75,7 @@ class TimerContainer: Equatable {
     init(startingTimeInSeconds inStartingTimeInSeconds: Int = 0,
          warningTimeInSeconds inWarningTimeInSeconds: Int = 0,
          finalTimeInSeconds inFinalTimeInSeconds: Int = 0,
-         group inGroup: TimerContainer_Group? = nil,
+         group inGroup: TimerGroup? = nil,
          transitionHandler inTransitionHandler: TimerEngine.TimerTransitionHandler? = nil,
          tickHandler inTickHandler: TimerEngine.TimerTickHandler? = nil
     ) {
@@ -95,7 +95,7 @@ class TimerContainer: Equatable {
      - parameter inGroup: The group to which this instance belongs.
      - parameter inDictionary: The timer state, as a dictionary.
      */
-    init(group inGroup: TimerContainer_Group? = nil,
+    init(group inGroup: TimerGroup? = nil,
          dictionary inDictionary: [String: any Hashable]) {
         self.group = inGroup
         self.timer.asDictionary = inDictionary
@@ -106,7 +106,7 @@ class TimerContainer: Equatable {
 /* ###################################################################################################################################### */
 // MARK: Read-Only Computed Properties
 /* ###################################################################################################################################### */
-extension TimerContainer {
+extension Timer {
     /* ############################################################## */
     /**
      The timer's unique ID.
@@ -123,7 +123,7 @@ extension TimerContainer {
 /* ###################################################################################################################################### */
 // MARK: Read/Write Computed Properties
 /* ###################################################################################################################################### */
-extension TimerContainer {
+extension Timer {
     /* ############################################################## */
     /**
      This is a direct accessor for the timer's tick handler callback.
@@ -200,7 +200,7 @@ extension TimerContainer {
 /* ###################################################################################################################################### */
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
-extension TimerContainer {
+extension Timer {
     /* ############################################################## */
     /**
      Starts the timer from the beginning. It will do so, from any timer state.
@@ -281,7 +281,7 @@ extension TimerContainer {
 /* ###################################################################################################################################### */
 // MARK: Hashable Conformance
 /* ###################################################################################################################################### */
-extension TimerContainer: Hashable {
+extension Timer: Hashable {
     /* ############################################################## */
     /**
      Hash dealer.
@@ -299,7 +299,7 @@ extension TimerContainer: Hashable {
 /**
  
  */
-class TimerContainer_Group {
+class TimerGroup {
     /* ############################################################## */
     /**
      The maximum number of timers.
@@ -310,7 +310,7 @@ class TimerContainer_Group {
     /**
      These are the timers that comprise the group. The order of the array, is the order of timer execution.
      */
-    var timers = [TimerContainer]()
+    var timers = [Timer]()
     
     /* ############################################################## */
     /**
@@ -328,7 +328,7 @@ class TimerContainer_Group {
         self.container = inContainer
         
         if let inDicts = dictionary {
-            self.timers = inDicts.map { TimerContainer(group: self, dictionary: $0) }
+            self.timers = inDicts.map { Timer(group: self, dictionary: $0) }
         }
     }
 }
@@ -336,31 +336,31 @@ class TimerContainer_Group {
 /* ###################################################################################################################################### */
 // MARK: Computed Properties
 /* ###################################################################################################################################### */
-extension TimerContainer_Group {
+extension TimerGroup {
     /* ############################################################## */
     /**
      this exports the current timer state, or allows you to recreate the group, based on a stored state.
      */
     var asArray: [[String: any Hashable]] {
         get { return self.timers.map { $0.timer.asDictionary } }
-        set { self.timers = newValue.map { TimerContainer(group: self, dictionary: $0) } }
+        set { self.timers = newValue.map { Timer(group: self, dictionary: $0) } }
     }
 }
 
 /* ###################################################################################################################################### */
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
-extension TimerContainer_Group {
+extension TimerGroup {
     /* ############################################################## */
     /**
      Appends a new timer instance to the end of the array.
      
      - returns: A reference to the new timer instance. Nil, if the timer was not created.
      */
-    func addTimer() -> TimerContainer? {
+    func addTimer() -> Timer? {
         guard Self.maxTimersInGroup > timers.count else { return nil }
         
-        let newInstance = TimerContainer()
+        let newInstance = Timer()
         
         self.timers.append(newInstance)
         
@@ -374,7 +374,7 @@ extension TimerContainer_Group {
      - parameter inIndex: A 0-based index of the timer to be deleted. Must be 0..`timers.count`
      - returns: A reference to the deleted timer instance. Nil, if the timer was not found.
      */
-    func deleteTimer(at inIndex: Int) -> TimerContainer? {
+    func deleteTimer(at inIndex: Int) -> Timer? {
         guard (0..<self.timers.count).contains(inIndex) else { return nil }
         return self.timers.remove(at: inIndex)
     }
@@ -390,7 +390,7 @@ class TimerModel {
     /* ############################################################## */
     /**
      */
-    private var _sections: [TimerContainer_Group] = []
+    private var _sections: [TimerGroup] = []
 }
 
 /* ###################################################################################################################################### */
@@ -403,7 +403,7 @@ extension TimerModel {
      */
     var asArray: [[[String: any Hashable]]] {
         get { return self._sections.map { $0.asArray } }
-        set { self._sections = newValue.map { TimerContainer_Group(container: self, dictionary: $0) } }
+        set { self._sections = newValue.map { TimerGroup(container: self, dictionary: $0) } }
     }
 }
 
@@ -414,7 +414,7 @@ extension TimerModel {
     /* ############################################################## */
     /**
      */
-    subscript(_ inFrom: IndexPath) -> TimerContainer? {
+    subscript(_ inFrom: IndexPath) -> Timer? {
         guard (0..<self._sections.count).contains(inFrom.section),
               (0..<self._sections[inFrom.section].timers.count).contains(inFrom.item)
         else { return nil }
@@ -425,21 +425,21 @@ extension TimerModel {
     /* ############################################################## */
     /**
      */
-    func getTimer(at inFrom: IndexPath) -> TimerContainer? { self[inFrom] }
+    func getTimer(at inFrom: IndexPath) -> Timer? { self[inFrom] }
     
     /* ############################################################## */
     /**
      */
-    func createNewTimer(at inTo: IndexPath) -> TimerContainer? {
+    func createNewTimer(at inTo: IndexPath) -> Timer? {
         guard (0...self._sections.count).contains(inTo.section),
               (0...self._sections[inTo.section].timers.count).contains(inTo.item)
         else { return nil }
         
         if self._sections.count == inTo.section {
-            self._sections.append(TimerContainer_Group(container: self))
+            self._sections.append(TimerGroup(container: self))
         }
         
-        let timerContainer = TimerContainer()
+        let timerContainer = Timer()
         
         if self._sections[inTo.section].timers.count == inTo.item {
             self._sections[inTo.section].timers.append(timerContainer)
@@ -453,7 +453,7 @@ extension TimerModel {
     /* ############################################################## */
     /**
      */
-    func createNewTimerAtEndOf(section inSection: Int) -> TimerContainer? {
+    func createNewTimerAtEndOf(section inSection: Int) -> Timer? {
         guard (0..<self._sections.count).contains(inSection) else { return nil }
         return self.createNewTimer(at: IndexPath(item: self._sections[inSection].timers.count, section: inSection))
     }
@@ -461,7 +461,7 @@ extension TimerModel {
     /* ############################################################## */
     /**
      */
-    func removeTimer(from inFrom: IndexPath) -> TimerContainer? {
+    func removeTimer(from inFrom: IndexPath) -> Timer? {
         guard (0..<self._sections.count).contains(inFrom.section),
               (0..<self._sections[inFrom.section].timers.count).contains(inFrom.item)
         else { return nil }
@@ -478,7 +478,7 @@ extension TimerModel {
     /* ############################################################## */
     /**
      */
-    func moveTimer(from inFrom: IndexPath, to inTo: IndexPath) -> TimerContainer? {
+    func moveTimer(from inFrom: IndexPath, to inTo: IndexPath) -> Timer? {
         guard (0..<self._sections.count).contains(inFrom.section),
               (0...self._sections[inFrom.section].timers.count).contains(inFrom.item)
         else { return nil }
@@ -490,7 +490,7 @@ extension TimerModel {
            inTo.item > inFrom.item {
             to.item -= 1
         } else if self._sections.count == to.section {
-            self._sections.append(TimerContainer_Group(container: self))
+            self._sections.append(TimerGroup(container: self))
         }
 
         guard (0...self._sections[to.section].timers.count).contains(to.item) else { return nil }

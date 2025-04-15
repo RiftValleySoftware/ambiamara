@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "0185FD71-8D2F-4E31-AF69-FD94B2EE5505",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:AmbiaMara.xcodeproj",
+        "identifier" : "D4C665CB2DAE6BFF00A0316D",
+        "name" : "TimerModelTests"
+      }
+    }
+  ],
+  "version" : 1
+}
