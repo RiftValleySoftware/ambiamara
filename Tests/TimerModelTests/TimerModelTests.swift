@@ -44,12 +44,13 @@ class TimerModelTests: XCTestCase {
         XCTAssertFalse(timerModel.isEmpty)
         XCTAssertEqual(timerModel.count, 1)
         XCTAssertEqual(timerModel[0].count, 1)
-        XCTAssertEqual(timerModel.allTimers.first, timer)
-        XCTAssertEqual(timerModel[0].allTimers.first, timer)
-        XCTAssertEqual(timerModel[0][0], timer)
-        XCTAssertEqual(timerModel[0], timer.group)
-        XCTAssertEqual(timerModel, timer.model)
-        XCTAssertEqual(timerModel.allTimers.first, timer)
+        XCTAssertIdentical(timerModel.allTimers.first, timer)
+        XCTAssertIdentical(timerModel[0].allTimers.first, timer)
+        XCTAssertIdentical(timerModel[0][0], timer)
+        XCTAssertIdentical(timerModel[0], timer.group)
+        XCTAssertIdentical(timerModel, timer.model)
+        XCTAssertIdentical(timerModel.allTimers.first, timer)
+        XCTAssertIdentical(timerModel[indexPath: IndexPath(item: 0, section: 0)], timer)
         XCTAssertEqual(timerModel.allTimers.first?.startingTimeInSeconds, timer.startingTimeInSeconds)
         XCTAssertEqual(timerModel.allTimers.first?.startingTimeInSeconds, 10)
         XCTAssertEqual(timerModel[0].allTimers.first?.warningTimeInSeconds, timer.warningTimeInSeconds)
@@ -72,8 +73,6 @@ class TimerModelTests: XCTestCase {
         print("TimerModelTests.testCreateMultiple (START)")
         let timerModel = TimerModel()
         
-        var timeCountdown = 4
-
         for groupIndex in 0..<5 {
             for timerIndex in 0..<TimerGroup.maxTimersInGroup {
                 let indexPath = IndexPath(item: timerIndex, section: groupIndex)
@@ -85,7 +84,8 @@ class TimerModelTests: XCTestCase {
                 
                 let referencedTimer = timerModel.getTimer(at: indexPath)
                 XCTAssertIdentical(referencedTimer, timer)
-                timeCountdown += 1
+                XCTAssertIdentical(timer.group?.model?[indexPath: indexPath], referencedTimer)
+                XCTAssertIdentical(timer.model?[indexPath: indexPath], timer)
             }
         }
         
@@ -106,6 +106,8 @@ class TimerModelTests: XCTestCase {
                     
                     let referencedTimer = timerModel.getTimer(at: indexPath)
                     XCTAssertIdentical(referencedTimer, timer)
+                    XCTAssertIdentical(timer.group?.model?[indexPath: indexPath], referencedTimer)
+                    XCTAssertIdentical(timer.model?[indexPath: indexPath], timer)
                     timeComp += 1
                 } else {
                     XCTFail(#function + ": unexpected nil indexPath")
@@ -116,5 +118,26 @@ class TimerModelTests: XCTestCase {
         }
         
         print("TimerModelTests.testCreateMultiple (END)\n")
+    }
+    
+    /* ################################################################## */
+    /**
+     This makes sure that everything is put where it's supposed to be, and that the iterators are working properly.
+     */
+    func testInsertDelete() {
+        print("TimerModelTests.testInsertDelete (START)")
+        let timerModel = TimerModel()
+        
+        for groupIndex in 0..<5 {
+            for timerIndex in 0..<TimerGroup.maxTimersInGroup {
+                let indexPath = IndexPath(item: timerIndex, section: groupIndex)
+                let timer = timerModel.createNewTimer(at: indexPath)
+                let timeComp = 4 + (groupIndex * TimerGroup.maxTimersInGroup) + timerIndex
+                timer.startingTimeInSeconds = timeComp
+                timer.warningTimeInSeconds = timeComp / 2
+                timer.finalTimeInSeconds = timeComp / 4
+            }
+        }
+        print("TimerModelTests.testInsertDelete (END)\n")
     }
 }

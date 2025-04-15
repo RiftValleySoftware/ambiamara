@@ -117,6 +117,14 @@ extension TimerModel {
     
     /* ############################################################## */
     /**
+     subscript access to individual timers.
+     
+     - parameter inIndexPath: The index path to the timer.
+     */
+    subscript(indexPath inIndexPath: IndexPath) -> Timer { self.getTimer(at: inIndexPath) }
+    
+    /* ############################################################## */
+    /**
      Accessor for an individual timer, within the model.
      
      - parameter inFrom: The indexpath to the timer.
