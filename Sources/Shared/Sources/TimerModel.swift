@@ -187,7 +187,7 @@ extension TimerModel {
      - returns: The new timer instance. Can be ignored.
      */
     @discardableResult
-    func createNewTimerAtEndOf(section inSection: Int) -> Timer {
+    func createNewTimerAtEndOf(group inSection: Int) -> Timer {
         precondition((0...self._groups.count).contains(inSection), "Group Index out of bounds")
         if self._groups.count == inSection {
             return self.createNewTimer(at: IndexPath(item: 0, section: inSection))

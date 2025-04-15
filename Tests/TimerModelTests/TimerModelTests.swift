@@ -73,10 +73,12 @@ class TimerModelTests: XCTestCase {
         print("TimerModelTests.testCreateMultiple (START)")
         let timerModel = TimerModel()
         
+        // We fill 4 groups of timers.
         for groupIndex in 0..<5 {
             for timerIndex in 0..<TimerGroup.maxTimersInGroup {
                 let indexPath = IndexPath(item: timerIndex, section: groupIndex)
                 let timer = timerModel.createNewTimer(at: indexPath)
+                // This allows us to make sure the timers are the proper ones (We could use the ID, but this also tests the setting of the timer values).
                 let timeComp = 4 + (groupIndex * TimerGroup.maxTimersInGroup) + timerIndex
                 timer.startingTimeInSeconds = timeComp
                 timer.warningTimeInSeconds = timeComp / 2
@@ -93,6 +95,7 @@ class TimerModelTests: XCTestCase {
         XCTAssertEqual(timerModel.allTimers.count, TimerGroup.maxTimersInGroup * 5)
         timerModel.forEach { XCTAssertEqual($0.count, TimerGroup.maxTimersInGroup) }
         
+        // Make sure that the new timers are where they are supposed to be.
         var timeComp = 4
         var expectedGroupIndex = 0
         timerModel.forEach { group in
@@ -122,12 +125,14 @@ class TimerModelTests: XCTestCase {
     
     /* ################################################################## */
     /**
+     This inserts timers into a model, and ensures that they are where they are supoosed to be, and that other timers move to make room.
      */
-    func testInsertDelete() {
-        print("TimerModelTests.testInsertDelete (START)")
+    func testInsert() {
+        print("TimerModelTests.testInsert (START)")
         let timerModel = TimerModel()
         
         for groupIndex in 0..<5 {
+            // We don't "max out" each row, so we can insert. If we max out, we get runtime errors.
             for timerIndex in 0..<(TimerGroup.maxTimersInGroup - 1) {
                 let indexPath = IndexPath(item: timerIndex, section: groupIndex)
                 let timer = timerModel.createNewTimer(at: indexPath)
@@ -146,26 +151,49 @@ class TimerModelTests: XCTestCase {
         XCTAssertEqual(firstTimer.indexPath, firstTimerIndexPath)
         XCTAssertEqual(firstTimer.startingTimeInSeconds, 0)
 
+        // Make sure that the one after it, is the one that used to be where it is.
         let compTimerIndexPath = IndexPath(item: firstTimerIndexPath.item + 1, section: firstTimerIndexPath.section)
         let compTimer = timerModel.getTimer(at: compTimerIndexPath)
         XCTAssertEqual(compTimer.indexPath, compTimerIndexPath)
         let timeComp = 4 + (compTimerIndexPath.section * TimerGroup.maxTimersInGroup) + compTimerIndexPath.item - 1
         XCTAssertEqual(compTimer.startingTimeInSeconds, timeComp)
 
+        // Make sure the one before, was left alone.
+        let compTimer2IndexPath = IndexPath(item: firstTimerIndexPath.item - 1, section: firstTimerIndexPath.section)
+        let compTimer2 = timerModel.getTimer(at: compTimer2IndexPath)
+        XCTAssertEqual(compTimer2.indexPath, compTimer2IndexPath)
+        let timeComp2 = 4 + (compTimer2IndexPath.section * TimerGroup.maxTimersInGroup) + compTimer2IndexPath.item
+        XCTAssertEqual(compTimer2.startingTimeInSeconds, timeComp2)
+
         // Add a timer to the end of an existing group.
         let secondTimerIndex = 3
-        let secondTimer = timerModel.createNewTimerAtEndOf(section: secondTimerIndex)
+        let secondTimer = timerModel.createNewTimerAtEndOf(group: secondTimerIndex)
         XCTAssertEqual(secondTimer.indexPath, IndexPath(item: TimerGroup.maxTimersInGroup - 1, section: secondTimerIndex))
         XCTAssertEqual(timerModel[secondTimerIndex].last?.startingTimeInSeconds, 0)
         XCTAssertIdentical(timerModel[secondTimerIndex].last, secondTimer)
 
-        // Create a new group at the end of the model.
+        // Create a new group at the end of the model (group end).
         let thirdTimerIndex = 5
-        let thirdTimer = timerModel.createNewTimerAtEndOf(section: thirdTimerIndex)
+        let thirdTimer = timerModel.createNewTimerAtEndOf(group: thirdTimerIndex)
         XCTAssertEqual(thirdTimer.indexPath, IndexPath(item: 0, section: thirdTimerIndex))
         XCTAssertEqual(timerModel[thirdTimerIndex].last?.startingTimeInSeconds, 0)
         XCTAssertIdentical(timerModel[thirdTimerIndex].last, thirdTimer)
 
-        print("TimerModelTests.testInsertDelete (END)\n")
+        // Create a new group at the end of the model (index path).
+        let fourthTimerIndexPath = IndexPath(item: 0, section: 6)
+        let fourthTimer = timerModel.createNewTimer(at: fourthTimerIndexPath)
+        XCTAssertEqual(fourthTimer.indexPath, fourthTimerIndexPath)
+        XCTAssertEqual(timerModel[indexPath: fourthTimerIndexPath].startingTimeInSeconds, 0)
+        XCTAssertIdentical(timerModel[fourthTimerIndexPath.section].first, fourthTimer)
+
+        print("TimerModelTests.testInsert (END)\n")
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func testDelete() {
+        print("TimerModelTests.testDelete (START)")
+        print("TimerModelTests.testDelete (END)\n")
     }
 }
