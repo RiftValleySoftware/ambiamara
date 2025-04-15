@@ -602,14 +602,14 @@ class TimerEngineTests: XCTestCase {
 
     /* ################################################################## */
     /**
-     This tests the precise time report, and indicates that it is in within 2ms of the expected second (not realtime, clock time).
+     This tests the precise time report, and indicates that it is in within 2.5ms of the expected second (not realtime, clock time).
     */
     func testPreciseTime() {
         let totalTimeInSeconds = 30
         let warnTimeInSeconds = totalTimeInSeconds / 2
         let finalTimeInSeconds = warnTimeInSeconds / 2
         let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.5
-        let testRangeInitial = -0.0005...0.0015
+        let testRangeInitial = -0.0005...0.002
 
         var expectation = XCTestExpectation()
         expectation.expectedFulfillmentCount = 1

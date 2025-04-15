@@ -4,12 +4,20 @@
       "id" : "0185FD71-8D2F-4E31-AF69-FD94B2EE5505",
       "name" : "Configuration 1",
       "options" : {
-
+        "mallocGuardEdgesEnabled" : false
       }
     }
   ],
   "defaultOptions" : {
-
+    "addressSanitizer" : {
+      "detectStackUseAfterReturn" : true,
+      "enabled" : true
+    },
+    "mallocGuardEdgesEnabled" : true,
+    "mallocScribbleEnabled" : true,
+    "nsZombieEnabled" : true,
+    "testExecutionOrdering" : "random",
+    "undefinedBehaviorSanitizerEnabled" : true
   },
   "testTargets" : [
     {

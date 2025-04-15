@@ -246,9 +246,9 @@ extension TimerModel: Sequence {
         
         /* ########################################################## */
         /**
-         This has a copy of the timer groups to be iterated.
+         This has a reference to the timer groups to be iterated.
          */
-        let data: [Element]
+        let data: TimerModel
         
         /* ########################################################## */
         /**
@@ -265,7 +265,7 @@ extension TimerModel: Sequence {
                 return nil
             } else {
                 defer { self.count -= 1 }
-                return data[self.count]
+                return self.data[self.data.count - self.count]
             }
         }
     }
@@ -281,10 +281,9 @@ extension TimerModel: Sequence {
      Creates a new, primed iterator.
      */
     func makeIterator() -> TimerModelIterator {
-        TimerModelIterator(data: self._groups, count: self.count)
+        TimerModelIterator(data: self, count: self.count)
     }
 }
-
 
 /* ###################################################################################################################################### */
 // MARK: - Grouped Timers -
@@ -470,9 +469,9 @@ extension TimerGroup: Sequence {
         
         /* ########################################################## */
         /**
-         This has a copy of the timers to be iterated.
+         This has a reference to the timer group to be iterated.
          */
-        let data: [Element]
+        let data: TimerGroup
         
         /* ########################################################## */
         /**
@@ -489,7 +488,7 @@ extension TimerGroup: Sequence {
                 return nil
             } else {
                 defer { self.count -= 1 }
-                return data[self.count]
+                return self.data[self.data.count - self.count]
             }
         }
     }
@@ -505,7 +504,7 @@ extension TimerGroup: Sequence {
      Returns a new, primed iterator.
      */
     func makeIterator() -> TimerGroupIterator {
-        TimerGroupIterator(data: self._timers, count: self.count)
+        TimerGroupIterator(data: self, count: self.count)
     }
 }
 

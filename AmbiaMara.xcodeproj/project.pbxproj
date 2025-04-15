@@ -12,6 +12,8 @@
 		D4079934287731860058EAF4 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4079933287731860058EAF4 /* RVS_UIKit_Toolbox */; };
 		D40A69392846A05D0010A58E /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D40A69382846A05D0010A58E /* RVS_Persistent_Prefs */; };
 		D4181D0D2DAC7364002CF428 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4181D0C2DAC7364002CF428 /* TimerModel.swift */; };
+		D4273AE32DAEEE7700AB0E41 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4273AE22DAEEE7700AB0E41 /* RVS_BasicGCDTimer */; };
+		D4273AE52DAEEEE300AB0E41 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4273AE42DAEEEE300AB0E41 /* RVS_BasicGCDTimer */; };
 		D4291733282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4291732282013B70054C9EA /* RVS_AboutAmbiaMara_ViewController.swift */; };
 		D43B97662DA2C1D10028E023 /* RiValT_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43B975B2DA2C1D10028E023 /* RiValT_AppDelegate.swift */; };
 		D43B97672DA2C1D10028E023 /* RiValT_SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43B97632DA2C1D10028E023 /* RiValT_SceneDelegate.swift */; };
@@ -76,8 +78,6 @@
 		D4C665D52DAE6C1800A0316D /* TimerModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41109162DADEEB00034B591 /* TimerModelTests.swift */; };
 		D4C665D62DAE6C2900A0316D /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4181D0C2DAC7364002CF428 /* TimerModel.swift */; };
 		D4C665D72DAE6C3600A0316D /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E869532D99916200D56802 /* TimerEngine.swift */; };
-		D4C665DD2DAE6D2B00A0316D /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4C665DC2DAE6D2B00A0316D /* RVS_Generic_Swift_Toolbox */; };
-		D4C665DF2DAE6D2B00A0316D /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4C665DE2DAE6D2B00A0316D /* RVS_BasicGCDTimer */; };
 		D4CD2E7F284697E100400AB0 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4CD2E7E284697E100400AB0 /* RVS_Generic_Swift_Toolbox */; };
 		D4CE51B8281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B6281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift */; };
 		D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */; };
@@ -334,6 +334,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4273AE52DAEEEE300AB0E41 /* RVS_BasicGCDTimer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,8 +342,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4C665DF2DAE6D2B00A0316D /* RVS_BasicGCDTimer in Frameworks */,
-				D4C665DD2DAE6D2B00A0316D /* RVS_Generic_Swift_Toolbox in Frameworks */,
+				D4273AE32DAEEE7700AB0E41 /* RVS_BasicGCDTimer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -767,6 +767,7 @@
 			);
 			name = TimerEngineTests;
 			packageProductDependencies = (
+				D4273AE42DAEEEE300AB0E41 /* RVS_BasicGCDTimer */,
 			);
 			productName = TimerEngineTests;
 			productReference = D4BB8FFF2D9C3B0900F3DB80 /* TimerEngineTests.xctest */;
@@ -787,8 +788,7 @@
 			);
 			name = TimerModelTests;
 			packageProductDependencies = (
-				D4C665DC2DAE6D2B00A0316D /* RVS_Generic_Swift_Toolbox */,
-				D4C665DE2DAE6D2B00A0316D /* RVS_BasicGCDTimer */,
+				D4273AE22DAEEE7700AB0E41 /* RVS_BasicGCDTimer */,
 			);
 			productName = TimerModelTests;
 			productReference = D4C665CC2DAE6BFF00A0316D /* TimerModelTests.xctest */;
@@ -863,11 +863,9 @@
 					};
 					D4BB8FFE2D9C3B0900F3DB80 = {
 						CreatedOnToolsVersion = 16.3;
-						TestTargetID = D46B84DE2D986AB600199220;
 					};
 					D4C665CB2DAE6BFF00A0316D = {
 						CreatedOnToolsVersion = 16.3;
-						TestTargetID = D43B97342DA2C0F50028E023;
 					};
 					D4F83C9C2D63DB10009C4646 = {
 						CreatedOnToolsVersion = 16.2;
@@ -1611,7 +1609,6 @@
 		D4BB90062D9C3B0900F3DB80 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1627,14 +1624,12 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimerEngineTestHarness.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TimerEngineTestHarness";
 			};
 			name = Debug;
 		};
 		D4BB90072D9C3B0900F3DB80 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1649,14 +1644,12 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimerEngineTestHarness.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TimerEngineTestHarness";
 			};
 			name = Release;
 		};
 		D4C665D22DAE6BFF00A0316D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1672,14 +1665,12 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RiVal.T.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RiVal.T";
 			};
 			name = Debug;
 		};
 		D4C665D32DAE6BFF00A0316D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1694,7 +1685,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RiVal.T.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RiVal.T";
 			};
 			name = Release;
 		};
@@ -1979,6 +1969,16 @@
 			package = D4C4B7122819D39B00E22ECA /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
 			productName = RVS_Persistent_Prefs;
 		};
+		D4273AE22DAEEE7700AB0E41 /* RVS_BasicGCDTimer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4D193BB2D883DEA008DA06F /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
+			productName = RVS_BasicGCDTimer;
+		};
+		D4273AE42DAEEEE300AB0E41 /* RVS_BasicGCDTimer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4D193BB2D883DEA008DA06F /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
+			productName = RVS_BasicGCDTimer;
+		};
 		D43B976F2DA2C2D00028E023 /* RVS_Generic_Swift_Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
@@ -2028,16 +2028,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4079932287731860058EAF4 /* XCRemoteSwiftPackageReference "RVS_UIKit_Toolbox" */;
 			productName = RVS_UIKit_Toolbox;
-		};
-		D4C665DC2DAE6D2B00A0316D /* RVS_Generic_Swift_Toolbox */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
-			productName = RVS_Generic_Swift_Toolbox;
-		};
-		D4C665DE2DAE6D2B00A0316D /* RVS_BasicGCDTimer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4D193BB2D883DEA008DA06F /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
-			productName = RVS_BasicGCDTimer;
 		};
 		D4CD2E7E284697E100400AB0 /* RVS_Generic_Swift_Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
