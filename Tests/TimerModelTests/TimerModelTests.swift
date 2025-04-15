@@ -23,7 +23,7 @@ class TimerModelTests: XCTestCase {
     func testSimpleInstantiation() {
         print("TimerModelTests.testSimpleInstantiation (START)")
         let timerModel = TimerModel()
-        XCTAssertNotNil(timerModel)
+        XCTAssertTrue(timerModel.isEmpty)
         print("TimerModelTests.testSimpleInstantiation (END)\n")
     }
 }

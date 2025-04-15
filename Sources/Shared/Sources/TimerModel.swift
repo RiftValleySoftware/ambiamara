@@ -45,7 +45,7 @@ extension TimerEngine {
  
  This doesn't really do anything more than aggregate timers. Things like selection, and whatnot, should be done outside the model.
  */
-class TimerModel {
+struct TimerModel {
     /* ############################################################## */
     /**
      The groups that aggregate timers.
@@ -68,6 +68,12 @@ extension TimerModel {
      True, if there are no timer groups.
      */
     var isEmpty: Bool { self._groups.isEmpty }
+    
+    /* ############################################################## */
+    /**
+     All of the timer wrappers, in one simple array.
+     */
+    var allTimers: [Timer] { self._groups.flatMap(\.allTimers) }
     
     /* ############################################################## */
     /**
@@ -116,24 +122,22 @@ extension TimerModel {
      - returns: The new timer instance (can be ignored).
      */
     @discardableResult
-    func createNewTimer(at inTo: IndexPath) -> Timer {
+    mutating func createNewTimer(at inTo: IndexPath) -> Timer {
         precondition((0...self._groups.count).contains(inTo.section), "Group Index out of bounds")
         
         if self._groups.count == inTo.section {
             self._groups.append(TimerGroup(container: self))
         }
         
-        let group = self._groups[inTo.section]
+        precondition((0...self._groups[inTo.section].count).contains(inTo.item), "Timer Index out of bounds")
+        precondition(self._groups[inTo.section].count < TimerGroup.maxTimersInGroup, "There is no room for a new timer in this group.")
         
-        precondition((0...group.count).contains(inTo.item), "Timer Index out of bounds")
-        precondition(group.count < TimerGroup.maxTimersInGroup, "There is no room for a new timer in this group.")
+        let timerContainer = Timer(group: self._groups[inTo.section])
         
-        let timerContainer = Timer(group: group)
-        
-        if group.count == inTo.item {
-            group._timers.append(timerContainer)
+        if self._groups[inTo.section].count == inTo.item {
+            self._groups[inTo.section]._timers.append(timerContainer)
         } else {
-            group._timers.insert(timerContainer, at: inTo.item)
+            self._groups[inTo.section]._timers.insert(timerContainer, at: inTo.item)
         }
         
         return timerContainer
@@ -148,7 +152,7 @@ extension TimerModel {
      - returns: The new timer instance. Can be ignored.
      */
     @discardableResult
-    func createNewTimerAtEndOf(section inSection: Int) -> Timer {
+    mutating func createNewTimerAtEndOf(section inSection: Int) -> Timer {
         precondition((0..<self._groups.count).contains(inSection), "Group Index out of bounds")
         return self.createNewTimer(at: IndexPath(item: self._groups[inSection].count, section: inSection))
     }
@@ -162,7 +166,7 @@ extension TimerModel {
      - returns: The deleted timer (can be ignored).
      */
     @discardableResult
-    func removeTimer(from inFrom: IndexPath) -> Timer {
+    mutating func removeTimer(from inFrom: IndexPath) -> Timer {
         precondition((0..<self._groups.count).contains(inFrom.section), "Group Index out of bounds")
         precondition((0..<self._groups[inFrom.section].count).contains(inFrom.item), "Timer Index out of bounds")
         
@@ -183,7 +187,7 @@ extension TimerModel {
      - returns: The moved timer (can be ignored).
      */
     @discardableResult
-    func moveTimer(from inFrom: IndexPath, to inTo: IndexPath) -> Timer {
+    mutating func moveTimer(from inFrom: IndexPath, to inTo: IndexPath) -> Timer {
         precondition((0...self._groups.count).contains(inFrom.section), "Group Index out of bounds")
         precondition((0...self._groups[inFrom.section].count).contains(inFrom.item), "Timer Index out of bounds")
 
@@ -266,13 +270,235 @@ extension TimerModel: Sequence {
     }
 }
 
+
+/* ###################################################################################################################################### */
+// MARK: - Grouped Timers -
+/* ###################################################################################################################################### */
+/**
+ This is a group of sequential timers.
+ 
+ The timers are executed in the order of their storage in the `_timers` array.
+ */
+struct TimerGroup: Equatable {
+    /* ############################################################## */
+    /**
+     Equatable Conformance
+     
+     - parameter lhs: The left-hand side of the comparison.
+     - parameter rhs: The right-hand side of the comparison.
+     
+     - returns: True, if the two grous are the same.
+     */
+    static func == (lhs: TimerGroup, rhs: TimerGroup) -> Bool { lhs.id == rhs.id }
+    
+    /* ############################################################## */
+    /**
+     The maximum number of timers.
+     */
+    static let maxTimersInGroup = 4
+    
+    /* ############################################################## */
+    /**
+     These are the timers that comprise the group. The order of the array, is the order of timer execution.
+     */
+    fileprivate var _timers = [Timer]()
+    
+    /* ############################################################## */
+    /**
+     A unique ID, for comparing.
+     */
+    let id = UUID()
+    
+    /* ############################################################## */
+    /**
+     The container that "owns" this group.
+     */
+    var model: TimerModel?
+    
+    /* ############################################################## */
+    /**
+     Main Initializer
+     
+     - parameter inContainer: The container that "owns" this group.
+     */
+    init(container inContainer: TimerModel, dictionary: [[String: any Hashable]]? = nil) {
+        self.model = inContainer
+        
+        if let inDicts = dictionary {
+            self._timers = inDicts.map { Timer(group: self, dictionary: $0) }
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Computed Properties
+/* ###################################################################################################################################### */
+extension TimerGroup {
+    /* ############################################################## */
+    /**
+     The number of timers in this group.
+     */
+    var count: Int { self._timers.count }
+    
+    /* ############################################################## */
+    /**
+     True, if there are no timers.
+     */
+    var isEmpty: Bool { self._timers.isEmpty }
+
+    /* ############################################################## */
+    /**
+     this exports the current timer state, or allows you to recreate the group, based on a stored state.
+     */
+    var asArray: [[String: any Hashable]] {
+        get { return self._timers.map { $0.asDictionary } }
+        set { self._timers = newValue.map { Timer(group: self, dictionary: $0) } }
+    }
+    
+    /* ############################################################## */
+    /**
+     The index of this group, in the model.
+     */
+    var index: Int? {
+        if let model = self.model {
+            for (sectionIndex, group) in model.enumerated() where group == self {
+                return sectionIndex
+            }
+        }
+        
+        return nil
+    }
+    
+    /* ############################################################## */
+    /**
+     All of the timer wrappers.
+     */
+    var allTimers: [Timer] {
+        self._timers
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension TimerGroup {
+    /* ############################################################## */
+    /**
+     Simple subscript access to the timers.
+     
+     - parameter inIndex: The 0-based index of the timer we want to reference.
+     */
+    subscript(_ inIndex: Int) -> Timer {
+        precondition( (0..<self._timers.count).contains(inIndex), "Index out of bounds")
+        return self._timers[inIndex]
+    }
+    
+    /* ############################################################## */
+    /**
+     Appends a new timer instance to the end of the array.
+     
+     - returns: A reference to the new timer instance. Nil, if the timer was not created.
+     */
+    mutating func addTimer() -> Timer? {
+        guard Self.maxTimersInGroup > _timers.count else { return nil }
+        
+        let newInstance = Timer()
+        
+        self._timers.append(newInstance)
+        
+        return newInstance
+    }
+    
+    /* ############################################################## */
+    /**
+     Deletes a timer from the array.
+     
+     - parameter inIndex: A 0-based index of the timer to be deleted. Must be 0..`timers.count`
+     - returns: A reference to the deleted timer instance. Nil, if the timer was not found.
+     */
+    mutating func deleteTimer(at inIndex: Int) -> Timer? {
+        guard (0..<self._timers.count).contains(inIndex) else { return nil }
+        return self._timers.remove(at: inIndex)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Hashable Conformance
+/* ###################################################################################################################################### */
+extension TimerGroup: Hashable {
+    /* ############################################################## */
+    /**
+     Hash dealer.
+     
+     - parameter inOutHasher: The hasher we're loading up.
+     */
+    func hash(into inOutHasher: inout Hasher) {
+        inOutHasher.combine(id)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Sequence Conformance
+/* ###################################################################################################################################### */
+extension TimerGroup: Sequence {
+    /* ################################################################################################################################## */
+    // MARK: Iterator Conformance
+    /* ################################################################################################################################## */
+    struct TimerGroupIterator: IteratorProtocol {
+        /* ########################################################## */
+        /**
+         We iterate timer wrappers.
+         */
+        typealias Element = Timer
+        
+        /* ########################################################## */
+        /**
+         This has a copy of the timers to be iterated.
+         */
+        let data: [Element]
+        
+        /* ########################################################## */
+        /**
+         This tracks the iteration.
+         */
+        var count: Int
+        
+        /* ########################################################## */
+        /**
+         Iterator (next element)
+         */
+        mutating func next() -> Element? {
+            if 0 == self.count {
+                return nil
+            } else {
+                defer { self.count -= 1 }
+                return data[self.count]
+            }
+        }
+    }
+
+    /* ############################################################## */
+    /**
+     This is an alias for our iterator.
+     */
+    typealias Iterator = TimerGroupIterator
+    
+    /* ############################################################## */
+    /**
+     Returns a new, primed iterator.
+     */
+    func makeIterator() -> TimerGroupIterator {
+        TimerGroupIterator(data: self._timers, count: self.count)
+    }
+}
+
 /* ###################################################################################################################################### */
 // MARK: - Wrapper Struct for Timers -
 /* ###################################################################################################################################### */
 /**
- This struct is used as a wrapper for each individual timer, and provides accessors.
+ This is used as a wrapper for each individual timer, and provides accessors.
  
- We make it a class, so it can be easily mutated and referenced.
+ We make it a class, so it can be easily referenced.
  */
 class Timer: Equatable {
     /* ################################################################## */
@@ -605,214 +831,3 @@ extension Timer: Hashable {
         inOutHasher.combine(id)
     }
 }
-
-/* ###################################################################################################################################### */
-// MARK: - Grouped Timers -
-/* ###################################################################################################################################### */
-/**
- This is a group of sequential timers.
- 
- The timers are executed in the order of their storage in the `_timers` array.
- */
-class TimerGroup: Equatable {
-    /* ############################################################## */
-    /**
-     Equatable Conformance
-     
-     - parameter lhs: The left-hand side of the comparison.
-     - parameter rhs: The right-hand side of the comparison.
-     
-     - returns: True, if the two grous are the same.
-     */
-    static func == (lhs: TimerGroup, rhs: TimerGroup) -> Bool { lhs.id == rhs.id }
-    
-    /* ############################################################## */
-    /**
-     The maximum number of timers.
-     */
-    static let maxTimersInGroup = 4
-    
-    /* ############################################################## */
-    /**
-     These are the timers that comprise the group. The order of the array, is the order of timer execution.
-     */
-    fileprivate var _timers = [Timer]()
-    
-    /* ############################################################## */
-    /**
-     A unique ID, for comparing.
-     */
-    let id = UUID()
-    
-    /* ############################################################## */
-    /**
-     The container that "owns" this group.
-     */
-    var model: TimerModel?
-    
-    /* ############################################################## */
-    /**
-     Main Initializer
-     
-     - parameter inContainer: The container that "owns" this group.
-     */
-    init(container inContainer: TimerModel, dictionary: [[String: any Hashable]]? = nil) {
-        self.model = inContainer
-        
-        if let inDicts = dictionary {
-            self._timers = inDicts.map { Timer(group: self, dictionary: $0) }
-        }
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: Computed Properties
-/* ###################################################################################################################################### */
-extension TimerGroup {
-    /* ############################################################## */
-    /**
-     The number of timers in this group.
-     */
-    var count: Int { self._timers.count }
-    
-    /* ############################################################## */
-    /**
-     True, if there are no timers.
-     */
-    var isEmpty: Bool { self._timers.isEmpty }
-
-    /* ############################################################## */
-    /**
-     this exports the current timer state, or allows you to recreate the group, based on a stored state.
-     */
-    var asArray: [[String: any Hashable]] {
-        get { return self._timers.map { $0.asDictionary } }
-        set { self._timers = newValue.map { Timer(group: self, dictionary: $0) } }
-    }
-    
-    /* ############################################################## */
-    /**
-     The index of this group, in the model.
-     */
-    var index: Int? {
-        if let model = self.model {
-            for (sectionIndex, group) in model.enumerated() where group == self {
-                return sectionIndex
-            }
-        }
-        
-        return nil
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: Instance Methods
-/* ###################################################################################################################################### */
-extension TimerGroup {
-    /* ############################################################## */
-    /**
-     */
-    subscript(_ inIndex: Int) -> Timer {
-        precondition( (0..<self._timers.count).contains(inIndex), "Index out of bounds")
-        return self._timers[inIndex]
-    }
-    
-    /* ############################################################## */
-    /**
-     Appends a new timer instance to the end of the array.
-     
-     - returns: A reference to the new timer instance. Nil, if the timer was not created.
-     */
-    func addTimer() -> Timer? {
-        guard Self.maxTimersInGroup > _timers.count else { return nil }
-        
-        let newInstance = Timer()
-        
-        self._timers.append(newInstance)
-        
-        return newInstance
-    }
-    
-    /* ############################################################## */
-    /**
-     Deletes a timer from the array.
-     
-     - parameter inIndex: A 0-based index of the timer to be deleted. Must be 0..`timers.count`
-     - returns: A reference to the deleted timer instance. Nil, if the timer was not found.
-     */
-    func deleteTimer(at inIndex: Int) -> Timer? {
-        guard (0..<self._timers.count).contains(inIndex) else { return nil }
-        return self._timers.remove(at: inIndex)
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: Hashable Conformance
-/* ###################################################################################################################################### */
-extension TimerGroup: Hashable {
-    /* ############################################################## */
-    /**
-     Hash dealer.
-     
-     - parameter inOutHasher: The hasher we're loading up.
-     */
-    func hash(into inOutHasher: inout Hasher) {
-        inOutHasher.combine(id)
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: Sequence Conformance
-/* ###################################################################################################################################### */
-extension TimerGroup: Sequence {
-    /* ################################################################################################################################## */
-    // MARK: Iterator Conformance
-    /* ################################################################################################################################## */
-    struct TimerGroupIterator: IteratorProtocol {
-        /* ########################################################## */
-        /**
-         We iterate timer wrappers.
-         */
-        typealias Element = Timer
-        
-        /* ########################################################## */
-        /**
-         This has a copy of the timers to be iterated.
-         */
-        let data: [Element]
-        
-        /* ########################################################## */
-        /**
-         This tracks the iteration.
-         */
-        var count: Int
-        
-        /* ########################################################## */
-        /**
-         Iterator (next element)
-         */
-        mutating func next() -> Element? {
-            if 0 == self.count {
-                return nil
-            } else {
-                defer { self.count -= 1 }
-                return data[self.count]
-            }
-        }
-    }
-
-    /* ############################################################## */
-    /**
-     This is an alias for our iterator.
-     */
-    typealias Iterator = TimerGroupIterator
-    
-    /* ############################################################## */
-    /**
-     Returns a new, primed iterator.
-     */
-    func makeIterator() -> TimerGroupIterator {
-        TimerGroupIterator(data: self._timers, count: self.count)
-    }
-}
-
