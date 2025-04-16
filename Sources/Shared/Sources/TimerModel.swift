@@ -145,6 +145,21 @@ extension TimerModel {
     
     /* ############################################################## */
     /**
+     This tests, to see if a timer can be created at, or moved into, the index path.
+     
+     - parameter inIndexPath: The indexpath we are testing.
+     */
+    func canInsertTimer(at inIndexPath: IndexPath) -> Bool {
+        guard (0...self.count).contains(inIndexPath.section) else { return false }
+        if inIndexPath.section < self.count {
+            return self[inIndexPath.section].count < TimerGroup.maxTimersInGroup
+        } else {
+            return inIndexPath.item == 0
+        }
+    }
+    
+    /* ############################################################## */
+    /**
      Accessor for an individual timer, within the model.
      
      - parameter inFrom: The indexpath to the timer.

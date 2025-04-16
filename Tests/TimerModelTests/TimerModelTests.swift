@@ -252,18 +252,21 @@ class TimerModelTests: XCTestCase {
                 timer.startingTimeInSeconds = timeComp
                 timer.warningTimeInSeconds = timeComp / 2
                 timer.finalTimeInSeconds = timeComp / 4
-                
-                if 0 == (groupIndex % 2) {
-                    fullGroups.append(groupIndex)
-                } else {
-                    availableGroups.append(groupIndex)
-                }
+            }
+            
+            if 0 == (groupIndex % 2) {
+                fullGroups.append(groupIndex)
+            } else {
+                availableGroups.append(groupIndex)
             }
         }
         
         // Basic move inside the existing rows.
         let from1 = IndexPath(item: 2, section: fullGroups[0])
         let to1 = IndexPath(item: 0, section: availableGroups[0])
+        
+        XCTAssertFalse(timerModel.canInsertTimer(at: IndexPath(item: 0, section: fullGroups[0])))
+        XCTAssertTrue(timerModel.canInsertTimer(at: to1))
         
         let timer1 = timerModel.getTimer(at: from1)
         timerModel.moveTimer(from: from1, to: to1)
@@ -276,8 +279,13 @@ class TimerModelTests: XCTestCase {
         let from2 = IndexPath(item: 0, section: fullGroups[1])
         let to2 = IndexPath(item: 0, section: 5)
         
+        XCTAssertTrue(timerModel.canInsertTimer(at: to2))
+        XCTAssertFalse(timerModel.canInsertTimer(at: from2))
+        XCTAssertFalse(timerModel.canInsertTimer(at: IndexPath(item: 1, section: 5)))
+
         let timer3 = timerModel.getTimer(at: from2)
         XCTAssertEqual(timerModel.count, 5)
+        XCTAssertTrue(timerModel.canInsertTimer(at: to2))
         timerModel.moveTimer(from: from2, to: to2)
         XCTAssertEqual(timerModel.count, 6)
         let timer4 = timerModel.getTimer(at: to2)
@@ -285,18 +293,26 @@ class TimerModelTests: XCTestCase {
         XCTAssertIdentical(timer3, timer4)
         XCTAssertEqual(timerModel[indexPath: to2].startingTimeInSeconds, 4 + (from2.section * TimerGroup.maxTimersInGroup))
 
-        // Make a couple of moves that empty out the first group (meaning it gets removed).
-        let from3 = IndexPath(item: 0, section: from2.section)
+        // Make a few moves that empty out the first group (meaning it gets removed).
+        let from3 = IndexPath(item: 0, section: 0)
         let to3 = IndexPath(item: 1, section: to2.section)
-        let from4 = IndexPath(item: 0, section: from2.section)
+        let from4 = IndexPath(item: 0, section: 0)
         let to4 = IndexPath(item: 2, section: to2.section)
-        
+        let from5 = IndexPath(item: 0, section: 0)
+        let to5 = IndexPath(item: 3, section: to2.section)
+
         let soonToBeFirst = timerModel.getTimer(at: IndexPath(item: 0, section: 1))
         XCTAssertEqual(timerModel.count, 6)
+        XCTAssertTrue(timerModel.canInsertTimer(at: to3))
         let newFirst = timerModel.moveTimer(from: from3, to: to3)
         XCTAssertEqual(timerModel.count, 6)
         let movedNewFirst = timerModel[indexPath: to3]
+        XCTAssertTrue(timerModel.canInsertTimer(at: to4))
         timerModel.moveTimer(from: from4, to: to4)
+        XCTAssertEqual(timerModel.count, 6)
+        XCTAssertTrue(timerModel.canInsertTimer(at: to5))
+        timerModel.moveTimer(from: from5, to: to5)
+        XCTAssertFalse(timerModel.canInsertTimer(at: to5))
         XCTAssertEqual(timerModel.count, 5)
         XCTAssertIdentical(timerModel.getTimer(at: IndexPath(item: 0, section: 0)), soonToBeFirst)
         XCTAssertNotIdentical(newFirst, soonToBeFirst)
