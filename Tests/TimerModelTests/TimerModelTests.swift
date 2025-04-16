@@ -239,6 +239,8 @@ class TimerModelTests: XCTestCase {
     func testMove() {
         print("TimerModelTests.testMove (START)")
         let timerModel = TimerModel()
+        var fullGroups = [Int]()
+        var availableGroups = [Int]()
         
         // We fill 4 groups of timers, but every other group has 1 less timer (gives room to move).
         for groupIndex in 0..<5 {
@@ -248,8 +250,53 @@ class TimerModelTests: XCTestCase {
                 timer.startingTimeInSeconds = timeComp
                 timer.warningTimeInSeconds = timeComp / 2
                 timer.finalTimeInSeconds = timeComp / 4
+                
+                if 0 == (groupIndex % 2) {
+                    fullGroups.append(groupIndex)
+                } else {
+                    availableGroups.append(groupIndex)
+                }
             }
         }
+        
+        // Basic move inside the existing rows.
+        let from1 = IndexPath(item: 2, section: fullGroups[0])
+        let to1 = IndexPath(item: 0, section: availableGroups[0])
+        
+        let timer1 = timerModel.getTimer(at: from1)
+        timerModel.moveTimer(from: from1, to: to1)
+        let timer2 = timerModel.getTimer(at: to1)
+        
+        XCTAssertIdentical(timer1, timer2)
+        XCTAssertEqual(timerModel[indexPath: to1].startingTimeInSeconds, 6 + (from1.section * TimerGroup.maxTimersInGroup))
+        
+        // Create a new section
+        let from2 = IndexPath(item: 0, section: fullGroups[1])
+        let to2 = IndexPath(item: 0, section: 5)
+        
+        let timer3 = timerModel.getTimer(at: from2)
+        XCTAssertEqual(timerModel.count, 5)
+        timerModel.moveTimer(from: from2, to: to2)
+        XCTAssertEqual(timerModel.count, 6)
+        let timer4 = timerModel.getTimer(at: to2)
+        
+        XCTAssertIdentical(timer3, timer4)
+        XCTAssertEqual(timerModel[indexPath: to2].startingTimeInSeconds, 4 + (from2.section * TimerGroup.maxTimersInGroup))
+
+        // Make a couple of moves that empty out the first group (meaning it gets removed).
+        let from3 = IndexPath(item: 0, section: from2.section)
+        let to3 = IndexPath(item: 1, section: to2.section)
+        let from4 = IndexPath(item: 0, section: from2.section)
+        let to4 = IndexPath(item: 2, section: to2.section)
+        
+        let soonToBeFirst = timerModel.getTimer(at: IndexPath(item: 0, section: 1))
+        XCTAssertEqual(timerModel.count, 6)
+        timerModel.moveTimer(from: from3, to: to3)
+        XCTAssertEqual(timerModel.count, 6)
+        timerModel.moveTimer(from: from4, to: to4)
+        XCTAssertEqual(timerModel.count, 5)
+        XCTAssertIdentical(timerModel.getTimer(at: IndexPath(item: 0, section: 0)), soonToBeFirst)
+
         print("TimerModelTests.testMove (END)\n")
     }
 }
