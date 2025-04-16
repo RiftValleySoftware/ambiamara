@@ -35,7 +35,12 @@ class RiValT_Base_ViewController: UIViewController {
      This will provide haptic/audio feedback for more significant events.
      */
     private let _impactFeedbackGenerator = UIImpactFeedbackGenerator()
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension RiValT_Base_ViewController {
     /* ################################################################## */
     /**
      Called when the view hierarchy has been set up.
@@ -72,9 +77,23 @@ class RiValT_Base_ViewController: UIViewController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: Computed Properties
+/* ###################################################################################################################################### */
+extension RiValT_Base_ViewController {
+    /* ################################################################## */
+    /**
+     This is the application-global timer model.
+     
+     It's an implicit optional, because the whole shebang goes into the crapper, if it doesn't work.
+     */
+    var timerModel: TimerModel! { RiValT_AppDelegate.appDelegateInstance?.timerModel }
+}
+
+/* ###################################################################################################################################### */
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_Base_ViewController {
+
     /* ################################################################## */
     /**
      Triggers a selection haptic.

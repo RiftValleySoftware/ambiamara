@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DVH-QM-2oZ">
-                                <rect key="frame" x="16" y="162" width="361" height="622"/>
+                                <rect key="frame" x="16" y="118" width="361" height="666"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="4" minimumInteritemSpacing="4" id="Bpu-9n-KJZ">
                                     <size key="itemSize" width="80" height="80"/>
@@ -60,22 +60,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="DVH-QM-2oZ" secondAttribute="bottom" id="voD-aR-nvp"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="DJn-d6-GdS">
-                        <barButtonItem key="leftBarButtonItem" systemItem="trash" id="PMK-52-CGY">
-                            <connections>
-                                <action selector="deleteItem:" destination="BYZ-38-t0r" id="1W2-LZ-Klc"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="UCT-uF-lLY">
-                            <connections>
-                                <action selector="addItem:" destination="BYZ-38-t0r" id="4ZC-wO-ufY"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="DJn-d6-GdS"/>
                     <connections>
-                        <outlet property="addButton" destination="UCT-uF-lLY" id="5kX-8E-Vqs"/>
                         <outlet property="collectionView" destination="DVH-QM-2oZ" id="9aH-vt-SVg"/>
-                        <outlet property="deleteButton" destination="PMK-52-CGY" id="n1v-lL-Sfi"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="iB1-Rw-Leg"/>
                     </connections>
                 </viewController>
@@ -86,9 +73,8 @@
         <!--Navigation Controller-->
         <scene sceneID="CJq-mF-a4b">
             <objects>
-                <navigationController id="NUe-gn-djt" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="NUe-gn-djt" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qxc-ga-uSe">
-                        <rect key="frame" x="0.0" y="118" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>

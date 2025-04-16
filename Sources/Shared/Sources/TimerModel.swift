@@ -148,11 +148,17 @@ extension TimerModel {
      This tests, to see if a timer can be created at, or moved into, the index path.
      
      - parameter inIndexPath: The indexpath we are testing.
+     - parameter inFrom: Optional. If provided, then it is the source path of the item (for moving within a full groaup).
      */
-    func canInsertTimer(at inIndexPath: IndexPath) -> Bool {
+    func canInsertTimer(at inIndexPath: IndexPath, from inFrom: IndexPath? = nil) -> Bool {
         guard (0...self.count).contains(inIndexPath.section) else { return false }
         if inIndexPath.section < self.count {
-            return self[inIndexPath.section].count < TimerGroup.maxTimersInGroup
+            if let from = inFrom,
+               self[inIndexPath.section].count == TimerGroup.maxTimersInGroup {
+                return from.section == inIndexPath.section
+            } else {
+                return self[inIndexPath.section].count < TimerGroup.maxTimersInGroup
+            }
         } else {
             return inIndexPath.item == 0
         }
@@ -203,21 +209,21 @@ extension TimerModel {
      */
     @discardableResult
     func createNewTimer(at inTo: IndexPath) -> Timer {
-        precondition((0...self._groups.count).contains(inTo.section), "Group Index out of bounds")
+        precondition((0...self.count).contains(inTo.section), "Group Index out of bounds")
         
-        if self._groups.count == inTo.section {
+        if self.count == inTo.section {
             self._groups.append(TimerGroup(container: self))
         }
         
-        precondition((0...self._groups[inTo.section].count).contains(inTo.item), "Timer Index out of bounds")
-        precondition(self._groups[inTo.section].count < TimerGroup.maxTimersInGroup, "There is no room for a new timer in this group.")
+        precondition((0...self[inTo.section].count).contains(inTo.item), "Timer Index out of bounds")
+        precondition(self[inTo.section].count < TimerGroup.maxTimersInGroup, "There is no room for a new timer in this group.")
         
-        let timerContainer = Timer(group: self._groups[inTo.section])
+        let timerContainer = Timer(group: self[inTo.section])
         
-        if self._groups[inTo.section].count == inTo.item {
-            self._groups[inTo.section]._timers.append(timerContainer)
+        if self[inTo.section].count == inTo.item {
+            self[inTo.section]._timers.append(timerContainer)
         } else {
-            self._groups[inTo.section]._timers.insert(timerContainer, at: inTo.item)
+            self[inTo.section]._timers.insert(timerContainer, at: inTo.item)
         }
         
         return timerContainer
@@ -234,7 +240,7 @@ extension TimerModel {
     @discardableResult
     func createNewTimerAtEndOf(group inSection: Int) -> Timer {
         precondition((0...self._groups.count).contains(inSection), "Group Index out of bounds")
-        if self._groups.count == inSection {
+        if self.count == inSection {
             return self.createNewTimer(at: IndexPath(item: 0, section: inSection))
         } else {
             return self.createNewTimer(at: IndexPath(item: self._groups[inSection].count, section: inSection))
@@ -251,12 +257,12 @@ extension TimerModel {
      */
     @discardableResult
     func removeTimer(from inFrom: IndexPath) -> Timer {
-        precondition((0..<self._groups.count).contains(inFrom.section), "Group Index out of bounds")
-        precondition((0..<self._groups[inFrom.section].count).contains(inFrom.item), "Timer Index out of bounds")
+        precondition((0..<self.count).contains(inFrom.section), "Group Index out of bounds")
+        precondition((0..<self[inFrom.section].count).contains(inFrom.item), "Timer Index out of bounds")
         
-        let timerContainer = self._groups[inFrom.section]._timers.remove(at: inFrom.item)
+        let timerContainer = self[inFrom.section]._timers.remove(at: inFrom.item)
         
-        self._groups = self._groups.compactMap { !$0.isEmpty ? $0 : nil }
+        self._groups = self.compactMap { !$0.isEmpty ? $0 : nil }
 
         return timerContainer
     }
@@ -272,28 +278,24 @@ extension TimerModel {
      */
     @discardableResult
     func moveTimer(from inFrom: IndexPath, to inTo: IndexPath) -> Timer {
-        precondition((0...self._groups.count).contains(inFrom.section), "Group Index out of bounds")
-        precondition((0...self._groups[inFrom.section].count).contains(inFrom.item), "Timer Index out of bounds")
-
-        let timerContainer = self._groups[inFrom.section]._timers.remove(at: inFrom.item)
-        var to = inTo
+        precondition((0...self.count).contains(inFrom.section), "Group Index out of bounds")
+        precondition((0...self[inFrom.section].count).contains(inFrom.item), "Timer Index out of bounds")
         
-        if inFrom.section == inTo.section,
-           inTo.item > inFrom.item {
-            to.item -= 1
-        } else if self._groups.count == to.section {
+        let timerContainer = self[inFrom.section]._timers.remove(at: inFrom.item)
+        
+        if self.count == inTo.section {
             self._groups.append(TimerGroup(container: self))
         }
 
-        if self._groups[to.section].count == to.item {
-            self._groups[to.section]._timers.append(timerContainer)
+        if self[inTo.section].count == inTo.item {
+            self[inTo.section]._timers.append(timerContainer)
         } else {
-            self._groups[to.section]._timers.insert(timerContainer, at: to.item)
+            self[inTo.section]._timers.insert(timerContainer, at: inTo.item)
         }
         
-        timerContainer.group = self._groups[to.section]
+        timerContainer.group = self[inTo.section]
         
-        self._groups = self._groups.compactMap { !$0.isEmpty ? $0 : nil }
+        self._groups = self.compactMap { !$0.isEmpty ? $0 : nil }
         
         return timerContainer
     }

@@ -26,6 +26,13 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
     
     /* ################################################################## */
     /**
+     "There can only be one."
+         - Connor MacLeod
+     */
+    var timerModel = TimerModel()
+    
+    /* ################################################################## */
+    /**
      Called when the application has set up, and is preparing to "go live."
      
      - parameter: The application instance that this is delegated to (ignored).

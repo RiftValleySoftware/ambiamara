@@ -261,7 +261,7 @@ class TimerModelTests: XCTestCase {
             }
         }
         
-        // Basic move inside the existing rows.
+        // Basic move inside the existing rows (going back)
         let from1 = IndexPath(item: 2, section: fullGroups[0])
         let to1 = IndexPath(item: 0, section: availableGroups[0])
         
@@ -317,6 +317,12 @@ class TimerModelTests: XCTestCase {
         XCTAssertIdentical(timerModel.getTimer(at: IndexPath(item: 0, section: 0)), soonToBeFirst)
         XCTAssertNotIdentical(newFirst, soonToBeFirst)
         XCTAssertIdentical(movedNewFirst, newFirst)
+
+        let from6 = IndexPath(item: 0, section: 0)
+        let to6 = IndexPath(item: 2, section: 0)
+        XCTAssertFalse(timerModel.canInsertTimer(at: to6))
+        XCTAssertTrue(timerModel.canInsertTimer(at: to6, from: from6))
+        timerModel.moveTimer(from: from6, to: to6)
 
         print("TimerModelTests.testMove (END)\n")
     }
