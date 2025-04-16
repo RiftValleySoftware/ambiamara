@@ -13,10 +13,10 @@ import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
-// MARK: - -
+// MARK: - One Display Cell for the Collection View -
 /* ###################################################################################################################################### */
 /**
- 
+ This describes each cell in the collection view.
  */
 class RiValT_TimerArray_IconCell: UICollectionViewCell {
     /* ############################################################## */
@@ -47,22 +47,20 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
         let newLabel = UILabel()
         newLabel.textColor = UIViewController().isDarkMode ? .black : .white
         newLabel.numberOfLines = 2
-        newLabel.font = .systemFont(ofSize: 30, weight: .bold)
-        newLabel.text = item?.timerDisplay ?? ""
+        newLabel.font = UIFont(name: "Let\'s go Digital", size: 60)
+        newLabel.text = inItem.timerDisplay
+        newLabel.adjustsFontSizeToFitWidth = true
+        newLabel.minimumScaleFactor = 0.25
         newLabel.textAlignment = .center
         newLabel.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(newLabel)
-        newLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
-        newLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
+        newLabel.topAnchor.constraint(greaterThanOrEqualTo: self.contentView.topAnchor, constant: 4).isActive = true
+        newLabel.bottomAnchor.constraint(greaterThanOrEqualTo: self.contentView.bottomAnchor, constant: 4).isActive = true
+        newLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 4).isActive = true
+        newLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: 4).isActive = true
         newLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
-    }
-    
-    /* ############################################################## */
-    /**
-     */
-    func setSelected(_ inIsSelected: Bool) {
-        self.contentView.borderColor = inIsSelected ? .systemBlue : .clear
-        self.contentView.borderWidth = inIsSelected ? 3 : 0
+        self.contentView.borderColor = inItem.isSelected ? .systemBlue : .clear
+        self.contentView.borderWidth = inItem.isSelected ? 3 : 0
     }
 }
 
@@ -153,17 +151,14 @@ extension RiValT_TimerArray_ViewController {
      */
     func setupDataSource() {
         guard let collectionView = self.collectionView else { return }
-        self.dataSource = UICollectionViewDiffableDataSource<Int, Timer>(collectionView: collectionView) { (inCollectionView, inIndexPath, inTimer) -> UICollectionViewCell? in
-            if let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_IconCell {
-                cell.configure(with: inTimer)
-                cell.setSelected(inTimer.isSelected)
-                return cell
-            }
+        self.dataSource = UICollectionViewDiffableDataSource<Int, Timer>(collectionView: collectionView) { inCollectionView, inIndexPath, inTimer in
+            guard let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_IconCell else { return nil }
             
-            return nil
+            cell.configure(with: inTimer)
+            return cell
         }
-
-        self.updateSnapshot()
+        
+        collectionView.dataSource = self.dataSource
     }
 
     /* ############################################################## */
@@ -181,23 +176,6 @@ extension RiValT_TimerArray_ViewController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: Callbacks
-/* ###################################################################################################################################### */
-extension RiValT_TimerArray_ViewController {
-    /* ############################################################## */
-    /**
-     */
-    @IBAction func addItem(_: Any) {
-    }
-
-    /* ############################################################## */
-    /**
-     */
-    @IBAction func deleteItem(_: Any) {
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: UICollectionViewDragDelegate Conformance
 /* ###################################################################################################################################### */
 extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
@@ -209,6 +187,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
         let parameters = UIDragPreviewParameters()
         parameters.backgroundColor = .clear
         if let cell = inCollectionView.cellForItem(at: inIndexPath) {
+            parameters.backgroundColor = .clear
             parameters.visiblePath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.cornerRadius)
             parameters.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.cornerRadius)
         }
@@ -218,17 +197,18 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
     /* ############################################################## */
     /**
      */
-    func collectionView(_: UICollectionView,
+    func collectionView(_ inCollectionView: UICollectionView,
                         itemsForBeginning inSession: UIDragSession,
                         at inIndexPath: IndexPath
     ) -> [UIDragItem] {
-        print("Starting drag at \(inIndexPath.debugDescription)")
         inSession.localContext = inIndexPath
-        let timer = timerModel[indexPath: inIndexPath]
+        self.timerModel.selectTimer(inIndexPath)
+        inCollectionView.reloadData()
+        let timer = self.timerModel[indexPath: inIndexPath]
         let provider = NSItemProvider(object: timer.id.uuidString as NSString)
         let dragItem = UIDragItem(itemProvider: provider)
         dragItem.localObject = timer
-        self.impactHaptic()
+        self.impactHaptic(1.0)
 
         return [dragItem]
     }
@@ -245,17 +225,14 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                         dropSessionDidUpdate inSession: UIDropSession,
                         withDestinationIndexPath inIndexPath: IndexPath?
     ) -> UICollectionViewDropProposal {
-        print("Vetting drag at \(inIndexPath.debugDescription)")
-        guard let sourceIndexPath = inSession.localDragSession?.localContext as? IndexPath,
-              let destinationIndexPath = inIndexPath,
-              self.timerModel.canInsertTimer(at: destinationIndexPath, from: sourceIndexPath)
-        else {
-            print("Cancel: Cannot insert timer at \(inIndexPath.debugDescription)")
+        if let sourceIndexPath = inSession.localDragSession?.localContext as? IndexPath,
+           let destinationIndexPath = inIndexPath,
+           self.timerModel.canInsertTimer(at: destinationIndexPath, from: sourceIndexPath) {
+            self.selectionHaptic()
+            return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        } else {
             return UICollectionViewDropProposal(operation: .cancel)
         }
-        
-        print("Can insert timer at \(inIndexPath.debugDescription)")
-        return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
     }
 
     /* ############################################################## */
@@ -265,10 +242,11 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                         performDropWith inCoordinator: UICollectionViewDropCoordinator
     ) {
         guard let sourceIndexPath = inCoordinator.session.localDragSession?.localContext as? IndexPath,
-              let destinationIndexPath = inCoordinator.destinationIndexPath
+              let destinationIndexPath = inCoordinator.destinationIndexPath,
+              sourceIndexPath != destinationIndexPath
         else { return }
 
-        print("Moving timer from \(sourceIndexPath), to \(destinationIndexPath)")
+        self.impactHaptic(1.0)
         self.timerModel.moveTimer(from: sourceIndexPath, to: destinationIndexPath)
         self.updateSnapshot()
     }
@@ -281,9 +259,10 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDelegate {
     /* ############################################################## */
     /**
      */
-    func collectionView(_: UICollectionView,
+    func collectionView(_ inCollectionView: UICollectionView,
                         didSelectItemAt inIndexPath: IndexPath
     ) {
         self.timerModel.selectTimer(inIndexPath)
+        inCollectionView.reloadData()
     }
 }

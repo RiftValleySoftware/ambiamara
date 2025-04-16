@@ -44,7 +44,6 @@
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="TZn-OL-KPE"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="B0U-Xg-99U"/>
                                     <outlet property="dragDelegate" destination="BYZ-38-t0r" id="R37-TH-Sda"/>
                                     <outlet property="dropDelegate" destination="BYZ-38-t0r" id="nzx-Lg-0WA"/>
