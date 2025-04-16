@@ -106,7 +106,7 @@ extension RiValT_TimerArray_ViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        for groupIndex in 0..<5 {
+        for groupIndex in 0..<15 {
             for timerIndex in 0..<(1 == (groupIndex % 2) ? TimerGroup.maxTimersInGroup : TimerGroup.maxTimersInGroup - 1) {
                 let timer = timerModel.createNewTimer(at: IndexPath(item: timerIndex, section: groupIndex))
                 timer.startingTimeInSeconds = (groupIndex * TimerGroup.maxTimersInGroup) + timerIndex
