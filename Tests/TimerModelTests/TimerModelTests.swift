@@ -191,9 +191,65 @@ class TimerModelTests: XCTestCase {
     
     /* ################################################################## */
     /**
+     This tests deletion of timers, using either the indexpath, or direct deletion from a timer instance.
+     It also makes sure that a group is deleted, if all its timers are removed.
      */
     func testDelete() {
         print("TimerModelTests.testDelete (START)")
+        let timerModel = TimerModel()
+        
+        // We fill 4 groups of timers.
+        for groupIndex in 0..<5 {
+            for timerIndex in 0..<TimerGroup.maxTimersInGroup {
+                let timer = timerModel.createNewTimer(at: IndexPath(item: timerIndex, section: groupIndex))
+                let timeComp = 4 + (groupIndex * TimerGroup.maxTimersInGroup) + timerIndex
+                timer.startingTimeInSeconds = timeComp
+                timer.warningTimeInSeconds = timeComp / 2
+                timer.finalTimeInSeconds = timeComp / 4
+            }
+        }
+        
+        let deletePath = IndexPath(item: 2, section: 2)
+        let deletedTimer = timerModel.removeTimer(from: deletePath)
+        XCTAssertNotNil(deletedTimer)
+        XCTAssertEqual(TimerGroup.maxTimersInGroup - 1, timerModel[deletePath.section].count)
+        let replacement = timerModel.getTimer(at: deletePath)
+        XCTAssertNotNil(replacement)
+        var previous = timerModel.getTimer(at: IndexPath(item: 1, section: 2))
+        XCTAssertNotNil(previous)
+        XCTAssertNotEqual(replacement, deletedTimer)
+        XCTAssertNotEqual(previous, deletedTimer)
+        XCTAssertEqual(replacement.startingTimeInSeconds, deletedTimer.startingTimeInSeconds + 1)
+        XCTAssertEqual(previous.startingTimeInSeconds, deletedTimer.startingTimeInSeconds - 1)
+        XCTAssertTrue(replacement.delete())
+        XCTAssertEqual(TimerGroup.maxTimersInGroup - 2, timerModel[deletePath.section].count)
+        XCTAssertIdentical(previous, timerModel[deletePath.section].last)
+        XCTAssertTrue(previous.delete())
+        previous = timerModel.getTimer(at: IndexPath(item: 0, section: 2))
+        XCTAssertIdentical(previous, timerModel[deletePath.section].last)
+        XCTAssertTrue(previous.delete())
+        XCTAssertEqual(timerModel.count, 4)
+        XCTAssertEqual(timerModel[deletePath.section][0].startingTimeInSeconds, 4 + (3 * TimerGroup.maxTimersInGroup))
         print("TimerModelTests.testDelete (END)\n")
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func testMove() {
+        print("TimerModelTests.testMove (START)")
+        let timerModel = TimerModel()
+        
+        // We fill 4 groups of timers, but every other group has 1 less timer (gives room to move).
+        for groupIndex in 0..<5 {
+            for timerIndex in 0..<(0 == (groupIndex % 2) ? TimerGroup.maxTimersInGroup : TimerGroup.maxTimersInGroup - 1) {
+                let timer = timerModel.createNewTimer(at: IndexPath(item: timerIndex, section: groupIndex))
+                let timeComp = 4 + (groupIndex * TimerGroup.maxTimersInGroup) + timerIndex
+                timer.startingTimeInSeconds = timeComp
+                timer.warningTimeInSeconds = timeComp / 2
+                timer.finalTimeInSeconds = timeComp / 4
+            }
+        }
+        print("TimerModelTests.testMove (END)\n")
     }
 }

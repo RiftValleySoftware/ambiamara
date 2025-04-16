@@ -41,9 +41,7 @@ extension TimerEngine {
 /**
  This contains an entire model of the timer app.
  
- The model consists of groups, which consist of timers.
- 
- This doesn't really do anything more than aggregate timers. Things like selection, and whatnot, should be done outside the model.
+ The model consists of groups, which consist of timers. Each timer is a "wrapped" ``TimerEngine`` instance.
  
  This is a class, so it can be referenced.
  */
@@ -57,9 +55,7 @@ class TimerModel: Equatable {
      
      - returns: True, if the two models are the same.
      */
-    static func == (lhs: TimerModel, rhs: TimerModel) -> Bool {
-        lhs._groups == rhs._groups
-    }
+    static func == (lhs: TimerModel, rhs: TimerModel) -> Bool { lhs._groups == rhs._groups }
     
     /* ############################################################## */
     /**
@@ -110,6 +106,18 @@ extension TimerModel {
      The last timer group
      */
     var last: TimerGroup? { self._groups.last }
+    
+    /* ############################################################## */
+    /**
+     The last timer group
+     */
+    var selectedTimer: Timer? {
+        for timer in self.allTimers where timer.isSelected {
+            return timer
+        }
+        
+        return nil
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -148,6 +156,28 @@ extension TimerModel {
         return self._groups[inFrom.section][inFrom.item]
     }
     
+    /* ############################################################## */
+    /**
+     This will deselect all the timers in the model, with the possible exception of the given timer.
+     
+     - parameter inTimerPath: If this is set to a valid index path in the model, that timer will not have its selection state modified (either selected, or not selected). Optional. If not given, all timers are deselected.
+     */
+    func deselectAllTimers(except inTimerPath: IndexPath? = nil) {
+        for timer in self.allTimers where inTimerPath != timer.indexPath {
+            timer.isSelected = false
+        }
+    }
+    
+    /* ############################################################## */
+    /**
+     This will select the timer given (deselects all others).
+     
+     - parameter inTimerPath: Must be valid within the model. The timer to select.
+     */
+    func selectTimer(_ inTimerPath: IndexPath) {
+        self.getTimer(at: inTimerPath).isSelected = true
+    }
+
     /* ############################################################## */
     /**
      This creates a new, uninitialized timer instance, at the given index path anywhere in the model.
@@ -329,7 +359,7 @@ class TimerGroup: Equatable {
      
      - returns: True, if the two groups are the same.
      */
-    static func == (lhs: TimerGroup, rhs: TimerGroup) -> Bool { lhs.id == rhs.id }
+    static func == (lhs: TimerGroup, rhs: TimerGroup) -> Bool { lhs._timers == rhs._timers }
     
     /* ############################################################## */
     /**
@@ -605,6 +635,12 @@ class Timer: Equatable {
      The callback for the transition handler. This can be called in any thread. It may also be nil.
      */
     public var transitionHandler: TransitionHandler?
+    
+    /* ################################################################## */
+    /**
+     If true, then this timer is the selected timer. There can only be one.
+     */
+    public var isSelected: Bool = false { didSet { if self.isSelected { model?.deselectAllTimers(except: self.indexPath) } } }
 
     /* ############################################################## */
     /**
@@ -766,8 +802,17 @@ extension Timer {
      > NOTE: This does not affect the `tickHandler` or `transitionHandler` properties.
      */
     var asDictionary: [String: any Hashable] {
-        get { self._engine.asDictionary }
-        set { self._engine.asDictionary = newValue }
+        get {
+            var ret = self._engine.asDictionary
+            if self.isSelected {
+                ret["isSelected"] = true
+            }
+            return ret
+        }
+        set {
+            self._engine.asDictionary = newValue
+            self.isSelected = newValue["isSelected"] as? Bool ?? false
+        }
     }
 }
 
@@ -799,6 +844,18 @@ extension Timer {
 
     /* ############################################################## */
     /**
+     This removes the timer from the model.
+     
+     - returns: True, if the deletion was successful. May be ignored.
+     */
+    @discardableResult
+    func delete() -> Bool {
+        guard let indexPath = self.indexPath else { return false }
+        return self == self.model?.removeTimer(from: indexPath)
+    }
+
+    /* ############################################################## */
+    /**
      Starts the timer from the beginning. It will do so, from any timer state.
      
      This will interrupt any current timer.
@@ -806,7 +863,7 @@ extension Timer {
     func start() {
         self._engine.start()
     }
-    
+
     /* ############################################################## */
     /**
      This stops the timer, and resets it to the starting point, with no alarm. It will do so, from any timer state.
