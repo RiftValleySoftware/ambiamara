@@ -235,6 +235,8 @@ class TimerModelTests: XCTestCase {
     
     /* ################################################################## */
     /**
+     This moves some timers around. It will move from full groups, to ones with one slot,
+     then it will create new groups, and remove all the timers from a group, causing the group to be removed.
      */
     func testMove() {
         print("TimerModelTests.testMove (START)")
@@ -291,11 +293,14 @@ class TimerModelTests: XCTestCase {
         
         let soonToBeFirst = timerModel.getTimer(at: IndexPath(item: 0, section: 1))
         XCTAssertEqual(timerModel.count, 6)
-        timerModel.moveTimer(from: from3, to: to3)
+        let newFirst = timerModel.moveTimer(from: from3, to: to3)
         XCTAssertEqual(timerModel.count, 6)
+        let movedNewFirst = timerModel[indexPath: to3]
         timerModel.moveTimer(from: from4, to: to4)
         XCTAssertEqual(timerModel.count, 5)
         XCTAssertIdentical(timerModel.getTimer(at: IndexPath(item: 0, section: 0)), soonToBeFirst)
+        XCTAssertNotIdentical(newFirst, soonToBeFirst)
+        XCTAssertIdentical(movedNewFirst, newFirst)
 
         print("TimerModelTests.testMove (END)\n")
     }
