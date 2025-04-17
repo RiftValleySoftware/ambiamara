@@ -42,7 +42,22 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
      */
     func application(_: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Self.appDelegateInstance = self
+        setUpTimerModel()
         return true
+    }
+    
+    /* ################################################################## */
+    /**
+     This initializes the timer model.
+     */
+    func setUpTimerModel() {
+        timerModel.createNewTimer(at: IndexPath(item: 0, section: 0))
+//        for groupIndex in 0..<15 {
+//            for timerIndex in 0..<(Int.random(in: 1...TimerGroup.maxTimersInGroup)) {
+//                let timer = timerModel.createNewTimer(at: IndexPath(item: timerIndex, section: groupIndex))
+//                timer.startingTimeInSeconds = (groupIndex * TimerGroup.maxTimersInGroup) + timerIndex
+//            }
+//        }
     }
 
     // MARK: UISceneSession Lifecycle

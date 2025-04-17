@@ -141,7 +141,12 @@ extension TimerModel {
      
      - parameter inIndexPath: The index path to the timer.
      */
-    subscript(indexPath inIndexPath: IndexPath) -> Timer { self.getTimer(at: inIndexPath) }
+    subscript(indexPath inIndexPath: IndexPath) -> Timer {
+        precondition((0..<self._groups.count).contains(inIndexPath.section), "Group Index out of bounds")
+        precondition((0..<self._groups[inIndexPath.section].count).contains(inIndexPath.item), "Timer Index out of bounds")
+        
+        return self.getTimer(at: inIndexPath)!
+    }
     
     /* ############################################################## */
     /**
@@ -178,11 +183,14 @@ extension TimerModel {
     /**
      Accessor for an individual timer, within the model.
      
-     - parameter inFrom: The indexpath to the timer.
+     - parameter inFrom: The indexpath to the timer. This must represent a valid, existing timer.
+     
+     - returns: The timer instance, or nil, if the indexPath was not valid.
      */
-    func getTimer(at inFrom: IndexPath) -> Timer {
-        precondition((0..<self._groups.count).contains(inFrom.section), "Group Index out of bounds")
-        precondition((0..<self._groups[inFrom.section].count).contains(inFrom.item), "Timer Index out of bounds")
+    func getTimer(at inFrom: IndexPath) -> Timer? {
+        guard (0..<self._groups.count).contains(inFrom.section),
+              (0..<self._groups[inFrom.section].count).contains(inFrom.item)
+        else { return nil }
 
         return self._groups[inFrom.section][inFrom.item]
     }
@@ -206,7 +214,7 @@ extension TimerModel {
      - parameter inTimerPath: Must be valid within the model. The timer to select.
      */
     func selectTimer(_ inTimerPath: IndexPath) {
-        self.getTimer(at: inTimerPath).isSelected = true
+        self.getTimer(at: inTimerPath)?.isSelected = true
     }
 
     /* ############################################################## */

@@ -67,8 +67,8 @@ class RiValT_TimerArray_AddCell: UICollectionViewCell {
         self.contentView.backgroundColor = UIColor(named: "Accent Color")
         self.contentView.layer.cornerRadius = RiValT_TimerArray_IconCell.itemSize.widthDimension.dimension / 2
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
-        let newImage = UIImageView(image: UIImage(systemName: "plus"))
-        newImage.contentMode = .scaleAspectFit
+        let newImage = UIImageView(image: UIImage(systemName: "plus.circle.fill")?.applyingSymbolConfiguration(.init(scale: .large)))
+        newImage.contentMode = .center
         newImage.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(newImage)
         newImage.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
@@ -173,19 +173,6 @@ extension RiValT_TimerArray_ViewController {
     /* ############################################################## */
     /**
      */
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        for groupIndex in 0..<15 {
-            for timerIndex in 0..<(Int.random(in: 1...TimerGroup.maxTimersInGroup)) {
-                let timer = timerModel.createNewTimer(at: IndexPath(item: timerIndex, section: groupIndex))
-                timer.startingTimeInSeconds = (groupIndex * TimerGroup.maxTimersInGroup) + timerIndex
-            }
-        }
-    }
-    
-    /* ############################################################## */
-    /**
-     */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.setupDataSource()
@@ -234,14 +221,12 @@ extension RiValT_TimerArray_ViewController {
         self.dataSource = UICollectionViewDiffableDataSource<Int, RiValT_TimerArray_Placeholder>(collectionView: collectionView) { inCollectionView, inIndexPath, inTimer in
             var ret = UICollectionViewCell()
             
-            if inIndexPath.item == self.timerModel[inIndexPath.section].count,
-               nil == inTimer.timer,
-                let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_AddCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_AddCell {
-                cell.configure()
-                ret = cell
-            } else if let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_IconCell,
-                      let timer = inTimer.timer {
+            if let timer = self.timerModel.getTimer(at: inIndexPath),
+               let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_IconCell {
                 cell.configure(with: timer)
+                ret = cell
+            } else if let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_AddCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_AddCell {
+                cell.configure()
                 ret = cell
             }
             
@@ -264,6 +249,10 @@ extension RiValT_TimerArray_ViewController {
             }
         }
         
+        let lastSection = timerModel.count
+        snapshot.appendSections([lastSection])
+        snapshot.appendItems([RiValT_TimerArray_Placeholder()], toSection: lastSection)
+
         self.dataSource?.apply(snapshot, animatingDifferences: false)
     }
 }
@@ -361,7 +350,14 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDelegate {
     func collectionView(_ inCollectionView: UICollectionView,
                         didSelectItemAt inIndexPath: IndexPath
     ) {
-        self.timerModel.selectTimer(inIndexPath)
+        if let timer = self.timerModel.getTimer(at: inIndexPath) {
+            timer.isSelected = true
+        } else {
+            let timer = self.timerModel.createNewTimer(at: inIndexPath)
+            timer.isSelected = true
+        }
+
+        self.updateSnapshot()
         inCollectionView.reloadData()
     }
 }

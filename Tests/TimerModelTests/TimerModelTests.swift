@@ -153,14 +153,14 @@ class TimerModelTests: XCTestCase {
 
         // Make sure that the one after it, is the one that used to be where it is.
         let compTimerIndexPath = IndexPath(item: firstTimerIndexPath.item + 1, section: firstTimerIndexPath.section)
-        let compTimer = timerModel.getTimer(at: compTimerIndexPath)
+        let compTimer = timerModel[indexPath: compTimerIndexPath]
         XCTAssertEqual(compTimer.indexPath, compTimerIndexPath)
         let timeComp = 4 + (compTimerIndexPath.section * TimerGroup.maxTimersInGroup) + compTimerIndexPath.item - 1
         XCTAssertEqual(compTimer.startingTimeInSeconds, timeComp)
 
         // Make sure the one before, was left alone.
         let compTimer2IndexPath = IndexPath(item: firstTimerIndexPath.item - 1, section: firstTimerIndexPath.section)
-        let compTimer2 = timerModel.getTimer(at: compTimer2IndexPath)
+        let compTimer2 = timerModel[indexPath: compTimer2IndexPath]
         XCTAssertEqual(compTimer2.indexPath, compTimer2IndexPath)
         let timeComp2 = 4 + (compTimer2IndexPath.section * TimerGroup.maxTimersInGroup) + compTimer2IndexPath.item
         XCTAssertEqual(compTimer2.startingTimeInSeconds, timeComp2)
@@ -213,9 +213,9 @@ class TimerModelTests: XCTestCase {
         let deletedTimer = timerModel.removeTimer(from: deletePath)
         XCTAssertNotNil(deletedTimer)
         XCTAssertEqual(TimerGroup.maxTimersInGroup - 1, timerModel[deletePath.section].count)
-        let replacement = timerModel.getTimer(at: deletePath)
+        let replacement = timerModel[indexPath: deletePath]
         XCTAssertNotNil(replacement)
-        var previous = timerModel.getTimer(at: IndexPath(item: 1, section: 2))
+        var previous = timerModel[indexPath: IndexPath(item: 1, section: 2)]
         XCTAssertNotNil(previous)
         XCTAssertNotEqual(replacement, deletedTimer)
         XCTAssertNotEqual(previous, deletedTimer)
@@ -225,7 +225,7 @@ class TimerModelTests: XCTestCase {
         XCTAssertEqual(TimerGroup.maxTimersInGroup - 2, timerModel[deletePath.section].count)
         XCTAssertIdentical(previous, timerModel[deletePath.section].last)
         XCTAssertTrue(previous.delete())
-        previous = timerModel.getTimer(at: IndexPath(item: 0, section: 2))
+        previous = timerModel[indexPath: IndexPath(item: 0, section: 2)]
         XCTAssertIdentical(previous, timerModel[deletePath.section].last)
         XCTAssertTrue(previous.delete())
         XCTAssertEqual(timerModel.count, 4)
