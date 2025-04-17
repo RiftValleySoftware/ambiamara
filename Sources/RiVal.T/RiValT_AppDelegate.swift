@@ -52,7 +52,11 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
      */
     func setUpTimerModel() {
         if timerModel.allTimers.isEmpty {
-            timerModel.createNewTimer(at: IndexPath(item: 0, section: 0)).isSelected = true
+            let timer = timerModel.createNewTimer(at: IndexPath(item: 0, section: 0))
+            timer.isSelected = true
+            timer.startingTimeInSeconds = 3642
+            timer.warningTimeInSeconds = 1024
+            timer.finalTimeInSeconds = 30
         }
     }
 

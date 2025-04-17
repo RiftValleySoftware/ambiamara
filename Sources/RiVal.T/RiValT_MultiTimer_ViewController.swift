@@ -25,7 +25,15 @@ extension Timer {
         let hour = currentTime / TimerEngine.secondsInHour
         let minute = currentTime / TimerEngine.secondsInMinute - (hour * TimerEngine.secondsInMinute)
         let second = currentTime - ((hour * TimerEngine.secondsInHour) + (minute * TimerEngine.secondsInMinute))
-        return String(format: "%02d:%02d:%02d", hour, minute, second)
+        if (1..<TimerEngine.maxHours).contains(hour) {
+            return String(format: "%d:%02d:%02d", hour, minute, second)
+        } else if (1..<TimerEngine.maxMinutes).contains(minute) {
+            return String(format: "%d:%02d", minute, second)
+        } else if (1..<TimerEngine.maxSeconds).contains(second) {
+            return String(format: "%d", second)
+        } else {
+            return ""
+        }
     }
     
     /* ############################################################## */
@@ -37,7 +45,15 @@ extension Timer {
         let hour = currentTime / TimerEngine.secondsInHour
         let minute = currentTime / TimerEngine.secondsInMinute - (hour * TimerEngine.secondsInMinute)
         let second = currentTime - ((hour * TimerEngine.secondsInHour) + (minute * TimerEngine.secondsInMinute))
-        return String(format: "%02d:%02d:%02d", hour, minute, second)
+        if (1..<TimerEngine.maxHours).contains(hour) {
+            return String(format: "%d:%02d:%02d", hour, minute, second)
+        } else if (1..<TimerEngine.maxMinutes).contains(minute) {
+            return String(format: "%d:%02d", minute, second)
+        } else if (1..<TimerEngine.maxSeconds).contains(second) {
+            return String(format: "%d", second)
+        } else {
+            return ""
+        }
     }
     
     /* ############################################################## */
@@ -49,7 +65,15 @@ extension Timer {
         let hour = currentTime / TimerEngine.secondsInHour
         let minute = currentTime / TimerEngine.secondsInMinute - (hour * TimerEngine.secondsInMinute)
         let second = currentTime - ((hour * TimerEngine.secondsInHour) + (minute * TimerEngine.secondsInMinute))
-        return String(format: "%02d:%02d:%02d", hour, minute, second)
+        if (1..<TimerEngine.maxHours).contains(hour) {
+            return String(format: "%d:%02d:%02d", hour, minute, second)
+        } else if (1..<TimerEngine.maxMinutes).contains(minute) {
+            return String(format: "%d:%02d", minute, second)
+        } else if (1..<TimerEngine.maxSeconds).contains(second) {
+            return String(format: "%d", second)
+        } else {
+            return ""
+        }
     }
 }
 
@@ -205,7 +229,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
     /**
      The large variant of the digital display font.
      */
-    static let digitalDisplayFontSmall = UIFont(name: "Let\'s go Digital", size: 15)
+    static let digitalDisplayFontSmall = UIFont(name: "Let\'s go Digital", size: 17)
 
     /* ############################################################## */
     /**
@@ -227,6 +251,32 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
      - parameter inIndexPath: The index path for the cell being represented.
      */
     func configure(with inItem: Timer, indexPath inIndexPath: IndexPath) {
+        let cornerRadius = self.contentView.cornerRadius
+        
+        /* ########################################################## */
+        /**
+         This adds a thick dashed border around the cell.
+         */
+        func _addDashedBorder() {
+            self.contentView.layer.sublayers?.removeAll()
+            
+            if self.item?.isSelected ?? false,
+               let dashColor = self.contentView.tintColor?.cgColor {
+                let frameSize = self.contentView.frame.size
+                let shapeRect = CGRect(x: 0, y: 0, width: frameSize.width, height: frameSize.height)
+                let shapeLayer:CAShapeLayer = CAShapeLayer()
+                shapeLayer.bounds = shapeRect
+                shapeLayer.position = CGPoint(x: frameSize.width/2, y: frameSize.height/2)
+                shapeLayer.fillColor = UIColor.clear.cgColor
+                shapeLayer.strokeColor = dashColor
+                // We cut the line in half, so the displayed width is smaller.
+                shapeLayer.lineWidth = Self._borderWidthInDisplayUnits * 2
+                shapeLayer.lineDashPattern = [6, 3]
+                shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: cornerRadius).cgPath
+                self.contentView.layer.addSublayer(shapeLayer)
+            }
+        }
+        
         let hasSetTime = 0 < inItem.startingTimeInSeconds
         let hasWarning = hasSetTime && 0 < inItem.warningTimeInSeconds
         let hasFinal = hasSetTime && 0 < inItem.finalTimeInSeconds
@@ -235,34 +285,33 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
         self.item = inItem
         self.indexPath = inIndexPath
         self.contentView.backgroundColor = UIViewController().isDarkMode ? .white : .black
-        self.contentView.layer.cornerRadius = 12
-        self.contentView.layer.masksToBounds = true
+        _addDashedBorder()
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
         let startLabel = UILabel()
-        startLabel.textColor = hasSetTime ? .systemGreen : UIViewController().isDarkMode ? .black : .white
+        startLabel.textColor = hasSetTime ? UIColor(named: "Start-Color") : UIViewController().isDarkMode ? .black : .white
         startLabel.font = hasSetTime ? Self.digitalDisplayFontSmall : Self.digitalDisplayFontBig
         startLabel.text = hasSetTime ? inItem.setTimeDisplay : "0"
         startLabel.adjustsFontSizeToFitWidth = true
         startLabel.minimumScaleFactor = 0.25
-        startLabel.textAlignment = .center
+        startLabel.textAlignment = hasSetTime ? .right : .center
         startLabel.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(startLabel)
         if !hasWarning,
            !hasFinal {
             startLabel.centerYAnchor.constraint(greaterThanOrEqualTo: self.contentView.centerYAnchor).isActive = true
         }
-        startLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 6).isActive = true
-        startLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -6).isActive = true
+        startLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 8).isActive = true
+        startLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -8).isActive = true
         
         let warnLabel = UILabel()
         
         if hasWarning {
-            warnLabel.textColor = .systemYellow
+            warnLabel.textColor = UIColor(named: "Warn-Color")
             warnLabel.font = Self.digitalDisplayFontSmall
             warnLabel.text = inItem.warnTimeDisplay
             warnLabel.adjustsFontSizeToFitWidth = true
             warnLabel.minimumScaleFactor = 0.25
-            warnLabel.textAlignment = .center
+            warnLabel.textAlignment = .right
             warnLabel.translatesAutoresizingMaskIntoConstraints = false
             self.contentView.addSubview(warnLabel)
             if hasWarning,
@@ -272,19 +321,19 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
                 warnLabel.topAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
             }
             warnLabel.topAnchor.constraint(equalTo: startLabel.bottomAnchor).isActive = true
-            warnLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 6).isActive = true
-            warnLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -6).isActive = true
+            warnLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 8).isActive = true
+            warnLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -8).isActive = true
         }
         
-        let finalLabel = UILabel()
-        
         if hasFinal {
-            finalLabel.textColor = .systemRed
+            let finalLabel = UILabel()
+            
+            finalLabel.textColor = UIColor(named: "Final-Color")
             finalLabel.font = Self.digitalDisplayFontSmall
             finalLabel.text = inItem.finalTimeDisplay
             finalLabel.adjustsFontSizeToFitWidth = true
             finalLabel.minimumScaleFactor = 0.25
-            finalLabel.textAlignment = .center
+            finalLabel.textAlignment = .right
             finalLabel.translatesAutoresizingMaskIntoConstraints = false
             self.contentView.addSubview(finalLabel)
             if hasWarning {
@@ -293,12 +342,9 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
                 finalLabel.topAnchor.constraint(equalTo: startLabel.bottomAnchor).isActive = true
                 finalLabel.topAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
             }
-            finalLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 6).isActive = true
-            finalLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -6).isActive = true
+            finalLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 8).isActive = true
+            finalLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -8).isActive = true
         }
-
-        self.contentView.borderColor = inItem.isSelected ? tintColor : .clear
-        self.contentView.borderWidth = inItem.isSelected ? Self._borderWidthInDisplayUnits : 0
     }
 }
 
@@ -313,7 +359,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
     /**
      The width of the "gutters" around each cell.
      */
-    private static let _itemGuttersInDisplayUnits = CGFloat(8)
+    private static let _itemGuttersInDisplayUnits = CGFloat(4)
 
     /* ############################################################## */
     /**
@@ -529,17 +575,36 @@ extension RiValT_MultiTimer_ViewController {
             
             self.updateSnapshot()
             self.collectionView?.reloadData()
+            self.impactHaptic(1.0)
         }
         
-        let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER".localizedVariant, message: "SLUG-DELETE-CONFIRM-MESSAGE".localizedVariant, preferredStyle: .alert)
+        let messageText = "SLUG-DELETE-CONFIRM-MESSAGE".localizedVariant
+        
+        let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER".localizedVariant, message: messageText, preferredStyle: .alert)
+        
+        // This simply displays the main message as left-aligned.
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = NSTextAlignment.left
 
+        let attributedMessageText = NSMutableAttributedString(
+            string: messageText,
+            attributes: [
+                NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body),
+                NSAttributedString.Key.foregroundColor: UIColor.label
+            ]
+        )
+        alertController.setValue(attributedMessageText, forKey: "attributedMessage")
+        
         let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive) { _ in _executeDelete() }
         
         alertController.addAction(okAction)
 
-        let cancelAction = UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel) { _ in }
+        let cancelAction = UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel, handler: nil)
 
         alertController.addAction(cancelAction)
+
+        self.impactHaptic(1.0)
 
         present(alertController, animated: true, completion: nil)
     }
@@ -548,12 +613,14 @@ extension RiValT_MultiTimer_ViewController {
     /**
      */
     @IBAction func toolbarPlayButtonHit(_ inButton: UIBarButtonItem) {
+        self.impactHaptic()
     }
     
     /* ############################################################## */
     /**
      */
     @IBAction func toolbarEditButtonHit(_ inButton: UIBarButtonItem) {
+        self.impactHaptic()
     }
 }
 
