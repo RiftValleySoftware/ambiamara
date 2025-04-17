@@ -145,6 +145,16 @@ extension TimerModel {
     
     /* ############################################################## */
     /**
+     Test if the index path is valid for the model.
+     
+     - parameter inIndexPath: The index path to be tested.
+     
+     - returns: True, if the index path is valid for the model.
+     */
+    func isValid(indexPath inIndexPath: IndexPath) -> Bool { (0..<self.count).contains(inIndexPath.section) && (0..<self[inIndexPath.section].count).contains(inIndexPath.row) }
+
+    /* ############################################################## */
+    /**
      This tests, to see if a timer can be created at, or moved into, the index path.
      
      - parameter inIndexPath: The indexpath we are testing.
@@ -432,6 +442,12 @@ extension TimerGroup {
      True, if there are no timers.
      */
     var isEmpty: Bool { self._timers.isEmpty }
+    
+    /* ############################################################## */
+    /**
+     True, if there is no more room for timers.
+     */
+    var isFull: Bool { self.count >= Self.maxTimersInGroup }
 
     /* ############################################################## */
     /**
