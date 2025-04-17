@@ -86,7 +86,7 @@
 		D4D193BD2D883DEA008DA06F /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4D193BC2D883DEA008DA06F /* RVS_BasicGCDTimer */; };
 		D4DD60F92D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DD60F82D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerView.swift */; };
 		D4E10DBD2DB05B290088DB50 /* Digital.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4C1B6202D806D6E00CEA6BF /* Digital.ttf */; };
-		D4E2E8FB2DA9296B009BE18E /* RiValT_TimerArray_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E2E8FA2DA9296B009BE18E /* RiValT_TimerArray_ViewController.swift */; };
+		D4E2E8FB2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E2E8FA2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift */; };
 		D4E6ECB12D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */; };
 		D4E6ECB32D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4E6ECB22D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox */; };
 		D4E869542D99916200D56802 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E869532D99916200D56802 /* TimerEngine.swift */; };
@@ -109,6 +109,32 @@
 		D4F83CB52D63DB43009C4646 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F83CB42D63DB43009C4646 /* WidgetKit.framework */; };
 		D4F83CB72D63DB43009C4646 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F83CB62D63DB43009C4646 /* SwiftUI.framework */; };
 		D4F83CC02D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D4F83CB32D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D4FC4A292DB1474B00E5F0E5 /* 02-medium-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F1447E28293F4A001DD9E4 /* 02-medium-beep.mp3 */; };
+		D4FC4A2A2DB1474B00E5F0E5 /* 01-low-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F1447928293F4A001DD9E4 /* 01-low-beep.mp3 */; };
+		D4FC4A2B2DB1474B00E5F0E5 /* 08-videogame-beeps-high-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F7D281F58D200B07C56 /* 08-videogame-beeps-high-frequency.mp3 */; };
+		D4FC4A2C2DB1474B00E5F0E5 /* 03-high-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F1447A28293F4A001DD9E4 /* 03-high-beep.mp3 */; };
+		D4FC4A2D2DB1474B00E5F0E5 /* 13-rooster.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F67281F58D200B07C56 /* 13-rooster.mp3 */; };
+		D4FC4A2E2DB1474B00E5F0E5 /* 04-electronic-buzz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F1447B28293F4A001DD9E4 /* 04-electronic-buzz.mp3 */; };
+		D4FC4A2F2DB1474B00E5F0E5 /* 10-annoying-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F7E281F58D200B07C56 /* 10-annoying-alarm.mp3 */; };
+		D4FC4A302DB1474B00E5F0E5 /* 00-escalation.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F1447C28293F4A001DD9E4 /* 00-escalation.mp3 */; };
+		D4FC4A312DB1474B00E5F0E5 /* 11-bells.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F66281F58D200B07C56 /* 11-bells.mp3 */; };
+		D4FC4A322DB1474B00E5F0E5 /* 12-crazy-bird.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F74281F58D200B07C56 /* 12-crazy-bird.mp3 */; };
+		D4FC4A332DB1474B00E5F0E5 /* 05-fast-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F1447F28293F4A001DD9E4 /* 05-fast-beep.mp3 */; };
+		D4FC4A342DB1474B00E5F0E5 /* 06-high-fast-beeps.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F1447D28293F4A001DD9E4 /* 06-high-fast-beeps.mp3 */; };
+		D4FC4A352DB1474B00E5F0E5 /* 09-single-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F80281F58D200B07C56 /* 09-single-beep.mp3 */; };
+		D4FC4A362DB1474B00E5F0E5 /* 07-videogame-beeps-lower-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F79281F58D200B07C56 /* 07-videogame-beeps-lower-frequency.mp3 */; };
+		D4FC4A372DB1476700E5F0E5 /* 18-antique-phone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F75281F58D200B07C56 /* 18-antique-phone.mp3 */; };
+		D4FC4A382DB1476700E5F0E5 /* 17-car-horn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F70281F58D200B07C56 /* 17-car-horn.mp3 */; };
+		D4FC4A392DB1476700E5F0E5 /* 21-alarm-klaxon.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F7C281F58D200B07C56 /* 21-alarm-klaxon.mp3 */; };
+		D4FC4A3A2DB1476700E5F0E5 /* 19-classic-phone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F7B281F58D200B07C56 /* 19-classic-phone.mp3 */; };
+		D4FC4A3B2DB1476700E5F0E5 /* 25-telephone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */; };
+		D4FC4A3C2DB1476700E5F0E5 /* 20-antique-car-horn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F72281F58D200B07C56 /* 20-antique-car-horn.mp3 */; };
+		D4FC4A3D2DB1476700E5F0E5 /* 24-deep-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */; };
+		D4FC4A3E2DB1476700E5F0E5 /* 23-siren.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */; };
+		D4FC4A3F2DB1476700E5F0E5 /* 16-snoring-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F73281F58D200B07C56 /* 16-snoring-1.mp3 */; };
+		D4FC4A402DB1477200E5F0E5 /* 15-shut-up-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F68281F58D200B07C56 /* 15-shut-up-2.mp3 */; };
+		D4FC4A412DB1477200E5F0E5 /* 14-shut-up-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F6C281F58D200B07C56 /* 14-shut-up-1.mp3 */; };
+		D4FC4A422DB1477200E5F0E5 /* 22-thanks-for-sharing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F6A281F58D200B07C56 /* 22-thanks-for-sharing.mp3 */; };
 		D4FEE5BC2846B30700EBED74 /* RVS_RetroLEDDisplay in Frameworks */ = {isa = PBXBuildFile; productRef = D4FEE5BB2846B30700EBED74 /* RVS_RetroLEDDisplay */; };
 /* End PBXBuildFile section */
 
@@ -275,7 +301,7 @@
 		D4D02B5D283430F90024DF06 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D4D02B5E283430F90024DF06 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Accessibility.strings"; sourceTree = "<group>"; };
 		D4DD60F82D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_Watch_App_RunningTimerView.swift; sourceTree = "<group>"; };
-		D4E2E8FA2DA9296B009BE18E /* RiValT_TimerArray_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_TimerArray_ViewController.swift; sourceTree = "<group>"; };
+		D4E2E8FA2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_MultiTimer_ViewController.swift; sourceTree = "<group>"; };
 		D4E869532D99916200D56802 /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
 		D4EA05572DAE6E92005E3E3B /* TimerModelTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TimerModelTests.xctestplan; sourceTree = "<group>"; };
 		D4F1447928293F4A001DD9E4 /* 01-low-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "01-low-beep.mp3"; sourceTree = "<group>"; };
@@ -421,7 +447,7 @@
 				D43B975B2DA2C1D10028E023 /* RiValT_AppDelegate.swift */,
 				D43B97632DA2C1D10028E023 /* RiValT_SceneDelegate.swift */,
 				D43B97642DA2C1D10028E023 /* RiValT_Base_ViewController.swift */,
-				D4E2E8FA2DA9296B009BE18E /* RiValT_TimerArray_ViewController.swift */,
+				D4E2E8FA2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift */,
 				D43B976E2DA2C25C0028E023 /* Resources */,
 				D43B976D2DA2C22E0028E023 /* Meta */,
 			);
@@ -588,8 +614,8 @@
 		D4C4B6FE2819CCDB00E22ECA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D43B97652DA2C1D10028E023 /* RiVal.T */,
 				D4F3572C2D6F61CD005A815A /* Shared */,
+				D43B97652DA2C1D10028E023 /* RiVal.T */,
 				D47C029D2819CA6500D359F5 /* MainApp */,
 				D4A932212D64E9CB0028556E /* WatchApp */,
 				D4A932292D64E9CB0028556E /* WatchComplications */,
@@ -606,7 +632,6 @@
 				D404247D282BEAA3004FD65A /* Accessibility.strings */,
 				D46BC2152D86122D0094B052 /* Assets.xcassets */,
 				D47C02A92819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard */,
-				D4B01F65281F58D200B07C56 /* Sounds */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -643,6 +668,7 @@
 		D4EDB3002D90549700419E6C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D4B01F65281F58D200B07C56 /* Sounds */,
 				D4C1B6202D806D6E00CEA6BF /* Digital.ttf */,
 			);
 			path = Resources;
@@ -920,6 +946,32 @@
 				D4801E822DA8520200E22A14 /* Localizable.xcstrings in Resources */,
 				D4E10DBD2DB05B290088DB50 /* Digital.ttf in Resources */,
 				D43B976C2DA2C1D10028E023 /* RiValT.storyboard in Resources */,
+				D4FC4A292DB1474B00E5F0E5 /* 02-medium-beep.mp3 in Resources */,
+				D4FC4A2A2DB1474B00E5F0E5 /* 01-low-beep.mp3 in Resources */,
+				D4FC4A2B2DB1474B00E5F0E5 /* 08-videogame-beeps-high-frequency.mp3 in Resources */,
+				D4FC4A2C2DB1474B00E5F0E5 /* 03-high-beep.mp3 in Resources */,
+				D4FC4A2D2DB1474B00E5F0E5 /* 13-rooster.mp3 in Resources */,
+				D4FC4A2E2DB1474B00E5F0E5 /* 04-electronic-buzz.mp3 in Resources */,
+				D4FC4A372DB1476700E5F0E5 /* 18-antique-phone.mp3 in Resources */,
+				D4FC4A382DB1476700E5F0E5 /* 17-car-horn.mp3 in Resources */,
+				D4FC4A392DB1476700E5F0E5 /* 21-alarm-klaxon.mp3 in Resources */,
+				D4FC4A3A2DB1476700E5F0E5 /* 19-classic-phone.mp3 in Resources */,
+				D4FC4A3B2DB1476700E5F0E5 /* 25-telephone.mp3 in Resources */,
+				D4FC4A3C2DB1476700E5F0E5 /* 20-antique-car-horn.mp3 in Resources */,
+				D4FC4A402DB1477200E5F0E5 /* 15-shut-up-2.mp3 in Resources */,
+				D4FC4A412DB1477200E5F0E5 /* 14-shut-up-1.mp3 in Resources */,
+				D4FC4A422DB1477200E5F0E5 /* 22-thanks-for-sharing.mp3 in Resources */,
+				D4FC4A3D2DB1476700E5F0E5 /* 24-deep-alarm.mp3 in Resources */,
+				D4FC4A3E2DB1476700E5F0E5 /* 23-siren.mp3 in Resources */,
+				D4FC4A3F2DB1476700E5F0E5 /* 16-snoring-1.mp3 in Resources */,
+				D4FC4A2F2DB1474B00E5F0E5 /* 10-annoying-alarm.mp3 in Resources */,
+				D4FC4A302DB1474B00E5F0E5 /* 00-escalation.mp3 in Resources */,
+				D4FC4A312DB1474B00E5F0E5 /* 11-bells.mp3 in Resources */,
+				D4FC4A322DB1474B00E5F0E5 /* 12-crazy-bird.mp3 in Resources */,
+				D4FC4A332DB1474B00E5F0E5 /* 05-fast-beep.mp3 in Resources */,
+				D4FC4A342DB1474B00E5F0E5 /* 06-high-fast-beeps.mp3 in Resources */,
+				D4FC4A352DB1474B00E5F0E5 /* 09-single-beep.mp3 in Resources */,
+				D4FC4A362DB1474B00E5F0E5 /* 07-videogame-beeps-lower-frequency.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1049,7 +1101,7 @@
 				D43B97672DA2C1D10028E023 /* RiValT_SceneDelegate.swift in Sources */,
 				D43B97682DA2C1D10028E023 /* RiValT_Base_ViewController.swift in Sources */,
 				D43B97792DA2C2E80028E023 /* TimerEngine.swift in Sources */,
-				D4E2E8FB2DA9296B009BE18E /* RiValT_TimerArray_ViewController.swift in Sources */,
+				D4E2E8FB2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift in Sources */,
 				D4181D0D2DAC7364002CF428 /* TimerModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

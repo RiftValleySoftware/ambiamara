@@ -13,12 +13,61 @@ import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
+// MARK: - Timer Extension for Display -
+/* ###################################################################################################################################### */
+extension Timer {
+    /* ############################################################## */
+    /**
+     This returns an "optimized" string, with the HH:mm:ss format of the starting time. Empty, if none.
+     */
+    var setTimeDisplay: String {
+        let currentTime = self.startingTimeInSeconds
+        let hour = currentTime / TimerEngine.secondsInHour
+        let minute = currentTime / TimerEngine.secondsInMinute - (hour * TimerEngine.secondsInMinute)
+        let second = currentTime - ((hour * TimerEngine.secondsInHour) + (minute * TimerEngine.secondsInMinute))
+        return String(format: "%02d:%02d:%02d", hour, minute, second)
+    }
+    
+    /* ############################################################## */
+    /**
+     This returns an "optimized" string, with the HH:mm:ss format of the warning threshold time. Empty, if none.
+     */
+    var warnTimeDisplay: String {
+        let currentTime = self.warningTimeInSeconds
+        let hour = currentTime / TimerEngine.secondsInHour
+        let minute = currentTime / TimerEngine.secondsInMinute - (hour * TimerEngine.secondsInMinute)
+        let second = currentTime - ((hour * TimerEngine.secondsInHour) + (minute * TimerEngine.secondsInMinute))
+        return String(format: "%02d:%02d:%02d", hour, minute, second)
+    }
+    
+    /* ############################################################## */
+    /**
+     This returns an "optimized" string, with the HH:mm:ss format of the final threshold time. Empty, if none.
+     */
+    var finalTimeDisplay: String {
+        let currentTime = self.finalTimeInSeconds
+        let hour = currentTime / TimerEngine.secondsInHour
+        let minute = currentTime / TimerEngine.secondsInMinute - (hour * TimerEngine.secondsInMinute)
+        let second = currentTime - ((hour * TimerEngine.secondsInHour) + (minute * TimerEngine.secondsInMinute))
+        return String(format: "%02d:%02d:%02d", hour, minute, second)
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Internal Placeholder for the Add Items in the Matrix -
 /* ###################################################################################################################################### */
 /**
  This class allows us to have "placeholders," for the "add" items at the ends of the rows, or the bottom of the matrix.
  */
 class RiValT_TimerArray_Placeholder: Identifiable, Hashable {
+    /* ############################################################## */
+    /**
+     Equatable Conformance.
+     
+     - parameter lhs: The left-hand side of the comparison.
+     - parameter rhs: The right-hand side of the comparison.
+     - returns: True, if they are equal.
+     */
     static func == (lhs: RiValT_TimerArray_Placeholder, rhs: RiValT_TimerArray_Placeholder) -> Bool { lhs.id == rhs.id }
     
     /* ############################################################## */
@@ -64,6 +113,7 @@ class RiValT_TimerArray_Placeholder: Identifiable, Hashable {
 // MARK: - Base Class for One Display Cell for the Collection View -
 /* ###################################################################################################################################### */
 /**
+ This is a basic view class, for the display cells in the collection view.
  */
 class RiValT_BaseCollectionCell: UICollectionViewCell {
     /* ############################################################## */
@@ -147,6 +197,18 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
     
     /* ############################################################## */
     /**
+     The large variant of the digital display font.
+     */
+    static let digitalDisplayFontBig = UIFont(name: "Let\'s go Digital", size: 60)
+    
+    /* ############################################################## */
+    /**
+     The large variant of the digital display font.
+     */
+    static let digitalDisplayFontSmall = UIFont(name: "Let\'s go Digital", size: 15)
+
+    /* ############################################################## */
+    /**
      The storyboard reuse ID
      */
     static let reuseIdentifier = "RiValT_TimerArray_IconCell"
@@ -165,6 +227,10 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
      - parameter inIndexPath: The index path for the cell being represented.
      */
     func configure(with inItem: Timer, indexPath inIndexPath: IndexPath) {
+        let hasSetTime = 0 < inItem.startingTimeInSeconds
+        let hasWarning = hasSetTime && 0 < inItem.warningTimeInSeconds
+        let hasFinal = hasSetTime && 0 < inItem.finalTimeInSeconds
+        
         super.configure(indexPath: inIndexPath)
         self.item = inItem
         self.indexPath = inIndexPath
@@ -172,19 +238,65 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
         self.contentView.layer.cornerRadius = 12
         self.contentView.layer.masksToBounds = true
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
-        let newLabel = UILabel()
-        newLabel.textColor = UIViewController().isDarkMode ? .black : .white
-        newLabel.numberOfLines = 2
-        newLabel.font = UIFont(name: "Let\'s go Digital", size: 60)
-        newLabel.text = inItem.timerDisplay
-        newLabel.adjustsFontSizeToFitWidth = true
-        newLabel.minimumScaleFactor = 0.25
-        newLabel.textAlignment = .center
-        newLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(newLabel)
-        newLabel.centerYAnchor.constraint(greaterThanOrEqualTo: self.contentView.centerYAnchor).isActive = true
-        newLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 4).isActive = true
-        newLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -4).isActive = true
+        let startLabel = UILabel()
+        startLabel.textColor = hasSetTime ? .systemGreen : UIViewController().isDarkMode ? .black : .white
+        startLabel.font = hasSetTime ? Self.digitalDisplayFontSmall : Self.digitalDisplayFontBig
+        startLabel.text = hasSetTime ? inItem.setTimeDisplay : "0"
+        startLabel.adjustsFontSizeToFitWidth = true
+        startLabel.minimumScaleFactor = 0.25
+        startLabel.textAlignment = .center
+        startLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(startLabel)
+        if !hasWarning,
+           !hasFinal {
+            startLabel.centerYAnchor.constraint(greaterThanOrEqualTo: self.contentView.centerYAnchor).isActive = true
+        }
+        startLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 6).isActive = true
+        startLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -6).isActive = true
+        
+        let warnLabel = UILabel()
+        
+        if hasWarning {
+            warnLabel.textColor = .systemYellow
+            warnLabel.font = Self.digitalDisplayFontSmall
+            warnLabel.text = inItem.warnTimeDisplay
+            warnLabel.adjustsFontSizeToFitWidth = true
+            warnLabel.minimumScaleFactor = 0.25
+            warnLabel.textAlignment = .center
+            warnLabel.translatesAutoresizingMaskIntoConstraints = false
+            self.contentView.addSubview(warnLabel)
+            if hasWarning,
+               hasFinal {
+                warnLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
+            } else if !hasFinal {
+                warnLabel.topAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
+            }
+            warnLabel.topAnchor.constraint(equalTo: startLabel.bottomAnchor).isActive = true
+            warnLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 6).isActive = true
+            warnLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -6).isActive = true
+        }
+        
+        let finalLabel = UILabel()
+        
+        if hasFinal {
+            finalLabel.textColor = .systemRed
+            finalLabel.font = Self.digitalDisplayFontSmall
+            finalLabel.text = inItem.finalTimeDisplay
+            finalLabel.adjustsFontSizeToFitWidth = true
+            finalLabel.minimumScaleFactor = 0.25
+            finalLabel.textAlignment = .center
+            finalLabel.translatesAutoresizingMaskIntoConstraints = false
+            self.contentView.addSubview(finalLabel)
+            if hasWarning {
+                finalLabel.topAnchor.constraint(equalTo: warnLabel.bottomAnchor).isActive = true
+            } else {
+                finalLabel.topAnchor.constraint(equalTo: startLabel.bottomAnchor).isActive = true
+                finalLabel.topAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
+            }
+            finalLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 6).isActive = true
+            finalLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -6).isActive = true
+        }
+
         self.contentView.borderColor = inItem.isSelected ? tintColor : .clear
         self.contentView.borderWidth = inItem.isSelected ? Self._borderWidthInDisplayUnits : 0
     }
@@ -194,9 +306,9 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
 // MARK: - The Main View Controller for the Matrix of Timers -
 /* ###################################################################################################################################### */
 /**
- 
+ This is the view controller for the "multi-timer" screen, where we can arrange timers in groups and add new ones.
  */
-class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
+class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      The width of the "gutters" around each cell.
@@ -225,7 +337,7 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
 /* ###################################################################################################################################### */
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
-extension RiValT_TimerArray_ViewController {
+extension RiValT_MultiTimer_ViewController {
     /* ############################################################## */
     /**
      Called when the view lays out its view hierarchy.
@@ -241,7 +353,7 @@ extension RiValT_TimerArray_ViewController {
 /* ###################################################################################################################################### */
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
-extension RiValT_TimerArray_ViewController {
+extension RiValT_MultiTimer_ViewController {
     /* ############################################################## */
     /**
      This establishes the display layout for our collection view.
@@ -326,7 +438,7 @@ extension RiValT_TimerArray_ViewController {
 /* ###################################################################################################################################### */
 // MARK: UICollectionViewDragDelegate Conformance
 /* ###################################################################################################################################### */
-extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
+extension RiValT_MultiTimer_ViewController: UICollectionViewDragDelegate {
     /* ############################################################## */
     /**
      Called when a drag starts.
@@ -388,7 +500,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
 /* ###################################################################################################################################### */
 // MARK: UICollectionViewDropDelegate Conformance
 /* ###################################################################################################################################### */
-extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
+extension RiValT_MultiTimer_ViewController: UICollectionViewDropDelegate {
     /* ############################################################## */
     /**
      Called to vet the current drag state.
@@ -442,7 +554,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
 /* ###################################################################################################################################### */
 // MARK: UICollectionViewDelegate Conformance
 /* ###################################################################################################################################### */
-extension RiValT_TimerArray_ViewController: UICollectionViewDelegate {
+extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
     /* ############################################################## */
     /**
      Called when an item in the collection view is tapped.

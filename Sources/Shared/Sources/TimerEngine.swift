@@ -121,31 +121,31 @@ open class TimerEngine: Codable, Identifiable {
     /**
      The integer above our maximum number of hours.
      */
-    private static let _maxHours = 24
+    static let maxHours = 24
     
     /* ################################################################## */
     /**
      The integer above our maximum number of minutes.
      */
-    private static let _maxMinutes = 60
+    static let maxMinutes = 60
     
     /* ################################################################## */
     /**
      The integer above our maximum number of seconds.
      */
-    private static let _maxSeconds = 60
+    static let maxSeconds = 60
 
     /* ################################################################## */
     /**
      The number of seconds in a minute.
      */
-    private static let _secondsInMinute = 60
+    static let secondsInMinute = 60
 
     /* ################################################################## */
     /**
      The number of seconds in an hour.
      */
-    private static let _secondsInHour = 3600
+    static let secondsInHour = 3600
 
     /* ################################################################################################################################## */
     // MARK: Private API (Instance Properties)
@@ -684,14 +684,14 @@ public extension TimerEngine {
     */
     var timerDisplay: String {
         let currentTime = self.currentTime
-        let hour = currentTime / Self._secondsInHour
-        let minute = currentTime / Self._secondsInMinute - (hour * Self._secondsInMinute)
-        let second = currentTime - ((hour * Self._secondsInHour) + (minute * Self._secondsInMinute))
-        if (1..<Self._maxHours).contains(hour) {
+        let hour = currentTime / Self.secondsInHour
+        let minute = currentTime / Self.secondsInMinute - (hour * Self.secondsInMinute)
+        let second = currentTime - ((hour * Self.secondsInHour) + (minute * Self.secondsInMinute))
+        if (1..<Self.maxHours).contains(hour) {
             return String(format: "%d:%02d:%02d", hour, minute, second)
-        } else if (1..<Self._maxMinutes).contains(minute) {
+        } else if (1..<Self.maxMinutes).contains(minute) {
             return String(format: "%d:%02d", minute, second)
-        } else if (1..<Self._maxSeconds).contains(second) {
+        } else if (1..<Self.maxSeconds).contains(second) {
             return String(format: "%d", second)
         } else {
             return ""
