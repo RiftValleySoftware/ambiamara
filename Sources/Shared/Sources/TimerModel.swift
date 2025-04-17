@@ -499,6 +499,12 @@ extension TimerGroup {
      The last timer
      */
     var last: Timer? { self._timers.last }
+    
+    /* ############################################################## */
+    /**
+     The selected timer (nil, if none selected).
+     */
+    var selectedTimer: Timer? { self.allTimers.filter { $0.isSelected }.first }
 }
 
 /* ###################################################################################################################################### */

@@ -66,10 +66,9 @@ extension RiValT_Base_ViewController {
             backgroundGradientView.translatesAutoresizingMaskIntoConstraints = false
             backgroundGradientView.contentMode = .scaleToFill
             view.insertSubview(backgroundGradientView, at: 0)
-            
             backgroundGradientView.translatesAutoresizingMaskIntoConstraints = false
-            backgroundGradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-            backgroundGradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            backgroundGradientView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+            backgroundGradientView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
             backgroundGradientView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
             backgroundGradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         }

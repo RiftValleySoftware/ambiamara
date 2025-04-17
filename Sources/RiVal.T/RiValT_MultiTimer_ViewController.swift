@@ -320,6 +320,26 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
      The main collection view.
      */
     @IBOutlet weak var collectionView: UICollectionView?
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var toolbar: UIToolbar?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var toolbarDeleteButton: UIBarButtonItem?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var toolbarPlayButton: UIBarButtonItem?
+
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var toolbarEditButton: UIBarButtonItem?
 
     /* ############################################################## */
     /**
@@ -338,6 +358,30 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
 extension RiValT_MultiTimer_ViewController {
+    /* ############################################################## */
+    /**
+     Called when the view has loaded.
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let appearance = UIToolbarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .clear
+        appearance.backgroundImage = nil
+        self.toolbar?.standardAppearance = appearance
+        self.toolbar?.scrollEdgeAppearance = appearance
+    }
+    
+    /* ############################################################## */
+    /**
+     Called just before the view appears.
+     
+     - parameter inIsAnimated: True, if the appearance is animated.
+     */
+    override func viewWillAppear(_ inIsAnimated: Bool) {
+        super.viewWillAppear(inIsAnimated)
+    }
+    
     /* ############################################################## */
     /**
      Called when the view lays out its view hierarchy.
@@ -432,6 +476,84 @@ extension RiValT_MultiTimer_ViewController {
         snapshot.appendItems([RiValT_TimerArray_Placeholder()], toSection: lastSection)
 
         self.dataSource?.apply(snapshot, animatingDifferences: false)
+        self.updateToolbar()
+    }
+    
+    /* ############################################################## */
+    /**
+     This updates the items in the toolbar.
+     */
+    func updateToolbar() {
+        self.toolbarDeleteButton?.isEnabled = false
+        self.toolbarPlayButton?.isEnabled = false
+        self.toolbarEditButton?.isEnabled = false
+        guard let timer = self.timerModel.selectedTimer else { return }
+        self.toolbarDeleteButton?.isEnabled = 1 < self.timerModel.allTimers.count
+        self.toolbarPlayButton?.isEnabled = 0 < timer.startingTimeInSeconds
+        self.toolbarEditButton?.isEnabled = true
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Callbacks
+/* ###################################################################################################################################### */
+extension RiValT_MultiTimer_ViewController {
+    /* ############################################################## */
+    /**
+     Called when the toolbar delete timer button is hit.
+     
+     - parameter: ignored.
+     */
+    @IBAction func toolbarDeleteButtonHit(_: Any) {
+        func _executeDelete() {
+            guard let timer = self.timerModel.selectedTimer,
+                  let indexPath = timer.indexPath,
+                  1 < self.timerModel.allTimers.count,
+                  let nextTimerIndexPath = self.timerModel.allTimers[min(self.timerModel.count - 1, (self.timerModel.allTimers.firstIndex(of: timer) ?? 0) + 1)].indexPath,
+                  let prevTimerIndexPath = self.timerModel.allTimers[max(0, (self.timerModel.allTimers.firstIndex(of: timer) ?? 0) - 1)].indexPath
+            else { return }
+            
+            if self.timerModel.isValid(indexPath: nextTimerIndexPath),
+               nextTimerIndexPath != indexPath {
+                self.timerModel.selectTimer(nextTimerIndexPath)
+            } else if self.timerModel.isValid(indexPath: prevTimerIndexPath),
+                      prevTimerIndexPath != indexPath  {
+                self.timerModel.selectTimer(prevTimerIndexPath)
+            }
+            
+            self.timerModel.removeTimer(from: indexPath)
+            
+            if nil == self.timerModel.selectedTimer {
+                self.timerModel.selectTimer(IndexPath(item: 0, section: 0))
+            }
+            
+            self.updateSnapshot()
+            self.collectionView?.reloadData()
+        }
+        
+        let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER".localizedVariant, message: "SLUG-DELETE-CONFIRM-MESSAGE".localizedVariant, preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive) { _ in _executeDelete() }
+        
+        alertController.addAction(okAction)
+
+        let cancelAction = UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel) { _ in }
+
+        alertController.addAction(cancelAction)
+
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBAction func toolbarPlayButtonHit(_ inButton: UIBarButtonItem) {
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBAction func toolbarEditButtonHit(_ inButton: UIBarButtonItem) {
     }
 }
 
@@ -573,7 +695,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
             self.impactHaptic(1.0)
             self.timerModel.getTimer(at: inIndexPath)?.isSelected = true
         }
-
+        
         self.updateSnapshot()
         inCollectionView.reloadData()
     }
