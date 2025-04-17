@@ -51,13 +51,9 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
      This initializes the timer model.
      */
     func setUpTimerModel() {
-        timerModel.createNewTimer(at: IndexPath(item: 0, section: 0))
-//        for groupIndex in 0..<15 {
-//            for timerIndex in 0..<(Int.random(in: 1...TimerGroup.maxTimersInGroup)) {
-//                let timer = timerModel.createNewTimer(at: IndexPath(item: timerIndex, section: groupIndex))
-//                timer.startingTimeInSeconds = (groupIndex * TimerGroup.maxTimersInGroup) + timerIndex
-//            }
-//        }
+        if timerModel.allTimers.isEmpty {
+            timerModel.createNewTimer(at: IndexPath(item: 0, section: 0)).isSelected = true
+        }
     }
 
     // MARK: UISceneSession Lifecycle

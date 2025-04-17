@@ -12,26 +12,38 @@ import UIKit
 import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 
+/* ###################################################################################################################################### */
+// MARK: - Internal Placeholder for the Add Items in the Matrix -
+/* ###################################################################################################################################### */
+/**
+ This class allows us to have "placeholders," for the "add" items at the ends of the rows, or the bottom of the matrix.
+ */
 class RiValT_TimerArray_Placeholder: Identifiable, Hashable {
     static func == (lhs: RiValT_TimerArray_Placeholder, rhs: RiValT_TimerArray_Placeholder) -> Bool { lhs.id == rhs.id }
     
     /* ############################################################## */
     /**
+     If this is a placeholder for an existing timer, then we simply supply that.
      */
     var timer: Timer?
     
     /* ############################################################## */
     /**
+     This is a local UUID for this item.
      */
     var _id: UUID = UUID()
     
     /* ############################################################## */
     /**
+     If we represent an existing timer, we use that UUID.
      */
     var id: UUID { timer?.id ?? self._id }
     
     /* ############################################################## */
     /**
+     Initializer.
+     
+     - parameter inTimer: If this represents an existing timer, that is supplied here. It is optional. If not supplied, this is considered an "add item" placeholder.
      */
     init(timer inTimer: Timer? = nil) {
         self.timer = inTimer
@@ -49,25 +61,67 @@ class RiValT_TimerArray_Placeholder: Identifiable, Hashable {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Base Class for One Display Cell for the Collection View -
+/* ###################################################################################################################################### */
+/**
+ */
+class RiValT_BaseCollectionCell: UICollectionViewCell {
+    /* ############################################################## */
+    /**
+     The dimension of our cells.
+     */
+    static let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(80), heightDimension: .absolute(80))
+
+    /* ################################################################## */
+    /**
+     This is the application-global timer model.
+     
+     It's an implicit optional, because the whole shebang goes into the crapper, if it doesn't work.
+     */
+    var timerModel: TimerModel! { RiValT_AppDelegate.appDelegateInstance?.timerModel }
+
+    /* ############################################################## */
+    /**
+     The index path of this cell.
+     */
+    var indexPath: IndexPath?
+
+    /* ############################################################## */
+    /**
+     Configure this cell item with its index path.
+     
+     - parameter inIndexPath: The index path for the cell being represented.
+     */
+    func configure(indexPath inIndexPath: IndexPath) {
+        self.indexPath = inIndexPath
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - One Display Cell for the Collection View -
 /* ###################################################################################################################################### */
 /**
  This describes each cell in the collection view.
  */
-class RiValT_TimerArray_AddCell: UICollectionViewCell {
+class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
     /* ############################################################## */
     /**
+     The storyboard reuse ID
      */
     static let reuseIdentifier = "RiValT_TimerArray_AddCell"
-    
+
     /* ############################################################## */
     /**
+     Configure this cell item with its index path.
+     
+     - parameter inIndexPath: The index path for the cell being represented.
      */
-    func configure() {
-        self.contentView.backgroundColor = UIColor(named: "Accent Color")
-        self.contentView.layer.cornerRadius = RiValT_TimerArray_IconCell.itemSize.widthDimension.dimension / 2
+    override func configure(indexPath inIndexPath: IndexPath) {
+        super.configure(indexPath: inIndexPath)
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
-        let newImage = UIImageView(image: UIImage(systemName: "plus.circle.fill")?.applyingSymbolConfiguration(.init(scale: .large)))
+        let newImage = UIImageView(image: UIImage(systemName: "plus.circle\(self.indexPath?.section == timerModel.count ? ".fill" : "")")?
+            .applyingSymbolConfiguration(.init(scale: self.indexPath?.section == timerModel.count ? .large : .medium))
+        )
         newImage.contentMode = .center
         newImage.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(newImage)
@@ -84,28 +138,36 @@ class RiValT_TimerArray_AddCell: UICollectionViewCell {
 /**
  This describes each cell in the collection view.
  */
-class RiValT_TimerArray_IconCell: UICollectionViewCell {
+class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
     /* ############################################################## */
     /**
+     The width of a selected timer border.
+     */
+    private static let _borderWidthInDisplayUnits = CGFloat(4)
+    
+    /* ############################################################## */
+    /**
+     The storyboard reuse ID
      */
     static let reuseIdentifier = "RiValT_TimerArray_IconCell"
     
     /* ############################################################## */
     /**
-     */
-    static let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(80), heightDimension: .absolute(80))
-
-    /* ############################################################## */
-    /**
      The timer item associated with this cell.
      */
     var item: Timer?
-    
+
     /* ############################################################## */
     /**
+     Configure this cell item with the timer, and its index path.
+     
+     - parameter inItem: The timer associated with this cell.
+     - parameter inIndexPath: The index path for the cell being represented.
      */
-    func configure(with inItem: Timer) {
+    func configure(with inItem: Timer, indexPath inIndexPath: IndexPath) {
+        super.configure(indexPath: inIndexPath)
         self.item = inItem
+        self.indexPath = inIndexPath
         self.contentView.backgroundColor = UIViewController().isDarkMode ? .white : .black
         self.contentView.layer.cornerRadius = 12
         self.contentView.layer.masksToBounds = true
@@ -123,13 +185,13 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
         newLabel.centerYAnchor.constraint(greaterThanOrEqualTo: self.contentView.centerYAnchor).isActive = true
         newLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 4).isActive = true
         newLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -4).isActive = true
-        self.contentView.borderColor = inItem.isSelected ? .systemBlue : .clear
-        self.contentView.borderWidth = inItem.isSelected ? 3 : 0
+        self.contentView.borderColor = inItem.isSelected ? tintColor : .clear
+        self.contentView.borderWidth = inItem.isSelected ? Self._borderWidthInDisplayUnits : 0
     }
 }
 
 /* ###################################################################################################################################### */
-// MARK: - -
+// MARK: - The Main View Controller for the Matrix of Timers -
 /* ###################################################################################################################################### */
 /**
  
@@ -137,31 +199,25 @@ class RiValT_TimerArray_IconCell: UICollectionViewCell {
 class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
+     The width of the "gutters" around each cell.
      */
     private static let _itemGuttersInDisplayUnits = CGFloat(8)
 
     /* ############################################################## */
     /**
-     */
-    private static let _dropLineWidthInDisplayUnits = CGFloat(4)
-
-    /* ############################################################## */
-    /**
-     */
-    static let itemsPerRow = TimerGroup.maxTimersInGroup
-
-    /* ############################################################## */
-    /**
+     The main collection view.
      */
     @IBOutlet weak var collectionView: UICollectionView?
 
     /* ############################################################## */
     /**
+     This is the datasource for the collection view. We manage it dynamically.
      */
     var dataSource: UICollectionViewDiffableDataSource<Int, RiValT_TimerArray_Placeholder>?
 
     /* ############################################################## */
     /**
+     Used to prevent overeager haptics.
      */
     var lastIndexPath: IndexPath?
 }
@@ -172,6 +228,7 @@ class RiValT_TimerArray_ViewController: RiValT_Base_ViewController {
 extension RiValT_TimerArray_ViewController {
     /* ############################################################## */
     /**
+     Called when the view lays out its view hierarchy.
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -187,10 +244,17 @@ extension RiValT_TimerArray_ViewController {
 extension RiValT_TimerArray_ViewController {
     /* ############################################################## */
     /**
+     This establishes the display layout for our collection view.
+     
+     Each group of timers is a row, with up to 4 timers each.
+     
+     At the end of rows with less than 4 timers, or at the end of the collection view, we have "add" items.
      */
     func createLayout() {
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .absolute(RiValT_TimerArray_IconCell.itemSize.heightDimension.dimension)
+        // The reason for the weird width, is to prevent the end "add" item from vertically flowing.
+        // This only happens, if there are 3 items already there, and a new item is being dragged in from another group.
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.5),
+                                               heightDimension: .absolute(RiValT_BaseCollectionCell.itemSize.heightDimension.dimension)
         )
 
         let item = NSCollectionLayoutItem(layoutSize: RiValT_TimerArray_IconCell.itemSize)
@@ -215,6 +279,7 @@ extension RiValT_TimerArray_ViewController {
     
     /* ############################################################## */
     /**
+     This sets up the data source cells.
      */
     func setupDataSource() {
         guard let collectionView = self.collectionView else { return }
@@ -223,10 +288,10 @@ extension RiValT_TimerArray_ViewController {
             
             if let timer = self.timerModel.getTimer(at: inIndexPath),
                let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_IconCell {
-                cell.configure(with: timer)
+                cell.configure(with: timer, indexPath: inIndexPath)
                 ret = cell
             } else if let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_AddCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_AddCell {
-                cell.configure()
+                cell.configure(indexPath: inIndexPath)
                 ret = cell
             }
             
@@ -238,6 +303,7 @@ extension RiValT_TimerArray_ViewController {
 
     /* ############################################################## */
     /**
+     This updates the collection view snapshot.
      */
     func updateSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Int, RiValT_TimerArray_Placeholder>()
@@ -263,36 +329,57 @@ extension RiValT_TimerArray_ViewController {
 extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
     /* ############################################################## */
     /**
+     Called when a drag starts.
+     
+     This allows us to configure the "drag preview."
+     
+     - parameter inCollectionView: The collection view.
+     - parameter inIndexPath: The index path of the item being dragged.
+     
+     - returns: The drag parameters, or nil, if the item can't be dragged.
      */
     func collectionView(_ inCollectionView: UICollectionView,
                         dragPreviewParametersForItemAt inIndexPath: IndexPath) -> UIDragPreviewParameters? {
-        let parameters = UIDragPreviewParameters()
-        parameters.backgroundColor = .clear
         if let cell = inCollectionView.cellForItem(at: inIndexPath) {
+            let parameters = UIDragPreviewParameters()
+            parameters.backgroundColor = .clear
             parameters.backgroundColor = .clear
             parameters.visiblePath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.cornerRadius)
             parameters.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.cornerRadius)
+            return parameters
         }
-        return parameters
+        
+        return nil
     }
 
     /* ############################################################## */
     /**
+     Called when a drag starts.
+     
+     If the item can't be dragged (the "add" items, or the timer, if there is only one), then an empty array is returned.
+
+     - parameter inCollectionView: The collection view.
+     - parameter inSession: The session for the drag.
+     - parameter inIndexPath: The index path of the item being dragged.
+     
+     - returns: The wrapper item for the drag.
      */
     func collectionView(_ inCollectionView: UICollectionView,
                         itemsForBeginning inSession: UIDragSession,
                         at inIndexPath: IndexPath
     ) -> [UIDragItem] {
-        guard self.timerModel.isValid(indexPath: inIndexPath) else { return [] }
+        guard 1 < self.timerModel.allTimers.count,
+              self.timerModel.isValid(indexPath: inIndexPath)
+        else { return [] }
         self.lastIndexPath = inIndexPath
         inSession.localContext = inIndexPath
         self.timerModel.selectTimer(inIndexPath)
+        self.impactHaptic(1.0)
         inCollectionView.reloadData()
         let timer = self.timerModel[indexPath: inIndexPath]
         let provider = NSItemProvider(object: timer.id.uuidString as NSString)
         let dragItem = UIDragItem(itemProvider: provider)
         dragItem.localObject = timer
-        self.impactHaptic(1.0)
 
         return [dragItem]
     }
@@ -304,6 +391,13 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDragDelegate {
 extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
     /* ############################################################## */
     /**
+     Called to vet the current drag state.
+     
+     - parameter: The collection view (ignored).
+     - parameter inSession: The session for the drag.
+     - parameter inIndexPath: The index path of the item being dragged.
+     
+     - returns: the disposition proposal for the drag.
      */
     func collectionView(_: UICollectionView,
                         dropSessionDidUpdate inSession: UIDropSession,
@@ -316,6 +410,7 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
                 self.selectionHaptic()
                 self.lastIndexPath = inIndexPath
             }
+            
             return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
         } else {
             return UICollectionViewDropProposal(operation: .cancel)
@@ -324,6 +419,10 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
 
     /* ############################################################## */
     /**
+     Called when the drag ends, with a plop.
+     
+     - parameter inCollectionView: The collection view.
+     - parameter inCoordinator: The drop coordinator.
      */
     func collectionView(_ inCollectionView: UICollectionView,
                         performDropWith inCoordinator: UICollectionViewDropCoordinator
@@ -346,15 +445,21 @@ extension RiValT_TimerArray_ViewController: UICollectionViewDropDelegate {
 extension RiValT_TimerArray_ViewController: UICollectionViewDelegate {
     /* ############################################################## */
     /**
+     Called when an item in the collection view is tapped.
+     
+     - parameter inCollectionView: The collection view.
+     - parameter inIndexPath: The index path of the item being tapped.
      */
     func collectionView(_ inCollectionView: UICollectionView,
                         didSelectItemAt inIndexPath: IndexPath
     ) {
-        if let timer = self.timerModel.getTimer(at: inIndexPath) {
-            timer.isSelected = true
-        } else {
-            let timer = self.timerModel.createNewTimer(at: inIndexPath)
-            timer.isSelected = true
+        if nil == self.timerModel.getTimer(at: inIndexPath) {
+            self.timerModel.createNewTimer(at: inIndexPath)
+        }
+        
+        if !(self.timerModel.getTimer(at: inIndexPath)?.isSelected ?? false) {
+            self.impactHaptic(1.0)
+            self.timerModel.getTimer(at: inIndexPath)?.isSelected = true
         }
 
         self.updateSnapshot()
