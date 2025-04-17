@@ -284,7 +284,6 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
         super.configure(indexPath: inIndexPath)
         self.item = inItem
         self.indexPath = inIndexPath
-        self.contentView.backgroundColor = UIViewController().isDarkMode ? .white : .black
         _addDashedBorder()
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
         let startLabel = UILabel()
