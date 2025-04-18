@@ -229,7 +229,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
     /**
      The large variant of the digital display font.
      */
-    static let digitalDisplayFontSmall = UIFont(name: "Let\'s go Digital", size: 17)
+    static let digitalDisplayFontSmall = UIFont(name: "Let\'s go Digital", size: 20)
 
     /* ############################################################## */
     /**
@@ -251,7 +251,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
      - parameter inIndexPath: The index path for the cell being represented.
      */
     func configure(with inItem: Timer, indexPath inIndexPath: IndexPath) {
-        let cornerRadius = self.contentView.cornerRadius
+        let cornerRadius = self.contentView.cornerRadius + (Self._borderWidthInDisplayUnits / 2)
         
         /* ########################################################## */
         /**
@@ -271,7 +271,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
                 shapeLayer.strokeColor = dashColor
                 // We cut the line in half, so the displayed width is smaller.
                 shapeLayer.lineWidth = Self._borderWidthInDisplayUnits * 2
-                shapeLayer.lineDashPattern = [6, 3]
+                shapeLayer.lineDashPattern = [5, 3]
                 shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: cornerRadius).cgPath
                 self.contentView.layer.addSublayer(shapeLayer)
             }
