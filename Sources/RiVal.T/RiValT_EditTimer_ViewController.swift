@@ -82,7 +82,7 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
      
      It is implicit optional, because we're in trouble, if it's nil.
      */
-    weak var timer: Timer! = nil
+    weak var timer: Timer! = nil { didSet { self.view.setNeedsLayout() } }
 
     /* ############################################################## */
     /**
@@ -253,14 +253,6 @@ extension RiValT_EditTimer_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_EditTimer_ViewController {
-    @objc func toolbarPrevHit(_: Any) {
-        
-    }
-    
-    @objc func toolbarNextHit(_: Any) {
-        
-    }
-    
     /* ############################################################## */
     /**
      This sets up the bottom toolbar.
@@ -269,7 +261,8 @@ extension RiValT_EditTimer_ViewController {
         guard let timerIndexPath = timer.indexPath,
               let timerGroup = timer.group
         else { return }
-        
+        var toolbarItems = [UIBarButtonItem]()
+        self.toolbar?.items = []
         if 1 < timerGroup.count {
             let prevButton = UIBarButtonItem()
             prevButton.image = UIImage(systemName: "arrowtriangle.backward.fill")
@@ -283,13 +276,23 @@ extension RiValT_EditTimer_ViewController {
             nextButton.action = #selector(toolbarNextHit)
             nextButton.isEnabled = timerIndexPath.item < (timerGroup.count - 1)
             
-            let toolbarItems: [UIBarButtonItem] = [
-                prevButton,
-                UIBarButtonItem.flexibleSpace(),
-                nextButton
-            ]
+            toolbarItems.append(prevButton)
+            toolbarItems.append(UIBarButtonItem.flexibleSpace())
 
-            self.toolbar?.setItems(toolbarItems, animated: true)
+            for index in 0..<timerGroup.count {
+                let timerButton = UIBarButtonItem()
+                timerButton.image = UIImage(systemName: "\(index + 1).square\(index == timerIndexPath.item ? ".fill" : "")")
+                timerButton.isEnabled = index != timerIndexPath.item
+                timerButton.target = self
+                timerButton.tag = index
+                timerButton.action = #selector(toolbarTimerHit)
+                toolbarItems.append(timerButton)
+            }
+            
+            toolbarItems.append(UIBarButtonItem.flexibleSpace())
+            toolbarItems.append(nextButton)
+            
+            self.toolbar?.setItems(toolbarItems, animated: false)
             self.toolbar?.isHidden = false
         } else {
             self.toolbar?.isHidden = true
@@ -382,6 +385,48 @@ extension RiValT_EditTimer_ViewController {
      - parameter: ignored.
      */
     @IBAction func settingsBarButtonHit(_: Any) {
+    }
+
+    /* ############################################################## */
+    /**
+     */
+    @IBAction func toolbarPrevHit(_: Any) {
+        guard self.toolbar?.items?.first?.isEnabled ?? false,
+              let groupIndex = self.timer?.indexPath?.section,
+              let timerIndex = self.timer?.indexPath?.item
+        else { return }
+        self.timer = timerModel.getTimer(at: IndexPath(item: max(0, min(TimerGroup.maxTimersInGroup, timerIndex - 1)), section: groupIndex))
+        self.setUpToolbar()
+        self.setTime(true)
+        self.timeTypeSegmentedControl?.selectedSegmentIndex = TimeType.setTime.rawValue
+        self.updateTimeTypeSegmentedControl()
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBAction func toolbarNextHit(_: Any) {
+        guard self.toolbar?.items?.last?.isEnabled ?? false,
+              let groupIndex = self.timer?.indexPath?.section,
+              let timerIndex = self.timer?.indexPath?.item
+        else { return }
+        self.timer = timerModel.getTimer(at: IndexPath(item: max(0, min(TimerGroup.maxTimersInGroup, timerIndex + 1)), section: groupIndex))
+        self.setUpToolbar()
+        self.setTime(true)
+        self.timeTypeSegmentedControl?.selectedSegmentIndex = TimeType.setTime.rawValue
+        self.updateTimeTypeSegmentedControl()
+    }
+
+    /* ############################################################## */
+    /**
+     */
+    @objc func toolbarTimerHit(_ inButton: UIBarButtonItem) {
+        guard let groupIndex = self.timer?.indexPath?.section else { return }
+        self.timer = timerModel.getTimer(at: IndexPath(item: inButton.tag, section: groupIndex))
+        self.setUpToolbar()
+        self.setTime(true)
+        self.timeTypeSegmentedControl?.selectedSegmentIndex = TimeType.setTime.rawValue
+        self.updateTimeTypeSegmentedControl()
     }
 }
 

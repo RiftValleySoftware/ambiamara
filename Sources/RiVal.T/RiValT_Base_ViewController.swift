@@ -93,7 +93,6 @@ extension RiValT_Base_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_Base_ViewController {
-
     /* ################################################################## */
     /**
      Triggers a selection haptic.
@@ -112,5 +111,13 @@ extension RiValT_Base_ViewController {
     func impactHaptic(_ inIntensity: CGFloat = 0.5) {
         self._impactFeedbackGenerator.impactOccurred(intensity: inIntensity)
         self._impactFeedbackGenerator.prepare()
+    }
+    
+    /* ################################################################## */
+    /**
+     This updates the stored timer model.
+     */
+    func updateSettings() {
+        RiValT_Settings().timerModel = self.timerModel.asArray
     }
 }

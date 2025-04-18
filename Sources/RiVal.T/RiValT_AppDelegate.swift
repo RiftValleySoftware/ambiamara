@@ -51,10 +51,19 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
      This initializes the timer model.
      */
     func setUpTimerModel() {
+        self.timerModel.asArray = RiValT_Settings().timerModel
         if timerModel.allTimers.isEmpty {
             let timer = timerModel.createNewTimer(at: IndexPath(item: 0, section: 0))
             timer.isSelected = true
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     This updates the stored timer model.
+     */
+    func updateSettings() {
+        RiValT_Settings().timerModel = self.timerModel.asArray
     }
 
     // MARK: UISceneSession Lifecycle

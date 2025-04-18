@@ -131,8 +131,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ix-aj-H7Q">
                                 <rect key="frame" x="20" y="298" width="353" height="256"/>
                                 <subviews>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kx5-6Q-HlR">
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kx5-6Q-HlR">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="33"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="O9a-TK-XCY"/>
                                         </constraints>
@@ -141,12 +142,15 @@
                                             <segment title="SLUG-WARN-TIME"/>
                                             <segment title="SLUG-FINAL-TIME"/>
                                         </segments>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="selectedSegmentTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="timeTypeSegmentedControlChanged:" destination="JlO-Oc-S3P" eventType="valueChanged" id="6e6-vd-Wip"/>
                                         </connections>
                                     </segmentedControl>
                                     <pickerView contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-IS-Nx4">
                                         <rect key="frame" x="0.0" y="31.999999999999986" width="353" height="203.66666666666663"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="dataSource" destination="JlO-Oc-S3P" id="Ltu-M7-pbN"/>
                                             <outlet property="delegate" destination="JlO-Oc-S3P" id="Azb-Eq-1j3"/>
@@ -222,6 +226,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ITz-Ty-22n"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="czQ-xo-bRA" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" id="AJG-Ry-mrw"/>
                             <constraint firstItem="czQ-xo-bRA" firstAttribute="top" relation="greaterThanOrEqual" secondItem="9ix-aj-H7Q" secondAttribute="bottom" id="EJi-6f-YTT"/>
@@ -232,6 +237,10 @@
                             <constraint firstItem="9ix-aj-H7Q" firstAttribute="centerY" secondItem="eHC-G7-JUU" secondAttribute="centerY" id="mow-qO-fbX"/>
                             <constraint firstItem="ITz-Ty-22n" firstAttribute="trailing" secondItem="9ix-aj-H7Q" secondAttribute="trailing" constant="20" id="qht-GZ-ynr"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Q6E-o3-LJm" appends="YES" id="cfN-Oe-MOb"/>
+                            <outletCollection property="gestureRecognizers" destination="onz-1A-vfx" appends="YES" id="sLv-hb-TU1"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="SLUG-EDIT" id="g8j-Dj-DgL">
                         <barButtonItem key="rightBarButtonItem" id="Rlq-L4-0Xd">
@@ -253,6 +262,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2QB-7k-b82" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="Q6E-o3-LJm" userLabel="Left Swipe Gesture Recognizer">
+                    <connections>
+                        <action selector="toolbarNextHit:" destination="JlO-Oc-S3P" id="d0I-ko-sQV"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="onz-1A-vfx" userLabel="Right Swipe Gesture Recognizer">
+                    <connections>
+                        <action selector="toolbarPrevHit:" destination="JlO-Oc-S3P" id="dET-6z-aGx"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1649.6183206106869" y="-211.26760563380282"/>
         </scene>
@@ -281,7 +300,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
