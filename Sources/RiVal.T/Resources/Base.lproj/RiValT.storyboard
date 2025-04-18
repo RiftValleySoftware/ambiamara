@@ -112,11 +112,28 @@
                         <outlet property="toolbarEditButton" destination="yI7-Xj-kln" id="GGg-nh-5rQ"/>
                         <outlet property="toolbarPlayButton" destination="11P-RB-1WC" id="wXk-gi-6lJ"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="iB1-Rw-Leg"/>
+                        <segue destination="JlO-Oc-S3P" kind="show" identifier="edit-timer" id="050-k9-mZE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="739.69465648854964" y="-211.26760563380282"/>
+        </scene>
+        <!--RiValT Edit Timer View Controller-->
+        <scene sceneID="G2G-D8-NDE">
+            <objects>
+                <viewController id="JlO-Oc-S3P" userLabel="RiValT Edit Timer View Controller" customClass="RiValT_EditTimer_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eHC-G7-JUU">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="ITz-Ty-22n"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="SLUG-EDIT" id="g8j-Dj-DgL"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2QB-7k-b82" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1651" y="-211"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CJq-mF-a4b">

@@ -289,7 +289,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
         _addDashedBorder()
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
         let startLabel = UILabel()
-        startLabel.textColor = hasSetTime && inItem.isSelected ? UIColor(named: "Start-Color") : (hasSetTime ? (UIViewController().isDarkMode ? .black : .white) : .systemRed)
+        startLabel.textColor = hasSetTime && inItem.isSelected ? UIColor(named: "Start-Color") : (hasSetTime || !inItem.isSelected ? (UIViewController().isDarkMode ? .black : .white) : .systemRed)
         startLabel.font = hasSetTime ? Self.digitalDisplayFontSmall : Self.digitalDisplayFontBig
         startLabel.text = hasSetTime ? inItem.setTimeDisplay : "0"
         startLabel.adjustsFontSizeToFitWidth = true
@@ -361,6 +361,12 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
      The width of the "gutters" around each cell.
      */
     private static let _itemGuttersInDisplayUnits = CGFloat(4)
+    
+    /* ############################################################## */
+    /**
+     The ID of the segue to set a timer.
+     */
+    private static let _timerEditSegueID = "edit-timer"
     
     /* ############################################################## */
     /**
@@ -437,9 +443,10 @@ extension RiValT_MultiTimer_ViewController {
      - parameter inIsAnimated: True, if the appearance is animated.
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
         super.viewWillAppear(inIsAnimated)
     }
-    
+
     /* ############################################################## */
     /**
      Called when the view lays out its view hierarchy.
@@ -618,6 +625,9 @@ extension RiValT_MultiTimer_ViewController {
     
     /* ############################################################## */
     /**
+     Called when the "Play" button is hit.
+     
+     - parameter: ignored.
      */
     @IBAction func toolbarPlayButtonHit(_ inButton: UIBarButtonItem) {
         self.impactHaptic()
@@ -625,9 +635,26 @@ extension RiValT_MultiTimer_ViewController {
     
     /* ############################################################## */
     /**
+     Called when the "Edit" button is hit.
+     
+     - parameter: ignored.
      */
     @IBAction func toolbarEditButtonHit(_ inButton: UIBarButtonItem) {
         self.impactHaptic()
+        self.performSegue(withIdentifier: Self._timerEditSegueID, sender: nil)
+    }
+    
+    /* ############################################################## */
+    /**
+     Called just before we segue to another screen.
+     
+     - parameter inSegue: The segue instance.
+     - parameter: Extra data (ignored).
+     */
+    override func prepare(for inSegue: UIStoryboardSegue, sender: Any?) {
+        if let destination = inSegue.destination as? RiValT_EditTimer_ViewController {
+            destination.timer = self.timerModel.selectedTimer
+        }
     }
 }
 

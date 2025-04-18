@@ -49,7 +49,8 @@ extension RiValT_Base_ViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationItem.title = self.navigationItem.title?.localizedVariant
+
         // This ensures that our navigation bar will be transparent.
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
@@ -85,7 +86,7 @@ extension RiValT_Base_ViewController {
      
      It's an implicit optional, because the whole shebang goes into the crapper, if it doesn't work.
      */
-    var timerModel: TimerModel! { RiValT_AppDelegate.appDelegateInstance?.timerModel }
+    weak var timerModel: TimerModel! { RiValT_AppDelegate.appDelegateInstance?.timerModel }
 }
 
 /* ###################################################################################################################################### */
