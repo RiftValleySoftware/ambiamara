@@ -128,21 +128,69 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ix-aj-H7Q">
-                                <rect key="frame" x="20" y="362" width="353" height="128"/>
+                                <rect key="frame" x="20" y="298" width="353" height="256"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kx5-6Q-HlR">
-                                        <rect key="frame" x="0.0" y="0.0" width="353" height="32"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="33"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="O9a-TK-XCY"/>
+                                        </constraints>
                                         <segments>
-                                            <segment title="First"/>
-                                            <segment title="Second"/>
-                                            <segment title=""/>
+                                            <segment title="SLUG-START-TIME"/>
+                                            <segment title="SLUG-WARN-TIME"/>
+                                            <segment title="SLUG-FINAL-TIME"/>
                                         </segments>
                                         <connections>
-                                            <action selector="timeTypeSegmentedControlChanged:" destination="JlO-Oc-S3P" eventType="valueChanged" id="Nxq-kQ-qA9"/>
+                                            <action selector="timeTypeSegmentedControlChanged:" destination="JlO-Oc-S3P" eventType="valueChanged" id="6e6-vd-Wip"/>
                                         </connections>
                                     </segmentedControl>
-                                    <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-IS-Nx4">
-                                        <rect key="frame" x="0.0" y="39" width="353" height="89"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rGl-Mw-lt6">
+                                        <rect key="frame" x="8" y="40" width="329" height="20.333333333333329"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-HOURS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfu-Kz-A9q">
+                                                <rect key="frame" x="0.0" y="0.0" width="104.33333333333333" height="20.333333333333332"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-MINUTES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbl-rx-DkY">
+                                                <rect key="frame" x="112.33333333333334" y="0.0" width="104.33333333333334" height="20.333333333333332"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-SECONDS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nev-tz-EK3">
+                                                <rect key="frame" x="224.66666666666666" y="0.0" width="104.33333333333334" height="20.333333333333332"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20.329999999999998" id="ms7-UX-NoJ"/>
+                                        </constraints>
+                                    </stackView>
+                                    <pickerView contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-IS-Nx4">
+                                        <rect key="frame" x="0.0" y="60.3333333333333" width="353" height="195.66666666666663"/>
                                         <connections>
                                             <outlet property="dataSource" destination="JlO-Oc-S3P" id="Ltu-M7-pbN"/>
                                             <outlet property="delegate" destination="JlO-Oc-S3P" id="Azb-Eq-1j3"/>
@@ -152,12 +200,15 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="1vE-IS-Nx4" secondAttribute="trailing" id="0GH-T9-Tce"/>
+                                    <constraint firstItem="rGl-Mw-lt6" firstAttribute="top" secondItem="kx5-6Q-HlR" secondAttribute="bottom" constant="8" symbolic="YES" id="7jn-Am-cDa"/>
                                     <constraint firstAttribute="bottom" secondItem="1vE-IS-Nx4" secondAttribute="bottom" id="CIm-uM-gYZ"/>
                                     <constraint firstItem="1vE-IS-Nx4" firstAttribute="leading" secondItem="9ix-aj-H7Q" secondAttribute="leading" id="GuQ-8f-SAy"/>
                                     <constraint firstAttribute="trailing" secondItem="kx5-6Q-HlR" secondAttribute="trailing" id="Jb9-Q4-frc"/>
                                     <constraint firstItem="kx5-6Q-HlR" firstAttribute="leading" secondItem="9ix-aj-H7Q" secondAttribute="leading" id="OqJ-2B-Bf2"/>
-                                    <constraint firstItem="1vE-IS-Nx4" firstAttribute="top" secondItem="kx5-6Q-HlR" secondAttribute="bottom" constant="8" symbolic="YES" id="cQL-nR-nd1"/>
-                                    <constraint firstAttribute="height" constant="128" id="s2Q-y1-J89"/>
+                                    <constraint firstItem="rGl-Mw-lt6" firstAttribute="trailing" secondItem="1vE-IS-Nx4" secondAttribute="trailing" constant="-16" id="ad8-Tw-Ppl"/>
+                                    <constraint firstItem="rGl-Mw-lt6" firstAttribute="bottom" secondItem="1vE-IS-Nx4" secondAttribute="top" id="cQL-nR-nd1"/>
+                                    <constraint firstItem="rGl-Mw-lt6" firstAttribute="leading" secondItem="1vE-IS-Nx4" secondAttribute="leading" constant="8" id="oD6-fW-DKb"/>
+                                    <constraint firstAttribute="height" constant="256" id="s2Q-y1-J89"/>
                                     <constraint firstItem="kx5-6Q-HlR" firstAttribute="top" secondItem="9ix-aj-H7Q" secondAttribute="top" id="y1X-q9-JbN"/>
                                 </constraints>
                             </view>
@@ -173,9 +224,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="SLUG-EDIT" id="g8j-Dj-DgL"/>
                     <connections>
+                        <outlet property="hoursLabel" destination="pfu-Kz-A9q" id="d8T-Dn-xGb"/>
+                        <outlet property="minutesLabel" destination="cbl-rx-DkY" id="OCu-X6-LEz"/>
+                        <outlet property="secondsLabel" destination="Nev-tz-EK3" id="XGR-Rc-zML"/>
                         <outlet property="setTimeContainerView" destination="9ix-aj-H7Q" id="zjZ-t5-WYq"/>
                         <outlet property="timeSetPicker" destination="1vE-IS-Nx4" id="lzf-hS-dYF"/>
-                        <outlet property="timeTypeSegmentedControl" destination="kx5-6Q-HlR" id="7se-qY-XGh"/>
+                        <outlet property="timeTypeSegmentedControl" destination="kx5-6Q-HlR" id="BeD-iS-WpR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2QB-7k-b82" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
