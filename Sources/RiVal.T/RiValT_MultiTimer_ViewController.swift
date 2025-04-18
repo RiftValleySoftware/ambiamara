@@ -281,13 +281,15 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
         let hasWarning = hasSetTime && 0 < inItem.warningTimeInSeconds
         let hasFinal = hasSetTime && 0 < inItem.finalTimeInSeconds
         
+        self.contentView.backgroundColor = UIColor(named: "\(inItem.isSelected ? "Selected-" : "")Cell-Background")
+
         super.configure(indexPath: inIndexPath)
         self.item = inItem
         self.indexPath = inIndexPath
         _addDashedBorder()
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
         let startLabel = UILabel()
-        startLabel.textColor = hasSetTime ? UIColor(named: "Start-Color") : UIViewController().isDarkMode ? .black : .white
+        startLabel.textColor = hasSetTime && inItem.isSelected ? UIColor(named: "Start-Color") : (hasSetTime ? (UIViewController().isDarkMode ? .black : .white) : .systemRed)
         startLabel.font = hasSetTime ? Self.digitalDisplayFontSmall : Self.digitalDisplayFontBig
         startLabel.text = hasSetTime ? inItem.setTimeDisplay : "0"
         startLabel.adjustsFontSizeToFitWidth = true
@@ -305,7 +307,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
         let warnLabel = UILabel()
         
         if hasWarning {
-            warnLabel.textColor = UIColor(named: "Warn-Color")
+            warnLabel.textColor = inItem.isSelected ? UIColor(named: "Warn-Color") : UIViewController().isDarkMode ? .black : .white
             warnLabel.font = Self.digitalDisplayFontSmall
             warnLabel.text = inItem.warnTimeDisplay
             warnLabel.adjustsFontSizeToFitWidth = true
@@ -327,7 +329,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
         if hasFinal {
             let finalLabel = UILabel()
             
-            finalLabel.textColor = UIColor(named: "Final-Color")
+            finalLabel.textColor = inItem.isSelected ? UIColor(named: "Final-Color") : UIViewController().isDarkMode ? .black : .white
             finalLabel.font = Self.digitalDisplayFontSmall
             finalLabel.text = inItem.finalTimeDisplay
             finalLabel.adjustsFontSizeToFitWidth = true
@@ -359,6 +361,12 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
      The width of the "gutters" around each cell.
      */
     private static let _itemGuttersInDisplayUnits = CGFloat(4)
+    
+    /* ############################################################## */
+    /**
+     Used to track scrolling, and to prevent horizontal scroll.
+     */
+    private var _initialContentOffset: CGPoint = .zero
 
     /* ############################################################## */
     /**
@@ -368,21 +376,25 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
     
     /* ############################################################## */
     /**
+     The toolbar at the bottom of the screen.
      */
     @IBOutlet weak var toolbar: UIToolbar?
 
     /* ############################################################## */
     /**
+     The trash button in the toolbar.
      */
     @IBOutlet weak var toolbarDeleteButton: UIBarButtonItem?
 
     /* ############################################################## */
     /**
+     The "Play" (start) button in the toolbar.
      */
     @IBOutlet weak var toolbarPlayButton: UIBarButtonItem?
 
     /* ############################################################## */
     /**
+     The edit button in the toolbar.
      */
     @IBOutlet weak var toolbarEditButton: UIBarButtonItem?
 
@@ -415,6 +427,7 @@ extension RiValT_MultiTimer_ViewController {
         appearance.backgroundImage = nil
         self.toolbar?.standardAppearance = appearance
         self.toolbar?.scrollEdgeAppearance = appearance
+        self.collectionView?.isDirectionalLockEnabled = true
     }
     
     /* ############################################################## */
@@ -468,14 +481,7 @@ extension RiValT_MultiTimer_ViewController {
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0,
-                                                        leading: Self._itemGuttersInDisplayUnits,
-                                                        bottom: 0,
-                                                        trailing: Self._itemGuttersInDisplayUnits
-        )
-        
-        self.collectionView?.collectionViewLayout = UICollectionViewCompositionalLayout(section: section)
+        self.collectionView?.collectionViewLayout = UICollectionViewCompositionalLayout(section: NSCollectionLayoutSection(group: group))
     }
     
     /* ############################################################## */
@@ -487,10 +493,12 @@ extension RiValT_MultiTimer_ViewController {
         self.dataSource = UICollectionViewDiffableDataSource<Int, RiValT_TimerArray_Placeholder>(collectionView: collectionView) { inCollectionView, inIndexPath, inTimer in
             var ret = UICollectionViewCell()
             
+            // If this cell has a timer, we create a timer cell.
             if let timer = self.timerModel.getTimer(at: inIndexPath),
                let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_IconCell {
                 cell.configure(with: timer, indexPath: inIndexPath)
                 ret = cell
+            // Otherwise, we create an add cell.
             } else if let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_AddCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_AddCell {
                 cell.configure(indexPath: inIndexPath)
                 ret = cell
@@ -764,5 +772,36 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         
         self.updateSnapshot()
         inCollectionView.reloadData()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UIScrollViewDelegate Conformance
+/* ###################################################################################################################################### */
+/**
+ The reason for this extension, is simply to prevent the collection view from scrolling horizontally.
+ 
+ We define the area to be wider than the display, in order to prevent vertical "reflowing," when we get to 3 items, and another item is dragged in,
+ but we don't want the user to be able to scroll out of the display.
+ */
+extension RiValT_MultiTimer_ViewController: UIScrollViewDelegate {
+    /* ############################################################## */
+    /**
+     Called when a scroll begins.
+     
+     - parameter inScrollView: The collection view (as a scroll view).
+     */
+    func scrollViewWillBeginDragging(_ inScrollView: UIScrollView) {
+        self._initialContentOffset = inScrollView.contentOffset
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when a scroll actually happens.
+     
+     - parameter inScrollView: The collection view (as a scroll view).
+     */
+    func scrollViewDidScroll(_ inScrollView: UIScrollView) {
+        inScrollView.contentOffset.x = self._initialContentOffset.x
     }
 }
