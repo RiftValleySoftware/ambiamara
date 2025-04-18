@@ -54,9 +54,6 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
         if timerModel.allTimers.isEmpty {
             let timer = timerModel.createNewTimer(at: IndexPath(item: 0, section: 0))
             timer.isSelected = true
-            timer.startingTimeInSeconds = Int.random(in: 1..<86400)
-            timer.warningTimeInSeconds = Int.random(in: 1..<timer.startingTimeInSeconds)
-            timer.finalTimeInSeconds = Int.random(in: 1..<timer.warningTimeInSeconds)
         }
     }
 

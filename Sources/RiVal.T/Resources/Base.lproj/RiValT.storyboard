@@ -145,7 +145,7 @@
                                         </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rGl-Mw-lt6">
-                                        <rect key="frame" x="8" y="40" width="329" height="20.333333333333329"/>
+                                        <rect key="frame" x="8" y="235.66666666666663" width="329" height="20.333333333333343"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-HOURS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfu-Kz-A9q">
                                                 <rect key="frame" x="0.0" y="0.0" width="104.33333333333333" height="20.333333333333332"/>
@@ -190,7 +190,7 @@
                                         </constraints>
                                     </stackView>
                                     <pickerView contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-IS-Nx4">
-                                        <rect key="frame" x="0.0" y="60.3333333333333" width="353" height="195.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="32" width="353" height="204"/>
                                         <connections>
                                             <outlet property="dataSource" destination="JlO-Oc-S3P" id="Ltu-M7-pbN"/>
                                             <outlet property="delegate" destination="JlO-Oc-S3P" id="Azb-Eq-1j3"/>
@@ -200,15 +200,15 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="1vE-IS-Nx4" secondAttribute="trailing" id="0GH-T9-Tce"/>
-                                    <constraint firstItem="rGl-Mw-lt6" firstAttribute="top" secondItem="kx5-6Q-HlR" secondAttribute="bottom" constant="8" symbolic="YES" id="7jn-Am-cDa"/>
-                                    <constraint firstAttribute="bottom" secondItem="1vE-IS-Nx4" secondAttribute="bottom" id="CIm-uM-gYZ"/>
+                                    <constraint firstItem="rGl-Mw-lt6" firstAttribute="top" secondItem="1vE-IS-Nx4" secondAttribute="bottom" id="CIm-uM-gYZ"/>
                                     <constraint firstItem="1vE-IS-Nx4" firstAttribute="leading" secondItem="9ix-aj-H7Q" secondAttribute="leading" id="GuQ-8f-SAy"/>
                                     <constraint firstAttribute="trailing" secondItem="kx5-6Q-HlR" secondAttribute="trailing" id="Jb9-Q4-frc"/>
                                     <constraint firstItem="kx5-6Q-HlR" firstAttribute="leading" secondItem="9ix-aj-H7Q" secondAttribute="leading" id="OqJ-2B-Bf2"/>
                                     <constraint firstItem="rGl-Mw-lt6" firstAttribute="trailing" secondItem="1vE-IS-Nx4" secondAttribute="trailing" constant="-16" id="ad8-Tw-Ppl"/>
-                                    <constraint firstItem="rGl-Mw-lt6" firstAttribute="bottom" secondItem="1vE-IS-Nx4" secondAttribute="top" id="cQL-nR-nd1"/>
+                                    <constraint firstItem="kx5-6Q-HlR" firstAttribute="bottom" secondItem="1vE-IS-Nx4" secondAttribute="top" id="cQL-nR-nd1"/>
                                     <constraint firstItem="rGl-Mw-lt6" firstAttribute="leading" secondItem="1vE-IS-Nx4" secondAttribute="leading" constant="8" id="oD6-fW-DKb"/>
                                     <constraint firstAttribute="height" constant="256" id="s2Q-y1-J89"/>
+                                    <constraint firstAttribute="bottom" secondItem="rGl-Mw-lt6" secondAttribute="bottom" id="sRp-KR-KI8"/>
                                     <constraint firstItem="kx5-6Q-HlR" firstAttribute="top" secondItem="9ix-aj-H7Q" secondAttribute="top" id="y1X-q9-JbN"/>
                                 </constraints>
                             </view>

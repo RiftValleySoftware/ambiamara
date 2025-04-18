@@ -210,11 +210,22 @@ extension RiValT_EditTimer_ViewController {
     
     /* ############################################################## */
     /**
+     Called when the view has appeared
+     
+     - parameter inIsAnimated: True, if the appearance is animated.
+     */
+    override func viewDidAppear(_ inIsAnimated: Bool) {
+        super.viewDidAppear(inIsAnimated)
+        self.setTime(true)
+    }
+
+    /* ############################################################## */
+    /**
      Called when the view has laid itself out.
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.setTime()
+        self.timeSetPicker?.reloadAllComponents()
     }
 }
 
@@ -237,15 +248,17 @@ extension RiValT_EditTimer_ViewController {
     /* ############################################################## */
     /**
      Sets the picker to reflect the current time.
+     
+     - parameter inIsAnimated: True, if the set is animated.
      */
-    func setTime() {
+    func setTime(_ inIsAnimated: Bool = false) {
         let hours = Int(self.currentTimeInSeconds / TimerEngine.secondsInHour)
         let minutes = Int((self.currentTimeInSeconds - (hours * TimerEngine.secondsInHour)) / TimerEngine.secondsInMinute)
         let seconds = Int(self.currentTimeInSeconds - ((hours * TimerEngine.secondsInHour) + (minutes * TimerEngine.secondsInMinute)))
-        
-        self.timeSetPicker?.selectRow(hours, inComponent: PickerRow.hours.rawValue, animated: true)
-        self.timeSetPicker?.selectRow(minutes, inComponent: PickerRow.minutes.rawValue, animated: true)
-        self.timeSetPicker?.selectRow(seconds, inComponent: PickerRow.seconds.rawValue, animated: true)
+
+        self.timeSetPicker?.selectRow(hours, inComponent: PickerRow.hours.rawValue, animated: inIsAnimated)
+        self.timeSetPicker?.selectRow(minutes, inComponent: PickerRow.minutes.rawValue, animated: inIsAnimated)
+        self.timeSetPicker?.selectRow(seconds, inComponent: PickerRow.seconds.rawValue, animated: inIsAnimated)
         
         self.timeSetPicker?.reloadAllComponents()
     }
@@ -262,7 +275,7 @@ extension RiValT_EditTimer_ViewController {
      - parameter inSegmentedControl: The control that was changed
      */
     @IBAction func timeTypeSegmentedControlChanged(_ inSegmentedControl: UISegmentedControl) {
-        self.setTime()
+        self.setTime(true)
     }
 }
 
@@ -313,8 +326,8 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
         guard let selectedColumn = PickerRow(rawValue: inComponent) else { return UILabel() }
         
         let selectedRow = inPickerView.selectedRow(inComponent: selectedColumn.rawValue)
-        let hours = inPickerView.selectedRow(inComponent: PickerRow.hours.rawValue)
-        let minutes = inPickerView.selectedRow(inComponent: PickerRow.minutes.rawValue)
+        let hours = Int(self.currentTimeInSeconds / TimerEngine.secondsInHour)
+        let minutes = Int((self.currentTimeInSeconds - (hours * TimerEngine.secondsInHour)) / TimerEngine.secondsInMinute)
 
         let ret = UILabel()
         ret.font = Self._digitalDisplayFont
@@ -346,15 +359,15 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
             switch currentTimeSetState {
             case .setTime:
                 ret.textColor = .black
-                backgroundColor = UIColor(named: "Start-Color") ?? .label
+                backgroundColor = UIColor(named: "Start-Color") ?? .white
                 
             case .warnTime:
                 ret.textColor = .black
-                backgroundColor = UIColor(named: "Warn-Color") ?? .label
+                backgroundColor = UIColor(named: "Warn-Color") ?? .white
                 
             case .finalTime:
-                ret.textColor = .white
-                backgroundColor = UIColor(named: "Final-Color") ?? .label
+                ret.textColor = self.isDarkMode ? .black : .white
+                backgroundColor = UIColor(named: "Final-Color") ?? .black
             }
         }
         
