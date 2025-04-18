@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -144,7 +145,14 @@
                                             <action selector="timeTypeSegmentedControlChanged:" destination="JlO-Oc-S3P" eventType="valueChanged" id="6e6-vd-Wip"/>
                                         </connections>
                                     </segmentedControl>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rGl-Mw-lt6">
+                                    <pickerView contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-IS-Nx4">
+                                        <rect key="frame" x="0.0" y="31.999999999999986" width="353" height="203.66666666666663"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="JlO-Oc-S3P" id="Ltu-M7-pbN"/>
+                                            <outlet property="delegate" destination="JlO-Oc-S3P" id="Azb-Eq-1j3"/>
+                                        </connections>
+                                    </pickerView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rGl-Mw-lt6" userLabel="Labels Container View">
                                         <rect key="frame" x="8" y="235.66666666666663" width="329" height="20.333333333333343"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-HOURS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfu-Kz-A9q">
@@ -189,13 +197,6 @@
                                             <constraint firstAttribute="height" constant="20.329999999999998" id="ms7-UX-NoJ"/>
                                         </constraints>
                                     </stackView>
-                                    <pickerView contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-IS-Nx4">
-                                        <rect key="frame" x="0.0" y="32" width="353" height="204"/>
-                                        <connections>
-                                            <outlet property="dataSource" destination="JlO-Oc-S3P" id="Ltu-M7-pbN"/>
-                                            <outlet property="delegate" destination="JlO-Oc-S3P" id="Azb-Eq-1j3"/>
-                                        </connections>
-                                    </pickerView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -212,24 +213,43 @@
                                     <constraint firstItem="kx5-6Q-HlR" firstAttribute="top" secondItem="9ix-aj-H7Q" secondAttribute="top" id="y1X-q9-JbN"/>
                                 </constraints>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czQ-xo-bRA">
+                                <rect key="frame" x="0.0" y="735" width="393" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items/>
+                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ITz-Ty-22n"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="czQ-xo-bRA" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" id="AJG-Ry-mrw"/>
+                            <constraint firstItem="czQ-xo-bRA" firstAttribute="top" relation="greaterThanOrEqual" secondItem="9ix-aj-H7Q" secondAttribute="bottom" id="EJi-6f-YTT"/>
+                            <constraint firstItem="czQ-xo-bRA" firstAttribute="bottom" secondItem="ITz-Ty-22n" secondAttribute="bottom" id="c73-f3-SjS"/>
                             <constraint firstItem="9ix-aj-H7Q" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" constant="20" id="el0-Oi-JUx"/>
                             <constraint firstItem="9ix-aj-H7Q" firstAttribute="centerX" secondItem="eHC-G7-JUU" secondAttribute="centerX" id="jLh-dj-YqB"/>
+                            <constraint firstItem="czQ-xo-bRA" firstAttribute="trailing" secondItem="ITz-Ty-22n" secondAttribute="trailing" id="jbL-cK-bl1"/>
                             <constraint firstItem="9ix-aj-H7Q" firstAttribute="centerY" secondItem="eHC-G7-JUU" secondAttribute="centerY" id="mow-qO-fbX"/>
                             <constraint firstItem="ITz-Ty-22n" firstAttribute="trailing" secondItem="9ix-aj-H7Q" secondAttribute="trailing" constant="20" id="qht-GZ-ynr"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="SLUG-EDIT" id="g8j-Dj-DgL"/>
+                    <navigationItem key="navigationItem" title="SLUG-EDIT" id="g8j-Dj-DgL">
+                        <barButtonItem key="rightBarButtonItem" id="Rlq-L4-0Xd">
+                            <imageReference key="image" image="gear.circle" catalog="system" symbolScale="large"/>
+                            <connections>
+                                <action selector="settingsBarButtonHit:" destination="JlO-Oc-S3P" id="YZ2-um-v1Z"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="hoursLabel" destination="pfu-Kz-A9q" id="d8T-Dn-xGb"/>
                         <outlet property="minutesLabel" destination="cbl-rx-DkY" id="OCu-X6-LEz"/>
                         <outlet property="secondsLabel" destination="Nev-tz-EK3" id="XGR-Rc-zML"/>
                         <outlet property="setTimeContainerView" destination="9ix-aj-H7Q" id="zjZ-t5-WYq"/>
+                        <outlet property="settingsBarButton" destination="Rlq-L4-0Xd" id="F9e-Ur-49Y"/>
                         <outlet property="timeSetPicker" destination="1vE-IS-Nx4" id="lzf-hS-dYF"/>
                         <outlet property="timeTypeSegmentedControl" destination="kx5-6Q-HlR" id="BeD-iS-WpR"/>
+                        <outlet property="toolbar" destination="czQ-xo-bRA" id="lCb-Ix-5xp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2QB-7k-b82" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -256,6 +276,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="gear.circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

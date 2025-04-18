@@ -89,6 +89,28 @@
         }
       }
     },
+    "SLUG-NEXT-TIMER-TOOLBAR-TITLE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        }
+      }
+    },
+    "SLUG-PREV-TIMER-TOOLBAR-TITLE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous"
+          }
+        }
+      }
+    },
     "SLUG-SECONDS" : {
       "extractionState" : "manual",
       "localizations" : {
