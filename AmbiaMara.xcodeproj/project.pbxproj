@@ -450,13 +450,9 @@
 		D43B97652DA2C1D10028E023 /* RiVal.T */ = {
 			isa = PBXGroup;
 			children = (
-				D43B975B2DA2C1D10028E023 /* RiValT_AppDelegate.swift */,
-				D43B97632DA2C1D10028E023 /* RiValT_SceneDelegate.swift */,
-				D43B97642DA2C1D10028E023 /* RiValT_Base_ViewController.swift */,
-				D4E2E8FA2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift */,
-				D4EDE73A2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift */,
-				D45184C92DB42DBE00DA671D /* RiValT_GroupSettings_ViewController.swift */,
-				D4752E9C2DB2FD91002359CA /* RiValT_Settings.swift */,
+				D48CDA012DB446D1008C2DF9 /* App */,
+				D48CDA022DB446DA008C2DF9 /* ViewControllers */,
+				D48CDA002DB446C4008C2DF9 /* Common */,
 				D43B976E2DA2C25C0028E023 /* Resources */,
 				D43B976D2DA2C22E0028E023 /* Meta */,
 			);
@@ -476,9 +472,9 @@
 			isa = PBXGroup;
 			children = (
 				D43B975C2DA2C1D10028E023 /* Assets.xcassets */,
-				D43B975F2DA2C1D10028E023 /* LaunchScreen.storyboard */,
-				D43B97612DA2C1D10028E023 /* RiValT.storyboard */,
 				D48F68C52DB438680093D938 /* Localizable.strings */,
+				D43B97612DA2C1D10028E023 /* RiValT.storyboard */,
+				D43B975F2DA2C1D10028E023 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -526,6 +522,34 @@
 				D4C4B70E2819CF8F00E22ECA /* AmbiaMara.docc */,
 			);
 			path = MainApp;
+			sourceTree = "<group>";
+		};
+		D48CDA002DB446C4008C2DF9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D43B97642DA2C1D10028E023 /* RiValT_Base_ViewController.swift */,
+				D4752E9C2DB2FD91002359CA /* RiValT_Settings.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		D48CDA012DB446D1008C2DF9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D43B975B2DA2C1D10028E023 /* RiValT_AppDelegate.swift */,
+				D43B97632DA2C1D10028E023 /* RiValT_SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D48CDA022DB446DA008C2DF9 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D4E2E8FA2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift */,
+				D4EDE73A2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift */,
+				D45184C92DB42DBE00DA671D /* RiValT_GroupSettings_ViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		D4A932212D64E9CB0028556E /* WatchApp */ = {

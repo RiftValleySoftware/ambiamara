@@ -14,7 +14,7 @@
 //********************************************** **********************************************************
 
 // MARK: -
-// MARK: SOUND NAMES (DISPLAYED IN THE ALARM POPOVER)
+// MARK: TIMER END ALARM SOUND NAMES (DISPLAYED IN THE ALARM POPOVER)
 // MARK: -
 
 "00-escalation.mp3"                             =   "Escalating Alarm";
@@ -31,23 +31,33 @@
 "11-bells.mp3"                                  =   "Church Bells";
 "12-crazy-bird.mp3"                             =   "Crazy Bird";
 "13-rooster.mp3"                                =   "Rooster";
+"14-shut-up-1.mp3"                              =   "Shut Up! (Man)";
+"15-shut-up-2.mp3"                              =   "Shut Up! (Woman)";
 "16-snoring-1.mp3"                              =   "Snoring";
 "17-car-horn.mp3"                               =   "Car Horn";
 "18-antique-phone.mp3"                          =   "Antique Phone Ringing";
 "19-classic-phone.mp3"                          =   "Classic Phone Ringing";
 "20-antique-car-horn.mp3"                       =   "Antique Car Horn";
 "21-alarm-klaxon.mp3"                           =   "Alarm Klaxon";
+"22-thanks-for-sharing.mp3"                     =   "Thanks for Sharing (Robotic)";
 "23-siren.mp3"                                  =   "Police Siren";
 "24-deep-alarm.mp3"                             =   "Foghorn";
 "25-telephone.mp3"                              =   "Cellphone";
-"14-shut-up-1.mp3"                              =   "Shut Up! (Man)";
-"15-shut-up-2.mp3"                              =   "Shut Up! (Woman)";
-"22-thanks-for-sharing.mp3"                     =   "Thanks for Sharing (Robotic)";
+
+// MARK: -
+// MARK: MAIN LOCALIZATION
+// MARK: -
+
+// MARK: Timer Selection Screen
 
 "SLUG-CANCEL-BUTTON-TEXT"                       =	"Cancel";
 "SLUG-DELETE-BUTTON-TEXT"                       =	"Delete Timer";
 "SLUG-DELETE-CONFIRM-HEADER"                    =	"Delete the Selected Timer?";
 "SLUG-DELETE-CONFIRM-MESSAGE"                   =	"If you select “Delete Timer”, the selected timer will be permanently removed from the app.";
+"SLUG-TIMERS-BACK"                              =    "Timers";
+
+// MARK: Timer Edit Screen
+
 "SLUG-EDIT-FORMAT"                              =	"Edit Timer %d";
 "SLUG-EDIT-TIMER"                               =	"Edit Timer";
 "SLUG-FINAL-TIME"                               =	"Final Time";
@@ -59,5 +69,4 @@
 "SLUG-SECONDS"                                  =	"Seconds";
 "SLUG-SETTINGS-FORMAT"                          =	"Settings for Group %d";
 "SLUG-START-TIME"                               =	"Start Time";
-"SLUG-TIMERS-BACK"                              =	"Timers";
 "SLUG-WARN-TIME"                                =	"Warning Time";
