@@ -16,12 +16,30 @@ import RVS_UIKit_Toolbox
 // MARK: - Extension for Integrating Persistent Settings -
 /* ###################################################################################################################################### */
 extension TimerGroup {
-    /* ################################################################## */
+    /* ################################################################################################################################## */
+    // MARK: - Extension for Integrating Persistent Settings -
+    /* ################################################################################################################################## */
     /**
-     This updates the entire stored timer model.
+     This enum defines one of the three different display types for a running timer.
      */
-    private func _updateAllSettings() {
-        RiValT_Settings().timerModel = RiValT_AppDelegate.appDelegateInstance?.timerModel.asArray ?? []
+    enum DisplayType: String {
+        /* ############################################################## */
+        /**
+         This displays massive "LED" numbers.
+         */
+        case numerical
+
+        /* ############################################################## */
+        /**
+         This displays a circle, winding down.
+         */
+        case circular
+        
+        /* ############################################################## */
+        /**
+         This displays three "stoplights."
+         */
+        case stoplights
     }
     
     /* ################################################################## */
@@ -31,6 +49,39 @@ extension TimerGroup {
     private var _storedSettings: [String: any Hashable] {
         get { RiValT_Settings().groupSettings[self.id.uuidString] ?? [:] }
         set { RiValT_Settings().groupSettings[self.id.uuidString] = newValue }
+    }
+    
+    /* ################################################################## */
+    /**
+     The sound file for the alarm that is played after the last timer in the group finishes.
+     */
+    var endAlarmFileName: String? {
+        get { _storedSettings["endAlarmFileName"] as? String }
+        set { _storedSettings["endAlarmFileName"] = newValue }
+    }
+    
+    /* ################################################################## */
+    /**
+     The sound file for the alarm that is played when one of the earlier timers finishes, and cascades to the next.
+     */
+    var transitionAlarmFileName: String? {
+        get { _storedSettings["transitionAlarmFileName"] as? String }
+        set { _storedSettings["transitionAlarmFileName"] = newValue }
+    }
+    
+    /* ################################################################## */
+    /**
+     This defines the type of display to use for the running timer.
+     */
+    var displayType: DisplayType {
+        get {
+            if let dType = _storedSettings["displayType"] as? String,
+               let ret = DisplayType(rawValue: dType) {
+                return ret
+            }
+            return .numerical
+        }
+        set { _storedSettings["displayType"] = newValue.rawValue }
     }
 }
 

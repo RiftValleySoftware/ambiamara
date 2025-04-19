@@ -56,6 +56,7 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
             let timer = timerModel.createNewTimer(at: IndexPath(item: 0, section: 0))
             timer.isSelected = true
         }
+        RiValT_Settings().cleanGroupSettings()
     }
     
     /* ################################################################## */

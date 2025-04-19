@@ -59,7 +59,7 @@ class RiValT_Settings: RVS_PersistentPrefs {
      */
     var timerModel: [[[String : any Hashable]]] {
         get {
-            let rawValues = values[Keys.timerModel.rawValue] as? [[NSDictionary]] ?? []
+            let rawValues = self.values[Keys.timerModel.rawValue] as? [[NSDictionary]] ?? []
             var groups = [[[String: any Hashable]]]()
             rawValues.forEach { inGroup in
                 var groupTemp = [[String: any Hashable]]()
@@ -78,7 +78,7 @@ class RiValT_Settings: RVS_PersistentPrefs {
             }
             return groups
         }
-        set { values[Keys.timerModel.rawValue] = newValue }
+        set { self.values[Keys.timerModel.rawValue] = newValue }
     }
 
     /* ################################################################## */
@@ -86,7 +86,33 @@ class RiValT_Settings: RVS_PersistentPrefs {
      The various other settings, like alarms and whatnot.
      */
     var groupSettings: [String: [String: any Hashable]] {
-        get { values[Keys.groupSettings.rawValue] as? [String: [String: any Hashable]] ?? [:] }
-        set { values[Keys.groupSettings.rawValue] = newValue }
+        get { self.values[Keys.groupSettings.rawValue] as? [String: [String: any Hashable]] ?? [:] }
+        set { self.values[Keys.groupSettings.rawValue] = newValue }
+    }
+    
+    /* ################################################################## */
+    /**
+     This removes group settings that are no longer applicable.
+     It also adds empty settings for new ones.
+     */
+    func cleanGroupSettings() {
+        let groupIDs = RiValT_AppDelegate.appDelegateInstance?.timerModel.map { $0.id.uuidString } ?? []
+        let groupKeys = self.groupSettings.keys.map { String($0) }
+        groupKeys.forEach {
+            if !groupIDs.contains($0) {
+                #if DEBUG
+                    print("Removing stored settings for group \($0)")
+                #endif
+                self.groupSettings.removeValue(forKey: $0)
+            }
+        }
+        groupIDs.forEach {
+            if !groupKeys.contains($0) {
+                #if DEBUG
+                    print("Adding stored settings for group \($0)")
+                #endif
+                self.groupSettings[$0] = [:]
+            }
+        }
     }
 }
