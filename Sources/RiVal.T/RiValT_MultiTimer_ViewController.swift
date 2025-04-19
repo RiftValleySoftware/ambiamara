@@ -175,7 +175,7 @@ class RiValT_BaseCollectionCell: UICollectionViewCell {
 // MARK: - One Display Cell for the Collection View -
 /* ###################################################################################################################################### */
 /**
- This describes each cell in the collection view.
+ This describes "add" cells in the collection view. These are simple "cross" buttons, that allow new timers to be appended.
  */
 class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
     /* ############################################################## */
@@ -210,7 +210,7 @@ class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
 // MARK: - One Display Cell for the Collection View -
 /* ###################################################################################################################################### */
 /**
- This describes each cell in the collection view.
+ This describes each cell, representing a timer, in the collection view.
  */
 class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
     /* ############################################################## */
@@ -227,7 +227,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
     
     /* ############################################################## */
     /**
-     The large variant of the digital display font.
+     The smaller variant of the digital display font.
      */
     static let digitalDisplayFontSmall = UIFont(name: "Let\'s go Digital", size: 20)
 
@@ -354,6 +354,8 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
 /* ###################################################################################################################################### */
 /**
  This is the view controller for the "multi-timer" screen, where we can arrange timers in groups and add new ones.
+
+ It allows the user to drag and drop timers, so they can visually rearrange the matrix.
  */
 class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
@@ -364,7 +366,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
     
     /* ############################################################## */
     /**
-     The ID of the segue to set a timer.
+     The ID of the segue to edit a timer.
      */
     private static let _timerEditSegueID = "edit-timer"
     
