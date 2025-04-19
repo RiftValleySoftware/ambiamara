@@ -32,10 +32,17 @@ class RiValT_Settings: RVS_PersistentPrefs {
 
         /* ############################################################## */
         /**
+         The various other settings, like alarms and whatnot. These apply to groups, with the order of the array corresponding to the group array.
+         */
+        case groupSettings
+
+        /* ############################################################## */
+        /**
          These are all the keys, in an Array of String.
          */
         static var allKeys: [String] { [
                                         timerModel.rawValue,
+                                        groupSettings.rawValue
                                         ]
         }
     }
@@ -48,6 +55,7 @@ class RiValT_Settings: RVS_PersistentPrefs {
 
     /* ################################################################## */
     /**
+     The timers, stored as a Dictionary (key is the ID).
      */
     var timerModel: [[[String : any Hashable]]] {
         get {
@@ -71,5 +79,14 @@ class RiValT_Settings: RVS_PersistentPrefs {
             return groups
         }
         set { values[Keys.timerModel.rawValue] = newValue }
+    }
+
+    /* ################################################################## */
+    /**
+     The various other settings, like alarms and whatnot. These apply to groups, with the order of the array corresponding to the timerModel array.
+     */
+    var groupSettings: [[String : any Hashable]] {
+        get { values[Keys.groupSettings.rawValue] as? [[String: any Hashable]] ?? [] }
+        set { values[Keys.groupSettings.rawValue] = newValue }
     }
 }
