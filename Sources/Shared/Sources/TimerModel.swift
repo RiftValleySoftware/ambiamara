@@ -279,9 +279,14 @@ extension TimerModel {
         precondition((0..<self[inFrom.section].count).contains(inFrom.item), "Timer Index out of bounds")
         
         let timerContainer = self[inFrom.section]._timers.remove(at: inFrom.item)
-        
+
         self._groups = self.compactMap { !$0.isEmpty ? $0 : nil }
 
+        if timerContainer.isSelected {
+            let newGroup = Swift.max(0, Swift.min(self.count - 1, inFrom.section))
+            let newItem = Swift.max(0, Swift.min(self[newGroup].count - 1, inFrom.item - 1))
+            self[newGroup][newItem].isSelected = true
+        }
         return timerContainer
     }
     

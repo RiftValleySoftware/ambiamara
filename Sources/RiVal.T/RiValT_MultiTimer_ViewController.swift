@@ -570,24 +570,10 @@ extension RiValT_MultiTimer_ViewController {
         func _executeDelete() {
             guard let timer = self.timerModel.selectedTimer,
                   let indexPath = timer.indexPath,
-                  1 < self.timerModel.allTimers.count,
-                  let nextTimerIndexPath = self.timerModel.allTimers[min(self.timerModel.count - 1, (self.timerModel.allTimers.firstIndex(of: timer) ?? 0) + 1)].indexPath,
-                  let prevTimerIndexPath = self.timerModel.allTimers[max(0, (self.timerModel.allTimers.firstIndex(of: timer) ?? 0) - 1)].indexPath
+                  1 < self.timerModel.allTimers.count
             else { return }
             
-            if self.timerModel.isValid(indexPath: nextTimerIndexPath),
-               nextTimerIndexPath != indexPath {
-                self.timerModel.selectTimer(nextTimerIndexPath)
-            } else if self.timerModel.isValid(indexPath: prevTimerIndexPath),
-                      prevTimerIndexPath != indexPath  {
-                self.timerModel.selectTimer(prevTimerIndexPath)
-            }
-            
             self.timerModel.removeTimer(from: indexPath)
-            
-            if nil == self.timerModel.selectedTimer {
-                self.timerModel.selectTimer(IndexPath(item: 0, section: 0))
-            }
             
             self.updateSnapshot()
             self.collectionView?.reloadData()
