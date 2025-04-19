@@ -10,6 +10,51 @@
 
 import UIKit
 import CoreHaptics
+import RVS_UIKit_Toolbox
+
+/* ###################################################################################################################################### */
+// MARK: - Special Extension for localization -
+/* ###################################################################################################################################### */
+extension UIViewController {
+    /* ################################################################## */
+    /**
+     This recursively localizes what it can, in the view hierarchy, starting at the given view.
+     
+     - parameter inView: The starting view.
+     */
+    func localizeStuff(_ inView: UIView? = nil) {
+        guard let view = inView ?? self.view else { return }
+        view.accessibilityLabel = view.accessibilityLabel?.localizedVariant
+        view.accessibilityHint = view.accessibilityHint?.localizedVariant
+        if let button = view as? UIButton {
+            if var buttonConfiguration = button.configuration {
+                buttonConfiguration.title = buttonConfiguration.title?.localizedVariant
+                buttonConfiguration.subtitle = buttonConfiguration.subtitle?.localizedVariant
+                button.configuration = buttonConfiguration
+            } else {
+                button.setTitle(button.title(for: .normal)?.localizedVariant, for: .normal)
+                button.setTitle(button.title(for: .highlighted)?.localizedVariant, for: .highlighted)
+                button.setTitle(button.title(for: .disabled)?.localizedVariant, for: .disabled)
+            }
+        } else if let view = view as? UILabel {
+            view.text = view.text?.localizedVariant
+        } else if let view = view as? UITextField {
+            view.text = view.text?.localizedVariant
+            view.placeholder = view.placeholder?.localizedVariant
+        } else if let view = view as? UITextView {
+            view.text = view.text?.localizedVariant
+            if let view = view as? RVS_PlaceholderTextView {
+                view.placeholder = view.placeholder.localizedVariant
+            }
+        } else if let view = inView as? UISegmentedControl {
+            for index in 0..<view.numberOfSegments {
+                view.setTitle(view.titleForSegment(at: index)?.localizedVariant, forSegmentAt: index)
+            }
+        }
+        
+        view.subviews.forEach { self.localizeStuff($0) }
+    }
+}
 
 /* ###################################################################################################################################### */
 // MARK: - Baseline View Controller Class -
@@ -48,6 +93,7 @@ extension RiValT_Base_ViewController {
      We use this to set the background.
      */
     override func viewDidLoad() {
+
         super.viewDidLoad()
         self.navigationItem.title = self.navigationItem.title?.localizedVariant
 
@@ -73,6 +119,8 @@ extension RiValT_Base_ViewController {
             backgroundGradientView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
             backgroundGradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         }
+        
+        self.localizeStuff()
     }
 }
 

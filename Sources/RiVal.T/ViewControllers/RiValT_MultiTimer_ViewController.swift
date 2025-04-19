@@ -582,9 +582,9 @@ extension RiValT_MultiTimer_ViewController {
             self.impactHaptic(1.0)
         }
         
-        let messageText = "SLUG-DELETE-CONFIRM-MESSAGE".localizedVariant
+        let messageText = "SLUG-DELETE-CONFIRM-MESSAGE"
         
-        let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER".localizedVariant, message: messageText, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER", message: messageText, preferredStyle: .alert)
         
         // This simply displays the main message as left-aligned.
         let paragraphStyle = NSMutableParagraphStyle()
@@ -598,6 +598,7 @@ extension RiValT_MultiTimer_ViewController {
                 NSAttributedString.Key.foregroundColor: UIColor.label
             ]
         )
+        
         alertController.setValue(attributedMessageText, forKey: "attributedMessage")
         
         let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive) { _ in _executeDelete() }
@@ -610,6 +611,8 @@ extension RiValT_MultiTimer_ViewController {
 
         self.impactHaptic(1.0)
 
+        alertController.localizeStuff()
+        
         present(alertController, animated: true, completion: nil)
     }
     

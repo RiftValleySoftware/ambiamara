@@ -45,6 +45,7 @@
 		D47C02AB2819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A92819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard */; };
 		D486C829281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */; };
 		D48A5E352D934ED200770606 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D48A5E342D934ED200770606 /* RVS_UIKit_Toolbox */; };
+		D48CDA042DB44786008C2DF9 /* Accessibility.strings in Resources */ = {isa = PBXBuildFile; fileRef = D48CDA032DB44786008C2DF9 /* Accessibility.strings */; };
 		D48F68C62DB438680093D938 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D48F68C52DB438680093D938 /* Localizable.strings */; };
 		D4A932222D64E9CB0028556E /* Rift_Valley_Timer_Watch_App_MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A9321F2D64E9CB0028556E /* Rift_Valley_Timer_Watch_App_MainContentView.swift */; };
 		D4A932232D64E9CB0028556E /* Rift_Valley_Timer_Watch_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A932202D64E9CB0028556E /* Rift_Valley_Timer_Watch_App.swift */; };
@@ -253,6 +254,7 @@
 		D47C02AA2819CA6800D359F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RVS_AmbiaMara_LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_Settings.swift; sourceTree = "<group>"; };
 		D488F2EE281D6D960045E999 /* Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = Sources/Meta/Warnings.xcconfig; sourceTree = SOURCE_ROOT; };
+		D48CDA032DB44786008C2DF9 /* Accessibility.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Accessibility.strings; sourceTree = "<group>"; };
 		D48F68C52DB438680093D938 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		D4A9321F2D64E9CB0028556E /* Rift_Valley_Timer_Watch_App_MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_Watch_App_MainContentView.swift; sourceTree = "<group>"; };
 		D4A932202D64E9CB0028556E /* Rift_Valley_Timer_Watch_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_Watch_App.swift; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 			children = (
 				D43B975C2DA2C1D10028E023 /* Assets.xcassets */,
 				D48F68C52DB438680093D938 /* Localizable.strings */,
+				D48CDA032DB44786008C2DF9 /* Accessibility.strings */,
 				D43B97612DA2C1D10028E023 /* RiValT.storyboard */,
 				D43B975F2DA2C1D10028E023 /* LaunchScreen.storyboard */,
 			);
@@ -991,6 +994,7 @@
 				D4FC4A3A2DB1476700E5F0E5 /* 19-classic-phone.mp3 in Resources */,
 				D4FC4A3B2DB1476700E5F0E5 /* 25-telephone.mp3 in Resources */,
 				D4FC4A3C2DB1476700E5F0E5 /* 20-antique-car-horn.mp3 in Resources */,
+				D48CDA042DB44786008C2DF9 /* Accessibility.strings in Resources */,
 				D4FC4A402DB1477200E5F0E5 /* 15-shut-up-2.mp3 in Resources */,
 				D4FC4A412DB1477200E5F0E5 /* 14-shut-up-1.mp3 in Resources */,
 				D4FC4A422DB1477200E5F0E5 /* 22-thanks-for-sharing.mp3 in Resources */,
