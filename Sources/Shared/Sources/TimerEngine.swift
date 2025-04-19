@@ -481,7 +481,7 @@ public extension TimerEngine {
             ret[CodingKeys.startingTimeInSeconds.rawValue] = self.startingTimeInSeconds
             ret[CodingKeys.warningTimeInSeconds.rawValue] = self.warningTimeInSeconds
             ret[CodingKeys.finalTimeInSeconds.rawValue] = self.finalTimeInSeconds
-            ret[CodingKeys.id.rawValue] = self.id
+            ret[CodingKeys.id.rawValue] = self.id.uuidString
             ret[CodingKeys.startTime.rawValue] = Date.now.timeIntervalSince(startTime)
             
             switch self._lastMode {
@@ -509,7 +509,11 @@ public extension TimerEngine {
             self.startingTimeInSeconds = newValue[CodingKeys.startingTimeInSeconds.rawValue] as? Int ?? 0
             self.warningTimeInSeconds = newValue[CodingKeys.warningTimeInSeconds.rawValue] as? Int ?? 0
             self.finalTimeInSeconds = newValue[CodingKeys.finalTimeInSeconds.rawValue] as? Int ?? 0
-            self.id = newValue[CodingKeys.id.rawValue] as? UUID ?? UUID()
+            if let uuidString = newValue[CodingKeys.id.rawValue] as? String {
+                self.id = UUID(uuidString: uuidString) ?? UUID()
+            } else {
+                self.id = UUID()
+            }
             if let startTime = newValue[CodingKeys.startTime.rawValue] as? TimeInterval {
                 self._startTime = Date.now.addingTimeInterval(-startTime)
             }

@@ -50,7 +50,26 @@ class RiValT_Settings: RVS_PersistentPrefs {
     /**
      */
     var timerModel: [[[String : any Hashable]]] {
-        get { values[Keys.timerModel.rawValue] as? [[[String : any Hashable]]] ?? [] }
+        get {
+            let rawValues = values[Keys.timerModel.rawValue] as? [[NSDictionary]] ?? []
+            var groups = [[[String: any Hashable]]]()
+            rawValues.forEach { inGroup in
+                var groupTemp = [[String: any Hashable]]()
+                inGroup.forEach { inTimer in
+                    var timerTemp = [String: any Hashable]()
+                    print("inTimer: \(inTimer)")
+                    inTimer.forEach { inKey, inValue in
+                        if let key = inKey as? String,
+                           let value = inValue as? any Hashable {
+                            timerTemp[key] = value
+                        }
+                    }
+                    groupTemp.append(timerTemp)
+                }
+                groups.append(groupTemp)
+            }
+            return groups
+        }
         set { values[Keys.timerModel.rawValue] = newValue }
     }
 }

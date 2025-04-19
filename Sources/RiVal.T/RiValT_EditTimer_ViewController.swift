@@ -376,6 +376,7 @@ extension RiValT_EditTimer_ViewController {
         self.setTime(true)
         self.selectionHaptic()
         self.updateTimeTypeSegmentedControl()
+        self.updateSettings()
     }
 
     /* ############################################################## */
@@ -395,6 +396,7 @@ extension RiValT_EditTimer_ViewController {
               let groupIndex = self.timer?.indexPath?.section,
               let timerIndex = self.timer?.indexPath?.item
         else { return }
+        self.updateSettings()
         self.timer = timerModel.getTimer(at: IndexPath(item: max(0, min(TimerGroup.maxTimersInGroup, timerIndex - 1)), section: groupIndex))
         self.setUpToolbar()
         self.setTime(true)
@@ -410,6 +412,7 @@ extension RiValT_EditTimer_ViewController {
               let groupIndex = self.timer?.indexPath?.section,
               let timerIndex = self.timer?.indexPath?.item
         else { return }
+        self.updateSettings()
         self.timer = timerModel.getTimer(at: IndexPath(item: max(0, min(TimerGroup.maxTimersInGroup, timerIndex + 1)), section: groupIndex))
         self.setUpToolbar()
         self.setTime(true)
@@ -422,6 +425,7 @@ extension RiValT_EditTimer_ViewController {
      */
     @objc func toolbarTimerHit(_ inButton: UIBarButtonItem) {
         guard let groupIndex = self.timer?.indexPath?.section else { return }
+        self.updateSettings()
         self.timer = timerModel.getTimer(at: IndexPath(item: inButton.tag, section: groupIndex))
         self.setUpToolbar()
         self.setTime(true)
@@ -574,6 +578,7 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
             timer.finalTimeInSeconds = currentPickerTimeInSeconds
         }
         self.impactHaptic()
+        self.updateSettings()
         inPickerView.reloadAllComponents()
     }
 }

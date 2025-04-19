@@ -736,6 +736,7 @@ class Timer: Equatable {
     ) {
         self.group = inGroup
         self._engine.asDictionary = inDictionary
+        self.isSelected = inDictionary["isSelected"] as? Bool ?? false
         self._engine.refCon = self
         self._engine.tickHandler = self._internalTickHandler
         self._engine.transitionHandler = self._internalTransitionHandler

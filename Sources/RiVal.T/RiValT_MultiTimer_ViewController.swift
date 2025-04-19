@@ -589,6 +589,7 @@ extension RiValT_MultiTimer_ViewController {
             
             self.updateSnapshot()
             self.collectionView?.reloadData()
+            self.updateSettings()
             self.impactHaptic(1.0)
         }
         
@@ -797,6 +798,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
             self.timerModel.getTimer(at: inIndexPath)?.isSelected = true
         }
         
+        self.updateSettings()
         self.updateSnapshot()
         inCollectionView.reloadData()
     }
