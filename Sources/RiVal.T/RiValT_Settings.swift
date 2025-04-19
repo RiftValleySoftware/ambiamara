@@ -83,10 +83,10 @@ class RiValT_Settings: RVS_PersistentPrefs {
 
     /* ################################################################## */
     /**
-     The various other settings, like alarms and whatnot. These apply to groups, with the order of the array corresponding to the timerModel array.
+     The various other settings, like alarms and whatnot.
      */
-    var groupSettings: [[String : any Hashable]] {
-        get { values[Keys.groupSettings.rawValue] as? [[String: any Hashable]] ?? [] }
+    var groupSettings: [String: [String: any Hashable]] {
+        get { values[Keys.groupSettings.rawValue] as? [String: [String: any Hashable]] ?? [:] }
         set { values[Keys.groupSettings.rawValue] = newValue }
     }
 }

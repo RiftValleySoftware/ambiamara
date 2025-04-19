@@ -45,7 +45,18 @@
         }
       }
     },
-    "SLUG-EDIT" : {
+    "SLUG-EDIT-FORMAT" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Timer %d"
+          }
+        }
+      }
+    },
+    "SLUG-EDIT-TIMER" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {

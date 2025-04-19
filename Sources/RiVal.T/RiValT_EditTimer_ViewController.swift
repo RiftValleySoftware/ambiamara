@@ -131,6 +131,12 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
      The settings button, at the top right.
      */
     @IBOutlet weak var settingsBarButton: UIBarButtonItem!
+    
+    /* ############################################################## */
+    /**
+     The label above the time set, indicating the selected time.
+     */
+    @IBOutlet weak var statusLabel: UILabel?
 }
 
 /* ###################################################################################################################################### */
@@ -294,8 +300,10 @@ extension RiValT_EditTimer_ViewController {
             
             self.toolbar?.setItems(toolbarItems, animated: false)
             self.toolbar?.isHidden = false
+            self.navigationItem.title = String(format: "SLUG-EDIT-FORMAT".localizedVariant, timerIndexPath.item + 1)
         } else {
             self.toolbar?.isHidden = true
+            self.navigationItem.title = "SLUG-EDIT-TIMER".localizedVariant
         }
     }
     
@@ -313,9 +321,9 @@ extension RiValT_EditTimer_ViewController {
         for index in 0..<count {
             self.timeTypeSegmentedControl?.setTitle(self.timeTypeSegmentedControl?.titleForSegment(at: index)?.localizedVariant, forSegmentAt: index)
         }
-        self.timeTypeSegmentedControl?.setImage(UIImage(systemName: "clock.fill")?.withTintColor(startColor), forSegmentAt: TimeType.setTime.rawValue)
-        self.timeTypeSegmentedControl?.setImage(UIImage(systemName: "exclamationmark.triangle.fill")?.withTintColor(warnColor), forSegmentAt: TimeType.warnTime.rawValue)
-        self.timeTypeSegmentedControl?.setImage(UIImage(systemName: "xmark.circle.fill")?.withTintColor(finalColor), forSegmentAt: TimeType.finalTime.rawValue)
+        self.timeTypeSegmentedControl?.setImage(UIImage(systemName: "clock\(0 < (self.timer?.startingTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(startColor), forSegmentAt: TimeType.setTime.rawValue)
+        self.timeTypeSegmentedControl?.setImage(UIImage(systemName: "exclamationmark.triangle\(0 < (self.timer?.warningTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(warnColor), forSegmentAt: TimeType.warnTime.rawValue)
+        self.timeTypeSegmentedControl?.setImage(UIImage(systemName: "xmark.circle\(0 < (self.timer?.finalTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(finalColor), forSegmentAt: TimeType.finalTime.rawValue)
         self.updateTimeTypeSegmentedControl()
     }
     
@@ -332,13 +340,16 @@ extension RiValT_EditTimer_ViewController {
         self.timeTypeSegmentedControl?.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
         switch self.currentTimeSetState {
         case .setTime:
-            self.navigationItem.title = "SLUG-START-TIME".localizedVariant
+            self.statusLabel?.text = "SLUG-START-TIME".localizedVariant
+            self.statusLabel?.textColor = startColor
             self.timeTypeSegmentedControl?.selectedSegmentTintColor = startColor
         case .warnTime:
-            self.navigationItem.title = "SLUG-WARN-TIME".localizedVariant
+            self.statusLabel?.text = "SLUG-WARN-TIME".localizedVariant
+            self.statusLabel?.textColor = warnColor
             self.timeTypeSegmentedControl?.selectedSegmentTintColor = warnColor
         case .finalTime:
-            self.navigationItem.title = "SLUG-FINAL-TIME".localizedVariant
+            self.statusLabel?.text = "SLUG-FINAL-TIME".localizedVariant
+            self.statusLabel?.textColor = finalColor
             self.timeTypeSegmentedControl?.selectedSegmentTintColor = finalColor
         }
     }
@@ -386,6 +397,7 @@ extension RiValT_EditTimer_ViewController {
      - parameter: ignored.
      */
     @IBAction func settingsBarButtonHit(_: Any) {
+        self.impactHaptic()
     }
 
     /* ############################################################## */
@@ -401,7 +413,9 @@ extension RiValT_EditTimer_ViewController {
         self.setUpToolbar()
         self.setTime(true)
         self.timeTypeSegmentedControl?.selectedSegmentIndex = TimeType.setTime.rawValue
+        self.setUpTimeTypeSegmentedControl()
         self.updateTimeTypeSegmentedControl()
+        self.impactHaptic()
     }
     
     /* ############################################################## */
@@ -417,7 +431,9 @@ extension RiValT_EditTimer_ViewController {
         self.setUpToolbar()
         self.setTime(true)
         self.timeTypeSegmentedControl?.selectedSegmentIndex = TimeType.setTime.rawValue
+        self.setUpTimeTypeSegmentedControl()
         self.updateTimeTypeSegmentedControl()
+        self.impactHaptic()
     }
 
     /* ############################################################## */
@@ -430,7 +446,9 @@ extension RiValT_EditTimer_ViewController {
         self.setUpToolbar()
         self.setTime(true)
         self.timeTypeSegmentedControl?.selectedSegmentIndex = TimeType.setTime.rawValue
+        self.setUpTimeTypeSegmentedControl()
         self.updateTimeTypeSegmentedControl()
+        self.impactHaptic()
     }
 }
 
@@ -579,6 +597,7 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
         }
         self.impactHaptic()
         self.updateSettings()
+        self.setUpTimeTypeSegmentedControl()
         inPickerView.reloadAllComponents()
     }
 }

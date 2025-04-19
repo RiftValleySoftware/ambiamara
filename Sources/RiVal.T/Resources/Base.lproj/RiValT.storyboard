@@ -223,15 +223,24 @@
                                 <items/>
                                 <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </toolbar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAB-yM-IWU">
+                                <rect key="frame" x="196.66666666666666" y="290" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ITz-Ty-22n"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="czQ-xo-bRA" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" id="AJG-Ry-mrw"/>
+                            <constraint firstItem="9ix-aj-H7Q" firstAttribute="top" secondItem="lAB-yM-IWU" secondAttribute="bottom" constant="8" symbolic="YES" id="AiP-gp-w1Q"/>
                             <constraint firstItem="czQ-xo-bRA" firstAttribute="top" relation="greaterThanOrEqual" secondItem="9ix-aj-H7Q" secondAttribute="bottom" id="EJi-6f-YTT"/>
                             <constraint firstItem="czQ-xo-bRA" firstAttribute="bottom" secondItem="ITz-Ty-22n" secondAttribute="bottom" id="c73-f3-SjS"/>
                             <constraint firstItem="9ix-aj-H7Q" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" constant="20" id="el0-Oi-JUx"/>
+                            <constraint firstItem="lAB-yM-IWU" firstAttribute="centerX" secondItem="eHC-G7-JUU" secondAttribute="centerX" id="epN-c2-Fc2"/>
+                            <constraint firstItem="lAB-yM-IWU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ITz-Ty-22n" secondAttribute="top" id="erq-v8-XWq"/>
                             <constraint firstItem="9ix-aj-H7Q" firstAttribute="centerX" secondItem="eHC-G7-JUU" secondAttribute="centerX" id="jLh-dj-YqB"/>
                             <constraint firstItem="czQ-xo-bRA" firstAttribute="trailing" secondItem="ITz-Ty-22n" secondAttribute="trailing" id="jbL-cK-bl1"/>
                             <constraint firstItem="9ix-aj-H7Q" firstAttribute="centerY" secondItem="eHC-G7-JUU" secondAttribute="centerY" id="mow-qO-fbX"/>
@@ -256,6 +265,7 @@
                         <outlet property="secondsLabel" destination="Nev-tz-EK3" id="XGR-Rc-zML"/>
                         <outlet property="setTimeContainerView" destination="9ix-aj-H7Q" id="zjZ-t5-WYq"/>
                         <outlet property="settingsBarButton" destination="Rlq-L4-0Xd" id="F9e-Ur-49Y"/>
+                        <outlet property="statusLabel" destination="lAB-yM-IWU" id="s0K-EX-OOx"/>
                         <outlet property="timeSetPicker" destination="1vE-IS-Nx4" id="lzf-hS-dYF"/>
                         <outlet property="timeTypeSegmentedControl" destination="kx5-6Q-HlR" id="BeD-iS-WpR"/>
                         <outlet property="toolbar" destination="czQ-xo-bRA" id="lCb-Ix-5xp"/>
@@ -300,7 +310,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -412,7 +412,7 @@ class TimerGroup: Equatable {
     /**
      A unique ID, for comparing.
      */
-    let id = UUID()
+    var id = UUID()
     
     /* ############################################################## */
     /**
@@ -430,7 +430,14 @@ class TimerGroup: Equatable {
         self.model = inContainer
         
         if let inDicts = dictionary {
-            self._timers = inDicts.map { Timer(group: self, dictionary: $0) }
+            if let firstValue: [String: any Hashable] = inDicts.first,
+               let idString = firstValue["id"] as? String,
+               !idString.isEmpty,
+               let id = UUID(uuidString: idString) {
+                self.id = id
+            }
+            let remainingValues = 1 < inDicts.count ? Array(inDicts[1...]) : []
+            self._timers = remainingValues.map { Timer(group: self, dictionary: $0) }
         }
     }
 }
@@ -462,8 +469,24 @@ extension TimerGroup {
      this exports the current timer state, or allows you to recreate the group, based on a stored state.
      */
     var asArray: [[String: any Hashable]] {
-        get { return self._timers.map { $0.asDictionary } }
-        set { self._timers = newValue.map { Timer(group: self, dictionary: $0) } }
+        get {
+            var ret: [[String: any Hashable]] = [["id": UUID().uuidString]]
+            
+            self._timers.forEach {
+                ret.append($0.asDictionary)
+            }
+            return ret
+        }
+        set {
+            if let firstValue: [String: any Hashable] = newValue.first,
+               let idString = firstValue["id"] as? String,
+               !idString.isEmpty,
+               let id = UUID(uuidString: idString) {
+                self.id = id
+            }
+            let remainingValues = 1 < newValue.count ? Array(newValue[1...]) : []
+            self._timers = remainingValues.map { Timer(group: self, dictionary: $0) }
+        }
     }
     
     /* ############################################################## */
