@@ -111,6 +111,17 @@
         }
       }
     },
+    "SLUG-PAREN-GROUP-FORMAT" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " (Group %d)"
+          }
+        }
+      }
+    },
     "SLUG-PREV-TIMER-TOOLBAR-TITLE" : {
       "extractionState" : "manual",
       "localizations" : {

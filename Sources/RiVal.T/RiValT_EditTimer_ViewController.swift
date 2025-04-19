@@ -300,10 +300,18 @@ extension RiValT_EditTimer_ViewController {
             
             self.toolbar?.setItems(toolbarItems, animated: false)
             self.toolbar?.isHidden = false
-            self.navigationItem.title = String(format: "SLUG-EDIT-FORMAT".localizedVariant, timerIndexPath.item + 1)
+            var titleString = String(format: "SLUG-EDIT-FORMAT".localizedVariant, timerIndexPath.item + 1)
+            if 1 < self.timerModel.count {
+                titleString += String(format: "SLUG-PAREN-GROUP-FORMAT".localizedVariant, timerIndexPath.section + 1)
+            }
+            self.navigationItem.title = titleString
         } else {
             self.toolbar?.isHidden = true
-            self.navigationItem.title = "SLUG-EDIT-TIMER".localizedVariant
+            var titleString = "SLUG-EDIT-TIMER".localizedVariant
+            if 1 < self.timerModel.count {
+                titleString += String(format: "SLUG-PAREN-GROUP-FORMAT".localizedVariant, timerIndexPath.section + 1)
+            }
+            self.navigationItem.title = titleString
         }
     }
     
