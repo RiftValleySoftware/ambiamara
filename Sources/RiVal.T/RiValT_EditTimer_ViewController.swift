@@ -75,6 +75,12 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
      The large variant of the digital display font.
      */
     private static let _digitalDisplayFont = UIFont(name: "Let\'s go Digital", size: 90)
+    
+    /* ############################################################## */
+    /**
+     The ID for segue to the settings editor.
+     */
+    private static let _editGroupSegueID = "edit-group"
 
     /* ############################################################## */
     /**
@@ -253,6 +259,20 @@ extension RiValT_EditTimer_ViewController {
         super.viewDidLayoutSubviews()
         self.timeSetPicker?.reloadAllComponents()
     }
+    
+    /* ############################################################## */
+    /**
+     Called before we gallavant off to another screen.
+     
+     - parameter inSegue: The segue instance.
+     - parameter inData: An opaque parameter with any associated data.
+     */
+    override func prepare(for inSegue: UIStoryboardSegue, sender inData: Any?) {
+        if let destination = inSegue.destination as? RiValT_GroupSettings_ViewController,
+           let group = inData as? TimerGroup {
+            destination.group = group
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -406,6 +426,8 @@ extension RiValT_EditTimer_ViewController {
      */
     @IBAction func settingsBarButtonHit(_: Any) {
         self.impactHaptic()
+        guard let timerGroup = self.timer?.group else { return }
+        performSegue(withIdentifier: Self._editGroupSegueID, sender: timerGroup)
     }
 
     /* ############################################################## */

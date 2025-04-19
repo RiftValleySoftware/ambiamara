@@ -436,6 +436,7 @@ extension RiValT_MultiTimer_ViewController {
         self.toolbar?.standardAppearance = appearance
         self.toolbar?.scrollEdgeAppearance = appearance
         self.collectionView?.isDirectionalLockEnabled = true
+        self.navigationItem.backButtonTitle = "SLUG-TIMERS-BACK".localizedVariant
     }
     
     /* ############################################################## */

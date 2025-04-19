@@ -28,6 +28,7 @@
 		D43B97782DA2C2D00028E023 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D43B97772DA2C2D00028E023 /* RVS_BasicGCDTimer */; };
 		D43B97792DA2C2E80028E023 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E869532D99916200D56802 /* TimerEngine.swift */; };
 		D43ED8362D942C76001B1B68 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D43ED8352D942C76001B1B68 /* RVS_BasicGCDTimer */; };
+		D45184CA2DB42DBF00DA671D /* RiValT_GroupSettings_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45184C92DB42DBE00DA671D /* RiValT_GroupSettings_ViewController.swift */; };
 		D45EDFAD2D88735C0024CB6D /* Rift_Valley_Timer_Watch_App_TimerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EDFAC2D88735C0024CB6D /* Rift_Valley_Timer_Watch_App_TimerList.swift */; };
 		D46850BB2D7F840300065D8C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D46850BA2D7F840300065D8C /* Localizable.xcstrings */; };
 		D46850BC2D7F840300065D8C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D46850BA2D7F840300065D8C /* Localizable.xcstrings */; };
@@ -237,6 +238,7 @@
 		D43B97632DA2C1D10028E023 /* RiValT_SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_SceneDelegate.swift; sourceTree = "<group>"; };
 		D43B97642DA2C1D10028E023 /* RiValT_Base_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_Base_ViewController.swift; sourceTree = "<group>"; };
 		D44E7712281AD1B000B491EF /* AmbiaMara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AmbiaMara.entitlements; sourceTree = "<group>"; };
+		D45184C92DB42DBE00DA671D /* RiValT_GroupSettings_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_GroupSettings_ViewController.swift; sourceTree = "<group>"; };
 		D45EDFAC2D88735C0024CB6D /* Rift_Valley_Timer_Watch_App_TimerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_Watch_App_TimerList.swift; sourceTree = "<group>"; };
 		D46850BA2D7F840300065D8C /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		D46B84DF2D986AB600199220 /* TimerEngineTestHarness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimerEngineTestHarness.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -453,6 +455,7 @@
 				D43B97642DA2C1D10028E023 /* RiValT_Base_ViewController.swift */,
 				D4E2E8FA2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift */,
 				D4EDE73A2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift */,
+				D45184C92DB42DBE00DA671D /* RiValT_GroupSettings_ViewController.swift */,
 				D4752E9C2DB2FD91002359CA /* RiValT_Settings.swift */,
 				D43B976E2DA2C25C0028E023 /* Resources */,
 				D43B976D2DA2C22E0028E023 /* Meta */,
@@ -1109,6 +1112,7 @@
 				D43B97682DA2C1D10028E023 /* RiValT_Base_ViewController.swift in Sources */,
 				D43B97792DA2C2E80028E023 /* TimerEngine.swift in Sources */,
 				D4E2E8FB2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift in Sources */,
+				D45184CA2DB42DBF00DA671D /* RiValT_GroupSettings_ViewController.swift in Sources */,
 				D4EDE73B2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift in Sources */,
 				D4181D0D2DAC7364002CF428 /* TimerModel.swift in Sources */,
 			);

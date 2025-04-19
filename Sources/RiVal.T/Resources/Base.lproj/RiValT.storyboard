@@ -269,6 +269,7 @@
                         <outlet property="timeSetPicker" destination="1vE-IS-Nx4" id="lzf-hS-dYF"/>
                         <outlet property="timeTypeSegmentedControl" destination="kx5-6Q-HlR" id="BeD-iS-WpR"/>
                         <outlet property="toolbar" destination="czQ-xo-bRA" id="lCb-Ix-5xp"/>
+                        <segue destination="qtn-ke-y9i" kind="show" identifier="edit-group" id="A4Z-QK-Eqk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2QB-7k-b82" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -284,6 +285,22 @@
                 </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1649.6183206106869" y="-211.26760563380282"/>
+        </scene>
+        <!--Ri ValT Group Settings View Controller-->
+        <scene sceneID="LRs-Pu-xk6">
+            <objects>
+                <viewController storyboardIdentifier="RiValT_GroupSettings_ViewController" id="qtn-ke-y9i" customClass="RiValT_GroupSettings_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="W7d-nS-lXp">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="IV3-YQ-yec"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="kJY-yz-cur"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xik-Gi-GWm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2657" y="-211"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CJq-mF-a4b">
@@ -310,7 +327,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

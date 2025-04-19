@@ -144,6 +144,17 @@
         }
       }
     },
+    "SLUG-SETTINGS-FORMAT" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings for Group %d"
+          }
+        }
+      }
+    },
     "SLUG-START-TIME" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -151,6 +162,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Start Time"
+          }
+        }
+      }
+    },
+    "SLUG-TIMERS-BACK" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timers"
           }
         }
       }
