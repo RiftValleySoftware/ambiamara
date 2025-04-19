@@ -516,6 +516,10 @@ extension RiValT_MultiTimer_ViewController {
             return ret
         }
         
+        self.dataSource?.supplementaryViewProvider = { (inCollectionView, inKind, inIndexPath) -> UICollectionReusableView? in
+            nil
+        }
+        
         collectionView.dataSource = self.dataSource
     }
 
