@@ -131,19 +131,7 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
      The toolbar at the bottom.
      */
     @IBOutlet weak var toolbar: UIToolbar?
-    
-    /* ############################################################## */
-    /**
-     The settings button, at the top right.
-     */
-    @IBOutlet weak var soundSettingsBarButton: SoundBarButtonItem?
-    
-    /* ############################################################## */
-    /**
-     The display button, just to the left of the sound button.
-     */
-    @IBOutlet weak var displaySettingsBarButtonItem: DisplayBarButtonItem?
-    
+
     /* ############################################################## */
     /**
      The label above the time set, indicating the selected time.
@@ -246,8 +234,8 @@ extension RiValT_EditTimer_ViewController {
      - parameter inIsAnimated: True, if the appearance is animated.
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
-        self.navigationController?.isNavigationBarHidden = false
         super.viewWillAppear(inIsAnimated)
+        self.navigationController?.isNavigationBarHidden = false
         self.setUpToolbar()
         self.setTime()
     }
@@ -295,7 +283,7 @@ extension RiValT_EditTimer_ViewController {
      - returns: True (all the time).
      */
     override func popoverPresentationControllerShouldDismissPopover(_: UIPopoverPresentationController) -> Bool {
-        self.displaySettingsBarButtonItem?.image = self.group?.displayType.image
+        self.setUpNavBarItems()
         return true
     }
 }
@@ -406,8 +394,24 @@ extension RiValT_EditTimer_ViewController {
             self.timeTypeSegmentedControl?.selectedSegmentTintColor = finalColor
         }
         
-        self.soundSettingsBarButton?.group = self.group
-        self.displaySettingsBarButtonItem?.group = self.group
+        setUpNavBarItems()
+    }
+    
+    /* ############################################################## */
+    /**
+     We set up the navbar buttons.
+     */
+    func setUpNavBarItems() {
+        let soundSettingsButtonItem = SoundBarButtonItem()
+        soundSettingsButtonItem.group = self.group
+        soundSettingsButtonItem.target = self
+        soundSettingsButtonItem.action = #selector(soundSettingsButtonHit)
+        let displaySettingsButtonItem = DisplayBarButtonItem()
+        displaySettingsButtonItem.group = self.group
+        displaySettingsButtonItem.target = self
+        displaySettingsButtonItem.action = #selector(displaySettingsButtonHit)
+        self.navigationItem.rightBarButtonItems = nil
+        self.navigationItem.rightBarButtonItems = [soundSettingsButtonItem, displaySettingsButtonItem]
     }
     
     /* ############################################################## */

@@ -89,13 +89,15 @@ extension TimerGroup {
 /* ###################################################################################################################################### */
 /**
  */
-class DisplayBarButtonItem: UIBarButtonItem {
-    /* ############################################################## */
-    /**
-     Display image cache
-     */
-    private var _cachedImage: UIImage?
-    
+class BaseCustomBarButtonItem: UIBarButtonItem {
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Special Bar Button for Display Selection -
+/* ###################################################################################################################################### */
+/**
+ */
+class DisplayBarButtonItem: BaseCustomBarButtonItem {
     /* ############################################################## */
     /**
      The timer group associated with these settings.
@@ -113,8 +115,8 @@ class DisplayBarButtonItem: UIBarButtonItem {
      */
     override var image: UIImage? {
         get {
-            self._cachedImage = self._cachedImage ?? self.group?.displayType.image?.resized(toMaximumSize: 24)
-            return self._cachedImage
+            super.image = super.image ?? self.group?.displayType.image?.resized(toMaximumSize: 24)
+            return super.image
         }
         set { super.image = newValue }
     }
@@ -124,6 +126,7 @@ class DisplayBarButtonItem: UIBarButtonItem {
 // MARK: - The Main View Controller for the Group Display Settings Editor -
 /* ###################################################################################################################################### */
 /**
+ This is displayed in a popover, and allows the user to select which display type the group will use.
  */
 class RiValT_DisplaySettings_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
@@ -140,14 +143,30 @@ class RiValT_DisplaySettings_ViewController: RiValT_Base_ViewController {
     
     /* ############################################################## */
     /**
+     The segmented control that allows selection of the display type.
      */
     @IBOutlet weak var displaySelectionSegmentedControl: UISegmentedControl?
     
     /* ############################################################## */
     /**
+     The image that is shown, representing the display.
      */
     @IBOutlet weak var previewImageView: UIImageView?
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension RiValT_DisplaySettings_ViewController {
+    /* ############################################################## */
+    /**
+     The size of the popover.
+     */
+    override var preferredContentSize: CGSize {
+        get { CGSize(width: 270, height: 200) }
+        set { super.preferredContentSize = newValue }
+    }
+
     /* ############################################################## */
     /**
      Called when the view has loaded.
@@ -169,24 +188,40 @@ class RiValT_DisplaySettings_ViewController: RiValT_Base_ViewController {
         setUpSelectionControl()
         selectDisplayType()
     }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension RiValT_DisplaySettings_ViewController {
     /* ############################################################## */
     /**
+     Sets up the main selection control.
      */
     func setUpSelectionControl() {
         self.displaySelectionSegmentedControl?.setImage(TimerGroup.DisplayType.numerical.image?.resized(toMaximumSize: 20), forSegmentAt: 0)
         self.displaySelectionSegmentedControl?.setImage(TimerGroup.DisplayType.circular.image?.resized(toMaximumSize: 20), forSegmentAt: 1)
         self.displaySelectionSegmentedControl?.setImage(TimerGroup.DisplayType.stoplights.image?.resized(toMaximumSize: 20), forSegmentAt: 2)
-
+        
         self.displaySelectionSegmentedControl?.subviews.flatMap { $0.subviews }.forEach { subview in
             if let imageView = subview as? UIImageView, imageView.frame.width > 5 {
                 imageView.contentMode = .scaleAspectFit
             }
         }
+        
+        switch self.group?.displayType {
+        case .circular:
+            self.displaySelectionSegmentedControl?.selectedSegmentIndex = 1
+        case .stoplights:
+            self.displaySelectionSegmentedControl?.selectedSegmentIndex = 2
+        default:
+            self.displaySelectionSegmentedControl?.selectedSegmentIndex = 0
+        }
     }
     
     /* ############################################################## */
     /**
+     Selects which image to display in the main area.
      */
     func selectDisplayType() {
         guard let selectedIndex = self.self.displaySelectionSegmentedControl?.selectedSegmentIndex else { return }
@@ -204,11 +239,19 @@ class RiValT_DisplaySettings_ViewController: RiValT_Base_ViewController {
         }
         self.previewImageView?.image = image
     }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: Callbacks
+/* ###################################################################################################################################### */
+extension RiValT_DisplaySettings_ViewController {
     /* ############################################################## */
     /**
+     Called when the selection is changed.
+     
+     - parameter: ignored.
      */
-    @IBAction func displaySelectionChanged(_ inControl: UISegmentedControl) {
+    @IBAction func displaySelectionChanged(_: Any) {
         selectDisplayType()
     }
 }

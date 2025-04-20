@@ -122,7 +122,7 @@ extension TimerGroup {
 /* ###################################################################################################################################### */
 /**
  */
-class SoundBarButtonItem: UIBarButtonItem {
+class SoundBarButtonItem: BaseCustomBarButtonItem {
     /* ############################################################## */
     /**
      Display image cache
@@ -146,8 +146,8 @@ class SoundBarButtonItem: UIBarButtonItem {
      */
     override var image: UIImage? {
         get {
-            self._cachedImage = self._cachedImage ?? self.group?.soundType.image?.resized(toMaximumSize: 24)
-            return self._cachedImage
+            super.image = super.image ?? self.group?.soundType.image?.resized(toMaximumSize: 24)
+            return super.image
         }
         set { super.image = newValue }
     }

@@ -3,7 +3,6 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -251,28 +250,12 @@
                             <outletCollection property="gestureRecognizers" destination="onz-1A-vfx" appends="YES" id="sLv-hb-TU1"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="SLUG-EDIT" id="g8j-Dj-DgL">
-                        <rightBarButtonItems>
-                            <barButtonItem id="Rlq-L4-0Xd" customClass="SoundBarButtonItem" customModule="RiVal_T" customModuleProvider="target">
-                                <imageReference key="image" image="speaker.slash" catalog="system" symbolScale="default"/>
-                                <connections>
-                                    <action selector="soundSettingsButtonHit:" destination="JlO-Oc-S3P" id="ssE-sr-jzC"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="display" catalog="system" id="CXO-Cq-P60" customClass="DisplayBarButtonItem" customModule="RiVal_T" customModuleProvider="target">
-                                <connections>
-                                    <action selector="displaySettingsButtonHit:" destination="JlO-Oc-S3P" id="ggK-dJ-LNs"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="SLUG-EDIT" id="g8j-Dj-DgL"/>
                     <connections>
-                        <outlet property="displaySettingsBarButtonItem" destination="CXO-Cq-P60" id="TFA-66-E8A"/>
                         <outlet property="hoursLabel" destination="pfu-Kz-A9q" id="d8T-Dn-xGb"/>
                         <outlet property="minutesLabel" destination="cbl-rx-DkY" id="OCu-X6-LEz"/>
                         <outlet property="secondsLabel" destination="Nev-tz-EK3" id="XGR-Rc-zML"/>
                         <outlet property="setTimeContainerView" destination="9ix-aj-H7Q" id="zjZ-t5-WYq"/>
-                        <outlet property="soundSettingsBarButton" destination="Rlq-L4-0Xd" id="F9e-Ur-49Y"/>
                         <outlet property="statusLabel" destination="lAB-yM-IWU" id="s0K-EX-OOx"/>
                         <outlet property="timeSetPicker" destination="1vE-IS-Nx4" id="lzf-hS-dYF"/>
                         <outlet property="timeTypeSegmentedControl" destination="kx5-6Q-HlR" id="BeD-iS-WpR"/>
@@ -318,9 +301,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BbL-a0-0K3">
-                                <rect key="frame" x="96.666666666666686" y="286.66666666666669" width="200" height="32"/>
+                                <rect key="frame" x="96.666666666666686" y="126" width="200" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="UA6-uT-cJw"/>
+                                    <constraint firstAttribute="height" constant="30" id="W9B-c3-TDQ"/>
                                 </constraints>
                                 <segments>
                                     <segment title="" image="DisplayDigits"/>
@@ -332,7 +316,7 @@
                                 </connections>
                             </segmentedControl>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bxo-RZ-jvl">
-                                <rect key="frame" x="16" y="325.66666666666669" width="361" height="200.66666666666669"/>
+                                <rect key="frame" x="16" y="164" width="361" height="200.66666666666663"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="bxo-RZ-jvl" secondAttribute="height" multiplier="36:20" id="Imd-7N-f7q"/>
                                 </constraints>
@@ -342,10 +326,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="BbL-a0-0K3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MQC-eH-sYO" secondAttribute="leading" constant="16" id="4Yh-qn-7cQ"/>
-                            <constraint firstItem="bxo-RZ-jvl" firstAttribute="centerY" secondItem="MQC-eH-sYO" secondAttribute="centerY" id="4pZ-lp-Gz1"/>
+                            <constraint firstItem="BbL-a0-0K3" firstAttribute="top" secondItem="bQD-7I-Gdi" secondAttribute="top" constant="8" id="9De-bn-Xjx"/>
                             <constraint firstItem="BbL-a0-0K3" firstAttribute="centerX" secondItem="MQC-eH-sYO" secondAttribute="centerX" id="DiW-UX-8aB"/>
                             <constraint firstItem="bxo-RZ-jvl" firstAttribute="leading" secondItem="bQD-7I-Gdi" secondAttribute="leading" constant="16" id="Dks-tW-nNL"/>
                             <constraint firstItem="bxo-RZ-jvl" firstAttribute="centerX" secondItem="MQC-eH-sYO" secondAttribute="centerX" id="T3v-pe-1BX"/>
+                            <constraint firstItem="bQD-7I-Gdi" firstAttribute="bottom" secondItem="bxo-RZ-jvl" secondAttribute="bottom" constant="8" id="dao-wt-o5t"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BbL-a0-0K3" secondAttribute="trailing" constant="16" id="hzQ-Yq-gbl"/>
                             <constraint firstItem="bQD-7I-Gdi" firstAttribute="trailing" secondItem="bxo-RZ-jvl" secondAttribute="trailing" constant="16" id="llo-EW-fZb"/>
                             <constraint firstItem="bxo-RZ-jvl" firstAttribute="top" secondItem="BbL-a0-0K3" secondAttribute="bottom" constant="8" symbolic="YES" id="pa6-tE-8FF"/>
@@ -383,8 +368,6 @@
         <image name="DisplayCircle" width="150" height="127"/>
         <image name="DisplayDigits" width="150" height="127"/>
         <image name="DisplayDots" width="150" height="127"/>
-        <image name="display" catalog="system" width="128" height="101"/>
-        <image name="speaker.slash" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
