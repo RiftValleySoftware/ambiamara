@@ -40,6 +40,21 @@ extension TimerGroup {
          This displays three "stoplights."
          */
         case stoplights
+        
+        /* ############################################################## */
+        /**
+         Returns the image associated with this state.
+         */
+        var image: UIImage? {
+            switch self {
+            case .numerical:
+                return UIImage(named: "DisplayDigits")
+            case .circular:
+                return UIImage(named: "DisplayCircle")
+            case .stoplights:
+                return UIImage(named: "DisplayDots")
+            }
+        }
     }
     
     /* ################################################################## */
@@ -68,6 +83,42 @@ extension TimerGroup {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Special Bar Button for Display Selection -
+/* ###################################################################################################################################### */
+/**
+ */
+class DisplayBarButtonItem: UIBarButtonItem {
+    /* ############################################################## */
+    /**
+     Display image cache
+     */
+    private var _cachedImage: UIImage?
+    
+    /* ############################################################## */
+    /**
+     The timer group associated with these settings.
+     */
+    weak var group: TimerGroup? {
+        didSet {
+            self.isEnabled = !self.isEnabled
+            self.isEnabled = !self.isEnabled
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     The image to be displayed in the button.
+     */
+    override var image: UIImage? {
+        get {
+            self._cachedImage = self._cachedImage ?? self.group?.displayType.image?.resized(toMaximumSize: 24)
+            return self._cachedImage
+        }
+        set { super.image = newValue }
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - The Main View Controller for the Group Display Settings Editor -
 /* ###################################################################################################################################### */
 /**
@@ -77,7 +128,7 @@ class RiValT_DisplaySettings_ViewController: RiValT_Base_ViewController {
     /**
      The storyboard ID for instantiating the class.
      */
-    static let storyboardID = "RiValT_GroupSettings_ViewController"
+    static let storyboardID = "RiValT_DisplaySettings_ViewController"
     
     /* ############################################################## */
     /**

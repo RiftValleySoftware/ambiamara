@@ -136,7 +136,13 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
     /**
      The settings button, at the top right.
      */
-    @IBOutlet weak var soundSettingsBarButton: UIBarButtonItem!
+    @IBOutlet weak var soundSettingsBarButton: SoundBarButtonItem?
+    
+    /* ############################################################## */
+    /**
+     The display button, just to the left of the sound button.
+     */
+    @IBOutlet weak var dsiplaySettingsBarButtonItem: DisplayBarButtonItem?
     
     /* ############################################################## */
     /**
@@ -203,6 +209,12 @@ extension RiValT_EditTimer_ViewController {
             }
         }
     }
+    
+    /* ############################################################## */
+    /**
+     The group for the current timer.
+     */
+    var group: TimerGroup? { self.timer?.group }
 }
 
 /* ###################################################################################################################################### */
@@ -380,6 +392,9 @@ extension RiValT_EditTimer_ViewController {
             self.statusLabel?.textColor = finalColor
             self.timeTypeSegmentedControl?.selectedSegmentTintColor = finalColor
         }
+        
+        self.soundSettingsBarButton?.group = self.group
+        self.dsiplaySettingsBarButtonItem?.group = self.group
     }
     
     /* ############################################################## */
@@ -424,10 +439,30 @@ extension RiValT_EditTimer_ViewController {
      
      - parameter: ignored.
      */
-    @IBAction func soundSettingsBarButtonHit(_: Any) {
+    @IBAction func soundSettingsButtonHit(_ inBarButtonItem: UIBarButtonItem) {
         self.impactHaptic()
-        guard let timerGroup = self.timer?.group else { return }
-        performSegue(withIdentifier: Self._editGroupSegueID, sender: timerGroup)
+        guard let controller = self.storyboard?.instantiateViewController(withIdentifier: RiValT_SoundSettings_ViewController.storyboardID) as? RiValT_SoundSettings_ViewController else { return }
+        controller.group = self.timer?.group
+        controller.modalPresentationStyle = .popover
+        controller.popoverPresentationController?.delegate = self
+        controller.popoverPresentationController?.barButtonItem = inBarButtonItem
+        self.present(controller, animated: true, completion: nil)
+    }
+
+    /* ############################################################## */
+    /**
+     The dsiplay settings button was hit.
+     
+     - parameter: ignored.
+     */
+    @IBAction func displaySettingsButtonHit(_ inBarButtonItem: UIBarButtonItem) {
+        self.impactHaptic()
+        guard let controller = self.storyboard?.instantiateViewController(withIdentifier: RiValT_DisplaySettings_ViewController.storyboardID) as? RiValT_DisplaySettings_ViewController else { return }
+        controller.group = self.timer?.group
+        controller.modalPresentationStyle = .popover
+        controller.popoverPresentationController?.delegate = self
+        controller.popoverPresentationController?.barButtonItem = inBarButtonItem
+        self.present(controller, animated: true, completion: nil)
     }
 
     /* ############################################################## */

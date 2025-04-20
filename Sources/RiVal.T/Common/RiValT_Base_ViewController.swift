@@ -169,3 +169,37 @@ extension RiValT_Base_ViewController {
         RiValT_Settings().timerModel = RiValT_AppDelegate.appDelegateInstance?.timerModel.asArray ?? []
     }
 }
+
+/* ###################################################################################################################################### */
+// MARK: UIPopoverPresentationControllerDelegate Conformance
+/* ###################################################################################################################################### */
+extension RiValT_Base_ViewController: UIPopoverPresentationControllerDelegate {
+    /* ################################################################## */
+    /**
+     Called to ask if there's any possibility of this being displayed in another way.
+     
+     - parameter for: The presentation controller we're talking about.
+     - returns: No way, Jose.
+     */
+    func adaptivePresentationStyle(for: UIPresentationController) -> UIModalPresentationStyle { .none }
+    
+    /* ################################################################## */
+    /**
+     Called to ask if there's any possibility of this being displayed in another way (when the screen is rotated).
+     
+     - parameter for: The presentation controller we're talking about.
+     - parameter traitCollection: The traits, describing the new orientation.
+     - returns: No way, Jose.
+     */
+    func adaptivePresentationStyle(for: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle { .none }
+
+    /* ################################################################## */
+    /**
+     Called to allow us to do something before dismissing a popover.
+     
+     - parameter: ignored.
+     
+     - returns: True (all the time).
+     */
+    func popoverPresentationControllerShouldDismissPopover(_: UIPopoverPresentationController) -> Bool { true }
+}

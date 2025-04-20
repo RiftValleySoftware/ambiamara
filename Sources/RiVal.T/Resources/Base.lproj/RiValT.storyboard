@@ -252,14 +252,22 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" title="SLUG-EDIT" id="g8j-Dj-DgL">
-                        <barButtonItem key="rightBarButtonItem" id="Rlq-L4-0Xd">
-                            <imageReference key="image" image="gear.circle" catalog="system" symbolScale="large"/>
-                            <connections>
-                                <action selector="setSoundSettingsBarButtonHit" destination="JlO-Oc-S3P" id="YZ2-um-v1Z"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem id="Rlq-L4-0Xd" customClass="SoundBarButtonItem" customModule="RiVal_T" customModuleProvider="target">
+                                <imageReference key="image" image="speaker.slash" catalog="system" symbolScale="default"/>
+                                <connections>
+                                    <action selector="soundSettingsButtonHit:" destination="JlO-Oc-S3P" id="ssE-sr-jzC"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="display" catalog="system" id="CXO-Cq-P60" customClass="DisplayBarButtonItem" customModule="RiVal_T" customModuleProvider="target">
+                                <connections>
+                                    <action selector="displaySettingsButtonHit:" destination="JlO-Oc-S3P" id="ggK-dJ-LNs"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="dsiplaySettingsBarButtonItem" destination="CXO-Cq-P60" id="TFA-66-E8A"/>
                         <outlet property="hoursLabel" destination="pfu-Kz-A9q" id="d8T-Dn-xGb"/>
                         <outlet property="minutesLabel" destination="cbl-rx-DkY" id="OCu-X6-LEz"/>
                         <outlet property="secondsLabel" destination="Nev-tz-EK3" id="XGR-Rc-zML"/>
@@ -283,7 +291,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1649.6183206106869" y="-211.26760563380282"/>
+            <point key="canvasLocation" x="1660" y="-211"/>
         </scene>
         <!--Ri ValT Sound Settings View Controller-->
         <scene sceneID="LRs-Pu-xk6">
@@ -300,6 +308,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xik-Gi-GWm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2657" y="-211"/>
+        </scene>
+        <!--Ri ValT Display Settings View Controller-->
+        <scene sceneID="9m5-5F-kDS">
+            <objects>
+                <viewController storyboardIdentifier="RiValT_DisplaySettings_ViewController" id="7rj-Oc-ByP" customClass="RiValT_DisplaySettings_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MQC-eH-sYO">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="bQD-7I-Gdi"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LmJ-yc-Vig" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3563" y="-211"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CJq-mF-a4b">
@@ -321,12 +344,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gear.circle" catalog="system" width="128" height="123"/>
+        <image name="display" catalog="system" width="128" height="101"/>
+        <image name="speaker.slash" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
