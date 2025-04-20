@@ -142,7 +142,7 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
     /**
      The display button, just to the left of the sound button.
      */
-    @IBOutlet weak var dsiplaySettingsBarButtonItem: DisplayBarButtonItem?
+    @IBOutlet weak var displaySettingsBarButtonItem: DisplayBarButtonItem?
     
     /* ############################################################## */
     /**
@@ -285,6 +285,19 @@ extension RiValT_EditTimer_ViewController {
             destination.group = group
         }
     }
+
+    /* ################################################################## */
+    /**
+     Called to allow us to do something before dismissing a popover.
+     
+     - parameter: ignored.
+     
+     - returns: True (all the time).
+     */
+    override func popoverPresentationControllerShouldDismissPopover(_: UIPopoverPresentationController) -> Bool {
+        self.displaySettingsBarButtonItem?.image = self.group?.displayType.image
+        return true
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -394,7 +407,7 @@ extension RiValT_EditTimer_ViewController {
         }
         
         self.soundSettingsBarButton?.group = self.group
-        self.dsiplaySettingsBarButtonItem?.group = self.group
+        self.displaySettingsBarButtonItem?.group = self.group
     }
     
     /* ############################################################## */

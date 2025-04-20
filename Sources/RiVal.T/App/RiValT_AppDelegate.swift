@@ -55,7 +55,9 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
         if timerModel.allTimers.isEmpty {
             let timer = timerModel.createNewTimer(at: IndexPath(item: 0, section: 0))
             timer.isSelected = true
+            RiValT_Settings().timerModel = self.timerModel.asArray
         }
+        RiValT_Settings().flush()
         RiValT_Settings().cleanGroupSettings()
     }
     

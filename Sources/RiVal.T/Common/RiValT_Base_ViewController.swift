@@ -63,12 +63,6 @@ extension UIViewController {
  This provides basic utilities and UI for all screens in the app.
  */
 class RiValT_Base_ViewController: UIViewController {
-    /* ############################################################## */
-    /**
-     This can be overloaded or set, to provide the image to be used as a background gradient.
-     */
-    private let _backgroundGradientImage: UIImage? = UIImage(named: "Background-Gradient")
-    
     /* ################################################################## */
     /**
      This will provide haptic/audio feedback for subtle events.
@@ -80,6 +74,12 @@ class RiValT_Base_ViewController: UIViewController {
      This will provide haptic/audio feedback for more significant events.
      */
     private let _impactFeedbackGenerator = UIImpactFeedbackGenerator()
+    
+    /* ############################################################## */
+    /**
+     This can be overloaded or set, to provide the image to be used as a background gradient.
+     */
+    var backgroundGradientImage: UIImage? = UIImage(named: "Background-Gradient")
 }
 
 /* ###################################################################################################################################### */
@@ -109,7 +109,7 @@ extension RiValT_Base_ViewController {
         
         // Set the gradient background.
         if let view = self.view {
-            let backgroundGradientView = UIImageView(image: self._backgroundGradientImage)
+            let backgroundGradientView = UIImageView(image: self.backgroundGradientImage)
             backgroundGradientView.translatesAutoresizingMaskIntoConstraints = false
             backgroundGradientView.contentMode = .scaleToFill
             view.insertSubview(backgroundGradientView, at: 0)

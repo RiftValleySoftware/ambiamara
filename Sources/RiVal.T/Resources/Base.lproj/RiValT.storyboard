@@ -267,7 +267,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="dsiplaySettingsBarButtonItem" destination="CXO-Cq-P60" id="TFA-66-E8A"/>
+                        <outlet property="displaySettingsBarButtonItem" destination="CXO-Cq-P60" id="TFA-66-E8A"/>
                         <outlet property="hoursLabel" destination="pfu-Kz-A9q" id="d8T-Dn-xGb"/>
                         <outlet property="minutesLabel" destination="cbl-rx-DkY" id="OCu-X6-LEz"/>
                         <outlet property="secondsLabel" destination="Nev-tz-EK3" id="XGR-Rc-zML"/>
@@ -316,13 +316,49 @@
                     <view key="view" contentMode="scaleToFill" id="MQC-eH-sYO">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BbL-a0-0K3">
+                                <rect key="frame" x="96.666666666666686" y="286.66666666666669" width="200" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="UA6-uT-cJw"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="" image="DisplayDigits"/>
+                                    <segment title="" image="DisplayCircle"/>
+                                    <segment title="" image="DisplayDots"/>
+                                </segments>
+                                <connections>
+                                    <action selector="displaySelectionChanged:" destination="7rj-Oc-ByP" eventType="valueChanged" id="jDL-do-zRA"/>
+                                </connections>
+                            </segmentedControl>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bxo-RZ-jvl">
+                                <rect key="frame" x="16" y="325.66666666666669" width="361" height="200.66666666666669"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bxo-RZ-jvl" secondAttribute="height" multiplier="36:20" id="Imd-7N-f7q"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="bQD-7I-Gdi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BbL-a0-0K3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MQC-eH-sYO" secondAttribute="leading" constant="16" id="4Yh-qn-7cQ"/>
+                            <constraint firstItem="bxo-RZ-jvl" firstAttribute="centerY" secondItem="MQC-eH-sYO" secondAttribute="centerY" id="4pZ-lp-Gz1"/>
+                            <constraint firstItem="BbL-a0-0K3" firstAttribute="centerX" secondItem="MQC-eH-sYO" secondAttribute="centerX" id="DiW-UX-8aB"/>
+                            <constraint firstItem="bxo-RZ-jvl" firstAttribute="leading" secondItem="bQD-7I-Gdi" secondAttribute="leading" constant="16" id="Dks-tW-nNL"/>
+                            <constraint firstItem="bxo-RZ-jvl" firstAttribute="centerX" secondItem="MQC-eH-sYO" secondAttribute="centerX" id="T3v-pe-1BX"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BbL-a0-0K3" secondAttribute="trailing" constant="16" id="hzQ-Yq-gbl"/>
+                            <constraint firstItem="bQD-7I-Gdi" firstAttribute="trailing" secondItem="bxo-RZ-jvl" secondAttribute="trailing" constant="16" id="llo-EW-fZb"/>
+                            <constraint firstItem="bxo-RZ-jvl" firstAttribute="top" secondItem="BbL-a0-0K3" secondAttribute="bottom" constant="8" symbolic="YES" id="pa6-tE-8FF"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="displaySelectionSegmentedControl" destination="BbL-a0-0K3" id="KMJ-9g-FHA"/>
+                        <outlet property="previewImageView" destination="bxo-RZ-jvl" id="rLZ-46-53a"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LmJ-yc-Vig" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3563" y="-211"/>
+            <point key="canvasLocation" x="3562.5954198473282" y="-211.26760563380282"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CJq-mF-a4b">
@@ -344,6 +380,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="DisplayCircle" width="150" height="127"/>
+        <image name="DisplayDigits" width="150" height="127"/>
+        <image name="DisplayDots" width="150" height="127"/>
         <image name="display" catalog="system" width="128" height="101"/>
         <image name="speaker.slash" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">

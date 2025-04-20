@@ -22,7 +22,7 @@ extension TimerGroup {
     /**
      This enum defines one of the three different display types for a running timer.
      */
-    enum DisplayType: String {
+    enum DisplayType: String, CaseIterable {
         /* ############################################################## */
         /**
          This displays massive "LED" numbers.
@@ -62,7 +62,9 @@ extension TimerGroup {
      Accessor for the group settings.
      */
     private var _storedSettings: [String: any Hashable] {
-        get { RiValT_Settings().groupSettings[self.id.uuidString] ?? [:] }
+        get {
+            RiValT_Settings().groupSettings[self.id.uuidString] ?? [:]
+        }
         set { RiValT_Settings().groupSettings[self.id.uuidString] = newValue }
     }
     
@@ -138,17 +140,75 @@ class RiValT_DisplaySettings_ViewController: RiValT_Base_ViewController {
     
     /* ############################################################## */
     /**
+     */
+    @IBOutlet weak var displaySelectionSegmentedControl: UISegmentedControl?
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var previewImageView: UIImageView?
+    
+    /* ############################################################## */
+    /**
      Called when the view has loaded.
      */
     override func viewDidLoad() {
+        self.navigationController?.isNavigationBarHidden = false
+        self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
+        
         super.viewDidLoad()
         
         guard let groupIndex = self.group?.index else { return }
         
         if 1 < timerModel.count {
-            self.navigationItem.title = String(format: "SLUG-SETTINGS-FORMAT".localizedVariant, groupIndex + 1)
+            self.navigationItem.title = String(format: "SLUG-DISPLAY-FORMAT".localizedVariant, groupIndex + 1)
         } else {
-            self.navigationItem.title = "SLUG-GROUP-SETTINGS".localizedVariant
+            self.navigationItem.title = "SLUG-DISPLAY-GROUP-SETTINGS".localizedVariant
         }
+        
+        setUpSelectionControl()
+        selectDisplayType()
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    func setUpSelectionControl() {
+        self.displaySelectionSegmentedControl?.setImage(TimerGroup.DisplayType.numerical.image?.resized(toMaximumSize: 20), forSegmentAt: 0)
+        self.displaySelectionSegmentedControl?.setImage(TimerGroup.DisplayType.circular.image?.resized(toMaximumSize: 20), forSegmentAt: 1)
+        self.displaySelectionSegmentedControl?.setImage(TimerGroup.DisplayType.stoplights.image?.resized(toMaximumSize: 20), forSegmentAt: 2)
+
+        self.displaySelectionSegmentedControl?.subviews.flatMap { $0.subviews }.forEach { subview in
+            if let imageView = subview as? UIImageView, imageView.frame.width > 5 {
+                imageView.contentMode = .scaleAspectFit
+            }
+        }
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    func selectDisplayType() {
+        guard let selectedIndex = self.self.displaySelectionSegmentedControl?.selectedSegmentIndex else { return }
+        var image: UIImage?
+        switch selectedIndex {
+        case 1:
+            image = UIImage(named: TimerGroup.DisplayType.circular.rawValue)
+            self.group?.displayType = TimerGroup.DisplayType.circular
+        case 2:
+            image = UIImage(named: TimerGroup.DisplayType.stoplights.rawValue)
+            self.group?.displayType = TimerGroup.DisplayType.stoplights
+        default:
+            image = UIImage(named: TimerGroup.DisplayType.numerical.rawValue)
+            self.group?.displayType = TimerGroup.DisplayType.numerical
+        }
+        self.previewImageView?.image = image
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBAction func displaySelectionChanged(_ inControl: UISegmentedControl) {
+        selectDisplayType()
     }
 }

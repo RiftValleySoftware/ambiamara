@@ -22,7 +22,7 @@ extension TimerGroup {
     /**
      This enum defines one of the three different display types for a running timer.
      */
-    enum SoundType: String {
+    enum SoundType: String, CaseIterable {
         /* ############################################################## */
         /**
          No sound, no vibration
@@ -176,6 +176,8 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
      Called when the view has loaded.
      */
     override func viewDidLoad() {
+        self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
+        
         super.viewDidLoad()
         
         guard let groupIndex = self.group?.index else { return }

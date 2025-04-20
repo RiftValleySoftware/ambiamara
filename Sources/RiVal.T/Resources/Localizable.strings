@@ -71,3 +71,8 @@
 "SLUG-SECONDS"                                  =	"Seconds";
 "SLUG-GROUP-SETTINGS"                           =   "Group Settings";
 "SLUG-SETTINGS-FORMAT"                          =   "Settings for Group %d";
+
+// MARK: Display Settings Popover
+
+"SLUG-DISPLAY-FORMAT"                           =   "Display Settings for Group %d";
+"SLUG-DISPLAY-GROUP-SETTINGS"                   =   "Display Settings";
