@@ -136,7 +136,7 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
     /**
      The settings button, at the top right.
      */
-    @IBOutlet weak var settingsBarButton: UIBarButtonItem!
+    @IBOutlet weak var soundSettingsBarButton: UIBarButtonItem!
     
     /* ############################################################## */
     /**
@@ -268,7 +268,7 @@ extension RiValT_EditTimer_ViewController {
      - parameter inData: An opaque parameter with any associated data.
      */
     override func prepare(for inSegue: UIStoryboardSegue, sender inData: Any?) {
-        if let destination = inSegue.destination as? RiValT_GroupSettings_ViewController,
+        if let destination = inSegue.destination as? RiValT_SoundSettings_ViewController,
            let group = inData as? TimerGroup {
             destination.group = group
         }
@@ -420,11 +420,11 @@ extension RiValT_EditTimer_ViewController {
 
     /* ############################################################## */
     /**
-     The settings button was hit.
+     The sound settings button was hit.
      
      - parameter: ignored.
      */
-    @IBAction func settingsBarButtonHit(_: Any) {
+    @IBAction func soundSettingsBarButtonHit(_: Any) {
         self.impactHaptic()
         guard let timerGroup = self.timer?.group else { return }
         performSegue(withIdentifier: Self._editGroupSegueID, sender: timerGroup)

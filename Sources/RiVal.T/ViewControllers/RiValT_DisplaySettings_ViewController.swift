@@ -53,24 +53,6 @@ extension TimerGroup {
     
     /* ################################################################## */
     /**
-     The sound file for the alarm that is played after the last timer in the group finishes.
-     */
-    var endAlarmFileName: String? {
-        get { _storedSettings["endAlarmFileName"] as? String }
-        set { _storedSettings["endAlarmFileName"] = newValue }
-    }
-    
-    /* ################################################################## */
-    /**
-     The sound file for the alarm that is played when one of the earlier timers finishes, and cascades to the next.
-     */
-    var transitionAlarmFileName: String? {
-        get { _storedSettings["transitionAlarmFileName"] as? String }
-        set { _storedSettings["transitionAlarmFileName"] = newValue }
-    }
-    
-    /* ################################################################## */
-    /**
      This defines the type of display to use for the running timer.
      */
     var displayType: DisplayType {
@@ -86,11 +68,11 @@ extension TimerGroup {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - The Main View Controller for the Group Settings Editor -
+// MARK: - The Main View Controller for the Group Display Settings Editor -
 /* ###################################################################################################################################### */
 /**
  */
-class RiValT_GroupSettings_ViewController: RiValT_Base_ViewController {
+class RiValT_DisplaySettings_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      The storyboard ID for instantiating the class.

@@ -255,7 +255,7 @@
                         <barButtonItem key="rightBarButtonItem" id="Rlq-L4-0Xd">
                             <imageReference key="image" image="gear.circle" catalog="system" symbolScale="large"/>
                             <connections>
-                                <action selector="settingsBarButtonHit:" destination="JlO-Oc-S3P" id="YZ2-um-v1Z"/>
+                                <action selector="setSoundSettingsBarButtonHit" destination="JlO-Oc-S3P" id="YZ2-um-v1Z"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -264,12 +264,11 @@
                         <outlet property="minutesLabel" destination="cbl-rx-DkY" id="OCu-X6-LEz"/>
                         <outlet property="secondsLabel" destination="Nev-tz-EK3" id="XGR-Rc-zML"/>
                         <outlet property="setTimeContainerView" destination="9ix-aj-H7Q" id="zjZ-t5-WYq"/>
-                        <outlet property="settingsBarButton" destination="Rlq-L4-0Xd" id="F9e-Ur-49Y"/>
+                        <outlet property="soundSettingsBarButton" destination="Rlq-L4-0Xd" id="F9e-Ur-49Y"/>
                         <outlet property="statusLabel" destination="lAB-yM-IWU" id="s0K-EX-OOx"/>
                         <outlet property="timeSetPicker" destination="1vE-IS-Nx4" id="lzf-hS-dYF"/>
                         <outlet property="timeTypeSegmentedControl" destination="kx5-6Q-HlR" id="BeD-iS-WpR"/>
                         <outlet property="toolbar" destination="czQ-xo-bRA" id="lCb-Ix-5xp"/>
-                        <segue destination="qtn-ke-y9i" kind="show" identifier="edit-group" id="A4Z-QK-Eqk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2QB-7k-b82" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -286,10 +285,10 @@
             </objects>
             <point key="canvasLocation" x="1649.6183206106869" y="-211.26760563380282"/>
         </scene>
-        <!--Ri ValT Group Settings View Controller-->
+        <!--Ri ValT Sound Settings View Controller-->
         <scene sceneID="LRs-Pu-xk6">
             <objects>
-                <viewController storyboardIdentifier="RiValT_GroupSettings_ViewController" id="qtn-ke-y9i" customClass="RiValT_GroupSettings_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RiValT_SoundSettings_ViewController" id="qtn-ke-y9i" customClass="RiValT_SoundSettings_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="W7d-nS-lXp">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
