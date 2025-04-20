@@ -13,78 +13,6 @@ import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
-// MARK: - Extension for Integrating Persistent Settings -
-/* ###################################################################################################################################### */
-extension TimerGroup {
-    /* ################################################################################################################################## */
-    // MARK: - Extension for Integrating Persistent Settings -
-    /* ################################################################################################################################## */
-    /**
-     This enum defines one of the three different display types for a running timer.
-     */
-    enum DisplayType: String, CaseIterable {
-        /* ############################################################## */
-        /**
-         This displays massive "LED" numbers.
-         */
-        case numerical
-
-        /* ############################################################## */
-        /**
-         This displays a circle, winding down.
-         */
-        case circular
-        
-        /* ############################################################## */
-        /**
-         This displays three "stoplights."
-         */
-        case stoplights
-        
-        /* ############################################################## */
-        /**
-         Returns the image associated with this state.
-         */
-        var image: UIImage? {
-            switch self {
-            case .numerical:
-                return UIImage(named: "DisplayDigits")
-            case .circular:
-                return UIImage(named: "DisplayCircle")
-            case .stoplights:
-                return UIImage(named: "DisplayDots")
-            }
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     Accessor for the group settings.
-     */
-    private var _storedSettings: [String: any Hashable] {
-        get {
-            RiValT_Settings().groupSettings[self.id.uuidString] ?? [:]
-        }
-        set { RiValT_Settings().groupSettings[self.id.uuidString] = newValue }
-    }
-    
-    /* ################################################################## */
-    /**
-     This defines the type of display to use for the running timer.
-     */
-    var displayType: DisplayType {
-        get {
-            if let dType = _storedSettings["displayType"] as? String,
-               let ret = DisplayType(rawValue: dType) {
-                return ret
-            }
-            return .numerical
-        }
-        set { _storedSettings["displayType"] = newValue.rawValue }
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - Special Bar Button for Display Selection -
 /* ###################################################################################################################################### */
 /**
@@ -238,6 +166,7 @@ extension RiValT_DisplaySettings_ViewController {
             self.group?.displayType = TimerGroup.DisplayType.numerical
         }
         self.previewImageView?.image = image
+        self.updateSettings()
     }
 }
 

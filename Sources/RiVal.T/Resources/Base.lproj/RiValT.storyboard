@@ -316,10 +316,7 @@
                                 </connections>
                             </segmentedControl>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bxo-RZ-jvl">
-                                <rect key="frame" x="16" y="164" width="361" height="200.66666666666663"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="bxo-RZ-jvl" secondAttribute="height" multiplier="36:20" id="Imd-7N-f7q"/>
-                                </constraints>
+                                <rect key="frame" x="16" y="164" width="361" height="612"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bQD-7I-Gdi"/>

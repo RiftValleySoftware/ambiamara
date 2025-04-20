@@ -575,7 +575,6 @@ extension RiValT_MultiTimer_ViewController {
             else { return }
             
             self.timerModel.removeTimer(from: indexPath)
-            RiValT_Settings().cleanGroupSettings()
 
             self.updateSnapshot()
             self.collectionView?.reloadData()

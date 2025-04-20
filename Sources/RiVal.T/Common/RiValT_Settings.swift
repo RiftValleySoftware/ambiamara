@@ -80,39 +80,4 @@ class RiValT_Settings: RVS_PersistentPrefs {
         }
         set { self.values[Keys.timerModel.rawValue] = newValue }
     }
-
-    /* ################################################################## */
-    /**
-     The various other settings, like alarms and whatnot.
-     */
-    var groupSettings: [String: [String: any Hashable]] {
-        get { self.values[Keys.groupSettings.rawValue] as? [String: [String: any Hashable]] ?? [:] }
-        set { self.values[Keys.groupSettings.rawValue] = newValue }
-    }
-    
-    /* ################################################################## */
-    /**
-     This removes group settings that are no longer applicable.
-     It also adds empty settings for new ones.
-     */
-    func cleanGroupSettings() {
-        let groupIDs = RiValT_AppDelegate.appDelegateInstance?.timerModel.map { $0.id.uuidString } ?? []
-        let groupKeys = self.groupSettings.keys.map { String($0) }
-        groupKeys.forEach {
-            if !groupIDs.contains($0) {
-                #if DEBUG
-                    print("Removing stored settings for group \($0)")
-                #endif
-                self.groupSettings.removeValue(forKey: $0)
-            }
-        }
-        groupIDs.forEach {
-            if !groupKeys.contains($0) {
-                #if DEBUG
-                    print("Adding stored settings for group \($0)")
-                #endif
-                self.groupSettings[$0] = [:]
-            }
-        }
-    }
 }

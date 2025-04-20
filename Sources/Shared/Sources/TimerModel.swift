@@ -390,6 +390,96 @@ extension TimerModel: Sequence {
  This is a class, so it can be referenced.
  */
 class TimerGroup: Equatable {
+    /* ################################################################################################################################## */
+    // MARK: - Extension for Integrating Persistent Settings -
+    /* ################################################################################################################################## */
+    /**
+     This enum defines one of the three different display types for a running timer.
+     */
+    enum SoundType {
+        /* ############################################################## */
+        /**
+         No sound, no vibration
+         */
+        case none
+
+        /* ############################################################## */
+        /**
+         No sound, vibration
+         */
+        case vibrate
+
+        /* ############################################################## */
+        /**
+         Sound, no vibration
+         */
+        case sound(soundFileName: String)
+
+        /* ############################################################## */
+        /**
+         Sound, vibration
+         */
+        case soundVibrate(soundFileName: String)
+
+        /* ############################################################## */
+        /**
+         Returns the image associated with this state.
+         */
+        var image: UIImage? {
+            switch self {
+            case .none:
+                return UIImage(named: "Sound-Off")
+            case .sound:
+                return UIImage(named: "Sound-On")
+            case .vibrate:
+                return UIImage(named: "Sound-Off-Vib")
+            case .soundVibrate:
+                return UIImage(named: "Sound-On-Vib")
+            }
+        }
+    }
+    
+    /* ################################################################################################################################## */
+    // MARK: - Extension for Integrating Persistent Settings -
+    /* ################################################################################################################################## */
+    /**
+     This enum defines one of the three different display types for a running timer.
+     */
+    enum DisplayType: String, CaseIterable {
+        /* ############################################################## */
+        /**
+         This displays massive "LED" numbers.
+         */
+        case numerical
+
+        /* ############################################################## */
+        /**
+         This displays a circle, winding down.
+         */
+        case circular
+        
+        /* ############################################################## */
+        /**
+         This displays three "stoplights."
+         */
+        case stoplights
+        
+        /* ############################################################## */
+        /**
+         Returns the image associated with this state.
+         */
+        var image: UIImage? {
+            switch self {
+            case .numerical:
+                return UIImage(named: "DisplayDigits")
+            case .circular:
+                return UIImage(named: "DisplayCircle")
+            case .stoplights:
+                return UIImage(named: "DisplayDots")
+            }
+        }
+    }
+    
     /* ############################################################## */
     /**
      Equatable Conformance
@@ -417,8 +507,20 @@ class TimerGroup: Equatable {
     /**
      A unique ID, for comparing.
      */
-    var id = UUID()
+    var id: UUID = UUID()
     
+    /* ############################################################## */
+    /**
+     The type of display for the group.
+     */
+    var displayType: DisplayType = .numerical
+    
+    /* ############################################################## */
+    /**
+     The type of display for the group.
+     */
+    var soundType: SoundType = .none
+
     /* ############################################################## */
     /**
      The container that "owns" this group.
@@ -430,18 +532,27 @@ class TimerGroup: Equatable {
      Main Initializer
      
      - parameter inContainer: The container that "owns" this group.
+     - parameter inDictionary: The dictionary that contains the preserved state.
      */
-    init(container inContainer: TimerModel, dictionary: [[String: any Hashable]]? = nil) {
+    init(container inContainer: TimerModel, dictionary inDictionary: [[String: any Hashable]]? = nil) {
         self.model = inContainer
         
-        if let inDicts = dictionary {
-            if let firstValue: [String: any Hashable] = inDicts.first,
-               let idString = firstValue["id"] as? String,
+        if let newValue = inDictionary,
+           !newValue.isEmpty {
+            let firstValue: [String: any Hashable] = newValue[0]
+            if let idString = firstValue["id"] as? String,
                !idString.isEmpty,
                let id = UUID(uuidString: idString) {
                 self.id = id
             }
-            let remainingValues = 1 < inDicts.count ? Array(inDicts[1...]) : []
+            
+            if let displayTypeString = firstValue["displayType"] as? String,
+               !displayTypeString.isEmpty,
+               let displayType = DisplayType(rawValue: displayTypeString) {
+                self.displayType = displayType
+            }
+            
+            let remainingValues = 1 < newValue.count ? Array(newValue[1...]) : []
             self._timers = remainingValues.map { Timer(group: self, dictionary: $0) }
         }
     }
@@ -475,7 +586,7 @@ extension TimerGroup {
      */
     var asArray: [[String: any Hashable]] {
         get {
-            var ret: [[String: any Hashable]] = [["id": UUID().uuidString]]
+            var ret: [[String: any Hashable]] = [["id": UUID().uuidString, "displayType": self.displayType.rawValue]]
             
             self._timers.forEach {
                 ret.append($0.asDictionary)
@@ -483,14 +594,23 @@ extension TimerGroup {
             return ret
         }
         set {
-            if let firstValue: [String: any Hashable] = newValue.first,
-               let idString = firstValue["id"] as? String,
-               !idString.isEmpty,
-               let id = UUID(uuidString: idString) {
-                self.id = id
+            if !newValue.isEmpty {
+                let firstValue: [String: any Hashable] = newValue[0]
+                if let idString = firstValue["id"] as? String,
+                   !idString.isEmpty,
+                   let id = UUID(uuidString: idString) {
+                    self.id = id
+                }
+                
+                if let displayTypeString = firstValue["displayType"] as? String,
+                   !displayTypeString.isEmpty,
+                   let displayType = DisplayType(rawValue: displayTypeString) {
+                    self.displayType = displayType
+                }
+                
+                let remainingValues = 1 < newValue.count ? Array(newValue[1...]) : []
+                self._timers = remainingValues.map { Timer(group: self, dictionary: $0) }
             }
-            let remainingValues = 1 < newValue.count ? Array(newValue[1...]) : []
-            self._timers = remainingValues.map { Timer(group: self, dictionary: $0) }
         }
     }
     

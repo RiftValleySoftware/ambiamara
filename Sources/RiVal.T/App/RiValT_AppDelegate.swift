@@ -57,8 +57,6 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
             timer.isSelected = true
             RiValT_Settings().timerModel = self.timerModel.asArray
         }
-        RiValT_Settings().flush()
-        RiValT_Settings().cleanGroupSettings()
     }
     
     /* ################################################################## */
