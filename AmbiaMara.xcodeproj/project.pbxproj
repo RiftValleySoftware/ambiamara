@@ -48,6 +48,7 @@
 		D48A5E352D934ED200770606 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D48A5E342D934ED200770606 /* RVS_UIKit_Toolbox */; };
 		D48CDA042DB44786008C2DF9 /* Accessibility.strings in Resources */ = {isa = PBXBuildFile; fileRef = D48CDA032DB44786008C2DF9 /* Accessibility.strings */; };
 		D48F68C62DB438680093D938 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D48F68C52DB438680093D938 /* Localizable.strings */; };
+		D4A149BD2DB66A4700B70A7B /* RVS_Checkbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4A149BC2DB66A4700B70A7B /* RVS_Checkbox */; };
 		D4A932222D64E9CB0028556E /* Rift_Valley_Timer_Watch_App_MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A9321F2D64E9CB0028556E /* Rift_Valley_Timer_Watch_App_MainContentView.swift */; };
 		D4A932232D64E9CB0028556E /* Rift_Valley_Timer_Watch_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A932202D64E9CB0028556E /* Rift_Valley_Timer_Watch_App.swift */; };
 		D4A9322A2D64E9CB0028556E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4A932262D64E9CB0028556E /* Assets.xcassets */; };
@@ -337,6 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D43B97722DA2C2D00028E023 /* RVS_Persistent_Prefs in Frameworks */,
+				D4A149BD2DB66A4700B70A7B /* RVS_Checkbox in Frameworks */,
 				D43B97742DA2C2D00028E023 /* RVS_RetroLEDDisplay in Frameworks */,
 				D43B97782DA2C2D00028E023 /* RVS_BasicGCDTimer in Frameworks */,
 				D43B97702DA2C2D00028E023 /* RVS_Generic_Swift_Toolbox in Frameworks */,
@@ -552,8 +554,8 @@
 			children = (
 				D4E2E8FA2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift */,
 				D4EDE73A2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift */,
-				D45184C92DB42DBE00DA671D /* RiValT_SoundSettings_ViewController.swift */,
 				D40FB3062DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift */,
+				D45184C92DB42DBE00DA671D /* RiValT_SoundSettings_ViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -763,6 +765,7 @@
 				D43B97732DA2C2D00028E023 /* RVS_RetroLEDDisplay */,
 				D43B97752DA2C2D00028E023 /* RVS_UIKit_Toolbox */,
 				D43B97772DA2C2D00028E023 /* RVS_BasicGCDTimer */,
+				D4A149BC2DB66A4700B70A7B /* RVS_Checkbox */,
 			);
 			productName = RiVal.T;
 			productReference = D43B97352DA2C0F50028E023 /* RiVal.T.app */;
@@ -959,6 +962,7 @@
 				D4C4B7152819D3D300E22ECA /* XCRemoteSwiftPackageReference "RVS_RetroLEDDisplay" */,
 				D4079932287731860058EAF4 /* XCRemoteSwiftPackageReference "RVS_UIKit_Toolbox" */,
 				D4D193BB2D883DEA008DA06F /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */,
+				D4A149BB2DB66A4700B70A7B /* XCRemoteSwiftPackageReference "RVS_Checkbox" */,
 			);
 			productRefGroup = D47C029C2819CA6500D359F5 /* Products */;
 			projectDirPath = "";
@@ -2024,6 +2028,14 @@
 				minimumVersion = 1.7.1;
 			};
 		};
+		D4A149BB2DB66A4700B70A7B /* XCRemoteSwiftPackageReference "RVS_Checkbox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RiftValleySoftware/RVS_Checkbox";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.1;
+			};
+		};
 		D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox";
@@ -2128,6 +2140,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4079932287731860058EAF4 /* XCRemoteSwiftPackageReference "RVS_UIKit_Toolbox" */;
 			productName = RVS_UIKit_Toolbox;
+		};
+		D4A149BC2DB66A4700B70A7B /* RVS_Checkbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4A149BB2DB66A4700B70A7B /* XCRemoteSwiftPackageReference "RVS_Checkbox" */;
+			productName = RVS_Checkbox;
 		};
 		D4CD2E7E284697E100400AB0 /* RVS_Generic_Swift_Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;

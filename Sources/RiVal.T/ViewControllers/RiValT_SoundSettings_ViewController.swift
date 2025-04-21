@@ -90,13 +90,6 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
      This is the audio player (for sampling sounds).
     */
     private var _audioPlayer: AVAudioPlayer!
-
-    /* ################################################################## */
-    /**
-     This aggregates our available sounds.
-     The sounds are files, stored in the resources, so this simply gets them, and stores them as path URIs.
-    */
-    private var _soundSelection: [String] = []
     
     /* ################################################################## */
     /**
@@ -120,7 +113,7 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
                 self._audioPlayer = nil
                 
                 if self._isSoundPlaying,
-                   let url = URL(string: self._soundSelection[self._selectedSoundIndex]) {
+                   let url = URL(string: RiValT_Settings.soundURIs[self._selectedSoundIndex]) {
                     self.playThisSound(url)
                 }
                 
@@ -169,7 +162,7 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     /**
      The stack view that holds the sound selection picker, and the play sound button.
     */
-    @IBOutlet weak var soundSelectionStackView: UIView?
+    @IBOutlet weak var mainPickerStackView: UIView?
     
     /* ################################################################## */
     /**
@@ -183,16 +176,7 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
      */
     override func viewDidLoad() {
         self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
-        
         super.viewDidLoad()
-        
-        guard let groupIndex = self.group?.index else { return }
-        
-        if 1 < timerModel.count {
-            self.navigationItem.title = String(format: "SLUG-SETTINGS-FORMAT".localizedVariant, groupIndex + 1)
-        } else {
-            self.navigationItem.title = "SLUG-GROUP-SETTINGS".localizedVariant
-        }
     }
     
     /* ################################################################## */
@@ -201,7 +185,7 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
      It also starts or stops the sound play.
     */
     func setUpForSoundPlayMode() {
-        soundPlayButton?.setImage(UIImage(systemName: Self._playSoundImageNames[_isSoundPlaying ? 1 : 0]), for: .normal)
+        self.soundPlayButton?.setImage(UIImage(systemName: Self._playSoundImageNames[_isSoundPlaying ? 1 : 0]), for: .normal)
     }
 
     /* ################################################################## */
@@ -211,15 +195,15 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
      - parameter inSoundURL: This is the URI to the sound resource.
      */
     func playThisSound(_ inSoundURL: URL) {
-        if nil == _audioPlayer {
+        if nil == self._audioPlayer {
             try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
             if let audioPlayer = try? AVAudioPlayer(contentsOf: inSoundURL) {
                 audioPlayer.numberOfLoops = -1  // Keep repeating.
-                _audioPlayer = audioPlayer
+                self._audioPlayer = audioPlayer
             }
         }
     
-        _audioPlayer?.play()
+        self._audioPlayer?.play()
     }
 }
 
@@ -237,8 +221,8 @@ extension RiValT_SoundSettings_ViewController {
         self.selectionHaptic()
 //        RVS_AmbiaMara_Settings().alarmMode = 1 == inSegmentedSwitch.selectedSegmentIndex
 //        myController?.setAlarmIcon()
-        soundSelectionStackView?.isHidden = 1 != alarmModeSegmentedSwitch?.selectedSegmentIndex
-        _isSoundPlaying = false
+        self.mainPickerStackView?.isHidden = 1 != inSegmentedSwitch.selectedSegmentIndex
+        self._isSoundPlaying = false
     }
     
     /* ################################################################## */
@@ -252,8 +236,8 @@ extension RiValT_SoundSettings_ViewController {
             self.selectionHaptic()
             self._useVibrate = vibrateSwitch.isOn
         } else {
-            vibrateSwitch?.setOn(!(vibrateSwitch?.isOn ?? true), animated: true)
-            vibrateSwitch?.sendActions(for: .valueChanged)
+            self.vibrateSwitch?.setOn(!(self.vibrateSwitch?.isOn ?? true), animated: true)
+            self.vibrateSwitch?.sendActions(for: .valueChanged)
         }
     }
     
@@ -265,7 +249,7 @@ extension RiValT_SoundSettings_ViewController {
     */
     @IBAction func soundPlayButtonHit(_: UIButton) {
         self.selectionHaptic()
-        _isSoundPlaying = !_isSoundPlaying
+        self._isSoundPlaying = !self._isSoundPlaying
     }
 }
 
@@ -286,7 +270,7 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDataSource {
      - parameter: The picker view (ignored)
      - parameter numberOfRowsInComponent: The 0-based index of the component we are querying.
     */
-    func pickerView(_: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int { _soundSelection.count }
+    func pickerView(_: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int { RiValT_Settings.soundURIs.count }
 }
 
 /* ###################################################################################################################################### */
@@ -303,9 +287,9 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
     */
     func pickerView(_ inPickerView: UIPickerView, didSelectRow inRow: Int, inComponent: Int) {
         let wasPlaying = _isSoundPlaying
-        _isSoundPlaying = false
+        self._isSoundPlaying = false
         self._selectedSoundIndex = inRow
-        _isSoundPlaying = wasPlaying
+        self._isSoundPlaying = wasPlaying
     }
     
     /* ################################################################## */
@@ -319,7 +303,7 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
      - returns: A new view, containing the row. If it is selected, it is displayed as reversed.
     */
     func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inView: UIView?) -> UIView {
-        guard let soundUri = URL(string: _soundSelection[inRow].urlEncodedString ?? "")?.lastPathComponent else { return UIView() }
+        guard let soundUri = URL(string: RiValT_Settings.soundURIs[inRow].urlEncodedString ?? "")?.lastPathComponent else { return UIView() }
         let labelFrame = CGRect(origin: .zero, size: CGSize(width: inPickerView.bounds.size.width - Self._pickerPaddingInDisplayUnits, height: inPickerView.bounds.size.height / 3))
         let label = UILabel(frame: labelFrame)
         label.font = Self._pickerFont
@@ -360,6 +344,6 @@ extension RiValT_SoundSettings_ViewController: AVAudioPlayerDelegate {
       - parameter successfully: True, if the play was successful (also ignored).
     */
     func audioPlayerDidFinishPlaying(_: AVAudioPlayer, successfully: Bool) {
-        _isSoundPlaying = false
+        self._isSoundPlaying = false
     }
 }

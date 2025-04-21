@@ -286,44 +286,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WXD-Oe-bis">
-                                <rect key="frame" x="20" y="138" width="353" height="646"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WXD-Oe-bis">
+                                <rect key="frame" x="20" y="138" width="353" height="74"/>
                                 <subviews>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ftZ-z7-iD4">
-                                        <rect key="frame" x="0.0" y="0.0" width="353" height="603"/>
-                                        <color key="backgroundColor" name="SegSwitchColor"/>
+                                    <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ftZ-z7-iD4">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="1DW-cS-OWc"/>
+                                        </constraints>
                                         <segments>
                                             <segment title="">
-                                                <imageReference key="image" image="bell.slash.fill" catalog="system" symbolScale="large"/>
+                                                <imageReference key="image" image="bell.slash" catalog="system" symbolScale="large"/>
                                             </segment>
                                             <segment title="">
                                                 <imageReference key="image" image="bell.fill" catalog="system" symbolScale="large"/>
                                             </segment>
                                         </segments>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="selectedSegmentTintColor" name="AccentColor"/>
+                                        <color key="selectedSegmentTintColor" systemColor="labelColor"/>
+                                        <connections>
+                                            <action selector="alarmModeSegmentedSwitchHit:" destination="qtn-ke-y9i" eventType="valueChanged" id="8e9-hi-gES"/>
+                                        </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tGW-IT-9tb">
-                                        <rect key="frame" x="0.0" y="610" width="353" height="36"/>
+                                        <rect key="frame" x="0.0" y="38" width="353" height="36"/>
                                         <subviews>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nV8-aY-7ec">
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nV8-aY-7ec" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
                                                 <rect key="frame" x="0.0" y="0.0" width="51" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="nD6-o3-kNA"/>
                                                 </constraints>
-                                                <color key="thumbTintColor" name="AccentColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isThreeState" value="NO"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isUsingSFSymbols" value="YES"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="useHaptics" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="vibrateSwitchChanged:" destination="qtn-ke-y9i" eventType="valueChanged" id="URu-df-bzS"/>
+                                                </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dd1-Ac-hqz">
                                                 <rect key="frame" x="57" y="0.0" width="296" height="36"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="SLUG-VIBRATE-BUTTON"/>
+                                                <state key="normal" title="SLUG-VIBRATE-BUTTON">
+                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="vibrateSwitchChanged:" destination="qtn-ke-y9i" eventType="touchUpInside" id="HjK-Uh-RcW"/>
                                                 </connections>
@@ -336,10 +344,11 @@
                                         </constraints>
                                     </stackView>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="4ZO-Zh-GjT" userLabel="Main Picker Stack View">
-                                        <rect key="frame" x="0.0" y="646" width="353" height="100"/>
+                                        <rect key="frame" x="0.0" y="74" width="353" height="100"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="0Gw-EK-6Of">
                                                 <rect key="frame" x="0.0" y="0.0" width="313" height="100"/>
+                                                <color key="tintColor" systemColor="labelColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="okf-TN-eT1"/>
                                                 </constraints>
@@ -349,10 +358,11 @@
                                                 </connections>
                                             </pickerView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efB-wQ-Sxt">
-                                                <rect key="frame" x="313" y="37.666666666666629" width="40" height="25"/>
+                                                <rect key="frame" x="313" y="37.666666666666657" width="40" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="DM3-5d-4jl"/>
                                                 </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal">
                                                     <imageReference key="image" image="speaker.wave.3.fill" catalog="system" symbolScale="large"/>
@@ -380,7 +390,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" name="AccentColor"/>
                         <constraints>
-                            <constraint firstItem="y8b-Sy-uSC" firstAttribute="bottom" secondItem="WXD-Oe-bis" secondAttribute="bottom" placeholder="YES" id="FDG-4k-F8d"/>
+                            <constraint firstItem="y8b-Sy-uSC" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="WXD-Oe-bis" secondAttribute="bottom" placeholder="YES" id="FDG-4k-F8d"/>
                             <constraint firstItem="WXD-Oe-bis" firstAttribute="leading" secondItem="y8b-Sy-uSC" secondAttribute="leading" constant="20" id="cjU-si-anI"/>
                             <constraint firstItem="WXD-Oe-bis" firstAttribute="top" secondItem="y8b-Sy-uSC" secondAttribute="top" constant="20" id="h4R-SV-SJa"/>
                             <constraint firstItem="y8b-Sy-uSC" firstAttribute="trailing" secondItem="WXD-Oe-bis" secondAttribute="trailing" constant="20" id="sG7-NF-tNZ"/>
@@ -389,8 +399,8 @@
                     <navigationItem key="navigationItem" id="kJY-yz-cur"/>
                     <connections>
                         <outlet property="alarmModeSegmentedSwitch" destination="ftZ-z7-iD4" id="lpK-nV-Nfc"/>
+                        <outlet property="mainPickerStackView" destination="4ZO-Zh-GjT" id="cEU-m2-U45"/>
                         <outlet property="soundPlayButton" destination="efB-wQ-Sxt" id="lqZ-4I-F4H"/>
-                        <outlet property="soundSelectionStackView" destination="WXD-Oe-bis" id="Yg8-pw-the"/>
                         <outlet property="soundsPickerView" destination="0Gw-EK-6Of" id="BDq-cn-621"/>
                         <outlet property="vibrateSwitch" destination="nV8-aY-7ec" id="Yo0-J5-ovp"/>
                         <outlet property="vibrateSwitchLabelButton" destination="dd1-Ac-hqz" id="UhJ-8M-0wf"/>
@@ -476,19 +486,19 @@
         <image name="DisplayDigits" width="150" height="127"/>
         <image name="DisplayDots" width="150" height="127"/>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
-        <image name="bell.slash.fill" catalog="system" width="119" height="128"/>
+        <image name="bell.slash" catalog="system" width="119" height="128"/>
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="84"/>
         <namedColor name="AccentColor">
             <color red="0.31400001049041748" green="0.37999999523162842" blue="0.89399999380111694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="SegSwitchColor">
-            <color red="1" green="1" blue="1" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

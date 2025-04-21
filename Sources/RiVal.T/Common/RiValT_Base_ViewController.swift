@@ -93,7 +93,6 @@ extension RiValT_Base_ViewController {
      We use this to set the background.
      */
     override func viewDidLoad() {
-
         super.viewDidLoad()
         self.navigationItem.title = self.navigationItem.title?.localizedVariant
 
