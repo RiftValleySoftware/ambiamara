@@ -517,9 +517,15 @@ class TimerGroup: Equatable {
     
     /* ############################################################## */
     /**
-     The type of display for the group.
+     The final alarm sound.
      */
     var soundType: SoundType = .none
+    
+    /* ############################################################## */
+    /**
+     The sound used for transitions between timers in the group.
+     */
+    var transitionSoundFilename: String?
 
     /* ############################################################## */
     /**
@@ -540,6 +546,7 @@ class TimerGroup: Equatable {
         if let newValue = inDictionary,
            !newValue.isEmpty {
             let firstValue: [String: any Hashable] = newValue[0]
+            
             if let idString = firstValue["id"] as? String,
                !idString.isEmpty,
                let id = UUID(uuidString: idString) {
@@ -552,6 +559,30 @@ class TimerGroup: Equatable {
                 self.displayType = displayType
             }
             
+            if let transitionSoundFilenameString = firstValue["transitionSoundFilename"] as? String,
+               !transitionSoundFilenameString.isEmpty {
+                self.transitionSoundFilename = transitionSoundFilenameString
+            } else {
+                self.transitionSoundFilename = nil
+            }
+            
+            if let soundTypeString = firstValue["soundTypeString"] as? String,
+               !soundTypeString.isEmpty {
+                switch soundTypeString {
+                case "vibrate":
+                    self.soundType = .vibrate
+                case "sound", "soundVibrate":
+                    if let mainSoundFileName = firstValue["mainSoundFileName"] as? String,
+                       !mainSoundFileName.isEmpty {
+                        self.soundType = "sound" == soundTypeString ? .sound(soundFileName: mainSoundFileName) : .soundVibrate(soundFileName: mainSoundFileName)
+                    } else {
+                        fallthrough
+                    }
+                default:
+                    self.soundType = .none
+                }
+            }
+
             let remainingValues = 1 < newValue.count ? Array(newValue[1...]) : []
             self._timers = remainingValues.map { Timer(group: self, dictionary: $0) }
         }
@@ -586,7 +617,25 @@ extension TimerGroup {
      */
     var asArray: [[String: any Hashable]] {
         get {
-            var ret: [[String: any Hashable]] = [["id": UUID().uuidString, "displayType": self.displayType.rawValue]]
+            var ret: [[String: any Hashable]] = [
+                ["id": UUID().uuidString,
+                 "displayType": self.displayType.rawValue,
+                 "transitionSoundFilename": self.transitionSoundFilename ?? ""
+                ]
+            ]
+            
+            switch self.soundType {
+            case .vibrate:
+                ret[0]["soundTypeString"] = "vibrate"
+            case .sound(soundFileName: let soundFileName):
+                ret[0]["soundTypeString"] = "sound"
+                ret[0]["mainSoundFileName"] = soundFileName
+            case .soundVibrate(soundFileName: let soundFileName):
+                ret[0]["soundTypeString"] = "soundVibrate"
+                ret[0]["mainSoundFileName"] = soundFileName
+            default:
+                break
+            }
             
             self._timers.forEach {
                 ret.append($0.asDictionary)
@@ -608,6 +657,30 @@ extension TimerGroup {
                     self.displayType = displayType
                 }
                 
+                if let transitionSoundFilenameString = firstValue["transitionSoundFilename"] as? String,
+                   !transitionSoundFilenameString.isEmpty {
+                    self.transitionSoundFilename = transitionSoundFilenameString
+                } else {
+                    self.transitionSoundFilename = nil
+                }
+                
+                if let soundTypeString = firstValue["soundTypeString"] as? String,
+                   !soundTypeString.isEmpty {
+                    switch soundTypeString {
+                    case "vibrate":
+                        self.soundType = .vibrate
+                    case "sound", "soundVibrate":
+                        if let mainSoundFileName = firstValue["mainSoundFileName"] as? String,
+                           !mainSoundFileName.isEmpty {
+                            self.soundType = "sound" == soundTypeString ? .sound(soundFileName: mainSoundFileName) : .soundVibrate(soundFileName: mainSoundFileName)
+                        } else {
+                            fallthrough
+                        }
+                    default:
+                        self.soundType = .none
+                    }
+                }
+
                 let remainingValues = 1 < newValue.count ? Array(newValue[1...]) : []
                 self._timers = remainingValues.map { Timer(group: self, dictionary: $0) }
             }
