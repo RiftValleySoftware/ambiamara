@@ -428,13 +428,13 @@ class TimerGroup: Equatable {
         var image: UIImage? {
             switch self {
             case .none:
-                return UIImage(named: "Sound-Off")
+                return UIImage(systemName: "bell.slash")
             case .sound:
-                return UIImage(named: "Sound-On")
+                return UIImage(systemName: "bell.fill")
             case .vibrate:
-                return UIImage(named: "Sound-Off-Vib")
+                return UIImage(systemName: "bell.and.waves.left.and.right")
             case .soundVibrate:
-                return UIImage(named: "Sound-On-Vib")
+                return UIImage(systemName: "bell.and.waves.left.and.right.fill")
             }
         }
     }

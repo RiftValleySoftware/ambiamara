@@ -177,8 +177,21 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     override func viewDidLoad() {
         self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
         super.viewDidLoad()
+        self.alarmModeSegmentedSwitch?.setImage(TimerGroup.SoundType.none.image, forSegmentAt: 0)
+        self.alarmModeSegmentedSwitch?.setImage(TimerGroup.SoundType.vibrate.image, forSegmentAt: 1)
+        self.alarmModeSegmentedSwitch?.setImage(TimerGroup.SoundType.sound(soundFileName: "").image, forSegmentAt: 2)
+        self.alarmModeSegmentedSwitch?.setImage(TimerGroup.SoundType.soundVibrate(soundFileName: "").image, forSegmentAt: 3)
     }
     
+    /* ############################################################## */
+    /**
+     The size of the popover.
+     */
+    override var preferredContentSize: CGSize {
+        get { CGSize(width: 270, height: 270) }
+        set { super.preferredContentSize = newValue }
+    }
+
     /* ################################################################## */
     /**
      Sets the image to the play button, depending on whether or not the sound is playing.
@@ -219,9 +232,7 @@ extension RiValT_SoundSettings_ViewController {
     */
     @IBAction func alarmModeSegmentedSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         self.selectionHaptic()
-//        RVS_AmbiaMara_Settings().alarmMode = 1 == inSegmentedSwitch.selectedSegmentIndex
-//        myController?.setAlarmIcon()
-        self.mainPickerStackView?.isHidden = 1 != inSegmentedSwitch.selectedSegmentIndex
+        self.mainPickerStackView?.isHidden = 2 > inSegmentedSwitch.selectedSegmentIndex
         self._isSoundPlaying = false
     }
     

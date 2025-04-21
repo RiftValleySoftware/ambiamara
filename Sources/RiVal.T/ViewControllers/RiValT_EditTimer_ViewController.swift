@@ -411,7 +411,7 @@ extension RiValT_EditTimer_ViewController {
         displaySettingsButtonItem.target = self
         displaySettingsButtonItem.action = #selector(displaySettingsButtonHit)
         self.navigationItem.rightBarButtonItems = nil
-        self.navigationItem.rightBarButtonItems = [soundSettingsButtonItem, displaySettingsButtonItem]
+        self.navigationItem.rightBarButtonItems = [soundSettingsButtonItem, UIBarButtonItem.flexibleSpace(), displaySettingsButtonItem]
     }
     
     /* ############################################################## */
