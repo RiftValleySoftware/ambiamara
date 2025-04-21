@@ -412,6 +412,7 @@
                         <outlet property="alarmModeSegmentedSwitch" destination="2r1-h3-CVb" id="m9T-nE-tXM"/>
                         <outlet property="mainPickerStackView" destination="CaB-on-Nru" id="7Q4-yF-f1H"/>
                         <outlet property="soundPlayButton" destination="nLc-gT-2tz" id="7TV-Vg-Uzi"/>
+                        <outlet property="soundsPickerView" destination="wa9-V3-AW2" id="ADV-2Y-ekg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ym7-tB-WDa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

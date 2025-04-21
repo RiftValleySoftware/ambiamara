@@ -169,19 +169,6 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
      This is the "play sound" button.
     */
     @IBOutlet weak var soundPlayButton: UIButton?
-
-    /* ############################################################## */
-    /**
-     Called when the view has loaded.
-     */
-    override func viewDidLoad() {
-        self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
-        super.viewDidLoad()
-        self.alarmModeSegmentedSwitch?.setImage(TimerGroup.SoundType.none.image, forSegmentAt: 0)
-        self.alarmModeSegmentedSwitch?.setImage(TimerGroup.SoundType.vibrate.image, forSegmentAt: 1)
-        self.alarmModeSegmentedSwitch?.setImage(TimerGroup.SoundType.sound(soundFileName: "").image, forSegmentAt: 2)
-        self.alarmModeSegmentedSwitch?.setImage(TimerGroup.SoundType.soundVibrate(soundFileName: "").image, forSegmentAt: 3)
-    }
     
     /* ############################################################## */
     /**
@@ -190,6 +177,43 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     override var preferredContentSize: CGSize {
         get { CGSize(width: 270, height: 270) }
         set { super.preferredContentSize = newValue }
+    }
+
+    /* ############################################################## */
+    /**
+     Called when the view has loaded.
+     */
+    override func viewDidLoad() {
+        self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
+        super.viewDidLoad()
+        self.alarmModeSegmentedSwitch?.removeAllSegments()
+        self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.none.image, at: 0, animated: false)
+        self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.sound(soundFileName: "").image, at: 1, animated: false)
+        if self.hapticsAreAvailable {
+            self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.vibrate.image, at: 2, animated: false)
+            self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.soundVibrate(soundFileName: "").image, at: 3, animated: false)
+        }
+        
+        guard let segmentedSwitch = self.alarmModeSegmentedSwitch else { return }
+
+        switch self.group?.soundType {
+        case .sound(let soundURL)?:
+            self.alarmModeSegmentedSwitch?.selectedSegmentIndex = 1
+            for index in 0..<segmentedSwitch.numberOfSegments where RiValT_Settings.soundURIs[index] == soundURL {
+                self.soundsPickerView?.selectRow(index, inComponent: 0, animated: false)
+            }
+        case .vibrate? where self.hapticsAreAvailable:
+            self.alarmModeSegmentedSwitch?.selectedSegmentIndex = 2
+        case .soundVibrate(let soundURL)? where self.hapticsAreAvailable:
+            self.alarmModeSegmentedSwitch?.selectedSegmentIndex = 3
+            for index in 0..<segmentedSwitch.numberOfSegments where RiValT_Settings.soundURIs[index] == soundURL {
+                self.soundsPickerView?.selectRow(index, inComponent: 0, animated: false)
+            }
+        default:
+            self.alarmModeSegmentedSwitch?.selectedSegmentIndex = 0
+        }
+        
+        self.alarmModeSegmentedSwitchHit(segmentedSwitch)
     }
 
     /* ################################################################## */
@@ -232,24 +256,30 @@ extension RiValT_SoundSettings_ViewController {
     */
     @IBAction func alarmModeSegmentedSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         self.selectionHaptic()
-        self.mainPickerStackView?.isHidden = 2 > inSegmentedSwitch.selectedSegmentIndex
-        self._isSoundPlaying = false
-    }
-    
-    /* ################################################################## */
-    /**
-     Called when the vibrate switch, or its label, changes.
-     
-     - parameter inSender: The switch that changed, or the label button.
-    */
-    @IBAction func vibrateSwitchChanged(_ inSender: UIControl) {
-        if let vibrateSwitch = inSender as? UISwitch {
-            self.selectionHaptic()
-            self._useVibrate = vibrateSwitch.isOn
-        } else {
-            self.vibrateSwitch?.setOn(!(self.vibrateSwitch?.isOn ?? true), animated: true)
-            self.vibrateSwitch?.sendActions(for: .valueChanged)
+        switch inSegmentedSwitch.selectedSegmentIndex {
+        case 1:
+            self.mainPickerStackView?.isHidden = false
+            if let pickerRow = self.soundsPickerView?.selectedRow(inComponent: 0),
+               let soundFileName = RiValT_Settings.soundURIs[pickerRow].urlEncodedString {
+                self.group?.soundType = .sound(soundFileName: soundFileName)
+            }
+        case 2:
+            self.group?.soundType = .vibrate
+            self.mainPickerStackView?.isHidden = true
+        case 3:
+            if let pickerRow = self.soundsPickerView?.selectedRow(inComponent: 0),
+               let soundFileName = RiValT_Settings.soundURIs[pickerRow].urlEncodedString {
+                self.group?.soundType = .soundVibrate(soundFileName: soundFileName)
+                self.mainPickerStackView?.isHidden = false
+            }
+
+        default:
+            self.group?.soundType = .none
+            self.mainPickerStackView?.isHidden = true
         }
+
+        self._isSoundPlaying = false
+        self.updateSettings()
     }
     
     /* ################################################################## */
@@ -297,6 +327,8 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
      - parameter inComponent: The component that contains the selected row (0-based index).
     */
     func pickerView(_ inPickerView: UIPickerView, didSelectRow inRow: Int, inComponent: Int) {
+        guard let segmentedSwitch = self.alarmModeSegmentedSwitch else { return }
+        self.alarmModeSegmentedSwitchHit(segmentedSwitch)
         let wasPlaying = _isSoundPlaying
         self._isSoundPlaying = false
         self._selectedSoundIndex = inRow
@@ -314,14 +346,14 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
      - returns: A new view, containing the row. If it is selected, it is displayed as reversed.
     */
     func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inView: UIView?) -> UIView {
-        guard let soundUri = URL(string: RiValT_Settings.soundURIs[inRow].urlEncodedString ?? "")?.lastPathComponent else { return UIView() }
+        guard let soundName = URL(string: RiValT_Settings.soundURIs[inRow].urlEncodedString ?? "")?.lastPathComponent else { return UIView() }
         let labelFrame = CGRect(origin: .zero, size: CGSize(width: inPickerView.bounds.size.width - Self._pickerPaddingInDisplayUnits, height: inPickerView.bounds.size.height / 3))
         let label = UILabel(frame: labelFrame)
         label.font = Self._pickerFont
-        label.textColor = .white
+        label.textColor = .label
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.25
-        label.text = soundUri.localizedVariant
+        label.text = soundName.localizedVariant
         label.textAlignment = .center
         
         return label
