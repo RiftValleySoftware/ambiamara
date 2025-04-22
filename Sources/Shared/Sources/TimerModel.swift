@@ -430,11 +430,11 @@ class TimerGroup: Equatable {
             case .none:
                 return UIImage(systemName: "bell.slash")
             case .sound:
-                return UIImage(systemName: "bell.fill")
+                return UIImage(systemName: "alarm.fill")
             case .vibrate:
                 return UIImage(systemName: "bell.and.waves.left.and.right")
             case .soundVibrate:
-                return UIImage(systemName: "bell.and.waves.left.and.right.fill")
+                return UIImage(systemName: "alarm.waves.left.and.right.fill")
             }
         }
     }
