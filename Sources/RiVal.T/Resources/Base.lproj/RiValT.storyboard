@@ -336,7 +336,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0gF-7Y-fYR">
-                                <rect key="frame" x="0.0" y="138" width="393" height="30"/>
+                                <rect key="frame" x="0.0" y="138" width="393" height="68"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2r1-h3-CVb">
                                         <rect key="frame" x="96.666666666666686" y="0.0" width="200" height="31"/>
@@ -358,8 +358,17 @@
                                             <action selector="alarmModeSegmentedSwitchHit:" destination="Ve2-9T-BtJ" eventType="valueChanged" id="peK-BF-ErJ"/>
                                         </connections>
                                     </segmentedControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="SLUG-NO-SOUND" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="I2Y-9F-3Ep">
+                                        <rect key="frame" x="125" y="38" width="143" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="whT-LT-Ytd"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CaB-on-Nru" userLabel="Main Picker Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="100"/>
+                                        <rect key="frame" x="0.0" y="68" width="393" height="100"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="wa9-V3-AW2">
                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="100"/>
@@ -410,13 +419,14 @@
                             <constraint firstItem="0gF-7Y-fYR" firstAttribute="top" secondItem="agT-5B-lHc" secondAttribute="top" constant="20" id="X8J-ZR-m4Q"/>
                             <constraint firstItem="0gF-7Y-fYR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="agT-5B-lHc" secondAttribute="leading" id="XZm-rd-n5X"/>
                             <constraint firstItem="agT-5B-lHc" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0gF-7Y-fYR" secondAttribute="trailing" id="jOj-2a-9so"/>
-                            <constraint firstItem="agT-5B-lHc" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0gF-7Y-fYR" secondAttribute="bottom" id="mdX-2t-1hn"/>
+                            <constraint firstItem="agT-5B-lHc" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0gF-7Y-fYR" secondAttribute="bottom" priority="999" id="mdX-2t-1hn"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="alarmModeSegmentedSwitch" destination="2r1-h3-CVb" id="m9T-nE-tXM"/>
                         <outlet property="mainPickerStackView" destination="CaB-on-Nru" id="7Q4-yF-f1H"/>
                         <outlet property="soundPlayButton" destination="nLc-gT-2tz" id="7TV-Vg-Uzi"/>
+                        <outlet property="soundTypeLabel" destination="I2Y-9F-3Ep" id="xph-3E-7hG"/>
                         <outlet property="soundsPickerView" destination="wa9-V3-AW2" id="ADV-2Y-ekg"/>
                     </connections>
                 </viewController>

@@ -437,6 +437,23 @@ class TimerGroup: Equatable {
                 return UIImage(systemName: "alarm.waves.left.and.right.fill")
             }
         }
+        
+        /* ############################################################## */
+        /**
+         Returns a string, describing the state.
+         */
+        var description: String {
+            switch self {
+            case .none:
+                return "SLUG-NO-SOUND".localizedVariant
+            case .sound:
+                return "SLUG-SOUND-ONLY".localizedVariant
+            case .vibrate:
+                return "SLUG-VIBRATE-ONLY".localizedVariant
+            case .soundVibrate:
+                return "SLUG-SOUND-VIBRATE".localizedVariant
+            }
+        }
     }
     
     /* ################################################################################################################################## */

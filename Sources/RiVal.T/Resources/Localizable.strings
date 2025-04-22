@@ -79,5 +79,7 @@
 
 // MARK: Sound Settings Popover
 
-/* The label for the switch to select vibration upon alarm. NOTE: This is only shown on iPhones. */
-"SLUG-VIBRATE-BUTTON"                           =   "Use Vibrate";
+"SLUG-NO-SOUND"                                 =   "No Sound";
+"SLUG-VIBRATE-ONLY"                             =   "Vibration Only";
+"SLUG-SOUND-ONLY"                               =   "Alarm";
+"SLUG-SOUND-VIBRATE"                            =   "Alarm (With Vibration)";

@@ -155,6 +155,12 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     
     /* ################################################################## */
     /**
+     Displays a description of the current sound mode.
+     */
+    @IBOutlet weak var soundTypeLabel: UILabel?
+    
+    /* ################################################################## */
+    /**
      The stack view that holds the sound selection picker, and the play sound button.
      */
     @IBOutlet weak var mainPickerStackView: UIView?
@@ -252,6 +258,7 @@ extension RiValT_SoundSettings_ViewController {
         default:
             segmentedSwitch.selectedSegmentIndex = 0
         }
+        self.soundTypeLabel?.text = self.group?.soundType.description
         setPickerUp()
     }
     
@@ -346,6 +353,7 @@ extension RiValT_SoundSettings_ViewController {
             self.mainPickerStackView?.isHidden = true
         }
 
+        self.soundTypeLabel?.text = self.group?.soundType.description
         self.setPickerUp()
         self._isSoundPlaying = false
         self.updateSettings()
