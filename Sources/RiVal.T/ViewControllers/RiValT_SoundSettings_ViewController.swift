@@ -161,7 +161,7 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     
     /* ################################################################## */
     /**
-     The stack view that holds the sound selection picker, and the play sound button.
+     The stack view that holds the main sound selection picker, and the play sound button.
      */
     @IBOutlet weak var mainPickerStackView: UIView?
     
@@ -170,6 +170,24 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
      This is the "play sound" button.
      */
     @IBOutlet weak var soundPlayButton: UIButton?
+    
+    /* ################################################################## */
+    /**
+     The stack view that holds the transition sound selection picker, and the play sound button.
+     */
+    @IBOutlet weak var transitionPickerStackView: UIStackView?
+    
+    /* ################################################################## */
+    /**
+     The picker view for transition sounds.
+     */
+    @IBOutlet weak var transitionPicker: UIPickerView?
+    
+    /* ################################################################## */
+    /**
+     This is the "play sound" button for the transition sounds.
+     */
+    @IBOutlet weak var transitionSoundPlayButton: UIButton?
 }
 
 /* ###################################################################################################################################### */
@@ -211,21 +229,14 @@ extension RiValT_SoundSettings_ViewController {
 extension RiValT_SoundSettings_ViewController {
     /* ############################################################## */
     /**
-     The size of the popover.
-     */
-    override var preferredContentSize: CGSize {
-        get { CGSize(width: 270, height: 270) }
-        set { super.preferredContentSize = newValue }
-    }
-
-    /* ############################################################## */
-    /**
      Called when the view has loaded.
      */
     override func viewDidLoad() {
         self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
+        self._setPreferredContentSize()
         super.viewDidLoad()
         self.setSegmentedSwitchUp()
+        self.setTransitionPickerUp()
     }
 }
 
@@ -233,6 +244,30 @@ extension RiValT_SoundSettings_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_SoundSettings_ViewController {
+    /* ############################################################## */
+    /**
+     The size of the popover.
+     */
+    private func _setPreferredContentSize() {
+        var height = 90
+        
+        switch self.group?.soundType {
+        case .sound, .soundVibrate:
+            height += 108
+            
+        default:
+            break
+        }
+        
+        if 1 < self.group?.count ?? 0 {
+            height += 108
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            super.preferredContentSize = CGSize(width: 270, height: height)
+        }
+    }
+
     /* ################################################################## */
     /**
      This sets the picker to reflect the chosen sound.
@@ -289,6 +324,14 @@ extension RiValT_SoundSettings_ViewController {
             self.soundsPickerView?.selectRow(index, inComponent: 0, animated: false)
             break
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     Set up the transition sound picker.
+    */
+    func setTransitionPickerUp() {
+        self.transitionPickerStackView?.isHidden = 1 >= (self.group?.count ?? 0)
     }
     
     /* ################################################################## */
@@ -357,6 +400,7 @@ extension RiValT_SoundSettings_ViewController {
         self.setPickerUp()
         self._isSoundPlaying = false
         self.updateSettings()
+        self._setPreferredContentSize()
     }
     
     /* ################################################################## */
@@ -385,10 +429,16 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDataSource {
     
     /* ################################################################## */
     /**
-     - parameter: The picker view (ignored)
+     - parameter inPickerView: The picker view
      - parameter numberOfRowsInComponent: The 0-based index of the component we are querying.
     */
-    func pickerView(_: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int { RiValT_Settings.soundURIs.count }
+    func pickerView(_ inPickerView: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int {
+        if inPickerView == self.soundsPickerView {
+            return RiValT_Settings.soundURIs.count
+        } else {
+            return 1
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -404,15 +454,19 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
      - parameter inComponent: The component that contains the selected row (0-based index).
     */
     func pickerView(_ inPickerView: UIPickerView, didSelectRow inRow: Int, inComponent: Int) {
-        guard let segmentedSwitch = self.alarmModeSegmentedSwitch,
-              1 == segmentedSwitch.selectedSegmentIndex || 3 == segmentedSwitch.selectedSegmentIndex
-        else { return }
-        self.alarmModeSegmentedSwitchHit(segmentedSwitch)
-        let wasPlaying = _isSoundPlaying
-        self._isSoundPlaying = false
-        self.group?.soundType = (1 == segmentedSwitch.selectedSegmentIndex) ? .sound(soundFileName: RiValT_Settings.soundURIs[inRow]) : .soundVibrate(soundFileName: RiValT_Settings.soundURIs[inRow])
-        self._isSoundPlaying = wasPlaying
-        self.updateSettings()
+        if inPickerView == self.soundsPickerView {
+            guard let segmentedSwitch = self.alarmModeSegmentedSwitch,
+                  1 == segmentedSwitch.selectedSegmentIndex || 3 == segmentedSwitch.selectedSegmentIndex
+            else { return }
+            self.alarmModeSegmentedSwitchHit(segmentedSwitch)
+            let wasPlaying = _isSoundPlaying
+            self._isSoundPlaying = false
+            self.group?.soundType = (1 == segmentedSwitch.selectedSegmentIndex) ? .sound(soundFileName: RiValT_Settings.soundURIs[inRow]) : .soundVibrate(soundFileName: RiValT_Settings.soundURIs[inRow])
+            self._isSoundPlaying = wasPlaying
+            self.updateSettings()
+        } else {
+            
+        }
     }
     
     /* ################################################################## */
@@ -426,17 +480,23 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
      - returns: A new view, containing the row. If it is selected, it is displayed as reversed.
     */
     func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inView: UIView?) -> UIView {
-        guard let soundName = URL(string: RiValT_Settings.soundURIs[inRow].urlEncodedString ?? "")?.lastPathComponent else { return UIView() }
-        let labelFrame = CGRect(origin: .zero, size: CGSize(width: inPickerView.bounds.size.width - Self._pickerPaddingInDisplayUnits, height: inPickerView.bounds.size.height / 3))
-        let label = UILabel(frame: labelFrame)
-        label.font = Self._pickerFont
-        label.textColor = .label
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.25
-        label.text = soundName.localizedVariant
-        label.textAlignment = .center
-        
-        return label
+        if inPickerView == self.soundsPickerView {
+            guard let soundName = URL(string: RiValT_Settings.soundURIs[inRow].urlEncodedString ?? "")?.lastPathComponent else { return UIView() }
+            let labelFrame = CGRect(origin: .zero, size: CGSize(width: inPickerView.bounds.size.width - Self._pickerPaddingInDisplayUnits, height: inPickerView.bounds.size.height / 3))
+            let label = UILabel(frame: labelFrame)
+            label.font = Self._pickerFont
+            label.textColor = .label
+            label.adjustsFontSizeToFitWidth = true
+            label.minimumScaleFactor = 0.25
+            label.text = soundName.localizedVariant
+            label.textAlignment = .center
+            
+            return label
+        } else {
+            let ret = UILabel()
+            ret.text = "?"
+            return ret
+        }
     }
 }
 

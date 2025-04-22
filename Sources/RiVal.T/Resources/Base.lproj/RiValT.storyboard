@@ -403,6 +403,39 @@
                                             <constraint firstItem="wa9-V3-AW2" firstAttribute="top" secondItem="CaB-on-Nru" secondAttribute="top" id="jUl-w7-HhX"/>
                                         </constraints>
                                     </stackView>
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3JS-Yi-fXh">
+                                        <rect key="frame" x="-10" y="68" width="413" height="100"/>
+                                        <subviews>
+                                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eM0-Ca-QCY">
+                                                <rect key="frame" x="0.0" y="0.0" width="373" height="100"/>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="Re0-pY-wnx"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="Ve2-9T-BtJ" id="die-7w-kxq"/>
+                                                    <outlet property="delegate" destination="Ve2-9T-BtJ" id="JX1-SB-y61"/>
+                                                </connections>
+                                            </pickerView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2W-hf-y7R">
+                                                <rect key="frame" x="373" y="37.666666666666657" width="40" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="H2W-hf-y7R" secondAttribute="height" multiplier="8:5" id="YBv-xP-lkU"/>
+                                                    <constraint firstAttribute="width" constant="40" id="kfm-CP-Woo"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal">
+                                                    <imageReference key="image" image="speaker.wave.3.fill" catalog="system" symbolScale="large"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="regular"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="eM0-Ca-QCY" secondAttribute="bottom" id="9Lt-IF-4jg"/>
+                                            <constraint firstItem="eM0-Ca-QCY" firstAttribute="top" secondItem="3JS-Yi-fXh" secondAttribute="top" id="eJm-rD-48q"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="2r1-h3-CVb" firstAttribute="top" secondItem="0gF-7Y-fYR" secondAttribute="top" id="6dX-ck-rP9"/>
@@ -428,6 +461,9 @@
                         <outlet property="soundPlayButton" destination="nLc-gT-2tz" id="7TV-Vg-Uzi"/>
                         <outlet property="soundTypeLabel" destination="I2Y-9F-3Ep" id="xph-3E-7hG"/>
                         <outlet property="soundsPickerView" destination="wa9-V3-AW2" id="ADV-2Y-ekg"/>
+                        <outlet property="transitionPicker" destination="eM0-Ca-QCY" id="hIh-zg-C9o"/>
+                        <outlet property="transitionPickerStackView" destination="3JS-Yi-fXh" id="b1q-t9-nYS"/>
+                        <outlet property="transitionSoundPlayButton" destination="H2W-hf-y7R" id="inm-kS-dNq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ym7-tB-WDa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
