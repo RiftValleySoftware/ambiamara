@@ -164,7 +164,12 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
      This is the "play sound" button.
      */
     @IBOutlet weak var soundPlayButton: UIButton?
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: Computed Properties
+/* ###################################################################################################################################### */
+extension RiValT_SoundSettings_ViewController {
     /* ################################################################## */
     /**
      */
@@ -215,7 +220,6 @@ extension RiValT_SoundSettings_ViewController {
         self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
         super.viewDidLoad()
         self.setSegmentedSwitchUp()
-        self.setPickerUp()
     }
 }
 
@@ -248,8 +252,7 @@ extension RiValT_SoundSettings_ViewController {
         default:
             segmentedSwitch.selectedSegmentIndex = 0
         }
-        
-        self.alarmModeSegmentedSwitchHit(segmentedSwitch)
+        setPickerUp()
     }
     
     /* ################################################################## */
@@ -264,20 +267,18 @@ extension RiValT_SoundSettings_ViewController {
         switch type {
         case let .sound(soundURLTemp):
             soundURL = soundURLTemp
+            self.mainPickerStackView?.isHidden = false
         case let .soundVibrate(soundURLTemp):
             soundURL = soundURLTemp
+            self.mainPickerStackView?.isHidden = false
         default:
-            break
+            self.mainPickerStackView?.isHidden = true
         }
         
         guard let soundURL = soundURL,
-              !soundURL.isEmpty
-        else {
-            self.soundsPickerView?.selectRow(0, inComponent: 0, animated: false)
-            return
-        }
-        
-        for index in 0..<RiValT_Settings.soundURIs.count where RiValT_Settings.soundURIs[index] == soundURL {
+              let comp = URL(string: soundURL)?.lastPathComponent
+        else { return }
+        for index in 0..<RiValT_Settings.soundURIs.count where URL(string: RiValT_Settings.soundURIs[index])?.lastPathComponent == comp {
             self.soundsPickerView?.selectRow(index, inComponent: 0, animated: false)
             break
         }
