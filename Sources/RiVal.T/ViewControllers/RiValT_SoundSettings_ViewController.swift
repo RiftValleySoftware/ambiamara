@@ -264,7 +264,7 @@ extension RiValT_SoundSettings_ViewController {
         }
         
         UIView.animate(withDuration: 0.3) {
-            super.preferredContentSize = CGSize(width: 270, height: height)
+            self.preferredContentSize = CGSize(width: 270, height: height)
         }
     }
 
