@@ -53,10 +53,10 @@ class RiValT_Settings: RVS_PersistentPrefs {
      */
     class var soundURIs: [String] {
         Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).map { $0.urlEncodedString ?? "" }.sorted { a, b in
-            guard let soundUriA = URL(string: a.urlEncodedString ?? "")?.lastPathComponent,
-                  let soundUriB = URL(string: b.urlEncodedString ?? "")?.lastPathComponent
+            guard let soundUriA = URL(string: a.urlEncodedString ?? ""),
+                  let soundUriB = URL(string: b.urlEncodedString ?? "")
             else { return false }
-            return soundUriA < soundUriB
+            return soundUriA.absoluteString < soundUriB.absoluteString
         }
     }
 

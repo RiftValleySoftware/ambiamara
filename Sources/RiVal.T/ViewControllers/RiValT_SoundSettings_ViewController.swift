@@ -70,42 +70,46 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     /* ################################################################## */
     /**
      The size of the picker font
-    */
+     */
     private static let _pickerFont = UIFont.boldSystemFont(ofSize: 20)
-
+    
     /* ################################################################## */
     /**
      The padding on either side of the labels we use as picker rows.
-    */
+     */
     private static let _pickerPaddingInDisplayUnits = CGFloat(20)
-
+    
     /* ################################################################## */
     /**
      The SFSymbols names for the play sound button.
-    */
+     */
     private static let _playSoundImageNames = ["speaker.wave.3.fill", "speaker.slash.fill"]
     
     /* ################################################################## */
     /**
      This is the audio player (for sampling sounds).
-    */
+     */
     private var _audioPlayer: AVAudioPlayer!
     
     /* ################################################################## */
     /**
      */
-    private var _selectedSoundIndex: Int = 0
+    private var _selectedSoundIndex: Int = 0 {
+        didSet {
+            
+        }
+    }
     
     /* ################################################################## */
     /**
      */
     private var _useVibrate: Bool = false
-
+    
     /* ################################################################## */
     /**
      If true, then the currently selected sound is playing.
      This is set or cleared by the "play sound" button.
-    */
+     */
     private var _isSoundPlaying: Bool = false {
         didSet {
             DispatchQueue.main.async {
@@ -125,51 +129,56 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     /* ################################################################## */
     /**
      This references the presenting view controller.
-    */
+     */
     weak var myController: RiValT_EditTimer_ViewController?
     
     /* ################################################################## */
     /**
      The segmented switch that controls the alarm mode.
-    */
+     */
     @IBOutlet weak var alarmModeSegmentedSwitch: UISegmentedControl?
-
+    
     /* ################################################################## */
     /**
      The stach view that holds the vibrate switch.
-    */
+     */
     @IBOutlet weak var vibrateSwitchStackView: UIView?
-
+    
     /* ################################################################## */
     /**
      The vibrate switch (only available on iPhones).
-    */
+     */
     @IBOutlet weak var vibrateSwitch: UISwitch?
     
     /* ################################################################## */
     /**
      The label for the switch is actually a button, that toggles the switch.
-    */
+     */
     @IBOutlet weak var vibrateSwitchLabelButton: UIButton?
-
+    
     /* ################################################################## */
     /**
      The picker view for the sounds. Only shown if the seg switch is set to sound.
-    */
+     */
     @IBOutlet weak var soundsPickerView: UIPickerView?
-
+    
     /* ################################################################## */
     /**
      The stack view that holds the sound selection picker, and the play sound button.
-    */
+     */
     @IBOutlet weak var mainPickerStackView: UIView?
     
     /* ################################################################## */
     /**
      This is the "play sound" button.
-    */
+     */
     @IBOutlet weak var soundPlayButton: UIButton?
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension RiValT_SoundSettings_ViewController {
     /* ############################################################## */
     /**
      The size of the popover.
@@ -186,36 +195,75 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     override func viewDidLoad() {
         self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
         super.viewDidLoad()
-        self.alarmModeSegmentedSwitch?.removeAllSegments()
-        self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.none.image, at: 0, animated: false)
-        self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.sound(soundFileName: "").image, at: 1, animated: false)
-        if self.hapticsAreAvailable {
-            self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.vibrate.image, at: 2, animated: false)
-            self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.soundVibrate(soundFileName: "").image, at: 3, animated: false)
-        }
-        
-        guard let segmentedSwitch = self.alarmModeSegmentedSwitch else { return }
+        self.setSegmentedSwitchUp()
+        self.setPickerUp()
+    }
+}
 
-        switch self.group?.soundType {
-        case .sound(let soundURL)?:
-            self.alarmModeSegmentedSwitch?.selectedSegmentIndex = 1
-            for index in 0..<segmentedSwitch.numberOfSegments where RiValT_Settings.soundURIs[index] == soundURL {
-                self.soundsPickerView?.selectRow(index, inComponent: 0, animated: false)
-            }
-        case .vibrate? where self.hapticsAreAvailable:
-            self.alarmModeSegmentedSwitch?.selectedSegmentIndex = 2
-        case .soundVibrate(let soundURL)? where self.hapticsAreAvailable:
-            self.alarmModeSegmentedSwitch?.selectedSegmentIndex = 3
-            for index in 0..<segmentedSwitch.numberOfSegments where RiValT_Settings.soundURIs[index] == soundURL {
-                self.soundsPickerView?.selectRow(index, inComponent: 0, animated: false)
-            }
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension RiValT_SoundSettings_ViewController {
+    /* ################################################################## */
+    /**
+     This sets the picker to reflect the chosen sound.
+    */
+    func setSegmentedSwitchUp() {
+        guard let type = self.group?.soundType,
+              let segmentedSwitch = self.alarmModeSegmentedSwitch
+        else { return }
+        segmentedSwitch.removeAllSegments()
+        segmentedSwitch.insertSegment(with: TimerGroup.SoundType.none.image, at: 0, animated: false)
+        segmentedSwitch.insertSegment(with: TimerGroup.SoundType.sound(soundFileName: "").image, at: 1, animated: false)
+        if self.hapticsAreAvailable {
+            segmentedSwitch.insertSegment(with: TimerGroup.SoundType.vibrate.image, at: 2, animated: false)
+            segmentedSwitch.insertSegment(with: TimerGroup.SoundType.soundVibrate(soundFileName: "").image, at: 3, animated: false)
+        }
+        switch type {
+        case .sound(_):
+            segmentedSwitch.selectedSegmentIndex = 1
+        case .vibrate where self.hapticsAreAvailable:
+            segmentedSwitch.selectedSegmentIndex = 2
+        case .soundVibrate(_) where self.hapticsAreAvailable:
+            segmentedSwitch.selectedSegmentIndex = 3
         default:
-            self.alarmModeSegmentedSwitch?.selectedSegmentIndex = 0
+            segmentedSwitch.selectedSegmentIndex = 0
         }
         
         self.alarmModeSegmentedSwitchHit(segmentedSwitch)
     }
+    
+    /* ################################################################## */
+    /**
+     This sets the picker to reflect the chosen sound.
+    */
+    func setPickerUp() {
+        guard let type = self.group?.soundType else { return }
 
+        var soundURL: String?
+        
+        switch type {
+        case let .sound(soundURLTemp):
+            soundURL = soundURLTemp
+        case let .soundVibrate(soundURLTemp):
+            soundURL = soundURLTemp
+        default:
+            break
+        }
+        
+        guard let soundURL = soundURL,
+              !soundURL.isEmpty
+        else {
+            self.soundsPickerView?.selectRow(0, inComponent: 0, animated: false)
+            return
+        }
+        
+        for index in 0..<RiValT_Settings.soundURIs.count where RiValT_Settings.soundURIs[index] == soundURL {
+            self.soundsPickerView?.selectRow(index, inComponent: 0, animated: false)
+            break
+        }
+    }
+    
     /* ################################################################## */
     /**
      Sets the image to the play button, depending on whether or not the sound is playing.
@@ -278,6 +326,7 @@ extension RiValT_SoundSettings_ViewController {
             self.mainPickerStackView?.isHidden = true
         }
 
+        self.setPickerUp()
         self._isSoundPlaying = false
         self.updateSettings()
     }
@@ -327,12 +376,16 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
      - parameter inComponent: The component that contains the selected row (0-based index).
     */
     func pickerView(_ inPickerView: UIPickerView, didSelectRow inRow: Int, inComponent: Int) {
-        guard let segmentedSwitch = self.alarmModeSegmentedSwitch else { return }
+        guard let segmentedSwitch = self.alarmModeSegmentedSwitch,
+              1 == segmentedSwitch.selectedSegmentIndex || 3 == segmentedSwitch.selectedSegmentIndex
+        else { return }
         self.alarmModeSegmentedSwitchHit(segmentedSwitch)
         let wasPlaying = _isSoundPlaying
         self._isSoundPlaying = false
         self._selectedSoundIndex = inRow
+        self.group?.soundType = (1 == segmentedSwitch.selectedSegmentIndex) ? .sound(soundFileName: RiValT_Settings.soundURIs[inRow]) : .soundVibrate(soundFileName: RiValT_Settings.soundURIs[inRow])
         self._isSoundPlaying = wasPlaying
+        self.updateSettings()
     }
     
     /* ################################################################## */
