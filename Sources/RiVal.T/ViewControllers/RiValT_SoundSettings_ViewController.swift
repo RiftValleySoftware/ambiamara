@@ -94,15 +94,6 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     /* ################################################################## */
     /**
      */
-    private var _selectedSoundIndex: Int = 0 {
-        didSet {
-            
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
     private var _useVibrate: Bool = false
     
     /* ################################################################## */
@@ -173,6 +164,34 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
      This is the "play sound" button.
      */
     @IBOutlet weak var soundPlayButton: UIButton?
+    
+    /* ################################################################## */
+    /**
+     */
+    private var _selectedSoundIndex: Int {
+        guard let type = self.group?.soundType else { return 0 }
+
+        var soundURL: String?
+        
+        switch type {
+        case let .sound(soundURLTemp):
+            soundURL = soundURLTemp
+        case let .soundVibrate(soundURLTemp):
+            soundURL = soundURLTemp
+        default:
+            break
+        }
+        
+        guard let soundURL = soundURL,
+              !soundURL.isEmpty
+        else { return 0 }
+        
+        for index in 0..<RiValT_Settings.soundURIs.count where RiValT_Settings.soundURIs[index] == soundURL {
+            return index
+        }
+        
+        return 0
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -382,7 +401,6 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
         self.alarmModeSegmentedSwitchHit(segmentedSwitch)
         let wasPlaying = _isSoundPlaying
         self._isSoundPlaying = false
-        self._selectedSoundIndex = inRow
         self.group?.soundType = (1 == segmentedSwitch.selectedSegmentIndex) ? .sound(soundFileName: RiValT_Settings.soundURIs[inRow]) : .soundVibrate(soundFileName: RiValT_Settings.soundURIs[inRow])
         self._isSoundPlaying = wasPlaying
         self.updateSettings()
