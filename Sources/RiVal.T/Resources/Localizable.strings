@@ -79,7 +79,9 @@
 
 // MARK: Sound Settings Popover
 
-"SLUG-NO-SOUND"                                 =   "No Sound";
+"SLUG-NO-SOUND"                                 =   "Silent";
 "SLUG-VIBRATE-ONLY"                             =   "Vibration Only";
 "SLUG-SOUND-ONLY"                               =   "Alarm";
 "SLUG-SOUND-VIBRATE"                            =   "Alarm (With Vibration)";
+"SLUG-TRANSITION-SOUND-LABEL"                   =   "Transition Sound";
+"SLUG-TRANSITION-SOUND-NONE"                    =   "None";

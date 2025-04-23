@@ -52,7 +52,7 @@ class RiValT_Settings: RVS_PersistentPrefs {
      - returns: An Array of Strings, representing the URIs of the sounds avaialable.
      */
     class var soundURIs: [String] {
-        Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil).map { $0.urlEncodedString ?? "" }.sorted { a, b in
+        Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: "Alarms").map { $0.urlEncodedString ?? "" }.sorted { a, b in
             guard let soundUriA = URL(string: a.urlEncodedString ?? ""),
                   let soundUriB = URL(string: b.urlEncodedString ?? "")
             else { return false }

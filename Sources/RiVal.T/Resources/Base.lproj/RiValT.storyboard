@@ -275,7 +275,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1660" y="-211"/>
+            <point key="canvasLocation" x="1498" y="-211"/>
         </scene>
         <!--RiValT Display Settings View Controller-->
         <scene sceneID="9m5-5F-kDS">
@@ -325,7 +325,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LmJ-yc-Vig" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3562.5954198473282" y="-211.26760563380282"/>
+            <point key="canvasLocation" x="2247" y="-211"/>
         </scene>
         <!--RiValT Sound Settings View Controller-->
         <scene sceneID="c3H-XT-HrY">
@@ -336,7 +336,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0gF-7Y-fYR">
-                                <rect key="frame" x="0.0" y="138" width="393" height="68"/>
+                                <rect key="frame" x="0.0" y="138" width="393" height="106"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2r1-h3-CVb">
                                         <rect key="frame" x="96.666666666666686" y="0.0" width="200" height="31"/>
@@ -368,7 +368,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CaB-on-Nru" userLabel="Main Picker Stack View">
-                                        <rect key="frame" x="0.0" y="68" width="393" height="100"/>
+                                        <rect key="frame" x="0.0" y="72" width="393" height="100"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="wa9-V3-AW2">
                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="100"/>
@@ -403,8 +403,17 @@
                                             <constraint firstItem="wa9-V3-AW2" firstAttribute="top" secondItem="CaB-on-Nru" secondAttribute="top" id="jUl-w7-HhX"/>
                                         </constraints>
                                     </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-TRANSITION-SOUND-LABEL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enp-th-W0d">
+                                        <rect key="frame" x="60.333333333333343" y="76" width="272.66666666666663" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="CWd-th-dZ7"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3JS-Yi-fXh">
-                                        <rect key="frame" x="-10" y="68" width="413" height="100"/>
+                                        <rect key="frame" x="-10" y="106" width="413" height="100"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eM0-Ca-QCY">
                                                 <rect key="frame" x="0.0" y="0.0" width="373" height="100"/>
@@ -418,7 +427,7 @@
                                                 </connections>
                                             </pickerView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2W-hf-y7R">
-                                                <rect key="frame" x="373" y="37.666666666666657" width="40" height="25"/>
+                                                <rect key="frame" x="373" y="37.666666666666686" width="40" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="H2W-hf-y7R" secondAttribute="height" multiplier="8:5" id="YBv-xP-lkU"/>
                                                     <constraint firstAttribute="width" constant="40" id="kfm-CP-Woo"/>
@@ -462,13 +471,14 @@
                         <outlet property="soundTypeLabel" destination="I2Y-9F-3Ep" id="xph-3E-7hG"/>
                         <outlet property="soundsPickerView" destination="wa9-V3-AW2" id="ADV-2Y-ekg"/>
                         <outlet property="transitionPicker" destination="eM0-Ca-QCY" id="hIh-zg-C9o"/>
+                        <outlet property="transitionPickerLabel" destination="enp-th-W0d" id="hvl-9j-GRU"/>
                         <outlet property="transitionPickerStackView" destination="3JS-Yi-fXh" id="b1q-t9-nYS"/>
                         <outlet property="transitionSoundPlayButton" destination="H2W-hf-y7R" id="inm-kS-dNq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ym7-tB-WDa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2804" y="-211"/>
+            <point key="canvasLocation" x="3007" y="-211"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CJq-mF-a4b">

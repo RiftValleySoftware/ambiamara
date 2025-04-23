@@ -115,32 +115,32 @@
 		D4F83CB52D63DB43009C4646 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F83CB42D63DB43009C4646 /* WidgetKit.framework */; };
 		D4F83CB72D63DB43009C4646 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F83CB62D63DB43009C4646 /* SwiftUI.framework */; };
 		D4F83CC02D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D4F83CB32D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D4FC4A292DB1474B00E5F0E5 /* 02-medium-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F1447E28293F4A001DD9E4 /* 02-medium-beep.mp3 */; };
-		D4FC4A2A2DB1474B00E5F0E5 /* 01-low-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F1447928293F4A001DD9E4 /* 01-low-beep.mp3 */; };
-		D4FC4A2B2DB1474B00E5F0E5 /* 08-videogame-beeps-high-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F7D281F58D200B07C56 /* 08-videogame-beeps-high-frequency.mp3 */; };
-		D4FC4A2C2DB1474B00E5F0E5 /* 03-high-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F1447A28293F4A001DD9E4 /* 03-high-beep.mp3 */; };
-		D4FC4A2D2DB1474B00E5F0E5 /* 13-rooster.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F67281F58D200B07C56 /* 13-rooster.mp3 */; };
-		D4FC4A2E2DB1474B00E5F0E5 /* 04-electronic-buzz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F1447B28293F4A001DD9E4 /* 04-electronic-buzz.mp3 */; };
-		D4FC4A2F2DB1474B00E5F0E5 /* 10-annoying-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F7E281F58D200B07C56 /* 10-annoying-alarm.mp3 */; };
-		D4FC4A302DB1474B00E5F0E5 /* 00-escalation.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F1447C28293F4A001DD9E4 /* 00-escalation.mp3 */; };
-		D4FC4A312DB1474B00E5F0E5 /* 11-bells.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F66281F58D200B07C56 /* 11-bells.mp3 */; };
-		D4FC4A322DB1474B00E5F0E5 /* 12-crazy-bird.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F74281F58D200B07C56 /* 12-crazy-bird.mp3 */; };
-		D4FC4A332DB1474B00E5F0E5 /* 05-fast-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F1447F28293F4A001DD9E4 /* 05-fast-beep.mp3 */; };
-		D4FC4A342DB1474B00E5F0E5 /* 06-high-fast-beeps.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F1447D28293F4A001DD9E4 /* 06-high-fast-beeps.mp3 */; };
-		D4FC4A352DB1474B00E5F0E5 /* 09-single-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F80281F58D200B07C56 /* 09-single-beep.mp3 */; };
-		D4FC4A362DB1474B00E5F0E5 /* 07-videogame-beeps-lower-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F79281F58D200B07C56 /* 07-videogame-beeps-lower-frequency.mp3 */; };
-		D4FC4A372DB1476700E5F0E5 /* 18-antique-phone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F75281F58D200B07C56 /* 18-antique-phone.mp3 */; };
-		D4FC4A382DB1476700E5F0E5 /* 17-car-horn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F70281F58D200B07C56 /* 17-car-horn.mp3 */; };
-		D4FC4A392DB1476700E5F0E5 /* 21-alarm-klaxon.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F7C281F58D200B07C56 /* 21-alarm-klaxon.mp3 */; };
-		D4FC4A3A2DB1476700E5F0E5 /* 19-classic-phone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F7B281F58D200B07C56 /* 19-classic-phone.mp3 */; };
-		D4FC4A3B2DB1476700E5F0E5 /* 25-telephone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */; };
-		D4FC4A3C2DB1476700E5F0E5 /* 20-antique-car-horn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F72281F58D200B07C56 /* 20-antique-car-horn.mp3 */; };
-		D4FC4A3D2DB1476700E5F0E5 /* 24-deep-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */; };
-		D4FC4A3E2DB1476700E5F0E5 /* 23-siren.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */; };
-		D4FC4A3F2DB1476700E5F0E5 /* 16-snoring-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F73281F58D200B07C56 /* 16-snoring-1.mp3 */; };
-		D4FC4A402DB1477200E5F0E5 /* 15-shut-up-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F68281F58D200B07C56 /* 15-shut-up-2.mp3 */; };
-		D4FC4A412DB1477200E5F0E5 /* 14-shut-up-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F6C281F58D200B07C56 /* 14-shut-up-1.mp3 */; };
-		D4FC4A422DB1477200E5F0E5 /* 22-thanks-for-sharing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B01F6A281F58D200B07C56 /* 22-thanks-for-sharing.mp3 */; };
+		D4FC4A292DB1474B00E5F0E5 /* 02-medium-beep.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4F1447E28293F4A001DD9E4 /* 02-medium-beep.mp3 */; };
+		D4FC4A2A2DB1474B00E5F0E5 /* 01-low-beep.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4F1447928293F4A001DD9E4 /* 01-low-beep.mp3 */; };
+		D4FC4A2B2DB1474B00E5F0E5 /* 08-videogame-beeps-high-frequency.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F7D281F58D200B07C56 /* 08-videogame-beeps-high-frequency.mp3 */; };
+		D4FC4A2C2DB1474B00E5F0E5 /* 03-high-beep.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4F1447A28293F4A001DD9E4 /* 03-high-beep.mp3 */; };
+		D4FC4A2D2DB1474B00E5F0E5 /* 13-rooster.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F67281F58D200B07C56 /* 13-rooster.mp3 */; };
+		D4FC4A2E2DB1474B00E5F0E5 /* 04-electronic-buzz.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4F1447B28293F4A001DD9E4 /* 04-electronic-buzz.mp3 */; };
+		D4FC4A2F2DB1474B00E5F0E5 /* 10-annoying-alarm.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F7E281F58D200B07C56 /* 10-annoying-alarm.mp3 */; };
+		D4FC4A302DB1474B00E5F0E5 /* 00-escalation.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4F1447C28293F4A001DD9E4 /* 00-escalation.mp3 */; };
+		D4FC4A312DB1474B00E5F0E5 /* 11-bells.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F66281F58D200B07C56 /* 11-bells.mp3 */; };
+		D4FC4A322DB1474B00E5F0E5 /* 12-crazy-bird.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F74281F58D200B07C56 /* 12-crazy-bird.mp3 */; };
+		D4FC4A332DB1474B00E5F0E5 /* 05-fast-beep.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4F1447F28293F4A001DD9E4 /* 05-fast-beep.mp3 */; };
+		D4FC4A342DB1474B00E5F0E5 /* 06-high-fast-beeps.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4F1447D28293F4A001DD9E4 /* 06-high-fast-beeps.mp3 */; };
+		D4FC4A352DB1474B00E5F0E5 /* 09-single-beep.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F80281F58D200B07C56 /* 09-single-beep.mp3 */; };
+		D4FC4A362DB1474B00E5F0E5 /* 07-videogame-beeps-lower-frequency.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F79281F58D200B07C56 /* 07-videogame-beeps-lower-frequency.mp3 */; };
+		D4FC4A372DB1476700E5F0E5 /* 18-antique-phone.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F75281F58D200B07C56 /* 18-antique-phone.mp3 */; };
+		D4FC4A382DB1476700E5F0E5 /* 17-car-horn.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F70281F58D200B07C56 /* 17-car-horn.mp3 */; };
+		D4FC4A392DB1476700E5F0E5 /* 21-alarm-klaxon.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F7C281F58D200B07C56 /* 21-alarm-klaxon.mp3 */; };
+		D4FC4A3A2DB1476700E5F0E5 /* 19-classic-phone.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F7B281F58D200B07C56 /* 19-classic-phone.mp3 */; };
+		D4FC4A3B2DB1476700E5F0E5 /* 25-telephone.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */; };
+		D4FC4A3C2DB1476700E5F0E5 /* 20-antique-car-horn.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F72281F58D200B07C56 /* 20-antique-car-horn.mp3 */; };
+		D4FC4A3D2DB1476700E5F0E5 /* 24-deep-alarm.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */; };
+		D4FC4A3E2DB1476700E5F0E5 /* 23-siren.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */; };
+		D4FC4A3F2DB1476700E5F0E5 /* 16-snoring-1.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F73281F58D200B07C56 /* 16-snoring-1.mp3 */; };
+		D4FC4A402DB1477200E5F0E5 /* 15-shut-up-2.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F68281F58D200B07C56 /* 15-shut-up-2.mp3 */; };
+		D4FC4A412DB1477200E5F0E5 /* 14-shut-up-1.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F6C281F58D200B07C56 /* 14-shut-up-1.mp3 */; };
+		D4FC4A422DB1477200E5F0E5 /* 22-thanks-for-sharing.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4B01F6A281F58D200B07C56 /* 22-thanks-for-sharing.mp3 */; };
 		D4FEE5BC2846B30700EBED74 /* RVS_RetroLEDDisplay in Frameworks */ = {isa = PBXBuildFile; productRef = D4FEE5BB2846B30700EBED74 /* RVS_RetroLEDDisplay */; };
 /* End PBXBuildFile section */
 
@@ -176,6 +176,42 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		D4A413912DB9276B0017964C /* Copy Alarm Sound Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Alarms;
+			dstSubfolderSpec = 7;
+			files = (
+				D4FC4A292DB1474B00E5F0E5 /* 02-medium-beep.mp3 in Copy Alarm Sound Files */,
+				D4FC4A2A2DB1474B00E5F0E5 /* 01-low-beep.mp3 in Copy Alarm Sound Files */,
+				D4FC4A2B2DB1474B00E5F0E5 /* 08-videogame-beeps-high-frequency.mp3 in Copy Alarm Sound Files */,
+				D4FC4A2C2DB1474B00E5F0E5 /* 03-high-beep.mp3 in Copy Alarm Sound Files */,
+				D4FC4A2D2DB1474B00E5F0E5 /* 13-rooster.mp3 in Copy Alarm Sound Files */,
+				D4FC4A2E2DB1474B00E5F0E5 /* 04-electronic-buzz.mp3 in Copy Alarm Sound Files */,
+				D4FC4A372DB1476700E5F0E5 /* 18-antique-phone.mp3 in Copy Alarm Sound Files */,
+				D4FC4A382DB1476700E5F0E5 /* 17-car-horn.mp3 in Copy Alarm Sound Files */,
+				D4FC4A392DB1476700E5F0E5 /* 21-alarm-klaxon.mp3 in Copy Alarm Sound Files */,
+				D4FC4A3A2DB1476700E5F0E5 /* 19-classic-phone.mp3 in Copy Alarm Sound Files */,
+				D4FC4A3B2DB1476700E5F0E5 /* 25-telephone.mp3 in Copy Alarm Sound Files */,
+				D4FC4A3C2DB1476700E5F0E5 /* 20-antique-car-horn.mp3 in Copy Alarm Sound Files */,
+				D4FC4A402DB1477200E5F0E5 /* 15-shut-up-2.mp3 in Copy Alarm Sound Files */,
+				D4FC4A412DB1477200E5F0E5 /* 14-shut-up-1.mp3 in Copy Alarm Sound Files */,
+				D4FC4A422DB1477200E5F0E5 /* 22-thanks-for-sharing.mp3 in Copy Alarm Sound Files */,
+				D4FC4A3D2DB1476700E5F0E5 /* 24-deep-alarm.mp3 in Copy Alarm Sound Files */,
+				D4FC4A3E2DB1476700E5F0E5 /* 23-siren.mp3 in Copy Alarm Sound Files */,
+				D4FC4A3F2DB1476700E5F0E5 /* 16-snoring-1.mp3 in Copy Alarm Sound Files */,
+				D4FC4A2F2DB1474B00E5F0E5 /* 10-annoying-alarm.mp3 in Copy Alarm Sound Files */,
+				D4FC4A302DB1474B00E5F0E5 /* 00-escalation.mp3 in Copy Alarm Sound Files */,
+				D4FC4A312DB1474B00E5F0E5 /* 11-bells.mp3 in Copy Alarm Sound Files */,
+				D4FC4A322DB1474B00E5F0E5 /* 12-crazy-bird.mp3 in Copy Alarm Sound Files */,
+				D4FC4A332DB1474B00E5F0E5 /* 05-fast-beep.mp3 in Copy Alarm Sound Files */,
+				D4FC4A342DB1474B00E5F0E5 /* 06-high-fast-beeps.mp3 in Copy Alarm Sound Files */,
+				D4FC4A352DB1474B00E5F0E5 /* 09-single-beep.mp3 in Copy Alarm Sound Files */,
+				D4FC4A362DB1474B00E5F0E5 /* 07-videogame-beeps-lower-frequency.mp3 in Copy Alarm Sound Files */,
+			);
+			name = "Copy Alarm Sound Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4B01F99281F59E200B07C56 /* Copy Sounds */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -753,6 +789,7 @@
 				D43B97312DA2C0F50028E023 /* Sources */,
 				D43B97322DA2C0F50028E023 /* Frameworks */,
 				D43B97332DA2C0F50028E023 /* Resources */,
+				D4A413912DB9276B0017964C /* Copy Alarm Sound Files */,
 			);
 			buildRules = (
 			);
@@ -988,34 +1025,8 @@
 				D43B976B2DA2C1D10028E023 /* LaunchScreen.storyboard in Resources */,
 				D4E10DBD2DB05B290088DB50 /* Digital.ttf in Resources */,
 				D43B976C2DA2C1D10028E023 /* RiValT.storyboard in Resources */,
-				D4FC4A292DB1474B00E5F0E5 /* 02-medium-beep.mp3 in Resources */,
-				D4FC4A2A2DB1474B00E5F0E5 /* 01-low-beep.mp3 in Resources */,
-				D4FC4A2B2DB1474B00E5F0E5 /* 08-videogame-beeps-high-frequency.mp3 in Resources */,
-				D4FC4A2C2DB1474B00E5F0E5 /* 03-high-beep.mp3 in Resources */,
-				D4FC4A2D2DB1474B00E5F0E5 /* 13-rooster.mp3 in Resources */,
-				D4FC4A2E2DB1474B00E5F0E5 /* 04-electronic-buzz.mp3 in Resources */,
-				D4FC4A372DB1476700E5F0E5 /* 18-antique-phone.mp3 in Resources */,
-				D4FC4A382DB1476700E5F0E5 /* 17-car-horn.mp3 in Resources */,
 				D48F68C62DB438680093D938 /* Localizable.strings in Resources */,
-				D4FC4A392DB1476700E5F0E5 /* 21-alarm-klaxon.mp3 in Resources */,
-				D4FC4A3A2DB1476700E5F0E5 /* 19-classic-phone.mp3 in Resources */,
-				D4FC4A3B2DB1476700E5F0E5 /* 25-telephone.mp3 in Resources */,
-				D4FC4A3C2DB1476700E5F0E5 /* 20-antique-car-horn.mp3 in Resources */,
 				D48CDA042DB44786008C2DF9 /* Accessibility.strings in Resources */,
-				D4FC4A402DB1477200E5F0E5 /* 15-shut-up-2.mp3 in Resources */,
-				D4FC4A412DB1477200E5F0E5 /* 14-shut-up-1.mp3 in Resources */,
-				D4FC4A422DB1477200E5F0E5 /* 22-thanks-for-sharing.mp3 in Resources */,
-				D4FC4A3D2DB1476700E5F0E5 /* 24-deep-alarm.mp3 in Resources */,
-				D4FC4A3E2DB1476700E5F0E5 /* 23-siren.mp3 in Resources */,
-				D4FC4A3F2DB1476700E5F0E5 /* 16-snoring-1.mp3 in Resources */,
-				D4FC4A2F2DB1474B00E5F0E5 /* 10-annoying-alarm.mp3 in Resources */,
-				D4FC4A302DB1474B00E5F0E5 /* 00-escalation.mp3 in Resources */,
-				D4FC4A312DB1474B00E5F0E5 /* 11-bells.mp3 in Resources */,
-				D4FC4A322DB1474B00E5F0E5 /* 12-crazy-bird.mp3 in Resources */,
-				D4FC4A332DB1474B00E5F0E5 /* 05-fast-beep.mp3 in Resources */,
-				D4FC4A342DB1474B00E5F0E5 /* 06-high-fast-beeps.mp3 in Resources */,
-				D4FC4A352DB1474B00E5F0E5 /* 09-single-beep.mp3 in Resources */,
-				D4FC4A362DB1474B00E5F0E5 /* 07-videogame-beeps-lower-frequency.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

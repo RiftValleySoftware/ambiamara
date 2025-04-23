@@ -179,6 +179,12 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     
     /* ################################################################## */
     /**
+     The label for the transition picker.
+     */
+    @IBOutlet weak var transitionPickerLabel: UILabel?
+    
+    /* ################################################################## */
+    /**
      The picker view for transition sounds.
      */
     @IBOutlet weak var transitionPicker: UIPickerView?
@@ -246,7 +252,7 @@ extension RiValT_SoundSettings_ViewController {
 extension RiValT_SoundSettings_ViewController {
     /* ############################################################## */
     /**
-     The size of the popover.
+     This calculates the size needed for the popover, and sets the property, which causes the popover to change.
      */
     private func _setPreferredContentSize() {
         var height = 90
@@ -259,8 +265,9 @@ extension RiValT_SoundSettings_ViewController {
             break
         }
         
+        // If we have more than one timer in the group, we can have a transition sound.
         if 1 < self.group?.count ?? 0 {
-            height += 108
+            height += 156
         }
         
         UIView.animate(withDuration: 0.3) {
@@ -331,6 +338,7 @@ extension RiValT_SoundSettings_ViewController {
      Set up the transition sound picker.
     */
     func setTransitionPickerUp() {
+        self.transitionPickerLabel?.isHidden = 1 >= (self.group?.count ?? 0)
         self.transitionPickerStackView?.isHidden = 1 >= (self.group?.count ?? 0)
     }
     
@@ -374,6 +382,7 @@ extension RiValT_SoundSettings_ViewController {
     */
     @IBAction func alarmModeSegmentedSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         self.selectionHaptic()
+        guard 0 < (self.soundsPickerView?.numberOfRows(inComponent: 0) ?? 0) else { return }
         switch inSegmentedSwitch.selectedSegmentIndex {
         case 1:
             self.mainPickerStackView?.isHidden = false
@@ -494,7 +503,12 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
             return label
         } else {
             let ret = UILabel()
-            ret.text = "?"
+            ret.font = Self._pickerFont
+            ret.textColor = .label
+            ret.adjustsFontSizeToFitWidth = true
+            ret.minimumScaleFactor = 0.25
+            ret.text = "SLUG-TRANSITION-SOUND-NONE".localizedVariant
+            ret.textAlignment = .center
             return ret
         }
     }
