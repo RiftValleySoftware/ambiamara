@@ -489,32 +489,25 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
      - returns: A new view, containing the row. If it is selected, it is displayed as reversed.
     */
     func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inView: UIView?) -> UIView {
+        let labelFrame = CGRect(origin: .zero, size: CGSize(width: inPickerView.bounds.size.width - Self._pickerPaddingInDisplayUnits, height: inPickerView.bounds.size.height / 3))
+        let label = UILabel(frame: labelFrame)
+        label.font = Self._pickerFont
+        label.textColor = .label
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.25
+        label.textAlignment = .center
+
         if inPickerView == self.soundsPickerView {
             guard let soundName = URL(string: RiValT_Settings.soundURIs[inRow].urlEncodedString ?? "")?.lastPathComponent else { return UIView() }
-            let labelFrame = CGRect(origin: .zero, size: CGSize(width: inPickerView.bounds.size.width - Self._pickerPaddingInDisplayUnits, height: inPickerView.bounds.size.height / 3))
-            let label = UILabel(frame: labelFrame)
-            label.font = Self._pickerFont
-            label.textColor = .label
-            label.adjustsFontSizeToFitWidth = true
-            label.minimumScaleFactor = 0.25
             label.text = soundName.localizedVariant
-            label.textAlignment = .center
-            
-            return label
         } else {
-            let ret = UILabel()
-            ret.font = Self._pickerFont
-            ret.textColor = .label
-            ret.adjustsFontSizeToFitWidth = true
-            ret.minimumScaleFactor = 0.25
             if 0 == inRow {
-                ret.text = "SLUG-TRANSITION-SOUND-NONE".localizedVariant
-            } else {
-                
+                label.text = "SLUG-TRANSITION-SOUND-NONE".localizedVariant
+            } else if let soundName = URL(string: RiValT_Settings.transitionSoundURIs[inRow].urlEncodedString ?? "")?.lastPathComponent {
+                label.text = soundName.localizedVariant
             }
-            ret.textAlignment = .center
-            return ret
         }
+        return label
     }
 }
 

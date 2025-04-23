@@ -56,10 +56,9 @@ class RiValT_Settings: RVS_PersistentPrefs {
             if let soundA = URL(string: a.urlEncodedString ?? "")?.lastPathComponent.localizedVariant,
                let soundB = URL(string: b.urlEncodedString ?? "")?.lastPathComponent.localizedVariant {
                 return soundA < soundB
-            } else {
-                return false
-            }
+            } else { return false }
         }
+        
         #if DEBUG
             print("Alarm Sounds: \(ret.compactMap { URL(string: $0.urlEncodedString ?? "")?.lastPathComponent.localizedVariant })")
         #endif
@@ -76,10 +75,9 @@ class RiValT_Settings: RVS_PersistentPrefs {
             if let soundA = URL(string: a.urlEncodedString ?? "")?.lastPathComponent.localizedVariant,
                let soundB = URL(string: b.urlEncodedString ?? "")?.lastPathComponent.localizedVariant {
                 return soundA < soundB
-            } else {
-                return false
-            }
+            } else { return false }
         }
+        
         #if DEBUG
             print("Transition Sounds: \(ret.compactMap { URL(string: $0.urlEncodedString ?? "")?.lastPathComponent.localizedVariant })")
         #endif
