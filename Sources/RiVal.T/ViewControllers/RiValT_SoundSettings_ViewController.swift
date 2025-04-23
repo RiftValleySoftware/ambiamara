@@ -187,7 +187,7 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     /**
      The picker view for transition sounds.
      */
-    @IBOutlet weak var transitionPicker: UIPickerView?
+    @IBOutlet weak var transitionPickerView: UIPickerView?
     
     /* ################################################################## */
     /**
@@ -444,9 +444,11 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDataSource {
     func pickerView(_ inPickerView: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int {
         if inPickerView == self.soundsPickerView {
             return RiValT_Settings.soundURIs.count
-        } else {
+        } else if inPickerView == self.transitionPickerView {
             return RiValT_Settings.transitionSoundURIs.count + 1
         }
+        
+        return 0
     }
 }
 
@@ -503,7 +505,7 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
         } else {
             if 0 == inRow {
                 label.text = "SLUG-TRANSITION-SOUND-NONE".localizedVariant
-            } else if let soundName = URL(string: RiValT_Settings.transitionSoundURIs[inRow].urlEncodedString ?? "")?.lastPathComponent {
+            } else if let soundName = URL(string: RiValT_Settings.transitionSoundURIs[inRow - 1].urlEncodedString ?? "")?.lastPathComponent {
                 label.text = soundName.localizedVariant
             }
         }

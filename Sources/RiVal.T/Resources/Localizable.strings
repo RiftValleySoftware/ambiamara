@@ -44,6 +44,27 @@
 "24-deep-alarm.mp3"                             =   "Foghorn";
 "25-telephone.mp3"                              =   "Cellphone";
 
+"Beep-001.mp3"                                  =   "Short High Beeps";
+"Beep-002.mp3"                                  =   "Rising Beeps";
+"Beep-003.mp3"                                  =   "Two Tones Down";
+"Beep-004.mp3"                                  =   "Two Tones Up";
+"Beep-005.mp3"                                  =   "Rising Sequence";
+"Beep-006.mp3"                                  =   "Three Medium Beeps";
+"Beep-007.mp3"                                  =   "Medium Buzz";
+"Beep-008.mp3"                                  =   "Low Buzz";
+"Beep-009.mp3"                                  =   "Weird Buzz";
+"Beep-010.mp3"                                  =   "Ringing Phone";
+"Beep-011.mp3"                                  =   "High Beep";
+"Beep-012.mp3"                                  =   "Medium Beep 1";
+"Beep-013.mp3"                                  =   "Medium Beep 2";
+"Beep-014.mp3"                                  =   "Three Hoots";
+"Beep-015.mp3"                                  =   "Three Low Beeps";
+"Beep-016.mp3"                                  =   "Twinkle 1";
+"Beep-017.mp3"                                  =   "Twinkle 2";
+"Beep-018.mp3"                                  =   "Twinkle 3";
+"Beep-019.mp3"                                  =   "Weird Sound";
+"Beep-020.mp3"                                  =   "Double Entrendé";
+
 // MARK: -
 // MARK: MAIN LOCALIZATION
 // MARK: -

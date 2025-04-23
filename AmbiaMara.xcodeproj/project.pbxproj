@@ -115,6 +115,26 @@
 		D4F70CED282872A500DC0E11 /* 25-telephone.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */; };
 		D4F70CEE282872A500DC0E11 /* 23-siren.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */; };
 		D4F70CEF282872A500DC0E11 /* 24-deep-alarm.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */; };
+		D4F826FB2DB9656200815664 /* Beep-014.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F32DB9656200815664 /* Beep-014.mp3 */; };
+		D4F826FC2DB9656200815664 /* Beep-002.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826E72DB9656200815664 /* Beep-002.mp3 */; };
+		D4F826FD2DB9656200815664 /* Beep-020.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F92DB9656200815664 /* Beep-020.mp3 */; };
+		D4F826FE2DB9656200815664 /* Beep-011.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F02DB9656200815664 /* Beep-011.mp3 */; };
+		D4F826FF2DB9656200815664 /* Beep-003.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826E82DB9656200815664 /* Beep-003.mp3 */; };
+		D4F827002DB9656200815664 /* Beep-010.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826EF2DB9656200815664 /* Beep-010.mp3 */; };
+		D4F827012DB9656200815664 /* Beep-007.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826EC2DB9656200815664 /* Beep-007.mp3 */; };
+		D4F827022DB9656200815664 /* Beep-018.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F72DB9656200815664 /* Beep-018.mp3 */; };
+		D4F827032DB9656200815664 /* Beep-009.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826EE2DB9656200815664 /* Beep-009.mp3 */; };
+		D4F827042DB9656200815664 /* Beep-017.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F62DB9656200815664 /* Beep-017.mp3 */; };
+		D4F827052DB9656200815664 /* Beep-013.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F22DB9656200815664 /* Beep-013.mp3 */; };
+		D4F827062DB9656200815664 /* Beep-012.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F12DB9656200815664 /* Beep-012.mp3 */; };
+		D4F827072DB9656200815664 /* Beep-006.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826EB2DB9656200815664 /* Beep-006.mp3 */; };
+		D4F827082DB9656200815664 /* Beep-004.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826E92DB9656200815664 /* Beep-004.mp3 */; };
+		D4F827092DB9656200815664 /* Beep-005.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826EA2DB9656200815664 /* Beep-005.mp3 */; };
+		D4F8270A2DB9656200815664 /* Beep-019.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F82DB9656200815664 /* Beep-019.mp3 */; };
+		D4F8270B2DB9656200815664 /* Beep-001.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826E62DB9656200815664 /* Beep-001.mp3 */; };
+		D4F8270C2DB9656200815664 /* Beep-008.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826ED2DB9656200815664 /* Beep-008.mp3 */; };
+		D4F8270D2DB9656200815664 /* Beep-016.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F52DB9656200815664 /* Beep-016.mp3 */; };
+		D4F8270E2DB9656200815664 /* Beep-015.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F42DB9656200815664 /* Beep-015.mp3 */; };
 		D4F83CB52D63DB43009C4646 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F83CB42D63DB43009C4646 /* WidgetKit.framework */; };
 		D4F83CB72D63DB43009C4646 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F83CB62D63DB43009C4646 /* SwiftUI.framework */; };
 		D4F83CC02D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D4F83CB32D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -248,6 +268,36 @@
 			name = "Copy Sounds";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D4F8270F2DB9657900815664 /* Copy Transition Sounds */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Sounds;
+			dstSubfolderSpec = 7;
+			files = (
+				D4F826FB2DB9656200815664 /* Beep-014.mp3 in Copy Transition Sounds */,
+				D4F826FC2DB9656200815664 /* Beep-002.mp3 in Copy Transition Sounds */,
+				D4F826FD2DB9656200815664 /* Beep-020.mp3 in Copy Transition Sounds */,
+				D4F826FE2DB9656200815664 /* Beep-011.mp3 in Copy Transition Sounds */,
+				D4F826FF2DB9656200815664 /* Beep-003.mp3 in Copy Transition Sounds */,
+				D4F827002DB9656200815664 /* Beep-010.mp3 in Copy Transition Sounds */,
+				D4F827012DB9656200815664 /* Beep-007.mp3 in Copy Transition Sounds */,
+				D4F827022DB9656200815664 /* Beep-018.mp3 in Copy Transition Sounds */,
+				D4F827032DB9656200815664 /* Beep-009.mp3 in Copy Transition Sounds */,
+				D4F827042DB9656200815664 /* Beep-017.mp3 in Copy Transition Sounds */,
+				D4F827052DB9656200815664 /* Beep-013.mp3 in Copy Transition Sounds */,
+				D4F827062DB9656200815664 /* Beep-012.mp3 in Copy Transition Sounds */,
+				D4F827072DB9656200815664 /* Beep-006.mp3 in Copy Transition Sounds */,
+				D4F827082DB9656200815664 /* Beep-004.mp3 in Copy Transition Sounds */,
+				D4F827092DB9656200815664 /* Beep-005.mp3 in Copy Transition Sounds */,
+				D4F8270A2DB9656200815664 /* Beep-019.mp3 in Copy Transition Sounds */,
+				D4F8270B2DB9656200815664 /* Beep-001.mp3 in Copy Transition Sounds */,
+				D4F8270C2DB9656200815664 /* Beep-008.mp3 in Copy Transition Sounds */,
+				D4F8270D2DB9656200815664 /* Beep-016.mp3 in Copy Transition Sounds */,
+				D4F8270E2DB9656200815664 /* Beep-015.mp3 in Copy Transition Sounds */,
+			);
+			name = "Copy Transition Sounds";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4F83CC52D63DB43009C4646 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -362,6 +412,26 @@
 		D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "25-telephone.mp3"; sourceTree = "<group>"; };
 		D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "23-siren.mp3"; sourceTree = "<group>"; };
 		D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "24-deep-alarm.mp3"; sourceTree = "<group>"; };
+		D4F826E62DB9656200815664 /* Beep-001.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-001.mp3"; sourceTree = "<group>"; };
+		D4F826E72DB9656200815664 /* Beep-002.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-002.mp3"; sourceTree = "<group>"; };
+		D4F826E82DB9656200815664 /* Beep-003.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-003.mp3"; sourceTree = "<group>"; };
+		D4F826E92DB9656200815664 /* Beep-004.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-004.mp3"; sourceTree = "<group>"; };
+		D4F826EA2DB9656200815664 /* Beep-005.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-005.mp3"; sourceTree = "<group>"; };
+		D4F826EB2DB9656200815664 /* Beep-006.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-006.mp3"; sourceTree = "<group>"; };
+		D4F826EC2DB9656200815664 /* Beep-007.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-007.mp3"; sourceTree = "<group>"; };
+		D4F826ED2DB9656200815664 /* Beep-008.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-008.mp3"; sourceTree = "<group>"; };
+		D4F826EE2DB9656200815664 /* Beep-009.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-009.mp3"; sourceTree = "<group>"; };
+		D4F826EF2DB9656200815664 /* Beep-010.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-010.mp3"; sourceTree = "<group>"; };
+		D4F826F02DB9656200815664 /* Beep-011.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-011.mp3"; sourceTree = "<group>"; };
+		D4F826F12DB9656200815664 /* Beep-012.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-012.mp3"; sourceTree = "<group>"; };
+		D4F826F22DB9656200815664 /* Beep-013.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-013.mp3"; sourceTree = "<group>"; };
+		D4F826F32DB9656200815664 /* Beep-014.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-014.mp3"; sourceTree = "<group>"; };
+		D4F826F42DB9656200815664 /* Beep-015.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-015.mp3"; sourceTree = "<group>"; };
+		D4F826F52DB9656200815664 /* Beep-016.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-016.mp3"; sourceTree = "<group>"; };
+		D4F826F62DB9656200815664 /* Beep-017.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-017.mp3"; sourceTree = "<group>"; };
+		D4F826F72DB9656200815664 /* Beep-018.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-018.mp3"; sourceTree = "<group>"; };
+		D4F826F82DB9656200815664 /* Beep-019.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-019.mp3"; sourceTree = "<group>"; };
+		D4F826F92DB9656200815664 /* Beep-020.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-020.mp3"; sourceTree = "<group>"; };
 		D4F83C9D2D63DB10009C4646 /* Rift Valley Timer WatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rift Valley Timer WatchApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F83CB32D63DB43009C4646 /* Rift Valley Timer ComplicationsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Rift Valley Timer ComplicationsExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F83CB42D63DB43009C4646 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -745,6 +815,7 @@
 		D4EDB3002D90549700419E6C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D4F826FA2DB9656200815664 /* TransitionSounds */,
 				D4B01F65281F58D200B07C56 /* Sounds */,
 				D4C1B6202D806D6E00CEA6BF /* Digital.ttf */,
 			);
@@ -771,6 +842,33 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		D4F826FA2DB9656200815664 /* TransitionSounds */ = {
+			isa = PBXGroup;
+			children = (
+				D4F826E62DB9656200815664 /* Beep-001.mp3 */,
+				D4F826E72DB9656200815664 /* Beep-002.mp3 */,
+				D4F826E82DB9656200815664 /* Beep-003.mp3 */,
+				D4F826E92DB9656200815664 /* Beep-004.mp3 */,
+				D4F826EA2DB9656200815664 /* Beep-005.mp3 */,
+				D4F826EB2DB9656200815664 /* Beep-006.mp3 */,
+				D4F826EC2DB9656200815664 /* Beep-007.mp3 */,
+				D4F826ED2DB9656200815664 /* Beep-008.mp3 */,
+				D4F826EE2DB9656200815664 /* Beep-009.mp3 */,
+				D4F826EF2DB9656200815664 /* Beep-010.mp3 */,
+				D4F826F02DB9656200815664 /* Beep-011.mp3 */,
+				D4F826F12DB9656200815664 /* Beep-012.mp3 */,
+				D4F826F22DB9656200815664 /* Beep-013.mp3 */,
+				D4F826F32DB9656200815664 /* Beep-014.mp3 */,
+				D4F826F42DB9656200815664 /* Beep-015.mp3 */,
+				D4F826F52DB9656200815664 /* Beep-016.mp3 */,
+				D4F826F62DB9656200815664 /* Beep-017.mp3 */,
+				D4F826F72DB9656200815664 /* Beep-018.mp3 */,
+				D4F826F82DB9656200815664 /* Beep-019.mp3 */,
+				D4F826F92DB9656200815664 /* Beep-020.mp3 */,
+			);
+			path = TransitionSounds;
+			sourceTree = "<group>";
+		};
 		D4F90F492819E53A00E4C664 /* MainApplication */ = {
 			isa = PBXGroup;
 			children = (
@@ -790,6 +888,7 @@
 				D43B97322DA2C0F50028E023 /* Frameworks */,
 				D43B97332DA2C0F50028E023 /* Resources */,
 				D4A413912DB9276B0017964C /* Copy Alarm Sound Files */,
+				D4F8270F2DB9657900815664 /* Copy Transition Sounds */,
 			);
 			buildRules = (
 			);

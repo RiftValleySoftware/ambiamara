@@ -470,9 +470,9 @@
                         <outlet property="soundPlayButton" destination="nLc-gT-2tz" id="7TV-Vg-Uzi"/>
                         <outlet property="soundTypeLabel" destination="I2Y-9F-3Ep" id="xph-3E-7hG"/>
                         <outlet property="soundsPickerView" destination="wa9-V3-AW2" id="ADV-2Y-ekg"/>
-                        <outlet property="transitionPicker" destination="eM0-Ca-QCY" id="hIh-zg-C9o"/>
                         <outlet property="transitionPickerLabel" destination="enp-th-W0d" id="hvl-9j-GRU"/>
                         <outlet property="transitionPickerStackView" destination="3JS-Yi-fXh" id="b1q-t9-nYS"/>
+                        <outlet property="transitionPickerView" destination="eM0-Ca-QCY" id="hIh-zg-C9o"/>
                         <outlet property="transitionSoundPlayButton" destination="H2W-hf-y7R" id="inm-kS-dNq"/>
                     </connections>
                 </viewController>
@@ -485,9 +485,11 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="NUe-gn-djt" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qxc-ga-uSe">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9r7-K3-wgS">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -513,7 +515,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
