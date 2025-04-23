@@ -426,7 +426,7 @@
                                                     <outlet property="delegate" destination="Ve2-9T-BtJ" id="JX1-SB-y61"/>
                                                 </connections>
                                             </pickerView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2W-hf-y7R">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2W-hf-y7R">
                                                 <rect key="frame" x="373" y="37.666666666666686" width="40" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="H2W-hf-y7R" secondAttribute="height" multiplier="8:5" id="YBv-xP-lkU"/>
@@ -438,6 +438,9 @@
                                                     <imageReference key="image" image="speaker.wave.3.fill" catalog="system" symbolScale="large"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="regular"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="soundPlayButtonHit:" destination="Ve2-9T-BtJ" eventType="touchUpInside" id="p9w-zy-Na7"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -473,7 +476,7 @@
                         <outlet property="transitionPickerLabel" destination="enp-th-W0d" id="hvl-9j-GRU"/>
                         <outlet property="transitionPickerStackView" destination="3JS-Yi-fXh" id="b1q-t9-nYS"/>
                         <outlet property="transitionPickerView" destination="eM0-Ca-QCY" id="hIh-zg-C9o"/>
-                        <outlet property="transitionSoundPlayButton" destination="H2W-hf-y7R" id="inm-kS-dNq"/>
+                        <outlet property="transitionSoundPlayButton" destination="H2W-hf-y7R" id="Q98-Mi-EGr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ym7-tB-WDa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -485,11 +488,9 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="NUe-gn-djt" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qxc-ga-uSe">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9r7-K3-wgS">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -515,7 +516,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

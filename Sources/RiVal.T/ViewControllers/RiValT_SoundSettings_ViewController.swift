@@ -109,7 +109,7 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
                 
                 if self._isSoundPlaying,
                    let url = URL(string: RiValT_Settings.soundURIs[self._selectedSoundIndex]) {
-                    self.playThisSound(url)
+                    self.playThisSound(url, numberOfRepeats: 0)
                 }
                 
                 self.setUpForSoundPlayMode()
@@ -117,6 +117,29 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
         }
     }
     
+    /* ################################################################## */
+    /**
+     If true, then the currently selected sound is playing.
+     This is set or cleared by the "play sound" button.
+     */
+    private var _isTransitionSoundPlaying: Bool = false {
+        didSet {
+            DispatchQueue.main.async {
+                self._audioPlayer?.stop()
+                self._audioPlayer = nil
+                
+                if self._isTransitionSoundPlaying,
+                   let soundURLString = self.group?.transitionSoundFilename,
+                   !soundURLString.isEmpty,
+                   let url = URL(string: soundURLString) {
+                    self.playThisSound(url, numberOfRepeats: 0)
+                }
+                
+                self.setUpForSoundPlayMode()
+            }
+        }
+    }
+
     /* ################################################################## */
     /**
      This references the presenting view controller.
@@ -222,6 +245,21 @@ extension RiValT_SoundSettings_ViewController {
         else { return 0 }
         
         for index in 0..<RiValT_Settings.soundURIs.count where RiValT_Settings.soundURIs[index] == soundURL {
+            return index
+        }
+        
+        return 0
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private var _selectedTransitionSoundIndex: Int {
+        guard let soundURL = self.group?.transitionSoundFilename else { return 0 }
+        
+        guard !soundURL.isEmpty else { return 0 }
+        
+        for index in 0..<RiValT_Settings.transitionSoundURIs.count where RiValT_Settings.transitionSoundURIs[index] == soundURL {
             return index
         }
         
@@ -340,6 +378,8 @@ extension RiValT_SoundSettings_ViewController {
     func setTransitionPickerUp() {
         self.transitionPickerLabel?.isHidden = 1 >= (self.group?.count ?? 0)
         self.transitionPickerStackView?.isHidden = 1 >= (self.group?.count ?? 0)
+        self.transitionPickerView?.selectRow(self._selectedTransitionSoundIndex, inComponent: 0, animated: false)
+        self.transitionSoundPlayButton?.isEnabled = 0 < self._selectedTransitionSoundIndex
     }
     
     /* ################################################################## */
@@ -348,7 +388,10 @@ extension RiValT_SoundSettings_ViewController {
      It also starts or stops the sound play.
     */
     func setUpForSoundPlayMode() {
-        self.soundPlayButton?.setImage(UIImage(systemName: Self._playSoundImageNames[_isSoundPlaying ? 1 : 0]), for: .normal)
+        self.soundPlayButton?.setImage(UIImage(systemName: Self._playSoundImageNames[self._audioPlayer?.isPlaying ?? self._isSoundPlaying ? 1 : 0]), for: .normal)
+        self.transitionSoundPlayButton?.setImage(UIImage(systemName: Self._playSoundImageNames[self._audioPlayer?.isPlaying ?? self._isTransitionSoundPlaying ? 1 : 0]), for: .normal)
+        self.soundPlayButton?.isEnabled = !self._isTransitionSoundPlaying
+        self.transitionSoundPlayButton?.isEnabled = !(self.group?.transitionSoundFilename ?? "").isEmpty && !self._isSoundPlaying
     }
 
     /* ################################################################## */
@@ -356,12 +399,14 @@ extension RiValT_SoundSettings_ViewController {
      This plays any sound, using a given URL.
      
      - parameter inSoundURL: This is the URI to the sound resource.
+     - parameter inRepeatCount: The number of times to repeat. -1 (continuous), if not provided.
      */
-    func playThisSound(_ inSoundURL: URL) {
+    func playThisSound(_ inSoundURL: URL, numberOfRepeats inRepeatCount: Int = -1) {
         if nil == self._audioPlayer {
             try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
             if let audioPlayer = try? AVAudioPlayer(contentsOf: inSoundURL) {
-                audioPlayer.numberOfLoops = -1  // Keep repeating.
+                audioPlayer.numberOfLoops = inRepeatCount
+                audioPlayer.delegate = self
                 self._audioPlayer = audioPlayer
             }
         }
@@ -416,11 +461,15 @@ extension RiValT_SoundSettings_ViewController {
     /**
      Called when the "play sound" button is hit.
      
-     - parameter: The button instance (ignored).
+     - parameter: The button instance.
     */
-    @IBAction func soundPlayButtonHit(_: UIButton) {
+    @IBAction func soundPlayButtonHit(_ inButton: UIButton) {
         self.selectionHaptic()
-        self._isSoundPlaying = !self._isSoundPlaying
+        if inButton == self.soundPlayButton {
+            self._isSoundPlaying = !self._isSoundPlaying
+        } else {
+            self._isTransitionSoundPlaying = !self._isTransitionSoundPlaying
+        }
     }
 }
 
@@ -470,14 +519,18 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
                   1 == segmentedSwitch.selectedSegmentIndex || 3 == segmentedSwitch.selectedSegmentIndex
             else { return }
             self.alarmModeSegmentedSwitchHit(segmentedSwitch)
-            let wasPlaying = _isSoundPlaying
             self._isSoundPlaying = false
+            self._isTransitionSoundPlaying = false
             self.group?.soundType = (1 == segmentedSwitch.selectedSegmentIndex) ? .sound(soundFileName: RiValT_Settings.soundURIs[inRow]) : .soundVibrate(soundFileName: RiValT_Settings.soundURIs[inRow])
-            self._isSoundPlaying = wasPlaying
-            self.updateSettings()
+            self.soundPlayButton?.isEnabled = !self._isTransitionSoundPlaying
         } else {
-            
+            self._isTransitionSoundPlaying = false
+            self._isSoundPlaying = false
+            self.group?.transitionSoundFilename = 0 < inRow ? RiValT_Settings.transitionSoundURIs[inRow - 1] : nil
+            self.transitionSoundPlayButton?.isEnabled = 0 < inRow && !self._isSoundPlaying
         }
+        
+        self.updateSettings()
     }
     
     /* ################################################################## */
@@ -541,5 +594,6 @@ extension RiValT_SoundSettings_ViewController: AVAudioPlayerDelegate {
     */
     func audioPlayerDidFinishPlaying(_: AVAudioPlayer, successfully: Bool) {
         self._isSoundPlaying = false
+        self._isTransitionSoundPlaying = false
     }
 }

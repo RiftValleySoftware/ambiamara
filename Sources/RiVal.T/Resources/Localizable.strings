@@ -44,6 +44,10 @@
 "24-deep-alarm.mp3"                             =   "Foghorn";
 "25-telephone.mp3"                              =   "Cellphone";
 
+// MARK: -
+// MARK: TIMER TRANSITION SOUND NAMES (DISPLAYED IN THE ALARM POPOVER)
+// MARK: -
+
 "Beep-001.mp3"                                  =   "Short High Beeps";
 "Beep-002.mp3"                                  =   "Rising Beeps";
 "Beep-003.mp3"                                  =   "Two Tones Down";
@@ -64,6 +68,11 @@
 "Beep-018.mp3"                                  =   "Twinkle 3";
 "Beep-019.mp3"                                  =   "Weird Sound";
 "Beep-020.mp3"                                  =   "Double Entrendé";
+"Beep-021.mp3"                                  =   "Flat Gong";
+"Beep-022.mp3"                                  =   "Wavy Drumbeat";
+"Beep-023.mp3"                                  =   "Doorbell";
+"Beep-024.mp3"                                  =   "Cymbal";
+"Beep-025.mp3"                                  =   "Cowbell";
 
 // MARK: -
 // MARK: MAIN LOCALIZATION
