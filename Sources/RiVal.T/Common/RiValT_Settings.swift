@@ -49,15 +49,42 @@ class RiValT_Settings: RVS_PersistentPrefs {
     
     /* ########################################################## */
     /**
-     - returns: An Array of Strings, representing the URIs of the sounds avaialable.
+     - returns: An Array of Strings, representing the URIs of the sounds avaialable for alarms.
      */
     class var soundURIs: [String] {
-        Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: "Alarms").map { $0.urlEncodedString ?? "" }.sorted { a, b in
-            guard let soundUriA = URL(string: a.urlEncodedString ?? ""),
-                  let soundUriB = URL(string: b.urlEncodedString ?? "")
-            else { return false }
-            return soundUriA.absoluteString < soundUriB.absoluteString
+        let ret = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: "Alarms").map { $0.urlEncodedString ?? "" }.sorted { a, b in
+            if let soundA = URL(string: a.urlEncodedString ?? "")?.lastPathComponent.localizedVariant,
+               let soundB = URL(string: b.urlEncodedString ?? "")?.lastPathComponent.localizedVariant {
+                return soundA < soundB
+            } else {
+                return false
+            }
         }
+        #if DEBUG
+            print("Alarm Sounds: \(ret.compactMap { URL(string: $0.urlEncodedString ?? "")?.lastPathComponent.localizedVariant })")
+        #endif
+        
+        return ret
+    }
+    
+    /* ########################################################## */
+    /**
+     - returns: An Array of Strings, representing the URIs of the sounds avaialable for transition notifications.
+     */
+    class var transitionSoundURIs: [String] {
+        let ret = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: "Sounds").map { $0.urlEncodedString ?? "" }.sorted { a, b in
+            if let soundA = URL(string: a.urlEncodedString ?? "")?.lastPathComponent.localizedVariant,
+               let soundB = URL(string: b.urlEncodedString ?? "")?.lastPathComponent.localizedVariant {
+                return soundA < soundB
+            } else {
+                return false
+            }
+        }
+        #if DEBUG
+            print("Transition Sounds: \(ret.compactMap { URL(string: $0.urlEncodedString ?? "")?.lastPathComponent.localizedVariant })")
+        #endif
+        
+        return ret
     }
 
     /* ################################################################## */

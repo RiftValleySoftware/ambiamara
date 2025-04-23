@@ -445,7 +445,7 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDataSource {
         if inPickerView == self.soundsPickerView {
             return RiValT_Settings.soundURIs.count
         } else {
-            return 1
+            return RiValT_Settings.transitionSoundURIs.count + 1
         }
     }
 }
@@ -507,7 +507,11 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
             ret.textColor = .label
             ret.adjustsFontSizeToFitWidth = true
             ret.minimumScaleFactor = 0.25
-            ret.text = "SLUG-TRANSITION-SOUND-NONE".localizedVariant
+            if 0 == inRow {
+                ret.text = "SLUG-TRANSITION-SOUND-NONE".localizedVariant
+            } else {
+                
+            }
             ret.textAlignment = .center
             return ret
         }
