@@ -413,7 +413,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3JS-Yi-fXh">
-                                        <rect key="frame" x="0.0" y="106" width="393.00000000000006" height="100"/>
+                                        <rect key="frame" x="0.0" y="106" width="393" height="100"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eM0-Ca-QCY">
                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="100"/>

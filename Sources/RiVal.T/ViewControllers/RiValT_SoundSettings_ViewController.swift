@@ -100,7 +100,8 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
                 self._audioPlayer = nil
                 
                 if self._isSoundPlaying,
-                   let url = URL(string: RiValT_Settings.soundURIs[self._selectedSoundIndex]) {
+                   let index = self.soundsPickerView?.selectedRow(inComponent: 0),
+                   let url = URL(string: RiValT_Settings.soundURIs[index]) {
                     self.playThisSound(url, numberOfRepeats: 0)
                 }
                 
@@ -121,9 +122,9 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
                 self._audioPlayer = nil
                 
                 if self._isTransitionSoundPlaying,
-                   let soundURLString = self.group?.transitionSoundFilename,
-                   !soundURLString.isEmpty,
-                   let url = URL(string: soundURLString) {
+                   let index = self.transitionPickerView?.selectedRow(inComponent: 0),
+                   0 < index,
+                   let url = URL(string: RiValT_Settings.transitionSoundURIs[index - 1]) {
                     self.playThisSound(url, numberOfRepeats: 0)
                 }
                 
@@ -199,43 +200,16 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
 extension RiValT_SoundSettings_ViewController {
     /* ################################################################## */
     /**
-     This returns the 0-based index of the currently selected alarm sound.
-     */
-    private var _selectedSoundIndex: Int {
-        guard let type = self.group?.soundType else { return 0 }
-
-        var soundURL: String?
-        
-        switch type {
-        case let .sound(soundURLTemp):
-            soundURL = soundURLTemp
-        case let .soundVibrate(soundURLTemp):
-            soundURL = soundURLTemp
-        default:
-            break
-        }
-        
-        guard let soundURL = soundURL,
-              !soundURL.isEmpty
-        else { return 0 }
-        
-        for index in 0..<RiValT_Settings.soundURIs.count where RiValT_Settings.soundURIs[index] == soundURL {
-            return index
-        }
-        
-        return 0
-    }
-    
-    /* ################################################################## */
-    /**
      This returns the 0-based index of the currently selected transition beep.
      */
     private var _selectedTransitionSoundIndex: Int {
-        guard let soundURL = self.group?.transitionSoundFilename else { return 0 }
+        guard let soundURLString = self.group?.transitionSoundFilename,
+              let soundURL = URL(string: soundURLString)?.lastPathComponent
+        else { return 0 }
         
         guard !soundURL.isEmpty else { return 0 }
         
-        for index in 0..<RiValT_Settings.transitionSoundURIs.count where RiValT_Settings.transitionSoundURIs[index] == soundURL {
+        for index in 0..<RiValT_Settings.transitionSoundURIs.count where URL(string: RiValT_Settings.transitionSoundURIs[index])?.lastPathComponent == soundURL {
             return index
         }
         
@@ -346,8 +320,13 @@ extension RiValT_SoundSettings_ViewController {
     func setTransitionPickerUp() {
         self.transitionPickerLabel?.isHidden = 1 >= (self.group?.count ?? 0)
         self.transitionPickerStackView?.isHidden = 1 >= (self.group?.count ?? 0)
-        self.transitionPickerView?.selectRow(self._selectedTransitionSoundIndex, inComponent: 0, animated: false)
-        self.transitionSoundPlayButton?.isEnabled = 0 < self._selectedTransitionSoundIndex
+        if !(self.group?.transitionSoundFilename ?? "").isEmpty {
+            self.transitionPickerView?.selectRow(self._selectedTransitionSoundIndex + 1, inComponent: 0, animated: false)
+            self.transitionSoundPlayButton?.isEnabled = true
+        } else {
+            self.transitionPickerView?.selectRow(0, inComponent: 0, animated: false)
+            self.transitionSoundPlayButton?.isEnabled = false
+        }
     }
     
     /* ################################################################## */
@@ -397,16 +376,18 @@ extension RiValT_SoundSettings_ViewController {
         self.selectionHaptic()
         guard 0 < (self.soundsPickerView?.numberOfRows(inComponent: 0) ?? 0) else { return }
         switch inSegmentedSwitch.selectedSegmentIndex {
-        case 1:
+        case TimerGroup.SoundType.sound(soundFileName: "").segmentedPosition:
             self.mainPickerStackView?.isHidden = false
             if let pickerRow = self.soundsPickerView?.selectedRow(inComponent: 0),
                let soundFileName = RiValT_Settings.soundURIs[pickerRow].urlEncodedString {
                 self.group?.soundType = .sound(soundFileName: soundFileName)
             }
-        case 2:
+            
+        case TimerGroup.SoundType.vibrate.segmentedPosition:
             self.group?.soundType = .vibrate
             self.mainPickerStackView?.isHidden = true
-        case 3:
+            
+        case TimerGroup.SoundType.soundVibrate(soundFileName: "").segmentedPosition:
             if let pickerRow = self.soundsPickerView?.selectedRow(inComponent: 0),
                let soundFileName = RiValT_Settings.soundURIs[pickerRow].urlEncodedString {
                 self.group?.soundType = .soundVibrate(soundFileName: soundFileName)
@@ -490,12 +471,11 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
             self._isSoundPlaying = false
             self._isTransitionSoundPlaying = false
             self.group?.soundType = (1 == segmentedSwitch.selectedSegmentIndex) ? .sound(soundFileName: RiValT_Settings.soundURIs[inRow]) : .soundVibrate(soundFileName: RiValT_Settings.soundURIs[inRow])
-            self.soundPlayButton?.isEnabled = !self._isTransitionSoundPlaying
         } else if inPickerView == self.transitionPickerView {
             self._isTransitionSoundPlaying = false
             self._isSoundPlaying = false
             self.group?.transitionSoundFilename = 0 < inRow ? RiValT_Settings.transitionSoundURIs[inRow - 1] : nil
-            self.transitionSoundPlayButton?.isEnabled = 0 < inRow && !self._isSoundPlaying
+            self.transitionSoundPlayButton?.isEnabled = 0 < inRow
         }
         
         self.updateSettings()

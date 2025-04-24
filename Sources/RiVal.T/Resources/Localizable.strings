@@ -18,15 +18,15 @@
 // MARK: -
 
 "00-escalation.mp3"                             =   "Escalating Alarm";
-"01-low-beep.mp3"                               =   "Low Beeps";
-"02-medium-beep.mp3"                            =   "Medium Beeps";
-"03-high-beep.mp3"                              =   "High Beeps";
+"01-low-beep.mp3"                               =   "Low Beep";
+"02-medium-beep.mp3"                            =   "Medium Beep";
+"03-high-beep.mp3"                              =   "High Beep";
 "04-electronic-buzz.mp3"                        =   "Strong Beeps";
 "05-fast-beep.mp3"                              =   "Quiet Ringing";
 "06-high-fast-beeps.mp3"                        =   "Fast Beeps";
-"07-videogame-beeps-lower-frequency.mp3"        =   "Low-Pitched Beep";
-"08-videogame-beeps-high-frequency.mp3"         =   "High-Pitched Beep";
-"09-single-beep.mp3"                            =   "Simple Beeps";
+"07-videogame-beeps-lower-frequency.mp3"        =   "Low-Pitched Beeps";
+"08-videogame-beeps-high-frequency.mp3"         =   "High-Pitched Beeps";
+"09-single-beep.mp3"                            =   "Simple Beep";
 "10-annoying-alarm.mp3"                         =   "Classic Alarm Bell";
 "11-bells.mp3"                                  =   "Church Bells";
 "12-crazy-bird.mp3"                             =   "Crazy Bird";
@@ -61,18 +61,18 @@
 "Beep-011.mp3"                                  =   "High Beep";
 "Beep-012.mp3"                                  =   "Medium Beep 1";
 "Beep-013.mp3"                                  =   "Medium Beep 2";
-"Beep-014.mp3"                                  =   "Three Hoots";
+"Beep-014.mp3"                                  =   "Four Hoots";
 "Beep-015.mp3"                                  =   "Three Low Beeps";
 "Beep-016.mp3"                                  =   "Twinkle 1";
 "Beep-017.mp3"                                  =   "Twinkle 2";
 "Beep-018.mp3"                                  =   "Twinkle 3";
 "Beep-019.mp3"                                  =   "Weird Sound";
 "Beep-020.mp3"                                  =   "Double Entrendé";
-"Beep-021.mp3"                                  =   "Flat Gong";
+"Beep-021.mp3"                                  =   "Cowbell";
 "Beep-022.mp3"                                  =   "Wavy Drumbeat";
 "Beep-023.mp3"                                  =   "Doorbell";
 "Beep-024.mp3"                                  =   "Cymbal";
-"Beep-025.mp3"                                  =   "Cowbell";
+"Beep-025.mp3"                                  =   "Brass Bowl";
 
 // MARK: -
 // MARK: MAIN LOCALIZATION
