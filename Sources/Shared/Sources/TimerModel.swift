@@ -440,6 +440,23 @@ class TimerGroup: Equatable {
         
         /* ############################################################## */
         /**
+         Returns the position in the sound type segmented switch.
+         */
+        var segmentedPosition: Int {
+            switch self {
+            case .none:
+                return 0
+            case .sound:
+                return 1
+            case .vibrate:
+                return 2
+            case .soundVibrate:
+                return 3
+            }
+        }
+        
+        /* ############################################################## */
+        /**
          Returns a string, describing the state.
          */
         var description: String {

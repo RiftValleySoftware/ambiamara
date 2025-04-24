@@ -16,14 +16,16 @@ import RVS_UIKit_Toolbox
 // MARK: - Special Bar Button for Display Selection -
 /* ###################################################################################################################################### */
 /**
+ A base class for the bar button items.
  */
-class BaseCustomBarButtonItem: UIBarButtonItem {
-}
+class BaseCustomBarButtonItem: UIBarButtonItem { }
 
 /* ###################################################################################################################################### */
 // MARK: - Special Bar Button for Display Selection -
 /* ###################################################################################################################################### */
 /**
+ This represents the bar button item for the display preferences popover.
+ It changes its image to represent the currently selected timer display.
  */
 class DisplayBarButtonItem: BaseCustomBarButtonItem {
     /* ############################################################## */

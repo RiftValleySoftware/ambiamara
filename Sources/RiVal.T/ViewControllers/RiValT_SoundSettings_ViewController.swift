@@ -17,14 +17,10 @@ import AVKit
 // MARK: - Special Bar Button for Sound Selection -
 /* ###################################################################################################################################### */
 /**
+ This represents the bar button item for the sound preferences popover.
+ It changes its image to represent the currently selected alarm sound.
  */
 class SoundBarButtonItem: BaseCustomBarButtonItem {
-    /* ############################################################## */
-    /**
-     Display image cache
-     */
-    private var _cachedImage: UIImage?
-    
     /* ############################################################## */
     /**
      The timer group associated with these settings.
@@ -53,6 +49,7 @@ class SoundBarButtonItem: BaseCustomBarButtonItem {
 // MARK: - The Main View Controller for the Group Sound Settings Editor -
 /* ###################################################################################################################################### */
 /**
+ This view controller is for the popover that appears, when the user selects the sound prefs bar button item.
  */
 class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
@@ -83,18 +80,13 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     /**
      The SFSymbols names for the play sound button.
      */
-    private static let _playSoundImageNames = ["speaker.wave.3.fill", "speaker.slash.fill"]
+    private static let _playSoundImageNames = ["speaker.fill", "speaker.wave.3.fill"]
     
     /* ################################################################## */
     /**
      This is the audio player (for sampling sounds).
      */
     private var _audioPlayer: AVAudioPlayer!
-    
-    /* ################################################################## */
-    /**
-     */
-    private var _useVibrate: Bool = false
     
     /* ################################################################## */
     /**
@@ -154,24 +146,6 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     
     /* ################################################################## */
     /**
-     The stach view that holds the vibrate switch.
-     */
-    @IBOutlet weak var vibrateSwitchStackView: UIView?
-    
-    /* ################################################################## */
-    /**
-     The vibrate switch (only available on iPhones).
-     */
-    @IBOutlet weak var vibrateSwitch: UISwitch?
-    
-    /* ################################################################## */
-    /**
-     The label for the switch is actually a button, that toggles the switch.
-     */
-    @IBOutlet weak var vibrateSwitchLabelButton: UIButton?
-    
-    /* ################################################################## */
-    /**
      The picker view for the sounds. Only shown if the seg switch is set to sound.
      */
     @IBOutlet weak var soundsPickerView: UIPickerView?
@@ -225,6 +199,7 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
 extension RiValT_SoundSettings_ViewController {
     /* ################################################################## */
     /**
+     This returns the 0-based index of the currently selected alarm sound.
      */
     private var _selectedSoundIndex: Int {
         guard let type = self.group?.soundType else { return 0 }
@@ -253,6 +228,7 @@ extension RiValT_SoundSettings_ViewController {
     
     /* ################################################################## */
     /**
+     This returns the 0-based index of the currently selected transition beep.
      */
     private var _selectedTransitionSoundIndex: Int {
         guard let soundURL = self.group?.transitionSoundFilename else { return 0 }
@@ -281,6 +257,8 @@ extension RiValT_SoundSettings_ViewController {
         super.viewDidLoad()
         self.setSegmentedSwitchUp()
         self.setTransitionPickerUp()
+        self.soundPlayButton?.setImage(UIImage(systemName: "speaker.slash"), for: .disabled)
+        self.transitionSoundPlayButton?.setImage(UIImage(systemName: "speaker.slash"), for: .disabled)
     }
 }
 
@@ -293,7 +271,7 @@ extension RiValT_SoundSettings_ViewController {
      This calculates the size needed for the popover, and sets the property, which causes the popover to change.
      */
     private func _setPreferredContentSize() {
-        var height = 90
+        var height = 100
         
         switch self.group?.soundType {
         case .sound, .soundVibrate:
@@ -305,7 +283,7 @@ extension RiValT_SoundSettings_ViewController {
         
         // If we have more than one timer in the group, we can have a transition sound.
         if 1 < self.group?.count ?? 0 {
-            height += 156
+            height += 150
         }
         
         UIView.animate(withDuration: 0.3) {
@@ -318,27 +296,17 @@ extension RiValT_SoundSettings_ViewController {
      This sets the picker to reflect the chosen sound.
     */
     func setSegmentedSwitchUp() {
-        guard let type = self.group?.soundType,
-              let segmentedSwitch = self.alarmModeSegmentedSwitch
-        else { return }
-        segmentedSwitch.removeAllSegments()
-        segmentedSwitch.insertSegment(with: TimerGroup.SoundType.none.image, at: 0, animated: false)
-        segmentedSwitch.insertSegment(with: TimerGroup.SoundType.sound(soundFileName: "").image, at: 1, animated: false)
+        self.alarmModeSegmentedSwitch?.removeAllSegments()
+        self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.none.image, at: 0, animated: false)
+        self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.sound(soundFileName: "").image, at: 1, animated: false)
         if self.hapticsAreAvailable {
-            segmentedSwitch.insertSegment(with: TimerGroup.SoundType.vibrate.image, at: 2, animated: false)
-            segmentedSwitch.insertSegment(with: TimerGroup.SoundType.soundVibrate(soundFileName: "").image, at: 3, animated: false)
+            self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.vibrate.image, at: 2, animated: false)
+            self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.soundVibrate(soundFileName: "").image, at: 3, animated: false)
         }
-        switch type {
-        case .sound(_):
-            segmentedSwitch.selectedSegmentIndex = 1
-        case .vibrate where self.hapticsAreAvailable:
-            segmentedSwitch.selectedSegmentIndex = 2
-        case .soundVibrate(_) where self.hapticsAreAvailable:
-            segmentedSwitch.selectedSegmentIndex = 3
-        default:
-            segmentedSwitch.selectedSegmentIndex = 0
-        }
-        self.soundTypeLabel?.text = self.group?.soundType.description
+        
+        self.alarmModeSegmentedSwitch?.selectedSegmentIndex = self.group?.soundType.segmentedPosition ?? 0
+        self.soundTypeLabel?.text = self.group?.soundType.description ?? ""
+        
         setPickerUp()
     }
     
@@ -523,7 +491,7 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
             self._isTransitionSoundPlaying = false
             self.group?.soundType = (1 == segmentedSwitch.selectedSegmentIndex) ? .sound(soundFileName: RiValT_Settings.soundURIs[inRow]) : .soundVibrate(soundFileName: RiValT_Settings.soundURIs[inRow])
             self.soundPlayButton?.isEnabled = !self._isTransitionSoundPlaying
-        } else {
+        } else if inPickerView == self.transitionPickerView {
             self._isTransitionSoundPlaying = false
             self._isSoundPlaying = false
             self.group?.transitionSoundFilename = 0 < inRow ? RiValT_Settings.transitionSoundURIs[inRow - 1] : nil

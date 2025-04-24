@@ -390,7 +390,7 @@
                                                 <color key="tintColor" systemColor="labelColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal">
-                                                    <imageReference key="image" image="speaker.wave.3.fill" catalog="system" symbolScale="large"/>
+                                                    <imageReference key="image" image="speaker.fill" catalog="system" symbolScale="large"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="regular"/>
                                                 </state>
                                                 <connections>
@@ -413,10 +413,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3JS-Yi-fXh">
-                                        <rect key="frame" x="-10" y="106" width="413" height="100"/>
+                                        <rect key="frame" x="0.0" y="106" width="393.00000000000006" height="100"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eM0-Ca-QCY">
-                                                <rect key="frame" x="0.0" y="0.0" width="373" height="100"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="100"/>
                                                 <color key="tintColor" systemColor="labelColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="Re0-pY-wnx"/>
@@ -427,7 +427,7 @@
                                                 </connections>
                                             </pickerView>
                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2W-hf-y7R">
-                                                <rect key="frame" x="373" y="37.666666666666686" width="40" height="25"/>
+                                                <rect key="frame" x="353" y="37.666666666666686" width="40" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="H2W-hf-y7R" secondAttribute="height" multiplier="8:5" id="YBv-xP-lkU"/>
                                                     <constraint firstAttribute="width" constant="40" id="kfm-CP-Woo"/>
@@ -435,7 +435,7 @@
                                                 <color key="tintColor" systemColor="labelColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal">
-                                                    <imageReference key="image" image="speaker.wave.3.fill" catalog="system" symbolScale="large"/>
+                                                    <imageReference key="image" image="speaker.fill" catalog="system" symbolScale="large"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="regular"/>
                                                 </state>
                                                 <connections>
@@ -453,6 +453,8 @@
                                     <constraint firstItem="2r1-h3-CVb" firstAttribute="top" secondItem="0gF-7Y-fYR" secondAttribute="top" id="6dX-ck-rP9"/>
                                     <constraint firstAttribute="trailing" secondItem="CaB-on-Nru" secondAttribute="trailing" id="6ug-R5-XW6"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2r1-h3-CVb" secondAttribute="trailing" id="9td-mX-bxs"/>
+                                    <constraint firstItem="3JS-Yi-fXh" firstAttribute="leading" secondItem="0gF-7Y-fYR" secondAttribute="leading" id="XMx-e3-lO8"/>
+                                    <constraint firstAttribute="trailing" secondItem="3JS-Yi-fXh" secondAttribute="trailing" id="c8J-jN-ot5"/>
                                     <constraint firstItem="2r1-h3-CVb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0gF-7Y-fYR" secondAttribute="leading" id="nkX-lz-h3s"/>
                                     <constraint firstItem="CaB-on-Nru" firstAttribute="leading" secondItem="0gF-7Y-fYR" secondAttribute="leading" id="rYH-ot-jo9"/>
                                 </constraints>
@@ -508,7 +510,7 @@
         <image name="DisplayDots" width="150" height="127"/>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
         <image name="bell.slash" catalog="system" width="119" height="128"/>
-        <image name="speaker.wave.3.fill" catalog="system" width="128" height="84"/>
+        <image name="speaker.fill" catalog="system" width="128" height="125"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
