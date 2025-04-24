@@ -42,6 +42,7 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
      */
     func application(_: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Self.appDelegateInstance = self
+        RiValT_Settings.ephemeralFirstTime = true
         setUpTimerModel()
         return true
     }

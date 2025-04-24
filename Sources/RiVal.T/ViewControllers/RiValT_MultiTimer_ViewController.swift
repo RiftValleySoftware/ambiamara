@@ -416,6 +416,35 @@ extension RiValT_MultiTimer_ViewController {
 
     /* ############################################################## */
     /**
+     Called just before the view appears.
+     
+     We use the opportunity to switch to the editor, if we have just one timer, and this is the first time through.
+     
+     - parameter inIsAnimated: True, if the appearance is animated.
+     */
+    override func viewWillAppear(_ inIsAnimated: Bool) {
+        let wasFirstTime = RiValT_Settings.ephemeralFirstTime
+        RiValT_Settings.ephemeralFirstTime = false
+        super.viewWillAppear(inIsAnimated)
+        if wasFirstTime,
+           1 == timerModel.allTimers.count {
+            self.performSegue(withIdentifier: Self._timerEditSegueID, sender: nil)
+        }
+    }
+
+    /* ############################################################## */
+    /**
+     Called just before the view disappears.
+     
+     - parameter inIsAnimated: True, if the disappearance is animated.
+     */
+    override func viewWillDisappear(_ inIsAnimated: Bool) {
+        RiValT_Settings.ephemeralFirstTime = false
+        super.viewWillDisappear(inIsAnimated)
+    }
+    
+    /* ############################################################## */
+    /**
      Called when the view lays out its view hierarchy.
      */
     override func viewDidLayoutSubviews() {

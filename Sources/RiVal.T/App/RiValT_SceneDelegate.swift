@@ -39,4 +39,14 @@ class RiValT_SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Self.sceneDelegateInstance = self
         guard nil != (inScene as? UIWindowScene) else { return }
     }
+    
+    /* ################################################################## */
+    /**
+     Called when the app has been backgrounded.
+     
+     - parameter: The scene that's entering the foreground (ignored).
+     */
+    func sceneDidEnterBackground(_: UIScene) {
+        RiValT_Settings.ephemeralFirstTime = true
+    }
 }

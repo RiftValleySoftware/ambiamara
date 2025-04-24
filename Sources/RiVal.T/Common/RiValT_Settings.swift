@@ -59,6 +59,12 @@ class RiValT_Settings: RVS_PersistentPrefs {
      */
     private static var _transitionSoundCache: [String]?
 
+    /* ################################################################## */
+    /**
+     This is used as a semaphore, indicating that this is the first time the app has entered the foreground.
+     */
+    static var ephemeralFirstTime = false
+
     /* ########################################################## */
     /**
      - returns: An Array of Strings, representing the URIs of the sounds avaialable for alarms.
@@ -98,7 +104,7 @@ class RiValT_Settings: RVS_PersistentPrefs {
         
         return ret
     }
-
+    
     /* ################################################################## */
     /**
      The keys (for determining storage).
