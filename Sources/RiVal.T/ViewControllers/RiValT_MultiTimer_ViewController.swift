@@ -217,7 +217,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
     /**
      The width of a selected timer border.
      */
-    private static let _borderWidthInDisplayUnits = CGFloat(4)
+    static let borderWidthInDisplayUnits = CGFloat(4)
     
     /* ############################################################## */
     /**
@@ -251,7 +251,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
      - parameter inIndexPath: The index path for the cell being represented.
      */
     func configure(with inItem: Timer, indexPath inIndexPath: IndexPath) {
-        let cornerRadius = self.contentView.cornerRadius + (Self._borderWidthInDisplayUnits / 2)
+        let cornerRadius = self.contentView.cornerRadius + (Self.borderWidthInDisplayUnits / 2)
         
         /* ########################################################## */
         /**
@@ -270,7 +270,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
                 shapeLayer.fillColor = UIColor.clear.cgColor
                 shapeLayer.strokeColor = dashColor
                 // We cut the line in half, so the displayed width is smaller.
-                shapeLayer.lineWidth = Self._borderWidthInDisplayUnits * 2
+                shapeLayer.lineWidth = Self.borderWidthInDisplayUnits * 2
                 shapeLayer.lineDashPattern = [5, 3]
                 shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: cornerRadius).cgPath
                 self.contentView.layer.addSublayer(shapeLayer)
@@ -508,23 +508,75 @@ extension RiValT_MultiTimer_ViewController {
      At the end of rows with less than 4 timers, or at the end of the collection view, we have "add" items.
      */
     func createLayout() {
-        // The reason for the weird width, is to prevent the end "add" item from vertically flowing.
-        // This only happens, if there are 3 items already there, and a new item is being dragged in from another group.
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.5),
-                                               heightDimension: .absolute(RiValT_BaseCollectionCell.itemSize.heightDimension.dimension)
-        )
+        /* ############################################################################################################################## */
+        // MARK: Custom Group Border Decorator
+        /* ############################################################################################################################## */
+        /**
+         This class draws a border around the currently selected group.
+         */
+        class SectionBackgroundView: UICollectionReusableView {
+            /* ###################################################### */
+            /**
+             Used to register this class with the collection view.
+             */
+            static let reuseIdentifier = "SectionBackgroundView"
 
-        let item = NSCollectionLayoutItem(layoutSize: RiValT_TimerArray_IconCell.itemSize)
+            /* ###################################################### */
+            /**
+             We initialize with a frame, and set up our basic shape.
+             */
+            override init(frame: CGRect) {
+                super.init(frame: frame)
+                self.layer.borderWidth = RiValT_TimerArray_IconCell.borderWidthInDisplayUnits
+                self.layer.cornerRadius = 16
+                self.backgroundColor = .clear
+            }
 
-        item.contentInsets = NSDirectionalEdgeInsets(top: Self._itemGuttersInDisplayUnits,
-                                                     leading: Self._itemGuttersInDisplayUnits,
-                                                     bottom: Self._itemGuttersInDisplayUnits,
-                                                     trailing: Self._itemGuttersInDisplayUnits
-        )
+            /* ###################################################### */
+            /**
+             */
+            override func preferredLayoutAttributesFitting(_ inLayoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+                guard let group = RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group else { return inLayoutAttributes }
+                self.layer.borderColor = group.index == inLayoutAttributes.indexPath.section ? UIColor.systemRed.cgColor : UIColor.clear.cgColor
+                
+                return inLayoutAttributes
+            }
+            
+            /* ###################################################### */
+            /**
+             */
+            required init?(coder: NSCoder) {
+                fatalError("init(coder:) has not been implemented")
+            }
+        }
+
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, environment -> NSCollectionLayoutSection? in
+            // The reason for the weird width, is to prevent the end "add" item from vertically flowing.
+            // This only happens, if there are 3 items already there, and a new item is being dragged in from another group.
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.5),
+                                                   heightDimension: .absolute(RiValT_BaseCollectionCell.itemSize.heightDimension.dimension)
+            )
+
+            let item = NSCollectionLayoutItem(layoutSize: RiValT_TimerArray_IconCell.itemSize)
+
+            item.contentInsets = NSDirectionalEdgeInsets(top: Self._itemGuttersInDisplayUnits,
+                                                         leading: Self._itemGuttersInDisplayUnits,
+                                                         bottom: Self._itemGuttersInDisplayUnits,
+                                                         trailing: Self._itemGuttersInDisplayUnits
+            )
+            
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            
+            section.decorationItems = [.background(elementKind: SectionBackgroundView.reuseIdentifier)]
+            
+            return section
+        }
         
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-
-        self.collectionView?.collectionViewLayout = UICollectionViewCompositionalLayout(section: NSCollectionLayoutSection(group: group))
+        layout.register(SectionBackgroundView.self, forDecorationViewOfKind: SectionBackgroundView.reuseIdentifier)
+        
+        self.collectionView?.collectionViewLayout = layout
     }
     
     /* ############################################################## */
@@ -879,3 +931,5 @@ extension RiValT_MultiTimer_ViewController: UIScrollViewDelegate {
         inScrollView.contentOffset.x = self._initialContentOffset.x
     }
 }
+
+
