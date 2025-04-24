@@ -193,16 +193,18 @@ class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
     override func configure(indexPath inIndexPath: IndexPath) {
         super.configure(indexPath: inIndexPath)
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
-        let newImage = UIImageView(image: UIImage(systemName: "plus.circle\(self.indexPath?.section == timerModel.count ? ".fill" : "")")?
-            .applyingSymbolConfiguration(.init(scale: self.indexPath?.section == timerModel.count ? .large : .medium))
-        )
-        newImage.contentMode = .center
-        newImage.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(newImage)
-        newImage.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-        newImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-        newImage.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
-        newImage.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
+        if inIndexPath.section == RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group?.index ?? -1 || self.indexPath?.section == timerModel.count {
+            let newImage = UIImageView(image: UIImage(systemName: "plus.circle\(self.indexPath?.section == timerModel.count ? ".fill" : "")")?
+                .applyingSymbolConfiguration(.init(scale: self.indexPath?.section == timerModel.count ? .large : .medium))
+            )
+            newImage.contentMode = .center
+            newImage.translatesAutoresizingMaskIntoConstraints = false
+            self.contentView.addSubview(newImage)
+            newImage.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
+            newImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+            newImage.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
+            newImage.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
+        }
     }
 }
 
@@ -502,6 +504,7 @@ extension RiValT_MultiTimer_ViewController {
                 super.init(frame: frame)
                 self.layer.borderWidth = RiValT_TimerArray_IconCell.borderWidthInDisplayUnits
                 self.layer.cornerRadius = 16
+                self.clipsToBounds = true
                 self.backgroundColor = .clear
             }
             
@@ -516,9 +519,29 @@ extension RiValT_MultiTimer_ViewController {
             /**
              */
             override func preferredLayoutAttributesFitting(_ inLayoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+                self.subviews.forEach { $0.removeFromSuperview() }
                 guard let group = RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group else { return inLayoutAttributes }
+                
                 self.layer.borderColor = (group.index == inLayoutAttributes.indexPath.section ? (UIColor(named: "Selected-Cell-Border") ?? .systemRed) : UIColor.clear).cgColor
                 
+                if group.index == inLayoutAttributes.indexPath.section,
+                   1 < group.model?.count ?? 0 {
+                    let groupNumberLabel = UILabel()
+                    groupNumberLabel.backgroundColor = UIColor(named: "Selected-Cell-Border")
+                    groupNumberLabel.textColor = .black
+                    groupNumberLabel.textAlignment = .center
+                    groupNumberLabel.font = .boldSystemFont(ofSize: 30)
+                    groupNumberLabel.adjustsFontSizeToFitWidth = true
+                    groupNumberLabel.minimumScaleFactor = 0.5
+                    groupNumberLabel.text = String(inLayoutAttributes.indexPath.section + 1)
+                    self.addSubview(groupNumberLabel)
+                    groupNumberLabel.translatesAutoresizingMaskIntoConstraints = false
+                    groupNumberLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+                    groupNumberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+                    groupNumberLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+                    groupNumberLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
+                }
+
                 return inLayoutAttributes
             }
         }
@@ -871,6 +894,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         self.updateSnapshot()
         self.setUpNavBarItems()
         inCollectionView.reloadData()
+        inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section + 1), at: .bottom, animated: true)
     }
 }
 
