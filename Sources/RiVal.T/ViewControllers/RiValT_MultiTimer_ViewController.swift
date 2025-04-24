@@ -251,32 +251,6 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
      - parameter inIndexPath: The index path for the cell being represented.
      */
     func configure(with inItem: Timer, indexPath inIndexPath: IndexPath) {
-        let cornerRadius = self.contentView.cornerRadius + (Self.borderWidthInDisplayUnits / 2)
-        
-        /* ########################################################## */
-        /**
-         This adds a thick dashed border around the cell.
-         */
-        func _addDashedBorder() {
-            self.contentView.layer.sublayers?.removeAll()
-            
-            if self.item?.isSelected ?? false,
-               let dashColor = self.contentView.tintColor?.cgColor {
-                let frameSize = self.contentView.frame.size
-                let shapeRect = CGRect(x: 0, y: 0, width: frameSize.width, height: frameSize.height)
-                let shapeLayer:CAShapeLayer = CAShapeLayer()
-                shapeLayer.bounds = shapeRect
-                shapeLayer.position = CGPoint(x: frameSize.width/2, y: frameSize.height/2)
-                shapeLayer.fillColor = UIColor.clear.cgColor
-                shapeLayer.strokeColor = dashColor
-                // We cut the line in half, so the displayed width is smaller.
-                shapeLayer.lineWidth = Self.borderWidthInDisplayUnits * 2
-                shapeLayer.lineDashPattern = [5, 3]
-                shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: cornerRadius).cgPath
-                self.contentView.layer.addSublayer(shapeLayer)
-            }
-        }
-        
         let hasSetTime = 0 < inItem.startingTimeInSeconds
         let hasWarning = hasSetTime && 0 < inItem.warningTimeInSeconds
         let hasFinal = hasSetTime && 0 < inItem.finalTimeInSeconds
@@ -286,7 +260,6 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
         super.configure(indexPath: inIndexPath)
         self.item = inItem
         self.indexPath = inIndexPath
-        _addDashedBorder()
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
         let startLabel = UILabel()
         startLabel.textColor = hasSetTime && inItem.isSelected ? UIColor(named: "Start-Color") : (hasSetTime || !inItem.isSelected ? (UIViewController().isDarkMode ? .black : .white) : .systemRed)
@@ -531,22 +504,22 @@ extension RiValT_MultiTimer_ViewController {
                 self.layer.cornerRadius = 16
                 self.backgroundColor = .clear
             }
-
-            /* ###################################################### */
-            /**
-             */
-            override func preferredLayoutAttributesFitting(_ inLayoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-                guard let group = RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group else { return inLayoutAttributes }
-                self.layer.borderColor = group.index == inLayoutAttributes.indexPath.section ? UIColor.systemRed.cgColor : UIColor.clear.cgColor
-                
-                return inLayoutAttributes
-            }
             
             /* ###################################################### */
             /**
              */
             required init?(coder: NSCoder) {
                 fatalError("init(coder:) has not been implemented")
+            }
+
+            /* ###################################################### */
+            /**
+             */
+            override func preferredLayoutAttributesFitting(_ inLayoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+                guard let group = RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group else { return inLayoutAttributes }
+                self.layer.borderColor = (group.index == inLayoutAttributes.indexPath.section ? (UIColor(named: "Selected-Cell-Border") ?? .systemRed) : UIColor.clear).cgColor
+                
+                return inLayoutAttributes
             }
         }
 
