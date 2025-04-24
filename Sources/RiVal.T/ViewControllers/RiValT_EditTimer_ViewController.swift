@@ -608,11 +608,12 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
             timer.warningTimeInSeconds = max(0, min(timer.startingTimeInSeconds - 1, timer.warningTimeInSeconds))
             timer.finalTimeInSeconds = max(0, min(timer.warningTimeInSeconds - 1, timer.finalTimeInSeconds))
         case .warnTime:
-            timer.warningTimeInSeconds = currentPickerTimeInSeconds
+            timer.warningTimeInSeconds = max(0, min(timer.startingTimeInSeconds - 1, currentPickerTimeInSeconds))
             timer.finalTimeInSeconds = max(0, min(timer.warningTimeInSeconds - 1, timer.finalTimeInSeconds))
         case .finalTime:
-            timer.finalTimeInSeconds = currentPickerTimeInSeconds
+            timer.finalTimeInSeconds = max(0, min(timer.warningTimeInSeconds - 1, currentPickerTimeInSeconds))
         }
+        self.setTime(true)
         self.impactHaptic()
         self.updateSettings()
         self.setUpTimeTypeSegmentedControl()

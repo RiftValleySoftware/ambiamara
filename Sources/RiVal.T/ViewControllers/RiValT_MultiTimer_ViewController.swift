@@ -144,7 +144,7 @@ class RiValT_BaseCollectionCell: UICollectionViewCell {
     /**
      The dimension of our cells.
      */
-    static let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(80), heightDimension: .absolute(80))
+    static let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(74), heightDimension: .absolute(74))
 
     /* ################################################################## */
     /**
