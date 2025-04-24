@@ -235,7 +235,6 @@ extension RiValT_EditTimer_ViewController {
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
-        self.navigationController?.isNavigationBarHidden = false
         self.setUpToolbar()
         self.setTime()
     }
@@ -257,6 +256,7 @@ extension RiValT_EditTimer_ViewController {
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        self.timeTypeSegmentedControl?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: self.isDarkMode ? UIColor.black : UIColor.label], for: .selected)
         self.timeSetPicker?.reloadAllComponents()
     }
     

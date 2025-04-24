@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DVH-QM-2oZ">
-                                <rect key="frame" x="16" y="118" width="361" height="617"/>
+                                <rect key="frame" x="16" y="162" width="361" height="573"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="4" minimumInteritemSpacing="4" id="Bpu-9n-KJZ">
                                     <size key="itemSize" width="80" height="80"/>
@@ -105,7 +105,7 @@
                             <constraint firstItem="eX2-3V-kKN" firstAttribute="top" secondItem="DVH-QM-2oZ" secondAttribute="bottom" id="voD-aR-nvp"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="DJn-d6-GdS"/>
+                    <navigationItem key="navigationItem" title="SLUG-TIMERS" id="DJn-d6-GdS"/>
                     <connections>
                         <outlet property="collectionView" destination="DVH-QM-2oZ" id="9aH-vt-SVg"/>
                         <outlet property="toolbar" destination="eX2-3V-kKN" id="fmw-5E-fO8"/>
@@ -488,8 +488,9 @@
         <!--Navigation Controller-->
         <scene sceneID="CJq-mF-a4b">
             <objects>
-                <navigationController navigationBarHidden="YES" id="NUe-gn-djt" sceneMemberID="viewController">
+                <navigationController id="NUe-gn-djt" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qxc-ga-uSe">
+                        <rect key="frame" x="0.0" y="118" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9r7-K3-wgS">
@@ -518,7 +519,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

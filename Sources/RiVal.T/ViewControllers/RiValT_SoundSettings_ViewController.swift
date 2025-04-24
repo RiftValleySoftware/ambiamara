@@ -520,14 +520,34 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
 extension RiValT_SoundSettings_ViewController: UIPickerViewAccessibilityDelegate {
     /* ################################################################## */
     /**
-     This returns the accessibility hint for the sound picker component.
+     This returns the accessibility hint for the picker component.
      
-     - parameter: The picker instance (ignored).
-     - parameter accessibilityHintForComponent: The 0-based component index for the label (ignored).
+     - parameter inPickerView: The picker instance
+     - parameter accessibilityLabelForComponent: The 0-based component index for the label (ignored).
      - returns: An accessibility string for the component.
     */
-    func pickerView(_: UIPickerView, accessibilityHintForComponent: Int) -> String? {
-        return "SLUG-ACC-SOUND-PICKER".accessibilityLocalizedVariant
+    func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent: Int) -> String? {
+        if inPickerView == self.soundsPickerView {
+            "SLUG-ACC-SOUND-PICKER-LABEL".localizedVariant
+        } else {
+            "SLUG-ACC-TRANSITION-PICKER-LABEL".localizedVariant
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This returns the accessibility hint for the picker component.
+     
+     - parameterinPickerView: The picker instance
+     - parameter accessibilityHintForComponent: The 0-based component index for the Hint (ignored).
+     - returns: An accessibility string for the component.
+    */
+    func pickerView(_ inPickerView: UIPickerView, accessibilityHintForComponent: Int) -> String? {
+        if inPickerView == self.soundsPickerView {
+            "SLUG-ACC-SOUND-PICKER-HINT".localizedVariant
+        } else {
+            "SLUG-ACC-TRANSITION-PICKER-HINT".localizedVariant
+        }
     }
 }
 

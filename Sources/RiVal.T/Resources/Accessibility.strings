@@ -7,8 +7,13 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  */
-//********************************************** **********************************************************
-// --------------------------------------------   ------------------------------------------------------- *
-//|  DO NOT MODIFY ON THIS SIDE OF THE EQUALS  | |   MODIFY THE TEXT ON THIS SIDE TO THE LOCAL LANGUAGE  |*
-// --------------------------------------------   ------------------------------------------------------- *
-//********************************************** **********************************************************
+//**********************************************     **********************************************************
+// --------------------------------------------       ------------------------------------------------------- *
+//|  DO NOT MODIFY ON THIS SIDE OF THE EQUALS  |     |   MODIFY THE TEXT ON THIS SIDE TO THE LOCAL LANGUAGE  |*
+// --------------------------------------------       ------------------------------------------------------- *
+//**********************************************     **********************************************************
+
+"SLUG-ACC-SOUND-PICKER-LABEL"               = "Select A Final Alarm Sound";
+"SLUG-ACC-SOUND-PICKER-HINT"                = "This allows you to select an alarm sound, to be played at the end of the last timer.";
+"SLUG-ACC-TRANSITION-PICKER-LABEL"          = "Select A Transition Sound";
+"SLUG-ACC-TRANSITION-PICKER-HINT"           = "This allows you to select a short sound, to be played as one timer ends, and another begins.";

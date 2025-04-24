@@ -438,17 +438,6 @@ extension RiValT_MultiTimer_ViewController {
         self.collectionView?.isDirectionalLockEnabled = true
         self.navigationItem.backButtonTitle = "SLUG-TIMERS-BACK".localizedVariant
     }
-    
-    /* ############################################################## */
-    /**
-     Called just before the view appears.
-     
-     - parameter inIsAnimated: True, if the appearance is animated.
-     */
-    override func viewWillAppear(_ inIsAnimated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
-        super.viewWillAppear(inIsAnimated)
-    }
 
     /* ############################################################## */
     /**
@@ -459,6 +448,33 @@ extension RiValT_MultiTimer_ViewController {
         self.setupDataSource()
         self.createLayout()
         self.updateSnapshot()
+        self.setUpNavBarItems()
+    }
+
+    /* ############################################################## */
+    /**
+     Called just before we segue to another screen.
+     
+     - parameter inSegue: The segue instance.
+     - parameter: Extra data (ignored).
+     */
+    override func prepare(for inSegue: UIStoryboardSegue, sender: Any?) {
+        if let destination = inSegue.destination as? RiValT_EditTimer_ViewController {
+            destination.timer = self.timerModel.selectedTimer
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     Called to allow us to do something before dismissing a popover.
+     
+     - parameter: ignored.
+     
+     - returns: True (all the time).
+     */
+    override func popoverPresentationControllerShouldDismissPopover(_: UIPopoverPresentationController) -> Bool {
+        self.setUpNavBarItems()
+        return true
     }
 }
 
@@ -466,6 +482,23 @@ extension RiValT_MultiTimer_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_MultiTimer_ViewController {
+    /* ############################################################## */
+    /**
+     We set up the navbar buttons.
+     */
+    func setUpNavBarItems() {
+        let soundSettingsButtonItem = SoundBarButtonItem()
+        soundSettingsButtonItem.group = self.timerModel.selectedTimer?.group
+        soundSettingsButtonItem.target = self
+        soundSettingsButtonItem.action = #selector(soundSettingsButtonHit)
+        let displaySettingsButtonItem = DisplayBarButtonItem()
+        displaySettingsButtonItem.group = self.timerModel.selectedTimer?.group
+        displaySettingsButtonItem.target = self
+        displaySettingsButtonItem.action = #selector(displaySettingsButtonHit)
+        self.navigationItem.rightBarButtonItems = nil
+        self.navigationItem.rightBarButtonItems = [soundSettingsButtonItem, UIBarButtonItem.flexibleSpace(), displaySettingsButtonItem]
+    }
+
     /* ############################################################## */
     /**
      This establishes the display layout for our collection view.
@@ -636,18 +669,37 @@ extension RiValT_MultiTimer_ViewController {
         self.impactHaptic()
         self.performSegue(withIdentifier: Self._timerEditSegueID, sender: nil)
     }
-    
+
     /* ############################################################## */
     /**
-     Called just before we segue to another screen.
+     The sound settings button was hit.
      
-     - parameter inSegue: The segue instance.
-     - parameter: Extra data (ignored).
+     - parameter: ignored.
      */
-    override func prepare(for inSegue: UIStoryboardSegue, sender: Any?) {
-        if let destination = inSegue.destination as? RiValT_EditTimer_ViewController {
-            destination.timer = self.timerModel.selectedTimer
-        }
+    @IBAction func soundSettingsButtonHit(_ inBarButtonItem: UIBarButtonItem) {
+        self.impactHaptic()
+        guard let controller = self.storyboard?.instantiateViewController(withIdentifier: RiValT_SoundSettings_ViewController.storyboardID) as? RiValT_SoundSettings_ViewController else { return }
+        controller.group = self.timerModel.selectedTimer?.group
+        controller.modalPresentationStyle = .popover
+        controller.popoverPresentationController?.delegate = self
+        controller.popoverPresentationController?.barButtonItem = inBarButtonItem
+        self.present(controller, animated: true, completion: nil)
+    }
+
+    /* ############################################################## */
+    /**
+     The dsiplay settings button was hit.
+     
+     - parameter: ignored.
+     */
+    @IBAction func displaySettingsButtonHit(_ inBarButtonItem: UIBarButtonItem) {
+        self.impactHaptic()
+        guard let controller = self.storyboard?.instantiateViewController(withIdentifier: RiValT_DisplaySettings_ViewController.storyboardID) as? RiValT_DisplaySettings_ViewController else { return }
+        controller.group = self.timerModel.selectedTimer?.group
+        controller.modalPresentationStyle = .popover
+        controller.popoverPresentationController?.delegate = self
+        controller.popoverPresentationController?.barButtonItem = inBarButtonItem
+        self.present(controller, animated: true, completion: nil)
     }
 }
 
@@ -792,6 +844,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         
         self.updateSettings()
         self.updateSnapshot()
+        self.setUpNavBarItems()
         inCollectionView.reloadData()
     }
 }

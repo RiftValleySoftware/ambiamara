@@ -102,9 +102,8 @@ extension RiValT_DisplaySettings_ViewController {
      Called when the view has loaded.
      */
     override func viewDidLoad() {
-        self.navigationController?.isNavigationBarHidden = false
         self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
-        
+        self.navigationController?.isNavigationBarHidden = true
         super.viewDidLoad()
         
         guard let groupIndex = self.group?.index else { return }
