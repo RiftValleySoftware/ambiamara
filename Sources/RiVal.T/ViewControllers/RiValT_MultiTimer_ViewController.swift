@@ -533,7 +533,7 @@ extension RiValT_MultiTimer_ViewController {
                     groupNumberLabel.font = .boldSystemFont(ofSize: 30)
                     groupNumberLabel.adjustsFontSizeToFitWidth = true
                     groupNumberLabel.minimumScaleFactor = 0.5
-                    groupNumberLabel.text = String(inLayoutAttributes.indexPath.section + 1)
+                    groupNumberLabel.text = " \(String(inLayoutAttributes.indexPath.section + 1)) "
                     self.addSubview(groupNumberLabel)
                     groupNumberLabel.translatesAutoresizingMaskIntoConstraints = false
                     groupNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 6).isActive = true
@@ -883,8 +883,11 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
     func collectionView(_ inCollectionView: UICollectionView,
                         didSelectItemAt inIndexPath: IndexPath
     ) {
+        var shouldScroll = false
+        
         if nil == self.timerModel.getTimer(at: inIndexPath) {
             self.timerModel.createNewTimer(at: inIndexPath)
+            shouldScroll = true
         }
         
         if !(self.timerModel.getTimer(at: inIndexPath)?.isSelected ?? false) {
@@ -896,7 +899,12 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         self.updateSnapshot()
         self.setUpNavBarItems()
         inCollectionView.reloadData()
-        inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section + 1), at: .bottom, animated: true)
+        if shouldScroll {
+            inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section + 1), at: .bottom, animated: true)
+//            inCollectionView.scrollRectToVisible(CGRect(x: 0, y: -inCollectionView.contentSize.height - 2, width: 1, height: 1), animated: true)
+        } else {
+            inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section), at: .centeredVertically, animated: true)
+        }
     }
 }
 
