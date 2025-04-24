@@ -90,8 +90,8 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     
     /* ################################################################## */
     /**
-     If true, then the currently selected sound is playing.
-     This is set or cleared by the "play sound" button.
+     If true, then the currently selected alarm sound is playing.
+     This is set or cleared by the "play sound" button, next to the alarm picker.
      */
     private var _isSoundPlaying: Bool = false {
         didSet {
@@ -112,8 +112,8 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     
     /* ################################################################## */
     /**
-     If true, then the currently selected sound is playing.
-     This is set or cleared by the "play sound" button.
+     If true, then the currently selected transition sound is playing.
+     This is set or cleared by the "play sound" button, next to the transition sound picker.
      */
     private var _isTransitionSoundPlaying: Bool = false {
         didSet {
@@ -500,8 +500,8 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
         label.minimumScaleFactor = 0.25
         label.textAlignment = .center
 
-        if inPickerView == self.soundsPickerView {
-            guard let soundName = URL(string: RiValT_Settings.soundURIs[inRow].urlEncodedString ?? "")?.lastPathComponent else { return UIView() }
+        if inPickerView == self.soundsPickerView,
+           let soundName = URL(string: RiValT_Settings.soundURIs[inRow].urlEncodedString ?? "")?.lastPathComponent {
             label.text = soundName.localizedVariant
         } else {
             if 0 == inRow {
@@ -520,13 +520,15 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
 extension RiValT_SoundSettings_ViewController: UIPickerViewAccessibilityDelegate {
     /* ################################################################## */
     /**
-     This returns the accessibility hint for the picker component.
+     This returns the accessibility hint for the sound picker component.
      
      - parameter: The picker instance (ignored).
      - parameter accessibilityHintForComponent: The 0-based component index for the label (ignored).
      - returns: An accessibility string for the component.
     */
-    func pickerView(_: UIPickerView, accessibilityHintForComponent: Int) -> String? { "SLUG-ACC-SOUND-PICKER".accessibilityLocalizedVariant }
+    func pickerView(_: UIPickerView, accessibilityHintForComponent: Int) -> String? {
+        return "SLUG-ACC-SOUND-PICKER".accessibilityLocalizedVariant
+    }
 }
 
 /* ###################################################################################################################################### */
