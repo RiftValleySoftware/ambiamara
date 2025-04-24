@@ -273,19 +273,6 @@ extension RiValT_EditTimer_ViewController {
             destination.group = group
         }
     }
-
-    /* ################################################################## */
-    /**
-     Called to allow us to do something before dismissing a popover.
-     
-     - parameter: ignored.
-     
-     - returns: True (all the time).
-     */
-    override func popoverPresentationControllerShouldDismissPopover(_: UIPopoverPresentationController) -> Bool {
-        self.setUpNavBarItems()
-        return true
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -393,25 +380,6 @@ extension RiValT_EditTimer_ViewController {
             self.statusLabel?.textColor = finalColor
             self.timeTypeSegmentedControl?.selectedSegmentTintColor = finalColor
         }
-        
-        setUpNavBarItems()
-    }
-    
-    /* ############################################################## */
-    /**
-     We set up the navbar buttons.
-     */
-    func setUpNavBarItems() {
-        let soundSettingsButtonItem = SoundBarButtonItem()
-        soundSettingsButtonItem.group = self.group
-        soundSettingsButtonItem.target = self
-        soundSettingsButtonItem.action = #selector(soundSettingsButtonHit)
-        let displaySettingsButtonItem = DisplayBarButtonItem()
-        displaySettingsButtonItem.group = self.group
-        displaySettingsButtonItem.target = self
-        displaySettingsButtonItem.action = #selector(displaySettingsButtonHit)
-        self.navigationItem.rightBarButtonItems = nil
-        self.navigationItem.rightBarButtonItems = [soundSettingsButtonItem, UIBarButtonItem.flexibleSpace(), displaySettingsButtonItem]
     }
     
     /* ############################################################## */
@@ -448,38 +416,6 @@ extension RiValT_EditTimer_ViewController {
         self.selectionHaptic()
         self.updateTimeTypeSegmentedControl()
         self.updateSettings()
-    }
-
-    /* ############################################################## */
-    /**
-     The sound settings button was hit.
-     
-     - parameter: ignored.
-     */
-    @IBAction func soundSettingsButtonHit(_ inBarButtonItem: UIBarButtonItem) {
-        self.impactHaptic()
-        guard let controller = self.storyboard?.instantiateViewController(withIdentifier: RiValT_SoundSettings_ViewController.storyboardID) as? RiValT_SoundSettings_ViewController else { return }
-        controller.group = self.timer?.group
-        controller.modalPresentationStyle = .popover
-        controller.popoverPresentationController?.delegate = self
-        controller.popoverPresentationController?.barButtonItem = inBarButtonItem
-        self.present(controller, animated: true, completion: nil)
-    }
-
-    /* ############################################################## */
-    /**
-     The dsiplay settings button was hit.
-     
-     - parameter: ignored.
-     */
-    @IBAction func displaySettingsButtonHit(_ inBarButtonItem: UIBarButtonItem) {
-        self.impactHaptic()
-        guard let controller = self.storyboard?.instantiateViewController(withIdentifier: RiValT_DisplaySettings_ViewController.storyboardID) as? RiValT_DisplaySettings_ViewController else { return }
-        controller.group = self.timer?.group
-        controller.modalPresentationStyle = .popover
-        controller.popoverPresentationController?.delegate = self
-        controller.popoverPresentationController?.barButtonItem = inBarButtonItem
-        self.present(controller, animated: true, completion: nil)
     }
 
     /* ############################################################## */

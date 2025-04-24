@@ -536,10 +536,12 @@ extension RiValT_MultiTimer_ViewController {
                     groupNumberLabel.text = String(inLayoutAttributes.indexPath.section + 1)
                     self.addSubview(groupNumberLabel)
                     groupNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-                    groupNumberLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-                    groupNumberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-                    groupNumberLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-                    groupNumberLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
+                    groupNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 6).isActive = true
+                    groupNumberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6).isActive = true
+                    groupNumberLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -6).isActive = true
+                    groupNumberLabel.widthAnchor.constraint(equalToConstant: 38).isActive = true
+                    groupNumberLabel.cornerRadius = 10
+                    groupNumberLabel.clipsToBounds = true
                 }
 
                 return inLayoutAttributes

@@ -674,9 +674,9 @@
 			isa = PBXGroup;
 			children = (
 				D4E2E8FA2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift */,
-				D4EDE73A2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift */,
 				D40FB3062DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift */,
 				D45184C92DB42DBE00DA671D /* RiValT_SoundSettings_ViewController.swift */,
+				D4EDE73A2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
