@@ -150,7 +150,7 @@
                                         </connections>
                                     </segmentedControl>
                                     <pickerView contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-IS-Nx4">
-                                        <rect key="frame" x="0.0" y="32" width="353" height="147.66666666666669"/>
+                                        <rect key="frame" x="0.0" y="32" width="353" height="147.66666666666666"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="dataSource" destination="JlO-Oc-S3P" id="Ltu-M7-pbN"/>
@@ -242,6 +242,11 @@
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal">
                                             <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <imageReference key="image" image="play.slash" catalog="system" symbolScale="large"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="26"/>
                                         </state>
                                         <connections>
                                             <action selector="playButtonHit:" destination="JlO-Oc-S3P" eventType="touchUpInside" id="yRf-a4-vsR"/>
@@ -562,6 +567,7 @@
         <image name="bell.fill" catalog="system" width="123" height="128"/>
         <image name="bell.slash" catalog="system" width="119" height="128"/>
         <image name="play.fill" catalog="system" width="120" height="128"/>
+        <image name="play.slash" catalog="system" width="116" height="128"/>
         <image name="speaker.fill" catalog="system" width="128" height="125"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -570,7 +576,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

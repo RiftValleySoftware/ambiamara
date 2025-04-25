@@ -568,8 +568,10 @@ extension RiValT_MultiTimer_ViewController {
                 self.subviews.forEach { $0.removeFromSuperview() }
                 guard let group = RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group else { return inLayoutAttributes }
                 
+                // If this group has a selected timer, then the entire group is considered to be selected, and we draw a border around it.
                 self.layer.borderColor = (group.index == inLayoutAttributes.indexPath.section ? (UIColor(named: "Selected-Cell-Border") ?? .systemRed) : UIColor.clear).cgColor
                 
+                // If we have more than one group, we add a number to the right end, identifying the group.
                 if group.index == inLayoutAttributes.indexPath.section,
                    1 < group.model?.count ?? 0 {
                     let groupNumberLabel = UILabel()

@@ -367,7 +367,13 @@ extension RiValT_EditTimer_ViewController {
      This enables or disables the play button.
      */
     func setUpPlayButton() {
-        self.playButton?.isEnabled = 0 < (self.timer?.startingTimeInSeconds ?? 0)
+        if 0 < (self.timer?.startingTimeInSeconds ?? 0) {
+            self.playButton?.isEnabled = true
+            self.playButton?.tintColor = self.view?.tintColor
+        } else {
+            self.playButton?.isEnabled = false
+            self.playButton?.tintColor = UIColor.systemGray.withAlphaComponent(0.5)
+        }
     }
     
     /* ############################################################## */
