@@ -392,6 +392,12 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
      Used to prevent overeager haptics.
      */
     var lastIndexPath: IndexPath?
+
+    /* ############################################################## */
+    /**
+     This allows us to force-close the popover, easily.
+     */
+    weak var currentPopover: UIPopoverPresentationController?
 }
 
 /* ###################################################################################################################################### */
@@ -463,7 +469,20 @@ extension RiValT_MultiTimer_ViewController {
             destination.timer = self.timerModel.selectedTimer
         }
     }
-
+    
+    /* ################################################################## */
+    /**
+     Called to allow us to do something when we change layout size (like rotating)
+     
+     - parameter inSize: The new size
+     - parameter inCoordinator: The coordinator object.
+     */
+    override func viewWillTransition(to inSize: CGSize, with inCoordinator: any UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: inSize, with: inCoordinator)
+        self.currentPopover?.presentedViewController.dismiss(animated: true)
+        self.currentPopover = nil
+    }
+    
     /* ################################################################## */
     /**
      Called to allow us to do something before dismissing a popover.
@@ -474,7 +493,18 @@ extension RiValT_MultiTimer_ViewController {
      */
     override func popoverPresentationControllerShouldDismissPopover(_: UIPopoverPresentationController) -> Bool {
         self.setUpNavBarItems()
+        self.currentPopover = nil
         return true
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to allow us to do something before displaying a popover.
+     
+     - parameter inController: The popover controller about to be displayed.
+     */
+    override func prepareForPopoverPresentation(_ inController: UIPopoverPresentationController) {
+        self.currentPopover = inController
     }
 }
 
@@ -951,7 +981,6 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         inCollectionView.reloadData()
         if shouldScroll {
             inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section + 1), at: .bottom, animated: true)
-//            inCollectionView.scrollRectToVisible(CGRect(x: 0, y: -inCollectionView.contentSize.height - 2, width: 1, height: 1), animated: true)
         } else {
             inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section), at: .centeredVertically, animated: true)
         }

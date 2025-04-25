@@ -201,4 +201,12 @@ extension RiValT_Base_ViewController: UIPopoverPresentationControllerDelegate {
      - returns: True (all the time).
      */
     func popoverPresentationControllerShouldDismissPopover(_: UIPopoverPresentationController) -> Bool { true }
+    
+    /* ################################################################## */
+    /**
+     Called to allow us to do something before displaying a popover.
+     
+     - parameter: ignored.
+     */
+    func prepareForPopoverPresentation(_: UIPopoverPresentationController) { }
 }

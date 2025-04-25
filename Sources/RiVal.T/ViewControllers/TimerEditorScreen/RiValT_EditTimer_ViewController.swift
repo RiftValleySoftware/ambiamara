@@ -223,9 +223,6 @@ extension RiValT_EditTimer_ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpTimeTypeSegmentedControl()
-        self.hoursLabel?.text = self.hoursLabel?.text?.localizedVariant
-        self.minutesLabel?.text = self.minutesLabel?.text?.localizedVariant
-        self.secondsLabel?.text = self.secondsLabel?.text?.localizedVariant
         let appearance = UIToolbarAppearance()
         appearance.configureWithTransparentBackground()
         appearance.backgroundColor = .clear
@@ -392,14 +389,23 @@ extension RiValT_EditTimer_ViewController {
             self.statusLabel?.text = "SLUG-START-TIME".localizedVariant
             self.statusLabel?.textColor = startColor
             self.timeTypeSegmentedControl?.selectedSegmentTintColor = startColor
+            self.hoursLabel?.textColor = startColor
+            self.minutesLabel?.textColor = startColor
+            self.secondsLabel?.textColor = startColor
         case .warnTime:
             self.statusLabel?.text = "SLUG-WARN-TIME".localizedVariant
             self.statusLabel?.textColor = warnColor
             self.timeTypeSegmentedControl?.selectedSegmentTintColor = warnColor
+            self.hoursLabel?.textColor = warnColor
+            self.minutesLabel?.textColor = warnColor
+            self.secondsLabel?.textColor = warnColor
         case .finalTime:
             self.statusLabel?.text = "SLUG-FINAL-TIME".localizedVariant
             self.statusLabel?.textColor = finalColor
             self.timeTypeSegmentedControl?.selectedSegmentTintColor = finalColor
+            self.hoursLabel?.textColor = finalColor
+            self.minutesLabel?.textColor = finalColor
+            self.secondsLabel?.textColor = finalColor
         }
     }
     
@@ -627,7 +633,7 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
      
      - returns: 70 (always)
      */
-    func pickerView(_: UIPickerView, rowHeightForComponent: Int) -> CGFloat { 70 }
+    func pickerView(_: UIPickerView, rowHeightForComponent: Int) -> CGFloat { 60 }
     
     /* ############################################################## */
     /**
