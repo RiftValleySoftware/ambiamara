@@ -96,10 +96,10 @@
 "SLUG-FINAL-TIME"                               =    "Final Time";
 "SLUG-HOURS"                                    =    "Hours";
 "SLUG-MINUTES"                                  =    "Minutes";
+"SLUG-SECONDS"                                  =    "Seconds";
 "SLUG-NEXT-TIMER-TOOLBAR-TITLE"                 =    "Next";
 "SLUG-PAREN-GROUP-FORMAT"                       =    " (Group %d)";
 "SLUG-PREV-TIMER-TOOLBAR-TITLE"                 =    "Previous";
-"SLUG-SECONDS"                                  =    "Seconds";
 "SLUG-GROUP-SETTINGS"                           =   "Group Settings";
 "SLUG-SETTINGS-FORMAT"                          =   "Settings for Group %d";
 

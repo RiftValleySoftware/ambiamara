@@ -45,7 +45,7 @@ class DisplayBarButtonItem: BaseCustomBarButtonItem {
      */
     override var image: UIImage? {
         get {
-            super.image = super.image ?? self.group?.displayType.image?.resized(toMaximumSize: 24)
+            super.image = super.image ?? self.group?.displayType.image?.resized(toNewHeight: 27)
             return super.image
         }
         set { super.image = newValue }

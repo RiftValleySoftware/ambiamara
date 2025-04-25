@@ -537,6 +537,7 @@ extension RiValT_MultiTimer_ViewController {
         let wasFirstTime = RiValT_Settings.ephemeralFirstTime
         RiValT_Settings.ephemeralFirstTime = false
         if wasFirstTime,
+           2 > self.navigationController?.viewControllers.count ?? 0,
            1 == timerModel.allTimers.count {
             self.performSegue(withIdentifier: Self._timerEditSegueID, sender: nil)
         }
