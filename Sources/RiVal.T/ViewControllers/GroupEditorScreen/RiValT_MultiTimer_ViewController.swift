@@ -172,7 +172,7 @@ class RiValT_BaseCollectionCell: UICollectionViewCell {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - One Display Cell for the Collection View -
+// MARK: - One Add Cell for the Collection View -
 /* ###################################################################################################################################### */
 /**
  This describes "add" cells in the collection view. These are simple "cross" buttons, that allow new timers to be appended.
@@ -574,7 +574,7 @@ extension RiValT_MultiTimer_ViewController {
                    1 < group.model?.count ?? 0 {
                     let groupNumberLabel = UILabel()
                     groupNumberLabel.backgroundColor = UIColor(named: "Selected-Cell-Border")
-                    groupNumberLabel.textColor = .black
+                    groupNumberLabel.textColor = UIColor(named: "Group-Number")
                     groupNumberLabel.textAlignment = .center
                     groupNumberLabel.font = .boldSystemFont(ofSize: 30)
                     groupNumberLabel.adjustsFontSizeToFitWidth = true
@@ -582,11 +582,11 @@ extension RiValT_MultiTimer_ViewController {
                     groupNumberLabel.text = " \(String(inLayoutAttributes.indexPath.section + 1)) "
                     self.addSubview(groupNumberLabel)
                     groupNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-                    groupNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 6).isActive = true
-                    groupNumberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6).isActive = true
-                    groupNumberLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -6).isActive = true
+                    groupNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
+                    groupNumberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
+                    groupNumberLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
                     groupNumberLabel.widthAnchor.constraint(equalToConstant: 38).isActive = true
-                    groupNumberLabel.cornerRadius = 10
+                    groupNumberLabel.cornerRadius = 12
                     groupNumberLabel.clipsToBounds = true
                 }
 
@@ -598,13 +598,13 @@ extension RiValT_MultiTimer_ViewController {
             // The reason for the weird width, is to prevent the end "add" item from vertically flowing.
             // This only happens, if there are 3 items already there, and a new item is being dragged in from another group.
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.5),
-                                                   heightDimension: .absolute(RiValT_BaseCollectionCell.itemSize.heightDimension.dimension)
+                                                   heightDimension: .absolute(RiValT_BaseCollectionCell.itemSize.heightDimension.dimension + 1)
             )
 
             let item = NSCollectionLayoutItem(layoutSize: RiValT_TimerArray_IconCell.itemSize)
 
-            item.contentInsets = NSDirectionalEdgeInsets(top: Self._itemGuttersInDisplayUnits,
-                                                         leading: Self._itemGuttersInDisplayUnits,
+            item.contentInsets = NSDirectionalEdgeInsets(top: Self._itemGuttersInDisplayUnits + 1,
+                                                         leading: Self._itemGuttersInDisplayUnits + 1,
                                                          bottom: Self._itemGuttersInDisplayUnits,
                                                          trailing: Self._itemGuttersInDisplayUnits
             )
