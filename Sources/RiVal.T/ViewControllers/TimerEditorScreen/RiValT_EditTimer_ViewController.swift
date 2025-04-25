@@ -16,6 +16,7 @@ import RVS_UIKit_Toolbox
 // MARK: - The Main View Controller for the Timer Edit -
 /* ###################################################################################################################################### */
 /**
+ This view controller allows us to set the timer thresholds for each individual timer.
  */
 class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
     /* ################################################################################################################################## */
@@ -74,7 +75,7 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
     /**
      The large variant of the digital display font.
      */
-    private static let _digitalDisplayFont = UIFont(name: "Let\'s go Digital", size: 90)
+    private static let _digitalDisplayFont = UIFont(name: "Let\'s go Digital", size: 80)
     
     /* ############################################################## */
     /**
@@ -137,6 +138,12 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
      The label above the time set, indicating the selected time.
      */
     @IBOutlet weak var statusLabel: UILabel?
+    
+    /* ############################################################## */
+    /**
+     The "play" triangle, under the pickers.
+     */
+    @IBOutlet weak var playButton: UIButton?
 }
 
 /* ###################################################################################################################################### */
@@ -357,6 +364,14 @@ extension RiValT_EditTimer_ViewController {
     
     /* ############################################################## */
     /**
+     This enables or disables the play button.
+     */
+    func setUpPlayButton() {
+        self.playButton?.isEnabled = 0 < (self.timer?.startingTimeInSeconds ?? 0)
+    }
+    
+    /* ############################################################## */
+    /**
      This customizes the time set type segmented control.
      */
     func updateTimeTypeSegmentedControl() {
@@ -396,7 +411,7 @@ extension RiValT_EditTimer_ViewController {
         self.timeSetPicker?.selectRow(hours, inComponent: PickerRow.hours.rawValue, animated: inIsAnimated)
         self.timeSetPicker?.selectRow(minutes, inComponent: PickerRow.minutes.rawValue, animated: inIsAnimated)
         self.timeSetPicker?.selectRow(seconds, inComponent: PickerRow.seconds.rawValue, animated: inIsAnimated)
-        
+        self.setUpPlayButton()
         self.timeSetPicker?.reloadAllComponents()
     }
 }
@@ -467,6 +482,17 @@ extension RiValT_EditTimer_ViewController {
         self.setUpTimeTypeSegmentedControl()
         self.updateTimeTypeSegmentedControl()
         self.impactHaptic()
+    }
+
+    /* ############################################################## */
+    /**
+     Called when the "play" button is hit.
+     
+      - parameter: The button (ignored).
+     */
+    @IBAction func playButtonHit(_: Any) {
+        self.impactHaptic()
+        self.performSegue(withIdentifier: RiValT_RunningTimer_ViewController.segueID, sender: self.timer)
     }
 }
 
@@ -588,9 +614,9 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
      - parameter: The picker view (ignored)
      - parameter rowHeightForComponent: The selected column (ignored)
      
-     - returns: 80 (always)
+     - returns: 70 (always)
      */
-    func pickerView(_: UIPickerView, rowHeightForComponent: Int) -> CGFloat { 80 }
+    func pickerView(_: UIPickerView, rowHeightForComponent: Int) -> CGFloat { 70 }
     
     /* ############################################################## */
     /**

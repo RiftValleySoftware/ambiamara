@@ -753,6 +753,7 @@ extension RiValT_MultiTimer_ViewController {
      */
     @IBAction func toolbarPlayButtonHit(_ inButton: UIBarButtonItem) {
         self.impactHaptic()
+        self.performSegue(withIdentifier: RiValT_RunningTimer_ViewController.segueID, sender: self.timerModel.selectedTimer)
     }
     
     /* ############################################################## */

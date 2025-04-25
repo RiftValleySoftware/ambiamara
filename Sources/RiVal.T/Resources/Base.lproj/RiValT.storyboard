@@ -114,6 +114,7 @@
                         <outlet property="toolbarPlayButton" destination="11P-RB-1WC" id="wXk-gi-6lJ"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="iB1-Rw-Leg"/>
                         <segue destination="JlO-Oc-S3P" kind="show" identifier="edit-timer" id="050-k9-mZE"/>
+                        <segue destination="pd7-cA-z1q" kind="show" identifier="run-timer" id="ijE-fc-jzc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -129,7 +130,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ix-aj-H7Q">
-                                <rect key="frame" x="20" y="298" width="353" height="256"/>
+                                <rect key="frame" x="20" y="326" width="353" height="200"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kx5-6Q-HlR">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="33"/>
@@ -149,7 +150,7 @@
                                         </connections>
                                     </segmentedControl>
                                     <pickerView contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-IS-Nx4">
-                                        <rect key="frame" x="0.0" y="31.999999999999986" width="353" height="203.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="32" width="353" height="147.66666666666669"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="dataSource" destination="JlO-Oc-S3P" id="Ltu-M7-pbN"/>
@@ -157,7 +158,7 @@
                                         </connections>
                                     </pickerView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rGl-Mw-lt6" userLabel="Labels Container View">
-                                        <rect key="frame" x="8" y="235.66666666666663" width="329" height="20.333333333333343"/>
+                                        <rect key="frame" x="8" y="179.66666666666669" width="329" height="20.333333333333343"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-HOURS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfu-Kz-A9q">
                                                 <rect key="frame" x="0.0" y="0.0" width="104.33333333333333" height="20.333333333333332"/>
@@ -212,7 +213,7 @@
                                     <constraint firstItem="rGl-Mw-lt6" firstAttribute="trailing" secondItem="1vE-IS-Nx4" secondAttribute="trailing" constant="-16" id="ad8-Tw-Ppl"/>
                                     <constraint firstItem="kx5-6Q-HlR" firstAttribute="bottom" secondItem="1vE-IS-Nx4" secondAttribute="top" id="cQL-nR-nd1"/>
                                     <constraint firstItem="rGl-Mw-lt6" firstAttribute="leading" secondItem="1vE-IS-Nx4" secondAttribute="leading" constant="8" id="oD6-fW-DKb"/>
-                                    <constraint firstAttribute="height" constant="256" id="s2Q-y1-J89"/>
+                                    <constraint firstAttribute="height" constant="200" id="s2Q-y1-J89"/>
                                     <constraint firstAttribute="bottom" secondItem="rGl-Mw-lt6" secondAttribute="bottom" id="sRp-KR-KI8"/>
                                     <constraint firstItem="kx5-6Q-HlR" firstAttribute="top" secondItem="9ix-aj-H7Q" secondAttribute="top" id="y1X-q9-JbN"/>
                                 </constraints>
@@ -224,23 +225,51 @@
                                 <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAB-yM-IWU">
-                                <rect key="frame" x="196.66666666666666" y="290" width="0.0" height="0.0"/>
+                                <rect key="frame" x="196.66666666666666" y="318" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2tz-2H-cb2">
+                                <rect key="frame" x="20" y="526" width="353" height="209"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQC-pa-BBK">
+                                        <rect key="frame" x="156.66666666666666" y="84.666666666666629" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="HqK-1J-f8B"/>
+                                            <constraint firstAttribute="width" secondItem="pQC-pa-BBK" secondAttribute="height" multiplier="1:1" id="P0n-D7-u9c"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal">
+                                            <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="playButtonHit:" destination="JlO-Oc-S3P" eventType="touchUpInside" id="yRf-a4-vsR"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="pQC-pa-BBK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2tz-2H-cb2" secondAttribute="top" constant="8" id="0K4-EU-Il0"/>
+                                    <constraint firstItem="pQC-pa-BBK" firstAttribute="centerX" secondItem="2tz-2H-cb2" secondAttribute="centerX" id="HYm-Ce-oQZ"/>
+                                    <constraint firstItem="pQC-pa-BBK" firstAttribute="centerY" secondItem="2tz-2H-cb2" secondAttribute="centerY" priority="999" id="u15-U9-3rY"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ITz-Ty-22n"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="czQ-xo-bRA" firstAttribute="top" secondItem="2tz-2H-cb2" secondAttribute="bottom" id="4Ze-eL-wun"/>
+                            <constraint firstItem="2tz-2H-cb2" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" constant="20" id="9rU-DC-v5O"/>
                             <constraint firstItem="czQ-xo-bRA" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" id="AJG-Ry-mrw"/>
                             <constraint firstItem="9ix-aj-H7Q" firstAttribute="top" secondItem="lAB-yM-IWU" secondAttribute="bottom" constant="8" symbolic="YES" id="AiP-gp-w1Q"/>
-                            <constraint firstItem="czQ-xo-bRA" firstAttribute="top" relation="greaterThanOrEqual" secondItem="9ix-aj-H7Q" secondAttribute="bottom" id="EJi-6f-YTT"/>
+                            <constraint firstItem="2tz-2H-cb2" firstAttribute="top" secondItem="9ix-aj-H7Q" secondAttribute="bottom" id="b6f-sR-h0Y"/>
                             <constraint firstItem="czQ-xo-bRA" firstAttribute="bottom" secondItem="ITz-Ty-22n" secondAttribute="bottom" id="c73-f3-SjS"/>
                             <constraint firstItem="9ix-aj-H7Q" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" constant="20" id="el0-Oi-JUx"/>
                             <constraint firstItem="lAB-yM-IWU" firstAttribute="centerX" secondItem="eHC-G7-JUU" secondAttribute="centerX" id="epN-c2-Fc2"/>
                             <constraint firstItem="lAB-yM-IWU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ITz-Ty-22n" secondAttribute="top" id="erq-v8-XWq"/>
+                            <constraint firstItem="ITz-Ty-22n" firstAttribute="trailing" secondItem="2tz-2H-cb2" secondAttribute="trailing" constant="20" id="h2L-gp-XLU"/>
                             <constraint firstItem="9ix-aj-H7Q" firstAttribute="centerX" secondItem="eHC-G7-JUU" secondAttribute="centerX" id="jLh-dj-YqB"/>
                             <constraint firstItem="czQ-xo-bRA" firstAttribute="trailing" secondItem="ITz-Ty-22n" secondAttribute="trailing" id="jbL-cK-bl1"/>
                             <constraint firstItem="9ix-aj-H7Q" firstAttribute="centerY" secondItem="eHC-G7-JUU" secondAttribute="centerY" id="mow-qO-fbX"/>
@@ -255,12 +284,14 @@
                     <connections>
                         <outlet property="hoursLabel" destination="pfu-Kz-A9q" id="d8T-Dn-xGb"/>
                         <outlet property="minutesLabel" destination="cbl-rx-DkY" id="OCu-X6-LEz"/>
+                        <outlet property="playButton" destination="pQC-pa-BBK" id="HJo-wA-Spo"/>
                         <outlet property="secondsLabel" destination="Nev-tz-EK3" id="XGR-Rc-zML"/>
                         <outlet property="setTimeContainerView" destination="9ix-aj-H7Q" id="zjZ-t5-WYq"/>
                         <outlet property="statusLabel" destination="lAB-yM-IWU" id="s0K-EX-OOx"/>
                         <outlet property="timeSetPicker" destination="1vE-IS-Nx4" id="lzf-hS-dYF"/>
                         <outlet property="timeTypeSegmentedControl" destination="kx5-6Q-HlR" id="BeD-iS-WpR"/>
                         <outlet property="toolbar" destination="czQ-xo-bRA" id="lCb-Ix-5xp"/>
+                        <segue destination="pd7-cA-z1q" kind="show" identifier="run-timer" id="IQd-3W-YGZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2QB-7k-b82" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -275,7 +306,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1498" y="-211"/>
+            <point key="canvasLocation" x="1496.9465648854962" y="-211.26760563380282"/>
         </scene>
         <!--RiValT Display Settings View Controller-->
         <scene sceneID="9m5-5F-kDS">
@@ -485,6 +516,22 @@
             </objects>
             <point key="canvasLocation" x="3007" y="-211"/>
         </scene>
+        <!--Ri ValT Running Timer View Controller-->
+        <scene sceneID="fOn-vN-4fq">
+            <objects>
+                <viewController storyboardIdentifier="RiValT_RunningTimer_ViewController" id="pd7-cA-z1q" customClass="RiValT_RunningTimer_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qge-7r-Z34">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="JHV-F6-kXu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="RBv-vi-uf0"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ewh-89-7YW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1117" y="525"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="CJq-mF-a4b">
             <objects>
@@ -505,12 +552,16 @@
             <point key="canvasLocation" x="-222" y="-211"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="IQd-3W-YGZ"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="DisplayCircle" width="150" height="127"/>
         <image name="DisplayDigits" width="150" height="127"/>
         <image name="DisplayDots" width="150" height="127"/>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
         <image name="bell.slash" catalog="system" width="119" height="128"/>
+        <image name="play.fill" catalog="system" width="120" height="128"/>
         <image name="speaker.fill" catalog="system" width="128" height="125"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -519,7 +570,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
