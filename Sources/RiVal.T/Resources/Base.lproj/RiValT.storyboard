@@ -77,7 +77,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="BTK-I2-mZc"/>
-                                    <barButtonItem systemItem="play" id="11P-RB-1WC">
+                                    <barButtonItem image="play" id="11P-RB-1WC">
                                         <connections>
                                             <action selector="toolbarPlayButtonHit:" destination="BYZ-38-t0r" id="UpQ-bk-hNl"/>
                                         </connections>
@@ -558,7 +558,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IQd-3W-YGZ"/>
+        <segue reference="ijE-fc-jzc"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="DisplayCircle" width="150" height="127"/>
@@ -566,6 +566,7 @@
         <image name="DisplayDots" width="150" height="127"/>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
         <image name="bell.slash" catalog="system" width="119" height="128"/>
+        <image name="play" width="128" height="128"/>
         <image name="play.fill" catalog="system" width="120" height="128"/>
         <image name="play.slash" catalog="system" width="116" height="128"/>
         <image name="speaker.fill" catalog="system" width="128" height="125"/>

@@ -684,6 +684,7 @@ extension RiValT_MultiTimer_ViewController {
         guard let timer = self.timerModel.selectedTimer else { return }
         self.toolbarDeleteButton?.isEnabled = 1 < self.timerModel.allTimers.count
         self.toolbarPlayButton?.isEnabled = 0 < timer.startingTimeInSeconds
+        self.toolbarPlayButton?.image = UIImage(systemName: 0 < timer.startingTimeInSeconds ? "play.fill" : "play.slash")
         self.toolbarEditButton?.isEnabled = true
     }
 }
