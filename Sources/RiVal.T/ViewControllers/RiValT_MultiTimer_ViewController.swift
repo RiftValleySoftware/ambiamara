@@ -404,6 +404,7 @@ extension RiValT_MultiTimer_ViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        RiValT_AppDelegate.appDelegateInstance?.groupEditorController = self
         let appearance = UIToolbarAppearance()
         appearance.configureWithTransparentBackground()
         appearance.backgroundColor = .clear
@@ -423,15 +424,10 @@ extension RiValT_MultiTimer_ViewController {
      - parameter inIsAnimated: True, if the appearance is animated.
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
-        let wasFirstTime = RiValT_Settings.ephemeralFirstTime
-        RiValT_Settings.ephemeralFirstTime = false
         super.viewWillAppear(inIsAnimated)
-        if wasFirstTime,
-           1 == timerModel.allTimers.count {
-            self.performSegue(withIdentifier: Self._timerEditSegueID, sender: nil)
-        }
+        self.checkForFastForward()
     }
-
+    
     /* ############################################################## */
     /**
      Called just before the view disappears.
@@ -505,6 +501,19 @@ extension RiValT_MultiTimer_ViewController {
 
     /* ############################################################## */
     /**
+     If the first time through, and we only have one timer, we go straight to the editor.
+     */
+    func checkForFastForward() {
+        let wasFirstTime = RiValT_Settings.ephemeralFirstTime
+        RiValT_Settings.ephemeralFirstTime = false
+        if wasFirstTime,
+           1 == timerModel.allTimers.count {
+            self.performSegue(withIdentifier: Self._timerEditSegueID, sender: nil)
+        }
+    }
+
+    /* ############################################################## */
+    /**
      This establishes the display layout for our collection view.
      
      Each group of timers is a row, with up to 4 timers each.
@@ -539,6 +548,7 @@ extension RiValT_MultiTimer_ViewController {
             
             /* ###################################################### */
             /**
+             Required (and unsupported) coder init.
              */
             required init?(coder: NSCoder) {
                 fatalError("init(coder:) has not been implemented")
@@ -546,6 +556,13 @@ extension RiValT_MultiTimer_ViewController {
 
             /* ###################################################### */
             /**
+             This is called to give the instance a chance to mess with the layout.
+             
+             We don't mess with it, but we use it as the best way to figure out what we'll be displaying.
+             
+             - parameter inLayoutAttributes: The layout attributes (which contain the current state).
+             
+             - returns: The layout attributes (with any mods, which we don't do).
              */
             override func preferredLayoutAttributesFitting(_ inLayoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
                 self.subviews.forEach { $0.removeFromSuperview() }

@@ -44,9 +44,19 @@ class RiValT_SceneDelegate: UIResponder, UIWindowSceneDelegate {
     /**
      Called when the app has been backgrounded.
      
-     - parameter: The scene that's entering the foreground (ignored).
+     - parameter: The scene that's entering the background (ignored).
      */
     func sceneDidEnterBackground(_: UIScene) {
         RiValT_Settings.ephemeralFirstTime = true
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the app is coming to the fore.
+     
+     - parameter: The scene that's entering the foreground (ignored).
+     */
+    func sceneWillEnterForeground(_: UIScene) {
+        RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.checkForFastForward()
     }
 }
