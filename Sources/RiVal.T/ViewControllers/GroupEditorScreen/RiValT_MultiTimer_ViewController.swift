@@ -457,19 +457,6 @@ extension RiValT_MultiTimer_ViewController {
         self.setUpNavBarItems()
     }
 
-    /* ############################################################## */
-    /**
-     Called just before we segue to another screen.
-     
-     - parameter inSegue: The segue instance.
-     - parameter: Extra data (ignored).
-     */
-    override func prepare(for inSegue: UIStoryboardSegue, sender: Any?) {
-        if let destination = inSegue.destination as? RiValT_EditTimer_ViewController {
-            destination.timer = self.timerModel.selectedTimer
-        }
-    }
-    
     /* ################################################################## */
     /**
      Called to allow us to do something when we change layout size (like rotating)

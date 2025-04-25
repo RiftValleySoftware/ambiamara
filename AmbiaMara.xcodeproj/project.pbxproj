@@ -53,6 +53,7 @@
 		D48A5E352D934ED200770606 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D48A5E342D934ED200770606 /* RVS_UIKit_Toolbox */; };
 		D48CDA042DB44786008C2DF9 /* Accessibility.strings in Resources */ = {isa = PBXBuildFile; fileRef = D48CDA032DB44786008C2DF9 /* Accessibility.strings */; };
 		D48F68C62DB438680093D938 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D48F68C52DB438680093D938 /* Localizable.strings */; };
+		D49BBA112DBC275D00DD0963 /* RiValT_TimerEditor_PageViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49BBA102DBC275D00DD0963 /* RiValT_TimerEditor_PageViewContainer.swift */; };
 		D4A149BD2DB66A4700B70A7B /* RVS_Checkbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4A149BC2DB66A4700B70A7B /* RVS_Checkbox */; };
 		D4A413932DB930D40017964C /* 22-thanks-for-sharing.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4A413922DB930D40017964C /* 22-thanks-for-sharing.mp3 */; };
 		D4A413942DB930D40017964C /* 22-thanks-for-sharing.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4A413922DB930D40017964C /* 22-thanks-for-sharing.mp3 */; };
@@ -361,6 +362,7 @@
 		D488F2EE281D6D960045E999 /* Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = Sources/Meta/Warnings.xcconfig; sourceTree = SOURCE_ROOT; };
 		D48CDA032DB44786008C2DF9 /* Accessibility.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Accessibility.strings; sourceTree = "<group>"; };
 		D48F68C52DB438680093D938 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		D49BBA102DBC275D00DD0963 /* RiValT_TimerEditor_PageViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_TimerEditor_PageViewContainer.swift; sourceTree = "<group>"; };
 		D4A413922DB930D40017964C /* 22-thanks-for-sharing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "22-thanks-for-sharing.mp3"; sourceTree = "<group>"; };
 		D4A413952DB930E80017964C /* 14-shut-up-1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "14-shut-up-1.mp3"; sourceTree = "<group>"; };
 		D4A413982DB930ED0017964C /* 15-shut-up-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "15-shut-up-2.mp3"; sourceTree = "<group>"; };
@@ -841,6 +843,7 @@
 		D4CF4FC72DBB0853008A71B8 /* TimerEditorScreen */ = {
 			isa = PBXGroup;
 			children = (
+				D49BBA102DBC275D00DD0963 /* RiValT_TimerEditor_PageViewContainer.swift */,
 				D4EDE73A2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift */,
 			);
 			path = TimerEditorScreen;
@@ -1304,6 +1307,7 @@
 				D43B97682DA2C1D10028E023 /* RiValT_Base_ViewController.swift in Sources */,
 				D40FB3072DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift in Sources */,
 				D43B97792DA2C2E80028E023 /* TimerEngine.swift in Sources */,
+				D49BBA112DBC275D00DD0963 /* RiValT_TimerEditor_PageViewContainer.swift in Sources */,
 				D4E2E8FB2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift in Sources */,
 				D45184CA2DB42DBF00DA671D /* RiValT_SoundSettings_ViewController.swift in Sources */,
 				D4CF4FC92DBB08C3008A71B8 /* RiValT_RunningTimer_ViewController.swift in Sources */,

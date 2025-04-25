@@ -85,11 +85,23 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
 
     /* ############################################################## */
     /**
+     The storyboard ID for instantiating the class.
+     */
+    static let storyboardID = "RiValT_EditTimer_ViewController"
+    
+    /* ############################################################## */
+    /**
      The timer instance associated with this screen.
      
      It is implicit optional, because we're in trouble, if it's nil.
      */
     weak var timer: Timer! = nil { didSet { self.view.setNeedsLayout() } }
+    
+    /* ############################################################## */
+    /**
+     This is the page view container that "owns" this screen.
+     */
+    weak var myContainer: RiValT_TimerEditor_PageViewContainer?
 
     /* ############################################################## */
     /**
@@ -263,20 +275,6 @@ extension RiValT_EditTimer_ViewController {
         self.timeTypeSegmentedControl?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: self.isDarkMode ? UIColor.black : UIColor.label], for: .selected)
         self.timeSetPicker?.reloadAllComponents()
     }
-    
-    /* ############################################################## */
-    /**
-     Called before we gallavant off to another screen.
-     
-     - parameter inSegue: The segue instance.
-     - parameter inData: An opaque parameter with any associated data.
-     */
-    override func prepare(for inSegue: UIStoryboardSegue, sender inData: Any?) {
-        if let destination = inSegue.destination as? RiValT_SoundSettings_ViewController,
-           let group = inData as? TimerGroup {
-            destination.group = group
-        }
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -294,19 +292,6 @@ extension RiValT_EditTimer_ViewController {
         var toolbarItems = [UIBarButtonItem]()
         self.toolbar?.items = []
         if 1 < timerGroup.count {
-            let prevButton = UIBarButtonItem()
-            prevButton.image = UIImage(systemName: "arrowtriangle.backward.fill")
-            prevButton.target = self
-            prevButton.action = #selector(toolbarPrevHit)
-            prevButton.isEnabled = 0 < timerIndexPath.item
-
-            let nextButton = UIBarButtonItem()
-            nextButton.image = UIImage(systemName: "arrowtriangle.right.fill")
-            nextButton.target = self
-            nextButton.action = #selector(toolbarNextHit)
-            nextButton.isEnabled = timerIndexPath.item < (timerGroup.count - 1)
-            
-            toolbarItems.append(prevButton)
             toolbarItems.append(UIBarButtonItem.flexibleSpace())
 
             for index in 0..<timerGroup.count {
@@ -320,7 +305,6 @@ extension RiValT_EditTimer_ViewController {
             }
             
             toolbarItems.append(UIBarButtonItem.flexibleSpace())
-            toolbarItems.append(nextButton)
             
             self.toolbar?.setItems(toolbarItems, animated: false)
             self.toolbar?.isHidden = false
@@ -447,42 +431,9 @@ extension RiValT_EditTimer_ViewController {
 
     /* ############################################################## */
     /**
-     */
-    @IBAction func toolbarPrevHit(_: Any) {
-        guard self.toolbar?.items?.first?.isEnabled ?? false,
-              let groupIndex = self.timer?.indexPath?.section,
-              let timerIndex = self.timer?.indexPath?.item
-        else { return }
-        self.updateSettings()
-        self.timer = timerModel.getTimer(at: IndexPath(item: max(0, min(TimerGroup.maxTimersInGroup, timerIndex - 1)), section: groupIndex))
-        self.setUpToolbar()
-        self.setTime(true)
-        self.timeTypeSegmentedControl?.selectedSegmentIndex = TimeType.setTime.rawValue
-        self.setUpTimeTypeSegmentedControl()
-        self.updateTimeTypeSegmentedControl()
-        self.impactHaptic()
-    }
-    
-    /* ############################################################## */
-    /**
-     */
-    @IBAction func toolbarNextHit(_: Any) {
-        guard self.toolbar?.items?.last?.isEnabled ?? false,
-              let groupIndex = self.timer?.indexPath?.section,
-              let timerIndex = self.timer?.indexPath?.item
-        else { return }
-        self.updateSettings()
-        self.timer = timerModel.getTimer(at: IndexPath(item: max(0, min(TimerGroup.maxTimersInGroup, timerIndex + 1)), section: groupIndex))
-        self.setUpToolbar()
-        self.setTime(true)
-        self.timeTypeSegmentedControl?.selectedSegmentIndex = TimeType.setTime.rawValue
-        self.setUpTimeTypeSegmentedControl()
-        self.updateTimeTypeSegmentedControl()
-        self.impactHaptic()
-    }
-
-    /* ############################################################## */
-    /**
+     Called when one of the numbered timer squares in the toolbar is hit.
+     
+     - parameter inButton: The timer button.
      */
     @objc func toolbarTimerHit(_ inButton: UIBarButtonItem) {
         guard let groupIndex = self.timer?.indexPath?.section else { return }

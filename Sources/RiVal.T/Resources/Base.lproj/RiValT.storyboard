@@ -113,8 +113,8 @@
                         <outlet property="toolbarEditButton" destination="yI7-Xj-kln" id="GGg-nh-5rQ"/>
                         <outlet property="toolbarPlayButton" destination="11P-RB-1WC" id="wXk-gi-6lJ"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="iB1-Rw-Leg"/>
-                        <segue destination="JlO-Oc-S3P" kind="show" identifier="edit-timer" id="050-k9-mZE"/>
                         <segue destination="pd7-cA-z1q" kind="show" identifier="run-timer" id="ijE-fc-jzc"/>
+                        <segue destination="hNf-mb-Gac" kind="show" identifier="edit-timer" id="nZU-4Y-t9I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -124,7 +124,7 @@
         <!--RiValT Edit Timer View Controller-->
         <scene sceneID="G2G-D8-NDE">
             <objects>
-                <viewController id="JlO-Oc-S3P" userLabel="RiValT Edit Timer View Controller" customClass="RiValT_EditTimer_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RiValT_EditTimer_ViewController" id="JlO-Oc-S3P" userLabel="RiValT Edit Timer View Controller" customClass="RiValT_EditTimer_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eHC-G7-JUU">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -294,7 +294,6 @@
                         <outlet property="timeSetPicker" destination="1vE-IS-Nx4" id="lzf-hS-dYF"/>
                         <outlet property="timeTypeSegmentedControl" destination="kx5-6Q-HlR" id="BeD-iS-WpR"/>
                         <outlet property="toolbar" destination="czQ-xo-bRA" id="lCb-Ix-5xp"/>
-                        <segue destination="pd7-cA-z1q" kind="show" identifier="run-timer" id="IQd-3W-YGZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2QB-7k-b82" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -309,7 +308,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1496.9465648854962" y="-211.26760563380282"/>
+            <point key="canvasLocation" x="-222" y="1258"/>
         </scene>
         <!--RiValT Display Settings View Controller-->
         <scene sceneID="9m5-5F-kDS">
@@ -359,7 +358,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LmJ-yc-Vig" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2247" y="-211"/>
+            <point key="canvasLocation" x="1521" y="-211"/>
         </scene>
         <!--RiValT Sound Settings View Controller-->
         <scene sceneID="c3H-XT-HrY">
@@ -517,7 +516,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ym7-tB-WDa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3007" y="-211"/>
+            <point key="canvasLocation" x="2273" y="-211"/>
         </scene>
         <!--Ri ValT Running Timer View Controller-->
         <scene sceneID="fOn-vN-4fq">
@@ -533,7 +532,59 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewh-89-7YW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1117" y="525"/>
+            <point key="canvasLocation" x="740" y="1258"/>
+        </scene>
+        <!--Ri ValT Timer Editor Page View Container-->
+        <scene sceneID="fCm-5k-ObW">
+            <objects>
+                <viewController id="hNf-mb-Gac" customClass="RiValT_TimerEditor_PageViewContainer" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hmm-VJ-MHv">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="h7R-9b-c2z">
+                                <rect key="frame" x="0.0" y="735" width="393" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items/>
+                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </toolbar>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oeU-XQ-0mJ">
+                                <rect key="frame" x="0.0" y="162" width="393" height="573"/>
+                                <connections>
+                                    <segue destination="ozw-VV-RWF" kind="embed" id="TIG-mZ-LJH"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="q1r-ig-XpU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="h7R-9b-c2z" firstAttribute="leading" secondItem="q1r-ig-XpU" secondAttribute="leading" id="2im-g3-my6"/>
+                            <constraint firstItem="h7R-9b-c2z" firstAttribute="top" secondItem="oeU-XQ-0mJ" secondAttribute="bottom" id="BRZ-TQ-FEv"/>
+                            <constraint firstItem="h7R-9b-c2z" firstAttribute="trailing" secondItem="q1r-ig-XpU" secondAttribute="trailing" id="U6Z-6O-K0y"/>
+                            <constraint firstItem="oeU-XQ-0mJ" firstAttribute="leading" secondItem="q1r-ig-XpU" secondAttribute="leading" id="XX9-HI-5Wa"/>
+                            <constraint firstItem="q1r-ig-XpU" firstAttribute="bottom" secondItem="h7R-9b-c2z" secondAttribute="bottom" id="e5B-by-wUu"/>
+                            <constraint firstItem="oeU-XQ-0mJ" firstAttribute="trailing" secondItem="q1r-ig-XpU" secondAttribute="trailing" id="sXC-SC-1Zl"/>
+                            <constraint firstItem="oeU-XQ-0mJ" firstAttribute="top" secondItem="q1r-ig-XpU" secondAttribute="top" id="zWI-Zb-WUt"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="RA4-nx-G1K"/>
+                    <connections>
+                        <outlet property="pageViewContainer" destination="oeU-XQ-0mJ" id="6Iv-eV-HYV"/>
+                        <outlet property="toolbar" destination="h7R-9b-c2z" id="JPJ-nW-7uZ"/>
+                        <segue destination="pd7-cA-z1q" kind="show" identifier="run-timer" id="5dz-Yc-pHo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6pA-84-9Qc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-222" y="524"/>
+        </scene>
+        <!--Ri ValT Timer Editor Page View Controller-->
+        <scene sceneID="jt6-yD-IY5">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="ozw-VV-RWF" customClass="RiValT_TimerEditor_PageViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NhK-I5-jjX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1063" y="1159"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CJq-mF-a4b">
@@ -556,7 +607,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IQd-3W-YGZ"/>
+        <segue reference="5dz-Yc-pHo"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="DisplayCircle" width="150" height="127"/>
