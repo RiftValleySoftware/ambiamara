@@ -573,7 +573,12 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
             }
 
         case .seconds:
-            if 0 < hours || 0 < minutes,
+            if 0 == hours,
+               0 == minutes,
+               0 == inRow,
+               inRow == selectedRow {
+                stringFormat = ""
+            } else if 0 < hours || 0 < minutes,
                 inRow == selectedRow {
                 stringFormat = "%02d"
             }
@@ -637,7 +642,11 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
             timer.warningTimeInSeconds = max(0, min(timer.startingTimeInSeconds - 1, currentPickerTimeInSeconds))
             timer.finalTimeInSeconds = max(0, min(timer.warningTimeInSeconds - 1, timer.finalTimeInSeconds))
         case .finalTime:
-            timer.finalTimeInSeconds = max(0, min(timer.warningTimeInSeconds - 1, currentPickerTimeInSeconds))
+            if 0 < timer.warningTimeInSeconds { // You can have just starting time and final time.
+                timer.finalTimeInSeconds = max(0, min(timer.warningTimeInSeconds - 1, currentPickerTimeInSeconds))
+            } else {
+                timer.finalTimeInSeconds = max(0, min(timer.startingTimeInSeconds - 1, currentPickerTimeInSeconds))
+            }
         }
         self.setTime(true)
         self.impactHaptic()
