@@ -175,9 +175,8 @@ extension RiValT_TimerEditor_PageViewContainer {
                 timerButton.tag = index
                 timerButton.action = #selector(toolbarTimerHit)
                 toolbarItems.append(timerButton)
+                toolbarItems.append(UIBarButtonItem.flexibleSpace())
             }
-            
-            toolbarItems.append(UIBarButtonItem.flexibleSpace())
             
             self.toolbar?.setItems(toolbarItems, animated: false)
             self.toolbar?.isHidden = false

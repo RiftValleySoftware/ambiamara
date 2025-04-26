@@ -984,6 +984,8 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         inCollectionView.reloadData()
         if shouldScroll {
             inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section + 1), at: .bottom, animated: true)
+            self.impactHaptic()
+            self.performSegue(withIdentifier: Self._timerEditSegueID, sender: nil)
         } else {
             inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section), at: .centeredVertically, animated: true)
         }
