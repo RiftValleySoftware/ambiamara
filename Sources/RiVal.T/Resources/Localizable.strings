@@ -81,25 +81,29 @@
 // MARK: Timer Selection Screen
 
 "SLUG-CANCEL-BUTTON-TEXT"                       =   "Cancel";
-"SLUG-DELETE-BUTTON-TEXT"                       =    "Delete Timer";
-"SLUG-DELETE-CONFIRM-HEADER"                    =    "Delete the Selected Timer?";
-"SLUG-DELETE-CONFIRM-MESSAGE"                   =    "If you select “Delete Timer”, the selected timer will be permanently removed from the app.";
+"SLUG-DELETE-BUTTON-TEXT"                       =   "Delete Timer";
+"SLUG-DELETE-CONFIRM-HEADER"                    =   "Delete the Selected Timer?";
+"SLUG-DELETE-CONFIRM-MESSAGE"                   =   "If you select “Delete Timer”, the selected timer will be permanently removed from the app.";
 "SLUG-TIMERS"                                   =   "All Timers";
 "SLUG-TIMERS-BACK"                              =   "Timers";
 
+// MARK: Settings Screen
+
+"SLUG-SETTINGS"                                 =   "Settings";
+
 // MARK: Timer Edit Screen
 
-"SLUG-EDIT-FORMAT"                              =    "Edit Timer %d";
-"SLUG-EDIT-TIMER"                               =    "Edit Timer";
+"SLUG-EDIT-FORMAT"                              =   "Edit Timer %d";
+"SLUG-EDIT-TIMER"                               =   "Edit Timer";
 "SLUG-START-TIME"                               =   "Start Time";
 "SLUG-WARN-TIME"                                =   "Warning Time";
-"SLUG-FINAL-TIME"                               =    "Final Time";
-"SLUG-HOURS"                                    =    "Hours";
-"SLUG-MINUTES"                                  =    "Minutes";
-"SLUG-SECONDS"                                  =    "Seconds";
-"SLUG-NEXT-TIMER-TOOLBAR-TITLE"                 =    "Next";
-"SLUG-PAREN-GROUP-FORMAT"                       =    " (Group %d)";
-"SLUG-PREV-TIMER-TOOLBAR-TITLE"                 =    "Previous";
+"SLUG-FINAL-TIME"                               =   "Final Time";
+"SLUG-HOURS"                                    =   "Hours";
+"SLUG-MINUTES"                                  =   "Minutes";
+"SLUG-SECONDS"                                  =   "Seconds";
+"SLUG-NEXT-TIMER-TOOLBAR-TITLE"                 =   "Next";
+"SLUG-PAREN-GROUP-FORMAT"                       =   " (Group %d)";
+"SLUG-PREV-TIMER-TOOLBAR-TITLE"                 =   "Previous";
 "SLUG-GROUP-SETTINGS"                           =   "Group Settings";
 "SLUG-SETTINGS-FORMAT"                          =   "Settings for Group %d";
 

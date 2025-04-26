@@ -10,6 +10,23 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--SLUG-SETTINGS-->
+        <scene sceneID="6Ap-a5-Qrv">
+            <objects>
+                <viewController storyboardIdentifier="RiValT_Settings_ViewController" id="XBS-Mo-d1E" customClass="RiValT_Settings_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rpl-B9-cxj">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="386"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="LHW-x8-Fcj"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="SLUG-SETTINGS" id="dTe-Rn-iWr"/>
+                    <size key="freeformSize" width="393" height="386"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bzU-Ll-ezW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1609.9236641221373" y="-375.35211267605638"/>
+        </scene>
         <!--RiValT View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -107,9 +124,17 @@
                             <constraint firstItem="eX2-3V-kKN" firstAttribute="top" secondItem="DVH-QM-2oZ" secondAttribute="bottom" id="voD-aR-nvp"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="SLUG-TIMERS" id="DJn-d6-GdS"/>
+                    <navigationItem key="navigationItem" title="SLUG-TIMERS" id="DJn-d6-GdS">
+                        <barButtonItem key="leftBarButtonItem" id="tOI-Og-fO4">
+                            <imageReference key="image" image="gear.circle" catalog="system" symbolScale="large"/>
+                            <connections>
+                                <action selector="settingsButtonHit:" destination="BYZ-38-t0r" id="eMq-nF-Zrm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="DVH-QM-2oZ" id="9aH-vt-SVg"/>
+                        <outlet property="settingsBarButtonItem" destination="tOI-Og-fO4" id="JqA-PY-GiR"/>
                         <outlet property="toolbar" destination="eX2-3V-kKN" id="fmw-5E-fO8"/>
                         <outlet property="toolbarDeleteButton" destination="A4y-gE-dYG" id="sz9-c6-t3e"/>
                         <outlet property="toolbarEditButton" destination="yI7-Xj-kln" id="GGg-nh-5rQ"/>
@@ -293,7 +318,7 @@
             <objects>
                 <viewController storyboardIdentifier="RiValT_DisplaySettings_ViewController" id="7rj-Oc-ByP" userLabel="RiValT Display Settings View Controller" customClass="RiValT_DisplaySettings_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MQC-eH-sYO">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="392"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BbL-a0-0K3">
@@ -311,24 +336,47 @@
                                     <action selector="displaySelectionChanged:" destination="7rj-Oc-ByP" eventType="valueChanged" id="jDL-do-zRA"/>
                                 </connections>
                             </segmentedControl>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bxo-RZ-jvl">
-                                <rect key="frame" x="16" y="164" width="361" height="612"/>
-                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xjc-Fl-i2d" userLabel="OutlineView">
+                                <rect key="frame" x="16" y="164" width="361" height="178"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bxo-RZ-jvl">
+                                        <rect key="frame" x="4" y="4" width="353" height="170"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="bxo-RZ-jvl" secondAttribute="bottom" constant="4" id="0mq-u2-C8V"/>
+                                    <constraint firstItem="bxo-RZ-jvl" firstAttribute="top" secondItem="Xjc-Fl-i2d" secondAttribute="top" constant="4" id="39Q-IA-zCO"/>
+                                    <constraint firstAttribute="trailing" secondItem="bxo-RZ-jvl" secondAttribute="trailing" constant="4" id="8Ns-eP-TPY"/>
+                                    <constraint firstItem="bxo-RZ-jvl" firstAttribute="leading" secondItem="Xjc-Fl-i2d" secondAttribute="leading" constant="4" id="OIO-RN-7Ss"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bQD-7I-Gdi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="BbL-a0-0K3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MQC-eH-sYO" secondAttribute="leading" constant="16" id="4Yh-qn-7cQ"/>
+                            <constraint firstItem="bQD-7I-Gdi" firstAttribute="trailing" secondItem="Xjc-Fl-i2d" secondAttribute="trailing" constant="16" id="6iL-3d-SAb"/>
                             <constraint firstItem="BbL-a0-0K3" firstAttribute="top" secondItem="bQD-7I-Gdi" secondAttribute="top" constant="8" id="9De-bn-Xjx"/>
                             <constraint firstItem="BbL-a0-0K3" firstAttribute="centerX" secondItem="MQC-eH-sYO" secondAttribute="centerX" id="DiW-UX-8aB"/>
-                            <constraint firstItem="bxo-RZ-jvl" firstAttribute="leading" secondItem="bQD-7I-Gdi" secondAttribute="leading" constant="16" id="Dks-tW-nNL"/>
-                            <constraint firstItem="bxo-RZ-jvl" firstAttribute="centerX" secondItem="MQC-eH-sYO" secondAttribute="centerX" id="T3v-pe-1BX"/>
-                            <constraint firstItem="bQD-7I-Gdi" firstAttribute="bottom" secondItem="bxo-RZ-jvl" secondAttribute="bottom" constant="8" id="dao-wt-o5t"/>
+                            <constraint firstItem="Xjc-Fl-i2d" firstAttribute="leading" secondItem="bQD-7I-Gdi" secondAttribute="leading" constant="16" id="FkQ-6v-PMY"/>
+                            <constraint firstItem="Xjc-Fl-i2d" firstAttribute="top" secondItem="BbL-a0-0K3" secondAttribute="bottom" constant="8" id="OKA-u9-BV8"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BbL-a0-0K3" secondAttribute="trailing" constant="16" id="hzQ-Yq-gbl"/>
-                            <constraint firstItem="bQD-7I-Gdi" firstAttribute="trailing" secondItem="bxo-RZ-jvl" secondAttribute="trailing" constant="16" id="llo-EW-fZb"/>
-                            <constraint firstItem="bxo-RZ-jvl" firstAttribute="top" secondItem="BbL-a0-0K3" secondAttribute="bottom" constant="8" symbolic="YES" id="pa6-tE-8FF"/>
+                            <constraint firstItem="bQD-7I-Gdi" firstAttribute="bottom" secondItem="Xjc-Fl-i2d" secondAttribute="bottom" constant="16" id="ja3-7g-uo3"/>
                         </constraints>
                     </view>
+                    <size key="freeformSize" width="393" height="392"/>
                     <connections>
                         <outlet property="displaySelectionSegmentedControl" destination="BbL-a0-0K3" id="KMJ-9g-FHA"/>
                         <outlet property="previewImageView" destination="bxo-RZ-jvl" id="rLZ-46-53a"/>
@@ -336,14 +384,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LmJ-yc-Vig" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1521" y="-211"/>
+            <point key="canvasLocation" x="2391.6030534351144" y="-377.46478873239437"/>
         </scene>
         <!--RiValT Sound Settings View Controller-->
         <scene sceneID="c3H-XT-HrY">
             <objects>
                 <viewController storyboardIdentifier="RiValT_SoundSettings_ViewController" id="Ve2-9T-BtJ" userLabel="RiValT Sound Settings View Controller" customClass="RiValT_SoundSettings_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ac3-Jn-30K">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="391"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0gF-7Y-fYR">
@@ -480,6 +528,7 @@
                             <constraint firstItem="agT-5B-lHc" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0gF-7Y-fYR" secondAttribute="bottom" priority="999" id="mdX-2t-1hn"/>
                         </constraints>
                     </view>
+                    <size key="freeformSize" width="393" height="391"/>
                     <connections>
                         <outlet property="alarmModeSegmentedSwitch" destination="2r1-h3-CVb" id="m9T-nE-tXM"/>
                         <outlet property="mainPickerStackView" destination="CaB-on-Nru" id="7Q4-yF-f1H"/>
@@ -494,7 +543,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ym7-tB-WDa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2273" y="-211"/>
+            <point key="canvasLocation" x="3145.801526717557" y="-374.29577464788736"/>
         </scene>
         <!--Ri ValT Running Timer View Controller-->
         <scene sceneID="fOn-vN-4fq">
@@ -588,7 +637,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="5dz-Yc-pHo"/>
+        <segue reference="ijE-fc-jzc"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="DisplayCircle" width="150" height="127"/>
@@ -596,6 +645,7 @@
         <image name="DisplayDots" width="150" height="127"/>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
         <image name="bell.slash" catalog="system" width="119" height="128"/>
+        <image name="gear.circle" catalog="system" width="128" height="123"/>
         <image name="play" width="128" height="128"/>
         <image name="play.fill" catalog="system" width="120" height="128"/>
         <image name="play.slash" catalog="system" width="116" height="128"/>

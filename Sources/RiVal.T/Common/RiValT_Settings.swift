@@ -30,11 +30,24 @@ class RiValT_Settings: RVS_PersistentPrefs {
          */
         case timerModel
 
-        /* ############################################################## */
+        /* ################################################################## */
         /**
-         The various other settings, like alarms and whatnot. These apply to groups, with the order of the array corresponding to the group array.
+         If this is true, then going into the running timer screen starts the timer immediately.
+         If false, then it starts as paused.
          */
-        case groupSettings
+        case startTimerImmediately
+
+        /* ################################################################## */
+        /**
+         If this is true, the running timer toolbar is displayed at the top of the screen.
+         */
+        case displayToolbar
+
+        /* ################################################################## */
+        /**
+         If this is true, then the toolbar (if in displayToolbar mode) will fade, after a few seconds of inactivity.
+         */
+        case autoHideToolbar
 
         /* ############################################################## */
         /**
@@ -42,7 +55,9 @@ class RiValT_Settings: RVS_PersistentPrefs {
          */
         static var allKeys: [String] { [
                                         timerModel.rawValue,
-                                        groupSettings.rawValue
+                                        startTimerImmediately.rawValue,
+                                        displayToolbar.rawValue,
+                                        autoHideToolbar.rawValue
                                         ]
         }
     }
@@ -104,7 +119,35 @@ class RiValT_Settings: RVS_PersistentPrefs {
         
         return ret
     }
-    
+
+    /* ################################################################## */
+    /**
+     If this is true, then going into the running timer screen starts the timer immediately.
+     If false, then it starts as paused.
+     */
+    var startTimerImmediately: Bool {
+        get { 0 != (values[Keys.startTimerImmediately.rawValue] as? Int ?? 0) }
+        set { values[Keys.startTimerImmediately.rawValue] = newValue ? 1 : 0 }
+    }
+
+    /* ################################################################## */
+    /**
+     If this is true, then the toolbar is shown at the top of the running timer.
+     */
+    var displayToolbar: Bool {
+        get { 0 != (values[Keys.displayToolbar.rawValue] as? Int ?? 1) }
+        set { values[Keys.displayToolbar.rawValue] = newValue ? 1 : 0 }
+    }
+
+    /* ################################################################## */
+    /**
+     If this is true, then the toolbar (if in displayToolbar mode) will fade, after a few seconds of inactivity.
+     */
+    var autoHideToolbar: Bool {
+        get { 0 != (values[Keys.autoHideToolbar.rawValue] as? Int ?? 1) }
+        set { values[Keys.autoHideToolbar.rawValue] = newValue ? 1 : 0 }
+    }
+
     /* ################################################################## */
     /**
      The keys (for determining storage).

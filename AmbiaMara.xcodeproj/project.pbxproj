@@ -122,6 +122,7 @@
 		D4F70CED282872A500DC0E11 /* 25-telephone.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */; };
 		D4F70CEE282872A500DC0E11 /* 23-siren.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */; };
 		D4F70CEF282872A500DC0E11 /* 24-deep-alarm.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */; };
+		D4F7EDE32DBD4052007F4771 /* RiValT_Settings_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7EDE22DBD4052007F4771 /* RiValT_Settings_ViewController.swift */; };
 		D4F826FB2DB9656200815664 /* Beep-014.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F32DB9656200815664 /* Beep-014.mp3 */; };
 		D4F826FC2DB9656200815664 /* Beep-002.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826E72DB9656200815664 /* Beep-002.mp3 */; };
 		D4F826FD2DB9656200815664 /* Beep-020.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F92DB9656200815664 /* Beep-020.mp3 */; };
@@ -431,6 +432,7 @@
 		D4F70CEA282872A500DC0E11 /* 25-telephone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "25-telephone.mp3"; sourceTree = "<group>"; };
 		D4F70CEB282872A500DC0E11 /* 23-siren.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "23-siren.mp3"; sourceTree = "<group>"; };
 		D4F70CEC282872A500DC0E11 /* 24-deep-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "24-deep-alarm.mp3"; sourceTree = "<group>"; };
+		D4F7EDE22DBD4052007F4771 /* RiValT_Settings_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_Settings_ViewController.swift; sourceTree = "<group>"; };
 		D4F826E62DB9656200815664 /* Beep-001.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-001.mp3"; sourceTree = "<group>"; };
 		D4F826E72DB9656200815664 /* Beep-002.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-002.mp3"; sourceTree = "<group>"; };
 		D4F826E82DB9656200815664 /* Beep-003.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-003.mp3"; sourceTree = "<group>"; };
@@ -836,6 +838,7 @@
 				D4E2E8FA2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift */,
 				D40FB3062DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift */,
 				D45184C92DB42DBE00DA671D /* RiValT_SoundSettings_ViewController.swift */,
+				D4F7EDE22DBD4052007F4771 /* RiValT_Settings_ViewController.swift */,
 			);
 			path = GroupEditorScreen;
 			sourceTree = "<group>";
@@ -1301,6 +1304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4F7EDE32DBD4052007F4771 /* RiValT_Settings_ViewController.swift in Sources */,
 				D43B97662DA2C1D10028E023 /* RiValT_AppDelegate.swift in Sources */,
 				D43B97672DA2C1D10028E023 /* RiValT_SceneDelegate.swift in Sources */,
 				D4752E9D2DB2FD91002359CA /* RiValT_Settings.swift in Sources */,

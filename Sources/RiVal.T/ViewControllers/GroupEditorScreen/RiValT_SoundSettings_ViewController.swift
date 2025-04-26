@@ -38,7 +38,7 @@ class SoundBarButtonItem: BaseCustomBarButtonItem {
      */
     override var image: UIImage? {
         get {
-            super.image = super.image ?? self.group?.soundType.image?.resized(toNewHeight: 27)
+            super.image = super.image ?? self.group?.soundType.image?.resized(toNewHeight: 24)
             return super.image
         }
         set { super.image = newValue }

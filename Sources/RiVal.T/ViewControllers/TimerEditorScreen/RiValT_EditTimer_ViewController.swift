@@ -253,6 +253,7 @@ extension RiValT_EditTimer_ViewController {
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
+        self.timeTypeSegmentedControl?.selectedSegmentIndex = 0
         self.setTime()
     }
     

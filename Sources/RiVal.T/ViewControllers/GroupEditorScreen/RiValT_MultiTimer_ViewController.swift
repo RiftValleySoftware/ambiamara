@@ -353,6 +353,12 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
 
     /* ############################################################## */
     /**
+     The settings button, in the navbar.
+     */
+    @IBOutlet weak var settingsBarButtonItem: UIBarButtonItem?
+
+    /* ############################################################## */
+    /**
      The main collection view.
      */
     @IBOutlet weak var collectionView: UICollectionView?
@@ -380,7 +386,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
      The edit button in the toolbar.
      */
     @IBOutlet weak var toolbarEditButton: UIBarButtonItem?
-
+    
     /* ############################################################## */
     /**
      This is the datasource for the collection view. We manage it dynamically.
@@ -419,6 +425,7 @@ extension RiValT_MultiTimer_ViewController {
         self.toolbar?.scrollEdgeAppearance = appearance
         self.collectionView?.isDirectionalLockEnabled = true
         self.navigationItem.backButtonTitle = "SLUG-TIMERS-BACK".localizedVariant
+        self.settingsBarButtonItem?.image = UIImage(systemName: "gear")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30, weight: .bold))
     }
 
     /* ############################################################## */
@@ -829,6 +836,21 @@ extension RiValT_MultiTimer_ViewController {
         self.impactHaptic()
         guard let controller = self.storyboard?.instantiateViewController(withIdentifier: RiValT_DisplaySettings_ViewController.storyboardID) as? RiValT_DisplaySettings_ViewController else { return }
         controller.group = self.timerModel.selectedTimer?.group
+        controller.modalPresentationStyle = .popover
+        controller.popoverPresentationController?.delegate = self
+        controller.popoverPresentationController?.barButtonItem = inBarButtonItem
+        self.present(controller, animated: true, completion: nil)
+    }
+
+    /* ############################################################## */
+    /**
+     The main settings button was hit.
+     
+     - parameter: ignored.
+     */
+    @IBAction func settingsButtonHit(_ inBarButtonItem: UIBarButtonItem) {
+        self.impactHaptic()
+        guard let controller = self.storyboard?.instantiateViewController(withIdentifier: RiValT_Settings_ViewController.storyboardID) as? RiValT_Settings_ViewController else { return }
         controller.modalPresentationStyle = .popover
         controller.popoverPresentationController?.delegate = self
         controller.popoverPresentationController?.barButtonItem = inBarButtonItem

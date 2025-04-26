@@ -45,7 +45,7 @@ class DisplayBarButtonItem: BaseCustomBarButtonItem {
      */
     override var image: UIImage? {
         get {
-            super.image = super.image ?? self.group?.displayType.image?.resized(toNewHeight: 27)
+            super.image = super.image ?? self.group?.displayType.image?.resized(toNewHeight: 24)
             return super.image
         }
         set { super.image = newValue }
@@ -103,7 +103,6 @@ extension RiValT_DisplaySettings_ViewController {
      */
     override func viewDidLoad() {
         self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
-        self.navigationController?.isNavigationBarHidden = true
         super.viewDidLoad()
         
         guard let groupIndex = self.group?.index else { return }
@@ -114,6 +113,7 @@ extension RiValT_DisplaySettings_ViewController {
             self.navigationItem.title = "SLUG-DISPLAY-GROUP-SETTINGS".localizedVariant
         }
         
+//        self.previewImageView?.conten
         setUpSelectionControl()
         selectDisplayType()
     }
