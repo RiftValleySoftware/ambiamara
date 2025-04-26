@@ -159,15 +159,23 @@ class RiValT_BaseCollectionCell: UICollectionViewCell {
      The index path of this cell.
      */
     var indexPath: IndexPath?
+    
+    /* ############################################################## */
+    /**
+     The controller that "owns" this cell.
+     */
+    var myController: RiValT_MultiTimer_ViewController?
 
     /* ############################################################## */
     /**
      Configure this cell item with its index path.
      
      - parameter inIndexPath: The index path for the cell being represented.
+     - parameter inMyController: The controller that "owns" this cell.
      */
-    func configure(indexPath inIndexPath: IndexPath) {
+    func configure(indexPath inIndexPath: IndexPath, myController inMyController: RiValT_MultiTimer_ViewController?) {
         self.indexPath = inIndexPath
+        self.myController = inMyController
     }
 }
 
@@ -189,9 +197,10 @@ class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
      Configure this cell item with its index path.
      
      - parameter inIndexPath: The index path for the cell being represented.
+     - parameter inMyController: The controller that "owns" this cell.
      */
-    override func configure(indexPath inIndexPath: IndexPath) {
-        super.configure(indexPath: inIndexPath)
+    override func configure(indexPath inIndexPath: IndexPath, myController inMyController: RiValT_MultiTimer_ViewController?) {
+        super.configure(indexPath: inIndexPath, myController: inMyController)
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
         if inIndexPath.section == RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group?.index ?? -1 || self.indexPath?.section == timerModel.count {
             let newImage = UIImageView(image: UIImage(systemName: "plus.circle\(self.indexPath?.section == timerModel.count ? ".fill" : "")")?
@@ -251,15 +260,17 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
      
      - parameter inItem: The timer associated with this cell.
      - parameter inIndexPath: The index path for the cell being represented.
+     - parameter inMyController: The controller that "owns" this cell.
      */
-    func configure(with inItem: Timer, indexPath inIndexPath: IndexPath) {
+    func configure(with inItem: Timer, indexPath inIndexPath: IndexPath, myController inMyController: RiValT_MultiTimer_ViewController?) {
         let hasSetTime = 0 < inItem.startingTimeInSeconds
         let hasWarning = hasSetTime && 0 < inItem.warningTimeInSeconds
         let hasFinal = hasSetTime && 0 < inItem.finalTimeInSeconds
-        
+
         self.contentView.backgroundColor = UIColor(named: "\(inItem.isSelected ? "Selected-" : "")Cell-Background")
 
-        super.configure(indexPath: inIndexPath)
+        super.configure(indexPath: inIndexPath, myController: inMyController)
+        
         self.item = inItem
         self.indexPath = inIndexPath
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
@@ -280,7 +291,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
         startLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -8).isActive = true
         
         let warnLabel = UILabel()
-        
+
         if hasWarning {
             warnLabel.textColor = inItem.isSelected ? UIColor(named: "Warn-Color") : UIViewController().isDarkMode ? .black : .white
             warnLabel.font = Self.digitalDisplayFontSmall
@@ -548,7 +559,7 @@ extension RiValT_MultiTimer_ViewController {
         if wasFirstTime,
            2 > self.navigationController?.viewControllers.count ?? 0,
            1 == timerModel.allTimers.count {
-            self.performSegue(withIdentifier: Self._timerEditSegueID, sender: nil)
+            self.goEditYourself()
         }
     }
 
@@ -573,6 +584,14 @@ extension RiValT_MultiTimer_ViewController {
              Used to register this class with the collection view.
              */
             static let reuseIdentifier = "SectionBackgroundView"
+            
+            /* ###################################################### */
+            /**
+             The controller that "owns" this instance.
+             */
+            var myController: RiValT_MultiTimer_ViewController? {
+                RiValT_AppDelegate.appDelegateInstance?.groupEditorController
+            }
 
             /* ###################################################### */
             /**
@@ -592,6 +611,16 @@ extension RiValT_MultiTimer_ViewController {
              */
             required init?(coder: NSCoder) {
                 fatalError("init(coder:) has not been implemented")
+            }
+            
+            /* ###################################################### */
+            /**
+             Called by the tap gesture.
+             
+             - parameter: ignored.
+             */
+            @objc private func _handleTap(_: Any) {
+                myController?.goEditYourself()
             }
 
             /* ###################################################### */
@@ -615,6 +644,8 @@ extension RiValT_MultiTimer_ViewController {
                 if group.index == inLayoutAttributes.indexPath.section,
                    1 < group.model?.count ?? 0 {
                     let groupNumberLabel = UILabel()
+                    groupNumberLabel.isUserInteractionEnabled = true
+                    groupNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(_handleTap)))
                     groupNumberLabel.backgroundColor = UIColor(named: "Selected-Cell-Border")
                     groupNumberLabel.textColor = UIColor(named: "Group-Number")
                     groupNumberLabel.textAlignment = .center
@@ -671,17 +702,17 @@ extension RiValT_MultiTimer_ViewController {
      */
     func setupDataSource() {
         guard let collectionView = self.collectionView else { return }
-        self.dataSource = UICollectionViewDiffableDataSource<Int, RiValT_TimerArray_Placeholder>(collectionView: collectionView) { inCollectionView, inIndexPath, inTimer in
+        self.dataSource = UICollectionViewDiffableDataSource<Int, RiValT_TimerArray_Placeholder>(collectionView: collectionView) { [self] inCollectionView, inIndexPath, inTimer in
             var ret = UICollectionViewCell()
             
             // If this cell has a timer, we create a timer cell.
             if let timer = self.timerModel.getTimer(at: inIndexPath),
                let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_IconCell {
-                cell.configure(with: timer, indexPath: inIndexPath)
+                cell.configure(with: timer, indexPath: inIndexPath, myController: self)
                 ret = cell
             // Otherwise, we create an add cell.
             } else if let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_AddCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_AddCell {
-                cell.configure(indexPath: inIndexPath)
+                cell.configure(indexPath: inIndexPath, myController: self)
                 ret = cell
             }
             
@@ -805,8 +836,16 @@ extension RiValT_MultiTimer_ViewController {
      
      - parameter: ignored.
      */
-    @IBAction func toolbarEditButtonHit(_ inButton: UIBarButtonItem) {
+    @IBAction func toolbarEditButtonHit(_: Any! = nil) {
         self.impactHaptic()
+        self.goEditYourself()
+    }
+    
+    /* ############################################################## */
+    /**
+     Called to segue to the editor screen.
+     */
+    func goEditYourself() {
         self.performSegue(withIdentifier: Self._timerEditSegueID, sender: nil)
     }
 
@@ -1007,9 +1046,12 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         if shouldScroll {
             inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section + 1), at: .bottom, animated: true)
             self.impactHaptic()
-            self.performSegue(withIdentifier: Self._timerEditSegueID, sender: nil)
         } else {
             inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section), at: .centeredVertically, animated: true)
+        }
+        
+        if shouldScroll || RiValT_Settings().oneTapEditing {
+            self.goEditYourself()
         }
     }
 }

@@ -49,6 +49,12 @@ class RiValT_Settings: RVS_PersistentPrefs {
          */
         case autoHideToolbar
 
+        /* ################################################################## */
+        /**
+         If this is true, then tapping on a timer will immediately go to its editor.
+         */
+        case oneTapEditing
+
         /* ############################################################## */
         /**
          These are all the keys, in an Array of String.
@@ -57,7 +63,8 @@ class RiValT_Settings: RVS_PersistentPrefs {
                                         timerModel.rawValue,
                                         startTimerImmediately.rawValue,
                                         displayToolbar.rawValue,
-                                        autoHideToolbar.rawValue
+                                        autoHideToolbar.rawValue,
+                                        oneTapEditing.rawValue
                                         ]
         }
     }
@@ -148,6 +155,15 @@ class RiValT_Settings: RVS_PersistentPrefs {
         set { values[Keys.autoHideToolbar.rawValue] = newValue ? 1 : 0 }
     }
 
+    /* ################################################################## */
+    /**
+     If this is true (default), then tapping on any timer, will open its editor.
+     */
+    var oneTapEditing : Bool {
+        get { 0 != (values[Keys.oneTapEditing.rawValue] as? Int ?? 1) }
+        set { values[Keys.oneTapEditing.rawValue] = newValue ? 1 : 0 }
+    }
+    
     /* ################################################################## */
     /**
      The keys (for determining storage).
