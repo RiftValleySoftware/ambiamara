@@ -278,10 +278,6 @@
                             <constraint firstItem="czQ-xo-bRA" firstAttribute="trailing" secondItem="ITz-Ty-22n" secondAttribute="trailing" id="jbL-cK-bl1"/>
                             <constraint firstItem="2tz-2H-cb2" firstAttribute="bottom" secondItem="czQ-xo-bRA" secondAttribute="top" id="kdX-Tj-T7I"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="Q6E-o3-LJm" appends="YES" id="cfN-Oe-MOb"/>
-                            <outletCollection property="gestureRecognizers" destination="onz-1A-vfx" appends="YES" id="sLv-hb-TU1"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="SLUG-EDIT" id="g8j-Dj-DgL"/>
                     <connections>
@@ -297,16 +293,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2QB-7k-b82" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="left" id="Q6E-o3-LJm" userLabel="Left Swipe Gesture Recognizer">
-                    <connections>
-                        <action selector="toolbarNextHit:" destination="JlO-Oc-S3P" id="d0I-ko-sQV"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="right" id="onz-1A-vfx" userLabel="Right Swipe Gesture Recognizer">
-                    <connections>
-                        <action selector="toolbarPrevHit:" destination="JlO-Oc-S3P" id="dET-6z-aGx"/>
-                    </connections>
-                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-222" y="1258"/>
         </scene>

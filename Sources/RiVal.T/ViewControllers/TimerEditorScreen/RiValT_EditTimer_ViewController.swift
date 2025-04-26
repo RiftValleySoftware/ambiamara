@@ -251,7 +251,6 @@ extension RiValT_EditTimer_ViewController {
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
-        self.setUpToolbar()
         self.setTime()
     }
     
@@ -281,48 +280,6 @@ extension RiValT_EditTimer_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_EditTimer_ViewController {
-    /* ############################################################## */
-    /**
-     This sets up the bottom toolbar.
-     */
-    func setUpToolbar() {
-        guard let timerIndexPath = timer.indexPath,
-              let timerGroup = timer.group
-        else { return }
-        var toolbarItems = [UIBarButtonItem]()
-        self.toolbar?.items = []
-        if 1 < timerGroup.count {
-            toolbarItems.append(UIBarButtonItem.flexibleSpace())
-
-            for index in 0..<timerGroup.count {
-                let timerButton = UIBarButtonItem()
-                timerButton.image = UIImage(systemName: "\(index + 1).square\(index == timerIndexPath.item ? ".fill" : "")")
-                timerButton.isEnabled = index != timerIndexPath.item
-                timerButton.target = self
-                timerButton.tag = index
-                timerButton.action = #selector(toolbarTimerHit)
-                toolbarItems.append(timerButton)
-            }
-            
-            toolbarItems.append(UIBarButtonItem.flexibleSpace())
-            
-            self.toolbar?.setItems(toolbarItems, animated: false)
-            self.toolbar?.isHidden = false
-            var titleString = String(format: "SLUG-EDIT-FORMAT".localizedVariant, timerIndexPath.item + 1)
-            if 1 < self.timerModel.count {
-                titleString += String(format: "SLUG-PAREN-GROUP-FORMAT".localizedVariant, timerIndexPath.section + 1)
-            }
-            self.navigationItem.title = titleString
-        } else {
-            self.toolbar?.isHidden = true
-            var titleString = "SLUG-EDIT-TIMER".localizedVariant
-            if 1 < self.timerModel.count {
-                titleString += String(format: "SLUG-PAREN-GROUP-FORMAT".localizedVariant, timerIndexPath.section + 1)
-            }
-            self.navigationItem.title = titleString
-        }
-    }
-    
     /* ############################################################## */
     /**
      This customizes the time set type segmented control.
@@ -427,24 +384,6 @@ extension RiValT_EditTimer_ViewController {
         self.selectionHaptic()
         self.updateTimeTypeSegmentedControl()
         self.updateSettings()
-    }
-
-    /* ############################################################## */
-    /**
-     Called when one of the numbered timer squares in the toolbar is hit.
-     
-     - parameter inButton: The timer button.
-     */
-    @objc func toolbarTimerHit(_ inButton: UIBarButtonItem) {
-        guard let groupIndex = self.timer?.indexPath?.section else { return }
-        self.updateSettings()
-        self.timer = timerModel.getTimer(at: IndexPath(item: inButton.tag, section: groupIndex))
-        self.setUpToolbar()
-        self.setTime(true)
-        self.timeTypeSegmentedControl?.selectedSegmentIndex = TimeType.setTime.rawValue
-        self.setUpTimeTypeSegmentedControl()
-        self.updateTimeTypeSegmentedControl()
-        self.impactHaptic()
     }
 
     /* ############################################################## */
