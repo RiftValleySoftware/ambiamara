@@ -38,6 +38,16 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      */
+    @IBOutlet weak var oneTapEditCheckbox: RVS_Checkbox?
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet weak var oneTapEditLabelButton: UIButton?
+
+    /* ############################################################## */
+    /**
+     */
     @IBOutlet weak var showToolbarCheckbox: RVS_Checkbox?
     
     /* ############################################################## */
@@ -65,7 +75,7 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
      This calculates the size needed for the popover, and sets the property, which causes the popover to change.
      */
     private func _setPreferredContentSize() {
-        let height = (self.autoHideStackView?.isHidden ?? true) ? 100 : 138
+        let height = (self.autoHideStackView?.isHidden ?? true) ? 138 : 176
         
         UIView.animate(withDuration: 0.3) {
             self.preferredContentSize = CGSize(width: 270, height: height)
@@ -80,6 +90,7 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
         super.viewDidLoad()
         self.startImmediatelyCheckbox?.isOn = RiValT_Settings().startTimerImmediately
+        self.oneTapEditCheckbox?.isOn = RiValT_Settings().oneTapEditing
         self.showToolbarCheckbox?.isOn = RiValT_Settings().displayToolbar
         self.autoHideToolbarCheckbox?.isOn = RiValT_Settings().autoHideToolbar
         self.autoHideStackView?.isHidden = !RiValT_Settings().displayToolbar
@@ -101,6 +112,21 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         RiValT_Settings().startTimerImmediately = checkbox.isOn
     }
     
+    /* ############################################################## */
+    /**
+     */
+    @IBAction func oneTapEditCheckboxValueChanged(_ inButton: UIControl) {
+        guard let checkbox = inButton as? RVS_Checkbox
+        else {
+            self.selectionHaptic()
+            self.oneTapEditCheckbox?.setOn(!(oneTapEditCheckbox?.isOn ?? false), animated: true)
+            self.oneTapEditCheckbox?.sendActions(for: .valueChanged)
+            return
+        }
+        
+        RiValT_Settings().oneTapEditing = checkbox.isOn
+    }
+
     /* ############################################################## */
     /**
      */

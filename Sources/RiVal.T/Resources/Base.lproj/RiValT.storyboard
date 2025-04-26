@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2rx-W2-3dV">
-                                <rect key="frame" x="16" y="134" width="361" height="106"/>
+                                <rect key="frame" x="16" y="134" width="361" height="144"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nJo-BV-SnL">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="30"/>
@@ -52,8 +52,39 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hVc-TM-7HX">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gv8-lP-sBY">
                                         <rect key="frame" x="0.0" y="38" width="361" height="30"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UNm-KF-4yk" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
+                                                <rect key="frame" x="0.0" y="2" width="28" height="26"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="UNm-KF-4yk" secondAttribute="height" multiplier="1:1" id="ua8-wp-z2k"/>
+                                                    <constraint firstAttribute="width" constant="26" id="xpE-KP-n0y"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isThreeState" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isUsingSFSymbols" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="useOffImageForClear" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="useHaptics" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="oneTapEditCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="valueChanged" id="4PD-FB-ZrB"/>
+                                                </connections>
+                                            </switch>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgQ-tc-QYo">
+                                                <rect key="frame" x="34" y="0.0" width="327" height="30"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="SLUG-ONE-TAP-EDIT">
+                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="oneTapEditCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="touchUpInside" id="nCf-El-IEk"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hVc-TM-7HX">
+                                        <rect key="frame" x="0.0" y="76" width="361" height="30"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sdl-6R-kiR" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
                                                 <rect key="frame" x="0.0" y="2" width="28" height="26"/>
@@ -84,7 +115,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tyf-Ot-qnt">
-                                        <rect key="frame" x="0.0" y="76" width="361" height="30"/>
+                                        <rect key="frame" x="0.0" y="114" width="361" height="30"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i72-tV-rRZ" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
                                                 <rect key="frame" x="0.0" y="2" width="28" height="26"/>
@@ -116,12 +147,14 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="gv8-lP-sBY" secondAttribute="trailing" id="AC5-la-hR8"/>
                                     <constraint firstAttribute="trailing" secondItem="tyf-Ot-qnt" secondAttribute="trailing" id="Qsi-UW-0cq"/>
                                     <constraint firstItem="tyf-Ot-qnt" firstAttribute="leading" secondItem="2rx-W2-3dV" secondAttribute="leading" id="cDl-Ob-EJG"/>
                                     <constraint firstItem="hVc-TM-7HX" firstAttribute="leading" secondItem="2rx-W2-3dV" secondAttribute="leading" id="eRm-Jw-Jtm"/>
                                     <constraint firstItem="nJo-BV-SnL" firstAttribute="leading" secondItem="2rx-W2-3dV" secondAttribute="leading" id="jRa-XM-GgP"/>
                                     <constraint firstAttribute="trailing" secondItem="hVc-TM-7HX" secondAttribute="trailing" id="jTA-1N-J1C"/>
                                     <constraint firstAttribute="trailing" secondItem="nJo-BV-SnL" secondAttribute="trailing" id="qmm-Fl-1dn"/>
+                                    <constraint firstItem="gv8-lP-sBY" firstAttribute="leading" secondItem="2rx-W2-3dV" secondAttribute="leading" id="uXh-Ke-D3B"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -140,6 +173,8 @@
                         <outlet property="autoHideStackView" destination="tyf-Ot-qnt" id="gfn-BI-oDQ"/>
                         <outlet property="autoHideToolbarCheckbox" destination="i72-tV-rRZ" id="bVD-kf-OLg"/>
                         <outlet property="autoHideToolbarLabelButton" destination="o4k-I5-ttI" id="VQg-TA-cKZ"/>
+                        <outlet property="oneTapEditCheckbox" destination="UNm-KF-4yk" id="1vz-TV-UOc"/>
+                        <outlet property="oneTapEditLabelButton" destination="ZgQ-tc-QYo" id="Q7n-BT-IwS"/>
                         <outlet property="showToolbarCheckbox" destination="Sdl-6R-kiR" id="CmR-rA-gS5"/>
                         <outlet property="showToolbarLabelButton" destination="QhN-6q-Vfn" id="VAS-g2-ueI"/>
                         <outlet property="startImmediatelyCheckbox" destination="67L-Ni-xhN" id="ekx-j2-qAu"/>
@@ -223,7 +258,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="3Vo-e5-APX"/>
-                                    <barButtonItem systemItem="edit" id="yI7-Xj-kln">
+                                    <barButtonItem systemItem="edit" id="yI7-Xj-kln" customClass="RiValT_DisappearingBarButton" customModule="RiVal_T" customModuleProvider="target">
                                         <connections>
                                             <action selector="toolbarEditButtonHit:" destination="BYZ-38-t0r" id="KYS-oG-qEs"/>
                                         </connections>

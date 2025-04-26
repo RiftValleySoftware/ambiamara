@@ -13,6 +13,26 @@ import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
+// MARK: - Special Bar Button Item That Disappears, When Disabled -
+/* ###################################################################################################################################### */
+/**
+ This will not turn grey. Instead, it will become clear.
+ */
+class RiValT_DisappearingBarButton: UIBarButtonItem {
+    /* ################################################################## */
+    /**
+     If the control is disabled, we return clear.
+     */
+    override var isEnabled: Bool {
+        get { super.isEnabled }
+        set {
+            super.isEnabled = newValue
+            super.tintColor = newValue ? RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.view?.tintColor : .clear
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Timer Extension for Display -
 /* ###################################################################################################################################### */
 extension Timer {
@@ -620,7 +640,10 @@ extension RiValT_MultiTimer_ViewController {
              - parameter: ignored.
              */
             @objc private func _handleTap(_: Any) {
-                myController?.goEditYourself()
+                if RiValT_Settings().oneTapEditing {
+                    myController?.impactHaptic()
+                    myController?.goEditYourself()
+                }
             }
 
             /* ###################################################### */
@@ -756,7 +779,7 @@ extension RiValT_MultiTimer_ViewController {
         self.toolbarDeleteButton?.isEnabled = 1 < self.timerModel.allTimers.count
         self.toolbarPlayButton?.isEnabled = 0 < timer.startingTimeInSeconds
         self.toolbarPlayButton?.image = UIImage(systemName: 0 < timer.startingTimeInSeconds ? "play.fill" : "play.slash")
-        self.toolbarEditButton?.isEnabled = true
+        self.toolbarEditButton?.isEnabled = !RiValT_Settings().oneTapEditing
     }
 }
 
@@ -1031,11 +1054,11 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         
         if nil == self.timerModel.getTimer(at: inIndexPath) {
             self.timerModel.createNewTimer(at: inIndexPath)
+            self.impactHaptic(1.0)
             shouldScroll = true
         }
         
         if !(self.timerModel.getTimer(at: inIndexPath)?.isSelected ?? false) {
-            self.impactHaptic(1.0)
             self.timerModel.getTimer(at: inIndexPath)?.isSelected = true
         }
         
@@ -1045,12 +1068,12 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         inCollectionView.reloadData()
         if shouldScroll {
             inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section + 1), at: .bottom, animated: true)
-            self.impactHaptic()
         } else {
             inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section), at: .centeredVertically, animated: true)
         }
         
-        if shouldScroll || RiValT_Settings().oneTapEditing {
+        if RiValT_Settings().oneTapEditing {
+            self.impactHaptic()
             self.goEditYourself()
         }
     }
