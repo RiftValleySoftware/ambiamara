@@ -17,11 +17,134 @@
                     <view key="view" contentMode="scaleToFill" id="rpl-B9-cxj">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="386"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2rx-W2-3dV">
+                                <rect key="frame" x="16" y="134" width="361" height="106"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nJo-BV-SnL">
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="30"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="67L-Ni-xhN" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
+                                                <rect key="frame" x="0.0" y="2" width="28" height="26"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="67L-Ni-xhN" secondAttribute="height" multiplier="1:1" id="QKx-ez-w13"/>
+                                                    <constraint firstAttribute="width" constant="26" id="kLL-LJ-FpE"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isThreeState" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isUsingSFSymbols" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="useOffImageForClear" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="useHaptics" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="startImmediatelyCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="valueChanged" id="FEu-vd-5M3"/>
+                                                </connections>
+                                            </switch>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="knm-I9-2Xm">
+                                                <rect key="frame" x="34" y="0.0" width="327" height="30"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="SLUG-START-IMMEDIATELY">
+                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="startImmediatelyCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="touchUpInside" id="bWP-aa-AJF"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hVc-TM-7HX">
+                                        <rect key="frame" x="0.0" y="38" width="361" height="30"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sdl-6R-kiR" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
+                                                <rect key="frame" x="0.0" y="2" width="28" height="26"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Sdl-6R-kiR" secondAttribute="height" multiplier="1:1" id="gAG-NC-hiT"/>
+                                                    <constraint firstAttribute="width" constant="26" id="tRM-GL-hxP"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isThreeState" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isUsingSFSymbols" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="useOffImageForClear" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="useHaptics" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="showToolbarCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="valueChanged" id="4tJ-HJ-6Yd"/>
+                                                </connections>
+                                            </switch>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhN-6q-Vfn">
+                                                <rect key="frame" x="34" y="0.0" width="327" height="30"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="SLUG-SHOW-TOOLBAR">
+                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="showToolbarCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="touchUpInside" id="RsR-L7-be3"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tyf-Ot-qnt">
+                                        <rect key="frame" x="0.0" y="76" width="361" height="30"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i72-tV-rRZ" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
+                                                <rect key="frame" x="0.0" y="2" width="28" height="26"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="i72-tV-rRZ" secondAttribute="height" multiplier="1:1" id="DNi-7c-s99"/>
+                                                    <constraint firstAttribute="width" constant="26" id="w8Y-ih-8bz"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isThreeState" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isUsingSFSymbols" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="useOffImageForClear" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="useHaptics" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="autoHideToolbarCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="valueChanged" id="0j6-f9-YNn"/>
+                                                </connections>
+                                            </switch>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4k-I5-ttI">
+                                                <rect key="frame" x="34" y="0.0" width="327" height="30"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="SLUG-AUTO-HIDE-TOOLBAR">
+                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="autoHideToolbarCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="touchUpInside" id="eb9-nd-qjf"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="tyf-Ot-qnt" secondAttribute="trailing" id="Qsi-UW-0cq"/>
+                                    <constraint firstItem="tyf-Ot-qnt" firstAttribute="leading" secondItem="2rx-W2-3dV" secondAttribute="leading" id="cDl-Ob-EJG"/>
+                                    <constraint firstItem="hVc-TM-7HX" firstAttribute="leading" secondItem="2rx-W2-3dV" secondAttribute="leading" id="eRm-Jw-Jtm"/>
+                                    <constraint firstItem="nJo-BV-SnL" firstAttribute="leading" secondItem="2rx-W2-3dV" secondAttribute="leading" id="jRa-XM-GgP"/>
+                                    <constraint firstAttribute="trailing" secondItem="hVc-TM-7HX" secondAttribute="trailing" id="jTA-1N-J1C"/>
+                                    <constraint firstAttribute="trailing" secondItem="nJo-BV-SnL" secondAttribute="trailing" id="qmm-Fl-1dn"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="LHW-x8-Fcj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2rx-W2-3dV" firstAttribute="leading" secondItem="LHW-x8-Fcj" secondAttribute="leading" constant="16" id="NxH-aJ-prn"/>
+                            <constraint firstItem="LHW-x8-Fcj" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2rx-W2-3dV" secondAttribute="bottom" constant="16" id="RBw-0p-H4c"/>
+                            <constraint firstItem="LHW-x8-Fcj" firstAttribute="trailing" secondItem="2rx-W2-3dV" secondAttribute="trailing" constant="16" id="qsM-ZC-rh4"/>
+                            <constraint firstItem="2rx-W2-3dV" firstAttribute="top" secondItem="LHW-x8-Fcj" secondAttribute="top" constant="16" id="sma-my-Dat"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="SLUG-SETTINGS" id="dTe-Rn-iWr"/>
                     <size key="freeformSize" width="393" height="386"/>
+                    <connections>
+                        <outlet property="autoHideStackView" destination="tyf-Ot-qnt" id="gfn-BI-oDQ"/>
+                        <outlet property="autoHideToolbarCheckbox" destination="i72-tV-rRZ" id="bVD-kf-OLg"/>
+                        <outlet property="autoHideToolbarLabelButton" destination="o4k-I5-ttI" id="VQg-TA-cKZ"/>
+                        <outlet property="showToolbarCheckbox" destination="Sdl-6R-kiR" id="CmR-rA-gS5"/>
+                        <outlet property="showToolbarLabelButton" destination="QhN-6q-Vfn" id="VAS-g2-ueI"/>
+                        <outlet property="startImmediatelyCheckbox" destination="67L-Ni-xhN" id="ekx-j2-qAu"/>
+                        <outlet property="startImmediatelyLabelButton" destination="knm-I9-2Xm" id="nnc-ua-qlH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bzU-Ll-ezW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -113,7 +113,6 @@ extension RiValT_DisplaySettings_ViewController {
             self.navigationItem.title = "SLUG-DISPLAY-GROUP-SETTINGS".localizedVariant
         }
         
-//        self.previewImageView?.conten
         setUpSelectionControl()
         selectDisplayType()
     }
@@ -182,6 +181,7 @@ extension RiValT_DisplaySettings_ViewController {
      - parameter: ignored.
      */
     @IBAction func displaySelectionChanged(_: Any) {
+        self.selectionHaptic()
         selectDisplayType()
     }
 }

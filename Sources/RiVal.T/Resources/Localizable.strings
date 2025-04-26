@@ -90,6 +90,9 @@
 // MARK: Settings Screen
 
 "SLUG-SETTINGS"                                 =   "Settings";
+"SLUG-START-IMMEDIATELY"                        =   "Start Timer Immediately";
+"SLUG-SHOW-TOOLBAR"                             =   "Show Toolbar In Timer";
+"SLUG-AUTO-HIDE-TOOLBAR"                        =   "Auto-Hide Toolbar";
 
 // MARK: Timer Edit Screen
 
