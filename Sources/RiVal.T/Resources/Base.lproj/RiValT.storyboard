@@ -90,7 +90,9 @@
                                     </barButtonItem>
                                 </items>
                                 <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <toolbarAppearance key="standardAppearance"/>
+                                <toolbarAppearance key="standardAppearance">
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </toolbarAppearance>
                             </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -226,10 +228,10 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="2tz-2H-cb2" userLabel="Play Button Container View">
-                                <rect key="frame" x="20" y="544" width="353" height="191"/>
+                                <rect key="frame" x="20" y="544" width="353" height="240"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQC-pa-BBK">
-                                        <rect key="frame" x="156.66666666666666" y="75.666666666666629" width="40" height="40"/>
+                                        <rect key="frame" x="156.66666666666666" y="100" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="HqK-1J-f8B"/>
                                             <constraint firstAttribute="width" secondItem="pQC-pa-BBK" secondAttribute="height" multiplier="1:1" id="P0n-D7-u9c"/>
@@ -256,12 +258,6 @@
                                     <constraint firstItem="pQC-pa-BBK" firstAttribute="centerY" secondItem="2tz-2H-cb2" secondAttribute="centerY" priority="999" id="u15-U9-3rY"/>
                                 </constraints>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="czQ-xo-bRA">
-                                <rect key="frame" x="0.0" y="735" width="393" height="49"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <items/>
-                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ITz-Ty-22n"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -269,14 +265,11 @@
                         <constraints>
                             <constraint firstItem="mcb-qQ-Xdq" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" constant="16" id="06z-Y4-h63"/>
                             <constraint firstItem="2tz-2H-cb2" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" constant="20" id="9rU-DC-v5O"/>
-                            <constraint firstItem="czQ-xo-bRA" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" id="AJG-Ry-mrw"/>
                             <constraint firstItem="2tz-2H-cb2" firstAttribute="top" secondItem="mcb-qQ-Xdq" secondAttribute="bottom" id="Dmc-QH-ByM"/>
-                            <constraint firstItem="czQ-xo-bRA" firstAttribute="bottom" secondItem="ITz-Ty-22n" secondAttribute="bottom" id="c73-f3-SjS"/>
+                            <constraint firstItem="ITz-Ty-22n" firstAttribute="bottom" secondItem="2tz-2H-cb2" secondAttribute="bottom" id="eVp-WX-QDD"/>
                             <constraint firstItem="mcb-qQ-Xdq" firstAttribute="centerY" secondItem="eHC-G7-JUU" secondAttribute="centerY" priority="750" id="epD-sc-SRQ"/>
                             <constraint firstItem="ITz-Ty-22n" firstAttribute="trailing" secondItem="mcb-qQ-Xdq" secondAttribute="trailing" constant="16" id="g56-LA-uua"/>
                             <constraint firstItem="ITz-Ty-22n" firstAttribute="trailing" secondItem="2tz-2H-cb2" secondAttribute="trailing" constant="20" id="h2L-gp-XLU"/>
-                            <constraint firstItem="czQ-xo-bRA" firstAttribute="trailing" secondItem="ITz-Ty-22n" secondAttribute="trailing" id="jbL-cK-bl1"/>
-                            <constraint firstItem="2tz-2H-cb2" firstAttribute="bottom" secondItem="czQ-xo-bRA" secondAttribute="top" id="kdX-Tj-T7I"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="SLUG-EDIT" id="g8j-Dj-DgL"/>
@@ -289,7 +282,6 @@
                         <outlet property="statusLabel" destination="lAB-yM-IWU" id="s0K-EX-OOx"/>
                         <outlet property="timeSetPicker" destination="1vE-IS-Nx4" id="lzf-hS-dYF"/>
                         <outlet property="timeTypeSegmentedControl" destination="kx5-6Q-HlR" id="BeD-iS-WpR"/>
-                        <outlet property="toolbar" destination="czQ-xo-bRA" id="lCb-Ix-5xp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2QB-7k-b82" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -528,11 +520,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="h7R-9b-c2z">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7R-9b-c2z">
                                 <rect key="frame" x="0.0" y="735" width="393" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items/>
                                 <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <toolbarAppearance key="standardAppearance">
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </toolbarAppearance>
                             </toolbar>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oeU-XQ-0mJ">
                                 <rect key="frame" x="0.0" y="162" width="393" height="573"/>
@@ -544,9 +539,9 @@
                         <viewLayoutGuide key="safeArea" id="q1r-ig-XpU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="h7R-9b-c2z" firstAttribute="leading" secondItem="q1r-ig-XpU" secondAttribute="leading" id="2im-g3-my6"/>
+                            <constraint firstItem="h7R-9b-c2z" firstAttribute="leading" secondItem="hmm-VJ-MHv" secondAttribute="leading" id="2im-g3-my6"/>
                             <constraint firstItem="h7R-9b-c2z" firstAttribute="top" secondItem="oeU-XQ-0mJ" secondAttribute="bottom" id="BRZ-TQ-FEv"/>
-                            <constraint firstItem="h7R-9b-c2z" firstAttribute="trailing" secondItem="q1r-ig-XpU" secondAttribute="trailing" id="U6Z-6O-K0y"/>
+                            <constraint firstItem="h7R-9b-c2z" firstAttribute="trailing" secondItem="hmm-VJ-MHv" secondAttribute="trailing" id="U6Z-6O-K0y"/>
                             <constraint firstItem="oeU-XQ-0mJ" firstAttribute="leading" secondItem="q1r-ig-XpU" secondAttribute="leading" id="XX9-HI-5Wa"/>
                             <constraint firstItem="q1r-ig-XpU" firstAttribute="bottom" secondItem="h7R-9b-c2z" secondAttribute="bottom" id="e5B-by-wUu"/>
                             <constraint firstItem="oeU-XQ-0mJ" firstAttribute="trailing" secondItem="q1r-ig-XpU" secondAttribute="trailing" id="sXC-SC-1Zl"/>

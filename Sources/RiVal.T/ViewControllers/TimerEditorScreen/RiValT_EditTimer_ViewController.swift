@@ -241,6 +241,8 @@ extension RiValT_EditTimer_ViewController {
         appearance.backgroundImage = nil
         self.toolbar?.standardAppearance = appearance
         self.toolbar?.scrollEdgeAppearance = appearance
+        self.backgroundGradientImageView?.removeFromSuperview()
+        self.view?.backgroundColor = .clear
     }
     
     /* ############################################################## */
@@ -394,7 +396,7 @@ extension RiValT_EditTimer_ViewController {
      */
     @IBAction func playButtonHit(_: Any) {
         self.impactHaptic()
-        self.performSegue(withIdentifier: RiValT_RunningTimer_ViewController.segueID, sender: self.timer)
+        self.myContainer?.performSegue(withIdentifier: RiValT_RunningTimer_ViewController.segueID, sender: self.timer)
     }
 }
 

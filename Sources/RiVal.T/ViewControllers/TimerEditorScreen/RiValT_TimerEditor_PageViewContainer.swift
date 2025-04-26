@@ -102,9 +102,16 @@ extension RiValT_TimerEditor_PageViewContainer {
         let appearance = UIToolbarAppearance()
         appearance.configureWithTransparentBackground()
         appearance.backgroundColor = .clear
-        appearance.backgroundImage = nil
+        appearance.backgroundImage = UIImage()
         self.toolbar?.standardAppearance = appearance
         self.toolbar?.scrollEdgeAppearance = appearance
+        self.toolbar?.isTranslucent = true
+        let navAppearance = UINavigationBarAppearance()
+        navAppearance.configureWithTransparentBackground()
+        navAppearance.backgroundColor = .clear
+        navAppearance.backgroundImage = UIImage()
+        self.navigationController?.navigationBar.standardAppearance = navAppearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = navAppearance
         pageViewController?.dataSource = self
         pageViewController?.delegate = self
         guard let firstViewController = storyboard?.instantiateViewController(withIdentifier: RiValT_EditTimer_ViewController.storyboardID) as? RiValT_EditTimer_ViewController else { return }
@@ -116,15 +123,29 @@ extension RiValT_TimerEditor_PageViewContainer {
     
     /* ############################################################## */
     /**
+     Called when the view is about to appear
+     
+     - parameter inIsAnimated: True, if the appearance is animated.
+     */
+    override func viewWillAppear(_ inIsAnimated: Bool) {
+        super.viewWillAppear(inIsAnimated)
+        self.navigationController?.isNavigationBarHidden = false
+    }
+
+    /* ############################################################## */
+    /**
      Called when we are to segue to another view controller.
 
      - parameter inSegue: The segue instance.
      - parameter inData: An opaque parameter with any associated data.
      */
-    override func prepare(for inSegue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for inSegue: UIStoryboardSegue, sender inData: Any?) {
         if let destination = inSegue.destination as? RiValT_TimerEditor_PageViewController {
             destination.pageViewContainerViewController = self
             self.pageViewController = destination
+        } else if let destination = inSegue.destination as? RiValT_RunningTimer_ViewController,
+                  let timer = inData as? Timer {
+            destination.timer = timer
         }
     }
 }
@@ -173,6 +194,9 @@ extension RiValT_TimerEditor_PageViewContainer {
             }
             self.navigationItem.title = titleString
         }
+        
+        self.toolbar?.setNeedsLayout()
+        self.toolbar?.layoutIfNeeded()
     }
 }
 
@@ -187,9 +211,21 @@ extension RiValT_TimerEditor_PageViewContainer {
      - parameter inButton: The timer button.
      */
     @objc func toolbarTimerHit(_ inButton: UIBarButtonItem) {
-//        guard let groupIndex = self.timer?.indexPath?.section,
-//              let timer = timerModel.getTimer(at: IndexPath(item: inButton.tag, section: groupIndex))
-//        else { return }
+        guard let groupIndex = self.timer?.indexPath?.section,
+              let timer = timerModel.getTimer(at: IndexPath(item: inButton.tag, section: groupIndex)),
+              let newTimerIndex = timer.indexPath?.item,
+              let currentTimerIndex = self.timerModel?.selectedTimer?.indexPath?.item
+        else { return }
+        
+        let direction: UIPageViewController.NavigationDirection = newTimerIndex > currentTimerIndex ? .forward : .reverse
+        
+        guard let firstViewController = storyboard?.instantiateViewController(withIdentifier: RiValT_EditTimer_ViewController.storyboardID) as? RiValT_EditTimer_ViewController else { return }
+        firstViewController.myContainer = self
+        firstViewController.timer = timer
+        timer.isSelected = true
+        self.impactHaptic()
+        pageViewController?.setViewControllers( [firstViewController], direction: direction, animated: true, completion: nil)
+        self.setUpToolbar()
     }
 }
 
@@ -213,11 +249,7 @@ extension RiValT_TimerEditor_PageViewContainer: UIPageViewControllerDataSource {
         let ret = storyboard?.instantiateViewController(withIdentifier: RiValT_EditTimer_ViewController.storyboardID) as? RiValT_EditTimer_ViewController
         ret?.myContainer = self
         let newIndex = nextIndexPath.item - 1
-        let lastIndex = group.count - 1
-        guard (0...lastIndex).contains(newIndex) else {
-            self.impactHaptic(1.0)
-            return nil
-        }
+        guard (0..<group.count).contains(newIndex) else { return nil }
         ret?.timer = group[newIndex]
         return ret
     }
@@ -238,11 +270,7 @@ extension RiValT_TimerEditor_PageViewContainer: UIPageViewControllerDataSource {
         let ret = storyboard?.instantiateViewController(withIdentifier: RiValT_EditTimer_ViewController.storyboardID) as? RiValT_EditTimer_ViewController
         ret?.myContainer = self
         let newIndex = prevIndexPath.item + 1
-        let lastIndex = group.count - 1
-        guard (0...lastIndex).contains(newIndex) else {
-            self.impactHaptic(1.0)
-            return nil
-        }
+        guard (0..<group.count).contains(newIndex) else { return nil }
         ret?.timer = group[newIndex]
         return ret
     }
@@ -262,21 +290,16 @@ extension RiValT_TimerEditor_PageViewContainer: UIPageViewControllerDelegate {
      - parameter transitionCompleted: True, if the transition completed (ignored).
     */
     func pageViewController(_: UIPageViewController, didFinishAnimating: Bool, previousViewControllers: [UIViewController], transitionCompleted inCompleted: Bool) {
-//        if inCompleted,
-//           hapticsAreAvailable {
-//            if 0 == RVS_AmbiaMara_Settings().currentTimerIndex || (RVS_AmbiaMara_Settings().numberOfTimers - 1) == RVS_AmbiaMara_Settings().currentTimerIndex {
-//                _impactFeedbackGenerator?.impactOccurred()
-//                _impactFeedbackGenerator?.prepare()
-//            } else {
-//                _selectionFeedbackGenerator?.selectionChanged()
-//                _selectionFeedbackGenerator?.prepare()
-//            }
-//        }
-//        
-//        _currentTimerIndex = RVS_AmbiaMara_Settings().currentTimerIndex
-//        setUpToolbar()
-//        setAlarmIcon()
-//        setTimerLabel()
-//        RVS_AmbiaMara_AppSceneDelegate.appDelegateInstance?.updateApplicationContext()
+        guard let group = self.group,
+              let timerIndex = self.currentlySelectedTimerEditor?.timer?.indexPath?.item
+        else { return }
+        self.currentlySelectedTimerEditor?.timer?.isSelected = true
+        if 1 < group.count,
+           (1..<(group.count - 1)).contains(timerIndex) {
+            impactHaptic()
+        } else {
+            impactHaptic(1.0)
+        }
+        setUpToolbar()
     }
 }

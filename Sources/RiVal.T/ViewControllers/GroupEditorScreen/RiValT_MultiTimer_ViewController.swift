@@ -431,6 +431,7 @@ extension RiValT_MultiTimer_ViewController {
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
+        self.navigationController?.isNavigationBarHidden = false
         self.checkForFastForward()
     }
     
@@ -492,6 +493,20 @@ extension RiValT_MultiTimer_ViewController {
      */
     override func prepareForPopoverPresentation(_ inController: UIPopoverPresentationController) {
         self.currentPopover = inController
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when we are to segue to another view controller.
+
+     - parameter inSegue: The segue instance.
+     - parameter inData: An opaque parameter with any associated data.
+     */
+    override func prepare(for inSegue: UIStoryboardSegue, sender inData: Any?) {
+        if let destination = inSegue.destination as? RiValT_RunningTimer_ViewController,
+           let timer = inData as? Timer {
+            destination.timer = timer
+        }
     }
 }
 

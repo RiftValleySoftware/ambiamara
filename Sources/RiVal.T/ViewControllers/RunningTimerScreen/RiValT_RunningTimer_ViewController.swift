@@ -29,17 +29,12 @@ class RiValT_RunningTimer_ViewController: RiValT_Base_ViewController {
      Used to fetch in a segue.
      */
     static let segueID = "run-timer"
-}
 
-/* ###################################################################################################################################### */
-// MARK: Computed Properties
-/* ###################################################################################################################################### */
-extension RiValT_RunningTimer_ViewController {
     /* ############################################################## */
     /**
-     The running timer, which is always the currently selected one.
+     The running timer.
      */
-    weak var timer: Timer? { self.timerModel.selectedTimer }
+    weak var timer: Timer?
 }
 
 /* ###################################################################################################################################### */

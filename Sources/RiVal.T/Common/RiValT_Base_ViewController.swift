@@ -77,6 +77,12 @@ class RiValT_Base_ViewController: UIViewController {
     
     /* ############################################################## */
     /**
+     This is the image view that holds the background gradient.
+     */
+    weak var backgroundGradientImageView: UIImageView?
+    
+    /* ############################################################## */
+    /**
      This can be overloaded or set, to provide the image to be used as a background gradient.
      */
     var backgroundGradientImage: UIImage? = UIImage(named: "Background-Gradient")
@@ -117,6 +123,8 @@ extension RiValT_Base_ViewController {
             backgroundGradientView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
             backgroundGradientView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
             backgroundGradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            
+            self.backgroundGradientImageView = backgroundGradientView
         }
         
         self.localizeStuff()
