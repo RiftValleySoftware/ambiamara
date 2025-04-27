@@ -457,6 +457,14 @@ extension RiValT_MultiTimer_ViewController {
         self.collectionView?.isDirectionalLockEnabled = true
         self.navigationItem.backButtonTitle = "SLUG-TIMERS-BACK".localizedVariant
         self.settingsBarButtonItem?.image = UIImage(systemName: "gear")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30, weight: .bold))
+        self.settingsBarButtonItem?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON-LABEL".localizedVariant
+        self.settingsBarButtonItem?.accessibilityHint = "SLUG-ACC-SETTINGS-BUTTON-HINT".localizedVariant
+        self.toolbarDeleteButton?.accessibilityLabel = "SLUG-ACC-TOOLBAR-DELETE-LABEL".localizedVariant
+        self.toolbarDeleteButton?.accessibilityHint = "SLUG-ACC-TOOLBAR-DELETE-HINT".localizedVariant
+        self.toolbarPlayButton?.accessibilityLabel = "SLUG-ACC-TOOLBAR-PLAY-LABEL".localizedVariant
+        self.toolbarPlayButton?.accessibilityHint = "SLUG-ACC-TOOLBAR-PLAY-HINT".localizedVariant
+        self.toolbarEditButton?.accessibilityLabel = "SLUG-ACC-TOOLBAR-EDIT-LABEL".localizedVariant
+        self.toolbarEditButton?.accessibilityHint = "SLUG-ACC-TOOLBAR-EDIT-HINT".localizedVariant
     }
 
     /* ############################################################## */
@@ -558,10 +566,14 @@ extension RiValT_MultiTimer_ViewController {
      */
     func setUpNavBarItems() {
         let soundSettingsButtonItem = SoundBarButtonItem()
+        soundSettingsButtonItem.accessibilityLabel = "SLUG-ACC-SOUND-SETTINGS-BUTTON-LABEL".localizedVariant
+        soundSettingsButtonItem.accessibilityHint = "SLUG-ACC-SOUND-SETTINGS-BUTTON-HINT".localizedVariant
         soundSettingsButtonItem.group = self.timerModel.selectedTimer?.group
         soundSettingsButtonItem.target = self
         soundSettingsButtonItem.action = #selector(soundSettingsButtonHit)
         let displaySettingsButtonItem = DisplayBarButtonItem()
+        displaySettingsButtonItem.accessibilityLabel = "SLUG-ACC-DISPLAY-SETTINGS-BUTTON-LABEL".localizedVariant
+        displaySettingsButtonItem.accessibilityHint = "SLUG-ACC-DISPLAY-SETTINGS-BUTTON-HINT".localizedVariant
         displaySettingsButtonItem.group = self.timerModel.selectedTimer?.group
         displaySettingsButtonItem.target = self
         displaySettingsButtonItem.action = #selector(displaySettingsButtonHit)

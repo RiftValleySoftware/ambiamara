@@ -24,8 +24,9 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nJo-BV-SnL">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="30"/>
                                         <subviews>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="67L-Ni-xhN" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="67L-Ni-xhN" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
                                                 <rect key="frame" x="0.0" y="2" width="28" height="26"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-START-IMMEDIATELY-CHECKBOX-HINT" label="SLUG-ACC-START-IMMEDIATELY-CHECKBOX-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="67L-Ni-xhN" secondAttribute="height" multiplier="1:1" id="QKx-ez-w13"/>
                                                     <constraint firstAttribute="width" constant="26" id="kLL-LJ-FpE"/>
@@ -42,6 +43,7 @@
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="knm-I9-2Xm">
                                                 <rect key="frame" x="34" y="0.0" width="327" height="30"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-START-IMMEDIATELY-CHECKBOX-HINT" label="SLUG-ACC-START-IMMEDIATELY-CHECKBOX-LABEL"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-START-IMMEDIATELY">
                                                     <color key="titleColor" systemColor="labelColor"/>
@@ -57,6 +59,7 @@
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UNm-KF-4yk" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
                                                 <rect key="frame" x="0.0" y="2" width="28" height="26"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-HINT" label="SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="UNm-KF-4yk" secondAttribute="height" multiplier="1:1" id="ua8-wp-z2k"/>
                                                     <constraint firstAttribute="width" constant="26" id="xpE-KP-n0y"/>
@@ -73,6 +76,7 @@
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgQ-tc-QYo">
                                                 <rect key="frame" x="34" y="0.0" width="327" height="30"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-HINT" label="SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-LABEL"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-ONE-TAP-EDIT">
                                                     <color key="titleColor" systemColor="labelColor"/>
@@ -88,6 +92,7 @@
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sdl-6R-kiR" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
                                                 <rect key="frame" x="0.0" y="2" width="28" height="26"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-SHOW-TOOLBAR-CHECKBOX-HINT" label="SLUG-ACC-SHOW-TOOLBAR-CHECKBOX-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Sdl-6R-kiR" secondAttribute="height" multiplier="1:1" id="gAG-NC-hiT"/>
                                                     <constraint firstAttribute="width" constant="26" id="tRM-GL-hxP"/>
@@ -119,6 +124,7 @@
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i72-tV-rRZ" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
                                                 <rect key="frame" x="0.0" y="2" width="28" height="26"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-HIDE-TOOLBAR-CHECKBOX-HINT" label="SLUG-ACC-HIDE-TOOLBAR-CHECKBOX-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="i72-tV-rRZ" secondAttribute="height" multiplier="1:1" id="DNi-7c-s99"/>
                                                     <constraint firstAttribute="width" constant="26" id="w8Y-ih-8bz"/>
@@ -393,6 +399,9 @@
                                     <pickerView contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-IS-Nx4">
                                         <rect key="frame" x="0.0" y="116" width="361" height="120"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TIME-PICKER-HINT" label="SLUG-ACC-TIME-PICKER-LABEL">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="120" id="F5d-Kv-mf0"/>
                                         </constraints>
@@ -416,6 +425,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQC-pa-BBK">
                                         <rect key="frame" x="156.66666666666666" y="100" width="40" height="40"/>
+                                        <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-MAIN-PLAY-BUTTON-HINT" label="SLUG-ACC-MAIN-PLAY-BUTTON-LABEL"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="HqK-1J-f8B"/>
                                             <constraint firstAttribute="width" secondItem="pQC-pa-BBK" secondAttribute="height" multiplier="1:1" id="P0n-D7-u9c"/>
@@ -470,7 +480,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2QB-7k-b82" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-222" y="1258"/>
+            <point key="canvasLocation" x="740" y="1246"/>
         </scene>
         <!--RiValT Display Settings View Controller-->
         <scene sceneID="9m5-5F-kDS">
@@ -543,7 +553,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LmJ-yc-Vig" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2391.6030534351144" y="-377.46478873239437"/>
+            <point key="canvasLocation" x="1610" y="-29"/>
         </scene>
         <!--RiValT Sound Settings View Controller-->
         <scene sceneID="c3H-XT-HrY">
@@ -591,6 +601,9 @@
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="wa9-V3-AW2">
                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="100"/>
                                                 <color key="tintColor" systemColor="labelColor"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-SOUND-PICKER-HINT" label="SLUG-ACC-SOUND-PICKER-LABEL">
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="Kao-cT-848"/>
                                                 </constraints>
@@ -601,6 +614,7 @@
                                             </pickerView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLc-gT-2tz">
                                                 <rect key="frame" x="353" y="37.666666666666657" width="40" height="25"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-SOUND-PICKER-BUTTON-HINT" label="SLUG-ACC-SOUND-PICKER-BUTTON-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="7H4-OX-tLd"/>
                                                     <constraint firstAttribute="width" secondItem="nLc-gT-2tz" secondAttribute="height" multiplier="8:5" id="84k-Nh-CGh"/>
@@ -636,6 +650,9 @@
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eM0-Ca-QCY">
                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="100"/>
                                                 <color key="tintColor" systemColor="labelColor"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TRANSITION-PICKER-HINT" label="SLUG-ACC-TRANSITION-PICKER-LABEL">
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="Re0-pY-wnx"/>
                                                 </constraints>
@@ -646,6 +663,7 @@
                                             </pickerView>
                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2W-hf-y7R">
                                                 <rect key="frame" x="353" y="37.666666666666686" width="40" height="25"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TRANSITION-PICKER-BUTTON-HINT" label="SLUG-ACC-TRANSITION-PICKER-BUTTON-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="H2W-hf-y7R" secondAttribute="height" multiplier="8:5" id="YBv-xP-lkU"/>
                                                     <constraint firstAttribute="width" constant="40" id="kfm-CP-Woo"/>
@@ -702,12 +720,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ym7-tB-WDa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3145.801526717557" y="-374.29577464788736"/>
+            <point key="canvasLocation" x="1610" y="329"/>
         </scene>
-        <!--Ri ValT Running Timer View Controller-->
+        <!--RiValT Running Timer View Controller-->
         <scene sceneID="fOn-vN-4fq">
             <objects>
-                <viewController storyboardIdentifier="RiValT_RunningTimer_ViewController" id="pd7-cA-z1q" customClass="RiValT_RunningTimer_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RiValT_RunningTimer_ViewController" id="pd7-cA-z1q" userLabel="RiValT Running Timer View Controller" customClass="RiValT_RunningTimer_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qge-7r-Z34">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -718,12 +736,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewh-89-7YW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="740" y="1258"/>
+            <point key="canvasLocation" x="740" y="524"/>
         </scene>
-        <!--Ri ValT Timer Editor Page View Container-->
+        <!--RiValT Timer Editor Page View Container-->
         <scene sceneID="fCm-5k-ObW">
             <objects>
-                <viewController id="hNf-mb-Gac" customClass="RiValT_TimerEditor_PageViewContainer" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hNf-mb-Gac" userLabel="RiValT Timer Editor Page View Container" customClass="RiValT_TimerEditor_PageViewContainer" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hmm-VJ-MHv">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -767,13 +785,13 @@
             </objects>
             <point key="canvasLocation" x="-222" y="524"/>
         </scene>
-        <!--Ri ValT Timer Editor Page View Controller-->
+        <!--RiValT Timer Editor Page View Controller-->
         <scene sceneID="jt6-yD-IY5">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="ozw-VV-RWF" customClass="RiValT_TimerEditor_PageViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="ozw-VV-RWF" userLabel="RiValT Timer Editor Page View Controller" customClass="RiValT_TimerEditor_PageViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NhK-I5-jjX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1063" y="1159"/>
+            <point key="canvasLocation" x="-224" y="1147"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CJq-mF-a4b">

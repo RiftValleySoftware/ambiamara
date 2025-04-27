@@ -271,11 +271,23 @@ extension RiValT_SoundSettings_ViewController {
     */
     func setSegmentedSwitchUp() {
         self.alarmModeSegmentedSwitch?.removeAllSegments()
-        self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.none.image, at: 0, animated: false)
-        self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.sound(soundFileName: "").image, at: 1, animated: false)
+        let noneImage = TimerGroup.SoundType.none.image
+        noneImage?.accessibilityLabel = "SLUG-ACC-SOUND-SWITCH-NONE-LABEL".localizedVariant
+        noneImage?.accessibilityHint = "SLUG-ACC-SOUND-SWITCH-NONE-HINT".localizedVariant
+        let soundImage = TimerGroup.SoundType.sound(soundFileName: "").image
+        soundImage?.accessibilityLabel = "SLUG-ACC-SOUND-SWITCH-SOUND-LABEL".localizedVariant
+        soundImage?.accessibilityHint = "SLUG-ACC-SOUND-SWITCH-SOUND-HINT".localizedVariant
+        self.alarmModeSegmentedSwitch?.insertSegment(with: noneImage, at: 0, animated: false)
+        self.alarmModeSegmentedSwitch?.insertSegment(with: soundImage, at: 1, animated: false)
         if self.hapticsAreAvailable {
-            self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.vibrate.image, at: 2, animated: false)
-            self.alarmModeSegmentedSwitch?.insertSegment(with: TimerGroup.SoundType.soundVibrate(soundFileName: "").image, at: 3, animated: false)
+            let vibrateImage = TimerGroup.SoundType.vibrate.image
+            vibrateImage?.accessibilityLabel = "SLUG-ACC-SOUND-SWITCH-VIBRATE-LABEL".localizedVariant
+            vibrateImage?.accessibilityHint = "SLUG-ACC-SOUND-SWITCH-VIBRATE-HINT".localizedVariant
+            let soundVibrateImage = TimerGroup.SoundType.soundVibrate(soundFileName: "").image
+            soundVibrateImage?.accessibilityLabel = "SLUG-ACC-SOUND-SWITCH-SOUNDVIBRATE-LABEL".localizedVariant
+            soundVibrateImage?.accessibilityHint = "SLUG-ACC-SOUND-SWITCH-SOUNDVIBRATE-HINT".localizedVariant
+            self.alarmModeSegmentedSwitch?.insertSegment(with: vibrateImage, at: 2, animated: false)
+            self.alarmModeSegmentedSwitch?.insertSegment(with: soundVibrateImage, at: 3, animated: false)
         }
         
         self.alarmModeSegmentedSwitch?.selectedSegmentIndex = self.group?.soundType.segmentedPosition ?? 0

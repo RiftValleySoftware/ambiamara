@@ -288,18 +288,24 @@ extension RiValT_EditTimer_ViewController {
      This customizes the time set type segmented control.
      */
     func setUpTimeTypeSegmentedControl() {
-        guard let count = self.timeTypeSegmentedControl?.numberOfSegments,
-              let startColor = UIColor(named: "Start-Color"),
+        guard let startColor = UIColor(named: "Start-Color"),
               let warnColor = UIColor(named: "Warn-Color"),
-              let finalColor = UIColor(named: "Final-Color")
+              let finalColor = UIColor(named: "Final-Color"),
+              let startImage = UIImage(systemName: "clock\(0 < (self.timer?.startingTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(startColor),
+              let warnImage = UIImage(systemName: "exclamationmark.triangle\(0 < (self.timer?.warningTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(warnColor),
+              let finalImage = UIImage(systemName: "xmark.circle\(0 < (self.timer?.finalTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(finalColor)
         else { return }
+
+        startImage.accessibilityLabel = "SLUG-ACC-START-SEGMENT-LABEL".localizedVariant
+        startImage.accessibilityHint = "SLUG-ACC-START-SEGMENT-HINT".localizedVariant
+        warnImage.accessibilityLabel = "SLUG-ACC-WARN-SEGMENT-LABEL".localizedVariant
+        warnImage.accessibilityHint = "SLUG-ACC-WARN-SEGMENT-HINT".localizedVariant
+        finalImage.accessibilityLabel = "SLUG-ACC-FINAL-SEGMENT-LABEL".localizedVariant
+        finalImage.accessibilityHint = "SLUG-ACC-FINAL-SEGMENT-HINT".localizedVariant
         
-        for index in 0..<count {
-            self.timeTypeSegmentedControl?.setTitle(self.timeTypeSegmentedControl?.titleForSegment(at: index)?.localizedVariant, forSegmentAt: index)
-        }
-        self.timeTypeSegmentedControl?.setImage(UIImage(systemName: "clock\(0 < (self.timer?.startingTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(startColor), forSegmentAt: TimeType.setTime.rawValue)
-        self.timeTypeSegmentedControl?.setImage(UIImage(systemName: "exclamationmark.triangle\(0 < (self.timer?.warningTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(warnColor), forSegmentAt: TimeType.warnTime.rawValue)
-        self.timeTypeSegmentedControl?.setImage(UIImage(systemName: "xmark.circle\(0 < (self.timer?.finalTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(finalColor), forSegmentAt: TimeType.finalTime.rawValue)
+        self.timeTypeSegmentedControl?.setImage(startImage, forSegmentAt: TimeType.setTime.rawValue)
+        self.timeTypeSegmentedControl?.setImage(warnImage, forSegmentAt: TimeType.warnTime.rawValue)
+        self.timeTypeSegmentedControl?.setImage(finalImage, forSegmentAt: TimeType.finalTime.rawValue)
         self.updateTimeTypeSegmentedControl()
     }
     

@@ -13,10 +13,34 @@
 // --------------------------------------------          ------------------------------------------------------- *
 //**********************************************         **********************************************************
 
-"SLUG-ACC-SOUND-PICKER-LABEL"                   =   "Select A Final Alarm Sound";
-"SLUG-ACC-SOUND-PICKER-HINT"                    =   "This allows you to select an alarm sound, to be played at the end of the last timer.";
-"SLUG-ACC-TRANSITION-PICKER-LABEL"              =   "Select A Transition Sound";
-"SLUG-ACC-TRANSITION-PICKER-HINT"               =   "This allows you to select a short sound, to be played as one timer ends, and another begins.";
+// MARK: - Group Editor Screen -
+
+"SLUG-ACC-SETTINGS-BUTTON-LABEL"                =   "App Settings";
+"SLUG-ACC-SETTINGS-BUTTON-HINT"                 =   "This will show a popover, allowing you to set various things about the app.";
+"SLUG-ACC-DISPLAY-SETTINGS-BUTTON-LABEL"        =   "Running Timer Display Settings";
+"SLUG-ACC-DISPLAY-SETTINGS-BUTTON-HINT"         =   "This will show a popover, allowing you to choose the display that you want, for the currently selected timer group, below.";
+"SLUG-ACC-SOUND-SETTINGS-BUTTON-LABEL"          =   "Running Timer Sound Settings";
+"SLUG-ACC-SOUND-SETTINGS-BUTTON-HINT"           =   "This will show a popover, allowing you to choose the final alarm sound, as well as any \"transitional\" sounds, for the currently selected timer group, below.";
+
+"SLUG-ACC-TOOLBAR-DELETE-LABEL"                 =   "Delete the Selected Timer";
+"SLUG-ACC-TOOLBAR-DELETE-HINT"                  =   "This will delete the timer selected above. You will first be asked, if you are sure that you wish to delete the timer.";
+"SLUG-ACC-TOOLBAR-PLAY-LABEL"                   =   "Start the Timer";
+"SLUG-ACC-TOOLBAR-PLAY-HINT"                    =   "Selecting this, will start the the timer group, beginning with the currently selected timer.";
+"SLUG-ACC-TOOLBAR-EDIT-LABEL"                   =   "Edit the Selected Timer";
+"SLUG-ACC-TOOLBAR-EDIT-HINT"                    =   "If this button is selected, the Timer Editor Screen will be shown for the timer selected, above.";
+
+// MARK: - Global Settings Popover -
+
+"SLUG-ACC-START-IMMEDIATELY-CHECKBOX-LABEL"     =   "Start Timers Immediately";
+"SLUG-ACC-START-IMMEDIATELY-CHECKBOX-HINT"      =   "If this checkbox is on, then timers tart immediately, when the \"Play\" button is selected. If it is off, then the timer will begin in a paused state, and needs to be started manually.";
+"SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-LABEL"          =   "Edit Timers By Tapping On Them";
+"SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-HINT"           =   "If this checkbox is on, tapping once on a timer in the Group Editor Screen, will bring in the Timer Editor Screen for that timer. If it is off, then you need to select the \"Edit\" button, at the bottom, right of the screen, to edit the timer.";
+"SLUG-ACC-SHOW-TOOLBAR-CHECKBOX-LABEL"          =   "Show A Toolbar in Running Timers";
+"SLUG-ACC-SHOW-TOOLBAR-CHECKBOX-HINT"           =   "If this checkbox is on, then running timers will have a toolbar shown, at the bottom of the screen, that will have visible controls for the timer. If it is off, then you have to use gestures to control the timer.";
+"SLUG-ACC-HIDE-TOOLBAR-CHECKBOX-LABEL"          =   "Auto-Hide The Running Timer Toolbar";
+"SLUG-ACC-HIDE-TOOLBAR-CHECKBOX-HINT"           =   "If this checkbox is on, then the toolbar at the bottom of the running timer screen, will fade away, after a few seconds. Tapping on the screen, will bring it back up. If it is off, the toolbar remains visible, at all times.";
+
+// MARK: - Display Settings Popover -
 
 "SLUG-ACC-DISPLAY-SETTINGS-NUMERICAL-LABEL"     =   "Diplay Timer As Digits";
 "SLUG-ACC-DISPLAY-SETTINGS-NUMERICAL-HINT"      =   "The timer display will consist of large \"LED\" digits.";
@@ -24,3 +48,39 @@
 "SLUG-ACC-DISPLAY-SETTINGS-CIRCULAR-HINT"       =   "The timer display will consist of a ring that is \"rubbed out,\" as the timer progresses.";
 "SLUG-ACC-DISPLAY-SETTINGS-STOPLIGHTS-LABEL"    =   "Diplay Timer As \"Stoplights\"";
 "SLUG-ACC-DISPLAY-SETTINGS-STOPLIGHTS-HINT"     =   "The timer display will consist of three colored circles, and each will light, as the timer reaches the threshold.";
+
+// MARK: - Sound Settings Popover -
+
+"SLUG-ACC-SOUND-SWITCH-NONE-LABEL"              =   "No Sound or Vibration";
+"SLUG-ACC-SOUND-SWITCH-NONE-HINT"               =   "Upon all timers in the group completing, the alarm will be visual-only.";
+"SLUG-ACC-SOUND-SWITCH-SOUND-LABEL"             =   "Alarm Sound Only";
+"SLUG-ACC-SOUND-SWITCH-SOUND-HINT"              =   "Upon all timers in the group completing, the sound selected in the picker below, will be played repeatedly.";
+"SLUG-ACC-SOUND-SWITCH-VIBRATE-LABEL"           =   "Vibrate Only";
+"SLUG-ACC-SOUND-SWITCH-VIBRATE-HINT"            =   "Upon all timers in the group completing, the alarm will be silent, but the device will vibrate.";
+"SLUG-ACC-SOUND-SWITCH-SOUNDVIBRATE-LABEL"      =   "Alarm Sound, and Vibrate";
+"SLUG-ACC-SOUND-SWITCH-SOUNDVIBRATE-HINT"       =   "Upon all timers in the group completing, an audible alarm, as selected in the picker below, will play, along with the device vibrating.";
+
+"SLUG-ACC-SOUND-PICKER-LABEL"                   =   "Select A Final Alarm Sound";
+"SLUG-ACC-SOUND-PICKER-HINT"                    =   "This allows you to select an alarm sound, to be played at the end of the last timer.";
+"SLUG-ACC-SOUND-PICKER-BUTTON-LABEL"            =   "Preview the Alarm Sound";
+"SLUG-ACC-SOUND-PICKER-BUTTON-LABEL"            =   "If you press this, you will hear the selected final alarm sound. Press again, to stop it.";
+
+"SLUG-ACC-TRANSITION-PICKER-LABEL"              =   "Select A Transition Sound";
+"SLUG-ACC-TRANSITION-PICKER-HINT"               =   "This allows you to select a short sound, to be played as one timer ends, and another begins.";
+"SLUG-ACC-TRANSITION-PICKER-BUTTON-LABEL"       =   "Preview the Transition Sound";
+"SLUG-ACC-TRANSITION-PICKER-BUTTON-LABEL"       =   "If you press this, you will hear the selected transition sound (played when one timer ends, and switches to the next timer). Press again, to stop it.";
+
+// MARK: - Timer Editor Screen -
+
+"SLUG-ACC-START-SEGMENT-LABEL"                  =   "Start Time";
+"SLUG-ACC-START-SEGMENT-HINT"                   =   "This is the total timer duration, in hours, minutes, and seconds. A value is required, in order to run the timer.";
+"SLUG-ACC-WARN-SEGMENT-LABEL"                   =   "Warning Threshold";
+"SLUG-ACC-WARN-SEGMENT-HINT"                    =   "This is the point, at which the countdown enters the \"warning\" state. The display will turn yellow. This is optional. Leave it at zero, if you don't want a warning threshold.";
+"SLUG-ACC-FINAL-SEGMENT-LABEL"                  =   "Final Threshold";
+"SLUG-ACC-FINAL-SEGMENT-HINT"                   =   "When the countdown reaches this threshold, the display will turn red. This is optional. Leave it at zero, if you don't want a final threshold.";
+
+"SLUG-ACC-TIME-PICKER-LABEL"                    =   "Set A Time";
+"SLUG-ACC-TIME-PICKER-HINT"                     =   "Use this control to set a time, in hours, minutes, and seconds.";
+
+"SLUG-ACC-MAIN-PLAY-BUTTON-LABEL"               =   "Start the Timer";
+"SLUG-ACC-MAIN-PLAY-BUTTON-HINT"                =   "Selecting this, will start the the timer group, beginning with this timer.";

@@ -133,7 +133,7 @@ class RiValT_Settings: RVS_PersistentPrefs {
      If false, then it starts as paused.
      */
     var startTimerImmediately: Bool {
-        get { 0 != (values[Keys.startTimerImmediately.rawValue] as? Int ?? 0) }
+        get { 0 != (values[Keys.startTimerImmediately.rawValue] as? Int ?? 1) }
         set { values[Keys.startTimerImmediately.rawValue] = newValue ? 1 : 0 }
     }
 
