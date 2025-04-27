@@ -306,8 +306,8 @@
                         <outlet property="toolbarEditButton" destination="yI7-Xj-kln" id="GGg-nh-5rQ"/>
                         <outlet property="toolbarPlayButton" destination="11P-RB-1WC" id="wXk-gi-6lJ"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="iB1-Rw-Leg"/>
-                        <segue destination="pd7-cA-z1q" kind="show" identifier="run-timer" id="ijE-fc-jzc"/>
                         <segue destination="hNf-mb-Gac" kind="show" identifier="edit-timer" id="nZU-4Y-t9I"/>
+                        <segue destination="qbu-HZ-ecF" kind="show" identifier="run-timer" id="Ukq-dr-H3a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -723,24 +723,93 @@
             </objects>
             <point key="canvasLocation" x="1610" y="329"/>
         </scene>
-        <!--RiValT Running Timer View Controller-->
-        <scene sceneID="fOn-vN-4fq">
+        <!--Ri ValT Running Timer Container View Controller-->
+        <scene sceneID="F2U-EU-ar7">
             <objects>
-                <viewController storyboardIdentifier="RiValT_RunningTimer_ViewController" id="pd7-cA-z1q" userLabel="RiValT Running Timer View Controller" customClass="RiValT_RunningTimer_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Qge-7r-Z34">
+                <viewController id="qbu-HZ-ecF" customClass="RiValT_RunningTimer_ContainerViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HVj-Ru-0Hn">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9uv-6p-o4t">
+                                <rect key="frame" x="0.0" y="162" width="393" height="622"/>
+                                <connections>
+                                    <segue destination="pd7-cA-z1q" kind="embed" identifier="run-numerical" id="Sii-Ug-jJ2"/>
+                                </connections>
+                            </containerView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aB4-yW-6GS">
+                                <rect key="frame" x="0.0" y="735" width="393" height="49"/>
+                                <items>
+                                    <barButtonItem systemItem="rewind" id="kKb-wG-9gd">
+                                        <connections>
+                                            <action selector="toolbarItemHit:" destination="qbu-HZ-ecF" id="xhK-qS-b9Y"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="eBa-CV-6ms"/>
+                                    <barButtonItem systemItem="stop" id="CyM-ie-S9V">
+                                        <connections>
+                                            <action selector="toolbarItemHit:" destination="qbu-HZ-ecF" id="fnP-W7-8c4"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="vkk-Y9-F3J"/>
+                                    <barButtonItem systemItem="play" id="dV1-Vy-3LR">
+                                        <connections>
+                                            <action selector="toolbarItemHit:" destination="qbu-HZ-ecF" id="pYG-kM-IbA"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Mtv-wa-6sB"/>
+                                    <barButtonItem systemItem="fastForward" id="fJM-eI-axA">
+                                        <connections>
+                                            <action selector="toolbarItemHit:" destination="qbu-HZ-ecF" id="Oi7-IV-xEE"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="LXl-gb-Uc1"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="aB4-yW-6GS" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" id="0Eg-oH-cmo"/>
+                            <constraint firstItem="9uv-6p-o4t" firstAttribute="top" secondItem="LXl-gb-Uc1" secondAttribute="top" id="15A-Zo-z6T"/>
+                            <constraint firstItem="9uv-6p-o4t" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" id="M0F-Vq-nyz"/>
+                            <constraint firstItem="LXl-gb-Uc1" firstAttribute="bottom" secondItem="aB4-yW-6GS" secondAttribute="bottom" id="RkJ-ag-KzQ"/>
+                            <constraint firstItem="aB4-yW-6GS" firstAttribute="trailing" secondItem="LXl-gb-Uc1" secondAttribute="trailing" id="nVs-By-7BW"/>
+                            <constraint firstItem="9uv-6p-o4t" firstAttribute="trailing" secondItem="LXl-gb-Uc1" secondAttribute="trailing" id="wNT-oM-buZ"/>
+                            <constraint firstItem="9uv-6p-o4t" firstAttribute="bottom" secondItem="LXl-gb-Uc1" secondAttribute="bottom" id="xAL-77-c6e"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Bqz-QL-wkQ"/>
+                    <connections>
+                        <outlet property="controlToolbar" destination="aB4-yW-6GS" id="Dey-GR-dL6"/>
+                        <outlet property="fastForwardToolbarItem" destination="fJM-eI-axA" id="IYv-Qa-4Hr"/>
+                        <outlet property="numericalTimerContainerView" destination="9uv-6p-o4t" id="kqf-6c-Ymj"/>
+                        <outlet property="playPauseToolbarItem" destination="dV1-Vy-3LR" id="y3l-z8-lrE"/>
+                        <outlet property="rewindToolbarItem" destination="kKb-wG-9gd" id="1Gs-qt-AHC"/>
+                        <outlet property="stopToolbarItem" destination="CyM-ie-S9V" id="92C-PW-x2n"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z6w-ha-INb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="740" y="524"/>
+        </scene>
+        <!--RiValT Running Timer View Controller-->
+        <scene sceneID="fOn-vN-4fq">
+            <objects>
+                <viewController storyboardIdentifier="RiValT_RunningTimer_ViewController" id="pd7-cA-z1q" userLabel="RiValT Running Timer View Controller" customClass="RiValT_RunningTimer_Numerical_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qge-7r-Z34">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="622"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N5L-TM-GEj">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="622"/>
                                 <viewLayoutGuide key="safeArea" id="Ymt-8F-BxE"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleAspectFit" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ytG-gx-lI0">
-                                <rect key="frame" x="0.0" y="162" width="393" height="622"/>
+                                <rect key="frame" x="0.0" y="118" width="393" height="470"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="uth-2t-NS6" userLabel="Digit Container Stack View">
-                                        <rect key="frame" x="39.333333333333343" y="260.33333333333331" width="314.33333333333326" height="101.33333333333331"/>
+                                        <rect key="frame" x="39.333333333333343" y="184.33333333333331" width="314.33333333333326" height="101.33333333333331"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z96-QR-EFw">
                                                 <rect key="frame" x="0.0" y="0.0" width="91.333333333333329" height="101.33333333333333"/>
@@ -866,16 +935,16 @@
                                         </constraints>
                                     </stackView>
                                     <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVz-Ds-9ul">
-                                        <rect key="frame" x="0.0" y="260.33333333333331" width="393" height="101.33333333333331"/>
+                                        <rect key="frame" x="0.0" y="184.33333333333331" width="393" height="101.33333333333331"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nQp-Wc-T6m">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="101.33333333333331"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="102"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <blurEffect style="light"/>
                                     </visualEffectView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FWR-6n-958">
-                                        <rect key="frame" x="0.0" y="260.33333333333331" width="393" height="101.33333333333331"/>
+                                        <rect key="frame" x="0.0" y="184.33333333333331" width="393" height="101.33333333333331"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -895,34 +964,6 @@
                                     <constraint firstItem="FWR-6n-958" firstAttribute="bottom" secondItem="uth-2t-NS6" secondAttribute="bottom" id="wax-2a-EUW"/>
                                 </constraints>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TI0-Pm-Kqw">
-                                <rect key="frame" x="0.0" y="735" width="393" height="49"/>
-                                <items>
-                                    <barButtonItem systemItem="rewind" id="5qL-UN-9rk">
-                                        <connections>
-                                            <action selector="toolbarItemHit:" destination="pd7-cA-z1q" id="sU6-TB-Ik4"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="svh-0e-b3k"/>
-                                    <barButtonItem systemItem="stop" id="iKp-G6-Vjh">
-                                        <connections>
-                                            <action selector="toolbarItemHit:" destination="pd7-cA-z1q" id="9Ka-Uf-46X"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="HD2-NX-TIc"/>
-                                    <barButtonItem systemItem="play" id="LE9-oI-ByV">
-                                        <connections>
-                                            <action selector="toolbarItemHit:" destination="pd7-cA-z1q" id="lqx-ed-TNV"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="oys-9h-LeK"/>
-                                    <barButtonItem systemItem="fastForward" id="E6c-s9-iqr">
-                                        <connections>
-                                            <action selector="toolbarItemHit:" destination="pd7-cA-z1q" id="KGy-Ed-FmX"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JHV-F6-kXu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -930,11 +971,8 @@
                             <constraint firstAttribute="trailing" secondItem="N5L-TM-GEj" secondAttribute="trailing" id="3C9-mL-lmf"/>
                             <constraint firstItem="JHV-F6-kXu" firstAttribute="bottom" secondItem="ytG-gx-lI0" secondAttribute="bottom" id="F5t-aO-J62"/>
                             <constraint firstItem="ytG-gx-lI0" firstAttribute="top" secondItem="JHV-F6-kXu" secondAttribute="top" id="GaX-l7-MIQ"/>
-                            <constraint firstItem="TI0-Pm-Kqw" firstAttribute="leading" secondItem="JHV-F6-kXu" secondAttribute="leading" id="Kkt-0i-d2V"/>
                             <constraint firstItem="N5L-TM-GEj" firstAttribute="top" secondItem="Qge-7r-Z34" secondAttribute="top" id="MfA-Mv-U0T"/>
-                            <constraint firstItem="TI0-Pm-Kqw" firstAttribute="trailing" secondItem="JHV-F6-kXu" secondAttribute="trailing" id="QTK-8S-ip8"/>
                             <constraint firstItem="N5L-TM-GEj" firstAttribute="leading" secondItem="Qge-7r-Z34" secondAttribute="leading" id="Wqw-Xz-Pbn"/>
-                            <constraint firstItem="JHV-F6-kXu" firstAttribute="bottom" secondItem="TI0-Pm-Kqw" secondAttribute="bottom" id="f0g-B4-d0p"/>
                             <constraint firstAttribute="bottom" secondItem="N5L-TM-GEj" secondAttribute="bottom" id="mAw-Bs-8N2"/>
                             <constraint firstItem="JHV-F6-kXu" firstAttribute="trailing" secondItem="ytG-gx-lI0" secondAttribute="trailing" id="r1Z-aT-fMk"/>
                             <constraint firstItem="ytG-gx-lI0" firstAttribute="leading" secondItem="JHV-F6-kXu" secondAttribute="leading" id="rZw-Zt-OeE"/>
@@ -943,26 +981,21 @@
                     <navigationItem key="navigationItem" id="RBv-vi-uf0"/>
                     <connections>
                         <outlet property="blurFilterView" destination="YVz-Ds-9ul" id="FEF-uD-dLY"/>
-                        <outlet property="controlToolbar" destination="TI0-Pm-Kqw" id="14Z-pX-jhn"/>
                         <outlet property="digitContainerInternalView" destination="uth-2t-NS6" id="M1q-Cy-DU8"/>
                         <outlet property="digitalDisplayContainerView" destination="ytG-gx-lI0" id="Qsc-Ij-Pxu"/>
                         <outlet property="digitalDisplayViewHours" destination="ZNS-4C-FAd" id="eHR-ah-2RU"/>
                         <outlet property="digitalDisplayViewMinutes" destination="cPg-nf-zpa" id="Dji-vU-cF3"/>
                         <outlet property="digitalDisplayViewSeconds" destination="pum-Xq-gfI" id="xT9-UW-gjD"/>
-                        <outlet property="fastForwardBarButtonItem" destination="E6c-s9-iqr" id="TPU-C8-4FR"/>
                         <outlet property="flasherView" destination="N5L-TM-GEj" id="m7N-6r-wCa"/>
                         <outlet property="hexGridImageView" destination="FWR-6n-958" id="UMl-3v-2eS"/>
                         <outlet property="hoursContainerView" destination="Z96-QR-EFw" id="o88-zH-9p9"/>
                         <outlet property="minutesContainerView" destination="083-8V-F5O" id="cet-Ga-krZ"/>
-                        <outlet property="playPauseToolbarItem" destination="LE9-oI-ByV" id="c73-pa-oRU"/>
-                        <outlet property="rewindToolbarItem" destination="5qL-UN-9rk" id="Qyb-XG-LQB"/>
                         <outlet property="secondsContainerView" destination="Zaj-Z2-YyU" id="hDw-01-JJ4"/>
-                        <outlet property="stopToolbarItem" destination="iKp-G6-Vjh" id="lKl-F3-U9N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewh-89-7YW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="740" y="524"/>
+            <point key="canvasLocation" x="1610" y="777"/>
         </scene>
         <!--RiValT Timer Editor Page View Container-->
         <scene sceneID="fCm-5k-ObW">
@@ -1004,7 +1037,7 @@
                     <connections>
                         <outlet property="pageViewContainer" destination="oeU-XQ-0mJ" id="6Iv-eV-HYV"/>
                         <outlet property="toolbar" destination="h7R-9b-c2z" id="JPJ-nW-7uZ"/>
-                        <segue destination="pd7-cA-z1q" kind="show" identifier="run-timer" id="5dz-Yc-pHo"/>
+                        <segue destination="qbu-HZ-ecF" kind="show" identifier="run-timer" id="Avz-M4-gmq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6pA-84-9Qc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1040,7 +1073,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ijE-fc-jzc"/>
+        <segue reference="Ukq-dr-H3a"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="DisplayCircle" width="150" height="127"/>

@@ -143,7 +143,7 @@ extension RiValT_TimerEditor_PageViewContainer {
         if let destination = inSegue.destination as? RiValT_TimerEditor_PageViewController {
             destination.pageViewContainerViewController = self
             self.pageViewController = destination
-        } else if let destination = inSegue.destination as? RiValT_RunningTimer_ViewController,
+        } else if let destination = inSegue.destination as? RiValT_RunningTimer_ContainerViewController,
                   let timer = inData as? Timer {
             destination.timer = timer
         }

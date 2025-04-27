@@ -86,6 +86,7 @@
 		D4BB90212D9C3E1300F3DB80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4BB90122D9C3E1300F3DB80 /* Assets.xcassets */; };
 		D4BB90222D9C3E1300F3DB80 /* TimerEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB901A2D9C3E1300F3DB80 /* TimerEngineTests.swift */; };
 		D4BC25122D809D1B0071C75C /* Rift_Valley_Timer_Watch_App_IndividualTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC25112D809D1B0071C75C /* Rift_Valley_Timer_Watch_App_IndividualTimerView.swift */; };
+		D4C122D02DBED67B0041F23A /* RiValT_RunningTimer_ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C122CF2DBED67B0041F23A /* RiValT_RunningTimer_ContainerViewController.swift */; };
 		D4C1B6212D806D6E00CEA6BF /* Digital.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4C1B6202D806D6E00CEA6BF /* Digital.ttf */; };
 		D4C4B70C2819CEDB00E22ECA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4C4B70A2819CEDB00E22ECA /* Localizable.strings */; };
 		D4C4B71C2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4B71B2819D57100E22ECA /* RVS_AmbiaMara_BaseViewController.swift */; };
@@ -96,7 +97,7 @@
 		D4CE51B8281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B6281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift */; };
 		D4CE51B9281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */; };
 		D4CE51BB281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE51BA281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift */; };
-		D4CF4FC92DBB08C3008A71B8 /* RiValT_RunningTimer_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF4FC82DBB08C3008A71B8 /* RiValT_RunningTimer_ViewController.swift */; };
+		D4CF4FC92DBB08C3008A71B8 /* RiValT_RunningTimer_Numerical_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF4FC82DBB08C3008A71B8 /* RiValT_RunningTimer_Numerical_ViewController.swift */; };
 		D4D193BA2D883843008DA06F /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4D193B92D883843008DA06F /* RVS_BasicGCDTimer */; };
 		D4D193BD2D883DEA008DA06F /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4D193BC2D883DEA008DA06F /* RVS_BasicGCDTimer */; };
 		D4DD60F92D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DD60F82D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerView.swift */; };
@@ -398,6 +399,7 @@
 		D4BB90192D9C3E1300F3DB80 /* TimerEngineTestHarness.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TimerEngineTestHarness.xctestplan; sourceTree = "<group>"; };
 		D4BB901A2D9C3E1300F3DB80 /* TimerEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineTests.swift; sourceTree = "<group>"; };
 		D4BC25112D809D1B0071C75C /* Rift_Valley_Timer_Watch_App_IndividualTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_Watch_App_IndividualTimerView.swift; sourceTree = "<group>"; };
+		D4C122CF2DBED67B0041F23A /* RiValT_RunningTimer_ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_RunningTimer_ContainerViewController.swift; sourceTree = "<group>"; };
 		D4C1B6202D806D6E00CEA6BF /* Digital.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Digital.ttf; sourceTree = "<group>"; };
 		D4C4B70B2819CEDB00E22ECA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4C4B70E2819CF8F00E22ECA /* AmbiaMara.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = AmbiaMara.docc; sourceTree = "<group>"; };
@@ -406,7 +408,7 @@
 		D4CE51B6281DCFA300DA6B85 /* RVS_RunningTimerAmbiaMara_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_RunningTimerAmbiaMara_ViewController.swift; sourceTree = "<group>"; };
 		D4CE51B7281DCFA300DA6B85 /* RVS_SetAlarmAmbiaMara_PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_SetAlarmAmbiaMara_PopoverViewController.swift; sourceTree = "<group>"; };
 		D4CE51BA281DD48700DA6B85 /* RVS_SettingsAmbiaMara_PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_SettingsAmbiaMara_PopoverViewController.swift; sourceTree = "<group>"; };
-		D4CF4FC82DBB08C3008A71B8 /* RiValT_RunningTimer_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_RunningTimer_ViewController.swift; sourceTree = "<group>"; };
+		D4CF4FC82DBB08C3008A71B8 /* RiValT_RunningTimer_Numerical_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_RunningTimer_Numerical_ViewController.swift; sourceTree = "<group>"; };
 		D4D02B56283430D50024DF06 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text; name = fr; path = fr.lproj/Instructions.txt; sourceTree = "<group>"; };
 		D4D02B57283430D50024DF06 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4D02B58283430D50024DF06 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Accessibility.strings; sourceTree = "<group>"; };
@@ -855,7 +857,8 @@
 		D4CF4FCA2DBB0986008A71B8 /* RunningTimerScreen */ = {
 			isa = PBXGroup;
 			children = (
-				D4CF4FC82DBB08C3008A71B8 /* RiValT_RunningTimer_ViewController.swift */,
+				D4C122CF2DBED67B0041F23A /* RiValT_RunningTimer_ContainerViewController.swift */,
+				D4CF4FC82DBB08C3008A71B8 /* RiValT_RunningTimer_Numerical_ViewController.swift */,
 			);
 			path = RunningTimerScreen;
 			sourceTree = "<group>";
@@ -1306,6 +1309,7 @@
 			files = (
 				D4F7EDE32DBD4052007F4771 /* RiValT_Settings_ViewController.swift in Sources */,
 				D43B97662DA2C1D10028E023 /* RiValT_AppDelegate.swift in Sources */,
+				D4C122D02DBED67B0041F23A /* RiValT_RunningTimer_ContainerViewController.swift in Sources */,
 				D43B97672DA2C1D10028E023 /* RiValT_SceneDelegate.swift in Sources */,
 				D4752E9D2DB2FD91002359CA /* RiValT_Settings.swift in Sources */,
 				D43B97682DA2C1D10028E023 /* RiValT_Base_ViewController.swift in Sources */,
@@ -1314,7 +1318,7 @@
 				D49BBA112DBC275D00DD0963 /* RiValT_TimerEditor_PageViewContainer.swift in Sources */,
 				D4E2E8FB2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift in Sources */,
 				D45184CA2DB42DBF00DA671D /* RiValT_SoundSettings_ViewController.swift in Sources */,
-				D4CF4FC92DBB08C3008A71B8 /* RiValT_RunningTimer_ViewController.swift in Sources */,
+				D4CF4FC92DBB08C3008A71B8 /* RiValT_RunningTimer_Numerical_ViewController.swift in Sources */,
 				D4EDE73B2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift in Sources */,
 				D4181D0D2DAC7364002CF428 /* TimerModel.swift in Sources */,
 			);

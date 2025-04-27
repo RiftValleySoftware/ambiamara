@@ -549,7 +549,7 @@ extension RiValT_MultiTimer_ViewController {
      - parameter inData: An opaque parameter with any associated data.
      */
     override func prepare(for inSegue: UIStoryboardSegue, sender inData: Any?) {
-        if let destination = inSegue.destination as? RiValT_RunningTimer_ViewController,
+        if let destination = inSegue.destination as? RiValT_RunningTimer_ContainerViewController,
            let timer = inData as? Timer {
             destination.timer = timer
         }
@@ -870,7 +870,7 @@ extension RiValT_MultiTimer_ViewController {
      */
     @IBAction func toolbarPlayButtonHit(_ inButton: UIBarButtonItem) {
         self.impactHaptic()
-        self.performSegue(withIdentifier: RiValT_RunningTimer_ViewController.segueID, sender: self.timerModel.selectedTimer)
+        self.performSegue(withIdentifier: RiValT_RunningTimer_ContainerViewController.segueID, sender: self.timerModel.selectedTimer)
     }
     
     /* ############################################################## */

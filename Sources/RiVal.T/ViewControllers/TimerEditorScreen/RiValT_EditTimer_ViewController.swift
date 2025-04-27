@@ -411,7 +411,7 @@ extension RiValT_EditTimer_ViewController {
      */
     @IBAction func playButtonHit(_: Any) {
         self.impactHaptic()
-        self.myContainer?.performSegue(withIdentifier: RiValT_RunningTimer_ViewController.segueID, sender: self.timer)
+        self.myContainer?.performSegue(withIdentifier: RiValT_RunningTimer_ContainerViewController.segueID, sender: self.timer)
     }
 }
 
