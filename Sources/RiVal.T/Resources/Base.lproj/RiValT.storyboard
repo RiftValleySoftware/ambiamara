@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -729,10 +730,209 @@
                     <view key="view" contentMode="scaleToFill" id="Qge-7r-Z34">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N5L-TM-GEj">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <viewLayoutGuide key="safeArea" id="Ymt-8F-BxE"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleAspectFit" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ytG-gx-lI0">
+                                <rect key="frame" x="0.0" y="162" width="393" height="622"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="uth-2t-NS6" userLabel="Digit Container Stack View">
+                                        <rect key="frame" x="39.333333333333343" y="260.33333333333331" width="314.33333333333326" height="101.33333333333331"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z96-QR-EFw">
+                                                <rect key="frame" x="0.0" y="0.0" width="91.333333333333329" height="101.33333333333333"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZNS-4C-FAd" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
+                                                        <rect key="frame" x="0.0" y="0.0" width="91.333333333333329" height="101.33333333333333"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="skew">
+                                                                <real key="value" value="0.20000000000000001"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="numberOfDigits">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="gap">
+                                                                <real key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
+                                                                <color key="value" name="Paused-Color"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
+                                                                <color key="value" name="DisabledSegmentColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="animationDurationInSeconds">
+                                                                <real key="value" value="0.0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="ZNS-4C-FAd" firstAttribute="centerX" secondItem="Z96-QR-EFw" secondAttribute="centerX" id="oiH-1U-5hG"/>
+                                                    <constraint firstItem="ZNS-4C-FAd" firstAttribute="centerY" secondItem="Z96-QR-EFw" secondAttribute="centerY" id="qUG-Cv-ubF"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="083-8V-F5O">
+                                                <rect key="frame" x="111.33333333333331" y="0.0" width="91.666666666666686" height="101.33333333333333"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cPg-nf-zpa" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
+                                                        <rect key="frame" x="0.0" y="0.0" width="91.666666666666671" height="101.33333333333333"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
+                                                                <color key="value" name="Paused-Color"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
+                                                                <color key="value" name="DisabledSegmentColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="skew">
+                                                                <real key="value" value="0.20000000000000001"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="numberOfDigits">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="gap">
+                                                                <real key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="animationDurationInSeconds">
+                                                                <real key="value" value="0.0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="cPg-nf-zpa" firstAttribute="centerX" secondItem="083-8V-F5O" secondAttribute="centerX" id="1Kp-q8-diQ"/>
+                                                    <constraint firstItem="cPg-nf-zpa" firstAttribute="centerY" secondItem="083-8V-F5O" secondAttribute="centerY" id="cGN-do-cjJ"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zaj-Z2-YyU">
+                                                <rect key="frame" x="222.99999999999997" y="0.0" width="91.333333333333343" height="101.33333333333333"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pum-Xq-gfI" customClass="RVS_RetroLEDDigitalDisplay" customModule="RVS_RetroLEDDisplay">
+                                                        <rect key="frame" x="0.0" y="0.0" width="91.333333333333329" height="101.33333333333333"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="pum-Xq-gfI" secondAttribute="height" multiplier="9:10" id="IRM-yn-vw2"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="onGradientStartColor">
+                                                                <color key="value" name="Paused-Color"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="offGradientStartColor">
+                                                                <color key="value" name="DisabledSegmentColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="skew">
+                                                                <real key="value" value="0.20000000000000001"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="numberOfDigits">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="gap">
+                                                                <real key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="animationDurationInSeconds">
+                                                                <real key="value" value="0.0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="pum-Xq-gfI" firstAttribute="centerY" secondItem="Zaj-Z2-YyU" secondAttribute="centerY" id="274-6m-554"/>
+                                                    <constraint firstItem="pum-Xq-gfI" firstAttribute="centerX" secondItem="Zaj-Z2-YyU" secondAttribute="centerX" id="48d-Wt-T7f"/>
+                                                    <constraint firstItem="pum-Xq-gfI" firstAttribute="height" relation="lessThanOrEqual" secondItem="Zaj-Z2-YyU" secondAttribute="height" id="8bT-P9-xLz"/>
+                                                    <constraint firstAttribute="trailing" secondItem="pum-Xq-gfI" secondAttribute="trailing" priority="750" id="ZfD-02-1Ja"/>
+                                                    <constraint firstAttribute="bottom" secondItem="pum-Xq-gfI" secondAttribute="bottom" id="abj-B6-JRN"/>
+                                                    <constraint firstItem="pum-Xq-gfI" firstAttribute="width" relation="lessThanOrEqual" secondItem="Zaj-Z2-YyU" secondAttribute="width" id="q1B-0m-wAs"/>
+                                                    <constraint firstItem="pum-Xq-gfI" firstAttribute="top" secondItem="Zaj-Z2-YyU" secondAttribute="top" id="zae-xt-KPz"/>
+                                                    <constraint firstItem="pum-Xq-gfI" firstAttribute="leading" secondItem="Zaj-Z2-YyU" secondAttribute="leading" priority="750" id="zqE-5h-nYk"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="ZNS-4C-FAd" firstAttribute="height" secondItem="pum-Xq-gfI" secondAttribute="height" id="47j-4Q-4S8"/>
+                                            <constraint firstItem="cPg-nf-zpa" firstAttribute="width" secondItem="pum-Xq-gfI" secondAttribute="width" id="JGd-hG-5Oe"/>
+                                            <constraint firstItem="cPg-nf-zpa" firstAttribute="height" secondItem="pum-Xq-gfI" secondAttribute="height" id="LN8-A1-y36"/>
+                                            <constraint firstAttribute="bottom" secondItem="Z96-QR-EFw" secondAttribute="bottom" id="Zdl-5i-04P"/>
+                                            <constraint firstItem="083-8V-F5O" firstAttribute="top" secondItem="uth-2t-NS6" secondAttribute="top" id="g7w-SL-j3L"/>
+                                            <constraint firstAttribute="bottom" secondItem="083-8V-F5O" secondAttribute="bottom" id="gJC-p8-1Y3"/>
+                                            <constraint firstItem="Zaj-Z2-YyU" firstAttribute="width" secondItem="Z96-QR-EFw" secondAttribute="width" id="j68-BW-NWC"/>
+                                            <constraint firstItem="Z96-QR-EFw" firstAttribute="top" secondItem="uth-2t-NS6" secondAttribute="top" id="mJW-Wf-LzS"/>
+                                            <constraint firstItem="ZNS-4C-FAd" firstAttribute="width" secondItem="pum-Xq-gfI" secondAttribute="width" id="tE1-ZQ-eHu"/>
+                                            <constraint firstAttribute="bottom" secondItem="Zaj-Z2-YyU" secondAttribute="bottom" id="w8d-IG-BbD"/>
+                                            <constraint firstItem="Zaj-Z2-YyU" firstAttribute="top" secondItem="uth-2t-NS6" secondAttribute="top" id="z7Q-Cu-TdF"/>
+                                        </constraints>
+                                    </stackView>
+                                    <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVz-Ds-9ul">
+                                        <rect key="frame" x="0.0" y="260.33333333333331" width="393" height="101.33333333333331"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nQp-Wc-T6m">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="102"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <blurEffect style="light"/>
+                                    </visualEffectView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FWR-6n-958">
+                                        <rect key="frame" x="0.0" y="260.33333333333331" width="393" height="101.33333333333331"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="uth-2t-NS6" firstAttribute="centerY" secondItem="ytG-gx-lI0" secondAttribute="centerY" id="0Qx-5I-xQi"/>
+                                    <constraint firstItem="YVz-Ds-9ul" firstAttribute="bottom" secondItem="uth-2t-NS6" secondAttribute="bottom" id="3Eu-Kz-Hmh"/>
+                                    <constraint firstItem="YVz-Ds-9ul" firstAttribute="leading" secondItem="ytG-gx-lI0" secondAttribute="leading" id="4va-jz-pGu"/>
+                                    <constraint firstAttribute="trailing" secondItem="FWR-6n-958" secondAttribute="trailing" id="PIl-8H-3h3"/>
+                                    <constraint firstItem="uth-2t-NS6" firstAttribute="height" relation="lessThanOrEqual" secondItem="ytG-gx-lI0" secondAttribute="height" id="WAk-4X-T54"/>
+                                    <constraint firstAttribute="trailing" secondItem="YVz-Ds-9ul" secondAttribute="trailing" id="b0W-jf-t8W"/>
+                                    <constraint firstItem="YVz-Ds-9ul" firstAttribute="top" secondItem="uth-2t-NS6" secondAttribute="top" id="eIO-ta-814"/>
+                                    <constraint firstItem="FWR-6n-958" firstAttribute="leading" secondItem="ytG-gx-lI0" secondAttribute="leading" id="mOH-aI-3eX"/>
+                                    <constraint firstItem="uth-2t-NS6" firstAttribute="width" secondItem="ytG-gx-lI0" secondAttribute="width" multiplier="0.8" id="nMw-U4-8J0"/>
+                                    <constraint firstItem="uth-2t-NS6" firstAttribute="centerX" secondItem="ytG-gx-lI0" secondAttribute="centerX" id="qeM-Ij-xVL"/>
+                                    <constraint firstItem="FWR-6n-958" firstAttribute="top" secondItem="uth-2t-NS6" secondAttribute="top" id="u8a-Os-eOw"/>
+                                    <constraint firstItem="FWR-6n-958" firstAttribute="bottom" secondItem="uth-2t-NS6" secondAttribute="bottom" id="wax-2a-EUW"/>
+                                </constraints>
+                            </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TI0-Pm-Kqw">
+                                <rect key="frame" x="0.0" y="735" width="393" height="49"/>
+                                <items>
+                                    <barButtonItem title="Item" id="5qL-UN-9rk"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="JHV-F6-kXu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="N5L-TM-GEj" secondAttribute="trailing" id="3C9-mL-lmf"/>
+                            <constraint firstItem="JHV-F6-kXu" firstAttribute="bottom" secondItem="ytG-gx-lI0" secondAttribute="bottom" id="F5t-aO-J62"/>
+                            <constraint firstItem="ytG-gx-lI0" firstAttribute="top" secondItem="JHV-F6-kXu" secondAttribute="top" id="GaX-l7-MIQ"/>
+                            <constraint firstItem="TI0-Pm-Kqw" firstAttribute="leading" secondItem="JHV-F6-kXu" secondAttribute="leading" id="Kkt-0i-d2V"/>
+                            <constraint firstItem="N5L-TM-GEj" firstAttribute="top" secondItem="Qge-7r-Z34" secondAttribute="top" id="MfA-Mv-U0T"/>
+                            <constraint firstItem="TI0-Pm-Kqw" firstAttribute="trailing" secondItem="JHV-F6-kXu" secondAttribute="trailing" id="QTK-8S-ip8"/>
+                            <constraint firstItem="N5L-TM-GEj" firstAttribute="leading" secondItem="Qge-7r-Z34" secondAttribute="leading" id="Wqw-Xz-Pbn"/>
+                            <constraint firstItem="JHV-F6-kXu" firstAttribute="bottom" secondItem="TI0-Pm-Kqw" secondAttribute="bottom" id="f0g-B4-d0p"/>
+                            <constraint firstAttribute="bottom" secondItem="N5L-TM-GEj" secondAttribute="bottom" id="mAw-Bs-8N2"/>
+                            <constraint firstItem="JHV-F6-kXu" firstAttribute="trailing" secondItem="ytG-gx-lI0" secondAttribute="trailing" id="r1Z-aT-fMk"/>
+                            <constraint firstItem="ytG-gx-lI0" firstAttribute="leading" secondItem="JHV-F6-kXu" secondAttribute="leading" id="rZw-Zt-OeE"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="RBv-vi-uf0"/>
+                    <connections>
+                        <outlet property="blurFilterView" destination="YVz-Ds-9ul" id="FEF-uD-dLY"/>
+                        <outlet property="controlToolbar" destination="TI0-Pm-Kqw" id="14Z-pX-jhn"/>
+                        <outlet property="digitContainerInternalView" destination="uth-2t-NS6" id="M1q-Cy-DU8"/>
+                        <outlet property="digitalDisplayContainerView" destination="ytG-gx-lI0" id="Qsc-Ij-Pxu"/>
+                        <outlet property="digitalDisplayViewHours" destination="ZNS-4C-FAd" id="eHR-ah-2RU"/>
+                        <outlet property="digitalDisplayViewMinutes" destination="cPg-nf-zpa" id="Dji-vU-cF3"/>
+                        <outlet property="digitalDisplayViewSeconds" destination="pum-Xq-gfI" id="xT9-UW-gjD"/>
+                        <outlet property="flasherView" destination="N5L-TM-GEj" id="m7N-6r-wCa"/>
+                        <outlet property="hexGridImageView" destination="FWR-6n-958" id="UMl-3v-2eS"/>
+                        <outlet property="hoursContainerView" destination="Z96-QR-EFw" id="o88-zH-9p9"/>
+                        <outlet property="minutesContainerView" destination="083-8V-F5O" id="cet-Ga-krZ"/>
+                        <outlet property="secondsContainerView" destination="Zaj-Z2-YyU" id="hDw-01-JJ4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewh-89-7YW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -827,6 +1027,12 @@
         <image name="play.fill" catalog="system" width="120" height="128"/>
         <image name="play.slash" catalog="system" width="116" height="128"/>
         <image name="speaker.fill" catalog="system" width="128" height="125"/>
+        <namedColor name="DisabledSegmentColor">
+            <color red="0.5" green="0.5" blue="0.5" alpha="0.19799999892711639" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Paused-Color">
+            <color red="0.012000000104308128" green="1" blue="0.82800000905990601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -834,7 +1040,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
