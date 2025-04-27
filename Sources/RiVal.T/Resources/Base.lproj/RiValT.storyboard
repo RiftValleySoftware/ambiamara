@@ -868,7 +868,7 @@
                                     <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVz-Ds-9ul">
                                         <rect key="frame" x="0.0" y="260.33333333333331" width="393" height="101.33333333333331"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nQp-Wc-T6m">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="102"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="101.33333333333331"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
@@ -898,7 +898,29 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TI0-Pm-Kqw">
                                 <rect key="frame" x="0.0" y="735" width="393" height="49"/>
                                 <items>
-                                    <barButtonItem title="Item" id="5qL-UN-9rk"/>
+                                    <barButtonItem systemItem="rewind" id="5qL-UN-9rk">
+                                        <connections>
+                                            <action selector="toolbarItemHit:" destination="pd7-cA-z1q" id="sU6-TB-Ik4"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="svh-0e-b3k"/>
+                                    <barButtonItem systemItem="stop" id="iKp-G6-Vjh">
+                                        <connections>
+                                            <action selector="toolbarItemHit:" destination="pd7-cA-z1q" id="9Ka-Uf-46X"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="HD2-NX-TIc"/>
+                                    <barButtonItem systemItem="play" id="LE9-oI-ByV">
+                                        <connections>
+                                            <action selector="toolbarItemHit:" destination="pd7-cA-z1q" id="lqx-ed-TNV"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="oys-9h-LeK"/>
+                                    <barButtonItem systemItem="fastForward" id="E6c-s9-iqr">
+                                        <connections>
+                                            <action selector="toolbarItemHit:" destination="pd7-cA-z1q" id="KGy-Ed-FmX"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -927,11 +949,15 @@
                         <outlet property="digitalDisplayViewHours" destination="ZNS-4C-FAd" id="eHR-ah-2RU"/>
                         <outlet property="digitalDisplayViewMinutes" destination="cPg-nf-zpa" id="Dji-vU-cF3"/>
                         <outlet property="digitalDisplayViewSeconds" destination="pum-Xq-gfI" id="xT9-UW-gjD"/>
+                        <outlet property="fastForwardBarButtonItem" destination="E6c-s9-iqr" id="TPU-C8-4FR"/>
                         <outlet property="flasherView" destination="N5L-TM-GEj" id="m7N-6r-wCa"/>
                         <outlet property="hexGridImageView" destination="FWR-6n-958" id="UMl-3v-2eS"/>
                         <outlet property="hoursContainerView" destination="Z96-QR-EFw" id="o88-zH-9p9"/>
                         <outlet property="minutesContainerView" destination="083-8V-F5O" id="cet-Ga-krZ"/>
+                        <outlet property="playPauseToolbarItem" destination="LE9-oI-ByV" id="c73-pa-oRU"/>
+                        <outlet property="rewindToolbarItem" destination="5qL-UN-9rk" id="Qyb-XG-LQB"/>
                         <outlet property="secondsContainerView" destination="Zaj-Z2-YyU" id="hDw-01-JJ4"/>
+                        <outlet property="stopToolbarItem" destination="iKp-G6-Vjh" id="lKl-F3-U9N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewh-89-7YW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1040,7 +1066,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
