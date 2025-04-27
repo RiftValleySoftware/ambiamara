@@ -127,9 +127,21 @@ extension RiValT_DisplaySettings_ViewController {
      Sets up the main selection control.
      */
     func setUpSelectionControl() {
-        self.displaySelectionSegmentedControl?.setImage(TimerGroup.DisplayType.numerical.image?.resized(toMaximumSize: 20), forSegmentAt: 0)
-        self.displaySelectionSegmentedControl?.setImage(TimerGroup.DisplayType.circular.image?.resized(toMaximumSize: 20), forSegmentAt: 1)
-        self.displaySelectionSegmentedControl?.setImage(TimerGroup.DisplayType.stoplights.image?.resized(toMaximumSize: 20), forSegmentAt: 2)
+        guard let numericalImage = TimerGroup.DisplayType.numerical.image?.resized(toMaximumSize: 20),
+              let ringImage = TimerGroup.DisplayType.circular.image?.resized(toMaximumSize: 20),
+              let dotsImage = TimerGroup.DisplayType.stoplights.image?.resized(toMaximumSize: 20)
+        else { return }
+        
+        numericalImage.accessibilityLabel = "SLUG-ACC-DISPLAY-SETTINGS-NUMERICAL-LABEL".localizedVariant
+        numericalImage.accessibilityHint = "SLUG-ACC-DISPLAY-SETTINGS-NUMERICAL-HINT".localizedVariant
+        ringImage.accessibilityLabel = "SLUG-ACC-DISPLAY-SETTINGS-CIRCULAR-LABEL".localizedVariant
+        ringImage.accessibilityHint = "SLUG-ACC-DISPLAY-SETTINGS-CIRCULAR-HINT".localizedVariant
+        dotsImage.accessibilityLabel = "SLUG-ACC-DISPLAY-SETTINGS-STOPLIGHTS-LABEL".localizedVariant
+        dotsImage.accessibilityHint = "SLUG-ACC-DISPLAY-SETTINGS-STOPLIGHTS-HINT".localizedVariant
+
+        self.displaySelectionSegmentedControl?.setImage(numericalImage, forSegmentAt: 0)
+        self.displaySelectionSegmentedControl?.setImage(ringImage, forSegmentAt: 1)
+        self.displaySelectionSegmentedControl?.setImage(dotsImage, forSegmentAt: 2)
         
         self.displaySelectionSegmentedControl?.subviews.flatMap { $0.subviews }.forEach { subview in
             if let imageView = subview as? UIImageView, imageView.frame.width > 5 {

@@ -7,13 +7,20 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  */
-//**********************************************     **********************************************************
-// --------------------------------------------       ------------------------------------------------------- *
-//|  DO NOT MODIFY ON THIS SIDE OF THE EQUALS  |     |   MODIFY THE TEXT ON THIS SIDE TO THE LOCAL LANGUAGE  |*
-// --------------------------------------------       ------------------------------------------------------- *
-//**********************************************     **********************************************************
+//**********************************************        **********************************************************
+// --------------------------------------------          ------------------------------------------------------- *
+//|  DO NOT MODIFY ON THIS SIDE OF THE EQUALS  |        |   MODIFY THE TEXT ON THIS SIDE TO THE LOCAL LANGUAGE  |*
+// --------------------------------------------          ------------------------------------------------------- *
+//**********************************************         **********************************************************
 
-"SLUG-ACC-SOUND-PICKER-LABEL"               = "Select A Final Alarm Sound";
-"SLUG-ACC-SOUND-PICKER-HINT"                = "This allows you to select an alarm sound, to be played at the end of the last timer.";
-"SLUG-ACC-TRANSITION-PICKER-LABEL"          = "Select A Transition Sound";
-"SLUG-ACC-TRANSITION-PICKER-HINT"           = "This allows you to select a short sound, to be played as one timer ends, and another begins.";
+"SLUG-ACC-SOUND-PICKER-LABEL"                   =   "Select A Final Alarm Sound";
+"SLUG-ACC-SOUND-PICKER-HINT"                    =   "This allows you to select an alarm sound, to be played at the end of the last timer.";
+"SLUG-ACC-TRANSITION-PICKER-LABEL"              =   "Select A Transition Sound";
+"SLUG-ACC-TRANSITION-PICKER-HINT"               =   "This allows you to select a short sound, to be played as one timer ends, and another begins.";
+
+"SLUG-ACC-DISPLAY-SETTINGS-NUMERICAL-LABEL"     =   "Diplay Timer As Digits";
+"SLUG-ACC-DISPLAY-SETTINGS-NUMERICAL-HINT"      =   "The timer display will consist of large \"LED\" digits.";
+"SLUG-ACC-DISPLAY-SETTINGS-CIRCULAR-LABEL"      =   "Diplay Timer As A Big Ring";
+"SLUG-ACC-DISPLAY-SETTINGS-CIRCULAR-HINT"       =   "The timer display will consist of a ring that is \"rubbed out,\" as the timer progresses.";
+"SLUG-ACC-DISPLAY-SETTINGS-STOPLIGHTS-LABEL"    =   "Diplay Timer As \"Stoplights\"";
+"SLUG-ACC-DISPLAY-SETTINGS-STOPLIGHTS-HINT"     =   "The timer display will consist of three colored circles, and each will light, as the timer reaches the threshold.";
