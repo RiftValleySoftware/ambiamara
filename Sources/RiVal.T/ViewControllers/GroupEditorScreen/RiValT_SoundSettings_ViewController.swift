@@ -272,18 +272,22 @@ extension RiValT_SoundSettings_ViewController {
     func setSegmentedSwitchUp() {
         self.alarmModeSegmentedSwitch?.removeAllSegments()
         let noneImage = TimerGroup.SoundType.none.image
+        noneImage?.isAccessibilityElement = true
         noneImage?.accessibilityLabel = "SLUG-ACC-SOUND-SWITCH-NONE-LABEL".localizedVariant
         noneImage?.accessibilityHint = "SLUG-ACC-SOUND-SWITCH-NONE-HINT".localizedVariant
         let soundImage = TimerGroup.SoundType.sound(soundFileName: "").image
+        soundImage?.isAccessibilityElement = true
         soundImage?.accessibilityLabel = "SLUG-ACC-SOUND-SWITCH-SOUND-LABEL".localizedVariant
         soundImage?.accessibilityHint = "SLUG-ACC-SOUND-SWITCH-SOUND-HINT".localizedVariant
         self.alarmModeSegmentedSwitch?.insertSegment(with: noneImage, at: 0, animated: false)
         self.alarmModeSegmentedSwitch?.insertSegment(with: soundImage, at: 1, animated: false)
         if self.hapticsAreAvailable {
             let vibrateImage = TimerGroup.SoundType.vibrate.image
+            vibrateImage?.isAccessibilityElement = true
             vibrateImage?.accessibilityLabel = "SLUG-ACC-SOUND-SWITCH-VIBRATE-LABEL".localizedVariant
             vibrateImage?.accessibilityHint = "SLUG-ACC-SOUND-SWITCH-VIBRATE-HINT".localizedVariant
             let soundVibrateImage = TimerGroup.SoundType.soundVibrate(soundFileName: "").image
+            soundVibrateImage?.isAccessibilityElement = true
             soundVibrateImage?.accessibilityLabel = "SLUG-ACC-SOUND-SWITCH-SOUNDVIBRATE-LABEL".localizedVariant
             soundVibrateImage?.accessibilityHint = "SLUG-ACC-SOUND-SWITCH-SOUNDVIBRATE-HINT".localizedVariant
             self.alarmModeSegmentedSwitch?.insertSegment(with: vibrateImage, at: 2, animated: false)

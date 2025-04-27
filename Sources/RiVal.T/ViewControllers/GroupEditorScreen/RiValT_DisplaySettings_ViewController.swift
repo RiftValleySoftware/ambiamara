@@ -132,10 +132,13 @@ extension RiValT_DisplaySettings_ViewController {
               let dotsImage = TimerGroup.DisplayType.stoplights.image?.resized(toMaximumSize: 20)
         else { return }
         
+        numericalImage.isAccessibilityElement = true
         numericalImage.accessibilityLabel = "SLUG-ACC-DISPLAY-SETTINGS-NUMERICAL-LABEL".localizedVariant
         numericalImage.accessibilityHint = "SLUG-ACC-DISPLAY-SETTINGS-NUMERICAL-HINT".localizedVariant
+        ringImage.isAccessibilityElement = true
         ringImage.accessibilityLabel = "SLUG-ACC-DISPLAY-SETTINGS-CIRCULAR-LABEL".localizedVariant
         ringImage.accessibilityHint = "SLUG-ACC-DISPLAY-SETTINGS-CIRCULAR-HINT".localizedVariant
+        dotsImage.isAccessibilityElement = true
         dotsImage.accessibilityLabel = "SLUG-ACC-DISPLAY-SETTINGS-STOPLIGHTS-LABEL".localizedVariant
         dotsImage.accessibilityHint = "SLUG-ACC-DISPLAY-SETTINGS-STOPLIGHTS-HINT".localizedVariant
 

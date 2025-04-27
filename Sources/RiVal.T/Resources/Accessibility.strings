@@ -29,6 +29,12 @@
 "SLUG-ACC-TOOLBAR-EDIT-LABEL"                   =   "Edit the Selected Timer";
 "SLUG-ACC-TOOLBAR-EDIT-HINT"                    =   "If this button is selected, the Timer Editor Screen will be shown for the timer selected, above.";
 
+"SLUG-ACC-COLLECTION-TIMER-FORMAT-LABEL"        =   "Timer %d, In Group %d";
+"SLUG-ACC-COLLECTION-TIMER-HINT"                =   "This represents one timer in the group.";
+
+"SLUG-ACC-COLLECTION-TIMER-ADD-LABEL"           =   "Add A New Timer";
+"SLUG-ACC-COLLECTION-TIMER-ADD-HINT"            =   "Selecting this, creates and selects a new timer.";
+
 // MARK: - Global Settings Popover -
 
 "SLUG-ACC-START-IMMEDIATELY-CHECKBOX-LABEL"     =   "Start Timers Immediately";
@@ -84,3 +90,12 @@
 
 "SLUG-ACC-MAIN-PLAY-BUTTON-LABEL"               =   "Start the Timer";
 "SLUG-ACC-MAIN-PLAY-BUTTON-HINT"                =   "Selecting this, will start the the timer group, beginning with this timer.";
+"SLUG-ACC-TIME-PICKER-COMPONENT-0-LABEL"        =   "Set Hours";
+"SLUG-ACC-TIME-PICKER-COMPONENT-0-HINT"         =   "This is the number of hours (0 - 24) that can be set for the timer.";
+"SLUG-ACC-TIME-PICKER-COMPONENT-1-LABEL"        =   "Set Minutes";
+"SLUG-ACC-TIME-PICKER-COMPONENT-1-HINT"         =   "This is the number of minutes (0 - 59) that can be set for the timer.";
+"SLUG-ACC-TIME-PICKER-COMPONENT-3-LABEL"        =   "Set Seconds";
+"SLUG-ACC-TIME-PICKER-COMPONENT-3-HINT"         =   "This is the number of seconds (0 - 59) that can be set for the timer.";
+
+"SLUG-ACC-TOOLBAR-TIMER-FORMAT-LABEL"           =   "Edit Timer %d, In This Group";
+"SLUG-ACC-TOOLBAR-TIMER-HINT"                   =   "Selecting this, will bring in the editor for the timer.";

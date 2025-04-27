@@ -174,6 +174,9 @@ extension RiValT_TimerEditor_PageViewContainer {
                 timerButton.target = self
                 timerButton.tag = index
                 timerButton.action = #selector(toolbarTimerHit)
+                timerButton.isAccessibilityElement = true
+                timerButton.accessibilityLabel = String(format: "SLUG-ACC-TOOLBAR-TIMER-FORMAT-LABEL".localizedVariant, index + 1)
+                timerButton.accessibilityHint = "SLUG-ACC-TOOLBAR-TIMER-HINT".localizedVariant
                 toolbarItems.append(timerButton)
                 toolbarItems.append(UIBarButtonItem.flexibleSpace())
             }

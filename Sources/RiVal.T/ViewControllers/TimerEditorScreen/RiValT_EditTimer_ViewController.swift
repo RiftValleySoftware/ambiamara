@@ -296,10 +296,13 @@ extension RiValT_EditTimer_ViewController {
               let finalImage = UIImage(systemName: "xmark.circle\(0 < (self.timer?.finalTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(finalColor)
         else { return }
 
+        startImage.isAccessibilityElement = true
         startImage.accessibilityLabel = "SLUG-ACC-START-SEGMENT-LABEL".localizedVariant
         startImage.accessibilityHint = "SLUG-ACC-START-SEGMENT-HINT".localizedVariant
+        warnImage.isAccessibilityElement = true
         warnImage.accessibilityLabel = "SLUG-ACC-WARN-SEGMENT-LABEL".localizedVariant
         warnImage.accessibilityHint = "SLUG-ACC-WARN-SEGMENT-HINT".localizedVariant
+        finalImage.isAccessibilityElement = true
         finalImage.accessibilityLabel = "SLUG-ACC-FINAL-SEGMENT-LABEL".localizedVariant
         finalImage.accessibilityHint = "SLUG-ACC-FINAL-SEGMENT-HINT".localizedVariant
         
@@ -564,5 +567,34 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
         self.updateSettings()
         self.setUpTimeTypeSegmentedControl()
         inPickerView.reloadAllComponents()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UIPickerViewAccessibilityDelegate Conformance
+/* ###################################################################################################################################### */
+extension RiValT_EditTimer_ViewController: UIPickerViewAccessibilityDelegate {
+    /* ################################################################## */
+    /**
+     This returns the accessibility hint for the picker component.
+     
+     - parameter inPickerView: The picker instance
+     - parameter accessibilityLabelForComponent: The 0-based component index for the label.
+     - returns: An accessibility string for the component.
+    */
+    func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inComponentIndex: Int) -> String? {
+        "SLUG-ACC-TIME-PICKER-COMPONENT-\(inComponentIndex)-LABEL".localizedVariant
+    }
+    
+    /* ################################################################## */
+    /**
+     This returns the accessibility hint for the picker component.
+     
+     - parameterinPickerView: The picker instance
+     - parameter accessibilityHintForComponent: The 0-based component index for the Hint (ignored).
+     - returns: An accessibility string for the component.
+    */
+    func pickerView(_ inPickerView: UIPickerView, accessibilityHintForComponent inComponentIndex: Int) -> String? {
+        "SLUG-ACC-TIME-PICKER-COMPONENT-\(inComponentIndex)-HINT".localizedVariant
     }
 }

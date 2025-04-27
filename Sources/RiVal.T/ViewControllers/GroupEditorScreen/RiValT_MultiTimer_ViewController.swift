@@ -566,12 +566,14 @@ extension RiValT_MultiTimer_ViewController {
      */
     func setUpNavBarItems() {
         let soundSettingsButtonItem = SoundBarButtonItem()
+        soundSettingsButtonItem.isAccessibilityElement = true
         soundSettingsButtonItem.accessibilityLabel = "SLUG-ACC-SOUND-SETTINGS-BUTTON-LABEL".localizedVariant
         soundSettingsButtonItem.accessibilityHint = "SLUG-ACC-SOUND-SETTINGS-BUTTON-HINT".localizedVariant
         soundSettingsButtonItem.group = self.timerModel.selectedTimer?.group
         soundSettingsButtonItem.target = self
         soundSettingsButtonItem.action = #selector(soundSettingsButtonHit)
         let displaySettingsButtonItem = DisplayBarButtonItem()
+        displaySettingsButtonItem.isAccessibilityElement = true
         displaySettingsButtonItem.accessibilityLabel = "SLUG-ACC-DISPLAY-SETTINGS-BUTTON-LABEL".localizedVariant
         displaySettingsButtonItem.accessibilityHint = "SLUG-ACC-DISPLAY-SETTINGS-BUTTON-HINT".localizedVariant
         displaySettingsButtonItem.group = self.timerModel.selectedTimer?.group
@@ -744,10 +746,16 @@ extension RiValT_MultiTimer_ViewController {
             if let timer = self.timerModel.getTimer(at: inIndexPath),
                let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_IconCell {
                 cell.configure(with: timer, indexPath: inIndexPath, myController: self)
+                cell.isAccessibilityElement = true
+                cell.accessibilityLabel = String(format: "SLUG-ACC-COLLECTION-TIMER-FORMAT-LABEL".localizedVariant, inIndexPath.item, inIndexPath.section)
+                cell.accessibilityHint = "SLUG-ACC-COLLECTION-TIMER-HINT".localizedVariant
                 ret = cell
             // Otherwise, we create an add cell.
             } else if let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_AddCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_AddCell {
                 cell.configure(indexPath: inIndexPath, myController: self)
+                cell.isAccessibilityElement = true
+                cell.accessibilityLabel = "SLUG-ACC-COLLECTION-TIMER-ADD-LABEL".localizedVariant
+                cell.accessibilityHint = "SLUG-ACC-COLLECTION-TIMER-ADD-HINT".localizedVariant
                 ret = cell
             }
             
