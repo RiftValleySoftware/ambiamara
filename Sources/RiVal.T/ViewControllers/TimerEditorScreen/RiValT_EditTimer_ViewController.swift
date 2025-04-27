@@ -336,6 +336,11 @@ extension RiValT_EditTimer_ViewController {
               let finalColor = UIColor(named: "Final-Color")
         else { return }
         
+        self.timeTypeSegmentedControl?.setEnabled(true, forSegmentAt: TimeType.setTime.rawValue)
+        self.timeTypeSegmentedControl?.setEnabled(0 < self.timer?.startingTimeInSeconds ?? 0,
+                                                  forSegmentAt: TimeType.warnTime.rawValue)
+        self.timeTypeSegmentedControl?.setEnabled((0 < self.timer?.startingTimeInSeconds ?? 0) && (1 != self.timer?.warningTimeInSeconds ?? 0),
+                                                  forSegmentAt: TimeType.finalTime.rawValue)
         self.timeTypeSegmentedControl?.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
         switch self.currentTimeSetState {
         case .setTime:
