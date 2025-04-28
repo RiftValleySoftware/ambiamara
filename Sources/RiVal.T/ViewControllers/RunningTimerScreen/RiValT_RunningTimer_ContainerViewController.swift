@@ -9,6 +9,7 @@
  */
 
 import UIKit
+import AVKit
 import RVS_BasicGCDTimer
 import CoreHaptics
 
@@ -16,6 +17,11 @@ import CoreHaptics
 // MARK: - The Main Container View Controller for the Running Timer -
 /* ###################################################################################################################################### */
 /**
+ This implements a "wrapper" for the running timer views.
+ 
+ It embeds the timer display (either numerical, circular, or stoplight), and handles the user interaction (the timer embed is read-only).
+ 
+ This view has the timer instance, which is referenced by the embedded views.
  */
 class RiValT_RunningTimer_ContainerViewController: UIViewController {
     /* ############################################################## */
@@ -29,6 +35,12 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
      The period of the auto-hide duration.
      */
     private static let _autoHideAnimationDurationInSeconds = TimeInterval(0.5)
+
+    /* ############################################################## */
+    /**
+     The animation duration of the screen flashes.
+     */
+    private static let _flashDurationInSeconds = TimeInterval(0.75)
 
     /* ############################################################## */
     /**
@@ -56,9 +68,16 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
     
     /* ############################################################## */
     /**
+     The timer for automatically hiding the toolbar.
      */
     private var _autoHideTimer: RVS_BasicGCDTimer?
 
+    /* ################################################################## */
+    /**
+     This is the audio player (for playing alarm sounds).
+    */
+    private var _audioPlayer: AVAudioPlayer!
+    
     /* ############################################################## */
     /**
      The running timer.
@@ -70,6 +89,12 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
      This is our numerical display instance.
      */
     weak var numericalDisplayController: RiValT_RunningTimer_Numerical_ViewController?
+    
+    /* ############################################################## */
+    /**
+     The view across the back that is filled with a color, during a "flash."
+     */
+    @IBOutlet weak var flasherView: UIView?
     
     /* ############################################################## */
     /**
@@ -109,54 +134,86 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
     
     /* ############################################################## */
     /**
+     The single-tap gesture recognizer.
      */
     @IBOutlet var singleTapGestureRecognizer: UITapGestureRecognizer?
     
     /* ############################################################## */
     /**
+     The double-tap gesture recognizer.
      */
     @IBOutlet var doubleTapGestureRecognizer: UITapGestureRecognizer?
     
     /* ############################################################## */
     /**
+     The left-swipe gesture recognizer.
      */
     @IBOutlet var leftSwipeGestureRecognizer: UISwipeGestureRecognizer?
     
     /* ############################################################## */
     /**
+     The right-swipe gesture recognizer.
      */
     @IBOutlet var rightSwipeGestureRecognizer: UISwipeGestureRecognizer?
     
     /* ############################################################## */
     /**
+     Called when the user does a right-swipe
+     
+     - parameter: Ignored.
      */
     @IBAction func rightSwipeReceived(_: Any) {
-    }
-    
-    /* ############################################################## */
-    /**
-     */
-    @IBAction func leftSwipeReceived(_: Any) {
-    }
-    
-    /* ############################################################## */
-    /**
-     */
-    @IBAction func doubleTapReceived(_: Any) {
-        self.stopHit()
-    }
-    
-    /* ############################################################## */
-    /**
-     */
-    @IBAction func singleTapReceived(_: Any) {
-        self.playPauseHit()
-        if RiValT_Settings().displayToolbar,
-           RiValT_Settings().autoHideToolbar {
-            self.showToolbar()
+        if !RiValT_Settings().displayToolbar {
+            self.fastForwardHit()
+            self.numericalDisplayController?.updateUI()
         }
     }
     
+    /* ############################################################## */
+    /**
+     Called when the user does a left-swipe
+     
+     - parameter: Ignored.
+     */
+    @IBAction func leftSwipeReceived(_: Any) {
+        if !RiValT_Settings().displayToolbar {
+            self.rewindHit()
+            self.numericalDisplayController?.updateUI()
+        }
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when the user taps on the screen twice.
+     
+     - parameter: Ignored.
+     */
+    @IBAction func doubleTapReceived(_: Any) {
+        if !RiValT_Settings().displayToolbar {
+            self.stopHit()
+        }
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when the user taps on the screen once.
+     
+     - parameter: Ignored.
+     */
+    @IBAction func singleTapReceived(_: Any) {
+        if !RiValT_Settings().displayToolbar {
+            self.playPauseHit()
+            self.numericalDisplayController?.updateUI()
+        } else if RiValT_Settings().autoHideToolbar {
+            self.showToolbar()
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension RiValT_RunningTimer_ContainerViewController {
     /* ############################################################## */
     /**
      Called, when the view hierarchy has been loaded.
@@ -198,6 +255,7 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         super.viewWillAppear(inIsAnimated)
         if RiValT_Settings().startTimerImmediately {
+            self.flashGreen()
             self.timer?.start()
         }
     }
@@ -237,7 +295,12 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
             self.numericalDisplayController = destination
         }
     }
+}
 
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension RiValT_RunningTimer_ContainerViewController {
     /* ################################################################## */
     /**
      Triggers a selection haptic.
@@ -321,13 +384,16 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
     
     /* ############################################################## */
     /**
+     This resets the timer to the start.
      */
     func rewindHit() {
-        
+        self.timer?.stop()
+        self.playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
     }
     
     /* ############################################################## */
     /**
+     This stops the timer, and dismisses the screen.
      */
     func stopHit() {
         self.timer?.transitionHandler = nil
@@ -338,25 +404,98 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
     
     /* ############################################################## */
     /**
+     This either pauses a running timer, resumes a paused timer, or starts a stopped timer.
      */
     func playPauseHit() {
-        if self.timer?.isTimerPaused ?? false {
-            self.timer?.resume()
-            self.playPauseToolbarItem?.image = UIImage(systemName: "pause.fill")
-        } else {
+        if self.timer?.isTimerRunning ?? false {
+            self.flashCyan()
             self.timer?.pause()
             self.playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
+        } else {
+            self.flashGreen()
+            if self.timer?.isTimerPaused ?? false {
+                self.timer?.resume()
+            } else {
+                self.timer?.start()
+            }
+            self.playPauseToolbarItem?.image = UIImage(systemName: "pause.fill")
         }
-        self.numericalDisplayController?.updateUI()
     }
 
     /* ############################################################## */
     /**
+     This pushes the timer to the end (alarm state).
      */
     func fastForwardHit() {
-        
+        self.timer?.end()
+        self.playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
+    }
+    
+    /* ############################################################## */
+    /**
+     This flashes the screen briefly cyan (pause)
+     */
+    func flashCyan() {
+        self.flasherView?.backgroundColor = UIColor(named: "Paused-Color")
+        self.impactHaptic(1.0)
+        UIView.animate(withDuration: Self._flashDurationInSeconds,
+                       animations: { [weak self] in
+                                        self?.flasherView?.backgroundColor = .clear
+                                    },
+                       completion: nil
+        )
+    }
+    
+    /* ############################################################## */
+    /**
+     This flashes the screen briefly green
+     */
+    func flashGreen() {
+        self.flasherView?.backgroundColor = UIColor(named: "Start-Color")
+        self.impactHaptic()
+        UIView.animate(withDuration: Self._flashDurationInSeconds,
+                       animations: { [weak self] in
+                                        self?.flasherView?.backgroundColor = .clear
+                                    },
+                       completion: nil
+        )
     }
 
+    /* ############################################################## */
+    /**
+     This flashes the screen briefly yellow
+     */
+    func flashYellow() {
+        self.flasherView?.backgroundColor = UIColor(named: "Warn-Color")
+        self.impactHaptic()
+        UIView.animate(withDuration: Self._flashDurationInSeconds,
+                       animations: { [weak self] in
+                                        self?.flasherView?.backgroundColor = .clear
+                                    },
+                       completion: nil
+        )
+    }
+
+    /* ############################################################## */
+    /**
+     This flashes the screen briefly red
+     */
+    func flashRed(_ inIsHard: Bool = false) {
+        self.impactHaptic(inIsHard ? 1.0 : 0.5)
+        self.flasherView?.backgroundColor = UIColor(named: "Final-Color")
+        UIView.animate(withDuration: Self._flashDurationInSeconds,
+                       animations: { [weak self] in
+                                        self?.flasherView?.backgroundColor = .clear
+                                    },
+                       completion: nil
+        )
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Callbacks
+/* ###################################################################################################################################### */
+extension RiValT_RunningTimer_ContainerViewController {
     /* ############################################################## */
     /**
      One of the toolbar controls was hit.
@@ -375,26 +514,45 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
             self.playPauseHit()
         }
         
+        self.numericalDisplayController?.updateUI()
         self.showToolbar()
     }
-}
-
-/* ###################################################################################################################################### */
-// MARK: Timer Callbacks
-/* ###################################################################################################################################### */
-extension RiValT_RunningTimer_ContainerViewController {
+    
     /* ############################################################## */
     /**
+     This is called by the model, and represents one "tick" of the timer.
+     
+     - parameter: The timer instance (ignored).
      */
-    func tickHandler(_ inTimer: Timer) {
+    func tickHandler(_: Timer) {
         self.numericalDisplayController?.updateUI()
     }
 
     /* ############################################################## */
     /**
+     This is called by the model, and represents a transition, from one state to another.
+     
+     - parameter: The timer instance (ignored).
+     - parameter: The state the timer is moving from (ignored).
+     - parameter inToMode: The new timer state.
      */
-    func transitionHandler(_ inTimer: Timer, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
-        
+    func transitionHandler(_: Timer, _: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
+        switch inToMode {
+        case .warning:
+            self.flashYellow()
+            
+        case .final, .stopped:
+            self.flashRed()
+            
+        case .paused:
+            self.flashCyan()
+            
+        case .countdown:
+            self.flashGreen()
+            
+        default:
+            break
+        }
     }
 }
 

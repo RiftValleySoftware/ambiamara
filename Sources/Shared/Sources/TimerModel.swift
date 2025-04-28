@@ -1086,6 +1086,18 @@ extension Timer {
      Returns true, if the timer is in "alarm" state
      */
     var isTimerInAlarm: Bool { .alarm == self.timerMode }
+    
+    /* ############################################################## */
+    /**
+     Returns true, if the timer is at the final point
+     */
+    var isTimerAtEnd: Bool { 0 == self.currentTime }
+    
+    /* ############################################################## */
+    /**
+     Returns true, if the timer is at the starting point
+     */
+    var isTimerAtStart: Bool { self.startingTimeInSeconds == self.currentTime }
 
     /* ############################################################## */
     /**

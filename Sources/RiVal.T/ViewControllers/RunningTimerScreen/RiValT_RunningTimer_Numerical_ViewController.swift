@@ -9,18 +9,41 @@
  */
 
 import UIKit
-import AVKit
 import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 import RVS_RetroLEDDisplay
-import RVS_BasicGCDTimer
 
 /* ###################################################################################################################################### */
 // MARK: - The Main View Controller for the Numerical Running Timer -
 /* ###################################################################################################################################### */
 /**
+ This implements the numerical (LED numbers) running timer display.
  */
 class RiValT_RunningTimer_Numerical_ViewController: RiValT_RunningTimer_Base_ViewController {
+    /* ############################################################## */
+    /**
+     The color for the digital display, when in "Pause" mode.
+     */
+    private static let _pausedLEDColor: UIColor? = UIColor(named: "Paused-Color")
+
+    /* ############################################################## */
+    /**
+     The color of the digits, when the timer is running, and is still in "Start" mode.
+     */
+    private static let _startLEDColor: UIColor? = UIColor(named: "Start-Color")
+    
+    /* ############################################################## */
+    /**
+     The color of the digits, when the timer is running, and is in "Warn" mode.
+     */
+    private static let _warnLEDColor: UIColor? = UIColor(named: "Warn-Color")
+    
+    /* ############################################################## */
+    /**
+     The color of the digits, when the timer is running, and is in "Final" mode.
+     */
+    private static let _finalLEDColor: UIColor? = UIColor(named: "Final-Color")
+
     /* ############################################################## */
     /**
      This is the main view, containing the digital display.
@@ -86,68 +109,12 @@ class RiValT_RunningTimer_Numerical_ViewController: RiValT_RunningTimer_Base_Vie
 }
 
 /* ###################################################################################################################################### */
-// MARK: Base Class Overrides
+// MARK: Private Static Functions
 /* ###################################################################################################################################### */
 extension RiValT_RunningTimer_Numerical_ViewController {
-    /* ############################################################## */
-    /**
-     Called, when the view hierarchy has been loaded.
-     */
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.digitalDisplayViewHours?.radix = 10
-        self.digitalDisplayViewMinutes?.radix = 10
-        self.digitalDisplayViewSeconds?.radix = 10
-        // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
-        // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
-        if ProcessInfo().isMacCatalystApp {
-            self.blurFilterView?.isHidden = true  // Looks like crap on Mac.
-        } else {
-            self.blurFilterView?.isHidden = isHighContrastMode
-        }
-        self.hexGridImageView?.isHidden = isHighContrastMode
-    }
-    
-    /* ############################################################## */
-    /**
-     Called before the screen is displayed.
-     
-     - parameter inIsAnimated: True, if animated.
-     */
-    override func viewWillAppear(_ inIsAnimated: Bool) {
-        super.viewWillAppear(inIsAnimated)
-        self.setDigitDisplayTime()
-    }
-
-    /* ############################################################## */
-    /**
-     Called when the view will rearrange its view hierarchy.
-     */
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        hoursContainerView?.isHidden = TimerEngine.secondsInHour > timer?.startingTimeInSeconds ?? 0
-        minutesContainerView?.isHidden = TimerEngine.secondsInMinute > timer?.startingTimeInSeconds ?? 0
-        let imageSize = hexGridImageView?.image?.size ?? .zero
-        if let bounds = digitContainerInternalView?.bounds,
-           imageSize != bounds.size {
-            DispatchQueue.global().async {
-                let image = Self._generateHexOverlayImage(bounds)
-                DispatchQueue.main.async { self.hexGridImageView?.image = image }
-            }
-        }
-    }
-    
-    /* ############################################################## */
-    /**
-     This should be overriden, to refresh the display.
-     */
-    override func updateUI() {
-        self.setDigitDisplayTime()
-    }
-
     /* ################################################################## */
     /**
-     This class generates an overlay image of a faint "hex grid" that allows us to simulate an old-fashioned "fluorescent" display.
+     This function generates an overlay image of a faint "hex grid" that allows us to simulate an old-fashioned "fluorescent" display.
      
      - parameter inBounds: The main bounds of the screen, from which the array will be calculated.
      */
@@ -163,6 +130,11 @@ extension RiValT_RunningTimer_Numerical_ViewController {
         func _getHexPath(_ inHowBig: CGFloat) -> CGMutablePath {
             /* ########################################################## */
             /**
+             This returns an array of points, describing a "pointing up" hexagon.
+             
+             - parameter inHowBig: The radius, in display units.
+             
+             - returns: An array of CGPoint, mapping out the hexagon.
              */
             func _pointySideUpHexagon(_ inHowBig: CGFloat) -> [CGPoint] {
                 let angle = CGFloat(60).radians
@@ -234,7 +206,73 @@ extension RiValT_RunningTimer_Numerical_ViewController {
         
         return UIGraphicsGetImageFromCurrentImageContext()
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension RiValT_RunningTimer_Numerical_ViewController {
+    /* ############################################################## */
+    /**
+     Called, when the view hierarchy has been loaded.
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.digitalDisplayViewHours?.radix = 10
+        self.digitalDisplayViewMinutes?.radix = 10
+        self.digitalDisplayViewSeconds?.radix = 10
+        // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
+        // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
+        if ProcessInfo().isMacCatalystApp {
+            self.blurFilterView?.isHidden = true  // Looks like crap on Mac.
+        } else {
+            self.blurFilterView?.isHidden = isHighContrastMode
+        }
+        self.hexGridImageView?.isHidden = isHighContrastMode
+    }
     
+    /* ############################################################## */
+    /**
+     Called before the screen is displayed.
+     
+     - parameter inIsAnimated: True, if animated.
+     */
+    override func viewWillAppear(_ inIsAnimated: Bool) {
+        super.viewWillAppear(inIsAnimated)
+        self.setDigitDisplayTime()
+    }
+
+    /* ############################################################## */
+    /**
+     Called when the view will rearrange its view hierarchy.
+     */
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        hoursContainerView?.isHidden = TimerEngine.secondsInHour > timer?.startingTimeInSeconds ?? 0
+        minutesContainerView?.isHidden = TimerEngine.secondsInMinute > timer?.startingTimeInSeconds ?? 0
+        if !isHighContrastMode,
+           let bounds = digitContainerInternalView?.bounds,
+           (hexGridImageView?.image?.size ?? .zero) != bounds.size {
+            DispatchQueue(label: "MakeHexGridImage", qos: .userInitiated).async {
+                let image = Self._generateHexOverlayImage(bounds)
+                DispatchQueue.main.async { self.hexGridImageView?.image = image }
+            }
+        }
+    }
+    
+    /* ############################################################## */
+    /**
+     This forces the display to refresh.
+     */
+    override func updateUI() {
+        self.setDigitDisplayTime()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension RiValT_RunningTimer_Numerical_ViewController {
     /* ############################################################## */
     /**
      This sets the digits, directly.
@@ -253,6 +291,41 @@ extension RiValT_RunningTimer_Numerical_ViewController {
     
     /* ############################################################## */
     /**
+     This determines the proper color for the digit "LEDs."
+     */
+    func determineDigitLEDColor() {
+        if (self.timer?.isTimerPaused ?? false) || !(self.timer?.isTimerRunning ?? false),
+           (self.timer?.isTimerAtEnd ?? false) || (self.timer?.isTimerAtStart ?? false) {
+            digitalDisplayViewHours?.onGradientStartColor = Self._pausedLEDColor
+            digitalDisplayViewMinutes?.onGradientStartColor = Self._pausedLEDColor
+            digitalDisplayViewSeconds?.onGradientStartColor = Self._pausedLEDColor
+        } else if (self.timer?.currentTime ?? -1) <= (self.timer?.finalTimeInSeconds ?? 0) {
+            digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
+            digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
+            digitalDisplayViewSeconds?.onGradientStartColor = Self._finalLEDColor
+        } else if (self.timer?.currentTime ?? -1) <= (self.timer?.warningTimeInSeconds ?? 0) {
+            digitalDisplayViewHours?.onGradientStartColor = Self._warnLEDColor
+            digitalDisplayViewMinutes?.onGradientStartColor = Self._warnLEDColor
+            digitalDisplayViewSeconds?.onGradientStartColor = Self._warnLEDColor
+        } else {
+            digitalDisplayViewHours?.onGradientStartColor = Self._startLEDColor
+            digitalDisplayViewMinutes?.onGradientStartColor = Self._startLEDColor
+            digitalDisplayViewSeconds?.onGradientStartColor = Self._startLEDColor
+        }
+        
+        if !(self.timer?.isTimerRunning ?? false) && !(self.timer?.isTimerInAlarm ?? false) {
+            digitalDisplayViewHours?.onGradientEndColor = Self._pausedLEDColor
+            digitalDisplayViewMinutes?.onGradientEndColor = Self._pausedLEDColor
+            digitalDisplayViewSeconds?.onGradientEndColor = Self._pausedLEDColor
+        } else {
+            digitalDisplayViewHours?.onGradientEndColor = nil
+            digitalDisplayViewMinutes?.onGradientEndColor = nil
+            digitalDisplayViewSeconds?.onGradientEndColor = nil
+        }
+    }
+
+    /* ############################################################## */
+    /**
      This calculates the current time, and sets the digital display to that time.
      */
     func setDigitDisplayTime() {
@@ -263,7 +336,7 @@ extension RiValT_RunningTimer_Numerical_ViewController {
         let minutes = Int(currentTime / 60)
         currentTime -= (minutes * 60)
         let seconds = currentTime
-        
+        determineDigitLEDColor()
         setDigitalTimeAs(hours: 0 < hours ? hours : -2, minutes: (0 < minutes || 0 < hours) ? minutes : -2, seconds: seconds)
     }
 }

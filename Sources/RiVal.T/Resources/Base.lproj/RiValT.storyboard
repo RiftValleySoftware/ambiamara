@@ -731,6 +731,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jus-Zl-mMA">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <viewLayoutGuide key="safeArea" id="Qo0-b6-pjA"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9uv-6p-o4t">
                                 <rect key="frame" x="0.0" y="162" width="393" height="622"/>
                                 <connections>
@@ -772,10 +777,14 @@
                         <constraints>
                             <constraint firstItem="aB4-yW-6GS" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" id="0Eg-oH-cmo"/>
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="top" secondItem="LXl-gb-Uc1" secondAttribute="top" id="15A-Zo-z6T"/>
+                            <constraint firstAttribute="bottom" secondItem="Jus-Zl-mMA" secondAttribute="bottom" id="1Qs-0d-Jxb"/>
+                            <constraint firstItem="Jus-Zl-mMA" firstAttribute="top" secondItem="HVj-Ru-0Hn" secondAttribute="top" id="Hvv-KF-YiV"/>
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" id="M0F-Vq-nyz"/>
+                            <constraint firstAttribute="trailing" secondItem="Jus-Zl-mMA" secondAttribute="trailing" id="MlV-fg-0xB"/>
                             <constraint firstItem="LXl-gb-Uc1" firstAttribute="bottom" secondItem="aB4-yW-6GS" secondAttribute="bottom" id="RkJ-ag-KzQ"/>
                             <constraint firstItem="aB4-yW-6GS" firstAttribute="trailing" secondItem="LXl-gb-Uc1" secondAttribute="trailing" id="nVs-By-7BW"/>
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="trailing" secondItem="LXl-gb-Uc1" secondAttribute="trailing" id="wNT-oM-buZ"/>
+                            <constraint firstItem="Jus-Zl-mMA" firstAttribute="leading" secondItem="HVj-Ru-0Hn" secondAttribute="leading" id="wkL-dv-hfl"/>
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="bottom" secondItem="LXl-gb-Uc1" secondAttribute="bottom" id="xAL-77-c6e"/>
                         </constraints>
                         <connections>
@@ -789,6 +798,7 @@
                     <connections>
                         <outlet property="controlToolbar" destination="aB4-yW-6GS" id="Dey-GR-dL6"/>
                         <outlet property="fastForwardToolbarItem" destination="fJM-eI-axA" id="IYv-Qa-4Hr"/>
+                        <outlet property="flasherView" destination="Jus-Zl-mMA" id="8T0-Mo-9JR"/>
                         <outlet property="leftSwipeGestureRecognizer" destination="9eo-CP-Nn8" id="9zH-cW-VM3"/>
                         <outlet property="numericalTimerContainerView" destination="9uv-6p-o4t" id="kqf-6c-Ymj"/>
                         <outlet property="playPauseToolbarItem" destination="dV1-Vy-3LR" id="y3l-z8-lrE"/>
@@ -820,7 +830,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="740" y="524"/>
+            <point key="canvasLocation" x="739.69465648854964" y="523.94366197183103"/>
         </scene>
         <!--RiValT Running Timer View Controller-->
         <scene sceneID="fOn-vN-4fq">
@@ -830,11 +840,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="622"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N5L-TM-GEj">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="622"/>
-                                <viewLayoutGuide key="safeArea" id="Ymt-8F-BxE"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <view contentMode="scaleAspectFit" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ytG-gx-lI0">
                                 <rect key="frame" x="0.0" y="118" width="393" height="470"/>
                                 <subviews>
@@ -967,7 +972,7 @@
                                     <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVz-Ds-9ul">
                                         <rect key="frame" x="0.0" y="184.33333333333331" width="393" height="101.33333333333331"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nQp-Wc-T6m">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="101.33333333333331"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="102"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
@@ -998,12 +1003,8 @@
                         <viewLayoutGuide key="safeArea" id="JHV-F6-kXu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="N5L-TM-GEj" secondAttribute="trailing" id="3C9-mL-lmf"/>
                             <constraint firstItem="JHV-F6-kXu" firstAttribute="bottom" secondItem="ytG-gx-lI0" secondAttribute="bottom" id="F5t-aO-J62"/>
                             <constraint firstItem="ytG-gx-lI0" firstAttribute="top" secondItem="JHV-F6-kXu" secondAttribute="top" id="GaX-l7-MIQ"/>
-                            <constraint firstItem="N5L-TM-GEj" firstAttribute="top" secondItem="Qge-7r-Z34" secondAttribute="top" id="MfA-Mv-U0T"/>
-                            <constraint firstItem="N5L-TM-GEj" firstAttribute="leading" secondItem="Qge-7r-Z34" secondAttribute="leading" id="Wqw-Xz-Pbn"/>
-                            <constraint firstAttribute="bottom" secondItem="N5L-TM-GEj" secondAttribute="bottom" id="mAw-Bs-8N2"/>
                             <constraint firstItem="JHV-F6-kXu" firstAttribute="trailing" secondItem="ytG-gx-lI0" secondAttribute="trailing" id="r1Z-aT-fMk"/>
                             <constraint firstItem="ytG-gx-lI0" firstAttribute="leading" secondItem="JHV-F6-kXu" secondAttribute="leading" id="rZw-Zt-OeE"/>
                         </constraints>
@@ -1016,7 +1017,6 @@
                         <outlet property="digitalDisplayViewHours" destination="ZNS-4C-FAd" id="eHR-ah-2RU"/>
                         <outlet property="digitalDisplayViewMinutes" destination="cPg-nf-zpa" id="Dji-vU-cF3"/>
                         <outlet property="digitalDisplayViewSeconds" destination="pum-Xq-gfI" id="xT9-UW-gjD"/>
-                        <outlet property="flasherView" destination="N5L-TM-GEj" id="m7N-6r-wCa"/>
                         <outlet property="hexGridImageView" destination="FWR-6n-958" id="UMl-3v-2eS"/>
                         <outlet property="hoursContainerView" destination="Z96-QR-EFw" id="o88-zH-9p9"/>
                         <outlet property="minutesContainerView" destination="083-8V-F5O" id="cet-Ga-krZ"/>
