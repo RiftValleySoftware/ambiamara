@@ -65,6 +65,7 @@
 		D4A932232D64E9CB0028556E /* Rift_Valley_Timer_Watch_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A932202D64E9CB0028556E /* Rift_Valley_Timer_Watch_App.swift */; };
 		D4A9322A2D64E9CB0028556E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4A932262D64E9CB0028556E /* Assets.xcassets */; };
 		D4A9322C2D64E9CB0028556E /* Rift_Valley_Timer_Complications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A932282D64E9CB0028556E /* Rift_Valley_Timer_Complications.swift */; };
+		D4A99AFB2DBEF28F00E7CC46 /* RiValT_RunningTimer_Base_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A99AFA2DBEF28F00E7CC46 /* RiValT_RunningTimer_Base_ViewController.swift */; };
 		D4B01F81281F58D200B07C56 /* 11-bells.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F66281F58D200B07C56 /* 11-bells.mp3 */; };
 		D4B01F82281F58D200B07C56 /* 13-rooster.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F67281F58D200B07C56 /* 13-rooster.mp3 */; };
 		D4B01F88281F58D200B07C56 /* 17-car-horn.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4B01F70281F58D200B07C56 /* 17-car-horn.mp3 */; };
@@ -376,6 +377,7 @@
 		D4A9322D2D64EA310028556E /* WatchApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WatchApp.entitlements; sourceTree = "<group>"; };
 		D4A9322E2D64EA440028556E /* WatchComplications.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WatchComplications.entitlements; sourceTree = "<group>"; };
 		D4A9322F2D64EA8B0028556E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4A99AFA2DBEF28F00E7CC46 /* RiValT_RunningTimer_Base_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_RunningTimer_Base_ViewController.swift; sourceTree = "<group>"; };
 		D4B01F66281F58D200B07C56 /* 11-bells.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "11-bells.mp3"; sourceTree = "<group>"; };
 		D4B01F67281F58D200B07C56 /* 13-rooster.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "13-rooster.mp3"; sourceTree = "<group>"; };
 		D4B01F70281F58D200B07C56 /* 17-car-horn.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "17-car-horn.mp3"; sourceTree = "<group>"; };
@@ -858,6 +860,7 @@
 			isa = PBXGroup;
 			children = (
 				D4C122CF2DBED67B0041F23A /* RiValT_RunningTimer_ContainerViewController.swift */,
+				D4A99AFA2DBEF28F00E7CC46 /* RiValT_RunningTimer_Base_ViewController.swift */,
 				D4CF4FC82DBB08C3008A71B8 /* RiValT_RunningTimer_Numerical_ViewController.swift */,
 			);
 			path = RunningTimerScreen;
@@ -1320,6 +1323,7 @@
 				D45184CA2DB42DBF00DA671D /* RiValT_SoundSettings_ViewController.swift in Sources */,
 				D4CF4FC92DBB08C3008A71B8 /* RiValT_RunningTimer_Numerical_ViewController.swift in Sources */,
 				D4EDE73B2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift in Sources */,
+				D4A99AFB2DBEF28F00E7CC46 /* RiValT_RunningTimer_Base_ViewController.swift in Sources */,
 				D4181D0D2DAC7364002CF428 /* TimerModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

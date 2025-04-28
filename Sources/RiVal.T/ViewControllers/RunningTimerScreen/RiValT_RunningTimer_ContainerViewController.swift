@@ -67,6 +67,12 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
     
     /* ############################################################## */
     /**
+     This is our numerical display instance.
+     */
+    weak var numericalDisplayController: RiValT_RunningTimer_Numerical_ViewController?
+    
+    /* ############################################################## */
+    /**
      This contains the running timer for numerical format.
      */
     @IBOutlet weak var numericalTimerContainerView: UIView?
@@ -103,6 +109,56 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
     
     /* ############################################################## */
     /**
+     */
+    @IBOutlet var singleTapGestureRecognizer: UITapGestureRecognizer?
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet var doubleTapGestureRecognizer: UITapGestureRecognizer?
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet var leftSwipeGestureRecognizer: UISwipeGestureRecognizer?
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBOutlet var rightSwipeGestureRecognizer: UISwipeGestureRecognizer?
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBAction func rightSwipeReceived(_: Any) {
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBAction func leftSwipeReceived(_: Any) {
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBAction func doubleTapReceived(_: Any) {
+        self.stopHit()
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    @IBAction func singleTapReceived(_: Any) {
+        self.playPauseHit()
+        if RiValT_Settings().displayToolbar,
+           RiValT_Settings().autoHideToolbar {
+            self.showToolbar()
+        }
+    }
+    
+    /* ############################################################## */
+    /**
      Called, when the view hierarchy has been loaded.
      */
     override func viewDidLoad() {
@@ -118,6 +174,18 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
         appearance.backgroundImage = nil
         self.controlToolbar?.standardAppearance = appearance
         self.controlToolbar?.scrollEdgeAppearance = appearance
+        
+        if let doubleTapper = self.doubleTapGestureRecognizer {
+            self.singleTapGestureRecognizer?.require(toFail: doubleTapper)
+        }
+        
+        self.timer?.tickHandler = self.tickHandler
+        self.timer?.transitionHandler = self.transitionHandler
+        if self.timer?.isTimerPaused ?? false {
+            self.playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
+        } else {
+            self.playPauseToolbarItem?.image = UIImage(systemName: "pause.fill")
+        }
     }
     
     /* ############################################################## */
@@ -127,9 +195,11 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
      - parameter inIsAnimated: True, if animated.
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
-//        Commented out, while developing.
-//        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
         super.viewWillAppear(inIsAnimated)
+        if RiValT_Settings().startTimerImmediately {
+            self.timer?.start()
+        }
     }
 
     /* ############################################################## */
@@ -156,11 +226,15 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
     
     /* ################################################################## */
     /**
-     Embeds the Numerical Display
+     This will assign us as the "owner" of our embedded displays.
+     
+     - parameter inSegue: The segue instance.
+     - parameter sender: Ignored.
      */
     override func prepare(for inSegue: UIStoryboardSegue, sender: Any?) {
         if let destination = inSegue.destination as? RiValT_RunningTimer_Numerical_ViewController {
             destination.myContainer = self
+            self.numericalDisplayController = destination
         }
     }
 
@@ -189,33 +263,36 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
      This animates the toolbar into visibility.
      */
     func showToolbar() {
-        self._autoHideTimer?.invalidate()
-        self._autoHideTimer = nil
-
-        guard RiValT_Settings().displayToolbar,
-              RiValT_Settings().autoHideToolbar
+        guard RiValT_Settings().displayToolbar
         else {
+            self.controlToolbar?.isHidden = true
             self.controlToolbar?.alpha = 1.0
             return
         }
         
-        self._autoHideTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._autoHidePeriodInSeconds,
-                                                delegate: self,
-                                                leewayInMilliseconds: 100,
-                                                onlyFireOnce: true,
-                                                queue: .main, isWallTime: true)
-        self._autoHideTimer?.isRunning = true
+        self.controlToolbar?.isHidden = false
+        if RiValT_Settings().autoHideToolbar {
+            self._autoHideTimer?.invalidate()
+            self._autoHideTimer = nil
 
-        if 1.0 > (self.controlToolbar?.alpha ?? 1) {
-            self.controlToolbar?.alpha = 0.0
-            view.layoutIfNeeded()
-            UIView.animate(withDuration: Self._autoHideAnimationDurationInSeconds,
-                           animations: { [weak self] in
-                                            self?.controlToolbar?.alpha = 1.0
-                                            self?.view.layoutIfNeeded()
-                                        },
-                           completion: nil
-            )
+            self._autoHideTimer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._autoHidePeriodInSeconds,
+                                                    delegate: self,
+                                                    leewayInMilliseconds: 100,
+                                                    onlyFireOnce: true,
+                                                    queue: .main, isWallTime: true)
+            self._autoHideTimer?.isRunning = true
+            
+            if 1.0 > (self.controlToolbar?.alpha ?? 1) {
+                self.controlToolbar?.alpha = 0.0
+                view.layoutIfNeeded()
+                UIView.animate(withDuration: Self._autoHideAnimationDurationInSeconds,
+                               animations: { [weak self] in
+                    self?.controlToolbar?.alpha = 1.0
+                    self?.view.layoutIfNeeded()
+                },
+                               completion: nil
+                )
+            }
         }
     }
     
@@ -253,14 +330,24 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
     /**
      */
     func stopHit() {
-        
+        self.timer?.transitionHandler = nil
+        self.timer?.tickHandler = nil
+        self.timer?.stop()
+        self.navigationController?.popViewController(animated: true)
     }
     
     /* ############################################################## */
     /**
      */
     func playPauseHit() {
-        
+        if self.timer?.isTimerPaused ?? false {
+            self.timer?.resume()
+            self.playPauseToolbarItem?.image = UIImage(systemName: "pause.fill")
+        } else {
+            self.timer?.pause()
+            self.playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
+        }
+        self.numericalDisplayController?.updateUI()
     }
 
     /* ############################################################## */
@@ -289,6 +376,25 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
         }
         
         self.showToolbar()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Timer Callbacks
+/* ###################################################################################################################################### */
+extension RiValT_RunningTimer_ContainerViewController {
+    /* ############################################################## */
+    /**
+     */
+    func tickHandler(_ inTimer: Timer) {
+        self.numericalDisplayController?.updateUI()
+    }
+
+    /* ############################################################## */
+    /**
+     */
+    func transitionHandler(_ inTimer: Timer, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
+        
     }
 }
 

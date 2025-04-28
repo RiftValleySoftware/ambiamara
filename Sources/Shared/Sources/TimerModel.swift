@@ -1047,6 +1047,48 @@ extension Timer {
 extension Timer {
     /* ############################################################## */
     /**
+     Returns the timer mode.
+     */
+    var timerMode: TimerEngine.Mode { self._engine.mode }
+
+    /* ############################################################## */
+    /**
+     Returns true, if the timer is currently ticking
+     */
+    var isTimerRunning: Bool { self._engine.isTicking }
+    
+    /* ############################################################## */
+    /**
+     Returns true, if the timer is paused.
+     */
+    var isTimerPaused: Bool {
+        if case .paused = self.timerMode {
+            return true
+        }
+        
+        return false
+    }
+    
+    /* ############################################################## */
+    /**
+     Returns true, if the timer has reached warning mode.
+     */
+    var isTimerInWarning: Bool { .warning == self.timerMode }
+    
+    /* ############################################################## */
+    /**
+     Returns true, if the timer has reached final mode.
+     */
+    var isTimerInFinal: Bool { .final == self.timerMode }
+    
+    /* ############################################################## */
+    /**
+     Returns true, if the timer is in "alarm" state
+     */
+    var isTimerInAlarm: Bool { .alarm == self.timerMode }
+
+    /* ############################################################## */
+    /**
      This is the saved state of the timer. It may be extracted, or supplied.
      */
     var timerState: [String: any Hashable] {
