@@ -173,6 +173,24 @@ extension RiValT_RunningTimer_ContainerViewController {
         
         return group[myIndex + 1]
     }
+    
+    /* ############################################################## */
+    /**
+     If we are in a multi-timer group, this how many timers.
+     */
+    var count: Int { self.timer?.group?.count ?? 0 }
+    
+    /* ############################################################## */
+    /**
+     If we are in a multi-timer group, this is the first timer.
+     */
+    var firstTimer: Timer? { self.timer?.group?.first }
+
+    /* ############################################################## */
+    /**
+     If we are in a multi-timer group, this is the last timer.
+     */
+    var lastTimer: Timer? { self.timer?.group?.last }
 }
 
 /* ###################################################################################################################################### */
@@ -379,10 +397,14 @@ extension RiValT_RunningTimer_ContainerViewController {
             self.timer?.pause()
             self.playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
         } else {
-            self.flashGreen()
             if self.timer?.isTimerPaused ?? false {
+                self.flashGreen()
                 self.timer?.resume()
-            } else {
+            } else if let timer = self.firstTimer {
+                self.timer = nil
+                timer.tickHandler = self.tickHandler
+                timer.transitionHandler = self.transitionHandler
+                self.timer = timer
                 self.timer?.start()
             }
             self.playPauseToolbarItem?.image = UIImage(systemName: "pause.fill")
