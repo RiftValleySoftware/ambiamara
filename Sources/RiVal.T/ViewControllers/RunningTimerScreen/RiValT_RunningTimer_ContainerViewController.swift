@@ -217,8 +217,9 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.controlToolbar?.standardAppearance = appearance
         self.controlToolbar?.scrollEdgeAppearance = appearance
         
-        if let doubleTapper = self.doubleTapGestureRecognizer {
-            self.singleTapGestureRecognizer?.require(toFail: doubleTapper)
+        if let tapper = self.singleTapGestureRecognizer,
+           let doubleTapper = self.doubleTapGestureRecognizer {
+            tapper.require(toFail: doubleTapper)
         }
         
         self.timer?.tickHandler = self.tickHandler
@@ -381,9 +382,13 @@ extension RiValT_RunningTimer_ContainerViewController {
      This stops the timer, and dismisses the screen.
      */
     func stopHit() {
-        self.timer?.transitionHandler = nil
-        self.timer?.tickHandler = nil
-        self.timer?.stop()
+        self.flashRed(true)
+        if let timer = self.timer {
+            self.timer = nil
+            timer.transitionHandler = nil
+            timer.tickHandler = nil
+            timer.stop()
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
