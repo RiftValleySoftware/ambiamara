@@ -222,6 +222,8 @@ extension RiValT_RunningTimer_ContainerViewController {
         super.viewDidLoad()
         self.controlToolbar?.isHidden = !RiValT_Settings().displayToolbar
         
+        self.view?.backgroundColor = isHighContrastMode ? .systemBackground : .black
+        
         self._selectionFeedbackGenerator.prepare()
         self._impactFeedbackGenerator.prepare()
 
