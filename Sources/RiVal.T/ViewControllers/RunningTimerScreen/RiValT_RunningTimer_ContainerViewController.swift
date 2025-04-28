@@ -158,6 +158,24 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: Computed Properties
+/* ###################################################################################################################################### */
+extension RiValT_RunningTimer_ContainerViewController {
+    /* ############################################################## */
+    /**
+     If we are in a multi-timer group, this is the next timer.
+     */
+    var nextTimer: Timer? {
+        guard let group = self.timer?.group,
+              let myIndex = self.timer?.indexPath?.item,
+              myIndex < group.count - 1
+        else { return nil }
+        
+        return group[myIndex + 1]
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
 extension RiValT_RunningTimer_ContainerViewController {
@@ -299,9 +317,9 @@ extension RiValT_RunningTimer_ContainerViewController {
                 view.layoutIfNeeded()
                 UIView.animate(withDuration: Self._autoHideAnimationDurationInSeconds,
                                animations: { [weak self] in
-                    self?.controlToolbar?.alpha = 1.0
-                    self?.view.layoutIfNeeded()
-                },
+                                                self?.controlToolbar?.alpha = 1.0
+                                                self?.view.layoutIfNeeded()
+                                            },
                                completion: nil
                 )
             }
@@ -439,6 +457,43 @@ extension RiValT_RunningTimer_ContainerViewController {
                        completion: nil
         )
     }
+    
+    /* ############################################################## */
+    /**
+     Called when this timer reaches the end.
+     */
+    func alarmReached() {
+        if let timer = self.nextTimer {
+            self.triggerTransitionAlarm()
+            self.timer = nil
+            timer.tickHandler = self.tickHandler
+            timer.transitionHandler = self.transitionHandler
+            timer.isSelected = true
+            self.timer = timer
+            self.timer?.start()
+        } else {
+            self.triggerFinalAlarm()
+        }
+        self.numericalDisplayController?.updateUI()
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when this timer transitions to the next timer.
+     */
+    func triggerTransitionAlarm() {
+        self.flashRed(true)
+        print("TRANSITION")
+    }
+
+    /* ############################################################## */
+    /**
+     Called when all timers in the group are done.
+     */
+    func triggerFinalAlarm() {
+        self.flashRed(true)
+        print("FINAL ALARM")
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -550,9 +605,12 @@ extension RiValT_RunningTimer_ContainerViewController {
         case .warning:
             self.flashYellow()
             
-        case .final, .alarm:
+        case .final:
             self.flashRed()
 
+        case .alarm:
+            self.alarmReached()
+            
         case .paused, .stopped:
             self.flashCyan()
         }
