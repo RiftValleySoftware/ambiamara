@@ -409,6 +409,7 @@ extension RiValT_RunningTimer_ContainerViewController {
                 self.timer = nil
                 timer.tickHandler = self.tickHandler
                 timer.transitionHandler = self.transitionHandler
+                timer.isSelected = true
                 self.timer = timer
                 self.timer?.start()
             }
