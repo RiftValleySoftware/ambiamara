@@ -540,6 +540,10 @@ public extension TimerEngine {
      */
     var currentTime: Int {
         get {
+            if nil == self._timer,
+               .alarm == self._lastMode {
+                return 0
+            }
             guard nil != self._timer || 0 < self._lastPausedTime else { return self.startingTimeInSeconds }
             guard let startTime = self._startTime else { return 0 }
             let ret = self.startingTimeInSeconds - Int(floor(Date.now.timeIntervalSince(startTime)))
@@ -584,6 +588,12 @@ public extension TimerEngine {
      This is the timer mode (computed from the timer state). Read-Only.
      */
     var mode: Mode {
+        if nil == self._timer,
+           0 == self.currentTime,
+           .alarm == self._lastMode {
+            return .alarm
+        }
+        
         guard 0 < self.startingTimeInSeconds,
               nil != self._timer || 0 < self._lastPausedTime
         else { return .stopped }
@@ -788,8 +798,7 @@ public extension TimerEngine {
         self._timer?.isRunning = false
         self.currentTime = 0
         self._lastPausedTime = 0
-        if .alarm != self._lastMode,
-           .stopped != self._lastMode {
+        if .alarm != self._lastMode {
             self.transitionHandler?(self, self._lastMode, .alarm)
             self._lastMode = .alarm
         }

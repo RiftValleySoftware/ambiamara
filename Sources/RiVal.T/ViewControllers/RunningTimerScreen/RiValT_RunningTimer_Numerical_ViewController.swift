@@ -169,7 +169,7 @@ extension RiValT_RunningTimer_Numerical_ViewController {
         }
 
         let path = CGMutablePath()
-        let sHexagonWidth = CGFloat(min(inBounds.size.width, inBounds.size.height) / 50)
+        let sHexagonWidth = CGFloat(inBounds.size.height) / 40
         let radius: CGFloat = sHexagonWidth / 2
         
         let hexPath: CGMutablePath = _getHexPath(radius)
@@ -223,11 +223,8 @@ extension RiValT_RunningTimer_Numerical_ViewController {
         self.digitalDisplayViewSeconds?.radix = 10
         // [ProcessInfo().isMacCatalystApp](https://developer.apple.com/documentation/foundation/nsprocessinfo/3362531-maccatalystapp)
         // is a general-purpose Mac detector, and works better than the precompiler targetEnvironment test.
-        if ProcessInfo().isMacCatalystApp {
-            self.blurFilterView?.isHidden = true  // Looks like crap on Mac.
-        } else {
-            self.blurFilterView?.isHidden = isHighContrastMode
-        }
+        // Blur filter looks like crap on Mac.
+        self.blurFilterView?.isHidden = ProcessInfo().isMacCatalystApp || isHighContrastMode
         self.hexGridImageView?.isHidden = isHighContrastMode
     }
     
@@ -250,16 +247,21 @@ extension RiValT_RunningTimer_Numerical_ViewController {
         super.viewWillLayoutSubviews()
         hoursContainerView?.isHidden = TimerEngine.secondsInHour > timer?.startingTimeInSeconds ?? 0
         minutesContainerView?.isHidden = TimerEngine.secondsInMinute > timer?.startingTimeInSeconds ?? 0
+    }
+
+    /* ############################################################## */
+    /**
+     Called when the view has rearranged its view hierarchy.
+     */
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         if !isHighContrastMode,
            let bounds = digitContainerInternalView?.bounds,
            (hexGridImageView?.image?.size ?? .zero) != bounds.size {
-            DispatchQueue(label: "MakeHexGridImage", qos: .userInitiated).async {
-                let image = Self._generateHexOverlayImage(bounds)
-                DispatchQueue.main.async { self.hexGridImageView?.image = image }
-            }
+            DispatchQueue.main.async { self.hexGridImageView?.image = Self._generateHexOverlayImage(bounds) }
         }
     }
-    
+
     /* ############################################################## */
     /**
      This forces the display to refresh.
@@ -294,11 +296,10 @@ extension RiValT_RunningTimer_Numerical_ViewController {
      This determines the proper color for the digit "LEDs."
      */
     func determineDigitLEDColor() {
-        if (self.timer?.isTimerPaused ?? false) || !(self.timer?.isTimerRunning ?? false),
-           (self.timer?.isTimerAtEnd ?? false) || (self.timer?.isTimerAtStart ?? false) {
-            digitalDisplayViewHours?.onGradientStartColor = Self._pausedLEDColor
-            digitalDisplayViewMinutes?.onGradientStartColor = Self._pausedLEDColor
-            digitalDisplayViewSeconds?.onGradientStartColor = Self._pausedLEDColor
+        if (self.timer?.isTimerInAlarm ?? false) {
+            digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
+            digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
+            digitalDisplayViewSeconds?.onGradientStartColor = Self._finalLEDColor
         } else if (self.timer?.currentTime ?? -1) <= (self.timer?.finalTimeInSeconds ?? 0) {
             digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
             digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
@@ -307,10 +308,14 @@ extension RiValT_RunningTimer_Numerical_ViewController {
             digitalDisplayViewHours?.onGradientStartColor = Self._warnLEDColor
             digitalDisplayViewMinutes?.onGradientStartColor = Self._warnLEDColor
             digitalDisplayViewSeconds?.onGradientStartColor = Self._warnLEDColor
-        } else {
+        } else if (self.timer?.isTimerRunning ?? false) || (self.timer?.isTimerPaused ?? false) {
             digitalDisplayViewHours?.onGradientStartColor = Self._startLEDColor
             digitalDisplayViewMinutes?.onGradientStartColor = Self._startLEDColor
             digitalDisplayViewSeconds?.onGradientStartColor = Self._startLEDColor
+        } else {
+            digitalDisplayViewHours?.onGradientStartColor = Self._pausedLEDColor
+            digitalDisplayViewMinutes?.onGradientStartColor = Self._pausedLEDColor
+            digitalDisplayViewSeconds?.onGradientStartColor = Self._pausedLEDColor
         }
         
         if !(self.timer?.isTimerRunning ?? false) && !(self.timer?.isTimerInAlarm ?? false) {

@@ -155,59 +155,6 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
      The right-swipe gesture recognizer.
      */
     @IBOutlet var rightSwipeGestureRecognizer: UISwipeGestureRecognizer?
-    
-    /* ############################################################## */
-    /**
-     Called when the user does a right-swipe
-     
-     - parameter: Ignored.
-     */
-    @IBAction func rightSwipeReceived(_: Any) {
-        if !RiValT_Settings().displayToolbar {
-            self.fastForwardHit()
-            self.numericalDisplayController?.updateUI()
-        }
-    }
-    
-    /* ############################################################## */
-    /**
-     Called when the user does a left-swipe
-     
-     - parameter: Ignored.
-     */
-    @IBAction func leftSwipeReceived(_: Any) {
-        if !RiValT_Settings().displayToolbar {
-            self.rewindHit()
-            self.numericalDisplayController?.updateUI()
-        }
-    }
-    
-    /* ############################################################## */
-    /**
-     Called when the user taps on the screen twice.
-     
-     - parameter: Ignored.
-     */
-    @IBAction func doubleTapReceived(_: Any) {
-        if !RiValT_Settings().displayToolbar {
-            self.stopHit()
-        }
-    }
-    
-    /* ############################################################## */
-    /**
-     Called when the user taps on the screen once.
-     
-     - parameter: Ignored.
-     */
-    @IBAction func singleTapReceived(_: Any) {
-        if !RiValT_Settings().displayToolbar {
-            self.playPauseHit()
-            self.numericalDisplayController?.updateUI()
-        } else if RiValT_Settings().autoHideToolbar {
-            self.showToolbar()
-        }
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -500,6 +447,61 @@ extension RiValT_RunningTimer_ContainerViewController {
 extension RiValT_RunningTimer_ContainerViewController {
     /* ############################################################## */
     /**
+     Called when the user does a right-swipe
+     
+     - parameter: Ignored.
+     */
+    @IBAction func rightSwipeReceived(_: Any) {
+        if !RiValT_Settings().displayToolbar {
+            self.flashRed()
+            self.impactHaptic(1.0)
+            self.timer?.end()
+            self.numericalDisplayController?.updateUI()
+        }
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when the user does a left-swipe
+     
+     - parameter: Ignored.
+     */
+    @IBAction func leftSwipeReceived(_: Any) {
+        if !RiValT_Settings().displayToolbar {
+            self.rewindHit()
+            self.numericalDisplayController?.updateUI()
+        }
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when the user taps on the screen twice.
+     
+     - parameter: Ignored.
+     */
+    @IBAction func doubleTapReceived(_: Any) {
+        if !RiValT_Settings().displayToolbar {
+            self.stopHit()
+        }
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when the user taps on the screen once.
+     
+     - parameter: Ignored.
+     */
+    @IBAction func singleTapReceived(_: Any) {
+        if !RiValT_Settings().displayToolbar {
+            self.playPauseHit()
+            self.numericalDisplayController?.updateUI()
+        } else if RiValT_Settings().autoHideToolbar {
+            self.showToolbar()
+        }
+    }
+
+    /* ############################################################## */
+    /**
      One of the toolbar controls was hit.
      
      - parameter inSender: The item that was activated.
@@ -527,6 +529,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter: The timer instance (ignored).
      */
     func tickHandler(_: Timer) {
+        self.selectionHaptic()
         self.numericalDisplayController?.updateUI()
     }
 
@@ -539,21 +542,19 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter inToMode: The new timer state.
      */
     func transitionHandler(_: Timer, _: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
+        self.impactHaptic(1.0)
         switch inToMode {
-        case .warning:
-            self.flashYellow()
-            
-        case .final, .stopped:
-            self.flashRed()
-            
-        case .paused:
-            self.flashCyan()
-            
         case .countdown:
             self.flashGreen()
             
-        default:
-            break
+        case .warning:
+            self.flashYellow()
+            
+        case .final, .alarm:
+            self.flashRed()
+
+        case .paused, .stopped:
+            self.flashCyan()
         }
     }
 }
