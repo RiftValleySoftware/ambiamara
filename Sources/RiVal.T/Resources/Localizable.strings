@@ -70,9 +70,15 @@
 "Beep-020.mp3"                                  =   "Double Entrendé";
 "Beep-021.mp3"                                  =   "Cowbell";
 "Beep-022.mp3"                                  =   "Wavy Drumbeat";
-"Beep-023.mp3"                                  =   "Doorbell";
+"Beep-023.mp3"                                  =   "Doorbell 1";
 "Beep-024.mp3"                                  =   "Cymbal";
 "Beep-025.mp3"                                  =   "Brass Bowl";
+"Beep-026.mp3"                                  =   "Doorbell 2";
+"Beep-027.mp3"                                  =   "Doorbell 3";
+"Beep-028.mp3"                                  =   "Doorbell 4";
+"Beep-029.mp3"                                  =   "Fart 1";
+"Beep-030.mp3"                                  =   "Fart 2";
+"Beep-031.mp3"                                  =   "Fart 3";
 
 // MARK: -
 // MARK: MAIN LOCALIZATION

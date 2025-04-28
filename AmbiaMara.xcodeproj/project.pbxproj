@@ -51,6 +51,12 @@
 		D47C02AB2819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47C02A92819CA6800D359F5 /* RVS_AmbiaMara_LaunchScreen.storyboard */; };
 		D486C829281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */; };
 		D48A5E352D934ED200770606 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D48A5E342D934ED200770606 /* RVS_UIKit_Toolbox */; };
+		D48A67942DC034B000450B42 /* Beep-028.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D48A67902DC034B000450B42 /* Beep-028.mp3 */; };
+		D48A67952DC034B000450B42 /* Beep-026.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D48A678E2DC034B000450B42 /* Beep-026.mp3 */; };
+		D48A67962DC034B000450B42 /* Beep-027.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D48A678F2DC034B000450B42 /* Beep-027.mp3 */; };
+		D48A67972DC034B000450B42 /* Beep-030.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D48A67922DC034B000450B42 /* Beep-030.mp3 */; };
+		D48A67982DC034B000450B42 /* Beep-031.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D48A67932DC034B000450B42 /* Beep-031.mp3 */; };
+		D48A67992DC034B000450B42 /* Beep-029.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D48A67912DC034B000450B42 /* Beep-029.mp3 */; };
 		D48CDA042DB44786008C2DF9 /* Accessibility.strings in Resources */ = {isa = PBXBuildFile; fileRef = D48CDA032DB44786008C2DF9 /* Accessibility.strings */; };
 		D48F68C62DB438680093D938 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D48F68C52DB438680093D938 /* Localizable.strings */; };
 		D49BBA112DBC275D00DD0963 /* RiValT_TimerEditor_PageViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49BBA102DBC275D00DD0963 /* RiValT_TimerEditor_PageViewContainer.swift */; };
@@ -284,6 +290,12 @@
 			dstPath = Sounds;
 			dstSubfolderSpec = 7;
 			files = (
+				D48A67942DC034B000450B42 /* Beep-028.mp3 in Copy Transition Sounds */,
+				D48A67952DC034B000450B42 /* Beep-026.mp3 in Copy Transition Sounds */,
+				D48A67962DC034B000450B42 /* Beep-027.mp3 in Copy Transition Sounds */,
+				D48A67972DC034B000450B42 /* Beep-030.mp3 in Copy Transition Sounds */,
+				D48A67982DC034B000450B42 /* Beep-031.mp3 in Copy Transition Sounds */,
+				D48A67992DC034B000450B42 /* Beep-029.mp3 in Copy Transition Sounds */,
 				D427BC0D2DB987DB009EAC8D /* Beep-025.mp3 in Copy Transition Sounds */,
 				D427BC0E2DB987DB009EAC8D /* Beep-022.mp3 in Copy Transition Sounds */,
 				D427BC0F2DB987DB009EAC8D /* Beep-023.mp3 in Copy Transition Sounds */,
@@ -363,6 +375,12 @@
 		D47C02AA2819CA6800D359F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RVS_AmbiaMara_LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_AmbiaMara_Settings.swift; sourceTree = "<group>"; };
 		D488F2EE281D6D960045E999 /* Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = Sources/Meta/Warnings.xcconfig; sourceTree = SOURCE_ROOT; };
+		D48A678E2DC034B000450B42 /* Beep-026.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-026.mp3"; sourceTree = "<group>"; };
+		D48A678F2DC034B000450B42 /* Beep-027.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-027.mp3"; sourceTree = "<group>"; };
+		D48A67902DC034B000450B42 /* Beep-028.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-028.mp3"; sourceTree = "<group>"; };
+		D48A67912DC034B000450B42 /* Beep-029.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-029.mp3"; sourceTree = "<group>"; };
+		D48A67922DC034B000450B42 /* Beep-030.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-030.mp3"; sourceTree = "<group>"; };
+		D48A67932DC034B000450B42 /* Beep-031.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-031.mp3"; sourceTree = "<group>"; };
 		D48CDA032DB44786008C2DF9 /* Accessibility.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Accessibility.strings; sourceTree = "<group>"; };
 		D48F68C52DB438680093D938 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		D49BBA102DBC275D00DD0963 /* RiValT_TimerEditor_PageViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_TimerEditor_PageViewContainer.swift; sourceTree = "<group>"; };
@@ -665,6 +683,8 @@
 		D48CDA002DB446C4008C2DF9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D4E869532D99916200D56802 /* TimerEngine.swift */,
+				D4181D0C2DAC7364002CF428 /* TimerModel.swift */,
 				D43B97642DA2C1D10028E023 /* RiValT_Base_ViewController.swift */,
 				D4752E9C2DB2FD91002359CA /* RiValT_Settings.swift */,
 			);
@@ -888,8 +908,6 @@
 		D4F3572D2D6F61E8005A815A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D4E869532D99916200D56802 /* TimerEngine.swift */,
-				D4181D0C2DAC7364002CF428 /* TimerModel.swift */,
 				D4F357292D6F61C0005A815A /* RVS_WatchDelegate.swift */,
 				D486C828281B1754005C0A69 /* RVS_AmbiaMara_Settings.swift */,
 			);
@@ -924,6 +942,12 @@
 				D427BC0A2DB987DB009EAC8D /* Beep-023.mp3 */,
 				D427BC0B2DB987DB009EAC8D /* Beep-024.mp3 */,
 				D427BC0C2DB987DB009EAC8D /* Beep-025.mp3 */,
+				D48A678E2DC034B000450B42 /* Beep-026.mp3 */,
+				D48A678F2DC034B000450B42 /* Beep-027.mp3 */,
+				D48A67902DC034B000450B42 /* Beep-028.mp3 */,
+				D48A67912DC034B000450B42 /* Beep-029.mp3 */,
+				D48A67922DC034B000450B42 /* Beep-030.mp3 */,
+				D48A67932DC034B000450B42 /* Beep-031.mp3 */,
 			);
 			path = TransitionSounds;
 			sourceTree = "<group>";
