@@ -188,10 +188,16 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
     
     /* ############################################################## */
     /**
-     The view that is used to detect a long-press, and will contain the slider to set the time.
+     The view to which the recognizer is attached.
+     */
+    @IBOutlet weak var longPressDetectionView: UIView?
+    
+    /* ############################################################## */
+    /**
+     The view that is used to contain the slider to set the time.
      This is not available in Toolbar Displayed Mode.
      */
-    @IBOutlet weak var timeSetSwipeDetectorView: UIView?
+    @IBOutlet weak var timeSetSwipeContainerView: UIView?
 }
 
 /* ###################################################################################################################################### */
@@ -266,7 +272,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.controlToolbar?.isHidden = !RiValT_Settings().displayToolbar
         try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
         self.view?.backgroundColor = isHighContrastMode ? .systemBackground : .black
-        self.timeSetSwipeDetectorView?.isHidden = RiValT_Settings().displayToolbar
+        self.timeSetSwipeContainerView?.isHidden = RiValT_Settings().displayToolbar
 
         self._selectionFeedbackGenerator.prepare()
         self._impactFeedbackGenerator.prepare()
@@ -366,33 +372,6 @@ extension RiValT_RunningTimer_ContainerViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_RunningTimer_ContainerViewController {
-    /* ############################################################## */
-    /**
-     This prepares the time set slider.
-     - parameter atThisLocation: A float, from 0, to 1, with the starting thumb location (0 is left, 1 is right).
-     */
-    func prepareSlider(atThisLocation inLocation: Float) {
-        guard let timeSetSwipeDetectorView = timeSetSwipeDetectorView else { return }
-        
-        _timeSetSlider?.removeFromSuperview()
-        _timeSetSlider = nil
-        
-        let slider = UISlider()
-        slider.maximumValue = 1.0
-        slider.minimumValue = 0.0
-        slider.value = inLocation
-
-        timeSetSwipeDetectorView.addSubview(slider)
-        slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.leadingAnchor.constraint(equalTo: timeSetSwipeDetectorView.leadingAnchor).isActive = true
-        slider.trailingAnchor.constraint(equalTo: timeSetSwipeDetectorView.trailingAnchor).isActive = true
-        slider.centerYAnchor.constraint(equalTo: timeSetSwipeDetectorView.centerYAnchor).isActive = true
-
-        self.impactHaptic()
-        
-        _timeSetSlider = slider
-    }
-    
     /* ################################################################## */
     /**
      Triggers a selection haptic.
@@ -870,72 +849,88 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter inGestureRecognizer: The gesture recognizer that was triggered.
      */
     @IBAction func longPressGestureDetected(_ inGestureRecognizer: UILongPressGestureRecognizer) {
+        /* ############################################################## */
+        /**
+         This prepares the time set slider.
+         - parameter atThisLocation: A float, from 0, to 1, with the starting thumb location (0 is left, 1 is right).
+         */
+        func _prepareSlider(atThisLocation inLocation: Float) {
+            guard let timeSetSwipeDetectorView = self.timeSetSwipeContainerView,
+                  let timer = self.timer
+            else { return }
+            
+            self._timeSetSlider?.removeFromSuperview()
+            self._timeSetSlider = nil
+            
+            let slider = UISlider()
+            slider.maximumValue = Float(timer.startingTimeInSeconds)
+            slider.minimumValue = 0.0
+            slider.value = inLocation
+
+            timeSetSwipeDetectorView.addSubview(slider)
+            slider.translatesAutoresizingMaskIntoConstraints = false
+            slider.leadingAnchor.constraint(equalTo: timeSetSwipeDetectorView.leadingAnchor).isActive = true
+            slider.trailingAnchor.constraint(equalTo: timeSetSwipeDetectorView.trailingAnchor).isActive = true
+            slider.centerYAnchor.constraint(equalTo: timeSetSwipeDetectorView.centerYAnchor).isActive = true
+            
+            self._timeSetSlider = slider
+        }
+        
         /* ########################################################## */
         /**
          Sets the timer to the given percentage.
          
          - parameter location: The 0 -> 1 location.
          */
-        func setTimerTo(location inLocation: Float) {
+        func _setTimerTo(location inLocation: Float) {
             guard let timer = self.timer else { return }
             
-            _timeSetSlider?.value = inLocation
-            timer.currentTime = timer.startingTimeInSeconds - min(timer.startingTimeInSeconds - 1, Int(Float(timer.startingTimeInSeconds) * inLocation))
-
-            if let color = UIColor(named: "\(timer.isTimerInFinal ? "Final" : timer.isTimerInWarning ? "Warn" : "Start")-Color") {
-                _timeSetSlider?.minimumTrackTintColor = color
-                _timeSetSlider?.maximumTrackTintColor = color
-                _timeSetSlider?.thumbTintColor = color
+            let lastTime = timer.currentTime
+            let currentTime = timer.startingTimeInSeconds - Int(round(Float(timer.startingTimeInSeconds) * inLocation))
+            
+            if currentTime != lastTime {
+                self.selectionHaptic()
+                timer.currentTime = currentTime
+                self._timeSetSlider?.value = Float(timer.startingTimeInSeconds - currentTime)
             }
-
             self.updateDisplays()
         }
         
-        guard !(timeSetSwipeDetectorView?.isHidden ?? true)
+        guard !(timeSetSwipeContainerView?.isHidden ?? true),
+              let detectionView = self.longPressDetectionView,
+              let timer = self.timer
         else {
             inGestureRecognizer.state = .cancelled
+            self._timeSetSlider?.removeFromSuperview()
+            self._timeSetSlider = nil
+            self.updateDisplays()
             return
         }
         
-        if self.timer?.isTimerInAlarm ?? false {
-            self.timer?.stop()
-        } else if self.timer?.isTimerRunning ?? false {
-            self.timer?.pause()
-        } else {
-            self.timer?.start()
-            self.timer?.pause()
-        }
-        
-        guard let width = self.view?.bounds.size.width else { return }
-        let gestureLocation = inGestureRecognizer.location(ofTouch: 0, in: self.view)
-        let location = Float(max(0, min(1, gestureLocation.x / width)))
+        let gestureLocation = inGestureRecognizer.location(ofTouch: 0, in: detectionView)
+        let location = Float(gestureLocation.x / detectionView.bounds.size.width)
         
         switch inGestureRecognizer.state {
         case .began:
-            prepareSlider(atThisLocation: location)
-            self.timer?.pause()
-            setTimerTo(location: location)
+            if (0...1).contains(location) {
+                self.impactHaptic(1.0)
+                if !timer.isTimerRunning {
+                    timer.start()
+                    timer.pause()
+                }
+                _prepareSlider(atThisLocation: location)
+            }
+            fallthrough
 
         case .changed:
-            if location != _timeSetSlider?.value ?? -1 {
-                self.selectionHaptic()
-                setTimerTo(location: location)
+            if (0...1).contains(location) {
+                _setTimerTo(location: location)
             }
-        
+
         default:
-            self.impactHaptic()
-            _timeSetSlider?.removeFromSuperview()
-            _timeSetSlider = nil
-            
-            if RiValT_Settings().startTimerImmediately {
-                if !(self.timer?.isTimerInWarning ?? false),
-                   !(self.timer?.isTimerInFinal ?? false) {
-                    flashGreen()
-                }
-                self.timer?.resume()
-            } else {
-                showToolbar()
-            }
+            self._timeSetSlider?.removeFromSuperview()
+            self._timeSetSlider = nil
+            self.updateDisplays()
         }
     }
 
@@ -970,8 +965,10 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter: The timer instance (ignored).
      */
     func tickHandler(_: Timer) {
-        self.selectionHaptic()
-        self.updateDisplays()
+        if nil == self._timeSetSlider {
+            self.selectionHaptic()
+            self.updateDisplays()
+        }
     }
 
     /* ############################################################## */
@@ -983,23 +980,25 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter inToMode: The new timer state.
      */
     func transitionHandler(_: Timer, _: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
-        self.impactHaptic(1.0)
-        switch inToMode {
-        case .countdown:
-            self.flashGreen()
-            
-        case .warning:
-            self.flashYellow()
-            
-        case .final:
-            self.flashRed()
-
-        case .alarm:
-            self.alarmReached()
-            
-        case .paused, .stopped:
-            if nil == self._timeSetSlider {
-                self.flashCyan()
+        if nil == self._timeSetSlider {
+            self.impactHaptic(1.0)
+            switch inToMode {
+            case .countdown:
+                self.flashGreen()
+                
+            case .warning:
+                self.flashYellow()
+                
+            case .final:
+                self.flashRed()
+                
+            case .alarm:
+                self.alarmReached()
+                
+            case .paused, .stopped:
+                if nil == self._timeSetSlider {
+                    self.flashCyan()
+                }
             }
         }
     }

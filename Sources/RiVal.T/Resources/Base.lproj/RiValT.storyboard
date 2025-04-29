@@ -752,14 +752,27 @@
                                     <segue destination="pd7-cA-z1q" kind="embed" identifier="" id="Sii-Ug-jJ2"/>
                                 </connections>
                             </containerView>
-                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJc-wG-REX" userLabel="Time Set Swipe Detector View">
-                                <rect key="frame" x="16" y="720" width="361" height="64"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Yr-09-zrN">
+                                <rect key="frame" x="20" y="0.0" width="353" height="852"/>
+                                <subviews>
+                                    <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJc-wG-REX">
+                                        <rect key="frame" x="0.0" y="671" width="353" height="64"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="2Lz-3z-g1u"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="2Lz-3z-g1u"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="4eD-AM-3GC"/>
+                                    <constraint firstAttribute="trailing" secondItem="eJc-wG-REX" secondAttribute="trailing" id="AFj-ZN-PoR"/>
+                                    <constraint firstItem="eJc-wG-REX" firstAttribute="leading" secondItem="9Yr-09-zrN" secondAttribute="leading" id="kPV-na-aO3"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="lly-tv-1hr" appends="YES" id="12r-1g-Ze6"/>
+                                </connections>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aB4-yW-6GS">
                                 <rect key="frame" x="0.0" y="735" width="393" height="49"/>
@@ -794,6 +807,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="9Yr-09-zrN" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" constant="20" id="01I-sj-eLP"/>
                             <constraint firstItem="aB4-yW-6GS" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" id="0Eg-oH-cmo"/>
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="top" secondItem="LXl-gb-Uc1" secondAttribute="top" id="15A-Zo-z6T"/>
                             <constraint firstAttribute="bottom" secondItem="Jus-Zl-mMA" secondAttribute="bottom" id="1Qs-0d-Jxb"/>
@@ -801,37 +815,38 @@
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" id="M0F-Vq-nyz"/>
                             <constraint firstAttribute="trailing" secondItem="Jus-Zl-mMA" secondAttribute="trailing" id="MlV-fg-0xB"/>
                             <constraint firstItem="LXl-gb-Uc1" firstAttribute="bottom" secondItem="aB4-yW-6GS" secondAttribute="bottom" id="RkJ-ag-KzQ"/>
-                            <constraint firstItem="LXl-gb-Uc1" firstAttribute="trailing" secondItem="eJc-wG-REX" secondAttribute="trailing" constant="16" id="biz-kH-LkG"/>
-                            <constraint firstItem="eJc-wG-REX" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" constant="16" id="gYu-6G-R2U"/>
+                            <constraint firstItem="eJc-wG-REX" firstAttribute="bottom" secondItem="aB4-yW-6GS" secondAttribute="top" id="eIt-gy-b2h"/>
+                            <constraint firstAttribute="bottom" secondItem="9Yr-09-zrN" secondAttribute="bottom" id="hof-rQ-hXB"/>
                             <constraint firstItem="aB4-yW-6GS" firstAttribute="trailing" secondItem="LXl-gb-Uc1" secondAttribute="trailing" id="nVs-By-7BW"/>
-                            <constraint firstItem="LXl-gb-Uc1" firstAttribute="bottom" secondItem="eJc-wG-REX" secondAttribute="bottom" id="w41-um-Ib0"/>
+                            <constraint firstItem="LXl-gb-Uc1" firstAttribute="trailing" secondItem="9Yr-09-zrN" secondAttribute="trailing" constant="20" id="vBr-kh-kxQ"/>
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="trailing" secondItem="LXl-gb-Uc1" secondAttribute="trailing" id="wNT-oM-buZ"/>
                             <constraint firstItem="Jus-Zl-mMA" firstAttribute="leading" secondItem="HVj-Ru-0Hn" secondAttribute="leading" id="wkL-dv-hfl"/>
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="bottom" secondItem="LXl-gb-Uc1" secondAttribute="bottom" id="xAL-77-c6e"/>
+                            <constraint firstItem="9Yr-09-zrN" firstAttribute="top" secondItem="HVj-Ru-0Hn" secondAttribute="top" id="xXp-Iw-PW8"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="BEW-Yf-Mqc" appends="YES" id="GHU-8H-XmA"/>
                             <outletCollection property="gestureRecognizers" destination="9eo-CP-Nn8" appends="YES" id="5e3-PQ-LXL"/>
                             <outletCollection property="gestureRecognizers" destination="qlO-Jd-pEo" appends="YES" id="grV-yS-LH0"/>
                             <outletCollection property="gestureRecognizers" destination="Wo8-OB-URp" appends="YES" id="gf5-3m-qHV"/>
-                            <outletCollection property="gestureRecognizers" destination="SpR-KR-6Vg" appends="YES" id="ABh-CB-3bd"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="Bqz-QL-wkQ"/>
                     <connections>
                         <outlet property="controlToolbar" destination="aB4-yW-6GS" id="Dey-GR-dL6"/>
                         <outlet property="doubleTapGestureRecognizer" destination="Wo8-OB-URp" id="Uk5-hh-27G"/>
-                        <outlet property="dragValueLongPressGestureRecognizer" destination="SpR-KR-6Vg" id="ZGz-IF-cWq"/>
+                        <outlet property="dragValueLongPressGestureRecognizer" destination="lly-tv-1hr" id="k4w-kB-dWv"/>
                         <outlet property="fastForwardToolbarItem" destination="fJM-eI-axA" id="IYv-Qa-4Hr"/>
                         <outlet property="flasherView" destination="Jus-Zl-mMA" id="8T0-Mo-9JR"/>
                         <outlet property="leftSwipeGestureRecognizer" destination="9eo-CP-Nn8" id="dGV-K0-jwi"/>
+                        <outlet property="longPressDetectionView" destination="9Yr-09-zrN" id="ipM-gJ-5kr"/>
                         <outlet property="numericalTimerContainerView" destination="9uv-6p-o4t" id="kqf-6c-Ymj"/>
                         <outlet property="playPauseToolbarItem" destination="dV1-Vy-3LR" id="y3l-z8-lrE"/>
                         <outlet property="rewindToolbarItem" destination="kKb-wG-9gd" id="1Gs-qt-AHC"/>
                         <outlet property="rightSwipeGestureRecognizer" destination="qlO-Jd-pEo" id="If6-je-fL2"/>
                         <outlet property="singleTapGestureRecognizer" destination="BEW-Yf-Mqc" id="Hfw-8M-4ub"/>
                         <outlet property="stopToolbarItem" destination="CyM-ie-S9V" id="92C-PW-x2n"/>
-                        <outlet property="timeSetSwipeDetectorView" destination="eJc-wG-REX" id="iK2-eM-FCR"/>
+                        <outlet property="timeSetSwipeContainerView" destination="eJc-wG-REX" id="iK2-eM-FCR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z6w-ha-INb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -855,9 +870,9 @@
                         <action selector="rightSwipeReceived:" destination="qbu-HZ-ecF" id="Mtc-wf-KFO"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="20" minimumPressDuration="0.5" id="SpR-KR-6Vg">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="lly-tv-1hr">
                     <connections>
-                        <action selector="longPressGestureDetected:" destination="qbu-HZ-ecF" id="D30-LJ-Weu"/>
+                        <action selector="longPressGestureDetected:" destination="qbu-HZ-ecF" id="0Zv-tS-XTY"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
@@ -1003,7 +1018,7 @@
                                     <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVz-Ds-9ul">
                                         <rect key="frame" x="0.0" y="184.33333333333331" width="393" height="101.33333333333331"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nQp-Wc-T6m">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="101.33333333333331"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="102"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
@@ -1151,7 +1166,7 @@
             <color red="0.5" green="0.5" blue="0.5" alpha="0.19799999892711639" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Paused-Color">
-            <color red="0.012000000104308128" green="0.94199997186660767" blue="0.77899998426437378" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.012000000104308128" green="1" blue="0.82800000905990601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
