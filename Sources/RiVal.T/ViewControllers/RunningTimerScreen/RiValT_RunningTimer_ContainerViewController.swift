@@ -34,7 +34,7 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
     /**
      The period of the auto-hide duration.
      */
-    private static let _autoHideAnimationDurationInSeconds = TimeInterval(0.5)
+    private static let _autoHideAnimationDurationInSeconds = TimeInterval(0.25)
 
     /* ############################################################## */
     /**
@@ -662,6 +662,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      */
     func triggerFinalAlarm() {
         self.flashRed(true)
+        self.playAlarmSound()
         self._alarmTimer?.isRunning = true
     }
 
@@ -683,6 +684,37 @@ extension RiValT_RunningTimer_ContainerViewController {
         }
     
         self._audioPlayer?.play()
+    }
+    
+    /* ############################################################## */
+    /**
+     This just plays an alarm sound, vibrates the phone, or does nothing.
+     */
+    func playAlarmSound() {
+        guard let soundType = self.timer?.group?.soundType else { return }
+        switch soundType {
+        case .sound(soundFileName: let soundFileURLString):
+            if !(self._audioPlayer?.isPlaying ?? false),
+               let actualURLString = RiValT_Settings.soundURIs.first(where: { $0.contains(soundFileURLString) }),
+               let soundURL = URL(string: actualURLString) {
+                self.playThisSound(soundURL, numberOfRepeats: -1)
+            }
+
+        case .vibrate:
+            self._audioPlayer?.stop()  // Belt and suspenders.
+            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+
+        case .soundVibrate(soundFileName: let soundFileURLString):
+            if !(self._audioPlayer?.isPlaying ?? false),
+               let actualURLString = RiValT_Settings.soundURIs.first(where: { $0.contains(soundFileURLString) }),
+               let soundURL = URL(string: actualURLString) {
+                self.playThisSound(soundURL, numberOfRepeats: -1)
+            }
+            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+            
+        case .none:
+            self._audioPlayer?.stop()
+        }
     }
 }
 
@@ -751,6 +783,8 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter inSender: The item that was activated.
      */
     @IBAction func toolbarItemHit(_ inSender: UIBarButtonItem) {
+        self._audioPlayer?.stop()
+        self.showToolbar()
         self.selectionHaptic()
         if stopToolbarItem == inSender {
             self.stopHit()
@@ -763,7 +797,6 @@ extension RiValT_RunningTimer_ContainerViewController {
         }
         
         self.updateDisplays()
-        self.showToolbar()
     }
     
     /* ############################################################## */
@@ -830,29 +863,7 @@ extension RiValT_RunningTimer_ContainerViewController: RVS_BasicGCDTimerDelegate
                     print("Triggering the alarm timer")
                 #endif
                 self?.flashRed(true)
-                guard let soundType = self?.timer?.group?.soundType else { return }
-                switch soundType {
-                case .sound(soundFileName: let soundFileURLString):
-                    if !(self?._audioPlayer?.isPlaying ?? false),
-                       let actualURLString = RiValT_Settings.transitionSoundURIs.first(where: { $0.contains(soundFileURLString) }),
-                       let soundURL = URL(string: actualURLString) {
-                        self?.playThisSound(soundURL, numberOfRepeats: -1)
-                    }
-
-                case .vibrate:
-                    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-
-                case .soundVibrate(soundFileName: let soundFileURLString):
-                    if !(self?._audioPlayer?.isPlaying ?? false),
-                       let actualURLString = RiValT_Settings.transitionSoundURIs.first(where: { $0.contains(soundFileURLString) }),
-                       let soundURL = URL(string: actualURLString) {
-                        self?.playThisSound(soundURL, numberOfRepeats: -1)
-                    }
-                    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-                    
-                case .none:
-                    break
-                }
+                self?.playAlarmSound()
             default:
                 break
             }
