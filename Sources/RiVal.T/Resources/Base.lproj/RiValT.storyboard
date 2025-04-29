@@ -752,6 +752,15 @@
                                     <segue destination="pd7-cA-z1q" kind="embed" identifier="" id="Sii-Ug-jJ2"/>
                                 </connections>
                             </containerView>
+                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJc-wG-REX" userLabel="Time Set Swipe Detector View">
+                                <rect key="frame" x="0.0" y="720" width="393" height="64"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="2Lz-3z-g1u"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="4eD-AM-3GC"/>
+                                </constraints>
+                            </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aB4-yW-6GS">
                                 <rect key="frame" x="0.0" y="735" width="393" height="49"/>
                                 <items>
@@ -792,7 +801,10 @@
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" id="M0F-Vq-nyz"/>
                             <constraint firstAttribute="trailing" secondItem="Jus-Zl-mMA" secondAttribute="trailing" id="MlV-fg-0xB"/>
                             <constraint firstItem="LXl-gb-Uc1" firstAttribute="bottom" secondItem="aB4-yW-6GS" secondAttribute="bottom" id="RkJ-ag-KzQ"/>
+                            <constraint firstItem="LXl-gb-Uc1" firstAttribute="trailing" secondItem="eJc-wG-REX" secondAttribute="trailing" id="biz-kH-LkG"/>
+                            <constraint firstItem="eJc-wG-REX" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" id="gYu-6G-R2U"/>
                             <constraint firstItem="aB4-yW-6GS" firstAttribute="trailing" secondItem="LXl-gb-Uc1" secondAttribute="trailing" id="nVs-By-7BW"/>
+                            <constraint firstItem="LXl-gb-Uc1" firstAttribute="bottom" secondItem="eJc-wG-REX" secondAttribute="bottom" id="w41-um-Ib0"/>
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="trailing" secondItem="LXl-gb-Uc1" secondAttribute="trailing" id="wNT-oM-buZ"/>
                             <constraint firstItem="Jus-Zl-mMA" firstAttribute="leading" secondItem="HVj-Ru-0Hn" secondAttribute="leading" id="wkL-dv-hfl"/>
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="bottom" secondItem="LXl-gb-Uc1" secondAttribute="bottom" id="xAL-77-c6e"/>
@@ -802,12 +814,14 @@
                             <outletCollection property="gestureRecognizers" destination="9eo-CP-Nn8" appends="YES" id="5e3-PQ-LXL"/>
                             <outletCollection property="gestureRecognizers" destination="qlO-Jd-pEo" appends="YES" id="grV-yS-LH0"/>
                             <outletCollection property="gestureRecognizers" destination="Wo8-OB-URp" appends="YES" id="gf5-3m-qHV"/>
+                            <outletCollection property="gestureRecognizers" destination="SpR-KR-6Vg" appends="YES" id="ABh-CB-3bd"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="Bqz-QL-wkQ"/>
                     <connections>
                         <outlet property="controlToolbar" destination="aB4-yW-6GS" id="Dey-GR-dL6"/>
                         <outlet property="doubleTapGestureRecognizer" destination="Wo8-OB-URp" id="Uk5-hh-27G"/>
+                        <outlet property="dragValueLongPressGestureRecognizer" destination="SpR-KR-6Vg" id="ZGz-IF-cWq"/>
                         <outlet property="fastForwardToolbarItem" destination="fJM-eI-axA" id="IYv-Qa-4Hr"/>
                         <outlet property="flasherView" destination="Jus-Zl-mMA" id="8T0-Mo-9JR"/>
                         <outlet property="leftSwipeGestureRecognizer" destination="9eo-CP-Nn8" id="dGV-K0-jwi"/>
@@ -817,6 +831,7 @@
                         <outlet property="rightSwipeGestureRecognizer" destination="qlO-Jd-pEo" id="If6-je-fL2"/>
                         <outlet property="singleTapGestureRecognizer" destination="BEW-Yf-Mqc" id="Hfw-8M-4ub"/>
                         <outlet property="stopToolbarItem" destination="CyM-ie-S9V" id="92C-PW-x2n"/>
+                        <outlet property="timeSetSwipeDetectorView" destination="eJc-wG-REX" id="iK2-eM-FCR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z6w-ha-INb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -840,6 +855,11 @@
                         <action selector="rightSwipeReceived:" destination="qbu-HZ-ecF" id="Mtc-wf-KFO"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="SpR-KR-6Vg">
+                    <connections>
+                        <action selector="longPressGestureDetected:" destination="qbu-HZ-ecF" id="D30-LJ-Weu"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="739.69465648854964" y="523.94366197183103"/>
         </scene>
@@ -983,7 +1003,7 @@
                                     <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVz-Ds-9ul">
                                         <rect key="frame" x="0.0" y="184.33333333333331" width="393" height="101.33333333333331"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nQp-Wc-T6m">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="101.33333333333331"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="102"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
