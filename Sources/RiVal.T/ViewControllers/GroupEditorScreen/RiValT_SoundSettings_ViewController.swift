@@ -177,6 +177,12 @@ class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     
     /* ################################################################## */
     /**
+     This is a visual separator.
+     */
+    @IBOutlet weak var transitionSeparatorView: UIView?
+    
+    /* ################################################################## */
+    /**
      The label for the transition picker.
      */
     @IBOutlet weak var transitionPickerLabel: UILabel?
@@ -249,7 +255,7 @@ extension RiValT_SoundSettings_ViewController {
         
         switch self.group?.soundType {
         case .sound, .soundVibrate:
-            height += 108
+            height += 88
             
         default:
             break
@@ -257,7 +263,7 @@ extension RiValT_SoundSettings_ViewController {
         
         // If we have more than one timer in the group, we can have a transition sound.
         if 1 < self.group?.count ?? 0 {
-            height += 150
+            height += 138
         }
         
         UIView.animate(withDuration: 0.3) {
@@ -334,6 +340,7 @@ extension RiValT_SoundSettings_ViewController {
      Set up the transition sound picker.
     */
     func setTransitionPickerUp() {
+        self.transitionSeparatorView?.isHidden = 1 >= (self.group?.count ?? 0)
         self.transitionPickerLabel?.isHidden = 1 >= (self.group?.count ?? 0)
         self.transitionPickerStackView?.isHidden = 1 >= (self.group?.count ?? 0)
         if !(self.group?.transitionSoundFilename ?? "").isEmpty {

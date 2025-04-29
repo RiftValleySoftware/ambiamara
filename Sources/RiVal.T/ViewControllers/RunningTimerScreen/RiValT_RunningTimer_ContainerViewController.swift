@@ -181,6 +181,19 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
 extension RiValT_RunningTimer_ContainerViewController {
     /* ############################################################## */
     /**
+     If we are in a multi-timer group, this is the previous timer.
+     */
+    var prevTimer: Timer? {
+        guard let group = self.timer?.group,
+              let myIndex = self.timer?.indexPath?.item,
+              myIndex > 0
+        else { return nil }
+        
+        return group[myIndex - 1]
+    }
+    
+    /* ############################################################## */
+    /**
      If we are in a multi-timer group, this is the next timer.
      */
     var nextTimer: Timer? {
@@ -247,8 +260,12 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.controlToolbar?.scrollEdgeAppearance = appearance
         
         if let tapper = self.singleTapGestureRecognizer,
+           let leftSwipe = self.leftSwipeGestureRecognizer,
+           let rightSwipe = self.rightSwipeGestureRecognizer,
            let doubleTapper = self.doubleTapGestureRecognizer {
             tapper.require(toFail: doubleTapper)
+            leftSwipe.require(toFail: tapper)
+            rightSwipe.require(toFail: tapper)
         }
         
         self.timer?.tickHandler = self.tickHandler
@@ -404,9 +421,25 @@ extension RiValT_RunningTimer_ContainerViewController {
      This resets the timer to the start.
      */
     func rewindHit() {
-        self.timer?.stop()
         self._alarmTimer?.isRunning = false
         self.playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
+        if self.timer?.isTimerAtStart ?? false,
+           let prevTimer = self.prevTimer {
+            self.timer?.tickHandler = nil
+            self.timer?.transitionHandler = nil
+            self.timer?.stop()
+            self.timer = nil
+            prevTimer.stop()
+            prevTimer.tickHandler = self.tickHandler
+            prevTimer.transitionHandler = self.transitionHandler
+            prevTimer.isSelected = true
+            self.timer = prevTimer
+            if let row = self.timer?.indexPath?.row {
+                self.flashTimerNumber(row)
+            }
+        } else {
+            self.timer?.stop()
+        }
     }
     
     /* ############################################################## */
@@ -414,6 +447,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      This stops the timer, and dismisses the screen.
      */
     func stopHit() {
+        self._alarmTimer?.isRunning = false
         self.flashRed(true)
         if let timer = self.timer {
             self.timer = nil
@@ -429,6 +463,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      This either pauses a running timer, resumes a paused timer, or starts a stopped timer.
      */
     func playPauseHit() {
+        self._alarmTimer?.isRunning = false
         if self.timer?.isTimerRunning ?? false {
             self.flashCyan()
             self.timer?.pause()
@@ -438,13 +473,19 @@ extension RiValT_RunningTimer_ContainerViewController {
                 self.flashGreen()
                 self.timer?.resume()
             } else if self.timer?.isTimerInAlarm ?? false,
+                      let oldRow = self.timer?.indexPath?.row,
                       let timer = self.firstTimer {
                 self.timer = nil
+                timer.stop()
+                timer.isSelected = true
                 timer.tickHandler = self.tickHandler
                 timer.transitionHandler = self.transitionHandler
-                timer.isSelected = true
                 self.timer = timer
-                self.timer?.start()
+                if let row = self.timer?.indexPath?.row,
+                   row != oldRow {
+                    self.flashTimerNumber(row)
+                }
+                self.updateDisplays()
             } else {
                 self.timer?.start()
            }
@@ -457,8 +498,26 @@ extension RiValT_RunningTimer_ContainerViewController {
      This pushes the timer to the end (alarm state).
      */
     func fastForwardHit() {
-        self.timer?.end()
+        self._alarmTimer?.isRunning = false
         self.playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
+        if self.timer?.isTimerAtStart ?? false || self.timer?.isTimerAtEnd ?? false,
+           !(self.timer?.isTimerRunning ?? false),
+           let nextTimer = self.nextTimer {
+            self.timer?.tickHandler = nil
+            self.timer?.transitionHandler = nil
+            self.timer?.stop()
+            self.timer = nil
+            nextTimer.stop()
+            nextTimer.tickHandler = self.tickHandler
+            nextTimer.transitionHandler = self.transitionHandler
+            nextTimer.isSelected = true
+            self.timer = nextTimer
+            if let row = self.timer?.indexPath?.row {
+                self.flashTimerNumber(row)
+            }
+        } else {
+            self.timer?.end()
+        }
     }
     
     /* ############################################################## */
@@ -520,6 +579,46 @@ extension RiValT_RunningTimer_ContainerViewController {
                        completion: nil
         )
     }
+
+    /* ############################################################## */
+    /**
+     This flashes the given timer number, in an expanding and fading image.
+     */
+    func flashTimerNumber(_ inNumber: Int) {
+        guard let view = view else { return }
+        
+        let timerLabel = UILabel()
+        view.addSubview(timerLabel)
+        timerLabel.translatesAutoresizingMaskIntoConstraints = false
+        timerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        timerLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        timerLabel.text = isHighContrastMode ? "" : String(inNumber + 1)    // No flash for high contrast.
+        timerLabel.textAlignment = .center
+        timerLabel.translatesAutoresizingMaskIntoConstraints = false
+        timerLabel.font = .monospacedDigitSystemFont(ofSize: view.bounds.size.height * 3, weight: .bold)
+        timerLabel.transform = timerLabel.transform.scaledBy(x: 0.1, y: 0.1)
+        timerLabel.textColor = UIColor(named: "Paused-Color")
+
+        flasherView?.backgroundColor = UIColor(named: "Paused-Color")
+        UIView.animate(withDuration: Self._flashDurationInSeconds,
+                       animations: { [weak self] in
+                                        timerLabel.transform = CGAffineTransform.identity
+                                        timerLabel.alpha = 0.0
+                                        self?.flasherView?.backgroundColor = .clear
+                                    },
+                       completion: { _ in timerLabel.removeFromSuperview() }
+        )
+    }
+
+    /* ############################################################## */
+    /**
+     Updates all the embeds.
+     */
+    func updateDisplays() {
+        self.fastForwardToolbarItem?.isEnabled = !(self.timer?.isTimerInAlarm ?? false)
+        self.rewindToolbarItem?.isEnabled = (self.timer?.isTimerInAlarm ?? false) || ((self.timer?.currentTime ?? 0) < (self.timer?.startingTimeInSeconds ?? 0)) || (nil != self.prevTimer)
+        self.numericalDisplayController?.updateUI()
+    }
     
     /* ############################################################## */
     /**
@@ -532,7 +631,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         } else {
             self.triggerFinalAlarm()
         }
-        self.numericalDisplayController?.updateUI()
+        self.updateDisplays()
     }
     
     /* ############################################################## */
@@ -543,7 +642,8 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.flashRed(true)
         if let timer = self.nextTimer {
             if let transitionSoundURLString = self.timer?.group?.transitionSoundFilename,
-               let transitionSoundURL = URL(string: transitionSoundURLString) {
+               let actualURLString = RiValT_Settings.transitionSoundURIs.first(where: { $0.contains(transitionSoundURLString) }),
+               let transitionSoundURL = URL(string: actualURLString) {
                 self.playThisSound(transitionSoundURL, numberOfRepeats: 0)
             }
             
@@ -563,7 +663,6 @@ extension RiValT_RunningTimer_ContainerViewController {
     func triggerFinalAlarm() {
         self.flashRed(true)
         self._alarmTimer?.isRunning = true
-        print("FINAL ALARM")
     }
 
     /* ################################################################## */
@@ -599,10 +698,8 @@ extension RiValT_RunningTimer_ContainerViewController {
      */
     @IBAction func rightSwipeReceived(_: Any) {
         if !RiValT_Settings().displayToolbar {
-            self.flashRed()
-            self.impactHaptic(1.0)
-            self.timer?.end()
-            self.numericalDisplayController?.updateUI()
+            self.fastForwardHit()
+            self.updateDisplays()
         }
     }
     
@@ -615,7 +712,7 @@ extension RiValT_RunningTimer_ContainerViewController {
     @IBAction func leftSwipeReceived(_: Any) {
         if !RiValT_Settings().displayToolbar {
             self.rewindHit()
-            self.numericalDisplayController?.updateUI()
+            self.updateDisplays()
         }
     }
     
@@ -641,7 +738,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         if !RiValT_Settings().displayToolbar {
             self._alarmTimer?.isRunning = false
             self.playPauseHit()
-            self.numericalDisplayController?.updateUI()
+            self.updateDisplays()
         } else if RiValT_Settings().autoHideToolbar {
             self.showToolbar()
         }
@@ -665,7 +762,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             self.playPauseHit()
         }
         
-        self.numericalDisplayController?.updateUI()
+        self.updateDisplays()
         self.showToolbar()
     }
     
@@ -677,7 +774,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      */
     func tickHandler(_: Timer) {
         self.selectionHaptic()
-        self.numericalDisplayController?.updateUI()
+        self.updateDisplays()
     }
 
     /* ############################################################## */
@@ -733,20 +830,27 @@ extension RiValT_RunningTimer_ContainerViewController: RVS_BasicGCDTimerDelegate
                     print("Triggering the alarm timer")
                 #endif
                 self?.flashRed(true)
-                switch self?.timer?.group?.soundType {
-                case .sound(soundFileName: let soundFileURLString)?:
-                    if let url = URL(string: soundFileURLString),
-                       !(self?._audioPlayer?.isPlaying ?? false) {
-                        self?.playThisSound(url)
+                guard let soundType = self?.timer?.group?.soundType else { return }
+                switch soundType {
+                case .sound(soundFileName: let soundFileURLString):
+                    if !(self?._audioPlayer?.isPlaying ?? false),
+                       let actualURLString = RiValT_Settings.transitionSoundURIs.first(where: { $0.contains(soundFileURLString) }),
+                       let soundURL = URL(string: actualURLString) {
+                        self?.playThisSound(soundURL, numberOfRepeats: -1)
                     }
-                case .soundVibrate(soundFileName: let soundFileURLString)?:
-                    if let url = URL(string: soundFileURLString),
-                       !(self?._audioPlayer?.isPlaying ?? false) {
-                        self?.playThisSound(url)
-                    }
-                case .vibrate?:
+
+                case .vibrate:
                     AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-                case .none?, nil:
+
+                case .soundVibrate(soundFileName: let soundFileURLString):
+                    if !(self?._audioPlayer?.isPlaying ?? false),
+                       let actualURLString = RiValT_Settings.transitionSoundURIs.first(where: { $0.contains(soundFileURLString) }),
+                       let soundURL = URL(string: actualURLString) {
+                        self?.playThisSound(soundURL, numberOfRepeats: -1)
+                    }
+                    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+                    
+                case .none:
                     break
                 }
             default:

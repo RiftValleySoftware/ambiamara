@@ -126,7 +126,7 @@
 
 "SLUG-NO-SOUND"                                 =   "Silent";
 "SLUG-VIBRATE-ONLY"                             =   "Vibration Only";
-"SLUG-SOUND-ONLY"                               =   "Alarm";
-"SLUG-SOUND-VIBRATE"                            =   "Alarm (With Vibration)";
+"SLUG-SOUND-ONLY"                               =   "Alarm Sound";
+"SLUG-SOUND-VIBRATE"                            =   "Alarm Sound (With Vibration)";
 "SLUG-TRANSITION-SOUND-LABEL"                   =   "Transition Sound";
 "SLUG-TRANSITION-SOUND-NONE"                    =   "None";

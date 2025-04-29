@@ -564,8 +564,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="391"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0gF-7Y-fYR">
-                                <rect key="frame" x="0.0" y="138" width="393" height="106"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0gF-7Y-fYR">
+                                <rect key="frame" x="0.0" y="138" width="393" height="115"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2r1-h3-CVb">
                                         <rect key="frame" x="96.666666666666686" y="0.0" width="200" height="31"/>
@@ -597,16 +597,16 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CaB-on-Nru" userLabel="Main Picker Stack View">
-                                        <rect key="frame" x="0.0" y="72" width="393" height="100"/>
+                                        <rect key="frame" x="0.0" y="72" width="393" height="80"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="wa9-V3-AW2">
-                                                <rect key="frame" x="0.0" y="0.0" width="353" height="100"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="80"/>
                                                 <color key="tintColor" systemColor="labelColor"/>
                                                 <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-SOUND-PICKER-HINT" label="SLUG-ACC-SOUND-PICKER-LABEL">
                                                     <bool key="isElement" value="YES"/>
                                                 </accessibility>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="100" id="Kao-cT-848"/>
+                                                    <constraint firstAttribute="height" constant="80" id="Kao-cT-848"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="dataSource" destination="Ve2-9T-BtJ" id="5n7-b7-0f8"/>
@@ -614,7 +614,7 @@
                                                 </connections>
                                             </pickerView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLc-gT-2tz">
-                                                <rect key="frame" x="353" y="37.666666666666657" width="40" height="25"/>
+                                                <rect key="frame" x="353" y="27.666666666666657" width="40" height="25"/>
                                                 <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-SOUND-PICKER-BUTTON-HINT" label="SLUG-ACC-SOUND-PICKER-BUTTON-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="7H4-OX-tLd"/>
@@ -636,8 +636,15 @@
                                             <constraint firstItem="wa9-V3-AW2" firstAttribute="top" secondItem="CaB-on-Nru" secondAttribute="top" id="jUl-w7-HhX"/>
                                         </constraints>
                                     </stackView>
+                                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sBA-v4-Xw9">
+                                        <rect key="frame" x="20" y="76" width="353" height="1"/>
+                                        <color key="backgroundColor" systemColor="labelColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="ezh-m0-1PQ"/>
+                                        </constraints>
+                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-TRANSITION-SOUND-LABEL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enp-th-W0d">
-                                        <rect key="frame" x="60.333333333333343" y="76" width="272.66666666666663" height="30"/>
+                                        <rect key="frame" x="60.333333333333343" y="85" width="272.66666666666663" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="CWd-th-dZ7"/>
                                         </constraints>
@@ -646,16 +653,16 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3JS-Yi-fXh">
-                                        <rect key="frame" x="0.0" y="106" width="393" height="100"/>
+                                        <rect key="frame" x="0.0" y="115" width="393" height="80"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eM0-Ca-QCY">
-                                                <rect key="frame" x="0.0" y="0.0" width="353" height="100"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="80"/>
                                                 <color key="tintColor" systemColor="labelColor"/>
                                                 <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TRANSITION-PICKER-HINT" label="SLUG-ACC-TRANSITION-PICKER-LABEL">
                                                     <bool key="isElement" value="YES"/>
                                                 </accessibility>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="100" id="Re0-pY-wnx"/>
+                                                    <constraint firstAttribute="height" constant="80" id="Re0-pY-wnx"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="dataSource" destination="Ve2-9T-BtJ" id="die-7w-kxq"/>
@@ -663,7 +670,7 @@
                                                 </connections>
                                             </pickerView>
                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2W-hf-y7R">
-                                                <rect key="frame" x="353" y="37.666666666666686" width="40" height="25"/>
+                                                <rect key="frame" x="353" y="27.666666666666686" width="40" height="25"/>
                                                 <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TRANSITION-PICKER-BUTTON-HINT" label="SLUG-ACC-TRANSITION-PICKER-BUTTON-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="H2W-hf-y7R" secondAttribute="height" multiplier="8:5" id="YBv-xP-lkU"/>
@@ -690,10 +697,12 @@
                                     <constraint firstItem="2r1-h3-CVb" firstAttribute="top" secondItem="0gF-7Y-fYR" secondAttribute="top" id="6dX-ck-rP9"/>
                                     <constraint firstAttribute="trailing" secondItem="CaB-on-Nru" secondAttribute="trailing" id="6ug-R5-XW6"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2r1-h3-CVb" secondAttribute="trailing" id="9td-mX-bxs"/>
+                                    <constraint firstItem="sBA-v4-Xw9" firstAttribute="leading" secondItem="0gF-7Y-fYR" secondAttribute="leading" constant="20" id="WKj-wD-vWU"/>
                                     <constraint firstItem="3JS-Yi-fXh" firstAttribute="leading" secondItem="0gF-7Y-fYR" secondAttribute="leading" id="XMx-e3-lO8"/>
                                     <constraint firstAttribute="trailing" secondItem="3JS-Yi-fXh" secondAttribute="trailing" id="c8J-jN-ot5"/>
                                     <constraint firstItem="2r1-h3-CVb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0gF-7Y-fYR" secondAttribute="leading" id="nkX-lz-h3s"/>
                                     <constraint firstItem="CaB-on-Nru" firstAttribute="leading" secondItem="0gF-7Y-fYR" secondAttribute="leading" id="rYH-ot-jo9"/>
+                                    <constraint firstAttribute="trailing" secondItem="sBA-v4-Xw9" secondAttribute="trailing" constant="20" id="zxw-Jb-qZi"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -716,6 +725,7 @@
                         <outlet property="transitionPickerLabel" destination="enp-th-W0d" id="hvl-9j-GRU"/>
                         <outlet property="transitionPickerStackView" destination="3JS-Yi-fXh" id="b1q-t9-nYS"/>
                         <outlet property="transitionPickerView" destination="eM0-Ca-QCY" id="hIh-zg-C9o"/>
+                        <outlet property="transitionSeparatorView" destination="sBA-v4-Xw9" id="XbS-Pq-mpV"/>
                         <outlet property="transitionSoundPlayButton" destination="H2W-hf-y7R" id="Q98-Mi-EGr"/>
                     </connections>
                 </viewController>
@@ -800,12 +810,12 @@
                         <outlet property="doubleTapGestureRecognizer" destination="Wo8-OB-URp" id="Uk5-hh-27G"/>
                         <outlet property="fastForwardToolbarItem" destination="fJM-eI-axA" id="IYv-Qa-4Hr"/>
                         <outlet property="flasherView" destination="Jus-Zl-mMA" id="8T0-Mo-9JR"/>
-                        <outlet property="leftSwipeGestureRecognizer" destination="9eo-CP-Nn8" id="9zH-cW-VM3"/>
+                        <outlet property="leftSwipeGestureRecognizer" destination="9eo-CP-Nn8" id="dGV-K0-jwi"/>
                         <outlet property="numericalTimerContainerView" destination="9uv-6p-o4t" id="kqf-6c-Ymj"/>
                         <outlet property="playPauseToolbarItem" destination="dV1-Vy-3LR" id="y3l-z8-lrE"/>
                         <outlet property="rewindToolbarItem" destination="kKb-wG-9gd" id="1Gs-qt-AHC"/>
-                        <outlet property="rightSwipeGestureRecognizer" destination="qlO-Jd-pEo" id="Lln-OT-8ej"/>
-                        <outlet property="singleTapGestureRecognizer" destination="BEW-Yf-Mqc" id="EhO-mP-NkO"/>
+                        <outlet property="rightSwipeGestureRecognizer" destination="qlO-Jd-pEo" id="If6-je-fL2"/>
+                        <outlet property="singleTapGestureRecognizer" destination="BEW-Yf-Mqc" id="Hfw-8M-4ub"/>
                         <outlet property="stopToolbarItem" destination="CyM-ie-S9V" id="92C-PW-x2n"/>
                     </connections>
                 </viewController>
@@ -973,7 +983,7 @@
                                     <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVz-Ds-9ul">
                                         <rect key="frame" x="0.0" y="184.33333333333331" width="393" height="101.33333333333331"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nQp-Wc-T6m">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="102"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="101.33333333333331"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>

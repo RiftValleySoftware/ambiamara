@@ -596,8 +596,9 @@ class TimerGroup: Equatable {
             }
             
             if let transitionSoundFilenameString = firstValue["transitionSoundFilename"] as? String,
-               !transitionSoundFilenameString.isEmpty {
-                self.transitionSoundFilename = transitionSoundFilenameString
+               !transitionSoundFilenameString.isEmpty,
+               let tempURL = URL(string: transitionSoundFilenameString)?.lastPathComponent {
+                self.transitionSoundFilename = tempURL
             } else {
                 self.transitionSoundFilename = nil
             }
@@ -609,8 +610,9 @@ class TimerGroup: Equatable {
                     self.soundType = .vibrate
                 case "sound", "soundVibrate":
                     if let mainSoundFileName = firstValue["mainSoundFileName"] as? String,
-                       !mainSoundFileName.isEmpty {
-                        self.soundType = "sound" == soundTypeString ? .sound(soundFileName: mainSoundFileName) : .soundVibrate(soundFileName: mainSoundFileName)
+                       !mainSoundFileName.isEmpty,
+                       let tempURL = URL(string: mainSoundFileName)?.lastPathComponent {
+                        self.soundType = "sound" == soundTypeString ? .sound(soundFileName: tempURL) : .soundVibrate(soundFileName: tempURL)
                     } else {
                         fallthrough
                     }
