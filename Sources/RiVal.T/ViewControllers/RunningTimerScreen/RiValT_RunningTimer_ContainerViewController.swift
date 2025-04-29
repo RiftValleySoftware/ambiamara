@@ -289,6 +289,8 @@ extension RiValT_RunningTimer_ContainerViewController {
         if RiValT_Settings().startTimerImmediately {
             self.flashGreen()
             self.timer?.start()
+        } else {
+            self.timer?.stop()
         }
     }
 
@@ -310,6 +312,7 @@ extension RiValT_RunningTimer_ContainerViewController {
     override func viewWillDisappear(_ inIsAnimated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
         super.viewWillDisappear(inIsAnimated)
+        self.timer?.stop()
         self._audioPlayer?.stop()
         self._audioPlayer = nil
         self._autoHideTimer?.invalidate()
@@ -439,6 +442,17 @@ extension RiValT_RunningTimer_ContainerViewController {
             if let row = self.timer?.indexPath?.row {
                 self.flashTimerNumber(row)
             }
+        } else if self.timer?.isTimerInAlarm ?? false,
+                  self.isLastTimer,
+                  1 < self.count,
+                  let resetTimer = self.firstTimer {
+            self.timer?.stop()
+            resetTimer.stop()
+            resetTimer.tickHandler = self.tickHandler
+            resetTimer.transitionHandler = self.transitionHandler
+            resetTimer.isSelected = true
+            self.timer = resetTimer
+            self.flashTimerNumber(0)
         } else {
             self.timer?.stop()
         }
@@ -450,6 +464,11 @@ extension RiValT_RunningTimer_ContainerViewController {
      */
     func stopHit() {
         self._alarmTimer?.isRunning = false
+        self._alarmTimer?.invalidate()
+        self._alarmTimer = nil
+        self._autoHideTimer?.isRunning = false
+        self._autoHideTimer?.invalidate()
+        self._autoHideTimer = nil
         self.flashRed(true)
         if let timer = self.timer {
             self.timer = nil
@@ -477,6 +496,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             } else if self.timer?.isTimerInAlarm ?? false,
                       let oldRow = self.timer?.indexPath?.row,
                       let timer = self.firstTimer {
+                self.timer?.stop()
                 self.timer = nil
                 timer.stop()
                 timer.isSelected = true
@@ -645,10 +665,12 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.flashRed(true)
         if let timer = self.nextTimer {
             self.playTransitionSound()
+            self.timer?.stop()
             self.timer = nil
             timer.tickHandler = self.tickHandler
             timer.transitionHandler = self.transitionHandler
             timer.isSelected = true
+            timer.stop()
             self.timer = timer
             self.timer?.start()
         }
