@@ -198,6 +198,12 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
      This is not available in Toolbar Displayed Mode.
      */
     @IBOutlet weak var timeSetSwipeContainerView: UIView?
+    
+    /* ############################################################## */
+    /**
+     This label displays the time in the slider.
+     */
+    @IBOutlet weak var timeSetDisplayLabel: UILabel?
 }
 
 /* ###################################################################################################################################### */
@@ -272,7 +278,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.controlToolbar?.isHidden = !RiValT_Settings().displayToolbar
         try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
         self.view?.backgroundColor = isHighContrastMode ? .systemBackground : .black
-        self.timeSetSwipeContainerView?.isHidden = RiValT_Settings().displayToolbar
+        self.longPressDetectionView?.isHidden = RiValT_Settings().displayToolbar
 
         self._selectionFeedbackGenerator.prepare()
         self._impactFeedbackGenerator.prepare()
@@ -872,7 +878,8 @@ extension RiValT_RunningTimer_ContainerViewController {
             slider.leadingAnchor.constraint(equalTo: timeSetSwipeDetectorView.leadingAnchor).isActive = true
             slider.trailingAnchor.constraint(equalTo: timeSetSwipeDetectorView.trailingAnchor).isActive = true
             slider.centerYAnchor.constraint(equalTo: timeSetSwipeDetectorView.centerYAnchor).isActive = true
-            
+            self.timeSetDisplayLabel?.isHidden = false
+            self.timeSetDisplayLabel?.text = !timer.timerDisplay.isEmpty ? timer.timerDisplay : "0"
             self._timeSetSlider = slider
         }
         
@@ -883,24 +890,30 @@ extension RiValT_RunningTimer_ContainerViewController {
          - parameter location: The 0 -> 1 location.
          */
         func _setTimerTo(location inLocation: Float) {
-            guard let timer = self.timer else { return }
+            guard let timer = self.timer,
+                  (0...1).contains(inLocation)
+            else { return }
             
             let lastTime = timer.currentTime
             let currentTime = timer.startingTimeInSeconds - Int(round(Float(timer.startingTimeInSeconds) * inLocation))
             
             if currentTime != lastTime {
                 self.selectionHaptic()
+                timer.pause()
                 timer.currentTime = currentTime
                 self._timeSetSlider?.value = Float(timer.startingTimeInSeconds - currentTime)
             }
+            
+            self.timeSetDisplayLabel?.text = !timer.timerDisplay.isEmpty ? timer.timerDisplay : "0"
             self.updateDisplays()
         }
         
-        guard !(timeSetSwipeContainerView?.isHidden ?? true),
-              let detectionView = self.longPressDetectionView,
+        guard let detectionView = self.longPressDetectionView,
+              !detectionView.isHidden,
               let timer = self.timer
         else {
             inGestureRecognizer.state = .cancelled
+            self.timeSetDisplayLabel?.isHidden = true
             self._timeSetSlider?.removeFromSuperview()
             self._timeSetSlider = nil
             self.updateDisplays()
@@ -920,14 +933,15 @@ extension RiValT_RunningTimer_ContainerViewController {
                 }
                 _prepareSlider(atThisLocation: location)
             }
+            
             fallthrough
 
         case .changed:
-            if (0...1).contains(location) {
-                _setTimerTo(location: location)
-            }
+            _setTimerTo(location: location)
 
         default:
+            self.impactHaptic()
+            self.timeSetDisplayLabel?.isHidden = true
             self._timeSetSlider?.removeFromSuperview()
             self._timeSetSlider = nil
             self.updateDisplays()

@@ -552,7 +552,7 @@ public extension TimerEngine {
         
         set {
             let newCurrent = TimeInterval(max(0, min(self.startingTimeInSeconds, self.startingTimeInSeconds - newValue)))
-            
+            self._lastPausedTime = newCurrent
             self._startTime = Date.now.addingTimeInterval(-newCurrent)
         }
     }

@@ -763,12 +763,23 @@
                                             <constraint firstAttribute="height" constant="64" id="2Lz-3z-g1u"/>
                                         </constraints>
                                     </view>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HIB-6K-LRm">
+                                        <rect key="frame" x="0.0" y="162" width="353" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="cpG-YE-CDQ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="eJc-wG-REX" secondAttribute="trailing" id="AFj-ZN-PoR"/>
                                     <constraint firstItem="eJc-wG-REX" firstAttribute="leading" secondItem="9Yr-09-zrN" secondAttribute="leading" id="kPV-na-aO3"/>
+                                    <constraint firstAttribute="trailing" secondItem="HIB-6K-LRm" secondAttribute="trailing" id="oUh-Vd-brJ"/>
+                                    <constraint firstItem="HIB-6K-LRm" firstAttribute="leading" secondItem="9Yr-09-zrN" secondAttribute="leading" id="xu5-Ug-jfl"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="lly-tv-1hr" appends="YES" id="12r-1g-Ze6"/>
@@ -817,6 +828,7 @@
                             <constraint firstItem="LXl-gb-Uc1" firstAttribute="bottom" secondItem="aB4-yW-6GS" secondAttribute="bottom" id="RkJ-ag-KzQ"/>
                             <constraint firstItem="eJc-wG-REX" firstAttribute="bottom" secondItem="aB4-yW-6GS" secondAttribute="top" id="eIt-gy-b2h"/>
                             <constraint firstAttribute="bottom" secondItem="9Yr-09-zrN" secondAttribute="bottom" id="hof-rQ-hXB"/>
+                            <constraint firstItem="LXl-gb-Uc1" firstAttribute="top" secondItem="HIB-6K-LRm" secondAttribute="top" id="i3w-3P-Rsc"/>
                             <constraint firstItem="aB4-yW-6GS" firstAttribute="trailing" secondItem="LXl-gb-Uc1" secondAttribute="trailing" id="nVs-By-7BW"/>
                             <constraint firstItem="LXl-gb-Uc1" firstAttribute="trailing" secondItem="9Yr-09-zrN" secondAttribute="trailing" constant="20" id="vBr-kh-kxQ"/>
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="trailing" secondItem="LXl-gb-Uc1" secondAttribute="trailing" id="wNT-oM-buZ"/>
@@ -846,6 +858,7 @@
                         <outlet property="rightSwipeGestureRecognizer" destination="qlO-Jd-pEo" id="If6-je-fL2"/>
                         <outlet property="singleTapGestureRecognizer" destination="BEW-Yf-Mqc" id="Hfw-8M-4ub"/>
                         <outlet property="stopToolbarItem" destination="CyM-ie-S9V" id="92C-PW-x2n"/>
+                        <outlet property="timeSetDisplayLabel" destination="HIB-6K-LRm" id="hXl-WK-kaG"/>
                         <outlet property="timeSetSwipeContainerView" destination="eJc-wG-REX" id="iK2-eM-FCR"/>
                     </connections>
                 </viewController>
@@ -1018,7 +1031,7 @@
                                     <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVz-Ds-9ul">
                                         <rect key="frame" x="0.0" y="184.33333333333331" width="393" height="101.33333333333331"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nQp-Wc-T6m">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="102"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="101.33333333333331"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
