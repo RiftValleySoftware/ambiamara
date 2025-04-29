@@ -753,7 +753,7 @@
                                 </connections>
                             </containerView>
                             <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJc-wG-REX" userLabel="Time Set Swipe Detector View">
-                                <rect key="frame" x="0.0" y="720" width="393" height="64"/>
+                                <rect key="frame" x="16" y="720" width="361" height="64"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -801,8 +801,8 @@
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" id="M0F-Vq-nyz"/>
                             <constraint firstAttribute="trailing" secondItem="Jus-Zl-mMA" secondAttribute="trailing" id="MlV-fg-0xB"/>
                             <constraint firstItem="LXl-gb-Uc1" firstAttribute="bottom" secondItem="aB4-yW-6GS" secondAttribute="bottom" id="RkJ-ag-KzQ"/>
-                            <constraint firstItem="LXl-gb-Uc1" firstAttribute="trailing" secondItem="eJc-wG-REX" secondAttribute="trailing" id="biz-kH-LkG"/>
-                            <constraint firstItem="eJc-wG-REX" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" id="gYu-6G-R2U"/>
+                            <constraint firstItem="LXl-gb-Uc1" firstAttribute="trailing" secondItem="eJc-wG-REX" secondAttribute="trailing" constant="16" id="biz-kH-LkG"/>
+                            <constraint firstItem="eJc-wG-REX" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" constant="16" id="gYu-6G-R2U"/>
                             <constraint firstItem="aB4-yW-6GS" firstAttribute="trailing" secondItem="LXl-gb-Uc1" secondAttribute="trailing" id="nVs-By-7BW"/>
                             <constraint firstItem="LXl-gb-Uc1" firstAttribute="bottom" secondItem="eJc-wG-REX" secondAttribute="bottom" id="w41-um-Ib0"/>
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="trailing" secondItem="LXl-gb-Uc1" secondAttribute="trailing" id="wNT-oM-buZ"/>
@@ -855,7 +855,7 @@
                         <action selector="rightSwipeReceived:" destination="qbu-HZ-ecF" id="Mtc-wf-KFO"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="SpR-KR-6Vg">
+                <pongPressGestureRecognizer allowableMovement="20" minimumPressDuration="0.5" id="SpR-KR-6Vg">
                     <connections>
                         <action selector="longPressGestureDetected:" destination="qbu-HZ-ecF" id="D30-LJ-Weu"/>
                     </connections>
@@ -1003,7 +1003,7 @@
                                     <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVz-Ds-9ul">
                                         <rect key="frame" x="0.0" y="184.33333333333331" width="393" height="101.33333333333331"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nQp-Wc-T6m">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="102"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="101.33333333333331"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>

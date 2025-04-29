@@ -906,8 +906,8 @@ extension RiValT_RunningTimer_ContainerViewController {
             self.timer?.pause()
         }
         
-        guard let width = timeSetSwipeDetectorView?.bounds.size.width else { return }
-        let gestureLocation = inGestureRecognizer.location(ofTouch: 0, in: timeSetSwipeDetectorView)
+        guard let width = self.view?.bounds.size.width else { return }
+        let gestureLocation = inGestureRecognizer.location(ofTouch: 0, in: self.view)
         let location = Float(max(0, min(1, gestureLocation.x / width)))
         
         switch inGestureRecognizer.state {
