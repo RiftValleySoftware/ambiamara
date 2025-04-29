@@ -241,7 +241,7 @@ extension RiValT_RunningTimer_ContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.controlToolbar?.isHidden = !RiValT_Settings().displayToolbar
-        
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
         self.view?.backgroundColor = isHighContrastMode ? .systemBackground : .black
         
         self._selectionFeedbackGenerator.prepare()
@@ -310,6 +310,8 @@ extension RiValT_RunningTimer_ContainerViewController {
     override func viewWillDisappear(_ inIsAnimated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
         super.viewWillDisappear(inIsAnimated)
+        self._audioPlayer?.stop()
+        self._audioPlayer = nil
         self._autoHideTimer?.invalidate()
         self._autoHideTimer = nil
         self._alarmTimer?.invalidate()
@@ -625,6 +627,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      Called when this timer reaches the end.
      */
     func alarmReached() {
+        self._alarmTimer?.isRunning = false
         self.playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
         if nil != self.nextTimer {
             self.triggerTransitionAlarm()
@@ -641,12 +644,7 @@ extension RiValT_RunningTimer_ContainerViewController {
     func triggerTransitionAlarm() {
         self.flashRed(true)
         if let timer = self.nextTimer {
-            if let transitionSoundURLString = self.timer?.group?.transitionSoundFilename,
-               let actualURLString = RiValT_Settings.transitionSoundURIs.first(where: { $0.contains(transitionSoundURLString) }),
-               let transitionSoundURL = URL(string: actualURLString) {
-                self.playThisSound(transitionSoundURL, numberOfRepeats: 0)
-            }
-            
+            self.playTransitionSound()
             self.timer = nil
             timer.tickHandler = self.tickHandler
             timer.transitionHandler = self.transitionHandler
@@ -664,26 +662,6 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.flashRed(true)
         self.playAlarmSound()
         self._alarmTimer?.isRunning = true
-    }
-
-    /* ################################################################## */
-    /**
-     This plays any sound, using a given URL.
-     
-     - parameter inSoundURL: This is the URI to the sound resource.
-     - parameter inRepeatCount: The number of times to repeat. -1 (continuous), if not provided.
-     */
-    func playThisSound(_ inSoundURL: URL, numberOfRepeats inRepeatCount: Int = -1) {
-        if nil == self._audioPlayer {
-            try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
-            if let audioPlayer = try? AVAudioPlayer(contentsOf: inSoundURL) {
-                audioPlayer.numberOfLoops = inRepeatCount
-                audioPlayer.delegate = self
-                self._audioPlayer = audioPlayer
-            }
-        }
-    
-        self._audioPlayer?.play()
     }
     
     /* ############################################################## */
@@ -716,6 +694,33 @@ extension RiValT_RunningTimer_ContainerViewController {
             self._audioPlayer?.stop()
         }
     }
+    
+    /* ############################################################## */
+    /**
+     This just plays the transition sound.
+     */
+    func playTransitionSound() {
+        if let transitionSoundURLString = self.timer?.group?.transitionSoundFilename,
+           let actualURLString = RiValT_Settings.transitionSoundURIs.first(where: { $0.contains(transitionSoundURLString) }),
+           let transitionSoundURL = URL(string: actualURLString) {
+            self.playThisSound(transitionSoundURL, numberOfRepeats: 0)
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     This plays any sound, using a given URL.
+     
+     - parameter inSoundURL: This is the URI to the sound resource.
+     - parameter inRepeatCount: The number of times to repeat. -1 (continuous), if not provided.
+     */
+    func playThisSound(_ inSoundURL: URL, numberOfRepeats inRepeatCount: Int = -1) {
+        if let audioPlayer = try? AVAudioPlayer(contentsOf: inSoundURL) {
+            audioPlayer.numberOfLoops = inRepeatCount
+            self._audioPlayer = audioPlayer
+            audioPlayer.play()
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -729,6 +734,8 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter: Ignored.
      */
     @IBAction func rightSwipeReceived(_: Any) {
+        self._alarmTimer?.isRunning = false
+        self._audioPlayer?.stop()
         if !RiValT_Settings().displayToolbar {
             self.fastForwardHit()
             self.updateDisplays()
@@ -742,6 +749,8 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter: Ignored.
      */
     @IBAction func leftSwipeReceived(_: Any) {
+        self._alarmTimer?.isRunning = false
+        self._audioPlayer?.stop()
         if !RiValT_Settings().displayToolbar {
             self.rewindHit()
             self.updateDisplays()
@@ -755,6 +764,8 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter: Ignored.
      */
     @IBAction func doubleTapReceived(_: Any) {
+        self._alarmTimer?.isRunning = false
+        self._audioPlayer?.stop()
         if !RiValT_Settings().displayToolbar {
             self.stopHit()
         }
@@ -767,8 +778,9 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter: Ignored.
      */
     @IBAction func singleTapReceived(_: Any) {
+        self._alarmTimer?.isRunning = false
+        self._audioPlayer?.stop()
         if !RiValT_Settings().displayToolbar {
-            self._alarmTimer?.isRunning = false
             self.playPauseHit()
             self.updateDisplays()
         } else if RiValT_Settings().autoHideToolbar {
@@ -783,6 +795,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter inSender: The item that was activated.
      */
     @IBAction func toolbarItemHit(_ inSender: UIBarButtonItem) {
+        self._alarmTimer?.isRunning = false
         self._audioPlayer?.stop()
         self.showToolbar()
         self.selectionHaptic()
@@ -863,25 +876,17 @@ extension RiValT_RunningTimer_ContainerViewController: RVS_BasicGCDTimerDelegate
                     print("Triggering the alarm timer")
                 #endif
                 self?.flashRed(true)
-                self?.playAlarmSound()
+                guard let soundType = self?.timer?.group?.soundType else { return }
+                switch soundType {
+                case .vibrate, .soundVibrate:
+                    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+                    
+                default:
+                    break
+                }
             default:
                 break
             }
         }
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: AVAudioPlayerDelegate Conformance
-/* ###################################################################################################################################### */
-extension RiValT_RunningTimer_ContainerViewController: AVAudioPlayerDelegate {
-    /* ################################################################## */
-    /**
-     Called when the sound is done playing.
-     
-      - parameter: The player (ignored)
-      - parameter successfully: True, if the play was successful (also ignored).
-    */
-    func audioPlayerDidFinishPlaying(_: AVAudioPlayer, successfully: Bool) {
     }
 }
