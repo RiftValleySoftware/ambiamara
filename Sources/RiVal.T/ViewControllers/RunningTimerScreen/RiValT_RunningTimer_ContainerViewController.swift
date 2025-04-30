@@ -278,7 +278,6 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.controlToolbar?.isHidden = !RiValT_Settings().displayToolbar
         try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
         self.view?.backgroundColor = isHighContrastMode ? .systemBackground : .black
-        self.longPressDetectionView?.isHidden = RiValT_Settings().displayToolbar
 
         self._selectionFeedbackGenerator.prepare()
         self._impactFeedbackGenerator.prepare()
@@ -308,11 +307,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         
         self.timer?.tickHandler = self.tickHandler
         self.timer?.transitionHandler = self.transitionHandler
-        if self.timer?.isTimerPaused ?? false {
-            self.playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
-        } else {
-            self.playPauseToolbarItem?.image = UIImage(systemName: "pause.fill")
-        }
+        self.setToolbarEnablements()
     }
     
     /* ############################################################## */
@@ -465,7 +460,6 @@ extension RiValT_RunningTimer_ContainerViewController {
      */
     func rewindHit() {
         self._alarmTimer?.isRunning = false
-        self.playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
         if self.timer?.isTimerAtStart ?? false,
            let prevTimer = self.prevTimer {
             self.timer?.tickHandler = nil
@@ -494,6 +488,8 @@ extension RiValT_RunningTimer_ContainerViewController {
         } else {
             self.timer?.stop()
         }
+        
+        self.updateDisplays()
     }
     
     /* ############################################################## */
@@ -526,7 +522,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         if self.timer?.isTimerRunning ?? false {
             self.flashCyan()
             self.timer?.pause()
-            self.playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
+            self.updateDisplays()
         } else {
             if self.timer?.isTimerPaused ?? false {
                 self.flashGreen()
@@ -545,11 +541,10 @@ extension RiValT_RunningTimer_ContainerViewController {
                    row != oldRow {
                     self.flashTimerNumber(row)
                 }
-                self.updateDisplays()
             } else {
                 self.timer?.start()
            }
-            self.playPauseToolbarItem?.image = UIImage(systemName: "pause.fill")
+            self.updateDisplays()
         }
     }
 
@@ -559,7 +554,6 @@ extension RiValT_RunningTimer_ContainerViewController {
      */
     func fastForwardHit() {
         self._alarmTimer?.isRunning = false
-        self.playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
         if self.timer?.isTimerAtStart ?? false || self.timer?.isTimerAtEnd ?? false,
            !(self.timer?.isTimerRunning ?? false),
            let nextTimer = self.nextTimer {
@@ -578,6 +572,8 @@ extension RiValT_RunningTimer_ContainerViewController {
         } else {
             self.timer?.end()
         }
+        
+        self.updateDisplays()
     }
     
     /* ############################################################## */
@@ -672,11 +668,22 @@ extension RiValT_RunningTimer_ContainerViewController {
 
     /* ############################################################## */
     /**
+     This enables (or disables) toolbar items, as necessary for the current state.
+     */
+    func setToolbarEnablements() {
+        guard let timer = self.timer else { return }
+        self.stopToolbarItem?.isEnabled = true
+        self.fastForwardToolbarItem?.isEnabled = !(self.timer?.isTimerInAlarm ?? false)
+        self.rewindToolbarItem?.isEnabled = (self.timer?.isTimerInAlarm ?? false) || ((self.timer?.currentTime ?? 0) < (self.timer?.startingTimeInSeconds ?? 0)) || (nil != self.prevTimer)
+        self.playPauseToolbarItem?.image = UIImage(systemName: "\(timer.isTimerRunning ? "pause" : "play").fill")
+    }
+
+    /* ############################################################## */
+    /**
      Updates all the embeds.
      */
     func updateDisplays() {
-        self.fastForwardToolbarItem?.isEnabled = !(self.timer?.isTimerInAlarm ?? false)
-        self.rewindToolbarItem?.isEnabled = (self.timer?.isTimerInAlarm ?? false) || ((self.timer?.currentTime ?? 0) < (self.timer?.startingTimeInSeconds ?? 0)) || (nil != self.prevTimer)
+        self.setToolbarEnablements()
         self.numericalDisplayController?.updateUI()
     }
     
@@ -686,7 +693,6 @@ extension RiValT_RunningTimer_ContainerViewController {
      */
     func alarmReached() {
         self._alarmTimer?.isRunning = false
-        self.playPauseToolbarItem?.image = UIImage(systemName: "play.fill")
         if nil != self.nextTimer {
             self.triggerTransitionAlarm()
         } else {
@@ -947,7 +953,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             self.updateDisplays()
         }
     }
-
+    
     /* ############################################################## */
     /**
      One of the toolbar controls was hit.
