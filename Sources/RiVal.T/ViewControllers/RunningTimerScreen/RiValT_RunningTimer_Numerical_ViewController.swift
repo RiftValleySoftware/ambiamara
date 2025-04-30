@@ -43,7 +43,19 @@ class RiValT_RunningTimer_Numerical_ViewController: RiValT_RunningTimer_Base_Vie
      The color of the digits, when the timer is running, and is in "Final" mode.
      */
     private static let _finalLEDColor: UIColor? = UIColor(named: "Final-Color")
+    
+    /* ############################################################## */
+    /**
+     This allows us to cache hex points, so we don't need to keep regenerating them.
+     */
+    private static var _cachedHex: (howBig: CGFloat, path: CGMutablePath) = (0.0, CGMutablePath())
 
+    /* ############################################################## */
+    /**
+     The same, for each hexagon.
+     */
+    private static var _cachedHexagon: (howBig: CGFloat, points: [CGPoint]) = (0.0, [])
+    
     /* ############################################################## */
     /**
      This is the main view, containing the digital display.
@@ -137,6 +149,8 @@ extension RiValT_RunningTimer_Numerical_ViewController {
              - returns: An array of CGPoint, mapping out the hexagon.
              */
             func _pointySideUpHexagon(_ inHowBig: CGFloat) -> [CGPoint] {
+                guard self._cachedHexagon.howBig != inHowBig else { return self._cachedHexagon.points }
+                
                 let angle = CGFloat(60).radians
                 let cx = CGFloat(inHowBig)  // x origin
                 let cy = CGFloat(inHowBig)  // y origin
@@ -156,8 +170,12 @@ extension RiValT_RunningTimer_Numerical_ViewController {
                     points[i.offset] = CGPoint(x: i.element.x - minX, y: i.element.y)
                 }
                 
+                self._cachedHexagon = (inHowBig, points)
+                
                 return points
             }
+            
+            guard self._cachedHex.howBig != radius else { return self._cachedHex.path }
             
             let path = CGMutablePath()
             let points = _pointySideUpHexagon(inHowBig)
@@ -165,6 +183,7 @@ extension RiValT_RunningTimer_Numerical_ViewController {
             path.move(to: cpg)
             points.forEach { path.addLine(to: $0) }
             path.closeSubpath()
+            self._cachedHex = (inHowBig, path)
             return path
         }
 
