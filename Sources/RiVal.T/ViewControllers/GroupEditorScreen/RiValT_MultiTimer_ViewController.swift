@@ -1076,6 +1076,8 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
             self.timerModel.createNewTimer(at: inIndexPath)
             self.impactHaptic(1.0)
             shouldScroll = true
+        } else {
+            self.impactHaptic()
         }
         
         if !(self.timerModel.getTimer(at: inIndexPath)?.isSelected ?? false) {
@@ -1093,7 +1095,6 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         }
         
         if RiValT_Settings().oneTapEditing {
-            self.impactHaptic()
             self.goEditYourself()
         }
     }
