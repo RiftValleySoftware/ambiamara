@@ -768,17 +768,20 @@ extension RiValT_RunningTimer_ContainerViewController {
      Called when this timer transitions to the next timer.
      */
     func triggerTransitionAlarm() {
-        self.flashRed(true)
         if let timer = self.nextTimer {
             self.playTransitionSound()
+            self.timer?.tickHandler = nil
+            self.timer?.transitionHandler = nil
             self.timer?.stop()
             self.timer = nil
-            timer.tickHandler = self.tickHandler
-            timer.transitionHandler = self.transitionHandler
             timer.isSelected = true
             timer.stop()
             self.timer = timer
             self.timer?.start()
+            timer.tickHandler = self.tickHandler
+            timer.transitionHandler = self.transitionHandler
+        } else {
+            self.flashRed(true)
         }
     }
 
