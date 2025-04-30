@@ -113,6 +113,7 @@
 		D4E6ECB12D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */; };
 		D4E6ECB32D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4E6ECB22D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox */; };
 		D4E869542D99916200D56802 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E869532D99916200D56802 /* TimerEngine.swift */; };
+		D4E922712DC2451600E98B76 /* RiValT_RunningTimer_Stoplights_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E922702DC2451600E98B76 /* RiValT_RunningTimer_Stoplights_ViewController.swift */; };
 		D4EDE73B2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EDE73A2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift */; };
 		D4F1448028293F4A001DD9E4 /* 01-low-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F1447928293F4A001DD9E4 /* 01-low-beep.mp3 */; };
 		D4F1448128293F4A001DD9E4 /* 03-high-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4F1447A28293F4A001DD9E4 /* 03-high-beep.mp3 */; };
@@ -441,6 +442,7 @@
 		D4DD60F82D81CADB00DE4ECF /* Rift_Valley_Timer_Watch_App_RunningTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Timer_Watch_App_RunningTimerView.swift; sourceTree = "<group>"; };
 		D4E2E8FA2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_MultiTimer_ViewController.swift; sourceTree = "<group>"; };
 		D4E869532D99916200D56802 /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
+		D4E922702DC2451600E98B76 /* RiValT_RunningTimer_Stoplights_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_RunningTimer_Stoplights_ViewController.swift; sourceTree = "<group>"; };
 		D4EA05572DAE6E92005E3E3B /* TimerModelTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TimerModelTests.xctestplan; sourceTree = "<group>"; };
 		D4EDE73A2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_EditTimer_ViewController.swift; sourceTree = "<group>"; };
 		D4F1447928293F4A001DD9E4 /* 01-low-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "01-low-beep.mp3"; sourceTree = "<group>"; };
@@ -882,6 +884,7 @@
 				D4C122CF2DBED67B0041F23A /* RiValT_RunningTimer_ContainerViewController.swift */,
 				D4A99AFA2DBEF28F00E7CC46 /* RiValT_RunningTimer_Base_ViewController.swift */,
 				D4CF4FC82DBB08C3008A71B8 /* RiValT_RunningTimer_Numerical_ViewController.swift */,
+				D4E922702DC2451600E98B76 /* RiValT_RunningTimer_Stoplights_ViewController.swift */,
 			);
 			path = RunningTimerScreen;
 			sourceTree = "<group>";
@@ -1349,6 +1352,7 @@
 				D4EDE73B2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift in Sources */,
 				D4A99AFB2DBEF28F00E7CC46 /* RiValT_RunningTimer_Base_ViewController.swift in Sources */,
 				D4181D0D2DAC7364002CF428 /* TimerModel.swift in Sources */,
+				D4E922712DC2451600E98B76 /* RiValT_RunningTimer_Stoplights_ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

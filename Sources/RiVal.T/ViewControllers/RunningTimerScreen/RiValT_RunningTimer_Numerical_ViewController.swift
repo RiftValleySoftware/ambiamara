@@ -85,27 +85,27 @@ class RiValT_RunningTimer_Numerical_ViewController: RiValT_RunningTimer_Base_Vie
      In order to maintain the proper aspect ratio of the digit pairs, we need to ensconce them in container views.
      This is the hours view.
      */
-    @IBOutlet weak var hoursContainerView: UIView!
+    @IBOutlet weak var hoursContainerView: UIView?
     
     /* ############################################################## */
     /**
      In order to maintain the proper aspect ratio of the digit pairs, we need to ensconce them in container views.
      This is the minutes view.
      */
-    @IBOutlet weak var minutesContainerView: UIView!
+    @IBOutlet weak var minutesContainerView: UIView?
     
     /* ############################################################## */
     /**
      In order to maintain the proper aspect ratio of the digit pairs, we need to ensconce them in container views.
      This is the seconds view.
      */
-    @IBOutlet weak var secondsContainerView: UIView!
+    @IBOutlet weak var secondsContainerView: UIView?
     
     /* ############################################################## */
     /**
      The filter that gives the "gas blur" effect.
      */
-    @IBOutlet weak var blurFilterView: UIVisualEffectView!
+    @IBOutlet weak var blurFilterView: UIVisualEffectView?
     
     /* ############################################################## */
     /**

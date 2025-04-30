@@ -116,6 +116,12 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
     
     /* ############################################################## */
     /**
+     This is our numerical display instance.
+     */
+    weak var stoplightDisplayController: RiValT_RunningTimer_Stoplights_ViewController?
+
+    /* ############################################################## */
+    /**
      The view across the back that is filled with a color, during a "flash."
      */
     @IBOutlet weak var flasherView: UIView?
@@ -125,6 +131,12 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
      This contains the running timer for numerical format.
      */
     @IBOutlet weak var numericalTimerContainerView: UIView?
+    
+    /* ############################################################## */
+    /**
+     This contains the running timer for stoplight format.
+     */
+    @IBOutlet weak var stoplightTimerContainerView: UIView?
 
     /* ############################################################## */
     /**
@@ -325,6 +337,9 @@ extension RiValT_RunningTimer_ContainerViewController {
         } else {
             self.timer?.stop()
         }
+        
+        self.exposeCurrentDisplay()
+        self.updateDisplays()
     }
 
     /* ############################################################## */
@@ -365,6 +380,9 @@ extension RiValT_RunningTimer_ContainerViewController {
         if let destination = inSegue.destination as? RiValT_RunningTimer_Numerical_ViewController {
             destination.myContainer = self
             self.numericalDisplayController = destination
+        } else if let destination = inSegue.destination as? RiValT_RunningTimer_Stoplights_ViewController {
+            destination.myContainer = self
+            self.stoplightDisplayController = destination
         }
     }
 }
@@ -393,6 +411,28 @@ extension RiValT_RunningTimer_ContainerViewController {
         self._impactFeedbackGenerator.prepare()
     }
 
+    /* ############################################################## */
+    /**
+     This shows the current display, and hides the others.
+     */
+    func exposeCurrentDisplay() {
+        guard let group = self.timer?.group else { return }
+        
+        switch group.displayType {
+        case .circular:
+            self.numericalTimerContainerView?.isHidden = true
+            self.stoplightTimerContainerView?.isHidden = true
+
+        case .numerical:
+            self.numericalTimerContainerView?.isHidden = false
+            self.stoplightTimerContainerView?.isHidden = true
+
+        case .stoplights:
+            self.numericalTimerContainerView?.isHidden = true
+            self.stoplightTimerContainerView?.isHidden = false
+        }
+    }
+    
     /* ############################################################## */
     /**
      This animates the toolbar into visibility.
@@ -685,6 +725,7 @@ extension RiValT_RunningTimer_ContainerViewController {
     func updateDisplays() {
         self.setToolbarEnablements()
         self.numericalDisplayController?.updateUI()
+        self.stoplightDisplayController?.updateUI()
     }
     
     /* ############################################################## */
@@ -848,10 +889,10 @@ extension RiValT_RunningTimer_ContainerViewController {
         self._audioPlayer?.stop()
         if !RiValT_Settings().displayToolbar {
             self.playPauseHit()
-            self.updateDisplays()
         } else if RiValT_Settings().autoHideToolbar {
             self.showToolbar()
         }
+        self.updateDisplays()
     }
     
     /* ############################################################## */
