@@ -434,7 +434,7 @@ class TimerGroup: Equatable {
             case .sound:
                 return UIImage(systemName: "alarm.fill")
             case .vibrate:
-                return UIImage(systemName: "bell.and.waves.left.and.right")
+                return UIImage(systemName: "iphone.radiowaves.left.and.right")
             case .soundVibrate:
                 return UIImage(systemName: "alarm.waves.left.and.right.fill")
             }

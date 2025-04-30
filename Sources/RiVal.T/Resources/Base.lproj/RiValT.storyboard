@@ -911,7 +911,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="739.69465648854964" y="523.94366197183103"/>
+            <point key="canvasLocation" x="740" y="1262"/>
         </scene>
         <!--RiValT Running Timer View Controller-->
         <scene sceneID="fOn-vN-4fq">
@@ -1053,7 +1053,7 @@
                                     <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVz-Ds-9ul">
                                         <rect key="frame" x="0.0" y="184.33333333333331" width="393" height="101.33333333333331"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nQp-Wc-T6m">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="101.33333333333331"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="102"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
@@ -1106,7 +1106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewh-89-7YW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1610" y="777"/>
+            <point key="canvasLocation" x="1610" y="769"/>
         </scene>
         <!--Ri ValT Running Timer Stoplights View Controller-->
         <scene sceneID="vzj-om-CC4">
@@ -1181,15 +1181,35 @@
             <objects>
                 <viewController storyboardIdentifier="RiValT_RunningTimer_Circular_ViewController" id="B3a-6c-C0G" customClass="RiValT_RunningTimer_Circular_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EfI-Kx-Lwz">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="622"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5GE-BU-gZZ" customClass="RiValT_CirlcleDisplayView" customModule="RiVal_T" customModuleProvider="target">
+                                <rect key="frame" x="19.666666666666657" y="134" width="353.66666666666674" height="354"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="5GE-BU-gZZ" secondAttribute="height" multiplier="1:1" id="6g7-cu-6T3"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="jHe-gh-7oh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="5GE-BU-gZZ" firstAttribute="centerY" secondItem="EfI-Kx-Lwz" secondAttribute="centerY" id="PTw-I6-nfr"/>
+                            <constraint firstItem="jHe-gh-7oh" firstAttribute="height" secondItem="5GE-BU-gZZ" secondAttribute="height" priority="750" id="UtX-qs-zNX"/>
+                            <constraint firstItem="5GE-BU-gZZ" firstAttribute="height" relation="lessThanOrEqual" secondItem="jHe-gh-7oh" secondAttribute="height" multiplier="0.9" id="bBi-BT-QCl"/>
+                            <constraint firstItem="5GE-BU-gZZ" firstAttribute="centerX" secondItem="EfI-Kx-Lwz" secondAttribute="centerX" id="bcM-mQ-YXt"/>
+                            <constraint firstItem="5GE-BU-gZZ" firstAttribute="width" relation="lessThanOrEqual" secondItem="jHe-gh-7oh" secondAttribute="width" multiplier="0.9" id="oGv-ER-j0F"/>
+                            <constraint firstItem="jHe-gh-7oh" firstAttribute="width" secondItem="5GE-BU-gZZ" secondAttribute="width" priority="750" id="vd3-D1-OE5"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="circleImageDisplayView" destination="5GE-BU-gZZ" id="kzH-Ts-7Ib"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ncv-BF-6FF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1609" y="1754"/>
+            <point key="canvasLocation" x="1609.9236641221373" y="1912.6760563380283"/>
         </scene>
         <!--RiValT Timer Editor Page View Container-->
         <scene sceneID="fCm-5k-ObW">
@@ -1287,7 +1307,7 @@
             <color red="0.5" green="0.5" blue="0.5" alpha="0.19799999892711639" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Paused-Color">
-            <color red="0.012000000104308128" green="1" blue="0.82800000905990601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.012000000104308128" green="0.94199997186660767" blue="0.77899998426437378" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
