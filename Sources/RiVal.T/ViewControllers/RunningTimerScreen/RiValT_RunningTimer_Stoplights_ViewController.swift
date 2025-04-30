@@ -58,15 +58,15 @@ extension RiValT_RunningTimer_Stoplights_ViewController {
             self.redLightImageView?.alpha = 0.25
             self.yellowLightImageView?.alpha = 0.25
             self.greenLightImageView?.alpha = 0.25
-        } else if 0 < self.timer?.finalTimeInSeconds ?? 0 && (self.timer?.currentTime ?? 0) <= (self.timer?.finalTimeInSeconds ?? 0) {
+        } else if self.timer?.isTimerInFinal ?? false {
             self.redLightImageView?.alpha = 1.0
             self.yellowLightImageView?.alpha = 0.25
             self.greenLightImageView?.alpha = 0.25
-        } else if 0 < self.timer?.warningTimeInSeconds ?? 0 && ((self.timer?.currentTime ?? 0) <= (self.timer?.warningTimeInSeconds ?? 0)) {
+        } else if self.timer?.isTimerInWarning ?? false {
             self.redLightImageView?.alpha = 0.25
             self.yellowLightImageView?.alpha = 1.0
             self.greenLightImageView?.alpha = 0.25
-        } else if (self.timer?.isTimerRunning ?? false) || (self.timer?.isTimerPaused ?? false) {
+        } else if self.timer?.isTimerRunning ?? false {
             self.redLightImageView?.alpha = 0.25
             self.yellowLightImageView?.alpha = 0.25
             self.greenLightImageView?.alpha = 1.0

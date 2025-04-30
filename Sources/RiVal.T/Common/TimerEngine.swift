@@ -614,6 +614,15 @@ public extension TimerEngine {
         
         var timeMode: Mode = .countdown
         
+        #if DEBUG
+            print("TimerEngine.mode")
+            print("\tTimerEngine: fullRange: \(self.fullRange)")
+            print("\tTimerEngine: startRange: \(self.startRange)")
+            print("\tTimerEngine: warnRange: \(self.warnRange)")
+            print("\tTimerEngine: finalRange: \(self.finalRange)")
+            print("\tTimerEngine: currentTime: \(self.currentTime)")
+        #endif
+    
         if self.isTicking {
             switch currentTime {
             case finalRange:
@@ -660,7 +669,9 @@ public extension TimerEngine {
     var warnRange: ClosedRange<Int> {
         if 0 < self.finalRange.upperBound,
            self.finalRange.upperBound < self.warningTimeInSeconds {
-            return (self.finalRange.upperBound + 1)...self.warningTimeInSeconds
+            return (self.finalRange.upperBound + 1)...(self.warningTimeInSeconds == self.startingTimeInSeconds - 1 ? self.startingTimeInSeconds : self.warningTimeInSeconds)
+        } else if 0 < self.warningTimeInSeconds {
+            return 1...(self.warningTimeInSeconds == self.startingTimeInSeconds - 1 ? self.startingTimeInSeconds : self.warningTimeInSeconds)
         } else {
             return 0...0
         }
@@ -674,7 +685,7 @@ public extension TimerEngine {
      */
     var finalRange: ClosedRange<Int> {
         if 1 < self.finalTimeInSeconds {
-            return 1...self.finalTimeInSeconds
+            return 1...(self.finalTimeInSeconds == self.startingTimeInSeconds - 1 ? self.startingTimeInSeconds : self.finalTimeInSeconds)
         } else {
             return 0...0
         }

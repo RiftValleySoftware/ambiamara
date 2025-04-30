@@ -582,6 +582,8 @@ extension RiValT_RunningTimer_ContainerViewController {
                     self.flashTimerNumber(row)
                 }
             } else {
+                self.flashGreen()
+                self.impactHaptic()
                 self.timer?.start()
            }
             self.updateDisplays()
@@ -1043,8 +1045,9 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter: The state the timer is moving from (ignored).
      - parameter inToMode: The new timer state.
      */
-    func transitionHandler(_: Timer, _: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
-        if nil == self._timeSetSlider {
+    func transitionHandler(_: Timer, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
+        if nil == self._timeSetSlider,
+           .stopped != inFromMode {
             self.impactHaptic(1.0)
             switch inToMode {
             case .countdown:

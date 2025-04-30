@@ -315,15 +315,15 @@ extension RiValT_RunningTimer_Numerical_ViewController {
      This determines the proper color for the digit "LEDs."
      */
     func determineDigitLEDColor() {
-        if (self.timer?.isTimerInAlarm ?? false) {
+        if self.timer?.isTimerInAlarm ?? false {
             digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
             digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
             digitalDisplayViewSeconds?.onGradientStartColor = Self._finalLEDColor
-        } else if 0 < self.timer?.finalTimeInSeconds ?? 0 && (self.timer?.currentTime ?? 0) <= (self.timer?.finalTimeInSeconds ?? 0) {
+        } else if self.timer?.isTimerInFinal ?? false {
             digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
             digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
             digitalDisplayViewSeconds?.onGradientStartColor = Self._finalLEDColor
-        } else if 0 < self.timer?.warningTimeInSeconds ?? 0 && ((self.timer?.currentTime ?? 0) <= (self.timer?.warningTimeInSeconds ?? 0)) {
+        } else if self.timer?.isTimerInWarning ?? false {
             digitalDisplayViewHours?.onGradientStartColor = Self._warnLEDColor
             digitalDisplayViewMinutes?.onGradientStartColor = Self._warnLEDColor
             digitalDisplayViewSeconds?.onGradientStartColor = Self._warnLEDColor
