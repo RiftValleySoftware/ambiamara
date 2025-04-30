@@ -481,7 +481,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2QB-7k-b82" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="740" y="1246"/>
+            <point key="canvasLocation" x="-222" y="1770"/>
         </scene>
         <!--RiValT Display Settings View Controller-->
         <scene sceneID="9m5-5F-kDS">
@@ -758,6 +758,12 @@
                                     <segue destination="aSI-GW-hx4" kind="embed" id="smd-cF-aWN"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E2l-7Q-cMv">
+                                <rect key="frame" x="0.0" y="162" width="393" height="622"/>
+                                <connections>
+                                    <segue destination="B3a-6c-C0G" kind="embed" id="2eX-5T-No4"/>
+                                </connections>
+                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Yr-09-zrN">
                                 <rect key="frame" x="20" y="0.0" width="353" height="852"/>
                                 <subviews>
@@ -828,9 +834,12 @@
                             <constraint firstItem="aB4-yW-6GS" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" id="0Eg-oH-cmo"/>
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="top" secondItem="LXl-gb-Uc1" secondAttribute="top" id="15A-Zo-z6T"/>
                             <constraint firstAttribute="bottom" secondItem="Jus-Zl-mMA" secondAttribute="bottom" id="1Qs-0d-Jxb"/>
+                            <constraint firstItem="E2l-7Q-cMv" firstAttribute="bottom" secondItem="9uv-6p-o4t" secondAttribute="bottom" id="28O-OS-KR0"/>
                             <constraint firstItem="VyB-4O-Boy" firstAttribute="leading" secondItem="9uv-6p-o4t" secondAttribute="leading" id="9uh-Au-mMf"/>
+                            <constraint firstItem="E2l-7Q-cMv" firstAttribute="top" secondItem="9uv-6p-o4t" secondAttribute="top" id="E9A-aV-GIU"/>
                             <constraint firstItem="VyB-4O-Boy" firstAttribute="trailing" secondItem="9uv-6p-o4t" secondAttribute="trailing" id="GqO-PY-B7H"/>
                             <constraint firstItem="Jus-Zl-mMA" firstAttribute="top" secondItem="HVj-Ru-0Hn" secondAttribute="top" id="Hvv-KF-YiV"/>
+                            <constraint firstItem="E2l-7Q-cMv" firstAttribute="leading" secondItem="9uv-6p-o4t" secondAttribute="leading" id="J92-TO-WsI"/>
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="leading" secondItem="LXl-gb-Uc1" secondAttribute="leading" id="M0F-Vq-nyz"/>
                             <constraint firstAttribute="trailing" secondItem="Jus-Zl-mMA" secondAttribute="trailing" id="MlV-fg-0xB"/>
                             <constraint firstItem="LXl-gb-Uc1" firstAttribute="bottom" secondItem="aB4-yW-6GS" secondAttribute="bottom" id="RkJ-ag-KzQ"/>
@@ -839,6 +848,7 @@
                             <constraint firstAttribute="bottom" secondItem="9Yr-09-zrN" secondAttribute="bottom" id="hof-rQ-hXB"/>
                             <constraint firstItem="LXl-gb-Uc1" firstAttribute="top" secondItem="HIB-6K-LRm" secondAttribute="top" id="i3w-3P-Rsc"/>
                             <constraint firstItem="aB4-yW-6GS" firstAttribute="trailing" secondItem="LXl-gb-Uc1" secondAttribute="trailing" id="nVs-By-7BW"/>
+                            <constraint firstItem="E2l-7Q-cMv" firstAttribute="trailing" secondItem="9uv-6p-o4t" secondAttribute="trailing" id="sQp-Ku-EdP"/>
                             <constraint firstItem="VyB-4O-Boy" firstAttribute="top" secondItem="9uv-6p-o4t" secondAttribute="top" id="tpw-ge-lOy"/>
                             <constraint firstItem="LXl-gb-Uc1" firstAttribute="trailing" secondItem="9Yr-09-zrN" secondAttribute="trailing" constant="20" id="vBr-kh-kxQ"/>
                             <constraint firstItem="9uv-6p-o4t" firstAttribute="trailing" secondItem="LXl-gb-Uc1" secondAttribute="trailing" id="wNT-oM-buZ"/>
@@ -855,6 +865,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Bqz-QL-wkQ"/>
                     <connections>
+                        <outlet property="circularContainerView" destination="E2l-7Q-cMv" id="cFE-qA-hxt"/>
                         <outlet property="controlToolbar" destination="aB4-yW-6GS" id="Dey-GR-dL6"/>
                         <outlet property="doubleTapGestureRecognizer" destination="Wo8-OB-URp" id="Uk5-hh-27G"/>
                         <outlet property="dragValueLongPressGestureRecognizer" destination="lly-tv-1hr" id="k4w-kB-dWv"/>
@@ -1165,6 +1176,21 @@
             </objects>
             <point key="canvasLocation" x="1610" y="1316"/>
         </scene>
+        <!--Ri ValT Running Timer Circular View Controller-->
+        <scene sceneID="d3q-6L-0cR">
+            <objects>
+                <viewController storyboardIdentifier="RiValT_RunningTimer_Circular_ViewController" id="B3a-6c-C0G" customClass="RiValT_RunningTimer_Circular_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EfI-Kx-Lwz">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="jHe-gh-7oh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ncv-BF-6FF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1609" y="1754"/>
+        </scene>
         <!--RiValT Timer Editor Page View Container-->
         <scene sceneID="fCm-5k-ObW">
             <objects>
@@ -1261,7 +1287,7 @@
             <color red="0.5" green="0.5" blue="0.5" alpha="0.19799999892711639" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Paused-Color">
-            <color red="0.012000000104308128" green="0.94199997186660767" blue="0.77899998426437378" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.012000000104308128" green="1" blue="0.82800000905990601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1270,7 +1296,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

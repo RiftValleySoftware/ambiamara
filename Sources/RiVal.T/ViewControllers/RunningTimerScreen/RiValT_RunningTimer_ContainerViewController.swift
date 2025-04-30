@@ -116,7 +116,13 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
     
     /* ############################################################## */
     /**
-     This is our numerical display instance.
+     This is our circular display instance.
+     */
+    weak var circularDisplayController: RiValT_RunningTimer_Circular_ViewController?
+    
+    /* ############################################################## */
+    /**
+     This is our stoplights display instance.
      */
     weak var stoplightDisplayController: RiValT_RunningTimer_Stoplights_ViewController?
 
@@ -131,6 +137,12 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
      This contains the running timer for numerical format.
      */
     @IBOutlet weak var numericalTimerContainerView: UIView?
+    
+    /* ############################################################## */
+    /**
+     This contains the running timer for circular format.
+     */
+    @IBOutlet weak var circularContainerView: UIView?
     
     /* ############################################################## */
     /**
@@ -380,6 +392,9 @@ extension RiValT_RunningTimer_ContainerViewController {
         if let destination = inSegue.destination as? RiValT_RunningTimer_Numerical_ViewController {
             destination.myContainer = self
             self.numericalDisplayController = destination
+        } else if let destination = inSegue.destination as? RiValT_RunningTimer_Circular_ViewController {
+            destination.myContainer = self
+            self.circularDisplayController = destination
         } else if let destination = inSegue.destination as? RiValT_RunningTimer_Stoplights_ViewController {
             destination.myContainer = self
             self.stoplightDisplayController = destination
@@ -421,14 +436,17 @@ extension RiValT_RunningTimer_ContainerViewController {
         switch group.displayType {
         case .circular:
             self.numericalTimerContainerView?.isHidden = true
+            self.circularContainerView?.isHidden = false
             self.stoplightTimerContainerView?.isHidden = true
 
         case .numerical:
             self.numericalTimerContainerView?.isHidden = false
+            self.circularContainerView?.isHidden = true
             self.stoplightTimerContainerView?.isHidden = true
 
         case .stoplights:
             self.numericalTimerContainerView?.isHidden = true
+            self.circularContainerView?.isHidden = true
             self.stoplightTimerContainerView?.isHidden = false
         }
     }
@@ -727,6 +745,7 @@ extension RiValT_RunningTimer_ContainerViewController {
     func updateDisplays() {
         self.setToolbarEnablements()
         self.numericalDisplayController?.updateUI()
+        self.circularDisplayController?.updateUI()
         self.stoplightDisplayController?.updateUI()
     }
     
