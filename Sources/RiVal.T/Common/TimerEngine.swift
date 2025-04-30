@@ -616,13 +616,13 @@ public extension TimerEngine {
         
         if self.isTicking {
             switch currentTime {
-            case finalRange:
+            case self.finalRange:
                 timeMode = .final
                 
-            case warnRange:
+            case self.warnRange:
                 timeMode = .warning
                 
-            case startRange:
+            case self.startRange:
                 timeMode = .countdown
                 
             default:

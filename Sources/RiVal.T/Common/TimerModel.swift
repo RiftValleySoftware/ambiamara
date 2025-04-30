@@ -1075,13 +1075,13 @@ extension Timer {
     /**
      Returns true, if the timer has reached warning mode.
      */
-    var isTimerInWarning: Bool { .warning == self.timerMode }
+    var isTimerInWarning: Bool { (.warning == self.timerMode) || (self.isTimerAtStart && (self.warningTimeInSeconds + 1) == self.startingTimeInSeconds) }
     
     /* ############################################################## */
     /**
      Returns true, if the timer has reached final mode.
      */
-    var isTimerInFinal: Bool { .final == self.timerMode }
+    var isTimerInFinal: Bool { .final == self.timerMode || (self.isTimerAtStart && (self.finalTimeInSeconds + 1) == self.startingTimeInSeconds) }
     
     /* ############################################################## */
     /**
