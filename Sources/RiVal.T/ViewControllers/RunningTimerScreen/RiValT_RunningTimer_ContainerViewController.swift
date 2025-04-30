@@ -950,6 +950,9 @@ extension RiValT_RunningTimer_ContainerViewController {
             self.timeSetDisplayLabel?.isHidden = true
             self._timeSetSlider?.removeFromSuperview()
             self._timeSetSlider = nil
+            if timer.isTimerAtStart {
+                timer.stop()
+            }
             self.updateDisplays()
         }
     }

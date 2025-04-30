@@ -610,7 +610,7 @@ public extension TimerEngine {
 
         guard 0 < currentTime,
               self.isTicking
-        else { return .alarm }
+        else { return 0 < currentTime ? .paused(mode: self._lastMode, pauseTime: self._lastPausedTime) : .alarm }
         
         var timeMode: Mode = .countdown
         

@@ -300,11 +300,11 @@ extension RiValT_RunningTimer_Numerical_ViewController {
             digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
             digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
             digitalDisplayViewSeconds?.onGradientStartColor = Self._finalLEDColor
-        } else if (self.timer?.currentTime ?? -1) <= (self.timer?.finalTimeInSeconds ?? 0) {
+        } else if 0 < self.timer?.finalTimeInSeconds ?? 0 && (self.timer?.currentTime ?? 0) <= (self.timer?.finalTimeInSeconds ?? 0) {
             digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
             digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
             digitalDisplayViewSeconds?.onGradientStartColor = Self._finalLEDColor
-        } else if (self.timer?.currentTime ?? -1) <= (self.timer?.warningTimeInSeconds ?? 0) {
+        } else if 0 < self.timer?.warningTimeInSeconds ?? 0 && ((self.timer?.currentTime ?? 0) <= (self.timer?.warningTimeInSeconds ?? 0)) {
             digitalDisplayViewHours?.onGradientStartColor = Self._warnLEDColor
             digitalDisplayViewMinutes?.onGradientStartColor = Self._warnLEDColor
             digitalDisplayViewSeconds?.onGradientStartColor = Self._warnLEDColor
