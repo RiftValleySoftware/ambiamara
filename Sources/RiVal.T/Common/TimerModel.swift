@@ -643,6 +643,12 @@ extension TimerGroup {
     
     /* ############################################################## */
     /**
+     True, if one of the group's timers is selected (READ ONLY).
+     */
+    var isSelected: Bool { self._timers.contains(where: { $0.isSelected }) }
+    
+    /* ############################################################## */
+    /**
      True, if there is no more room for timers.
      */
     var isFull: Bool { self.count >= Self.maxTimersInGroup }

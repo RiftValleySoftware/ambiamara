@@ -1092,12 +1092,16 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         var shouldEdit = RiValT_Settings().oneTapEditing
         var optionalTitle: String?
         
-        if nil == self.timerModel.getTimer(at: inIndexPath) {
+        if (inIndexPath.section == self.timerModel?.count ?? 0) || (self.timerModel?[inIndexPath.section].isSelected ?? false),
+           nil == self.timerModel.getTimer(at: inIndexPath) {
             self.timerModel.createNewTimer(at: inIndexPath)
             self.impactHaptic(1.0)
             shouldScroll = true
             shouldEdit = true
             optionalTitle = "SLUG-NEW-TIMER".localizedVariant
+        } else if (0..<(self.timerModel?.count ?? 0)).contains((inIndexPath.section)),
+                  !(self.timerModel?[inIndexPath.section].isSelected ?? false) {
+            self.timerModel?[inIndexPath.section].last?.isSelected = true
         } else {
             self.impactHaptic()
         }
