@@ -254,7 +254,7 @@ extension RiValT_RunningTimer_Numerical_ViewController {
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
-        self.setDigitDisplayTime()
+        self.updateUI()
     }
 
     /* ############################################################## */
@@ -298,63 +298,63 @@ extension RiValT_RunningTimer_Numerical_ViewController {
 extension RiValT_RunningTimer_Numerical_ViewController {
     /* ############################################################## */
     /**
-     This sets the digits, directly.
-     - parameter hours: The hour number
-     - parameter minutes: The minute number
-     - parameter seconds: The second number.
-     */
-    func setDigitalTimeAs(hours inHours: Int, minutes inMinutes: Int, seconds inSeconds: Int) {
-        self.digitalDisplayViewMinutes?.hasLeadingZeroes = 0 < inHours
-        self.digitalDisplayViewSeconds?.hasLeadingZeroes = 0 < inHours || 0 < inMinutes
-        
-        self.digitalDisplayViewHours?.value = inHours
-        self.digitalDisplayViewMinutes?.value = inMinutes
-        self.digitalDisplayViewSeconds?.value = inSeconds
-    }
-    
-    /* ############################################################## */
-    /**
-     This determines the proper color for the digit "LEDs."
-     */
-    func determineDigitLEDColor() {
-        if self.timer?.isTimerInAlarm ?? false {
-            digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
-            digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
-            digitalDisplayViewSeconds?.onGradientStartColor = Self._finalLEDColor
-        } else if self.timer?.isTimerInFinal ?? false {
-            digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
-            digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
-            digitalDisplayViewSeconds?.onGradientStartColor = Self._finalLEDColor
-        } else if self.timer?.isTimerInWarning ?? false {
-            digitalDisplayViewHours?.onGradientStartColor = Self._warnLEDColor
-            digitalDisplayViewMinutes?.onGradientStartColor = Self._warnLEDColor
-            digitalDisplayViewSeconds?.onGradientStartColor = Self._warnLEDColor
-        } else if (self.timer?.isTimerRunning ?? false) || (self.timer?.isTimerPaused ?? false) {
-            digitalDisplayViewHours?.onGradientStartColor = Self._startLEDColor
-            digitalDisplayViewMinutes?.onGradientStartColor = Self._startLEDColor
-            digitalDisplayViewSeconds?.onGradientStartColor = Self._startLEDColor
-        } else {
-            digitalDisplayViewHours?.onGradientStartColor = Self._pausedLEDColor
-            digitalDisplayViewMinutes?.onGradientStartColor = Self._pausedLEDColor
-            digitalDisplayViewSeconds?.onGradientStartColor = Self._pausedLEDColor
-        }
-        
-        if !(self.timer?.isTimerRunning ?? false) && !(self.timer?.isTimerInAlarm ?? false) {
-            digitalDisplayViewHours?.onGradientEndColor = Self._pausedLEDColor
-            digitalDisplayViewMinutes?.onGradientEndColor = Self._pausedLEDColor
-            digitalDisplayViewSeconds?.onGradientEndColor = Self._pausedLEDColor
-        } else {
-            digitalDisplayViewHours?.onGradientEndColor = nil
-            digitalDisplayViewMinutes?.onGradientEndColor = nil
-            digitalDisplayViewSeconds?.onGradientEndColor = nil
-        }
-    }
-
-    /* ############################################################## */
-    /**
      This calculates the current time, and sets the digital display to that time.
      */
     func setDigitDisplayTime() {
+        /* ########################################################## */
+        /**
+         This determines the proper color for the digit "LEDs."
+         */
+        func _determineDigitLEDColor() {
+            if self.timer?.isTimerInAlarm ?? false {
+                digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
+                digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
+                digitalDisplayViewSeconds?.onGradientStartColor = Self._finalLEDColor
+            } else if self.timer?.isTimerInFinal ?? false {
+                digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
+                digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
+                digitalDisplayViewSeconds?.onGradientStartColor = Self._finalLEDColor
+            } else if self.timer?.isTimerInWarning ?? false {
+                digitalDisplayViewHours?.onGradientStartColor = Self._warnLEDColor
+                digitalDisplayViewMinutes?.onGradientStartColor = Self._warnLEDColor
+                digitalDisplayViewSeconds?.onGradientStartColor = Self._warnLEDColor
+            } else if (self.timer?.isTimerRunning ?? false) || (self.timer?.isTimerPaused ?? false) {
+                digitalDisplayViewHours?.onGradientStartColor = Self._startLEDColor
+                digitalDisplayViewMinutes?.onGradientStartColor = Self._startLEDColor
+                digitalDisplayViewSeconds?.onGradientStartColor = Self._startLEDColor
+            } else {
+                digitalDisplayViewHours?.onGradientStartColor = Self._pausedLEDColor
+                digitalDisplayViewMinutes?.onGradientStartColor = Self._pausedLEDColor
+                digitalDisplayViewSeconds?.onGradientStartColor = Self._pausedLEDColor
+            }
+            
+            if !(self.timer?.isTimerRunning ?? false) && !(self.timer?.isTimerInAlarm ?? false) {
+                digitalDisplayViewHours?.onGradientEndColor = Self._pausedLEDColor
+                digitalDisplayViewMinutes?.onGradientEndColor = Self._pausedLEDColor
+                digitalDisplayViewSeconds?.onGradientEndColor = Self._pausedLEDColor
+            } else {
+                digitalDisplayViewHours?.onGradientEndColor = nil
+                digitalDisplayViewMinutes?.onGradientEndColor = nil
+                digitalDisplayViewSeconds?.onGradientEndColor = nil
+            }
+        }
+
+        /* ########################################################## */
+        /**
+         This sets the digits, directly.
+         - parameter hours: The hour number
+         - parameter minutes: The minute number
+         - parameter seconds: The second number.
+         */
+        func _setDigitalTimeAs(hours inHours: Int, minutes inMinutes: Int, seconds inSeconds: Int) {
+            self.digitalDisplayViewMinutes?.hasLeadingZeroes = 0 < inHours
+            self.digitalDisplayViewSeconds?.hasLeadingZeroes = 0 < inHours || 0 < inMinutes
+            
+            self.digitalDisplayViewHours?.value = inHours
+            self.digitalDisplayViewMinutes?.value = inMinutes
+            self.digitalDisplayViewSeconds?.value = inSeconds
+        }
+
         guard var currentTime = self.timer?.currentTime else { return }
         
         let hours = Int(currentTime / (60 * 60))
@@ -362,7 +362,7 @@ extension RiValT_RunningTimer_Numerical_ViewController {
         let minutes = Int(currentTime / 60)
         currentTime -= (minutes * 60)
         let seconds = currentTime
-        determineDigitLEDColor()
-        setDigitalTimeAs(hours: 0 < hours ? hours : -2, minutes: (0 < minutes || 0 < hours) ? minutes : -2, seconds: seconds)
+        _determineDigitLEDColor()
+        _setDigitalTimeAs(hours: 0 < hours ? hours : -2, minutes: (0 < minutes || 0 < hours) ? minutes : -2, seconds: seconds)
     }
 }

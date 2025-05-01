@@ -1071,11 +1071,12 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
                         didSelectItemAt inIndexPath: IndexPath
     ) {
         var shouldScroll = false
-        
+        var shouldEdit = RiValT_Settings().oneTapEditing
         if nil == self.timerModel.getTimer(at: inIndexPath) {
             self.timerModel.createNewTimer(at: inIndexPath)
             self.impactHaptic(1.0)
             shouldScroll = true
+            shouldEdit = true
         } else {
             self.impactHaptic()
         }
@@ -1094,7 +1095,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
             inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section), at: .centeredVertically, animated: true)
         }
         
-        if RiValT_Settings().oneTapEditing {
+        if shouldEdit {
             self.goEditYourself()
         }
     }
