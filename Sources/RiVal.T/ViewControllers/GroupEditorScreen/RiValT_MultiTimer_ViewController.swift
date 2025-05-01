@@ -378,6 +378,12 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
     
     /* ############################################################## */
     /**
+     The storyboard ID for instantiating the class.
+     */
+    private static let _aboutScreenSegueID = "show-about"
+
+    /* ############################################################## */
+    /**
      Used to track scrolling, and to prevent horizontal scroll.
      */
     private var _initialContentOffset: CGPoint = .zero
@@ -560,6 +566,14 @@ extension RiValT_MultiTimer_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_MultiTimer_ViewController {
+    /* ############################################################## */
+    /**
+     This simply opens the about this app screen.
+     */
+    func openAboutScreen() {
+        self.performSegue(withIdentifier: Self._aboutScreenSegueID, sender: nil)
+    }
+    
     /* ############################################################## */
     /**
      We set up the navbar buttons.
@@ -1131,5 +1145,3 @@ extension RiValT_MultiTimer_ViewController: UIScrollViewDelegate {
         inScrollView.contentOffset.x = self._initialContentOffset.x
     }
 }
-
-

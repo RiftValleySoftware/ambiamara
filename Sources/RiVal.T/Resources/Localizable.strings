@@ -100,6 +100,7 @@
 "SLUG-SHOW-TOOLBAR"                             =   "Show Toolbar In Timer";
 "SLUG-AUTO-HIDE-TOOLBAR"                        =   "Auto-Hide Toolbar";
 "SLUG-ONE-TAP-EDIT"                             =   "\"One Tap\" Timer Editing";
+"SLUG-ABOUT-BUTTON"                             =   "About This App";
 
 // MARK: Timer Edit Screen
 
@@ -133,3 +134,8 @@
 "SLUG-SOUND-VIBRATE"                            =   "Alarm Sound (With Vibration)";
 "SLUG-TRANSITION-SOUND-LABEL"                   =   "Transition Sound";
 "SLUG-TRANSITION-SOUND-NONE"                    =   "None";
+
+
+// MARK: About Screen
+
+"SLUG-ABOUT-MAIN-TEXT"                          = "RiVal.T is the ultimate timer app!\n\nIt allows you to create as many timers as you like, and assign them to \"groups\" of timers, where they are run sequentially (one after another).";

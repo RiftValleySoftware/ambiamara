@@ -17,6 +17,8 @@ import RVS_UIKit_Toolbox
 /* ###################################################################################################################################### */
 /**
  This implements the stoplights running timer display.
+ 
+ It displays three round circles, and highlights each one, as that threshold is reached.
  */
 class RiValT_RunningTimer_Stoplights_ViewController: RiValT_RunningTimer_Base_ViewController {
     /* ############################################################## */

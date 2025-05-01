@@ -17,6 +17,7 @@ import RVS_Checkbox
 // MARK: - The Main Page View Controller for the Settings Screen -
 /* ###################################################################################################################################### */
 /**
+ This is a simple popover that shows a list of checkboxes and buttons, affecting global app preferences.
  */
 class RiValT_Settings_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
@@ -27,46 +28,61 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
     
     /* ############################################################## */
     /**
+     The checkbox for the "Start Immediately" preference.
      */
     @IBOutlet weak var startImmediatelyCheckbox: RVS_Checkbox?
     
     /* ############################################################## */
     /**
+     The label for the preference. It is actually a button, which toggles the setting.
      */
     @IBOutlet weak var startImmediatelyLabelButton: UIButton?
     
     /* ############################################################## */
     /**
+     The checkbox for the "One-Tap Edit" preference.
      */
     @IBOutlet weak var oneTapEditCheckbox: RVS_Checkbox?
     
     /* ############################################################## */
     /**
+     The label for the preference. It is actually a button, which toggles the setting.
      */
     @IBOutlet weak var oneTapEditLabelButton: UIButton?
-
+    
     /* ############################################################## */
     /**
+     The checkbox for the "Show Toolbar" preference.
      */
     @IBOutlet weak var showToolbarCheckbox: RVS_Checkbox?
     
     /* ############################################################## */
     /**
+     The label for the preference. It is actually a button, which toggles the setting.
      */
     @IBOutlet weak var showToolbarLabelButton: UIButton?
     
     /* ############################################################## */
     /**
+     The checkbox for the "Auto-Hide Toolbar" preference.
      */
     @IBOutlet weak var autoHideToolbarCheckbox: RVS_Checkbox?
     
     /* ############################################################## */
     /**
+     The label for the preference. It is actually a button, which toggles the setting.
      */
     @IBOutlet weak var autoHideToolbarLabelButton: UIButton?
-
+    
     /* ############################################################## */
     /**
+     This is a button that brings in the "About" screen.
+     */
+    @IBOutlet weak var showAboutScreenButton: UIButton?
+    
+    /* ############################################################## */
+    /**
+     This is the stack view that has the "Auto-Hide" checkbox. It only appears, if
      */
     @IBOutlet weak var autoHideStackView: UIStackView?
     
@@ -75,13 +91,13 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
      This calculates the size needed for the popover, and sets the property, which causes the popover to change.
      */
     private func _setPreferredContentSize() {
-        let height = (self.autoHideStackView?.isHidden ?? true) ? 138 : 176
+        let height = (self.autoHideStackView?.isHidden ?? true) ? 168 : 206
         
         UIView.animate(withDuration: 0.3) {
             self.preferredContentSize = CGSize(width: 270, height: height)
         }
     }
-
+    
     /* ############################################################## */
     /**
      Called when the view has loaded.
@@ -99,6 +115,11 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
     
     /* ############################################################## */
     /**
+     Called when the preference is changed.
+     
+     If the calling item is a button, the checkbox is toggled.
+     
+     - parameter inButton: The button (or chackbox).
      */
     @IBAction func startImmediatelyCheckboxValueChanged(_ inButton: UIControl) {
         guard let checkbox = inButton as? RVS_Checkbox
@@ -114,6 +135,11 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
     
     /* ############################################################## */
     /**
+     Called when the preference is changed.
+     
+     If the calling item is a button, the checkbox is toggled.
+     
+     - parameter inButton: The button (or chackbox).
      */
     @IBAction func oneTapEditCheckboxValueChanged(_ inButton: UIControl) {
         guard let checkbox = inButton as? RVS_Checkbox
@@ -126,9 +152,14 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         
         RiValT_Settings().oneTapEditing = checkbox.isOn
     }
-
+    
     /* ############################################################## */
     /**
+     Called when the preference is changed.
+     
+     If the calling item is a button, the checkbox is toggled.
+     
+     - parameter inButton: The button (or chackbox).
      */
     @IBAction func showToolbarCheckboxValueChanged(_ inButton: UIControl) {
         guard let checkbox = inButton as? RVS_Checkbox
@@ -155,6 +186,11 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
     
     /* ############################################################## */
     /**
+     Called when the preference is changed.
+     
+     If the calling item is a button, the checkbox is toggled.
+     
+     - parameter inButton: The button (or chackbox).
      */
     @IBAction func autoHideToolbarCheckboxValueChanged(_ inButton: UIControl) {
         guard let checkbox = inButton as? RVS_Checkbox
@@ -166,5 +202,18 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         }
         
         RiValT_Settings().autoHideToolbar = checkbox.isOn
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when the "Show About" button is hit.
+     
+     - parameter inButton: The button item (ignored).
+     */
+    @IBAction func aboutButtonHit(_ inButton: UIButton) {
+        if let callUpon = (self.presentingViewController as? UINavigationController)?.viewControllers.first as? RiValT_MultiTimer_ViewController {
+            callUpon.openAboutScreen()
+            self.dismiss(animated: true)
+        }
     }
 }

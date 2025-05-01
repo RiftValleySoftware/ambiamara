@@ -18,6 +18,8 @@ import RVS_RetroLEDDisplay
 /* ###################################################################################################################################### */
 /**
  This implements the numerical (LED numbers) running timer display.
+ 
+ It draws the LEDs, along with a blur filter (to give the "gas" appearance), and a hex grid layer (to simulate gas fluorescent displays).
  */
 class RiValT_RunningTimer_Numerical_ViewController: RiValT_RunningTimer_Base_ViewController {
     /* ############################################################## */

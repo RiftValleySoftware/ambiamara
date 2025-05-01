@@ -19,9 +19,9 @@ import CoreHaptics
 /**
  This implements a "wrapper" for the running timer views.
  
- It embeds the timer display (either numerical, circular, or stoplight), and handles the user interaction (the timer embed is read-only).
+ It embeds the timer display (either numerical, circular, or stoplight), and handles the all of the user interaction (the timer embed is read-only).
  
- This view has the timer instance, which is referenced by the embedded views.
+ This view references a timer instance, which, in turn, is also referenced by the embedded views.
  */
 class RiValT_RunningTimer_ContainerViewController: UIViewController {
     /* ############################################################## */

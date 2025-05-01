@@ -13,15 +13,17 @@ import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
-// MARK: - This will Draw the Circle -
+// MARK: - Circle-Drawing UIView -
 /* ###################################################################################################################################### */
 /**
  This draws the circle that represents elapsed time.
+ 
+ It does this by creating layers, each containing the portion of the timer that represents a threshold.
  */
 class RiValT_CirlcleDisplayView: UIView {
     /* ############################################################## */
     /**
-     The thickness of the line.
+     The thickness of the line. The actual circle is really just a fat line.
      */
     private static let _lineWidth = CGFloat(100.0)
     
@@ -142,6 +144,7 @@ class RiValT_CirlcleDisplayView: UIView {
                 
                 circleLayer.addSublayer(subLayer)
             }
+            
             self.layer.addSublayer(circleLayer)
         }
     }
@@ -152,6 +155,8 @@ class RiValT_CirlcleDisplayView: UIView {
 /* ###################################################################################################################################### */
 /**
  This implements the circular running timer display.
+ 
+ The display is a "donut ring," that is "eaten away," in a counterclockwise direction, as the timer progresses.
  */
 class RiValT_RunningTimer_Circular_ViewController: RiValT_RunningTimer_Base_ViewController {
     /* ############################################################## */
