@@ -45,6 +45,8 @@
 "SLUG-ACC-SHOW-TOOLBAR-CHECKBOX-HINT"           =   "If this checkbox is on, then running timers will have a toolbar shown, at the bottom of the screen, that will have visible controls for the timer. If it is off, then you have to use gestures to control the timer.";
 "SLUG-ACC-HIDE-TOOLBAR-CHECKBOX-LABEL"          =   "Auto-Hide The Running Timer Toolbar";
 "SLUG-ACC-HIDE-TOOLBAR-CHECKBOX-HINT"           =   "If this checkbox is on, then the toolbar at the bottom of the running timer screen, will fade away, after a few seconds. Tapping on the screen, will bring it back up. If it is off, the toolbar remains visible, at all times.";
+"SLUG-ACC-ABOUT-LABEL"                          =   "Display About Screen";
+"SLUG-ACC-ABOUT-HINT"                           =   "Selecting this button will take you to the \"About This App\" screen.";
 
 // MARK: - Display Settings Popover -
 

@@ -154,6 +154,7 @@
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tif-Pd-5DN">
                                         <rect key="frame" x="0.0" y="152" width="361" height="30"/>
+                                        <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-ABOUT-HINT" label="SLUG-ACC-ABOUT-LABEL"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="3EV-wL-uM8"/>
                                         </constraints>
