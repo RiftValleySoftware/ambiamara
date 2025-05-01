@@ -26,6 +26,12 @@ class RiValT_About_ViewController: RiValT_Base_ViewController {
     
     /* ################################################################## */
     /**
+     The app name is displayed here.
+     */
+    @IBOutlet weak var nameLabel: UILabel?
+    
+    /* ################################################################## */
+    /**
      The version is displayed here.
      */
     @IBOutlet weak var versionLabel: UILabel?
@@ -52,6 +58,7 @@ extension RiValT_About_ViewController {
         } else {
             appIconImageView?.isHidden = true
         }
+        nameLabel?.text = Bundle.main.appDisplayName
         versionLabel?.text =  String(format: "%@ (%@)", Bundle.main.appVersionString, Bundle.main.appVersionBuildString)
     }
 }
