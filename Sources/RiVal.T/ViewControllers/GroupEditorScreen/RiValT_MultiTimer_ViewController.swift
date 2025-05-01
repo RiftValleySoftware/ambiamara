@@ -1102,6 +1102,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         } else if (0..<(self.timerModel?.count ?? 0)).contains((inIndexPath.section)),
                   !(self.timerModel?[inIndexPath.section].isSelected ?? false) {
             self.timerModel?[inIndexPath.section].last?.isSelected = true
+            self.impactHaptic()
         } else {
             self.impactHaptic()
         }
