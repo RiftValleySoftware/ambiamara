@@ -46,16 +46,16 @@ class RiValT_RunningTimer_Numerical_ViewController: RiValT_RunningTimer_Base_Vie
     
     /* ############################################################## */
     /**
-     This allows us to cache hex points, so we don't need to keep regenerating them.
+     This is the density of the grid. It is this many hexagons high.
      */
-    private static var _cachedHex: (howBig: CGFloat, path: CGMutablePath) = (0.0, CGMutablePath())
-
+    private static let _gridDensity: CGFloat = 40
+    
     /* ############################################################## */
     /**
-     The same, for each hexagon.
+     This is the thickness of the hex grid lines.
      */
-    private static var _cachedHexagon: (howBig: CGFloat, points: [CGPoint]) = (0.0, [])
-    
+    private static let _gridLineWidth: CGFloat = 0.1
+
     /* ############################################################## */
     /**
      This is the main view, containing the digital display.
@@ -135,95 +135,94 @@ extension RiValT_RunningTimer_Numerical_ViewController {
         /**
          This returns a [CGMutablePath](https://developer.apple.com/documentation/coregraphics/cgmutablepath), describing a "pointy side up" hexagon.
          
-         - parameter inHowBig: The radius, in display units.
+         - parameter inRadius: The radius, in display units.
          
-         - returns: A [CGMutablePath](https://developer.apple.com/documentation/coregraphics/cgmutablepath), describing a "pointy side up" hexagon.
+         - returns: A tuple, containing a [CGMutablePath](https://developer.apple.com/documentation/coregraphics/cgmutablepath), describing a "pointy side up" hexagon, and the size of the hexagon.
          */
-        func _getHexPath(_ inHowBig: CGFloat) -> CGMutablePath {
+        func _getHexPath(radius inRadius: CGFloat) -> (CGMutablePath, CGSize) {
             /* ########################################################## */
             /**
-             This returns an array of points, describing a "pointing up" hexagon.
-             
-             - parameter inHowBig: The radius, in display units.
-             
-             - returns: An array of CGPoint, mapping out the hexagon.
+             Internal static cache struct.
              */
-            func _pointySideUpHexagon(_ inHowBig: CGFloat) -> [CGPoint] {
-                guard self._cachedHexagon.howBig != inHowBig else { return self._cachedHexagon.points }
-                
-                let angle = CGFloat(60).radians
-                let cx = CGFloat(inHowBig)  // x origin
-                let cy = CGFloat(inHowBig)  // y origin
-                let r = CGFloat(inHowBig)   // radius of circle
-                var points = [CGPoint]()
-                var minX: CGFloat = inHowBig * 2
-                var maxX: CGFloat = 0
-                for i in 0...6 {
-                    let x = cx + r * cos(angle * CGFloat(i) - CGFloat(30).radians)
-                    let y = cy + r * sin(angle * CGFloat(i) - CGFloat(30).radians)
-                    minX = min(minX, x)
-                    maxX = max(maxX, x)
-                    points.append(CGPoint(x: x, y: y))
-                }
-                
-                for i in points.enumerated() {
-                    points[i.offset] = CGPoint(x: i.element.x - minX, y: i.element.y)
-                }
-                
-                self._cachedHexagon = (inHowBig, points)
-                
-                return points
+            struct _HexCache {
+                static var hexPath = CGMutablePath()
+                static var hexSize = CGFloat(-1)
+                static var hexBoxSize = CGSize.zero
+            }
+
+            // Look for cache break. Otherwise, return our cache.
+            guard _HexCache.hexSize != inRadius else { return (_HexCache.hexPath, _HexCache.hexBoxSize) }
+
+            let angle = CGFloat(60).radians
+            let cx = inRadius
+            let cy = inRadius
+            let r = inRadius
+            var points = [CGPoint]()
+            var minX: CGFloat = inRadius * 2
+            for i in 0...6 {
+                let x = cx + r * cos(angle * CGFloat(i) - CGFloat(30).radians)
+                let y = cy + r * sin(angle * CGFloat(i) - CGFloat(30).radians)
+                minX = min(minX, x)
+                points.append(CGPoint(x: x, y: y))
             }
             
-            guard self._cachedHex.howBig != radius else { return self._cachedHex.path }
-            
+            for i in points.indices {
+                points[i].x -= minX
+            }
+
             let path = CGMutablePath()
-            let points = _pointySideUpHexagon(inHowBig)
-            let cpg = points[0]
-            path.move(to: cpg)
-            points.forEach { path.addLine(to: $0) }
+            
+            path.move(to: points[0])
+            for point in points.dropFirst() {
+                path.addLine(to: point)
+            }
+            
             path.closeSubpath()
-            self._cachedHex = (inHowBig, path)
-            return path
+
+            let boundingBox = path.boundingBox.size
+            
+            _HexCache.hexPath = path
+            _HexCache.hexSize = inRadius
+            _HexCache.hexBoxSize = boundingBox
+
+            return (path, boundingBox)
         }
+
+        let hexWidth: CGFloat = inBounds.height / Self._gridDensity
+        let radius = hexWidth / 2
+        let (hexPath, hexBoxSize) = _getHexPath(radius: radius)
+
+        let oneHexWidth = hexBoxSize.width
+        let oneHexHeight = hexBoxSize.height
+        let halfWidth = oneHexWidth / 2
+        let nudgeY = radius + ((oneHexHeight - oneHexWidth) * 2)
+
+        let cols = Int(ceil(inBounds.width / oneHexWidth)) + 1
+        let rows = Int(ceil(inBounds.height / nudgeY)) + 1
 
         let path = CGMutablePath()
-        let sHexagonWidth = CGFloat(inBounds.size.height) / 40
-        let radius: CGFloat = sHexagonWidth / 2
-        
-        let hexPath: CGMutablePath = _getHexPath(radius)
-        let oneHexWidth = hexPath.boundingBox.size.width
-        let oneHexHeight = hexPath.boundingBox.size.height
-        
-        let halfWidth = oneHexWidth / 2.0
-        var nudgeX: CGFloat = 0
-        let nudgeY: CGFloat = radius + ((oneHexHeight - oneHexWidth) * 2)
-        
-        var yOffset: CGFloat = 0
-        while yOffset < inBounds.size.height {
-            var xOffset = nudgeX
-            while xOffset < inBounds.size.width {
-                let transform = CGAffineTransform(translationX: xOffset, y: yOffset)
+
+        for row in 0..<rows {
+            let offsetX = (row % 2 == 0) ? 0 : halfWidth
+            for col in 0..<cols {
+                let x = CGFloat(col) * oneHexWidth + offsetX
+                let y = CGFloat(row) * nudgeY
+                let transform = CGAffineTransform(translationX: x, y: y)
                 path.addPath(hexPath, transform: transform)
-                xOffset += oneHexWidth
             }
-            
-            nudgeX = (0 < nudgeX) ? 0: halfWidth
-            yOffset += nudgeY
         }
 
-        UIGraphicsBeginImageContextWithOptions(inBounds.size, false, 0.0)
-        if let drawingContext = UIGraphicsGetCurrentContext() {
-            drawingContext.addPath(path)
-            drawingContext.setLineWidth(0.1)
-            drawingContext.setStrokeColor(UIColor.gray.withAlphaComponent(0.8).cgColor)
-            drawingContext.setFillColor(UIColor.clear.cgColor)
-            drawingContext.strokePath()
+        let strokeColor = UIColor.gray.withAlphaComponent(0.8).cgColor
+        let clearColor = UIColor.clear.cgColor
+        
+        return UIGraphicsImageRenderer(size: inBounds.size).image { inContext in
+            let ctx = inContext.cgContext
+            ctx.addPath(path)
+            ctx.setLineWidth(Self._gridLineWidth)
+            ctx.setStrokeColor(strokeColor)
+            ctx.setFillColor(clearColor)
+            ctx.strokePath()
         }
-        
-        defer { UIGraphicsEndImageContext() }
-        
-        return UIGraphicsGetImageFromCurrentImageContext()
     }
 }
 
@@ -277,7 +276,10 @@ extension RiValT_RunningTimer_Numerical_ViewController {
         if !isHighContrastMode,
            let bounds = digitContainerInternalView?.bounds,
            (hexGridImageView?.image?.size ?? .zero) != bounds.size {
-            DispatchQueue.main.async { self.hexGridImageView?.image = Self._generateHexOverlayImage(bounds) }
+            DispatchQueue(label: "generateHex").async {
+                let hexGrid = Self._generateHexOverlayImage(bounds)
+                DispatchQueue.main.async { self.hexGridImageView?.image = hexGrid }
+            }
         }
     }
 

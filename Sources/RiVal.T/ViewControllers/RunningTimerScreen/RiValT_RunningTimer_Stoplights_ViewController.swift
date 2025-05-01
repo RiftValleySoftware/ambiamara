@@ -21,6 +21,12 @@ import RVS_UIKit_Toolbox
 class RiValT_RunningTimer_Stoplights_ViewController: RiValT_RunningTimer_Base_ViewController {
     /* ############################################################## */
     /**
+     The opacity, when the display is disabled.
+     */
+    private static let _disabledOpacity = CGFloat(0.25)
+
+    /* ############################################################## */
+    /**
      The stack view that contains the three stoplights.
      */
     @IBOutlet var stoplightContainerInternalView: UIView?
@@ -53,26 +59,30 @@ extension RiValT_RunningTimer_Stoplights_ViewController {
      This forces the display to refresh.
      */
     override func updateUI() {
-        if !(self.timer?.isTimerRunning ?? false) {
-            self.redLightImageView?.alpha = 0.25
-            self.yellowLightImageView?.alpha = 0.25
-            self.greenLightImageView?.alpha = 0.25
+        if self.timer?.isTimerInAlarm ?? false {
+            self.redLightImageView?.alpha = 1.0
+            self.yellowLightImageView?.alpha = 1.0
+            self.greenLightImageView?.alpha = 1.0
+        } else if !(self.timer?.isTimerRunning ?? false) {
+            self.redLightImageView?.alpha = Self._disabledOpacity
+            self.yellowLightImageView?.alpha = Self._disabledOpacity
+            self.greenLightImageView?.alpha = Self._disabledOpacity
         } else if self.timer?.isTimerInFinal ?? false {
             self.redLightImageView?.alpha = 1.0
-            self.yellowLightImageView?.alpha = 0.25
-            self.greenLightImageView?.alpha = 0.25
+            self.yellowLightImageView?.alpha = Self._disabledOpacity
+            self.greenLightImageView?.alpha = Self._disabledOpacity
         } else if self.timer?.isTimerInWarning ?? false {
-            self.redLightImageView?.alpha = 0.25
+            self.redLightImageView?.alpha = Self._disabledOpacity
             self.yellowLightImageView?.alpha = 1.0
-            self.greenLightImageView?.alpha = 0.25
+            self.greenLightImageView?.alpha = Self._disabledOpacity
         } else if self.timer?.isTimerRunning ?? false {
-            self.redLightImageView?.alpha = 0.25
-            self.yellowLightImageView?.alpha = 0.25
+            self.redLightImageView?.alpha = Self._disabledOpacity
+            self.yellowLightImageView?.alpha = Self._disabledOpacity
             self.greenLightImageView?.alpha = 1.0
         } else {
-            self.redLightImageView?.alpha = 0.25
-            self.yellowLightImageView?.alpha = 0.25
-            self.greenLightImageView?.alpha = 0.25
+            self.redLightImageView?.alpha = Self._disabledOpacity
+            self.yellowLightImageView?.alpha = Self._disabledOpacity
+            self.greenLightImageView?.alpha = Self._disabledOpacity
         }
     }
 }

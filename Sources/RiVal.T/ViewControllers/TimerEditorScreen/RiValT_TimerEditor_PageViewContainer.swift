@@ -64,6 +64,12 @@ class RiValT_TimerEditor_PageViewContainer: RiValT_Base_ViewController {
      The toolbar at the bottom.
      */
     @IBOutlet weak var toolbar: UIToolbar?
+    
+    /* ############################################################## */
+    /**
+     The delete button, in the navbar.
+     */
+    @IBOutlet weak var deleteBarButton: UIBarButtonItem?
 }
 
 /* ###################################################################################################################################### */
@@ -130,6 +136,7 @@ extension RiValT_TimerEditor_PageViewContainer {
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
         self.navigationController?.isNavigationBarHidden = false
+        self.deleteBarButton?.isEnabled = 1 < (self.timer?.model?.allTimers.count ?? 0)
     }
 
     /* ############################################################## */
@@ -151,7 +158,7 @@ extension RiValT_TimerEditor_PageViewContainer {
 }
 
 /* ###################################################################################################################################### */
-// MARK: Base Class Overrides
+// MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_TimerEditor_PageViewContainer {
     /* ############################################################## */
@@ -169,7 +176,8 @@ extension RiValT_TimerEditor_PageViewContainer {
 
             for index in 0..<timerGroup.count {
                 let timerButton = UIBarButtonItem()
-                timerButton.image = UIImage(systemName: "\(index + 1).square\(index == timerIndexPath.item ? ".fill" : "")")?.applyingSymbolConfiguration(.init(pointSize: 24))
+                timerButton.image = UIImage(systemName: "\(index + 1).square\(index == timerIndexPath.item ? ".fill" : "")")?.applyingSymbolConfiguration(.init(pointSize: 40))
+                timerButton.imageInsets = .init(top: 0, left: 0, bottom: 0, right: 0)
                 timerButton.isEnabled = index != timerIndexPath.item
                 timerButton.target = self
                 timerButton.tag = index
@@ -206,6 +214,56 @@ extension RiValT_TimerEditor_PageViewContainer {
 // MARK: Callbacks
 /* ###################################################################################################################################### */
 extension RiValT_TimerEditor_PageViewContainer {
+    /* ############################################################## */
+    /**
+     The delete button in the navbar was hit.
+     */
+    @IBAction func deleteButtonHit(_ inButton: UIBarButtonItem) {
+        func _executeDelete() {
+            guard let timer = self.timerModel.selectedTimer,
+                  let indexPath = timer.indexPath,
+                  1 < self.timerModel.allTimers.count
+            else { return }
+            
+            self.timerModel.removeTimer(from: indexPath)
+
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        let messageText = "SLUG-DELETE-2-CONFIRM-MESSAGE"
+        
+        let alertController = UIAlertController(title: "SLUG-DELETE-2-CONFIRM-HEADER", message: messageText, preferredStyle: .alert)
+        
+        // This simply displays the main message as left-aligned.
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = NSTextAlignment.left
+
+        let attributedMessageText = NSMutableAttributedString(
+            string: messageText,
+            attributes: [
+                NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body),
+                NSAttributedString.Key.foregroundColor: UIColor.label
+            ]
+        )
+        
+        alertController.setValue(attributedMessageText, forKey: "attributedMessage")
+        
+        let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive) { _ in _executeDelete() }
+        
+        alertController.addAction(okAction)
+
+        let cancelAction = UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel, handler: nil)
+
+        alertController.addAction(cancelAction)
+
+        self.impactHaptic(1.0)
+
+        alertController.localizeStuff()
+        
+        present(alertController, animated: true, completion: nil)
+    }
+
     /* ############################################################## */
     /**
      Called when one of the numbered timer squares in the toolbar is hit.

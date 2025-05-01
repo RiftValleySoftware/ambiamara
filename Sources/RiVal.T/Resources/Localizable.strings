@@ -117,6 +117,9 @@
 "SLUG-GROUP-SETTINGS"                           =   "Group Settings";
 "SLUG-SETTINGS-FORMAT"                          =   "Settings for Group %d";
 
+"SLUG-DELETE-2-CONFIRM-HEADER"                  =   "Delete This Timer?";
+"SLUG-DELETE-2-CONFIRM-MESSAGE"                 =   "If you select “Delete Timer”, this timer will be permanently removed from the app.";
+
 // MARK: Display Settings Popover
 
 "SLUG-DISPLAY-FORMAT"                           =   "Display Settings for Group %d";
