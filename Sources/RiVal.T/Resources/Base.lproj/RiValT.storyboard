@@ -153,11 +153,11 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tif-Pd-5DN">
-                                        <rect key="frame" x="0.0" y="152" width="173" height="30"/>
+                                        <rect key="frame" x="0.0" y="152" width="361" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="3EV-wL-uM8"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="SLUG-ABOUT-BUTTON"/>
                                         <connections>
@@ -170,9 +170,11 @@
                                     <constraint firstAttribute="trailing" secondItem="tyf-Ot-qnt" secondAttribute="trailing" id="Qsi-UW-0cq"/>
                                     <constraint firstItem="tyf-Ot-qnt" firstAttribute="leading" secondItem="2rx-W2-3dV" secondAttribute="leading" id="cDl-Ob-EJG"/>
                                     <constraint firstItem="hVc-TM-7HX" firstAttribute="leading" secondItem="2rx-W2-3dV" secondAttribute="leading" id="eRm-Jw-Jtm"/>
+                                    <constraint firstAttribute="trailing" secondItem="tif-Pd-5DN" secondAttribute="trailing" id="gfV-0Q-hO8"/>
                                     <constraint firstItem="nJo-BV-SnL" firstAttribute="leading" secondItem="2rx-W2-3dV" secondAttribute="leading" id="jRa-XM-GgP"/>
                                     <constraint firstAttribute="trailing" secondItem="hVc-TM-7HX" secondAttribute="trailing" id="jTA-1N-J1C"/>
                                     <constraint firstAttribute="trailing" secondItem="nJo-BV-SnL" secondAttribute="trailing" id="qmm-Fl-1dn"/>
+                                    <constraint firstItem="tif-Pd-5DN" firstAttribute="leading" secondItem="2rx-W2-3dV" secondAttribute="leading" id="tuD-QN-OJr"/>
                                     <constraint firstItem="gv8-lP-sBY" firstAttribute="leading" secondItem="2rx-W2-3dV" secondAttribute="leading" id="uXh-Ke-D3B"/>
                                 </constraints>
                             </stackView>
@@ -452,7 +454,7 @@
                                         </state>
                                         <state key="disabled">
                                             <imageReference key="image" image="play.slash" catalog="system" symbolScale="large"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="26"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
                                         </state>
                                         <connections>
                                             <action selector="playButtonHit:" destination="JlO-Oc-S3P" eventType="touchUpInside" id="yRf-a4-vsR"/>
@@ -582,6 +584,7 @@
                                 <rect key="frame" x="169.66666666666666" y="162" width="54" height="54"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="54" id="DHw-Mb-VB1"/>
+                                    <constraint firstAttribute="width" secondItem="uQs-qb-BPd" secondAttribute="height" multiplier="1:1" id="rTu-5s-vxL"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -589,33 +592,15 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRr-Z1-yUk" userLabel="Name Label">
-                                <rect key="frame" x="196.66666666666666" y="224" width="0.0" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="adv-wc-zhI"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" indicatorStyle="white" maximumZoomScale="2" editable="NO" text="SLUG-ABOUT-MAIN-TEXT" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wli-nW-nlY">
-                                <rect key="frame" x="16" y="272" width="361" height="512"/>
+                                <rect key="frame" x="16" y="224" width="361" height="560"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JHZ-C5-f2v">
-                                <rect key="frame" x="196.66666666666666" y="252" width="0.0" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="ZEM-sc-bWM"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QPM-pG-ZVw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -623,22 +608,15 @@
                             <constraint firstItem="wli-nW-nlY" firstAttribute="leading" secondItem="QPM-pG-ZVw" secondAttribute="leading" constant="16" id="0VY-ac-dua"/>
                             <constraint firstItem="uQs-qb-BPd" firstAttribute="top" secondItem="QPM-pG-ZVw" secondAttribute="top" id="2Le-fS-dLZ"/>
                             <constraint firstItem="QPM-pG-ZVw" firstAttribute="trailing" secondItem="wli-nW-nlY" secondAttribute="trailing" constant="16" id="8ZH-7R-2dP"/>
-                            <constraint firstItem="wli-nW-nlY" firstAttribute="top" secondItem="JHZ-C5-f2v" secondAttribute="bottom" id="8pG-cX-NUy"/>
-                            <constraint firstItem="qRr-Z1-yUk" firstAttribute="centerX" secondItem="Sn0-05-JMz" secondAttribute="centerX" id="Aso-zb-cbO"/>
-                            <constraint firstItem="JHZ-C5-f2v" firstAttribute="centerX" secondItem="Sn0-05-JMz" secondAttribute="centerX" id="QsB-pj-XXE"/>
                             <constraint firstItem="QPM-pG-ZVw" firstAttribute="bottom" secondItem="wli-nW-nlY" secondAttribute="bottom" id="RGz-Cg-t2B"/>
-                            <constraint firstItem="qRr-Z1-yUk" firstAttribute="top" secondItem="uQs-qb-BPd" secondAttribute="bottom" constant="8" symbolic="YES" id="aDx-Yc-5aa"/>
+                            <constraint firstItem="wli-nW-nlY" firstAttribute="top" secondItem="uQs-qb-BPd" secondAttribute="bottom" constant="8" symbolic="YES" id="hka-Sh-IqZ"/>
                             <constraint firstItem="uQs-qb-BPd" firstAttribute="centerX" secondItem="Sn0-05-JMz" secondAttribute="centerX" id="iHY-03-VP0"/>
-                            <constraint firstItem="uQs-qb-BPd" firstAttribute="width" secondItem="uQs-qb-BPd" secondAttribute="height" multiplier="1:1" id="rTu-5s-vxL"/>
-                            <constraint firstItem="JHZ-C5-f2v" firstAttribute="top" secondItem="qRr-Z1-yUk" secondAttribute="bottom" constant="8" id="zVV-2v-vYT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="SLUG-ABOUT-BUTTON" id="1x6-4Q-gxl"/>
                     <connections>
                         <outlet property="aboutText" destination="wli-nW-nlY" id="VVO-rg-gqz"/>
                         <outlet property="appIconImageView" destination="uQs-qb-BPd" id="yz2-dY-47P"/>
-                        <outlet property="nameLabel" destination="qRr-Z1-yUk" id="tjv-wI-vEK"/>
-                        <outlet property="versionLabel" destination="JHZ-C5-f2v" id="thB-BL-Tp9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aJp-Ud-hRK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

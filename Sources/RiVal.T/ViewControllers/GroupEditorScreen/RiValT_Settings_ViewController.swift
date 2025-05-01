@@ -212,6 +212,7 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
      */
     @IBAction func aboutButtonHit(_ inButton: UIButton) {
         if let callUpon = (self.presentingViewController as? UINavigationController)?.viewControllers.first as? RiValT_MultiTimer_ViewController {
+            self.impactHaptic()
             callUpon.openAboutScreen()
             self.dismiss(animated: true)
         }

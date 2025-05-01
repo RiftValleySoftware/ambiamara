@@ -50,8 +50,15 @@ class RiValT_TimerEditor_PageViewController: UIPageViewController {
 class RiValT_TimerEditor_PageViewContainer: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
+     The page view controller that manages the group of timer screens.
      */
     weak var pageViewController: RiValT_TimerEditor_PageViewController?
+    
+    /* ############################################################## */
+    /**
+     If there is a string here, it is used as the title of the screen, instead of the format.
+     */
+    var optionalTitle: String?
     
     /* ############################################################## */
     /**
@@ -61,7 +68,7 @@ class RiValT_TimerEditor_PageViewContainer: RiValT_Base_ViewController {
 
     /* ############################################################## */
     /**
-     The toolbar at the bottom.
+     The toolbar at the bottom. This acts like a page control.
      */
     @IBOutlet weak var toolbar: UIToolbar?
     
@@ -195,16 +202,17 @@ extension RiValT_TimerEditor_PageViewContainer {
             if 1 < self.timerModel.count {
                 titleString += String(format: "SLUG-PAREN-GROUP-FORMAT".localizedVariant, timerIndexPath.section + 1)
             }
-            self.navigationItem.title = titleString
+            self.navigationItem.title = self.optionalTitle ?? titleString
         } else {
             self.toolbar?.isHidden = true
             var titleString = "SLUG-EDIT-TIMER".localizedVariant
             if 1 < self.timerModel.count {
                 titleString += String(format: "SLUG-PAREN-GROUP-FORMAT".localizedVariant, timerIndexPath.section + 1)
             }
-            self.navigationItem.title = titleString
+            self.navigationItem.title = self.optionalTitle ?? titleString
         }
         
+        self.optionalTitle = nil
         self.toolbar?.setNeedsLayout()
         self.toolbar?.layoutIfNeeded()
     }

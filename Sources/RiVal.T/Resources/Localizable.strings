@@ -92,6 +92,7 @@
 "SLUG-DELETE-CONFIRM-MESSAGE"                   =   "If you select “Delete Timer”, the selected timer will be permanently removed from the app.";
 "SLUG-TIMERS"                                   =   "All Timers";
 "SLUG-TIMERS-BACK"                              =   "Timers";
+"SLUG-NEW-TIMER"                                =   "New Timer";
 
 // MARK: Settings Screen
 
@@ -138,4 +139,16 @@
 
 // MARK: About Screen
 
-"SLUG-ABOUT-MAIN-TEXT"                          = "RiVal.T is the ultimate timer app!\n\nIt allows you to create as many timers as you like, and assign them to \"groups\" of timers, where they are run sequentially (one after another).";
+"SLUG-NAME-VERSION-FORMAT"                      =   "%@ - %@ (%@)";
+"SLUG-ABOUT-MAIN-TEXT"                          =   "This is a simple countdown timer app. It counts down in seconds and sounds an alarm when it reaches zero. You can set timers up to 23 hours, 59 minutes, and 59 seconds.
+    
+Create as many timers as you like and organize them into groups, where they run sequentially. You can drag and drop timers between groups.
+
+Each timer has two optional thresholds: a warning (yellow) and a final (red), indicating you’re nearing the end.
+
+You can set short transition sounds between timers in a group, and a final ending alarm when all timers in a group finish.
+
+There are three large, easy-to-read displays:
+    • NUMERIC: A classic digital-style countdown.
+    • CIRCULAR: A donut-shaped timer that empties as time passes.
+    • STOPLIGHTS: Green, yellow, and red lights that change as thresholds are reached—ideal for debates.";

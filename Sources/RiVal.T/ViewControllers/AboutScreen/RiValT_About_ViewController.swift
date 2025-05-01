@@ -26,18 +26,6 @@ class RiValT_About_ViewController: RiValT_Base_ViewController {
     
     /* ################################################################## */
     /**
-     The app name is displayed here.
-     */
-    @IBOutlet weak var nameLabel: UILabel?
-    
-    /* ################################################################## */
-    /**
-     The version is displayed here.
-     */
-    @IBOutlet weak var versionLabel: UILabel?
-    
-    /* ################################################################## */
-    /**
      This is the main about text.
      */
     @IBOutlet weak var aboutText: UITextView?
@@ -58,7 +46,6 @@ extension RiValT_About_ViewController {
         } else {
             appIconImageView?.isHidden = true
         }
-        nameLabel?.text = Bundle.main.appDisplayName
-        versionLabel?.text =  String(format: "%@ (%@)", Bundle.main.appVersionString, Bundle.main.appVersionBuildString)
+        navigationItem.title = String(format: "SLUG-NAME-VERSION-FORMAT".localizedVariant, Bundle.main.appDisplayName, Bundle.main.appVersionString, Bundle.main.appVersionBuildString)
     }
 }

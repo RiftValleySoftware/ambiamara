@@ -558,6 +558,10 @@ extension RiValT_MultiTimer_ViewController {
         if let destination = inSegue.destination as? RiValT_RunningTimer_ContainerViewController,
            let timer = inData as? Timer {
             destination.timer = timer
+        } else if let destination = inSegue.destination as? RiValT_TimerEditor_PageViewContainer,
+                  let optionalString = inData as? String,
+                  !optionalString.isEmpty {
+            destination.optionalTitle = optionalString
         }
     }
 }
@@ -902,8 +906,8 @@ extension RiValT_MultiTimer_ViewController {
     /**
      Called to segue to the editor screen.
      */
-    func goEditYourself() {
-        self.performSegue(withIdentifier: Self._timerEditSegueID, sender: nil)
+    func goEditYourself(optionalTitle inTitle: String? = nil) {
+        self.performSegue(withIdentifier: Self._timerEditSegueID, sender: inTitle)
     }
 
     /* ############################################################## */
@@ -1086,11 +1090,14 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
     ) {
         var shouldScroll = false
         var shouldEdit = RiValT_Settings().oneTapEditing
+        var optionalTitle: String?
+        
         if nil == self.timerModel.getTimer(at: inIndexPath) {
             self.timerModel.createNewTimer(at: inIndexPath)
             self.impactHaptic(1.0)
             shouldScroll = true
             shouldEdit = true
+            optionalTitle = "SLUG-NEW-TIMER".localizedVariant
         } else {
             self.impactHaptic()
         }
@@ -1110,7 +1117,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         }
         
         if shouldEdit {
-            self.goEditYourself()
+            self.goEditYourself(optionalTitle: optionalTitle)
         }
     }
 }

@@ -166,13 +166,11 @@ extension TimerModel {
      - parameter inFrom: Optional. If provided, then it is the source path of the item (for moving within a full groaup).
      */
     func canInsertTimer(at inIndexPath: IndexPath, from inFrom: IndexPath? = nil) -> Bool {
-        guard (0...self.count).contains(inIndexPath.section),
-              let from = inFrom
-        else { return false }
+        guard (0...self.count).contains(inIndexPath.section) else { return false }
         
         if inIndexPath.section < self.count {
             if self[inIndexPath.section].count == TimerGroup.maxTimersInGroup {
-                return from.section == inIndexPath.section && self[inIndexPath.section].count <= TimerGroup.maxTimersInGroup
+                return nil != inFrom && inFrom!.section == inIndexPath.section && self[inIndexPath.section].count <= TimerGroup.maxTimersInGroup
             } else {
                 return self[inIndexPath.section].count < TimerGroup.maxTimersInGroup
             }
