@@ -21,94 +21,42 @@ import RVS_UIKit_Toolbox
 class RiValT_CirlcleDisplayView: UIView {
     /* ############################################################## */
     /**
+     The thickness of the line.
      */
-    static let lineWidth = CGFloat(100.0)
+    private static let _lineWidth = CGFloat(100.0)
     
     /* ############################################################## */
     /**
+     The proportion of the total display, occupied by this display.
+     */
+    private static let _circleRadiusProportion = CGFloat(0.75)
+    
+    /* ############################################################## */
+    /**
+     The opacity, when the display is disabled.
+     */
+    private static let _disabledOpacity = Float(0.25)
+    
+    /* ############################################################## */
+    /**
+     The timer assigned to this instance.
      */
     weak var timer: Timer? { didSet { self.setNeedsLayout() } }
     
     /* ############################################################## */
     /**
+     Called when the subviews are laid out. We create the circle here.
      */
     override func layoutSubviews() {
-        self.layer.sublayers?.removeAll()
         guard let timer = self.timer else { return }
         
-        let finalTimeInSeconds = (timer.finalTimeInSeconds + 1) < timer.startingTimeInSeconds ? timer.finalTimeInSeconds : timer.startingTimeInSeconds
-        let warningTimeInSeconds = (timer.warningTimeInSeconds + 1) < timer.startingTimeInSeconds ? timer.warningTimeInSeconds : timer.startingTimeInSeconds
-        
-        let fullcircle = CGFloat.pi * 2
-        let startingLocation: CGFloat = .pi / -2
-        let finalThreshold = max(0, (CGFloat(finalTimeInSeconds) / CGFloat(timer.startingTimeInSeconds)) * fullcircle)
-        let warningThreshold = max(0, ((CGFloat(warningTimeInSeconds) / CGFloat(timer.startingTimeInSeconds)) * fullcircle) - finalThreshold)
-        let currentPosition = ((CGFloat(timer.currentTime) / CGFloat(timer.startingTimeInSeconds)) * fullcircle) + startingLocation
-        
-        let finalRange = startingLocation..<(finalThreshold + startingLocation)
-        let warningRange = finalRange.upperBound..<(warningThreshold + finalRange.upperBound)
-        let startingRange = warningRange.upperBound..<(startingLocation + fullcircle)
-        
-        if currentPosition >= finalRange.lowerBound,
-           !finalRange.isEmpty {
+        self.layer.sublayers?.removeAll()
+
+        if timer.isTimerInAlarm,
+           !timer.isTimerRunning {
             let path = UIBezierPath(
                 arcCenter: CGPoint(x: bounds.midX, y: bounds.midY),
-                radius: min(bounds.midX, bounds.midY) * 0.75,
-                startAngle: finalRange.lowerBound,
-                endAngle: min(currentPosition, finalRange.upperBound),
-                clockwise: true
-                )
-
-            let subLayer = CAShapeLayer()
-            subLayer.path = path.cgPath
-            subLayer.strokeColor = UIColor(named: "Final-Color")?.cgColor
-            subLayer.fillColor = nil
-            subLayer.lineWidth = Self.lineWidth
-
-            self.layer.addSublayer(subLayer)
-        }
-        
-        if currentPosition >= warningRange.lowerBound,
-           !warningRange.isEmpty {
-            let path = UIBezierPath(
-                arcCenter: CGPoint(x: bounds.midX, y: bounds.midY),
-                radius: min(bounds.midX, bounds.midY) * 0.75,
-                startAngle: warningRange.lowerBound,
-                endAngle: min(currentPosition, warningRange.upperBound),
-                clockwise: true
-                )
-
-            let subLayer = CAShapeLayer()
-            subLayer.path = path.cgPath
-            subLayer.strokeColor = UIColor(named: "Warn-Color")?.cgColor
-            subLayer.fillColor = nil
-            subLayer.lineWidth = Self.lineWidth
-
-            self.layer.addSublayer(subLayer)
-        }
-    
-        if currentPosition >= startingRange.lowerBound {
-            let path = UIBezierPath(
-                arcCenter: CGPoint(x: bounds.midX, y: bounds.midY),
-                radius: min(bounds.midX, bounds.midY) * 0.75,
-                startAngle: startingRange.lowerBound,
-                endAngle: min(currentPosition, startingRange.upperBound),
-                clockwise: true
-                )
-
-            let subLayer = CAShapeLayer()
-            subLayer.path = path.cgPath
-            subLayer.strokeColor = UIColor(named: "Start-Color")?.cgColor
-            subLayer.fillColor = nil
-            subLayer.lineWidth = Self.lineWidth
-
-            self.layer.addSublayer(subLayer)
-        }
-        
-        if timer.isTimerInAlarm {
-            let path = UIBezierPath(
-                arcCenter: CGPoint(x: bounds.midX, y: bounds.midY),
-                radius: min(bounds.midX, bounds.midY) * 0.75,
+                radius: min(bounds.midX, bounds.midY) * Self._circleRadiusProportion,
                 startAngle: 0,
                 endAngle: 2 * .pi,
                 clockwise: true
@@ -118,9 +66,83 @@ class RiValT_CirlcleDisplayView: UIView {
             subLayer.path = path.cgPath
             subLayer.strokeColor = UIColor(named: "Final-Color")?.cgColor
             subLayer.fillColor = UIColor(named: "Final-Color")?.cgColor
-            subLayer.lineWidth = Self.lineWidth
+            subLayer.lineWidth = Self._lineWidth
 
             self.layer.addSublayer(subLayer)
+        } else {
+            let circleLayer = CAShapeLayer()
+            let finalTimeInSeconds = (timer.finalTimeInSeconds + 1) < timer.startingTimeInSeconds ? timer.finalTimeInSeconds : timer.startingTimeInSeconds
+            let warningTimeInSeconds = (timer.warningTimeInSeconds + 1) < timer.startingTimeInSeconds ? timer.warningTimeInSeconds : timer.startingTimeInSeconds
+            
+            let fullcircle = CGFloat.pi * 2
+            let startingLocation: CGFloat = .pi / -2
+            let finalThreshold = max(0, (CGFloat(finalTimeInSeconds) / CGFloat(timer.startingTimeInSeconds)) * fullcircle)
+            let warningThreshold = max(0, ((CGFloat(warningTimeInSeconds) / CGFloat(timer.startingTimeInSeconds)) * fullcircle) - finalThreshold)
+            let currentPosition = ((CGFloat(timer.currentTime) / CGFloat(timer.startingTimeInSeconds)) * fullcircle) + startingLocation
+            
+            let finalRange = startingLocation..<(finalThreshold + startingLocation)
+            let warningRange = finalRange.upperBound..<(warningThreshold + finalRange.upperBound)
+            let startingRange = warningRange.upperBound..<(startingLocation + fullcircle)
+            
+            if currentPosition >= finalRange.lowerBound,
+               !finalRange.isEmpty {
+                let path = UIBezierPath(
+                    arcCenter: CGPoint(x: bounds.midX, y: bounds.midY),
+                    radius: min(bounds.midX, bounds.midY) * Self._circleRadiusProportion,
+                    startAngle: finalRange.lowerBound,
+                    endAngle: min(currentPosition, finalRange.upperBound),
+                    clockwise: true
+                )
+                
+                let subLayer = CAShapeLayer()
+                subLayer.path = path.cgPath
+                subLayer.strokeColor = UIColor(named: "Final-Color")?.cgColor
+                subLayer.fillColor = nil
+                subLayer.lineWidth = Self._lineWidth
+                subLayer.opacity = timer.isTimerRunning ? 1 : Self._disabledOpacity
+                
+                circleLayer.addSublayer(subLayer)
+            }
+            
+            if currentPosition >= warningRange.lowerBound,
+               !warningRange.isEmpty {
+                let path = UIBezierPath(
+                    arcCenter: CGPoint(x: bounds.midX, y: bounds.midY),
+                    radius: min(bounds.midX, bounds.midY) * Self._circleRadiusProportion,
+                    startAngle: warningRange.lowerBound,
+                    endAngle: min(currentPosition, warningRange.upperBound),
+                    clockwise: true
+                )
+                
+                let subLayer = CAShapeLayer()
+                subLayer.path = path.cgPath
+                subLayer.strokeColor = UIColor(named: "Warn-Color")?.cgColor
+                subLayer.fillColor = nil
+                subLayer.lineWidth = Self._lineWidth
+                subLayer.opacity = timer.isTimerRunning ? 1 : Self._disabledOpacity
+                
+                circleLayer.addSublayer(subLayer)
+            }
+            
+            if currentPosition >= startingRange.lowerBound {
+                let path = UIBezierPath(
+                    arcCenter: CGPoint(x: bounds.midX, y: bounds.midY),
+                    radius: min(bounds.midX, bounds.midY) * Self._circleRadiusProportion,
+                    startAngle: startingRange.lowerBound,
+                    endAngle: min(currentPosition, startingRange.upperBound),
+                    clockwise: true
+                )
+                
+                let subLayer = CAShapeLayer()
+                subLayer.path = path.cgPath
+                subLayer.strokeColor = UIColor(named: "Start-Color")?.cgColor
+                subLayer.fillColor = nil
+                subLayer.lineWidth = Self._lineWidth
+                subLayer.opacity = timer.isTimerRunning ? 1 : Self._disabledOpacity
+                
+                circleLayer.addSublayer(subLayer)
+            }
+            self.layer.addSublayer(circleLayer)
         }
     }
 }
@@ -134,6 +156,7 @@ class RiValT_CirlcleDisplayView: UIView {
 class RiValT_RunningTimer_Circular_ViewController: RiValT_RunningTimer_Base_ViewController {
     /* ############################################################## */
     /**
+     This is the view that actually displays the circle.
      */
     @IBOutlet weak var circleImageDisplayView: RiValT_CirlcleDisplayView?
 }
@@ -148,6 +171,6 @@ extension RiValT_RunningTimer_Circular_ViewController {
      */
     override func updateUI() {
         self.circleImageDisplayView?.timer = self.timer
-        self.circleImageDisplayView?.layer.setNeedsLayout()
+        self.circleImageDisplayView?.setNeedsLayout()
     }
 }

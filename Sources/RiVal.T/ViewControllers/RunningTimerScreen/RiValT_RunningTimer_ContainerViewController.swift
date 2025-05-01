@@ -101,6 +101,12 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
      If the slider is up, it will be stored here.
      */
     private weak var _timeSetSlider: UISlider?
+    
+    /* ############################################################## */
+    /**
+     If this is true, then the next transition will suppress its flash (used for switching timers).
+     */
+    private var _suppressFlash: Bool = false
 
     /* ############################################################## */
     /**
@@ -275,18 +281,24 @@ extension RiValT_RunningTimer_ContainerViewController {
      If we are in a multi-timer group, this is the first timer.
      */
     var firstTimer: Timer? { self.timer?.group?.first }
-
+    
     /* ############################################################## */
     /**
      If we are in a multi-timer group, this is the last timer.
      */
     var lastTimer: Timer? { self.timer?.group?.last }
-
+    
     /* ############################################################## */
     /**
      If we are in a multi-timer group, true, if this is the last timer.
      */
     var isLastTimer: Bool { self.lastTimer == self.timer }
+    
+    /* ############################################################## */
+    /**
+     If true, we are dragging the set slider.
+     */
+    var isDragging: Bool { nil != self._timeSetSlider }
 }
 
 /* ###################################################################################################################################### */
@@ -760,7 +772,6 @@ extension RiValT_RunningTimer_ContainerViewController {
         } else {
             self.triggerFinalAlarm()
         }
-        self.updateDisplays()
     }
     
     /* ############################################################## */
@@ -769,18 +780,26 @@ extension RiValT_RunningTimer_ContainerViewController {
      */
     func triggerTransitionAlarm() {
         if let timer = self.nextTimer {
-            self.playTransitionSound()
+            self._suppressFlash = true
             self.timer?.tickHandler = nil
             self.timer?.transitionHandler = nil
+            self.playTransitionSound()
             self.timer?.stop()
             self.timer = nil
             timer.isSelected = true
             timer.stop()
             self.timer = timer
             self.timer?.start()
-            timer.tickHandler = self.tickHandler
-            timer.transitionHandler = self.transitionHandler
+            if .warning == timer.timerMode {
+                self.flashYellow()
+            } else if .final == timer.timerMode {
+                self.flashRed()
+            }
+            self.updateDisplays()
+            self.timer?.tickHandler = self.tickHandler
+            self.timer?.transitionHandler = self.transitionHandler
         } else {
+            self._suppressFlash = false
             self.flashRed(true)
         }
     }
@@ -790,6 +809,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      Called when all timers in the group are done.
      */
     func triggerFinalAlarm() {
+        self._suppressFlash = false
         self.flashRed(true)
         self.playAlarmSound()
         self._alarmTimer?.isRunning = true
@@ -1053,7 +1073,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter: The timer instance (ignored).
      */
     func tickHandler(_: Timer) {
-        if nil == self._timeSetSlider {
+        if !self.isDragging {
             self.selectionHaptic()
             self.updateDisplays()
         }
@@ -1063,29 +1083,41 @@ extension RiValT_RunningTimer_ContainerViewController {
     /**
      This is called by the model, and represents a transition, from one state to another.
      
-     - parameter: The timer instance (ignored).
+     - parameter inTimer: The timer instance.
      - parameter: The state the timer is moving from (ignored).
      - parameter inToMode: The new timer state.
      */
-    func transitionHandler(_: Timer, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
-        if nil == self._timeSetSlider,
+    func transitionHandler(_ inTimer: Timer, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
+        if !self.isDragging,
            .stopped != inFromMode {
             self.impactHaptic(1.0)
             switch inToMode {
             case .countdown:
-                self.flashGreen()
-                
+                if !self._suppressFlash {
+                    self.flashGreen()
+                } else {
+                    self._suppressFlash = false
+                }
+
             case .warning:
-                self.flashYellow()
+                if !self._suppressFlash {
+                    self.flashYellow()
+                } else {
+                    self._suppressFlash = false
+                }
                 
             case .final:
-                self.flashRed()
+                if !self._suppressFlash {
+                    self.flashRed()
+                } else {
+                    self._suppressFlash = false
+                }
                 
             case .alarm:
                 self.alarmReached()
                 
             case .paused, .stopped:
-                if nil == self._timeSetSlider {
+                if !self.isDragging {
                     self.flashCyan()
                 }
             }
