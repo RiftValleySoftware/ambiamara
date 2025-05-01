@@ -101,3 +101,6 @@
 
 "SLUG-ACC-TOOLBAR-TIMER-FORMAT-LABEL"           =   "Edit Timer %d, In This Group";
 "SLUG-ACC-TOOLBAR-TIMER-HINT"                   =   "Selecting this, will bring in the editor for the timer.";
+
+"SLUG-ACC-NAVBAR-DELETE-LABEL"                  =   "Delete This Timer";
+"SLUG-ACC-NAVBAR-DELETE-HINT"                   =   "Selecting this, will delete this timer. You will first be asked, if you are sure that you wish to delete the timer.";

@@ -131,6 +131,8 @@ extension RiValT_TimerEditor_PageViewContainer {
         firstViewController.myContainer = self
         firstViewController.timer = self.timerModel?.selectedTimer
         pageViewController?.setViewControllers( [firstViewController], direction: .forward, animated: false, completion: nil)
+        self.deleteBarButton?.accessibilityLabel = "SLUG-ACC-NAVBAR-DELETE-LABEL".localizedVariant
+        self.deleteBarButton?.accessibilityHint = "SLUG-ACC-NAVBAR-DELETE-HINT".localizedVariant
         self.setUpToolbar()
     }
     
