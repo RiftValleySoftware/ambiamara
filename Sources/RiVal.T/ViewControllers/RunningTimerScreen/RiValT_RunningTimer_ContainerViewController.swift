@@ -372,6 +372,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      */
     override func viewWillAppear(_ inIsAnimated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        UIApplication.shared.isIdleTimerDisabled = true // This makes sure we don't fall asleep.
         super.viewWillAppear(inIsAnimated)
         if RiValT_Settings().startTimerImmediately {
             self.flashGreen()
@@ -409,6 +410,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         self._autoHideTimer = nil
         self._alarmTimer?.invalidate()
         self._alarmTimer = nil
+        UIApplication.shared.isIdleTimerDisabled = false
     }
     
     /* ############################################################## */
