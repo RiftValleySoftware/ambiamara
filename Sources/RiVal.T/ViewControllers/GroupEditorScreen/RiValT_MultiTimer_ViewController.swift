@@ -364,6 +364,127 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
  It allows the user to drag and drop timers, so they can visually rearrange the matrix.
  */
 class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
+    /* ################################################################################################################################## */
+    // MARK: Custom Group Border Decorator
+    /* ################################################################################################################################## */
+    /**
+     This class draws a border around the currently selected group.
+     */
+    class SectionBackgroundView: UICollectionReusableView {
+        /* ########################################################## */
+        /**
+         Used to register this class with the collection view.
+         */
+        static let reuseIdentifier = "SectionBackgroundView"
+        
+        /* ########################################################## */
+        /**
+         The controller that "owns" this instance.
+         */
+        var myController: RiValT_MultiTimer_ViewController? {
+            RiValT_AppDelegate.appDelegateInstance?.groupEditorController
+        }
+        
+        /* ########################################################## */
+        /**
+         The gesture recognizer that calls the handler.
+         */
+        weak var myTapRecognizer: UITapGestureRecognizer?
+
+        /* ########################################################## */
+        /**
+         The group associated with this decorator.
+         */
+        weak var myGroup: TimerGroup?
+        
+        /* ########################################################## */
+        /**
+         We initialize with a frame, and set up our basic shape.
+         */
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.layer.borderWidth = RiValT_TimerArray_IconCell.borderWidthInDisplayUnits
+            self.layer.cornerRadius = 16
+            self.clipsToBounds = true
+            self.backgroundColor = .clear
+        }
+        
+        /* ########################################################## */
+        /**
+         Required (and unsupported) coder init.
+         */
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        /* ########################################################## */
+        /**
+         Called by the tap gesture.
+         
+         - parameter: ignored.
+         */
+        @objc private func _handleTap(_: Any) {
+            if RiValT_Settings().oneTapEditing {
+                myController?.impactHaptic()
+                myController?.goEditYourself()
+            }
+        }
+
+        /* ########################################################## */
+        /**
+         This is called to give the instance a chance to mess with the layout.
+         
+         We don't mess with it, but we use it as the best way to figure out what we'll be displaying.
+         
+         - parameter inLayoutAttributes: The layout attributes (which contain the current state).
+         
+         - returns: The layout attributes (with any mods, which we don't do).
+         */
+        override func preferredLayoutAttributesFitting(_ inLayoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+            self.subviews.forEach { $0.removeFromSuperview() }
+            guard let group = RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group else { return inLayoutAttributes }
+            
+            if (0..<(RiValT_AppDelegate.appDelegateInstance?.timerModel.count ?? 0)).contains(inLayoutAttributes.indexPath.section),
+               let tempGroup = RiValT_AppDelegate.appDelegateInstance?.timerModel[inLayoutAttributes.indexPath.section] {
+                myGroup = tempGroup
+            }
+            
+            // If this group has a selected timer, then the entire group is considered to be selected, and we draw a border around it.
+            self.layer.borderColor = (group.index == inLayoutAttributes.indexPath.section ? (UIColor(named: "Selected-Cell-Border") ?? .systemRed) : UIColor.clear).cgColor
+            
+            // If we have more than one group, we add a number to the right end, identifying the group.
+            if group.index == inLayoutAttributes.indexPath.section,
+               1 < group.model?.count ?? 0 {
+                let groupNumberLabel = UILabel()
+                groupNumberLabel.isUserInteractionEnabled = true
+                groupNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(_handleTap)))
+                groupNumberLabel.backgroundColor = UIColor(named: "Selected-Cell-Border")
+                groupNumberLabel.textColor = UIColor(named: "Group-Number")
+                groupNumberLabel.textAlignment = .center
+                groupNumberLabel.font = .boldSystemFont(ofSize: 30)
+                groupNumberLabel.adjustsFontSizeToFitWidth = true
+                groupNumberLabel.minimumScaleFactor = 0.5
+                groupNumberLabel.text = " \(String(inLayoutAttributes.indexPath.section + 1)) "
+                self.addSubview(groupNumberLabel)
+                groupNumberLabel.translatesAutoresizingMaskIntoConstraints = false
+                groupNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
+                groupNumberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
+                groupNumberLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
+                groupNumberLabel.widthAnchor.constraint(equalToConstant: 38).isActive = true
+                groupNumberLabel.cornerRadius = 12
+                groupNumberLabel.clipsToBounds = true
+            }
+            
+            if nil == self.myTapRecognizer {
+                let tapper = UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(groupBackgroundTapped))
+                self.myTapRecognizer = tapper
+                self.addGestureRecognizer(tapper)
+            }
+            
+            return inLayoutAttributes
+        }
+    }
+    
     /* ############################################################## */
     /**
      The width of the "gutters" around each cell.
@@ -624,104 +745,6 @@ extension RiValT_MultiTimer_ViewController {
      At the end of rows with less than 4 timers, or at the end of the collection view, we have "add" items.
      */
     func createLayout() {
-        /* ############################################################################################################################## */
-        // MARK: Custom Group Border Decorator
-        /* ############################################################################################################################## */
-        /**
-         This class draws a border around the currently selected group.
-         */
-        class SectionBackgroundView: UICollectionReusableView {
-            /* ###################################################### */
-            /**
-             Used to register this class with the collection view.
-             */
-            static let reuseIdentifier = "SectionBackgroundView"
-            
-            /* ###################################################### */
-            /**
-             The controller that "owns" this instance.
-             */
-            var myController: RiValT_MultiTimer_ViewController? {
-                RiValT_AppDelegate.appDelegateInstance?.groupEditorController
-            }
-
-            /* ###################################################### */
-            /**
-             We initialize with a frame, and set up our basic shape.
-             */
-            override init(frame: CGRect) {
-                super.init(frame: frame)
-                self.layer.borderWidth = RiValT_TimerArray_IconCell.borderWidthInDisplayUnits
-                self.layer.cornerRadius = 16
-                self.clipsToBounds = true
-                self.backgroundColor = .clear
-            }
-            
-            /* ###################################################### */
-            /**
-             Required (and unsupported) coder init.
-             */
-            required init?(coder: NSCoder) {
-                fatalError("init(coder:) has not been implemented")
-            }
-            
-            /* ###################################################### */
-            /**
-             Called by the tap gesture.
-             
-             - parameter: ignored.
-             */
-            @objc private func _handleTap(_: Any) {
-                if RiValT_Settings().oneTapEditing {
-                    myController?.impactHaptic()
-                    myController?.goEditYourself()
-                }
-            }
-
-            /* ###################################################### */
-            /**
-             This is called to give the instance a chance to mess with the layout.
-             
-             We don't mess with it, but we use it as the best way to figure out what we'll be displaying.
-             
-             - parameter inLayoutAttributes: The layout attributes (which contain the current state).
-             
-             - returns: The layout attributes (with any mods, which we don't do).
-             */
-            override func preferredLayoutAttributesFitting(_ inLayoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-                self.subviews.forEach { $0.removeFromSuperview() }
-                guard let group = RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group else { return inLayoutAttributes }
-                
-                // If this group has a selected timer, then the entire group is considered to be selected, and we draw a border around it.
-                self.layer.borderColor = (group.index == inLayoutAttributes.indexPath.section ? (UIColor(named: "Selected-Cell-Border") ?? .systemRed) : UIColor.clear).cgColor
-                
-                // If we have more than one group, we add a number to the right end, identifying the group.
-                if group.index == inLayoutAttributes.indexPath.section,
-                   1 < group.model?.count ?? 0 {
-                    let groupNumberLabel = UILabel()
-                    groupNumberLabel.isUserInteractionEnabled = true
-                    groupNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(_handleTap)))
-                    groupNumberLabel.backgroundColor = UIColor(named: "Selected-Cell-Border")
-                    groupNumberLabel.textColor = UIColor(named: "Group-Number")
-                    groupNumberLabel.textAlignment = .center
-                    groupNumberLabel.font = .boldSystemFont(ofSize: 30)
-                    groupNumberLabel.adjustsFontSizeToFitWidth = true
-                    groupNumberLabel.minimumScaleFactor = 0.5
-                    groupNumberLabel.text = " \(String(inLayoutAttributes.indexPath.section + 1)) "
-                    self.addSubview(groupNumberLabel)
-                    groupNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-                    groupNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
-                    groupNumberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
-                    groupNumberLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
-                    groupNumberLabel.widthAnchor.constraint(equalToConstant: 38).isActive = true
-                    groupNumberLabel.cornerRadius = 12
-                    groupNumberLabel.clipsToBounds = true
-                }
-
-                return inLayoutAttributes
-            }
-        }
-
         let layout = UICollectionViewCompositionalLayout { sectionIndex, environment -> NSCollectionLayoutSection? in
             // The reason for the weird width, is to prevent the end "add" item from vertically flowing.
             // This only happens, if there are 3 items already there, and a new item is being dragged in from another group.
@@ -956,6 +979,24 @@ extension RiValT_MultiTimer_ViewController {
         controller.popoverPresentationController?.barButtonItem = inBarButtonItem
         self.present(controller, animated: true, completion: nil)
     }
+    
+    /* ############################################################## */
+    /**
+     The background of a group line was hit.
+     
+     - parameter inTapGesture: The tap that caused the call.
+     */
+    @objc func groupBackgroundTapped(_ inTapGesture: UITapGestureRecognizer) {
+        if let backgroundView = inTapGesture.view as? SectionBackgroundView,
+           let group = backgroundView.myGroup,
+           let groupIndex = group.index,
+           (0..<(self.timerModel?.count ?? 0)).contains(groupIndex),
+           !group.isSelected {
+            group.last?.isSelected = true
+            self.impactHaptic()
+            self.collectionView?.reloadData()
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -1091,7 +1132,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         var shouldScroll = false
         var shouldEdit = RiValT_Settings().oneTapEditing
         var optionalTitle: String?
-        
+
         if (inIndexPath.section == self.timerModel?.count ?? 0) || (self.timerModel?[inIndexPath.section].isSelected ?? false),
            nil == self.timerModel.getTimer(at: inIndexPath) {
             self.timerModel.createNewTimer(at: inIndexPath)
@@ -1103,6 +1144,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
                   !(self.timerModel?[inIndexPath.section].isSelected ?? false) {
             self.timerModel?[inIndexPath.section].last?.isSelected = true
             self.impactHaptic()
+            shouldEdit = false
         } else {
             self.impactHaptic()
         }
