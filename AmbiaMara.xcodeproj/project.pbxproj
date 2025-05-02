@@ -769,6 +769,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D43B97492DA2C0F60028E023 /* Build configuration list for PBXNativeTarget "RiVal.T" */;
 			buildPhases = (
+				D43974572DC516E900107DBA /* SwiftLint */,
 				D43B97312DA2C0F50028E023 /* Sources */,
 				D43B97322DA2C0F50028E023 /* Frameworks */,
 				D43B97332DA2C0F50028E023 /* Resources */,
@@ -1025,6 +1026,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		D43974572DC516E900107DBA /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v swiftlint 2>&1 >/dev/null\nthen\n    cd ${PROJECT_DIR}\n    swiftlint\nfi\n";
+		};
 		D4A932312D64EC3D0028556E /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
