@@ -434,6 +434,8 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
             if (0..<(RiValT_AppDelegate.appDelegateInstance?.timerModel.count ?? 0)).contains(inLayoutAttributes.indexPath.section),
                let tempGroup = RiValT_AppDelegate.appDelegateInstance?.timerModel[inLayoutAttributes.indexPath.section] {
                 myGroup = tempGroup
+            } else {
+                myGroup = nil
             }
             
             // If this group has a selected timer, then the entire group is considered to be selected, and we draw a border around it.
@@ -462,10 +464,15 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
             }
             
             // This allows us to select the group, when there's a tap, anywhere on the line.
-            if nil == self.myTapRecognizer {
+            if nil != myGroup,
+               nil == self.myTapRecognizer {
                 let tapper = UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(groupBackgroundTapped))
                 self.myTapRecognizer = tapper
                 self.addGestureRecognizer(tapper)
+            } else if nil == myGroup,
+                      let recognizer = self.myTapRecognizer {
+                self.removeGestureRecognizer(recognizer)
+                self.myTapRecognizer = nil
             }
             
             return inLayoutAttributes
@@ -982,6 +989,7 @@ extension RiValT_MultiTimer_ViewController {
             group.last?.isSelected = true
             self.impactHaptic()
             self.collectionView?.reloadData()
+            self.setUpNavBarItems()
         }
     }
 }
