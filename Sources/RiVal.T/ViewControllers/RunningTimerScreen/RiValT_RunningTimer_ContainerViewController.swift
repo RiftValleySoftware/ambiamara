@@ -311,6 +311,18 @@ extension RiValT_RunningTimer_ContainerViewController {
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
 extension RiValT_RunningTimer_ContainerViewController {
+    /* ################################################################## */
+    /**
+     - returns true, indicating that X-phones should hide the Home Bar.
+     */
+    override var prefersHomeIndicatorAutoHidden: Bool { true }
+
+    /* ############################################################## */
+    /**
+     - returns true, indicating the status bar should be hidden.
+     */
+    override var prefersStatusBarHidden: Bool { true }
+    
     /* ############################################################## */
     /**
      Called, when the view hierarchy has been loaded.
@@ -558,7 +570,7 @@ extension RiValT_RunningTimer_ContainerViewController {
                                                     leewayInMilliseconds: 100,
                                                     onlyFireOnce: true,
                                                     queue: .main, isWallTime: true)
-            self._autoHideTimer?.isRunning = true
+            self._autoHideTimer?.isRunning = self.timer?.isTimerRunning ?? false
             
             if 1.0 > (self.controlToolbar?.alpha ?? 1) {
                 self.controlToolbar?.alpha = 0.0
