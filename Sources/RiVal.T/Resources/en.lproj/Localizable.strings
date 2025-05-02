@@ -154,6 +154,19 @@ You can set short transition sounds between timers in a group, and a final endin
 There are three large, easy-to-read displays:
     • NUMERIC: A classic digital-style countdown.
     • CIRCULAR: A donut-shaped timer that empties as time passes.
-    • STOPLIGHTS: Green, yellow, and red lights that change as thresholds are reached—ideal for debates.";
+    • STOPLIGHTS: Green, yellow, and red lights that change as thresholds are reached—ideal for debates.
+    
+OPEN-SOURCE PACKAGES AND APP INFO:
 
-"SLUG-SOFTWARE-DETAILS"                         =   "";
+The app relies on the following open-source Swift packages:
+
+    •   https://github.com/RiftValleySoftware/RVS_BasicGCDTimer
+    •   https://github.com/RiftValleySoftware/RVS_Checkbox
+    •   https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox
+    •   https://github.com/RiftValleySoftware/RVS_PersistentPrefs
+    •   https://github.com/RiftValleySoftware/RVS_RetroLEDDisplay
+    •   https://github.com/RiftValleySoftware/RVS_UIKit_Toolbox
+
+Additionally, the app, itself, is \"source-available,\" and can be found here:
+
+    https://github.com/RiftValleySoftware/ambiamara";
