@@ -739,7 +739,7 @@ extension RiValT_MultiTimer_ViewController {
      At the end of rows with less than 4 timers, or at the end of the collection view, we have "add" items.
      */
     func createLayout() {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, environment -> NSCollectionLayoutSection? in
+        let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
             // The reason for the weird width, is to prevent the end "add" item from vertically flowing.
             // This only happens, if there are 3 items already there, and a new item is being dragged in from another group.
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.5),
@@ -774,7 +774,7 @@ extension RiValT_MultiTimer_ViewController {
      */
     func setupDataSource() {
         guard let collectionView = self.collectionView else { return }
-        self.dataSource = UICollectionViewDiffableDataSource<Int, RiValT_TimerArray_Placeholder>(collectionView: collectionView) { [self] inCollectionView, inIndexPath, inTimer in
+        self.dataSource = UICollectionViewDiffableDataSource<Int, RiValT_TimerArray_Placeholder>(collectionView: collectionView) { [self] inCollectionView, inIndexPath, _ in
             var ret = UICollectionViewCell()
             
             // If this cell has a timer, we create a timer cell.

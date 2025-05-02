@@ -159,7 +159,7 @@ class RiValT_Settings: RVS_PersistentPrefs {
     /**
      If this is true (default), then tapping on any timer, will open its editor.
      */
-    var oneTapEditing : Bool {
+    var oneTapEditing: Bool {
         get { 0 != (values[Keys.oneTapEditing.rawValue] as? Int ?? 1) }
         set { values[Keys.oneTapEditing.rawValue] = newValue ? 1 : 0 }
     }
@@ -174,7 +174,7 @@ class RiValT_Settings: RVS_PersistentPrefs {
     /**
      The timers, stored as a Dictionary (key is the ID).
      */
-    var timerModel: [[[String : any Hashable]]] {
+    var timerModel: [[[String: any Hashable]]] {
         get {
             let rawValues = self.values[Keys.timerModel.rawValue] as? [[NSDictionary]] ?? []
             var groups = [[[String: any Hashable]]]()
