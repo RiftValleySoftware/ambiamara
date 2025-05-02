@@ -284,7 +284,8 @@ extension TimerModel {
 
         if timerContainer.isSelected {
             let newGroup = Swift.max(0, Swift.min(self.count - 1, inFrom.section))
-            let newItem = Swift.max(0, Swift.min(self[newGroup].count - 1, inFrom.item - 1))
+            let itemIndex = newGroup != inFrom.section ? self[newGroup].count - 1 : inFrom.item
+            let newItem = Swift.max(0, Swift.min(self[newGroup].count - 1, itemIndex))
             self[newGroup][newItem].isSelected = true
         }
         return timerContainer

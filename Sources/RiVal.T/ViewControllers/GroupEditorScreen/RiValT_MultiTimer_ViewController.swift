@@ -370,7 +370,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
     /**
      This class draws a border around the currently selected group.
      */
-    class SectionBackgroundView: UICollectionReusableView {
+    class _SectionBackgroundView: UICollectionReusableView {
         /* ########################################################## */
         /**
          Used to register this class with the collection view.
@@ -416,19 +416,6 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-        
-        /* ########################################################## */
-        /**
-         Called by the tap gesture.
-         
-         - parameter: ignored.
-         */
-        @objc private func _handleTap(_: Any) {
-            if RiValT_Settings().oneTapEditing {
-                myController?.impactHaptic()
-                myController?.goEditYourself()
-            }
-        }
 
         /* ########################################################## */
         /**
@@ -456,8 +443,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
             if group.index == inLayoutAttributes.indexPath.section,
                1 < group.model?.count ?? 0 {
                 let groupNumberLabel = UILabel()
-                groupNumberLabel.isUserInteractionEnabled = true
-                groupNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(_handleTap)))
+                groupNumberLabel.isUserInteractionEnabled = false
                 groupNumberLabel.backgroundColor = UIColor(named: "Selected-Cell-Border")
                 groupNumberLabel.textColor = UIColor(named: "Group-Number")
                 groupNumberLabel.textAlignment = .center
@@ -475,6 +461,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
                 groupNumberLabel.clipsToBounds = true
             }
             
+            // This allows us to select the group, when there's a tap, anywhere on the line.
             if nil == self.myTapRecognizer {
                 let tapper = UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(groupBackgroundTapped))
                 self.myTapRecognizer = tapper
@@ -764,12 +751,12 @@ extension RiValT_MultiTimer_ViewController {
             
             let section = NSCollectionLayoutSection(group: group)
             
-            section.decorationItems = [.background(elementKind: SectionBackgroundView.reuseIdentifier)]
+            section.decorationItems = [.background(elementKind: _SectionBackgroundView.reuseIdentifier)]
             
             return section
         }
         
-        layout.register(SectionBackgroundView.self, forDecorationViewOfKind: SectionBackgroundView.reuseIdentifier)
+        layout.register(_SectionBackgroundView.self, forDecorationViewOfKind: _SectionBackgroundView.reuseIdentifier)
         
         self.collectionView?.collectionViewLayout = layout
     }
@@ -987,7 +974,7 @@ extension RiValT_MultiTimer_ViewController {
      - parameter inTapGesture: The tap that caused the call.
      */
     @objc func groupBackgroundTapped(_ inTapGesture: UITapGestureRecognizer) {
-        if let backgroundView = inTapGesture.view as? SectionBackgroundView,
+        if let backgroundView = inTapGesture.view as? _SectionBackgroundView,
            let group = backgroundView.myGroup,
            let groupIndex = group.index,
            (0..<(self.timerModel?.count ?? 0)).contains(groupIndex),
@@ -1144,7 +1131,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
                   !(self.timerModel?[inIndexPath.section].isSelected ?? false) {
             self.timerModel?[inIndexPath.section].last?.isSelected = true
             self.impactHaptic()
-            shouldEdit = false
+            shouldEdit = shouldEdit && nil != self.timerModel.getTimer(at: inIndexPath)
         } else {
             self.impactHaptic()
         }
