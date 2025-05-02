@@ -730,6 +730,14 @@ public extension TimerEngine {
 public extension TimerEngine {
     /* ################################################################## */
     /**
+     This simply sets the last paused time, to the current time.
+     */
+    func resetLastPausedTime() {
+        self._lastPausedTime = TimeInterval(self.currentTime)
+    }
+
+    /* ################################################################## */
+    /**
      This forces the timer to sync directly to the given seconds. The date is the time that corresponds to the exact second. The timer is started, if it was not already running.
      
      > NOTE: This directly sets the timer to a running state, but the `tickHandler` and `transitionHandler` callbacks may not be immediately executed. The timer must already be in `.countdown`, `.warning`, or `.final` state.
@@ -838,8 +846,9 @@ public extension TimerEngine {
 
         case .paused(let lastMode, let pauseTime):
             #if DEBUG
-                print("TimerEngine: ERROR: trying to pause a paused timer. Last mode was: \(lastMode). Pause time was \(pauseTime).")
+                print("TimerEngine: Pausing a paused timer. Last mode was: \(lastMode). Pause time was \(pauseTime). Setting new last paused to \(self.currentTime).")
             #endif
+            self._lastPausedTime = TimeInterval(self.currentTime)
             break
 
         default:

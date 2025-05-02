@@ -1186,6 +1186,14 @@ extension Timer {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension Timer {
+    /* ################################################################## */
+    /**
+     This simply sets the last paused time, to 0.
+     */
+    func resetLastPausedTime() {
+        self._engine.resetLastPausedTime()
+    }
+
     /* ############################################################## */
     /**
      The callback for the individual second ticks. May be called in any thread.

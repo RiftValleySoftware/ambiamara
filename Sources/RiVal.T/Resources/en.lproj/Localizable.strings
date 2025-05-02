@@ -127,6 +127,10 @@
 "SLUG-DISPLAY-FORMAT"                           =   "Display Settings for Group %d";
 "SLUG-DISPLAY-GROUP-SETTINGS"                   =   "Display Settings";
 
+// MARK: Running Timer Screen
+
+"SLUG-PAUSED-LABEL"                             =   "PAUSED";
+
 // MARK: Sound Settings Popover
 
 "SLUG-NO-SOUND"                                 =   "Silent";
@@ -135,7 +139,6 @@
 "SLUG-SOUND-VIBRATE"                            =   "Alarm Sound (With Vibration)";
 "SLUG-TRANSITION-SOUND-LABEL"                   =   "Transition Sound";
 "SLUG-TRANSITION-SOUND-NONE"                    =   "None";
-
 
 // MARK: About Screen
 
@@ -152,3 +155,5 @@ There are three large, easy-to-read displays:
     • NUMERIC: A classic digital-style countdown.
     • CIRCULAR: A donut-shaped timer that empties as time passes.
     • STOPLIGHTS: Green, yellow, and red lights that change as thresholds are reached—ideal for debates.";
+
+"SLUG-SOFTWARE-DETAILS"                         =   "";

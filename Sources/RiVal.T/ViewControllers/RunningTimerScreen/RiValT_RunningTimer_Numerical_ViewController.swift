@@ -320,7 +320,7 @@ extension RiValT_RunningTimer_Numerical_ViewController {
                 digitalDisplayViewHours?.onGradientStartColor = Self._warnLEDColor
                 digitalDisplayViewMinutes?.onGradientStartColor = Self._warnLEDColor
                 digitalDisplayViewSeconds?.onGradientStartColor = Self._warnLEDColor
-            } else if (self.timer?.isTimerRunning ?? false) || (self.timer?.isTimerPaused ?? false) {
+            } else if (self.timer?.isTimerRunning ?? false) {
                 digitalDisplayViewHours?.onGradientStartColor = Self._startLEDColor
                 digitalDisplayViewMinutes?.onGradientStartColor = Self._startLEDColor
                 digitalDisplayViewSeconds?.onGradientStartColor = Self._startLEDColor
@@ -330,15 +330,9 @@ extension RiValT_RunningTimer_Numerical_ViewController {
                 digitalDisplayViewSeconds?.onGradientStartColor = Self._pausedLEDColor
             }
             
-            if !(self.timer?.isTimerRunning ?? false) && !(self.timer?.isTimerInAlarm ?? false) {
-                digitalDisplayViewHours?.onGradientEndColor = Self._pausedLEDColor
-                digitalDisplayViewMinutes?.onGradientEndColor = Self._pausedLEDColor
-                digitalDisplayViewSeconds?.onGradientEndColor = Self._pausedLEDColor
-            } else {
-                digitalDisplayViewHours?.onGradientEndColor = nil
-                digitalDisplayViewMinutes?.onGradientEndColor = nil
-                digitalDisplayViewSeconds?.onGradientEndColor = nil
-            }
+            digitalDisplayViewHours?.onGradientEndColor = nil
+            digitalDisplayViewMinutes?.onGradientEndColor = nil
+            digitalDisplayViewSeconds?.onGradientEndColor = nil
         }
 
         /* ########################################################## */

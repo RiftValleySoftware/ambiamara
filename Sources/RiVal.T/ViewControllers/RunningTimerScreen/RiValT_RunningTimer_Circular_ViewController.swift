@@ -23,12 +23,6 @@ import RVS_UIKit_Toolbox
 class RiValT_CirlcleDisplayView: UIView {
     /* ############################################################## */
     /**
-     The thickness of the line. The actual circle is really just a fat line.
-     */
-    private static let _lineWidth = CGFloat(100.0)
-    
-    /* ############################################################## */
-    /**
      The proportion of the total display, occupied by this display.
      */
     private static let _circleRadiusProportion = CGFloat(0.75)
@@ -52,6 +46,9 @@ class RiValT_CirlcleDisplayView: UIView {
     override func layoutSubviews() {
         guard let timer = self.timer else { return }
         
+        let minimumSize = min(self.bounds.size.width, self.bounds.size.height)
+        
+        let lineWidth = minimumSize / 4
         self.layer.sublayers?.removeAll()
 
         if timer.isTimerInAlarm,
@@ -68,7 +65,7 @@ class RiValT_CirlcleDisplayView: UIView {
             subLayer.path = path.cgPath
             subLayer.strokeColor = UIColor(named: "Final-Color")?.cgColor
             subLayer.fillColor = UIColor(named: "Final-Color")?.cgColor
-            subLayer.lineWidth = Self._lineWidth
+            subLayer.lineWidth = lineWidth
 
             self.layer.addSublayer(subLayer)
         } else {
@@ -100,7 +97,7 @@ class RiValT_CirlcleDisplayView: UIView {
                 subLayer.path = path.cgPath
                 subLayer.strokeColor = UIColor(named: "Final-Color")?.cgColor
                 subLayer.fillColor = nil
-                subLayer.lineWidth = Self._lineWidth
+                subLayer.lineWidth = lineWidth
                 subLayer.opacity = timer.isTimerRunning ? 1 : Self._disabledOpacity
                 
                 circleLayer.addSublayer(subLayer)
@@ -120,7 +117,7 @@ class RiValT_CirlcleDisplayView: UIView {
                 subLayer.path = path.cgPath
                 subLayer.strokeColor = UIColor(named: "Warn-Color")?.cgColor
                 subLayer.fillColor = nil
-                subLayer.lineWidth = Self._lineWidth
+                subLayer.lineWidth = lineWidth
                 subLayer.opacity = timer.isTimerRunning ? 1 : Self._disabledOpacity
                 
                 circleLayer.addSublayer(subLayer)
@@ -139,7 +136,7 @@ class RiValT_CirlcleDisplayView: UIView {
                 subLayer.path = path.cgPath
                 subLayer.strokeColor = UIColor(named: "Start-Color")?.cgColor
                 subLayer.fillColor = nil
-                subLayer.lineWidth = Self._lineWidth
+                subLayer.lineWidth = lineWidth
                 subLayer.opacity = timer.isTimerRunning ? 1 : Self._disabledOpacity
                 
                 circleLayer.addSublayer(subLayer)

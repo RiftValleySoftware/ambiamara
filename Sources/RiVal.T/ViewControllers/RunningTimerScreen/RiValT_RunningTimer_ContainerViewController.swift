@@ -234,6 +234,12 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
      This label displays the time in the slider.
      */
     @IBOutlet weak var timeSetDisplayLabel: UILabel?
+    
+    /* ############################################################## */
+    /**
+     This shows over the screen, when paused.
+     */
+    @IBOutlet weak var pausedLabel: UILabel?
 }
 
 /* ###################################################################################################################################### */
@@ -329,7 +335,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         appearance.backgroundImage = nil
         self.controlToolbar?.standardAppearance = appearance
         self.controlToolbar?.scrollEdgeAppearance = appearance
-        
+        self.pausedLabel?.text = self.pausedLabel?.text?.localizedVariant
         if let tapper = self.singleTapGestureRecognizer,
            let leftSwipe = self.leftSwipeGestureRecognizer,
            let rightSwipe = self.rightSwipeGestureRecognizer,
@@ -393,6 +399,73 @@ extension RiValT_RunningTimer_ContainerViewController {
         self._alarmTimer = nil
     }
     
+    /* ############################################################## */
+    /**
+     This allows Catalyst apps to use the keyboard to control the timer, like gestures.
+     
+     - parameter inKeyPresses: The pressed keys.
+     - parameter with: The event, creating the keypresses.
+     */
+    override func pressesBegan(_ inKeyPresses: Set<UIPress>, with inEvent: UIPressesEvent?) {
+        var didHandleEvent = false
+        guard let timer = self.timer,
+              let groupCount = timer.group?.count
+        else { return }
+        
+        for press in inKeyPresses {
+            guard !didHandleEvent,
+                  let key = press.key
+            else { continue }
+            
+            switch key.charactersIgnoringModifiers {
+            case UIKeyCommand.inputLeftArrow:
+                didHandleEvent = true
+                if !(timer.isTimerAtStart && !timer.isTimerAtEnd) || 1 < groupCount {
+                    self.rewindHit()
+                } else if timer.isTimerInAlarm {
+                    didHandleEvent = true
+                    playPauseHit()
+                }
+
+            case UIKeyCommand.inputRightArrow:
+                didHandleEvent = true
+                if !(timer.isTimerAtStart && !timer.isTimerAtEnd) || 1 < groupCount {
+                    self.fastForwardHit()
+                } else if timer.isTimerInAlarm {
+                    didHandleEvent = true
+                    playPauseHit()
+                }
+
+            case UIKeyCommand.inputEscape:
+                self.stopHit()
+
+            case " ":
+                didHandleEvent = true
+                if timer.isTimerRunning {
+                    self.playPauseHit()
+                } else if timer.isTimerAtStart {
+                    timer.start()
+                } else if timer.isTimerInAlarm {
+                    playPauseHit()
+                } else {
+                    playPauseHit()
+                }
+
+            default:
+                if timer.isTimerInAlarm {
+                    didHandleEvent = true
+                    playPauseHit()
+                }
+            }
+        }
+        
+        if !didHandleEvent {
+            super.pressesBegan(inKeyPresses, with: inEvent)
+        }
+        
+        self.showToolbar()
+    }
+
     /* ################################################################## */
     /**
      This will assign us as the "owner" of our embedded displays.
@@ -756,6 +829,11 @@ extension RiValT_RunningTimer_ContainerViewController {
      */
     func updateDisplays() {
         self.setToolbarEnablements()
+        if case .paused = self.timer?.timerMode {
+            self.pausedLabel?.isHidden = false
+        } else {
+            self.pausedLabel?.isHidden = true
+        }
         self.numericalDisplayController?.updateUI()
         self.circularDisplayController?.updateUI()
         self.stoplightDisplayController?.updateUI()
@@ -919,6 +997,8 @@ extension RiValT_RunningTimer_ContainerViewController {
         self._audioPlayer?.stop()
         if !RiValT_Settings().displayToolbar {
             self.stopHit()
+        } else if RiValT_Settings().autoHideToolbar {
+            self.showToolbar()
         }
     }
     
@@ -933,10 +1013,10 @@ extension RiValT_RunningTimer_ContainerViewController {
         self._audioPlayer?.stop()
         if !RiValT_Settings().displayToolbar {
             self.playPauseHit()
+            self.updateDisplays()
         } else if RiValT_Settings().autoHideToolbar {
             self.showToolbar()
         }
-        self.updateDisplays()
     }
     
     /* ############################################################## */
@@ -990,8 +1070,10 @@ extension RiValT_RunningTimer_ContainerViewController {
             
             if currentTime != lastTime {
                 self.selectionHaptic()
-                timer.pause()
                 timer.currentTime = currentTime
+                if case .paused = timer.timerMode {
+                    timer.resume()
+                }
                 self._timeSetSlider?.value = Float(timer.startingTimeInSeconds - currentTime)
             }
             
