@@ -986,7 +986,7 @@ extension RiValT_MultiTimer_ViewController {
            let groupIndex = group.index,
            (0..<(self.timerModel?.count ?? 0)).contains(groupIndex),
            !group.isSelected {
-            group.last?.isSelected = true
+            group.first?.isSelected = true
             self.impactHaptic()
             self.collectionView?.reloadData()
             self.setUpNavBarItems()
@@ -1137,7 +1137,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
             optionalTitle = "SLUG-NEW-TIMER".localizedVariant
         } else if (0..<(self.timerModel?.count ?? 0)).contains((inIndexPath.section)),
                   !(self.timerModel?[inIndexPath.section].isSelected ?? false) {
-            self.timerModel?[inIndexPath.section].last?.isSelected = true
+            self.timerModel?[inIndexPath.section].first?.isSelected = true
             self.impactHaptic()
             shouldEdit = shouldEdit && nil != self.timerModel.getTimer(at: inIndexPath)
         } else {
