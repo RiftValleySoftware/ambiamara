@@ -44,19 +44,6 @@ struct Rift_Valley_Timer_Watch_App_Provider: TimelineProvider {
     /**
     */
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
-        RVS_AmbiaMara_Settings().flush()
-        var entries: [Rift_Valley_Timer_Watch_App_Entry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = Rift_Valley_Timer_Watch_App_Entry(date: entryDate)
-            entries.append(entry)
-        }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
     }
 }
 
@@ -84,17 +71,14 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
      The image to be displayed (based upon the family)
      */
     var image: UIImage {
-        switch family {
-        default:
-            return UIImage(named: "VectorLogo") ?? UIImage()
-        }
+        UIImage(named: "VectorLogo") ?? UIImage()
     }
     
     /* ################################################################## */
     /**
      The text to be displayed (current timer time).
      */
-    var text: String { RVS_AmbiaMara_Settings().currentTimer.startTimeAsString }
+    var text: String { "HAI" }
 }
 
 /* ###################################################################################################################################### */
@@ -150,7 +134,7 @@ struct Rift_Valley_Timer_ComplicationsEntryView: View {
 /**
  
  */
-struct Rift_Valley_Timer_Complications: Widget {
+struct RiValT_Complications: Widget {
     /* ################################################################## */
     /**
     */
@@ -163,7 +147,7 @@ struct Rift_Valley_Timer_Complications: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Rift_Valley_Timer_Watch_App_Provider()) { inEntry in
             Rift_Valley_Timer_ComplicationsEntryView(entry: inEntry)
-                .onAppear { RVS_AmbiaMara_Settings().flush() }
+                .onAppear { RiValT_Settings().flush() }
         }
         .configurationDisplayName("Rift Valley Timer")
         .supportedFamilies([.accessoryInline,

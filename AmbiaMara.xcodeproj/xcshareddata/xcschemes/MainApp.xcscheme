@@ -4,7 +4,8 @@
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES">
+      buildImplicitDependencies = "YES"
+      buildArchitectures = "Automatic">
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "NO"
@@ -14,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D47C029A2819CA6500D359F5"
-               BuildableName = "Rift Valley Timer.app"
-               BlueprintName = "Rift Valley Timer"
+               BlueprintIdentifier = "D43B97342DA2C0F50028E023"
+               BuildableName = "Main App.app"
+               BlueprintName = "Main App"
                ReferencedContainer = "container:AmbiaMara.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,9 +44,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D47C029A2819CA6500D359F5"
-            BuildableName = "Rift Valley Timer.app"
-            BlueprintName = "Rift Valley Timer"
+            BlueprintIdentifier = "D43B97342DA2C0F50028E023"
+            BuildableName = "Main App.app"
+            BlueprintName = "Main App"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -60,9 +61,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D47C029A2819CA6500D359F5"
-            BuildableName = "Rift Valley Timer.app"
-            BlueprintName = "Rift Valley Timer"
+            BlueprintIdentifier = "D43B97342DA2C0F50028E023"
+            BuildableName = "Main App.app"
+            BlueprintName = "Main App"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

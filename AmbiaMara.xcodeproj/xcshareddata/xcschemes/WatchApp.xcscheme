@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D4F83C9C2D63DB10009C4646"
-               BuildableName = "Rift Valley Timer WatchApp.app"
-               BlueprintName = "Rift Valley Timer WatchApp"
+               BuildableName = "Watch App.app"
+               BlueprintName = "Watch App"
                ReferencedContainer = "container:AmbiaMara.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,8 +44,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D4F83CB22D63DB43009C4646"
-               BuildableName = "Rift Valley Timer ComplicationsExtension.appex"
-               BlueprintName = "Rift Valley Timer ComplicationsExtension"
+               BuildableName = "Watch Complications.appex"
+               BlueprintName = "Watch Complications"
                ReferencedContainer = "container:AmbiaMara.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -86,8 +86,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4F83C9C2D63DB10009C4646"
-            BuildableName = "Rift Valley Timer WatchApp.app"
-            BlueprintName = "Rift Valley Timer WatchApp"
+            BuildableName = "Watch App.app"
+            BlueprintName = "Watch App"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -103,8 +103,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4F83C9C2D63DB10009C4646"
-            BuildableName = "Rift Valley Timer WatchApp.app"
-            BlueprintName = "Rift Valley Timer WatchApp"
+            BuildableName = "Watch App.app"
+            BlueprintName = "Watch App"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

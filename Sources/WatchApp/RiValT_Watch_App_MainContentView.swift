@@ -17,32 +17,12 @@ import RVS_Generic_Swift_Toolbox
 /**
  This displays a navigation list of timers (may only be one, in which case it automatically opens to that timer).
  */
-struct Rift_Valley_Timer_Watch_App_MainContentView: View {
-    /* ################################################################## */
-    /**
-     This contains the state for the app.
-    */
-    @Binding var timerStatus: Rift_Valley_Timer_Watch_App.TimerStatus
-
+struct RiValT_Watch_App_MainContentView: View {
     /* ################################################################## */
     /**
      The main display body.
     */
     var body: some View {
-        ViewThatFits {
-            switch timerStatus.screen {
-            case .timerList:
-                Rift_Valley_Timer_Watch_App_TimerList(timerStatus: $timerStatus)
-            case .timerDetails:
-                Rift_Valley_Timer_Watch_App_IndividualTimerView(timerStatus: $timerStatus)
-            case .runningTimer:
-                Rift_Valley_Timer_Watch_App_RunningTimerView(timerStatus: $timerStatus)
-            case .busy:
-                ProgressView()
-            case .appNotReachable:
-                Text("SLUG-CANT-REACH-PHONE-APP".localizedVariant)
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        Text("HAI")
     }
 }
