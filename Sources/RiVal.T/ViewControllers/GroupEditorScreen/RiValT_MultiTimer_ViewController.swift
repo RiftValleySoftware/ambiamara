@@ -447,7 +447,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
                 let groupNumberLabel = UILabel()
                 groupNumberLabel.isUserInteractionEnabled = false
                 groupNumberLabel.backgroundColor = UIColor(named: "Selected-Cell-Border")
-                groupNumberLabel.textColor = UIColor(named: "Group-Number")
+                groupNumberLabel.textColor = 1 == group.count ? UIColor(named: "Group-Number") : self.tintColor
                 groupNumberLabel.textAlignment = .center
                 groupNumberLabel.font = .boldSystemFont(ofSize: 30)
                 groupNumberLabel.adjustsFontSizeToFitWidth = true
@@ -461,6 +461,10 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
                 groupNumberLabel.widthAnchor.constraint(equalToConstant: 38).isActive = true
                 groupNumberLabel.cornerRadius = 12
                 groupNumberLabel.clipsToBounds = true
+                if 1 < group.count {
+                    groupNumberLabel.isUserInteractionEnabled = true
+                    groupNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(groupBackgroundNumberTapped)))
+                }
             }
             
             // This allows us to select the group, when there's a tap, anywhere on the line.
@@ -990,6 +994,29 @@ extension RiValT_MultiTimer_ViewController {
             self.impactHaptic()
             self.collectionView?.reloadData()
             self.setUpNavBarItems()
+        }
+    }
+    
+    /* ############################################################## */
+    /**
+     The number at the end of a group was hit.
+     
+     - parameter inTapGesture: The tap that caused the call.
+     */
+    @objc func groupBackgroundNumberTapped(_ inTapGesture: UITapGestureRecognizer) {
+        if let group = self.timerModel.selectedTimer?.group,
+           1 < group.count {
+            var currentSelectedIndex = -1
+            
+            group.forEach { inTimer in
+                if inTimer.isSelected,
+                   let index = inTimer.indexPath?.item {
+                    currentSelectedIndex = index < (group.count - 1) ? index : -1
+                }
+            }
+            
+            group[currentSelectedIndex + 1].isSelected = true
+            self.collectionView?.reloadData()
         }
     }
 }

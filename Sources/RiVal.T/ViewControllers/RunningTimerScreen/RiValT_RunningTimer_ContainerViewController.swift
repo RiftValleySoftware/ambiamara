@@ -563,6 +563,12 @@ extension RiValT_RunningTimer_ContainerViewController {
         }
         
         self.controlToolbar?.isHidden = false
+        
+        guard self.timer?.isTimerRunning ?? false else {
+            self.controlToolbar?.alpha = 1.0
+            return
+        }
+        
         if RiValT_Settings().autoHideToolbar {
             self._autoHideTimer?.invalidate()
             self._autoHideTimer = nil
@@ -572,7 +578,7 @@ extension RiValT_RunningTimer_ContainerViewController {
                                                     leewayInMilliseconds: 100,
                                                     onlyFireOnce: true,
                                                     queue: .main, isWallTime: true)
-            self._autoHideTimer?.isRunning = self.timer?.isTimerRunning ?? false
+            self._autoHideTimer?.isRunning = true
             
             if 1.0 > (self.controlToolbar?.alpha ?? 1) {
                 self.controlToolbar?.alpha = 0.0
@@ -595,12 +601,13 @@ extension RiValT_RunningTimer_ContainerViewController {
     func hideToolbar() {
         self._autoHideTimer?.invalidate()
         self._autoHideTimer = nil
-        self.controlToolbar?.alpha = 1.0
-        
+        self.controlToolbar?.isHidden = true
+
         guard RiValT_Settings().displayToolbar,
               RiValT_Settings().autoHideToolbar
         else { return }
-
+        
+        self.controlToolbar?.alpha = 1.0
         view.layoutIfNeeded()
         UIView.animate(withDuration: Self._autoHideAnimationDurationInSeconds,
                        animations: { [weak self] in
@@ -678,11 +685,13 @@ extension RiValT_RunningTimer_ContainerViewController {
         self._alarmTimer?.isRunning = false
         if self.timer?.isTimerRunning ?? false {
             self.flashCyan()
+            self._autoHideTimer?.isRunning = false
             self.timer?.pause()
             self.updateDisplays()
         } else {
             if self.timer?.isTimerPaused ?? false {
                 self.flashGreen()
+                self._autoHideTimer?.isRunning = true
                 self.timer?.resume()
             } else if self.timer?.isTimerInAlarm ?? false,
                       let oldRow = self.timer?.indexPath?.row,
@@ -701,6 +710,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             } else {
                 self.flashGreen()
                 self.impactHaptic()
+                self._autoHideTimer?.isRunning = true
                 self.timer?.start()
            }
             self.updateDisplays()
@@ -730,6 +740,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             }
         } else {
             self.timer?.end()
+            self.alarmReached()
         }
         
         self.updateDisplays()
@@ -1028,7 +1039,8 @@ extension RiValT_RunningTimer_ContainerViewController {
         self._audioPlayer?.stop()
         if !RiValT_Settings().displayToolbar {
             self.stopHit()
-        } else if RiValT_Settings().autoHideToolbar {
+        } else if RiValT_Settings().autoHideToolbar,
+                  self.timer?.isTimerRunning ?? false {
             self.showToolbar()
         }
     }
@@ -1255,7 +1267,11 @@ extension RiValT_RunningTimer_ContainerViewController: RVS_BasicGCDTimerDelegate
                 #if DEBUG
                     print("Triggering the auto-hide timer")
                 #endif
-                self?.hideToolbar()
+                if self?.timer?.isTimerRunning ?? false {
+                    self?.hideToolbar()
+                } else {
+                    self?.showToolbar() // This ensures that we restart the timer.
+                }
                 
             case self?._alarmTimer:
                 #if DEBUG
