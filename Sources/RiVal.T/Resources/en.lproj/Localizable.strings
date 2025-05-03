@@ -153,9 +153,11 @@ You can set short transition sounds between timers in a group, and a final endin
 
 There are three large, easy-to-read displays:
     • NUMERIC: A classic digital-style countdown.
-    • CIRCULAR: A donut-shaped timer that empties as time passes.
-    • STOPLIGHTS: Green, yellow, and red lights that change as thresholds are reached—ideal for debates.
-    
+    • CIRCULAR: A donut-shaped timer that disappears, as time passes.
+    • STOPLIGHTS: Colored circles that change as thresholds are reached —ideal for debates.
+
+
+
 OPEN-SOURCE PACKAGES AND APP INFO:
 
 The app relies on the following open-source Swift packages:
