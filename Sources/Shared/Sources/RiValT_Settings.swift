@@ -182,7 +182,6 @@ class RiValT_Settings: RVS_PersistentPrefs {
                 var groupTemp = [[String: any Hashable]]()
                 inGroup.forEach { inTimer in
                     var timerTemp = [String: any Hashable]()
-                    print("inTimer: \(inTimer)")
                     inTimer.forEach { inKey, inValue in
                         if let key = inKey as? String,
                            let value = inValue as? any Hashable {
