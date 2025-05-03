@@ -1016,6 +1016,7 @@ extension RiValT_MultiTimer_ViewController {
             }
             
             group[currentSelectedIndex + 1].isSelected = true
+            impactHaptic()
             self.collectionView?.reloadData()
         }
     }
