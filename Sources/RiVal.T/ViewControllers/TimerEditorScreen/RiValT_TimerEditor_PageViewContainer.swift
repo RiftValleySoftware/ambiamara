@@ -145,6 +145,7 @@ extension RiValT_TimerEditor_PageViewContainer {
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
         self.navigationController?.isNavigationBarHidden = false
+        self.currentlySelectedTimerEditor?.timeTypeSegmentedControl?.selectedSegmentIndex = 0
         self.deleteBarButton?.isEnabled = 1 < (self.timer?.model?.allTimers.count ?? 0)
     }
 

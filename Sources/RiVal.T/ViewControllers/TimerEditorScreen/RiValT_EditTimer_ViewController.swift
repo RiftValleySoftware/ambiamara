@@ -254,6 +254,7 @@ extension RiValT_EditTimer_ViewController {
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
         self.timeTypeSegmentedControl?.selectedSegmentIndex = 0
+        self.setUpTimeTypeSegmentedControl()
         self.setTime()
     }
     
@@ -474,30 +475,16 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
         
         switch selectedColumn {
         case .hours:
-            if 0 == hours,
-               0 == inRow,
-               inRow == selectedRow {
-                stringFormat = ""
-            }
+            break
             
         case .minutes:
-            if 0 == hours,
-               0 == minutes,
-               0 == inRow,
-               inRow == selectedRow {
-                stringFormat = ""
-            } else if 0 < hours,
+            if 0 < hours,
                       inRow == selectedRow {
                 stringFormat = "%02d"
             }
 
         case .seconds:
-            if 0 == hours,
-               0 == minutes,
-               0 == inRow,
-               inRow == selectedRow {
-                stringFormat = ""
-            } else if 0 < hours || 0 < minutes,
+            if 0 < hours || 0 < minutes,
                 inRow == selectedRow {
                 stringFormat = "%02d"
             }
