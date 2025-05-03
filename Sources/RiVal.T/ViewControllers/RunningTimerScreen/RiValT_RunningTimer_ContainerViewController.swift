@@ -383,14 +383,6 @@ extension RiValT_RunningTimer_ContainerViewController {
         
         self.exposeCurrentDisplay()
         self.updateDisplays()
-    }
-
-    /* ############################################################## */
-    /**
-     Called when the view will rearrange its view hierarchy.
-     */
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
         self.showToolbar()
     }
 
@@ -557,6 +549,9 @@ extension RiValT_RunningTimer_ContainerViewController {
     func showToolbar() {
         guard RiValT_Settings().displayToolbar
         else {
+            self._autoHideTimer?.delegate = nil
+            self._autoHideTimer?.invalidate()
+            self._autoHideTimer = nil
             self.controlToolbar?.isHidden = true
             self.controlToolbar?.alpha = 1.0
             return
@@ -565,11 +560,14 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.controlToolbar?.isHidden = false
         
         guard self.timer?.isTimerRunning ?? false else {
+            self._autoHideTimer?.isRunning = false
             self.controlToolbar?.alpha = 1.0
             return
         }
         
-        if RiValT_Settings().autoHideToolbar {
+        if RiValT_Settings().autoHideToolbar,
+           nil == self._autoHideTimer || !(self._autoHideTimer?.isRunning ?? false) {
+            self._autoHideTimer?.delegate = nil
             self._autoHideTimer?.invalidate()
             self._autoHideTimer = nil
 
@@ -591,6 +589,8 @@ extension RiValT_RunningTimer_ContainerViewController {
                                completion: nil
                 )
             }
+        } else {
+            self._autoHideTimer?.isRunning = (self.timer?.isTimerRunning ?? false)
         }
     }
     

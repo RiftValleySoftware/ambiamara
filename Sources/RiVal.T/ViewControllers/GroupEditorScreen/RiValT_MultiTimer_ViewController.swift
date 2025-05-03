@@ -443,7 +443,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
             
             // If we have more than one group, we add a number to the right end, identifying the group.
             if group.index == inLayoutAttributes.indexPath.section,
-               1 < group.model?.count ?? 0 {
+               (1 < group.model?.count ?? 0) || (1 < group.count) {
                 let groupNumberLabel = UILabel()
                 groupNumberLabel.isUserInteractionEnabled = false
                 groupNumberLabel.backgroundColor = UIColor(named: "Selected-Cell-Border")
