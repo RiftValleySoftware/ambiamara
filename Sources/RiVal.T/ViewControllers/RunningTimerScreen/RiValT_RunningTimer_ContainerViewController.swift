@@ -835,6 +835,23 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.fastForwardToolbarItem?.isEnabled = !(self.timer?.isTimerInAlarm ?? false)
         self.rewindToolbarItem?.isEnabled = (self.timer?.isTimerInAlarm ?? false) || ((self.timer?.currentTime ?? 0) < (self.timer?.startingTimeInSeconds ?? 0)) || (nil != self.prevTimer)
         self.playPauseToolbarItem?.image = UIImage(systemName: "\(timer.isTimerRunning ? "pause" : "play").fill")
+        
+        self.rewindToolbarItem?.accessibilityLabel = "SLUG-ACC-REWIND-LABEL".localizedVariant
+        self.rewindToolbarItem?.accessibilityHint = "SLUG-ACC-REWIND-HINT".localizedVariant
+        
+        self.stopToolbarItem?.accessibilityLabel = "SLUG-ACC-STOP-LABEL".localizedVariant
+        self.stopToolbarItem?.accessibilityHint = "SLUG-ACC-STOP-HINT".localizedVariant
+        
+        if timer.isTimerRunning {
+            self.playPauseToolbarItem?.accessibilityLabel = "SLUG-ACC-PAUSE-LABEL".localizedVariant
+            self.playPauseToolbarItem?.accessibilityHint = "SLUG-ACC-PAUSE-HINT".localizedVariant
+        } else {
+            self.playPauseToolbarItem?.accessibilityLabel = "SLUG-ACC-PLAY-LABEL".localizedVariant
+            self.playPauseToolbarItem?.accessibilityHint = "SLUG-ACC-PLAY-HINT".localizedVariant
+        }
+        
+        self.fastForwardToolbarItem?.accessibilityLabel = "SLUG-ACC-FAST-FORWARD-LABEL".localizedVariant
+        self.fastForwardToolbarItem?.accessibilityHint = "SLUG-ACC-FAST-FORWARD-HINT".localizedVariant
     }
 
     /* ############################################################## */

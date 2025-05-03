@@ -104,3 +104,20 @@
 
 "SLUG-ACC-NAVBAR-DELETE-LABEL"                  =   "Delete This Timer";
 "SLUG-ACC-NAVBAR-DELETE-HINT"                   =   "Selecting this, will delete this timer. You will first be asked, if you are sure that you wish to delete the timer.";
+
+// MARK: Running Timer Screen
+
+"SLUG-ACC-REWIND-LABEL"                         =   "Reset Timer";
+"SLUG-ACC-REWIND-HINT"                          =   "This will reset the timer to the start.";
+
+"SLUG-ACC-STOP-LABEL"                           =   "Stop Timer";
+"SLUG-ACC-STOP-HINT"                            =   "This will stop the timer, and return to the previous screen.";
+
+"SLUG-ACC-PLAY-LABEL"                           =   "Start Timer";
+"SLUG-ACC-PLAY-HINT"                            =   "This will start the timer (or resume a paused timer).";
+
+"SLUG-ACC-PAUSE-LABEL"                          =   "Pause Timer";
+"SLUG-ACC-PAUSE-HINT"                           =   "This will pause the timer.";
+
+"SLUG-ACC-FAST-FORWARD-LABEL"                   =   "End Timer";
+"SLUG-ACC-FAST-FORWARD-HINT"                    =   "This will force the timer to the end (and may start the alarm).";
