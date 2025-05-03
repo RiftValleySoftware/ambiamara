@@ -27,7 +27,7 @@ import RVS_BasicGCDTimer
 /**
  This class exists to give the Watch Connectivity a place to work.
  */
-class RiValT_WatchDelegate: NSObject, WCSessionDelegate {
+class RiValT_WatchDelegate: NSObject {
     /* ################################################################## */
     /**
      This is a callback template for errors. It is always called in the main thread.
@@ -36,7 +36,59 @@ class RiValT_WatchDelegate: NSObject, WCSessionDelegate {
      - parameter inError: Possible error. May be nil.
      */
     typealias ErrorContextHandler = (_ inWatchDelegate: RiValT_WatchDelegate?, _ inError: Error?) -> Void
+    
+    /* ################################################################## */
+    /**
+     This is used as the "ground truth" timer model, for both iOS, and Watch. This class keeps it synced.
+     */
+    var timerModel = TimerModel()
 
+    /* ################################################################## */
+    /**
+     Default initializer
+     */
+    override init() {
+        super.init()
+        RiValT_Settings.ephemeralFirstTime = true
+        self._setUpTimerModel()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Private Instance Methods
+/* ###################################################################################################################################### */
+extension RiValT_WatchDelegate {
+    /* ################################################################## */
+    /**
+     This initializes the timer model.
+     */
+    private func _setUpTimerModel() {
+        self.timerModel.asArray = RiValT_Settings().timerModel
+        if timerModel.allTimers.isEmpty {
+            let timer = timerModel.createNewTimer(at: IndexPath(item: 0, section: 0))
+            timer.isSelected = true
+            RiValT_Settings().timerModel = self.timerModel.asArray
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Internal Instance Methods
+/* ###################################################################################################################################### */
+extension RiValT_WatchDelegate {
+    /* ################################################################## */
+    /**
+     This updates the stored timer model.
+     */
+    func updateSettings() {
+        RiValT_Settings().timerModel = self.timerModel.asArray
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: WCSessionDelegate Conformance
+/* ###################################################################################################################################### */
+extension RiValT_WatchDelegate: WCSessionDelegate {
     #if os(iOS)    // Only necessary for iOS
         /* ################################################################## */
         /**

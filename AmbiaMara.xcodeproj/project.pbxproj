@@ -59,6 +59,7 @@
 		D4A9322A2D64E9CB0028556E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4A932262D64E9CB0028556E /* Assets.xcassets */; };
 		D4A9322C2D64E9CB0028556E /* RiValT_Complications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A932282D64E9CB0028556E /* RiValT_Complications.swift */; };
 		D4A99AFB2DBEF28F00E7CC46 /* RiValT_RunningTimer_Base_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A99AFA2DBEF28F00E7CC46 /* RiValT_RunningTimer_Base_ViewController.swift */; };
+		D4B26FD52DC6DC2900D2CD11 /* RiValT_WatchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F357292D6F61C0005A815A /* RiValT_WatchDelegate.swift */; };
 		D4BB900C2D9C3B7500F3DB80 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E869532D99916200D56802 /* TimerEngine.swift */; };
 		D4BB901D2D9C3E1300F3DB80 /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB90142D9C3E1300F3DB80 /* TimePicker.swift */; };
 		D4BB901E2D9C3E1300F3DB80 /* TimerEngineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB90172D9C3E1300F3DB80 /* TimerEngineContentView.swift */; };
@@ -1081,6 +1082,7 @@
 				D43B97662DA2C1D10028E023 /* RiValT_AppDelegate.swift in Sources */,
 				D4C122D02DBED67B0041F23A /* RiValT_RunningTimer_ContainerViewController.swift in Sources */,
 				D43B97672DA2C1D10028E023 /* RiValT_SceneDelegate.swift in Sources */,
+				D4B26FD52DC6DC2900D2CD11 /* RiValT_WatchDelegate.swift in Sources */,
 				D472DF922DC3C2F80076A987 /* RiValT_About_ViewController.swift in Sources */,
 				D4752E9D2DB2FD91002359CA /* RiValT_Settings.swift in Sources */,
 				D43B97682DA2C1D10028E023 /* RiValT_Base_ViewController.swift in Sources */,

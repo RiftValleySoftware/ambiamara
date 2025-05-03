@@ -26,10 +26,18 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
     
     /* ################################################################## */
     /**
+     This contains the iOS app instance of the Watch Delegate class.
+
      "There can only be one."
          - Connor MacLeod
      */
-    var timerModel = TimerModel()
+    var watchDelegate: RiValT_WatchDelegate = RiValT_WatchDelegate()
+    
+    /* ################################################################## */
+    /**
+     This is the shared timer model instance. We get it from the Watch Delegate instance.
+     */
+    var timerModel: TimerModel { self.watchDelegate.timerModel }
     
     /* ################################################################## */
     /**
@@ -48,22 +56,7 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
      */
     func application(_: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Self.appDelegateInstance = self
-        RiValT_Settings.ephemeralFirstTime = true
-        setUpTimerModel()
         return true
-    }
-    
-    /* ################################################################## */
-    /**
-     This initializes the timer model.
-     */
-    func setUpTimerModel() {
-        self.timerModel.asArray = RiValT_Settings().timerModel
-        if timerModel.allTimers.isEmpty {
-            let timer = timerModel.createNewTimer(at: IndexPath(item: 0, section: 0))
-            timer.isSelected = true
-            RiValT_Settings().timerModel = self.timerModel.asArray
-        }
     }
     
     /* ################################################################## */
@@ -71,7 +64,7 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
      This updates the stored timer model.
      */
     func updateSettings() {
-        RiValT_Settings().timerModel = self.timerModel.asArray
+        self.watchDelegate.updateSettings()
     }
 
     // MARK: UISceneSession Lifecycle
