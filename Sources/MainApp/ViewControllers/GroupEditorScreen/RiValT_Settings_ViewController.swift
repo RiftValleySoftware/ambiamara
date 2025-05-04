@@ -179,6 +179,7 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
             self.autoHideStackView?.isHidden = true
             RiValT_Settings().displayToolbar = false
             RiValT_Settings().autoHideToolbar = false
+            self.displayAdvisoryAlert()
         }
         
         self._setPreferredContentSize()
@@ -216,5 +217,40 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
             callUpon.openAboutScreen()
             self.dismiss(animated: true)
         }
+    }
+    
+    /* ############################################################## */
+    /**
+     This displays the "advisory" alert, if the toolbar pref is turned off.
+     */
+    func displayAdvisoryAlert() {
+        let messageText = "SLUG-ADVISORY-ALERT-BODY"
+        
+        let alertController = UIAlertController(title: "SLUG-ADVISORY-ALERT-HEADER", message: messageText, preferredStyle: .alert)
+        
+        // This simply displays the main message as left-aligned.
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = NSTextAlignment.left
+
+        let attributedMessageText = NSMutableAttributedString(
+            string: messageText,
+            attributes: [
+                NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body),
+                NSAttributedString.Key.foregroundColor: UIColor.label
+            ]
+        )
+        
+        alertController.setValue(attributedMessageText, forKey: "attributedMessage")
+
+        let cancelAction = UIAlertAction(title: "SLUG-OK-BUTTON-TEXT".localizedVariant, style: .cancel, handler: nil)
+
+        alertController.addAction(cancelAction)
+
+        self.impactHaptic(1.0)
+
+        alertController.localizeStuff()
+
+        present(alertController, animated: true, completion: nil)
     }
 }

@@ -103,6 +103,19 @@
 "SLUG-ONE-TAP-EDIT"                             =   "\"One Tap\" Timer Editing";
 "SLUG-ABOUT-BUTTON"                             =   "About This App";
 
+// MARK: Settings Advisory Alert
+
+"SLUG-ADVISORY-ALERT-HEADER"                    =   "Gestures";
+"SLUG-ADVISORY-ALERT-BODY"                      =   "Turning off the toolbar in the running timer, means that you need to use gestures to control the timer:
+
+SINGLE-TAP: Starts, pauses, and resumes the timer
+DOUBLE-TAP: Stops the timer completely, and returns to the previous screen
+LEFT-SWIPE: Rewinds the timer to the beginning, or selects the previous timer
+RIGHT-SWIPE: Sets the timer into \"alarm,\" or selects the next timer
+LONG-PRESS: Brings up a slider, allowing you to force the timer to any point";
+
+"SLUG-OK-BUTTON-TEXT"                           =   "OK";
+
 // MARK: Timer Edit Screen
 
 "SLUG-EDIT-FORMAT"                              =   "Edit Timer %d";
@@ -155,6 +168,8 @@ There are three large, easy-to-read displays:
     • NUMERIC: A classic digital-style countdown.
     • CIRCULAR: A donut-shaped timer that disappears, as time passes.
     • STOPLIGHTS: Colored circles that change as thresholds are reached —ideal for debates.
+
+To find out more, visit: https://riftvalleysoftware.com/rival-t
 
 
 

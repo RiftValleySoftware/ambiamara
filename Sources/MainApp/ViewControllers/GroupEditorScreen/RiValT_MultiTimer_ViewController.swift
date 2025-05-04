@@ -447,7 +447,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
                 let groupNumberLabel = UILabel()
                 groupNumberLabel.isUserInteractionEnabled = false
                 groupNumberLabel.backgroundColor = UIColor(named: "Selected-Cell-Border")
-                groupNumberLabel.textColor = 1 == group.count ? UIColor(named: "Group-Number") : self.tintColor
+                groupNumberLabel.textColor = UIColor(named: "Group-Number")
                 groupNumberLabel.textAlignment = .center
                 groupNumberLabel.font = .boldSystemFont(ofSize: 30)
                 groupNumberLabel.adjustsFontSizeToFitWidth = true
@@ -462,6 +462,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
                 groupNumberLabel.cornerRadius = 12
                 groupNumberLabel.clipsToBounds = true
                 if 1 < group.count {
+                    groupNumberLabel.textColor = UIColor(named: "Selected-Cell-Action-Color")
                     groupNumberLabel.isUserInteractionEnabled = true
                     groupNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(groupBackgroundNumberTapped)))
                 }
