@@ -30,6 +30,15 @@ import RVS_BasicGCDTimer
 class RiValT_WatchDelegate: NSObject {
     /* ################################################################## */
     /**
+     This is a callback template for the message/context calls. It is always called in the main thread.
+     
+     - parameter inWatchDelegate: The delegate handler calling this.
+     - parameter inApplicationContext: The application context from the Watch.
+     */
+    typealias ApplicationContextHandler = (_ inWatchDelegate: RiValT_WatchDelegate?, _ inApplicationContext: [String: Any]) -> Void
+    
+    /* ################################################################## */
+    /**
      This is a callback template for errors. It is always called in the main thread.
      
      - parameter inWatchDelegate: The delegate handler calling this.
@@ -37,14 +46,36 @@ class RiValT_WatchDelegate: NSObject {
      */
     typealias ErrorContextHandler = (_ inWatchDelegate: RiValT_WatchDelegate?, _ inError: Error?) -> Void
     
+    /* ################################################################## */
+    /**
+     This is how many seconds we wait for a response from the phone, before giving up.
+     */
+    static let testTimeoutInSeconds = TimeInterval(10)
+
+    /* ################################################################## */
+    /**
+     This is a timeout handler for communications with the phone.
+     */
+    private var _timeoutHandler: RVS_BasicGCDTimer?
+
     /* ###################################################################### */
     /**
-     This is a template for the update callback.
-     
-     - parameter inApplicationContext: The new application context.
+     This will be called when the context changes. This is always called in the main thread.
      */
-    typealias ApplicationContextHandler = () -> Void
+    var updateHandler: ApplicationContextHandler?
+    
+    /* ###################################################################### */
+    /**
+     This will be called when there are errors. This is always called in the main thread.
+     */
+    var errorHandler: ErrorContextHandler?
 
+    /* ###################################################################### */
+    /**
+     This is used for trying to recover from Watch sync errors.
+     */
+    var retries: Int = 0
+    
     /* ################################################################## */
     /**
      This is used as the "ground truth" timer model, for both iOS, and Watch. This class keeps it synced.
@@ -56,12 +87,6 @@ class RiValT_WatchDelegate: NSObject {
      This maintains a reference to the session.
      */
     var wcSession = WCSession.default
-    
-    /* ###################################################################### */
-    /**
-     This will be called when the context changes. This is always called in the main thread.
-     */
-    var updateHandler: ApplicationContextHandler?
 
     /* ###################################################################### */
     /**
@@ -89,6 +114,23 @@ class RiValT_WatchDelegate: NSObject {
 // MARK: Private Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_WatchDelegate {
+    /* ################################################################## */
+    /**
+     */
+    private func _startTimeoutHandler(completion inCompletion: @escaping ErrorContextHandler) {
+        _timeoutHandler = RVS_BasicGCDTimer(Self.testTimeoutInSeconds) { _, _  in
+            self._killTimeoutHandler()
+            self.errorHandler?(self, nil)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _killTimeoutHandler() {
+        _timeoutHandler = nil
+    }
+
     /* ################################################################## */
     /**
      This initializes the timer model.
@@ -174,28 +216,57 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
         #if DEBUG
             print("The Watch session is\(.activated == inActivationState ? "" : " not") activated.")
         #endif
+        
+        guard .activated == inActivationState else { return }
+
         #if os(watchOS)    // Only necessary for Watch
             /* ############################################################## */
             /**
              This sends a message to the phone (from the watch), that is interpreted as a request for a context update.
             */
-            func _sendContextRequest() {
+            func _sendContextRequest(_ inRetries: Int = 5) {
                 func _replyHandler(_ inReply: [String: Any]) {
                     #if DEBUG
                         print("Received Reply from Phone: \(inReply)")
                     #endif
+                    _killTimeoutHandler()
+                    #if DEBUG
+                        print("Reply from peer: \(inReply)")
+                    #endif
+                    retries = 0
+                    isUpdateInProgress = false
+                    session(wcSession, didReceiveApplicationContext: inReply)
                 }
                 
                 func _errorHandler(_ inError: any Error) {
                     #if DEBUG
                         print("Error Sending Message to Phone: \(inError.localizedDescription)")
                     #endif
+                    _killTimeoutHandler()
+                    isUpdateInProgress = false
+                    let nsError = inError as NSError
+                    if nsError.domain == "WCErrorDomain",
+                       7007 == nsError.code,
+                       0 < retries {
+                        #if DEBUG
+                            print("Connection failure. Retrying...")
+                        #endif
+                        let randomDelay = Double.random(in: (0.3...1.0))
+                        DispatchQueue.global().asyncAfter(deadline: .now() + randomDelay) { _sendContextRequest(self.retries - 1) }
+                        return
+                    } else {
+                        #if DEBUG
+                            print("Error Not Handled")
+                        #endif
+                    }
                 }
 
                 #if DEBUG
                     print("Sending context request to the phone")
                 #endif
                 if .activated == wcSession.activationState {
+                    self.retries = inRetries
+                    
                     isUpdateInProgress = true
                     wcSession.sendMessage(["requestContext": "requestContext"], replyHandler: _replyHandler, errorHandler: _errorHandler)
                     isUpdateInProgress = false
@@ -220,8 +291,42 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
             #if DEBUG
                 print("Received Application Context From Phone: \(inApplicationContext)")
             #endif
+            guard !isUpdateInProgress else { return }
+            isUpdateInProgress = true
+            _killTimeoutHandler()
             
-            self.updateHandler?()
+            RiValT_Settings().flush()
+            
+            if let timerModelAr = inApplicationContext["timerModel"] as? NSArray {
+                var timerModel = [[[String: any Hashable]]]()
+                
+                timerModelAr.forEach { inGroup in
+                    guard let group = inGroup as? NSArray else { return }
+                    
+                    var groupArray = [[String: any Hashable]]()
+                    
+                    group.forEach { inPart in
+                        guard let part = inPart as? NSDictionary,
+                              let keys = part.allKeys as? [String]
+                        else { return }
+                        var partDictionary = [String: any Hashable]()
+                        keys.forEach { inKey in
+                            guard let value = part[inKey] as? any Hashable else { return }
+                            partDictionary["\(inKey)"] = value
+                        }
+                        groupArray.append(partDictionary)
+                    }
+                    
+                    timerModel.append(groupArray)
+                }
+                #if DEBUG
+                    print("Received Timer Model: \(timerModel)")
+                #endif
+                self.timerModel.asArray = timerModel
+            }
+            
+            self.updateHandler?(self, inApplicationContext)
+            self.isUpdateInProgress = false
         }
     #endif
     
@@ -236,8 +341,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
             #if DEBUG
                 print("Received Message From Watch: \(inMessage)")
             #endif
-            if let messageType = inMessage["messageType"] as? String,
-               "requestContext" == messageType {
+            if nil != inMessage["requestContext"] {
                 #if DEBUG
                     print("Responding to context request from the watch")
                 #endif

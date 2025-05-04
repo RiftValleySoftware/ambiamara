@@ -87,6 +87,7 @@
 		D4F3572A2D6F61C0005A815A /* RiValT_WatchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F357292D6F61C0005A815A /* RiValT_WatchDelegate.swift */; };
 		D4F357312D6F6271005A815A /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D4F357302D6F6271005A815A /* RVS_Persistent_Prefs */; };
 		D4F357332D6F6278005A815A /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D4F357322D6F6278005A815A /* RVS_Persistent_Prefs */; };
+		D4F675C62DC7F952007367FD /* Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D4F83C9D2D63DB10009C4646 /* Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D4F7EDE32DBD4052007F4771 /* RiValT_Settings_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7EDE22DBD4052007F4771 /* RiValT_Settings_ViewController.swift */; };
 		D4F826FB2DB9656200815664 /* Beep-014.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F32DB9656200815664 /* Beep-014.mp3 */; };
 		D4F826FC2DB9656200815664 /* Beep-002.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826E72DB9656200815664 /* Beep-002.mp3 */; };
@@ -152,6 +153,13 @@
 			remoteGlobalIDString = D43B97342DA2C0F50028E023;
 			remoteInfo = RiVal.T;
 		};
+		D4F675C72DC7F952007367FD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4F83C9C2D63DB10009C4646;
+			remoteInfo = "Watch App";
+		};
 		D4F83CBE2D63DB43009C4646 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
@@ -196,6 +204,17 @@
 				D4FC4A362DB1474B00E5F0E5 /* 07-videogame-beeps-lower-frequency.mp3 in Copy Alarm Sound Files */,
 			);
 			name = "Copy Alarm Sound Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4F675C92DC7F952007367FD /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				D4F675C62DC7F952007367FD /* Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4F8270F2DB9657900815664 /* Copy Transition Sounds */ = {
@@ -769,10 +788,12 @@
 				D43B97332DA2C0F50028E023 /* Resources */,
 				D4A413912DB9276B0017964C /* Copy Alarm Sound Files */,
 				D4F8270F2DB9657900815664 /* Copy Transition Sounds */,
+				D4F675C92DC7F952007367FD /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D4F675C82DC7F952007367FD /* PBXTargetDependency */,
 			);
 			name = "Main App";
 			packageProductDependencies = (
@@ -1171,6 +1192,11 @@
 			isa = PBXTargetDependency;
 			target = D43B97342DA2C0F50028E023 /* Main App */;
 			targetProxy = D4C665D02DAE6BFF00A0316D /* PBXContainerItemProxy */;
+		};
+		D4F675C82DC7F952007367FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4F83C9C2D63DB10009C4646 /* Watch App */;
+			targetProxy = D4F675C72DC7F952007367FD /* PBXContainerItemProxy */;
 		};
 		D4F83CBF2D63DB43009C4646 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
