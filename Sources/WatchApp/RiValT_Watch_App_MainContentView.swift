@@ -9,7 +9,6 @@
  */
 
 import SwiftUI
-import RVS_Generic_Swift_Toolbox
 
 /* ###################################################################################################################################### */
 // MARK: - Main Watch Content View -
@@ -20,9 +19,18 @@ import RVS_Generic_Swift_Toolbox
 struct RiValT_Watch_App_MainContentView: View {
     /* ################################################################## */
     /**
+     This handles the session delegate.
+     */
+    @State private var _wcSessionDelegateHandler: RiValT_WatchDelegate?
+
+    /* ################################################################## */
+    /**
      The main display body.
     */
     var body: some View {
         Text("HAI")
+            .onAppear {
+                _wcSessionDelegateHandler = RiValT_WatchDelegate()
+            }
     }
 }

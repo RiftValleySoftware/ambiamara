@@ -28,7 +28,6 @@
 		D43B97762DA2C2D00028E023 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D43B97752DA2C2D00028E023 /* RVS_UIKit_Toolbox */; };
 		D43B97782DA2C2D00028E023 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D43B97772DA2C2D00028E023 /* RVS_BasicGCDTimer */; };
 		D43B97792DA2C2E80028E023 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E869532D99916200D56802 /* TimerEngine.swift */; };
-		D43ED8362D942C76001B1B68 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D43ED8352D942C76001B1B68 /* RVS_BasicGCDTimer */; };
 		D45184CA2DB42DBF00DA671D /* RiValT_SoundSettings_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45184C92DB42DBE00DA671D /* RiValT_SoundSettings_ViewController.swift */; };
 		D46B84EF2D986AD500199220 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D46B84EE2D986AD500199220 /* RVS_Generic_Swift_Toolbox */; };
 		D46B84F12D986AD500199220 /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D46B84F02D986AD500199220 /* RVS_Persistent_Prefs */; };
@@ -67,6 +66,8 @@
 		D4BB90202D9C3E1300F3DB80 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D4BB90132D9C3E1300F3DB80 /* Localizable.xcstrings */; };
 		D4BB90212D9C3E1300F3DB80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4BB90122D9C3E1300F3DB80 /* Assets.xcassets */; };
 		D4BB90222D9C3E1300F3DB80 /* TimerEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB901A2D9C3E1300F3DB80 /* TimerEngineTests.swift */; };
+		D4BDAEBE2DC7B31700185D4F /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4BDAEBD2DC7B31700185D4F /* RVS_BasicGCDTimer */; };
+		D4BDAEC22DC7B38C00185D4F /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4BDAEC12DC7B38C00185D4F /* RVS_BasicGCDTimer */; };
 		D4C122D02DBED67B0041F23A /* RiValT_RunningTimer_ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C122CF2DBED67B0041F23A /* RiValT_RunningTimer_ContainerViewController.swift */; };
 		D4C1B6212D806D6E00CEA6BF /* Digital.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4C1B6202D806D6E00CEA6BF /* Digital.ttf */; };
 		D4C665D52DAE6C1800A0316D /* TimerModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41109162DADEEB00034B591 /* TimerModelTests.swift */; };
@@ -317,6 +318,7 @@
 		D4BB90172D9C3E1300F3DB80 /* TimerEngineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineContentView.swift; sourceTree = "<group>"; };
 		D4BB90192D9C3E1300F3DB80 /* TimerEngineTestHarness.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TimerEngineTestHarness.xctestplan; sourceTree = "<group>"; };
 		D4BB901A2D9C3E1300F3DB80 /* TimerEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineTests.swift; sourceTree = "<group>"; };
+		D4BDAEBF2DC7B36400185D4F /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.4.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		D4C122CF2DBED67B0041F23A /* RiValT_RunningTimer_ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_RunningTimer_ContainerViewController.swift; sourceTree = "<group>"; };
 		D4C1B6202D806D6E00CEA6BF /* Digital.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Digital.ttf; sourceTree = "<group>"; };
 		D4C665CC2DAE6BFF00A0316D /* TimerModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimerModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -413,7 +415,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4E6ECB12D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */,
-				D43ED8362D942C76001B1B68 /* RVS_BasicGCDTimer in Frameworks */,
+				D4BDAEBE2DC7B31700185D4F /* RVS_BasicGCDTimer in Frameworks */,
 				D4F357312D6F6271005A815A /* RVS_Persistent_Prefs in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -426,6 +428,7 @@
 				D48A5E352D934ED200770606 /* RVS_UIKit_Toolbox in Frameworks */,
 				D4F83CB72D63DB43009C4646 /* SwiftUI.framework in Frameworks */,
 				D4E6ECB32D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */,
+				D4BDAEC22DC7B38C00185D4F /* RVS_BasicGCDTimer in Frameworks */,
 				D4F83CB52D63DB43009C4646 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -646,6 +649,7 @@
 		D4CD2E7D284697E100400AB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D4BDAEBF2DC7B36400185D4F /* WatchConnectivity.framework */,
 				D4F83CB42D63DB43009C4646 /* WidgetKit.framework */,
 				D4F83CB62D63DB43009C4646 /* SwiftUI.framework */,
 			);
@@ -867,7 +871,7 @@
 			packageProductDependencies = (
 				D4F357302D6F6271005A815A /* RVS_Persistent_Prefs */,
 				D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */,
-				D43ED8352D942C76001B1B68 /* RVS_BasicGCDTimer */,
+				D4BDAEBD2DC7B31700185D4F /* RVS_BasicGCDTimer */,
 			);
 			productName = "Rift Valley Timer Watch Watch App";
 			productReference = D4F83C9D2D63DB10009C4646 /* Watch App.app */;
@@ -891,6 +895,7 @@
 				D4F357322D6F6278005A815A /* RVS_Persistent_Prefs */,
 				D4E6ECB22D6FBF2500178A37 /* RVS_Generic_Swift_Toolbox */,
 				D48A5E342D934ED200770606 /* RVS_UIKit_Toolbox */,
+				D4BDAEC12DC7B38C00185D4F /* RVS_BasicGCDTimer */,
 			);
 			productName = "Rift Valley Timer ComplicationsExtension";
 			productReference = D4F83CB32D63DB43009C4646 /* Watch Complications.appex */;
@@ -1889,11 +1894,6 @@
 			package = D4D193BB2D883DEA008DA06F /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
 			productName = RVS_BasicGCDTimer;
 		};
-		D43ED8352D942C76001B1B68 /* RVS_BasicGCDTimer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4D193BB2D883DEA008DA06F /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
-			productName = RVS_BasicGCDTimer;
-		};
 		D46B84EE2D986AD500199220 /* RVS_Generic_Swift_Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4C4B70F2819D36800E22ECA /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
@@ -1918,6 +1918,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4A149BB2DB66A4700B70A7B /* XCRemoteSwiftPackageReference "RVS_Checkbox" */;
 			productName = RVS_Checkbox;
+		};
+		D4BDAEBD2DC7B31700185D4F /* RVS_BasicGCDTimer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4D193BB2D883DEA008DA06F /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
+			productName = RVS_BasicGCDTimer;
+		};
+		D4BDAEC12DC7B38C00185D4F /* RVS_BasicGCDTimer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4D193BB2D883DEA008DA06F /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
+			productName = RVS_BasicGCDTimer;
 		};
 		D4E6ECB02D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
