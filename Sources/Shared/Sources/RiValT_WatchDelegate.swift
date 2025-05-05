@@ -34,16 +34,16 @@ class RiValT_WatchDelegate: NSObject {
     /**
      This is a state code, to tell the receiver which state it should be in.
      */
-    enum TimerOperation: String {
+    enum TimerOperation: String, CaseIterable {
         /* ############################################################## */
         /**
-         Start the timer from the beginning.
+         Return the timer to the beginning, but pause it.
          */
-        case start
+        case reset
 
         /* ############################################################## */
         /**
-         Stop the timer, and return to the main set timer screen/details screen.
+         Stop the timer. Return to a previous state/screen.
          */
         case stop
 
@@ -56,26 +56,16 @@ class RiValT_WatchDelegate: NSObject {
         /* ############################################################## */
         /**
          Resume a paused timer.
+         
+         This may also have a payload with an Int, which is the time to resume from.
          */
         case resume
 
         /* ############################################################## */
         /**
-         Go to the end of the timer (alarm).
+         Send the timer to alarm mode.
          */
         case fastForward
-
-        /* ############################################################## */
-        /**
-         Reset to the beginning, and pause.
-         */
-        case reset
-
-        /* ############################################################## */
-        /**
-         Sound the alarm.
-         */
-        case alarm
     }
     
     /* ################################################################################################################################## */
@@ -389,6 +379,67 @@ extension RiValT_WatchDelegate {
     
     /* ################################################################## */
     /**
+     This sends a timer operation caommand to the peer
+     
+     - parameter inCommand: The operation to send.
+     - parameter inExtraData: A String, with any value we wish associated with the command.
+     - parameter inRetries: The number of try again retries.
+     */
+    func sendCommand(command inCommand: TimerOperation, extraData inExtraData: String = "", _ inRetries: Int = 5) {
+        /* ########################################################## */
+        /**
+         Handles a reply from the peer.
+         
+         - parameter inReply: The reply from the peer.
+        */
+        func _replyHandler(_ inReply: [String: Any]) {
+            #if DEBUG
+                print("Received (Unexpected) Reply from Watch: \(inReply)")
+            #endif
+        }
+        
+        /* ########################################################## */
+        /**
+         Handles an error in the transaction.
+         
+         This looks for a certain kind of failure, and will retry a few times.
+         
+         - parameter inError: The error that caused this call.
+        */
+        func _errorHandler(_ inError: any Error) {
+            #if DEBUG
+                print("Error Sending Message to Phone: \(inError.localizedDescription)")
+            #endif
+            _killTimeoutHandler()
+            isUpdateInProgress = false
+            let nsError = inError as NSError
+            if nsError.domain == "WCErrorDomain",
+               7007 == nsError.code,
+               0 < retries {
+                #if DEBUG
+                    print("Connection failure. Retrying...")
+                #endif
+                let randomDelay = Double.random(in: (0.3...1.0))
+                DispatchQueue.global().asyncAfter(deadline: .now() + randomDelay) { self.sendCommand(command: inCommand, extraData: inExtraData, self.retries - 1) }
+                return
+            } else {
+                #if DEBUG
+                    print("Error Not Handled")
+                #endif
+            }
+        }
+        
+        if .activated == wcSession.activationState {
+            self.retries = inRetries
+            isUpdateInProgress = true
+            // NB: You MUST have a replyHandler (even though there are plenty of examples, with it nil). It can be a "do-nothing" closure, but it can't be nil, or the send message won't work.
+            wcSession.sendMessage([inCommand.rawValue: inExtraData], replyHandler: _replyHandler, errorHandler: _errorHandler)
+            isUpdateInProgress = false
+        }
+    }
+
+    /* ################################################################## */
+    /**
      This is called to send the current state of the prefs to the peer.
      */
     func sendApplicationContext() {
@@ -587,6 +638,41 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                 print("Received Message From Watch: \(inMessage)")
             #endif
         #endif
+        
+        TimerOperation.allCases.forEach {
+            if let str = inMessage[$0.rawValue] as? String {
+                switch $0 {
+                case .reset:
+                    self.timerModel.selectedTimer?.start()
+                    self.timerModel.selectedTimer?.pause()
+                    self.timerModel.selectedTimer?.currentTime = self.timerModel.selectedTimer?.startingTimeInSeconds ?? 0
+                    self.timerModel.selectedTimer?.resetLastPausedTime()
+                    return
+                    
+                case .stop:
+                    self.timerModel.selectedTimer?.stop()
+                    return
+                    
+                case .pause:
+                    self.timerModel.selectedTimer?.pause()
+                    return
+
+                case .resume:
+                    if !str.isEmpty,
+                       let toTime = Int(str),
+                       (0...(self.timerModel.selectedTimer?.startingTimeInSeconds ?? 0)).contains(toTime) {
+                        self.timerModel.selectedTimer?.currentTime = toTime
+                        self.timerModel.selectedTimer?.resetLastPausedTime()
+                    }
+                    self.timerModel.selectedTimer?.resume()
+                    return
+                    
+                case .fastForward:
+                    self.timerModel.selectedTimer?.end()
+                }
+            }
+        }
+        
         #if !os(watchOS)    // Only necessary for iOS
             if nil != inMessage[Self.MessageType.requestContext.rawValue] {
                 #if DEBUG
@@ -601,6 +687,11 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                 #if DEBUG
                     print("Received a sync from the phone: \(to), \(dateVal)")
                 #endif
+                if case .paused = self.timerModel.selectedTimer?.timerMode {
+                    self.timerModel.selectedTimer?.resume()
+                } else if !(self.timerModel.selectedTimer?.isTimerRunning ?? false) {
+                    self.timerModel.selectedTimer?.start()
+                }
                 self.timerModel.selectedTimer?.sync(to: to, date: Date(timeIntervalSince1970: dateVal))
             }
         #endif

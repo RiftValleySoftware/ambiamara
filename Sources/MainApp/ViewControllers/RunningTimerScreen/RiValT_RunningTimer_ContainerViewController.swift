@@ -651,6 +651,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             self.flashTimerNumber(0)
         } else {
             self.timer?.stop()
+            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .reset)
         }
         
         self.updateDisplays()
@@ -673,6 +674,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             timer.transitionHandler = nil
             timer.tickHandler = nil
             timer.stop()
+            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .stop)
         }
         self.navigationController?.popViewController(animated: true)
     }
@@ -688,11 +690,13 @@ extension RiValT_RunningTimer_ContainerViewController {
             self._autoHideTimer?.isRunning = false
             self.timer?.pause()
             self.updateDisplays()
+            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .pause)
         } else {
             if self.timer?.isTimerPaused ?? false {
                 self.flashGreen()
                 self._autoHideTimer?.isRunning = true
                 self.timer?.resume()
+                RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .resume)
             } else if self.timer?.isTimerInAlarm ?? false,
                       let oldRow = self.timer?.indexPath?.row,
                       let timer = self.firstTimer {
@@ -741,6 +745,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         } else {
             self.timer?.end()
             self.alarmReached()
+            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .fastForward)
         }
         
         self.updateDisplays()
