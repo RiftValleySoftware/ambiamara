@@ -87,7 +87,7 @@
 		D4F3572A2D6F61C0005A815A /* RiValT_WatchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F357292D6F61C0005A815A /* RiValT_WatchDelegate.swift */; };
 		D4F357312D6F6271005A815A /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D4F357302D6F6271005A815A /* RVS_Persistent_Prefs */; };
 		D4F357332D6F6278005A815A /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D4F357322D6F6278005A815A /* RVS_Persistent_Prefs */; };
-		D4F675C62DC7F952007367FD /* Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D4F83C9D2D63DB10009C4646 /* Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D4F675C62DC7F952007367FD /* Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D4F83C9D2D63DB10009C4646 /* Watch App.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D4F7EDE32DBD4052007F4771 /* RiValT_Settings_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7EDE22DBD4052007F4771 /* RiValT_Settings_ViewController.swift */; };
 		D4F826FB2DB9656200815664 /* Beep-014.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F32DB9656200815664 /* Beep-014.mp3 */; };
 		D4F826FC2DB9656200815664 /* Beep-002.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826E72DB9656200815664 /* Beep-002.mp3 */; };
@@ -1195,6 +1195,7 @@
 		};
 		D4F675C82DC7F952007367FD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = D4F83C9C2D63DB10009C4646 /* Watch App */;
 			targetProxy = D4F675C72DC7F952007367FD /* PBXContainerItemProxy */;
 		};
