@@ -223,8 +223,8 @@ class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
         super.configure(indexPath: inIndexPath, myController: inMyController)
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
         if inIndexPath.section == RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group?.index ?? -1 || self.indexPath?.section == timerModel.count {
-            let newImage = UIImageView(image: UIImage(systemName: "plus.circle\(self.indexPath?.section == timerModel.count ? ".fill" : "")")?
-                .applyingSymbolConfiguration(.init(scale: self.indexPath?.section == timerModel.count ? .large : .medium))
+            let newImage = UIImageView(image: UIImage(systemName: "plus.circle.fill")?
+                .applyingSymbolConfiguration(.init(scale: self.indexPath?.section == timerModel.count ? .large : .small))
             )
             newImage.contentMode = .center
             newImage.translatesAutoresizingMaskIntoConstraints = false
@@ -445,9 +445,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
             if group.index == inLayoutAttributes.indexPath.section,
                (1 < group.model?.count ?? 0) || (1 < group.count) {
                 let groupNumberLabel = UILabel()
-                groupNumberLabel.isUserInteractionEnabled = false
                 groupNumberLabel.backgroundColor = UIColor(named: "Selected-Cell-Border")
-                groupNumberLabel.textColor = UIColor(named: "Group-Number")
                 groupNumberLabel.textAlignment = .center
                 groupNumberLabel.font = .boldSystemFont(ofSize: 30)
                 groupNumberLabel.adjustsFontSizeToFitWidth = true
@@ -462,9 +460,18 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
                 groupNumberLabel.cornerRadius = 12
                 groupNumberLabel.clipsToBounds = true
                 if 1 < group.count {
+                    groupNumberLabel.isAccessibilityElement = true
+                    groupNumberLabel.accessibilityLabel = "SLUG-ACC-GROUP-BUTTON-LABEL".localizedVariant
+                    groupNumberLabel.accessibilityHint = "SLUG-ACC-GROUP-BUTTON-HINT".localizedVariant
                     groupNumberLabel.textColor = UIColor(named: "Selected-Cell-Action-Color")
                     groupNumberLabel.isUserInteractionEnabled = true
                     groupNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(groupBackgroundNumberTapped)))
+                } else {
+                    groupNumberLabel.textColor = UIColor(named: "Group-Number")
+                    groupNumberLabel.isUserInteractionEnabled = false
+                    groupNumberLabel.isAccessibilityElement = false
+                    groupNumberLabel.accessibilityLabel = nil
+                    groupNumberLabel.accessibilityHint = nil
                 }
             }
             
@@ -1136,6 +1143,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDropDelegate {
         self.impactHaptic(1.0)
         self.timerModel.moveTimer(from: sourceIndexPath, to: destinationIndexPath)
         self.updateSnapshot()
+        self.setUpNavBarItems()
     }
 }
 

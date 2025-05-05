@@ -35,6 +35,9 @@
 "SLUG-ACC-COLLECTION-TIMER-ADD-LABEL"           =   "Add A New Timer";
 "SLUG-ACC-COLLECTION-TIMER-ADD-HINT"            =   "Selecting this, creates and selects a new timer.";
 
+"SLUG-ACC-GROUP-BUTTON-LABEL"                   =   "Change the Selected Timer";
+"SLUG-ACC-GROUP-BUTTON-HINT"                    =   "Selecting this, changes the selected timer, within this group.";
+
 // MARK: - Global Settings Popover -
 
 "SLUG-ACC-START-IMMEDIATELY-CHECKBOX-LABEL"     =   "Start Timers Immediately";

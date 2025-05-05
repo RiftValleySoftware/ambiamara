@@ -106,13 +106,17 @@
 // MARK: Settings Advisory Alert
 
 "SLUG-ADVISORY-ALERT-HEADER"                    =   "Gestures";
-"SLUG-ADVISORY-ALERT-BODY"                      =   "Turning off the toolbar in the running timer, means that you need to use gestures to control the timer:
+"SLUG-ADVISORY-ALERT-BODY"                      =   "If you hide the toolbar, the timer is controlled by gestures:
 
-SINGLE-TAP: Starts, pauses, and resumes the timer
-DOUBLE-TAP: Stops the timer completely, and returns to the previous screen
-LEFT-SWIPE: Rewinds the timer to the beginning, or selects the previous timer
-RIGHT-SWIPE: Sets the timer into \"alarm,\" or selects the next timer
-LONG-PRESS: Brings up a slider, allowing you to force the timer to any point";
+SINGLE-TAP: Starts, pauses, and resumes the timer.
+
+DOUBLE-TAP: Stops the timer completely, and returns to the previous screen.
+
+LEFT-SWIPE: Rewinds the timer to the beginning, or selects the previous timer.
+
+RIGHT-SWIPE: Sets the timer into \"alarm,\" or selects the next timer.
+
+LONG-PRESS: Brings up a slider, allowing you to set the time to any point.";
 
 "SLUG-OK-BUTTON-TEXT"                           =   "OK";
 
@@ -169,7 +173,8 @@ There are three large, easy-to-read displays:
     • CIRCULAR: A donut-shaped timer that disappears, as time passes.
     • STOPLIGHTS: Colored circles that change as thresholds are reached —ideal for debates.
 
-To find out more, visit: https://riftvalleysoftware.com/rival-t
+To find out more, visit:
+    https://riftvalleysoftware.com/rival-t
 
 
 

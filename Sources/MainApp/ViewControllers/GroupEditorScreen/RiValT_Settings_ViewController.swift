@@ -236,7 +236,7 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
             string: messageText,
             attributes: [
                 NSAttributedString.Key.paragraphStyle: paragraphStyle,
-                NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body),
+                NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.callout),
                 NSAttributedString.Key.foregroundColor: UIColor.label
             ]
         )
