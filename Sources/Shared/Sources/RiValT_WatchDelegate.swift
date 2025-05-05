@@ -33,9 +33,8 @@ class RiValT_WatchDelegate: NSObject {
      This is a callback template for the message/context calls. It is always called in the main thread.
      
      - parameter inWatchDelegate: The delegate handler calling this.
-     - parameter inApplicationContext: The application context from the Watch.
      */
-    typealias ApplicationContextHandler = (_ inWatchDelegate: RiValT_WatchDelegate?, _ inApplicationContext: [String: Any]) -> Void
+    typealias CommunicationHandler = (_ inWatchDelegate: RiValT_WatchDelegate?) -> Void
     
     /* ################################################################## */
     /**
@@ -62,7 +61,7 @@ class RiValT_WatchDelegate: NSObject {
     /**
      This will be called when the context changes. This is always called in the main thread.
      */
-    var updateHandler: ApplicationContextHandler?
+    var updateHandler: CommunicationHandler?
     
     /* ###################################################################### */
     /**
@@ -100,7 +99,7 @@ class RiValT_WatchDelegate: NSObject {
      
      - parameter inUpdateHandler: The update handler for application context update.
      */
-    init(updateHandler inUpdateHandler: ApplicationContextHandler? = nil) {
+    init(updateHandler inUpdateHandler: CommunicationHandler? = nil) {
         super.init()
         self.updateHandler = inUpdateHandler
         RiValT_Settings.ephemeralFirstTime = true
@@ -320,12 +319,14 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                     timerModel.append(groupArray)
                 }
                 #if DEBUG
-                    print("Received Timer Model: \(timerModel)")
+                    print("Received Timer Model: \(timerModel.debugDescription)")
                 #endif
                 self.timerModel.asArray = timerModel
+                self.updateHandler?(self)
+            } else {
+                self.errorHandler?(self, nil)
             }
             
-            self.updateHandler?(self, inApplicationContext)
             self.isUpdateInProgress = false
         }
     #endif

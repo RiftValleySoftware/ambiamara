@@ -381,6 +381,19 @@ extension TimerModel: Sequence {
 }
 
 /* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension TimerModel: CustomDebugStringConvertible {
+    /* ############################################################## */
+    /**
+     Emits a formatted string, describing the model.
+     */
+    var debugDescription: String {
+        self._groups.map { $0.debugDescription }.joined(separator: "\n")
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Grouped Timers -
 /* ###################################################################################################################################### */
 /**
@@ -886,6 +899,23 @@ extension TimerGroup: Sequence {
 }
 
 /* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension TimerGroup: CustomDebugStringConvertible {
+    /* ############################################################## */
+    /**
+     Emits a formatted string, describing the model.
+     */
+    var debugDescription: String {
+        var ret = "Display Type: \(self.displayType)\nTransition Sound: \(String(describing: self.transitionSoundFilename))\nAlarm Sound: \(self.soundType)\n"
+        
+        ret += self.allTimers.map { $0.debugDescription }.joined(separator: "\n")
+        
+        return ret
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Wrapper Struct for Timers -
 /* ###################################################################################################################################### */
 /**
@@ -1318,5 +1348,18 @@ extension Timer: Hashable {
      */
     func hash(into inOutHasher: inout Hasher) {
         inOutHasher.combine(id)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension Timer: CustomDebugStringConvertible {
+    /* ############################################################## */
+    /**
+     Emits a formatted string, describing the model.
+     */
+    var debugDescription: String {
+        "ID: \(self.id)\nStart Time: \(self.startingTimeInSeconds)\nWarning Time: \(self.warningTimeInSeconds)\nFinal Time: \(self.finalTimeInSeconds)\nCurrent Time: \(self.currentTime)\nPreciseTime: \(String(describing: self.currentPreciseTime))"
     }
 }
