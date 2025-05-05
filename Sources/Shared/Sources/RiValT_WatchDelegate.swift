@@ -28,6 +28,171 @@ import RVS_BasicGCDTimer
  This class exists to give the Watch Connectivity a place to work.
  */
 class RiValT_WatchDelegate: NSObject {
+    /* ################################################################################################################################## */
+    // MARK: The Timer Operation Code.
+    /* ################################################################################################################################## */
+    /**
+     This is a state code, to tell the receiver which state it should be in.
+     */
+    enum TimerOperation: String {
+        /* ############################################################## */
+        /**
+         Start the timer from the beginning.
+         */
+        case start
+
+        /* ############################################################## */
+        /**
+         Stop the timer, and return to the main set timer screen/details screen.
+         */
+        case stop
+
+        /* ############################################################## */
+        /**
+         Pause a running timer.
+         */
+        case pause
+
+        /* ############################################################## */
+        /**
+         Resume a paused timer.
+         */
+        case resume
+
+        /* ############################################################## */
+        /**
+         Go to the end of the timer (alarm).
+         */
+        case fastForward
+
+        /* ############################################################## */
+        /**
+         Reset to the beginning, and pause.
+         */
+        case reset
+
+        /* ############################################################## */
+        /**
+         Sound the alarm.
+         */
+        case alarm
+    }
+    
+    /* ################################################################################################################################## */
+    // MARK: Internal Sync Struct
+    /* ################################################################################################################################## */
+    /**
+     This will describe one sync "pulse," sent from the phone, to the Watch.
+     */
+    struct SyncRecord {
+        /* ############################################################## */
+        /**
+         This is the currentTime value
+         */
+        let to: Int
+        
+        /* ############################################################## */
+        /**
+         This is the date that corresponds to the currentTime value
+         */
+        let date: Date
+
+        /* ############################################################## */
+        /**
+         This is the date that corresponds to the currentTime value
+         */
+        var asDictionary: [String: any Hashable] {
+            ["to": self.to, "date": self.date.timeIntervalSince1970]
+        }
+
+        /* ############################################################## */
+        /**
+         This returns the sync as a simple tuple.
+         */
+        var asTuple: (to: Int, date: Date) { (self.to, self.date) }
+        
+        /* ############################################################## */
+        /**
+         Standard init
+         
+         - parameter to: This is the currentTime value for the sync.
+         - parameter date: The date that correspoinds to the time. Optional. Default is right now.
+         */
+        init(to inTo: Int, date inDate: Date = .now) {
+            self.to = inTo
+            self.date = inDate
+        }
+        
+        /* ############################################################## */
+        /**
+         Copy Init
+         
+         - parameter inToCopy: An instance of this struct, to be copied.
+         */
+        init(_ inToCopy: SyncRecord) {
+            self.init(to: inToCopy.to, date: inToCopy.date)
+        }
+        
+        /* ############################################################## */
+        /**
+         Tuple init (unlabeled)
+         
+         - parameter inTuple: An unlabeled tuple, containing the values.
+         */
+        init(_ inTuple: (Int, Date)) {
+            self.init(to: inTuple.0, date: inTuple.1)
+        }
+
+        /* ############################################################## */
+        /**
+         Tuple init (labeled)
+         
+         - parameter inTuple: A labeled tuple, containing the values.
+         */
+        init(_ inTuple: (to: Int, date: Date)) {
+            self.init(to: inTuple.to, date: inTuple.date)
+        }
+
+        /* ############################################################## */
+        /**
+         Failable dictionary init
+         
+         - parameter inDict: A Dictionary, containing the state.
+         */
+        init?(_ inDict: [String: any Hashable]) {
+            guard let inTo = inDict["to"] as? Int,
+                  let dateTimeInterval = inDict["date"] as? TimeInterval,
+                  0 < dateTimeInterval
+            else { return nil }
+            self.init(to: inTo, date: Date(timeIntervalSince1970: dateTimeInterval))
+        }
+    }
+    
+    /* ################################################################################################################################## */
+    // MARK: The Message Types
+    /* ################################################################################################################################## */
+    /**
+     */
+    enum MessageType: String {
+        /* ############################################################## */
+        /**
+         Sent from the Watch to the phone. Requests that the phone send the current timerModel.
+         */
+        case requestContext
+
+        /* ############################################################## */
+        /**
+         Sent from the phone to the Watch. This indicates the payload is a timer model state.
+         */
+        case timerModel
+
+        /* ############################################################## */
+        /**
+         Sent from the phone to the Watch. Synchronizes the Watch timer to the main one.
+         */
+        case sync
+    }
+
     /* ################################################################## */
     /**
      This is a callback template for the message/context calls. It is always called in the main thread.
@@ -153,7 +318,7 @@ extension RiValT_WatchDelegate {
         self.isUpdateInProgress = true
         
         do {
-            var contextData: [String: Any] = ["timerModel": self.timerModel.asArray]
+            var contextData: [String: Any] = [Self.MessageType.timerModel.rawValue: self.timerModel.asArray]
             
             #if DEBUG
                 contextData["makeMeUnique"] = UUID().uuidString // This breaks the cache, and forces a send (debug)
@@ -182,6 +347,66 @@ extension RiValT_WatchDelegate {
      */
     func updateSettings() {
         RiValT_Settings().timerModel = self.timerModel.asArray
+    }
+    
+    /* ################################################################## */
+    /**
+     This sends a sync to the Watch
+     */
+    func sendSync(_ inRetries: Int = 5) {
+        /* ########################################################## */
+        /**
+         Handles a reply from the peer.
+         
+         - parameter inReply: The reply from the peer.
+        */
+        func _replyHandler(_ inReply: [String: Any]) {
+            #if DEBUG
+                print("Received (Unexpected) Reply from Watch: \(inReply)")
+            #endif
+        }
+        
+        /* ########################################################## */
+        /**
+         Handles an error in the transaction.
+         
+         This looks for a certain kind of failure, and will retry a few times.
+         
+         - parameter inError: The error that caused this call.
+        */
+        func _errorHandler(_ inError: any Error) {
+            #if DEBUG
+                print("Error Sending Message to Phone: \(inError.localizedDescription)")
+            #endif
+            _killTimeoutHandler()
+            isUpdateInProgress = false
+            let nsError = inError as NSError
+            if nsError.domain == "WCErrorDomain",
+               7007 == nsError.code,
+               0 < retries {
+                #if DEBUG
+                    print("Connection failure. Retrying...")
+                #endif
+                let randomDelay = Double.random(in: (0.3...1.0))
+                DispatchQueue.global().asyncAfter(deadline: .now() + randomDelay) { self.sendSync(self.retries - 1) }
+                return
+            } else {
+                #if DEBUG
+                    print("Error Not Handled")
+                #endif
+            }
+        }
+        
+        guard let to = self.timerModel.selectedTimer?.currentTime else { return }
+        let syncArray: [String: any Hashable] = ["to": to, "date": Date.now.timeIntervalSince1970]
+        if .activated == wcSession.activationState {
+            self.retries = inRetries
+            
+            isUpdateInProgress = true
+            // NB: You MUST have a replyHandler (even though there are plenty of examples, with it nil). It can be a "do-nothing" closure, but it can't be nil, or the send message won't work.
+            wcSession.sendMessage([Self.MessageType.sync.rawValue: syncArray], replyHandler: _replyHandler, errorHandler: _errorHandler)
+            isUpdateInProgress = false
+        }
     }
 }
 
@@ -224,19 +449,30 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
              This sends a message to the phone (from the watch), that is interpreted as a request for a context update.
             */
             func _sendContextRequest(_ inRetries: Int = 5) {
+                /* ########################################################## */
+                /**
+                 Handles a reply from the peer.
+                 
+                 - parameter inReply: The reply from the peer.
+                */
                 func _replyHandler(_ inReply: [String: Any]) {
                     #if DEBUG
                         print("Received Reply from Phone: \(inReply)")
                     #endif
                     _killTimeoutHandler()
-                    #if DEBUG
-                        print("Reply from peer: \(inReply)")
-                    #endif
                     retries = 0
                     isUpdateInProgress = false
                     session(wcSession, didReceiveApplicationContext: inReply)
                 }
                 
+                /* ########################################################## */
+                /**
+                 Handles an error in the transaction.
+                 
+                 This looks for a certain kind of failure, and will retry a few times.
+                 
+                 - parameter inError: The error that caused this call.
+                */
                 func _errorHandler(_ inError: any Error) {
                     #if DEBUG
                         print("Error Sending Message to Phone: \(inError.localizedDescription)")
@@ -267,7 +503,8 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                     self.retries = inRetries
                     
                     isUpdateInProgress = true
-                    wcSession.sendMessage(["requestContext": "requestContext"], replyHandler: _replyHandler, errorHandler: _errorHandler)
+                    // NB: You MUST have a replyHandler (even though there are plenty of examples, with it nil). It can be a "do-nothing" closure, but it can't be nil, or the send message won't work.
+                    wcSession.sendMessage([Self.MessageType.requestContext.rawValue: Self.MessageType.requestContext.rawValue], replyHandler: _replyHandler, errorHandler: _errorHandler)
                     isUpdateInProgress = false
                 }
             }
@@ -296,7 +533,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
             
             RiValT_Settings().flush()
             
-            if let timerModelAr = inApplicationContext["timerModel"] as? NSArray {
+            if let timerModelAr = inApplicationContext[Self.MessageType.timerModel.rawValue] as? NSArray {
                 var timerModel = [[[String: any Hashable]]]()
                 
                 timerModelAr.forEach { inGroup in
@@ -338,15 +575,28 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
      - parameter replyHandler: A function to be executed, with the reply to the message.
     */
     func session(_ inSession: WCSession, didReceiveMessage inMessage: [String: Any], replyHandler inReplyHandler: @escaping ([String: Any]) -> Void) {
-        #if !os(watchOS)    // Only necessary for iOS
-            #if DEBUG
+        #if DEBUG
+            #if os(watchOS)
+                print("Received Message From Phone: \(inMessage)")
+            #else
                 print("Received Message From Watch: \(inMessage)")
             #endif
-            if nil != inMessage["requestContext"] {
+        #endif
+        #if !os(watchOS)    // Only necessary for iOS
+            if nil != inMessage[Self.MessageType.requestContext.rawValue] {
                 #if DEBUG
                     print("Responding to context request from the watch")
                 #endif
                 self._sendApplicationContext()
+            }
+        #else
+            if let sync = inMessage[Self.MessageType.sync.rawValue] as? NSDictionary,
+               let to = sync.value(forKey: "to") as? Int,
+               let dateVal = sync.value(forKey: "date") as? TimeInterval {
+                #if DEBUG
+                    print("Received a sync from the phone: \(to), \(dateVal)")
+                #endif
+                self.timerModel.selectedTimer?.sync(to: to, date: Date(timeIntervalSince1970: dateVal))
             }
         #endif
     }

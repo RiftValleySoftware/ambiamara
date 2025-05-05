@@ -1201,6 +1201,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         if !self.isDragging {
             self.selectionHaptic()
             self.updateDisplays()
+            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendSync()
         }
     }
 
