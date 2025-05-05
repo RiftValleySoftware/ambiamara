@@ -19,18 +19,36 @@ import SwiftUI
 struct RiValT_Watch_App_MainContentView: View {
     /* ################################################################## */
     /**
+     */
+    static let digitalFontMid = Font.custom("Let\'s Go Digital", size: 30)
+    
+    /* ################################################################## */
+    /**
      This handles the session delegate.
      */
     @State private var _wcSessionDelegateHandler: RiValT_WatchDelegate?
 
     /* ################################################################## */
     /**
+     */
+    @State private var _selectedTimerDisplay: String = "ERROR"
+    
+    /* ################################################################## */
+    /**
+     Tracks scene activity.
+     */
+    @Environment(\.scenePhase) private var _scenePhase
+
+    /* ################################################################## */
+    /**
      The main display body.
     */
     var body: some View {
-        Text("HAI")
+        Text(self._selectedTimerDisplay)
+            .font(Self.digitalFontMid)
             .onAppear {
-                _wcSessionDelegateHandler = RiValT_WatchDelegate()
+                self._wcSessionDelegateHandler = RiValT_WatchDelegate()
+//                self._selectedTimerDisplay = self._wcSessionDelegateHandler?.timerModel.selectedTimer?.timerDisplay ?? "No Timer"
             }
     }
 }

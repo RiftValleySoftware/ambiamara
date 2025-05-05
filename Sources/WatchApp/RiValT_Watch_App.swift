@@ -22,12 +22,6 @@ import WatchKit
 struct RiValT_Watch_App: App {
     /* ################################################################## */
     /**
-     Tracks scene activity.
-     */
-    @Environment(\.scenePhase) private var _scenePhase
-
-    /* ################################################################## */
-    /**
      This is basically just a wrapper for the screens.
      */
     var body: some Scene {
