@@ -191,6 +191,12 @@ class RiValT_WatchDelegate: NSObject {
          Sent from the phone to the Watch. Synchronizes the Watch timer to the main one.
          */
         case sync
+
+        /* ############################################################## */
+        /**
+         Sent from either one. The payload is a string rawvalue of TimerOperation
+         */
+        case newState
     }
 
     /* ################################################################## */
@@ -307,34 +313,6 @@ extension RiValT_WatchDelegate {
             RiValT_Settings().timerModel = self.timerModel.asArray
         }
     }
-    
-    /* ################################################################## */
-    /**
-     This is called to send the current state of the prefs to the peer.
-     */
-    private func _sendApplicationContext() {
-        guard !self.isUpdateInProgress else { return }
-        
-        self.isUpdateInProgress = true
-        
-        do {
-            var contextData: [String: Any] = [Self.MessageType.timerModel.rawValue: self.timerModel.asArray]
-            
-            #if DEBUG
-                contextData["makeMeUnique"] = UUID().uuidString // This breaks the cache, and forces a send (debug)
-                print("Sending Application Context to the Watch: \(contextData)")
-            #endif
-
-            if .activated == wcSession.activationState {
-                try self.wcSession.updateApplicationContext(contextData)
-            }
-        } catch {
-            #if DEBUG
-                print("WC Session Error: \(error.localizedDescription)")
-            #endif
-        }
-        self.isUpdateInProgress = false
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -398,15 +376,42 @@ extension RiValT_WatchDelegate {
         }
         
         guard let to = self.timerModel.selectedTimer?.currentTime else { return }
-        let syncArray: [String: any Hashable] = ["to": to, "date": Date.now.timeIntervalSince1970]
+        
         if .activated == wcSession.activationState {
             self.retries = inRetries
-            
+            let syncArray: [String: any Hashable] = ["to": to, "date": Date.now.timeIntervalSince1970]
             isUpdateInProgress = true
             // NB: You MUST have a replyHandler (even though there are plenty of examples, with it nil). It can be a "do-nothing" closure, but it can't be nil, or the send message won't work.
             wcSession.sendMessage([Self.MessageType.sync.rawValue: syncArray], replyHandler: _replyHandler, errorHandler: _errorHandler)
             isUpdateInProgress = false
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called to send the current state of the prefs to the peer.
+     */
+    func sendApplicationContext() {
+        guard !self.isUpdateInProgress else { return }
+        
+        self.isUpdateInProgress = true
+        do {
+            var contextData: [String: Any] = [Self.MessageType.timerModel.rawValue: self.timerModel.asArray]
+            
+            #if DEBUG
+                contextData["makeMeUnique"] = UUID().uuidString // This breaks the cache, and forces a send (debug)
+                print("Sending Application Context to the Watch: \(contextData)")
+            #endif
+
+            if .activated == wcSession.activationState {
+                try self.wcSession.updateApplicationContext(contextData)
+            }
+        } catch {
+            #if DEBUG
+                print("WC Session Error: \(error.localizedDescription)")
+            #endif
+        }
+        self.isUpdateInProgress = false
     }
 }
 
@@ -504,14 +509,14 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                     
                     isUpdateInProgress = true
                     // NB: You MUST have a replyHandler (even though there are plenty of examples, with it nil). It can be a "do-nothing" closure, but it can't be nil, or the send message won't work.
-                    wcSession.sendMessage([Self.MessageType.requestContext.rawValue: Self.MessageType.requestContext.rawValue], replyHandler: _replyHandler, errorHandler: _errorHandler)
+                    wcSession.sendMessage([Self.MessageType.requestContext.rawValue: "Please sir, I want some more."], replyHandler: _replyHandler, errorHandler: _errorHandler)
                     isUpdateInProgress = false
                 }
             }
         
             _sendContextRequest()
         #else
-            self._sendApplicationContext()
+            self.sendApplicationContext()
         #endif
     }
     
@@ -587,7 +592,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                 #if DEBUG
                     print("Responding to context request from the watch")
                 #endif
-                self._sendApplicationContext()
+                self.sendApplicationContext()
             }
         #else
             if let sync = inMessage[Self.MessageType.sync.rawValue] as? NSDictionary,
