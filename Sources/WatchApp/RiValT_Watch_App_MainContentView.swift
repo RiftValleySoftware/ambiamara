@@ -47,8 +47,28 @@ struct RiValT_Watch_App_MainContentView: View {
         Text(self._selectedTimerDisplay)
             .font(Self.digitalFontMid)
             .onAppear {
-                self._wcSessionDelegateHandler = RiValT_WatchDelegate()
-//                self._selectedTimerDisplay = self._wcSessionDelegateHandler?.timerModel.selectedTimer?.timerDisplay ?? "No Timer"
+                self._wcSessionDelegateHandler = RiValT_WatchDelegate(updateHandler: self.updateHandler)
             }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called upon getting an update from the phone. Always called in the main thread.
+     
+     - parameter inWatchDelegate: The Watch communication instance.
+    */
+    func updateHandler(_ inWatchDelegate: RiValT_WatchDelegate?) {
+//        self._selectedTimerDisplay = inWatchDelegate?.timerModel.selectedTimer?.timerDisplay ?? "No Timer"
+        inWatchDelegate?.timerModel.selectedTimer?.tickHandler = self.tickHandler
+    }
+    
+    /* ################################################################## */
+    /**
+     Called for each "tick."
+     
+     - parameter inTimer: The timer instance that's "ticking."
+    */
+    func tickHandler(_ inTimer: Timer) {
+        self._selectedTimerDisplay = inTimer.timerDisplay
     }
 }
