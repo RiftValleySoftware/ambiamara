@@ -359,6 +359,12 @@ extension RiValT_RunningTimer_ContainerViewController {
             longo.require(toFail: tapper)
         }
         
+        if !RiValT_Settings().displayToolbar {
+            self.view.isAccessibilityElement = true
+            self.view.accessibilityLabel = "SLUG-ACC-HIDDEN-TOOLBAR-INSTRUCTIONS-LABEL".localizedVariant
+            self.view.accessibilityHint = "SLUG-ACC-HIDDEN-TOOLBAR-INSTRUCTIONS-HINT".localizedVariant
+        }
+        
         self.timer?.tickHandler = self.tickHandler
         self.timer?.transitionHandler = self.transitionHandler
         self.setToolbarEnablements()

@@ -162,6 +162,7 @@ class RiValT_WatchDelegate: NSObject {
     // MARK: The Message Types
     /* ################################################################################################################################## */
     /**
+     These are the types of "overall message classifications" that can be sent between peers.
      */
     enum MessageType: String {
         /* ############################################################## */
@@ -178,7 +179,7 @@ class RiValT_WatchDelegate: NSObject {
 
         /* ############################################################## */
         /**
-         Sent from the phone to the Watch. Synchronizes the Watch timer to the main one.
+         Sent from the phone to the Watch. Synchronizes the Watch timer to the main one. The payload is a sync tuple.
          */
         case sync
 
@@ -276,6 +277,9 @@ class RiValT_WatchDelegate: NSObject {
 extension RiValT_WatchDelegate {
     /* ################################################################## */
     /**
+     This starts a handler for a communication timeout, using our fixed timeout period.
+     
+     - parameter inCompletion: The closure to execute, if the timeout is reached (may be called in any thread, and won't be called, if there's no timeout).
      */
     private func _startTimeoutHandler(completion inCompletion: @escaping ErrorContextHandler) {
         _timeoutHandler = RVS_BasicGCDTimer(Self.testTimeoutInSeconds) { _, _  in
@@ -286,6 +290,7 @@ extension RiValT_WatchDelegate {
     
     /* ################################################################## */
     /**
+     This "short circuits" the running timeout.
      */
     private func _killTimeoutHandler() {
         _timeoutHandler = nil
@@ -626,6 +631,8 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
     
     /* ###################################################################### */
     /**
+     Called when the Watch communication session receives a message from the peer.
+     
      - parameter inSession: The session receiving the message.
      - parameter didReceiveMessage: The message from the watch
      - parameter replyHandler: A function to be executed, with the reply to the message.

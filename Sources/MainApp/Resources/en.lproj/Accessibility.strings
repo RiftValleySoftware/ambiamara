@@ -124,3 +124,7 @@
 
 "SLUG-ACC-FAST-FORWARD-LABEL"                   =   "End Timer";
 "SLUG-ACC-FAST-FORWARD-HINT"                    =   "This will force the timer to the end (and may start the alarm).";
+
+"SLUG-ACC-HIDDEN-TOOLBAR-INSTRUCTIONS-LABEL"    =   "The Timer Is Controlled by Gestures";
+"SLUG-ACC-HIDDEN-TOOLBAR-INSTRUCTIONS-HINT"     =   "SINGLE-TAP: Starts, pauses, and resumes the timer.\nDOUBLE-TAP: Stops the timer completely, and returns to the previous screen.\nLEFT-SWIPE: Rewinds the timer to the beginning, or selects the previous timer.\nRIGHT-SWIPE: Sets the timer into \"alarm,\" or selects the next timer.\nLONG-PRESS: Brings up a slider, allowing you to set the time to any point.";
+
