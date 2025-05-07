@@ -234,6 +234,10 @@ class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
             newImage.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
             newImage.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
         }
+        
+        self.isAccessibilityElement = true
+        self.accessibilityLabel = "SLUG-ACC-COLLECTION-TIMER-ADD-LABEL".localizedVariant
+        self.accessibilityHint = "SLUG-ACC-COLLECTION-TIMER-ADD-HINT".localizedVariant
     }
 }
 
@@ -800,9 +804,6 @@ extension RiValT_MultiTimer_ViewController {
             // Otherwise, we create an add cell.
             } else if let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_AddCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_AddCell {
                 cell.configure(indexPath: inIndexPath, myController: self)
-                cell.isAccessibilityElement = true
-                cell.accessibilityLabel = "SLUG-ACC-COLLECTION-TIMER-ADD-LABEL".localizedVariant
-                cell.accessibilityHint = "SLUG-ACC-COLLECTION-TIMER-ADD-HINT".localizedVariant
                 ret = cell
             }
             
