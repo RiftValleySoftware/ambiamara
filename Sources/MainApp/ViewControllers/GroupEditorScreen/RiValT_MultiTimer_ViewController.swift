@@ -103,17 +103,7 @@ extension Timer {
 /**
  This class allows us to have "placeholders," for the "add" items at the ends of the rows, or the bottom of the matrix.
  */
-class RiValT_TimerArray_Placeholder: Identifiable, Hashable {
-    /* ############################################################## */
-    /**
-     Equatable Conformance.
-     
-     - parameter lhs: The left-hand side of the comparison.
-     - parameter rhs: The right-hand side of the comparison.
-     - returns: True, if they are equal.
-     */
-    static func == (lhs: RiValT_TimerArray_Placeholder, rhs: RiValT_TimerArray_Placeholder) -> Bool { lhs.id == rhs.id }
-    
+class RiValT_TimerArray_Placeholder {
     /* ############################################################## */
     /**
      If this is a placeholder for an existing timer, then we simply supply that.
@@ -128,12 +118,6 @@ class RiValT_TimerArray_Placeholder: Identifiable, Hashable {
     
     /* ############################################################## */
     /**
-     If we represent an existing timer, we use that UUID.
-     */
-    var id: UUID { timer?.id ?? self._id }
-    
-    /* ############################################################## */
-    /**
      Initializer.
      
      - parameter inTimer: If this represents an existing timer, that is supplied here. It is optional. If not supplied, this is considered an "add item" placeholder.
@@ -141,7 +125,38 @@ class RiValT_TimerArray_Placeholder: Identifiable, Hashable {
     init(timer inTimer: Timer? = nil) {
         self.timer = inTimer
     }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: Equatable Conformance
+/* ###################################################################################################################################### */
+extension RiValT_TimerArray_Placeholder: Equatable {
+    /* ############################################################## */
+    /**
+     Equatable Conformance.
+     
+     - parameter lhs: The left-hand side of the comparison.
+     - parameter rhs: The right-hand side of the comparison.
+     - returns: True, if they are equal.
+     */
+    static func == (lhs: RiValT_TimerArray_Placeholder, rhs: RiValT_TimerArray_Placeholder) -> Bool { lhs.id == rhs.id }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Identifiable Conformance
+/* ###################################################################################################################################### */
+extension RiValT_TimerArray_Placeholder: Identifiable {
+    /* ############################################################## */
+    /**
+     If we represent an existing timer, we use that UUID.
+     */
+    var id: UUID { timer?.id ?? self._id }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Hashable Conformance
+/* ###################################################################################################################################### */
+extension RiValT_TimerArray_Placeholder: Hashable {
     /* ############################################################## */
     /**
      Hash dealer.
