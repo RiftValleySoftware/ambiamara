@@ -654,15 +654,12 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                     self.timerModel.selectedTimer?.pause()
                     self.timerModel.selectedTimer?.currentTime = self.timerModel.selectedTimer?.startingTimeInSeconds ?? 0
                     self.timerModel.selectedTimer?.resetLastPausedTime()
-                    return
                     
                 case .stop:
                     self.timerModel.selectedTimer?.stop()
-                    return
                     
                 case .pause:
                     self.timerModel.selectedTimer?.pause()
-                    return
 
                 case .resume:
                     if !str.isEmpty,
@@ -672,11 +669,12 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                         self.timerModel.selectedTimer?.resetLastPausedTime()
                     }
                     self.timerModel.selectedTimer?.resume()
-                    return
                     
                 case .fastForward:
                     self.timerModel.selectedTimer?.end()
                 }
+                
+                self.updateHandler?(self)
             }
         }
         

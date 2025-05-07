@@ -20,55 +20,72 @@ struct RiValT_Watch_App_MainContentView: View {
     /* ################################################################## */
     /**
      */
-    static let digitalFontMid = Font.custom("Let\'s Go Digital", size: 30)
-    
+    static let digitalFontMid = Font.custom("Let\'s Go Digital", size: 40)
+
     /* ################################################################## */
     /**
-     This handles the session delegate.
+     Accessor for the current timer.
      */
-    @State private var _wcSessionDelegateHandler: RiValT_WatchDelegate?
+    private var _currentTimer: Timer? { self.wcSessionDelegateHandler?.timerModel.selectedTimer }
 
     /* ################################################################## */
     /**
      */
-    @State private var _selectedTimerDisplay: String = "ERROR"
-    
+    @Binding var selectedTimerDisplay: String
+
     /* ################################################################## */
     /**
-     Tracks scene activity.
+     This handles the session delegate.
      */
-    @Environment(\.scenePhase) private var _scenePhase
+    @Binding var wcSessionDelegateHandler: RiValT_WatchDelegate?
+
+    /* ################################################################## */
+    /**
+     Making this true, forces a refresh of the UI.
+     */
+    @Binding var refresh: Bool
 
     /* ################################################################## */
     /**
      The main display body.
     */
     var body: some View {
-        Text(self._selectedTimerDisplay)
-            .font(Self.digitalFontMid)
-            .onAppear {
-                self._wcSessionDelegateHandler = RiValT_WatchDelegate(updateHandler: self.updateHandler)
+        VStack {
+            Text(self.selectedTimerDisplay)
+                .font(Self.digitalFontMid)
+            HStack {
+                Button {
+                    print("REWIND")
+                } label: {
+                    Image(systemName: "backward.fill")
+                }
+                Button {
+                    print("STOP")
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                Button {
+                    print("FAST FORWARD")
+                } label: {
+                    Image(systemName: "forward.fill")
+                }
             }
-    }
-    
-    /* ################################################################## */
-    /**
-     Called upon getting an update from the phone. Always called in the main thread.
-     
-     - parameter inWatchDelegate: The Watch communication instance.
-    */
-    func updateHandler(_ inWatchDelegate: RiValT_WatchDelegate?) {
-//        self._selectedTimerDisplay = inWatchDelegate?.timerModel.selectedTimer?.timerDisplay ?? "No Timer"
-        inWatchDelegate?.timerModel.selectedTimer?.tickHandler = self.tickHandler
-    }
-    
-    /* ################################################################## */
-    /**
-     Called for each "tick."
-     
-     - parameter inTimer: The timer instance that's "ticking."
-    */
-    func tickHandler(_ inTimer: Timer) {
-        self._selectedTimerDisplay = inTimer.timerDisplay
+            if case .paused = self._currentTimer?.timerMode ?? .none {
+                Button {
+                    print("PLAY")
+                } label: {
+                    Image(systemName: "play.fill")
+                }
+            } else {
+                Button {
+                    print("PAUSE")
+                } label: {
+                    Image(systemName: "pause.fill")
+                }
+            }
+        }
+        .onAppear {
+            self.refresh = false
+        }
     }
 }
