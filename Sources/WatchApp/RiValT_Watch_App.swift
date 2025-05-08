@@ -30,7 +30,7 @@ struct RiValT_Watch_App: App {
     /**
      This handles the session delegate.
      */
-    @State private var _wcSessionDelegateHandler: RiValT_WatchDelegate?
+    @State private var _wcSessionDelegateHandler = RiValT_WatchDelegate()
 
     /* ################################################################## */
     /**
@@ -55,9 +55,9 @@ struct RiValT_Watch_App: App {
             )
         }
         .onChange(of: self._scenePhase) {
-            if .active == self._scenePhase,
-               nil == self._wcSessionDelegateHandler {
-                self._wcSessionDelegateHandler = RiValT_WatchDelegate(updateHandler: self.updateHandler)
+            if .active == self._scenePhase {
+                self._wcSessionDelegateHandler.updateHandler = self.updateHandler
+                self._refresh = true
             }
         }
     }

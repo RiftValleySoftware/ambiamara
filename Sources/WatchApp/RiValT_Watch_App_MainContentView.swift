@@ -26,7 +26,7 @@ struct RiValT_Watch_App_MainContentView: View {
     /**
      Accessor for the current timer.
      */
-    private var _currentTimer: Timer? { self.wcSessionDelegateHandler?.timerModel.selectedTimer }
+    private var _currentTimer: Timer? { self.wcSessionDelegateHandler.timerModel.selectedTimer }
 
     /* ################################################################## */
     /**
@@ -37,7 +37,7 @@ struct RiValT_Watch_App_MainContentView: View {
     /**
      This handles the session delegate.
      */
-    @Binding var wcSessionDelegateHandler: RiValT_WatchDelegate?
+    @Binding var wcSessionDelegateHandler: RiValT_WatchDelegate
 
     /* ################################################################## */
     /**
@@ -70,17 +70,21 @@ struct RiValT_Watch_App_MainContentView: View {
                     Image(systemName: "forward.fill")
                 }
             }
-            if case .paused = self._currentTimer?.timerMode ?? .none {
-                Button {
-                    print("PLAY")
-                } label: {
-                    Image(systemName: "play.fill")
-                }
-            } else {
-                Button {
-                    print("PAUSE")
-                } label: {
-                    Image(systemName: "pause.fill")
+            
+            if let currentTimer = self._currentTimer {
+                switch currentTimer.timerMode {
+                case .countdown, .warning, .final:
+                    Button {
+                        print("PAUSE")
+                    } label: {
+                        Image(systemName: "pause.fill")
+                    }
+                default:
+                    Button {
+                        print("PLAY")
+                    } label: {
+                        Image(systemName: "play.fill")
+                    }
                 }
             }
         }
