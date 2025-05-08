@@ -51,37 +51,55 @@ struct RiValT_Watch_App_MainContentView: View {
     */
     var body: some View {
         VStack {
-            Text(self.selectedTimerDisplay)
-                .font(Self.digitalFontMid)
-            HStack {
-                Button {
-                    print("REWIND")
-                } label: {
-                    Image(systemName: "backward.fill")
-                }
-                Button {
-                    print("STOP")
-                } label: {
-                    Image(systemName: "stop.fill")
-                }
-                Button {
-                    print("FAST FORWARD")
-                } label: {
-                    Image(systemName: "forward.fill")
-                }
-            }
-            
             if let currentTimer = self._currentTimer {
+                Text(self.selectedTimerDisplay)
+                    .font(Self.digitalFontMid)
+                HStack {
+                    Button {
+                        currentTimer.stop()
+                        self.wcSessionDelegateHandler.sendCommand(command: .reset)
+                        self.refresh = true
+                    } label: {
+                        Image(systemName: "backward.fill")
+                    }
+                    Button {
+                        currentTimer.stop()
+                        self.wcSessionDelegateHandler.sendCommand(command: .stop)
+                        self.refresh = true
+                    } label: {
+                        Image(systemName: "stop.fill")
+                    }
+                    Button {
+                        currentTimer.end()
+                        self.wcSessionDelegateHandler.sendCommand(command: .fastForward)
+                        self.refresh = true
+                    } label: {
+                        Image(systemName: "forward.fill")
+                    }
+                }
+            
                 switch currentTimer.timerMode {
                 case .countdown, .warning, .final:
                     Button {
-                        print("PAUSE")
+                        currentTimer.pause()
+                        self.wcSessionDelegateHandler.sendCommand(command: .pause)
+                        self.refresh = true
                     } label: {
                         Image(systemName: "pause.fill")
                     }
+                case .paused:
+                    Button {
+                        currentTimer.resume()
+                        self.wcSessionDelegateHandler.sendCommand(command: .resume)
+                        self.refresh = true
+                    } label: {
+                        Image(systemName: "play.fill")
+                    }
                 default:
                     Button {
-                        print("PLAY")
+                        currentTimer.start()
+                        self.wcSessionDelegateHandler.sendCommand(command: .start)
+                        self.refresh = true
                     } label: {
                         Image(systemName: "play.fill")
                     }

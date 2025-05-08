@@ -717,11 +717,13 @@ extension RiValT_RunningTimer_ContainerViewController {
                    row != oldRow {
                     self.flashTimerNumber(row)
                 }
+                RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .reset)
             } else {
                 self.flashGreen()
                 self.impactHaptic()
                 self._autoHideTimer?.isRunning = true
                 self.timer?.start()
+                RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .start)
            }
             self.updateDisplays()
         }
@@ -748,6 +750,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             if let row = self.timer?.indexPath?.row {
                 self.flashTimerNumber(row)
             }
+            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .reset)
         } else {
             self.timer?.end()
             self.alarmReached()

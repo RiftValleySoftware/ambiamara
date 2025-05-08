@@ -37,6 +37,12 @@ class RiValT_WatchDelegate: NSObject {
     enum TimerOperation: String, CaseIterable {
         /* ############################################################## */
         /**
+         Start a timer from scratch.
+         */
+        case start
+
+        /* ############################################################## */
+        /**
          Return the timer to the beginning, but pause it.
          */
         case reset
@@ -284,7 +290,7 @@ extension RiValT_WatchDelegate {
     private func _startTimeoutHandler(completion inCompletion: @escaping ErrorContextHandler) {
         _timeoutHandler = RVS_BasicGCDTimer(Self.testTimeoutInSeconds) { _, _  in
             self._killTimeoutHandler()
-            self.errorHandler?(self, nil)
+            DispatchQueue.main.async { self.errorHandler?(self, nil) }
         }
     }
     
@@ -620,9 +626,9 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                     print("Received Timer Model: \(timerModel.debugDescription)")
                 #endif
                 self.timerModel.asArray = timerModel
-                self.updateHandler?(self)
+                DispatchQueue.main.async { self.updateHandler?(self) }
             } else {
-                self.errorHandler?(self, nil)
+                DispatchQueue.main.async { self.errorHandler?(self, nil) }
             }
             
             self.isUpdateInProgress = false
@@ -649,6 +655,9 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
         TimerOperation.allCases.forEach {
             if let str = inMessage[$0.rawValue] as? String {
                 switch $0 {
+                case .start:
+                    self.timerModel.selectedTimer?.start()
+
                 case .reset:
                     self.timerModel.selectedTimer?.start()
                     self.timerModel.selectedTimer?.pause()
@@ -657,7 +666,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                     
                 case .stop:
                     self.timerModel.selectedTimer?.stop()
-                    
+
                 case .pause:
                     self.timerModel.selectedTimer?.pause()
 
@@ -669,12 +678,12 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                         self.timerModel.selectedTimer?.resetLastPausedTime()
                     }
                     self.timerModel.selectedTimer?.resume()
-                    
+
                 case .fastForward:
                     self.timerModel.selectedTimer?.end()
                 }
                 
-                self.updateHandler?(self)
+                DispatchQueue.main.async { self.updateHandler?(self) }
             }
         }
         
