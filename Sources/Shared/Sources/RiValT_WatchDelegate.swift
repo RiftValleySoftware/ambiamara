@@ -393,10 +393,12 @@ extension RiValT_WatchDelegate {
      This sends a timer operation caommand to the peer
      
      - parameter inCommand: The operation to send.
-     - parameter inExtraData: A String, with any value we wish associated with the command.
+     - parameter inExtraData: A String, with any value we wish associated with the command. Default is the command, itself.
      - parameter inRetries: The number of try again retries.
      */
     func sendCommand(command inCommand: TimerOperation, extraData inExtraData: String = "", _ inRetries: Int = 5) {
+        let extraData = inExtraData.isEmpty ? inCommand.rawValue : inExtraData
+        
         /* ########################################################## */
         /**
          Handles a reply from the peer.
@@ -431,7 +433,7 @@ extension RiValT_WatchDelegate {
                     print("Connection failure. Retrying...")
                 #endif
                 let randomDelay = Double.random(in: (0.3...1.0))
-                DispatchQueue.global().asyncAfter(deadline: .now() + randomDelay) { self.sendCommand(command: inCommand, extraData: inExtraData, self.retries - 1) }
+                DispatchQueue.global().asyncAfter(deadline: .now() + randomDelay) { self.sendCommand(command: inCommand, extraData: extraData, self.retries - 1) }
                 return
             } else {
                 #if DEBUG
@@ -444,7 +446,7 @@ extension RiValT_WatchDelegate {
             self.retries = inRetries
             isUpdateInProgress = true
             // NB: You MUST have a replyHandler (even though there are plenty of examples, with it nil). It can be a "do-nothing" closure, but it can't be nil, or the send message won't work.
-            wcSession.sendMessage([inCommand.rawValue: inExtraData], replyHandler: _replyHandler, errorHandler: _errorHandler)
+            wcSession.sendMessage([inCommand.rawValue: extraData], replyHandler: _replyHandler, errorHandler: _errorHandler)
             isUpdateInProgress = false
         }
     }
@@ -653,38 +655,49 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
         #endif
         
         TimerOperation.allCases.forEach {
-            if let str = inMessage[$0.rawValue] as? String {
-                switch $0 {
-                case .start:
+            switch $0 {
+            case .start:
+                if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
                     self.timerModel.selectedTimer?.start()
+                }
 
-                case .reset:
+            case .reset:
+                if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
                     self.timerModel.selectedTimer?.start()
                     self.timerModel.selectedTimer?.pause()
                     self.timerModel.selectedTimer?.currentTime = self.timerModel.selectedTimer?.startingTimeInSeconds ?? 0
                     self.timerModel.selectedTimer?.resetLastPausedTime()
-                    
-                case .stop:
+                }
+                
+            case .stop:
+                if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
                     self.timerModel.selectedTimer?.stop()
+                }
 
-                case .pause:
+            case .pause:
+                if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
                     self.timerModel.selectedTimer?.pause()
+                }
 
-                case .resume:
-                    if !str.isEmpty,
+            case .resume:
+                if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
+                    if let str = inMessage[$0.rawValue] as? String,
+                       !str.isEmpty,
                        let toTime = Int(str),
                        (0...(self.timerModel.selectedTimer?.startingTimeInSeconds ?? 0)).contains(toTime) {
                         self.timerModel.selectedTimer?.currentTime = toTime
                         self.timerModel.selectedTimer?.resetLastPausedTime()
                     }
                     self.timerModel.selectedTimer?.resume()
-
-                case .fastForward:
-                    self.timerModel.selectedTimer?.end()
                 }
                 
-                DispatchQueue.main.async { self.updateHandler?(self) }
+            case .fastForward:
+                if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
+                    self.timerModel.selectedTimer?.end()
+                }
             }
+            
+            DispatchQueue.main.async { self.updateHandler?(self) }
         }
         
         #if !os(watchOS)    // Only necessary for iOS
@@ -701,12 +714,10 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                 #if DEBUG
                     print("Received a sync from the phone: \(to), \(dateVal)")
                 #endif
-                if case .paused = self.timerModel.selectedTimer?.timerMode {
-                    self.timerModel.selectedTimer?.resume()
-                } else if !(self.timerModel.selectedTimer?.isTimerRunning ?? false) {
-                    self.timerModel.selectedTimer?.start()
+                if self.timerModel.selectedTimer?.isTimerRunning ?? false {
+                    self.timerModel.selectedTimer?.sync(to: to, date: Date(timeIntervalSince1970: dateVal))
+                    DispatchQueue.main.async { self.updateHandler?(self) }
                 }
-                self.timerModel.selectedTimer?.sync(to: to, date: Date(timeIntervalSince1970: dateVal))
             }
         #endif
     }

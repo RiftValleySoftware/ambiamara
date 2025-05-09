@@ -24,14 +24,15 @@ struct RiValT_Watch_App_MainContentView: View {
 
     /* ################################################################## */
     /**
-     Accessor for the current timer.
+     Tracks scene activity.
      */
-    private var _currentTimer: Timer? { self.wcSessionDelegateHandler.timerModel.selectedTimer }
+    @Environment(\.scenePhase) private var _scenePhase
 
     /* ################################################################## */
     /**
+     Accessor for the current timer.
      */
-    @Binding var selectedTimerDisplay: String
+    private var _currentTimer: Timer? { self.wcSessionDelegateHandler.timerModel.selectedTimer }
 
     /* ################################################################## */
     /**
@@ -41,7 +42,7 @@ struct RiValT_Watch_App_MainContentView: View {
 
     /* ################################################################## */
     /**
-     Making this true, forces a refresh of the UI.
+     Toggling this, forces a refresh of the UI.
      */
     @Binding var refresh: Bool
 
@@ -52,27 +53,27 @@ struct RiValT_Watch_App_MainContentView: View {
     var body: some View {
         VStack {
             if let currentTimer = self._currentTimer {
-                Text(self.selectedTimerDisplay)
+                Text(currentTimer.timerDisplay)
                     .font(Self.digitalFontMid)
                 HStack {
                     Button {
                         currentTimer.stop()
                         self.wcSessionDelegateHandler.sendCommand(command: .reset)
-                        self.refresh = true
+                        self.refresh.toggle()
                     } label: {
                         Image(systemName: "backward.fill")
                     }
                     Button {
                         currentTimer.stop()
                         self.wcSessionDelegateHandler.sendCommand(command: .stop)
-                        self.refresh = true
+                        self.refresh.toggle()
                     } label: {
                         Image(systemName: "stop.fill")
                     }
                     Button {
                         currentTimer.end()
                         self.wcSessionDelegateHandler.sendCommand(command: .fastForward)
-                        self.refresh = true
+                        self.refresh.toggle()
                     } label: {
                         Image(systemName: "forward.fill")
                     }
@@ -83,7 +84,7 @@ struct RiValT_Watch_App_MainContentView: View {
                     Button {
                         currentTimer.pause()
                         self.wcSessionDelegateHandler.sendCommand(command: .pause)
-                        self.refresh = true
+                        self.refresh.toggle()
                     } label: {
                         Image(systemName: "pause.fill")
                     }
@@ -91,7 +92,7 @@ struct RiValT_Watch_App_MainContentView: View {
                     Button {
                         currentTimer.resume()
                         self.wcSessionDelegateHandler.sendCommand(command: .resume)
-                        self.refresh = true
+                        self.refresh.toggle()
                     } label: {
                         Image(systemName: "play.fill")
                     }
@@ -99,15 +100,17 @@ struct RiValT_Watch_App_MainContentView: View {
                     Button {
                         currentTimer.start()
                         self.wcSessionDelegateHandler.sendCommand(command: .start)
-                        self.refresh = true
+                        self.refresh.toggle()
                     } label: {
                         Image(systemName: "play.fill")
                     }
                 }
             }
         }
-        .onAppear {
-            self.refresh = false
+        .onChange(of: self._scenePhase) {
+            if .active == self._scenePhase {
+                self.refresh.toggle()
+            }
         }
     }
 }

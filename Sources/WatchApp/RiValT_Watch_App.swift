@@ -22,24 +22,13 @@ import WatchKit
 struct RiValT_Watch_App: App {
     /* ################################################################## */
     /**
-     Tracks scene activity.
-     */
-    @Environment(\.scenePhase) private var _scenePhase
-
-    /* ################################################################## */
-    /**
      This handles the session delegate.
      */
-    @State private var _wcSessionDelegateHandler = RiValT_WatchDelegate()
+    @State private var _wcSessionDelegateHandler: RiValT_WatchDelegate
 
     /* ################################################################## */
     /**
-     */
-    @State private var _selectedTimerDisplay: String = "ERROR"
-
-    /* ################################################################## */
-    /**
-     Making this true, forces a refresh of the UI.
+     Toggling this, forces a refresh of the UI.
      */
     @State private var _refresh: Bool = false
 
@@ -49,17 +38,19 @@ struct RiValT_Watch_App: App {
      */
     var body: some Scene {
         WindowGroup {
-            RiValT_Watch_App_MainContentView(selectedTimerDisplay: self.$_selectedTimerDisplay,
-                                             wcSessionDelegateHandler: self.$_wcSessionDelegateHandler,
+            RiValT_Watch_App_MainContentView(wcSessionDelegateHandler: self.$_wcSessionDelegateHandler,
                                              refresh: self.$_refresh
             )
         }
-        .onChange(of: self._scenePhase) {
-            if .active == self._scenePhase {
-                self._wcSessionDelegateHandler.updateHandler = self.updateHandler
-                self._refresh = true
-            }
-        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Default initializer
+     */
+    init() {
+        self._wcSessionDelegateHandler = RiValT_WatchDelegate()
+        self._wcSessionDelegateHandler.updateHandler = self.updateHandler
     }
     
     /* ################################################################## */
@@ -69,9 +60,9 @@ struct RiValT_Watch_App: App {
      - parameter inWatchDelegate: The Watch communication instance.
     */
     func updateHandler(_ inWatchDelegate: RiValT_WatchDelegate?) {
-        inWatchDelegate?.timerModel.selectedTimer?.tickHandler = self.tickHandler
-        inWatchDelegate?.timerModel.selectedTimer?.transitionHandler = self.transitionHandler
-        self._refresh = true
+        self._wcSessionDelegateHandler.timerModel.selectedTimer?.tickHandler = self.tickHandler
+        self._wcSessionDelegateHandler.timerModel.selectedTimer?.transitionHandler = self.transitionHandler
+        self._refresh.toggle()
     }
     
     /* ################################################################## */
@@ -81,13 +72,13 @@ struct RiValT_Watch_App: App {
      - parameter inTimer: The timer instance that's "ticking."
     */
     func tickHandler(_ inTimer: Timer) {
-        self._selectedTimerDisplay = inTimer.timerDisplay
+        self._refresh.toggle()
     }
     
     /* ################################################################## */
     /**
     */
     func transitionHandler(_ inTimer: Timer, _ inFromState: TimerEngine.Mode, _ inToState: TimerEngine.Mode) {
-        self._refresh = true
+        self._refresh.toggle()
     }
 }
