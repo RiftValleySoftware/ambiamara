@@ -30,15 +30,8 @@ struct RiValT_Watch_App_MainContentView: View {
 
     /* ################################################################## */
     /**
-     Accessor for the current timer.
      */
-    private var _currentTimer: Timer? { self.wcSessionDelegateHandler.timerModel.selectedTimer }
-
-    /* ################################################################## */
-    /**
-     This handles the session delegate.
-     */
-    @Binding var wcSessionDelegateHandler: RiValT_WatchDelegate
+    @ObservedObject private var _model = ObservableModel()
 
     /* ################################################################## */
     /**
@@ -46,25 +39,25 @@ struct RiValT_Watch_App_MainContentView: View {
     */
     var body: some View {
         VStack {
-            if let currentTimer = self._currentTimer {
+            if let currentTimer = self._model.currentTimer {
                 Text(currentTimer.timerDisplay)
                     .font(Self.digitalFontMid)
                 HStack {
                     Button {
                         currentTimer.stop()
-                        self.wcSessionDelegateHandler.sendCommand(command: .reset)
+                        self._model.wcSessionDelegateHandler.sendCommand(command: .reset)
                     } label: {
                         Image(systemName: "backward.fill")
                     }
                     Button {
                         currentTimer.stop()
-                        self.wcSessionDelegateHandler.sendCommand(command: .stop)
+                        self._model.wcSessionDelegateHandler.sendCommand(command: .stop)
                     } label: {
                         Image(systemName: "stop.fill")
                     }
                     Button {
                         currentTimer.end()
-                        self.wcSessionDelegateHandler.sendCommand(command: .fastForward)
+                        self._model.wcSessionDelegateHandler.sendCommand(command: .fastForward)
                     } label: {
                         Image(systemName: "forward.fill")
                     }
@@ -74,21 +67,21 @@ struct RiValT_Watch_App_MainContentView: View {
                 case .countdown, .warning, .final:
                     Button {
                         currentTimer.pause()
-                        self.wcSessionDelegateHandler.sendCommand(command: .pause)
+                        self._model.wcSessionDelegateHandler.sendCommand(command: .pause)
                     } label: {
                         Image(systemName: "pause.fill")
                     }
                 case .paused:
                     Button {
                         currentTimer.resume()
-                        self.wcSessionDelegateHandler.sendCommand(command: .resume)
+                        self._model.wcSessionDelegateHandler.sendCommand(command: .resume)
                     } label: {
                         Image(systemName: "play.fill")
                     }
                 default:
                     Button {
                         currentTimer.start()
-                        self.wcSessionDelegateHandler.sendCommand(command: .start)
+                        self._model.wcSessionDelegateHandler.sendCommand(command: .start)
                     } label: {
                         Image(systemName: "play.fill")
                     }

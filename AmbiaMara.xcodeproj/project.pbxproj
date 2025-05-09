@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D40EA1B12DCEB12B00DC49BC /* ObservableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EA1B02DCEB12B00DC49BC /* ObservableModel.swift */; };
 		D40FB3072DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40FB3062DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift */; };
 		D4181D0D2DAC7364002CF428 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4181D0C2DAC7364002CF428 /* TimerModel.swift */; };
 		D4273AE32DAEEE7700AB0E41 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4273AE22DAEEE7700AB0E41 /* RVS_BasicGCDTimer */; };
@@ -272,6 +273,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D40EA1B02DCEB12B00DC49BC /* ObservableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableModel.swift; sourceTree = "<group>"; };
 		D40FB3062DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_DisplaySettings_ViewController.swift; sourceTree = "<group>"; };
 		D41109162DADEEB00034B591 /* TimerModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModelTests.swift; sourceTree = "<group>"; };
 		D4181D0C2DAC7364002CF428 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
@@ -560,6 +562,7 @@
 		D4A932212D64E9CB0028556E /* WatchApp */ = {
 			isa = PBXGroup;
 			children = (
+				D40EA1B02DCEB12B00DC49BC /* ObservableModel.swift */,
 				D4A932202D64E9CB0028556E /* RiValT_Watch_App.swift */,
 				D4A9321F2D64E9CB0028556E /* RiValT_Watch_App_MainContentView.swift */,
 				D4A9322F2D64EA8B0028556E /* Info.plist */,
@@ -1165,6 +1168,7 @@
 				D48C859B2DC6B3060055E2B1 /* TimerEngine.swift in Sources */,
 				D48C859F2DC6B3160055E2B1 /* RiValT_Settings.swift in Sources */,
 				D48C859D2DC6B30E0055E2B1 /* TimerModel.swift in Sources */,
+				D40EA1B12DCEB12B00DC49BC /* ObservableModel.swift in Sources */,
 				D4A932232D64E9CB0028556E /* RiValT_Watch_App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
