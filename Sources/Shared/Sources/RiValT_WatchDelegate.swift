@@ -37,6 +37,12 @@ class RiValT_WatchDelegate: NSObject {
     enum TimerOperation: String, CaseIterable {
         /* ############################################################## */
         /**
+         Set the selected timer to a specific time. The payload is an integer, between 0, and the starting time.
+         */
+        case setTime
+
+        /* ############################################################## */
+        /**
          Start a timer from scratch.
          */
         case start
@@ -689,6 +695,17 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
         
         TimerOperation.allCases.forEach {
             switch $0 {
+            case .setTime:
+                if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
+                    if let str = inMessage[$0.rawValue] as? String,
+                       !str.isEmpty,
+                       let toTime = Int(str),
+                       (0...(self.timerModel.selectedTimer?.startingTimeInSeconds ?? 0)).contains(toTime) {
+                        self.timerModel.selectedTimer?.currentTime = toTime
+                        self.timerModel.selectedTimer?.resetLastPausedTime()
+                    }
+                }
+
             case .start:
                 if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
                     self.timerModel.selectedTimer?.start()
@@ -714,13 +731,6 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
 
             case .resume:
                 if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
-                    if let str = inMessage[$0.rawValue] as? String,
-                       !str.isEmpty,
-                       let toTime = Int(str),
-                       (0...(self.timerModel.selectedTimer?.startingTimeInSeconds ?? 0)).contains(toTime) {
-                        self.timerModel.selectedTimer?.currentTime = toTime
-                        self.timerModel.selectedTimer?.resetLastPausedTime()
-                    }
                     self.timerModel.selectedTimer?.resume()
                 }
                 

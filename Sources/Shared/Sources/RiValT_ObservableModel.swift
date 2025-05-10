@@ -14,6 +14,7 @@ import Foundation
 // MARK: - Observable State Object -
 /* ###################################################################################################################################### */
 /**
+ This implements an observable object, from the basic model.
  */
 class RiValT_ObservableModel: ObservableObject {
     /* ################################################################## */
@@ -115,36 +116,46 @@ extension RiValT_ObservableModel {
      - parameter inExtraData: A String, with any value we wish associated with the command. Default is the command, itself.
      */
     func sendCommand(command inCommand: RiValT_WatchDelegate.TimerOperation, extraData inExtraData: String = "") {
-        self.currentTimer?.tickHandler = self._tickHandler
-        self.currentTimer?.transitionHandler = self._transitionHandler
+        guard let currentTimer = self.currentTimer else { return }
+        
+        currentTimer.tickHandler = self._tickHandler
+        currentTimer.transitionHandler = self._transitionHandler
 
         switch inCommand {
+        case .setTime:
+            if !inExtraData.isEmpty,
+               let toTime = Int(inExtraData),
+               (0...currentTimer.startingTimeInSeconds).contains(toTime) {
+                currentTimer.currentTime = toTime
+                currentTimer.resetLastPausedTime()
+            }
+
         case .start:
-            self.currentTimer?.start()
+            currentTimer.start()
 
         case .reset:
-            self.currentTimer?.start()
-            self.currentTimer?.pause()
-            self.currentTimer?.currentTime = self.currentTimer?.startingTimeInSeconds ?? 0
-            self.currentTimer?.resetLastPausedTime()
+            currentTimer.start()
+            currentTimer.pause()
+            currentTimer.currentTime = currentTimer.startingTimeInSeconds
+            currentTimer.resetLastPausedTime()
             
         case .stop:
-            self.currentTimer?.stop()
+            currentTimer.stop()
 
         case .pause:
-            self.currentTimer?.pause()
+            currentTimer.pause()
 
         case .resume:
             if !inExtraData.isEmpty,
                let toTime = Int(inExtraData),
-               (0...(self.currentTimer?.startingTimeInSeconds ?? 0)).contains(toTime) {
-                self.currentTimer?.currentTime = toTime
-                self.currentTimer?.resetLastPausedTime()
+               (1...currentTimer.startingTimeInSeconds).contains(toTime) {
+                currentTimer.currentTime = toTime
+                currentTimer.resetLastPausedTime()
             }
-            self.currentTimer?.resume()
+            currentTimer.resume()
             
         case .fastForward:
-            self.currentTimer?.end()
+            currentTimer.end()
         }
         
         self._wcSessionDelegateHandler?.sendCommand(command: inCommand, extraData: inExtraData)
