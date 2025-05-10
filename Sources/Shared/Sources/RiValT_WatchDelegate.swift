@@ -266,14 +266,17 @@ class RiValT_WatchDelegate: NSObject {
      Default initializer
      
      - parameter inUpdateHandler: The update handler for application context update.
+     - parameter inActivate: If provided (default is true), and true, activation is done immediately. If false, then the activate() method needs to be called.
      */
-    init(updateHandler inUpdateHandler: CommunicationHandler? = nil) {
+    init(updateHandler inUpdateHandler: CommunicationHandler? = nil, activate inActivate: Bool = true) {
         super.init()
         self.updateHandler = inUpdateHandler
         RiValT_Settings.ephemeralFirstTime = true
         self._setUpTimerModel()
         self.wcSession.delegate = self
-        self.wcSession.activate()
+        if inActivate {
+            self.activate()
+        }
     }
 }
 
@@ -314,12 +317,42 @@ extension RiValT_WatchDelegate {
             RiValT_Settings().timerModel = self.timerModel.asArray
         }
     }
+    
+    /* ################################################################## */
+    /**
+     Called for each "tick."
+     
+     - parameter inTimer: The timer instance that's "ticking."
+    */
+    private func _tickHandler(_ inTimer: Timer) {
+        DispatchQueue.main.async { self.updateHandler?(self) }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the timer transitions from one state, ti another.
+     
+     - parameter inTimer: The timer instance that's transitioning.
+     - parameter inFromState: The state that it's transitioning from.
+     - parameter inToState: The state that it's transitioning to.
+    */
+    private func _transitionHandler(_ inTimer: Timer, _ inFromState: TimerEngine.Mode, _ inToState: TimerEngine.Mode) {
+        DispatchQueue.main.async { self.updateHandler?(self) }
+    }
 }
 
 /* ###################################################################################################################################### */
 // MARK: Internal Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_WatchDelegate {
+    /* ################################################################## */
+    /**
+     Performs an activation
+     */
+    func activate() {
+        self.wcSession.activate()
+    }
+
     /* ################################################################## */
     /**
      This updates the stored timer model.

@@ -31,7 +31,7 @@ struct RiValT_Watch_App_MainContentView: View {
     /* ################################################################## */
     /**
      */
-    @ObservedObject private var _model = ObservableModel()
+    @ObservedObject private var _model = RiValT_ObservableModel()
 
     /* ################################################################## */
     /**
@@ -45,19 +45,19 @@ struct RiValT_Watch_App_MainContentView: View {
                 HStack {
                     Button {
                         currentTimer.stop()
-                        self._model.wcSessionDelegateHandler.sendCommand(command: .reset)
+                        self._model.sendCommand(command: .reset)
                     } label: {
                         Image(systemName: "backward.fill")
                     }
                     Button {
                         currentTimer.stop()
-                        self._model.wcSessionDelegateHandler.sendCommand(command: .stop)
+                        self._model.sendCommand(command: .stop)
                     } label: {
                         Image(systemName: "stop.fill")
                     }
                     Button {
                         currentTimer.end()
-                        self._model.wcSessionDelegateHandler.sendCommand(command: .fastForward)
+                        self._model.sendCommand(command: .fastForward)
                     } label: {
                         Image(systemName: "forward.fill")
                     }
@@ -67,21 +67,21 @@ struct RiValT_Watch_App_MainContentView: View {
                 case .countdown, .warning, .final:
                     Button {
                         currentTimer.pause()
-                        self._model.wcSessionDelegateHandler.sendCommand(command: .pause)
+                        self._model.sendCommand(command: .pause)
                     } label: {
                         Image(systemName: "pause.fill")
                     }
                 case .paused:
                     Button {
                         currentTimer.resume()
-                        self._model.wcSessionDelegateHandler.sendCommand(command: .resume)
+                        self._model.sendCommand(command: .resume)
                     } label: {
                         Image(systemName: "play.fill")
                     }
                 default:
                     Button {
                         currentTimer.start()
-                        self._model.wcSessionDelegateHandler.sendCommand(command: .start)
+                        self._model.sendCommand(command: .start)
                     } label: {
                         Image(systemName: "play.fill")
                     }

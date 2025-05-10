@@ -22,9 +22,5 @@ struct RiValT_Watch_App: App {
     /**
      This is basically just a wrapper for the screens.
      */
-    var body: some Scene {
-        WindowGroup {
-            RiValT_Watch_App_MainContentView()
-        }
-    }
+    var body: some Scene { WindowGroup { RiValT_Watch_App_MainContentView() } }
 }

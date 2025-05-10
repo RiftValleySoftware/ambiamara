@@ -8,21 +8,19 @@
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  */
 
-import SwiftUI
-import WatchConnectivity
-import WatchKit
+import Foundation
 
 /* ###################################################################################################################################### */
 // MARK: - Observable State Object -
 /* ###################################################################################################################################### */
 /**
  */
-class ObservableModel: ObservableObject {
+class RiValT_ObservableModel: ObservableObject {
     /* ################################################################## */
     /**
      This is the basic model for the whole app. It handles communication with the phone, as well as the local timer instance.
      */
-    @Published var wcSessionDelegateHandler: RiValT_WatchDelegate
+    private var _wcSessionDelegateHandler: RiValT_WatchDelegate?
         
     /* ################################################################## */
     /**
@@ -31,17 +29,16 @@ class ObservableModel: ObservableObject {
      It creates the communication instance, and sets up the various local callbacks.
      */
     init() {
-        self.wcSessionDelegateHandler = RiValT_WatchDelegate()
-        self.wcSessionDelegateHandler.updateHandler = self._delegateUpdateHandler
-        self.wcSessionDelegateHandler.timerModel.selectedTimer?.tickHandler = self._tickHandler
-        self.wcSessionDelegateHandler.timerModel.selectedTimer?.transitionHandler = self._transitionHandler
+        self._wcSessionDelegateHandler = self._wcSessionDelegateHandler ?? RiValT_WatchDelegate(activate: false)
+        self._wcSessionDelegateHandler?.updateHandler = self._delegateUpdateHandler
+        self._wcSessionDelegateHandler?.activate()
     }
 }
 
 /* ###################################################################################################################################### */
 // MARK: Private Instance Methods
 /* ###################################################################################################################################### */
-extension ObservableModel {
+extension RiValT_ObservableModel {
     /* ################################################################## */
     /**
      This simply calls the update handler, in the main thread.
@@ -86,12 +83,12 @@ extension ObservableModel {
 /* ###################################################################################################################################### */
 // MARK: Computed Properties
 /* ###################################################################################################################################### */
-extension ObservableModel {
+extension RiValT_ObservableModel {
     /* ################################################################## */
     /**
      This is an accessor for the local timer model object.
      */
-    var timerModel: TimerModel? { self.wcSessionDelegateHandler.timerModel }
+    var timerModel: TimerModel? { self._wcSessionDelegateHandler?.timerModel }
     
     /* ################################################################## */
     /**
@@ -104,4 +101,53 @@ extension ObservableModel {
      This is a direct accessor for the group, to which the local selected timer belongs.
      */
     var currentGroup: TimerGroup? { self.currentTimer?.group }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension RiValT_ObservableModel {
+    /* ################################################################## */
+    /**
+     This sends a timer operation caommand to the peer
+     
+     - parameter inCommand: The operation to send.
+     - parameter inExtraData: A String, with any value we wish associated with the command. Default is the command, itself.
+     */
+    func sendCommand(command inCommand: RiValT_WatchDelegate.TimerOperation, extraData inExtraData: String = "") {
+        self.currentTimer?.tickHandler = self._tickHandler
+        self.currentTimer?.transitionHandler = self._transitionHandler
+
+        switch inCommand {
+        case .start:
+            self.currentTimer?.start()
+
+        case .reset:
+            self.currentTimer?.start()
+            self.currentTimer?.pause()
+            self.currentTimer?.currentTime = self.currentTimer?.startingTimeInSeconds ?? 0
+            self.currentTimer?.resetLastPausedTime()
+            
+        case .stop:
+            self.currentTimer?.stop()
+
+        case .pause:
+            self.currentTimer?.pause()
+
+        case .resume:
+            if !inExtraData.isEmpty,
+               let toTime = Int(inExtraData),
+               (0...(self.currentTimer?.startingTimeInSeconds ?? 0)).contains(toTime) {
+                self.currentTimer?.currentTime = toTime
+                self.currentTimer?.resetLastPausedTime()
+            }
+            self.currentTimer?.resume()
+            
+        case .fastForward:
+            self.currentTimer?.end()
+        }
+        
+        self._wcSessionDelegateHandler?.sendCommand(command: inCommand, extraData: inExtraData)
+        self._updateSubscribers()
+    }
 }
