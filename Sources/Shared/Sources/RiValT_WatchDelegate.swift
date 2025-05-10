@@ -685,12 +685,33 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
      - parameter replyHandler: A function to be executed, with the reply to the message.
     */
     func session(_ inSession: WCSession, didReceiveMessage inMessage: [String: Any], replyHandler inReplyHandler: @escaping ([String: Any]) -> Void) {
-        #if DEBUG
-            #if os(watchOS)
-                print("Received Message From Phone: \(inMessage)")
-            #else
+        guard let currentTimer = self.timerModel.selectedTimer else { return }
+        #if !os(watchOS)    // Only necessary for iOS
+            #if DEBUG
                 print("Received Message From Watch: \(inMessage)")
             #endif
+            if nil != inMessage[Self.MessageType.requestContext.rawValue] {
+                #if DEBUG
+                    print("Responding to context request from the watch")
+                #endif
+                self.sendApplicationContext()
+                return
+            }
+        #else
+            #if DEBUG
+                print("Received Message From Phone: \(inMessage)")
+            #endif
+            if let sync = inMessage[Self.MessageType.sync.rawValue] as? NSDictionary,
+               let to = sync.value(forKey: "to") as? Int,
+               let dateVal = sync.value(forKey: "date") as? TimeInterval,
+               currentTimer.isTimerRunning {
+                #if DEBUG
+                    print("Received a sync from the phone: \(to), \(dateVal)")
+                #endif
+                currentTimer.sync(to: to, date: Date(timeIntervalSince1970: dateVal))
+                DispatchQueue.main.async { self.updateHandler?(self) }
+                return
+            }
         #endif
         
         TimerOperation.allCases.forEach {
@@ -700,68 +721,47 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                     if let str = inMessage[$0.rawValue] as? String,
                        !str.isEmpty,
                        let toTime = Int(str),
-                       (0...(self.timerModel.selectedTimer?.startingTimeInSeconds ?? 0)).contains(toTime) {
-                        self.timerModel.selectedTimer?.currentTime = toTime
-                        self.timerModel.selectedTimer?.resetLastPausedTime()
+                       (0...currentTimer.startingTimeInSeconds).contains(toTime) {
+                        currentTimer.currentTime = toTime
+                        currentTimer.resetLastPausedTime()
                     }
                 }
 
             case .start:
                 if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
-                    self.timerModel.selectedTimer?.start()
+                    currentTimer.start()
                 }
 
             case .reset:
                 if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
-                    self.timerModel.selectedTimer?.start()
-                    self.timerModel.selectedTimer?.pause()
-                    self.timerModel.selectedTimer?.currentTime = self.timerModel.selectedTimer?.startingTimeInSeconds ?? 0
-                    self.timerModel.selectedTimer?.resetLastPausedTime()
+                    currentTimer.start()
+                    currentTimer.pause()
+                    currentTimer.currentTime = currentTimer.startingTimeInSeconds
+                    currentTimer.resetLastPausedTime()
                 }
                 
             case .stop:
                 if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
-                    self.timerModel.selectedTimer?.stop()
+                    currentTimer.stop()
                 }
 
             case .pause:
                 if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
-                    self.timerModel.selectedTimer?.pause()
+                    currentTimer.pause()
                 }
 
             case .resume:
                 if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
-                    self.timerModel.selectedTimer?.resume()
+                    currentTimer.resume()
                 }
                 
             case .fastForward:
                 if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
-                    self.timerModel.selectedTimer?.end()
+                    currentTimer.end()
                 }
             }
             
             DispatchQueue.main.async { self.updateHandler?(self) }
         }
-        
-        #if !os(watchOS)    // Only necessary for iOS
-            if nil != inMessage[Self.MessageType.requestContext.rawValue] {
-                #if DEBUG
-                    print("Responding to context request from the watch")
-                #endif
-                self.sendApplicationContext()
-            }
-        #else
-            if let sync = inMessage[Self.MessageType.sync.rawValue] as? NSDictionary,
-               let to = sync.value(forKey: "to") as? Int,
-               let dateVal = sync.value(forKey: "date") as? TimeInterval {
-                #if DEBUG
-                    print("Received a sync from the phone: \(to), \(dateVal)")
-                #endif
-                if self.timerModel.selectedTimer?.isTimerRunning ?? false {
-                    self.timerModel.selectedTimer?.sync(to: to, date: Date(timeIntervalSince1970: dateVal))
-                    DispatchQueue.main.async { self.updateHandler?(self) }
-                }
-            }
-        #endif
     }
 }

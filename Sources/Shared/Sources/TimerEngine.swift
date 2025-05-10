@@ -59,10 +59,10 @@ private extension TimerEngine {
             } else if 0 >= self._countdownTime {
                 self.end()
             }
-        }
-        
-        if .alarm == self.mode || .stopped == self.mode {
-            self._timer?.isRunning = false
+            
+            if .alarm == self.mode || .stopped == self.mode {
+                self._timer?.isRunning = false
+            }
         }
     }
 }
