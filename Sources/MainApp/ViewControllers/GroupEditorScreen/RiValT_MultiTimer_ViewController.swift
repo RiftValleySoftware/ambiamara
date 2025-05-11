@@ -929,9 +929,9 @@ extension RiValT_MultiTimer_ViewController {
     /**
      Called when the "Play" button is hit.
      
-     - parameter: ignored.
+     - parameter: ignored (and can be omitted).
      */
-    @IBAction func toolbarPlayButtonHit(_ inButton: UIBarButtonItem) {
+    @IBAction func toolbarPlayButtonHit(_: UIBarButtonItem! = nil) {
         self.impactHaptic()
         self.watchDelegate.sendCommand(command: .start)
         self.performSegue(withIdentifier: RiValT_RunningTimer_ContainerViewController.segueID, sender: self.timerModel.selectedTimer)
