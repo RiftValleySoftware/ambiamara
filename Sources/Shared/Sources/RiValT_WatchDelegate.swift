@@ -440,18 +440,6 @@ extension RiValT_WatchDelegate {
         
         /* ########################################################## */
         /**
-         Handles a reply from the peer.
-         
-         - parameter inReply: The reply from the peer.
-        */
-        func _replyHandler(_ inReply: [String: Any]) {
-            #if DEBUG
-                print("Received (Unexpected) Reply from Watch: \(inReply)")
-            #endif
-        }
-        
-        /* ########################################################## */
-        /**
          Handles an error in the transaction.
          
          This looks for a certain kind of failure, and will retry a few times.
@@ -485,7 +473,7 @@ extension RiValT_WatchDelegate {
             self.retries = inRetries
             isUpdateInProgress = true
             // NB: You MUST have a replyHandler (even though there are plenty of examples, with it nil). It can be a "do-nothing" closure, but it can't be nil, or the send message won't work.
-            wcSession.sendMessage([inCommand.rawValue: extraData], replyHandler: _replyHandler, errorHandler: _errorHandler)
+            wcSession.sendMessage([inCommand.rawValue: extraData], replyHandler: { _ in }, errorHandler: _errorHandler)
             isUpdateInProgress = false
         }
     }
@@ -715,60 +703,81 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
         #endif
         
         TimerOperation.allCases.forEach {
-            switch $0 {
-            case .setTime:
-                if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
-                    if let str = inMessage[$0.rawValue] as? String,
-                       !str.isEmpty,
-                       let toTime = Int(str),
-                       (0...currentTimer.startingTimeInSeconds).contains(toTime) {
-                        currentTimer.currentTime = toTime
+            if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
+                switch $0 {
+                case .setTime:
+                        if let str = inMessage[$0.rawValue] as? String,
+                           !str.isEmpty,
+                           let toTime = Int(str),
+                           (0...currentTimer.startingTimeInSeconds).contains(toTime) {
+                            currentTimer.currentTime = toTime
+                            currentTimer.resetLastPausedTime()
+                        }
+                    
+                case .start:
+                        #if os(iOS)
+                            DispatchQueue.main.async {
+                                if let controller = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController as? RiValT_MultiTimer_ViewController {
+                                    controller.toolbarPlayButtonHit()
+                                }
+                            }
+                        #else
+                            currentTimer.start()
+                        #endif
+                    
+                case .reset:
+                        currentTimer.start()
+                        currentTimer.pause()
+                        currentTimer.currentTime = currentTimer.startingTimeInSeconds
                         currentTimer.resetLastPausedTime()
-                    }
-                }
-
-            case .start:
-                if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
+                    
+                case .stop:
+                        #if os(iOS)
+                            DispatchQueue.main.async {
+                                if let controller = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController as? RiValT_RunningTimer_ContainerViewController {
+                                    controller.stopHit()
+                                }
+                            }
+                        #else
+                            currentTimer.stop()
+                        #endif
+                    
+                case .pause:
+                        #if os(iOS)
+                            DispatchQueue.main.async {
+                                if let controller = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController as? RiValT_RunningTimer_ContainerViewController {
+                                    controller.playPauseHit()
+                                }
+                            }
+                        #else
+                            currentTimer.pause()
+                        #endif
+                    
+                case .resume:
+                        #if os(iOS)
+                            DispatchQueue.main.async {
+                                if let controller = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController as? RiValT_RunningTimer_ContainerViewController {
+                                    controller.playPauseHit()
+                                }
+                            }
+                        #else
+                            currentTimer.resume()
+                        #endif
+                    
+                case .fastForward:
                     #if os(iOS)
                         DispatchQueue.main.async {
-                            if let controller = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController as? RiValT_MultiTimer_ViewController {
-                                controller.toolbarPlayButtonHit()
+                            if let controller = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController as? RiValT_RunningTimer_ContainerViewController {
+                                controller.fastForwardHit()
                             }
                         }
+                    #else
+                        currentTimer.end()
                     #endif
-                    currentTimer.start()
-                }
-
-            case .reset:
-                if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
-                    currentTimer.start()
-                    currentTimer.pause()
-                    currentTimer.currentTime = currentTimer.startingTimeInSeconds
-                    currentTimer.resetLastPausedTime()
                 }
                 
-            case .stop:
-                if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
-                    currentTimer.stop()
-                }
-
-            case .pause:
-                if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
-                    currentTimer.pause()
-                }
-
-            case .resume:
-                if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
-                    currentTimer.resume()
-                }
-                
-            case .fastForward:
-                if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
-                    currentTimer.end()
-                }
+                DispatchQueue.main.async { self.updateHandler?(self) }
             }
-            
-            DispatchQueue.main.async { self.updateHandler?(self) }
         }
     }
 }

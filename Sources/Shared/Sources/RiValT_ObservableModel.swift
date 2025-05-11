@@ -121,6 +121,8 @@ extension RiValT_ObservableModel {
         currentTimer.tickHandler = self._tickHandler
         currentTimer.transitionHandler = self._transitionHandler
 
+        self._wcSessionDelegateHandler?.sendCommand(command: inCommand, extraData: inExtraData)
+
         switch inCommand {
         case .setTime:
             if !inExtraData.isEmpty,
@@ -146,19 +148,12 @@ extension RiValT_ObservableModel {
             currentTimer.pause()
 
         case .resume:
-            if !inExtraData.isEmpty,
-               let toTime = Int(inExtraData),
-               (1...currentTimer.startingTimeInSeconds).contains(toTime) {
-                currentTimer.currentTime = toTime
-                currentTimer.resetLastPausedTime()
-            }
             currentTimer.resume()
             
         case .fastForward:
             currentTimer.end()
         }
         
-        self._wcSessionDelegateHandler?.sendCommand(command: inCommand, extraData: inExtraData)
         self._updateSubscribers()
     }
 }
