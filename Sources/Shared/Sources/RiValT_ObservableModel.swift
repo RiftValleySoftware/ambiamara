@@ -22,7 +22,13 @@ class RiValT_ObservableModel: ObservableObject {
      This is the basic model for the whole app. It handles communication with the phone, as well as the local timer instance.
      */
     private var _wcSessionDelegateHandler: RiValT_WatchDelegate?
-        
+    
+    /* ################################################################## */
+    /**
+     Set to true, if the progress view should be shown.
+     */
+    private var _showBusy: Bool = true { didSet { if self._showBusy { self._updateSubscribers() } } }
+
     /* ################################################################## */
     /**
      Default initializer.
@@ -45,7 +51,10 @@ extension RiValT_ObservableModel {
      This simply calls the update handler, in the main thread.
     */
     private func _updateSubscribers() {
-        DispatchQueue.main.async { self.objectWillChange.send() }
+        DispatchQueue.main.async {
+            self._showBusy = false
+            self.objectWillChange.send()
+        }
     }
 
     /* ################################################################## */
@@ -87,6 +96,12 @@ extension RiValT_ObservableModel {
 extension RiValT_ObservableModel {
     /* ################################################################## */
     /**
+     Returns true, if the progress view should be shown.
+     */
+    var showBusy: Bool { self._showBusy }
+
+    /* ################################################################## */
+    /**
      This is an accessor for the local timer model object.
      */
     var timerModel: TimerModel? { self._wcSessionDelegateHandler?.timerModel }
@@ -118,6 +133,8 @@ extension RiValT_ObservableModel {
     func sendCommand(command inCommand: RiValT_WatchDelegate.TimerOperation, extraData inExtraData: String = "") {
         guard let currentTimer = self.currentTimer else { return }
         
+        self._showBusy = true
+
         currentTimer.tickHandler = self._tickHandler
         currentTimer.transitionHandler = self._transitionHandler
 
@@ -153,7 +170,5 @@ extension RiValT_ObservableModel {
         case .fastForward:
             currentTimer.end()
         }
-        
-        self._updateSubscribers()
     }
 }

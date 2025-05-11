@@ -189,6 +189,7 @@ extension RiValT_Base_ViewController {
      */
     func updateSettings() {
         RiValT_Settings().timerModel = RiValT_AppDelegate.appDelegateInstance?.timerModel.asArray ?? []
+        self.watchDelegate?.updateSettings()
     }
 }
 

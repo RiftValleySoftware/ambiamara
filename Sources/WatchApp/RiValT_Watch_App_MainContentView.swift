@@ -38,46 +38,50 @@ struct RiValT_Watch_App_MainContentView: View {
      The main display body.
     */
     var body: some View {
-        VStack {
-            if let currentTimer = self._model.currentTimer {
-                Text(currentTimer.timerDisplay)
-                    .font(Self.digitalFontMid)
-                HStack {
-                    Button {
-                        self._model.sendCommand(command: .reset)
-                    } label: {
-                        Image(systemName: "backward.fill")
+        if self._model.showBusy {
+            ProgressView()
+        } else {
+            VStack {
+                if let currentTimer = self._model.currentTimer {
+                    Text(currentTimer.timerDisplay)
+                        .font(Self.digitalFontMid)
+                    HStack {
+                        Button {
+                            self._model.sendCommand(command: .reset)
+                        } label: {
+                            Image(systemName: "backward.fill")
+                        }
+                        Button {
+                            self._model.sendCommand(command: .stop)
+                        } label: {
+                            Image(systemName: "stop.fill")
+                        }
+                        Button {
+                            self._model.sendCommand(command: .fastForward)
+                        } label: {
+                            Image(systemName: "forward.fill")
+                        }
                     }
-                    Button {
-                        self._model.sendCommand(command: .stop)
-                    } label: {
-                        Image(systemName: "stop.fill")
-                    }
-                    Button {
-                        self._model.sendCommand(command: .fastForward)
-                    } label: {
-                        Image(systemName: "forward.fill")
-                    }
-                }
-            
-                switch currentTimer.timerMode {
-                case .countdown, .warning, .final:
-                    Button {
-                        self._model.sendCommand(command: .pause)
-                    } label: {
-                        Image(systemName: "pause.fill")
-                    }
-                case .paused:
-                    Button {
-                        self._model.sendCommand(command: .resume)
-                    } label: {
-                        Image(systemName: "play.fill")
-                    }
-                default:
-                    Button {
-                        self._model.sendCommand(command: .start)
-                    } label: {
-                        Image(systemName: "play.fill")
+                    
+                    switch currentTimer.timerMode {
+                    case .countdown, .warning, .final:
+                        Button {
+                            self._model.sendCommand(command: .pause)
+                        } label: {
+                            Image(systemName: "pause.fill")
+                        }
+                    case .paused:
+                        Button {
+                            self._model.sendCommand(command: .resume)
+                        } label: {
+                            Image(systemName: "play.fill")
+                        }
+                    default:
+                        Button {
+                            self._model.sendCommand(command: .start)
+                        } label: {
+                            Image(systemName: "play.fill")
+                        }
                     }
                 }
             }

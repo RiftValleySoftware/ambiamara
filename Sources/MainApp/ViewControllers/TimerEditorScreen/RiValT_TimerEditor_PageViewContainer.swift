@@ -294,6 +294,7 @@ extension RiValT_TimerEditor_PageViewContainer {
         firstViewController.myContainer = self
         firstViewController.timer = timer
         timer.isSelected = true
+        self.watchDelegate?.updateSettings()
         self.impactHaptic()
         pageViewController?.setViewControllers( [firstViewController], direction: direction, animated: true, completion: nil)
         self.setUpToolbar()
@@ -365,6 +366,7 @@ extension RiValT_TimerEditor_PageViewContainer: UIPageViewControllerDelegate {
               let timerIndex = self.currentlySelectedTimerEditor?.timer?.indexPath?.item
         else { return }
         self.currentlySelectedTimerEditor?.timer?.isSelected = true
+        self.watchDelegate?.updateSettings()
         if 1 < group.count,
            (1..<(group.count - 1)).contains(timerIndex) {
             impactHaptic()

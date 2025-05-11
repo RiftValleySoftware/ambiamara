@@ -1016,6 +1016,8 @@ extension RiValT_MultiTimer_ViewController {
            (0..<(self.timerModel?.count ?? 0)).contains(groupIndex),
            !group.isSelected {
             group.first?.isSelected = true
+            self.watchDelegate?.updateSettings()
+            self.updateSnapshot()
             self.impactHaptic()
             self.collectionView?.reloadData()
             self.setUpNavBarItems()
@@ -1041,6 +1043,9 @@ extension RiValT_MultiTimer_ViewController {
             }
             
             group[currentSelectedIndex + 1].isSelected = true
+            self.watchDelegate?.updateSettings()
+            self.updateSnapshot()
+            self.setUpNavBarItems()
             impactHaptic()
             self.collectionView?.reloadData()
         }
