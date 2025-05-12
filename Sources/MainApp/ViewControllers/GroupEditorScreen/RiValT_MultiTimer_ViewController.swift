@@ -533,6 +533,12 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
      Used to track scrolling, and to prevent horizontal scroll.
      */
     private var _initialContentOffset: CGPoint = .zero
+    
+    /* ############################################################## */
+    /**
+     This is set to true, if we want to override the pref.
+     */
+    var forceStart: Bool = false
 
     /* ############################################################## */
     /**
@@ -704,11 +710,14 @@ extension RiValT_MultiTimer_ViewController {
         if let destination = inSegue.destination as? RiValT_RunningTimer_ContainerViewController,
            let timer = inData as? Timer {
             destination.timer = timer
+            destination.forceStart = self.forceStart
         } else if let destination = inSegue.destination as? RiValT_TimerEditor_PageViewContainer,
                   let optionalString = inData as? String,
                   !optionalString.isEmpty {
             destination.optionalTitle = optionalString
         }
+        
+        self.forceStart = false
     }
 }
 
@@ -937,6 +946,16 @@ extension RiValT_MultiTimer_ViewController {
         self.performSegue(withIdentifier: RiValT_RunningTimer_ContainerViewController.segueID, sender: self.timerModel.selectedTimer)
     }
     
+    /* ############################################################## */
+    /**
+     Called when the Watch wants us to play.
+     */
+    func remotePlay() {
+        self.forceStart = true
+//        self.watchDelegate.sendCommand(command: .start)
+        self.performSegue(withIdentifier: RiValT_RunningTimer_ContainerViewController.segueID, sender: self.timerModel.selectedTimer)
+    }
+
     /* ############################################################## */
     /**
      Called when the "Edit" button is hit.

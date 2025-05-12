@@ -116,6 +116,12 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
     
     /* ############################################################## */
     /**
+     This is set to true, if we want to override the pref.
+     */
+    var forceStart: Bool = false
+    
+    /* ############################################################## */
+    /**
      This is our numerical display instance.
      */
     weak var numericalDisplayController: RiValT_RunningTimer_Numerical_ViewController?
@@ -381,9 +387,10 @@ extension RiValT_RunningTimer_ContainerViewController {
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure we don't fall asleep.
         super.viewWillAppear(inIsAnimated)
         RiValT_Settings().flush()
-        if RiValT_Settings().startTimerImmediately {
+        if self.forceStart || RiValT_Settings().startTimerImmediately {
             self.flashGreen()
             self.timer?.start()
+            self.forceStart = false
         } else {
             self.timer?.stop()
         }
