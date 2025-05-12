@@ -23,8 +23,8 @@ opt_in_rules:
 - comma
 
 function_body_length:
-- 99 # warning
-- 100 #error
+- 199 # warning
+- 200 #error
 
 file_length:
 - 1999 # warning

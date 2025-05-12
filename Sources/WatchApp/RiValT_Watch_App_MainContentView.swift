@@ -43,8 +43,13 @@ struct RiValT_Watch_App_MainContentView: View {
         } else {
             VStack {
                 if let currentTimer = self._model.currentTimer {
-                    Text(currentTimer.timerDisplay)
-                        .font(Self.digitalFontMid)
+                    if case .paused = currentTimer.timerMode {
+                        Text("SLUG-PAUSED".localizedVariant)
+                            .font(Self.digitalFontMid)
+                    } else {
+                        Text(currentTimer.timerDisplay)
+                            .font(Self.digitalFontMid)
+                    }
                     HStack {
                         Button {
                             self._model.sendCommand(command: .reset)

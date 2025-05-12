@@ -207,8 +207,9 @@ class RiValT_WatchDelegate: NSObject {
      This is a callback template for the message/context calls. It is always called in the main thread.
      
      - parameter inWatchDelegate: The delegate handler calling this.
+     - parameter inForceUpdate: True, if you want the receiver to force an update.
      */
-    typealias CommunicationHandler = (_ inWatchDelegate: RiValT_WatchDelegate?) -> Void
+    typealias CommunicationHandler = (_ inWatchDelegate: RiValT_WatchDelegate?, _ inForceUpdate: Bool) -> Void
     
     /* ################################################################## */
     /**
@@ -230,6 +231,12 @@ class RiValT_WatchDelegate: NSObject {
      This is a timeout handler for communications with the phone.
      */
     private var _timeoutHandler: RVS_BasicGCDTimer?
+
+    /* ################################################################## */
+    /**
+     This is set to true, if we have received our first sync tick.
+     */
+    private var _receivedFirstSync: Bool = false
 
     /* ###################################################################### */
     /**
@@ -331,7 +338,9 @@ extension RiValT_WatchDelegate {
      - parameter inTimer: The timer instance that's "ticking."
     */
     private func _tickHandler(_ inTimer: Timer) {
-        DispatchQueue.main.async { self.updateHandler?(self) }
+        if self._receivedFirstSync {
+            DispatchQueue.main.async { self.updateHandler?(self, true) }
+        }
     }
     
     /* ################################################################## */
@@ -343,7 +352,7 @@ extension RiValT_WatchDelegate {
      - parameter inToState: The state that it's transitioning to.
     */
     private func _transitionHandler(_ inTimer: Timer, _ inFromState: TimerEngine.Mode, _ inToState: TimerEngine.Mode) {
-        DispatchQueue.main.async { self.updateHandler?(self) }
+        DispatchQueue.main.async { self.updateHandler?(self, true) }
     }
 }
 
@@ -656,7 +665,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                     print("Received Timer Model: \(timerModel.debugDescription)")
                 #endif
                 self.timerModel.asArray = timerModel
-                DispatchQueue.main.async { self.updateHandler?(self) }
+                DispatchQueue.main.async { self.updateHandler?(self, true) }
             } else {
                 DispatchQueue.main.async { self.errorHandler?(self, nil) }
             }
@@ -692,13 +701,13 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
             #endif
             if let sync = inMessage[Self.MessageType.sync.rawValue] as? NSDictionary,
                let to = sync.value(forKey: "to") as? Int,
-               let dateVal = sync.value(forKey: "date") as? TimeInterval,
-               currentTimer.isTimerRunning {
+               let dateVal = sync.value(forKey: "date") as? TimeInterval {
                 #if DEBUG
                     print("Received a sync from the phone: \(to), \(dateVal)")
                 #endif
+                self._receivedFirstSync = true
                 currentTimer.sync(to: to, date: Date(timeIntervalSince1970: dateVal))
-                DispatchQueue.main.async { self.updateHandler?(self) }
+                DispatchQueue.main.async { self.updateHandler?(self, true) }
                 return
             }
         #endif
@@ -723,6 +732,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                                 }
                             }
                         #else
+                            self._receivedFirstSync = false
                             currentTimer.start()
                         #endif
                     
@@ -748,6 +758,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                             DispatchQueue.main.async {
                                 if let controller = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController as? RiValT_RunningTimer_ContainerViewController {
                                     controller.playPauseHit()
+                                    self.sendSync()
                                 }
                             }
                         #else
@@ -762,6 +773,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                                 }
                             }
                         #else
+                            self._receivedFirstSync = false
                             currentTimer.resume()
                         #endif
                     
@@ -777,7 +789,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                     #endif
                 }
                 
-                DispatchQueue.main.async { self.updateHandler?(self) }
+                DispatchQueue.main.async { self.updateHandler?(self, self._receivedFirstSync) }
             }
         }
     }

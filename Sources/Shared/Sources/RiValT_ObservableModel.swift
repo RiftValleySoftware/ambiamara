@@ -51,10 +51,7 @@ extension RiValT_ObservableModel {
      This simply calls the update handler, in the main thread.
     */
     private func _updateSubscribers() {
-        DispatchQueue.main.async {
-            self._showBusy = false
-            self.objectWillChange.send()
-        }
+        DispatchQueue.main.async { self.objectWillChange.send() }
     }
 
     /* ################################################################## */
@@ -63,7 +60,9 @@ extension RiValT_ObservableModel {
      
      - parameter inWatchDelegate: The Watch communication instance.
     */
-    private func _delegateUpdateHandler(_ inWatchDelegate: RiValT_WatchDelegate?) {
+    private func _delegateUpdateHandler(_ inWatchDelegate: RiValT_WatchDelegate?, update inForceUpdate: Bool = false) {
+        self._showBusy = !inForceUpdate
+        self.currentTimer?.tickHandler = self._tickHandler
         self._updateSubscribers()
     }
     
@@ -74,18 +73,6 @@ extension RiValT_ObservableModel {
      - parameter inTimer: The timer instance that's "ticking."
     */
     private func _tickHandler(_ inTimer: Timer) {
-        self._updateSubscribers()
-    }
-    
-    /* ################################################################## */
-    /**
-     Called when the timer transitions from one state, ti another.
-     
-     - parameter inTimer: The timer instance that's transitioning.
-     - parameter inFromState: The state that it's transitioning from.
-     - parameter inToState: The state that it's transitioning to.
-    */
-    private func _transitionHandler(_ inTimer: Timer, _ inFromState: TimerEngine.Mode, _ inToState: TimerEngine.Mode) {
         self._updateSubscribers()
     }
 }
@@ -132,11 +119,6 @@ extension RiValT_ObservableModel {
      */
     func sendCommand(command inCommand: RiValT_WatchDelegate.TimerOperation, extraData inExtraData: String = "") {
         guard let currentTimer = self.currentTimer else { return }
-        
-        self._showBusy = true
-
-        currentTimer.tickHandler = self._tickHandler
-        currentTimer.transitionHandler = self._transitionHandler
 
         self._wcSessionDelegateHandler?.sendCommand(command: inCommand, extraData: inExtraData)
 
@@ -150,21 +132,27 @@ extension RiValT_ObservableModel {
             }
 
         case .start:
+            self._showBusy = true
             currentTimer.start()
 
         case .reset:
+            self.currentTimer?.tickHandler = nil
             currentTimer.start()
             currentTimer.pause()
             currentTimer.currentTime = currentTimer.startingTimeInSeconds
             currentTimer.resetLastPausedTime()
             
         case .stop:
+            self._showBusy = true
+            self.currentTimer?.tickHandler = nil
             currentTimer.stop()
 
         case .pause:
+            self.currentTimer?.tickHandler = nil
             currentTimer.pause()
 
         case .resume:
+            self.currentTimer?.tickHandler = nil
             currentTimer.resume()
             
         case .fastForward:
