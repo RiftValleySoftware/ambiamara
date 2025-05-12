@@ -274,6 +274,12 @@ class RiValT_WatchDelegate: NSObject {
      */
     var isUpdateInProgress = false
 
+    /* ###################################################################### */
+    /**
+     This is only relevant to the Watch app. This becomes true, if we can reach the iPhone app.
+     */
+    var canReachIPhoneApp = false
+
     /* ################################################################## */
     /**
      Default initializer
@@ -365,6 +371,7 @@ extension RiValT_WatchDelegate {
      Performs an activation
      */
     func activate() {
+        self.canReachIPhoneApp = false
         self.wcSession.activate()
     }
 
@@ -665,6 +672,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                     print("Received Timer Model: \(timerModel.debugDescription)")
                 #endif
                 self.timerModel.asArray = timerModel
+                self.canReachIPhoneApp = true
                 DispatchQueue.main.async { self.updateHandler?(self, true) }
             } else {
                 DispatchQueue.main.async { self.errorHandler?(self, nil) }

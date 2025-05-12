@@ -42,7 +42,8 @@ struct RiValT_Watch_App_MainContentView: View {
             ProgressView()
         } else {
             VStack {
-                if let currentTimer = self._model.currentTimer {
+                if self._model.canReachIPhoneApp,
+                   let currentTimer = self._model.currentTimer {
                     if case .paused = currentTimer.timerMode {
                         Text("SLUG-PAUSED".localizedVariant)
                             .font(Self.digitalFontMid)
@@ -88,6 +89,8 @@ struct RiValT_Watch_App_MainContentView: View {
                             Image(systemName: "play.fill")
                         }
                     }
+                } else {
+                    Text("SLUG-CANT-REACH".localizedVariant)
                 }
             }
         }

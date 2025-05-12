@@ -1,6 +1,17 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "SLUG-CANT-REACH" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot Reach iPhone App"
+          }
+        }
+      }
+    },
     "SLUG-PAUSED" : {
       "extractionState" : "manual",
       "localizations" : {

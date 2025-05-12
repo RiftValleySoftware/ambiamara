@@ -29,6 +29,12 @@ class RiValT_ObservableModel: ObservableObject {
      */
     private var _showBusy: Bool = true { didSet { if self._showBusy { self._updateSubscribers() } } }
 
+    /* ###################################################################### */
+    /**
+     This is only relevant to the Watch app. This becomes true, if we can reach the iPhone app.
+     */
+    var canReachIPhoneApp = false
+
     /* ################################################################## */
     /**
      Default initializer.
@@ -36,6 +42,7 @@ class RiValT_ObservableModel: ObservableObject {
      It creates the communication instance, and sets up the various local callbacks.
      */
     init() {
+        self.canReachIPhoneApp = false
         self._wcSessionDelegateHandler = self._wcSessionDelegateHandler ?? RiValT_WatchDelegate(activate: false)
         self._wcSessionDelegateHandler?.updateHandler = self._delegateUpdateHandler
         self._wcSessionDelegateHandler?.activate()
@@ -51,7 +58,10 @@ extension RiValT_ObservableModel {
      This simply calls the update handler, in the main thread.
     */
     private func _updateSubscribers() {
-        DispatchQueue.main.async { self.objectWillChange.send() }
+        DispatchQueue.main.async {
+            self.canReachIPhoneApp = self._wcSessionDelegateHandler?.canReachIPhoneApp ?? false
+            self.objectWillChange.send()
+        }
     }
 
     /* ################################################################## */
@@ -73,6 +83,18 @@ extension RiValT_ObservableModel {
      - parameter inTimer: The timer instance that's "ticking."
     */
     private func _tickHandler(_ inTimer: Timer) {
+        self._updateSubscribers()
+    }
+    
+    /* ################################################################## */
+    /**
+     Callede when there's an error.
+     
+     - parameter: The watch delkegate (ignored).
+     - parameter: The error (also ignored).
+    */
+    private func _errorHandler(_: RiValT_WatchDelegate?, _: Error?) {
+        self.canReachIPhoneApp = false
         self._updateSubscribers()
     }
 }
