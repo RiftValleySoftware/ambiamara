@@ -380,6 +380,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.navigationController?.isNavigationBarHidden = true
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure we don't fall asleep.
         super.viewWillAppear(inIsAnimated)
+        RiValT_Settings().flush()
         if RiValT_Settings().startTimerImmediately {
             self.flashGreen()
             self.timer?.start()
