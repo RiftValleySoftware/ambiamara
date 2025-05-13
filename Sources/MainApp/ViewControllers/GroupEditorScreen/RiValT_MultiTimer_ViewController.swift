@@ -660,6 +660,7 @@ extension RiValT_MultiTimer_ViewController {
         self.createLayout()
         self.updateSnapshot()
         self.setUpNavBarItems()
+        self.watchDelegate?.updateSettings()
     }
 
     /* ################################################################## */
@@ -898,6 +899,7 @@ extension RiValT_MultiTimer_ViewController {
             self.collectionView?.reloadData()
             self.updateSettings()
             self.impactHaptic(1.0)
+            self.watchDelegate?.updateSettings()
         }
         
         let messageText = "SLUG-DELETE-CONFIRM-MESSAGE"
@@ -952,7 +954,6 @@ extension RiValT_MultiTimer_ViewController {
      */
     func remotePlay() {
         self.forceStart = true
-//        self.watchDelegate.sendCommand(command: .start)
         self.performSegue(withIdentifier: RiValT_RunningTimer_ContainerViewController.segueID, sender: self.timerModel.selectedTimer)
     }
 
