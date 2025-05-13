@@ -19,6 +19,7 @@ import SwiftUI
 struct RiValT_Watch_App_MainContentView: View {
     /* ################################################################## */
     /**
+     We use a custom "digital" font.
      */
     static let digitalFontMid = Font.custom("Let\'s Go Digital", size: 40)
 
@@ -30,6 +31,7 @@ struct RiValT_Watch_App_MainContentView: View {
 
     /* ################################################################## */
     /**
+     This is the model for the display.
      */
     @ObservedObject private var _model = RiValT_ObservableModel()
 
@@ -44,7 +46,10 @@ struct RiValT_Watch_App_MainContentView: View {
             VStack {
                 if self._model.canReachIPhoneApp,
                    let currentTimer = self._model.currentTimer {
-                    if case .paused = currentTimer.timerMode {
+                    if currentTimer.timerDisplay.isEmpty {
+                        Text("SLUG-INVALID".localizedVariant)
+                            .font(Self.digitalFontMid)
+                    } else if case .paused = currentTimer.timerMode {
                         Text("SLUG-PAUSED".localizedVariant)
                             .font(Self.digitalFontMid)
                     } else {
@@ -57,16 +62,21 @@ struct RiValT_Watch_App_MainContentView: View {
                         } label: {
                             Image(systemName: "backward.fill")
                         }
+                        .disabled(currentTimer.timerDisplay.isEmpty)
+
                         Button {
                             self._model.sendCommand(command: .stop)
                         } label: {
                             Image(systemName: "stop.fill")
                         }
+                        .disabled(currentTimer.timerDisplay.isEmpty)
+
                         Button {
                             self._model.sendCommand(command: .fastForward)
                         } label: {
                             Image(systemName: "forward.fill")
                         }
+                        .disabled(currentTimer.timerDisplay.isEmpty)
                     }
                     
                     switch currentTimer.timerMode {
@@ -76,25 +86,24 @@ struct RiValT_Watch_App_MainContentView: View {
                         } label: {
                             Image(systemName: "pause.fill")
                         }
+                        .disabled(currentTimer.timerDisplay.isEmpty)
                     case .paused:
                         Button {
                             self._model.sendCommand(command: .resume)
                         } label: {
                             Image(systemName: "play.fill")
                         }
+                        .disabled(currentTimer.timerDisplay.isEmpty)
                     default:
                         Button {
                             self._model.sendCommand(command: .start)
                         } label: {
                             Image(systemName: "play.fill")
                         }
+                        .disabled(currentTimer.timerDisplay.isEmpty)
                     }
                 } else {
                     Text("SLUG-CANT-REACH".localizedVariant)
-//                    Button("SLUG-OPEN-APP") {
-//                        self._model.openCompanionApp()
-//                    }
-//                    .buttonStyle(.borderedProminent)
                 }
             }
         }
