@@ -20,6 +20,10 @@
 
 import WatchConnectivity
 import RVS_BasicGCDTimer
+import UserNotifications
+#if os(watchOS)    // Only necessary for Watch
+    import WatchKit
+#endif
 
 /* ###################################################################################################################################### */
 // MARK: Watch Connecvtivity Handler
@@ -278,7 +282,7 @@ class RiValT_WatchDelegate: NSObject {
     /**
      This is only relevant to the Watch app. This becomes true, if we can reach the iPhone app.
      */
-    var canReachIPhoneApp = false
+    var canReachIPhoneApp = true
 
     /* ################################################################## */
     /**
@@ -498,7 +502,45 @@ extension RiValT_WatchDelegate {
             isUpdateInProgress = false
         }
     }
+    
+    /* ################################################################## */
+    /**
+     This sends a notification, asking the user to open the iOS app.
+     */
+    func promptUserToOpenApp() {
+        let notificationCenter = UNUserNotificationCenter.current()
+        
+        notificationCenter.requestAuthorization(options: [.alert, .sound]) { granted, _ in
+            guard granted else { return }
+            
+            let content = UNMutableNotificationContent()
+            content.title = "SLUG-ACTION-REQURED"
+            content.body = "SLUG-CONNECT-APP"
+            content.sound = .default
+            
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+            notificationCenter.add(request)
+        }
+    }
 
+    /* ################################################################## */
+    /**
+     This tries to open the app
+     */
+    func openCompanionApp() {
+        #if os(watchOS)    // Only necessary for Watch
+            // Request the system to open the companion iOS app
+            WKInterfaceDevice.current().play(.click)
+            
+            // Using WKExtension.shared().openSystemURL() instead
+            if let companionAppURL = URL(string: "rivalt://") {
+                WKExtension.shared().openSystemURL(companionAppURL)
+            }
+            
+            self.promptUserToOpenApp()
+        #endif
+    }
+    
     /* ################################################################## */
     /**
      This is called to send the current state of the prefs to the peer.
@@ -559,7 +601,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
         #endif
         
         guard .activated == inActivationState else { return }
-
+        
         #if os(watchOS)    // Only necessary for Watch
             /* ############################################################## */
             /**

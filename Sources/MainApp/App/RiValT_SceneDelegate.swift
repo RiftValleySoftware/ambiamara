@@ -52,6 +52,27 @@ class RiValT_SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     /* ################################################################## */
     /**
+     Called when the app has been launched from a URL scheme.
+     
+     - parameter: The scene that's entering the background (ignored).
+     - parameter inURLContexts: The URL context.
+     */
+    func scene(_: UIScene, openURLContexts inURLContexts: Set<UIOpenURLContext>) {
+        guard let url = inURLContexts.first?.url,
+              "rivalt" == url.scheme,
+              let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              nil != windowScene.delegate as? RiValT_SceneDelegate
+        else { return }
+
+        #if DEBUG
+            print("Opened from URL: \(url)")
+        #endif
+
+        RiValT_AppDelegate.appDelegateInstance?.updateSettings()
+    }
+
+    /* ################################################################## */
+    /**
      Called when the app is coming to the fore.
      
      - parameter: The scene that's entering the foreground (ignored).

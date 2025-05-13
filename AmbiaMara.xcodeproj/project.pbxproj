@@ -30,6 +30,10 @@
 		D43B97782DA2C2D00028E023 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D43B97772DA2C2D00028E023 /* RVS_BasicGCDTimer */; };
 		D43B97792DA2C2E80028E023 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E869532D99916200D56802 /* TimerEngine.swift */; };
 		D45184CA2DB42DBF00DA671D /* RiValT_SoundSettings_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45184C92DB42DBE00DA671D /* RiValT_SoundSettings_ViewController.swift */; };
+		D466C0F92DD38DD900B4416D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BDAEBF2DC7B36400185D4F /* WatchConnectivity.framework */; };
+		D466C0FB2DD38DD900B4416D /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D466C0FA2DD38DD900B4416D /* WatchKit.framework */; };
+		D466C0FD2DD38E8E00B4416D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D466C0FC2DD38E8E00B4416D /* WatchConnectivity.framework */; };
+		D466C0FF2DD38EA200B4416D /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D466C0FE2DD38EA200B4416D /* SwiftUI.framework */; };
 		D46B84EF2D986AD500199220 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D46B84EE2D986AD500199220 /* RVS_Generic_Swift_Toolbox */; };
 		D46B84F12D986AD500199220 /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D46B84F02D986AD500199220 /* RVS_Persistent_Prefs */; };
 		D46B84F32D986AD500199220 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D46B84F22D986AD500199220 /* RVS_BasicGCDTimer */; };
@@ -294,6 +298,9 @@
 		D43B97642DA2C1D10028E023 /* RiValT_Base_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_Base_ViewController.swift; sourceTree = "<group>"; };
 		D44E7712281AD1B000B491EF /* AmbiaMara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AmbiaMara.entitlements; sourceTree = "<group>"; };
 		D45184C92DB42DBE00DA671D /* RiValT_SoundSettings_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_SoundSettings_ViewController.swift; sourceTree = "<group>"; };
+		D466C0FA2DD38DD900B4416D /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.4.sdk/System/Library/Frameworks/WatchKit.framework; sourceTree = DEVELOPER_DIR; };
+		D466C0FC2DD38E8E00B4416D /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk/System/iOSSupport/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
+		D466C0FE2DD38EA200B4416D /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.4.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
 		D46B84DF2D986AB600199220 /* TimerEngineTestHarness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimerEngineTestHarness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46BC2172D8612DF0094B052 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D4705AA32DD22797002FAC40 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -401,6 +408,7 @@
 				D4A149BD2DB66A4700B70A7B /* RVS_Checkbox in Frameworks */,
 				D43B97742DA2C2D00028E023 /* RVS_RetroLEDDisplay in Frameworks */,
 				D43B97782DA2C2D00028E023 /* RVS_BasicGCDTimer in Frameworks */,
+				D466C0FD2DD38E8E00B4416D /* WatchConnectivity.framework in Frameworks */,
 				D43B97702DA2C2D00028E023 /* RVS_Generic_Swift_Toolbox in Frameworks */,
 				D43B97762DA2C2D00028E023 /* RVS_UIKit_Toolbox in Frameworks */,
 			);
@@ -438,7 +446,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4E6ECB12D6FBF1E00178A37 /* RVS_Generic_Swift_Toolbox in Frameworks */,
+				D466C0F92DD38DD900B4416D /* WatchConnectivity.framework in Frameworks */,
 				D4BDAEBE2DC7B31700185D4F /* RVS_BasicGCDTimer in Frameworks */,
+				D466C0FB2DD38DD900B4416D /* WatchKit.framework in Frameworks */,
+				D466C0FF2DD38EA200B4416D /* SwiftUI.framework in Frameworks */,
 				D4F357312D6F6271005A815A /* RVS_Persistent_Prefs in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -673,6 +684,9 @@
 		D4CD2E7D284697E100400AB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D466C0FE2DD38EA200B4416D /* SwiftUI.framework */,
+				D466C0FC2DD38E8E00B4416D /* WatchConnectivity.framework */,
+				D466C0FA2DD38DD900B4416D /* WatchKit.framework */,
 				D4BDAEBF2DC7B36400185D4F /* WatchConnectivity.framework */,
 				D4F83CB42D63DB43009C4646 /* WidgetKit.framework */,
 				D4F83CB62D63DB43009C4646 /* SwiftUI.framework */,

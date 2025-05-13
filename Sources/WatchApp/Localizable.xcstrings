@@ -1,6 +1,17 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "SLUG-ACTION-REQURED" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ACTION REQUIRED"
+          }
+        }
+      }
+    },
     "SLUG-CANT-REACH" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -8,6 +19,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cannot Reach iPhone App"
+          }
+        }
+      }
+    },
+    "SLUG-CONNECT-APP" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please open the app on your iPhone to connect with your watch"
+          }
+        }
+      }
+    },
+    "SLUG-OPEN-APP" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open iPhone App"
           }
         }
       }

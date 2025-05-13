@@ -91,6 +91,10 @@ struct RiValT_Watch_App_MainContentView: View {
                     }
                 } else {
                     Text("SLUG-CANT-REACH".localizedVariant)
+//                    Button("SLUG-OPEN-APP") {
+//                        self._model.openCompanionApp()
+//                    }
+//                    .buttonStyle(.borderedProminent)
                 }
             }
         }

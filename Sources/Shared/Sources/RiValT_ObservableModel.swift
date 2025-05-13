@@ -181,4 +181,12 @@ extension RiValT_ObservableModel {
             currentTimer.end()
         }
     }
+
+    /* ################################################################## */
+    /**
+     This tries to open the app
+     */
+    func openCompanionApp() {
+        self._wcSessionDelegateHandler?.openCompanionApp()
+    }
 }
