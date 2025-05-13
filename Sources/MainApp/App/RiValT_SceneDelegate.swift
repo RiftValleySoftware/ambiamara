@@ -57,6 +57,7 @@ class RiValT_SceneDelegate: UIResponder, UIWindowSceneDelegate {
      - parameter: The scene that's entering the foreground (ignored).
      */
     func sceneWillEnterForeground(_: UIScene) {
+        RiValT_AppDelegate.appDelegateInstance?.updateSettings()
         RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.checkForFastForward()
     }
 }

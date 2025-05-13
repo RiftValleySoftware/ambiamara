@@ -429,6 +429,8 @@ extension RiValT_WatchDelegate {
                 #if DEBUG
                     print("Error Not Handled")
                 #endif
+                canReachIPhoneApp = false
+                DispatchQueue.main.async { self.updateHandler?(self, true) }
             }
         }
         
@@ -483,6 +485,8 @@ extension RiValT_WatchDelegate {
                 #if DEBUG
                     print("Error Not Handled")
                 #endif
+                canReachIPhoneApp = false
+                DispatchQueue.main.async { self.updateHandler?(self, true) }
             }
         }
         
