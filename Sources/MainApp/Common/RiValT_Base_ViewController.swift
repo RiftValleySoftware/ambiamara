@@ -92,7 +92,7 @@ class RiValT_Base_ViewController: UIViewController {
     /**
      The lightest light, when dark.
      */
-    static let darkModeMax = CGFloat(0.35)
+    static let darkModeMax = CGFloat(0.25)
 
     /* ################################################################## */
     /**

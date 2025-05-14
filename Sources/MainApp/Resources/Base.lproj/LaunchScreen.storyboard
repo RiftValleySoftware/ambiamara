@@ -3,7 +3,6 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,32 +16,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background-Gradient" translatesAutoresizingMaskIntoConstraints="NO" id="uX7-3b-xf9">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CenterImage" translatesAutoresizingMaskIntoConstraints="NO" id="Q4S-Cm-Xpv">
                                 <rect key="frame" x="78.666666666666671" y="308" width="235.66666666666663" height="236"/>
-                                <color key="tintColor" systemColor="labelColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Q4S-Cm-Xpv" secondAttribute="height" multiplier="1:1" id="IXo-TB-iFr"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2OY-VE-eGO"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" name="AccentColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="tintColor" systemColor="labelColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="uX7-3b-xf9" secondAttribute="bottom" id="1tm-IW-2QC"/>
-                            <constraint firstItem="Q4S-Cm-Xpv" firstAttribute="width" secondItem="uX7-3b-xf9" secondAttribute="width" priority="750" id="CHM-uT-pry"/>
-                            <constraint firstItem="Q4S-Cm-Xpv" firstAttribute="width" relation="lessThanOrEqual" secondItem="uX7-3b-xf9" secondAttribute="width" multiplier="0.6" id="DYK-Kz-u2d"/>
-                            <constraint firstItem="uX7-3b-xf9" firstAttribute="top" secondItem="fOY-HJ-Z2Q" secondAttribute="top" id="EiE-Fj-rGA"/>
-                            <constraint firstItem="Q4S-Cm-Xpv" firstAttribute="centerY" secondItem="fOY-HJ-Z2Q" secondAttribute="centerY" id="Q87-DP-Qjf"/>
-                            <constraint firstAttribute="trailing" secondItem="uX7-3b-xf9" secondAttribute="trailing" id="S1k-GJ-zbE"/>
-                            <constraint firstItem="Q4S-Cm-Xpv" firstAttribute="height" relation="lessThanOrEqual" secondItem="uX7-3b-xf9" secondAttribute="height" multiplier="0.6" id="SjZ-qO-O2r"/>
-                            <constraint firstItem="Q4S-Cm-Xpv" firstAttribute="height" secondItem="uX7-3b-xf9" secondAttribute="height" priority="750" id="SnX-5S-irQ"/>
-                            <constraint firstItem="uX7-3b-xf9" firstAttribute="leading" secondItem="fOY-HJ-Z2Q" secondAttribute="leading" id="ZCc-QH-MFy"/>
-                            <constraint firstItem="Q4S-Cm-Xpv" firstAttribute="centerX" secondItem="fOY-HJ-Z2Q" secondAttribute="centerX" id="dl6-3s-hJJ"/>
+                            <constraint firstItem="Q4S-Cm-Xpv" firstAttribute="centerX" secondItem="fOY-HJ-Z2Q" secondAttribute="centerX" id="PZd-Op-ad1"/>
+                            <constraint firstItem="Q4S-Cm-Xpv" firstAttribute="width" relation="lessThanOrEqual" secondItem="fOY-HJ-Z2Q" secondAttribute="width" multiplier="0.6" id="dM3-rh-ElU"/>
+                            <constraint firstItem="Q4S-Cm-Xpv" firstAttribute="centerY" secondItem="fOY-HJ-Z2Q" secondAttribute="centerY" id="t2Z-2D-oqP"/>
+                            <constraint firstItem="Q4S-Cm-Xpv" firstAttribute="height" relation="lessThanOrEqual" secondItem="fOY-HJ-Z2Q" secondAttribute="height" multiplier="0.6" id="y0P-WD-Plc"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -52,13 +41,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Background-Gradient" width="10" height="1024"/>
-        <image name="CenterImage" width="919" height="912"/>
-        <namedColor name="AccentColor">
-            <color red="0.31400001049041748" green="0.37999999523162842" blue="0.89399999380111694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
+        <image name="CenterImage" width="883" height="877"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
