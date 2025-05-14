@@ -265,9 +265,15 @@ class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
 class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
     /* ############################################################## */
     /**
+     The height of our display labels, if we have a tight squeeze.
+     */
+    private static let _tightFontHeightInDisplayUnits = CGFloat(18)
+    
+    /* ############################################################## */
+    /**
      The width of a selected timer border.
      */
-    static let borderWidthInDisplayUnits = CGFloat(4)
+    static let borderWidthInDisplayUnits = CGFloat(1)
     
     /* ############################################################## */
     /**
@@ -277,9 +283,27 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
     
     /* ############################################################## */
     /**
+     The large variant of the digital display font (unselected).
+     */
+    static let unselectedDisplayFontBig = UIFont.systemFont(ofSize: 60)
+
+    /* ############################################################## */
+    /**
      The smaller variant of the digital display font.
      */
-    static let digitalDisplayFontSmall = UIFont(name: "Let\'s go Digital", size: 20)
+    static let digitalDisplayFontSmall = UIFont(name: "Let\'s go Digital", size: 24)
+
+    /* ############################################################## */
+    /**
+     The smaller variant of the digital display font (unselected).
+     */
+    static let unselectedDisplayFontSmall = UIFont.systemFont(ofSize: 20)
+
+    /* ################################################################## */
+    /**
+     The radius of our rounded corners
+     */
+    private static let _cornerRadiusInDisplayUnits = CGFloat(12)
 
     /* ############################################################## */
     /**
@@ -307,7 +331,10 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
         let hasFinal = hasSetTime && 0 < inItem.finalTimeInSeconds
 
         self.contentView.backgroundColor = UIColor(named: "\(inItem.isSelected ? "Selected-" : "")Cell-Background")
-
+        self.contentView.borderColor = inItem.isSelected ? .white : .clear
+        self.contentView.borderWidth = inItem.isSelected ? Self.borderWidthInDisplayUnits : 0
+        self.contentView.cornerRadius = Self._cornerRadiusInDisplayUnits
+        self.contentView.clipsToBounds = true
         super.configure(indexPath: inIndexPath, myController: inMyController)
         
         self.item = inItem
@@ -315,8 +342,8 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
         let startLabel = UILabel()
         startLabel.textColor = hasSetTime && inItem.isSelected ? UIColor(named: "Start-Color") : (hasSetTime || !inItem.isSelected ? (UIViewController().isDarkMode ? .black : .white) : .systemRed)
-        startLabel.font = hasSetTime ? Self.digitalDisplayFontSmall : Self.digitalDisplayFontBig
-        startLabel.text = hasSetTime ? inItem.setTimeDisplay : "0"
+        startLabel.font = hasSetTime ? inItem.isSelected ? Self.digitalDisplayFontSmall : Self.unselectedDisplayFontSmall : inItem.isSelected ? Self.digitalDisplayFontBig : Self.unselectedDisplayFontBig
+        startLabel.text = hasSetTime ? inItem.setTimeDisplay : ""
         startLabel.adjustsFontSizeToFitWidth = true
         startLabel.minimumScaleFactor = 0.25
         startLabel.textAlignment = hasSetTime ? .right : .center
@@ -328,12 +355,15 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
         }
         startLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 8).isActive = true
         startLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -8).isActive = true
-        
+        if hasWarning || hasFinal {
+            startLabel.heightAnchor.constraint(equalToConstant: Self._tightFontHeightInDisplayUnits).isActive = true
+        }
+
         let warnLabel = UILabel()
 
         if hasWarning {
             warnLabel.textColor = inItem.isSelected ? UIColor(named: "Warn-Color") : UIViewController().isDarkMode ? .black : .white
-            warnLabel.font = Self.digitalDisplayFontSmall
+            warnLabel.font = inItem.isSelected ? Self.digitalDisplayFontSmall : Self.unselectedDisplayFontSmall
             warnLabel.text = inItem.warnTimeDisplay
             warnLabel.adjustsFontSizeToFitWidth = true
             warnLabel.minimumScaleFactor = 0.25
@@ -349,13 +379,14 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
             warnLabel.topAnchor.constraint(equalTo: startLabel.bottomAnchor).isActive = true
             warnLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 8).isActive = true
             warnLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -8).isActive = true
+            warnLabel.heightAnchor.constraint(equalToConstant: Self._tightFontHeightInDisplayUnits).isActive = true
         }
         
         if hasFinal {
             let finalLabel = UILabel()
             
             finalLabel.textColor = inItem.isSelected ? UIColor(named: "Final-Color") : UIViewController().isDarkMode ? .black : .white
-            finalLabel.font = Self.digitalDisplayFontSmall
+            finalLabel.font = inItem.isSelected ? Self.digitalDisplayFontSmall : Self.unselectedDisplayFontSmall
             finalLabel.text = inItem.finalTimeDisplay
             finalLabel.adjustsFontSizeToFitWidth = true
             finalLabel.minimumScaleFactor = 0.25
@@ -370,6 +401,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
             }
             finalLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 8).isActive = true
             finalLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -8).isActive = true
+            finalLabel.heightAnchor.constraint(equalToConstant: Self._tightFontHeightInDisplayUnits).isActive = true
         }
     }
 }
@@ -396,6 +428,48 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
          */
         static let reuseIdentifier = "SectionBackgroundView"
         
+        /* ############################################################## */
+        /**
+         The font to be used for the endcap button.
+         */
+        private static let _endcapFont = UIFont.boldSystemFont(ofSize: 30)
+
+        /* ################################################################## */
+        /**
+         The width of the group endcap.
+         */
+        private static let _endcapWidthInDisplayUnits = CGFloat(38)
+
+        /* ################################################################## */
+        /**
+         The radius of our rounded corners
+         */
+        private static let _cornerRadiusInDisplayUnits = CGFloat(16)
+
+        /* ################################################################## */
+        /**
+         The lightest light, when light.
+         */
+        private static let _lightModeMax = CGFloat(0.95)
+
+        /* ################################################################## */
+        /**
+         The darkest dark, when light.
+         */
+        private static let _lightModeMin = CGFloat(0.58)
+
+        /* ################################################################## */
+        /**
+         The lightest light, when dark.
+         */
+        private static let _darkModeMax = CGFloat(0.25)
+
+        /* ################################################################## */
+        /**
+         The darkest dark, when dark.
+         */
+        private static let _darkModeMin = CGFloat(0.1)
+
         /* ########################################################## */
         /**
          The controller that "owns" this instance.
@@ -418,14 +492,25 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
         
         /* ########################################################## */
         /**
+         The background gradient layer.
+         */
+        weak private var _gradientLayer: CALayer?
+        
+        /* ########################################################## */
+        /**
          We initialize with a frame, and set up our basic shape.
          */
         override init(frame: CGRect) {
             super.init(frame: frame)
             self.layer.borderWidth = RiValT_TimerArray_IconCell.borderWidthInDisplayUnits
-            self.layer.cornerRadius = 16
+            self.layer.cornerRadius = Self._cornerRadiusInDisplayUnits
             self.clipsToBounds = true
-            self.backgroundColor = .clear
+            self.layer.borderColor = UIColor.clear.cgColor
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.startPoint = .init(x: 1.0, y: 0.5)
+            gradientLayer.endPoint = .init(x: 0.0, y: 0.5)
+            self.layer.insertSublayer(gradientLayer, at: 0)
+            self._gradientLayer = gradientLayer
         }
         
         /* ########################################################## */
@@ -457,26 +542,34 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
                 myGroup = nil
             }
             
-            // If this group has a selected timer, then the entire group is considered to be selected, and we draw a border around it.
-            self.layer.borderColor = (group.index == inLayoutAttributes.indexPath.section ? (UIColor(named: "Selected-Cell-Border") ?? .systemRed) : UIColor.clear).cgColor
+            let isDarkMode = myController?.isDarkMode ?? false
+            let isHighContrastMode = myController?.isHighContrastMode ?? false
             
+            (self._gradientLayer as? CAGradientLayer)?.colors = [
+                (!isDarkMode ? UIColor(white: Self._darkModeMax, alpha: 1.0) : UIColor(white: Self._lightModeMax, alpha: 1.0)).cgColor,
+                (!isDarkMode ? UIColor(white: Self._darkModeMin, alpha: 1.0) : UIColor(white: Self._lightModeMin, alpha: 1.0)).cgColor
+            ]
+            self._gradientLayer?.frame = self.bounds
+            self._gradientLayer?.isHidden = isHighContrastMode || group.index != inLayoutAttributes.indexPath.section
+            self.backgroundColor = (group.index == inLayoutAttributes.indexPath.section) && isHighContrastMode ? .systemBackground.inverted : .clear
+
             // If we have more than one group, we add a number to the right end, identifying the group.
             if group.index == inLayoutAttributes.indexPath.section,
                (1 < group.model?.count ?? 0) || (1 < group.count) {
                 let groupNumberLabel = UILabel()
-                groupNumberLabel.backgroundColor = UIColor(named: "Selected-Cell-Border")
+                groupNumberLabel.backgroundColor = isDarkMode ? UIColor(white: Self._lightModeMin, alpha: 1.0) : UIColor(white: Self._darkModeMin, alpha: 1.0)
                 groupNumberLabel.textAlignment = .center
-                groupNumberLabel.font = .boldSystemFont(ofSize: 30)
+                groupNumberLabel.font = Self._endcapFont
                 groupNumberLabel.adjustsFontSizeToFitWidth = true
                 groupNumberLabel.minimumScaleFactor = 0.5
                 groupNumberLabel.text = " \(String(inLayoutAttributes.indexPath.section + 1)) "
                 self.addSubview(groupNumberLabel)
                 groupNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-                groupNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
-                groupNumberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
-                groupNumberLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
-                groupNumberLabel.widthAnchor.constraint(equalToConstant: 38).isActive = true
-                groupNumberLabel.cornerRadius = 12
+                groupNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
+                groupNumberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -0).isActive = true
+                groupNumberLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -0).isActive = true
+                groupNumberLabel.widthAnchor.constraint(equalToConstant: Self._endcapWidthInDisplayUnits).isActive = true
+                groupNumberLabel.cornerRadius = 0
                 groupNumberLabel.clipsToBounds = true
                 if 1 < group.count {
                     groupNumberLabel.isAccessibilityElement = true
@@ -486,7 +579,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
                     groupNumberLabel.isUserInteractionEnabled = true
                     groupNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(groupBackgroundNumberTapped)))
                 } else {
-                    groupNumberLabel.textColor = UIColor(named: "Group-Number")
+                    groupNumberLabel.textColor = .label.inverted
                     groupNumberLabel.isUserInteractionEnabled = false
                     groupNumberLabel.isAccessibilityElement = false
                     groupNumberLabel.accessibilityLabel = nil

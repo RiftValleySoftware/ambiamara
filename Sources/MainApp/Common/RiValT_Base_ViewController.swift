@@ -66,6 +66,30 @@ extension UIViewController {
 class RiValT_Base_ViewController: UIViewController {
     /* ################################################################## */
     /**
+     The lightest light, when light.
+     */
+    private static let _lightModeMax = CGFloat(0.95)
+
+    /* ################################################################## */
+    /**
+     The darkest dark, when light.
+     */
+    private static let _lightModeMin = CGFloat(0.58)
+
+    /* ################################################################## */
+    /**
+     The lightest light, when dark.
+     */
+    private static let _darkModeMax = CGFloat(0.25)
+
+    /* ################################################################## */
+    /**
+     The darkest dark, when dark.
+     */
+    private static let _darkModeMin = CGFloat(0.1)
+
+    /* ################################################################## */
+    /**
      This will provide haptic/audio feedback for subtle events.
      */
     private let _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
@@ -75,30 +99,6 @@ class RiValT_Base_ViewController: UIViewController {
      This will provide haptic/audio feedback for more significant events.
      */
     private let _impactFeedbackGenerator = UIImpactFeedbackGenerator()
-
-    /* ################################################################## */
-    /**
-     The lightest light, when light.
-     */
-    static let lightModeMax = CGFloat(0.95)
-
-    /* ################################################################## */
-    /**
-     The darkest dark, when light.
-     */
-    static let lightModeMin = CGFloat(0.58)
-
-    /* ################################################################## */
-    /**
-     The lightest light, when dark.
-     */
-    static let darkModeMax = CGFloat(0.25)
-
-    /* ################################################################## */
-    /**
-     The darkest dark, when dark.
-     */
-    static let darkModeMin = CGFloat(0.1)
 
     /* ################################################################## */
     /**
@@ -172,17 +172,14 @@ extension RiValT_Base_ViewController {
               let view = self.view
         else { return }
         
-        // Create a new gradient layer
         let gradientLayer = CAGradientLayer()
-        // Set the colors and locations for the gradient layer
         gradientLayer.colors = [
-            (self.isDarkMode ? UIColor(white: Self.darkModeMax, alpha: 1.0) : UIColor(white: Self.lightModeMax, alpha: 1.0)).cgColor,
-            (self.isDarkMode ? UIColor(white: Self.darkModeMin, alpha: 1.0) : UIColor(white: Self.lightModeMin, alpha: 1.0)).cgColor
+            (self.isDarkMode ? UIColor(white: Self._darkModeMax, alpha: 1.0) : UIColor(white: Self._lightModeMax, alpha: 1.0)).cgColor,
+            (self.isDarkMode ? UIColor(white: Self._darkModeMin, alpha: 1.0) : UIColor(white: Self._lightModeMin, alpha: 1.0)).cgColor
         ]
         gradientLayer.frame = view.frame
         self.gradientLayer = gradientLayer
 
-        // Add the gradient layer as a sublayer to the background view
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
 }
