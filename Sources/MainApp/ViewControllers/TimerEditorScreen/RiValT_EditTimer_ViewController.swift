@@ -235,13 +235,6 @@ extension RiValT_EditTimer_ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpTimeTypeSegmentedControl()
-        let appearance = UIToolbarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = .clear
-        appearance.backgroundImage = nil
-        self.toolbar?.standardAppearance = appearance
-        self.toolbar?.scrollEdgeAppearance = appearance
-        self.backgroundGradientImageView?.removeFromSuperview()
         self.view?.backgroundColor = .clear
     }
     
@@ -277,6 +270,7 @@ extension RiValT_EditTimer_ViewController {
         super.viewDidLayoutSubviews()
         self.timeTypeSegmentedControl?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: self.isDarkMode ? UIColor.black : UIColor.label], for: .selected)
         self.timeSetPicker?.reloadAllComponents()
+        self.gradientLayer?.removeFromSuperlayer()
     }
 }
 

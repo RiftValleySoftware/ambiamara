@@ -115,10 +115,9 @@ extension RiValT_TimerEditor_PageViewContainer {
         let appearance = UIToolbarAppearance()
         appearance.configureWithTransparentBackground()
         appearance.backgroundColor = .clear
-        appearance.backgroundImage = UIImage()
+        appearance.backgroundImage = nil
         self.toolbar?.standardAppearance = appearance
         self.toolbar?.scrollEdgeAppearance = appearance
-        self.toolbar?.isTranslucent = true
         let navAppearance = UINavigationBarAppearance()
         navAppearance.configureWithTransparentBackground()
         navAppearance.backgroundColor = .clear
@@ -216,8 +215,6 @@ extension RiValT_TimerEditor_PageViewContainer {
         }
         
         self.optionalTitle = nil
-        self.toolbar?.setNeedsLayout()
-        self.toolbar?.layoutIfNeeded()
     }
 }
 

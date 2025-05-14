@@ -11,6 +11,7 @@
 import UIKit
 import CoreHaptics
 import RVS_UIKit_Toolbox
+import RVS_Generic_Swift_Toolbox
 
 /* ###################################################################################################################################### */
 // MARK: - Special Extension for localization -
@@ -74,18 +75,36 @@ class RiValT_Base_ViewController: UIViewController {
      This will provide haptic/audio feedback for more significant events.
      */
     private let _impactFeedbackGenerator = UIImpactFeedbackGenerator()
-    
-    /* ############################################################## */
+
+    /* ################################################################## */
     /**
-     This is the image view that holds the background gradient.
+     The lightest light, when light.
      */
-    weak var backgroundGradientImageView: UIImageView?
-    
-    /* ############################################################## */
+    static let lightModeMax = CGFloat(0.95)
+
+    /* ################################################################## */
     /**
-     This can be overloaded or set, to provide the image to be used as a background gradient.
+     The darkest dark, when light.
      */
-    var backgroundGradientImage: UIImage? = UIImage(named: "Background-Gradient")
+    static let lightModeMin = CGFloat(0.58)
+
+    /* ################################################################## */
+    /**
+     The lightest light, when dark.
+     */
+    static let darkModeMax = CGFloat(0.35)
+
+    /* ################################################################## */
+    /**
+     The darkest dark, when dark.
+     */
+    static let darkModeMin = CGFloat(0.1)
+
+    /* ################################################################## */
+    /**
+     The layer with the background gradient.
+     */
+    weak var gradientLayer: CALayer?
 }
 
 /* ###################################################################################################################################### */
@@ -124,8 +143,6 @@ extension RiValT_Base_ViewController {
     /* ################################################################## */
     /**
      Called when the view hierarchy has been set up.
-     
-     We use this to set the background.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,23 +156,34 @@ extension RiValT_Base_ViewController {
         self._selectionFeedbackGenerator.prepare()
         self._impactFeedbackGenerator.prepare()
         
-        // Set the gradient background.
-        if let view = self.view {
-            let backgroundGradientView = UIImageView(image: self.backgroundGradientImage)
-            backgroundGradientView.translatesAutoresizingMaskIntoConstraints = false
-            backgroundGradientView.contentMode = .scaleToFill
-            view.insertSubview(backgroundGradientView, at: 0)
-            backgroundGradientView.translatesAutoresizingMaskIntoConstraints = false
-            backgroundGradientView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-            backgroundGradientView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-            backgroundGradientView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-            backgroundGradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-            
-            self.backgroundGradientImageView = backgroundGradientView
-        }
-        
         self.navigationItem.title = self.navigationItem.title?.localizedVariant
         self.localizeStuff()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the view has laid out its subviews.
+     
+     We use this to set the background.
+     */
+    override func viewDidLayoutSubviews() {
+        self.gradientLayer?.removeFromSuperlayer()
+        guard !self.isHighContrastMode,
+              let view = self.view
+        else { return }
+        
+        // Create a new gradient layer
+        let gradientLayer = CAGradientLayer()
+        // Set the colors and locations for the gradient layer
+        gradientLayer.colors = [
+            (self.isDarkMode ? UIColor(white: Self.darkModeMax, alpha: 1.0) : UIColor(white: Self.lightModeMax, alpha: 1.0)).cgColor,
+            (self.isDarkMode ? UIColor(white: Self.darkModeMin, alpha: 1.0) : UIColor(white: Self.lightModeMin, alpha: 1.0)).cgColor
+        ]
+        gradientLayer.frame = view.frame
+        self.gradientLayer = gradientLayer
+
+        // Add the gradient layer as a sublayer to the background view
+        view.layer.insertSublayer(gradientLayer, at: 0)
     }
 }
 

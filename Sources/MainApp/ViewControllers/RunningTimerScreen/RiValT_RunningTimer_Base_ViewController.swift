@@ -79,9 +79,21 @@ extension RiValT_RunningTimer_Base_ViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.backgroundGradientImageView?.removeFromSuperview()
         self.view?.backgroundColor = .clear
         self.view.isUserInteractionEnabled = false
+    }
+    
+    /* ############################################################## */
+    /**
+     Called, when the view changes its layout.
+     */
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.gradientLayer?.removeFromSuperlayer()
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
     }
     
     /* ############################################################## */
