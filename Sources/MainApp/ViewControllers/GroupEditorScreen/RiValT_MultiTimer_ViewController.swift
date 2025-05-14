@@ -523,6 +523,22 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
 
         /* ########################################################## */
         /**
+         Called before display.
+         */
+        override func prepareForReuse() {
+            super.prepareForReuse()
+            self._gradientLayer?.frame = self.bounds
+            self._gradientLayer?.isHidden = true
+            let isDarkMode = myController?.isDarkMode ?? false
+            
+            (self._gradientLayer as? CAGradientLayer)?.colors = [
+                (!isDarkMode ? UIColor(white: Self._darkModeMax, alpha: 1.0) : UIColor(white: Self._lightModeMax, alpha: 1.0)).cgColor,
+                (!isDarkMode ? UIColor(white: Self._darkModeMin, alpha: 1.0) : UIColor(white: Self._lightModeMin, alpha: 1.0)).cgColor
+            ]
+        }
+        
+        /* ########################################################## */
+        /**
          This is called to give the instance a chance to mess with the layout.
          
          We don't mess with it, but we use it as the best way to figure out what we'll be displaying.
@@ -544,12 +560,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
             
             let isDarkMode = myController?.isDarkMode ?? false
             let isHighContrastMode = myController?.isHighContrastMode ?? false
-            
-            (self._gradientLayer as? CAGradientLayer)?.colors = [
-                (!isDarkMode ? UIColor(white: Self._darkModeMax, alpha: 1.0) : UIColor(white: Self._lightModeMax, alpha: 1.0)).cgColor,
-                (!isDarkMode ? UIColor(white: Self._darkModeMin, alpha: 1.0) : UIColor(white: Self._lightModeMin, alpha: 1.0)).cgColor
-            ]
-            self._gradientLayer?.frame = self.bounds
+
             self._gradientLayer?.isHidden = isHighContrastMode || group.index != inLayoutAttributes.indexPath.section
             self.backgroundColor = (group.index == inLayoutAttributes.indexPath.section) && isHighContrastMode ? .systemBackground.inverted : .clear
 
@@ -763,7 +774,6 @@ extension RiValT_MultiTimer_ViewController {
         self.setupDataSource()
         self.createLayout()
         self.updateSnapshot()
-        self.setUpNavBarItems()
         self.watchDelegate?.updateSettings()
     }
 
@@ -962,6 +972,8 @@ extension RiValT_MultiTimer_ViewController {
 
         self.dataSource?.apply(snapshot, animatingDifferences: false)
         self.updateToolbar()
+        self.setUpNavBarItems()
+//        self.collectionView?.reloadData()
     }
     
     /* ############################################################## */
@@ -999,9 +1011,8 @@ extension RiValT_MultiTimer_ViewController {
             
             self.timerModel.removeTimer(from: indexPath)
 
-            self.updateSnapshot()
-            self.collectionView?.reloadData()
             self.updateSettings()
+            self.updateSnapshot()
             self.impactHaptic(1.0)
             self.watchDelegate?.sendApplicationContext()
         }
@@ -1141,10 +1152,9 @@ extension RiValT_MultiTimer_ViewController {
            !group.isSelected {
             group.first?.isSelected = true
             self.watchDelegate?.sendApplicationContext()
+            self.updateSettings()
             self.updateSnapshot()
             self.impactHaptic()
-            self.collectionView?.reloadData()
-            self.setUpNavBarItems()
         }
     }
     
@@ -1166,12 +1176,16 @@ extension RiValT_MultiTimer_ViewController {
                 }
             }
             
-            group[currentSelectedIndex + 1].isSelected = true
-            self.watchDelegate?.sendApplicationContext()
-            self.updateSnapshot()
-            self.setUpNavBarItems()
-            impactHaptic()
-            self.collectionView?.reloadData()
+            currentSelectedIndex += 1
+            
+            group[currentSelectedIndex].isSelected = true
+            if let collectionView = self.collectionView,
+               let groupIndex = group.index {
+                let oldValue = RiValT_Settings().oneTapEditing
+                RiValT_Settings().oneTapEditing = false
+                self.collectionView(collectionView, didSelectItemAt: IndexPath(row: currentSelectedIndex, section: groupIndex))
+                RiValT_Settings().oneTapEditing = oldValue
+            }
         }
     }
 }
@@ -1289,7 +1303,6 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDropDelegate {
         self.impactHaptic(1.0)
         self.timerModel.moveTimer(from: sourceIndexPath, to: destinationIndexPath)
         self.updateSnapshot()
-        self.setUpNavBarItems()
     }
 }
 
@@ -1335,7 +1348,6 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         
         self.updateSettings()
         self.updateSnapshot()
-        self.setUpNavBarItems()
         inCollectionView.reloadData()
         if shouldScroll {
             inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section + 1), at: .bottom, animated: true)
