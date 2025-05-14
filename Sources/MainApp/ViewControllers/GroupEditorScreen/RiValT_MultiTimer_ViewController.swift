@@ -638,7 +638,18 @@ extension RiValT_MultiTimer_ViewController {
         self.navigationController?.isNavigationBarHidden = false
         self.checkForFastForward()
     }
-    
+
+    /* ############################################################## */
+    /**
+     Called just after the view appeared.
+     
+     - parameter inIsAnimated: True, if the appearance is animated.
+     */
+    override func viewDidAppear(_ inIsAnimated: Bool) {
+        super.viewDidAppear(inIsAnimated)
+        self.watchDelegate?.sendApplicationContext()
+    }
+
     /* ############################################################## */
     /**
      Called just before the view disappears.
@@ -899,7 +910,7 @@ extension RiValT_MultiTimer_ViewController {
             self.collectionView?.reloadData()
             self.updateSettings()
             self.impactHaptic(1.0)
-            self.watchDelegate?.updateSettings()
+            self.watchDelegate?.sendApplicationContext()
         }
         
         let messageText = "SLUG-DELETE-CONFIRM-MESSAGE"
@@ -1036,7 +1047,7 @@ extension RiValT_MultiTimer_ViewController {
            (0..<(self.timerModel?.count ?? 0)).contains(groupIndex),
            !group.isSelected {
             group.first?.isSelected = true
-            self.watchDelegate?.updateSettings()
+            self.watchDelegate?.sendApplicationContext()
             self.updateSnapshot()
             self.impactHaptic()
             self.collectionView?.reloadData()
@@ -1063,7 +1074,7 @@ extension RiValT_MultiTimer_ViewController {
             }
             
             group[currentSelectedIndex + 1].isSelected = true
-            self.watchDelegate?.updateSettings()
+            self.watchDelegate?.sendApplicationContext()
             self.updateSnapshot()
             self.setUpNavBarItems()
             impactHaptic()
@@ -1217,7 +1228,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         } else if (0..<(self.timerModel?.count ?? 0)).contains((inIndexPath.section)),
                   !(self.timerModel?[inIndexPath.section].isSelected ?? false) {
             self.timerModel?[inIndexPath.section].first?.isSelected = true
-            self.watchDelegate?.updateSettings()
+            self.watchDelegate?.sendApplicationContext()
             self.impactHaptic()
             shouldEdit = shouldEdit && nil != self.timerModel.getTimer(at: inIndexPath)
         } else {
@@ -1226,7 +1237,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         
         if !(self.timerModel.getTimer(at: inIndexPath)?.isSelected ?? false) {
             self.timerModel.getTimer(at: inIndexPath)?.isSelected = true
-            self.watchDelegate?.updateSettings()
+            self.watchDelegate?.sendApplicationContext()
         }
         
         self.updateSettings()

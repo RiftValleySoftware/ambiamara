@@ -385,7 +385,6 @@ extension RiValT_WatchDelegate {
      */
     func updateSettings() {
         RiValT_Settings().timerModel = self.timerModel.asArray
-        self.sendApplicationContext()
     }
     
     /* ################################################################## */

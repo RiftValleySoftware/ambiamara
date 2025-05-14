@@ -747,7 +747,7 @@ public extension TimerEngine {
      */
     func sync(to inSeconds: Int, date inDate: Date = .now) {
         switch self.mode {
-        case .countdown, .warning, .final:
+        case .countdown, .warning, .final, .paused:
             #if DEBUG
                 print("Sync: \(inSeconds), \(inDate)")
             #endif
