@@ -13,6 +13,41 @@ import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
+// MARK: - UIImage Extension to Create Gradients -
+/* ###################################################################################################################################### */
+extension UIImage {
+    /**
+     Create a simple gradient image from inStartColor on left and inEndColor on right (if horizontal), or inStartColor on top, and inEndColor on bottom (if vertical)
+     
+     - parameter inStartColor: left side or top
+     - parameter inEndColor: right side or bottom
+     - parameter inFrame: frame to be filled (Cannot be empty)
+     - parameter isVertical: True, if the gradient is top to bottom (default is false)
+     
+     - returns: a gradient image, or a "nosign" image.
+     */
+    static func gradientImage(from inStartColor: UIColor, to inEndColor: UIColor, with inFrame: CGRect, isVertical inIsVertical: Bool = false) -> UIImage {
+        var image: UIImage = UIImage(systemName: "nosign") ?? UIImage()
+        
+        if !inFrame.isEmpty {
+            let tempGradientLayer = CAGradientLayer()
+            tempGradientLayer.frame = inFrame
+            tempGradientLayer.colors = [inStartColor.cgColor, inEndColor.cgColor]
+            tempGradientLayer.startPoint = inIsVertical ? CGPoint(x: 0.5, y: 1.0) : CGPoint(x: 1.0, y: 0.5)
+            tempGradientLayer.endPoint = inIsVertical ? CGPoint(x: 0.5, y: 0.0) : CGPoint(x: 0.0, y: 0.5)
+            UIGraphicsBeginImageContext(CGSize(width: inFrame.width, height: inFrame.height))
+            if let context = UIGraphicsGetCurrentContext() {
+                tempGradientLayer.render(in: context)
+                image = UIGraphicsGetImageFromCurrentImageContext() ?? image
+            }
+            UIGraphicsEndImageContext()
+        }
+        
+        return image
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Special Bar Button Item That Disappears, When Disabled -
 /* ###################################################################################################################################### */
 /**
@@ -433,43 +468,55 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
          The font to be used for the endcap button.
          */
         private static let _endcapFont = UIFont.boldSystemFont(ofSize: 30)
-
+        
         /* ################################################################## */
         /**
          The width of the group endcap.
          */
         private static let _endcapWidthInDisplayUnits = CGFloat(38)
-
+        
         /* ################################################################## */
         /**
          The radius of our rounded corners
          */
         private static let _cornerRadiusInDisplayUnits = CGFloat(16)
-
+        
         /* ################################################################## */
         /**
          The lightest light, when light.
          */
         private static let _lightModeMax = CGFloat(0.95)
-
+        
         /* ################################################################## */
         /**
          The darkest dark, when light.
          */
         private static let _lightModeMin = CGFloat(0.58)
-
+        
         /* ################################################################## */
         /**
          The lightest light, when dark.
          */
         private static let _darkModeMax = CGFloat(0.25)
-
+        
         /* ################################################################## */
         /**
          The darkest dark, when dark.
          */
         private static let _darkModeMin = CGFloat(0.1)
-
+        
+        /* ################################################################## */
+        /**
+         This caches the last index path.
+         */
+        private var _lastIndexPath = IndexPath(item: -1, section: -1)
+        
+        /* ################################################################## */
+        /**
+         This caches the last selected group index.
+         */
+        private var _lastFrame = CGRect.zero { didSet { self.setNeedsLayout() } }
+        
         /* ########################################################## */
         /**
          The controller that "owns" this instance.
@@ -483,7 +530,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
          The gesture recognizer that calls the handler.
          */
         weak var myTapRecognizer: UITapGestureRecognizer?
-
+        
         /* ########################################################## */
         /**
          The group associated with this decorator.
@@ -492,26 +539,9 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
         
         /* ########################################################## */
         /**
-         The background gradient layer.
+         The background gradient view.
          */
-        weak private var _gradientLayer: CALayer?
-        
-        /* ########################################################## */
-        /**
-         We initialize with a frame, and set up our basic shape.
-         */
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            self.layer.borderWidth = RiValT_TimerArray_IconCell.borderWidthInDisplayUnits
-            self.layer.cornerRadius = Self._cornerRadiusInDisplayUnits
-            self.clipsToBounds = true
-            self.layer.borderColor = UIColor.clear.cgColor
-            let gradientLayer = CAGradientLayer()
-            gradientLayer.startPoint = .init(x: 1.0, y: 0.5)
-            gradientLayer.endPoint = .init(x: 0.0, y: 0.5)
-            self.layer.insertSublayer(gradientLayer, at: 0)
-            self._gradientLayer = gradientLayer
-        }
+        weak private var _gradientImageView: UIImageView?
         
         /* ########################################################## */
         /**
@@ -519,6 +549,40 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
          */
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
+        }
+        
+        override init(frame inFrame: CGRect) {
+            super.init(frame: inFrame)
+            self._lastFrame = inFrame
+            self.cornerRadius = Self._cornerRadiusInDisplayUnits
+        }
+        
+        /* ########################################################## */
+        /**
+         The background gradient view.
+         */
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            self._gradientImageView?.removeFromSuperview()
+            if !self._lastFrame.isEmpty {
+                createGradient(into: self._lastFrame)
+            }
+        }
+
+        /* ########################################################## */
+        /**
+         The background gradient view.
+         */
+        func createGradient(into inFrame: CGRect) {
+            self._gradientImageView?.removeFromSuperview()
+            let isDarkMode = myController?.isDarkMode ?? false
+            let startColor = (!isDarkMode ? UIColor(white: Self._darkModeMax, alpha: 1.0) : UIColor(white: Self._lightModeMax, alpha: 1.0))
+            let endColor = (!isDarkMode ? UIColor(white: Self._darkModeMin, alpha: 1.0) : UIColor(white: Self._lightModeMin, alpha: 1.0))
+            let gradientImage = UIImage.gradientImage(from: startColor, to: endColor, with: inFrame)
+            let gradientImageView = UIImageView(image: gradientImage)
+            gradientImageView.frame = inFrame
+            self.insertSubview(gradientImageView, at: 0)
+            self._gradientImageView = gradientImageView
         }
         
         /* ########################################################## */
@@ -533,32 +597,31 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
                 print("Applying \(String(describing: inLayoutAttributes))")
             #endif
             
-            guard let group = RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group else { return }
+            self._lastFrame = .zero
             
+            guard let group = RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group,
+                  inLayoutAttributes.indexPath != self._lastIndexPath
+            else { return }
+            self._lastIndexPath = inLayoutAttributes.indexPath
             let isSelected = group.index == inLayoutAttributes.indexPath.section
             let isDarkMode = myController?.isDarkMode ?? false
             let isHighContrastMode = myController?.isHighContrastMode ?? false
-
+            
+            self._lastFrame = isSelected ? CGRect(origin: .zero, size: inLayoutAttributes.frame.size) : .zero
+            
             self.subviews.forEach { $0.removeFromSuperview() }
 
             guard (0..<(RiValT_AppDelegate.appDelegateInstance?.timerModel.count ?? 0)).contains(inLayoutAttributes.indexPath.section),
                let tempGroup = RiValT_AppDelegate.appDelegateInstance?.timerModel[inLayoutAttributes.indexPath.section]
             else {
                 myGroup = nil
-                self._gradientLayer?.isHidden = true
+                self._gradientImageView?.isHidden = true
                 return
             }
 
             myGroup = tempGroup
 
-            self._gradientLayer?.frame = CGRect(origin: .zero, size: inLayoutAttributes.frame.size)
-            
-            (self._gradientLayer as? CAGradientLayer)?.colors = [
-                (!isDarkMode ? UIColor(white: Self._darkModeMax, alpha: 1.0) : UIColor(white: Self._lightModeMax, alpha: 1.0)).cgColor,
-                (!isDarkMode ? UIColor(white: Self._darkModeMin, alpha: 1.0) : UIColor(white: Self._lightModeMin, alpha: 1.0)).cgColor
-            ]
-
-            self._gradientLayer?.isHidden = isHighContrastMode || !isSelected
+            self._gradientImageView?.isHidden = isHighContrastMode || !isSelected
             self.backgroundColor = isSelected && isHighContrastMode ? .systemBackground.inverted : .clear
 
             // If we have more than one group, we add a number to the right end, identifying the group.
