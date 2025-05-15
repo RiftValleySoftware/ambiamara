@@ -551,6 +551,9 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
             fatalError("init(coder:) has not been implemented")
         }
         
+        /* ########################################################## */
+        /**
+         */
         override init(frame inFrame: CGRect) {
             super.init(frame: inFrame)
             self._lastFrame = inFrame
@@ -591,23 +594,21 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
          
          - parameter inLayoutAttributes: The new attributes.
          */
-        override func apply(_ inLayoutAttributes: UICollectionViewLayoutAttributes) {
-            super.apply(inLayoutAttributes)
+        override func preferredLayoutAttributesFitting(_ inLayoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+            _ = super.preferredLayoutAttributesFitting(inLayoutAttributes)
             #if DEBUG
                 print("Applying \(String(describing: inLayoutAttributes))")
             #endif
             
             self._lastFrame = .zero
             
-            guard let group = RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group,
-                  inLayoutAttributes.indexPath != self._lastIndexPath
-            else { return }
+            guard let group = RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group else { return inLayoutAttributes }
             self._lastIndexPath = inLayoutAttributes.indexPath
             let isSelected = group.index == inLayoutAttributes.indexPath.section
             let isDarkMode = myController?.isDarkMode ?? false
             let isHighContrastMode = myController?.isHighContrastMode ?? false
             
-            self._lastFrame = isSelected ? CGRect(origin: .zero, size: inLayoutAttributes.frame.size) : .zero
+            self._lastFrame =  isSelected ? CGRect(origin: .zero, size: inLayoutAttributes.frame.size) : .zero
             
             self.subviews.forEach { $0.removeFromSuperview() }
 
@@ -616,7 +617,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
             else {
                 myGroup = nil
                 self._gradientImageView?.isHidden = true
-                return
+                return inLayoutAttributes
             }
 
             myGroup = tempGroup
@@ -669,6 +670,8 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
                 self.removeGestureRecognizer(recognizer)
                 self.myTapRecognizer = nil
             }
+            
+            return inLayoutAttributes
         }
     }
     
@@ -1203,15 +1206,17 @@ extension RiValT_MultiTimer_ViewController {
      */
     @objc func groupBackgroundTapped(_ inTapGesture: UITapGestureRecognizer) {
         if let backgroundView = inTapGesture.view as? _SectionBackgroundView,
+           let collectionView = self.collectionView,
            let group = backgroundView.myGroup,
            let groupIndex = group.index,
            (0..<(self.timerModel?.count ?? 0)).contains(groupIndex),
            !group.isSelected {
             group.first?.isSelected = true
+            let oldValue = RiValT_Settings().oneTapEditing
+            RiValT_Settings().oneTapEditing = false
+            self.collectionView(collectionView, didSelectItemAt: IndexPath(item: 0, section: groupIndex))
+            RiValT_Settings().oneTapEditing = oldValue
             self.watchDelegate?.sendApplicationContext()
-            self.updateSettings()
-            self.updateSnapshot()
-            self.impactHaptic()
         }
     }
     
@@ -1240,8 +1245,9 @@ extension RiValT_MultiTimer_ViewController {
                let groupIndex = group.index {
                 let oldValue = RiValT_Settings().oneTapEditing
                 RiValT_Settings().oneTapEditing = false
-                self.collectionView(collectionView, didSelectItemAt: IndexPath(row: currentSelectedIndex, section: groupIndex))
+                self.collectionView(collectionView, didSelectItemAt: IndexPath(item: currentSelectedIndex, section: groupIndex))
                 RiValT_Settings().oneTapEditing = oldValue
+                self.watchDelegate?.sendApplicationContext()
             }
         }
     }
