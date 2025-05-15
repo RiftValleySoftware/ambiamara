@@ -1071,10 +1071,15 @@ extension RiValT_MultiTimer_ViewController {
             
             self.timerModel.removeTimer(from: indexPath)
 
-            self.updateSettings()
-            self.updateSnapshot()
-            self.impactHaptic(1.0)
-            self.watchDelegate?.sendApplicationContext()
+            if let timer = self.timerModel.selectedTimer,
+               let indexPath = timer.indexPath,
+               let collectionView = self.collectionView {
+                let oldValue = RiValT_Settings().oneTapEditing
+                RiValT_Settings().oneTapEditing = false
+                self.collectionView(collectionView, didSelectItemAt: IndexPath(item: indexPath.item, section: indexPath.section))
+                RiValT_Settings().oneTapEditing = oldValue
+                self.watchDelegate?.sendApplicationContext()
+            }
         }
         
         let messageText = "SLUG-DELETE-CONFIRM-MESSAGE"
