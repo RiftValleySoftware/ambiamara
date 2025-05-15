@@ -520,49 +520,46 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-
+        
         /* ########################################################## */
         /**
-         Called before display.
+         Called when the actual layout attributes are applied to this instance.
+         
+         - parameter inLayoutAttributes: The new attributes.
          */
-        override func prepareForReuse() {
-            super.prepareForReuse()
-            self._gradientLayer?.frame = self.bounds
-            self._gradientLayer?.isHidden = true
+        override func apply(_ inLayoutAttributes: UICollectionViewLayoutAttributes) {
+            super.apply(inLayoutAttributes)
+            #if DEBUG
+                print("Applying \(String(describing: inLayoutAttributes))")
+            #endif
+            
+            guard let group = RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group else { return }
+            
+            let isSelected = group.index == inLayoutAttributes.indexPath.section
             let isDarkMode = myController?.isDarkMode ?? false
+            let isHighContrastMode = myController?.isHighContrastMode ?? false
+
+            self.subviews.forEach { $0.removeFromSuperview() }
+
+            guard (0..<(RiValT_AppDelegate.appDelegateInstance?.timerModel.count ?? 0)).contains(inLayoutAttributes.indexPath.section),
+               let tempGroup = RiValT_AppDelegate.appDelegateInstance?.timerModel[inLayoutAttributes.indexPath.section]
+            else {
+                myGroup = nil
+                self._gradientLayer?.isHidden = true
+                return
+            }
+
+            myGroup = tempGroup
+
+            self._gradientLayer?.frame = CGRect(origin: .zero, size: inLayoutAttributes.frame.size)
             
             (self._gradientLayer as? CAGradientLayer)?.colors = [
                 (!isDarkMode ? UIColor(white: Self._darkModeMax, alpha: 1.0) : UIColor(white: Self._lightModeMax, alpha: 1.0)).cgColor,
                 (!isDarkMode ? UIColor(white: Self._darkModeMin, alpha: 1.0) : UIColor(white: Self._lightModeMin, alpha: 1.0)).cgColor
             ]
-        }
-        
-        /* ########################################################## */
-        /**
-         This is called to give the instance a chance to mess with the layout.
-         
-         We don't mess with it, but we use it as the best way to figure out what we'll be displaying.
-         
-         - parameter inLayoutAttributes: The layout attributes (which contain the current state).
-         
-         - returns: The layout attributes (with any mods, which we don't do).
-         */
-        override func preferredLayoutAttributesFitting(_ inLayoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-            self.subviews.forEach { $0.removeFromSuperview() }
-            guard let group = RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group else { return inLayoutAttributes }
-            
-            if (0..<(RiValT_AppDelegate.appDelegateInstance?.timerModel.count ?? 0)).contains(inLayoutAttributes.indexPath.section),
-               let tempGroup = RiValT_AppDelegate.appDelegateInstance?.timerModel[inLayoutAttributes.indexPath.section] {
-                myGroup = tempGroup
-            } else {
-                myGroup = nil
-            }
-            
-            let isDarkMode = myController?.isDarkMode ?? false
-            let isHighContrastMode = myController?.isHighContrastMode ?? false
 
-            self._gradientLayer?.isHidden = isHighContrastMode || group.index != inLayoutAttributes.indexPath.section
-            self.backgroundColor = (group.index == inLayoutAttributes.indexPath.section) && isHighContrastMode ? .systemBackground.inverted : .clear
+            self._gradientLayer?.isHidden = isHighContrastMode || !isSelected
+            self.backgroundColor = isSelected && isHighContrastMode ? .systemBackground.inverted : .clear
 
             // If we have more than one group, we add a number to the right end, identifying the group.
             if group.index == inLayoutAttributes.indexPath.section,
@@ -609,8 +606,6 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
                 self.removeGestureRecognizer(recognizer)
                 self.myTapRecognizer = nil
             }
-            
-            return inLayoutAttributes
         }
     }
     
@@ -973,7 +968,6 @@ extension RiValT_MultiTimer_ViewController {
         self.dataSource?.apply(snapshot, animatingDifferences: false)
         self.updateToolbar()
         self.setUpNavBarItems()
-//        self.collectionView?.reloadData()
     }
     
     /* ############################################################## */
