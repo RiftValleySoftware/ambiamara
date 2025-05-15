@@ -62,6 +62,12 @@ class RiValT_TimerEditor_PageViewContainer: RiValT_Base_ViewController {
     
     /* ############################################################## */
     /**
+     This is set to true, if we want to override the pref.
+     */
+    var forceStart: Bool = false
+
+    /* ############################################################## */
+    /**
      The container view for the page view controller.
      */
     @IBOutlet weak var pageViewContainer: UIView?
@@ -146,6 +152,7 @@ extension RiValT_TimerEditor_PageViewContainer {
         self.navigationController?.isNavigationBarHidden = false
         self.currentlySelectedTimerEditor?.timeTypeSegmentedControl?.selectedSegmentIndex = 0
         self.deleteBarButton?.isEnabled = 1 < (self.timer?.model?.allTimers.count ?? 0)
+        self.forceStart = false
     }
 
     /* ############################################################## */
@@ -162,6 +169,7 @@ extension RiValT_TimerEditor_PageViewContainer {
         } else if let destination = inSegue.destination as? RiValT_RunningTimer_ContainerViewController,
                   let timer = inData as? Timer {
             destination.timer = timer
+            destination.forceStart = self.forceStart
         }
     }
 }
@@ -215,6 +223,15 @@ extension RiValT_TimerEditor_PageViewContainer {
         }
         
         self.optionalTitle = nil
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when the Watch wants us to play.
+     */
+    func remotePlay() {
+        self.forceStart = true
+        self.performSegue(withIdentifier: RiValT_RunningTimer_ContainerViewController.segueID, sender: self.timerModel.selectedTimer)
     }
 }
 

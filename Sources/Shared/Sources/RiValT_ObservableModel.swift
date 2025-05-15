@@ -126,6 +126,12 @@ extension RiValT_ObservableModel {
      This is a direct accessor for the group, to which the local selected timer belongs.
      */
     var currentGroup: TimerGroup? { self.currentTimer?.group }
+    
+    /* ###################################################################### */
+    /**
+     If the phone is in the running timer screen, this is true.
+     */
+    var isCurrentlyRunning: Bool { self._wcSessionDelegateHandler?.isCurrentlyRunning ?? false }
 }
 
 /* ###################################################################################################################################### */

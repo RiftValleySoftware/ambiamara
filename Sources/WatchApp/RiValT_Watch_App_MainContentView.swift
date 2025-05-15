@@ -62,7 +62,7 @@ struct RiValT_Watch_App_MainContentView: View {
                         } label: {
                             Image(systemName: "backward.fill")
                         }
-                        .disabled(currentTimer.timerDisplay.isEmpty)
+                        .disabled(currentTimer.timerDisplay.isEmpty || !self._model.isCurrentlyRunning)
 
                         Button {
                             self._model.sendCommand(command: .stop)
@@ -76,7 +76,7 @@ struct RiValT_Watch_App_MainContentView: View {
                         } label: {
                             Image(systemName: "forward.fill")
                         }
-                        .disabled(currentTimer.timerDisplay.isEmpty)
+                        .disabled(currentTimer.timerDisplay.isEmpty || !self._model.isCurrentlyRunning)
                     }
                     
                     switch currentTimer.timerMode {
@@ -86,14 +86,14 @@ struct RiValT_Watch_App_MainContentView: View {
                         } label: {
                             Image(systemName: "pause.fill")
                         }
-                        .disabled(currentTimer.timerDisplay.isEmpty)
+                        .disabled(currentTimer.timerDisplay.isEmpty || !self._model.isCurrentlyRunning)
                     case .paused:
                         Button {
                             self._model.sendCommand(command: .resume)
                         } label: {
                             Image(systemName: "play.fill")
                         }
-                        .disabled(currentTimer.timerDisplay.isEmpty)
+                        .disabled(currentTimer.timerDisplay.isEmpty || !self._model.isCurrentlyRunning)
                     default:
                         Button {
                             self._model.sendCommand(command: .start)

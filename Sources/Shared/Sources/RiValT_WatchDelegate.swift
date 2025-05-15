@@ -283,6 +283,12 @@ class RiValT_WatchDelegate: NSObject {
      This is only relevant to the Watch app. This becomes true, if we can reach the iPhone app.
      */
     var canReachIPhoneApp = true
+    
+    /* ###################################################################### */
+    /**
+     This is only relevant to the Watch app. If the phone is in the running timer screen, this is true.
+     */
+    var isCurrentlyRunning = false
 
     /* ################################################################## */
     /**
@@ -545,26 +551,32 @@ extension RiValT_WatchDelegate {
      This is called to send the current state of the prefs to the peer.
      */
     func sendApplicationContext() {
-        guard !self.isUpdateInProgress else { return }
-        
-        self.isUpdateInProgress = true
-        do {
-            var contextData: [String: Any] = [Self.MessageType.timerModel.rawValue: self.timerModel.asArray]
+        DispatchQueue.main.async {
+            do {
+                guard !self.isUpdateInProgress else { return }
             
-            #if DEBUG
-                contextData["makeMeUnique"] = UUID().uuidString // This breaks the cache, and forces a send (debug)
-                print("Sending Application Context to the Watch: \(contextData)")
-            #endif
-
-            if .activated == wcSession.activationState {
-                try self.wcSession.updateApplicationContext(contextData)
+                self.isUpdateInProgress = true
+                var contextData: [String: Any] = [Self.MessageType.timerModel.rawValue: self.timerModel.asArray]
+                
+                #if DEBUG
+                    contextData["makeMeUnique"] = UUID().uuidString // This breaks the cache, and forces a send (debug)
+                    print("Sending Application Context to the Watch: \(contextData)")
+                #endif
+                
+                #if !os(watchOS)
+                    contextData["isCurrentlyRunning"] = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController is RiValT_RunningTimer_ContainerViewController
+                #endif
+                
+                if .activated == self.wcSession.activationState {
+                    try self.wcSession.updateApplicationContext(contextData)
+                }
+            } catch {
+                #if DEBUG
+                    print("WC Session Error: \(error.localizedDescription)")
+                #endif
             }
-        } catch {
-            #if DEBUG
-                print("WC Session Error: \(error.localizedDescription)")
-            #endif
+            self.isUpdateInProgress = false
         }
-        self.isUpdateInProgress = false
     }
 }
 
@@ -718,6 +730,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                 #endif
                 self.timerModel.asArray = timerModel
                 self.canReachIPhoneApp = true
+                self.isCurrentlyRunning = 0 != (inApplicationContext["isCurrentlyRunning"] as? Int ?? 0)
                 DispatchQueue.main.async { self.updateHandler?(self, true) }
             } else {
                 DispatchQueue.main.async { self.errorHandler?(self, nil) }
@@ -759,6 +772,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                     print("Received a sync from the phone: \(to), \(dateVal)")
                 #endif
                 self._receivedFirstSync = true
+                self.isCurrentlyRunning = true
                 currentTimer.sync(to: to, date: Date(timeIntervalSince1970: dateVal))
                 DispatchQueue.main.async { self.updateHandler?(self, true) }
                 return
@@ -782,11 +796,14 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                             DispatchQueue.main.async {
                                 if let controller = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController as? RiValT_MultiTimer_ViewController {
                                     controller.remotePlay()
+                                } else if let controller = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController as? RiValT_TimerEditor_PageViewContainer {
+                                    controller.remotePlay()
                                 }
                             }
                         #else
                             self._receivedFirstSync = false
                             currentTimer.start()
+                            self.isCurrentlyRunning = true
                         #endif
                     
                 case .reset:
@@ -803,6 +820,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                                 }
                             }
                         #else
+                            self.isCurrentlyRunning = false
                             currentTimer.stop()
                         #endif
                     
