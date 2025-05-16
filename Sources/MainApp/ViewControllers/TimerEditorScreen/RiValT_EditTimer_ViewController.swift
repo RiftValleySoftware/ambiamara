@@ -286,9 +286,9 @@ extension RiValT_EditTimer_ViewController {
         guard let startColor = UIColor(named: "Start-Color"),
               let warnColor = UIColor(named: "Warn-Color"),
               let finalColor = UIColor(named: "Final-Color"),
-              let startImage = UIImage(systemName: "clock\(0 < (self.timer?.startingTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(startColor),
-              let warnImage = UIImage(systemName: "exclamationmark.triangle\(0 < (self.timer?.warningTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(warnColor),
-              let finalImage = UIImage(systemName: "xmark.circle\(0 < (self.timer?.finalTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(finalColor)
+              let startImage = UIImage(systemName: "\(0 < (self.timer?.startingTimeInSeconds ?? 0) ? "gauge.with.needle.fill" : "timer")")?.withTintColor(startColor),
+              let warnImage = UIImage(systemName: "clock.badge.exclamationmark\(0 < (self.timer?.warningTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(warnColor),
+              let finalImage = UIImage(systemName: "exclamationmark.circle\(0 < (self.timer?.finalTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(finalColor)
         else { return }
 
         startImage.isAccessibilityElement = true

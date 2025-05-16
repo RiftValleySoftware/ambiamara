@@ -283,6 +283,7 @@ class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
             newImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
             newImage.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
             newImage.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
+            self.overrideUserInterfaceStyle = myController?.isDarkMode ?? false ? .light : .dark
         }
         
         self.isAccessibilityElement = true
@@ -473,7 +474,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
         /**
          The width of the group endcap.
          */
-        private static let _endcapWidthInDisplayUnits = CGFloat(38)
+        private static let _endcapWidthInDisplayUnits = CGFloat(40)
         
         /* ################################################################## */
         /**
@@ -577,13 +578,17 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
          The background gradient view.
          */
         func createGradient(into inFrame: CGRect) {
+            var frame = inFrame
+            if 1 < (self.myGroup?.model?.count ?? 0) {
+                frame.size.width -= Self._endcapWidthInDisplayUnits
+            }
             self._gradientImageView?.removeFromSuperview()
             let isDarkMode = myController?.isDarkMode ?? false
             let startColor = (!isDarkMode ? UIColor(white: Self._darkModeMax, alpha: 1.0) : UIColor(white: Self._lightModeMax, alpha: 1.0))
             let endColor = (!isDarkMode ? UIColor(white: Self._darkModeMin, alpha: 1.0) : UIColor(white: Self._lightModeMin, alpha: 1.0))
-            let gradientImage = UIImage.gradientImage(from: startColor, to: endColor, with: inFrame)
+            let gradientImage = UIImage.gradientImage(from: startColor, to: endColor, with: frame)
             let gradientImageView = UIImageView(image: gradientImage)
-            gradientImageView.frame = inFrame
+            gradientImageView.frame = frame
             self.insertSubview(gradientImageView, at: 0)
             self._gradientImageView = gradientImageView
         }

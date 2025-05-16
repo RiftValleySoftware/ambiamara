@@ -90,7 +90,7 @@
 "SLUG-DELETE-BUTTON-TEXT"                       =   "Delete Timer";
 "SLUG-DELETE-CONFIRM-HEADER"                    =   "Delete the Selected Timer?";
 "SLUG-DELETE-CONFIRM-MESSAGE"                   =   "If you select “Delete Timer”, the selected timer will be permanently removed from the app.";
-"SLUG-TIMERS"                                   =   "All Timers";
+"SLUG-TIMERS"                                   =   "RiVal.T";
 "SLUG-TIMERS-BACK"                              =   "Timers";
 "SLUG-NEW-TIMER"                                =   "New Timer";
 

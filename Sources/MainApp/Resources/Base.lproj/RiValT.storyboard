@@ -365,9 +365,9 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAB-yM-IWU">
                                         <rect key="frame" x="0.0" y="38" width="361" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="MDa-pE-VHV"/>
+                                            <constraint firstAttribute="height" priority="750" constant="32" id="MDa-pE-VHV"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -484,6 +484,7 @@
                             <constraint firstItem="mcb-qQ-Xdq" firstAttribute="centerY" secondItem="eHC-G7-JUU" secondAttribute="centerY" priority="750" id="epD-sc-SRQ"/>
                             <constraint firstItem="ITz-Ty-22n" firstAttribute="trailing" secondItem="mcb-qQ-Xdq" secondAttribute="trailing" constant="16" id="g56-LA-uua"/>
                             <constraint firstItem="ITz-Ty-22n" firstAttribute="trailing" secondItem="2tz-2H-cb2" secondAttribute="trailing" constant="20" id="h2L-gp-XLU"/>
+                            <constraint firstItem="mcb-qQ-Xdq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ITz-Ty-22n" secondAttribute="top" id="mQa-c2-ngM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="SLUG-EDIT" id="g8j-Dj-DgL"/>
@@ -1133,7 +1134,7 @@
                                     <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVz-Ds-9ul">
                                         <rect key="frame" x="0.0" y="184.33333333333331" width="393" height="101.33333333333331"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nQp-Wc-T6m">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="102"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="101.33333333333331"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
