@@ -578,6 +578,73 @@ extension RiValT_WatchDelegate {
             self.isUpdateInProgress = false
         }
     }
+    
+    #if os(watchOS)    // Only necessary for Watch
+        /* ############################################################## */
+        /**
+         This sends a message to the phone (from the watch), that is interpreted as a request for a context update.
+        */
+        func sendContextRequest(_ inRetries: Int = 5) {
+            /* ########################################################## */
+            /**
+             Handles a reply from the peer.
+             
+             - parameter inReply: The reply from the peer.
+            */
+            func _replyHandler(_ inReply: [String: Any]) {
+                #if DEBUG
+                    print("Received Reply from Phone: \(inReply)")
+                #endif
+                _killTimeoutHandler()
+                retries = 0
+                isUpdateInProgress = false
+                session(wcSession, didReceiveApplicationContext: inReply)
+            }
+            
+            /* ########################################################## */
+            /**
+             Handles an error in the transaction.
+             
+             This looks for a certain kind of failure, and will retry a few times.
+             
+             - parameter inError: The error that caused this call.
+            */
+            func _errorHandler(_ inError: any Error) {
+                #if DEBUG
+                    print("Error Sending Message to Phone: \(inError.localizedDescription)")
+                #endif
+                _killTimeoutHandler()
+                isUpdateInProgress = false
+                let nsError = inError as NSError
+                if nsError.domain == "WCErrorDomain",
+                   7007 == nsError.code,
+                   0 < retries {
+                    #if DEBUG
+                        print("Connection failure. Retrying...")
+                    #endif
+                    let randomDelay = Double.random(in: (0.3...1.0))
+                    DispatchQueue.global().asyncAfter(deadline: .now() + randomDelay) { self.sendContextRequest(self.retries - 1) }
+                    return
+                } else {
+                    #if DEBUG
+                        print("Error Not Handled")
+                    #endif
+                }
+            }
+
+            #if DEBUG
+                print("Sending context request to the phone")
+            #endif
+            if .activated == wcSession.activationState {
+                self.retries = inRetries
+                
+                isUpdateInProgress = true
+                // NB: You MUST have a replyHandler (even though there are plenty of examples, with it nil). It can be a "do-nothing" closure, but it can't be nil, or the send message won't work.
+                wcSession.sendMessage([Self.MessageType.requestContext.rawValue: "Please sir, I want some more."], replyHandler: _replyHandler, errorHandler: _errorHandler)
+                isUpdateInProgress = false
+            }
+        }
+    #endif
 }
 
 /* ###################################################################################################################################### */
@@ -614,72 +681,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
         guard .activated == inActivationState else { return }
         
         #if os(watchOS)    // Only necessary for Watch
-            /* ############################################################## */
-            /**
-             This sends a message to the phone (from the watch), that is interpreted as a request for a context update.
-            */
-            func _sendContextRequest(_ inRetries: Int = 5) {
-                /* ########################################################## */
-                /**
-                 Handles a reply from the peer.
-                 
-                 - parameter inReply: The reply from the peer.
-                */
-                func _replyHandler(_ inReply: [String: Any]) {
-                    #if DEBUG
-                        print("Received Reply from Phone: \(inReply)")
-                    #endif
-                    _killTimeoutHandler()
-                    retries = 0
-                    isUpdateInProgress = false
-                    session(wcSession, didReceiveApplicationContext: inReply)
-                }
-                
-                /* ########################################################## */
-                /**
-                 Handles an error in the transaction.
-                 
-                 This looks for a certain kind of failure, and will retry a few times.
-                 
-                 - parameter inError: The error that caused this call.
-                */
-                func _errorHandler(_ inError: any Error) {
-                    #if DEBUG
-                        print("Error Sending Message to Phone: \(inError.localizedDescription)")
-                    #endif
-                    _killTimeoutHandler()
-                    isUpdateInProgress = false
-                    let nsError = inError as NSError
-                    if nsError.domain == "WCErrorDomain",
-                       7007 == nsError.code,
-                       0 < retries {
-                        #if DEBUG
-                            print("Connection failure. Retrying...")
-                        #endif
-                        let randomDelay = Double.random(in: (0.3...1.0))
-                        DispatchQueue.global().asyncAfter(deadline: .now() + randomDelay) { _sendContextRequest(self.retries - 1) }
-                        return
-                    } else {
-                        #if DEBUG
-                            print("Error Not Handled")
-                        #endif
-                    }
-                }
-
-                #if DEBUG
-                    print("Sending context request to the phone")
-                #endif
-                if .activated == wcSession.activationState {
-                    self.retries = inRetries
-                    
-                    isUpdateInProgress = true
-                    // NB: You MUST have a replyHandler (even though there are plenty of examples, with it nil). It can be a "do-nothing" closure, but it can't be nil, or the send message won't work.
-                    wcSession.sendMessage([Self.MessageType.requestContext.rawValue: "Please sir, I want some more."], replyHandler: _replyHandler, errorHandler: _errorHandler)
-                    isUpdateInProgress = false
-                }
-            }
-        
-            _sendContextRequest()
+            self.sendContextRequest()
         #else
             self.sendApplicationContext()
         #endif
@@ -731,7 +733,9 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                 self.timerModel.asArray = timerModel
                 self.canReachIPhoneApp = true
                 self.isCurrentlyRunning = 0 != (inApplicationContext["isCurrentlyRunning"] as? Int ?? 0)
-                DispatchQueue.main.async { self.updateHandler?(self, true) }
+                DispatchQueue.main.async {
+                    self.updateHandler?(self, true)
+                }
             } else {
                 DispatchQueue.main.async { self.errorHandler?(self, nil) }
             }

@@ -60,6 +60,15 @@ extension RiValT_ObservableModel {
     private func _updateSubscribers() {
         DispatchQueue.main.async {
             self.canReachIPhoneApp = self._wcSessionDelegateHandler?.canReachIPhoneApp ?? false
+            if self.canReachIPhoneApp,
+               self.isCurrentlyRunning,
+               !(self.timerModel?.selectedTimer?.isTimerRunning ?? false) {
+                if case .paused = self.timerModel?.selectedTimer?.timerMode {
+                    self.timerModel?.selectedTimer?.resume()
+                } else {
+                    self.timerModel?.selectedTimer?.start()
+                }
+            }
             self.objectWillChange.send()
         }
     }
@@ -138,9 +147,19 @@ extension RiValT_ObservableModel {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_ObservableModel {
+    #if os(watchOS)    // Only necessary for Watch
+        /* ############################################################## */
+        /**
+         This asks the phone to send us its current state.
+         */
+        func requestApplicationContextFromPhone() {
+            self._wcSessionDelegateHandler?.sendContextRequest()
+        }
+    #endif
+    
     /* ################################################################## */
     /**
-     This sends a timer operation caommand to the peer
+     This sends a timer operation command to the peer
      
      - parameter inCommand: The operation to send.
      - parameter inExtraData: A String, with any value we wish associated with the command. Default is the command, itself.
