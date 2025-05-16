@@ -283,7 +283,11 @@ class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
             newImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
             newImage.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
             newImage.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
-            self.overrideUserInterfaceStyle = myController?.isDarkMode ?? false ? .light : .dark
+            if (self.indexPath?.section ?? 0) < timerModel.count {
+                self.overrideUserInterfaceStyle = myController?.isDarkMode ?? false ? .light : .dark
+            } else {
+                self.overrideUserInterfaceStyle = myController?.isDarkMode ?? false ? .dark : .light
+            }
         }
         
         self.isAccessibilityElement = true
@@ -468,8 +472,14 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
         /**
          The font to be used for the endcap button.
          */
-        private static let _endcapFont = UIFont.boldSystemFont(ofSize: 30)
+        private static let _endcapFont = UIFont.systemFont(ofSize: 30)
         
+        /* ############################################################## */
+        /**
+         The font to be used for the endcap button.
+         */
+        private static let _endcapFontButton = UIFont.boldSystemFont(ofSize: 40)
+
         /* ################################################################## */
         /**
          The width of the group endcap.
@@ -634,9 +644,8 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
             if group.index == inLayoutAttributes.indexPath.section,
                (1 < group.model?.count ?? 0) || (1 < group.count) {
                 let groupNumberLabel = UILabel()
-                groupNumberLabel.backgroundColor = isDarkMode ? UIColor(white: Self._lightModeMin, alpha: 1.0) : UIColor(white: Self._darkModeMin, alpha: 1.0)
-                groupNumberLabel.textAlignment = .center
-                groupNumberLabel.font = Self._endcapFont
+                groupNumberLabel.backgroundColor = isDarkMode ? UIColor(white: Self._lightModeMax, alpha: 1.0) : UIColor(white: Self._darkModeMax, alpha: 1.0)
+                groupNumberLabel.textAlignment = .left
                 groupNumberLabel.adjustsFontSizeToFitWidth = true
                 groupNumberLabel.minimumScaleFactor = 0.5
                 groupNumberLabel.text = " \(String(inLayoutAttributes.indexPath.section + 1)) "
@@ -649,6 +658,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
                 groupNumberLabel.cornerRadius = 0
                 groupNumberLabel.clipsToBounds = true
                 if 1 < group.count {
+                    groupNumberLabel.font = Self._endcapFontButton
                     groupNumberLabel.isAccessibilityElement = true
                     groupNumberLabel.accessibilityLabel = "SLUG-ACC-GROUP-BUTTON-LABEL".localizedVariant
                     groupNumberLabel.accessibilityHint = "SLUG-ACC-GROUP-BUTTON-HINT".localizedVariant
@@ -656,6 +666,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
                     groupNumberLabel.isUserInteractionEnabled = true
                     groupNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(groupBackgroundNumberTapped)))
                 } else {
+                    groupNumberLabel.font = Self._endcapFont
                     groupNumberLabel.textColor = .label.inverted
                     groupNumberLabel.isUserInteractionEnabled = false
                     groupNumberLabel.isAccessibilityElement = false
