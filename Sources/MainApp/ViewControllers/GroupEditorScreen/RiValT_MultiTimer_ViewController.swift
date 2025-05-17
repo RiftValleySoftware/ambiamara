@@ -835,6 +835,12 @@ extension RiValT_MultiTimer_ViewController {
     override func viewDidAppear(_ inIsAnimated: Bool) {
         super.viewDidAppear(inIsAnimated)
         self.watchDelegate?.sendApplicationContext()
+        if .zero == self._lastScrollPos,
+           let collectionView = self.collectionView,
+           let selectedSectionIndex = self.timerModel?.selectedTimer?.indexPath {
+            collectionView.scrollToItem(at: selectedSectionIndex, at: .bottom, animated: false)
+            self._lastScrollPos = collectionView.contentOffset
+        }
     }
 
     /* ############################################################## */
@@ -859,9 +865,13 @@ extension RiValT_MultiTimer_ViewController {
         self.createLayout()
         self.updateSnapshot()
         self.watchDelegate?.updateSettings()
-        guard let selectedSectionIndex = self.timerModel?.selectedTimer?.indexPath else { return }
-        self.collectionView?.scrollToItem(at: selectedSectionIndex, at: .top, animated: true)
-        self._lastScrollPos = self.collectionView?.contentOffset ?? .zero
+        if .zero != self._lastScrollPos {
+            self.collectionView?.setContentOffset(self._lastScrollPos, animated: false)
+        } else if let collectionView = self.collectionView,
+                  let selectedSectionIndex = self.timerModel?.selectedTimer?.indexPath {
+            collectionView.scrollToItem(at: selectedSectionIndex, at: .centeredVertically, animated: false)
+            self._lastScrollPos = collectionView.contentOffset
+        }
     }
 
     /* ################################################################## */
@@ -1418,6 +1428,8 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         var shouldEdit = RiValT_Settings().oneTapEditing
         var optionalTitle: String?
 
+        self._lastScrollPos = inCollectionView.contentOffset
+
         if (inIndexPath.section == self.timerModel?.count ?? 0) || (self.timerModel?[inIndexPath.section].isSelected ?? false),
            nil == self.timerModel.getTimer(at: inIndexPath) {
             self.timerModel.createNewTimer(at: inIndexPath)
@@ -1425,13 +1437,13 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
             shouldScroll = true
             shouldEdit = true
             optionalTitle = "SLUG-NEW-TIMER".localizedVariant
+            self._lastScrollPos = .zero
         } else if (0..<(self.timerModel?.count ?? 0)).contains((inIndexPath.section)),
                   !(self.timerModel?[inIndexPath.section].isSelected ?? false) {
             self.timerModel?[inIndexPath.section].first?.isSelected = true
             self.watchDelegate?.sendApplicationContext()
             self.impactHaptic()
             shouldEdit = shouldEdit && nil != self.timerModel.getTimer(at: inIndexPath)
-            self._lastScrollPos = .zero
         } else {
             self.impactHaptic()
         }
@@ -1444,10 +1456,11 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         self.updateSettings()
         self.updateSnapshot()
         inCollectionView.reloadData()
+                
         if shouldScroll {
-            inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section + 1), at: .bottom, animated: true)
-        } else {
-            inCollectionView.scrollToItem(at: IndexPath(item: 0, section: inIndexPath.section), at: .centeredVertically, animated: true)
+            inCollectionView.scrollToItem(at: IndexPath(item: 0, section: self.timerModel.count), at: .top, animated: true)
+//        } else {
+//            inCollectionView.setContentOffset(self._lastScrollPos, animated: true)
         }
         
         if shouldEdit {
