@@ -589,7 +589,9 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
          */
         func createGradient(into inFrame: CGRect) {
             var frame = inFrame
-            if 1 < (self.myGroup?.model?.count ?? 0) {
+            guard let model = RiValT_AppDelegate.appDelegateInstance?.timerModel,
+                  let group = model.selectedTimer?.group else { return }
+            if 1 < group.count || 1 < model.count {
                 frame.size.width -= Self._endcapWidthInDisplayUnits
             }
             self._gradientImageView?.removeFromSuperview()
