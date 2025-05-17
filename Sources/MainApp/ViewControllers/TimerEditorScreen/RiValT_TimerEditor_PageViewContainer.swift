@@ -132,10 +132,6 @@ extension RiValT_TimerEditor_PageViewContainer {
         self.navigationController?.navigationBar.scrollEdgeAppearance = navAppearance
         pageViewController?.dataSource = self
         pageViewController?.delegate = self
-        guard let firstViewController = storyboard?.instantiateViewController(withIdentifier: RiValT_EditTimer_ViewController.storyboardID) as? RiValT_EditTimer_ViewController else { return }
-        firstViewController.myContainer = self
-        firstViewController.timer = self.timerModel?.selectedTimer
-        pageViewController?.setViewControllers( [firstViewController], direction: .forward, animated: false, completion: nil)
         self.deleteBarButton?.accessibilityLabel = "SLUG-ACC-NAVBAR-DELETE-LABEL".localizedVariant
         self.deleteBarButton?.accessibilityHint = "SLUG-ACC-NAVBAR-DELETE-HINT".localizedVariant
         self.setUpToolbar()
@@ -150,9 +146,14 @@ extension RiValT_TimerEditor_PageViewContainer {
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
         self.navigationController?.isNavigationBarHidden = false
+        guard let firstViewController = storyboard?.instantiateViewController(withIdentifier: RiValT_EditTimer_ViewController.storyboardID) as? RiValT_EditTimer_ViewController else { return }
+        firstViewController.myContainer = self
+        firstViewController.timer = self.timerModel?.selectedTimer
+        pageViewController?.setViewControllers( [firstViewController], direction: .forward, animated: false, completion: nil)
         self.currentlySelectedTimerEditor?.timeTypeSegmentedControl?.selectedSegmentIndex = 0
         self.deleteBarButton?.isEnabled = 1 < (self.timer?.model?.allTimers.count ?? 0)
         self.forceStart = false
+        self.setUpToolbar()
     }
 
     /* ############################################################## */
@@ -310,7 +311,7 @@ extension RiValT_TimerEditor_PageViewContainer {
         timer.isSelected = true
         self.watchDelegate?.updateSettings()
         self.impactHaptic()
-        pageViewController?.setViewControllers( [firstViewController], direction: direction, animated: true, completion: nil)
+        self.pageViewController?.setViewControllers( [firstViewController], direction: direction, animated: true, completion: nil)
         self.setUpToolbar()
     }
 }
@@ -383,10 +384,10 @@ extension RiValT_TimerEditor_PageViewContainer: UIPageViewControllerDelegate {
         self.watchDelegate?.updateSettings()
         if 1 < group.count,
            (1..<(group.count - 1)).contains(timerIndex) {
-            impactHaptic()
+            self.impactHaptic()
         } else {
-            impactHaptic(1.0)
+            self.impactHaptic(1.0)
         }
-        setUpToolbar()
+        self.setUpToolbar()
     }
 }

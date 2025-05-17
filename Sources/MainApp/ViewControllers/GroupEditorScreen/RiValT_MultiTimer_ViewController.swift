@@ -720,6 +720,12 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
      This is set to true, if we want to override the pref.
      */
     var forceStart: Bool = false
+    
+    /* ############################################################## */
+    /**
+     Maintains the last scroll position, for iterating a row.
+     */
+    var lastScrollPos = CGPoint.zero
 
     /* ############################################################## */
     /**
@@ -1421,6 +1427,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
             self.watchDelegate?.sendApplicationContext()
             self.impactHaptic()
             shouldEdit = shouldEdit && nil != self.timerModel.getTimer(at: inIndexPath)
+            self.lastScrollPos = .zero
         } else {
             self.impactHaptic()
         }
@@ -1442,6 +1449,22 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
         if shouldEdit {
             self.goEditYourself(optionalTitle: optionalTitle)
         }
+    }
+    
+    /* ############################################################## */
+    /**
+     Called when the collection view has been rebuilt, and we need to check the scroll position.
+     
+     We use this to reset the offset.
+     
+     - parameter inCollectionView: The collection view.
+     - parameter inOffset: The current offset.
+     */
+    func collectionView(_ inCollectionView: UICollectionView, targetContentOffsetForProposedContentOffset inOffset: CGPoint) -> CGPoint {
+        if .zero != self.lastScrollPos {
+            inCollectionView.setContentOffset(self.lastScrollPos, animated: false)
+        }
+        return self.lastScrollPos
     }
 }
 
@@ -1473,5 +1496,6 @@ extension RiValT_MultiTimer_ViewController: UIScrollViewDelegate {
      */
     func scrollViewDidScroll(_ inScrollView: UIScrollView) {
         inScrollView.contentOffset.x = self._initialContentOffset.x
+        self.lastScrollPos = inScrollView.contentOffset
     }
 }
