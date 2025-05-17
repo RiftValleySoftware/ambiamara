@@ -714,7 +714,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
      Used to track scrolling, and to prevent horizontal scroll.
      */
     private var _initialContentOffset: CGPoint = .zero
-    
+
     /* ############################################################## */
     /**
      This is set to true, if we want to override the pref.
@@ -725,7 +725,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
     /**
      Maintains the last scroll position, for iterating a row.
      */
-    var lastScrollPos = CGPoint.zero
+    private var _lastScrollPos = CGPoint.zero
 
     /* ############################################################## */
     /**
@@ -835,6 +835,9 @@ extension RiValT_MultiTimer_ViewController {
     override func viewDidAppear(_ inIsAnimated: Bool) {
         super.viewDidAppear(inIsAnimated)
         self.watchDelegate?.sendApplicationContext()
+        guard let selectedSectionIndex = self.timerModel?.selectedTimer?.indexPath else { return }
+        self.collectionView?.scrollToItem(at: selectedSectionIndex, at: .top, animated: false)
+        self._lastScrollPos = self.collectionView?.contentOffset ?? .zero
     }
 
     /* ############################################################## */
@@ -845,6 +848,7 @@ extension RiValT_MultiTimer_ViewController {
      */
     override func viewWillDisappear(_ inIsAnimated: Bool) {
         RiValT_Settings.ephemeralFirstTime = false
+        self._lastScrollPos = collectionView?.contentOffset ?? .zero
         super.viewWillDisappear(inIsAnimated)
     }
     
@@ -1427,7 +1431,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
             self.watchDelegate?.sendApplicationContext()
             self.impactHaptic()
             shouldEdit = shouldEdit && nil != self.timerModel.getTimer(at: inIndexPath)
-            self.lastScrollPos = .zero
+            self._lastScrollPos = .zero
         } else {
             self.impactHaptic()
         }
@@ -1461,10 +1465,10 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
      - parameter inOffset: The current offset.
      */
     func collectionView(_ inCollectionView: UICollectionView, targetContentOffsetForProposedContentOffset inOffset: CGPoint) -> CGPoint {
-        if .zero != self.lastScrollPos {
-            inCollectionView.setContentOffset(self.lastScrollPos, animated: false)
+        if .zero != self._lastScrollPos {
+            inCollectionView.setContentOffset(self._lastScrollPos, animated: false)
         }
-        return self.lastScrollPos
+        return self._lastScrollPos
     }
 }
 
@@ -1496,6 +1500,6 @@ extension RiValT_MultiTimer_ViewController: UIScrollViewDelegate {
      */
     func scrollViewDidScroll(_ inScrollView: UIScrollView) {
         inScrollView.contentOffset.x = self._initialContentOffset.x
-        self.lastScrollPos = inScrollView.contentOffset
+        self._lastScrollPos = inScrollView.contentOffset
     }
 }
