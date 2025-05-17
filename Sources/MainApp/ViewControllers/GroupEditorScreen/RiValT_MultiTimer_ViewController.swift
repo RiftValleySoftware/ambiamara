@@ -835,9 +835,6 @@ extension RiValT_MultiTimer_ViewController {
     override func viewDidAppear(_ inIsAnimated: Bool) {
         super.viewDidAppear(inIsAnimated)
         self.watchDelegate?.sendApplicationContext()
-        guard let selectedSectionIndex = self.timerModel?.selectedTimer?.indexPath else { return }
-        self.collectionView?.scrollToItem(at: selectedSectionIndex, at: .top, animated: false)
-        self._lastScrollPos = self.collectionView?.contentOffset ?? .zero
     }
 
     /* ############################################################## */
@@ -862,6 +859,9 @@ extension RiValT_MultiTimer_ViewController {
         self.createLayout()
         self.updateSnapshot()
         self.watchDelegate?.updateSettings()
+        guard let selectedSectionIndex = self.timerModel?.selectedTimer?.indexPath else { return }
+        self.collectionView?.scrollToItem(at: selectedSectionIndex, at: .top, animated: true)
+        self._lastScrollPos = self.collectionView?.contentOffset ?? .zero
     }
 
     /* ################################################################## */
