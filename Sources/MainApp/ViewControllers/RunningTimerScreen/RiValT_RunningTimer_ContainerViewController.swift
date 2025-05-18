@@ -574,7 +574,6 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.controlToolbar?.isHidden = false
         
         guard self.timer?.isTimerRunning ?? false else {
-            self._autoHideTimer?.isRunning = false
             self.controlToolbar?.alpha = 1.0
             return
         }
@@ -1198,7 +1197,6 @@ extension RiValT_RunningTimer_ContainerViewController {
     @IBAction func toolbarItemHit(_ inSender: UIBarButtonItem) {
         self._alarmTimer?.isRunning = false
         self._audioPlayer?.stop()
-        self.showToolbar()
         self.selectionHaptic()
         if stopToolbarItem == inSender {
             self.stopHit()
@@ -1210,6 +1208,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             self.playPauseHit()
         }
         
+        self.showToolbar()
         self.updateDisplays()
     }
     
@@ -1293,6 +1292,7 @@ extension RiValT_RunningTimer_ContainerViewController: RVS_BasicGCDTimerDelegate
                 if self?.timer?.isTimerRunning ?? false {
                     self?.hideToolbar()
                 } else {
+                    self?._autoHideTimer = nil
                     self?.showToolbar() // This ensures that we restart the timer.
                 }
                 
