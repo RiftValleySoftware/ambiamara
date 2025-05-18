@@ -82,7 +82,13 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
     
     /* ############################################################## */
     /**
-     This is the stack view that has the "Auto-Hide" checkbox. It only appears, if
+     This is the stack view that has the "Show Toolbar" pref.
+     */
+    @IBOutlet weak var showToolbarStackView: UIStackView?
+    
+    /* ############################################################## */
+    /**
+     This is the stack view that has the "Auto-Hide" checkbox. It only appears, if the "Show Toolbar" pref is on.
      */
     @IBOutlet weak var autoHideStackView: UIStackView?
     
@@ -91,7 +97,9 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
      This calculates the size needed for the popover, and sets the property, which causes the popover to change.
      */
     private func _setPreferredContentSize() {
-        let height = (self.autoHideStackView?.isHidden ?? true) ? 168 : 206
+        let height = (self.autoHideStackView?.isHidden ?? true)
+            ? ((self.autoHideStackView?.isHidden ?? true) ? 130 : 168)
+                : 206
         
         UIView.animate(withDuration: 0.3) {
             self.preferredContentSize = CGSize(width: 270, height: height)
@@ -109,7 +117,13 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         self.oneTapEditCheckbox?.isOn = RiValT_Settings().oneTapEditing
         self.showToolbarCheckbox?.isOn = RiValT_Settings().displayToolbar
         self.autoHideToolbarCheckbox?.isOn = RiValT_Settings().autoHideToolbar
-        self.autoHideStackView?.isHidden = !RiValT_Settings().displayToolbar
+        if ProcessInfo().isMacCatalystApp {
+            self.autoHideStackView?.isHidden = true
+            self.showToolbarStackView?.isHidden = true
+        } else {
+            self.autoHideStackView?.isHidden = !RiValT_Settings().displayToolbar
+        }
+        
         self._setPreferredContentSize()
     }
     
@@ -224,10 +238,10 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
      This displays the "advisory" alert, if the toolbar pref is turned off.
      */
     func displayAdvisoryAlert() {
-        let messageText = "SLUG-ADVISORY-ALERT-BODY"
+        let messageText = "SLUG-ADVISORY-ALERT-BODY".localizedVariant
         
-        let alertController = UIAlertController(title: "SLUG-ADVISORY-ALERT-HEADER", message: messageText, preferredStyle: .alert)
-        
+        let alertController = UIAlertController(title: "SLUG-ADVISORY-ALERT-HEADER".localizedVariant, message: messageText, preferredStyle: .alert)
+
         // This simply displays the main message as left-aligned.
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = NSTextAlignment.left
@@ -251,6 +265,6 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
 
         alertController.localizeStuff()
 
-        present(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
 }

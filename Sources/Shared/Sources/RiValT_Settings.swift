@@ -142,7 +142,10 @@ class RiValT_Settings: RVS_PersistentPrefs {
      If this is true, then the toolbar is shown at the top of the running timer.
      */
     var displayToolbar: Bool {
-        get { 0 != (values[Keys.displayToolbar.rawValue] as? Int ?? 1) }
+        get {
+            guard !ProcessInfo().isMacCatalystApp else { return true }
+            return 0 != (values[Keys.displayToolbar.rawValue] as? Int ?? 1)
+        }
         set { values[Keys.displayToolbar.rawValue] = newValue ? 1 : 0 }
     }
 
@@ -151,7 +154,10 @@ class RiValT_Settings: RVS_PersistentPrefs {
      If this is true, then the toolbar (if in displayToolbar mode) will fade, after a few seconds of inactivity.
      */
     var autoHideToolbar: Bool {
-        get { 0 != (values[Keys.autoHideToolbar.rawValue] as? Int ?? 1) }
+        get {
+            guard !ProcessInfo().isMacCatalystApp else { return false }
+            return 0 != (values[Keys.autoHideToolbar.rawValue] as? Int ?? 1)
+        }
         set { values[Keys.autoHideToolbar.rawValue] = newValue ? 1 : 0 }
     }
 

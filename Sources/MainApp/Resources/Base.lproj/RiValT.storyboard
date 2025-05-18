@@ -202,6 +202,7 @@
                         <outlet property="showAboutScreenButton" destination="tif-Pd-5DN" id="Jn1-jO-2Sk"/>
                         <outlet property="showToolbarCheckbox" destination="Sdl-6R-kiR" id="CmR-rA-gS5"/>
                         <outlet property="showToolbarLabelButton" destination="QhN-6q-Vfn" id="VAS-g2-ueI"/>
+                        <outlet property="showToolbarStackView" destination="hVc-TM-7HX" id="jxN-lW-oA5"/>
                         <outlet property="startImmediatelyCheckbox" destination="67L-Ni-xhN" id="ekx-j2-qAu"/>
                         <outlet property="startImmediatelyLabelButton" destination="knm-I9-2Xm" id="nnc-ua-qlH"/>
                     </connections>
