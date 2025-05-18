@@ -1,0 +1,1131 @@
+{
+  "title" : "", 
+  "description" : "", 
+  "author" : "", 
+  "targetLoudness" : -18.0, 
+  "shouldApplyLoudnessNormalization" : true, 
+  "videoFormatFrameRate" : 30, 
+  "audioFormatSampleRate" : 44100, 
+  "allowSubFrameEditing" : false, 
+  "width" : 1280.0, 
+  "height" : 799.0, 
+  "version" : "9.0", 
+  "editRate" : 705600000, 
+  "authoringClientName" : {
+    "name" : "Camtasia", 
+    "platform" : "Mac", 
+    "version" : "2025.1.0"
+  }, 
+  "sourceBin" : [
+    {
+      "id" : 1, 
+      "src" : "./media/1747576235.306899/iPad01.mp4", 
+      "rect" : [0, 0, 2064, 2752], 
+      "lastMod" : "20250518T131417", 
+      "loudnessNormalization" : true, 
+      "sourceTracks" : [
+        {
+          "range" : [0, 18842], 
+          "type" : 0, 
+          "editRate" : 600, 
+          "trackRect" : [0, 0, 2064, 2752], 
+          "sampleRate" : "1177/100", 
+          "bitDepth" : 0, 
+          "numChannels" : 0, 
+          "integratedLUFS" : 100.0, 
+          "peakLevel" : -1.0, 
+          "metaData" : "iPad01.mp4;", 
+          "parameters" : {
+          }
+        }
+      ], 
+      "metadata" : {
+        "timeAdded" : "20250518T133020.535572"
+      }
+    }, 
+    {
+      "id" : 2, 
+      "src" : "./media/1747576235.307244/iPhone01.mp4", 
+      "rect" : [0, 0, 1320, 2868], 
+      "lastMod" : "20250518T131425", 
+      "loudnessNormalization" : true, 
+      "sourceTracks" : [
+        {
+          "range" : [0, 18510], 
+          "type" : 0, 
+          "editRate" : 600, 
+          "trackRect" : [0, 0, 1320, 2868], 
+          "sampleRate" : "6389/500", 
+          "bitDepth" : 0, 
+          "numChannels" : 0, 
+          "integratedLUFS" : 100.0, 
+          "peakLevel" : -1.0, 
+          "metaData" : "iPhone01.mp4;", 
+          "parameters" : {
+          }
+        }
+      ], 
+      "metadata" : {
+        "timeAdded" : "20250518T133020.543735"
+      }
+    }, 
+    {
+      "id" : 3, 
+      "src" : "./recordings/1747579959.376989/Rec 5-18-2025 2.trec", 
+      "rect" : [0, 0, 1280, 800], 
+      "lastMod" : "20250518T144312", 
+      "loudnessNormalization" : true, 
+      "sourceTracks" : [
+        {
+          "range" : [0, 1679696], 
+          "type" : 0, 
+          "editRate" : 44100, 
+          "trackRect" : [0, 0, 1280, 800], 
+          "sampleRate" : "37809/10000", 
+          "bitDepth" : 24, 
+          "numChannels" : 0, 
+          "integratedLUFS" : 100.0, 
+          "peakLevel" : -1.0, 
+          "metaData" : "Rec 5-18-2025 2.trec;2b7b6af0-7a1f-11e2-83d0-0017f200be7f;2b7b6af1-7a1f-11e2-83d0-0017f200be7f;2b7b6af2-7a1f-11e2-83d0-0017f200be7f;2b7b6af3-7a1f-11e2-83d0-0017f200be7f;2b7b6af5-7a1f-11e2-83d0-0017f200be7f;2b7b6af6-7a1f-11e2-83d0-0017f200be7f;2b7b6af7-7a1f-11e2-83d0-0017f200be7f;2b7b6af8-7a1f-11e2-83d0-0017f200be7f;2b7b6af9-7a1f-11e2-83d0-0017f200be7f;2b7b6afa-7a1f-11e2-83d0-0017f200be7f;2b7b6afb-7a1f-11e2-83d0-0017f200be7f;", 
+          "parameters" : {
+          }
+        }, 
+        {
+          "range" : [0, 1681746], 
+          "type" : 2, 
+          "editRate" : 44100, 
+          "trackRect" : [0, 0, 0, 0], 
+          "sampleRate" : 44100, 
+          "bitDepth" : 16, 
+          "numChannels" : 1, 
+          "integratedLUFS" : -33.7508980620239, 
+          "peakLevel" : 0.221612423658371, 
+          "metaData" : "Rec 5-18-2025 2.trec;", 
+          "parameters" : {
+          }
+        }
+      ], 
+      "metadata" : {
+        "timeAdded" : "20250518T144332.849217"
+      }
+    }
+  ], 
+  "timeline" : {
+    "id" : 4, 
+    "sceneTrack" : {
+      "scenes" : [
+        {
+          "csml" : {
+            "tracks" : [
+              {
+                "trackIndex" : 0, 
+                "medias" : [
+                  {
+                    "id" : 5, 
+                    "_type" : "StitchedMedia", 
+                    "minMediaStart" : 0.0, 
+                    "attributes" : {
+                      "ident" : "iPad01", 
+                      "gain" : 1.0, 
+                      "mixToMono" : false, 
+                      "loudnessNormalization" : true, 
+                      "sourceFileOffset" : 0
+                    }, 
+                    "parameters" : {
+                      "translation1" : -2.27373675443232e-13, 
+                      "geometryCrop0" : 0.0, 
+                      "geometryCrop1" : 0.0, 
+                      "geometryCrop2" : 0.0, 
+                      "geometryCrop3" : 0.0, 
+                      "smoothCursorAcrossEditDuration" : 0
+                    }, 
+                    "medias" : [
+                      {
+                        "id" : 6, 
+                        "_type" : "VMFile", 
+                        "src" : 1, 
+                        "trackNumber" : 0, 
+                        "attributes" : {
+                          "ident" : "iPad01"
+                        }, 
+                        "parameters" : {
+                          "geometryCrop0" : 0.0, 
+                          "geometryCrop1" : 0.0, 
+                          "geometryCrop2" : 0.0, 
+                          "geometryCrop3" : 0.0
+                        }, 
+                        "effects" : [
+                        ], 
+                        "start" : 0, 
+                        "duration" : 2493120000, 
+                        "mediaStart" : 0, 
+                        "mediaDuration" : 2493120000, 
+                        "scalar" : 1, 
+                        "metadata" : {
+                          "audiateLinkedSession" : "", 
+                          "clipSpeedAttribute" : 
+                            {
+                              "type" : "bool", 
+                              "value" : false
+                            }, 
+                          "colorAttribute" : 
+                            {
+                              "type" : "color", 
+                              "value" : [ 0, 0, 0, 0]
+                            }, 
+                          "default-scale" : "1", 
+                          "effectApplied" : "none", 
+                          "lockAspectRatio" : 
+                            {
+                              "type" : "bool", 
+                              "value" : true
+                            }
+                        }, 
+                        "animationTracks" : {
+                        }
+                      }, 
+                      {
+                        "id" : 7, 
+                        "_type" : "VMFile", 
+                        "src" : 1, 
+                        "trackNumber" : 0, 
+                        "attributes" : {
+                          "ident" : "iPad01"
+                        }, 
+                        "parameters" : {
+                          "geometryCrop0" : 0.0, 
+                          "geometryCrop1" : 0.0, 
+                          "geometryCrop2" : 0.0, 
+                          "geometryCrop3" : 0.0
+                        }, 
+                        "effects" : [
+                        ], 
+                        "start" : 2493120000, 
+                        "duration" : 19262880000, 
+                        "mediaStart" : 2892960000, 
+                        "mediaDuration" : 19262880000, 
+                        "scalar" : 1, 
+                        "metadata" : {
+                          "audiateLinkedSession" : "", 
+                          "clipSpeedAttribute" : 
+                            {
+                              "type" : "bool", 
+                              "value" : false
+                            }, 
+                          "colorAttribute" : 
+                            {
+                              "type" : "color", 
+                              "value" : [ 0, 0, 0, 0]
+                            }, 
+                          "default-scale" : "1", 
+                          "effectApplied" : "none", 
+                          "lockAspectRatio" : 
+                            {
+                              "type" : "bool", 
+                              "value" : true
+                            }
+                        }, 
+                        "animationTracks" : {
+                        }
+                      }
+                    ], 
+                    "effects" : [
+                    ], 
+                    "start" : 0, 
+                    "duration" : 1481760000, 
+                    "mediaStart" : 1481760000, 
+                    "mediaDuration" : 1481760000, 
+                    "scalar" : 1, 
+                    "metadata" : {
+                      "audiateLinkedSession" : "", 
+                      "clipSpeedAttribute" : 
+                        {
+                          "type" : "bool", 
+                          "value" : false
+                        }, 
+                      "colorAttribute" : 
+                        {
+                          "type" : "color", 
+                          "value" : [ 0, 0, 0, 0]
+                        }, 
+                      "default-anchor0" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-anchor1" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-anchor2" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-height" : 
+                        {
+                          "type" : "double", 
+                          "value" : 1600.0
+                        }, 
+                      "default-rotation0" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-rotation1" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-rotation2" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-scale" : "1", 
+                      "default-scale0" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.581395348837209
+                        }, 
+                      "default-scale1" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.581395348837209
+                        }, 
+                      "default-scale2" : 
+                        {
+                          "type" : "double", 
+                          "value" : 1.0
+                        }, 
+                      "default-shear0" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-shear1" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-shear2" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-translation0" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-translation1" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-translation2" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-width" : 
+                        {
+                          "type" : "double", 
+                          "value" : 1200.0
+                        }, 
+                      "effectApplied" : "none", 
+                      "lockAspectRatio" : 
+                        {
+                          "type" : "bool", 
+                          "value" : true
+                        }
+                    }, 
+                    "animationTracks" : {
+                    }
+                  }, 
+                  {
+                    "id" : 8, 
+                    "_type" : "VMFile", 
+                    "src" : 1, 
+                    "trackNumber" : 0, 
+                    "attributes" : {
+                      "ident" : "iPad01"
+                    }, 
+                    "parameters" : {
+                      "translation1" : -2.27373675443232e-13, 
+                      "geometryCrop0" : 0.0, 
+                      "geometryCrop1" : 0.0, 
+                      "geometryCrop2" : 0.0, 
+                      "geometryCrop3" : 0.0
+                    }, 
+                    "effects" : [
+                    ], 
+                    "start" : 1481760000, 
+                    "duration" : 18792480000, 
+                    "mediaStart" : 3363360000, 
+                    "mediaDuration" : 18792480000, 
+                    "scalar" : 1, 
+                    "metadata" : {
+                      "audiateLinkedSession" : "", 
+                      "clipSpeedAttribute" : 
+                        {
+                          "type" : "bool", 
+                          "value" : false
+                        }, 
+                      "colorAttribute" : 
+                        {
+                          "type" : "color", 
+                          "value" : [ 0, 0, 0, 0]
+                        }, 
+                      "default-anchor0" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-anchor1" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-anchor2" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-height" : 
+                        {
+                          "type" : "double", 
+                          "value" : 1066.66666666667
+                        }, 
+                      "default-rotation0" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-rotation1" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-rotation2" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-scale" : "1", 
+                      "default-scale0" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.387596899224806
+                        }, 
+                      "default-scale1" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.387596899224806
+                        }, 
+                      "default-scale2" : 
+                        {
+                          "type" : "double", 
+                          "value" : 1.0
+                        }, 
+                      "default-shear0" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-shear1" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-shear2" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-translation0" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-translation1" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-translation2" : 
+                        {
+                          "type" : "double", 
+                          "value" : 0.0
+                        }, 
+                      "default-width" : 
+                        {
+                          "type" : "double", 
+                          "value" : 800.0
+                        }, 
+                      "effectApplied" : "none", 
+                      "lockAspectRatio" : 
+                        {
+                          "type" : "bool", 
+                          "value" : true
+                        }
+                    }, 
+                    "animationTracks" : {
+                    }
+                  }
+                ], 
+                "parameters" : {
+                }
+              }, 
+              {
+                "trackIndex" : 1, 
+                "medias" : [
+                  {
+                    "id" : 9, 
+                    "_type" : "StitchedMedia", 
+                    "minMediaStart" : 0.0, 
+                    "attributes" : {
+                      "ident" : "iPhone01", 
+                      "gain" : 1.0, 
+                      "mixToMono" : false, 
+                      "loudnessNormalization" : true, 
+                      "sourceFileOffset" : 0
+                    }, 
+                    "parameters" : {
+                      "scale0" : 0.95955369595537, 
+                      "scale1" : 0.95955369595537, 
+                      "geometryCrop0" : 0.0, 
+                      "geometryCrop1" : 0.0, 
+                      "geometryCrop2" : 0.0, 
+                      "geometryCrop3" : 0.0, 
+                      "smoothCursorAcrossEditDuration" : 0
+                    }, 
+                    "medias" : [
+                      {
+                        "id" : 10, 
+                        "_type" : "VMFile", 
+                        "src" : 2, 
+                        "trackNumber" : 0, 
+                        "attributes" : {
+                          "ident" : "iPhone01"
+                        }, 
+                        "parameters" : {
+                          "geometryCrop0" : 0.0, 
+                          "geometryCrop1" : 0.0, 
+                          "geometryCrop2" : 0.0, 
+                          "geometryCrop3" : 0.0
+                        }, 
+                        "effects" : [
+                        ], 
+                        "start" : 0, 
+                        "duration" : 20532960000, 
+                        "mediaStart" : 0, 
+                        "mediaDuration" : 20532960000, 
+                        "scalar" : 1, 
+                        "metadata" : {
+                          "audiateLinkedSession" : "", 
+                          "clipSpeedAttribute" : 
+                            {
+                              "type" : "bool", 
+                              "value" : false
+                            }, 
+                          "colorAttribute" : 
+                            {
+                              "type" : "color", 
+                              "value" : [ 0, 0, 0, 0]
+                            }, 
+                          "default-scale" : "0.959554", 
+                          "effectApplied" : "none"
+                        }, 
+                        "animationTracks" : {
+                        }
+                      }, 
+                      {
+                        "id" : 11, 
+                        "_type" : "VMFile", 
+                        "src" : 2, 
+                        "trackNumber" : 0, 
+                        "attributes" : {
+                          "ident" : "iPhone01"
+                        }, 
+                        "parameters" : {
+                          "geometryCrop0" : 0.0, 
+                          "geometryCrop1" : 0.0, 
+                          "geometryCrop2" : 0.0, 
+                          "geometryCrop3" : 0.0
+                        }, 
+                        "effects" : [
+                        ], 
+                        "start" : 20532960000, 
+                        "duration" : 446880000, 
+                        "mediaStart" : 21309120000, 
+                        "mediaDuration" : 446880000, 
+                        "scalar" : 1, 
+                        "metadata" : {
+                          "audiateLinkedSession" : "", 
+                          "clipSpeedAttribute" : 
+                            {
+                              "type" : "bool", 
+                              "value" : false
+                            }, 
+                          "colorAttribute" : 
+                            {
+                              "type" : "color", 
+                              "value" : [ 0, 0, 0, 0]
+                            }, 
+                          "default-scale" : "0.959554", 
+                          "effectApplied" : "none"
+                        }, 
+                        "animationTracks" : {
+                        }
+                      }
+                    ], 
+                    "effects" : [
+                    ], 
+                    "start" : 0, 
+                    "duration" : 20062560000, 
+                    "mediaStart" : 917280000, 
+                    "mediaDuration" : 20062560000, 
+                    "scalar" : 1, 
+                    "metadata" : {
+                      "audiateLinkedSession" : "", 
+                      "clipSpeedAttribute" : 
+                        {
+                          "type" : "bool", 
+                          "value" : false
+                        }, 
+                      "colorAttribute" : 
+                        {
+                          "type" : "color", 
+                          "value" : [ 0, 0, 0, 0]
+                        }, 
+                      "default-scale" : "0.959554", 
+                      "effectApplied" : "none"
+                    }, 
+                    "animationTracks" : {
+                    }
+                  }
+                ], 
+                "parameters" : {
+                }
+              }, 
+              {
+                "trackIndex" : 2, 
+                "medias" : [
+                  {
+                    "id" : 12, 
+                    "_type" : "StitchedMedia", 
+                    "minMediaStart" : 0.0, 
+                    "attributes" : {
+                      "ident" : "Rec 5-18-2025 2", 
+                      "gain" : 1.0, 
+                      "mixToMono" : false, 
+                      "loudnessNormalization" : true, 
+                      "sourceFileOffset" : 0
+                    }, 
+                    "parameters" : {
+                      "geometryCrop0" : 0.0, 
+                      "geometryCrop1" : 0.0, 
+                      "geometryCrop2" : 0.0, 
+                      "geometryCrop3" : 0.0, 
+                      "cursorOpacity" : 1.0, 
+                      "cursorTrackLevel" : 0.0, 
+                      "cursorScale" : 1.0, 
+                      "smoothCursorAcrossEditDuration" : 235200000
+                    }, 
+                    "medias" : [
+                      {
+                        "id" : 13, 
+                        "_type" : "ScreenVMFile", 
+                        "src" : 3, 
+                        "trackNumber" : 0, 
+                        "attributes" : {
+                          "ident" : "Rec 5-18-2025 2"
+                        }, 
+                        "parameters" : {
+                          "geometryCrop0" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop1" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop2" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop3" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "cursorScale" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "cursorOpacity" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "cursorTrackLevel" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "smoothCursorAcrossEditDuration" : 235200000
+                        }, 
+                        "effects" : [
+                        ], 
+                        "start" : 0, 
+                        "duration" : 1999200000, 
+                        "mediaStart" : 0, 
+                        "mediaDuration" : 1999200000, 
+                        "scalar" : 1, 
+                        "metadata" : {
+                          "audiateLinkedSession" : "", 
+                          "clipSpeedAttribute" : 
+                            {
+                              "type" : "bool", 
+                              "value" : false
+                            }, 
+                          "colorAttribute" : 
+                            {
+                              "type" : "color", 
+                              "value" : [ 0, 0, 0, 0]
+                            }, 
+                          "effectApplied" : "none", 
+                          "lockAspectRatio" : 
+                            {
+                              "type" : "bool", 
+                              "value" : true
+                            }
+                        }, 
+                        "animationTracks" : {
+                        }
+                      }, 
+                      {
+                        "id" : 14, 
+                        "_type" : "ScreenVMFile", 
+                        "src" : 3, 
+                        "trackNumber" : 0, 
+                        "attributes" : {
+                          "ident" : "Rec 5-18-2025 2"
+                        }, 
+                        "parameters" : {
+                          "geometryCrop0" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop1" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop2" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop3" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "cursorScale" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "cursorOpacity" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "cursorTrackLevel" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "smoothCursorAcrossEditDuration" : 235200000
+                        }, 
+                        "effects" : [
+                        ], 
+                        "start" : 1999200000, 
+                        "duration" : 729120000, 
+                        "mediaStart" : 2257920000, 
+                        "mediaDuration" : 729120000, 
+                        "scalar" : 1, 
+                        "metadata" : {
+                          "audiateLinkedSession" : "", 
+                          "clipSpeedAttribute" : 
+                            {
+                              "type" : "bool", 
+                              "value" : false
+                            }, 
+                          "colorAttribute" : 
+                            {
+                              "type" : "color", 
+                              "value" : [ 0, 0, 0, 0]
+                            }, 
+                          "effectApplied" : "none", 
+                          "lockAspectRatio" : 
+                            {
+                              "type" : "bool", 
+                              "value" : true
+                            }
+                        }, 
+                        "animationTracks" : {
+                        }
+                      }, 
+                      {
+                        "id" : 15, 
+                        "_type" : "ScreenVMFile", 
+                        "src" : 3, 
+                        "trackNumber" : 0, 
+                        "attributes" : {
+                          "ident" : "Rec 5-18-2025 2"
+                        }, 
+                        "parameters" : {
+                          "geometryCrop0" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop1" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop2" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop3" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "cursorScale" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "cursorOpacity" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "cursorTrackLevel" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "smoothCursorAcrossEditDuration" : 235200000
+                        }, 
+                        "effects" : [
+                        ], 
+                        "start" : 2728320000, 
+                        "duration" : 16111200000, 
+                        "mediaStart" : 3692640000, 
+                        "mediaDuration" : 16111200000, 
+                        "scalar" : 1, 
+                        "metadata" : {
+                          "audiateLinkedSession" : "", 
+                          "clipSpeedAttribute" : 
+                            {
+                              "type" : "bool", 
+                              "value" : false
+                            }, 
+                          "colorAttribute" : 
+                            {
+                              "type" : "color", 
+                              "value" : [ 0, 0, 0, 0]
+                            }, 
+                          "effectApplied" : "none", 
+                          "lockAspectRatio" : 
+                            {
+                              "type" : "bool", 
+                              "value" : true
+                            }
+                        }, 
+                        "animationTracks" : {
+                        }
+                      }, 
+                      {
+                        "id" : 16, 
+                        "_type" : "ScreenVMFile", 
+                        "src" : 3, 
+                        "trackNumber" : 0, 
+                        "attributes" : {
+                          "ident" : "Rec 5-18-2025 2"
+                        }, 
+                        "parameters" : {
+                          "geometryCrop0" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop1" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop2" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop3" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "cursorScale" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "cursorOpacity" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "cursorTrackLevel" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "smoothCursorAcrossEditDuration" : 235200000
+                        }, 
+                        "effects" : [
+                        ], 
+                        "start" : 18839520000, 
+                        "duration" : 917280000, 
+                        "mediaStart" : 20297760000, 
+                        "mediaDuration" : 917280000, 
+                        "scalar" : 1, 
+                        "metadata" : {
+                          "audiateLinkedSession" : "", 
+                          "clipSpeedAttribute" : 
+                            {
+                              "type" : "bool", 
+                              "value" : false
+                            }, 
+                          "colorAttribute" : 
+                            {
+                              "type" : "color", 
+                              "value" : [ 0, 0, 0, 0]
+                            }, 
+                          "effectApplied" : "none", 
+                          "lockAspectRatio" : 
+                            {
+                              "type" : "bool", 
+                              "value" : true
+                            }
+                        }, 
+                        "animationTracks" : {
+                        }
+                      }, 
+                      {
+                        "id" : 17, 
+                        "_type" : "ScreenVMFile", 
+                        "src" : 3, 
+                        "trackNumber" : 0, 
+                        "attributes" : {
+                          "ident" : "Rec 5-18-2025 2"
+                        }, 
+                        "parameters" : {
+                          "geometryCrop0" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop1" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop2" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "geometryCrop3" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "eioe"
+                          }, 
+                          "cursorScale" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "cursorOpacity" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "cursorTrackLevel" : {
+                            "type" : "double", 
+                            "defaultValue" : 0.0, 
+                            "interp" : "linr"
+                          }, 
+                          "smoothCursorAcrossEditDuration" : 235200000
+                        }, 
+                        "effects" : [
+                        ], 
+                        "start" : 19756800000, 
+                        "duration" : 4515840000, 
+                        "mediaStart" : 22344000000, 
+                        "mediaDuration" : 4515840000, 
+                        "scalar" : 1, 
+                        "metadata" : {
+                          "audiateLinkedSession" : "", 
+                          "clipSpeedAttribute" : 
+                            {
+                              "type" : "bool", 
+                              "value" : false
+                            }, 
+                          "colorAttribute" : 
+                            {
+                              "type" : "color", 
+                              "value" : [ 0, 0, 0, 0]
+                            }, 
+                          "effectApplied" : "none", 
+                          "lockAspectRatio" : 
+                            {
+                              "type" : "bool", 
+                              "value" : true
+                            }
+                        }, 
+                        "animationTracks" : {
+                        }
+                      }
+                    ], 
+                    "effects" : [
+                    ], 
+                    "start" : 0, 
+                    "duration" : 19568640000, 
+                    "mediaStart" : 1128960000, 
+                    "mediaDuration" : 19568640000, 
+                    "scalar" : 1, 
+                    "metadata" : {
+                      "audiateLinkedSession" : "", 
+                      "clipSpeedAttribute" : 
+                        {
+                          "type" : "bool", 
+                          "value" : false
+                        }, 
+                      "colorAttribute" : 
+                        {
+                          "type" : "color", 
+                          "value" : [ 0, 0, 0, 0]
+                        }, 
+                      "effectApplied" : "none", 
+                      "lockAspectRatio" : 
+                        {
+                          "type" : "bool", 
+                          "value" : true
+                        }
+                    }, 
+                    "animationTracks" : {
+                    }
+                  }
+                ], 
+                "parameters" : {
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }, 
+    "trackAttributes" : [
+      {
+        "ident" : "", 
+        "audioMuted" : true, 
+        "videoHidden" : true, 
+        "magnetic" : false, 
+        "matte" : 0, 
+        "solo" : false, 
+        "metadata" : {
+          "IsLocked" : "False", 
+          "trackHeight" : "54"
+        }
+      }, 
+      {
+        "ident" : "", 
+        "audioMuted" : true, 
+        "videoHidden" : true, 
+        "magnetic" : false, 
+        "matte" : 0, 
+        "solo" : false, 
+        "metadata" : {
+          "IsLocked" : "False", 
+          "trackHeight" : "54"
+        }
+      }, 
+      {
+        "ident" : "", 
+        "audioMuted" : false, 
+        "videoHidden" : false, 
+        "magnetic" : false, 
+        "matte" : 0, 
+        "solo" : false, 
+        "metadata" : {
+          "IsLocked" : "False", 
+          "trackHeight" : "54"
+        }
+      }
+    ], 
+    "parameters" : {
+    }, 
+    "captionAttributes" : {
+      "enabled" : true, 
+      "fontName" : "Arial", 
+      "fontSize" : 32, 
+      "backgroundColor" : [ 0, 0, 0, 204], 
+      "foregroundColor" : [ 255, 255, 255, 255], 
+      "lang" : "en", 
+      "alignment" : 0, 
+      "defaultFontSize" : true, 
+      "opacity" : 0.5, 
+      "backgroundEnabled" : true, 
+      "backgroundOnlyAroundText" : true
+    }, 
+    "gain" : 1.0, 
+    "legacyAttenuateAudioMix" : false, 
+    "backgroundColor" : [ 0, 0, 0, 255]
+  }, 
+  "metadata" : {
+    "ProjectThumbnail" : "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", 
+    "RulerGuidesX" : [], 
+    "RulerGuidesY" : [], 
+    "RulerShowing" : 
+      {
+        "type" : "bool", 
+        "value" : false
+      }, 
+    "activeThemeId" : "c56a4180-65aa-42ec-a945-5fd21dec0539", 
+    "firstMedia" : 
+      {
+        "type" : "bool", 
+        "value" : true
+      }, 
+    "hasNotifiedAboutHFRMedia" : 
+      {
+        "type" : "bool", 
+        "value" : false
+      }, 
+    "projectDuration" : "00:28"
+  }
+}
