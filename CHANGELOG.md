@@ -1,4 +1,5 @@
-**Version 2.4.0.3038** *TBD*
+**Version 3.0.1.3106** *May 18, 2025*
+- Complete rewrite.
 
 **Version 2.3.3.3030** *February 23, 2024*
 - Updated the various dependencies.
