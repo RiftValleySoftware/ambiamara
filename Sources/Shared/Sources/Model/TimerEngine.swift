@@ -73,7 +73,7 @@ private extension TimerEngine {
 /**
  This class implements the "executable heart" of the timer app.
  
- # BASIC OVERVIEW
+ ## BASIC OVERVIEW
  
  This is a countdown timer, in seconds. It starts from a "starting" time, and counts down to 0, at which time it starts an alarm.
  
@@ -83,27 +83,27 @@ private extension TimerEngine {
  
  It has six "modes" of operation:
  
- ## STOPPED MODE
+ - ### STOPPED MODE
  
  The timer is "stopped." It is set to the starting time, and the timer is not running.
 
- ## COUNTDOWN MODE
+ - ### COUNTDOWN MODE
  
  This is the basic countdown mode, starting from the "starting time" threshold.
  
- ## WARNING MODE
+ - ### WARNING MODE
 
  This is a threshold, in seconds. Once the coundown reaches this, the timer goes into "warning" mode. This cannot be less than the final threshold (or 0), and cannot be higher than the starting threshold.
  
- ## FINAL MODE
+ - ### FINAL MODE
  
  This is a threshold, in seconds. Once the coundown reaches this, the timer goes into "final" mode. The timer is running. This cannot be less than 0, and cannot be higher than the warning threshold.
  
- ## ALARM MODE
+ - ### ALARM MODE
  
  Once it hits 0, it goes into "alarm" mode. The timer stops running, once this threshold is encountered.
  
- ## PAUSED MODE
+ - ### PAUSED MODE
  
  The timer countdown is in one of the above ranges, but has been "paused." It is not running.
  */
