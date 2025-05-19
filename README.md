@@ -1,7 +1,9 @@
 ![AmbiaMara Icon](icon.png)
-# ``Rift Valley Timer``
+# `RiVal.T` (Rift Valley Timer)
 
 [![Get From the App Store](AppStoreWhite.png)](https://apps.apple.com/us/app/rift-valley-timer/id1448933389)
+
+## BASIC ARCHITECTURE
 
 ## LICENSE
 

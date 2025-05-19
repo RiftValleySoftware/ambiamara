@@ -707,6 +707,17 @@
 			path = RunningTimerScreen;
 			sourceTree = "<group>";
 		};
+		D4E493302DDB660300547418 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D4E869532D99916200D56802 /* TimerEngine.swift */,
+				D4181D0C2DAC7364002CF428 /* TimerModel.swift */,
+				D4F357292D6F61C0005A815A /* RiValT_WatchDelegate.swift */,
+				D40EA1B02DCEB12B00DC49BC /* RiValT_ObservableModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D4EDB3002D90549700419E6C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -729,11 +740,8 @@
 		D4F3572D2D6F61E8005A815A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D40EA1B02DCEB12B00DC49BC /* RiValT_ObservableModel.swift */,
-				D4F357292D6F61C0005A815A /* RiValT_WatchDelegate.swift */,
-				D4181D0C2DAC7364002CF428 /* TimerModel.swift */,
-				D4E869532D99916200D56802 /* TimerEngine.swift */,
 				D4752E9C2DB2FD91002359CA /* RiValT_Settings.swift */,
+				D4E493302DDB660300547418 /* Model */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
