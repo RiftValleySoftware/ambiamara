@@ -5,6 +5,15 @@
 
 ## BASIC ARCHITECTURE
 
+### The Model
+
+The core of the app, is the [``TimerEngine``](https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/Shared/Sources/Model/TimerEngine.swift) class. This provides the basic timer operation and control. Its domain is just the "ticker." It doesn't define a lot of the app behavior.
+
+Wrapping that, is the [``TimerModel``](https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/Shared/Sources/Model/TimerModel.swift) class, which adds app behavior to the engine. Most of the app behavior comes from this class.
+
+Even though the initial release of the 3.0 version does not include a companion Watch app, one is on the way, so the model is wrapped in the [``RiValT_WatchDelegate``](https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/Shared/Sources/Model/RiValT_WatchDelegate.swift) class, which manages communication between the Watch and the iPhone.
+
+Each of the above classes 
 ## LICENSE
 
 > NOTE: The app code is not licensed for re-use!
