@@ -44,9 +44,9 @@ class RiValT_SceneDelegate: UIResponder, UIWindowSceneDelegate {
     /**
      Called when the app has been backgrounded.
      
-     - parameter: The scene that's entering the background (ignored).
+     - parameter inScene: The scene that's entering the background (ignored).
      */
-    func sceneDidEnterBackground(_: UIScene) {
+    func sceneDidEnterBackground(_ inScene: UIScene) {
         RiValT_Settings.ephemeralFirstTime = true
     }
     
@@ -54,10 +54,10 @@ class RiValT_SceneDelegate: UIResponder, UIWindowSceneDelegate {
     /**
      Called when the app has been launched from a URL scheme.
      
-     - parameter: The scene that's entering the background (ignored).
+     - parameter inScene: The scene that's entering the background (ignored).
      - parameter inURLContexts: The URL context.
      */
-    func scene(_: UIScene, openURLContexts inURLContexts: Set<UIOpenURLContext>) {
+    func scene(_ inScene: UIScene, openURLContexts inURLContexts: Set<UIOpenURLContext>) {
         guard let url = inURLContexts.first?.url,
               "rivalt" == url.scheme,
               let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -75,9 +75,9 @@ class RiValT_SceneDelegate: UIResponder, UIWindowSceneDelegate {
     /**
      Called when the app is coming to the fore.
      
-     - parameter: The scene that's entering the foreground (ignored).
+     - parameter inScene: The scene that's entering the foreground (ignored).
      */
-    func sceneWillEnterForeground(_: UIScene) {
+    func sceneWillEnterForeground(_ inScene: UIScene) {
         RiValT_AppDelegate.appDelegateInstance?.updateSettings()
         RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.checkForFastForward()
     }

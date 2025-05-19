@@ -49,12 +49,12 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
     /**
      Called when the application has set up, and is preparing to "go live."
      
-     - parameter: The application instance that this is delegated to (ignored).
+     - parameter inApplication: The application instance that this is delegated to (ignored).
      - parameter didFinishLaunchingWithOptions: The launch options (ignored)
      
      - returns: True (all the time).
      */
-    func application(_: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ inApplication: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Self.appDelegateInstance = self
         return true
     }
@@ -73,12 +73,13 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
     /**
      Returns a new scene configuration.
      
-     - parameter: The application instance that this is delegated to (ignored).
+     - parameter inApplication: The application instance that this is delegated to (ignored).
      - parameter inConnectingSceneSession: The session we're generating a scene for.
+     - parameter inOptions: The connection options (ignored).
      
      - returns: A new scene configuration for the session.
      */
-    func application(_: UIApplication, configurationForConnecting inConnectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+    func application(_ inApplication: UIApplication, configurationForConnecting inConnectingSceneSession: UISceneSession, options inOptions: UIScene.ConnectionOptions) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: inConnectingSceneSession.role)
     }
 }

@@ -452,9 +452,9 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
      - parameter inPickerView: The picker view
      - parameter inRow: The specified row.
      - parameter inComponent: The selected column.
-     - parameter: If the view is being reused, it is set here (ignored).
+     - parameter inReusing: If the view is being reused, it is set here (ignored).
      */
-    func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing: UIView?) -> UIView {
+    func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inReusing: UIView?) -> UIView {
         guard let selectedColumn = PickerRow(rawValue: inComponent) else { return UILabel() }
         
         let selectedRow = inPickerView.selectedRow(inComponent: selectedColumn.rawValue)
@@ -517,12 +517,12 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
     /**
      The height of each row.
      
-     - parameter: The picker view (ignored)
-     - parameter rowHeightForComponent: The selected column (ignored)
+     - parameter inPickerView: The picker view (ignored)
+     - parameter inComponent: The selected column (ignored)
      
      - returns: 70 (always)
      */
-    func pickerView(_: UIPickerView, rowHeightForComponent: Int) -> CGFloat { 60 }
+    func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent inComponent: Int) -> CGFloat { 60 }
     
     /* ############################################################## */
     /**
@@ -566,7 +566,7 @@ extension RiValT_EditTimer_ViewController: UIPickerViewAccessibilityDelegate {
      This returns the accessibility hint for the picker component.
      
      - parameter inPickerView: The picker instance
-     - parameter accessibilityLabelForComponent: The 0-based component index for the label.
+     - parameter inComponentIndex: The 0-based component index for the label.
      - returns: An accessibility string for the component.
     */
     func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inComponentIndex: Int) -> String? {
@@ -577,8 +577,8 @@ extension RiValT_EditTimer_ViewController: UIPickerViewAccessibilityDelegate {
     /**
      This returns the accessibility hint for the picker component.
      
-     - parameterinPickerView: The picker instance
-     - parameter accessibilityHintForComponent: The 0-based component index for the Hint (ignored).
+     - parameter inPickerView: The picker instance
+     - parameter inComponentIndex: The 0-based component index for the Hint (ignored).
      - returns: An accessibility string for the component.
     */
     func pickerView(_ inPickerView: UIPickerView, accessibilityHintForComponent inComponentIndex: Int) -> String? {

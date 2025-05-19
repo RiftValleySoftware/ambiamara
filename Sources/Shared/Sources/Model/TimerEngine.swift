@@ -387,7 +387,7 @@ open class TimerEngine: Codable, Identifiable {
      - parameter inFinalTimeInSeconds: This is the threshold, at which the clock switches into "final" mode. If not supplied, is set to 0.
      - parameter inTransitionHandler: The callback for each transition. This is optional.
      - parameter inID: The ID of this instance (Standard UUID). It must be unique, in the scope of this app. A new UUID is assigned, if not provided.
-     - parameter refCon: Any data the implementer wants to attach to this instance. It is not saved or retrieved in the dictionary or encoder, nor is it affected.
+     - parameter inRefCon: Any data the implementer wants to attach to this instance. It is not saved or retrieved in the dictionary or encoder, nor is it affected.
      - parameter inStartImmediately: If true (default is false), the timer will start as soon as the instance is initialized.
      - parameter inTickHandler: The callback for each tick. This can be a tail completion, and is optional.
      */

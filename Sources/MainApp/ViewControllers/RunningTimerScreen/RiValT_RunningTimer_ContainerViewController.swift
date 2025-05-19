@@ -424,7 +424,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      This allows Catalyst apps to use the keyboard to control the timer, like gestures.
      
      - parameter inKeyPresses: The pressed keys.
-     - parameter with: The event, creating the keypresses.
+     - parameter inEvent: The event, creating the keypresses.
      */
     override func pressesBegan(_ inKeyPresses: Set<UIPress>, with inEvent: UIPressesEvent?) {
         var didHandleEvent = false
@@ -1231,7 +1231,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      This is called by the model, and represents a transition, from one state to another.
      
      - parameter inTimer: The timer instance.
-     - parameter: The state the timer is moving from (ignored).
+     - parameter inFromMode: The state the timer is moving from (ignored).
      - parameter inToMode: The new timer state.
      */
     func transitionHandler(_ inTimer: Timer, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {

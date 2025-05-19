@@ -59,6 +59,7 @@
 		D4A413932DB930D40017964C /* 22-thanks-for-sharing.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4A413922DB930D40017964C /* 22-thanks-for-sharing.mp3 */; };
 		D4A413962DB930E80017964C /* 14-shut-up-1.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4A413952DB930E80017964C /* 14-shut-up-1.mp3 */; };
 		D4A413992DB930ED0017964C /* 15-shut-up-2.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4A413982DB930ED0017964C /* 15-shut-up-2.mp3 */; };
+		D4A5A7C32DDBA7F8001ED5AC /* RiVal_T.docc in Sources */ = {isa = PBXBuildFile; fileRef = D4A5A7C22DDBA7F8001ED5AC /* RiVal_T.docc */; };
 		D4A932222D64E9CB0028556E /* RiValT_Watch_App_MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A9321F2D64E9CB0028556E /* RiValT_Watch_App_MainContentView.swift */; };
 		D4A932232D64E9CB0028556E /* RiValT_Watch_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A932202D64E9CB0028556E /* RiValT_Watch_App.swift */; };
 		D4A9322A2D64E9CB0028556E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4A932262D64E9CB0028556E /* Assets.xcassets */; };
@@ -298,6 +299,7 @@
 		D4A413922DB930D40017964C /* 22-thanks-for-sharing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "22-thanks-for-sharing.mp3"; sourceTree = "<group>"; };
 		D4A413952DB930E80017964C /* 14-shut-up-1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "14-shut-up-1.mp3"; sourceTree = "<group>"; };
 		D4A413982DB930ED0017964C /* 15-shut-up-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "15-shut-up-2.mp3"; sourceTree = "<group>"; };
+		D4A5A7C22DDBA7F8001ED5AC /* RiVal_T.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RiVal_T.docc; sourceTree = "<group>"; };
 		D4A9321F2D64E9CB0028556E /* RiValT_Watch_App_MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_Watch_App_MainContentView.swift; sourceTree = "<group>"; };
 		D4A932202D64E9CB0028556E /* RiValT_Watch_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_Watch_App.swift; sourceTree = "<group>"; };
 		D4A932262D64E9CB0028556E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -650,6 +652,7 @@
 				D4A932212D64E9CB0028556E /* WatchApp */,
 				D4A932292D64E9CB0028556E /* WatchComplications */,
 				D43B97652DA2C1D10028E023 /* MainApp */,
+				D4A5A7C22DDBA7F8001ED5AC /* RiVal_T.docc */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1121,6 +1124,7 @@
 				D4752E9D2DB2FD91002359CA /* RiValT_Settings.swift in Sources */,
 				D43B97682DA2C1D10028E023 /* RiValT_Base_ViewController.swift in Sources */,
 				D40FB3072DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift in Sources */,
+				D4A5A7C32DDBA7F8001ED5AC /* RiVal_T.docc in Sources */,
 				D4D9A1DD2DC26354009CB13E /* RiValT_RunningTimer_Circular_ViewController.swift in Sources */,
 				D43B97792DA2C2E80028E023 /* TimerEngine.swift in Sources */,
 				D49BBA112DBC275D00DD0963 /* RiValT_TimerEditor_PageViewContainer.swift in Sources */,

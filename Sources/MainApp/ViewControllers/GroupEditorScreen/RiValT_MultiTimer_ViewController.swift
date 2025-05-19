@@ -22,7 +22,7 @@ extension UIImage {
      - parameter inStartColor: left side or top
      - parameter inEndColor: right side or bottom
      - parameter inFrame: frame to be filled (Cannot be empty)
-     - parameter isVertical: True, if the gradient is top to bottom (default is false)
+     - parameter inIsVertical: True, if the gradient is top to bottom (default is false)
      
      - returns: a gradient image, or a "nosign" image.
      */
@@ -1366,13 +1366,13 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDropDelegate {
     /**
      Called to vet the current drag state.
      
-     - parameter: The collection view (ignored).
+     - parameter inCollectionView: The collection view (ignored).
      - parameter inSession: The session for the drag.
      - parameter inIndexPath: The index path of the item being dragged.
      
      - returns: the disposition proposal for the drag.
      */
-    func collectionView(_: UICollectionView,
+    func collectionView(_ inCollectionView: UICollectionView,
                         dropSessionDidUpdate inSession: UIDropSession,
                         withDestinationIndexPath inIndexPath: IndexPath?
     ) -> UICollectionViewDropProposal {

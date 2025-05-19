@@ -121,8 +121,8 @@ class RiValT_WatchDelegate: NSObject {
         /**
          Standard init
          
-         - parameter to: This is the currentTime value for the sync.
-         - parameter date: The date that correspoinds to the time. Optional. Default is right now.
+         - parameter inTo: This is the currentTime value for the sync.
+         - parameter inDate: The date that correspoinds to the time. Optional. Default is right now.
          */
         init(to inTo: Int, date inDate: Date = .now) {
             self.to = inTo
@@ -670,8 +670,8 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
      Called when an activation change occurs.
      
      - parameter inSession: The session experiencing the activation change.
-     - parameter activationDidCompleteWith: The new state.
-     - parameter error: If there was an error, it is sent in here.
+     - parameter inActivationState: The new state.
+     - parameter inError: If there was an error, it is sent in here.
      */
     func session(_ inSession: WCSession, activationDidCompleteWith inActivationState: WCSessionActivationState, error inError: (any Error)?) {
         #if DEBUG
@@ -693,7 +693,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
          Called when the application context is updated from the peer.
          
          - parameter inSession: The session receiving the context update.
-         - parameter didReceiveApplicationContext: The new context data.
+         - parameter inApplicationContext: The new context data.
         */
         func session(_ inSession: WCSession, didReceiveApplicationContext inApplicationContext: [String: Any]) {
             #if DEBUG
@@ -749,8 +749,8 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
      Called when the Watch communication session receives a message from the peer.
      
      - parameter inSession: The session receiving the message.
-     - parameter didReceiveMessage: The message from the watch
-     - parameter replyHandler: A function to be executed, with the reply to the message.
+     - parameter inMessage: The message from the watch
+     - parameter inReplyHandler: A function to be executed, with the reply to the message.
     */
     func session(_ inSession: WCSession, didReceiveMessage inMessage: [String: Any], replyHandler inReplyHandler: @escaping ([String: Any]) -> Void) {
         guard let currentTimer = self.timerModel.selectedTimer else { return }

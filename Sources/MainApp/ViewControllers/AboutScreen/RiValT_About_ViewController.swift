@@ -16,6 +16,7 @@ import RVS_UIKit_Toolbox
 // MARK: - The Main View Controller for the "About" screen -
 /* ###################################################################################################################################### */
 /**
+ This is the main view controller for the "About This App" screen (accessed from the global settings popover).
  */
 class RiValT_About_ViewController: RiValT_Base_ViewController {
     /* ################################################################## */

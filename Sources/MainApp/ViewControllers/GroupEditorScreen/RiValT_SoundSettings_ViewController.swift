@@ -460,7 +460,7 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDataSource {
     /* ################################################################## */
     /**
      - parameter inPickerView: The picker view
-     - parameter numberOfRowsInComponent: The 0-based index of the component we are querying.
+     - parameter inComponent: The 0-based index of the component we are querying.
     */
     func pickerView(_ inPickerView: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int {
         if inPickerView == self.soundsPickerView {
@@ -482,7 +482,7 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
      This is called when a row is selected.
      It verifies that the value is OK, and may change the selection, if not.
      - parameter inPickerView: The picker instance.
-     - parameter didSelectRow: The 0-based row index, in the component.
+     - parameter inRow: The 0-based row index, in the component.
      - parameter inComponent: The component that contains the selected row (0-based index).
     */
     func pickerView(_ inPickerView: UIPickerView, didSelectRow inRow: Int, inComponent: Int) {
@@ -509,9 +509,9 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
      This returns the view to display for the picker row.
      
      - parameter inPickerView: The picker instance.
-     - parameter viewForRow: The 0-based row index to be displayed.
-     - parameter forComponent: The 0-based component index for the row.
-     - parameter reusing: If a view will be reused, we'll use that, instead.
+     - parameter inRow: The 0-based row index to be displayed.
+     - parameter inComponent: The 0-based component index for the row.
+     - parameter inView: If a view will be reused, we'll use that, instead.
      - returns: A new view, containing the row. If it is selected, it is displayed as reversed.
     */
     func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inView: UIView?) -> UIView {
@@ -546,10 +546,10 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewAccessibilityDelegate
      This returns the accessibility hint for the picker component.
      
      - parameter inPickerView: The picker instance
-     - parameter accessibilityLabelForComponent: The 0-based component index for the label (ignored).
+     - parameter inLabel: The 0-based component index for the label (ignored).
      - returns: An accessibility string for the component.
     */
-    func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent: Int) -> String? {
+    func pickerView(_ inPickerView: UIPickerView, accessibilityLabelForComponent inLabel: Int) -> String? {
         if inPickerView == self.soundsPickerView {
             "SLUG-ACC-SOUND-PICKER-LABEL".localizedVariant
         } else {
@@ -561,11 +561,11 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewAccessibilityDelegate
     /**
      This returns the accessibility hint for the picker component.
      
-     - parameterinPickerView: The picker instance
-     - parameter accessibilityHintForComponent: The 0-based component index for the Hint (ignored).
+     - parameter inPickerView: The picker instance
+     - parameter inHint: The 0-based component index for the Hint (ignored).
      - returns: An accessibility string for the component.
     */
-    func pickerView(_ inPickerView: UIPickerView, accessibilityHintForComponent: Int) -> String? {
+    func pickerView(_ inPickerView: UIPickerView, accessibilityHintForComponent inHint: Int) -> String? {
         if inPickerView == self.soundsPickerView {
             "SLUG-ACC-SOUND-PICKER-HINT".localizedVariant
         } else {
@@ -582,10 +582,10 @@ extension RiValT_SoundSettings_ViewController: AVAudioPlayerDelegate {
     /**
      Called when the sound is done playing.
      
-      - parameter: The player (ignored)
-      - parameter successfully: True, if the play was successful (also ignored).
+      - parameter inAudioPlayer: The player (ignored)
+      - parameter inSuccess: True, if the play was successful (also ignored).
     */
-    func audioPlayerDidFinishPlaying(_: AVAudioPlayer, successfully: Bool) {
+    func audioPlayerDidFinishPlaying(_ inAudioPlayer: AVAudioPlayer, successfully inSuccess: Bool) {
         self._isSoundPlaying = false
         self._isTransitionSoundPlaying = false
     }

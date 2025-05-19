@@ -1,9 +1,8 @@
-![AmbiaMara Icon](icon.png)
-# `RiVal.T` (Rift Valley Timer)
-
-[![Get From the App Store](img/AppStoreWhite.png)](https://apps.apple.com/us/app/rift-valley-timer/id1448933389)
+# ``RiVal_T``
 
 ## OVERVIEW
+
+![AmbiaMara Icon](icon.png)
 
 The app is designed to provide executable apps for the iOS/iPadOS App Stores (as native apps), and the Mac App Store (as a [Mac Catalyst](https://developer.apple.com/documentation/uikit/mac-catalyst) executable).
 
@@ -13,31 +12,31 @@ The Watch app will not be supplied with the initial 3.0.1 release, but will be s
 
 ## BASIC ARCHITECTURE
 
-### [THE MODEL](https://github.com/RiftValleySoftware/ambiamara/tree/master/Sources/Shared/Sources/Model)
+### THE MODEL
 
-The core of the app, is the [``TimerEngine``](https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/Shared/Sources/Model/TimerEngine.swift) class. This provides the basic timer operation and control. Its domain is just the "ticker," for a single timer. It doesn't define a lot of the app behavior.
+The core of the app, is the ``TimerEngine`` class. This provides the basic timer operation and control. Its domain is just the "ticker," for a single timer. It doesn't define a lot of the app behavior.
 
-Wrapping that, is the [``TimerModel``](https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/Shared/Sources/Model/TimerModel.swift) class, which adds app behavior to the engine, like multiple timers, and timer groups. Most of the app behavior comes from this class.
+Wrapping that, is the ``TimerModel`` class, which adds app behavior to the engine, like multiple timers, and timer groups. Most of the app behavior comes from this class.
 
-Even though the initial release of the 3.0 version does not include a companion Watch app, one is on the way, so the model is wrapped in the [``RiValT_WatchDelegate``](https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/Shared/Sources/Model/RiValT_WatchDelegate.swift) class, which manages communication between the Watch and the iPhone.
+Even though the initial release of the 3.0 version does not include a companion Watch app, one is on the way, so the model is wrapped in the ``RiValT_WatchDelegate`` class, which manages communication between the Watch and the iPhone.
 
 Each of the above classes is shared between the [`UIKit`](https://developer.apple.com/documentation/uikit) main app (iPhone, iPad, and Mac), and the [`SwiftUI`](https://developer.apple.com/xcode/swiftui/) Watch app.
 
 ### THE TARGETS
 
-![AmbiaMara Icon](img/Targets.png)
+![AmbiaMara Icon](Targets.png)
 
-#### [The Main App Target](https://github.com/RiftValleySoftware/ambiamara/tree/master/Sources/MainApp)
+#### The Main App Target
 
 The main application target is implemented, using Apple's [`UIKit`](https://developer.apple.com/documentation/uikit) application framework. This target is used to build the iOS release (for the iOS App Store), as well as the [Mac Catalyst](https://developer.apple.com/documentation/uikit/mac-catalyst) release (for the Mac App Store).
 
-#### The [Watch App](https://github.com/RiftValleySoftware/ambiamara/tree/master/Sources/WatchApp) and [Watch Complication](https://github.com/RiftValleySoftware/ambiamara/tree/master/Sources/WatchComplications) Targets
+#### The Watch App and Watch Complication Targets
 
 The Watch application target is implemented, using Apple's [`SwiftUI`](https://developer.apple.com/xcode/swiftui/) application framework (as is the Watch Complication target). The Watch app will be supplied as embedded in the iOS app (it will not be supplied as a standalone app). It will be designed as a "remote control" for the iOS app.
 
-#### [The Test Targets](https://github.com/RiftValleySoftware/ambiamara/tree/master/Tests)
+#### The Test Targets
 
-There is one target, implementing [a SwiftUI test harness for the ``TimerEngine``](https://github.com/RiftValleySoftware/ambiamara/tree/master/Tests/TimerEngineTestHarness), and two targets, devoted to unit testing the [``TimerEngine``](https://github.com/RiftValleySoftware/ambiamara/tree/master/Tests/TimerEngineTests) and [``TimerModel``](https://github.com/RiftValleySoftware/ambiamara/tree/master/Tests/TimerModelTests). These are only used for testing. The unit tests are not "complete" (providing 100% code coverage), but they do test the crucial functionality of each model subsystem.
+There is one target, implementing a SwiftUI test harness for the ``TimerEngine``, and two targets, devoted to unit testing the ``TimerEngine`` and ``TimerModel``. These are only used for testing. The unit tests are not "complete" (providing 100% code coverage), but they do test the crucial functionality of each model subsystem.
 
 ## LICENSE
 
