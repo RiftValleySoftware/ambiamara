@@ -1,6 +1,12 @@
 **Version 3.0.1.3106** *May 18, 2025*
 - Complete rewrite.
 
+**Version 2.5.0.3039** *March 1, 2025*
+- A number of interface tweaks and fixes.
+
+**Version 2.4.0.3032** *March 13, 2024*
+- Replaced the up-swipe-to-stop, with a double-tap.
+
 **Version 2.3.3.3030** *February 23, 2024*
 - Updated the various dependencies.
 - Removed SwiftLint (sob).
