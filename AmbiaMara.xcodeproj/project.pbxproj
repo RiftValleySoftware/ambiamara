@@ -31,7 +31,7 @@
 		D43B97792DA2C2E80028E023 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E869532D99916200D56802 /* TimerEngine.swift */; };
 		D45184CA2DB42DBF00DA671D /* RiValT_SoundSettings_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45184C92DB42DBE00DA671D /* RiValT_SoundSettings_ViewController.swift */; };
 		D45B908C2DDCB440004E59B2 /* RiValT_VariousUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45B908B2DDCB440004E59B2 /* RiValT_VariousUtilities.swift */; };
-		D45B908D2DDCB496004E59B2 /* Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D4F83C9D2D63DB10009C4646 /* Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D45B908D2DDCB496004E59B2 /* Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D4F83C9D2D63DB10009C4646 /* Watch App.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D466C0F92DD38DD900B4416D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BDAEBF2DC7B36400185D4F /* WatchConnectivity.framework */; };
 		D466C0FB2DD38DD900B4416D /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D466C0FA2DD38DD900B4416D /* WatchKit.framework */; };
 		D466C0FD2DD38E8E00B4416D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D466C0FC2DD38E8E00B4416D /* WatchConnectivity.framework */; };
@@ -1223,6 +1223,7 @@
 /* Begin PBXTargetDependency section */
 		D45B908F2DDCB496004E59B2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = D4F83C9C2D63DB10009C4646 /* Watch App */;
 			targetProxy = D45B908E2DDCB496004E59B2 /* PBXContainerItemProxy */;
 		};

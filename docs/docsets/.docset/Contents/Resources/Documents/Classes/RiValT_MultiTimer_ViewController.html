@@ -260,6 +260,79 @@
             <p>This is the view controller for the &ldquo;multi-timer&rdquo; screen, where we can arrange timers in groups and add new ones.</p>
 
 <p>It allows the user to drag and drop timers, so they can visually rearrange the matrix.</p>
+<h2 id='basic-structure' class='heading'>BASIC STRUCTURE</h2>
+
+<p>This controller displays a <a href="https://developer.apple.com/documentation/uikit/uicollectionview">UICollectionView</a> instance, filled with vertical rows, representing &ldquo;timer groups.&rdquo; Each row is a group.</p>
+
+<p>Each group can have up to 4 horizontally-arranged timers. Timers in a group, execute sequentially, from left, to right.</p>
+
+<p>When a timer transitions from a left timer, to the one to its right (the left timer ends, and starts the right timer automatically), a &ldquo;transition sound&rdquo; may be played.</p>
+
+<p>When the rightmost timer ends, the &ldquo;alarm sound&rdquo; is played.</p>
+
+<p>The user can drag timers around, by long-pressing on a timer. The timer can move within a group, or from one group to another.</p>
+
+<p>Groups can have options specified, that apply to all timers in a group. When a timer is moved from one group to another, it adapts to the group setings for the new group.</p>
+<h3 id='timer-selection-and-group-selection' class='heading'>Timer Selection and Group Selection</h3>
+
+<p>One timer must always be selected. This is indicated by a black background, and a colored digital font for the timer value[s].</p>
+
+<p>If a timer is selected, then its group is also selected. Group selection is indicated by a horizontal &ldquo;gradient&rdquo; highlight, across the row.</p>
+
+<p>If there is more than one row, or more than one timer in a group, then a number will appear, at the right end of the row selection highlight.</p>
+
+<p>If there is more than one timer in the group, then this number will be a tappable button. Tapping it, will advance the timer selection, wrapping, if at the end.</p>
+<h2 id='global-settings' class='heading'>GLOBAL SETTINGS</h2>
+
+<p>In the left of the Navigation Bar, is a &ldquo;gear&rdquo; icon. This displays a popover, with checkboxes that affect options for the entire app (not just single groups).</p>
+<h3 id='start-timer-immediately-checkbox' class='heading'>Start Timer Immediately Checkbox</h3>
+
+<p>If this checkbox is checked, then hitting the &ldquo;Play&rdquo; triangle will immediately start the timer. If it is unchecked, then the timer will start in a &ldquo;paused&rdquo; state, and will require an additional step, to start counting down.</p>
+<h3 id='quot-one-tap-quot-timer-editing-checkbox' class='heading'>&ldquo;One-Tap&rdquo; Timer Editing Checkbox</h3>
+
+<p>If this checkbox is checked, then simply tapping on a timer, will bring in the Timer Editor Screen for that timer.</p>
+
+<p>If it is unchecked, then tapping on a timer will simply select the timer, and an &ldquo;Edit&rdquo; item will appear in the Toolbar, at the bottom of the screen.</p>
+
+<p>That &ldquo;Edit&rdquo; item will need to be tapped, to bring in the Timer Editor Screen for whichever timer is selected.</p>
+<h3 id='show-toolbar-in-timer-checkbox-not-displayed-for-mac-mac-always-shows-the-toolbar-and-it-can-39-t-be-hidden' class='heading'>Show Toolbar In Timer Checkbox (Not displayed for Mac -Mac always shows the toolbar, and it can&rsquo;t be hidden)</h3>
+
+<p>In iPhone and iPad, you can have a toolbar optionally displayed across the bottom of the Running Timer Screen. This toolbar is always shown, for Mac Catalyst.</p>
+
+<p>If the toolbar is shown, then the user must tap on items in the toolbar, to control the timer.</p>
+
+<p>If the toolbar is not shown, then swipe and tap gestures are used to control the running timer (discussed in the Running Timer Screen).</p>
+<h3 id='auto-hide-toolbar-checkbox-only-displayed-when-quot-show-toolbar-in-timer-quot-is-shown-and-selected' class='heading'>Auto-Hide Toolbar Checkbox (Only displayed when &ldquo;Show Toolbar In Timer&rdquo; is shown and selected)</h3>
+
+<p>If this is selected, then the toolbar will fade out, after a few seconds of user inactivity (the timer keeps going, though). Tapping on the screen, brings the toolbar back.</p>
+<h3 id='about-this-app-button' class='heading'>About This App Button</h3>
+
+<p>Tapping on this button will dismiss the popover, and bring in the &ldquo;About This App&rdquo; Screen.</p>
+<h2 id='group-settings' class='heading'>GROUP SETTINGS</h2>
+
+<p>In the top, right of the Navigation Bar, are two items: A little &ldquo;screen&rdquo; icon, representing the current display mode for the group, and a &ldquo;clock&rdquo; icon, representing the final alarm state for the group.</p>
+
+<p>These apply to the currently selected group, and may change, to reflect the current group&rsquo;s setting.</p>
+<h3 id='display-type' class='heading'>Display Type</h3>
+
+<p>Tapping on the Display icon, brings up a popover, allowing the user to select the type of Running Timer Display to be used for the group. It is a simple popover, with a segmented switch, and a preview area, under it, showing the display type.</p>
+<h3 id='sounds' class='heading'>Sounds</h3>
+
+<p>Tapping on the sound icon, will bring up a ppopver, allowing the user to choose a final alarm sound, and, optionally, a transition sound (only shown, when there is more than one timer in the group).</p>
+
+<p>This popover is a bit more complex than the Display Popover, as it has a segmented switch, allowing the user to choose the type of alarm to use, at the end of the countdown, an optional picker, for selecting a sound, and, optionally, a second picker, allowing the user to select a transition sound.</p>
+<h2 id='toolbar' class='heading'>TOOLBAR</h2>
+
+<p>There&rsquo;s a toolbar, displayed at the bottom of the screen, that affects the selected timer.</p>
+<h3 id='delete-button-trash-can-icon' class='heading'>Delete Button (Trash Can Icon)</h3>
+
+<p>Selecting this, will bring up a confirmation alert, asking if you really want to delete the timer. If you confirm, the timer is deleted, and the next one is selected.</p>
+<h3 id='play-button-triangle' class='heading'>Play Button (Triangle)</h3>
+
+<p>Selecting this, starts the selected timer (goes directly to the Running Timer Screen).</p>
+<h3 id='edit-button-optional' class='heading'>Edit Button (Optional)</h3>
+
+<p>This is only displayed, if &ldquo;One-Tap Edit&rdquo; is off. Selecting it, opens the Timer Editor Screen for the selected timer.</p>
 
           </div>
         </section>
