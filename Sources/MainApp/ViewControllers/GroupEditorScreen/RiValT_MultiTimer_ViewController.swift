@@ -13,446 +13,100 @@ import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
-// MARK: - UIImage Extension to Create Gradients -
-/* ###################################################################################################################################### */
-extension UIImage {
-    /**
-     Create a simple gradient image from inStartColor on left and inEndColor on right (if horizontal), or inStartColor on top, and inEndColor on bottom (if vertical)
-     
-     - parameter inStartColor: left side or top
-     - parameter inEndColor: right side or bottom
-     - parameter inFrame: frame to be filled (Cannot be empty)
-     - parameter inIsVertical: True, if the gradient is top to bottom (default is false)
-     
-     - returns: a gradient image, or a "nosign" image.
-     */
-    static func gradientImage(from inStartColor: UIColor, to inEndColor: UIColor, with inFrame: CGRect, isVertical inIsVertical: Bool = false) -> UIImage {
-        var image: UIImage = UIImage(systemName: "nosign") ?? UIImage()
-        
-        if !inFrame.isEmpty {
-            let tempGradientLayer = CAGradientLayer()
-            tempGradientLayer.frame = inFrame
-            tempGradientLayer.colors = [inStartColor.cgColor, inEndColor.cgColor]
-            tempGradientLayer.startPoint = inIsVertical ? CGPoint(x: 0.5, y: 1.0) : CGPoint(x: 1.0, y: 0.5)
-            tempGradientLayer.endPoint = inIsVertical ? CGPoint(x: 0.5, y: 0.0) : CGPoint(x: 0.0, y: 0.5)
-            UIGraphicsBeginImageContext(CGSize(width: inFrame.width, height: inFrame.height))
-            if let context = UIGraphicsGetCurrentContext() {
-                tempGradientLayer.render(in: context)
-                image = UIGraphicsGetImageFromCurrentImageContext() ?? image
-            }
-            UIGraphicsEndImageContext()
-        }
-        
-        return image
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Special Bar Button Item That Disappears, When Disabled -
-/* ###################################################################################################################################### */
-/**
- This will not turn grey. Instead, it will become clear.
- */
-class RiValT_DisappearingBarButton: UIBarButtonItem {
-    /* ################################################################## */
-    /**
-     If the control is disabled, we return clear.
-     */
-    override var isEnabled: Bool {
-        get { super.isEnabled }
-        set {
-            super.isEnabled = newValue
-            super.tintColor = newValue ? RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.view?.tintColor : .clear
-        }
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Timer Extension for Display -
-/* ###################################################################################################################################### */
-extension Timer {
-    /* ############################################################## */
-    /**
-     This returns an "optimized" string, with the HH:mm:ss format of the starting time. Empty, if none.
-     */
-    var setTimeDisplay: String {
-        let currentTime = self.startingTimeInSeconds
-        let hour = currentTime / TimerEngine.secondsInHour
-        let minute = currentTime / TimerEngine.secondsInMinute - (hour * TimerEngine.secondsInMinute)
-        let second = currentTime - ((hour * TimerEngine.secondsInHour) + (minute * TimerEngine.secondsInMinute))
-        if (1..<TimerEngine.maxHours).contains(hour) {
-            return String(format: "%d:%02d:%02d", hour, minute, second)
-        } else if (1..<TimerEngine.maxMinutes).contains(minute) {
-            return String(format: "%d:%02d", minute, second)
-        } else if (1..<TimerEngine.maxSeconds).contains(second) {
-            return String(format: "%d", second)
-        } else {
-            return ""
-        }
-    }
-    
-    /* ############################################################## */
-    /**
-     This returns an "optimized" string, with the HH:mm:ss format of the warning threshold time. Empty, if none.
-     */
-    var warnTimeDisplay: String {
-        let currentTime = self.warningTimeInSeconds
-        let hour = currentTime / TimerEngine.secondsInHour
-        let minute = currentTime / TimerEngine.secondsInMinute - (hour * TimerEngine.secondsInMinute)
-        let second = currentTime - ((hour * TimerEngine.secondsInHour) + (minute * TimerEngine.secondsInMinute))
-        if (1..<TimerEngine.maxHours).contains(hour) {
-            return String(format: "%d:%02d:%02d", hour, minute, second)
-        } else if (1..<TimerEngine.maxMinutes).contains(minute) {
-            return String(format: "%d:%02d", minute, second)
-        } else if (1..<TimerEngine.maxSeconds).contains(second) {
-            return String(format: "%d", second)
-        } else {
-            return ""
-        }
-    }
-    
-    /* ############################################################## */
-    /**
-     This returns an "optimized" string, with the HH:mm:ss format of the final threshold time. Empty, if none.
-     */
-    var finalTimeDisplay: String {
-        let currentTime = self.finalTimeInSeconds
-        let hour = currentTime / TimerEngine.secondsInHour
-        let minute = currentTime / TimerEngine.secondsInMinute - (hour * TimerEngine.secondsInMinute)
-        let second = currentTime - ((hour * TimerEngine.secondsInHour) + (minute * TimerEngine.secondsInMinute))
-        if (1..<TimerEngine.maxHours).contains(hour) {
-            return String(format: "%d:%02d:%02d", hour, minute, second)
-        } else if (1..<TimerEngine.maxMinutes).contains(minute) {
-            return String(format: "%d:%02d", minute, second)
-        } else if (1..<TimerEngine.maxSeconds).contains(second) {
-            return String(format: "%d", second)
-        } else {
-            return ""
-        }
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Internal Placeholder for the Add Items in the Matrix -
-/* ###################################################################################################################################### */
-/**
- This class allows us to have "placeholders," for the "add" items at the ends of the rows, or the bottom of the matrix.
- */
-class RiValT_TimerArray_Placeholder {
-    /* ############################################################## */
-    /**
-     If this is a placeholder for an existing timer, then we simply supply that.
-     */
-    var timer: Timer?
-    
-    /* ############################################################## */
-    /**
-     This is a local UUID for this item.
-     */
-    var _id: UUID = UUID()
-    
-    /* ############################################################## */
-    /**
-     Initializer.
-     
-     - parameter inTimer: If this represents an existing timer, that is supplied here. It is optional. If not supplied, this is considered an "add item" placeholder.
-     */
-    init(timer inTimer: Timer? = nil) {
-        self.timer = inTimer
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: Equatable Conformance
-/* ###################################################################################################################################### */
-extension RiValT_TimerArray_Placeholder: Equatable {
-    /* ############################################################## */
-    /**
-     Equatable Conformance.
-     
-     - parameter lhs: The left-hand side of the comparison.
-     - parameter rhs: The right-hand side of the comparison.
-     - returns: True, if they are equal.
-     */
-    static func == (lhs: RiValT_TimerArray_Placeholder, rhs: RiValT_TimerArray_Placeholder) -> Bool { lhs.id == rhs.id }
-}
-
-/* ###################################################################################################################################### */
-// MARK: Identifiable Conformance
-/* ###################################################################################################################################### */
-extension RiValT_TimerArray_Placeholder: Identifiable {
-    /* ############################################################## */
-    /**
-     If we represent an existing timer, we use that UUID.
-     */
-    var id: UUID { timer?.id ?? self._id }
-}
-
-/* ###################################################################################################################################### */
-// MARK: Hashable Conformance
-/* ###################################################################################################################################### */
-extension RiValT_TimerArray_Placeholder: Hashable {
-    /* ############################################################## */
-    /**
-     Hash dealer.
-     
-     - parameter inOutHasher: The hasher we're loading up.
-     */
-    func hash(into inOutHasher: inout Hasher) {
-        inOutHasher.combine(id)
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Base Class for One Display Cell for the Collection View -
-/* ###################################################################################################################################### */
-/**
- This is a basic view class, for the display cells in the collection view.
- */
-class RiValT_BaseCollectionCell: UICollectionViewCell {
-    /* ############################################################## */
-    /**
-     The dimension of our cells.
-     */
-    static let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(74), heightDimension: .absolute(74))
-
-    /* ################################################################## */
-    /**
-     This is the application-global timer model.
-     
-     It's an implicit optional, because the whole shebang goes into the crapper, if it doesn't work.
-     */
-    var timerModel: TimerModel! { RiValT_AppDelegate.appDelegateInstance?.timerModel }
-
-    /* ############################################################## */
-    /**
-     The index path of this cell.
-     */
-    var indexPath: IndexPath?
-    
-    /* ############################################################## */
-    /**
-     The controller that "owns" this cell.
-     */
-    var myController: RiValT_MultiTimer_ViewController?
-
-    /* ############################################################## */
-    /**
-     Configure this cell item with its index path.
-     
-     - parameter inIndexPath: The index path for the cell being represented.
-     - parameter inMyController: The controller that "owns" this cell.
-     */
-    func configure(indexPath inIndexPath: IndexPath, myController inMyController: RiValT_MultiTimer_ViewController?) {
-        self.indexPath = inIndexPath
-        self.myController = inMyController
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - One Add Cell for the Collection View -
-/* ###################################################################################################################################### */
-/**
- This describes "add" cells in the collection view. These are simple "cross" buttons, that allow new timers to be appended.
- */
-class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
-    /* ############################################################## */
-    /**
-     The storyboard reuse ID
-     */
-    static let reuseIdentifier = "RiValT_TimerArray_AddCell"
-
-    /* ############################################################## */
-    /**
-     Configure this cell item with its index path.
-     
-     - parameter inIndexPath: The index path for the cell being represented.
-     - parameter inMyController: The controller that "owns" this cell.
-     */
-    override func configure(indexPath inIndexPath: IndexPath, myController inMyController: RiValT_MultiTimer_ViewController?) {
-        super.configure(indexPath: inIndexPath, myController: inMyController)
-        self.contentView.subviews.forEach { $0.removeFromSuperview() }
-        if inIndexPath.section == RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group?.index ?? -1 || self.indexPath?.section == timerModel.count {
-            let newImage = UIImageView(image: UIImage(systemName: "plus.circle.fill")?
-                .applyingSymbolConfiguration(.init(scale: self.indexPath?.section == timerModel.count ? .large : .small))
-            )
-            newImage.contentMode = .center
-            newImage.translatesAutoresizingMaskIntoConstraints = false
-            self.contentView.addSubview(newImage)
-            newImage.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-            newImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-            newImage.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
-            newImage.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
-            if (self.indexPath?.section ?? 0) < timerModel.count {
-                self.overrideUserInterfaceStyle = myController?.isDarkMode ?? false ? .light : .dark
-            } else {
-                self.overrideUserInterfaceStyle = myController?.isDarkMode ?? false ? .dark : .light
-            }
-        }
-        
-        self.isAccessibilityElement = true
-        self.accessibilityLabel = "SLUG-ACC-COLLECTION-TIMER-ADD-LABEL".localizedVariant
-        self.accessibilityHint = "SLUG-ACC-COLLECTION-TIMER-ADD-HINT".localizedVariant
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - One Display Cell for the Collection View -
-/* ###################################################################################################################################### */
-/**
- This describes each cell, representing a timer, in the collection view.
- */
-class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
-    /* ############################################################## */
-    /**
-     The height of our display labels, if we have a tight squeeze.
-     */
-    private static let _tightFontHeightInDisplayUnits = CGFloat(18)
-    
-    /* ############################################################## */
-    /**
-     The width of a selected timer border.
-     */
-    static let borderWidthInDisplayUnits = CGFloat(1)
-    
-    /* ############################################################## */
-    /**
-     The large variant of the digital display font.
-     */
-    static let digitalDisplayFontBig = UIFont(name: "Let\'s go Digital", size: 60)
-    
-    /* ############################################################## */
-    /**
-     The large variant of the digital display font (unselected).
-     */
-    static let unselectedDisplayFontBig = UIFont.systemFont(ofSize: 60)
-
-    /* ############################################################## */
-    /**
-     The smaller variant of the digital display font.
-     */
-    static let digitalDisplayFontSmall = UIFont(name: "Let\'s go Digital", size: 24)
-
-    /* ############################################################## */
-    /**
-     The smaller variant of the digital display font (unselected).
-     */
-    static let unselectedDisplayFontSmall = UIFont.systemFont(ofSize: 20)
-
-    /* ################################################################## */
-    /**
-     The radius of our rounded corners
-     */
-    private static let _cornerRadiusInDisplayUnits = CGFloat(12)
-
-    /* ############################################################## */
-    /**
-     The storyboard reuse ID
-     */
-    static let reuseIdentifier = "RiValT_TimerArray_IconCell"
-    
-    /* ############################################################## */
-    /**
-     The timer item associated with this cell.
-     */
-    var item: Timer?
-
-    /* ############################################################## */
-    /**
-     Configure this cell item with the timer, and its index path.
-     
-     - parameter inItem: The timer associated with this cell.
-     - parameter inIndexPath: The index path for the cell being represented.
-     - parameter inMyController: The controller that "owns" this cell.
-     */
-    func configure(with inItem: Timer, indexPath inIndexPath: IndexPath, myController inMyController: RiValT_MultiTimer_ViewController?) {
-        let hasSetTime = 0 < inItem.startingTimeInSeconds
-        let hasWarning = hasSetTime && 0 < inItem.warningTimeInSeconds
-        let hasFinal = hasSetTime && 0 < inItem.finalTimeInSeconds
-
-        self.contentView.backgroundColor = UIColor(named: "\(inItem.isSelected ? "Selected-" : "")Cell-Background")
-        self.contentView.borderColor = inItem.isSelected ? .white : .clear
-        self.contentView.borderWidth = inItem.isSelected ? Self.borderWidthInDisplayUnits : 0
-        self.contentView.cornerRadius = Self._cornerRadiusInDisplayUnits
-        self.contentView.clipsToBounds = true
-        super.configure(indexPath: inIndexPath, myController: inMyController)
-        
-        self.item = inItem
-        self.indexPath = inIndexPath
-        self.contentView.subviews.forEach { $0.removeFromSuperview() }
-        let startLabel = UILabel()
-        startLabel.textColor = hasSetTime && inItem.isSelected ? UIColor(named: "Start-Color") : (hasSetTime || !inItem.isSelected ? (UIViewController().isDarkMode ? .black : .white) : .systemRed)
-        startLabel.font = hasSetTime ? inItem.isSelected ? Self.digitalDisplayFontSmall : Self.unselectedDisplayFontSmall : inItem.isSelected ? Self.digitalDisplayFontBig : Self.unselectedDisplayFontBig
-        startLabel.text = hasSetTime ? inItem.setTimeDisplay : ""
-        startLabel.adjustsFontSizeToFitWidth = true
-        startLabel.minimumScaleFactor = 0.25
-        startLabel.textAlignment = hasSetTime ? .right : .center
-        startLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(startLabel)
-        if !hasWarning,
-           !hasFinal {
-            startLabel.centerYAnchor.constraint(greaterThanOrEqualTo: self.contentView.centerYAnchor).isActive = true
-        }
-        startLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 8).isActive = true
-        startLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -8).isActive = true
-        if hasWarning || hasFinal {
-            startLabel.heightAnchor.constraint(equalToConstant: Self._tightFontHeightInDisplayUnits).isActive = true
-        }
-
-        let warnLabel = UILabel()
-
-        if hasWarning {
-            warnLabel.textColor = inItem.isSelected ? UIColor(named: "Warn-Color") : UIViewController().isDarkMode ? .black : .white
-            warnLabel.font = inItem.isSelected ? Self.digitalDisplayFontSmall : Self.unselectedDisplayFontSmall
-            warnLabel.text = inItem.warnTimeDisplay
-            warnLabel.adjustsFontSizeToFitWidth = true
-            warnLabel.minimumScaleFactor = 0.25
-            warnLabel.textAlignment = .right
-            warnLabel.translatesAutoresizingMaskIntoConstraints = false
-            self.contentView.addSubview(warnLabel)
-            if hasWarning,
-               hasFinal {
-                warnLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
-            } else if !hasFinal {
-                warnLabel.topAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
-            }
-            warnLabel.topAnchor.constraint(equalTo: startLabel.bottomAnchor).isActive = true
-            warnLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 8).isActive = true
-            warnLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -8).isActive = true
-            warnLabel.heightAnchor.constraint(equalToConstant: Self._tightFontHeightInDisplayUnits).isActive = true
-        }
-        
-        if hasFinal {
-            let finalLabel = UILabel()
-            
-            finalLabel.textColor = inItem.isSelected ? UIColor(named: "Final-Color") : UIViewController().isDarkMode ? .black : .white
-            finalLabel.font = inItem.isSelected ? Self.digitalDisplayFontSmall : Self.unselectedDisplayFontSmall
-            finalLabel.text = inItem.finalTimeDisplay
-            finalLabel.adjustsFontSizeToFitWidth = true
-            finalLabel.minimumScaleFactor = 0.25
-            finalLabel.textAlignment = .right
-            finalLabel.translatesAutoresizingMaskIntoConstraints = false
-            self.contentView.addSubview(finalLabel)
-            if hasWarning {
-                finalLabel.topAnchor.constraint(equalTo: warnLabel.bottomAnchor).isActive = true
-            } else {
-                finalLabel.topAnchor.constraint(equalTo: startLabel.bottomAnchor).isActive = true
-                finalLabel.topAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
-            }
-            finalLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 8).isActive = true
-            finalLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -8).isActive = true
-            finalLabel.heightAnchor.constraint(equalToConstant: Self._tightFontHeightInDisplayUnits).isActive = true
-        }
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - The Main View Controller for the Matrix of Timers -
 /* ###################################################################################################################################### */
 /**
  This is the view controller for the "multi-timer" screen, where we can arrange timers in groups and add new ones.
 
  It allows the user to drag and drop timers, so they can visually rearrange the matrix.
+ 
+ ## BASIC STRUCTURE
+ 
+ This controller displays a [UICollectionView](https://developer.apple.com/documentation/uikit/uicollectionview) instance, filled with vertical rows, representing "timer groups." Each row is a group.
+ 
+ Each group can have up to 4 horizontally-arranged timers. Timers in a group, execute sequentially, from left, to right.
+ 
+ When a timer transitions from a left timer, to the one to its right (the left timer ends, and starts the right timer automatically), a "transition sound" may be played.
+ 
+ When the rightmost timer ends, the "alarm sound" is played.
+ 
+ The user can drag timers around, by long-pressing on a timer. The timer can move within a group, or from one group to another.
+ 
+ Groups can have options specified, that apply to all timers in a group. When a timer is moved from one group to another, it adapts to the group setings for the new group.
+ 
+ ### Timer Selection and Group Selection
+ 
+ One timer must always be selected. This is indicated by a black background, and a colored digital font for the timer value[s].
+ 
+ If a timer is selected, then its group is also selected. Group selection is indicated by a horizontal "gradient" highlight, across the row.
+ 
+ If there is more than one row, or more than one timer in a group, then a number will appear, at the right end of the row selection highlight.
+ 
+ If there is more than one timer in the group, then this number will be a tappable button. Tapping it, will advance the timer selection, wrapping, if at the end.
+ 
+ ## GLOBAL SETTINGS
+ 
+ In the left of the Navigation Bar, is a "gear" icon. This displays a popover, with checkboxes that affect options for the entire app (not just single groups).
+ 
+ ### Start Timer Immediately Checkbox
+ 
+ If this checkbox is checked, then hitting the "Play" triangle will immediately start the timer. If it is unchecked, then the timer will start in a "paused" state, and will require an additional step, to start counting down.
+ 
+ ### "One-Tap" Timer Editing Checkbox
+ 
+ If this checkbox is checked, then simply tapping on a timer, will bring in the Timer Editor Screen for that timer.
+ 
+ If it is unchecked, then tapping on a timer will simply select the timer, and an "Edit" item will appear in the Toolbar, at the bottom of the screen.
+ 
+ That "Edit" item will need to be tapped, to bring in the Timer Editor Screen for whichever timer is selected.
+ 
+ ### Show Toolbar In Timer Checkbox (Not displayed for Mac -Mac always shows the toolbar, and it can't be hidden)
+ 
+ In iPhone and iPad, you can have a toolbar optionally displayed across the bottom of the Running Timer Screen. This toolbar is always shown, for Mac Catalyst.
+ 
+ If the toolbar is shown, then the user must tap on items in the toolbar, to control the timer.
+ 
+ If the toolbar is not shown, then swipe and tap gestures are used to control the running timer (discussed in the Running Timer Screen).
+ 
+ ### Auto-Hide Toolbar Checkbox (Only displayed when "Show Toolbar In Timer" is shown and selected)
+ 
+ If this is selected, then the toolbar will fade out, after a few seconds of user inactivity (the timer keeps going, though). Tapping on the screen, brings the toolbar back.
+ 
+ ### About This App Button
+ 
+ Tapping on this button will dismiss the popover, and bring in the "About This App" Screen.
+ 
+ ## GROUP SETTINGS
+ 
+ In the top, right of the Navigation Bar, are two items: A little "screen" icon, representing the current display mode for the group, and a "clock" icon, representing the final alarm state for the group.
+ 
+ These apply to the currently selected group, and may change, to reflect the current group's setting.
+ 
+ ### Display Type
+ 
+ Tapping on the Display icon, brings up a popover, allowing the user to select the type of Running Timer Display to be used for the group. It is a simple popover, with a segmented switch, and a preview area, under it, showing the display type.
+ 
+ ### Sounds
+ 
+ Tapping on the sound icon, will bring up a ppopver, allowing the user to choose a final alarm sound, and, optionally, a transition sound (only shown, when there is more than one timer in the group).
+ 
+ This popover is a bit more complex than the Display Popover, as it has a segmented switch, allowing the user to choose the type of alarm to use, at the end of the countdown, an optional picker, for selecting a sound, and, optionally, a second picker, allowing the user to select a transition sound.
+ 
+ ## TOOLBAR
+ 
+ There's a toolbar, displayed at the bottom of the screen, that affects the selected timer.
+ 
+ ### Delete Button (Trash Can Icon)
+ 
+ Selecting this, will bring up a confirmation alert, asking if you really want to delete the timer. If you confirm, the timer is deleted, and the next one is selected.
+ 
+ ### Play Button (Triangle)
+ 
+ Selecting this, starts the selected timer (goes directly to the Running Timer Screen).
+ 
+ ### Edit Button (Optional)
+ 
+ This is only displayed, if "One-Tap Edit" is off. Selecting it, opens the Timer Editor Screen for the selected timer.
  */
 class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
     /* ################################################################################################################################## */
