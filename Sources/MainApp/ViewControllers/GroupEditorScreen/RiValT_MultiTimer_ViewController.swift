@@ -109,244 +109,6 @@ import RVS_UIKit_Toolbox
  This is only displayed, if "One-Tap Edit" is off. Selecting it, opens the Timer Editor Screen for the selected timer.
  */
 class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
-    /* ################################################################################################################################## */
-    // MARK: Custom Group Border Decorator
-    /* ################################################################################################################################## */
-    /**
-     This class draws a border around the currently selected group.
-     */
-    class _SectionBackgroundView: UICollectionReusableView {
-        /* ########################################################## */
-        /**
-         Used to register this class with the collection view.
-         */
-        static let reuseIdentifier = "SectionBackgroundView"
-        
-        /* ############################################################## */
-        /**
-         The font to be used for the endcap button.
-         */
-        private static let _endcapFont = UIFont.systemFont(ofSize: 30)
-        
-        /* ############################################################## */
-        /**
-         The font to be used for the endcap button.
-         */
-        private static let _endcapFontButton = UIFont.boldSystemFont(ofSize: 40)
-
-        /* ################################################################## */
-        /**
-         The width of the group endcap.
-         */
-        private static let _endcapWidthInDisplayUnits = CGFloat(40)
-        
-        /* ################################################################## */
-        /**
-         The radius of our rounded corners
-         */
-        private static let _cornerRadiusInDisplayUnits = CGFloat(16)
-        
-        /* ################################################################## */
-        /**
-         The lightest light, when light.
-         */
-        private static let _lightModeMax = CGFloat(0.95)
-        
-        /* ################################################################## */
-        /**
-         The darkest dark, when light.
-         */
-        private static let _lightModeMin = CGFloat(0.58)
-        
-        /* ################################################################## */
-        /**
-         The lightest light, when dark.
-         */
-        private static let _darkModeMax = CGFloat(0.25)
-        
-        /* ################################################################## */
-        /**
-         The darkest dark, when dark.
-         */
-        private static let _darkModeMin = CGFloat(0.1)
-        
-        /* ################################################################## */
-        /**
-         This caches the last index path.
-         */
-        private var _lastIndexPath = IndexPath(item: -1, section: -1)
-        
-        /* ################################################################## */
-        /**
-         This caches the last selected group index.
-         */
-        private var _lastFrame = CGRect.zero { didSet { self.setNeedsLayout() } }
-        
-        /* ########################################################## */
-        /**
-         The controller that "owns" this instance.
-         */
-        var myController: RiValT_MultiTimer_ViewController? {
-            RiValT_AppDelegate.appDelegateInstance?.groupEditorController
-        }
-        
-        /* ########################################################## */
-        /**
-         The gesture recognizer that calls the handler.
-         */
-        weak var myTapRecognizer: UITapGestureRecognizer?
-        
-        /* ########################################################## */
-        /**
-         The group associated with this decorator.
-         */
-        weak var myGroup: TimerGroup?
-        
-        /* ########################################################## */
-        /**
-         The background gradient view.
-         */
-        weak private var _gradientImageView: UIImageView?
-        
-        /* ########################################################## */
-        /**
-         Required (and unsupported) coder init.
-         */
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        /* ########################################################## */
-        /**
-         */
-        override init(frame inFrame: CGRect) {
-            super.init(frame: inFrame)
-            self._lastFrame = inFrame
-            self.cornerRadius = Self._cornerRadiusInDisplayUnits
-        }
-        
-        /* ########################################################## */
-        /**
-         The background gradient view.
-         */
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            self._gradientImageView?.removeFromSuperview()
-            if !self._lastFrame.isEmpty {
-                createGradient(into: self._lastFrame)
-            }
-        }
-
-        /* ########################################################## */
-        /**
-         The background gradient view.
-         */
-        func createGradient(into inFrame: CGRect) {
-            var frame = inFrame
-            guard let model = RiValT_AppDelegate.appDelegateInstance?.timerModel,
-                  let group = model.selectedTimer?.group else { return }
-            if 1 < group.count || 1 < model.count {
-                frame.size.width -= Self._endcapWidthInDisplayUnits
-            }
-            self._gradientImageView?.removeFromSuperview()
-            let isDarkMode = myController?.isDarkMode ?? false
-            let startColor = (!isDarkMode ? UIColor(white: Self._darkModeMax, alpha: 1.0) : UIColor(white: Self._lightModeMax, alpha: 1.0))
-            let endColor = (!isDarkMode ? UIColor(white: Self._darkModeMin, alpha: 1.0) : UIColor(white: Self._lightModeMin, alpha: 1.0))
-            let gradientImage = UIImage.gradientImage(from: startColor, to: endColor, with: frame)
-            let gradientImageView = UIImageView(image: gradientImage)
-            gradientImageView.frame = frame
-            self.insertSubview(gradientImageView, at: 0)
-            self._gradientImageView = gradientImageView
-        }
-        
-        /* ########################################################## */
-        /**
-         Called when the actual layout attributes are applied to this instance.
-         
-         - parameter inLayoutAttributes: The new attributes.
-         */
-        override func preferredLayoutAttributesFitting(_ inLayoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-            _ = super.preferredLayoutAttributesFitting(inLayoutAttributes)
-            #if DEBUG
-                print("Applying \(String(describing: inLayoutAttributes))")
-            #endif
-            
-            self._lastFrame = .zero
-            
-            guard let group = RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group else { return inLayoutAttributes }
-            self._lastIndexPath = inLayoutAttributes.indexPath
-            let isSelected = group.index == inLayoutAttributes.indexPath.section
-            let isDarkMode = myController?.isDarkMode ?? false
-            let isHighContrastMode = myController?.isHighContrastMode ?? false
-            
-            self._lastFrame =  isSelected ? CGRect(origin: .zero, size: inLayoutAttributes.frame.size) : .zero
-            
-            self.subviews.forEach { $0.removeFromSuperview() }
-
-            guard (0..<(RiValT_AppDelegate.appDelegateInstance?.timerModel.count ?? 0)).contains(inLayoutAttributes.indexPath.section),
-               let tempGroup = RiValT_AppDelegate.appDelegateInstance?.timerModel[inLayoutAttributes.indexPath.section]
-            else {
-                myGroup = nil
-                self._gradientImageView?.isHidden = true
-                return inLayoutAttributes
-            }
-
-            myGroup = tempGroup
-
-            self._gradientImageView?.isHidden = isHighContrastMode || !isSelected
-            self.backgroundColor = isSelected && isHighContrastMode ? .systemBackground.inverted : .clear
-
-            // If we have more than one group, we add a number to the right end, identifying the group.
-            if group.index == inLayoutAttributes.indexPath.section,
-               (1 < group.model?.count ?? 0) || (1 < group.count) {
-                let groupNumberLabel = UILabel()
-                groupNumberLabel.backgroundColor = isDarkMode ? UIColor(white: Self._lightModeMax, alpha: 1.0) : UIColor(white: Self._darkModeMax, alpha: 1.0)
-                groupNumberLabel.textAlignment = .left
-                groupNumberLabel.adjustsFontSizeToFitWidth = true
-                groupNumberLabel.minimumScaleFactor = 0.5
-                groupNumberLabel.text = " \(String(inLayoutAttributes.indexPath.section + 1)) "
-                self.addSubview(groupNumberLabel)
-                groupNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-                groupNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
-                groupNumberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -0).isActive = true
-                groupNumberLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -0).isActive = true
-                groupNumberLabel.widthAnchor.constraint(equalToConstant: Self._endcapWidthInDisplayUnits).isActive = true
-                groupNumberLabel.cornerRadius = 0
-                groupNumberLabel.clipsToBounds = true
-                if 1 < group.count {
-                    groupNumberLabel.font = Self._endcapFontButton
-                    groupNumberLabel.isAccessibilityElement = true
-                    groupNumberLabel.accessibilityLabel = "SLUG-ACC-GROUP-BUTTON-LABEL".localizedVariant
-                    groupNumberLabel.accessibilityHint = "SLUG-ACC-GROUP-BUTTON-HINT".localizedVariant
-                    groupNumberLabel.textColor = UIColor(named: "Selected-Cell-Action-Color")
-                    groupNumberLabel.isUserInteractionEnabled = true
-                    groupNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(groupBackgroundNumberTapped)))
-                } else {
-                    groupNumberLabel.font = Self._endcapFont
-                    groupNumberLabel.textColor = .label.inverted
-                    groupNumberLabel.isUserInteractionEnabled = false
-                    groupNumberLabel.isAccessibilityElement = false
-                    groupNumberLabel.accessibilityLabel = nil
-                    groupNumberLabel.accessibilityHint = nil
-                }
-            }
-            
-            // This allows us to select the group, when there's a tap, anywhere on the line.
-            if nil != myGroup,
-               nil == self.myTapRecognizer {
-                let tapper = UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(groupBackgroundTapped))
-                self.myTapRecognizer = tapper
-                self.addGestureRecognizer(tapper)
-            } else if nil == myGroup,
-                      let recognizer = self.myTapRecognizer {
-                self.removeGestureRecognizer(recognizer)
-                self.myTapRecognizer = nil
-            }
-            
-            return inLayoutAttributes
-        }
-    }
-    
     /* ############################################################## */
     /**
      The width of the "gutters" around each cell.
@@ -666,12 +428,12 @@ extension RiValT_MultiTimer_ViewController {
             
             let section = NSCollectionLayoutSection(group: group)
             
-            section.decorationItems = [.background(elementKind: _SectionBackgroundView.reuseIdentifier)]
+            section.decorationItems = [.background(elementKind: SectionBackgroundView.reuseIdentifier)]
             
             return section
         }
         
-        layout.register(_SectionBackgroundView.self, forDecorationViewOfKind: _SectionBackgroundView.reuseIdentifier)
+        layout.register(SectionBackgroundView.self, forDecorationViewOfKind: SectionBackgroundView.reuseIdentifier)
         
         self.collectionView?.collectionViewLayout = layout
     }
@@ -902,7 +664,7 @@ extension RiValT_MultiTimer_ViewController {
      - parameter inTapGesture: The tap that caused the call.
      */
     @objc func groupBackgroundTapped(_ inTapGesture: UITapGestureRecognizer) {
-        if let backgroundView = inTapGesture.view as? _SectionBackgroundView,
+        if let backgroundView = inTapGesture.view as? SectionBackgroundView,
            let collectionView = self.collectionView,
            let group = backgroundView.myGroup,
            let groupIndex = group.index,
