@@ -258,6 +258,12 @@
               </div>
             <p>This view controller allows us to set the timer thresholds for each individual timer.</p>
 
+<p>This has a segmented switch, which allows the user to pick which of the thresholds they want to edit. Until a Start Time has been set, the Warning Time and Final time choices are disabled.</p>
+
+<p>Once a Start Time is selected, the Warning Time and Final Time choices become available. They cannot be set equal to, or higher than, the Start Time. The Final Threshold can also not be higher than the Warning Threshold, unless the Warning Threshold is at 00:00:00 (off).</p>
+
+<p>There is also a &ldquo;Play&rdquo; triangle, below the time picker. This is disabled, if the Start Time is at 00:00:00, but becomes enabled, once a Start Time has been specified. Selecting this, brings in the Running Timer Screen for the current timer.</p>
+
           </div>
         </section>
 
