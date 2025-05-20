@@ -61,30 +61,33 @@ extension RiValT_RunningTimer_Stoplights_ViewController {
      This forces the display to refresh.
      */
     override func updateUI() {
-        if self.timer?.isTimerInAlarm ?? false {
-            self.redLightImageView?.alpha = 1.0
-            self.yellowLightImageView?.alpha = 1.0
-            self.greenLightImageView?.alpha = 1.0
-        } else if !(self.timer?.isTimerRunning ?? false) {
-            self.redLightImageView?.alpha = Self._disabledOpacity
-            self.yellowLightImageView?.alpha = Self._disabledOpacity
-            self.greenLightImageView?.alpha = Self._disabledOpacity
-        } else if self.timer?.isTimerInFinal ?? false {
-            self.redLightImageView?.alpha = 1.0
-            self.yellowLightImageView?.alpha = Self._disabledOpacity
-            self.greenLightImageView?.alpha = Self._disabledOpacity
-        } else if self.timer?.isTimerInWarning ?? false {
-            self.redLightImageView?.alpha = Self._disabledOpacity
-            self.yellowLightImageView?.alpha = 1.0
-            self.greenLightImageView?.alpha = Self._disabledOpacity
-        } else if self.timer?.isTimerRunning ?? false {
-            self.redLightImageView?.alpha = Self._disabledOpacity
-            self.yellowLightImageView?.alpha = Self._disabledOpacity
-            self.greenLightImageView?.alpha = 1.0
-        } else {
-            self.redLightImageView?.alpha = Self._disabledOpacity
-            self.yellowLightImageView?.alpha = Self._disabledOpacity
-            self.greenLightImageView?.alpha = Self._disabledOpacity
-        }
+        let duration = self.timer?.isTimerRunning ?? false ? 0.5 : 0
+        UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut], animations: {
+            if self.timer?.isTimerInAlarm ?? false {
+                self.redLightImageView?.alpha = 1.0
+                self.yellowLightImageView?.alpha = 1.0
+                self.greenLightImageView?.alpha = 1.0
+            } else if !(self.timer?.isTimerRunning ?? false) {
+                self.redLightImageView?.alpha = Self._disabledOpacity
+                self.yellowLightImageView?.alpha = Self._disabledOpacity
+                self.greenLightImageView?.alpha = Self._disabledOpacity
+            } else if self.timer?.isTimerInFinal ?? false {
+                self.redLightImageView?.alpha = 1.0
+                self.yellowLightImageView?.alpha = Self._disabledOpacity
+                self.greenLightImageView?.alpha = Self._disabledOpacity
+            } else if self.timer?.isTimerInWarning ?? false {
+                self.redLightImageView?.alpha = Self._disabledOpacity
+                self.yellowLightImageView?.alpha = 1.0
+                self.greenLightImageView?.alpha = Self._disabledOpacity
+            } else if self.timer?.isTimerRunning ?? false {
+                self.redLightImageView?.alpha = Self._disabledOpacity
+                self.yellowLightImageView?.alpha = Self._disabledOpacity
+                self.greenLightImageView?.alpha = 1.0
+            } else {
+                self.redLightImageView?.alpha = Self._disabledOpacity
+                self.yellowLightImageView?.alpha = Self._disabledOpacity
+                self.greenLightImageView?.alpha = Self._disabledOpacity
+            }
+        })
     }
 }

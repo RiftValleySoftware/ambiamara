@@ -507,6 +507,16 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		D4463F882DDD1A040030D6A5 /* TimerTypes */ = {
+			isa = PBXGroup;
+			children = (
+				D4CF4FC82DBB08C3008A71B8 /* RiValT_RunningTimer_Numerical_ViewController.swift */,
+				D4D9A1DC2DC26354009CB13E /* RiValT_RunningTimer_Circular_ViewController.swift */,
+				D4E922702DC2451600E98B76 /* RiValT_RunningTimer_Stoplights_ViewController.swift */,
+			);
+			path = TimerTypes;
+			sourceTree = "<group>";
+		};
 		D44E7714281AD24F00B491EF /* ProjectMeta */ = {
 			isa = PBXGroup;
 			children = (
@@ -724,9 +734,7 @@
 			children = (
 				D4C122CF2DBED67B0041F23A /* RiValT_RunningTimer_ContainerViewController.swift */,
 				D4A99AFA2DBEF28F00E7CC46 /* RiValT_RunningTimer_Base_ViewController.swift */,
-				D4CF4FC82DBB08C3008A71B8 /* RiValT_RunningTimer_Numerical_ViewController.swift */,
-				D4E922702DC2451600E98B76 /* RiValT_RunningTimer_Stoplights_ViewController.swift */,
-				D4D9A1DC2DC26354009CB13E /* RiValT_RunningTimer_Circular_ViewController.swift */,
+				D4463F882DDD1A040030D6A5 /* TimerTypes */,
 			);
 			path = RunningTimerScreen;
 			sourceTree = "<group>";

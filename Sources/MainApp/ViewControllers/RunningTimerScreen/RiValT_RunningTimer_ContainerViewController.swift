@@ -311,6 +311,20 @@ extension RiValT_RunningTimer_ContainerViewController {
      If true, we are dragging the set slider.
      */
     var isDragging: Bool { nil != self._timeSetSlider }
+    
+    /* ############################################################## */
+    /**
+     This is true, if the display should flash.
+     */
+    var shouldFlash: Bool {
+        if !(self.numericalTimerContainerView?.isHidden ?? true) {
+            return true
+        } else if !(self.circularContainerView?.isHidden ?? true) {
+            return true
+        } else {
+            return false
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -787,6 +801,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      This flashes the screen briefly green
      */
     func flashGreen() {
+        guard self.shouldFlash else { return }
         self.flasherView?.backgroundColor = UIColor(named: "Start-Color")
         self.impactHaptic()
         UIView.animate(withDuration: Self._flashDurationInSeconds,
@@ -802,6 +817,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      This flashes the screen briefly yellow
      */
     func flashYellow() {
+        guard self.shouldFlash else { return }
         self.flasherView?.backgroundColor = UIColor(named: "Warn-Color")
         self.impactHaptic()
         UIView.animate(withDuration: Self._flashDurationInSeconds,
@@ -817,6 +833,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      This flashes the screen briefly red
      */
     func flashRed(_ inIsHard: Bool = false) {
+        guard self.timer?.isTimerInAlarm ?? false || self.shouldFlash else { return }
         self.impactHaptic(inIsHard ? 1.0 : 0.5)
         self.flasherView?.backgroundColor = UIColor(named: "Final-Color")
         UIView.animate(withDuration: Self._flashDurationInSeconds,
@@ -1060,8 +1077,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         self._audioPlayer?.stop()
         if !RiValT_Settings().displayToolbar {
             self.stopHit()
-        } else if RiValT_Settings().autoHideToolbar,
-                  self.timer?.isTimerRunning ?? false {
+        } else if RiValT_Settings().autoHideToolbar {
             self.showToolbar()
         }
     }
@@ -1075,12 +1091,18 @@ extension RiValT_RunningTimer_ContainerViewController {
     @IBAction func singleTapReceived(_: Any) {
         self._alarmTimer?.isRunning = false
         self._audioPlayer?.stop()
-        if !RiValT_Settings().displayToolbar {
+        if self.timer?.isTimerInAlarm ?? false {
+            self.timer?.stop()
+            if RiValT_Settings().autoHideToolbar {
+                self.showToolbar()
+            }
+        } else if !RiValT_Settings().displayToolbar {
             self.playPauseHit()
-            self.updateDisplays()
         } else if RiValT_Settings().autoHideToolbar {
             self.showToolbar()
         }
+        
+        self.updateDisplays()
     }
     
     /* ############################################################## */

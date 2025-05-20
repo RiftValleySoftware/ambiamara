@@ -19,6 +19,8 @@ import RVS_UIKit_Toolbox
  This draws the circle that represents elapsed time.
  
  It does this by creating layers, each containing the portion of the timer that represents a threshold.
+ 
+ As the timer progresses, the layers disappear, counter-clockwise.
  */
 class RiValT_CirlcleDisplayView: UIView {
     /* ############################################################## */
@@ -35,6 +37,18 @@ class RiValT_CirlcleDisplayView: UIView {
     
     /* ############################################################## */
     /**
+     The time that the transition takes, when going from one second to the next.
+     */
+    private static let _transitionTimeInSeconds = CFTimeInterval(0.25)
+
+    /* ############################################################## */
+    /**
+     This has the circle layer that was previously set.
+     */
+    private weak var _circleLayer: CAShapeLayer?
+    
+    /* ############################################################## */
+    /**
      The timer assigned to this instance.
      */
     weak var timer: Timer? { didSet { self.setNeedsLayout() } }
@@ -45,11 +59,16 @@ class RiValT_CirlcleDisplayView: UIView {
      */
     override func layoutSubviews() {
         guard let timer = self.timer else { return }
-        
+        // This bit of code will make sure that each "tick" has a slight animation.
+        let transition = CATransition()
+        transition.type = .fade
+        transition.duration = Self._transitionTimeInSeconds
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        self.layer.add(transition, forKey: "layerFadeTransition")
+
         let minimumSize = min(self.bounds.size.width, self.bounds.size.height)
         
         let lineWidth = minimumSize / 4
-        self.layer.sublayers?.removeAll()
 
         if timer.isTimerInAlarm,
            !timer.isTimerRunning {
@@ -67,6 +86,8 @@ class RiValT_CirlcleDisplayView: UIView {
             subLayer.fillColor = UIColor(named: "Final-Color")?.cgColor
             subLayer.lineWidth = lineWidth
 
+            self._circleLayer?.removeFromSuperlayer()
+            self._circleLayer = subLayer
             self.layer.addSublayer(subLayer)
         } else {
             let circleLayer = CAShapeLayer()
@@ -142,6 +163,8 @@ class RiValT_CirlcleDisplayView: UIView {
                 circleLayer.addSublayer(subLayer)
             }
             
+            self._circleLayer?.removeFromSuperlayer()
+            self._circleLayer = circleLayer
             self.layer.addSublayer(circleLayer)
         }
     }
