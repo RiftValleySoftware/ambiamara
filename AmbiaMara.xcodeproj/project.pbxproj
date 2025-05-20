@@ -705,9 +705,7 @@
 			isa = PBXGroup;
 			children = (
 				D4E2E8FA2DA9296B009BE18E /* RiValT_MultiTimer_ViewController.swift */,
-				D40FB3062DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift */,
-				D45184C92DB42DBE00DA671D /* RiValT_SoundSettings_ViewController.swift */,
-				D4F7EDE22DBD4052007F4771 /* RiValT_Settings_ViewController.swift */,
+				D4E5116D2DDCD27500107919 /* Popovers */,
 			);
 			path = GroupEditorScreen;
 			sourceTree = "<group>";
@@ -741,6 +739,16 @@
 				D4F357292D6F61C0005A815A /* RiValT_WatchDelegate.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D4E5116D2DDCD27500107919 /* Popovers */ = {
+			isa = PBXGroup;
+			children = (
+				D40FB3062DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift */,
+				D45184C92DB42DBE00DA671D /* RiValT_SoundSettings_ViewController.swift */,
+				D4F7EDE22DBD4052007F4771 /* RiValT_Settings_ViewController.swift */,
+			);
+			path = Popovers;
 			sourceTree = "<group>";
 		};
 		D4EDB3002D90549700419E6C /* Resources */ = {

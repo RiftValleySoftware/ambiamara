@@ -13,50 +13,20 @@ import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
-// MARK: - Special Bar Button for Display Selection -
-/* ###################################################################################################################################### */
-/**
- A base class for the bar button items.
- */
-class BaseCustomBarButtonItem: UIBarButtonItem { }
-
-/* ###################################################################################################################################### */
-// MARK: - Special Bar Button for Display Selection -
-/* ###################################################################################################################################### */
-/**
- This represents the bar button item for the display preferences popover.
- It changes its image to represent the currently selected timer display.
- */
-class DisplayBarButtonItem: BaseCustomBarButtonItem {
-    /* ############################################################## */
-    /**
-     The timer group associated with these settings.
-     */
-    weak var group: TimerGroup? {
-        didSet {
-            self.isEnabled = !self.isEnabled
-            self.isEnabled = !self.isEnabled
-        }
-    }
-
-    /* ################################################################## */
-    /**
-     The image to be displayed in the button.
-     */
-    override var image: UIImage? {
-        get {
-            super.image = super.image ?? self.group?.displayType.image?.resized(toNewHeight: 24)
-            return super.image
-        }
-        set { super.image = newValue }
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - The Main View Controller for the Group Display Settings Editor -
 /* ###################################################################################################################################### */
 /**
  This is displayed in a popover, and allows the user to select which display type the group will use.
+ 
+ It presents a segmented switch at the top, with three choices, and a larger preview area, directly below the switch. The preview area shows a "mockup" of the selected display type.
+ 
+ It can be:
+ 
+ - Numerical
+ 
+ - Circular
+ 
+ - Stoplights
  */
 class RiValT_DisplaySettings_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */

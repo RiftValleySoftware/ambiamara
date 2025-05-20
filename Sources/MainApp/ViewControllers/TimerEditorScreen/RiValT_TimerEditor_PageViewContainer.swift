@@ -13,39 +13,16 @@ import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
-// MARK: - The Main Page View Controller for the Timer Editor Screens -
-/* ###################################################################################################################################### */
-/**
- */
-class RiValT_TimerEditor_PageViewController: UIPageViewController {
-    /* ############################################################## */
-    /**
-     */
-    weak var pageViewContainerViewController: RiValT_TimerEditor_PageViewContainer?
-    
-    /* ############################################################## */
-    /**
-     The currently selected timer editor view controller.
-     */
-    var currentlySelectedTimerEditor: RiValT_EditTimer_ViewController? { self.viewControllers?.first as? RiValT_EditTimer_ViewController }
-
-    /* ############################################################## */
-    /**
-     The group for the current timer.
-     */
-    var timer: Timer? { self.currentlySelectedTimerEditor?.timer }
-
-    /* ############################################################## */
-    /**
-     The group for the current timer.
-     */
-    var group: TimerGroup? { self.timer?.group }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - The Main Page View Container for the Timer Editor Screen -
 /* ###################################################################################################################################### */
 /**
+ This class acts as a "wrapper" for an instance of the ``RiValT_TimerEditor_PageViewController`` class. It also provides a Navigation Item, as well as a toolbar, for selecting amongst multiple timers in a group.
+ 
+ If there is only one timer in the group, then the toolbar is not displayed.
+ 
+ If there are more than one timers, the toolbar has numbered squares, representing each timer. Selecting a numbered square, brings that timer into the editor.
+ 
+ This also presents a "Delete" (trashcan) icon in the upper right corner (Navigation Bar). That acts in exactly the same manner as the "Delete" button in the Group Editor Screen. Selecting it, brings up a confirmation alert, and choosing to delete, will dismiss the screen.
  */
 class RiValT_TimerEditor_PageViewContainer: RiValT_Base_ViewController {
     /* ############################################################## */

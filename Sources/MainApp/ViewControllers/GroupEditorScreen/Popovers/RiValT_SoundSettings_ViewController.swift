@@ -14,42 +14,26 @@ import RVS_UIKit_Toolbox
 import AVKit
 
 /* ###################################################################################################################################### */
-// MARK: - Special Bar Button for Sound Selection -
-/* ###################################################################################################################################### */
-/**
- This represents the bar button item for the sound preferences popover.
- It changes its image to represent the currently selected alarm sound.
- */
-class SoundBarButtonItem: BaseCustomBarButtonItem {
-    /* ############################################################## */
-    /**
-     The timer group associated with these settings.
-     */
-    weak var group: TimerGroup? {
-        didSet {
-            self.isEnabled = !self.isEnabled
-            self.isEnabled = !self.isEnabled
-        }
-    }
-
-    /* ################################################################## */
-    /**
-     The image to be displayed in the button.
-     */
-    override var image: UIImage? {
-        get {
-            super.image = super.image ?? self.group?.soundType.image?.resized(toNewHeight: 24)
-            return super.image
-        }
-        set { super.image = newValue }
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - The Main View Controller for the Group Sound Settings Editor -
 /* ###################################################################################################################################### */
 /**
  This view controller is for the popover that appears, when the user selects the sound prefs bar button item.
+ 
+ This has a segmented switch at the top, representing the user's choice for final alarm sound.
+ 
+ It can be:
+ 
+ - Silent
+ 
+ - Sound Only
+ 
+ - Vibration Only (iPhones only)
+ 
+ - Sound and Vibration (iPhones only)
+ 
+ When the user makes a selection, a picker view may appear, directly under the switch. This appears for either Sound Only, or Sound and Vibration. This picker allows the user to choose from the app's custom sounds.
+ 
+ If there is more than one timer in the group, a "Transition Sound" picker will appear, at the bottom of the screen. This allows the user to select a short transition sound, between timers.
  */
 class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */

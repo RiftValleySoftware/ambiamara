@@ -68,6 +68,114 @@ class RiValT_DisappearingBarButton: UIBarButtonItem {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Special Bar Button for Display Selection -
+/* ###################################################################################################################################### */
+/**
+ A base class for the bar button items in the Group Editor Screen.
+ */
+class BaseCustomBarButtonItem: UIBarButtonItem { }
+
+/* ###################################################################################################################################### */
+// MARK: - Special Bar Button for Display Selection -
+/* ###################################################################################################################################### */
+/**
+ This represents the bar button item for the display preferences popover.
+ It changes its image to represent the currently selected timer display.
+ */
+class DisplayBarButtonItem: BaseCustomBarButtonItem {
+    /* ############################################################## */
+    /**
+     The timer group associated with these settings.
+     */
+    weak var group: TimerGroup? {
+        didSet {
+            self.isEnabled = !self.isEnabled
+            self.isEnabled = !self.isEnabled
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     The image to be displayed in the button.
+     */
+    override var image: UIImage? {
+        get {
+            super.image = super.image ?? self.group?.displayType.image?.resized(toNewHeight: 24)
+            return super.image
+        }
+        set { super.image = newValue }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Special Bar Button for Sound Selection -
+/* ###################################################################################################################################### */
+/**
+ This represents the bar button item for the sound preferences popover.
+ It changes its image to represent the currently selected alarm sound.
+ */
+class SoundBarButtonItem: BaseCustomBarButtonItem {
+    /* ############################################################## */
+    /**
+     The timer group associated with these settings.
+     */
+    weak var group: TimerGroup? {
+        didSet {
+            self.isEnabled = !self.isEnabled
+            self.isEnabled = !self.isEnabled
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     The image to be displayed in the button.
+     */
+    override var image: UIImage? {
+        get {
+            super.image = super.image ?? self.group?.soundType.image?.resized(toNewHeight: 24)
+            return super.image
+        }
+        set { super.image = newValue }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - The Main Page View Controller for the Timer Editor Screens -
+/* ###################################################################################################################################### */
+/**
+ This is a [UIPageViewController](https://developer.apple.com/documentation/uikit/uipageviewcontroller) subclass, that will manage individual presentations of the ``RiValT_EditTimer_ViewController`` class.
+ 
+ It's main purpose, is to add "swipe to select" services, for groups containing multiple timers.
+ 
+ This class is embedded into an instance of ``RiValT_TimerEditor_PageViewContainer``, and it is basically "invisible."
+ */
+class RiValT_TimerEditor_PageViewController: UIPageViewController {
+    /* ############################################################## */
+    /**
+     This is the container instance that wraps this instance.
+     */
+    weak var pageViewContainerViewController: RiValT_TimerEditor_PageViewContainer?
+    
+    /* ############################################################## */
+    /**
+     The currently selected timer editor view controller.
+     */
+    var currentlySelectedTimerEditor: RiValT_EditTimer_ViewController? { self.viewControllers?.first as? RiValT_EditTimer_ViewController }
+
+    /* ############################################################## */
+    /**
+     The group for the current timer.
+     */
+    var timer: Timer? { self.currentlySelectedTimerEditor?.timer }
+
+    /* ############################################################## */
+    /**
+     The group for the current timer.
+     */
+    var group: TimerGroup? { self.timer?.group }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Timer Extension for Display -
 /* ###################################################################################################################################### */
 extension Timer {
