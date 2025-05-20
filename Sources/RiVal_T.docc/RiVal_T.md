@@ -55,6 +55,8 @@ This project depends upon:
 - [RVS Retro LED Display](https://github.com/RiftValleySoftware/RVS_RetroLEDDisplay)
 - [RVS UIKit Toolbox](https://github.com/RiftValleySoftware/RVS_UIKit_Toolbox)
  
+It also uses the [Let's Go Digital](https://fonts2u.com/lets-go-digital-regular.font) font, by [Wolf Lamert](https://fonts2u.com/font-designers/wolf-lambert.html)
+
 ## MORE INFORMATION:
 
 For more complete instructions, and information about authorship, support, and privacy, visit https://riftvalleysoftware.com/rival-t/
