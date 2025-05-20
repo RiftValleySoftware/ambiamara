@@ -108,7 +108,7 @@ import RVS_UIKit_Toolbox
  
  This is only displayed, if "One-Tap Edit" is off. Selecting it, opens the Timer Editor Screen for the selected timer.
  */
-class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
+class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
     /* ############################################################## */
     /**
      The width of the "gutters" around each cell.
@@ -203,7 +203,7 @@ class RiValT_MultiTimer_ViewController: RiValT_Base_ViewController {
 /* ###################################################################################################################################### */
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
-extension RiValT_MultiTimer_ViewController {
+extension RiValT_GroupEditor_ViewController {
     /* ############################################################## */
     /**
      Called when the view has loaded.
@@ -354,7 +354,7 @@ extension RiValT_MultiTimer_ViewController {
 /* ###################################################################################################################################### */
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
-extension RiValT_MultiTimer_ViewController {
+extension RiValT_GroupEditor_ViewController {
     /* ############################################################## */
     /**
      This simply opens the about this app screen.
@@ -509,7 +509,7 @@ extension RiValT_MultiTimer_ViewController {
 /* ###################################################################################################################################### */
 // MARK: Callbacks
 /* ###################################################################################################################################### */
-extension RiValT_MultiTimer_ViewController {
+extension RiValT_GroupEditor_ViewController {
     /* ############################################################## */
     /**
      Called when the toolbar delete timer button is hit.
@@ -715,7 +715,7 @@ extension RiValT_MultiTimer_ViewController {
 /* ###################################################################################################################################### */
 // MARK: UICollectionViewDragDelegate Conformance
 /* ###################################################################################################################################### */
-extension RiValT_MultiTimer_ViewController: UICollectionViewDragDelegate {
+extension RiValT_GroupEditor_ViewController: UICollectionViewDragDelegate {
     /* ############################################################## */
     /**
      Called when a drag starts.
@@ -777,7 +777,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDragDelegate {
 /* ###################################################################################################################################### */
 // MARK: UICollectionViewDropDelegate Conformance
 /* ###################################################################################################################################### */
-extension RiValT_MultiTimer_ViewController: UICollectionViewDropDelegate {
+extension RiValT_GroupEditor_ViewController: UICollectionViewDropDelegate {
     /* ############################################################## */
     /**
      Called to vet the current drag state.
@@ -831,7 +831,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDropDelegate {
 /* ###################################################################################################################################### */
 // MARK: UICollectionViewDelegate Conformance
 /* ###################################################################################################################################### */
-extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
+extension RiValT_GroupEditor_ViewController: UICollectionViewDelegate {
     /* ############################################################## */
     /**
      Called when an item in the collection view is tapped.
@@ -912,7 +912,7 @@ extension RiValT_MultiTimer_ViewController: UICollectionViewDelegate {
  We define the area to be wider than the display, in order to prevent vertical "reflowing," when we get to 3 items, and another item is dragged in,
  but we don't want the user to be able to scroll out of the display.
  */
-extension RiValT_MultiTimer_ViewController: UIScrollViewDelegate {
+extension RiValT_GroupEditor_ViewController: UIScrollViewDelegate {
     /* ############################################################## */
     /**
      Called when a scroll begins.

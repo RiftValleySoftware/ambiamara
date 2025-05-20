@@ -43,7 +43,7 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
     /**
      Easy access to the root-level nav controller (the multi-timer Group Editor Screen).
      */
-    weak var groupEditorController: RiValT_MultiTimer_ViewController?
+    weak var groupEditorController: RiValT_GroupEditor_ViewController?
     
     /* ################################################################## */
     /**

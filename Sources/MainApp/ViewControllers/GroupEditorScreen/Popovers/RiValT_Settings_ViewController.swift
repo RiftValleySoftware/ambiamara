@@ -226,7 +226,7 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
      - parameter inButton: The button item (ignored).
      */
     @IBAction func aboutButtonHit(_ inButton: UIButton) {
-        if let callUpon = (self.presentingViewController as? UINavigationController)?.viewControllers.first as? RiValT_MultiTimer_ViewController {
+        if let callUpon = (self.presentingViewController as? UINavigationController)?.viewControllers.first as? RiValT_GroupEditor_ViewController {
             self.impactHaptic()
             callUpon.openAboutScreen()
             self.dismiss(animated: true)

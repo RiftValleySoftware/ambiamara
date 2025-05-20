@@ -214,7 +214,7 @@
         <!--Multi-Timer-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Multi-Timer" extendedLayoutIncludesOpaqueBars="YES" id="BYZ-38-t0r" customClass="RiValT_MultiTimer_ViewController" customModule="Main_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Multi-Timer" extendedLayoutIncludesOpaqueBars="YES" id="BYZ-38-t0r" customClass="RiValT_GroupEditor_ViewController" customModule="Main_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1365,6 +1365,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9r7-K3-wgS">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>

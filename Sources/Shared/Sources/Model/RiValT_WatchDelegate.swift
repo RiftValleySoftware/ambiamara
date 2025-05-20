@@ -798,7 +798,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                 case .start:
                         #if os(iOS)
                             DispatchQueue.main.async {
-                                if let controller = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController as? RiValT_MultiTimer_ViewController {
+                                if let controller = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController as? RiValT_GroupEditor_ViewController {
                                     controller.remotePlay()
                                 } else if let controller = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController as? RiValT_TimerEditor_PageViewContainer {
                                     controller.remotePlay()

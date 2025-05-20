@@ -216,7 +216,7 @@ class SectionBackgroundView: UICollectionReusableView {
     /**
      The controller that "owns" this instance.
      */
-    var myController: RiValT_MultiTimer_ViewController? {
+    var myController: RiValT_GroupEditor_ViewController? {
         RiValT_AppDelegate.appDelegateInstance?.groupEditorController
     }
     
@@ -350,7 +350,7 @@ class SectionBackgroundView: UICollectionReusableView {
                 groupNumberLabel.accessibilityHint = "SLUG-ACC-GROUP-BUTTON-HINT".localizedVariant
                 groupNumberLabel.textColor = UIColor(named: "Selected-Cell-Action-Color")
                 groupNumberLabel.isUserInteractionEnabled = true
-                groupNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(RiValT_MultiTimer_ViewController.groupBackgroundNumberTapped)))
+                groupNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(RiValT_GroupEditor_ViewController.groupBackgroundNumberTapped)))
             } else {
                 groupNumberLabel.font = Self._endcapFont
                 groupNumberLabel.textColor = .label.inverted
@@ -364,7 +364,7 @@ class SectionBackgroundView: UICollectionReusableView {
         // This allows us to select the group, when there's a tap, anywhere on the line.
         if nil != myGroup,
            nil == self.myTapRecognizer {
-            let tapper = UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(RiValT_MultiTimer_ViewController.groupBackgroundTapped))
+            let tapper = UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(RiValT_GroupEditor_ViewController.groupBackgroundTapped))
             self.myTapRecognizer = tapper
             self.addGestureRecognizer(tapper)
         } else if nil == myGroup,
@@ -580,7 +580,7 @@ class RiValT_BaseCollectionCell: UICollectionViewCell {
     /**
      The controller that "owns" this cell.
      */
-    var myController: RiValT_MultiTimer_ViewController?
+    var myController: RiValT_GroupEditor_ViewController?
 
     /* ############################################################## */
     /**
@@ -589,7 +589,7 @@ class RiValT_BaseCollectionCell: UICollectionViewCell {
      - parameter inIndexPath: The index path for the cell being represented.
      - parameter inMyController: The controller that "owns" this cell.
      */
-    func configure(indexPath inIndexPath: IndexPath, myController inMyController: RiValT_MultiTimer_ViewController?) {
+    func configure(indexPath inIndexPath: IndexPath, myController inMyController: RiValT_GroupEditor_ViewController?) {
         self.indexPath = inIndexPath
         self.myController = inMyController
     }
@@ -615,7 +615,7 @@ class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
      - parameter inIndexPath: The index path for the cell being represented.
      - parameter inMyController: The controller that "owns" this cell.
      */
-    override func configure(indexPath inIndexPath: IndexPath, myController inMyController: RiValT_MultiTimer_ViewController?) {
+    override func configure(indexPath inIndexPath: IndexPath, myController inMyController: RiValT_GroupEditor_ViewController?) {
         super.configure(indexPath: inIndexPath, myController: inMyController)
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
         if inIndexPath.section == RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group?.index ?? -1 || self.indexPath?.section == timerModel.count {
@@ -711,7 +711,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
      - parameter inIndexPath: The index path for the cell being represented.
      - parameter inMyController: The controller that "owns" this cell.
      */
-    func configure(with inItem: Timer, indexPath inIndexPath: IndexPath, myController inMyController: RiValT_MultiTimer_ViewController?) {
+    func configure(with inItem: Timer, indexPath inIndexPath: IndexPath, myController inMyController: RiValT_GroupEditor_ViewController?) {
         let hasSetTime = 0 < inItem.startingTimeInSeconds
         let hasWarning = hasSetTime && 0 < inItem.warningTimeInSeconds
         let hasFinal = hasSetTime && 0 < inItem.finalTimeInSeconds
