@@ -260,7 +260,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         guard let group = self.timer?.group,
               let myIndex = self.timer?.indexPath?.item,
               1 < group.count,
-              myIndex > 0,
+              0 < myIndex,
               0 < group[myIndex - 1].startingTimeInSeconds
         else { return nil }
         
@@ -1093,6 +1093,22 @@ extension RiValT_RunningTimer_ContainerViewController {
         self._audioPlayer?.stop()
         if self.timer?.isTimerInAlarm ?? false {
             self.timer?.stop()
+            if 1 < self.timer?.group?.count ?? 0,
+               let firstTimer = self.firstTimer {
+                self.timer?.tickHandler = nil
+                self.timer?.transitionHandler = nil
+                self.timer?.stop()
+                self.timer = nil
+                firstTimer.stop()
+                firstTimer.tickHandler = self.tickHandler
+                firstTimer.transitionHandler = self.transitionHandler
+                firstTimer.isSelected = true
+                self.timer = firstTimer
+                if let row = self.timer?.indexPath?.row {
+                    self.flashTimerNumber(row)
+                }
+            }
+            
             if RiValT_Settings().autoHideToolbar {
                 self.showToolbar()
             }
