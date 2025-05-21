@@ -29,6 +29,12 @@ class RiValT_RunningTimer_Stoplights_ViewController: RiValT_RunningTimer_Base_Vi
 
     /* ############################################################## */
     /**
+     The time that the transition takes, when going from one stoplight to the next.
+     */
+    private static let _transitionTimeInSeconds = CFTimeInterval(0.75)
+
+    /* ############################################################## */
+    /**
      The stack view that contains the three stoplights.
      */
     @IBOutlet var stoplightContainerInternalView: UIView?
@@ -61,9 +67,10 @@ extension RiValT_RunningTimer_Stoplights_ViewController {
      This forces the display to refresh.
      */
     override func updateUI() {
-        let duration = self.timer?.isTimerRunning ?? false ? 0.5 : 0
-        UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut], animations: {
-            if self.timer?.isTimerInAlarm ?? false {
+        let duration = self.timer?.isTimerRunning ?? false ? Self._transitionTimeInSeconds : 0
+        UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut]) {
+            if self.timer?.isTimerInAlarm ?? false,
+               nil == self.myContainer?.nextTimer {
                 self.redLightImageView?.alpha = 1.0
                 self.yellowLightImageView?.alpha = 1.0
                 self.greenLightImageView?.alpha = 1.0
@@ -88,6 +95,6 @@ extension RiValT_RunningTimer_Stoplights_ViewController {
                 self.yellowLightImageView?.alpha = Self._disabledOpacity
                 self.greenLightImageView?.alpha = Self._disabledOpacity
             }
-        })
+        }
     }
 }
