@@ -30,6 +30,8 @@ import UserNotifications
 /* ###################################################################################################################################### */
 /**
  This class exists to give the Watch Connectivity a place to work.
+ 
+ We use this as the app's central model. It wraps a ``TimerModel`` instance. Wrapping the model, helps us to manage synchronization.
  */
 class RiValT_WatchDelegate: NSObject {
     /* ################################################################################################################################## */
@@ -107,9 +109,7 @@ class RiValT_WatchDelegate: NSObject {
         /**
          This is the date that corresponds to the currentTime value
          */
-        var asDictionary: [String: any Hashable] {
-            ["to": self.to, "date": self.date.timeIntervalSince1970]
-        }
+        var asDictionary: [String: any Hashable] { ["to": self.to, "date": self.date.timeIntervalSince1970] }
 
         /* ############################################################## */
         /**
@@ -320,7 +320,7 @@ extension RiValT_WatchDelegate {
      - parameter inCompletion: The closure to execute, if the timeout is reached (may be called in any thread, and won't be called, if there's no timeout).
      */
     private func _startTimeoutHandler(completion inCompletion: @escaping ErrorContextHandler) {
-        _timeoutHandler = RVS_BasicGCDTimer(Self.testTimeoutInSeconds) { _, _  in
+        self._timeoutHandler = RVS_BasicGCDTimer(Self.testTimeoutInSeconds) { _, _  in
             self._killTimeoutHandler()
             DispatchQueue.main.async { self.errorHandler?(self, nil) }
         }
@@ -331,7 +331,7 @@ extension RiValT_WatchDelegate {
      This "short circuits" the running timeout.
      */
     private func _killTimeoutHandler() {
-        _timeoutHandler = nil
+        self._timeoutHandler = nil
     }
 
     /* ################################################################## */
@@ -340,8 +340,8 @@ extension RiValT_WatchDelegate {
      */
     private func _setUpTimerModel() {
         self.timerModel.asArray = RiValT_Settings().timerModel
-        if timerModel.allTimers.isEmpty {
-            let timer = timerModel.createNewTimer(at: IndexPath(item: 0, section: 0))
+        if self.timerModel.allTimers.isEmpty {
+            let timer = self.timerModel.createNewTimer(at: IndexPath(item: 0, section: 0))
             timer.isSelected = true
             RiValT_Settings().timerModel = self.timerModel.asArray
         }
@@ -422,8 +422,8 @@ extension RiValT_WatchDelegate {
             #if DEBUG
                 print("Error Sending Message to Phone: \(inError.localizedDescription)")
             #endif
-            _killTimeoutHandler()
-            isUpdateInProgress = false
+            self._killTimeoutHandler()
+            self.isUpdateInProgress = false
             let nsError = inError as NSError
             if nsError.domain == "WCErrorDomain",
                7007 == nsError.code,
@@ -438,20 +438,20 @@ extension RiValT_WatchDelegate {
                 #if DEBUG
                     print("Error Not Handled")
                 #endif
-                canReachIPhoneApp = false
+                self.canReachIPhoneApp = false
                 DispatchQueue.main.async { self.updateHandler?(self, true) }
             }
         }
         
         guard let to = self.timerModel.selectedTimer?.currentTime else { return }
         
-        if .activated == wcSession.activationState {
+        if .activated == self.wcSession.activationState {
             self.retries = inRetries
             let syncArray: [String: any Hashable] = ["to": to, "date": Date.now.timeIntervalSince1970]
-            isUpdateInProgress = true
+            self.isUpdateInProgress = true
             // NB: You MUST have a replyHandler (even though there are plenty of examples, with it nil). It can be a "do-nothing" closure, but it can't be nil, or the send message won't work.
-            wcSession.sendMessage([Self.MessageType.sync.rawValue: syncArray], replyHandler: _replyHandler, errorHandler: _errorHandler)
-            isUpdateInProgress = false
+            self.wcSession.sendMessage([Self.MessageType.sync.rawValue: syncArray], replyHandler: _replyHandler, errorHandler: _errorHandler)
+            self.isUpdateInProgress = false
         }
     }
     
@@ -461,7 +461,7 @@ extension RiValT_WatchDelegate {
      
      - parameter inCommand: The operation to send.
      - parameter inExtraData: A String, with any value we wish associated with the command. Default is the command, itself.
-     - parameter inRetries: The number of try again retries.
+     - parameter inRetries: The number of try again retries. It is optional, and defaults to 5.
      */
     func sendCommand(command inCommand: TimerOperation, extraData inExtraData: String = "", _ inRetries: Int = 5) {
         let extraData = inExtraData.isEmpty ? inCommand.rawValue : inExtraData
@@ -478,12 +478,12 @@ extension RiValT_WatchDelegate {
             #if DEBUG
                 print("Error Sending Message to Phone: \(inError.localizedDescription)")
             #endif
-            _killTimeoutHandler()
-            isUpdateInProgress = false
+            self._killTimeoutHandler()
+            self.isUpdateInProgress = false
             let nsError = inError as NSError
             if nsError.domain == "WCErrorDomain",
                7007 == nsError.code,
-               0 < retries {
+               0 < self.retries {
                 #if DEBUG
                     print("Connection failure. Retrying...")
                 #endif
@@ -494,17 +494,17 @@ extension RiValT_WatchDelegate {
                 #if DEBUG
                     print("Error Not Handled")
                 #endif
-                canReachIPhoneApp = false
+                self.canReachIPhoneApp = false
                 DispatchQueue.main.async { self.updateHandler?(self, true) }
             }
         }
         
-        if .activated == wcSession.activationState {
+        if .activated == self.wcSession.activationState {
             self.retries = inRetries
-            isUpdateInProgress = true
+            self.isUpdateInProgress = true
             // NB: You MUST have a replyHandler (even though there are plenty of examples, with it nil). It can be a "do-nothing" closure, but it can't be nil, or the send message won't work.
-            wcSession.sendMessage([inCommand.rawValue: extraData], replyHandler: { _ in }, errorHandler: _errorHandler)
-            isUpdateInProgress = false
+            self.wcSession.sendMessage([inCommand.rawValue: extraData], replyHandler: { _ in }, errorHandler: _errorHandler)
+            self.isUpdateInProgress = false
         }
     }
     
@@ -595,10 +595,10 @@ extension RiValT_WatchDelegate {
                 #if DEBUG
                     print("Received Reply from Phone: \(inReply)")
                 #endif
-                _killTimeoutHandler()
-                retries = 0
-                isUpdateInProgress = false
-                session(wcSession, didReceiveApplicationContext: inReply)
+                self._killTimeoutHandler()
+                self.retries = 0
+                self.isUpdateInProgress = false
+                self.session(self.wcSession, didReceiveApplicationContext: inReply)
             }
             
             /* ########################################################## */
@@ -613,12 +613,12 @@ extension RiValT_WatchDelegate {
                 #if DEBUG
                     print("Error Sending Message to Phone: \(inError.localizedDescription)")
                 #endif
-                _killTimeoutHandler()
-                isUpdateInProgress = false
+                self._killTimeoutHandler()
+                self.isUpdateInProgress = false
                 let nsError = inError as NSError
                 if nsError.domain == "WCErrorDomain",
                    7007 == nsError.code,
-                   0 < retries {
+                   0 < self.retries {
                     #if DEBUG
                         print("Connection failure. Retrying...")
                     #endif
@@ -635,13 +635,13 @@ extension RiValT_WatchDelegate {
             #if DEBUG
                 print("Sending context request to the phone")
             #endif
-            if .activated == wcSession.activationState {
+            if .activated == self.wcSession.activationState {
                 self.retries = inRetries
                 
-                isUpdateInProgress = true
+                self.isUpdateInProgress = true
                 // NB: You MUST have a replyHandler (even though there are plenty of examples, with it nil). It can be a "do-nothing" closure, but it can't be nil, or the send message won't work.
-                wcSession.sendMessage([Self.MessageType.requestContext.rawValue: "Please sir, I want some more."], replyHandler: _replyHandler, errorHandler: _errorHandler)
-                isUpdateInProgress = false
+                self.wcSession.sendMessage([Self.MessageType.requestContext.rawValue: "Please sir, I want some more."], replyHandler: _replyHandler, errorHandler: _errorHandler)
+                self.isUpdateInProgress = false
             }
         }
     #endif
@@ -699,9 +699,9 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
             #if DEBUG
                 print("Received Application Context From Phone: \(inApplicationContext)")
             #endif
-            guard !isUpdateInProgress else { return }
-            isUpdateInProgress = true
-            _killTimeoutHandler()
+            guard !self.isUpdateInProgress else { return }
+            self.isUpdateInProgress = true
+            self._killTimeoutHandler()
             
             RiValT_Settings().flush()
             

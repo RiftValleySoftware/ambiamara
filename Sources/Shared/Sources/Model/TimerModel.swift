@@ -43,6 +43,10 @@ extension TimerEngine {
  
  The model consists of groups, which consist of timers. Each timer is a "wrapped" ``TimerEngine`` instance.
  
+ It also handles timer and group selection. There can only be one selected timer, and that timer's group, is the selected group.
+ 
+ This is where the "meat" of the app functionality lives. We handle groups of timers, as well as moving timers around in the groups.
+ 
  This is a class, so it can be referenced.
  */
 class TimerModel: Equatable {
@@ -109,15 +113,15 @@ extension TimerModel {
     
     /* ############################################################## */
     /**
-     The last timer group
+     The selected timer. There can only be one.
      */
-    var selectedTimer: Timer? {
-        for timer in self.allTimers where timer.isSelected {
-            return timer
-        }
-        
-        return nil
-    }
+    var selectedTimer: Timer? { self.allTimers.first { $0.isSelected } }
+    
+    /* ############################################################## */
+    /**
+     The selected timer's group. There can only be one.
+     */
+    var selectedGroup: TimerGroup? { self.allTimers.first { $0.isSelected }?.group }
 }
 
 /* ###################################################################################################################################### */
@@ -329,6 +333,12 @@ extension TimerModel {
 // MARK: Sequence Conformance
 /* ###################################################################################################################################### */
 extension TimerModel: Sequence {
+    /* ############################################################## */
+    /**
+     This is an alias for our iterator.
+     */
+    typealias Iterator = TimerModelIterator
+    
     /* ################################################################################################################################## */
     // MARK: Iterator Conformance
     /* ################################################################################################################################## */
@@ -367,12 +377,6 @@ extension TimerModel: Sequence {
 
     /* ############################################################## */
     /**
-     This is an alias for our iterator.
-     */
-    typealias Iterator = TimerModelIterator
-    
-    /* ############################################################## */
-    /**
      Creates a new, primed iterator.
      */
     func makeIterator() -> TimerModelIterator {
@@ -388,9 +392,7 @@ extension TimerModel: CustomDebugStringConvertible {
     /**
      Emits a formatted string, describing the model.
      */
-    var debugDescription: String {
-        self._groups.map { $0.debugDescription }.joined(separator: "\n")
-    }
+    var debugDescription: String { self._groups.map { $0.debugDescription }.joined(separator: "\n") }
 }
 
 /* ###################################################################################################################################### */
@@ -906,13 +908,7 @@ extension TimerGroup: CustomDebugStringConvertible {
     /**
      Emits a formatted string, describing the model.
      */
-    var debugDescription: String {
-        var ret = "Display Type: \(self.displayType)\nTransition Sound: \(String(describing: self.transitionSoundFilename))\nAlarm Sound: \(self.soundType)\n"
-        
-        ret += self.allTimers.map { $0.debugDescription }.joined(separator: "\n")
-        
-        return ret
-    }
+    var debugDescription: String { "Display Type: \(self.displayType)\nTransition Sound: \(String(describing: self.transitionSoundFilename))\nAlarm Sound: \(self.soundType)\n\(self.allTimers.map { $0.debugDescription }.joined(separator: "\n"))" }
 }
 
 /* ###################################################################################################################################### */

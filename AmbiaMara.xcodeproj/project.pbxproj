@@ -590,9 +590,9 @@
 		D4A932212D64E9CB0028556E /* WatchApp */ = {
 			isa = PBXGroup;
 			children = (
+				D40EA1B02DCEB12B00DC49BC /* RiValT_ObservableModel.swift */,
 				D4A932202D64E9CB0028556E /* RiValT_Watch_App.swift */,
 				D4A9321F2D64E9CB0028556E /* RiValT_Watch_App_MainContentView.swift */,
-				D40EA1B02DCEB12B00DC49BC /* RiValT_ObservableModel.swift */,
 				D4705AA32DD22797002FAC40 /* Localizable.xcstrings */,
 				D4A9322F2D64EA8B0028556E /* Info.plist */,
 				D4A9322D2D64EA310028556E /* WatchApp.entitlements */,

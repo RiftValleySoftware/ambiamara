@@ -14,7 +14,7 @@ import Foundation
 // MARK: - Observable State Object -
 /* ###################################################################################################################################### */
 /**
- This implements an observable object, from the basic model.
+ This implements an observable object wrapper, aggregating the basic model.
  */
 class RiValT_ObservableModel: ObservableObject {
     /* ################################################################## */

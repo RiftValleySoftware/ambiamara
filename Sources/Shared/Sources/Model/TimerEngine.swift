@@ -71,7 +71,7 @@ private extension TimerEngine {
 // MARK: - Main Timer Engine Class -
 /* ###################################################################################################################################### */
 /**
- This class implements the "executable heart" of the timer app.
+ This class implements the "executable heart" of the timer app. This represents one single timer, it holds the state for a given timer.
  
  ## BASIC OVERVIEW
  
@@ -83,27 +83,27 @@ private extension TimerEngine {
  
  It has six "modes" of operation:
  
- - ### STOPPED MODE
+ - **STOPPED MODE**
  
  The timer is "stopped." It is set to the starting time, and the timer is not running.
 
- - ### COUNTDOWN MODE
+ - **COUNTDOWN MODE**
  
  This is the basic countdown mode, starting from the "starting time" threshold.
  
- - ### WARNING MODE
+ - **WARNING MODE**
 
  This is a threshold, in seconds. Once the coundown reaches this, the timer goes into "warning" mode. This cannot be less than the final threshold (or 0), and cannot be higher than the starting threshold.
  
- - ### FINAL MODE
+ - **FINAL MODE**
  
  This is a threshold, in seconds. Once the coundown reaches this, the timer goes into "final" mode. The timer is running. This cannot be less than 0, and cannot be higher than the warning threshold.
  
- - ### ALARM MODE
+ - **ALARM MODE**
  
  Once it hits 0, it goes into "alarm" mode. The timer stops running, once this threshold is encountered.
  
- - ### PAUSED MODE
+ - **PAUSED MODE**
  
  The timer countdown is in one of the above ranges, but has been "paused." It is not running.
  */
@@ -411,13 +411,14 @@ open class TimerEngine: Codable, Identifiable {
 
         self._countdownTime = self.startingTimeInSeconds
         self.currentTime = self.startingTimeInSeconds
-        
-        #if DEBUG
-            print("TimerEngine: fullRange: \(self.fullRange)")
-            print("TimerEngine: startRange: \(self.startRange)")
-            print("TimerEngine: warnRange: \(self.warnRange)")
-            print("TimerEngine: finalRange: \(self.finalRange)")
-        #endif
+
+// I'm commenting out, to reduce the "noise" in the console. It's getting so I can't hear myself think.
+//        #if DEBUG
+//            print("TimerEngine: fullRange: \(self.fullRange)")
+//            print("TimerEngine: startRange: \(self.startRange)")
+//            print("TimerEngine: warnRange: \(self.warnRange)")
+//            print("TimerEngine: finalRange: \(self.finalRange)")
+//        #endif
 
         if inStartImmediately {
             self.start()
@@ -614,14 +615,15 @@ public extension TimerEngine {
         
         var timeMode: Mode = .countdown
         
-        #if DEBUG
-            print("TimerEngine.mode")
-            print("\tTimerEngine: fullRange: \(self.fullRange)")
-            print("\tTimerEngine: startRange: \(self.startRange)")
-            print("\tTimerEngine: warnRange: \(self.warnRange)")
-            print("\tTimerEngine: finalRange: \(self.finalRange)")
-            print("\tTimerEngine: currentTime: \(self.currentTime)")
-        #endif
+// I'm commenting out, to reduce the "noise" in the console. It's getting so I can't hear myself think.
+//        #if DEBUG
+//            print("TimerEngine.mode")
+//            print("\tTimerEngine: fullRange: \(self.fullRange)")
+//            print("\tTimerEngine: startRange: \(self.startRange)")
+//            print("\tTimerEngine: warnRange: \(self.warnRange)")
+//            print("\tTimerEngine: finalRange: \(self.finalRange)")
+//            print("\tTimerEngine: currentTime: \(self.currentTime)")
+//        #endif
     
         if self.isTicking {
             switch currentTime {
@@ -748,9 +750,10 @@ public extension TimerEngine {
     func sync(to inSeconds: Int, date inDate: Date = .now) {
         switch self.mode {
         case .countdown, .warning, .final, .paused:
-            #if DEBUG
-                print("Sync: \(inSeconds), \(inDate)")
-            #endif
+// I'm commenting out, to reduce the "noise" in the console. It's getting so I can't hear myself think.
+//            #if DEBUG
+//                print("Sync: \(inSeconds), \(inDate)")
+//            #endif
             let newStartTime = min(.now, inDate.addingTimeInterval(-TimeInterval(max(0, self.startingTimeInSeconds - inSeconds))))
             
             self._timer?.isRunning = false
@@ -835,26 +838,30 @@ public extension TimerEngine {
         
         switch self.mode {
         case .countdown, .warning, .final:
-            #if DEBUG
-                print("TimerEngine: Pausing a running timer.")
-            #endif
+// I'm commenting out, to reduce the "noise" in the console. It's getting so I can't hear myself think.
+//            #if DEBUG
+//                print("TimerEngine: Pausing a running timer.")
+//            #endif
             ret = self.asDictionary
             self._lastMode = self.mode
             self._timer?.isRunning = false
             self._lastPausedTime = Date.now.timeIntervalSince(self._startTime ?? .now)
             self.transitionHandler?(self, self._lastMode, self.mode)
 
-        case .paused(let lastMode, let pauseTime):
-            #if DEBUG
-                print("TimerEngine: Pausing a paused timer. Last mode was: \(lastMode). Pause time was \(pauseTime). Setting new last paused to \(self.currentTime).")
-            #endif
+        case .paused:
+//        case .paused(let lastMode, let pauseTime):
+// I'm commenting out, to reduce the "noise" in the console. It's getting so I can't hear myself think.
+//            #if DEBUG
+//                print("TimerEngine: Pausing a paused timer. Last mode was: \(lastMode). Pause time was \(pauseTime). Setting new last paused to \(self.currentTime).")
+//            #endif
             self._lastPausedTime = TimeInterval(self.currentTime)
             break
 
         default:
-            #if DEBUG
-                print("TimerEngine: ERROR: pause not performed.")
-            #endif
+// I'm commenting out, to reduce the "noise" in the console. It's getting so I can't hear myself think.
+//            #if DEBUG
+//                print("TimerEngine: ERROR: pause not performed.")
+//            #endif
             break
         }
         
@@ -882,9 +889,10 @@ public extension TimerEngine {
                 ) -> Bool {
         guard (inState ?? [:]).isEmpty else {
             if let state = inState {
-                #if DEBUG
-                    print("TimerEngine: restoring to state as resume.")
-                #endif
+// I'm commenting out, to reduce the "noise" in the console. It's getting so I can't hear myself think.
+//                #if DEBUG
+//                    print("TimerEngine: restoring to state as resume.")
+//                #endif
                 asDictionary = state
                 self.transitionHandler = inTransitionHandler ?? transitionHandler
                 self.tickHandler = inTickHandler ?? tickHandler
@@ -910,9 +918,10 @@ public extension TimerEngine {
         self._lastPausedTime = 0
 
         if case .paused(let lastMode, let pauseTime) = currentMode {
-            #if DEBUG
-                print("TimerEngine: resuming a paused timer. Last mode was: \(lastMode).")
-            #endif
+// I'm commenting out, to reduce the "noise" in the console. It's getting so I can't hear myself think.
+//            #if DEBUG
+//                print("TimerEngine: resuming a paused timer. Last mode was: \(lastMode).")
+//            #endif
             if nil == self._timer {
                 self._timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._timerInterval,
                                                 onlyFireOnce: false,
