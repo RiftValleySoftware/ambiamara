@@ -84,7 +84,7 @@
 // MARK: MAIN LOCALIZATION
 // MARK: -
 
-// MARK: Timer Selection Screen
+// MARK: Group Editor Screen
 
 "SLUG-CANCEL-BUTTON-TEXT"                       =   "Cancel";
 "SLUG-DELETE-BUTTON-TEXT"                       =   "Delete Timer";

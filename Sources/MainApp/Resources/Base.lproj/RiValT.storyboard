@@ -14,7 +14,7 @@
         <!--Settings Popover-->
         <scene sceneID="6Ap-a5-Qrv">
             <objects>
-                <viewController storyboardIdentifier="RiValT_Settings_ViewController" title="Settings Popover" id="XBS-Mo-d1E" customClass="RiValT_Settings_ViewController" customModule="Main_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RiValT_Settings_ViewController" title="Settings Popover" id="XBS-Mo-d1E" customClass="RiValT_Settings_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rpl-B9-cxj">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="386"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -214,7 +214,7 @@
         <!--Multi-Timer-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Multi-Timer" extendedLayoutIncludesOpaqueBars="YES" id="BYZ-38-t0r" customClass="RiValT_GroupEditor_ViewController" customModule="Main_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Multi-Timer" extendedLayoutIncludesOpaqueBars="YES" id="BYZ-38-t0r" customClass="RiValT_GroupEditor_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -222,6 +222,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DVH-QM-2oZ">
                                 <rect key="frame" x="16" y="162" width="361" height="573"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="4" minimumInteritemSpacing="4" id="Bpu-9n-KJZ">
                                     <size key="itemSize" width="80" height="80"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -229,7 +230,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RiValT_TimerArray_IconCell" id="qBy-dr-TkH" customClass="RiValT_TimerArray_IconCell" customModule="Main_App" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RiValT_TimerArray_IconCell" id="qBy-dr-TkH" customClass="RiValT_TimerArray_IconCell" customModule="RiVal_T" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="R81-a2-6vM">
@@ -249,7 +250,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="RiValT_TimerArray_AddCell" id="jZS-4X-oV4" userLabel="RiValT Timer Array Add Cell" customClass="RiValT_TimerArray_AddCell" customModule="Main_App" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="RiValT_TimerArray_AddCell" id="jZS-4X-oV4" userLabel="RiValT Timer Array Add Cell" customClass="RiValT_TimerArray_AddCell" customModule="RiVal_T" customModuleProvider="target">
                                         <rect key="frame" x="93.666666666666671" y="0.0" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="FwK-9z-ebA">
@@ -270,6 +271,7 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eX2-3V-kKN">
                                 <rect key="frame" x="0.0" y="735" width="393" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                                 <items>
                                     <barButtonItem systemItem="trash" id="A4y-gE-dYG">
                                         <color key="tintColor" name="Delete-Color"/>
@@ -284,7 +286,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="3Vo-e5-APX"/>
-                                    <barButtonItem systemItem="edit" id="yI7-Xj-kln" customClass="RiValT_DisappearingBarButton" customModule="Main_App" customModuleProvider="target">
+                                    <barButtonItem systemItem="edit" id="yI7-Xj-kln" customClass="RiValT_DisappearingBarButton" customModule="RiVal_T" customModuleProvider="target">
                                         <connections>
                                             <action selector="toolbarEditButtonHit:" destination="BYZ-38-t0r" id="KYS-oG-qEs"/>
                                         </connections>
@@ -321,7 +323,7 @@
                         <outlet property="collectionView" destination="DVH-QM-2oZ" id="9aH-vt-SVg"/>
                         <outlet property="settingsBarButtonItem" destination="tOI-Og-fO4" id="JqA-PY-GiR"/>
                         <outlet property="toolbar" destination="eX2-3V-kKN" id="fmw-5E-fO8"/>
-                        <outlet property="toolbarDeleteButton" destination="A4y-gE-dYG" id="sz9-c6-t3e"/>
+                        <outlet property="toolbarDeleteButton" destination="A4y-gE-dYG" id="brv-Ni-2Z6"/>
                         <outlet property="toolbarEditButton" destination="yI7-Xj-kln" id="GGg-nh-5rQ"/>
                         <outlet property="toolbarPlayButton" destination="11P-RB-1WC" id="wXk-gi-6lJ"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="iB1-Rw-Leg"/>
@@ -337,7 +339,7 @@
         <!--RiValT Edit Timer View Controller-->
         <scene sceneID="G2G-D8-NDE">
             <objects>
-                <viewController storyboardIdentifier="RiValT_EditTimer_ViewController" id="JlO-Oc-S3P" userLabel="RiValT Edit Timer View Controller" customClass="RiValT_EditTimer_ViewController" customModule="Main_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RiValT_EditTimer_ViewController" id="JlO-Oc-S3P" userLabel="RiValT Edit Timer View Controller" customClass="RiValT_EditTimer_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eHC-G7-JUU">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -507,7 +509,7 @@
         <!--Display Settings Popover-->
         <scene sceneID="9m5-5F-kDS">
             <objects>
-                <viewController storyboardIdentifier="RiValT_DisplaySettings_ViewController" title="Display Settings Popover" id="7rj-Oc-ByP" customClass="RiValT_DisplaySettings_ViewController" customModule="Main_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RiValT_DisplaySettings_ViewController" title="Display Settings Popover" id="7rj-Oc-ByP" customClass="RiValT_DisplaySettings_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MQC-eH-sYO">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="392"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -580,7 +582,7 @@
         <!--About This App-->
         <scene sceneID="sZH-Nf-Ng8">
             <objects>
-                <viewController title="About This App" id="xG7-9V-CRk" customClass="RiValT_About_ViewController" customModule="Main_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="About This App" id="xG7-9V-CRk" customClass="RiValT_About_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Sn0-05-JMz">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -630,7 +632,7 @@
         <!--Sound Settings Popover-->
         <scene sceneID="c3H-XT-HrY">
             <objects>
-                <viewController storyboardIdentifier="RiValT_SoundSettings_ViewController" title="Sound Settings Popover" id="Ve2-9T-BtJ" customClass="RiValT_SoundSettings_ViewController" customModule="Main_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RiValT_SoundSettings_ViewController" title="Sound Settings Popover" id="Ve2-9T-BtJ" customClass="RiValT_SoundSettings_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ac3-Jn-30K">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="391"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -807,7 +809,7 @@
         <!--Running Timer Embedding-->
         <scene sceneID="F2U-EU-ar7">
             <objects>
-                <viewController title="Running Timer Embedding" id="qbu-HZ-ecF" customClass="RiValT_RunningTimer_ContainerViewController" customModule="Main_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Running Timer Embedding" id="qbu-HZ-ecF" customClass="RiValT_RunningTimer_ContainerViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HVj-Ru-0Hn">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -998,7 +1000,7 @@
         <!--Digital Display-->
         <scene sceneID="fOn-vN-4fq">
             <objects>
-                <viewController storyboardIdentifier="RiValT_RunningTimer_ViewController" title="Digital Display" id="pd7-cA-z1q" customClass="RiValT_RunningTimer_Numerical_ViewController" customModule="Main_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RiValT_RunningTimer_ViewController" title="Digital Display" id="pd7-cA-z1q" customClass="RiValT_RunningTimer_Numerical_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qge-7r-Z34">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="622"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1193,7 +1195,7 @@
         <!--Stoplights Display-->
         <scene sceneID="vzj-om-CC4">
             <objects>
-                <viewController storyboardIdentifier="RiValT_RunningTimer_Stoplights_ViewController" title="Stoplights Display" id="aSI-GW-hx4" customClass="RiValT_RunningTimer_Stoplights_ViewController" customModule="Main_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RiValT_RunningTimer_Stoplights_ViewController" title="Stoplights Display" id="aSI-GW-hx4" customClass="RiValT_RunningTimer_Stoplights_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t4x-NY-G4Z">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="622"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1261,12 +1263,12 @@
         <!--Circular Display-->
         <scene sceneID="d3q-6L-0cR">
             <objects>
-                <viewController storyboardIdentifier="RiValT_RunningTimer_Circular_ViewController" title="Circular Display" id="B3a-6c-C0G" customClass="RiValT_RunningTimer_Circular_ViewController" customModule="Main_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RiValT_RunningTimer_Circular_ViewController" title="Circular Display" id="B3a-6c-C0G" customClass="RiValT_RunningTimer_Circular_ViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EfI-Kx-Lwz">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="622"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5GE-BU-gZZ" customClass="RiValT_CirlcleDisplayView" customModule="Main_App" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5GE-BU-gZZ" customClass="RiValT_CirlcleDisplayView" customModule="RiVal_T" customModuleProvider="target">
                                 <rect key="frame" x="19.666666666666657" y="134" width="353.66666666666674" height="354"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1296,7 +1298,7 @@
         <!--Editor Container-->
         <scene sceneID="fCm-5k-ObW">
             <objects>
-                <viewController title="Editor Container" id="hNf-mb-Gac" customClass="RiValT_TimerEditor_PageViewContainer" customModule="Main_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Editor Container" id="hNf-mb-Gac" customClass="RiValT_TimerEditor_PageViewContainer" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hmm-VJ-MHv">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1351,7 +1353,7 @@
         <!--Editor Page View Controller-->
         <scene sceneID="jt6-yD-IY5">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" title="Editor Page View Controller" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="ozw-VV-RWF" customClass="RiValT_TimerEditor_PageViewController" customModule="Main_App" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" title="Editor Page View Controller" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="ozw-VV-RWF" customClass="RiValT_TimerEditor_PageViewController" customModule="RiVal_T" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NhK-I5-jjX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8" y="1162"/>
@@ -1365,7 +1367,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9r7-K3-wgS">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>

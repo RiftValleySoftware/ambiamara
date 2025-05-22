@@ -225,7 +225,7 @@ class SectionBackgroundView: UICollectionReusableView {
      The gesture recognizer that calls the handler.
      */
     weak var myTapRecognizer: UITapGestureRecognizer?
-    
+
     /* ################################################################## */
     /**
      The group associated with this decorator.
@@ -360,7 +360,7 @@ class SectionBackgroundView: UICollectionReusableView {
                 groupNumberLabel.accessibilityHint = nil
             }
         }
-        
+
         // This allows us to select the group, when there's a tap, anywhere on the line.
         if nil != myGroup,
            nil == self.myTapRecognizer {
@@ -372,7 +372,7 @@ class SectionBackgroundView: UICollectionReusableView {
             self.removeGestureRecognizer(recognizer)
             self.myTapRecognizer = nil
         }
-        
+
         return inLayoutAttributes
     }
 }

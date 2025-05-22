@@ -192,7 +192,7 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
      Used to prevent overeager haptics.
      */
     var lastIndexPath: IndexPath?
-
+    
     /* ############################################################## */
     /**
      This allows us to force-close the popover, easily.
@@ -222,6 +222,7 @@ extension RiValT_GroupEditor_ViewController {
         self.settingsBarButtonItem?.image = UIImage(systemName: "gear")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30, weight: .bold))
         self.settingsBarButtonItem?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON-LABEL".localizedVariant
         self.settingsBarButtonItem?.accessibilityHint = "SLUG-ACC-SETTINGS-BUTTON-HINT".localizedVariant
+        self.toolbarDeleteButton?.accessibilityIdentifier = "targetItem"
         self.toolbarDeleteButton?.accessibilityLabel = "SLUG-ACC-TOOLBAR-DELETE-LABEL".localizedVariant
         self.toolbarDeleteButton?.accessibilityHint = "SLUG-ACC-TOOLBAR-DELETE-HINT".localizedVariant
         self.toolbarPlayButton?.accessibilityLabel = "SLUG-ACC-TOOLBAR-PLAY-LABEL".localizedVariant
@@ -877,8 +878,6 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDelegate {
                 
         if shouldScroll {
             inCollectionView.scrollToItem(at: IndexPath(item: 0, section: self.timerModel.count), at: .top, animated: true)
-//        } else {
-//            inCollectionView.setContentOffset(self._lastScrollPos, animated: true)
         }
         
         if shouldEdit {
