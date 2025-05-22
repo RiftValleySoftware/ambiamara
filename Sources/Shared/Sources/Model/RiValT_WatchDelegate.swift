@@ -476,23 +476,24 @@ extension RiValT_WatchDelegate {
         */
         func _errorHandler(_ inError: any Error) {
             #if DEBUG
-                print("Error Sending Message to Phone: \(inError.localizedDescription)")
+                #if os(watchOS)
+                    print("Error Sending Message to Phone: \(inError.localizedDescription)")
+                #else
+                    print("Error Sending Message to Watch: \(inError.localizedDescription)")
+                #endif
             #endif
             self._killTimeoutHandler()
             self.isUpdateInProgress = false
-            let nsError = inError as NSError
-            if nsError.domain == "WCErrorDomain",
-               7007 == nsError.code,
-               0 < self.retries {
+            if 0 < self.retries {
                 #if DEBUG
                     print("Connection failure. Retrying...")
                 #endif
-                let randomDelay = Double.random(in: (0.3...1.0))
+                let randomDelay = Double.random(in: (0.25..<1.0))
                 DispatchQueue.global().asyncAfter(deadline: .now() + randomDelay) { self.sendCommand(command: inCommand, extraData: extraData, self.retries - 1) }
                 return
             } else {
                 #if DEBUG
-                    print("Error Not Handled")
+                    print("Error (\(inError.localizedDescription)) Not Handled")
                 #endif
                 self.canReachIPhoneApp = false
                 DispatchQueue.main.async { self.updateHandler?(self, true) }
@@ -615,19 +616,16 @@ extension RiValT_WatchDelegate {
                 #endif
                 self._killTimeoutHandler()
                 self.isUpdateInProgress = false
-                let nsError = inError as NSError
-                if nsError.domain == "WCErrorDomain",
-                   7007 == nsError.code,
-                   0 < self.retries {
+                if 0 < self.retries {
                     #if DEBUG
                         print("Connection failure. Retrying...")
                     #endif
-                    let randomDelay = Double.random(in: (0.3...1.0))
+                    let randomDelay = Double.random(in: (0.25..<1.0))
                     DispatchQueue.global().asyncAfter(deadline: .now() + randomDelay) { self.sendContextRequest(self.retries - 1) }
                     return
                 } else {
                     #if DEBUG
-                        print("Error Not Handled")
+                        print("Error (\(inError.localizedDescription)) Not Handled")
                     #endif
                 }
             }
@@ -806,16 +804,24 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                             }
                         #else
                             self._receivedFirstSync = false
+                            currentTimer.stop()
                             currentTimer.start()
                             self.isCurrentlyRunning = true
                         #endif
                     
                 case .reset:
+                    #if os(iOS)
+                        DispatchQueue.main.async {
+                            if let controller = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController as? RiValT_RunningTimer_ContainerViewController {
+                                controller.rewindHit()
+                            }
+                        }
+                    #else
                         currentTimer.start()
                         currentTimer.pause()
                         currentTimer.currentTime = currentTimer.startingTimeInSeconds
                         currentTimer.resetLastPausedTime()
-                    
+                    #endif
                 case .stop:
                         #if os(iOS)
                             DispatchQueue.main.async {
@@ -860,11 +866,12 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                             }
                         }
                     #else
+                        self._receivedFirstSync = false
                         currentTimer.end()
                     #endif
                 }
                 
-                DispatchQueue.main.async { self.updateHandler?(self, self._receivedFirstSync) }
+//                DispatchQueue.main.async { self.updateHandler?(self, self._receivedFirstSync) }
             }
         }
     }
