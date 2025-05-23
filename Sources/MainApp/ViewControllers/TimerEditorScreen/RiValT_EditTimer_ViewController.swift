@@ -254,8 +254,8 @@ extension RiValT_EditTimer_ViewController {
         super.viewWillAppear(inIsAnimated)
         self.timeTypeSegmentedControl?.selectedSegmentIndex = 0
         self.setUpTimeTypeSegmentedControl()
-        self.watchDelegate?.sendApplicationContext()
         self.setTime()
+        self.watchDelegate?.sendApplicationContext()
     }
     
     /* ############################################################## */

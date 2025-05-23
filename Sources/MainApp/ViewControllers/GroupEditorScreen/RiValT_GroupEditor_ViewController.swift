@@ -579,7 +579,6 @@ extension RiValT_GroupEditor_ViewController {
      */
     @IBAction func toolbarPlayButtonHit(_: UIBarButtonItem! = nil) {
         self.impactHaptic()
-        self.watchDelegate.sendCommand(command: .start)
         self.performSegue(withIdentifier: RiValT_RunningTimer_ContainerViewController.segueID, sender: self.timerModel.selectedTimer)
     }
     

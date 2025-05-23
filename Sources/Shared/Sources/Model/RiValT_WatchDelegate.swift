@@ -565,7 +565,7 @@ extension RiValT_WatchDelegate {
                 #endif
                 
                 #if !os(watchOS)
-                    contextData["isCurrentlyRunning"] = RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.navigationController?.topViewController is RiValT_RunningTimer_ContainerViewController
+                    contextData["isCurrentlyRunning"] = self.timerModel.selectedTimer?.isTimerRunning ?? false
                 #endif
                 
                 if .activated == self.wcSession.activationState {

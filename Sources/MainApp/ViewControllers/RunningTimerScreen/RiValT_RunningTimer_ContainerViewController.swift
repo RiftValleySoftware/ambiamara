@@ -405,7 +405,9 @@ extension RiValT_RunningTimer_ContainerViewController {
             self.flashGreen()
             self.timer?.start()
             self.forceStart = false
+            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .start)
         } else {
+            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendApplicationContext()
             self.timer?.stop()
         }
         
