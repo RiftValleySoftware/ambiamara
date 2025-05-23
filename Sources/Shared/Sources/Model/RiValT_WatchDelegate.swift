@@ -791,6 +791,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                            (0...currentTimer.startingTimeInSeconds).contains(toTime) {
                             currentTimer.currentTime = toTime
                             currentTimer.resetLastPausedTime()
+                            DispatchQueue.main.async { self.updateHandler?(self, self._receivedFirstSync) }
                         }
                     
                 case .start:
@@ -807,6 +808,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                             currentTimer.stop()
                             currentTimer.start()
                             self.isCurrentlyRunning = true
+                            DispatchQueue.main.async { self.updateHandler?(self, self._receivedFirstSync) }
                         #endif
                     
                 case .reset:
@@ -821,6 +823,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                         currentTimer.pause()
                         currentTimer.currentTime = currentTimer.startingTimeInSeconds
                         currentTimer.resetLastPausedTime()
+                        DispatchQueue.main.async { self.updateHandler?(self, self._receivedFirstSync) }
                     #endif
                 case .stop:
                         #if os(iOS)
@@ -832,6 +835,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                         #else
                             self.isCurrentlyRunning = false
                             currentTimer.stop()
+                            DispatchQueue.main.async { self.updateHandler?(self, self._receivedFirstSync) }
                         #endif
                     
                 case .pause:
@@ -844,6 +848,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                             }
                         #else
                             currentTimer.pause()
+                            DispatchQueue.main.async { self.updateHandler?(self, self._receivedFirstSync) }
                         #endif
                     
                 case .resume:
@@ -856,6 +861,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                         #else
                             self._receivedFirstSync = false
                             currentTimer.resume()
+                            DispatchQueue.main.async { self.updateHandler?(self, self._receivedFirstSync) }
                         #endif
                     
                 case .fastForward:
@@ -868,10 +874,9 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                     #else
                         self._receivedFirstSync = false
                         currentTimer.end()
+                        DispatchQueue.main.async { self.updateHandler?(self, self._receivedFirstSync) }
                     #endif
                 }
-                
-//                DispatchQueue.main.async { self.updateHandler?(self, self._receivedFirstSync) }
             }
         }
     }
