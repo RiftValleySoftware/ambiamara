@@ -822,9 +822,11 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                         currentTimer.start()
                         currentTimer.pause()
                         currentTimer.currentTime = currentTimer.startingTimeInSeconds
+                        self._receivedFirstSync = false
                         currentTimer.resetLastPausedTime()
                         DispatchQueue.main.async { self.updateHandler?(self, self._receivedFirstSync) }
                     #endif
+                    
                 case .stop:
                         #if os(iOS)
                             DispatchQueue.main.async {
@@ -835,6 +837,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                         #else
                             self.isCurrentlyRunning = false
                             currentTimer.stop()
+                            self._receivedFirstSync = false
                             DispatchQueue.main.async { self.updateHandler?(self, self._receivedFirstSync) }
                         #endif
                     
