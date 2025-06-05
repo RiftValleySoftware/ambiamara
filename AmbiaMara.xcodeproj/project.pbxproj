@@ -31,10 +31,8 @@
 		D43B97792DA2C2E80028E023 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E869532D99916200D56802 /* TimerEngine.swift */; };
 		D45184CA2DB42DBF00DA671D /* RiValT_SoundSettings_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45184C92DB42DBE00DA671D /* RiValT_SoundSettings_ViewController.swift */; };
 		D45B908C2DDCB440004E59B2 /* RiValT_VariousUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45B908B2DDCB440004E59B2 /* RiValT_VariousUtilities.swift */; };
-		D45B908D2DDCB496004E59B2 /* Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D4F83C9D2D63DB10009C4646 /* Watch App.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D466C0F92DD38DD900B4416D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BDAEBF2DC7B36400185D4F /* WatchConnectivity.framework */; };
 		D466C0FB2DD38DD900B4416D /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D466C0FA2DD38DD900B4416D /* WatchKit.framework */; };
-		D466C0FD2DD38E8E00B4416D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D466C0FC2DD38E8E00B4416D /* WatchConnectivity.framework */; };
 		D466C0FF2DD38EA200B4416D /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D466C0FE2DD38EA200B4416D /* SwiftUI.framework */; };
 		D46B84EF2D986AD500199220 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D46B84EE2D986AD500199220 /* RVS_Generic_Swift_Toolbox */; };
 		D46B84F12D986AD500199220 /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D46B84F02D986AD500199220 /* RVS_Persistent_Prefs */; };
@@ -178,17 +176,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D45B90902DDCB496004E59B2 /* Embed Watch Content */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
-			files = (
-				D45B908D2DDCB496004E59B2 /* Watch App.app in Embed Watch Content */,
-			);
-			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D4A413912DB9276B0017964C /* Copy Alarm Sound Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -412,7 +399,6 @@
 				D4A149BD2DB66A4700B70A7B /* RVS_Checkbox in Frameworks */,
 				D43B97742DA2C2D00028E023 /* RVS_RetroLEDDisplay in Frameworks */,
 				D43B97782DA2C2D00028E023 /* RVS_BasicGCDTimer in Frameworks */,
-				D466C0FD2DD38E8E00B4416D /* WatchConnectivity.framework in Frameworks */,
 				D43B97702DA2C2D00028E023 /* RVS_Generic_Swift_Toolbox in Frameworks */,
 				D43B97762DA2C2D00028E023 /* RVS_UIKit_Toolbox in Frameworks */,
 			);
@@ -838,7 +824,6 @@
 				D43B97332DA2C0F50028E023 /* Resources */,
 				D4A413912DB9276B0017964C /* Copy Alarm Sound Files */,
 				D4F8270F2DB9657900815664 /* Copy Transition Sounds */,
-				D45B90902DDCB496004E59B2 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
@@ -980,7 +965,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1630;
-				LastUpgradeCheck = 1630;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					D43B97342DA2C0F50028E023 = {
 						CreatedOnToolsVersion = 16.3;
@@ -1324,7 +1309,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = RiVal.T;
 				REGISTER_APP_GROUPS = YES;
@@ -1365,7 +1350,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = RiVal.T;
 				REGISTER_APP_GROUPS = YES;
@@ -1696,7 +1681,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1735,7 +1720,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1771,7 +1756,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara.watchkitapp.complications;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1808,7 +1793,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara.watchkitapp.complications;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
