@@ -391,6 +391,9 @@ extension RiValT_WatchDelegate {
      */
     func updateSettings() {
         RiValT_Settings().timerModel = self.timerModel.asArray
+        #if os(iOS)    // Only necessary for iOS
+            self.sendApplicationContext()
+        #endif
     }
     
     /* ################################################################## */
@@ -503,8 +506,13 @@ extension RiValT_WatchDelegate {
         if .activated == self.wcSession.activationState {
             self.retries = inRetries
             self.isUpdateInProgress = true
+            var command: [String: Any] = [inCommand.rawValue: extraData]
+            #if os(iOS)    // Only necessary for iOS
+                command[Self.MessageType.timerModel.rawValue] = self.timerModel.asArray
+                command["makeMeUnique"] = UUID().uuidString // This breaks the cache, and forces a send (debug)
+            #endif
             // NB: You MUST have a replyHandler (even though there are plenty of examples, with it nil). It can be a "do-nothing" closure, but it can't be nil, or the send message won't work.
-            self.wcSession.sendMessage([inCommand.rawValue: extraData], replyHandler: { _ in }, errorHandler: _errorHandler)
+            self.wcSession.sendMessage(command, replyHandler: { _ in }, errorHandler: _errorHandler)
             self.isUpdateInProgress = false
         }
     }
@@ -751,12 +759,13 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
      - parameter inReplyHandler: A function to be executed, with the reply to the message.
     */
     func session(_ inSession: WCSession, didReceiveMessage inMessage: [String: Any], replyHandler inReplyHandler: @escaping ([String: Any]) -> Void) {
+        var incomingMessage = inMessage
         guard let currentTimer = self.timerModel.selectedTimer else { return }
         #if !os(watchOS)    // Only necessary for iOS
             #if DEBUG
-                print("Received Message From Watch: \(inMessage)")
+                print("Received Message From Watch: \(incomingMessage)")
             #endif
-            if nil != inMessage[Self.MessageType.requestContext.rawValue] {
+            if nil != incomingMessage[Self.MessageType.requestContext.rawValue] {
                 #if DEBUG
                     print("Responding to context request from the watch")
                 #endif
@@ -765,9 +774,9 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
             }
         #else
             #if DEBUG
-                print("Received Message From Phone: \(inMessage)")
+                print("Received Message From Phone: \(incomingMessage)")
             #endif
-            if let sync = inMessage[Self.MessageType.sync.rawValue] as? NSDictionary,
+            if let sync = incomingMessage[Self.MessageType.sync.rawValue] as? NSDictionary,
                let to = sync.value(forKey: "to") as? Int,
                let dateVal = sync.value(forKey: "date") as? TimeInterval {
                 #if DEBUG
@@ -778,14 +787,25 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                 currentTimer.sync(to: to, date: Date(timeIntervalSince1970: dateVal))
                 DispatchQueue.main.async { self.updateHandler?(self, true) }
                 return
+            } else if let context = incomingMessage[Self.MessageType.timerModel.rawValue] {
+                let isCurrentlyRunning = (incomingMessage["isCurrentlyRunning"] as? Bool) ?? false
+                incomingMessage.removeValue(forKey: Self.MessageType.timerModel.rawValue)
+                incomingMessage.removeValue(forKey: "isCurrentlyRunning")
+                #if DEBUG
+                    print("Received Application Context From Phone: \(context)")
+                #endif
+                let newContext = [Self.MessageType.timerModel.rawValue: context, "isCurrentlyRunning": isCurrentlyRunning]
+                self.isUpdateInProgress = false
+                self.session(self.wcSession, didReceiveApplicationContext: newContext)
+                self.isUpdateInProgress = true
             }
         #endif
         
         TimerOperation.allCases.forEach {
-            if $0.rawValue == (inMessage as? [String: String] ?? [:])[$0.rawValue] {
+            if $0.rawValue == (incomingMessage as? [String: String] ?? [:])[$0.rawValue] {
                 switch $0 {
                 case .setTime:
-                        if let str = inMessage[$0.rawValue] as? String,
+                        if let str = incomingMessage[$0.rawValue] as? String,
                            !str.isEmpty,
                            let toTime = Int(str),
                            (0...currentTimer.startingTimeInSeconds).contains(toTime) {

@@ -138,6 +138,22 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
      */
     weak var stoplightDisplayController: RiValT_RunningTimer_Stoplights_ViewController?
 
+    /* ################################################################## */
+    /**
+     This references the main app delegate.
+     
+     It's an implicit optional, because the whole shebang goes into the crapper, if it doesn't work.
+     */
+    weak var appDelegateInstance: RiValT_AppDelegate! { RiValT_AppDelegate.appDelegateInstance }
+
+    /* ################################################################## */
+    /**
+     This references the iOS app instance of the Watch Delegate class.
+     
+     It's an implicit optional, because the whole shebang goes into the crapper, if it doesn't work.
+     */
+    weak var watchDelegate: RiValT_WatchDelegate! { self.appDelegateInstance.watchDelegate }
+
     /* ############################################################## */
     /**
      The view across the back that is filled with a color, during a "flash."
@@ -664,6 +680,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             prevTimer.transitionHandler = self.transitionHandler
             prevTimer.isSelected = true
             self.timer = prevTimer
+            self.watchDelegate?.updateSettings()
             if let row = self.timer?.indexPath?.row {
                 self.flashTimerNumber(row)
             }
@@ -677,6 +694,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             resetTimer.transitionHandler = self.transitionHandler
             resetTimer.isSelected = true
             self.timer = resetTimer
+            self.watchDelegate?.updateSettings()
             self.flashTimerNumber(0)
         } else {
             self.timer?.stop()
@@ -736,6 +754,7 @@ extension RiValT_RunningTimer_ContainerViewController {
                 timer.tickHandler = self.tickHandler
                 timer.transitionHandler = self.transitionHandler
                 self.timer = timer
+                self.watchDelegate?.updateSettings()
                 if let row = self.timer?.indexPath?.row,
                    row != oldRow {
                     self.flashTimerNumber(row)
@@ -770,6 +789,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             nextTimer.transitionHandler = self.transitionHandler
             nextTimer.isSelected = true
             self.timer = nextTimer
+            self.watchDelegate?.updateSettings()
             if let row = self.timer?.indexPath?.row {
                 self.flashTimerNumber(row)
             }
@@ -958,6 +978,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             self.updateDisplays()
             self.timer?.tickHandler = self.tickHandler
             self.timer?.transitionHandler = self.transitionHandler
+            self.watchDelegate?.updateSettings()
         } else {
             self._suppressFlash = false
             self.flashRed(true)
@@ -972,6 +993,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         self._suppressFlash = false
         self.flashRed(true)
         self.playAlarmSound()
+        self.watchDelegate?.updateSettings()
         self._alarmTimer?.isRunning = true
     }
     
@@ -1106,6 +1128,7 @@ extension RiValT_RunningTimer_ContainerViewController {
                 firstTimer.transitionHandler = self.transitionHandler
                 firstTimer.isSelected = true
                 self.timer = firstTimer
+                self.watchDelegate?.updateSettings()
                 if let row = self.timer?.indexPath?.row {
                     self.flashTimerNumber(row)
                 }

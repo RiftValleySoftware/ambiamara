@@ -859,7 +859,7 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDelegate {
         } else if (0..<(self.timerModel?.count ?? 0)).contains((inIndexPath.section)),
                   !(self.timerModel?[inIndexPath.section].isSelected ?? false) {
             self.timerModel?[inIndexPath.section].first?.isSelected = true
-            self.watchDelegate?.sendApplicationContext()
+            self.watchDelegate?.updateSettings()
             self.impactHaptic()
             shouldEdit = shouldEdit && nil != self.timerModel.getTimer(at: inIndexPath)
         } else {
@@ -868,7 +868,6 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDelegate {
         
         if !(self.timerModel.getTimer(at: inIndexPath)?.isSelected ?? false) {
             self.timerModel.getTimer(at: inIndexPath)?.isSelected = true
-            self.watchDelegate?.sendApplicationContext()
         }
         
         self.updateSettings()

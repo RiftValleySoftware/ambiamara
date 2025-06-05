@@ -977,7 +977,13 @@ class Timer: Equatable {
     /**
      If true, then this timer is the selected timer. There can only be one.
      */
-    public var isSelected: Bool = false { didSet { if self.isSelected { model?.deselectAllTimers(except: self.indexPath) } } }
+    public var isSelected: Bool = false {
+        didSet {
+            if self.isSelected {
+                model?.deselectAllTimers(except: self.indexPath)
+            }
+        }
+    }
 
     /* ############################################################## */
     /**

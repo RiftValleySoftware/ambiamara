@@ -61,7 +61,7 @@ struct RiValT_Watch_App_MainContentView: View {
                             Button {
                                 self._model.sendCommand(command: .reset)
                             } label: {
-                                Image(systemName: "backward.fill")
+                                Image(systemName: "backward.end.alt.fill")
                             }
                             .disabled(currentTimer.timerDisplay.isEmpty || !self._model.isCurrentlyRunning)
                             
@@ -75,7 +75,7 @@ struct RiValT_Watch_App_MainContentView: View {
                             Button {
                                 self._model.sendCommand(command: .fastForward)
                             } label: {
-                                Image(systemName: "forward.fill")
+                                Image(systemName: "forward.end.alt.fill")
                             }
                             .disabled(currentTimer.timerDisplay.isEmpty || !self._model.isCurrentlyRunning)
                         }
