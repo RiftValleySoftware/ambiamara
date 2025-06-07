@@ -21,7 +21,7 @@ struct RiValT_Watch_App_MainContentView: View {
     /**
      We use a custom "digital" font.
      */
-    static let digitalFontMid = Font.custom("Let\'s Go Digital", size: 40)
+    static let digitalFontLarge = Font.custom("Let\'s Go Digital", size: 300)
 
     /* ################################################################## */
     /**
@@ -49,59 +49,22 @@ struct RiValT_Watch_App_MainContentView: View {
                        let currentTimer = self._model.currentTimer {
                         if currentTimer.timerDisplay.isEmpty {
                             Text("SLUG-INVALID".localizedVariant)
-                                .font(Self.digitalFontMid)
+                                .font(.system(size: 80, weight: .heavy))
+                                .minimumScaleFactor(0.01)
                         } else if case .paused = currentTimer.timerMode {
-                            Text("SLUG-PAUSED".localizedVariant)
-                                .font(Self.digitalFontMid)
+                            ZStack {
+                                Text(currentTimer.timerDisplay)
+                                    .font(Self.digitalFontLarge)
+                                    .minimumScaleFactor(0.01)
+                                Text("SLUG-PAUSED".localizedVariant)
+                                    .font(.system(size: 80, weight: .heavy))
+                                    .minimumScaleFactor(0.01)
+                                    .opacity(0.5)
+                            }
                         } else {
                             Text(currentTimer.timerDisplay)
-                                .font(Self.digitalFontMid)
-                        }
-                        HStack {
-                            Button {
-                                self._model.sendCommand(command: .reset)
-                            } label: {
-                                Image(systemName: "backward.end.alt.fill")
-                            }
-                            .disabled(currentTimer.timerDisplay.isEmpty || !self._model.isCurrentlyRunning)
-                            
-                            Button {
-                                self._model.sendCommand(command: .stop)
-                            } label: {
-                                Image(systemName: "stop.fill")
-                            }
-                            .disabled(currentTimer.timerDisplay.isEmpty)
-                            
-                            Button {
-                                self._model.sendCommand(command: .fastForward)
-                            } label: {
-                                Image(systemName: "forward.end.alt.fill")
-                            }
-                            .disabled(currentTimer.timerDisplay.isEmpty || !self._model.isCurrentlyRunning)
-                        }
-                        
-                        switch currentTimer.timerMode {
-                        case .countdown, .warning, .final:
-                            Button {
-                                self._model.sendCommand(command: .pause)
-                            } label: {
-                                Image(systemName: "pause.fill")
-                            }
-                            .disabled(currentTimer.timerDisplay.isEmpty || !self._model.isCurrentlyRunning)
-                        case .paused:
-                            Button {
-                                self._model.sendCommand(command: .resume)
-                            } label: {
-                                Image(systemName: "play.fill")
-                            }
-                            .disabled(currentTimer.timerDisplay.isEmpty || !self._model.isCurrentlyRunning)
-                        default:
-                            Button {
-                                self._model.sendCommand(command: .start)
-                            } label: {
-                                Image(systemName: "play.fill")
-                            }
-                            .disabled(currentTimer.timerDisplay.isEmpty)
+                                .font(Self.digitalFontLarge)
+                                .minimumScaleFactor(0.01)
                         }
                     } else {
                         Text("SLUG-CANT-REACH".localizedVariant)

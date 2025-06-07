@@ -54,6 +54,7 @@
 		D48C859E2DC6B30E0055E2B1 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4181D0C2DAC7364002CF428 /* TimerModel.swift */; };
 		D48C859F2DC6B3160055E2B1 /* RiValT_Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4752E9C2DB2FD91002359CA /* RiValT_Settings.swift */; };
 		D48C85A02DC6B3160055E2B1 /* RiValT_Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4752E9C2DB2FD91002359CA /* RiValT_Settings.swift */; };
+		D49AD8E12DF4F9AC00CAFAB5 /* Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D4F83C9D2D63DB10009C4646 /* Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D49BBA112DBC275D00DD0963 /* RiValT_TimerEditor_PageViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49BBA102DBC275D00DD0963 /* RiValT_TimerEditor_PageViewContainer.swift */; };
 		D4A149BD2DB66A4700B70A7B /* RVS_Checkbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4A149BC2DB66A4700B70A7B /* RVS_Checkbox */; };
 		D4A413932DB930D40017964C /* 22-thanks-for-sharing.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4A413922DB930D40017964C /* 22-thanks-for-sharing.mp3 */; };
@@ -152,6 +153,13 @@
 			remoteGlobalIDString = D4F83C9C2D63DB10009C4646;
 			remoteInfo = "Watch App";
 		};
+		D49AD8E22DF4F9AC00CAFAB5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4F83C9C2D63DB10009C4646;
+			remoteInfo = "Watch App";
+		};
 		D4BB90102D9C3D7600F3DB80 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
@@ -176,6 +184,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		D49AD8E42DF4F9AC00CAFAB5 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				D49AD8E12DF4F9AC00CAFAB5 /* Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4A413912DB9276B0017964C /* Copy Alarm Sound Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -824,11 +843,13 @@
 				D43B97332DA2C0F50028E023 /* Resources */,
 				D4A413912DB9276B0017964C /* Copy Alarm Sound Files */,
 				D4F8270F2DB9657900815664 /* Copy Transition Sounds */,
+				D49AD8E42DF4F9AC00CAFAB5 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				D45B908F2DDCB496004E59B2 /* PBXTargetDependency */,
+				D49AD8E32DF4F9AC00CAFAB5 /* PBXTargetDependency */,
 			);
 			name = "Main App";
 			packageProductDependencies = (
@@ -1228,6 +1249,11 @@
 			target = D4F83C9C2D63DB10009C4646 /* Watch App */;
 			targetProxy = D45B908E2DDCB496004E59B2 /* PBXContainerItemProxy */;
 		};
+		D49AD8E32DF4F9AC00CAFAB5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4F83C9C2D63DB10009C4646 /* Watch App */;
+			targetProxy = D49AD8E22DF4F9AC00CAFAB5 /* PBXContainerItemProxy */;
+		};
 		D4BB90112D9C3D7600F3DB80 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D46B84DE2D986AB600199220 /* TimerEngineTestHarness */;
@@ -1289,7 +1315,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/MainApp/Meta/RiVal.T.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3111;
+				CURRENT_PROJECT_VERSION = 3112;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1309,7 +1335,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0.2;
+				MARKETING_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = RiVal.T;
 				REGISTER_APP_GROUPS = YES;
@@ -1330,7 +1356,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/MainApp/Meta/RiVal.T.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3111;
+				CURRENT_PROJECT_VERSION = 3112;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1350,7 +1376,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0.2;
+				MARKETING_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = RiVal.T;
 				REGISTER_APP_GROUPS = YES;
@@ -1664,7 +1690,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchApp/WatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3111;
+				CURRENT_PROJECT_VERSION = 3112;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_PREVIEWS = YES;
@@ -1681,7 +1707,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0.2;
+				MARKETING_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1703,7 +1729,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchApp/WatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3111;
+				CURRENT_PROJECT_VERSION = 3112;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_PREVIEWS = YES;
@@ -1720,7 +1746,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0.2;
+				MARKETING_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1741,7 +1767,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3111;
+				CURRENT_PROJECT_VERSION = 3112;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1756,7 +1782,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0.2;
+				MARKETING_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara.watchkitapp.complications;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1778,7 +1804,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3111;
+				CURRENT_PROJECT_VERSION = 3112;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1793,7 +1819,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0.2;
+				MARKETING_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara.watchkitapp.complications;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;

@@ -27,7 +27,7 @@ class RiValT_ObservableModel: ObservableObject {
     /**
      Set to true, if the progress view should be shown.
      */
-    private var _showBusy: Bool = true { didSet { if self._showBusy { self._updateSubscribers() } } }
+    private var _showBusy: Bool = false { didSet { if self._showBusy { self._updateSubscribers() } } }
 
     /* ###################################################################### */
     /**
