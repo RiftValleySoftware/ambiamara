@@ -7,6 +7,8 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.widgetkit-extension</string>
 	</dict>
+	<key>UIDesignRequiresCompatibility</key>
+	<true/>
 	<key>appGroup</key>
 	<string>group.rvs.ambiamara</string>
 </dict>
