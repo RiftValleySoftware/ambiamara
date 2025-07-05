@@ -258,6 +258,10 @@
 
 <p>The model consists of groups, which consist of timers. Each timer is a &ldquo;wrapped&rdquo; <code><a href="../Classes/TimerEngine.html">TimerEngine</a></code> instance.</p>
 
+<p>It also handles timer and group selection. There can only be one selected timer, and that timer&rsquo;s group, is the selected group.</p>
+
+<p>This is where the &ldquo;meat&rdquo; of the app functionality lives. We handle groups of timers, as well as moving timers around in the groups.</p>
+
 <p>This is a class, so it can be referenced.</p>
 
           </div>
@@ -544,7 +548,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The last timer group</p>
+                        <p>The selected timer. There can only be one.</p>
 
                       </div>
                       <div class="declaration">
@@ -552,6 +556,33 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">selectedTimer</span><span class="p">:</span> <span class="kt"><a href="../Classes/Timer.html">Timer</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7RiVal_T10TimerModelC13selectedGroupAA0cF0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/selectedGroup" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7RiVal_T10TimerModelC13selectedGroupAA0cF0CSgvp">selectedGroup</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The selected timer&rsquo;s group. There can only be one.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">selectedGroup</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerGroup.html">TimerGroup</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -1133,6 +1164,46 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
+                <a name="/Sequence%20Conformance"></a>
+                <a name="//apple_ref/swift/Section/Sequence Conformance" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Sequence%20Conformance"></a>
+                  <h3 class="section-name"><span>Sequence Conformance</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7RiVal_T10TimerModelC8Iteratora"></a>
+                    <a name="//apple_ref/swift/Alias/Iterator" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7RiVal_T10TimerModelC8Iteratora">Iterator</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is an alias for our iterator.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">Iterator</span> <span class="o">=</span> <span class="kt"><a href="../Classes/TimerModel/TimerModelIterator.html">TimerModelIterator</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
                 <a name="/Iterator%20Conformance"></a>
                 <a name="//apple_ref/swift/Section/Iterator Conformance" class="dashAnchor"></a>
                 <div class="section-name-container">
@@ -1163,33 +1234,6 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">TimerModelIterator</span> <span class="p">:</span> <span class="kt">IteratorProtocol</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7RiVal_T10TimerModelC8Iteratora"></a>
-                    <a name="//apple_ref/swift/Alias/Iterator" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7RiVal_T10TimerModelC8Iteratora">Iterator</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This is an alias for our iterator.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">Iterator</span> <span class="o">=</span> <span class="kt"><a href="../Classes/TimerModel/TimerModelIterator.html">TimerModelIterator</a></span></code></pre>
 
                         </div>
                       </div>

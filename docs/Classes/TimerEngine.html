@@ -252,7 +252,7 @@
 
                 </div>
               </div>
-            <p>This class implements the &ldquo;executable heart&rdquo; of the timer app.</p>
+            <p>This class implements the &ldquo;executable heart&rdquo; of the timer app. This represents one single timer, it holds the state for a given timer.</p>
 <h2 id='basic-overview' class='heading'>BASIC OVERVIEW</h2>
 
 <p>This is a countdown timer, in seconds. It starts from a &ldquo;starting&rdquo; time, and counts down to 0, at which time it starts an alarm.</p>
@@ -264,37 +264,37 @@
 <p>It has six &ldquo;modes&rdquo; of operation:</p>
 
 <ul>
-<li>### STOPPED MODE</li>
+<li><strong>STOPPED MODE</strong></li>
 </ul>
 
 <p>The timer is &ldquo;stopped.&rdquo; It is set to the starting time, and the timer is not running.</p>
 
 <ul>
-<li>### COUNTDOWN MODE</li>
+<li><strong>COUNTDOWN MODE</strong></li>
 </ul>
 
 <p>This is the basic countdown mode, starting from the &ldquo;starting time&rdquo; threshold.</p>
 
 <ul>
-<li>### WARNING MODE</li>
+<li><strong>WARNING MODE</strong></li>
 </ul>
 
 <p>This is a threshold, in seconds. Once the coundown reaches this, the timer goes into &ldquo;warning&rdquo; mode. This cannot be less than the final threshold (or 0), and cannot be higher than the starting threshold.</p>
 
 <ul>
-<li>### FINAL MODE</li>
+<li><strong>FINAL MODE</strong></li>
 </ul>
 
 <p>This is a threshold, in seconds. Once the coundown reaches this, the timer goes into &ldquo;final&rdquo; mode. The timer is running. This cannot be less than 0, and cannot be higher than the warning threshold.</p>
 
 <ul>
-<li>### ALARM MODE</li>
+<li><strong>ALARM MODE</strong></li>
 </ul>
 
 <p>Once it hits 0, it goes into &ldquo;alarm&rdquo; mode. The timer stops running, once this threshold is encountered.</p>
 
 <ul>
-<li>### PAUSED MODE</li>
+<li><strong>PAUSED MODE</strong></li>
 </ul>
 
 <p>The timer countdown is in one of the above ranges, but has been &ldquo;paused.&rdquo; It is not running.</p>

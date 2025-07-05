@@ -1,3 +1,6 @@
+**Version 3.0.3.3112** *July 5, 2025*
+- Added support for iOS26
+
 **Version 3.0.1.3106** *May 18, 2025*
 - Complete rewrite.
 

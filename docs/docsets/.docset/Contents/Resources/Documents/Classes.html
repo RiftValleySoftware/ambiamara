@@ -1229,6 +1229,53 @@ It changes its image to represent the currently selected alarm sound.</p>
             </div>
             <div class="task-group">
               <div class="task-name-container">
+                <a name="/The%20Main%20Container%20View%20Controller%20for%20the%20Running%20Timer"></a>
+                <a name="//apple_ref/swift/Section/The Main Container View Controller for the Running Timer" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/The%20Main%20Container%20View%20Controller%20for%20the%20Running%20Timer"></a>
+                  <h3 class="section-name"><span>The Main Container View Controller for the Running Timer</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@RiVal_T@objc(cs)RiValT_RunningTimer_ContainerViewController"></a>
+                    <a name="//apple_ref/swift/Class/RiValT_RunningTimer_ContainerViewController" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@RiVal_T@objc(cs)RiValT_RunningTimer_ContainerViewController">RiValT_RunningTimer_ContainerViewController</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This implements a &ldquo;wrapper&rdquo; for the running timer views.</p>
+
+<p>It embeds the timer display (either numerical, circular, or stoplight), and handles the all of the user interaction (the timer embed is read-only).</p>
+
+<p>This view references a timer instance, which, in turn, is also referenced by the embedded views.</p>
+
+                        <a href="Classes/RiValT_RunningTimer_ContainerViewController.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">class</span> <span class="kt">RiValT_RunningTimer_ContainerViewController</span> <span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RiValT_RunningTimer_ContainerViewController</span><span class="p">:</span> <span class="kt">RVS_BasicGCDTimerDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
                 <a name="/Circle-Drawing%20UIView"></a>
                 <a name="//apple_ref/swift/Section/Circle-Drawing UIView" class="dashAnchor"></a>
                 <div class="section-name-container">
@@ -1254,6 +1301,8 @@ It changes its image to represent the currently selected alarm sound.</p>
                         <p>This draws the circle that represents elapsed time.</p>
 
 <p>It does this by creating layers, each containing the portion of the timer that represents a threshold.</p>
+
+<p>As the timer progresses, the layers disappear, counter-clockwise.</p>
 
                         <a href="Classes/RiValT_CirlcleDisplayView.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1307,53 +1356,6 @@ It changes its image to represent the currently selected alarm sound.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@MainActor</span>
 <span class="kd">class</span> <span class="kt">RiValT_RunningTimer_Circular_ViewController</span> <span class="p">:</span> <span class="kt"><a href="Classes/RiValT_RunningTimer_Base_ViewController.html">RiValT_RunningTimer_Base_ViewController</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/The%20Main%20Container%20View%20Controller%20for%20the%20Running%20Timer"></a>
-                <a name="//apple_ref/swift/Section/The Main Container View Controller for the Running Timer" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/The%20Main%20Container%20View%20Controller%20for%20the%20Running%20Timer"></a>
-                  <h3 class="section-name"><span>The Main Container View Controller for the Running Timer</span>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@RiVal_T@objc(cs)RiValT_RunningTimer_ContainerViewController"></a>
-                    <a name="//apple_ref/swift/Class/RiValT_RunningTimer_ContainerViewController" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@RiVal_T@objc(cs)RiValT_RunningTimer_ContainerViewController">RiValT_RunningTimer_ContainerViewController</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This implements a &ldquo;wrapper&rdquo; for the running timer views.</p>
-
-<p>It embeds the timer display (either numerical, circular, or stoplight), and handles the all of the user interaction (the timer embed is read-only).</p>
-
-<p>This view references a timer instance, which, in turn, is also referenced by the embedded views.</p>
-
-                        <a href="Classes/RiValT_RunningTimer_ContainerViewController.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">class</span> <span class="kt">RiValT_RunningTimer_ContainerViewController</span> <span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RiValT_RunningTimer_ContainerViewController</span><span class="p">:</span> <span class="kt">RVS_BasicGCDTimerDelegate</span></code></pre>
 
                         </div>
                       </div>
@@ -1577,6 +1579,8 @@ It changes its image to represent the currently selected alarm sound.</p>
                       <div class="abstract">
                         <p>This class exists to give the Watch Connectivity a place to work.</p>
 
+<p>We use this as the app&rsquo;s central model. It wraps a <code><a href="Classes/TimerModel.html">TimerModel</a></code> instance. Wrapping the model, helps us to manage synchronization.</p>
+
                         <a href="Classes/RiValT_WatchDelegate.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
@@ -1617,7 +1621,7 @@ It changes its image to represent the currently selected alarm sound.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This class implements the &ldquo;executable heart&rdquo; of the timer app.</p>
+                        <p>This class implements the &ldquo;executable heart&rdquo; of the timer app. This represents one single timer, it holds the state for a given timer.</p>
 <h2 id='basic-overview' class='heading'>BASIC OVERVIEW</h2>
 
 <p>This is a countdown timer, in seconds. It starts from a &ldquo;starting&rdquo; time, and counts down to 0, at which time it starts an alarm.</p>
@@ -1629,37 +1633,37 @@ It changes its image to represent the currently selected alarm sound.</p>
 <p>It has six &ldquo;modes&rdquo; of operation:</p>
 
 <ul>
-<li>### STOPPED MODE</li>
+<li><strong>STOPPED MODE</strong></li>
 </ul>
 
 <p>The timer is &ldquo;stopped.&rdquo; It is set to the starting time, and the timer is not running.</p>
 
 <ul>
-<li>### COUNTDOWN MODE</li>
+<li><strong>COUNTDOWN MODE</strong></li>
 </ul>
 
 <p>This is the basic countdown mode, starting from the &ldquo;starting time&rdquo; threshold.</p>
 
 <ul>
-<li>### WARNING MODE</li>
+<li><strong>WARNING MODE</strong></li>
 </ul>
 
 <p>This is a threshold, in seconds. Once the coundown reaches this, the timer goes into &ldquo;warning&rdquo; mode. This cannot be less than the final threshold (or 0), and cannot be higher than the starting threshold.</p>
 
 <ul>
-<li>### FINAL MODE</li>
+<li><strong>FINAL MODE</strong></li>
 </ul>
 
 <p>This is a threshold, in seconds. Once the coundown reaches this, the timer goes into &ldquo;final&rdquo; mode. The timer is running. This cannot be less than 0, and cannot be higher than the warning threshold.</p>
 
 <ul>
-<li>### ALARM MODE</li>
+<li><strong>ALARM MODE</strong></li>
 </ul>
 
 <p>Once it hits 0, it goes into &ldquo;alarm&rdquo; mode. The timer stops running, once this threshold is encountered.</p>
 
 <ul>
-<li>### PAUSED MODE</li>
+<li><strong>PAUSED MODE</strong></li>
 </ul>
 
 <p>The timer countdown is in one of the above ranges, but has been &ldquo;paused.&rdquo; It is not running.</p>
@@ -1706,6 +1710,10 @@ It changes its image to represent the currently selected alarm sound.</p>
                         <p>This contains an entire model of the timer app.</p>
 
 <p>The model consists of groups, which consist of timers. Each timer is a &ldquo;wrapped&rdquo; <code><a href="Classes/TimerEngine.html">TimerEngine</a></code> instance.</p>
+
+<p>It also handles timer and group selection. There can only be one selected timer, and that timer&rsquo;s group, is the selected group.</p>
+
+<p>This is where the &ldquo;meat&rdquo; of the app functionality lives. We handle groups of timers, as well as moving timers around in the groups.</p>
 
 <p>This is a class, so it can be referenced.</p>
 
