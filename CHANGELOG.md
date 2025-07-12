@@ -1,3 +1,6 @@
+**Version 3.0.4.3113** *July 12, 2025*
+- Updated the checkbox dependency
+
 **Version 3.0.3.3112** *July 5, 2025*
 - Added support for iOS26
 
