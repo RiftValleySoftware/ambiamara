@@ -483,7 +483,6 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
         ret.textAlignment = .center
 
         var stringFormat = "%d"
-        var backgroundColor: UIColor? = .clear
         
         switch selectedColumn {
         case .hours:
@@ -502,32 +501,35 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
             }
         }
         
-        if inRow == selectedRow {
-            ret.textAlignment = .center
-            ret.cornerRadius = 12
-            switch currentTimeSetState {
-            case .setTime:
-                ret.textColor = .black
-                backgroundColor = UIColor(named: "Start-Color") ?? .white
-                
-            case .warnTime:
-                ret.textColor = .black
-                backgroundColor = UIColor(named: "Warn-Color") ?? .white
-                
-            case .finalTime:
-                ret.textColor = self.isDarkMode ? .black : .white
-                backgroundColor = UIColor(named: "Final-Color") ?? .black
-            }
-            
-            ret.isUserInteractionEnabled = true
-            ret.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(segmentHit)))
-        }
+        ret.backgroundColor = .clear
         
-        ret.backgroundColor = backgroundColor
         if !stringFormat.isEmpty {
             ret.text = String(format: stringFormat, inRow)
         } else {
             ret.text = ""
+        }
+
+        if inRow == selectedRow {
+            let button = UIButton()
+            button.setTitle(ret.text, for: .normal)
+            button.titleLabel?.font = Self._digitalDisplayFont
+            button.titleLabel?.textAlignment = .center
+            button.cornerRadius = 12
+            switch currentTimeSetState {
+            case .setTime:
+                button.titleLabel?.textColor = .black
+                button.backgroundColor = UIColor(named: "Start-Color") ?? .white
+                
+            case .warnTime:
+                button.titleLabel?.textColor = .black
+                button.backgroundColor = UIColor(named: "Warn-Color") ?? .white
+                
+            case .finalTime:
+                button.titleLabel?.textColor = self.isDarkMode ? .black : .white
+                button.backgroundColor = UIColor(named: "Final-Color") ?? .black
+            }
+            
+            return button
         }
         
         return ret
