@@ -302,35 +302,7 @@ extension RiValT_EditTimer_ViewController {
      - parameter inComponent: The component that was hit.
      */
     private func _handleTappedPickerButton(_ inComponent: PickerComponent) {
-        var hours = Int(self.currentTimeInSeconds / TimerEngine.secondsInHour)
-        var minutes = Int((self.currentTimeInSeconds - (hours * TimerEngine.secondsInHour)) / TimerEngine.secondsInMinute)
-        var seconds = Int(self.currentTimeInSeconds - ((hours * TimerEngine.secondsInHour) + (minutes * TimerEngine.secondsInMinute)))
-        
-        switch inComponent {
-        case .hours:
-            if (0..<23).contains(hours) {
-                hours += 1
-            } else {
-                return
-            }
-        case .minutes:
-            if (0..<59).contains(minutes) {
-                minutes += 1
-            } else {
-                return
-            }
-        case .seconds:
-            if (0..<59).contains(seconds) {
-                seconds += 1
-            } else {
-                return
-            }
-        }
-        
-        let newTime = (hours * TimerEngine.secondsInHour) + (minutes * TimerEngine.secondsInMinute) + seconds
-        
-        self.currentTimeInSeconds = newTime
-        self.setTime(true)
+        print("\(inComponent) hit.")
     }
     
     /* ############################################################## */
@@ -553,24 +525,11 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
      */
     func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inReusing: UIView?) -> UIView {
         guard let selectedColumn = PickerComponent(rawValue: inComponent) else { return UILabel() }
-
+        
+        let selectedRow = inPickerView.selectedRow(inComponent: selectedColumn.rawValue)
         let hours = Int(self.currentTimeInSeconds / TimerEngine.secondsInHour)
         let minutes = Int((self.currentTimeInSeconds - (hours * TimerEngine.secondsInHour)) / TimerEngine.secondsInMinute)
-        let seconds = Int(self.currentTimeInSeconds - ((hours * TimerEngine.secondsInHour) + (minutes * TimerEngine.secondsInMinute)))
 
-        var _selectedRow: Int? {
-            switch selectedColumn {
-            case .hours:
-                return hours
-                
-            case .minutes:
-                return minutes
-
-            case .seconds:
-                return seconds
-            }
-        }
-        
         let ret = UILabel()
         ret.font = Self._digitalDisplayFont
         ret.textAlignment = .center
@@ -583,13 +542,13 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
             
         case .minutes:
             if 0 < hours,
-               inRow == _selectedRow {
+                      inRow == selectedRow {
                 stringFormat = "%02d"
             }
 
         case .seconds:
             if 0 < hours || 0 < minutes,
-               inRow == _selectedRow {
+                inRow == selectedRow {
                 stringFormat = "%02d"
             }
         }
@@ -602,7 +561,7 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
             ret.text = ""
         }
 
-        if inRow == _selectedRow {
+        if inRow == selectedRow {
             ret.font = Self._digitalDisplayFont
             ret.cornerRadius = 12
             switch currentTimeSetState {
