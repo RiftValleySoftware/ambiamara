@@ -57,7 +57,7 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
     /**
      These are the indexes for the picker columns.
      */
-    enum PickerRow: Int, CaseIterable {
+    enum PickerComponent: Int, CaseIterable {
         /* ########################################################## */
         /**
          Set the hours.
@@ -95,6 +95,12 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
      */
     static let storyboardID = "RiValT_EditTimer_ViewController"
     
+    /* ############################################################## */
+    /**
+     Intercepts taps in the picker view.
+     */
+    private var _tapGestureRecognizer: UITapGestureRecognizer?
+
     /* ############################################################## */
     /**
      The timer instance associated with this screen.
@@ -185,9 +191,9 @@ extension RiValT_EditTimer_ViewController {
      The time (in seconds) currently represented by the picker.
      */
     var currentPickerTimeInSeconds: Int {
-        let hours = self.timeSetPicker?.selectedRow(inComponent: PickerRow.hours.rawValue) ?? 0
-        let minutes = self.timeSetPicker?.selectedRow(inComponent: PickerRow.minutes.rawValue) ?? 0
-        let seconds = self.timeSetPicker?.selectedRow(inComponent: PickerRow.seconds.rawValue) ?? 0
+        let hours = self.timeSetPicker?.selectedRow(inComponent: PickerComponent.hours.rawValue) ?? 0
+        let minutes = self.timeSetPicker?.selectedRow(inComponent: PickerComponent.minutes.rawValue) ?? 0
+        let seconds = self.timeSetPicker?.selectedRow(inComponent: PickerComponent.seconds.rawValue) ?? 0
         
         return (hours * TimerEngine.secondsInHour) + (minutes * TimerEngine.secondsInMinute) + seconds
     }
@@ -242,8 +248,12 @@ extension RiValT_EditTimer_ViewController {
         super.viewDidLoad()
         self.setUpTimeTypeSegmentedControl()
         self.view?.backgroundColor = .clear
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(_handlePickerTap(_:)))
+        tapGesture.delegate = self
+        self.timeSetPicker?.addGestureRecognizer(tapGesture)
+        self._tapGestureRecognizer = tapGesture
     }
-    
+
     /* ############################################################## */
     /**
      Called when the view is about to appear
@@ -285,6 +295,16 @@ extension RiValT_EditTimer_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_EditTimer_ViewController {
+    /* ############################################################## */
+    /**
+     This processes a tap in a specific selected button.
+     
+     - parameter inComponent: The component that was hit.
+     */
+    private func _handleTappedPickerButton(_ inComponent: PickerComponent) {
+        print("\(inComponent) hit.")
+    }
+    
     /* ############################################################## */
     /**
      This customizes the time set type segmented control.
@@ -380,9 +400,9 @@ extension RiValT_EditTimer_ViewController {
         let minutes = Int((self.currentTimeInSeconds - (hours * TimerEngine.secondsInHour)) / TimerEngine.secondsInMinute)
         let seconds = Int(self.currentTimeInSeconds - ((hours * TimerEngine.secondsInHour) + (minutes * TimerEngine.secondsInMinute)))
 
-        self.timeSetPicker?.selectRow(hours, inComponent: PickerRow.hours.rawValue, animated: inIsAnimated)
-        self.timeSetPicker?.selectRow(minutes, inComponent: PickerRow.minutes.rawValue, animated: inIsAnimated)
-        self.timeSetPicker?.selectRow(seconds, inComponent: PickerRow.seconds.rawValue, animated: inIsAnimated)
+        self.timeSetPicker?.selectRow(hours, inComponent: PickerComponent.hours.rawValue, animated: inIsAnimated)
+        self.timeSetPicker?.selectRow(minutes, inComponent: PickerComponent.minutes.rawValue, animated: inIsAnimated)
+        self.timeSetPicker?.selectRow(seconds, inComponent: PickerComponent.seconds.rawValue, animated: inIsAnimated)
         self.setUpPlayButton()
         self.timeSetPicker?.reloadAllComponents()
     }
@@ -392,6 +412,48 @@ extension RiValT_EditTimer_ViewController {
 // MARK: Callbacks
 /* ###################################################################################################################################### */
 extension RiValT_EditTimer_ViewController {
+    /* ############################################################## */
+    /**
+     Handles single-taps in the picker.
+     
+     - parameter inGesture: The tap gesture.
+     */
+    @objc private func _handlePickerTap(_ inGesture: UITapGestureRecognizer) {
+        /* ########################################################## */
+        /**
+         This figures out which column the selected view represents.
+         
+         - parameter inView: The selected view
+         - parameter inPickerView: The main picker.
+         - returns: The selected column, as an enum.
+         */
+        func _findPickerColumn(in inPickerView: UIPickerView) -> PickerComponent? {
+            // Get the tap location
+            let location = inGesture.location(in: inPickerView)
+            
+            // Calculate which component was tapped based on the x-coordinate
+            let numberOfComponents = inPickerView.numberOfComponents
+            guard numberOfComponents > 0 else { return nil }
+            
+            // Calculate the width of each component
+            let componentWidth = inPickerView.bounds.width / CGFloat(numberOfComponents)
+            let tappedComponent = Int(location.x / componentWidth)
+            
+            // Ensure the component index is valid
+            if tappedComponent >= 0 && tappedComponent < numberOfComponents {
+                return PickerComponent(rawValue: tappedComponent)
+            }
+            
+            return nil
+        }
+
+        guard let pickerView = inGesture.view as? UIPickerView else { return }
+        
+        if let pickerColumn = _findPickerColumn(in: pickerView) {
+            self._handleTappedPickerButton(pickerColumn)
+        }
+    }
+
     /* ############################################################## */
     /**
      Called when the time type segmented control is changed.
@@ -416,16 +478,6 @@ extension RiValT_EditTimer_ViewController {
         self.watchDelegate.sendCommand(command: .start)
         self.myContainer?.performSegue(withIdentifier: RiValT_RunningTimer_ContainerViewController.segueID, sender: self.timer)
     }
-
-    /* ############################################################## */
-    /**
-     Called when one of the numbers is hitt.
-     
-      - parameter inGesture: The gesture recognizer for the segment that was hit.
-     */
-    @objc func segmentHit(_ inGesture: UIGestureRecognizer) {
-        self.impactHaptic()
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -438,14 +490,14 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDataSource {
      
      - parameter: The picker view (ignored).
      */
-    func numberOfComponents(in: UIPickerView) -> Int { PickerRow.allCases.count }
+    func numberOfComponents(in: UIPickerView) -> Int { PickerComponent.allCases.count }
     
     /* ############################################################## */
     /**
      Returns the number of rows for the designated column.
      */
     func pickerView(_ inPickerView: UIPickerView, numberOfRowsInComponent inComponent: Int) -> Int {
-        guard let selectedColumn = PickerRow(rawValue: inComponent) else { return 0 }
+        guard let selectedColumn = PickerComponent(rawValue: inComponent) else { return 0 }
         
         switch selectedColumn {
         case .hours:
@@ -472,7 +524,7 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
      - parameter inReusing: If the view is being reused, it is set here (ignored).
      */
     func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inReusing: UIView?) -> UIView {
-        guard let selectedColumn = PickerRow(rawValue: inComponent) else { return UILabel() }
+        guard let selectedColumn = PickerComponent(rawValue: inComponent) else { return UILabel() }
         
         let selectedRow = inPickerView.selectedRow(inComponent: selectedColumn.rawValue)
         let hours = Int(self.currentTimeInSeconds / TimerEngine.secondsInHour)
@@ -510,26 +562,21 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
         }
 
         if inRow == selectedRow {
-            let button = UIButton()
-            button.setTitle(ret.text, for: .normal)
-            button.titleLabel?.font = Self._digitalDisplayFont
-            button.titleLabel?.textAlignment = .center
-            button.cornerRadius = 12
+            ret.font = Self._digitalDisplayFont
+            ret.cornerRadius = 12
             switch currentTimeSetState {
             case .setTime:
-                button.titleLabel?.textColor = .black
-                button.backgroundColor = UIColor(named: "Start-Color") ?? .white
+                ret.textColor = .black
+                ret.backgroundColor = UIColor(named: "Start-Color") ?? .white
                 
             case .warnTime:
-                button.titleLabel?.textColor = .black
-                button.backgroundColor = UIColor(named: "Warn-Color") ?? .white
+                ret.textColor = .black
+                ret.backgroundColor = UIColor(named: "Warn-Color") ?? .white
                 
             case .finalTime:
-                button.titleLabel?.textColor = self.isDarkMode ? .black : .white
-                button.backgroundColor = UIColor(named: "Final-Color") ?? .black
+                ret.textColor = self.isDarkMode ? .black : .white
+                ret.backgroundColor = UIColor(named: "Final-Color") ?? .black
             }
-            
-            return button
         }
         
         return ret
@@ -605,5 +652,12 @@ extension RiValT_EditTimer_ViewController: UIPickerViewAccessibilityDelegate {
     */
     func pickerView(_ inPickerView: UIPickerView, accessibilityHintForComponent inComponentIndex: Int) -> String? {
         "SLUG-ACC-TIME-PICKER-COMPONENT-\(inComponentIndex)-HINT".localizedVariant
+    }
+}
+
+// Implement UIGestureRecognizerDelegate
+extension RiValT_EditTimer_ViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true // Allow picker's gestures to work normally
     }
 }
