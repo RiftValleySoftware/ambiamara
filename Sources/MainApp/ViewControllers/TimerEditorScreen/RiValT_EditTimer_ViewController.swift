@@ -416,16 +416,6 @@ extension RiValT_EditTimer_ViewController {
         self.watchDelegate.sendCommand(command: .start)
         self.myContainer?.performSegue(withIdentifier: RiValT_RunningTimer_ContainerViewController.segueID, sender: self.timer)
     }
-
-    /* ############################################################## */
-    /**
-     Called when one of the numbers is hitt.
-     
-      - parameter inGesture: The gesture recognizer for the segment that was hit.
-     */
-    @objc func segmentHit(_ inGesture: UIGestureRecognizer) {
-        self.impactHaptic()
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -518,9 +508,6 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
                 ret.textColor = self.isDarkMode ? .black : .white
                 backgroundColor = UIColor(named: "Final-Color") ?? .black
             }
-            
-            ret.isUserInteractionEnabled = true
-            ret.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(segmentHit)))
         }
         
         ret.backgroundColor = backgroundColor
