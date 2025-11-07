@@ -81,7 +81,7 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
     /**
      The large variant of the digital display font.
      */
-    private static let _digitalDisplayFont = UIFont(name: "Let\'s go Digital", size: 80)
+    private static let _digitalDisplayFont = UIFont(name: "Let\'s go Digital", size: 50)
     
     /* ############################################################## */
     /**
@@ -529,7 +529,7 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
      
      - returns: 70 (always)
      */
-    func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent inComponent: Int) -> CGFloat { 60 }
+    func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent inComponent: Int) -> CGFloat { 40 }
     
     /* ############################################################## */
     /**
