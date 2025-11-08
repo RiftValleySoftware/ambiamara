@@ -42,7 +42,6 @@
 		D472DF922DC3C2F80076A987 /* RiValT_About_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472DF912DC3C2F80076A987 /* RiValT_About_ViewController.swift */; };
 		D4752E9D2DB2FD91002359CA /* RiValT_Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4752E9C2DB2FD91002359CA /* RiValT_Settings.swift */; };
 		D48735402E230FEF00DBC0A2 /* RVS_Checkbox in Frameworks */ = {isa = PBXBuildFile; productRef = D487353F2E230FEF00DBC0A2 /* RVS_Checkbox */; };
-		D48735412E2311B300DBC0A2 /* Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D4F83C9D2D63DB10009C4646 /* Watch App.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D48A5E352D934ED200770606 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D48A5E342D934ED200770606 /* RVS_UIKit_Toolbox */; };
 		D48A67942DC034B000450B42 /* Beep-028.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D48A67902DC034B000450B42 /* Beep-028.mp3 */; };
 		D48A67952DC034B000450B42 /* Beep-026.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D48A678E2DC034B000450B42 /* Beep-026.mp3 */; };
@@ -146,20 +145,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D47E6F392E19497F0019DF02 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D4F83C9C2D63DB10009C4646;
-			remoteInfo = "Watch App";
-		};
-		D48735422E2311B300DBC0A2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D4F83C9C2D63DB10009C4646;
-			remoteInfo = "Watch App";
-		};
 		D4BB90102D9C3D7600F3DB80 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
@@ -184,17 +169,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D48735442E2311B300DBC0A2 /* Embed Watch Content */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
-			files = (
-				D48735412E2311B300DBC0A2 /* Watch App.app in Embed Watch Content */,
-			);
-			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D4A413912DB9276B0017964C /* Copy Alarm Sound Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -843,13 +817,10 @@
 				D43B97332DA2C0F50028E023 /* Resources */,
 				D4A413912DB9276B0017964C /* Copy Alarm Sound Files */,
 				D4F8270F2DB9657900815664 /* Copy Transition Sounds */,
-				D48735442E2311B300DBC0A2 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D47E6F3A2E19497F0019DF02 /* PBXTargetDependency */,
-				D48735432E2311B300DBC0A2 /* PBXTargetDependency */,
 			);
 			name = "Main App";
 			packageProductDependencies = (
@@ -1243,17 +1214,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D47E6F3A2E19497F0019DF02 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = D4F83C9C2D63DB10009C4646 /* Watch App */;
-			targetProxy = D47E6F392E19497F0019DF02 /* PBXContainerItemProxy */;
-		};
-		D48735432E2311B300DBC0A2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D4F83C9C2D63DB10009C4646 /* Watch App */;
-			targetProxy = D48735422E2311B300DBC0A2 /* PBXContainerItemProxy */;
-		};
 		D4BB90112D9C3D7600F3DB80 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D46B84DE2D986AB600199220 /* TimerEngineTestHarness */;
@@ -1335,7 +1295,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = RiVal.T;
 				REGISTER_APP_GROUPS = YES;
@@ -1376,7 +1336,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = RiVal.T;
 				REGISTER_APP_GROUPS = YES;
