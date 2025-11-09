@@ -1,5 +1,8 @@
-**Version 3.0.4.3113** *July 12, 2025*
+**Version 3.0.3.3116** *November 9, 2025*
 - Updated the checkbox dependency
+- Updated the tools.
+- Made the picker look more like a picker.
+- Made it so the Edit button updates, after changing the "One-Tap Edit" setting.
 
 **Version 3.0.3.3112** *July 5, 2025*
 - Added support for iOS26
