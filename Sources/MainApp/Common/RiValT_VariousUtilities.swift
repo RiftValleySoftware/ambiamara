@@ -53,6 +53,7 @@ extension UIImage {
 /**
  This will not turn grey. Instead, it will become clear.
  */
+@IBDesignable
 class RiValT_DisappearingBarButton: UIBarButtonItem {
     /* ################################################################## */
     /**
@@ -61,8 +62,8 @@ class RiValT_DisappearingBarButton: UIBarButtonItem {
     override var isEnabled: Bool {
         get { super.isEnabled }
         set {
-            super.isEnabled = newValue
             super.tintColor = newValue ? RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.view?.tintColor : .clear
+            super.isEnabled = newValue
         }
     }
 }

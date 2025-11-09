@@ -28,6 +28,12 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
     
     /* ############################################################## */
     /**
+     The controller that "owns" this instance.
+     */
+    weak var myOwner: RiValT_GroupEditor_ViewController?
+    
+    /* ############################################################## */
+    /**
      The checkbox for the "Start Immediately" preference.
      */
     @IBOutlet weak var startImmediatelyCheckbox: RVS_Checkbox?
@@ -125,6 +131,17 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         }
         
         self._setPreferredContentSize()
+    }
+    
+    /* ############################################################## */
+    /**
+     Called after the popover has disappeared.
+     
+     - parameter inIsAnimated: True, if the disappearance was animated.
+     */
+    override func viewDidDisappear(_ inIsAnimated: Bool) {
+        super.viewDidDisappear(inIsAnimated)
+        self.myOwner?.updateToolbar()
     }
     
     /* ############################################################## */

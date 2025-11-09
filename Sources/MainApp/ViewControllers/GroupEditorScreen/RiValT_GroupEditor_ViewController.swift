@@ -179,7 +179,7 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
     /**
      The edit button in the toolbar.
      */
-    @IBOutlet weak var toolbarEditButton: UIBarButtonItem?
+    @IBOutlet weak var toolbarEditButton: RiValT_DisappearingBarButton?
     
     /* ############################################################## */
     /**
@@ -291,6 +291,7 @@ extension RiValT_GroupEditor_ViewController {
             collectionView.scrollToItem(at: selectedSectionIndex, at: .centeredVertically, animated: false)
             self._lastScrollPos = collectionView.contentOffset
         }
+        self.updateToolbar()
     }
 
     /* ################################################################## */
@@ -496,14 +497,12 @@ extension RiValT_GroupEditor_ViewController {
      This updates the items in the toolbar.
      */
     func updateToolbar() {
-        self.toolbarDeleteButton?.isEnabled = false
-        self.toolbarPlayButton?.isEnabled = false
-        self.toolbarEditButton?.isEnabled = false
-        guard let timer = self.timerModel.selectedTimer else { return }
         self.toolbarDeleteButton?.isEnabled = 1 < self.timerModel.allTimers.count
+        self.toolbarPlayButton?.isEnabled = false
+        self.toolbarEditButton?.isEnabled = !RiValT_Settings().oneTapEditing
+        guard let timer = self.timerModel.selectedTimer else { return }
         self.toolbarPlayButton?.isEnabled = 0 < timer.startingTimeInSeconds
         self.toolbarPlayButton?.image = UIImage(systemName: 0 < timer.startingTimeInSeconds ? "play.fill" : "play.slash")
-        self.toolbarEditButton?.isEnabled = !RiValT_Settings().oneTapEditing
     }
 }
 
@@ -654,6 +653,7 @@ extension RiValT_GroupEditor_ViewController {
         controller.modalPresentationStyle = .popover
         controller.popoverPresentationController?.delegate = self
         controller.popoverPresentationController?.barButtonItem = inBarButtonItem
+        controller.myOwner = self
         self.present(controller, animated: true, completion: nil)
     }
     
