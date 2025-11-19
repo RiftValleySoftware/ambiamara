@@ -133,7 +133,7 @@ class SoundBarButtonItem: BaseCustomBarButtonItem {
      */
     override var image: UIImage? {
         get {
-            super.image = super.image ?? self.group?.soundType.image?.resized(toNewHeight: 24)
+            super.image = super.image ?? self.group?.soundType.image?.resized(toNewHeight: 24)?.withTintColor(UIColor(named: "AccentColor") ?? .label)
             return super.image
         }
         set { super.image = newValue }

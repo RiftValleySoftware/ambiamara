@@ -301,6 +301,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="tintColor" name="AccentColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="eX2-3V-kKN" secondAttribute="trailing" id="0gi-Ja-YbZ"/>
@@ -312,14 +313,16 @@
                             <constraint firstItem="eX2-3V-kKN" firstAttribute="top" secondItem="DVH-QM-2oZ" secondAttribute="bottom" id="voD-aR-nvp"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="SLUG-TIMERS" id="DJn-d6-GdS">
                         <barButtonItem key="leftBarButtonItem" id="tOI-Og-fO4">
-                            <imageReference key="image" image="gear.circle" catalog="system" symbolScale="large"/>
+                            <imageReference key="image" image="gear.circle" catalog="system" symbolScale="default"/>
                             <connections>
                                 <action selector="settingsButtonHit:" destination="BYZ-38-t0r" id="eMq-nF-Zrm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="DVH-QM-2oZ" id="9aH-vt-SVg"/>
                         <outlet property="settingsBarButtonItem" destination="tOI-Og-fO4" id="JqA-PY-GiR"/>
@@ -1397,7 +1400,7 @@
         <image name="play.slash" catalog="system" width="116" height="128"/>
         <image name="speaker.fill" catalog="system" width="128" height="125"/>
         <namedColor name="AccentColor">
-            <color red="0.31400001049041748" green="0.37999999523162842" blue="0.89399999380111694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.10588235294117647" green="0.35686274509803922" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="0.72200000286102295" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

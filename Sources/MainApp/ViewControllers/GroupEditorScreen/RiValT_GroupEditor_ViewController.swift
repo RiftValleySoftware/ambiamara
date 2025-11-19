@@ -219,9 +219,10 @@ extension RiValT_GroupEditor_ViewController {
         self.toolbar?.scrollEdgeAppearance = appearance
         self.collectionView?.isDirectionalLockEnabled = true
         self.navigationItem.backButtonTitle = "SLUG-TIMERS-BACK".localizedVariant
-        self.settingsBarButtonItem?.image = UIImage(systemName: "gear")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30, weight: .bold))
+        self.settingsBarButtonItem?.image = UIImage(systemName: "gear")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 24))
         self.settingsBarButtonItem?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON-LABEL".localizedVariant
         self.settingsBarButtonItem?.accessibilityHint = "SLUG-ACC-SETTINGS-BUTTON-HINT".localizedVariant
+//        self.settingsBarButtonItem?.tintColor = self.view?.tintColor
         self.toolbarDeleteButton?.accessibilityIdentifier = "targetItem"
         self.toolbarDeleteButton?.accessibilityLabel = "SLUG-ACC-TOOLBAR-DELETE-LABEL".localizedVariant
         self.toolbarDeleteButton?.accessibilityHint = "SLUG-ACC-TOOLBAR-DELETE-HINT".localizedVariant
@@ -377,6 +378,7 @@ extension RiValT_GroupEditor_ViewController {
         soundSettingsButtonItem.group = self.timerModel.selectedTimer?.group
         soundSettingsButtonItem.target = self
         soundSettingsButtonItem.action = #selector(soundSettingsButtonHit)
+//        soundSettingsButtonItem.tintColor = self.view?.tintColor
         let displaySettingsButtonItem = DisplayBarButtonItem()
         displaySettingsButtonItem.isAccessibilityElement = true
         displaySettingsButtonItem.accessibilityLabel = "SLUG-ACC-DISPLAY-SETTINGS-BUTTON-LABEL".localizedVariant
@@ -384,6 +386,7 @@ extension RiValT_GroupEditor_ViewController {
         displaySettingsButtonItem.group = self.timerModel.selectedTimer?.group
         displaySettingsButtonItem.target = self
         displaySettingsButtonItem.action = #selector(displaySettingsButtonHit)
+//        displaySettingsButtonItem.tintColor = self.view?.tintColor
         self.navigationItem.rightBarButtonItems = nil
         self.navigationItem.rightBarButtonItems = [soundSettingsButtonItem, UIBarButtonItem.flexibleSpace(), displaySettingsButtonItem]
     }
