@@ -17,7 +17,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D43B97342DA2C0F50028E023"
                BuildableName = "RiVal.T.app"
-               BlueprintName = "Main App"
+               BlueprintName = "RiVal.T"
                ReferencedContainer = "container:AmbiaMara.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,7 +46,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D43B97342DA2C0F50028E023"
             BuildableName = "RiVal.T.app"
-            BlueprintName = "Main App"
+            BlueprintName = "RiVal.T"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -63,7 +63,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D43B97342DA2C0F50028E023"
             BuildableName = "RiVal.T.app"
-            BlueprintName = "Main App"
+            BlueprintName = "RiVal.T"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

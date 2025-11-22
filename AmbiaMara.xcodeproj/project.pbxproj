@@ -807,9 +807,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D43B97342DA2C0F50028E023 /* Main App */ = {
+		D43B97342DA2C0F50028E023 /* RiVal.T */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D43B97492DA2C0F60028E023 /* Build configuration list for PBXNativeTarget "Main App" */;
+			buildConfigurationList = D43B97492DA2C0F60028E023 /* Build configuration list for PBXNativeTarget "RiVal.T" */;
 			buildPhases = (
 				D43974572DC516E900107DBA /* SwiftLint */,
 				D43B97312DA2C0F50028E023 /* Sources */,
@@ -822,7 +822,7 @@
 			);
 			dependencies = (
 			);
-			name = "Main App";
+			name = RiVal.T;
 			packageProductDependencies = (
 				D43B976F2DA2C2D00028E023 /* RVS_Generic_Swift_Toolbox */,
 				D43B97712DA2C2D00028E023 /* RVS_Persistent_Prefs */,
@@ -1000,7 +1000,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D43B97342DA2C0F50028E023 /* Main App */,
+				D43B97342DA2C0F50028E023 /* RiVal.T */,
 				D4F83C9C2D63DB10009C4646 /* Watch App */,
 				D4F83CB22D63DB43009C4646 /* Watch Complications */,
 				D46B84DE2D986AB600199220 /* TimerEngineTestHarness */,
@@ -1221,7 +1221,7 @@
 		};
 		D4C665D12DAE6BFF00A0316D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D43B97342DA2C0F50028E023 /* Main App */;
+			target = D43B97342DA2C0F50028E023 /* RiVal.T */;
 			targetProxy = D4C665D02DAE6BFF00A0316D /* PBXContainerItemProxy */;
 		};
 		D4F83CBF2D63DB43009C4646 /* PBXTargetDependency */ = {
@@ -1275,7 +1275,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/MainApp/Meta/RiVal.T.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3116;
+				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1295,12 +1295,12 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = RiVal.T;
 				REGISTER_APP_GROUPS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1316,7 +1316,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/MainApp/Meta/RiVal.T.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3116;
+				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1336,12 +1336,12 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
 				PRODUCT_NAME = RiVal.T;
 				REGISTER_APP_GROUPS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1656,7 +1656,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchApp/WatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3114;
+				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_PREVIEWS = YES;
@@ -1695,7 +1695,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchApp/WatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3114;
+				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_PREVIEWS = YES;
@@ -1733,7 +1733,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3114;
+				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1770,7 +1770,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3114;
+				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1800,7 +1800,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D43B97492DA2C0F60028E023 /* Build configuration list for PBXNativeTarget "Main App" */ = {
+		D43B97492DA2C0F60028E023 /* Build configuration list for PBXNativeTarget "RiVal.T" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D43B97462DA2C0F60028E023 /* Debug */,
