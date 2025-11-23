@@ -211,18 +211,10 @@ extension RiValT_GroupEditor_ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         RiValT_AppDelegate.appDelegateInstance?.groupEditorController = self
-        let appearance = UIToolbarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = .clear
-        appearance.backgroundImage = nil
-        self.toolbar?.standardAppearance = appearance
-        self.toolbar?.scrollEdgeAppearance = appearance
-        self.collectionView?.isDirectionalLockEnabled = true
         self.navigationItem.backButtonTitle = "SLUG-TIMERS-BACK".localizedVariant
-        self.settingsBarButtonItem?.image = UIImage(systemName: "gear")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 24))
+        self.collectionView?.isDirectionalLockEnabled = true
         self.settingsBarButtonItem?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON-LABEL".localizedVariant
         self.settingsBarButtonItem?.accessibilityHint = "SLUG-ACC-SETTINGS-BUTTON-HINT".localizedVariant
-//        self.settingsBarButtonItem?.tintColor = self.view?.tintColor
         self.toolbarDeleteButton?.accessibilityIdentifier = "targetItem"
         self.toolbarDeleteButton?.accessibilityLabel = "SLUG-ACC-TOOLBAR-DELETE-LABEL".localizedVariant
         self.toolbarDeleteButton?.accessibilityHint = "SLUG-ACC-TOOLBAR-DELETE-HINT".localizedVariant
@@ -230,6 +222,13 @@ extension RiValT_GroupEditor_ViewController {
         self.toolbarPlayButton?.accessibilityHint = "SLUG-ACC-TOOLBAR-PLAY-HINT".localizedVariant
         self.toolbarEditButton?.accessibilityLabel = "SLUG-ACC-TOOLBAR-EDIT-LABEL".localizedVariant
         self.toolbarEditButton?.accessibilityHint = "SLUG-ACC-TOOLBAR-EDIT-HINT".localizedVariant
+        
+        let appearance = UIToolbarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .clear
+        appearance.backgroundImage = nil
+        self.toolbar?.standardAppearance = appearance
+        self.toolbar?.scrollEdgeAppearance = appearance
     }
 
     /* ############################################################## */

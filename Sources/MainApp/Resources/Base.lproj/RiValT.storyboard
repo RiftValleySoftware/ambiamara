@@ -316,7 +316,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="SLUG-TIMERS" id="DJn-d6-GdS">
                         <barButtonItem key="leftBarButtonItem" id="tOI-Og-fO4">
-                            <imageReference key="image" image="gear.circle" catalog="system" symbolScale="default"/>
+                            <imageReference key="image" image="gear.circle" catalog="system" symbolScale="large"/>
                             <connections>
                                 <action selector="settingsButtonHit:" destination="BYZ-38-t0r" id="eMq-nF-Zrm"/>
                             </connections>
@@ -1400,7 +1400,7 @@
         <image name="play.slash" catalog="system" width="116" height="128"/>
         <image name="speaker.fill" catalog="system" width="128" height="125"/>
         <namedColor name="AccentColor">
-            <color red="0.10588235294117647" green="0.35686274509803922" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.31400001049041748" green="0.37999999523162842" blue="0.89399999380111694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Delete-Color">
             <color red="0.72200000286102295" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1409,7 +1409,7 @@
             <color red="0.5" green="0.5" blue="0.5" alpha="0.19799999892711639" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Paused-Color">
-            <color red="0.012000000104308128" green="0.94199997186660767" blue="0.77899998426437378" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.012000000104308128" green="1" blue="0.82800000905990601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
