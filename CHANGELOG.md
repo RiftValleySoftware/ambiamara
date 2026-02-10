@@ -1,4 +1,9 @@
 **Version 3.0.5.0000** *February 10, 2026*
+- Updated the dependencies to the latest versions.
+- Improved the documentation.
+
+**Version 3.0.4.0000** *December 9, 2025*
+- Liquid Glass Native
 
 **Version 3.0.3.3116** *November 9, 2025*
 - Updated the checkbox dependency
