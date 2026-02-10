@@ -1,3 +1,5 @@
+**Version 3.0.5.0000** *February 10, 2026*
+
 **Version 3.0.3.3116** *November 9, 2025*
 - Updated the checkbox dependency
 - Updated the tools.

@@ -1,8 +1,8 @@
 # ``RiVal_T``
 
-## OVERVIEW
-
 ![AmbiaMara Icon](icon.png)
+
+## OVERVIEW
 
 This project is designed to provide executable apps for the iOS/iPadOS App Stores (as native apps), and the Mac App Store (as a [Mac Catalyst](https://developer.apple.com/documentation/uikit/mac-catalyst) executable).
 
