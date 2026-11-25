@@ -266,6 +266,9 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
 
     /** Used to prevent repeated haptics while hovering over the same position. */
     private var _lastDropPosition: DropPosition?
+
+    /** Gives every completed or cancelled drag a single, strong impact. */
+    private let _dragEndFeedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
     
     /* ############################################################## */
     /**
@@ -770,7 +773,7 @@ extension RiValT_GroupEditor_ViewController {
     
     /* ############################################################## */
     /**
-     Starts the first timer in a double-tapped row, selecting it first.
+     Selects an unselected row, or starts the first timer in an already selected row.
      
      - parameter inTapGesture: The tap that caused the call.
      */
@@ -785,6 +788,12 @@ extension RiValT_GroupEditor_ViewController {
         }),
               let timer = self.timerModel[section].first
         else { return }
+
+        guard self.timerModel[section].isSelected else {
+            self.collectionView(collectionView, didSelectItemAt: IndexPath(item: 0, section: section))
+            self.watchDelegate?.publishSnapshot()
+            return
+        }
 
         self._lastScrollPos = collectionView.contentOffset
         timer.isSelected = true
@@ -807,11 +816,7 @@ extension RiValT_GroupEditor_ViewController {
            let groupIndex = group.index,
            (0..<(self.timerModel?.count ?? 0)).contains(groupIndex),
            !group.isSelected {
-            group.first?.isSelected = true
-            let oldValue = RiValT_Settings().oneTapEditing
-            RiValT_Settings().oneTapEditing = false
             self.collectionView(collectionView, didSelectItemAt: IndexPath(item: 0, section: groupIndex))
-            RiValT_Settings().oneTapEditing = oldValue
             self.watchDelegate?.publishSnapshot()
         }
     }
@@ -856,6 +861,7 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDragDelegate {
     func collectionView(_ inCollectionView: UICollectionView, dragSessionDidEnd inSession: UIDragSession) {
         self.setInsertionPreview(nil)
         self._lastDropPosition = nil
+        self._dragEndFeedbackGenerator.impactOccurred(intensity: 1.0)
     }
 
     /* ############################################################## */
@@ -906,6 +912,7 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDragDelegate {
         inSession.localContext = inIndexPath
         self.timerModel.selectTimer(inIndexPath)
         self.impactHaptic(1.0)
+        self._dragEndFeedbackGenerator.prepare()
         inCollectionView.reloadData()
         let timer = self.timerModel[indexPath: inIndexPath]
         let provider = NSItemProvider(object: timer.id.uuidString as NSString)
@@ -979,7 +986,6 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDropDelegate {
             self.setInsertionPreview(nil)
             let timer = self.timerModel.moveTimerToNewGroup(from: source, before: section)
             self._lastDropPosition = nil
-            self.impactHaptic(1.0)
             self.updateSnapshot()
             if let item = inCoordinator.items.first, let destination = timer.indexPath {
                 inCoordinator.drop(item.dragItem, toItemAt: destination)
@@ -992,7 +998,6 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDropDelegate {
         else { return }
 
         self._lastDropPosition = nil
-        self.impactHaptic(1.0)
         self.timerModel.moveTimer(from: sourceIndexPath, to: destinationIndexPath)
         self.updateSnapshot()
     }
@@ -1029,6 +1034,9 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDelegate {
             self._lastScrollPos = .zero
         } else if (0..<(self.timerModel?.count ?? 0)).contains((inIndexPath.section)),
                   !(self.timerModel?[inIndexPath.section].isSelected ?? false) {
+            // Discard any tap already in progress. Starting this row takes two fresh taps.
+            self.rowDoubleTapRecognizer?.isEnabled = false
+            self.rowDoubleTapRecognizer?.isEnabled = true
             self.timerModel?[inIndexPath.section].first?.isSelected = true
             self.watchDelegate?.updateSettings()
             self.impactHaptic()

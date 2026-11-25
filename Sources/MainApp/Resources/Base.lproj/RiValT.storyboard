@@ -664,64 +664,8 @@
                                             <action selector="alarmModeSegmentedSwitchHit:" destination="Ve2-9T-BtJ" eventType="valueChanged" id="peK-BF-ErJ"/>
                                         </connections>
                                     </segmentedControl>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="SLUG-NO-SOUND" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="I2Y-9F-3Ep">
-                                        <rect key="frame" x="125" y="38" width="143" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="whT-LT-Ytd"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CaB-on-Nru" userLabel="Main Picker Stack View">
-                                        <rect key="frame" x="0.0" y="72" width="393" height="80"/>
-                                        <subviews>
-                                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="wa9-V3-AW2">
-                                                <rect key="frame" x="0.0" y="0.0" width="353" height="80"/>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-SOUND-PICKER-HINT" label="SLUG-ACC-SOUND-PICKER-LABEL">
-                                                    <bool key="isElement" value="YES"/>
-                                                </accessibility>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="80" id="Kao-cT-848"/>
-                                                </constraints>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="Ve2-9T-BtJ" id="5n7-b7-0f8"/>
-                                                    <outlet property="delegate" destination="Ve2-9T-BtJ" id="aLT-pv-tgI"/>
-                                                </connections>
-                                            </pickerView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLc-gT-2tz">
-                                                <rect key="frame" x="353" y="27.666666666666657" width="40" height="25"/>
-                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-SOUND-PICKER-BUTTON-HINT" label="SLUG-ACC-SOUND-PICKER-BUTTON-LABEL"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="7H4-OX-tLd"/>
-                                                    <constraint firstAttribute="width" secondItem="nLc-gT-2tz" secondAttribute="height" multiplier="8:5" id="84k-Nh-CGh"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal">
-                                                    <imageReference key="image" image="speaker.fill" catalog="system" symbolScale="large"/>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="regular"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="soundPlayButtonHit:" destination="Ve2-9T-BtJ" eventType="touchUpInside" id="oDh-3H-myv"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="wa9-V3-AW2" secondAttribute="bottom" id="7Qd-Rv-8Sh"/>
-                                            <constraint firstItem="wa9-V3-AW2" firstAttribute="top" secondItem="CaB-on-Nru" secondAttribute="top" id="jUl-w7-HhX"/>
-                                        </constraints>
-                                    </stackView>
-                                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sBA-v4-Xw9">
-                                        <rect key="frame" x="20" y="76" width="353" height="1"/>
-                                        <color key="backgroundColor" systemColor="labelColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="ezh-m0-1PQ"/>
-                                        </constraints>
-                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-TRANSITION-SOUND-LABEL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enp-th-W0d">
-                                        <rect key="frame" x="60.333333333333343" y="85" width="272.66666666666663" height="30"/>
+                                        <rect key="frame" x="60.333333333333343" y="38" width="272.66666666666663" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="CWd-th-dZ7"/>
                                         </constraints>
@@ -730,7 +674,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3JS-Yi-fXh">
-                                        <rect key="frame" x="0.0" y="115" width="393" height="80"/>
+                                        <rect key="frame" x="0.0" y="72" width="393" height="80"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eM0-Ca-QCY">
                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="80"/>
@@ -767,6 +711,62 @@
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="eM0-Ca-QCY" secondAttribute="bottom" id="9Lt-IF-4jg"/>
                                             <constraint firstItem="eM0-Ca-QCY" firstAttribute="top" secondItem="3JS-Yi-fXh" secondAttribute="top" id="eJm-rD-48q"/>
+                                        </constraints>
+                                    </stackView>
+                                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sBA-v4-Xw9">
+                                        <rect key="frame" x="20" y="76" width="353" height="1"/>
+                                        <color key="backgroundColor" systemColor="labelColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="ezh-m0-1PQ"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="SLUG-NO-SOUND" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="I2Y-9F-3Ep">
+                                        <rect key="frame" x="125" y="85" width="143" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="whT-LT-Ytd"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CaB-on-Nru" userLabel="Main Picker Stack View">
+                                        <rect key="frame" x="0.0" y="115" width="393" height="80"/>
+                                        <subviews>
+                                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="wa9-V3-AW2">
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="80"/>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-SOUND-PICKER-HINT" label="SLUG-ACC-SOUND-PICKER-LABEL">
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="Kao-cT-848"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="Ve2-9T-BtJ" id="5n7-b7-0f8"/>
+                                                    <outlet property="delegate" destination="Ve2-9T-BtJ" id="aLT-pv-tgI"/>
+                                                </connections>
+                                            </pickerView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLc-gT-2tz">
+                                                <rect key="frame" x="353" y="27.666666666666657" width="40" height="25"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-SOUND-PICKER-BUTTON-HINT" label="SLUG-ACC-SOUND-PICKER-BUTTON-LABEL"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="7H4-OX-tLd"/>
+                                                    <constraint firstAttribute="width" secondItem="nLc-gT-2tz" secondAttribute="height" multiplier="8:5" id="84k-Nh-CGh"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal">
+                                                    <imageReference key="image" image="speaker.fill" catalog="system" symbolScale="large"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="regular"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="soundPlayButtonHit:" destination="Ve2-9T-BtJ" eventType="touchUpInside" id="oDh-3H-myv"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="wa9-V3-AW2" secondAttribute="bottom" id="7Qd-Rv-8Sh"/>
+                                            <constraint firstItem="wa9-V3-AW2" firstAttribute="top" secondItem="CaB-on-Nru" secondAttribute="top" id="jUl-w7-HhX"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>

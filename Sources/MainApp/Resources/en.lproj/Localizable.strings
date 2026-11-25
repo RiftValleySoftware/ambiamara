@@ -150,7 +150,7 @@ LONG-PRESS: Brings up a slider, allowing you to set the time to any point.";
 
 // MARK: Sound Settings Popover
 
-"SLUG-NO-SOUND"                                 =   "Silent";
+"SLUG-NO-SOUND"                                 =   "No Alarm";
 "SLUG-VIBRATE-ONLY"                             =   "Vibration Only";
 "SLUG-SOUND-ONLY"                               =   "Alarm Sound";
 "SLUG-SOUND-VIBRATE"                            =   "Alarm Sound (With Vibration)";

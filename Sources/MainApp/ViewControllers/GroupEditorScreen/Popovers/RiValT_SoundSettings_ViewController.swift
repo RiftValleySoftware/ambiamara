@@ -19,7 +19,7 @@ import AVKit
 /**
  This view controller is for the popover that appears, when the user selects the sound prefs bar button item.
  
- This has a segmented switch at the top, representing the user's choice for final alarm sound.
+ The segmented switch at the top sets the final alarm mode.
  
  It can be:
  
@@ -31,11 +31,14 @@ import AVKit
  
  - Sound and Vibration (iPhones only)
  
- When the user makes a selection, a picker view may appear, directly under the switch. This appears for either Sound Only, or Sound and Vibration. This picker allows the user to choose from the app's custom sounds.
- 
- If there is more than one timer in the group, a "Transition Sound" picker will appear, at the bottom of the screen. This allows the user to select a short transition sound, between timers.
+ For groups with more than one timer, the Transition Sound label and picker appear below the switch.
+
+ The final alarm label follows, with a picker for Sound Only or Sound and Vibration.
  */
 class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
+    /** Vertical space between each section label and its sound picker. */
+    private static let _labelToPickerSpacing: CGFloat = 4
+
     /* ############################################################## */
     /**
      The storyboard ID for instantiating the class.
@@ -217,6 +220,9 @@ extension RiValT_SoundSettings_ViewController {
      */
     override func viewDidLoad() {
         self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
+        for label in [self.transitionPickerLabel, self.soundTypeLabel].compactMap({ $0 }) {
+            (label.superview as? UIStackView)?.setCustomSpacing(Self._labelToPickerSpacing, after: label)
+        }
         self._setPreferredContentSize()
         super.viewDidLoad()
         self.setSegmentedSwitchUp()
@@ -235,11 +241,11 @@ extension RiValT_SoundSettings_ViewController {
      This calculates the size needed for the popover, and sets the property, which causes the popover to change.
      */
     private func _setPreferredContentSize() {
-        var height = 100
+        var height: CGFloat = 100
         
         switch self.group?.soundType {
         case .sound, .soundVibrate:
-            height += 88
+            height += 80 + Self._labelToPickerSpacing
             
         default:
             break
@@ -247,7 +253,7 @@ extension RiValT_SoundSettings_ViewController {
         
         // If we have more than one timer in the group, we can have a transition sound.
         if 1 < self.group?.count ?? 0 {
-            height += 138
+            height += 130 + Self._labelToPickerSpacing
         }
         
         UIView.animate(withDuration: 0.3) {
