@@ -421,9 +421,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             self.flashGreen()
             self.timer?.start()
             self.forceStart = false
-            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .start)
         } else {
-            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendApplicationContext()
             self.timer?.stop()
         }
         
@@ -449,6 +447,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         self._alarmTimer?.invalidate()
         self._alarmTimer = nil
         UIApplication.shared.isIdleTimerDisabled = false
+        self.watchDelegate?.publishSnapshot()
     }
     
     /* ############################################################## */
@@ -698,7 +697,6 @@ extension RiValT_RunningTimer_ContainerViewController {
             self.flashTimerNumber(0)
         } else {
             self.timer?.stop()
-            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .reset)
         }
         
         self.updateDisplays()
@@ -721,7 +719,6 @@ extension RiValT_RunningTimer_ContainerViewController {
             timer.transitionHandler = nil
             timer.tickHandler = nil
             timer.stop()
-            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .stop)
         }
         self.navigationController?.popViewController(animated: true)
     }
@@ -737,13 +734,11 @@ extension RiValT_RunningTimer_ContainerViewController {
             self._autoHideTimer?.isRunning = false
             self.timer?.pause()
             self.updateDisplays()
-            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .pause)
         } else {
             if self.timer?.isTimerPaused ?? false {
                 self.flashGreen()
                 self._autoHideTimer?.isRunning = true
                 self.timer?.resume()
-                RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .resume)
             } else if self.timer?.isTimerInAlarm ?? false,
                       let oldRow = self.timer?.indexPath?.row,
                       let timer = self.firstTimer {
@@ -759,13 +754,11 @@ extension RiValT_RunningTimer_ContainerViewController {
                    row != oldRow {
                     self.flashTimerNumber(row)
                 }
-                RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .reset)
             } else {
                 self.flashGreen()
                 self.impactHaptic()
                 self._autoHideTimer?.isRunning = true
                 self.timer?.start()
-                RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .start)
            }
             self.updateDisplays()
         }
@@ -793,11 +786,9 @@ extension RiValT_RunningTimer_ContainerViewController {
             if let row = self.timer?.indexPath?.row {
                 self.flashTimerNumber(row)
             }
-            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .reset)
         } else {
             self.timer?.end()
             self.alarmReached()
-            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendCommand(command: .fastForward)
         }
         
         self.updateDisplays()
@@ -931,6 +922,7 @@ extension RiValT_RunningTimer_ContainerViewController {
      */
     func updateDisplays() {
         self.setToolbarEnablements()
+        self.watchDelegate?.publishSnapshot()
         if case .paused = self.timer?.timerMode {
             self.pausedLabel?.isHidden = false
         } else {
@@ -1285,7 +1277,6 @@ extension RiValT_RunningTimer_ContainerViewController {
         if !self.isDragging {
             self.selectionHaptic()
             self.updateDisplays()
-            RiValT_AppDelegate.appDelegateInstance?.watchDelegate.sendSync()
         }
     }
 
@@ -1298,6 +1289,8 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter inToMode: The new timer state.
      */
     func transitionHandler(_ inTimer: Timer, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
+        // The engine delivers callbacks on main asynchronously. A command or group transition may already have replaced this timer.
+        guard inTimer === self.timer else { return }
         if !self.isDragging,
            .stopped != inFromMode {
             self.impactHaptic(1.0)
@@ -1324,7 +1317,10 @@ extension RiValT_RunningTimer_ContainerViewController {
                 }
                 
             case .alarm:
-                self.alarmReached()
+                // Fast-forward handles its alarm immediately. A later callback must not start it again.
+                if inTimer.isTimerInAlarm, self._alarmTimer?.isRunning != true {
+                    self.alarmReached()
+                }
                 
             case .paused, .stopped:
                 if !self.isDragging {

@@ -192,3 +192,18 @@ The app relies on the following open-source Swift packages:
 Additionally, the app, itself, is \"source-available,\" and can be found here:
 
     https://github.com/RiftValleySoftware/ambiamara";
+
+// The iPad setting allows one approved Apple Watch to control this device's timer.
+"SLUG-WATCH-REMOTE" = "Watch Remote";
+"SLUG-WATCH-REMOTE-HINT" = "Allow a nearby Apple Watch to find this iPad and request control of its timer. Turn off to forget the approved Watch.";
+// %@ is a short unique Bluetooth device name, e.g. RiVal.T-A12B, also visible on the Watch.
+"SLUG-WATCH-REMOTE-NAME" = "Watch · %@";
+"SLUG-WATCH-PAIR-TITLE" = "Allow Watch Remote?";
+// %@ is a four-digit code displayed on the requesting Apple Watch.
+"SLUG-WATCH-PAIR-CODE" = "Allow this Watch to control your timer if it shows the code %@.";
+"SLUG-WATCH-PAIR-DENY" = "Decline";
+"SLUG-WATCH-PAIR-ALLOW" = "Allow";
+// Shown alongside the iPad's Watch Remote switch if Bluetooth needs attention.
+"SLUG-WATCH-REMOTE-PERMISSION" = "Allow Bluetooth in Settings";
+"SLUG-WATCH-REMOTE-RADIO" = "Bluetooth unavailable";
+"SLUG-WATCH-REMOTE-RETRYING" = "Retrying Watch Remote…";

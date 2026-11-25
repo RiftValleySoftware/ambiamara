@@ -366,6 +366,5 @@ extension RiValT_TimerEditor_PageViewContainer: UIPageViewControllerDelegate {
             self.impactHaptic(1.0)
         }
         self.setUpToolbar()
-        self.watchDelegate?.sendApplicationContext()
     }
 }

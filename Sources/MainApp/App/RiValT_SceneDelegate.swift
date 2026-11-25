@@ -41,6 +41,12 @@ class RiValT_SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     /* ################################################################## */
+    /// The remote can accept controls again when the timer's scene becomes active.
+    func sceneDidBecomeActive(_ inScene: UIScene) {
+        RiValT_AppDelegate.appDelegateInstance?.watchDelegate.publishSnapshot()
+    }
+
+    /* ################################################################## */
     /**
      Called when the app has been backgrounded.
      
@@ -48,8 +54,9 @@ class RiValT_SceneDelegate: UIResponder, UIWindowSceneDelegate {
      */
     func sceneDidEnterBackground(_ inScene: UIScene) {
         RiValT_Settings.ephemeralFirstTime = true
+        RiValT_AppDelegate.appDelegateInstance?.watchDelegate.publishSnapshot()
     }
-    
+
     /* ################################################################## */
     /**
      Called when the app has been launched from a URL scheme.

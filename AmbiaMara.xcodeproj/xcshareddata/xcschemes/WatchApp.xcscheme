@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "2620"
+   LastUpgradeVersion = "2720"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -29,23 +29,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D47C029A2819CA6500D359F5"
-               BuildableName = "Rift Valley Timer.app"
-               BlueprintName = "Rift Valley Timer"
-               ReferencedContainer = "container:AmbiaMara.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "NO"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4F83CB22D63DB43009C4646"
-               BuildableName = "Watch Complications.appex"
-               BlueprintName = "Watch Complications"
+               BlueprintIdentifier = "D43B97342DA2C0F50028E023"
+               BuildableName = "RiVal.T.app"
+               BlueprintName = "RiVal.T"
                ReferencedContainer = "container:AmbiaMara.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -87,7 +73,6 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4F83C9C2D63DB10009C4646"
             BuildableName = "Watch App.app"
-            BlueprintName = "Watch App"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -104,7 +89,6 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4F83C9C2D63DB10009C4646"
             BuildableName = "Watch App.app"
-            BlueprintName = "Watch App"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

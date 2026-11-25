@@ -160,6 +160,17 @@ extension RiValT_Base_ViewController {
         self.localizeStuff()
     }
     
+    // Opening About or a settings popover can temporarily make the editor's Play action unavailable.
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.watchDelegate?.publishSnapshot()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.watchDelegate?.publishSnapshot()
+    }
+
     /* ################################################################## */
     /**
      Called when the view has laid out its subviews.

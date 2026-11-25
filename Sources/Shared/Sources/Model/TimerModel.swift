@@ -1090,6 +1090,11 @@ extension Timer {
      */
     var timerMode: TimerEngine.Mode { self._engine.mode }
 
+    /// Used by remote displays to project the same second and phase as the engine.
+    var countdownDeadline: Date? { self._engine.countdownDeadline }
+    var warningRangeUpperBound: Int { self._engine.warnRange.upperBound }
+    var finalRangeUpperBound: Int { self._engine.finalRange.upperBound }
+
     /* ############################################################## */
     /**
      Returns true, if the timer is currently ticking

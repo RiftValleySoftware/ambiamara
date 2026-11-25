@@ -83,3 +83,101 @@ class RiValT_AppDelegate: UIResponder, UIApplicationDelegate {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: inConnectingSceneSession.role)
     }
 }
+
+/* ###################################################################################################################################### */
+// MARK: Watch Remote
+/* ###################################################################################################################################### */
+extension RiValT_AppDelegate {
+    /// A command can operate only on the foreground screen the main-device user can operate.
+    private var remoteController: UIViewController? {
+        guard let navigation = self.groupEditorController?.navigationController,
+              navigation.viewIfLoaded?.window?.windowScene?.activationState == .foregroundActive,
+              navigation.presentedViewController == nil,
+              let controller = navigation.topViewController,
+              controller.presentedViewController == nil
+        else { return nil }
+        return controller
+    }
+
+    /// Read the active screen and selected timer together, on the main thread.
+    func remoteSnapshot() -> RiValT_WatchDelegate.Snapshot {
+        let controller = self.remoteController
+        let running = controller as? RiValT_RunningTimer_ContainerViewController
+        guard let timer = running?.timer ?? self.timerModel.selectedTimer,
+              let index = timer.indexPath
+        else {
+            return .init(timerID: nil, groupNumber: 0, timerNumber: 0, groupSize: 0, phase: .unavailable,
+                         remaining: 0, deadline: nil, warning: 0, final: 0, commands: [])
+        }
+
+        let phase: RiValT_WatchDelegate.Phase
+        var commands: [RiValT_WatchDelegate.TimerOperation] = []
+        if let running, running.timer === timer {
+            switch timer.timerMode {
+            case .countdown: phase = .countdown
+            case .warning: phase = .warning
+            case .final: phase = .final
+            case .paused: phase = .paused
+            case .alarm: phase = .alarm
+            case .stopped: phase = .ready
+            }
+            switch phase {
+            case .countdown, .warning, .final: commands.append(.pause)
+            case .paused: commands.append(.resume)
+            case .ready: commands.append(.start)
+            default: break
+            }
+            commands.append(.stop)
+            if phase == .alarm || !timer.isTimerAtStart || running.prevTimer != nil {
+                commands.append(.reset)
+            }
+            if phase != .alarm {
+                commands.append(.fastForward)
+            }
+            if running.isDragging {
+                commands.removeAll()
+            }
+        } else if controller is RiValT_GroupEditor_ViewController || controller is RiValT_TimerEditor_PageViewContainer {
+            phase = .ready
+            if timer.startingTimeInSeconds > 0 {
+                commands = [.start]
+            }
+        } else {
+            phase = .unavailable
+        }
+
+        return .init(timerID: timer.id, groupNumber: index.section + 1, timerNumber: index.item + 1,
+                     groupSize: timer.group?.count ?? 0, phase: phase, remaining: timer.currentTime,
+                     deadline: phase.isCounting ? timer.countdownDeadline : nil,
+                     warning: timer.warningRangeUpperBound, final: timer.finalRangeUpperBound,
+                     commands: commands)
+    }
+
+    /// Run an accepted remote command through the same actions used on the main device.
+    func performRemoteCommand(_ command: RiValT_WatchDelegate.TimerOperation) -> Bool {
+        guard self.remoteSnapshot().commands.contains(command) else { return false }
+        switch self.remoteController {
+        case let running as RiValT_RunningTimer_ContainerViewController:
+            let item: UIBarButtonItem?
+            switch command {
+            case .start, .pause, .resume: item = running.playPauseToolbarItem
+            case .reset: item = running.rewindToolbarItem
+            case .fastForward: item = running.fastForwardToolbarItem
+            case .stop: item = running.stopToolbarItem
+            }
+            guard let item else { return false }
+            running.toolbarItemHit(item)
+
+        case let editor as RiValT_GroupEditor_ViewController:
+            guard command == .start else { return false }
+            editor.remotePlay()
+
+        case let editor as RiValT_TimerEditor_PageViewContainer:
+            guard command == .start else { return false }
+            editor.remotePlay()
+
+        default: return false
+        }
+        return true
+    }
+}

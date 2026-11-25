@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "2620"
+   LastUpgradeVersion = "2720"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -90,7 +90,6 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4F83CB22D63DB43009C4646"
             BuildableName = "Watch Complications.appex"
-            BlueprintName = "Watch Complications"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -116,7 +115,6 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4F83CB22D63DB43009C4646"
             BuildableName = "Watch Complications.appex"
-            BlueprintName = "Watch Complications"
             ReferencedContainer = "container:AmbiaMara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

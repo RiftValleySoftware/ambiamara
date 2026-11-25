@@ -8,7 +8,7 @@ This project is designed to provide executable apps for the iOS/iPadOS App Store
 
 iOS and iPadOS require version 17 or above, and the Mac requires Ventura (Mac OS 13) or above.
 
-The Watch app will not be supplied with the initial 3.0.1 release, but will be supplied in the 3.1.0 release, and will require WatchOS 10 or above.
+The companion Watch app requires watchOS 10 or later.
 
 ## BASIC ARCHITECTURE
 
@@ -18,9 +18,7 @@ The core of the app, is the ``TimerEngine`` class. This provides the basic timer
 
 Wrapping that, is the ``TimerModel`` class, which adds app behavior to the engine, like multiple timers, and timer groups. Most of the app behavior comes from this class.
 
-Even though the initial release of the 3.0 version does not include a companion Watch app, one is on the way, so the model is wrapped in the ``RiValT_WatchDelegate`` class, which manages communication between the Watch and the iPhone.
-
-Each of the above classes is shared between the [`UIKit`](https://developer.apple.com/documentation/uikit) main app (iPhone, iPad, and Mac), and the [`SwiftUI`](https://developer.apple.com/xcode/swiftui/) Watch app.
+The main app owns the timer engine, group selection, and alarms. `RiValT_WatchDelegate` sends the selected timer’s state, available controls, and countdown deadline to the Watch. The Watch uses the deadline to display the remaining time between updates. The main app applies commands and reports the result, including any change to the active timer.
 
 ### THE TARGETS
 
@@ -32,7 +30,7 @@ The main application target is implemented, using Apple's [`UIKit`](https://deve
 
 #### The Watch App and Watch Complication Targets
 
-The Watch application target is implemented, using Apple's [`SwiftUI`](https://developer.apple.com/xcode/swiftui/) application framework (as is the Watch Complication target). The Watch app will be supplied as embedded in the iOS app (it will not be supplied as a standalone app). It will be designed as a "remote control" for the iOS app.
+RiVal.T Remote is a SwiftUI companion embedded in the iOS app. It connects to the paired iPhone through WatchConnectivity. To control an iPad, turn on **Watch Remote** in RiVal.T’s settings on iPad. On the Watch, open **Timer device**, choose **Find nearby iPads**, and select the name shown on the iPad. Check that the pairing code matches and tap **Allow** on the iPad. Close settings and keep RiVal.T in the foreground on the device running the timer. The complication is a separate development target.
 
 #### The Test Targets
 

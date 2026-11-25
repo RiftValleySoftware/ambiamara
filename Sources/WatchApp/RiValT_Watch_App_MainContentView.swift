@@ -10,72 +10,302 @@
 
 import SwiftUI
 
-/* ###################################################################################################################################### */
-// MARK: - Main Watch Content View -
-/* ###################################################################################################################################### */
-/**
- This displays a navigation list of timers (may only be one, in which case it automatically opens to that timer).
- */
+private typealias Snapshot = RiValT_ObservableModel.Snapshot
+private typealias Operation = RiValT_ObservableModel.Operation
+
+/// Strings in the Watch target's catalog, including values chosen at runtime.
+private func watchText(_ key: String) -> String { NSLocalizedString(key, comment: "") }
+
 struct RiValT_Watch_App_MainContentView: View {
-    /* ################################################################## */
-    /**
-     We use a custom "digital" font.
-     */
-    static let digitalFontLarge = Font.custom("Let\'s Go Digital", size: 300)
+    private enum Sheet: Int, Identifiable {
+        case controls, devices
+        var id: Int { self.rawValue }
+    }
 
-    /* ################################################################## */
-    /**
-     Tracks scene activity.
-     */
-    @Environment(\.scenePhase) private var _scenePhase
+    @Environment(\.scenePhase) private var scenePhase
+    @StateObject private var model = RiValT_ObservableModel()
+    @ObservedObject private var bluetooth = RiValT_BluetoothRemote.shared
+    @State private var sheet: Sheet?
+    @State private var showRejectedCommand = false
 
-    /* ################################################################## */
-    /**
-     This is the model for the display.
-     */
-    @ObservedObject private var _model = RiValT_ObservableModel()
-
-    /* ################################################################## */
-    /**
-     The main display body.
-    */
     var body: some View {
-        ViewThatFits {
-            if self._model.showBusy {
-                ProgressView()
+        Group {
+            if self.scenePhase != .active {
+                Label(watchText("SLUG-RAISE-WRIST"), systemImage: "applewatch")
+            } else if let snapshot = self.model.snapshot, snapshot.phase != .unavailable,
+                      snapshot.timerID != nil,
+                      snapshot.phase != .ready || snapshot.remaining > 0 {
+                self.timerView(snapshot)
             } else {
-                VStack {
-                    if self._model.canReachIPhoneApp,
-                       let currentTimer = self._model.currentTimer {
-                        if currentTimer.timerDisplay.isEmpty {
-                            Text("SLUG-INVALID".localizedVariant)
-                                .font(.system(size: 80, weight: .heavy))
-                                .minimumScaleFactor(0.01)
-                        } else if case .paused = currentTimer.timerMode {
-                            ZStack {
-                                Text(currentTimer.timerDisplay)
-                                    .font(Self.digitalFontLarge)
-                                    .minimumScaleFactor(0.01)
-                                Text("SLUG-PAUSED".localizedVariant)
-                                    .font(.system(size: 80, weight: .heavy))
-                                    .minimumScaleFactor(0.01)
-                                    .opacity(0.5)
+                self.connectionView
+            }
+        }
+        .onChange(of: self.scenePhase, initial: true) {
+            self.model.setActive(self.scenePhase == .active)
+        }
+        .onChange(of: self.model.commandRejected) {
+            self.showRejectedCommand = self.model.commandRejected
+        }
+        .alert(watchText("SLUG-COMMAND-REJECTED"), isPresented: self.$showRejectedCommand) {
+            Button(watchText("SLUG-OK")) { }
+        }
+        .sheet(item: self.$sheet) { sheet in
+            NavigationStack {
+                switch sheet {
+                case .devices:
+                    DevicePicker { self.sheet = nil }
+                case .controls:
+                    List {
+                        if let snapshot = self.model.snapshot {
+                            ForEach([Operation.reset, .fastForward, .stop].filter(snapshot.commands.contains), id: \.self) { operation in
+                                Button {
+                                    self.model.send(operation, for: snapshot)
+                                    self.sheet = nil
+                                } label: {
+                                    operation.label
+                                }
+                                .disabled(self.model.isSendingCommand)
                             }
-                        } else {
-                            Text(currentTimer.timerDisplay)
-                                .font(Self.digitalFontLarge)
-                                .minimumScaleFactor(0.01)
                         }
-                    } else {
-                        Text("SLUG-CANT-REACH".localizedVariant)
+                        NavigationLink {
+                            DevicePicker { self.sheet = nil }
+                        } label: {
+                            Label(watchText("SLUG-TIMER-DEVICE"), systemImage: "applewatch.radiowaves.left.and.right")
+                        }
                     }
+                    .navigationTitle(watchText("SLUG-CONTROLS"))
                 }
             }
         }
-        .onChange(of: self._scenePhase) {
-            if .active == self._scenePhase {
-                self._model.requestApplicationContextFromPhone()
+    }
+
+    @ViewBuilder private func timerView(_ snapshot: Snapshot) -> some View {
+        if let deadline = snapshot.deadline {
+            // Match the host's second boundaries, including after a fractional-second pause.
+            let anchor = deadline.addingTimeInterval(-ceil(max(0, deadline.timeIntervalSinceNow)))
+            TimelineView(.periodic(from: anchor, by: 1)) { context in
+                self.readout(snapshot, at: max(context.date, Date.now))
             }
+        } else {
+            self.readout(snapshot, at: .now)
+        }
+    }
+
+    private func readout(_ snapshot: Snapshot, at date: Date) -> some View {
+        let seconds = snapshot.remaining(at: date)
+        let awaitingHost = snapshot.deadline.map { $0 <= date } ?? false
+        let phase = snapshot.phase(at: date)
+        let primary = [Operation.pause, .resume, .start].first(where: snapshot.commands.contains)
+        let position = String(format: watchText("SLUG-TIMER-POSITION"), locale: .current,
+                              snapshot.groupNumber, snapshot.timerNumber, snapshot.groupSize)
+
+        return VStack(spacing: 2) {
+            Label {
+                Text(verbatim: position)
+            } icon: {
+                Image(systemName: self.bluetooth.usesIPad ? "ipad" : "iphone")
+            }
+                .accessibilityLabel(Text(verbatim: "\(self.hostName), \(position)"))
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+            Spacer(minLength: 0)
+            Label(awaitingHost ? watchText("SLUG-SYNCING") : phase.title,
+                  systemImage: awaitingHost ? "arrow.triangle.2.circlepath" : phase.symbol)
+                .foregroundStyle(awaitingHost ? Color.secondary : phase.color)
+                .font(.headline)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+            Text(verbatim: Self.clockText(seconds))
+                .font(.system(size: 65, weight: .semibold, design: .rounded))
+                .monospacedDigit()
+                .lineLimit(1)
+                .minimumScaleFactor(0.36)
+                .accessibilityLabel(Duration.seconds(seconds).formatted(.units(width: .wide)))
+            Spacer(minLength: 0)
+            HStack(spacing: 4) {
+                if let primary {
+                    Button {
+                        self.model.send(primary, for: snapshot)
+                    } label: {
+                        if self.model.isSendingCommand {
+                            ProgressView()
+                                .accessibilityLabel(watchText("SLUG-SYNCING"))
+                        } else {
+                            primary.label
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.65)
+                        }
+                    }
+                    .disabled(self.model.isSendingCommand || awaitingHost)
+                }
+                Button {
+                    self.sheet = .controls
+                } label: {
+                    if primary == nil {
+                        Label(watchText("SLUG-CONTROLS"), systemImage: "ellipsis")
+                    } else {
+                        Image(systemName: "ellipsis")
+                            .frame(minWidth: 30)
+                    }
+                }
+                .accessibilityLabel(watchText("SLUG-CONTROLS"))
+                .frame(maxWidth: primary == nil ? .infinity : 44)
+            }
+        }
+        .task(id: awaitingHost) {
+            if awaitingHost { self.model.refresh() }
+        }
+    }
+
+    private static func clockText(_ seconds: Int) -> String {
+        if seconds >= 3600 {
+            return String(format: "%d:%02d:%02d", seconds / 3600, seconds / 60 % 60, seconds % 60)
+        }
+        return String(format: "%d:%02d", seconds / 60, seconds % 60)
+    }
+
+    private var hostName: String {
+        self.bluetooth.usesIPad ? self.bluetooth.selectedDeviceName ?? "iPad" : "iPhone"
+    }
+
+    private var connectionView: some View {
+        let host = self.hostName
+        let instruction: String
+        if let snapshot = self.model.snapshot {
+            let key: String
+            if snapshot.timerID == nil {
+                key = "SLUG-HOST-NO-TIMER"
+            } else if snapshot.phase == .ready {
+                key = "SLUG-HOST-SET-TIME"
+            } else {
+                key = "SLUG-HOST-FOREGROUND"
+            }
+            instruction = String(format: watchText(key), host)
+        } else if self.model.isConnecting {
+            instruction = String(format: watchText("SLUG-CONNECTING"), host)
+        } else if self.bluetooth.usesIPad && !self.bluetooth.status.isEmpty && !self.bluetooth.isConnected {
+            instruction = self.bluetooth.status
+        } else if self.model.connectionFailed {
+            instruction = String(format: watchText("SLUG-CONNECTION-FAILED"), host)
+        } else {
+            instruction = String(format: watchText("SLUG-OPEN-TIMER-APP"), host)
+        }
+
+        return ScrollView {
+            VStack(spacing: 6) {
+                Text(verbatim: host)
+                    .font(.headline)
+                Text(verbatim: instruction)
+                    .font(.footnote)
+                    .multilineTextAlignment(.center)
+                if self.model.isConnecting {
+                    ProgressView()
+                        .accessibilityHidden(true)
+                } else {
+                    Button(watchText("SLUG-REFRESH")) {
+                        self.reconnect()
+                    }
+                }
+                Button(watchText("SLUG-TIMER-DEVICE")) { self.sheet = .devices }
+            }
+        }
+    }
+
+    private func reconnect() {
+        if self.bluetooth.usesIPad && self.bluetooth.selectedDeviceID == nil {
+            self.sheet = .devices
+            self.bluetooth.browse()
+        } else {
+            self.model.reconnect()
+        }
+    }
+}
+
+private struct DevicePicker: View {
+    @ObservedObject private var bluetooth = RiValT_BluetoothRemote.shared
+    let close: () -> Void
+
+    var body: some View {
+        List {
+            Button {
+                self.bluetooth.selectPhone()
+                self.close()
+            } label: {
+                Label("iPhone", systemImage: self.bluetooth.usesIPad ? "iphone" : "checkmark")
+            }
+            Button {
+                self.bluetooth.browse()
+            } label: {
+                Label(watchText("SLUG-FIND-IPADS"), systemImage: "antenna.radiowaves.left.and.right")
+            }
+            if self.bluetooth.usesIPad || self.bluetooth.isBrowsing {
+                ForEach(self.bluetooth.devices, id: \.id) { device in
+                    Button {
+                        self.bluetooth.selectDevice(device)
+                        self.close()
+                    } label: {
+                        Label(device.name, systemImage: self.bluetooth.usesIPad && self.bluetooth.selectedDeviceID == device.id ? "checkmark" : "ipad")
+                    }
+                }
+                if !self.bluetooth.status.isEmpty {
+                    Text(verbatim: self.bluetooth.status)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+        .navigationTitle(watchText("SLUG-TIMER-DEVICE"))
+        .onDisappear { self.bluetooth.endBrowsing() }
+    }
+}
+
+private extension RiValT_WatchDelegate.Phase {
+    var title: String {
+        switch self {
+        case .ready:       return watchText("SLUG-READY")
+        case .countdown:   return watchText("SLUG-COUNTDOWN")
+        case .warning:     return watchText("SLUG-WARNING")
+        case .final:       return watchText("SLUG-FINAL")
+        case .paused:      return watchText("SLUG-PAUSED")
+        case .alarm:       return watchText("SLUG-ALARM")
+        case .unavailable: return watchText("SLUG-SYNCING")
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .countdown:        return Color("Start-Color")
+        case .warning:          return Color("Warn-Color")
+        case .final, .alarm:    return Color("Final-Color")
+        case .paused:           return Color("Paused-Color")
+        default:                return .primary
+        }
+    }
+
+    var symbol: String {
+        switch self {
+        case .ready:       return "timer"
+        case .countdown:   return "play.fill"
+        case .warning:     return "exclamationmark.triangle.fill"
+        case .final:       return "hourglass.bottomhalf.filled"
+        case .paused:      return "pause.fill"
+        case .alarm:       return "bell.fill"
+        case .unavailable: return "arrow.triangle.2.circlepath"
+        }
+    }
+}
+
+private extension RiValT_WatchDelegate.TimerOperation {
+    var label: Label<Text, Image> {
+        switch self {
+        case .start:       return Label(watchText("SLUG-START"), systemImage: "play.fill")
+        case .resume:      return Label(watchText("SLUG-RESUME"), systemImage: "play.fill")
+        case .pause:       return Label(watchText("SLUG-PAUSE"), systemImage: "pause.fill")
+        case .stop:        return Label(watchText("SLUG-STOP"), systemImage: "stop.fill")
+        case .reset:       return Label(watchText("SLUG-REWIND"), systemImage: "backward.end.fill")
+        case .fastForward: return Label(watchText("SLUG-FORWARD"), systemImage: "forward.end.fill")
         }
     }
 }

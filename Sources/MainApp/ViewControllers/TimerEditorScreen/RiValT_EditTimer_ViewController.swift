@@ -255,7 +255,6 @@ extension RiValT_EditTimer_ViewController {
         self.timeTypeSegmentedControl?.selectedSegmentIndex = 0
         self.setUpTimeTypeSegmentedControl()
         self.setTime()
-        self.watchDelegate?.sendApplicationContext()
     }
     
     /* ############################################################## */
@@ -413,7 +412,6 @@ extension RiValT_EditTimer_ViewController {
      */
     @IBAction func playButtonHit(_: Any) {
         self.impactHaptic()
-        self.watchDelegate.sendCommand(command: .start)
         self.myContainer?.performSegue(withIdentifier: RiValT_RunningTimer_ContainerViewController.segueID, sender: self.timer)
     }
 }

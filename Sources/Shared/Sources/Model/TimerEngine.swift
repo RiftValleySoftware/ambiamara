@@ -25,6 +25,7 @@ private extension TimerEngine {
      */
     func _timerCallback(_ inTimer: RVS_BasicGCDTimer, _ inSuccess: Bool) {
         guard inSuccess,
+              inTimer === self._timer,
               !inTimer.isInvalid,
               inTimer.isRunning
         else {
@@ -48,20 +49,18 @@ private extension TimerEngine {
                 self.tickHandler?(self)
             }
 
-            if self.mode != self._lastMode {
-                #if DEBUG
-                    print("\tTimerEngine: Transition: last mode: \(self._lastMode), new mode: \(self.mode)")
-                #endif
-                if let transitionHandler = self.transitionHandler {
-                    transitionHandler(self, self._lastMode, self.mode)
+            let transition: (Mode, Mode)? = self._transitionLock.withLock {
+                guard inTimer === self._timer, inTimer.isRunning else { return nil }
+                let previous = self._lastMode
+                let current = self.mode
+                self._lastMode = current
+                if current == .alarm || current == .stopped {
+                    inTimer.isRunning = false
                 }
-                self._lastMode = self.mode
-            } else if 0 >= self._countdownTime {
-                self.end()
+                return previous == current ? nil : (previous, current)
             }
-            
-            if .alarm == self.mode || .stopped == self.mode {
-                self._timer?.isRunning = false
+            if let (previous, current) = transition {
+                self.transitionHandler?(self, previous, current)
             }
         }
     }
@@ -181,6 +180,9 @@ open class TimerEngine: Codable, Identifiable {
      This is the previous timer mode (to track transitions).
      */
     private var _lastMode: Mode = .stopped
+
+    /// A manual fast-forward and the ticker may claim the same alarm at the same instant.
+    private let _transitionLock = NSLock()
 
     /* ################################################################################################################################## */
     // MARK: Public API (Typealias)
@@ -545,6 +547,9 @@ public extension TimerEngine {
                .alarm == self._lastMode {
                 return 0
             }
+            if self._lastPausedTime > 0, !self.isTicking {
+                return max(0, self.startingTimeInSeconds - Int(floor(self._lastPausedTime)))
+            }
             guard nil != self._timer || 0 < self._lastPausedTime else { return self.startingTimeInSeconds }
             guard let startTime = self._startTime else { return 0 }
             let ret = self.startingTimeInSeconds - Int(floor(Date.now.timeIntervalSince(startTime)))
@@ -566,6 +571,9 @@ public extension TimerEngine {
      */
     var currentPreciseTime: TimeInterval? {
         get {
+            if self._lastPausedTime > 0, !self.isTicking {
+                return max(0, TimeInterval(self.startingTimeInSeconds) - self._lastPausedTime)
+            }
             guard nil != self._timer || 0 < self._lastPausedTime else { return TimeInterval(self.startingTimeInSeconds) }
             guard let startTime = self._startTime else { return nil }
             
@@ -705,6 +713,12 @@ public extension TimerEngine {
      */
     var isTicking: Bool { return self._timer?.isRunning ?? false }
     
+    /// The engine's exact end date, including the adjustment made on resume.
+    var countdownDeadline: Date? {
+        guard self.isTicking else { return nil }
+        return self._startTime?.addingTimeInterval(TimeInterval(self.startingTimeInSeconds))
+    }
+
     /* ################################################################## */
     /**
      This returns an "optimized" string, with the current countdown time.
@@ -804,10 +818,11 @@ public extension TimerEngine {
         self._timer?.invalidate()
         self._timer = nil
         self._lastPausedTime = 0
-        if .stopped != self._lastMode {
-            self.transitionHandler?(self, self._lastMode, .stopped)
-        }
+        let previous = self._lastMode
         self._lastMode = .stopped
+        if previous != .stopped {
+            self.transitionHandler?(self, previous, .stopped)
+        }
     }
 
     /* ################################################################## */
@@ -817,12 +832,16 @@ public extension TimerEngine {
      This will interrupt any current timer.
      */
     func end() {
-        self._timer?.isRunning = false
-        self.currentTime = 0
-        self._lastPausedTime = 0
-        if .alarm != self._lastMode {
-            self.transitionHandler?(self, self._lastMode, .alarm)
+        let previous = self._transitionLock.withLock {
+            let previous = self._lastMode
+            self._timer?.isRunning = false
+            self.currentTime = 0
+            self._lastPausedTime = 0
             self._lastMode = .alarm
+            return previous
+        }
+        if previous != .alarm {
+            self.transitionHandler?(self, previous, .alarm)
         }
     }
 

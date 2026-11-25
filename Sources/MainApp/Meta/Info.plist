@@ -13,6 +13,8 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>RiVal.T uses Bluetooth so a nearby Apple Watch can display and control the timer on this iPad.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Digital.ttf</string>

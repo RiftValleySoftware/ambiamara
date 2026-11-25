@@ -9,6 +9,7 @@
  */
 
 import UIKit
+import Combine
 import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 import RVS_Checkbox
@@ -103,9 +104,14 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
      This calculates the size needed for the popover, and sets the property, which causes the popover to change.
      */
     private func _setPreferredContentSize() {
-        let height = (self.autoHideStackView?.isHidden ?? true)
+        var height = (self.autoHideStackView?.isHidden ?? true)
             ? ((self.autoHideStackView?.isHidden ?? true) ? 130 : 168)
                 : 206
+
+        if let watchSettingsRow, let stack = watchSettingsRow.superview as? UIStackView {
+            let count = stack.arrangedSubviews.filter { !$0.isHidden }.count
+            height = 24 + count * 30 + max(0, count - 1) * 8
+        }
         
         UIView.animate(withDuration: 0.3) {
             self.preferredContentSize = CGSize(width: 270, height: height)
@@ -130,9 +136,48 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
             self.autoHideStackView?.isHidden = !RiValT_Settings().displayToolbar
         }
         
+        if UIDevice.current.userInterfaceIdiom == .pad, !ProcessInfo.processInfo.isMacCatalystApp {
+            addWatchRemoteSetting()
+        }
         self._setPreferredContentSize()
     }
     
+    private var watchSettingsRow: UIStackView?
+    private var watchStatusObserver: AnyCancellable?
+
+    /// On iPad, turning on the remote makes this host discoverable by its short Bluetooth name.
+    private func addWatchRemoteSetting() {
+        guard let about = showAboutScreenButton, let stack = about.superview as? UIStackView,
+              let index = stack.arrangedSubviews.firstIndex(of: about) else { return }
+        let remote = RiValT_BluetoothRemote.shared
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .body)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.75
+        let toggle = UISwitch()
+        toggle.isOn = remote.isEnabled
+        toggle.accessibilityLabel = "SLUG-WATCH-REMOTE".localizedVariant
+        toggle.accessibilityHint = "SLUG-WATCH-REMOTE-HINT".localizedVariant
+        watchStatusObserver = remote.$hostingIssue.sink { [weak label, weak toggle] issue in
+            if let issue {
+                label?.text = issue
+            } else if toggle?.isOn == true {
+                label?.text = String(format: "SLUG-WATCH-REMOTE-NAME".localizedVariant, remote.hostName)
+            } else {
+                label?.text = "SLUG-WATCH-REMOTE".localizedVariant
+            }
+        }
+        toggle.addAction(UIAction { [weak toggle] _ in
+            if let toggle { remote.setEnabled(toggle.isOn) }
+        }, for: .valueChanged)
+        let row = UIStackView(arrangedSubviews: [label, toggle])
+        row.alignment = .center
+        row.spacing = 8
+        stack.insertArrangedSubview(row, at: index)
+        row.widthAnchor.constraint(equalTo: stack.widthAnchor).isActive = true
+        watchSettingsRow = row
+    }
+
     /* ############################################################## */
     /**
      Called after the popover has disappeared.

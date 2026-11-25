@@ -253,7 +253,6 @@ extension RiValT_GroupEditor_ViewController {
      */
     override func viewDidAppear(_ inIsAnimated: Bool) {
         super.viewDidAppear(inIsAnimated)
-        self.watchDelegate?.sendApplicationContext()
         if .zero == self._lastScrollPos,
            let collectionView = self.collectionView,
            let selectedSectionIndex = self.timerModel?.selectedTimer?.indexPath {
@@ -534,7 +533,7 @@ extension RiValT_GroupEditor_ViewController {
                 RiValT_Settings().oneTapEditing = false
                 self.collectionView(collectionView, didSelectItemAt: IndexPath(item: indexPath.item, section: indexPath.section))
                 RiValT_Settings().oneTapEditing = oldValue
-                self.watchDelegate?.sendApplicationContext()
+                self.watchDelegate?.publishSnapshot()
             }
         }
         
@@ -677,7 +676,7 @@ extension RiValT_GroupEditor_ViewController {
             RiValT_Settings().oneTapEditing = false
             self.collectionView(collectionView, didSelectItemAt: IndexPath(item: 0, section: groupIndex))
             RiValT_Settings().oneTapEditing = oldValue
-            self.watchDelegate?.sendApplicationContext()
+            self.watchDelegate?.publishSnapshot()
         }
     }
     
@@ -708,7 +707,7 @@ extension RiValT_GroupEditor_ViewController {
                 RiValT_Settings().oneTapEditing = false
                 self.collectionView(collectionView, didSelectItemAt: IndexPath(item: currentSelectedIndex, section: groupIndex))
                 RiValT_Settings().oneTapEditing = oldValue
-                self.watchDelegate?.sendApplicationContext()
+                self.watchDelegate?.publishSnapshot()
             }
         }
     }

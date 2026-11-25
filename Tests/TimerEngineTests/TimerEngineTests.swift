@@ -237,6 +237,8 @@ class TimerEngineTests: XCTestCase {
             DispatchQueue(label: "first.wait").asyncAfter(deadline: .now() + firstPauseLength) {
                 let difference = Date.now.timeIntervalSince(marker)
                 print("\tTimerEngineTests.testPauseResume1 - Resuming, after \(difference) seconds paused, at \(instanceUnderTest.currentTime) seconds.")
+                XCTAssertEqual(instanceUnderTest.currentTime, 6, "Paused displays must still agree after a fresh read.")
+                XCTAssertNil(instanceUnderTest.countdownDeadline)
                 instanceUnderTest.resume()
                 XCTAssertTrue((firstPauseLength..<(firstPauseLength + 0.1)).contains(difference), "Resume should have occurred within \(firstPauseLength + 0.1) seconds.")
                 XCTAssert(.countdown == instanceUnderTest.mode, "We should be in countdown mode.")
@@ -424,6 +426,21 @@ class TimerEngineTests: XCTestCase {
         XCTAssertEqual(testEngine3.mode, .alarm, "We should be in alarm mode.")
         
         print("TimerEngineTests.testFastForward (END)\n")
+    }
+
+    /// An observer can issue another transport operation while the alarm callback is executing.
+    func testFastForwardReportsAlarmOnce() {
+        let timer = TimerEngine(startingTimeInSeconds: 10)
+        var alarmCount = 0
+        timer.transitionHandler = { timer, _, mode in
+            guard mode == .alarm else { return }
+            alarmCount += 1
+            if alarmCount == 1 { timer.end() }
+        }
+        timer.start()
+        timer.end()
+        XCTAssertEqual(alarmCount, 1)
+        XCTAssertEqual(timer.mode, .alarm)
     }
 
     /* ################################################################## */
@@ -740,80 +757,50 @@ class TimerEngineTests: XCTestCase {
     /**
      This tests the ability to "synchronize" a running timer.
     */
-    func testSync() {
-        print("TimerEngineTests.testSync (START)")
-        
-        /* ################################################################## */
-        /**
-         Called when the timer experiences a state transition.
-         
-         - parameter inTimerEngine: The timer engine.
-         - parameter inFromMode: The previous mode (state).
-         - parameter inToMode: The current (new) mode (state).
-         */
-        func transitionHandler(_ inTimerEngine: TimerEngine, _ inFromMode: TimerEngine.Mode, _ inToMode: TimerEngine.Mode) {
-            print("\tTimerEngineTests.testSync - Transition: \(inFromMode) -> \(inToMode)")
-
-            if .alarm == inToMode {
-                expectation.fulfill()
+    func testSync() throws {
+        // Use a fresh running timer for each sample. The expected tick sequence is immutable
+        // so a tick from an earlier countdown cannot read the expectation for a later one.
+        func verify(seconds: Int, sampleAge: TimeInterval?, expectedRemaining: Int, ticks: [Int]) throws {
+            let engine = TimerEngine(startingTimeInSeconds: 6, warningTimeInSeconds: 4, finalTimeInSeconds: 2)
+            engine.start()
+            let tickExpectations = ticks.map { expectation(description: "Synced timer shows \($0)") }
+            let alarm = expectation(description: "Synced timer reaches alarm")
+            engine.tickHandler = { timer in
+                let displayed = timer.currentTime
+                guard let index = ticks.firstIndex(of: displayed) else {
+                    XCTFail("Unexpected tick at \(displayed) seconds")
+                    return
+                }
+                tickExpectations[index].fulfill()
             }
-        }
-        
-        let resetTimeInSeconds1 = TimeInterval(20)
-        let resetTimeInSeconds2 = TimeInterval(47)
-        let resetTimeInSeconds3 = TimeInterval(53)
-        let resetToTimeInSeconds1 = 28
-        let resetToTimeInSeconds2 = 30
-        let resetToTimeInSeconds3 = 5
-        let totalTimeInSeconds = 30
-        let warnTimeInSeconds = totalTimeInSeconds / 2
-        let finalTimeInSeconds = warnTimeInSeconds / 2
-        let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds)
-                                                    + (resetTimeInSeconds1 - TimeInterval(totalTimeInSeconds - resetToTimeInSeconds1))
-                                                    + (resetTimeInSeconds2 - TimeInterval(totalTimeInSeconds - resetToTimeInSeconds2))
-                                                    + 0.5
+            engine.transitionHandler = { _, _, mode in
+                if mode == .alarm { alarm.fulfill() }
+            }
 
-        let expectation = XCTestExpectation()
-        expectation.expectedFulfillmentCount = 1
-        let outsideTime = Date.now
-        var expectedTime = 0
-        
-        let instanceUnderTest1 = TimerEngine(startingTimeInSeconds: totalTimeInSeconds,
-                                             warningTimeInSeconds: warnTimeInSeconds,
-                                             finalTimeInSeconds: finalTimeInSeconds,
-                                             transitionHandler: transitionHandler,
-                                             tickHandler: { inTimerEngine in
-                                                let currentTime = inTimerEngine.currentTime
-                                                let actualTime = Int(totalTimeInSeconds > currentTime ? Date.now.timeIntervalSince(outsideTime) : 0)
-                                                XCTAssertEqual(expectedTime, inTimerEngine.currentTime, "Not what we're expecting!")
-                                                expectedTime -= 1
-                                                print("\tTimerEngineTests.testSync - Tick: \(currentTime), (\(actualTime)) Mode: \(inTimerEngine.mode)")
-                                             }
-        )
-        
-        expectedTime = instanceUnderTest1.startingTimeInSeconds
-        instanceUnderTest1.start()
-        
-        DispatchQueue.global().asyncAfter(wallDeadline: .now() + resetTimeInSeconds1) {
-            print("\tTimerEngineTests.testSync - Sync (Now): \(resetToTimeInSeconds1)")
-            expectedTime = resetToTimeInSeconds1 - 1
-            instanceUnderTest1.sync(to: resetToTimeInSeconds1)
-        }
-        
-        DispatchQueue.global().asyncAfter(wallDeadline: .now() + resetTimeInSeconds2) {
-            print("\tTimerEngineTests.testSync - Sync (3 seconds advanced): \(resetToTimeInSeconds2)")
-            expectedTime = resetToTimeInSeconds2 - 3
-            instanceUnderTest1.sync(to: resetToTimeInSeconds2, date: .now.advanced(by: -3.25))
-        }
-        
-        DispatchQueue.global().asyncAfter(wallDeadline: .now() + resetTimeInSeconds3) {
-            print("\tTimerEngineTests.testSync - Sync (3 seconds behind): \(resetToTimeInSeconds3)")
-            expectedTime = instanceUnderTest1.startingTimeInSeconds - 1
-            instanceUnderTest1.sync(to: resetToTimeInSeconds2, date: .now.advanced(by: 3.25))
+            let before = Date()
+            if let sampleAge {
+                engine.sync(to: seconds, date: before.addingTimeInterval(-sampleAge))
+            } else {
+                engine.sync(to: seconds)
+            }
+            let after = Date()
+            let deadline = try XCTUnwrap(engine.countdownDeadline)
+            if let sampleAge, sampleAge > 0 {
+                // A delayed sample retains the deadline from the device that sent it.
+                XCTAssertEqual(deadline.timeIntervalSince(before), Double(seconds) - sampleAge, accuracy: 0.000_01)
+            } else {
+                // A future-dated sample cannot start the clock in the future.
+                XCTAssertGreaterThanOrEqual(deadline, before.addingTimeInterval(Double(expectedRemaining)))
+                XCTAssertLessThanOrEqual(deadline, after.addingTimeInterval(Double(expectedRemaining)))
+            }
+            XCTAssertEqual(engine.currentTime, expectedRemaining)
+            wait(for: tickExpectations + [alarm], timeout: Double(expectedRemaining) + 2, enforceOrder: true)
+            XCTAssertEqual(engine.mode, .alarm)
+            XCTAssertEqual(engine.currentTime, 0)
         }
 
-        wait(for: [expectation], timeout: expectationWaitTimeout)
-
-        print("TimerEngineTests.testSync (END)\n")
+        try verify(seconds: 4, sampleAge: nil, expectedRemaining: 4, ticks: [3, 2, 1, 0])
+        try verify(seconds: 6, sampleAge: 3.25, expectedRemaining: 3, ticks: [3, 2, 1, 0])
+        try verify(seconds: 6, sampleAge: -3.25, expectedRemaining: 6, ticks: [5, 4, 3, 2, 1, 0])
     }
 }

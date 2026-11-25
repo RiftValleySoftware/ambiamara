@@ -12,6 +12,18 @@
         }
       }
     },
+    "SLUG-ALARM" : {
+      "comment" : "The host confirms the timer is in its alarm state.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time’s up"
+          }
+        }
+      }
+    },
     "SLUG-CANT-REACH" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -19,6 +31,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cannot Reach iPhone App"
+          }
+        }
+      }
+    },
+    "SLUG-COMMAND-REJECTED" : {
+      "comment" : "The host declined the last command. Check the current state before trying again.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The timer device declined that command."
           }
         }
       }
@@ -34,6 +58,126 @@
         }
       }
     },
+    "SLUG-CONNECTING" : {
+      "comment" : "Shown while waiting for the first live snapshot from the selected timer device.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connecting to %@…"
+          }
+        }
+      }
+    },
+    "SLUG-CONNECTION-FAILED" : {
+      "comment" : "The selected device did not return usable timer state before the request timed out or failed.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn’t sync with %@."
+          }
+        }
+      }
+    },
+    "SLUG-CONTROLS" : {
+      "comment" : "Opens secondary timer controls and the device selector.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Controls"
+          }
+        }
+      }
+    },
+    "SLUG-COUNTDOWN" : {
+      "comment" : "The host timer is counting down in its initial phase.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Running"
+          }
+        }
+      }
+    },
+    "SLUG-FINAL" : {
+      "comment" : "The host timer has crossed the red final threshold.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Final"
+          }
+        }
+      }
+    },
+    "SLUG-FIND-IPADS" : {
+      "comment" : "Starts Bluetooth discovery of iPads for the Watch remote.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find nearby iPads"
+          }
+        }
+      }
+    },
+    "SLUG-FORWARD" : {
+      "comment" : "Performs the same operation as the host’s fast-forward button.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fast forward"
+          }
+        }
+      }
+    },
+    "SLUG-HOST-FOREGROUND" : {
+      "comment" : "The host app is in the background or a dialog is covering its timer controls.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Return to the timer screen on %@."
+          }
+        }
+      }
+    },
+    "SLUG-HOST-NO-TIMER" : {
+      "comment" : "Shown when connected but the host has no available timer. The placeholder identifies the host.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a timer in RiVal.T on %@."
+          }
+        }
+      }
+    },
+    "SLUG-HOST-SET-TIME" : {
+      "comment" : "The selected timer has a zero starting duration. The placeholder names the timer device.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set a timer duration on %@."
+          }
+        }
+      }
+    },
     "SLUG-INVALID" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -41,6 +185,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "INVALID"
+          }
+        }
+      }
+    },
+    "SLUG-OK" : {
+      "comment" : "Dismisses the command rejection notice.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         }
       }
@@ -56,16 +212,188 @@
         }
       }
     },
-    "SLUG-PAUSED" : {
+    "SLUG-OPEN-TIMER-APP" : {
+      "comment" : "Shown when the Watch has no live timer information. The placeholder identifies the selected device.",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "PAUSED"
+            "value" : "Open RiVal.T on %@ to connect."
           }
         }
       }
+    },
+    "SLUG-PAUSE" : {
+      "comment" : "Requests that the host pause the running timer.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause"
+          }
+        }
+      }
+    },
+    "SLUG-PAUSED" : {
+      "comment" : "The host timer is paused.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paused"
+          }
+        }
+      }
+    },
+    "SLUG-RAISE-WRIST" : {
+      "comment" : "Appears when the wearer lowers their wrist and the live remote is inactive.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raise wrist to sync"
+          }
+        }
+      }
+    },
+    "SLUG-READY" : {
+      "comment" : "The host has a timer selected and it can be started.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ready"
+          }
+        }
+      }
+    },
+    "SLUG-REFRESH" : {
+      "comment" : "Requests a fresh snapshot from the timer device.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reconnect"
+          }
+        }
+      }
+    },
+    "SLUG-RESUME" : {
+      "comment" : "Requests that the host continue the paused timer.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resume"
+          }
+        }
+      }
+    },
+    "SLUG-REWIND" : {
+      "comment" : "Performs the same operation as the host’s rewind button.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rewind"
+          }
+        }
+      }
+    },
+    "SLUG-START" : {
+      "comment" : "Requests that the host start the selected timer.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
+          }
+        }
+      }
+    },
+    "SLUG-STOP" : {
+      "comment" : "Requests that the host stop the timer and exit its running screen.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop"
+          }
+        }
+      }
+    },
+    "SLUG-SYNCING" : {
+      "comment" : "The current timer's deadline passed and the Watch is waiting for the host to confirm what happened.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updating…"
+          }
+        }
+      }
+    },
+    "SLUG-TIMER-DEVICE" : {
+      "comment" : "Opens the chooser for the device running the timer.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer device"
+          }
+        }
+      }
+    },
+    "SLUG-TIMER-POSITION" : {
+      "comment" : "Watch heading. The integers are group number, timer number, and number of timers in the group. All are one-based.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group %1$d · Timer %2$d of %3$d"
+          }
+        }
+      }
+    },
+    "SLUG-WARNING" : {
+      "comment" : "The host timer has crossed the yellow warning threshold.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning"
+          }
+        }
+      }
+    },
+    "SLUG-WATCH-PAIR-ALLOW" : {
+
+    },
+    "SLUG-WATCH-PAIR-CODE" : {
+
+    },
+    "SLUG-WATCH-PAIR-DENY" : {
+
+    },
+    "SLUG-WATCH-PAIR-TITLE" : {
+
+    },
+    "SLUG-WATCH-REMOTE-RETRYING" : {
+
     }
   },
   "version" : "1.0"
