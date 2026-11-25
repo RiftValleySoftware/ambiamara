@@ -232,6 +232,7 @@ extension RiValT_TimerEditor_PageViewContainer {
             else { return }
             
             self.timerModel.removeTimer(from: indexPath)
+            self.watchDelegate?.updateSettings()
 
             self.navigationController?.popViewController(animated: true)
         }

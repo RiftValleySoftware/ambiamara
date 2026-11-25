@@ -341,6 +341,18 @@ extension TimerModel {
         self._groups.removeAll { $0.isEmpty }
         return timer
     }
+
+    /// Moves the whole group before an original group index, or to the end at `count`.
+    /// Returns true when the group order changes.
+    @discardableResult
+    func moveGroup(from source: Int, before boundary: Int) -> Bool {
+        guard _groups.indices.contains(source), (0...count).contains(boundary) else { return false }
+        let destination = boundary > source ? boundary - 1 : boundary
+        guard source != destination else { return false }
+        let group = _groups.remove(at: source)
+        _groups.insert(group, at: destination)
+        return true
+    }
 }
 
 /* ###################################################################################################################################### */

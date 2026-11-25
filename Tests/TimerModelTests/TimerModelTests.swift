@@ -44,6 +44,36 @@ class TimerModelTests: XCTestCase {
         XCTAssertEqual(timers.map(\.startingTimeInSeconds), [600, 120, 30])
     }
 
+    func testMoveWholeGroup() {
+        let model = TimerModel()
+        for section in 0..<4 {
+            model.createNewTimerAtEndOf(group: section)
+        }
+        let selectedTimer = model.createNewTimerAtEndOf(group: 1)
+        selectedTimer.isSelected = true
+        let groups = Array(model)
+        let timers = groups[1].allTimers
+
+        XCTAssertTrue(model.moveGroup(from: 1, before: 4))
+        XCTAssertEqual(model.map(\.id), [groups[0], groups[2], groups[3], groups[1]].map(\.id))
+        XCTAssertIdentical(model[3], groups[1])
+        XCTAssertIdentical(model[3][0], timers[0])
+        XCTAssertIdentical(model[3][1], selectedTimer)
+        XCTAssertEqual(selectedTimer.indexPath, IndexPath(item: 1, section: 3))
+
+        XCTAssertTrue(model.moveGroup(from: 3, before: 0))
+        XCTAssertTrue(model.moveGroup(from: 0, before: 2))
+        XCTAssertEqual(model.map(\.id), groups.map(\.id))
+        XCTAssertIdentical(model.selectedGroup, groups[1])
+        XCTAssertIdentical(model.selectedTimer, selectedTimer)
+        XCTAssertEqual(selectedTimer.indexPath, IndexPath(item: 1, section: 1))
+
+        for (source, boundary) in [(1, 1), (1, 2), (-1, 0), (4, 2), (1, -1), (1, 5)] {
+            XCTAssertFalse(model.moveGroup(from: source, before: boundary))
+        }
+        XCTAssertEqual(model.map(\.id), groups.map(\.id))
+    }
+
     /** Insertion uses original row coordinates, even when the source row disappears. */
     func testMoveTimerIntoNewGroup() {
         for sourceSection in 0..<3 {

@@ -31,6 +31,7 @@ import RVS_UIKit_Toolbox
  When the rightmost timer ends, the "alarm sound" is played.
  
  The user can drag timers around, by long-pressing on a timer. The timer can move within a group, or from one group to another.
+ Long-pressing the space around the timers in the selected row moves the whole group vertically.
  
  Groups can have options specified, that apply to all timers in a group. When a timer is moved from one group to another, it adapts to the group setings for the new group.
  
@@ -269,6 +270,19 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
 
     /** Gives every completed or cancelled drag a single, strong impact. */
     private let _dragEndFeedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
+
+    private struct GroupDrag {
+        let group: TimerGroup
+        let source: Int
+        var destination: Int
+        let frame: CGRect
+        let grabOffsetY: CGFloat
+        let preview: UIView
+        let gesture: UILongPressGestureRecognizer
+    }
+
+    private var _groupDrag: GroupDrag?
+    private var _groupScrollLink: CADisplayLink?
     
     /* ############################################################## */
     /**
@@ -295,6 +309,11 @@ extension RiValT_GroupEditor_ViewController {
         doubleTapper.delaysTouchesBegan = true
         self.collectionView?.addGestureRecognizer(doubleTapper)
         self.rowDoubleTapRecognizer = doubleTapper
+
+        let groupPress = UILongPressGestureRecognizer(target: self, action: #selector(groupLongPressed))
+        groupPress.delegate = self
+        self.collectionView?.addGestureRecognizer(groupPress)
+        doubleTapper.require(toFail: groupPress)
         self.settingsBarButtonItem?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON-LABEL".localizedVariant
         self.settingsBarButtonItem?.accessibilityHint = "SLUG-ACC-SETTINGS-BUTTON-HINT".localizedVariant
         self.toolbarDeleteButton?.accessibilityIdentifier = "targetItem"
@@ -324,10 +343,8 @@ extension RiValT_GroupEditor_ViewController {
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
         self.navigationController?.isNavigationBarHidden = false
-        // Editing changes timer contents without changing the snapshot's item identities.
-        self.collectionView?.reloadData()
-        self.updateToolbar()
-        self.setUpNavBarItems()
+        // The timer editor can change a timer's contents or delete it entirely.
+        self.updateSnapshot(reloadingData: true)
         self.checkForFastForward()
     }
 
@@ -356,6 +373,7 @@ extension RiValT_GroupEditor_ViewController {
      - parameter inIsAnimated: True, if the disappearance is animated.
      */
     override func viewWillDisappear(_ inIsAnimated: Bool) {
+        self.finishGroupDrag(commit: false)
         RiValT_Settings.ephemeralFirstTime = false
         self._lastScrollPos = collectionView?.contentOffset ?? .zero
         super.viewWillDisappear(inIsAnimated)
@@ -367,6 +385,7 @@ extension RiValT_GroupEditor_ViewController {
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        guard self._groupDrag == nil else { return }
         self.setupDataSource()
         self.createLayout()
         self.updateSnapshot()
@@ -391,6 +410,7 @@ extension RiValT_GroupEditor_ViewController {
      - parameter inCoordinator: The coordinator object.
      */
     override func viewWillTransition(to inSize: CGSize, with inCoordinator: any UIViewControllerTransitionCoordinator) {
+        self.finishGroupDrag(commit: false)
         super.viewWillTransition(to: inSize, with: inCoordinator)
         self.currentPopover?.presentedViewController.dismiss(animated: true)
         self.currentPopover = nil
@@ -544,6 +564,20 @@ extension RiValT_GroupEditor_ViewController {
                 background.contentInsets.top = height
             }
             section.decorationItems = [background]
+            section.visibleItemsInvalidationHandler = { [weak self] items, _, _ in
+                guard let drag = self?._groupDrag else { return }
+                // Slide the intervening rows into the vacated slot. The lifted row travels in a separate view.
+                var offset: CGFloat = 0
+                if inSection > drag.source && inSection <= drag.destination {
+                    offset = -drag.frame.height
+                } else if inSection >= drag.destination && inSection < drag.source {
+                    offset = drag.frame.height
+                }
+                for item in items {
+                    item.alpha = inSection == drag.source ? 0 : 1
+                    item.transform = CGAffineTransform(translationX: 0, y: offset)
+                }
+            }
             
             return section
         }
@@ -560,11 +594,11 @@ extension RiValT_GroupEditor_ViewController {
     func setupDataSource() {
         // Keep the populated snapshot when another layout pass occurs during startup.
         guard self.dataSource == nil, let collectionView = self.collectionView else { return }
-        self.dataSource = UICollectionViewDiffableDataSource<Int, RiValT_TimerArray_Placeholder>(collectionView: collectionView) { [self] inCollectionView, inIndexPath, _ in
+        self.dataSource = UICollectionViewDiffableDataSource<Int, RiValT_TimerArray_Placeholder>(collectionView: collectionView) { [self] inCollectionView, inIndexPath, inItem in
             var ret = UICollectionViewCell()
             
             // If this cell has a timer, we create a timer cell.
-            if let timer = self.timerModel.getTimer(at: inIndexPath),
+            if let timer = inItem.timer,
                let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_IconCell {
                 cell.configure(with: timer, indexPath: inIndexPath, myController: self)
                 cell.isAccessibilityElement = true
@@ -585,9 +619,9 @@ extension RiValT_GroupEditor_ViewController {
 
     /* ############################################################## */
     /**
-     This updates the collection view snapshot.
+     This updates the collection view snapshot. Reloading also refreshes cells whose timer contents or selection changed.
      */
-    func updateSnapshot() {
+    func updateSnapshot(reloadingData: Bool = false) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, RiValT_TimerArray_Placeholder>()
         for (sectionIndex, group) in self.timerModel.enumerated() {
             snapshot.appendSections([sectionIndex])
@@ -601,7 +635,11 @@ extension RiValT_GroupEditor_ViewController {
         snapshot.appendSections([lastSection])
         snapshot.appendItems([RiValT_TimerArray_Placeholder()], toSection: lastSection)
 
-        self.dataSource?.apply(snapshot, animatingDifferences: false)
+        if reloadingData {
+            self.dataSource?.applySnapshotUsingReloadData(snapshot)
+        } else {
+            self.dataSource?.apply(snapshot, animatingDifferences: false)
+        }
         self.updateToolbar()
         self.setUpNavBarItems()
     }
@@ -624,6 +662,30 @@ extension RiValT_GroupEditor_ViewController {
 // MARK: Callbacks
 /* ###################################################################################################################################### */
 extension RiValT_GroupEditor_ViewController {
+    /** The selected group's trailing slot and the bottom add-group slot can show a plus button. */
+    func canAddTimer(at indexPath: IndexPath) -> Bool {
+        if indexPath.section == self.timerModel.count {
+            return indexPath.item == 0
+        }
+        guard let group = self.timerModel.selectedGroup else { return false }
+        return group.index == indexPath.section && indexPath.item == group.count && !group.isFull
+    }
+
+    /** Only a button that was visible when the user tapped can create a timer. */
+    func addTimer(from cell: RiValT_TimerArray_AddCell) {
+        guard self._groupDrag == nil, let collectionView,
+              let indexPath = collectionView.indexPath(for: cell), self.canAddTimer(at: indexPath)
+        else { return }
+
+        self.timerModel.createNewTimer(at: indexPath).isSelected = true
+        self._lastScrollPos = .zero
+        self.impactHaptic(1.0)
+        self.updateSettings()
+        self.updateSnapshot(reloadingData: true)
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: self.timerModel.count), at: .top, animated: true)
+        self.goEditYourself(optionalTitle: "SLUG-NEW-TIMER".localizedVariant)
+    }
+
     /* ############################################################## */
     /**
      Called when the toolbar delete timer button is hit.
@@ -778,14 +840,9 @@ extension RiValT_GroupEditor_ViewController {
      - parameter inTapGesture: The tap that caused the call.
      */
     @objc func groupDoubleTapped(_ inTapGesture: UITapGestureRecognizer) {
-        guard let collectionView = self.collectionView else { return }
+        guard self._groupDrag == nil, let collectionView = self.collectionView else { return }
         let location = inTapGesture.location(in: collectionView)
-        guard let section = (0..<self.timerModel.count).first(where: {
-            collectionView.collectionViewLayout.layoutAttributesForDecorationView(
-                ofKind: SectionBackgroundView.reuseIdentifier,
-                at: IndexPath(item: 0, section: $0)
-            )?.frame.contains(location) ?? false
-        }),
+        guard let section = (0..<self.timerModel.count).first(where: { groupFrame(at: $0)?.contains(location) == true }),
               let timer = self.timerModel[section].first
         else { return }
 
@@ -828,7 +885,7 @@ extension RiValT_GroupEditor_ViewController {
      - parameter inTapGesture: The tap that caused the call.
      */
     @objc func groupBackgroundNumberTapped(_ inTapGesture: UITapGestureRecognizer) {
-        if let group = self.timerModel.selectedTimer?.group,
+        if self._groupDrag == nil, let group = self.timerModel.selectedTimer?.group,
            1 < group.count {
             var currentSelectedIndex = -1
             
@@ -851,6 +908,125 @@ extension RiValT_GroupEditor_ViewController {
                 self.watchDelegate?.publishSnapshot()
             }
         }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Moving a whole group
+/* ###################################################################################################################################### */
+extension RiValT_GroupEditor_ViewController: UIGestureRecognizerDelegate {
+    private func groupFrame(at section: Int) -> CGRect? {
+        self.collectionView?.collectionViewLayout.layoutAttributesForDecorationView(
+            ofKind: SectionBackgroundView.reuseIdentifier, at: IndexPath(item: 0, section: section)
+        )?.frame
+    }
+
+    func canBeginGroupDrag(at point: CGPoint) -> Bool {
+        guard let collectionView, let model = self.timerModel, model.count > 1,
+              !collectionView.hasActiveDrag, !collectionView.hasActiveDrop,
+              let section = model.selectedGroup?.index, let frame = groupFrame(at: section),
+              frame.contains(point) else { return false }
+        return collectionView.indexPathForItem(at: point).map { !model.isValid(indexPath: $0) } ?? true
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        canBeginGroupDrag(at: touch.location(in: self.collectionView))
+    }
+
+    @objc func groupLongPressed(_ gesture: UILongPressGestureRecognizer) {
+        guard let collectionView else { return }
+        switch gesture.state {
+        case .began:
+            let point = gesture.location(in: collectionView)
+            guard canBeginGroupDrag(at: point), let group = self.timerModel.selectedGroup,
+                  let source = group.index, let row = groupFrame(at: source) else { return }
+            let frame = CGRect(x: collectionView.bounds.minX, y: row.minY, width: collectionView.bounds.width, height: row.height)
+            let image = UIGraphicsImageRenderer(size: frame.size).image { context in
+                context.cgContext.translateBy(x: -frame.minX, y: -frame.minY)
+                collectionView.layer.render(in: context.cgContext)
+            }
+            let preview = UIImageView(image: image)
+            preview.frame = frame
+            preview.isUserInteractionEnabled = false
+            preview.accessibilityElementsHidden = true
+            preview.layer.zPosition = 1_000
+            preview.layer.shadowOpacity = 0.3
+            preview.layer.shadowRadius = 4
+            preview.layer.shadowOffset = CGSize(width: 0, height: 2)
+            collectionView.addSubview(preview)
+            self._groupDrag = GroupDrag(group: group, source: source, destination: source, frame: frame,
+                                        grabOffsetY: frame.midY - point.y, preview: preview, gesture: gesture)
+            collectionView.collectionViewLayout.invalidateLayout()
+            self.impactHaptic(1.0)
+            self._dragEndFeedbackGenerator.prepare()
+            let link = CADisplayLink(target: self, selector: #selector(scrollDuringGroupDrag))
+            link.preferredFramesPerSecond = 30
+            link.add(to: .main, forMode: .common)
+            self._groupScrollLink = link
+
+        case .changed:
+            updateGroupDragPosition()
+        case .ended:
+            updateGroupDragPosition()
+            finishGroupDrag(commit: true)
+        case .cancelled, .failed:
+            finishGroupDrag(commit: false)
+        default:
+            break
+        }
+    }
+
+    private func updateGroupDragPosition() {
+        guard let drag = self._groupDrag, let collectionView else { return }
+        // All group rows have the same layout height. The trailing Add Group row is outside the reorderable range.
+        let firstCenter = drag.frame.midY - CGFloat(drag.source) * drag.frame.height
+        let lastCenter = firstCenter + CGFloat(self.timerModel.count - 1) * drag.frame.height
+        let fingerY = drag.gesture.location(in: collectionView).y
+        let centerY = min(lastCenter, max(firstCenter, fingerY + drag.grabOffsetY))
+        drag.preview.center.y = centerY
+        let destination = Int(((centerY - firstCenter) / drag.frame.height).rounded())
+        if destination != drag.destination {
+            self._groupDrag?.destination = destination
+            collectionView.collectionViewLayout.invalidateLayout()
+            self.selectionHaptic()
+        }
+    }
+
+    /// Scroll vertically while the finger rests near an edge, including when there are no new touch events.
+    @objc private func scrollDuringGroupDrag(_ link: CADisplayLink) {
+        guard let drag = self._groupDrag, let collectionView else { return }
+        let inset = collectionView.adjustedContentInset
+        let top = collectionView.bounds.minY + inset.top
+        let bottom = collectionView.bounds.maxY - inset.bottom
+        let edge = min(48, (bottom - top) / 4)
+        guard edge > 0 else { return }
+        let fingerY = drag.gesture.location(in: collectionView).y
+        let above = max(0, top + edge - fingerY)
+        let below = max(0, fingerY - (bottom - edge))
+        let speed = min(1, max(-1, (below - above) / edge)) * 360  // Points per second.
+        let offset = collectionView.contentOffset
+        let distance = speed * CGFloat(link.targetTimestamp - link.timestamp)
+        let maxY = collectionView.contentSize.height - collectionView.bounds.height + inset.bottom
+        let y = max(-inset.top, min(maxY, offset.y + distance))
+        guard y != offset.y else { return }
+        collectionView.setContentOffset(CGPoint(x: offset.x, y: y), animated: false)
+        updateGroupDragPosition()
+    }
+
+    private func finishGroupDrag(commit: Bool) {
+        guard let drag = self._groupDrag else { return }
+        self._groupScrollLink?.invalidate()
+        self._groupScrollLink = nil
+        self._groupDrag = nil
+        drag.preview.removeFromSuperview()
+        let boundary = drag.destination > drag.source ? drag.destination + 1 : drag.destination
+        if commit, drag.group.index == drag.source, self.timerModel.moveGroup(from: drag.source, before: boundary) {
+            self.updateSnapshot()
+            self.watchDelegate?.updateSettings()
+        }
+        self.createLayout()
+        self.collectionView?.reloadData()
+        self._dragEndFeedbackGenerator.impactOccurred(intensity: 1.0)
     }
 }
 
@@ -905,7 +1081,7 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDragDelegate {
                         itemsForBeginning inSession: UIDragSession,
                         at inIndexPath: IndexPath
     ) -> [UIDragItem] {
-        guard 1 < self.timerModel.allTimers.count,
+        guard self._groupDrag == nil, 1 < self.timerModel.allTimers.count,
               self.timerModel.isValid(indexPath: inIndexPath)
         else { return [] }
         self._lastDropPosition = .timer(inIndexPath)
@@ -1017,48 +1193,28 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDelegate {
     func collectionView(_ inCollectionView: UICollectionView,
                         didSelectItemAt inIndexPath: IndexPath
     ) {
-        let wasGroupSelected = self.timerModel.getTimer(at: IndexPath(item: 0, section: inIndexPath.section))?.group?.isSelected ?? false
-        var shouldScroll = false
-        var shouldEdit = RiValT_Settings().oneTapEditing
-        var optionalTitle: String?
-
-        self._lastScrollPos = inCollectionView.contentOffset
-
-        if (inIndexPath.section == self.timerModel?.count ?? 0) || (self.timerModel?[inIndexPath.section].isSelected ?? false),
-           nil == self.timerModel.getTimer(at: inIndexPath) {
-            self.timerModel.createNewTimer(at: inIndexPath)
-            self.impactHaptic(1.0)
-            shouldScroll = true
-            shouldEdit = true
-            optionalTitle = "SLUG-NEW-TIMER".localizedVariant
-            self._lastScrollPos = .zero
-        } else if (0..<(self.timerModel?.count ?? 0)).contains((inIndexPath.section)),
-                  !(self.timerModel?[inIndexPath.section].isSelected ?? false) {
+        guard self._groupDrag == nil, (0..<self.timerModel.count).contains(inIndexPath.section) else { return }
+        let group = self.timerModel[inIndexPath.section]
+        let shouldEdit: Bool
+        if group.isSelected {
+            guard let timer = self.timerModel.getTimer(at: inIndexPath) else { return }
+            timer.isSelected = true
+            shouldEdit = RiValT_Settings().oneTapEditing
+        } else {
             // Discard any tap already in progress. Starting this row takes two fresh taps.
             self.rowDoubleTapRecognizer?.isEnabled = false
             self.rowDoubleTapRecognizer?.isEnabled = true
-            self.timerModel?[inIndexPath.section].first?.isSelected = true
-            self.watchDelegate?.updateSettings()
-            self.impactHaptic()
+            group.first?.isSelected = true
             shouldEdit = false
-        } else {
-            self.impactHaptic()
         }
-        
-        if shouldEdit || wasGroupSelected {
-            self.timerModel.getTimer(at: inIndexPath)?.isSelected = true
-        }
-        
+
+        self._lastScrollPos = inCollectionView.contentOffset
+        self.impactHaptic()
         self.updateSettings()
-        self.updateSnapshot()
-        inCollectionView.reloadData()
-                
-        if shouldScroll {
-            inCollectionView.scrollToItem(at: IndexPath(item: 0, section: self.timerModel.count), at: .top, animated: true)
-        }
-        
+        self.updateSnapshot(reloadingData: true)
+
         if shouldEdit {
-            self.goEditYourself(optionalTitle: optionalTitle)
+            self.goEditYourself()
         }
     }
     

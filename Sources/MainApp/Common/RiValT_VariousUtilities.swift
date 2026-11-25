@@ -626,27 +626,30 @@ class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
     override func configure(indexPath inIndexPath: IndexPath, myController inMyController: RiValT_GroupEditor_ViewController?) {
         super.configure(indexPath: inIndexPath, myController: inMyController)
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
-        if inIndexPath.section == RiValT_AppDelegate.appDelegateInstance?.timerModel.selectedTimer?.group?.index ?? -1 || self.indexPath?.section == timerModel.count {
-            let newImage = UIImageView(image: UIImage(systemName: "plus.circle.fill")?
-                .applyingSymbolConfiguration(.init(scale: self.indexPath?.section == timerModel.count ? .large : .small))
-            )
-            newImage.contentMode = .center
-            newImage.translatesAutoresizingMaskIntoConstraints = false
-            self.contentView.addSubview(newImage)
-            newImage.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-            newImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-            newImage.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
-            newImage.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
-            if (self.indexPath?.section ?? 0) < timerModel.count {
-                self.overrideUserInterfaceStyle = myController?.isDarkMode ?? false ? .light : .dark
-            } else {
-                self.overrideUserInterfaceStyle = myController?.isDarkMode ?? false ? .dark : .light
-            }
+        self.isAccessibilityElement = false
+        guard let controller = inMyController, controller.canAddTimer(at: inIndexPath) else { return }
+
+        let isNewGroup = inIndexPath.section == timerModel.count
+        let symbol = UIImage.SymbolConfiguration(scale: isNewGroup ? .large : .small)
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "plus.circle.fill", withConfiguration: symbol), for: .normal)
+        button.frame = self.contentView.bounds
+        button.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        button.isAccessibilityElement = true
+        button.accessibilityLabel = "SLUG-ACC-COLLECTION-TIMER-ADD-LABEL".localizedVariant
+        button.accessibilityHint = "SLUG-ACC-COLLECTION-TIMER-ADD-HINT".localizedVariant
+        button.addTarget(self, action: #selector(addButtonHit), for: .primaryActionTriggered)
+        self.contentView.addSubview(button)
+        if isNewGroup {
+            self.overrideUserInterfaceStyle = .unspecified
+        } else {
+            self.overrideUserInterfaceStyle = controller.isDarkMode ? .light : .dark
         }
-        
-        self.isAccessibilityElement = true
-        self.accessibilityLabel = "SLUG-ACC-COLLECTION-TIMER-ADD-LABEL".localizedVariant
-        self.accessibilityHint = "SLUG-ACC-COLLECTION-TIMER-ADD-HINT".localizedVariant
+    }
+
+    @objc private func addButtonHit(_ button: UIButton) {
+        guard button.superview === self.contentView else { return }
+        self.myController?.addTimer(from: self)
     }
 }
 
