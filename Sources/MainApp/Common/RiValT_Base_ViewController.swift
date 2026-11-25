@@ -157,6 +157,16 @@ extension RiValT_Base_ViewController {
         self._impactFeedbackGenerator.prepare()
         
         self.navigationItem.title = self.navigationItem.title?.localizedVariant
+        if #available(iOS 26.0, *) {
+            // Supply an item so the automatically generated Back button also has no shared background.
+            if self.navigationItem.backBarButtonItem == nil {
+                self.navigationItem.backBarButtonItem = UIBarButtonItem(title: self.navigationItem.backButtonTitle ?? self.navigationItem.title,
+                                                                       style: .plain,
+                                                                       target: nil,
+                                                                       action: nil)
+            }
+            self.navigationItem.backBarButtonItem?.hidesSharedBackground = true
+        }
         self.localizeStuff()
     }
     
@@ -178,6 +188,25 @@ extension RiValT_Base_ViewController {
      We use this to set the background.
      */
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if #available(iOS 26.0, *) {
+            // Reapply during layout to include items rebuilt when the selection or settings change.
+            let navigationItems = self.navigationController?.navigationBar.items ?? [self.navigationItem]
+            for item in navigationItems {
+                let buttons = (item.leftBarButtonItems ?? []) + (item.rightBarButtonItems ?? [])
+                buttons.forEach { $0.hidesSharedBackground = true }
+                item.backBarButtonItem?.hidesSharedBackground = true
+            }
+            self.toolbarItems?.forEach { $0.hidesSharedBackground = true }
+            self.navigationController?.toolbar.items?.forEach { $0.hidesSharedBackground = true }
+            func hideToolbarBackgrounds(in view: UIView) {
+                if let toolbar = view as? UIToolbar {
+                    toolbar.items?.forEach { $0.hidesSharedBackground = true }
+                }
+                view.subviews.forEach { hideToolbarBackgrounds(in: $0) }
+            }
+            hideToolbarBackgrounds(in: self.view)
+        }
         self.gradientLayer?.removeFromSuperlayer()
         guard !self.isHighContrastMode,
               let view = self.view
