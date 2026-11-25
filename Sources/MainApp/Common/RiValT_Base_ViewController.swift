@@ -157,22 +157,56 @@ extension RiValT_Base_ViewController {
         self._impactFeedbackGenerator.prepare()
         
         self.navigationItem.title = self.navigationItem.title?.localizedVariant
-        if #available(iOS 26.0, *) {
-            // Supply an item so the automatically generated Back button also has no shared background.
-            if self.navigationItem.backBarButtonItem == nil {
-                self.navigationItem.backBarButtonItem = UIBarButtonItem(title: self.navigationItem.backButtonTitle ?? self.navigationItem.title,
-                                                                       style: .plain,
-                                                                       target: nil,
-                                                                       action: nil)
-            }
-            self.navigationItem.backBarButtonItem?.hidesSharedBackground = true
-        }
+        self.navigationItem.backButtonDisplayMode = .minimal
         self.localizeStuff()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let navigationController = self.navigationController,
+           let index = navigationController.viewControllers.firstIndex(of: self),
+           index > 0,
+           self.navigationItem.leftBarButtonItem == nil {
+            // Use a regular item: UIKit's generated Back button retains its own Glass background.
+            let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(self.goBack))
+            backButton.accessibilityLabel = navigationController.viewControllers[index - 1].navigationItem.backButtonTitle
+                ?? navigationController.viewControllers[index - 1].navigationItem.title
+            if #available(iOS 26.0, *) {
+                backButton.hidesSharedBackground = true
+            }
+            self.navigationItem.hidesBackButton = true
+            self.navigationItem.leftBarButtonItem = backButton
+        }
+        self.hideBarItemBackgrounds()
+    }
+
+    @objc private func goBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    /// Configure storyboard items before presentation, and refresh after returning from a popover.
+    private func hideBarItemBackgrounds() {
+        guard #available(iOS 26.0, *) else { return }
+        let buttons = (self.navigationItem.leftBarButtonItems ?? []) + (self.navigationItem.rightBarButtonItems ?? [])
+        buttons.forEach { $0.hidesSharedBackground = true }
+        self.toolbarItems?.forEach { $0.hidesSharedBackground = true }
+        self.navigationController?.toolbar.items?.forEach { $0.hidesSharedBackground = true }
+        func configureToolbars(in view: UIView) {
+            if let toolbar = view as? UIToolbar {
+                toolbar.items?.forEach { $0.hidesSharedBackground = true }
+            }
+            view.subviews.forEach { configureToolbars(in: $0) }
+        }
+        configureToolbars(in: self.view)
+    }
+
     // Opening About or a settings popover can temporarily make the editor's Play action unavailable.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.hideBarItemBackgrounds()
         self.watchDelegate?.publishSnapshot()
     }
 
@@ -189,24 +223,6 @@ extension RiValT_Base_ViewController {
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if #available(iOS 26.0, *) {
-            // Reapply during layout to include items rebuilt when the selection or settings change.
-            let navigationItems = self.navigationController?.navigationBar.items ?? [self.navigationItem]
-            for item in navigationItems {
-                let buttons = (item.leftBarButtonItems ?? []) + (item.rightBarButtonItems ?? [])
-                buttons.forEach { $0.hidesSharedBackground = true }
-                item.backBarButtonItem?.hidesSharedBackground = true
-            }
-            self.toolbarItems?.forEach { $0.hidesSharedBackground = true }
-            self.navigationController?.toolbar.items?.forEach { $0.hidesSharedBackground = true }
-            func hideToolbarBackgrounds(in view: UIView) {
-                if let toolbar = view as? UIToolbar {
-                    toolbar.items?.forEach { $0.hidesSharedBackground = true }
-                }
-                view.subviews.forEach { hideToolbarBackgrounds(in: $0) }
-            }
-            hideToolbarBackgrounds(in: self.view)
-        }
         self.gradientLayer?.removeFromSuperlayer()
         guard !self.isHighContrastMode,
               let view = self.view

@@ -413,6 +413,10 @@ extension RiValT_GroupEditor_ViewController {
         displaySettingsButtonItem.target = self
         displaySettingsButtonItem.action = #selector(displaySettingsButtonHit)
 //        displaySettingsButtonItem.tintColor = self.view?.tintColor
+        if #available(iOS 26.0, *) {
+            soundSettingsButtonItem.hidesSharedBackground = true
+            displaySettingsButtonItem.hidesSharedBackground = true
+        }
         self.navigationItem.rightBarButtonItems = nil
         self.navigationItem.rightBarButtonItems = [soundSettingsButtonItem, UIBarButtonItem.flexibleSpace(), displaySettingsButtonItem]
     }

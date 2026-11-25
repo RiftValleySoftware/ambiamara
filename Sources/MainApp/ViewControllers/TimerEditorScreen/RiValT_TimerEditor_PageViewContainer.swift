@@ -171,6 +171,9 @@ extension RiValT_TimerEditor_PageViewContainer {
 
             for index in 0..<timerGroup.count {
                 let timerButton = UIBarButtonItem()
+                if #available(iOS 26.0, *) {
+                    timerButton.hidesSharedBackground = true
+                }
                 timerButton.image = UIImage(systemName: "\(index + 1).square\(index == timerIndexPath.item ? ".fill" : "")")?.applyingSymbolConfiguration(.init(pointSize: 24))
                 timerButton.imageInsets = .init(top: 0, left: 0, bottom: 0, right: 0)
                 timerButton.isEnabled = index != timerIndexPath.item
