@@ -85,7 +85,6 @@
 		D4C665D72DAE6C3600A0316D /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E869532D99916200D56802 /* TimerEngine.swift */; };
 		D4CF4FC92DBB08C3008A71B8 /* RiValT_RunningTimer_Numerical_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF4FC82DBB08C3008A71B8 /* RiValT_RunningTimer_Numerical_ViewController.swift */; };
 		D4D3B9FD2DC4182D00C5CA19 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D3B9FC2DC4182D00C5CA19 /* Localizable.strings */; };
-		D4D3BA002DC4183300C5CA19 /* Accessibility.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D3B9FF2DC4183300C5CA19 /* Accessibility.strings */; };
 		D4D9A1DD2DC26354009CB13E /* RiValT_RunningTimer_Circular_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D9A1DC2DC26354009CB13E /* RiValT_RunningTimer_Circular_ViewController.swift */; };
 		D4E10DBD2DB05B290088DB50 /* Digital.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4C1B6202D806D6E00CEA6BF /* Digital.ttf */; };
 		D4E2E8FB2DA9296B009BE18E /* RiValT_GroupEditor_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E2E8FA2DA9296B009BE18E /* RiValT_GroupEditor_ViewController.swift */; };
@@ -362,7 +361,6 @@
 		D4C665CC2DAE6BFF00A0316D /* TimerModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimerModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4CF4FC82DBB08C3008A71B8 /* RiValT_RunningTimer_Numerical_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_RunningTimer_Numerical_ViewController.swift; sourceTree = "<group>"; };
 		D4D3B9FB2DC4182D00C5CA19 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		D4D3B9FE2DC4183300C5CA19 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Accessibility.strings; sourceTree = "<group>"; };
 		D4D9A1DC2DC26354009CB13E /* RiValT_RunningTimer_Circular_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_RunningTimer_Circular_ViewController.swift; sourceTree = "<group>"; };
 		D4E2E8FA2DA9296B009BE18E /* RiValT_GroupEditor_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_GroupEditor_ViewController.swift; sourceTree = "<group>"; };
 		D4E869532D99916200D56802 /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
@@ -502,7 +500,6 @@
 			children = (
 				D43B975C2DA2C1D10028E023 /* Assets.xcassets */,
 				D4D3B9FC2DC4182D00C5CA19 /* Localizable.strings */,
-				D4D3B9FF2DC4183300C5CA19 /* Accessibility.strings */,
 				D43B97612DA2C1D10028E023 /* RiValT.storyboard */,
 				D43B975F2DA2C1D10028E023 /* LaunchScreen.storyboard */,
 			);
@@ -1047,7 +1044,6 @@
 				D4E10DBD2DB05B290088DB50 /* Digital.ttf in Resources */,
 				D43B976C2DA2C1D10028E023 /* RiValT.storyboard in Resources */,
 				D4D3B9FD2DC4182D00C5CA19 /* Localizable.strings in Resources */,
-				D4D3BA002DC4183300C5CA19 /* Accessibility.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1294,14 +1290,6 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		D4D3B9FF2DC4183300C5CA19 /* Accessibility.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D4D3B9FE2DC4183300C5CA19 /* en */,
-			);
-			name = Accessibility.strings;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1313,7 +1301,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/MainApp/Meta/RiVal.T.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0005;
+				CURRENT_PROJECT_VERSION = 0006;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1354,7 +1342,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/MainApp/Meta/RiVal.T.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0005;
+				CURRENT_PROJECT_VERSION = 0006;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1394,7 +1382,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Tests/TimerEngineTestHarness/TimerEngine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0005;
+				CURRENT_PROJECT_VERSION = 0006;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = P53V4JS928;
@@ -1440,7 +1428,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Tests/TimerEngineTestHarness/TimerEngine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0005;
+				CURRENT_PROJECT_VERSION = 0006;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = P53V4JS928;
@@ -1694,7 +1682,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchApp/WatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0005;
+				CURRENT_PROJECT_VERSION = 0006;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_PREVIEWS = YES;
@@ -1734,7 +1722,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchApp/WatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0005;
+				CURRENT_PROJECT_VERSION = 0006;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_PREVIEWS = YES;
@@ -1773,7 +1761,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0005;
+				CURRENT_PROJECT_VERSION = 0006;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1811,7 +1799,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0005;
+				CURRENT_PROJECT_VERSION = 0006;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
