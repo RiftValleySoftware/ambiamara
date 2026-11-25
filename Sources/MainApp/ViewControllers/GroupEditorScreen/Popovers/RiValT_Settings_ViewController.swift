@@ -238,6 +238,7 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         }
 
         RiValT_Settings().combineTimers = checkbox.isOn
+        self.watchDelegate?.publishSnapshot()
     }
     
     /* ############################################################## */

@@ -26,14 +26,10 @@ struct Rift_Valley_Timer_Watch_App_Provider: TimelineProvider {
         let now = Date()
         let snapshot = RiValT_ComplicationState.read()?.snapshot
         var entries = [Entry(date: now, snapshot: snapshot)]
-        if let snapshot, snapshot.phase.isCounting, let deadline = snapshot.deadline, deadline > now {
-            // Threshold entries also work without waking the Watch app. Only the host advances a group.
-            for seconds in Set([snapshot.warning, snapshot.final, 0]) {
-                let date = deadline.addingTimeInterval(-Double(seconds))
-                if date > now { entries.append(Entry(date: date, snapshot: snapshot)) }
-            }
+        if let deadline = snapshot?.displayDeadline, deadline > now {
+            // WidgetKit counts down between entries. At the displayed deadline, switch to a fixed zero.
+            entries.append(Entry(date: deadline, snapshot: snapshot))
         }
-        entries.sort { $0.date < $1.date }
         // State changes request a reload; this is only a periodic recovery opportunity.
         completion(Timeline(entries: entries, policy: .after(now.addingTimeInterval(900))))
     }
@@ -47,12 +43,11 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
 
     var timerText: Text {
         guard let snapshot, snapshot.timerID != nil, phase != .unavailable else { return Text(verbatim: "—") }
-        if let displayDeadline = snapshot.displayDeadline, let deadline = snapshot.deadline, deadline > date {
-            // The timeline entry at the segment boundary waits for the host to advance the group.
-            return Text(timerInterval: date...displayDeadline, countsDown: true, showsHours: snapshot.displayRemaining(at: date) >= 3600)
+        let remaining = snapshot.complicationRemaining(at: date)
+        if let displayDeadline = snapshot.displayDeadline, displayDeadline > date {
+            return Text(timerInterval: date...displayDeadline, countsDown: true, showsHours: remaining >= 3600)
         }
-        let sampleDate = min(date, snapshot.deadline ?? date)
-        return Text(verbatim: RiValT_ComplicationState.clockText(snapshot.displayRemaining(at: sampleDate)))
+        return Text(verbatim: RiValT_ComplicationState.clockText(remaining))
     }
 }
 

@@ -36,6 +36,8 @@ enum RiValT_RemoteState {
         var stamp: String?
         /// Seconds in later timers included in the host's displayed countdown.
         var followingDuration: Int?
+        /// The countdown that Play would start while the host editor is showing an individual preset.
+        var complicationPresetTime: Int?
 
         /// TimerEngine displays ceiling seconds. A delayed message therefore still shows the current second.
         func remaining(at date: Date) -> Int {
@@ -54,6 +56,11 @@ enum RiValT_RemoteState {
             return max(0, Int(ceil(displayDeadline.timeIntervalSince(date))))
         }
 
+        func complicationRemaining(at date: Date) -> Int {
+            if phase == .ready, let complicationPresetTime { return complicationPresetTime }
+            return displayRemaining(at: date)
+        }
+
         func phase(at date: Date) -> Phase {
             guard phase.isCounting, deadline != nil else { return phase }
             let seconds = remaining(at: date)
@@ -70,6 +77,7 @@ enum RiValT_RemoteState {
                 && groupSize == other.groupSize && commands == other.commands && warning == other.warning
                 && final == other.final && deadline == other.deadline
                 && (followingDuration ?? 0) == (other.followingDuration ?? 0)
+                && complicationPresetTime == other.complicationPresetTime
                 && (deadline != nil && phase.isCounting && other.phase.isCounting || (phase == other.phase && remaining == other.remaining))
         }
     }

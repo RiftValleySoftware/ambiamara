@@ -189,6 +189,27 @@ final class ComplicationStateTests: XCTestCase {
         }
     }
 
+    func testReadyComplicationUsesCombinedPresetOnlyWhenEnabled() {
+        withStore { defaults in
+            let now = Date()
+            let individual = sample(.ready, seconds: 120)
+            var combined = individual
+            combined.complicationPresetTime = 150
+            XCTAssertFalse(combined.representsSameControlState(as: individual))
+
+            for source in ["phone", "ipad-test"] {
+                Store.selectSource(source, in: defaults)
+                Store.save(combined, updatedAt: now, source: source, in: defaults)
+                let saved = Store.read(from: defaults)?.snapshot
+                XCTAssertEqual(saved?.complicationRemaining(at: now), 150)
+                XCTAssertEqual(saved?.displayRemaining(at: now), 120)
+
+                Store.save(individual, updatedAt: now.addingTimeInterval(1), source: source, in: defaults)
+                XCTAssertEqual(Store.read(from: defaults)?.snapshot.complicationRemaining(at: now), 120)
+            }
+        }
+    }
+
     func testChangingHostsClearsOldTimerAndRejectsPhoneUpdates() {
         withStore { defaults in
             let now = Date()
@@ -212,7 +233,15 @@ final class ComplicationStateTests: XCTestCase {
             let result = Store.read(from: defaults)?.snapshot
             XCTAssertEqual(result?.remaining(at: now.addingTimeInterval(30)), 60)
             XCTAssertEqual(result?.remaining(at: now.addingTimeInterval(120)), 0)
+            XCTAssertEqual(result?.complicationRemaining(at: now.addingTimeInterval(120)), 0)
             XCTAssertEqual(result?.timerNumber, 1)
+
+            var combined = sample(.countdown, seconds: 90, deadline: now.addingTimeInterval(90))
+            combined.followingDuration = 150
+            Store.save(combined, updatedAt: now.addingTimeInterval(1), source: "phone", in: defaults)
+            let countdown = Store.read(from: defaults)?.snapshot
+            XCTAssertEqual(countdown?.complicationRemaining(at: now.addingTimeInterval(120)), 120)
+            XCTAssertEqual(countdown?.complicationRemaining(at: now.addingTimeInterval(240)), 0)
         }
     }
 

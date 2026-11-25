@@ -114,6 +114,7 @@ extension RiValT_AppDelegate {
         let scrubPreview = running?.timer === timer ? running?.scrubPreview : nil
         let phase: RiValT_WatchDelegate.Phase
         var commands: [RiValT_WatchDelegate.TimerOperation] = []
+        var complicationPresetTime: Int?
         if let running, running.timer === timer {
             switch scrubPreview?.mode ?? timer.timerMode {
             case .countdown: phase = .countdown
@@ -143,6 +144,10 @@ extension RiValT_AppDelegate {
             phase = .ready
             if timer.startingTimeInSeconds > 0 {
                 commands = [.start]
+                if RiValT_Settings().combineTimers {
+                    let countdown = TimerCountdown(timer, combineTimers: true)
+                    complicationPresetTime = timer.startingTimeInSeconds + countdown.followingDuration
+                }
             }
         } else {
             phase = .unavailable
@@ -153,7 +158,8 @@ extension RiValT_AppDelegate {
                      groupSize: timer.group?.count ?? 0, phase: phase, remaining: remaining,
                      deadline: phase.isCounting && scrubPreview == nil ? timer.countdownDeadline : nil,
                      warning: timer.warningRangeUpperBound, final: timer.finalRangeUpperBound,
-                     commands: commands, followingDuration: running?.countdown?.followingDuration)
+                     commands: commands, followingDuration: running?.countdown?.followingDuration,
+                     complicationPresetTime: complicationPresetTime)
     }
 
     /// Run an accepted remote command through the same actions used on the main device.
