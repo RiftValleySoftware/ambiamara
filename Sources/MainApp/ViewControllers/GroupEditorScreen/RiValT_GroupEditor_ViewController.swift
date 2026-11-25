@@ -267,7 +267,9 @@ extension RiValT_GroupEditor_ViewController {
         super.viewDidAppear(inIsAnimated)
         if .zero == self._lastScrollPos,
            let collectionView = self.collectionView,
-           let selectedSectionIndex = self.timerModel?.selectedTimer?.indexPath {
+           let selectedSectionIndex = self.timerModel?.selectedTimer?.indexPath,
+           selectedSectionIndex.section < collectionView.numberOfSections,
+           selectedSectionIndex.item < collectionView.numberOfItems(inSection: selectedSectionIndex.section) {
             collectionView.scrollToItem(at: selectedSectionIndex, at: .bottom, animated: false)
             self._lastScrollPos = collectionView.contentOffset
         }
@@ -298,7 +300,9 @@ extension RiValT_GroupEditor_ViewController {
         if .zero != self._lastScrollPos {
             self.collectionView?.setContentOffset(self._lastScrollPos, animated: false)
         } else if let collectionView = self.collectionView,
-                  let selectedSectionIndex = self.timerModel?.selectedTimer?.indexPath {
+                  let selectedSectionIndex = self.timerModel?.selectedTimer?.indexPath,
+                  selectedSectionIndex.section < collectionView.numberOfSections,
+                  selectedSectionIndex.item < collectionView.numberOfItems(inSection: selectedSectionIndex.section) {
             collectionView.scrollToItem(at: selectedSectionIndex, at: .centeredVertically, animated: false)
             self._lastScrollPos = collectionView.contentOffset
         }
@@ -330,6 +334,18 @@ extension RiValT_GroupEditor_ViewController {
         self.setUpNavBarItems()
         self.currentPopover = nil
         return true
+    }
+
+    /* ################################################################## */
+    /**
+     Refreshes the controls after a popover has finished dismissing.
+
+     - parameter inController: The dismissed popover controller.
+     */
+    func popoverPresentationControllerDidDismissPopover(_ inController: UIPopoverPresentationController) {
+        self.updateToolbar()
+        self.setUpNavBarItems()
+        self.currentPopover = nil
     }
     
     /* ################################################################## */
@@ -458,7 +474,8 @@ extension RiValT_GroupEditor_ViewController {
      This sets up the data source cells.
      */
     func setupDataSource() {
-        guard let collectionView = self.collectionView else { return }
+        // Keep the populated snapshot when another layout pass occurs during startup.
+        guard self.dataSource == nil, let collectionView = self.collectionView else { return }
         self.dataSource = UICollectionViewDiffableDataSource<Int, RiValT_TimerArray_Placeholder>(collectionView: collectionView) { [self] inCollectionView, inIndexPath, _ in
             var ret = UICollectionViewCell()
             
