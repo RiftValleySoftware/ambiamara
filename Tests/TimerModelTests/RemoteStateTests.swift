@@ -38,6 +38,50 @@ final class RemoteStateTests: XCTestCase {
         XCTAssertEqual(paused.phase(at: minutesLater), .paused)
     }
 
+    func testCombinedReadoutKeepsWarningsAndControlsOnTheActiveTimer() {
+        let segment = sample(remaining: 600, deadline: deadline)
+        var combined = segment
+        combined.followingDuration = 150
+        XCTAssertEqual(combined.displayRemaining(at: deadline.addingTimeInterval(-600)), 750)
+        let warning = deadline.addingTimeInterval(-8)
+        XCTAssertEqual(combined.displayRemaining(at: warning), 158)
+        XCTAssertEqual(combined.phase(at: warning), .warning)
+        XCTAssertEqual(combined.phase(at: deadline.addingTimeInterval(-3)), .final)
+        // The combined digits continue while the Watch waits for the host to confirm the next timer and its controls.
+        let delayed = deadline.addingTimeInterval(2)
+        XCTAssertEqual(combined.remaining(at: delayed), 0)
+        XCTAssertEqual(combined.displayRemaining(at: deadline), 150)
+        XCTAssertEqual(combined.displayRemaining(at: delayed), 148)
+        XCTAssertEqual(segment.displayRemaining(at: delayed), 0)
+        XCTAssertEqual(combined.displayRemaining(at: deadline.addingTimeInterval(151)), 0)
+        XCTAssertFalse(combined.representsSameControlState(as: segment))
+    }
+
+    func testStationarySeekPreviewUsesTheTimeAndPhaseOnTheHost() {
+        var frozen = sample(phase: .warning, remaining: 5, commands: [])
+        frozen.followingDuration = 30
+        XCTAssertNil(frozen.displayDeadline)
+        XCTAssertEqual(frozen.displayRemaining(at: deadline.addingTimeInterval(60)), 35)
+        XCTAssertEqual(frozen.phase(at: deadline), .warning)
+        var moved = sample(phase: .warning, remaining: 4, commands: [])
+        moved.followingDuration = 30
+        XCTAssertFalse(frozen.representsSameControlState(as: moved))
+    }
+
+    func testPausedCombinedReadoutAndLegacySnapshotDecoding() throws {
+        var paused = sample(phase: .paused, remaining: 47, commands: [.resume, .stop])
+        let encoder = PropertyListEncoder()
+        let decoder = PropertyListDecoder()
+        // Older live messages and complication records omit the duration of subsequent timers.
+        let legacy = try decoder.decode(Remote.Snapshot.self, from: encoder.encode(paused))
+        XCTAssertNil(legacy.followingDuration)
+        XCTAssertEqual(legacy.displayRemaining(at: deadline), 47)
+
+        paused.followingDuration = 30
+        let combined = try decoder.decode(Remote.Snapshot.self, from: encoder.encode(paused))
+        XCTAssertEqual(combined.displayRemaining(at: deadline.addingTimeInterval(600)), 77)
+    }
+
     func testControlRevisionSurvivesTicksButChangesWhenCommandMeaningChanges() {
         let original = sample(deadline: deadline)
         XCTAssertTrue(original.representsSameControlState(as: sample(phase: .final, remaining: 2, deadline: deadline)))

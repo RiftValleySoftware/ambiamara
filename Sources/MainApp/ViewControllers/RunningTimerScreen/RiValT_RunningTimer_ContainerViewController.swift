@@ -101,6 +101,9 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
      If the slider is up, it will be stored here.
      */
     private weak var _timeSetSlider: UISlider?
+
+    /// The host's last redraw while scrubbing. The engine can tick while the finger is stationary.
+    private(set) var scrubPreview: (remaining: Int, mode: TimerEngine.Mode)?
     
     /* ############################################################## */
     /**
@@ -113,6 +116,9 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
      The running timer.
      */
     weak var timer: Timer?
+
+    /// The preference applies for the lifetime of this running screen.
+    private let _combineTimers = RiValT_Settings().combineTimers
     
     /* ############################################################## */
     /**
@@ -268,53 +274,52 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
 // MARK: Computed Properties
 /* ###################################################################################################################################### */
 extension RiValT_RunningTimer_ContainerViewController {
+    var countdown: TimerCountdown? {
+        timer.map { TimerCountdown($0, combineTimers: _combineTimers) }
+    }
+
+    /// A zero-duration preset has no place on the combined countdown.
+    private var groupTimers: [Timer] {
+        _combineTimers ? countdown?.timers ?? [] : timer?.group?.allTimers ?? []
+    }
+
+    private func adjacentTimer(offset: Int) -> Timer? {
+        let timers = groupTimers
+        guard let timer, let index = timers.firstIndex(of: timer),
+              timers.indices.contains(index + offset) else { return nil }
+        let adjacent = timers[index + offset]
+        return adjacent.startingTimeInSeconds > 0 ? adjacent : nil
+    }
+
     /* ############################################################## */
     /**
      If we are in a multi-timer group, this is the previous timer.
      */
-    var prevTimer: Timer? {
-        guard let group = self.timer?.group,
-              let myIndex = self.timer?.indexPath?.item,
-              1 < group.count,
-              0 < myIndex,
-              0 < group[myIndex - 1].startingTimeInSeconds
-        else { return nil }
-        
-        return group[myIndex - 1]
-    }
+    var prevTimer: Timer? { adjacentTimer(offset: -1) }
     
     /* ############################################################## */
     /**
      If we are in a multi-timer group, this is the next timer.
      */
-    var nextTimer: Timer? {
-        guard let group = self.timer?.group,
-              let myIndex = self.timer?.indexPath?.item,
-              1 < group.count,
-              myIndex < group.count - 1,
-              0 < group[myIndex + 1].startingTimeInSeconds
-        else { return nil }
-        
-        return group[myIndex + 1]
-    }
+    var nextTimer: Timer? { adjacentTimer(offset: 1) }
     
     /* ############################################################## */
     /**
      If we are in a multi-timer group, this how many timers.
      */
-    var count: Int { self.timer?.group?.count ?? 0 }
+    var count: Int { groupTimers.count }
     
     /* ############################################################## */
     /**
      If we are in a multi-timer group, this is the first timer.
      */
-    var firstTimer: Timer? { self.timer?.group?.first }
+    var firstTimer: Timer? { groupTimers.first }
     
     /* ############################################################## */
     /**
      If we are in a multi-timer group, this is the last timer.
      */
-    var lastTimer: Timer? { self.timer?.group?.last }
+    var lastTimer: Timer? { groupTimers.last }
     
     /* ############################################################## */
     /**
@@ -694,7 +699,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             resetTimer.isSelected = true
             self.timer = resetTimer
             self.watchDelegate?.updateSettings()
-            self.flashTimerNumber(0)
+            if let row = resetTimer.indexPath?.row { self.flashTimerNumber(row) }
         } else {
             self.timer?.stop()
         }
@@ -921,6 +926,12 @@ extension RiValT_RunningTimer_ContainerViewController {
      Updates all the embeds.
      */
     func updateDisplays() {
+        if let slider = _timeSetSlider, let countdown {
+            let groupRemaining = Int(slider.maximumValue - slider.value)
+            scrubPreview = (groupRemaining - countdown.followingDuration, countdown.timer.timerMode)
+        } else {
+            scrubPreview = nil
+        }
         self.setToolbarEnablements()
         self.watchDelegate?.publishSnapshot()
         if case .paused = self.timer?.timerMode {
@@ -1109,7 +1120,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         self._audioPlayer?.stop()
         if self.timer?.isTimerInAlarm ?? false {
             self.timer?.stop()
-            if 1 < self.timer?.group?.count ?? 0,
+            if 1 < self.count,
                let firstTimer = self.firstTimer {
                 self.timer?.tickHandler = nil
                 self.timer?.transitionHandler = nil
@@ -1152,16 +1163,16 @@ extension RiValT_RunningTimer_ContainerViewController {
          */
         func _prepareSlider(atThisLocation inLocation: Float) {
             guard let timeSetSwipeDetectorView = self.timeSetSwipeContainerView,
-                  let timer = self.timer
+                  let countdown = self.countdown
             else { return }
             
             self._timeSetSlider?.removeFromSuperview()
             self._timeSetSlider = nil
             
             let slider = UISlider()
-            slider.maximumValue = Float(timer.startingTimeInSeconds)
+            slider.maximumValue = Float(countdown.totalDuration)
             slider.minimumValue = 0.0
-            slider.value = inLocation
+            slider.value = inLocation * slider.maximumValue
 
             timeSetSwipeDetectorView.addSubview(slider)
             slider.translatesAutoresizingMaskIntoConstraints = false
@@ -1169,7 +1180,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             slider.trailingAnchor.constraint(equalTo: timeSetSwipeDetectorView.trailingAnchor).isActive = true
             slider.centerYAnchor.constraint(equalTo: timeSetSwipeDetectorView.centerYAnchor).isActive = true
             self.timeSetDisplayLabel?.isHidden = false
-            self.timeSetDisplayLabel?.text = !timer.timerDisplay.isEmpty ? timer.timerDisplay : "0"
+            self.timeSetDisplayLabel?.text = TimerEngine.timerDisplay(for: countdown.remaining)
             self._timeSetSlider = slider
         }
         
@@ -1180,29 +1191,38 @@ extension RiValT_RunningTimer_ContainerViewController {
          - parameter location: The 0 -> 1 location.
          */
         func _setTimerTo(location inLocation: Float) {
-            guard let timer = self.timer,
+            guard let countdown = self.countdown,
                   (0...1).contains(inLocation)
             else { return }
-            
-            let lastTime = timer.currentTime
-            let currentTime = timer.startingTimeInSeconds - Int(round(Float(timer.startingTimeInSeconds) * inLocation))
-            
-            if currentTime != lastTime {
-                self.selectionHaptic()
-                timer.currentTime = currentTime
-                if case .paused = timer.timerMode {
-                    timer.resume()
-                }
-                self._timeSetSlider?.value = Float(timer.startingTimeInSeconds - currentTime)
+
+            let elapsed = Int(round(Float(countdown.totalDuration) * inLocation))
+            let position = countdown.position(atElapsedTime: elapsed)
+            if position.timer !== countdown.timer {
+                countdown.timer.tickHandler = nil
+                countdown.timer.transitionHandler = nil
+                countdown.timer.stop()
+                self.timer = position.timer
+                position.timer.isSelected = true
+                position.timer.tickHandler = self.tickHandler
+                position.timer.transitionHandler = self.transitionHandler
+                position.timer.start()
+                self.watchDelegate?.updateSettings()
             }
-            
-            self.timeSetDisplayLabel?.text = !timer.timerDisplay.isEmpty ? timer.timerDisplay : "0"
+            if position.remaining != position.timer.currentTime {
+                self.selectionHaptic()
+                position.timer.currentTime = position.remaining
+                if case .paused = position.timer.timerMode {
+                    position.timer.resume()
+                }
+            }
+            self._timeSetSlider?.value = Float(elapsed)
+            self.timeSetDisplayLabel?.text = TimerEngine.timerDisplay(for: countdown.totalDuration - elapsed)
             self.updateDisplays()
         }
         
         guard let detectionView = self.longPressDetectionView,
               !detectionView.isHidden,
-              let timer = self.timer
+              let countdown = self.countdown
         else {
             inGestureRecognizer.state = .cancelled
             self.timeSetDisplayLabel?.isHidden = true
@@ -1212,6 +1232,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             return
         }
         
+        let timer = countdown.timer
         let gestureLocation = inGestureRecognizer.location(ofTouch: 0, in: detectionView)
         let location = Float(gestureLocation.x / detectionView.bounds.size.width)
         
@@ -1219,6 +1240,10 @@ extension RiValT_RunningTimer_ContainerViewController {
         case .began:
             if (0...1).contains(location) {
                 self.impactHaptic(1.0)
+                if timer.isTimerInAlarm, countdown.timers.count > 1 {
+                    self._alarmTimer?.isRunning = false
+                    self._audioPlayer?.stop()
+                }
                 if !timer.isTimerRunning {
                     timer.start()
                     timer.pause()
@@ -1236,8 +1261,11 @@ extension RiValT_RunningTimer_ContainerViewController {
             self.timeSetDisplayLabel?.isHidden = true
             self._timeSetSlider?.removeFromSuperview()
             self._timeSetSlider = nil
-            if timer.isTimerAtStart {
+            if countdown.remaining == countdown.totalDuration {
                 timer.stop()
+            } else if countdown.timers.count > 1, timer.isTimerInAlarm,
+                      self._alarmTimer?.isRunning != true {
+                self.alarmReached()
             }
             self.updateDisplays()
         }

@@ -17,6 +17,33 @@ import XCTest
  These will run faceless tests on the timer model.
  */
 class TimerModelTests: XCTestCase {
+    func testCombinedCountdownFromEachTimer() {
+        let model = TimerModel()
+        let timers = [600, 120, 30].enumerated().map { index, duration in
+            let timer = model.createNewTimer(at: IndexPath(item: index, section: 0))
+            timer.startingTimeInSeconds = duration
+            return timer
+        }
+        let individual = timers.map { TimerCountdown($0, combineTimers: false).remaining }
+        let combined = timers.map { TimerCountdown($0, combineTimers: true).remaining }
+        XCTAssertEqual(individual, [600, 120, 30])
+        XCTAssertEqual(combined, [750, 150, 30])
+
+        let countdown = TimerCountdown(timers[0], combineTimers: true)
+        XCTAssertEqual(countdown.totalDuration, 750)
+        for (elapsed, index, remaining) in [(599, 0, 1), (600, 1, 120), (719, 1, 1),
+                                            (720, 2, 30), (750, 2, 0)] {
+            let position = countdown.position(atElapsedTime: elapsed)
+            XCTAssertIdentical(position.timer, timers[index])
+            XCTAssertEqual(position.remaining, remaining)
+        }
+
+        timers[1].currentTime = 85
+        XCTAssertEqual(TimerCountdown(timers[1], combineTimers: true).remaining, 115)
+        XCTAssertEqual(TimerCountdown(timers[1], combineTimers: false).remaining, 85)
+        XCTAssertEqual(timers.map(\.startingTimeInSeconds), [600, 120, 30])
+    }
+
     /** Insertion uses original row coordinates, even when the source row disappears. */
     func testMoveTimerIntoNewGroup() {
         for sourceSection in 0..<3 {

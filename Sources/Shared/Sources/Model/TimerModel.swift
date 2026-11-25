@@ -1384,3 +1384,40 @@ extension Timer: CustomDebugStringConvertible {
         "ID: \(self.id)\nStart Time: \(self.startingTimeInSeconds)\nWarning Time: \(self.warningTimeInSeconds)\nFinal Time: \(self.finalTimeInSeconds)\nCurrent Time: \(self.currentTime)\nPreciseTime: \(String(describing: self.currentPreciseTime))"
     }
 }
+
+/// The time scale used by the running screen. Each timer still runs its own engine and warning thresholds.
+struct TimerCountdown {
+    let timer: Timer
+    let timers: [Timer]
+
+    init(_ timer: Timer, combineTimers: Bool) {
+        self.timer = timer
+        if combineTimers, let group = timer.group, group.allTimers.contains(timer) {
+            timers = group.allTimers.filter { $0.startingTimeInSeconds > 0 }
+        } else {
+            timers = [timer]
+        }
+    }
+
+    var totalDuration: Int { timers.reduce(0) { $0 + $1.startingTimeInSeconds } }
+
+    /// Preset durations after the active timer. Previously run timers never contribute to the time left.
+    var followingDuration: Int {
+        guard let index = timers.firstIndex(of: timer) else { return 0 }
+        return timers.suffix(from: index + 1).reduce(0) { $0 + $1.startingTimeInSeconds }
+    }
+
+    var remaining: Int { timer.currentTime + followingDuration }
+
+    /// At a transition, elapsed time belongs to the start of the next timer.
+    func position(atElapsedTime elapsed: Int) -> (timer: Timer, remaining: Int) {
+        var offset = max(0, elapsed)
+        for segment in timers {
+            if offset < segment.startingTimeInSeconds {
+                return (segment, segment.startingTimeInSeconds - offset)
+            }
+            offset -= segment.startingTimeInSeconds
+        }
+        return (timers.last ?? timer, 0)
+    }
+}

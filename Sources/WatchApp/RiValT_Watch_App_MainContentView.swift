@@ -92,7 +92,7 @@ struct RiValT_Watch_App_MainContentView: View {
     }
 
     private func readout(_ snapshot: Snapshot, at date: Date) -> some View {
-        let seconds = snapshot.remaining(at: date)
+        let seconds = snapshot.displayRemaining(at: date)
         let awaitingHost = snapshot.deadline.map { $0 <= date } ?? false
         let phase = snapshot.phase(at: date)
         let primary = [Operation.pause, .resume, .start].first(where: snapshot.commands.contains)

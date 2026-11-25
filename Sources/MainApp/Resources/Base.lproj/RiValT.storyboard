@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2rx-W2-3dV">
-                                <rect key="frame" x="16" y="134" width="361" height="182"/>
+                                <rect key="frame" x="16" y="134" width="361" height="220"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nJo-BV-SnL">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="30"/>
@@ -88,8 +88,40 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hVc-TM-7HX">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hQy-d2-Ef7">
                                         <rect key="frame" x="0.0" y="76" width="361" height="30"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5oh-Ba-sTd" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
+                                                <rect key="frame" x="0.0" y="2" width="28" height="26"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-COMBINE-TIMERS-CHECKBOX-HINT" label="SLUG-ACC-COMBINE-TIMERS-CHECKBOX-LABEL"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="5oh-Ba-sTd" secondAttribute="height" multiplier="1:1" id="r7W-M0-Kt2"/>
+                                                    <constraint firstAttribute="width" constant="26" id="MSj-Kt-Gx5"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isThreeState" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="useOffImageForClear" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="useHaptics" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="combineTimersCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="valueChanged" id="Oym-7c-I9X"/>
+                                                </connections>
+                                            </switch>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7h-ZA-I2m">
+                                                <rect key="frame" x="34" y="0.0" width="327" height="30"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-COMBINE-TIMERS-CHECKBOX-HINT" label="SLUG-ACC-COMBINE-TIMERS-CHECKBOX-LABEL"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="SLUG-COMBINE-TIMERS">
+                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="combineTimersCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="touchUpInside" id="U3v-8D-QSH"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hVc-TM-7HX">
+                                        <rect key="frame" x="0.0" y="114" width="361" height="30"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sdl-6R-kiR" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
                                                 <rect key="frame" x="0.0" y="2" width="28" height="26"/>
@@ -121,7 +153,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tyf-Ot-qnt">
-                                        <rect key="frame" x="0.0" y="114" width="361" height="30"/>
+                                        <rect key="frame" x="0.0" y="152" width="361" height="30"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i72-tV-rRZ" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
                                                 <rect key="frame" x="0.0" y="2" width="28" height="26"/>
@@ -153,7 +185,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tif-Pd-5DN">
-                                        <rect key="frame" x="0.0" y="152" width="361" height="30"/>
+                                        <rect key="frame" x="0.0" y="190" width="361" height="30"/>
                                         <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-ABOUT-HINT" label="SLUG-ACC-ABOUT-LABEL"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="3EV-wL-uM8"/>
@@ -169,6 +201,8 @@
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="hQy-d2-Ef7" firstAttribute="leading" secondItem="2rx-W2-3dV" secondAttribute="leading" id="OhG-4P-S6x"/>
+                                    <constraint firstAttribute="trailing" secondItem="hQy-d2-Ef7" secondAttribute="trailing" id="mVu-R0-InA"/>
                                     <constraint firstAttribute="trailing" secondItem="gv8-lP-sBY" secondAttribute="trailing" id="AC5-la-hR8"/>
                                     <constraint firstAttribute="trailing" secondItem="tyf-Ot-qnt" secondAttribute="trailing" id="Qsi-UW-0cq"/>
                                     <constraint firstItem="tyf-Ot-qnt" firstAttribute="leading" secondItem="2rx-W2-3dV" secondAttribute="leading" id="cDl-Ob-EJG"/>
@@ -197,6 +231,7 @@
                         <outlet property="autoHideStackView" destination="tyf-Ot-qnt" id="gfn-BI-oDQ"/>
                         <outlet property="autoHideToolbarCheckbox" destination="i72-tV-rRZ" id="bVD-kf-OLg"/>
                         <outlet property="autoHideToolbarLabelButton" destination="o4k-I5-ttI" id="VQg-TA-cKZ"/>
+                        <outlet property="combineTimersCheckbox" destination="5oh-Ba-sTd" id="t0Y-ei-SmA"/>
                         <outlet property="oneTapEditCheckbox" destination="UNm-KF-4yk" id="1vz-TV-UOc"/>
                         <outlet property="oneTapEditLabelButton" destination="ZgQ-tc-QYo" id="Q7n-BT-IwS"/>
                         <outlet property="showAboutScreenButton" destination="tif-Pd-5DN" id="Jn1-jO-2Sk"/>

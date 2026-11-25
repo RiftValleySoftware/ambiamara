@@ -49,16 +49,18 @@ class RiValT_CirlcleDisplayView: UIView {
     
     /* ############################################################## */
     /**
-     The timer assigned to this instance.
+     The running screen supplies the timer sequence and its displayed remaining time.
      */
-    weak var timer: Timer? { didSet { self.setNeedsLayout() } }
+    weak var container: RiValT_RunningTimer_ContainerViewController? { didSet { self.setNeedsLayout() } }
     
     /* ############################################################## */
     /**
      Called when the subviews are laid out. We create the circle here.
      */
     override func layoutSubviews() {
-        guard let timer = self.timer else { return }
+        guard let countdown = container?.countdown else { return }
+        let timer = countdown.timer
+        let remaining = countdown.remaining
         // This bit of code will make sure that each "tick" has a slight animation.
         let transition = CATransition()
         transition.type = .fade
@@ -70,8 +72,7 @@ class RiValT_CirlcleDisplayView: UIView {
         
         let lineWidth = minimumSize / 4
 
-        if timer.isTimerInAlarm,
-           !timer.isTimerRunning {
+        if timer.isTimerInAlarm, !timer.isTimerRunning, remaining == 0 {
             let path = UIBezierPath(
                 arcCenter: CGPoint(x: bounds.midX, y: bounds.midY),
                 radius: min(bounds.midX, bounds.midY) * Self._circleRadiusProportion,
@@ -91,78 +92,43 @@ class RiValT_CirlcleDisplayView: UIView {
             self.layer.addSublayer(subLayer)
         } else {
             let circleLayer = CAShapeLayer()
-            let finalTimeInSeconds = (timer.finalTimeInSeconds + 1) < timer.startingTimeInSeconds ? timer.finalTimeInSeconds : timer.startingTimeInSeconds
-            let warningTimeInSeconds = (timer.warningTimeInSeconds + 1) < timer.startingTimeInSeconds ? timer.warningTimeInSeconds : timer.startingTimeInSeconds
-            
-            let fullcircle = CGFloat.pi * 2
-            let startingLocation: CGFloat = .pi / -2
-            let finalThreshold = max(0, (CGFloat(finalTimeInSeconds) / CGFloat(timer.startingTimeInSeconds)) * fullcircle)
-            let warningThreshold = max(0, ((CGFloat(warningTimeInSeconds) / CGFloat(timer.startingTimeInSeconds)) * fullcircle) - finalThreshold)
-            let currentPosition = ((CGFloat(timer.currentTime) / CGFloat(timer.startingTimeInSeconds)) * fullcircle) + startingLocation
-            
-            let finalRange = startingLocation..<(finalThreshold + startingLocation)
-            let warningRange = finalRange.upperBound..<(warningThreshold + finalRange.upperBound)
-            let startingRange = warningRange.upperBound..<(startingLocation + fullcircle)
-            
-            if currentPosition >= finalRange.lowerBound,
-               !finalRange.isEmpty {
+            let total = countdown.totalDuration
+
+            // The last timer ends at twelve o'clock. Earlier timers occupy the rest of the ring in reverse order.
+            func addArc(from start: Int, to end: Int, colorNamed color: String) {
+                let visibleEnd = min(end, remaining)
+                guard start < visibleEnd else { return }
+                let radiansPerSecond = 2 * CGFloat.pi / CGFloat(total)
                 let path = UIBezierPath(
                     arcCenter: CGPoint(x: bounds.midX, y: bounds.midY),
                     radius: min(bounds.midX, bounds.midY) * Self._circleRadiusProportion,
-                    startAngle: finalRange.lowerBound,
-                    endAngle: min(currentPosition, finalRange.upperBound),
+                    startAngle: -.pi / 2 + CGFloat(start) * radiansPerSecond,
+                    endAngle: -.pi / 2 + CGFloat(visibleEnd) * radiansPerSecond,
                     clockwise: true
                 )
-                
-                let subLayer = CAShapeLayer()
-                subLayer.path = path.cgPath
-                subLayer.strokeColor = UIColor(named: "Final-Color")?.cgColor
-                subLayer.fillColor = nil
-                subLayer.lineWidth = lineWidth
-                subLayer.opacity = timer.isTimerRunning ? 1 : Self._disabledOpacity
-                
-                circleLayer.addSublayer(subLayer)
+                let arc = CAShapeLayer()
+                arc.path = path.cgPath
+                arc.strokeColor = UIColor(named: color)?.cgColor
+                arc.fillColor = nil
+                arc.lineWidth = lineWidth
+                arc.opacity = timer.isTimerRunning ? 1 : Self._disabledOpacity
+                circleLayer.addSublayer(arc)
             }
-            
-            if currentPosition >= warningRange.lowerBound,
-               !warningRange.isEmpty {
-                let path = UIBezierPath(
-                    arcCenter: CGPoint(x: bounds.midX, y: bounds.midY),
-                    radius: min(bounds.midX, bounds.midY) * Self._circleRadiusProportion,
-                    startAngle: warningRange.lowerBound,
-                    endAngle: min(currentPosition, warningRange.upperBound),
-                    clockwise: true
-                )
-                
-                let subLayer = CAShapeLayer()
-                subLayer.path = path.cgPath
-                subLayer.strokeColor = UIColor(named: "Warn-Color")?.cgColor
-                subLayer.fillColor = nil
-                subLayer.lineWidth = lineWidth
-                subLayer.opacity = timer.isTimerRunning ? 1 : Self._disabledOpacity
-                
-                circleLayer.addSublayer(subLayer)
+
+            var offset = 0
+            for segment in countdown.timers.reversed() {
+                guard offset < remaining else { break }
+                let duration = segment.startingTimeInSeconds
+                let final = segment.finalTimeInSeconds + 1 < duration ? segment.finalTimeInSeconds : duration
+                let warning = segment.warningTimeInSeconds + 1 < duration ? segment.warningTimeInSeconds : duration
+                let finalEnd = offset + final
+                let warningEnd = offset + max(final, warning)
+                addArc(from: offset, to: finalEnd, colorNamed: "Final-Color")
+                addArc(from: finalEnd, to: warningEnd, colorNamed: "Warn-Color")
+                addArc(from: warningEnd, to: offset + duration, colorNamed: "Start-Color")
+                offset += duration
             }
-            
-            if currentPosition >= startingRange.lowerBound {
-                let path = UIBezierPath(
-                    arcCenter: CGPoint(x: bounds.midX, y: bounds.midY),
-                    radius: min(bounds.midX, bounds.midY) * Self._circleRadiusProportion,
-                    startAngle: startingRange.lowerBound,
-                    endAngle: min(currentPosition, startingRange.upperBound),
-                    clockwise: true
-                )
-                
-                let subLayer = CAShapeLayer()
-                subLayer.path = path.cgPath
-                subLayer.strokeColor = UIColor(named: "Start-Color")?.cgColor
-                subLayer.fillColor = nil
-                subLayer.lineWidth = lineWidth
-                subLayer.opacity = timer.isTimerRunning ? 1 : Self._disabledOpacity
-                
-                circleLayer.addSublayer(subLayer)
-            }
-            
+
             self._circleLayer?.removeFromSuperlayer()
             self._circleLayer = circleLayer
             self.layer.addSublayer(circleLayer)
@@ -195,7 +161,6 @@ extension RiValT_RunningTimer_Circular_ViewController {
      This forces the display to refresh.
      */
     override func updateUI() {
-        self.circleImageDisplayView?.timer = self.timer
-        self.circleImageDisplayView?.setNeedsLayout()
+        self.circleImageDisplayView?.container = self.myContainer
     }
 }

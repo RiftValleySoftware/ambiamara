@@ -55,6 +55,10 @@ class RiValT_Settings: RVS_PersistentPrefs {
          */
         case oneTapEditing
 
+        /* ################################################################## */
+        /// Display the combined remaining time of the running timer group.
+        case combineTimers
+
         /* ############################################################## */
         /**
          These are all the keys, in an Array of String.
@@ -64,7 +68,8 @@ class RiValT_Settings: RVS_PersistentPrefs {
                                         startTimerImmediately.rawValue,
                                         displayToolbar.rawValue,
                                         autoHideToolbar.rawValue,
-                                        oneTapEditing.rawValue
+                                        oneTapEditing.rawValue,
+                                        combineTimers.rawValue
                                         ]
         }
     }
@@ -168,6 +173,13 @@ class RiValT_Settings: RVS_PersistentPrefs {
     var oneTapEditing: Bool {
         get { 0 != (values[Keys.oneTapEditing.rawValue] as? Int ?? 1) }
         set { values[Keys.oneTapEditing.rawValue] = newValue ? 1 : 0 }
+    }
+
+    /* ################################################################## */
+    /// Display the combined remaining time of the running timer group. Defaults to true.
+    var combineTimers: Bool {
+        get { 0 != (values[Keys.combineTimers.rawValue] as? Int ?? 1) }
+        set { values[Keys.combineTimers.rawValue] = newValue ? 1 : 0 }
     }
     
     /* ################################################################## */

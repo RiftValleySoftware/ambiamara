@@ -56,6 +56,10 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
      The label for the preference. It is actually a button, which toggles the setting.
      */
     @IBOutlet weak var oneTapEditLabelButton: UIButton?
+
+    /* ############################################################## */
+    /// The checkbox for the "Combine Timers" preference.
+    @IBOutlet weak var combineTimersCheckbox: RVS_Checkbox?
     
     /* ############################################################## */
     /**
@@ -104,14 +108,8 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
      This calculates the size needed for the popover, and sets the property, which causes the popover to change.
      */
     private func _setPreferredContentSize() {
-        var height = (self.autoHideStackView?.isHidden ?? true)
-            ? ((self.autoHideStackView?.isHidden ?? true) ? 130 : 168)
-                : 206
-
-        if let watchSettingsRow, let stack = watchSettingsRow.superview as? UIStackView {
-            let count = stack.arrangedSubviews.filter { !$0.isHidden }.count
-            height = 24 + count * 30 + max(0, count - 1) * 8
-        }
+        guard let stack = self.showAboutScreenButton?.superview as? UIStackView else { return }
+        let height = stack.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height + 32
         
         UIView.animate(withDuration: 0.3) {
             self.preferredContentSize = CGSize(width: 270, height: height)
@@ -127,6 +125,7 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         super.viewDidLoad()
         self.startImmediatelyCheckbox?.isOn = RiValT_Settings().startTimerImmediately
         self.oneTapEditCheckbox?.isOn = RiValT_Settings().oneTapEditing
+        self.combineTimersCheckbox?.isOn = RiValT_Settings().combineTimers
         self.showToolbarCheckbox?.isOn = RiValT_Settings().displayToolbar
         self.autoHideToolbarCheckbox?.isOn = RiValT_Settings().autoHideToolbar
         if ProcessInfo().isMacCatalystApp {
@@ -142,7 +141,6 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         self._setPreferredContentSize()
     }
     
-    private var watchSettingsRow: UIStackView?
     private var watchStatusObserver: AnyCancellable?
 
     /// On iPad, turning on the remote makes this host discoverable by its short Bluetooth name.
@@ -175,7 +173,6 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         row.spacing = 8
         stack.insertArrangedSubview(row, at: index)
         row.widthAnchor.constraint(equalTo: stack.widthAnchor).isActive = true
-        watchSettingsRow = row
     }
 
     /* ############################################################## */
@@ -227,6 +224,20 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         }
         
         RiValT_Settings().oneTapEditing = checkbox.isOn
+    }
+
+    /* ############################################################## */
+    /// Save the checkbox state, or toggle the checkbox when its label is tapped.
+    @IBAction func combineTimersCheckboxValueChanged(_ inButton: UIControl) {
+        guard let checkbox = inButton as? RVS_Checkbox
+        else {
+            self.selectionHaptic()
+            self.combineTimersCheckbox?.setOn(!(combineTimersCheckbox?.isOn ?? false), animated: true)
+            self.combineTimersCheckbox?.sendActions(for: .valueChanged)
+            return
+        }
+
+        RiValT_Settings().combineTimers = checkbox.isOn
     }
     
     /* ############################################################## */

@@ -101,6 +101,7 @@
 "SLUG-SHOW-TOOLBAR"                             =   "Show Toolbar In Timer";
 "SLUG-AUTO-HIDE-TOOLBAR"                        =   "Auto-Hide Toolbar";
 "SLUG-ONE-TAP-EDIT"                             =   "\"One Tap\" Timer Editing";
+"SLUG-COMBINE-TIMERS"                           =   "Combine Timers";
 "SLUG-ABOUT-BUTTON"                             =   "About This App";
 
 // MARK: Settings Advisory Alert
@@ -241,6 +242,8 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 "SLUG-ACC-START-IMMEDIATELY-CHECKBOX-HINT"      =   "If this checkbox is on, then timers tart immediately, when the \"Play\" button is selected. If it is off, then the timer will begin in a paused state, and needs to be started manually.";
 "SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-LABEL"          =   "Edit Timers By Tapping On Them";
 "SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-HINT"           =   "If this checkbox is on, tapping once on a timer in the Group Editor Screen, will bring in the Timer Editor Screen for that timer. If it is off, then you need to select the \"Edit\" button, at the bottom, right of the screen, to edit the timer.";
+"SLUG-ACC-COMBINE-TIMERS-CHECKBOX-LABEL"        =   "Combine Timers";
+"SLUG-ACC-COMBINE-TIMERS-CHECKBOX-HINT"         =   "When on, the running timer shows the total time remaining in the group. When off, it shows the time remaining in the current timer.";
 "SLUG-ACC-SHOW-TOOLBAR-CHECKBOX-LABEL"          =   "Show A Toolbar in Running Timers";
 "SLUG-ACC-SHOW-TOOLBAR-CHECKBOX-HINT"           =   "If this checkbox is on, then running timers will have a toolbar shown, at the bottom of the screen, that will have visible controls for the timer. If it is off, then you have to use gestures to control the timer.";
 "SLUG-ACC-HIDE-TOOLBAR-CHECKBOX-LABEL"          =   "Auto-Hide The Running Timer Toolbar";

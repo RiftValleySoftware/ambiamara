@@ -47,11 +47,12 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
 
     var timerText: Text {
         guard let snapshot, snapshot.timerID != nil, phase != .unavailable else { return Text(verbatim: "—") }
-        if phase.isCounting, let deadline = snapshot.deadline, deadline > date {
-            // The system updates this text while our extension is suspended, and stops at zero.
-            return Text(timerInterval: date...deadline, countsDown: true, showsHours: snapshot.remaining(at: date) >= 3600)
+        if let displayDeadline = snapshot.displayDeadline, let deadline = snapshot.deadline, deadline > date {
+            // The timeline entry at the segment boundary waits for the host to advance the group.
+            return Text(timerInterval: date...displayDeadline, countsDown: true, showsHours: snapshot.displayRemaining(at: date) >= 3600)
         }
-        return Text(verbatim: RiValT_ComplicationState.clockText(snapshot.remaining(at: date)))
+        let sampleDate = min(date, snapshot.deadline ?? date)
+        return Text(verbatim: RiValT_ComplicationState.clockText(snapshot.displayRemaining(at: sampleDate)))
     }
 }
 

@@ -724,18 +724,21 @@ public extension TimerEngine {
      This returns an "optimized" string, with the current countdown time.
     */
     var timerDisplay: String {
-        let currentTime = self.currentTime
+        let remaining = self.currentTime
+        return remaining > 0 ? Self.timerDisplay(for: remaining) : ""
+    }
+
+    /// Formats either an individual timer or the combined time of a group.
+    static func timerDisplay(for currentTime: Int) -> String {
         let hour = currentTime / Self.secondsInHour
         let minute = currentTime / Self.secondsInMinute - (hour * Self.secondsInMinute)
         let second = currentTime - ((hour * Self.secondsInHour) + (minute * Self.secondsInMinute))
-        if (1..<Self.maxHours).contains(hour) {
+        if hour > 0 {
             return String(format: "%d:%02d:%02d", hour, minute, second)
         } else if (1..<Self.maxMinutes).contains(minute) {
             return String(format: "%d:%02d", minute, second)
-        } else if (1..<Self.maxSeconds).contains(second) {
-            return String(format: "%d", second)
         } else {
-            return ""
+            return String(second)
         }
     }
 }

@@ -34,6 +34,8 @@ enum RiValT_RemoteState {
         let commands: [TimerOperation]
         /// On the Watch, identifies the specific host state the displayed controls describe.
         var stamp: String?
+        /// Seconds in later timers included in the host's displayed countdown.
+        var followingDuration: Int?
 
         /// TimerEngine displays ceiling seconds. A delayed message therefore still shows the current second.
         func remaining(at date: Date) -> Int {
@@ -41,8 +43,19 @@ enum RiValT_RemoteState {
             return max(0, Int(ceil(deadline.timeIntervalSince(date))))
         }
 
+        /// The digital readout counts through a group handoff. Commands and warnings still use the current timer's deadline.
+        var displayDeadline: Date? {
+            guard phase.isCounting, let deadline else { return nil }
+            return deadline.addingTimeInterval(TimeInterval(followingDuration ?? 0))
+        }
+
+        func displayRemaining(at date: Date) -> Int {
+            guard let displayDeadline else { return remaining + (followingDuration ?? 0) }
+            return max(0, Int(ceil(displayDeadline.timeIntervalSince(date))))
+        }
+
         func phase(at date: Date) -> Phase {
-            guard phase.isCounting else { return phase }
+            guard phase.isCounting, deadline != nil else { return phase }
             let seconds = remaining(at: date)
             // Only the host can decide whether reaching zero advances the group or raises an alarm.
             guard seconds > 0 else { return phase }
@@ -56,7 +69,8 @@ enum RiValT_RemoteState {
             timerID == other.timerID && groupNumber == other.groupNumber && timerNumber == other.timerNumber
                 && groupSize == other.groupSize && commands == other.commands && warning == other.warning
                 && final == other.final && deadline == other.deadline
-                && (phase.isCounting && other.phase.isCounting || (phase == other.phase && remaining == other.remaining))
+                && (followingDuration ?? 0) == (other.followingDuration ?? 0)
+                && (deadline != nil && phase.isCounting && other.phase.isCounting || (phase == other.phase && remaining == other.remaining))
         }
     }
 }

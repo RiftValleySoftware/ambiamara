@@ -265,8 +265,9 @@ extension RiValT_RunningTimer_Numerical_ViewController {
      */
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        hoursContainerView?.isHidden = TimerEngine.secondsInHour > timer?.startingTimeInSeconds ?? 0
-        minutesContainerView?.isHidden = TimerEngine.secondsInMinute > timer?.startingTimeInSeconds ?? 0
+        let duration = myContainer?.countdown?.totalDuration ?? 0
+        hoursContainerView?.isHidden = duration < TimerEngine.secondsInHour
+        minutesContainerView?.isHidden = duration < TimerEngine.secondsInMinute
     }
 
     /* ############################################################## */
@@ -351,7 +352,7 @@ extension RiValT_RunningTimer_Numerical_ViewController {
             self.digitalDisplayViewSeconds?.value = inSeconds
         }
 
-        guard var currentTime = self.timer?.currentTime else { return }
+        guard var currentTime = myContainer?.countdown?.remaining else { return }
         
         let hours = Int(currentTime / (60 * 60))
         currentTime -= (hours * 60 * 60)
