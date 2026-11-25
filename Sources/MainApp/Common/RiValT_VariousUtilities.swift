@@ -351,7 +351,11 @@ class SectionBackgroundView: UICollectionReusableView {
                 groupNumberLabel.accessibilityHint = "SLUG-ACC-GROUP-BUTTON-HINT".localizedVariant
                 groupNumberLabel.textColor = UIColor(named: "Selected-Cell-Action-Color")
                 groupNumberLabel.isUserInteractionEnabled = true
-                groupNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(RiValT_GroupEditor_ViewController.groupBackgroundNumberTapped)))
+                let numberTapper = UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(RiValT_GroupEditor_ViewController.groupBackgroundNumberTapped))
+                if let doubleTapper = myController?.rowDoubleTapRecognizer {
+                    numberTapper.require(toFail: doubleTapper)
+                }
+                groupNumberLabel.addGestureRecognizer(numberTapper)
             } else {
                 groupNumberLabel.font = Self._endcapFont
                 groupNumberLabel.textColor = .label.inverted
@@ -366,6 +370,9 @@ class SectionBackgroundView: UICollectionReusableView {
         if nil != myGroup,
            nil == self.myTapRecognizer {
             let tapper = UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(RiValT_GroupEditor_ViewController.groupBackgroundTapped))
+            if let doubleTapper = myController?.rowDoubleTapRecognizer {
+                tapper.require(toFail: doubleTapper)
+            }
             self.myTapRecognizer = tapper
             self.addGestureRecognizer(tapper)
         } else if nil == myGroup,

@@ -138,6 +138,9 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
      This is set to true, if we want to override the pref.
      */
     var forceStart: Bool = false
+
+    /** Recognizes row starts before any single-tap action is delivered. */
+    var rowDoubleTapRecognizer: UITapGestureRecognizer?
     
     /* ############################################################## */
     /**
@@ -213,6 +216,11 @@ extension RiValT_GroupEditor_ViewController {
         RiValT_AppDelegate.appDelegateInstance?.groupEditorController = self
         self.navigationItem.backButtonTitle = "SLUG-TIMERS-BACK".localizedVariant
         self.collectionView?.isDirectionalLockEnabled = true
+        let doubleTapper = UITapGestureRecognizer(target: self, action: #selector(self.groupDoubleTapped))
+        doubleTapper.numberOfTapsRequired = 2
+        doubleTapper.delaysTouchesBegan = true
+        self.collectionView?.addGestureRecognizer(doubleTapper)
+        self.rowDoubleTapRecognizer = doubleTapper
         self.settingsBarButtonItem?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON-LABEL".localizedVariant
         self.settingsBarButtonItem?.accessibilityHint = "SLUG-ACC-SETTINGS-BUTTON-HINT".localizedVariant
         self.toolbarDeleteButton?.accessibilityIdentifier = "targetItem"
@@ -242,6 +250,10 @@ extension RiValT_GroupEditor_ViewController {
     override func viewWillAppear(_ inIsAnimated: Bool) {
         super.viewWillAppear(inIsAnimated)
         self.navigationController?.isNavigationBarHidden = false
+        // Editing changes timer contents without changing the snapshot's item identities.
+        self.collectionView?.reloadData()
+        self.updateToolbar()
+        self.setUpNavBarItems()
         self.checkForFastForward()
     }
 
@@ -660,10 +672,36 @@ extension RiValT_GroupEditor_ViewController {
     
     /* ############################################################## */
     /**
-     The background of a group line was hit.
+     Starts the first timer in a double-tapped row, selecting it first.
      
      - parameter inTapGesture: The tap that caused the call.
      */
+    @objc func groupDoubleTapped(_ inTapGesture: UITapGestureRecognizer) {
+        guard let collectionView = self.collectionView else { return }
+        let location = inTapGesture.location(in: collectionView)
+        guard let section = (0..<self.timerModel.count).first(where: {
+            collectionView.collectionViewLayout.layoutAttributesForDecorationView(
+                ofKind: SectionBackgroundView.reuseIdentifier,
+                at: IndexPath(item: 0, section: $0)
+            )?.frame.contains(location) ?? false
+        }),
+              let timer = self.timerModel[section].first
+        else { return }
+
+        self._lastScrollPos = collectionView.contentOffset
+        timer.isSelected = true
+        self.updateSettings()
+        self.updateSnapshot()
+        collectionView.reloadData()
+        self.watchDelegate?.publishSnapshot()
+        guard 0 < timer.startingTimeInSeconds else { return }
+        self.impactHaptic()
+        self.forceStart = true
+        self.performSegue(withIdentifier: RiValT_RunningTimer_ContainerViewController.segueID, sender: timer)
+    }
+
+    /* ############################################################## */
+    /** Selects an unselected row without editing a timer. */
     @objc func groupBackgroundTapped(_ inTapGesture: UITapGestureRecognizer) {
         if let backgroundView = inTapGesture.view as? SectionBackgroundView,
            let collectionView = self.collectionView,
@@ -843,6 +881,7 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDelegate {
     func collectionView(_ inCollectionView: UICollectionView,
                         didSelectItemAt inIndexPath: IndexPath
     ) {
+        let wasGroupSelected = self.timerModel.getTimer(at: IndexPath(item: 0, section: inIndexPath.section))?.group?.isSelected ?? false
         var shouldScroll = false
         var shouldEdit = RiValT_Settings().oneTapEditing
         var optionalTitle: String?
@@ -862,12 +901,12 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDelegate {
             self.timerModel?[inIndexPath.section].first?.isSelected = true
             self.watchDelegate?.updateSettings()
             self.impactHaptic()
-            shouldEdit = shouldEdit && nil != self.timerModel.getTimer(at: inIndexPath)
+            shouldEdit = false
         } else {
             self.impactHaptic()
         }
         
-        if !(self.timerModel.getTimer(at: inIndexPath)?.isSelected ?? false) {
+        if shouldEdit || wasGroupSelected {
             self.timerModel.getTimer(at: inIndexPath)?.isSelected = true
         }
         
