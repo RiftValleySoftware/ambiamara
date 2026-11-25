@@ -327,6 +327,20 @@ extension TimerModel {
         
         return timerContainer
     }
+
+    /** Moves a timer into a new group before the given original group index (or appends at count). */
+    @discardableResult
+    func moveTimerToNewGroup(from inFrom: IndexPath, before inSection: Int) -> Timer {
+        precondition(self.isValid(indexPath: inFrom), "Invalid source timer")
+        precondition((0...self.count).contains(inSection), "Group Index out of bounds")
+        let timer = self[inFrom.section]._timers.remove(at: inFrom.item)
+        let group = TimerGroup(container: self)
+        group._timers.append(timer)
+        self._groups.insert(group, at: inSection)
+        timer.group = group
+        self._groups.removeAll { $0.isEmpty }
+        return timer
+    }
 }
 
 /* ###################################################################################################################################### */

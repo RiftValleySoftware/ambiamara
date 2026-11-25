@@ -133,6 +133,71 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
      */
     private var _initialContentOffset: CGPoint = .zero
 
+    /** A proposed new group, expressed in the unchanged model's section coordinates. */
+    private(set) var insertionPreviewSection: Int?
+    private var _insertionPreviewView: UIView?
+    private var _insertionPreviewFrame = CGRect.zero
+
+    /** The displayed number includes the uncommitted insertion, if any. */
+    func displayedGroupNumber(for inSection: Int) -> Int {
+        inSection + 1 + ((self.insertionPreviewSection.map { inSection >= $0 }) == true ? 1 : 0)
+    }
+
+    /** Opens or closes a row without adding anything to the timer model or snapshot. */
+    private func setInsertionPreview(_ inSection: Int?) {
+        guard self.insertionPreviewSection != inSection,
+              let collectionView = self.collectionView else { return }
+        self.insertionPreviewSection = inSection
+        self._insertionPreviewView?.removeFromSuperview()
+        self._insertionPreviewView = nil
+        self.createLayout()
+        collectionView.layoutIfNeeded()
+        guard let section = inSection,
+              let attributes = collectionView.layoutAttributesForItem(at: IndexPath(item: 0, section: section)) else { return }
+        let height = RiValT_BaseCollectionCell.itemSize.heightDimension.dimension + 1
+        let frame = CGRect(x: 0, y: attributes.frame.minY - height - Self._itemGuttersInDisplayUnits - 1,
+                           width: collectionView.bounds.width, height: height)
+        self._insertionPreviewFrame = frame
+        let preview = UIView(frame: frame.insetBy(dx: 4, dy: 2))
+        preview.backgroundColor = self.view.tintColor.withAlphaComponent(0.18)
+        preview.layer.cornerRadius = 16
+        preview.layer.borderWidth = 2
+        preview.layer.borderColor = self.view.tintColor.cgColor
+        preview.isUserInteractionEnabled = false
+        let number = UILabel(frame: CGRect(x: preview.bounds.width - 40, y: 0, width: 40, height: preview.bounds.height))
+        number.font = .systemFont(ofSize: 30)
+        number.text = " \(section + 1) "
+        number.textColor = .label
+        preview.addSubview(number)
+        collectionView.addSubview(preview)
+        self._insertionPreviewView = preview
+    }
+
+    /** Gives one selection tick per snap, distinguishing timer slots from new-row slots. */
+    private func updateDropPosition(_ inPosition: DropPosition) {
+        guard self._lastDropPosition != inPosition else { return }
+        self._lastDropPosition = inPosition
+        self.selectionHaptic()
+    }
+
+    /** Tests row boundaries, retaining an open preview until the pointer leaves its space. */
+    private func insertionSection(at inLocation: CGPoint, source inSource: IndexPath) -> Int? {
+        if let section = self.insertionPreviewSection,
+           self._insertionPreviewFrame.contains(inLocation) {
+            return section
+        }
+        guard self.timerModel.count > 1 else { return nil }
+        for section in 1..<self.timerModel.count {
+            guard let attributes = self.collectionView?.layoutAttributesForItem(at: IndexPath(item: 0, section: section)) else { continue }
+            let boundary = attributes.frame.minY - Self._itemGuttersInDisplayUnits - 1
+            // A single-timer row moved to either adjacent boundary would leave the order unchanged.
+            if self.timerModel[inSource.section].count == 1,
+               section == inSource.section || section == inSource.section + 1 { continue }
+            if abs(inLocation.y - boundary) <= 12 { return section }
+        }
+        return nil
+    }
+
     /* ############################################################## */
     /**
      This is set to true, if we want to override the pref.
@@ -192,9 +257,15 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
 
     /* ############################################################## */
     /**
-     Used to prevent overeager haptics.
+     Identifies each kind of snap position, including an uncommitted new row.
      */
-    var lastIndexPath: IndexPath?
+    private enum DropPosition: Equatable {
+        case timer(IndexPath)
+        case newGroup(Int)
+    }
+
+    /** Used to prevent repeated haptics while hovering over the same position. */
+    private var _lastDropPosition: DropPosition?
     
     /* ############################################################## */
     /**
@@ -444,7 +515,7 @@ extension RiValT_GroupEditor_ViewController {
      At the end of rows with less than 4 timers, or at the end of the collection view, we have "add" items.
      */
     func createLayout() {
-        let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
+        let layout = UICollectionViewCompositionalLayout { [weak self] inSection, _ -> NSCollectionLayoutSection? in
             // The reason for the weird width, is to prevent the end "add" item from vertically flowing.
             // This only happens, if there are 3 items already there, and a new item is being dragged in from another group.
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.5),
@@ -463,7 +534,13 @@ extension RiValT_GroupEditor_ViewController {
             
             let section = NSCollectionLayoutSection(group: group)
             
-            section.decorationItems = [.background(elementKind: SectionBackgroundView.reuseIdentifier)]
+            let background = NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundView.reuseIdentifier)
+            if self?.insertionPreviewSection == inSection {
+                let height = RiValT_BaseCollectionCell.itemSize.heightDimension.dimension + 1
+                section.contentInsets.top = height
+                background.contentInsets.top = height
+            }
+            section.decorationItems = [background]
             
             return section
         }
@@ -776,6 +853,11 @@ extension RiValT_GroupEditor_ViewController {
 // MARK: UICollectionViewDragDelegate Conformance
 /* ###################################################################################################################################### */
 extension RiValT_GroupEditor_ViewController: UICollectionViewDragDelegate {
+    func collectionView(_ inCollectionView: UICollectionView, dragSessionDidEnd inSession: UIDragSession) {
+        self.setInsertionPreview(nil)
+        self._lastDropPosition = nil
+    }
+
     /* ############################################################## */
     /**
      Called when a drag starts.
@@ -820,7 +902,7 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDragDelegate {
         guard 1 < self.timerModel.allTimers.count,
               self.timerModel.isValid(indexPath: inIndexPath)
         else { return [] }
-        self.lastIndexPath = inIndexPath
+        self._lastDropPosition = .timer(inIndexPath)
         inSession.localContext = inIndexPath
         self.timerModel.selectTimer(inIndexPath)
         self.impactHaptic(1.0)
@@ -838,6 +920,16 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDragDelegate {
 // MARK: UICollectionViewDropDelegate Conformance
 /* ###################################################################################################################################### */
 extension RiValT_GroupEditor_ViewController: UICollectionViewDropDelegate {
+    func collectionView(_ inCollectionView: UICollectionView, dropSessionDidExit inSession: UIDropSession) {
+        self.setInsertionPreview(nil)
+        self._lastDropPosition = nil
+    }
+
+    func collectionView(_ inCollectionView: UICollectionView, dropSessionDidEnd inSession: UIDropSession) {
+        self.setInsertionPreview(nil)
+        self._lastDropPosition = nil
+    }
+
     /* ############################################################## */
     /**
      Called to vet the current drag state.
@@ -852,16 +944,22 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDropDelegate {
                         dropSessionDidUpdate inSession: UIDropSession,
                         withDestinationIndexPath inIndexPath: IndexPath?
     ) -> UICollectionViewDropProposal {
-        if let sourceIndexPath = inSession.localDragSession?.localContext as? IndexPath,
-           let destinationIndexPath = inIndexPath,
+        guard let sourceIndexPath = inSession.localDragSession?.localContext as? IndexPath else {
+            return UICollectionViewDropProposal(operation: .cancel)
+        }
+        let insertion = self.insertionSection(at: inSession.location(in: inCollectionView), source: sourceIndexPath)
+        self.setInsertionPreview(insertion)
+        if let insertion = insertion {
+            self.updateDropPosition(.newGroup(insertion))
+            return UICollectionViewDropProposal(operation: .move, intent: .unspecified)
+        }
+        if let destinationIndexPath = inIndexPath,
            self.timerModel.canInsertTimer(at: destinationIndexPath, from: sourceIndexPath) {
-            if self.lastIndexPath != inIndexPath {
-                self.selectionHaptic()
-                self.lastIndexPath = inIndexPath
-            }
+            self.updateDropPosition(.timer(destinationIndexPath))
             
             return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
         } else {
+            self._lastDropPosition = nil
             return UICollectionViewDropProposal(operation: .cancel)
         }
     }
@@ -876,12 +974,24 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDropDelegate {
     func collectionView(_ inCollectionView: UICollectionView,
                         performDropWith inCoordinator: UICollectionViewDropCoordinator
     ) {
+        if let section = self.insertionPreviewSection,
+           let source = inCoordinator.session.localDragSession?.localContext as? IndexPath {
+            self.setInsertionPreview(nil)
+            let timer = self.timerModel.moveTimerToNewGroup(from: source, before: section)
+            self._lastDropPosition = nil
+            self.impactHaptic(1.0)
+            self.updateSnapshot()
+            if let item = inCoordinator.items.first, let destination = timer.indexPath {
+                inCoordinator.drop(item.dragItem, toItemAt: destination)
+            }
+            return
+        }
         guard let sourceIndexPath = inCoordinator.session.localDragSession?.localContext as? IndexPath,
               let destinationIndexPath = inCoordinator.destinationIndexPath,
               sourceIndexPath != destinationIndexPath
         else { return }
 
-        self.lastIndexPath = nil
+        self._lastDropPosition = nil
         self.impactHaptic(1.0)
         self.timerModel.moveTimer(from: sourceIndexPath, to: destinationIndexPath)
         self.updateSnapshot()

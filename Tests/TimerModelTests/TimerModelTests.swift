@@ -17,6 +17,39 @@ import XCTest
  These will run faceless tests on the timer model.
  */
 class TimerModelTests: XCTestCase {
+    /** Insertion uses original row coordinates, even when the source row disappears. */
+    func testMoveTimerIntoNewGroup() {
+        for sourceSection in 0..<3 {
+            for boundary in 0...3 {
+                for sourceCount in 1...2 {
+                    let model = TimerModel()
+                    for section in 0..<3 {
+                        model.createNewTimer(at: IndexPath(item: 0, section: section))
+                    }
+                    if sourceCount == 2 {
+                        model.createNewTimer(at: IndexPath(item: 1, section: sourceSection))
+                    }
+                    let originalGroups = Array(model)
+                    let timer = model[sourceSection][0]
+                    timer.isSelected = true
+                    let moved = model.moveTimerToNewGroup(from: IndexPath(item: 0, section: sourceSection), before: boundary)
+                    var expectedGroups = originalGroups
+                    expectedGroups.insert(moved.group!, at: boundary)
+                    expectedGroups.removeAll { $0.isEmpty }
+                    XCTAssertIdentical(moved, timer)
+                    XCTAssertEqual(model.count, sourceCount == 1 ? 3 : 4)
+                    XCTAssertEqual(model.allTimers.count, sourceCount == 1 ? 3 : 4)
+                    XCTAssertEqual(moved.group?.count, 1)
+                    XCTAssertIdentical(model.selectedTimer, timer)
+                    for (index, group) in expectedGroups.enumerated() {
+                        XCTAssertIdentical(model[index], group)
+                        XCTAssertEqual(group.index, index)
+                    }
+                }
+            }
+        }
+    }
+
     /* ################################################################## */
     /**
      This just creates a timer model, and ensures that it's empty

@@ -335,7 +335,7 @@ class SectionBackgroundView: UICollectionReusableView {
             groupNumberLabel.textAlignment = .left
             groupNumberLabel.adjustsFontSizeToFitWidth = true
             groupNumberLabel.minimumScaleFactor = 0.5
-            groupNumberLabel.text = " \(String(inLayoutAttributes.indexPath.section + 1)) "
+            groupNumberLabel.text = " \(String(myController?.displayedGroupNumber(for: inLayoutAttributes.indexPath.section) ?? (inLayoutAttributes.indexPath.section + 1))) "
             self.addSubview(groupNumberLabel)
             groupNumberLabel.translatesAutoresizingMaskIntoConstraints = false
             groupNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
