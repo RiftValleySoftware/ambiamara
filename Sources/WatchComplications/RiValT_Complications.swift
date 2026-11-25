@@ -10,150 +10,134 @@
 
 import WidgetKit
 import SwiftUI
-import RVS_UIKit_Toolbox
+import CoreGraphics
 
-/* ###################################################################################################################################### */
-// MARK: - Watch Complications Widget Provider -
-/* ###################################################################################################################################### */
-/**
- 
- */
 struct Rift_Valley_Timer_Watch_App_Provider: TimelineProvider {
-    /* ################################################################## */
-    /**
-     This is the display family variant for this complication.
-     */
-    @Environment(\.widgetFamily) private var _family
-    
-    /* ################################################################## */
-    /**
-    */
     func placeholder(in context: Context) -> Rift_Valley_Timer_Watch_App_Entry {
-        Rift_Valley_Timer_Watch_App_Entry(date: Date())
+        .init(date: .now, snapshot: .init(timerID: UUID(), groupNumber: 1, timerNumber: 1, groupSize: 1,
+                                        phase: .ready, remaining: 300, deadline: nil, warning: 60, final: 30, commands: []))
     }
 
-    /* ################################################################## */
-    /**
-    */
     func getSnapshot(in context: Context, completion: @escaping (Rift_Valley_Timer_Watch_App_Entry) -> Void) {
-        let entry = Rift_Valley_Timer_Watch_App_Entry(date: Date())
-        completion(entry)
+        completion(context.isPreview ? placeholder(in: context) : .init(date: .now, snapshot: RiValT_ComplicationState.read()?.snapshot))
     }
 
-    /* ################################################################## */
-    /**
-    */
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Watch Complications Widget Entry -
-/* ###################################################################################################################################### */
-/**
- 
- */
-struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
-    /* ################################################################## */
-    /**
-     The entry display date
-     */
-    let date: Date
-
-    /* ################################################################## */
-    /**
-     This is the display family variant for this complication.
-     */
-    var family: WidgetFamily = .accessoryCircular
-    
-    /* ################################################################## */
-    /**
-     The image to be displayed (based upon the family)
-     */
-    var image: UIImage {
-        UIImage(named: "VectorLogo") ?? UIImage()
-    }
-    
-    /* ################################################################## */
-    /**
-     The text to be displayed (current timer time).
-     */
-    var text: String { "HAI" }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Watch Complications Widget Entry Display View -
-/* ###################################################################################################################################### */
-/**
- 
- */
-struct Rift_Valley_Timer_ComplicationsEntryView: View {
-    /* ################################################################## */
-    /**
-     This is the display family variant for this complication.
-     */
-    @Environment(\.widgetFamily) private var _family
-
-    /* ################################################################## */
-    /**
-     The timeline entry to be displayed by this view.
-     */
-    @State var entry: Rift_Valley_Timer_Watch_App_Provider.Entry
-
-    /* ################################################################## */
-    /**
-     We deliver different views, depending on the family.
-     */
-    var body: some View {
-        GeometryReader { inGeom in
-            if .accessoryCorner == _family || .accessoryCircular == _family {
-                Image(uiImage: entry.image.resized(toNewHeight: inGeom.size.height) ?? UIImage())
-                    .widgetLabel(entry.text)
-                    .onAppear { entry.family = _family }
-            } else if .accessoryInline == _family,
-                      !entry.text.isEmpty {
-                Text(entry.text)
-                    .onAppear { entry.family = _family }
-            } else {
-                HStack(alignment: .top) {
-                    Image(uiImage: entry.image.resized(toNewHeight: inGeom.size.height) ?? UIImage())
-                    if !entry.text.isEmpty {
-                        Text(entry.text)
-                    }
-                }
-                .onAppear { entry.family = _family }
+        let now = Date()
+        let snapshot = RiValT_ComplicationState.read()?.snapshot
+        var entries = [Entry(date: now, snapshot: snapshot)]
+        if let snapshot, snapshot.phase.isCounting, let deadline = snapshot.deadline, deadline > now {
+            // Threshold entries also work without waking the Watch app. Only the host advances a group.
+            for seconds in Set([snapshot.warning, snapshot.final, 0]) {
+                let date = deadline.addingTimeInterval(-Double(seconds))
+                if date > now { entries.append(Entry(date: date, snapshot: snapshot)) }
             }
         }
+        entries.sort { $0.date < $1.date }
+        // State changes request a reload; this is only a periodic recovery opportunity.
+        completion(Timeline(entries: entries, policy: .after(now.addingTimeInterval(900))))
+    }
+}
+
+struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
+    let date: Date
+    let snapshot: RiValT_RemoteState.Snapshot?
+
+    var phase: RiValT_RemoteState.Phase { snapshot?.phase(at: date) ?? .unavailable }
+
+    var timerText: Text {
+        guard let snapshot, snapshot.timerID != nil, phase != .unavailable else { return Text(verbatim: "—") }
+        if phase.isCounting, let deadline = snapshot.deadline, deadline > date {
+            // The system updates this text while our extension is suspended, and stops at zero.
+            return Text(timerInterval: date...deadline, countsDown: true, showsHours: snapshot.remaining(at: date) >= 3600)
+        }
+        return Text(verbatim: RiValT_ComplicationState.clockText(snapshot.remaining(at: date)))
+    }
+}
+
+struct Rift_Valley_Timer_ComplicationsEntryView: View {
+    @Environment(\.widgetFamily) private var family
+    @Environment(\.widgetRenderingMode) private var renderingMode
+    let entry: Rift_Valley_Timer_Watch_App_Entry
+
+    /// Use an actual template image, including in inline labels where arbitrary view effects are unsupported.
+    private static let templateLogo: UIImage = {
+        guard let source = UIImage(named: "TemplateLogo")?.cgImage else { return UIImage() }
+        let width = source.width
+        let height = source.height
+        let bytesPerRow = width * 4
+        let bitmap = CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
+        guard let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8,
+                                      bytesPerRow: bytesPerRow, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: bitmap),
+              let data = context.data else { return UIImage() }
+        context.draw(source, in: CGRect(x: 0, y: 0, width: width, height: height))
+        let pixels = data.bindMemory(to: UInt8.self, capacity: bytesPerRow * height)
+        for offset in stride(from: 0, to: bytesPerRow * height, by: 4) {
+            // The supplied tinted icon is white on black. Its luminance becomes template opacity.
+            let alpha = pixels[offset]
+            pixels[offset] = alpha
+            pixels[offset + 1] = alpha
+            pixels[offset + 2] = alpha
+            pixels[offset + 3] = alpha
+        }
+        guard let image = context.makeImage() else { return UIImage() }
+        return UIImage(cgImage: image)
+    }()
+
+    private var logoImage: Image {
+        renderingMode == .fullColor ? Image("VectorLogo").renderingMode(.original)
+            : Image(uiImage: Self.templateLogo).renderingMode(.template)
+    }
+
+    private var logo: some View {
+        logoImage.resizable().scaledToFit()
+            .widgetAccentable(renderingMode != .fullColor)
+            .accessibilityHidden(true)
+    }
+
+    private var time: some View {
+        entry.timerText
+        .monospacedDigit()
+        .lineLimit(1)
+        .minimumScaleFactor(0.5)
+    }
+
+    var body: some View {
+        Group {
+            switch family {
+            case .accessoryInline:
+                Label { time } icon: { logoImage.widgetAccentable(renderingMode != .fullColor) }
+            case .accessoryCorner:
+                logo
+                    .widgetLabel { time }
+            case .accessoryCircular:
+                VStack(spacing: 1) {
+                    logo
+                    time.font(.system(.caption2, design: .rounded, weight: .semibold))
+                }
+                .padding(2)
+            case .accessoryRectangular:
+                HStack(spacing: 6) {
+                    logo.frame(width: 44)
+                    time.font(.system(.title2, design: .rounded, weight: .semibold))
+                }
+            default:
+                logo
+            }
+        }
+        .containerBackground(for: .widget) { Color.clear }
     }
 }
 
 @main
-/* ###################################################################################################################################### */
-// MARK: - Watch Complications Widget -
-/* ###################################################################################################################################### */
-/**
- 
- */
 struct RiValT_Complications: Widget {
-    /* ################################################################## */
-    /**
-    */
-    let kind: String = "Rift_Valley_Timer_Complications"
+    let kind = RiValT_ComplicationState.kind
 
-    /* ################################################################## */
-    /**
-     This returns a view for the complication.
-     */
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Rift_Valley_Timer_Watch_App_Provider()) { inEntry in
-            Rift_Valley_Timer_ComplicationsEntryView(entry: inEntry)
-                .onAppear { RiValT_Settings().flush() }
+        StaticConfiguration(kind: kind, provider: Rift_Valley_Timer_Watch_App_Provider()) { entry in
+            Rift_Valley_Timer_ComplicationsEntryView(entry: entry)
         }
         .configurationDisplayName("Rift Valley Timer")
-        .supportedFamilies([.accessoryInline,
-                            .accessoryCircular,
-                            .accessoryRectangular,
-                            .accessoryCorner
-        ])
+        .supportedFamilies([.accessoryInline, .accessoryCircular, .accessoryRectangular, .accessoryCorner])
     }
 }

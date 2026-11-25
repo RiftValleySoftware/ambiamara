@@ -17,13 +17,12 @@ final class RiValT_ObservableModel: ObservableObject {
     typealias Snapshot = RiValT_WatchDelegate.Snapshot
     typealias Operation = RiValT_WatchDelegate.TimerOperation
 
-    private let connection = RiValT_WatchDelegate(activate: false)
+    private let connection = RiValT_Watch_AppDelegate.connection
 
     init() {
         self.connection.updateHandler = { [weak self] in
             self?.objectWillChange.send()
         }
-        self.connection.activate()
     }
 
     var snapshot: Snapshot? { self.connection.canReachHost ? self.connection.snapshot : nil }

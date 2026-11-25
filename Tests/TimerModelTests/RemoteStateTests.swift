@@ -116,3 +116,68 @@ final class RemoteStateTests: XCTestCase {
         XCTAssertEqual(clock.localDate(forHostDate: hostTime), sent)
     }
 }
+
+/// Complication state uses an isolated preferences suite, never the application's presets.
+final class ComplicationStateTests: XCTestCase {
+    private typealias Store = RiValT_ComplicationState
+
+    private func withStore(_ test: (UserDefaults) throws -> Void) rethrows {
+        let name = "RiValT.ComplicationTests.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: name)!
+        defer { defaults.removePersistentDomain(forName: name) }
+        try test(defaults)
+    }
+
+    private func sample(_ phase: RiValT_RemoteState.Phase, seconds: Int, deadline: Date? = nil) -> RiValT_RemoteState.Snapshot {
+        .init(timerID: UUID(), groupNumber: 1, timerNumber: 1, groupSize: 2, phase: phase,
+              remaining: seconds, deadline: deadline, warning: 60, final: 30, commands: [])
+    }
+
+    func testDelayedBackgroundDeliveryCannotReplacePausedTimer() {
+        withStore { defaults in
+            let now = Date()
+            Store.save(sample(.paused, seconds: 47), updatedAt: now, source: "phone", in: defaults)
+            Store.save(sample(.countdown, seconds: 50, deadline: now.addingTimeInterval(50)),
+                       updatedAt: now.addingTimeInterval(-3), source: "phone", in: defaults)
+            let result = Store.read(from: defaults)?.snapshot
+            XCTAssertEqual(result?.phase, .paused)
+            XCTAssertEqual(result?.remaining(at: now.addingTimeInterval(600)), 47)
+        }
+    }
+
+    func testChangingHostsClearsOldTimerAndRejectsPhoneUpdates() {
+        withStore { defaults in
+            let now = Date()
+            Store.save(sample(.ready, seconds: 300), updatedAt: now, source: "phone", in: defaults)
+            XCTAssertEqual(Store.read(from: defaults)?.snapshot.remaining, 300)
+            Store.selectSource("ipad-test", in: defaults)
+            XCTAssertNil(Store.read(from: defaults))
+            Store.save(sample(.ready, seconds: 600), updatedAt: now, source: "phone", in: defaults)
+            XCTAssertNil(Store.read(from: defaults))
+            Store.save(sample(.ready, seconds: 120), updatedAt: now, source: "ipad-test", in: defaults)
+            XCTAssertEqual(Store.read(from: defaults)?.snapshot.remaining, 120)
+            Store.selectSource("phone", in: defaults)
+            XCTAssertNil(Store.read(from: defaults))
+        }
+    }
+
+    func testCachedCountdownStopsAtZeroWithoutAdvancingGroup() {
+        withStore { defaults in
+            let now = Date()
+            Store.save(sample(.countdown, seconds: 90, deadline: now.addingTimeInterval(90)), updatedAt: now, source: "phone", in: defaults)
+            let result = Store.read(from: defaults)?.snapshot
+            XCTAssertEqual(result?.remaining(at: now.addingTimeInterval(30)), 60)
+            XCTAssertEqual(result?.remaining(at: now.addingTimeInterval(120)), 0)
+            XCTAssertEqual(result?.timerNumber, 1)
+        }
+    }
+
+    func testTimeFormattingIncludesHoursAndClampsNegativeValues() {
+        XCTAssertEqual(Store.clockText(-1), "0:00")
+        XCTAssertEqual(Store.clockText(0), "0:00")
+        XCTAssertEqual(Store.clockText(59), "0:59")
+        XCTAssertEqual(Store.clockText(300), "5:00")
+        XCTAssertEqual(Store.clockText(3600), "1:00:00")
+        XCTAssertEqual(Store.clockText(3661), "1:01:01")
+    }
+}

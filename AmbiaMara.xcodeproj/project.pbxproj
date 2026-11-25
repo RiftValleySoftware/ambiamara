@@ -143,6 +143,12 @@
 		D92737EBCA9C4E988DA46AC7 /* RemoteStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230D39B6498A4E57B3FEE5E8 /* RemoteStateTests.swift */; };
 		F11019B6F3284E61BC01BE6F /* Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D4F83C9D2D63DB10009C4646 /* Watch App.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FE8A1A3600B64A18825A0D91 /* Watch_App.docc in Sources */ = {isa = PBXBuildFile; fileRef = FE8A1A3500B64A18825A0D91 /* Watch_App.docc */; };
+
+		A11111111111111111111101 /* RiValT_ComplicationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11111111111111111111100 /* RiValT_ComplicationState.swift */; };
+		A11111111111111111111102 /* RiValT_ComplicationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11111111111111111111100 /* RiValT_ComplicationState.swift */; };
+		A11111111111111111111103 /* RiValT_RemoteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D9036B1A9E41D2B1EF6F16 /* RiValT_RemoteState.swift */; };
+		A11111111111111111111104 /* Watch Complications.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D4F83CB32D63DB43009C4646 /* Watch Complications.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A11111111111111111111108 /* RiValT_ComplicationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11111111111111111111100 /* RiValT_ComplicationState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +172,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = D43B97342DA2C0F50028E023;
 			remoteInfo = RiVal.T;
+		};
+		A11111111111111111111105 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4F83CB22D63DB43009C4646;
+			remoteInfo = "Watch Complications";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -256,6 +269,15 @@
 				F11019B6F3284E61BC01BE6F /* Watch App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A11111111111111111111107 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (A11111111111111111111104 /* Watch Complications.appex in Embed App Extensions */, );
+			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -386,6 +408,7 @@
 		D4F83CB62D63DB43009C4646 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		FE8A1A3500B64A18825A0D91 /* Watch_App.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Watch_App.docc; sourceTree = "<group>"; };
 		FEE8946D5DD04E119AEE9BAC /* RiValT_BluetoothRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_BluetoothRemote.swift; sourceTree = "<group>"; };
+		A11111111111111111111100 /* RiValT_ComplicationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_ComplicationState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -730,6 +753,7 @@
 				D4F357292D6F61C0005A815A /* RiValT_WatchDelegate.swift */,
 				FEE8946D5DD04E119AEE9BAC /* RiValT_BluetoothRemote.swift */,
 				D3D9036B1A9E41D2B1EF6F16 /* RiValT_RemoteState.swift */,
+				A11111111111111111111100 /* RiValT_ComplicationState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -912,6 +936,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4F83CAB2D63DB10009C4646 /* Build configuration list for PBXNativeTarget "Watch App" */;
 			buildPhases = (
+				A11111111111111111111107 /* Embed App Extensions */,
 				D4A932312D64EC3D0028556E /* SwiftLint */,
 				D4F83C992D63DB10009C4646 /* Sources */,
 				D4F83C9A2D63DB10009C4646 /* Frameworks */,
@@ -920,6 +945,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A11111111111111111111106 /* PBXTargetDependency */,
 			);
 			name = "Watch App";
 			packageProductDependencies = (
@@ -1188,6 +1214,7 @@
 				D4C665D52DAE6C1800A0316D /* TimerModelTests.swift in Sources */,
 				D92737EBCA9C4E988DA46AC7 /* RemoteStateTests.swift in Sources */,
 				942A2007CE4046D1B76E7142 /* RiValT_RemoteState.swift in Sources */,
+				A11111111111111111111108 /* RiValT_ComplicationState.swift in Sources */,
 				D4C665D72DAE6C3600A0316D /* TimerEngine.swift in Sources */,
 				D4C665D62DAE6C2900A0316D /* TimerModel.swift in Sources */,
 			);
@@ -1200,6 +1227,7 @@
 				D4F3572A2D6F61C0005A815A /* RiValT_WatchDelegate.swift in Sources */,
 				5EB7ED46FECB426CB492AE2A /* RiValT_BluetoothRemote.swift in Sources */,
 				3C3ABCA82C464F488C5610FE /* RiValT_RemoteState.swift in Sources */,
+				A11111111111111111111101 /* RiValT_ComplicationState.swift in Sources */,
 				D4A932222D64E9CB0028556E /* RiValT_Watch_App_MainContentView.swift in Sources */,
 				D40EA1B12DCEB12B00DC49BC /* RiValT_ObservableModel.swift in Sources */,
 				D4A932232D64E9CB0028556E /* RiValT_Watch_App.swift in Sources */,
@@ -1211,10 +1239,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D48C859E2DC6B30E0055E2B1 /* TimerModel.swift in Sources */,
+				A11111111111111111111102 /* RiValT_ComplicationState.swift in Sources */,
+				A11111111111111111111103 /* RiValT_RemoteState.swift in Sources */,
 				D4A9322C2D64E9CB0028556E /* RiValT_Complications.swift in Sources */,
-				D48C85A02DC6B3160055E2B1 /* RiValT_Settings.swift in Sources */,
-				D48C859C2DC6B3060055E2B1 /* TimerEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1236,6 +1263,11 @@
 			isa = PBXTargetDependency;
 			target = D43B97342DA2C0F50028E023 /* RiVal.T */;
 			targetProxy = D4C665D02DAE6BFF00A0316D /* PBXContainerItemProxy */;
+		};
+		A11111111111111111111106 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4F83CB22D63DB43009C4646 /* Watch Complications */;
+			targetProxy = A11111111111111111111105 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1283,7 +1315,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/MainApp/Meta/RiVal.T.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0000;
+				CURRENT_PROJECT_VERSION = 0001;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1324,7 +1356,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/MainApp/Meta/RiVal.T.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0000;
+				CURRENT_PROJECT_VERSION = 0001;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1664,7 +1696,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchApp/WatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0000;
+				CURRENT_PROJECT_VERSION = 0001;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_PREVIEWS = YES;
@@ -1704,7 +1736,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchApp/WatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0000;
+				CURRENT_PROJECT_VERSION = 0001;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_PREVIEWS = YES;
@@ -1743,7 +1775,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0000;
+				CURRENT_PROJECT_VERSION = 0001;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1781,7 +1813,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0000;
+				CURRENT_PROJECT_VERSION = 0001;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;

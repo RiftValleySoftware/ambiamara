@@ -100,8 +100,9 @@ extension RiValT_AppDelegate {
     }
 
     /// Read the active screen and selected timer together, on the main thread.
-    func remoteSnapshot() -> RiValT_WatchDelegate.Snapshot {
-        let controller = self.remoteController
+    func remoteSnapshot(forComplication: Bool = false) -> RiValT_WatchDelegate.Snapshot {
+        // A face is read-only; it can show a timer even while the host UI is covered or backgrounded.
+        let controller = forComplication ? self.groupEditorController?.navigationController?.topViewController : self.remoteController
         let running = controller as? RiValT_RunningTimer_ContainerViewController
         guard let timer = running?.timer ?? self.timerModel.selectedTimer,
               let index = timer.indexPath
@@ -147,7 +148,7 @@ extension RiValT_AppDelegate {
         }
 
         return .init(timerID: timer.id, groupNumber: index.section + 1, timerNumber: index.item + 1,
-                     groupSize: timer.group?.count ?? 0, phase: phase, remaining: timer.currentTime,
+                     groupSize: timer.group?.count ?? 0, phase: phase, remaining: phase == .ready ? timer.startingTimeInSeconds : timer.currentTime,
                      deadline: phase.isCounting ? timer.countdownDeadline : nil,
                      warning: timer.warningRangeUpperBound, final: timer.finalRangeUpperBound,
                      commands: commands)

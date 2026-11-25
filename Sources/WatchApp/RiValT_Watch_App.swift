@@ -9,6 +9,8 @@
  */
 
 import SwiftUI
+import WatchKit
+import WatchConnectivity
 
 @main
 /* ###################################################################################################################################### */
@@ -18,9 +20,50 @@ import SwiftUI
  This is the main context for the timer Watch app.
  */
 struct RiValT_Watch_App: App {
+    @WKApplicationDelegateAdaptor private var delegate: RiValT_Watch_AppDelegate
+
     /* ################################################################## */
     /**
      This is basically just a wrapper for the screens.
      */
     var body: some Scene { WindowGroup { RiValT_Watch_App_MainContentView() } }
+}
+
+/// Activate connectivity even for background deliveries, without requiring the timer screen to appear.
+@MainActor
+final class RiValT_Watch_AppDelegate: NSObject, WKApplicationDelegate {
+    static let connection = RiValT_WatchDelegate()
+    private var pendingTasks = Set<WKWatchConnectivityRefreshBackgroundTask>()
+    private var contentObservation: NSKeyValueObservation?
+    private var activationObservation: NSKeyValueObservation?
+
+    override init() {
+        super.init()
+        _ = Self.connection
+        guard WCSession.isSupported() else { return }
+        contentObservation = WCSession.default.observe(\.hasContentPending, options: [.new]) { [weak self] _, _ in
+            DispatchQueue.main.async { self?.completeConnectivityTasks() }
+        }
+        activationObservation = WCSession.default.observe(\.activationState, options: [.new]) { [weak self] _, _ in
+            DispatchQueue.main.async { self?.completeConnectivityTasks() }
+        }
+    }
+
+    func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
+        for task in backgroundTasks {
+            if let connectivity = task as? WKWatchConnectivityRefreshBackgroundTask {
+                pendingTasks.insert(connectivity)
+            } else {
+                task.setTaskCompletedWithSnapshot(false)
+            }
+        }
+        // Give queued WCSession delegate callbacks time to persist data before releasing the task.
+        DispatchQueue.main.async { self.completeConnectivityTasks() }
+    }
+
+    private func completeConnectivityTasks() {
+        guard WCSession.default.activationState == .activated, !WCSession.default.hasContentPending else { return }
+        pendingTasks.forEach { $0.setTaskCompletedWithSnapshot(false) }
+        pendingTasks.removeAll()
+    }
 }
