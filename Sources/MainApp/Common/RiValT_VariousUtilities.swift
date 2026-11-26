@@ -74,7 +74,7 @@ class RiValT_DisappearingBarButton: UIBarButtonItem {
     override var isEnabled: Bool {
         get { super.isEnabled }
         set {
-            super.tintColor = newValue ? RiValT_AppDelegate.appDelegateInstance?.groupEditorController?.view?.tintColor : .clear
+            super.tintColor = newValue ? .accent : .clear
             super.isEnabled = newValue
         }
     }

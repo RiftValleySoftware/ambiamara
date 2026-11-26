@@ -309,27 +309,15 @@ extension RiValT_RunningTimer_Numerical_ViewController {
          This determines the proper color for the digit "LEDs."
          */
         func _determineDigitLEDColor() {
-            if self.timer?.isTimerInAlarm ?? false {
-                digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
-                digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
-                digitalDisplayViewSeconds?.onGradientStartColor = Self._finalLEDColor
-            } else if self.timer?.isTimerInFinal ?? false {
-                digitalDisplayViewHours?.onGradientStartColor = Self._finalLEDColor
-                digitalDisplayViewMinutes?.onGradientStartColor = Self._finalLEDColor
-                digitalDisplayViewSeconds?.onGradientStartColor = Self._finalLEDColor
-            } else if self.timer?.isTimerInWarning ?? false {
-                digitalDisplayViewHours?.onGradientStartColor = Self._warnLEDColor
-                digitalDisplayViewMinutes?.onGradientStartColor = Self._warnLEDColor
-                digitalDisplayViewSeconds?.onGradientStartColor = Self._warnLEDColor
-            } else if self.timer?.isTimerRunning ?? false {
-                digitalDisplayViewHours?.onGradientStartColor = Self._startLEDColor
-                digitalDisplayViewMinutes?.onGradientStartColor = Self._startLEDColor
-                digitalDisplayViewSeconds?.onGradientStartColor = Self._startLEDColor
-            } else {
-                digitalDisplayViewHours?.onGradientStartColor = Self._pausedLEDColor
-                digitalDisplayViewMinutes?.onGradientStartColor = Self._pausedLEDColor
-                digitalDisplayViewSeconds?.onGradientStartColor = Self._pausedLEDColor
+            let color: UIColor?
+            switch myContainer?.displayedMode {
+            case .alarm, .final: color = Self._finalLEDColor
+            case .warning: color = Self._warnLEDColor
+            default: color = myContainer?.displayIsRunning == true ? Self._startLEDColor : Self._pausedLEDColor
             }
+            digitalDisplayViewHours?.onGradientStartColor = color
+            digitalDisplayViewMinutes?.onGradientStartColor = color
+            digitalDisplayViewSeconds?.onGradientStartColor = color
             
             digitalDisplayViewHours?.onGradientEndColor = nil
             digitalDisplayViewMinutes?.onGradientEndColor = nil
@@ -352,7 +340,7 @@ extension RiValT_RunningTimer_Numerical_ViewController {
             self.digitalDisplayViewSeconds?.value = inSeconds
         }
 
-        guard var currentTime = myContainer?.countdown?.remaining else { return }
+        guard var currentTime = myContainer?.displayedRemaining else { return }
         
         let hours = Int(currentTime / (60 * 60))
         currentTime -= (hours * 60 * 60)

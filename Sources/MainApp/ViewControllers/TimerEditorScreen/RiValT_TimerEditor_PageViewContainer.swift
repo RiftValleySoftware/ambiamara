@@ -171,6 +171,7 @@ extension RiValT_TimerEditor_PageViewContainer {
 
             for index in 0..<timerGroup.count {
                 let timerButton = UIBarButtonItem()
+                timerButton.tintColor = .accent
                 if #available(iOS 26.0, *) {
                     timerButton.hidesSharedBackground = true
                 }

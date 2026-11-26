@@ -58,9 +58,7 @@ class RiValT_CirlcleDisplayView: UIView {
      Called when the subviews are laid out. We create the circle here.
      */
     override func layoutSubviews() {
-        guard let countdown = container?.countdown else { return }
-        let timer = countdown.timer
-        let remaining = countdown.remaining
+        guard let container, let countdown = container.countdown, let remaining = container.displayedRemaining else { return }
         // This bit of code will make sure that each "tick" has a slight animation.
         let transition = CATransition()
         transition.type = .fade
@@ -72,7 +70,7 @@ class RiValT_CirlcleDisplayView: UIView {
         
         let lineWidth = minimumSize / 4
 
-        if timer.isTimerInAlarm, !timer.isTimerRunning, remaining == 0 {
+        if container.displayedMode == .alarm, !container.displayIsRunning, remaining == 0 {
             let path = UIBezierPath(
                 arcCenter: CGPoint(x: bounds.midX, y: bounds.midY),
                 radius: min(bounds.midX, bounds.midY) * Self._circleRadiusProportion,
@@ -111,7 +109,7 @@ class RiValT_CirlcleDisplayView: UIView {
                 arc.strokeColor = UIColor(named: color)?.cgColor
                 arc.fillColor = nil
                 arc.lineWidth = lineWidth
-                arc.opacity = timer.isTimerRunning ? 1 : Self._disabledOpacity
+                arc.opacity = container.displayIsRunning ? 1 : Self._disabledOpacity
                 circleLayer.addSublayer(arc)
             }
 

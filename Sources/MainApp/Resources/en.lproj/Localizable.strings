@@ -125,6 +125,12 @@ LONG-PRESS: Brings up a slider, allowing you to set the time to any point.";
 
 "SLUG-EDIT-FORMAT"                              =   "Edit Timer %d";
 "SLUG-EDIT-TIMER"                               =   "Edit Timer";
+// Timer Editor group summary. %@ is the localized duration of the group's only timer, such as “5 min”.
+"SLUG-GROUP-SUMMARY-SINGLE"                     =   "This group has one timer (%@).";
+// %1$d is the edited timer's position, %2$d is the number of timers in its group. “Combine Timers” is the setting name.
+"SLUG-GROUP-SUMMARY-SEPARATE"                   =   "Timer %1$d of %2$d. Combine Timers is off.";
+// The first two placeholders give the timer position and count. %3$@ is the total of all preset durations, including timers before the current one.
+"SLUG-GROUP-SUMMARY-COMBINED"                   =   "Timer %1$d of %2$d. Combine Timers is on (%3$@ total).";
 "SLUG-START-TIME"                               =   "Start Time";
 "SLUG-WARN-TIME"                                =   "Warning Time";
 "SLUG-FINAL-TIME"                               =   "Final Time";

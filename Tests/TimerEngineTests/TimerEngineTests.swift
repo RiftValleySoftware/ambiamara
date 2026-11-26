@@ -17,6 +17,35 @@ import XCTest
  These will run faceless tests on the timer engine.
  */
 class TimerEngineTests: XCTestCase {
+    func testSeekSkipsTransitionsAndResumesNaturalCountdown() {
+        let timer = TimerEngine(startingTimeInSeconds: 30, warningTimeInSeconds: 15, finalTimeInSeconds: 5)
+        let alarm = expectation(description: "Countdown reaches its alarm after the last seek")
+        timer.transitionHandler = { _, from, to in
+            XCTAssertEqual(from, .final)
+            XCTAssertEqual(to, .alarm)
+            alarm.fulfill()
+        }
+
+        for (seconds, mode): (Int, TimerEngine.Mode) in [(12, .warning), (3, .final), (35, .countdown)] {
+            timer.seek(toRemaining: seconds)
+            let expectedTime = min(seconds, timer.startingTimeInSeconds)
+            XCTAssertEqual(timer.currentTime, expectedTime)
+            XCTAssertEqual(timer.mode, mode)
+            XCTAssertEqual(timer.countdownDeadline?.timeIntervalSinceNow ?? 0, Double(expectedTime), accuracy: 0.2)
+        }
+        timer.seek(toRemaining: 0)
+        XCTAssertEqual(timer.mode, .alarm)
+        XCTAssertEqual(timer.currentTime, 0)
+        XCTAssertFalse(timer.isTicking)
+        XCTAssertNil(timer.countdownDeadline)
+
+        timer.seek(toRemaining: 1)
+        XCTAssertEqual(timer.mode, .final)
+        wait(for: [alarm], timeout: 3)
+        XCTAssertEqual(timer.mode, .alarm)
+        XCTAssertFalse(timer.isTicking)
+    }
+
     /* ################################################################## */
     /**
      This tests just the most basic instantiation, with only the two required parameters.

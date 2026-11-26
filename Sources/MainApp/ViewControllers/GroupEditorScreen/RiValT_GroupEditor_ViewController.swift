@@ -498,7 +498,7 @@ extension RiValT_GroupEditor_ViewController {
         soundSettingsButtonItem.group = self.timerModel.selectedTimer?.group
         soundSettingsButtonItem.target = self
         soundSettingsButtonItem.action = #selector(soundSettingsButtonHit)
-//        soundSettingsButtonItem.tintColor = self.view?.tintColor
+        soundSettingsButtonItem.tintColor = .accent
         let displaySettingsButtonItem = DisplayBarButtonItem()
         displaySettingsButtonItem.isAccessibilityElement = true
         displaySettingsButtonItem.accessibilityLabel = "SLUG-ACC-DISPLAY-SETTINGS-BUTTON-LABEL".localizedVariant
@@ -506,7 +506,7 @@ extension RiValT_GroupEditor_ViewController {
         displaySettingsButtonItem.group = self.timerModel.selectedTimer?.group
         displaySettingsButtonItem.target = self
         displaySettingsButtonItem.action = #selector(displaySettingsButtonHit)
-//        displaySettingsButtonItem.tintColor = self.view?.tintColor
+        displaySettingsButtonItem.tintColor = .accent
         if #available(iOS 26.0, *) {
             soundSettingsButtonItem.hidesSharedBackground = true
             displaySettingsButtonItem.hidesSharedBackground = true

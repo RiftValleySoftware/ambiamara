@@ -180,6 +180,7 @@ extension RiValT_Base_ViewController {
                                              style: .plain,
                                              target: self,
                                              action: #selector(self.goBack))
+            backButton.tintColor = .accent
             backButton.accessibilityLabel = "SLUG-ACC-BACK-LABEL".localizedVariant
             backButton.accessibilityHint = "SLUG-ACC-BACK-HINT".localizedVariant
             if #available(iOS 26.0, *) {

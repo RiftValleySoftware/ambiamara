@@ -1291,6 +1291,11 @@ extension Timer {
         return self == self.model?.removeTimer(from: indexPath)
     }
 
+    /// Run from the specified remaining time without announcing the skipped timer phases.
+    func seek(toRemaining seconds: Int) {
+        self._engine.seek(toRemaining: seconds)
+    }
+
     /* ############################################################## */
     /**
      Starts the timer from the beginning. It will do so, from any timer state.

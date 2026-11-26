@@ -25,7 +25,6 @@ private extension TimerEngine {
      */
     func _timerCallback(_ inTimer: RVS_BasicGCDTimer, _ inSuccess: Bool) {
         guard inSuccess,
-              inTimer === self._timer,
               !inTimer.isInvalid,
               inTimer.isRunning
         else {
@@ -35,16 +34,22 @@ private extension TimerEngine {
             return
         }
         
-        if let startTime = self._startTime?.timeIntervalSinceNow,
-           let accurateTimeInterval = self.currentPreciseTime,
-           self._countdownTime != Int(ceil(accurateTimeInterval)),  // This ensures that we catch the transition, at the first opportunity.
-           -1 >= startTime {
+        // A tick and a seek must update the deadline's remaining seconds as one operation.
+        let shouldTick = self._transitionLock.withLock {
+            guard inTimer === self._timer, inTimer.isRunning,
+                  let startTime = self._startTime?.timeIntervalSinceNow,
+                  let accurateTimeInterval = self.currentPreciseTime,
+                  self._countdownTime != Int(ceil(accurateTimeInterval)),
+                  startTime <= -1
+            else { return false }
             self._countdownTime = Int(ceil(accurateTimeInterval))
-            
             #if DEBUG
                 print("\tTimerEngine: timerCallback(\(inSuccess)): difference from last tick, in seconds: \(accurateTimeInterval), updated currentTime: \(self.currentTime)")
             #endif
+            return true
+        }
 
+        if shouldTick {
             if .stopped != self.mode {
                 self.tickHandler?(self)
             }
@@ -786,6 +791,31 @@ public extension TimerEngine {
         }
     }
     
+    /// Move directly to a countdown position without replaying the skipped ticks or transitions.
+    /// A positive position runs from the new deadline. Zero holds the timer at its alarm.
+    func seek(toRemaining seconds: Int) {
+        self._transitionLock.withLock {
+            let remaining = max(0, min(self.startingTimeInSeconds, seconds))
+            self._startTime = Date.now.addingTimeInterval(TimeInterval(remaining - self.startingTimeInSeconds))
+            self._countdownTime = remaining
+            self._lastPausedTime = 0
+            guard remaining > 0 else {
+                self._timer?.isRunning = false
+                self._lastMode = .alarm
+                return
+            }
+
+            if self._timer == nil {
+                self._timer = RVS_BasicGCDTimer(timeIntervalInSeconds: Self._timerInterval,
+                                                onlyFireOnce: false,
+                                                isWallTime: true,
+                                                completion: self._timerCallback)
+            }
+            self._timer?.isRunning = true
+            self._lastMode = self.mode
+        }
+    }
+
     /* ################################################################## */
     /**
      Starts the timer from the beginning. It will do so, from any timer state.

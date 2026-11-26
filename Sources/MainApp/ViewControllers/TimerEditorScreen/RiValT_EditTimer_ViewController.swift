@@ -109,6 +109,9 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
      */
     weak var myContainer: RiValT_TimerEditor_PageViewContainer?
 
+    /// Describes how the edited timer fits into its group.
+    @IBOutlet weak var groupSummaryLabel: UILabel?
+
     /* ############################################################## */
     /**
      Container for the set time wheels.
@@ -274,6 +277,10 @@ extension RiValT_EditTimer_ViewController {
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        if let groupSummaryLabel {
+            // Use the space above the controls only when the entire summary fits.
+            groupSummaryLabel.isHidden = groupSummaryLabel.frame.minY < self.view.safeAreaLayoutGuide.layoutFrame.minY
+        }
         self.timeTypeSegmentedControl?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: self.isDarkMode ? UIColor.black : UIColor.label], for: .selected)
         self.timeSetPicker?.reloadAllComponents()
         self.gradientLayer?.removeFromSuperlayer()
@@ -284,6 +291,23 @@ extension RiValT_EditTimer_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_EditTimer_ViewController {
+    private func updateGroupSummary() {
+        guard let timer, let group, let index = timer.indexPath?.item else {
+            self.groupSummaryLabel?.text = nil
+            return
+        }
+
+        if group.count > 1, !RiValT_Settings().combineTimers {
+            self.groupSummaryLabel?.text = String.localizedStringWithFormat("SLUG-GROUP-SUMMARY-SEPARATE".localizedVariant, index + 1, group.count)
+        } else {
+            let total = TimerCountdown(timer, combineTimers: true).totalDuration
+            let duration = Duration.seconds(total).formatted(.units(allowed: [.hours, .minutes, .seconds], width: .abbreviated))
+            self.groupSummaryLabel?.text = group.count == 1
+                ? String.localizedStringWithFormat("SLUG-GROUP-SUMMARY-SINGLE".localizedVariant, duration)
+                : String.localizedStringWithFormat("SLUG-GROUP-SUMMARY-COMBINED".localizedVariant, index + 1, group.count, duration)
+        }
+    }
+
     /* ############################################################## */
     /**
      This customizes the time set type segmented control.
@@ -376,6 +400,7 @@ extension RiValT_EditTimer_ViewController {
      - parameter inIsAnimated: True, if the set is animated.
      */
     func setTime(_ inIsAnimated: Bool = false) {
+        self.updateGroupSummary()
         let hours = Int(self.currentTimeInSeconds / TimerEngine.secondsInHour)
         let minutes = Int((self.currentTimeInSeconds - (hours * TimerEngine.secondsInHour)) / TimerEngine.secondsInMinute)
         let seconds = Int(self.currentTimeInSeconds - ((hours * TimerEngine.secondsInHour) + (minutes * TimerEngine.secondsInMinute)))

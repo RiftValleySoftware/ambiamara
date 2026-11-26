@@ -278,6 +278,22 @@ extension RiValT_RunningTimer_ContainerViewController {
         timer.map { TimerCountdown($0, combineTimers: _combineTimers) }
     }
 
+    /// The selected second and phase stay on screen until the user releases the combined slider.
+    private var combinedPreview: (remaining: Int, mode: TimerEngine.Mode)? {
+        _combineTimers ? scrubPreview : nil
+    }
+
+    var displayedRemaining: Int? {
+        guard let countdown else { return nil }
+        return combinedPreview.map { $0.remaining + countdown.followingDuration } ?? countdown.remaining
+    }
+
+    var displayedMode: TimerEngine.Mode? { combinedPreview?.mode ?? timer?.timerMode }
+
+    var displayIsRunning: Bool {
+        combinedPreview.map { $0.remaining > 0 } ?? (timer?.isTimerRunning ?? false)
+    }
+
     /// A zero-duration preset has no place on the combined countdown.
     private var groupTimers: [Timer] {
         _combineTimers ? countdown?.timers ?? [] : timer?.group?.allTimers ?? []
@@ -896,7 +912,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         surface.accessibilityHint = "SLUG-ACC-TIMER-GESTURE-HINT".localizedVariant
         surface.accessibilityLabelBlock = { [weak self] in self?.playPauseToolbarItem?.accessibilityLabel }
         let remainingTime: () -> String? = { [weak self] in
-            guard let remaining = self?.countdown?.remaining else { return nil }
+            guard let remaining = self?.displayedRemaining else { return nil }
             return Duration.seconds(remaining).formatted(.units(allowed: [.hours, .minutes, .seconds], width: .wide))
         }
         surface.accessibilityValueBlock = remainingTime
@@ -933,10 +949,12 @@ extension RiValT_RunningTimer_ContainerViewController {
      */
     func setToolbarEnablements() {
         guard let timer = self.timer else { return }
+        let isInAlarm = displayedMode == .alarm
+        let remaining = combinedPreview?.remaining ?? timer.currentTime
         self.stopToolbarItem?.isEnabled = true
-        self.fastForwardToolbarItem?.isEnabled = !(self.timer?.isTimerInAlarm ?? false)
-        self.rewindToolbarItem?.isEnabled = (self.timer?.isTimerInAlarm ?? false) || ((self.timer?.currentTime ?? 0) < (self.timer?.startingTimeInSeconds ?? 0)) || (nil != self.prevTimer)
-        self.playPauseToolbarItem?.image = UIImage(systemName: "\(timer.isTimerRunning ? "pause" : "play").fill")
+        self.fastForwardToolbarItem?.isEnabled = !isInAlarm
+        self.rewindToolbarItem?.isEnabled = isInAlarm || remaining < timer.startingTimeInSeconds || self.prevTimer != nil
+        self.playPauseToolbarItem?.image = UIImage(systemName: "\(displayIsRunning ? "pause" : "play").fill")
         
         self.rewindToolbarItem?.accessibilityLabel = "SLUG-ACC-REWIND-LABEL".localizedVariant
         self.rewindToolbarItem?.accessibilityHint = "SLUG-ACC-REWIND-HINT".localizedVariant
@@ -944,13 +962,13 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.stopToolbarItem?.accessibilityLabel = "SLUG-ACC-STOP-LABEL".localizedVariant
         self.stopToolbarItem?.accessibilityHint = "SLUG-ACC-STOP-HINT".localizedVariant
         
-        if timer.isTimerInAlarm {
+        if isInAlarm {
             self.playPauseToolbarItem?.accessibilityLabel = "SLUG-ACC-DISMISS-ALARM-LABEL".localizedVariant
             self.playPauseToolbarItem?.accessibilityHint = "SLUG-ACC-DISMISS-ALARM-HINT".localizedVariant
-        } else if timer.isTimerRunning {
+        } else if displayIsRunning {
             self.playPauseToolbarItem?.accessibilityLabel = "SLUG-ACC-PAUSE-LABEL".localizedVariant
             self.playPauseToolbarItem?.accessibilityHint = "SLUG-ACC-PAUSE-HINT".localizedVariant
-        } else if timer.isTimerPaused {
+        } else if case .paused = displayedMode {
             self.playPauseToolbarItem?.accessibilityLabel = "SLUG-ACC-RESUME-LABEL".localizedVariant
             self.playPauseToolbarItem?.accessibilityHint = "SLUG-ACC-RESUME-HINT".localizedVariant
         } else {
@@ -967,15 +985,12 @@ extension RiValT_RunningTimer_ContainerViewController {
      Updates all the embeds.
      */
     func updateDisplays() {
-        if let slider = _timeSetSlider, let countdown {
-            let groupRemaining = Int(slider.maximumValue - slider.value)
-            scrubPreview = (groupRemaining - countdown.followingDuration, countdown.timer.timerMode)
-        } else {
+        if !isDragging {
             scrubPreview = nil
         }
         self.setToolbarEnablements()
         self.watchDelegate?.publishSnapshot()
-        if case .paused = self.timer?.timerMode {
+        if case .paused = displayedMode {
             self.pausedLabel?.isHidden = false
         } else {
             self.pausedLabel?.isHidden = true
@@ -1193,7 +1208,8 @@ extension RiValT_RunningTimer_ContainerViewController {
     /// Use the same elapsed-time scale for the touch slider and the accessible adjustment.
     private func setCountdownPosition(_ elapsed: Int, in countdown: TimerCountdown) {
         let position = countdown.position(atElapsedTime: elapsed)
-        if position.timer !== countdown.timer {
+        let changedTimer = position.timer !== countdown.timer
+        if changedTimer {
             countdown.timer.tickHandler = nil
             countdown.timer.transitionHandler = nil
             countdown.timer.stop()
@@ -1201,17 +1217,26 @@ extension RiValT_RunningTimer_ContainerViewController {
             position.timer.isSelected = true
             position.timer.tickHandler = self.tickHandler
             position.timer.transitionHandler = self.transitionHandler
-            position.timer.start()
-            self.watchDelegate?.updateSettings()
         }
-        if position.remaining != position.timer.currentTime {
+        let changedTime = position.remaining != position.timer.currentTime
+        if changedTimer || changedTime {
             self.selectionHaptic()
+        }
+        if _combineTimers {
+            position.timer.seek(toRemaining: position.remaining)
+        } else if changedTime {
             position.timer.currentTime = position.remaining
             if case .paused = position.timer.timerMode {
                 position.timer.resume()
             }
         }
-        self._timeSetSlider?.value = Float(elapsed)
+        if changedTimer {
+            self.watchDelegate?.updateSettings()
+        }
+        if let slider = self._timeSetSlider {
+            slider.value = Float(elapsed)
+            scrubPreview = (position.remaining, position.timer.timerMode)
+        }
         self.timeSetDisplayLabel?.text = TimerEngine.timerDisplay(for: countdown.totalDuration - elapsed)
         self.updateDisplays()
     }
@@ -1228,7 +1253,7 @@ extension RiValT_RunningTimer_ContainerViewController {
             self._alarmTimer?.isRunning = false
             self._audioPlayer?.stop()
         }
-        if !timer.isTimerRunning {
+        if !_combineTimers, !timer.isTimerRunning {
             timer.start()
             timer.pause()
         }
@@ -1236,6 +1261,8 @@ extension RiValT_RunningTimer_ContainerViewController {
         if target == 0 {
             self.timer?.stop()
             updateDisplays()
+        } else if _combineTimers, target == countdown.totalDuration {
+            triggerFinalAlarm()
         }
     }
 
@@ -1278,6 +1305,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         
         guard let detectionView = self.longPressDetectionView,
               !detectionView.isHidden,
+              detectionView.bounds.width > 0,
               let countdown = self.countdown
         else {
             inGestureRecognizer.state = .cancelled
@@ -1289,18 +1317,19 @@ extension RiValT_RunningTimer_ContainerViewController {
         }
         
         let timer = countdown.timer
-        let gestureLocation = inGestureRecognizer.location(ofTouch: 0, in: detectionView)
-        let location = Float(gestureLocation.x / detectionView.bounds.size.width)
+        let gestureLocation = inGestureRecognizer.location(in: detectionView)
+        let fraction = Float(gestureLocation.x / detectionView.bounds.width)
+        let location = _combineTimers ? min(1, max(0, fraction)) : fraction
         
         switch inGestureRecognizer.state {
         case .began:
             if (0...1).contains(location) {
                 self.impactHaptic(1.0)
-                if timer.isTimerInAlarm, countdown.timers.count > 1 {
+                if _combineTimers, timer.isTimerInAlarm {
                     self._alarmTimer?.isRunning = false
                     self._audioPlayer?.stop()
                 }
-                if !timer.isTimerRunning {
+                if !_combineTimers, !timer.isTimerRunning {
                     timer.start()
                     timer.pause()
                 }
@@ -1317,13 +1346,22 @@ extension RiValT_RunningTimer_ContainerViewController {
         default:
             self.impactHaptic()
             self.timeSetDisplayLabel?.isHidden = true
+            let elapsed = self._timeSetSlider.map { Int($0.value.rounded()) }
             self._timeSetSlider?.removeFromSuperview()
             self._timeSetSlider = nil
-            if countdown.remaining == countdown.totalDuration {
+            if _combineTimers, let elapsed {
+                // A stationary finger can outlast the selected timer. Resume from the thumb's exact position.
+                if elapsed == 0 {
+                    timer.stop()
+                } else {
+                    let position = countdown.position(atElapsedTime: elapsed)
+                    position.timer.seek(toRemaining: position.remaining)
+                    if elapsed == countdown.totalDuration, inGestureRecognizer.state == .ended {
+                        self.triggerFinalAlarm()
+                    }
+                }
+            } else if countdown.remaining == countdown.totalDuration {
                 timer.stop()
-            } else if countdown.timers.count > 1, timer.isTimerInAlarm,
-                      self._alarmTimer?.isRunning != true {
-                self.alarmReached()
             }
             self.updateDisplays()
         }

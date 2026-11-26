@@ -67,33 +67,31 @@ extension RiValT_RunningTimer_Stoplights_ViewController {
      This forces the display to refresh.
      */
     override func updateUI() {
-        let duration = self.timer?.isTimerRunning ?? false ? Self._transitionTimeInSeconds : 0
+        let isRunning = myContainer?.displayIsRunning ?? false
+        let mode = myContainer?.displayedMode
+        let duration = isRunning ? Self._transitionTimeInSeconds : 0
         UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut]) {
-            if self.timer?.isTimerInAlarm ?? false,
+            if mode == .alarm,
                nil == self.myContainer?.nextTimer {
                 self.redLightImageView?.alpha = 1.0
                 self.yellowLightImageView?.alpha = 1.0
                 self.greenLightImageView?.alpha = 1.0
-            } else if !(self.timer?.isTimerRunning ?? false) {
+            } else if !isRunning {
                 self.redLightImageView?.alpha = Self._disabledOpacity
                 self.yellowLightImageView?.alpha = Self._disabledOpacity
                 self.greenLightImageView?.alpha = Self._disabledOpacity
-            } else if self.timer?.isTimerInFinal ?? false {
+            } else if mode == .final {
                 self.redLightImageView?.alpha = 1.0
                 self.yellowLightImageView?.alpha = Self._disabledOpacity
                 self.greenLightImageView?.alpha = Self._disabledOpacity
-            } else if self.timer?.isTimerInWarning ?? false {
+            } else if mode == .warning {
                 self.redLightImageView?.alpha = Self._disabledOpacity
                 self.yellowLightImageView?.alpha = 1.0
                 self.greenLightImageView?.alpha = Self._disabledOpacity
-            } else if self.timer?.isTimerRunning ?? false {
-                self.redLightImageView?.alpha = Self._disabledOpacity
-                self.yellowLightImageView?.alpha = Self._disabledOpacity
-                self.greenLightImageView?.alpha = 1.0
             } else {
                 self.redLightImageView?.alpha = Self._disabledOpacity
                 self.yellowLightImageView?.alpha = Self._disabledOpacity
-                self.greenLightImageView?.alpha = Self._disabledOpacity
+                self.greenLightImageView?.alpha = 1.0
             }
         }
     }
