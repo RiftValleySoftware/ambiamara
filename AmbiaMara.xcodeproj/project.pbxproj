@@ -19,6 +19,7 @@
 		B274969658BF47A1A35AA386 /* RiValT_BluetoothRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE8946D5DD04E119AEE9BAC /* RiValT_BluetoothRemote.swift */; };
 		D40EA1B12DCEB12B00DC49BC /* RiValT_ObservableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EA1B02DCEB12B00DC49BC /* RiValT_ObservableModel.swift */; };
 		D40FB3072DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40FB3062DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift */; };
+		10FDEF96AC064B7FB85666E1 /* RiValT_GroupEditor_Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF5F90F95A441CF811ECE94 /* RiValT_GroupEditor_Popover.swift */; };
 		D4181D0D2DAC7364002CF428 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4181D0C2DAC7364002CF428 /* TimerModel.swift */; };
 		D4273AE32DAEEE7700AB0E41 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4273AE22DAEEE7700AB0E41 /* RVS_BasicGCDTimer */; };
 		D4273AE52DAEEEE300AB0E41 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4273AE42DAEEEE300AB0E41 /* RVS_BasicGCDTimer */; };
@@ -286,6 +287,7 @@
 		D3D9036B1A9E41D2B1EF6F16 /* RiValT_RemoteState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_RemoteState.swift; sourceTree = "<group>"; };
 		D40EA1B02DCEB12B00DC49BC /* RiValT_ObservableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_ObservableModel.swift; sourceTree = "<group>"; };
 		D40FB3062DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_DisplaySettings_ViewController.swift; sourceTree = "<group>"; };
+		4DF5F90F95A441CF811ECE94 /* RiValT_GroupEditor_Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_GroupEditor_Popover.swift; sourceTree = "<group>"; };
 		D41109162DADEEB00034B591 /* TimerModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModelTests.swift; sourceTree = "<group>"; };
 		D4181D0C2DAC7364002CF428 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		D427BC082DB987DB009EAC8D /* Beep-021.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-021.mp3"; sourceTree = "<group>"; };
@@ -755,6 +757,7 @@
 		D4E5116D2DDCD27500107919 /* Popovers */ = {
 			isa = PBXGroup;
 			children = (
+				4DF5F90F95A441CF811ECE94 /* RiValT_GroupEditor_Popover.swift */,
 				D40FB3062DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift */,
 				D45184C92DB42DBE00DA671D /* RiValT_SoundSettings_ViewController.swift */,
 				D4F7EDE22DBD4052007F4771 /* RiValT_Settings_ViewController.swift */,
@@ -1166,6 +1169,7 @@
 				D4752E9D2DB2FD91002359CA /* RiValT_Settings.swift in Sources */,
 				D43B97682DA2C1D10028E023 /* RiValT_Base_ViewController.swift in Sources */,
 				D40FB3072DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift in Sources */,
+				10FDEF96AC064B7FB85666E1 /* RiValT_GroupEditor_Popover.swift in Sources */,
 				D4A5A7C32DDBA7F8001ED5AC /* RiVal_T.docc in Sources */,
 				D4D9A1DD2DC26354009CB13E /* RiValT_RunningTimer_Circular_ViewController.swift in Sources */,
 				D43B97792DA2C2E80028E023 /* TimerEngine.swift in Sources */,

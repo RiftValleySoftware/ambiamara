@@ -64,6 +64,7 @@ final class RiValT_WatchDelegate: NSObject {
     private var lastNotifiedRevision = -1
     private var lastNotifiedPhase: Phase?
     private var lastComplicationSnapshot: Snapshot?
+    private var lastComplicationUpdate = Date.distantPast
     #endif
 
     init(activate: Bool = true) {
@@ -109,35 +110,41 @@ extension RiValT_WatchDelegate {
 
     /// Host callbacks can originate on the engine queue. Read its model and the UIKit navigation state on main.
     nonisolated func publishSnapshot() {
-        DispatchQueue.main.async {
-            let session = self.session
-            let watchIsReachable = session?.activationState == .activated && session?.isReachable == true
-            self.publishComplicationSnapshot()
-            guard watchIsReachable || self.padLink.hasRemoteSubscriber, let state = self.capture(),
-                  self.lastNotifiedRevision != self.host.revision || self.lastNotifiedPhase != state.phase
-            else { return }
-            self.lastNotifiedRevision = self.host.revision
-            self.lastNotifiedPhase = state.phase
-            self.padLink.notifyChange()
-            if watchIsReachable, let session {
-                // This is just an invalidation. All Watch state comes from a measured request/reply exchange.
-                session.sendMessage(["changed": true], replyHandler: nil, errorHandler: nil)
-            }
+        DispatchQueue.main.async { self.publishCurrentSnapshot() }
+    }
+
+    /// Scene callbacks publish synchronously so a background rewind is queued before suspension.
+    func publishCurrentSnapshot() {
+        let session = self.session
+        let watchIsReachable = session?.activationState == .activated && session?.isReachable == true
+        publishComplicationSnapshot()
+        guard watchIsReachable || padLink.hasRemoteSubscriber, let state = capture(),
+              lastNotifiedRevision != host.revision || lastNotifiedPhase != state.phase
+        else { return }
+        lastNotifiedRevision = host.revision
+        lastNotifiedPhase = state.phase
+        padLink.notifyChange()
+        if watchIsReachable, let session {
+            // This is just an invalidation. All Watch state comes from a measured request/reply exchange.
+            session.sendMessage(["changed": true], replyHandler: nil, errorHandler: nil)
         }
     }
 
     /// Application context keeps only the latest state and can be delivered with the Watch app asleep.
     private func publishComplicationSnapshot() {
+        let now = Date()
         guard let session, session.activationState == .activated, session.isPaired,
               session.isWatchAppInstalled,
               let state = RiValT_AppDelegate.appDelegateInstance?.remoteSnapshot(forComplication: true),
-              lastComplicationSnapshot?.representsSameControlState(as: state) != true,
+              lastComplicationSnapshot?.representsSameControlState(as: state) != true
+                || (state.displayDeadline != nil && now.timeIntervalSince(lastComplicationUpdate) >= RiValT_RemoteState.complicationConfirmationInterval),
               let encoded = try? PropertyListEncoder().encode(state)
         else { return }
         do {
             try session.updateApplicationContext(["complicationState": encoded,
-                                                   "complicationUpdatedAt": Date().timeIntervalSince1970])
+                                                   "complicationUpdatedAt": now.timeIntervalSince1970])
             lastComplicationSnapshot = state
+            lastComplicationUpdate = now
         } catch {
             // A later state publication retries if the session cannot accept this update yet.
             lastComplicationSnapshot = nil
@@ -165,9 +172,13 @@ extension RiValT_WatchDelegate {
         }
 
         guard let encoded = try? PropertyListEncoder().encode(state) else { reply([:]); return }
-        reply(["version": 1, "request": requestID, "session": host.session, "revision": host.revision,
-               "hostReceived": received.timeIntervalSince1970, "hostReplied": Date().timeIntervalSince1970,
-               "state": encoded, "accepted": accepted])
+        var response: [String: Any] = ["version": 1, "request": requestID, "session": host.session, "revision": host.revision,
+                                      "hostReceived": received.timeIntervalSince1970, "hostReplied": Date().timeIntervalSince1970,
+                                      "state": encoded, "accepted": accepted]
+        if state.phase == .unavailable, let face = RiValT_AppDelegate.appDelegateInstance?.remoteSnapshot(forComplication: true) {
+            response["complicationState"] = try? PropertyListEncoder().encode(face)
+        }
+        reply(response)
     }
 }
 #else
@@ -188,8 +199,19 @@ extension RiValT_WatchDelegate {
         padLink.usesIPad ? "ipad-\(padLink.selectedDeviceID?.uuidString ?? "unknown")" : "phone"
     }
 
+    private var hostIsDisconnected: Bool {
+        if padLink.usesIPad { return !padLink.isConnected }
+        // A sleeping Watch app can lose interactive reachability while the phone still runs the timer.
+        return active && session?.activationState == .activated && !linkIsReachable
+    }
+
+    private func rewindComplication() {
+        RiValT_ComplicationState.rewind(source: complicationSource, at: clock.hostDate(forLocalDate: Date()))
+    }
+
     private func connectionChanged() {
         RiValT_ComplicationState.selectSource(complicationSource)
+        if hostIsDisconnected { rewindComplication() }
         if !padLink.usesIPad, let session { receiveComplicationContext(session.receivedApplicationContext) }
         heartbeat?.cancel()
         pendingID = nil
@@ -236,7 +258,7 @@ extension RiValT_WatchDelegate {
 
     func sendCommand(command: TimerOperation) {
         guard active, canReachHost, !isUpdateInProgress, linkIsReachable,
-              let hostSession, snapshot?.commands.contains(command) == true else { return }
+              let hostSession, snapshot?.supports(command) == true else { return }
         let tapped = Date()
         if pendingID != nil {
             waitingForPoll = PendingCommand(operation: command, session: hostSession, revision: revision, tapped: tapped)
@@ -290,6 +312,7 @@ extension RiValT_WatchDelegate {
         isUpdateInProgress = false
         needsRefresh = false
         connectionFailed = true
+        rewindComplication()
         clearSnapshot()
         scheduleRefresh(in: 1)
     }
@@ -316,8 +339,16 @@ extension RiValT_WatchDelegate {
         hostSession = session
         revision = updatedRevision
         snapshot = state
+        let hostDate = Date(timeIntervalSince1970: repliedAtHost)
         if state.phase != .unavailable {
-            RiValT_ComplicationState.save(state, updatedAt: Date(timeIntervalSince1970: repliedAtHost), source: complicationSource)
+            RiValT_ComplicationState.save(state, updatedAt: hostDate, source: complicationSource, confirmed: true,
+                                          localSampleDate: clock.localDate(forHostDate: hostDate))
+        } else if let data = reply["complicationState"] as? Data, var face = try? PropertyListDecoder().decode(Snapshot.self, from: data) {
+            face.deadline = face.deadline.map(clock.localDate(forHostDate:))
+            RiValT_ComplicationState.save(face, updatedAt: hostDate, source: complicationSource, confirmed: true,
+                                          localSampleDate: clock.localDate(forHostDate: hostDate))
+        } else {
+            rewindComplication()
         }
         connectionFailed = false
         isUpdateInProgress = false
@@ -326,7 +357,7 @@ extension RiValT_WatchDelegate {
         if let intent = waitingForPoll {
             waitingForPoll = nil
             if intent.session == session, intent.revision == updatedRevision,
-               (0..<3).contains(Date().timeIntervalSince(intent.tapped)), state.commands.contains(intent.operation) {
+               (0..<3).contains(Date().timeIntervalSince(intent.tapped)), state.supports(intent.operation) {
                 request(command: intent.operation, tapped: intent.tapped)
                 return
             }
@@ -345,7 +376,9 @@ extension RiValT_WatchDelegate {
         else { return }
         // Use a measured clock correction when available; otherwise paired devices' wall clocks apply.
         state.deadline = state.deadline.map(clock.localDate(forHostDate:))
-        RiValT_ComplicationState.save(state, updatedAt: Date(timeIntervalSince1970: timestamp), source: "phone")
+        let hostDate = Date(timeIntervalSince1970: timestamp)
+        let face = hostIsDisconnected || (active && connectionFailed) ? state.rewoundForComplication : state
+        RiValT_ComplicationState.save(face, updatedAt: hostDate, source: "phone", localSampleDate: clock.localDate(forHostDate: hostDate))
     }
 
     private func scheduleRefresh(in seconds: TimeInterval) {
@@ -366,6 +399,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
             if !self.padLink.usesIPad {
                 self.connectionChanged()
                 if error != nil {
+                    self.rewindComplication()
                     self.connectionFailed = true
                     self.updateHandler?()
                 }

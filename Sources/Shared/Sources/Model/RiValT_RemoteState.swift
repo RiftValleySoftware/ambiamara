@@ -6,8 +6,10 @@ import Foundation
 
 /// The Watch renders a sample from the host. Only the host runs a timer and advances its group.
 enum RiValT_RemoteState {
+    static let complicationConfirmationInterval: TimeInterval = 15 * 60
+
     enum TimerOperation: String, Codable, CaseIterable {
-        case start, pause, resume, stop, reset, fastForward
+        case start, pause, resume, stop, reset, fastForward, rewindGroup
     }
 
     enum Phase: String, Codable {
@@ -34,10 +36,26 @@ enum RiValT_RemoteState {
         let commands: [TimerOperation]
         /// On the Watch, identifies the specific host state the displayed controls describe.
         var stamp: String?
+        /// Advertised separately so older Watches can still decode every value in the commands array.
+        var canRewindGroup: Bool?
         /// Seconds in later timers included in the host's displayed countdown.
         var followingDuration: Int?
         /// The countdown that Play would start while the host editor is showing an individual preset.
         var complicationPresetTime: Int?
+        /// Configured duration to display if the complication loses its host mid-countdown.
+        var complicationRewindTime: Int?
+
+        var rewoundForComplication: Self {
+            // Older hosts only supplied the configured duration while the timer was ready.
+            let preset = complicationRewindTime ?? complicationPresetTime ?? (phase == .ready ? remaining + (followingDuration ?? 0) : nil)
+            return Self(timerID: timerID, groupNumber: groupNumber, timerNumber: timerNumber, groupSize: groupSize,
+                        phase: timerID != nil && preset != nil ? .ready : .unavailable, remaining: preset ?? 0, deadline: nil,
+                        warning: warning, final: final, commands: [], complicationRewindTime: preset)
+        }
+
+        func supports(_ operation: TimerOperation) -> Bool {
+            operation == .rewindGroup ? canRewindGroup == true : commands.contains(operation)
+        }
 
         /// TimerEngine displays ceiling seconds. A delayed message therefore still shows the current second.
         func remaining(at date: Date) -> Int {
@@ -74,10 +92,11 @@ enum RiValT_RemoteState {
         /// Continuous ticks share a command revision. A seek, restart, selection or control change invalidates it.
         func representsSameControlState(as other: Self) -> Bool {
             timerID == other.timerID && groupNumber == other.groupNumber && timerNumber == other.timerNumber
-                && groupSize == other.groupSize && commands == other.commands && warning == other.warning
+                && groupSize == other.groupSize && commands == other.commands && canRewindGroup == other.canRewindGroup && warning == other.warning
                 && final == other.final && deadline == other.deadline
                 && (followingDuration ?? 0) == (other.followingDuration ?? 0)
                 && complicationPresetTime == other.complicationPresetTime
+                && complicationRewindTime == other.complicationRewindTime
                 && (deadline != nil && phase.isCounting && other.phase.isCounting || (phase == other.phase && remaining == other.remaining))
         }
     }
@@ -104,7 +123,7 @@ extension RiValT_RemoteState {
                   (0...4).contains(expires - now.timeIntervalSince1970),
                   request["session"] as? String == session,
                   request["revision"] as? Int == revision,
-                  snapshot?.commands.contains(command) == true else { return nil }
+                  snapshot?.supports(command) == true else { return nil }
             revision += 1
             return command
         }

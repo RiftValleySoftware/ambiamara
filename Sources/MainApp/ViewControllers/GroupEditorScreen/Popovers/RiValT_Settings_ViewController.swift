@@ -20,7 +20,7 @@ import RVS_Checkbox
 /**
  This is a simple popover that shows a list of checkboxes and buttons, affecting global app preferences.
  */
-class RiValT_Settings_ViewController: RiValT_Base_ViewController {
+class RiValT_Settings_ViewController: RiValT_GroupEditor_Popover {
     /* ############################################################## */
     /**
      The storyboard ID for instantiating the class.
@@ -143,7 +143,6 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
      Called when the view has loaded.
      */
     override func viewDidLoad() {
-        self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
         super.viewDidLoad()
         self.startImmediatelyCheckbox?.isOn = RiValT_Settings().startTimerImmediately
         self.oneTapEditCheckbox?.isOn = RiValT_Settings().oneTapEditing
@@ -196,9 +195,11 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         toggle.isOn = remote.isEnabled
         toggle.accessibilityLabel = "SLUG-ACC-WATCH-REMOTE-LABEL".localizedVariant
         toggle.accessibilityHint = "SLUG-ACC-WATCH-REMOTE-HINT".localizedVariant
-        watchStatusObserver = remote.$hostingIssue.sink { [weak self, weak label, weak toggle] issue in
+        watchStatusObserver = remote.$hostingIssue.combineLatest(remote.$connectedWatchName).sink { [weak self, weak label, weak toggle] issue, watchName in
             if let issue {
                 label?.text = issue
+            } else if let watchName {
+                label?.text = watchName
             } else if toggle?.isOn == true {
                 label?.text = String(format: "SLUG-WATCH-REMOTE-NAME".localizedVariant, remote.hostName)
             } else {

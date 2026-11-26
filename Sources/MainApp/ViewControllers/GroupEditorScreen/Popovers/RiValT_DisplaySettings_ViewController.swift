@@ -28,7 +28,7 @@ import RVS_UIKit_Toolbox
  
  - Stoplights
  */
-class RiValT_DisplaySettings_ViewController: RiValT_Base_ViewController {
+class RiValT_DisplaySettings_ViewController: RiValT_GroupEditor_Popover {
     /* ############################################################## */
     /**
      The storyboard ID for instantiating the class.
@@ -74,7 +74,6 @@ extension RiValT_DisplaySettings_ViewController {
      Called when the view has loaded.
      */
     override func viewDidLoad() {
-        self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
         super.viewDidLoad()
         
         guard let groupIndex = self.group?.index else { return }

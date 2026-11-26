@@ -19,19 +19,25 @@ struct Rift_Valley_Timer_Watch_App_Provider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (Rift_Valley_Timer_Watch_App_Entry) -> Void) {
-        completion(context.isPreview ? placeholder(in: context) : .init(date: .now, snapshot: RiValT_ComplicationState.read()?.snapshot))
+        let now = Date()
+        completion(context.isPreview ? placeholder(in: context) : .init(date: now, snapshot: RiValT_ComplicationState.read()?.snapshot(at: now)))
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
         let now = Date()
-        let snapshot = RiValT_ComplicationState.read()?.snapshot
+        let record = RiValT_ComplicationState.read()
+        let snapshot = record?.snapshot(at: now)
+        let rewindDate = record?.rewindDate
         var entries = [Entry(date: now, snapshot: snapshot)]
-        if let deadline = snapshot?.displayDeadline, deadline > now {
+        if let deadline = snapshot?.displayDeadline, deadline > now, deadline < (rewindDate ?? .distantFuture) {
             // WidgetKit counts down between entries. At the displayed deadline, switch to a fixed zero.
             entries.append(Entry(date: deadline, snapshot: snapshot))
         }
-        // State changes request a reload; this is only a periodic recovery opportunity.
-        completion(Timeline(entries: entries, policy: .after(now.addingTimeInterval(900))))
+        if let rewindDate, rewindDate > now {
+            // This entry can appear even if the Watch app is suspended when contact is lost.
+            entries.append(Entry(date: rewindDate, snapshot: record?.snapshot(at: rewindDate)))
+        }
+        completion(Timeline(entries: entries, policy: .after(now.addingTimeInterval(RiValT_ComplicationState.confirmationInterval))))
     }
 }
 

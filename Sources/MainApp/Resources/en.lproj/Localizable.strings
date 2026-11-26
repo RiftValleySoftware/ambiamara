@@ -202,8 +202,10 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 
 // The iPad setting allows one approved Apple Watch to control this device's timer.
 "SLUG-WATCH-REMOTE" = "Watch Remote";
-// %@ is a short unique Bluetooth device name, e.g. RiVal.T-A12B, also visible on the Watch.
-"SLUG-WATCH-REMOTE-NAME" = "Watch · %@";
+// While waiting for a Watch, %@ identifies this iPad in the Watch's nearby iPads list.
+"SLUG-WATCH-REMOTE-NAME" = "iPad · %@";
+// Fallback for a connected Watch whose version of RiVal.T does not report its device name.
+"SLUG-WATCH-REMOTE-CONNECTED" = "Apple Watch";
 "SLUG-WATCH-PAIR-TITLE" = "Allow Watch Remote?";
 // %@ is a four-digit code displayed on the requesting Apple Watch.
 "SLUG-WATCH-PAIR-CODE" = "Allow this Watch to control your timer if it shows the code %@.";
@@ -470,6 +472,9 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 
 "SLUG-ACC-WATCH-STOP-HINT"                       =   "Stops the timer and closes the timer screen on the connected device.";
 "SLUG-ACC-WATCH-REWIND-HINT"                     =   "Rewinds this timer. If it is already at the start, selects the previous timer when available.";
+/* VoiceOver action equivalent to double-tapping the Watch screen while the host is on the Running Timer screen. */
+"SLUG-ACC-WATCH-REWIND-GROUP-LABEL"              =   "Rewind group";
+"SLUG-ACC-WATCH-REWIND-GROUP-HINT"               =   "Returns to the first timer and waits for you to press Play.";
 "SLUG-ACC-WATCH-FORWARD-LABEL"                   =   "Fast forward";
 "SLUG-ACC-WATCH-FORWARD-HINT"                    =   "Advances to the end of this timer or to the next timer in the group.";
 

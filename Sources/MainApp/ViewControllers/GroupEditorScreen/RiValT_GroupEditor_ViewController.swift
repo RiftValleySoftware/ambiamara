@@ -789,6 +789,32 @@ extension RiValT_GroupEditor_ViewController {
         self.performSegue(withIdentifier: Self._timerEditSegueID, sender: inTitle)
     }
 
+    private func presentPopover(_ controller: RiValT_GroupEditor_Popover, from item: UIBarButtonItem) {
+        controller.modalPresentationStyle = .popover
+        guard let popover = controller.popoverPresentationController else { return }
+        popover.delegate = self
+        let bar = navigationController?.navigationBar
+        guard let sourceView = bar ?? view else { return }
+        bar?.layoutIfNeeded()
+        // A view-and-rect anchor keeps the outlined pointer below the button on iOS 26 and later.
+        popover.sourceView = sourceView
+        if let frame = item.frame(in: sourceView), !frame.isEmpty {
+            popover.sourceRect = frame
+        } else if let screen = sourceView.window?.windowScene?.screen, !item.accessibilityFrame.isEmpty {
+            popover.sourceRect = sourceView.convert(item.accessibilityFrame, from: screen.coordinateSpace)
+        } else {
+            let margins = sourceView.layoutMarginsGuide.layoutFrame
+            let isLeading = item === settingsBarButtonItem
+            let isLeft = isLeading == (sourceView.effectiveUserInterfaceLayoutDirection == .leftToRight)
+            let anchorY = bar?.bounds.maxY ?? sourceView.safeAreaLayoutGuide.layoutFrame.minY
+            popover.sourceRect = CGRect(x: isLeft ? margins.minX : margins.maxX, y: anchorY, width: 1, height: 1)
+        }
+        popover.permittedArrowDirections = .up
+        popover.backgroundColor = RiValT_GroupEditor_PopoverBackgroundView.fillColor
+        popover.popoverBackgroundViewClass = RiValT_GroupEditor_PopoverBackgroundView.self
+        self.present(controller, animated: true)
+    }
+
     /* ############################################################## */
     /**
      The sound settings button was hit.
@@ -799,10 +825,7 @@ extension RiValT_GroupEditor_ViewController {
         self.impactHaptic()
         guard let controller = self.storyboard?.instantiateViewController(withIdentifier: RiValT_SoundSettings_ViewController.storyboardID) as? RiValT_SoundSettings_ViewController else { return }
         controller.group = self.timerModel.selectedTimer?.group
-        controller.modalPresentationStyle = .popover
-        controller.popoverPresentationController?.delegate = self
-        controller.popoverPresentationController?.barButtonItem = inBarButtonItem
-        self.present(controller, animated: true, completion: nil)
+        self.presentPopover(controller, from: inBarButtonItem)
     }
 
     /* ############################################################## */
@@ -815,10 +838,7 @@ extension RiValT_GroupEditor_ViewController {
         self.impactHaptic()
         guard let controller = self.storyboard?.instantiateViewController(withIdentifier: RiValT_DisplaySettings_ViewController.storyboardID) as? RiValT_DisplaySettings_ViewController else { return }
         controller.group = self.timerModel.selectedTimer?.group
-        controller.modalPresentationStyle = .popover
-        controller.popoverPresentationController?.delegate = self
-        controller.popoverPresentationController?.barButtonItem = inBarButtonItem
-        self.present(controller, animated: true, completion: nil)
+        self.presentPopover(controller, from: inBarButtonItem)
     }
 
     /* ############################################################## */
@@ -830,11 +850,8 @@ extension RiValT_GroupEditor_ViewController {
     @IBAction func settingsButtonHit(_ inBarButtonItem: UIBarButtonItem) {
         self.impactHaptic()
         guard let controller = self.storyboard?.instantiateViewController(withIdentifier: RiValT_Settings_ViewController.storyboardID) as? RiValT_Settings_ViewController else { return }
-        controller.modalPresentationStyle = .popover
-        controller.popoverPresentationController?.delegate = self
-        controller.popoverPresentationController?.barButtonItem = inBarButtonItem
         controller.myOwner = self
-        self.present(controller, animated: true, completion: nil)
+        self.presentPopover(controller, from: inBarButtonItem)
     }
     
     /* ############################################################## */

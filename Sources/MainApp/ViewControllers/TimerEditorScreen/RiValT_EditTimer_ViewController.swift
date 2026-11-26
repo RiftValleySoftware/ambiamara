@@ -277,9 +277,9 @@ extension RiValT_EditTimer_ViewController {
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if let groupSummaryLabel {
-            // Use the space above the controls only when the entire summary fits.
-            groupSummaryLabel.isHidden = groupSummaryLabel.frame.minY < self.view.safeAreaLayoutGuide.layoutFrame.minY
+        if let groupSummaryLabel, let summaryContainer = groupSummaryLabel.superview {
+            // Keep at least eight points clear above and below the centered text.
+            groupSummaryLabel.isHidden = groupSummaryLabel.bounds.height + 16 > summaryContainer.bounds.height
         }
         self.timeTypeSegmentedControl?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: self.isDarkMode ? UIColor.black : UIColor.label], for: .selected)
         self.timeSetPicker?.reloadAllComponents()

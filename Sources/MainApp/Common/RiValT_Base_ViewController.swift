@@ -113,6 +113,9 @@ class RiValT_Base_ViewController: UIViewController {
      The layer with the background gradient.
      */
     weak var gradientLayer: CALayer?
+
+    /// Full screens use the app gradient. A popover supplies its own opaque background.
+    var usesBackgroundGradient: Bool { true }
 }
 
 /* ###################################################################################################################################### */
@@ -233,7 +236,7 @@ extension RiValT_Base_ViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.gradientLayer?.removeFromSuperlayer()
-        guard !self.isHighContrastMode,
+        guard self.usesBackgroundGradient, !self.isHighContrastMode,
               let view = self.view
         else { return }
         

@@ -35,7 +35,7 @@ import AVKit
 
  The final alarm label follows, with a picker for Sound Only or Sound and Vibration.
  */
-class RiValT_SoundSettings_ViewController: RiValT_Base_ViewController {
+class RiValT_SoundSettings_ViewController: RiValT_GroupEditor_Popover {
     /** Vertical space between each section label and its sound picker. */
     private static let _labelToPickerSpacing: CGFloat = 4
 
@@ -219,7 +219,6 @@ extension RiValT_SoundSettings_ViewController {
      Called when the view has loaded.
      */
     override func viewDidLoad() {
-        self.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
         for label in [self.transitionPickerLabel, self.soundTypeLabel].compactMap({ $0 }) {
             (label.superview as? UIStackView)?.setCustomSpacing(Self._labelToPickerSpacing, after: label)
         }

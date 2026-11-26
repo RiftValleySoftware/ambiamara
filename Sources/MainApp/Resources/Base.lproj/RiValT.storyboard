@@ -205,7 +205,7 @@
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="SLUG-ABOUT-BUTTON">
-                                            <color key="titleColor" systemColor="labelColor"/>
+                                            <color key="titleColor" name="AccentColor"/>
                                         </state>
                                         <connections>
                                             <action selector="aboutButtonHit:" destination="XBS-Mo-d1E" eventType="touchUpInside" id="JV4-xj-Trb"/>
@@ -397,11 +397,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aqU-Gu-Kyd" userLabel="Group Summary">
-                                <rect key="frame" x="16" y="264" width="361" height="18"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                <color key="textColor" systemColor="labelColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VYj-Sg-8qC" userLabel="Group Summary Container">
+                                <rect key="frame" x="16" y="59" width="361" height="239"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aqU-Gu-Kyd" userLabel="Group Summary">
+                                        <rect key="frame" x="0.0" y="110.5" width="361" height="18"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="aqU-Gu-Kyd" firstAttribute="leading" secondItem="VYj-Sg-8qC" secondAttribute="leading" id="E5z-fB-er6"/>
+                                    <constraint firstItem="aqU-Gu-Kyd" firstAttribute="trailing" secondItem="VYj-Sg-8qC" secondAttribute="trailing" id="1pJ-T4-Pt1"/>
+                                    <constraint firstItem="aqU-Gu-Kyd" firstAttribute="centerY" secondItem="VYj-Sg-8qC" secondAttribute="centerY" id="MQ6-U9-W47"/>
+                                </constraints>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mcb-qQ-Xdq">
                                 <rect key="frame" x="16" y="298" width="361" height="256"/>
                                 <subviews>
@@ -537,9 +547,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="aqU-Gu-Kyd" firstAttribute="leading" secondItem="mcb-qQ-Xdq" secondAttribute="leading" id="E5z-fB-er6"/>
-                            <constraint firstItem="aqU-Gu-Kyd" firstAttribute="trailing" secondItem="mcb-qQ-Xdq" secondAttribute="trailing" id="1pJ-T4-Pt1"/>
-                            <constraint firstItem="mcb-qQ-Xdq" firstAttribute="top" secondItem="aqU-Gu-Kyd" secondAttribute="bottom" constant="16" id="GhA-RV-Nrk"/>
+                            <constraint firstItem="VYj-Sg-8qC" firstAttribute="leading" secondItem="mcb-qQ-Xdq" secondAttribute="leading" id="3ht-b8-fGm"/>
+                            <constraint firstItem="VYj-Sg-8qC" firstAttribute="trailing" secondItem="mcb-qQ-Xdq" secondAttribute="trailing" id="D9b-cs-4Ev"/>
+                            <constraint firstItem="VYj-Sg-8qC" firstAttribute="top" secondItem="ITz-Ty-22n" secondAttribute="top" id="bUd-pG-O2Q"/>
+                            <constraint firstItem="mcb-qQ-Xdq" firstAttribute="top" secondItem="VYj-Sg-8qC" secondAttribute="bottom" id="GhA-RV-Nrk"/>
                             <constraint firstItem="mcb-qQ-Xdq" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" constant="16" id="06z-Y4-h63"/>
                             <constraint firstItem="2tz-2H-cb2" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" constant="20" id="9rU-DC-v5O"/>
                             <constraint firstItem="2tz-2H-cb2" firstAttribute="top" secondItem="mcb-qQ-Xdq" secondAttribute="bottom" id="Dmc-QH-ByM"/>
@@ -587,6 +598,7 @@
                                     <segment title="" image="DisplayCircle"/>
                                     <segment title="" image="DisplayDots"/>
                                 </segments>
+                                <color key="selectedSegmentTintColor" name="AccentColor"/>
                                 <connections>
                                     <action selector="displaySelectionChanged:" destination="7rj-Oc-ByP" eventType="valueChanged" id="jDL-do-zRA"/>
                                 </connections>
@@ -720,6 +732,7 @@
                                             <segment title=""/>
                                             <segment title=""/>
                                         </segments>
+                                        <color key="selectedSegmentTintColor" name="AccentColor"/>
                                         <connections>
                                             <action selector="alarmModeSegmentedSwitchHit:" destination="Ve2-9T-BtJ" eventType="valueChanged" id="peK-BF-ErJ"/>
                                         </connections>
@@ -755,7 +768,7 @@
                                                     <constraint firstAttribute="width" secondItem="H2W-hf-y7R" secondAttribute="height" multiplier="8:5" id="YBv-xP-lkU"/>
                                                     <constraint firstAttribute="width" constant="40" id="kfm-CP-Woo"/>
                                                 </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <color key="tintColor" name="AccentColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal">
                                                     <imageReference key="image" image="speaker.fill" catalog="system" symbolScale="large"/>
@@ -809,7 +822,7 @@
                                                     <constraint firstAttribute="width" constant="40" id="7H4-OX-tLd"/>
                                                     <constraint firstAttribute="width" secondItem="nLc-gT-2tz" secondAttribute="height" multiplier="8:5" id="84k-Nh-CGh"/>
                                                 </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <color key="tintColor" name="AccentColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal">
                                                     <imageReference key="image" image="speaker.fill" catalog="system" symbolScale="large"/>

@@ -684,6 +684,10 @@ extension RiValT_RunningTimer_ContainerViewController {
      This resets the timer to the start.
      */
     func rewindHit() {
+        if self.timer?.isTimerInAlarm == true, self.isLastTimer {
+            self.rewindToGroupStart()
+            return
+        }
         self._alarmTimer?.isRunning = false
         if self.timer?.isTimerAtStart ?? false,
            let prevTimer = self.prevTimer {
@@ -700,22 +704,34 @@ extension RiValT_RunningTimer_ContainerViewController {
             if let row = self.timer?.indexPath?.row {
                 self.flashTimerNumber(row)
             }
-        } else if self.timer?.isTimerInAlarm ?? false,
-                  self.isLastTimer,
-                  1 < self.count,
-                  let resetTimer = self.firstTimer {
-            self.timer?.stop()
-            resetTimer.stop()
-            resetTimer.tickHandler = self.tickHandler
-            resetTimer.transitionHandler = self.transitionHandler
-            resetTimer.isSelected = true
-            self.timer = resetTimer
-            self.watchDelegate?.updateSettings()
-            if let row = resetTimer.indexPath?.row { self.flashTimerNumber(row) }
         } else {
             self.timer?.stop()
         }
         
+        self.updateDisplays()
+    }
+
+    /// Return to the group's first playable preset and leave it waiting for Play on this screen.
+    func rewindToGroupStart() {
+        guard let current = self.timer else { return }
+        self._alarmTimer?.isRunning = false
+        self._audioPlayer?.stop()
+        self._autoHideTimer?.isRunning = false
+        if let first = self.groupTimers.first(where: { $0.startingTimeInSeconds > 0 }), first !== current {
+            current.tickHandler = nil
+            current.transitionHandler = nil
+            current.stop()
+            first.stop()
+            first.tickHandler = self.tickHandler
+            first.transitionHandler = self.transitionHandler
+            first.isSelected = true
+            self.timer = first
+            self.watchDelegate?.updateSettings()
+            if let row = first.indexPath?.row { self.flashTimerNumber(row) }
+        } else {
+            current.stop()
+        }
+        self.showToolbar()
         self.updateDisplays()
     }
     
@@ -1172,31 +1188,13 @@ extension RiValT_RunningTimer_ContainerViewController {
      - parameter: Ignored.
      */
     @IBAction func singleTapReceived(_: Any) {
+        if self.timer?.isTimerInAlarm == true {
+            self.rewindToGroupStart()
+            return
+        }
         self._alarmTimer?.isRunning = false
         self._audioPlayer?.stop()
-        if self.timer?.isTimerInAlarm ?? false {
-            self.timer?.stop()
-            if 1 < self.count,
-               let firstTimer = self.firstTimer {
-                self.timer?.tickHandler = nil
-                self.timer?.transitionHandler = nil
-                self.timer?.stop()
-                self.timer = nil
-                firstTimer.stop()
-                firstTimer.tickHandler = self.tickHandler
-                firstTimer.transitionHandler = self.transitionHandler
-                firstTimer.isSelected = true
-                self.timer = firstTimer
-                self.watchDelegate?.updateSettings()
-                if let row = self.timer?.indexPath?.row {
-                    self.flashTimerNumber(row)
-                }
-            }
-            
-            if RiValT_Settings().autoHideToolbar {
-                self.showToolbar()
-            }
-        } else if !RiValT_Settings().displayToolbar {
+        if !RiValT_Settings().displayToolbar {
             self.playPauseHit()
         } else if RiValT_Settings().autoHideToolbar {
             self.showToolbar()
@@ -1480,6 +1478,7 @@ extension RiValT_RunningTimer_ContainerViewController: RVS_BasicGCDTimerDelegate
                 }
                 
             case self?._alarmTimer:
+                guard self?._alarmTimer?.isRunning == true, self?.timer?.isTimerInAlarm == true else { return }
                 #if DEBUG
                     print("Triggering the alarm timer")
                 #endif

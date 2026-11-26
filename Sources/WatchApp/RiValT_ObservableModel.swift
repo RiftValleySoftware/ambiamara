@@ -98,7 +98,7 @@ final class RiValT_ObservableModel: ObservableObject {
         guard !self.isSendingCommand else { return }
         guard let current = self.snapshot,
               let stamp = displayed.stamp, current.stamp == stamp,
-              current.commands.contains(operation),
+              current.supports(operation),
               current.deadline.map({ $0 > .now }) ?? true
         else {
             self.connection.refresh()

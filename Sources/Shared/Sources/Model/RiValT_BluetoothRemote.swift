@@ -8,6 +8,8 @@ import Combine
 import Foundation
 #if os(iOS)
 import UIKit
+#elseif os(watchOS)
+import WatchKit
 #endif
 
 /// A foreground iPad can vend the same request/reply protocol as the paired phone.
@@ -21,6 +23,7 @@ final class RiValT_BluetoothRemote: NSObject, ObservableObject {
         case begin = 1, continuation, end, whole, changed, authorization, ready, denied
     }
     private static let maximumPacket = 16_384
+    private static let watchNameKey = "watchName"
     private static func encode(_ message: [String: Any]) -> Data? {
         guard let data = try? PropertyListSerialization.data(fromPropertyList: message, format: .binary, options: 0),
               data.count <= maximumPacket else { return nil }
@@ -93,6 +96,7 @@ final class RiValT_BluetoothRemote: NSObject, ObservableObject {
     private var denied = false
     private var outgoing = [Data]()
     private var requestID = UInt32.zero
+    private var reportedWatchName: String?
     private var onReply: (([String: Any]) -> Void)?
     private var onFailure: (() -> Void)?
     private var timeout: DispatchWorkItem?
@@ -201,7 +205,14 @@ final class RiValT_BluetoothRemote: NSObject, ObservableObject {
     }
 
     func request(_ message: [String: Any], reply: @escaping ([String: Any]) -> Void, failure: @escaping () -> Void) {
-        guard usesIPad, isConnected, onReply == nil, let peer, let channel, let data = Self.encode(message) else {
+        guard usesIPad, isConnected, onReply == nil, let peer, let channel else {
+            failure()
+            return
+        }
+        var packet = message
+        let watchName = WKInterfaceDevice.current().name
+        if watchName != reportedWatchName { packet[Self.watchNameKey] = watchName }
+        guard let data = Self.encode(packet) else {
             failure()
             return
         }
@@ -210,7 +221,10 @@ final class RiValT_BluetoothRemote: NSObject, ObservableObject {
         outgoing = Self.frames(data, id: requestID, mtu: min(peer.maximumWriteValueLength(for: .withResponse),
                                                              peer.maximumWriteValueLength(for: .withoutResponse)))
         guard !outgoing.isEmpty else { failure(); return }
-        onReply = reply
+        onReply = { [weak self] response in
+            self?.reportedWatchName = watchName
+            reply(response)
+        }
         onFailure = failure
         let item = DispatchWorkItem { [weak self] in self?.failRequest() }
         timeout = item
@@ -248,6 +262,7 @@ final class RiValT_BluetoothRemote: NSObject, ObservableObject {
     private var subscriber: CBCentral?
     private weak var permissionAlert: UIAlertController?
     @Published private(set) var hostingIssue: String?
+    @Published private(set) var connectedWatchName: String?
     private var hostRetry: DispatchWorkItem?
     private var retryDelay: TimeInterval = 1
     private var serviceAdded = false
@@ -332,6 +347,7 @@ final class RiValT_BluetoothRemote: NSObject, ObservableObject {
 
     private func releaseSubscriber() {
         subscriber = nil
+        connectedWatchName = nil
         output.removeAll()
         incoming = Assembly()
         permissionAlert?.dismiss(animated: false)
@@ -343,9 +359,15 @@ final class RiValT_BluetoothRemote: NSObject, ObservableObject {
         return subscriber.identifier.uuidString == UserDefaults.standard.string(forKey: "remote.approvedWatch")
     }
 
+    private func confirmWatchConnection() {
+        // Older Watch releases do not send a name with their requests.
+        connectedWatchName = NSLocalizedString("SLUG-WATCH-REMOTE-CONNECTED", comment: "")
+        queue(Data([Code.ready.rawValue]))
+    }
+
     private func authorize(_ central: CBCentral) {
         if approved {
-            queue(Data([Code.ready.rawValue]))
+            confirmWatchConnection()
             return
         }
         guard UserDefaults.standard.string(forKey: "remote.approvedWatch") == nil,
@@ -371,7 +393,7 @@ final class RiValT_BluetoothRemote: NSObject, ObservableObject {
         let allow = UIAlertAction(title: NSLocalizedString("SLUG-WATCH-PAIR-ALLOW", comment: ""), style: .default) { [weak self] _ in
             guard let self, self.subscriber?.identifier == central.identifier, self.isEnabled else { return }
             UserDefaults.standard.set(central.identifier.uuidString, forKey: "remote.approvedWatch")
-            self.queue(Data([Code.ready.rawValue]))
+            self.confirmWatchConnection()
         }
         allow.setAccessibility(label: "SLUG-ACC-WATCH-PAIR-ALLOW-LABEL", hint: "SLUG-ACC-WATCH-PAIR-ALLOW-HINT")
         alert.addAction(allow)
@@ -478,6 +500,7 @@ extension RiValT_BluetoothRemote: CBCentralManagerDelegate, CBPeripheralDelegate
               let byte = frame.first, let code = Code(rawValue: byte) else { return }
         switch code {
         case .ready:
+            reportedWatchName = nil
             status = ""
             isConnected = true
             onConnectionChange?()
@@ -562,6 +585,10 @@ extension RiValT_BluetoothRemote: CBPeripheralManagerDelegate {
         peripheral.respond(to: first, withResult: .success)
         for request in requests {
             guard let data = request.value, let (id, message) = incoming.accept(data) else { continue }
+            if let name = (message[Self.watchNameKey] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines),
+               !name.isEmpty, name != connectedWatchName {
+                connectedWatchName = name
+            }
             handler(message) { [weak self] response in
                 guard let self, self.subscriber?.identifier == subscriber.identifier, self.channel === channel, self.approved,
                       let bytes = Self.encode(response) else { return }

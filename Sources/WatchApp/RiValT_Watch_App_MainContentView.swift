@@ -40,8 +40,7 @@ struct RiValT_Watch_App_MainContentView: View {
                 self.connectionView
             }
         }
-        .accessibilityHidden(self.model.snapshot?.phase == .alarm)
-        .overlay { self.alarmTapCatcher }
+        .modifier(TimerScreenGestures(model: self.model))
         .onChange(of: self.scenePhase, initial: true) {
             self.model.setActive(self.scenePhase == .active)
         }
@@ -84,23 +83,7 @@ struct RiValT_Watch_App_MainContentView: View {
                     .navigationTitle(watchText("SLUG-CONTROLS"))
                 }
             }
-            .accessibilityHidden(self.model.snapshot?.phase == .alarm)
-            .overlay { self.alarmTapCatcher }
-        }
-    }
-
-    /// Consume alarm taps before they can activate any underlying control.
-    @ViewBuilder private var alarmTapCatcher: some View {
-        if let snapshot = self.model.snapshot, snapshot.phase == .alarm {
-            Color.clear
-                .contentShape(Rectangle())
-                .ignoresSafeArea()
-                .onTapGesture { self.model.send(.reset, for: snapshot) }
-                .accessibilityElement()
-                .accessibilityLabel("SLUG-ACC-WATCH-ALARM-LABEL")
-                .accessibilityHint("SLUG-ACC-WATCH-ALARM-HINT")
-                .accessibilityAddTraits(.isButton)
-                .accessibilityAction { self.model.send(.reset, for: snapshot) }
+            .modifier(TimerScreenGestures(model: self.model))
         }
     }
 
@@ -256,6 +239,47 @@ struct RiValT_Watch_App_MainContentView: View {
     }
 }
 
+/// Apply the same screen-wide gestures to the timer and to any sheet above it.
+private struct TimerScreenGestures: ViewModifier {
+    @ObservedObject var model: RiValT_ObservableModel
+
+    func body(content: Content) -> some View {
+        let snapshot = model.snapshot
+        let isAlarm = snapshot?.phase == .alarm
+        let canRewind = !isAlarm && snapshot?.supports(.rewindGroup) == true
+        return content
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .contentShape(Rectangle())
+            .highPriorityGesture(TapGesture(count: 2).onEnded {
+                if let snapshot { model.send(.rewindGroup, for: snapshot) }
+            }, including: canRewind ? .all : .subviews)
+            .accessibilityActions {
+                if canRewind, let snapshot {
+                    Button { model.send(.rewindGroup, for: snapshot) } label: { Operation.rewindGroup.spokenLabel }
+                        .accessibilityHint(Operation.rewindGroup.spokenHint)
+                }
+            }
+            .accessibilityHidden(isAlarm)
+            .overlay {
+                if isAlarm, let snapshot {
+                    // A double tap during an alarm also dismisses it just once.
+                    let rewind: Operation = snapshot.supports(.rewindGroup) ? .rewindGroup : .reset
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .ignoresSafeArea()
+                        .gesture(TapGesture(count: 2).exclusively(before: TapGesture()).onEnded { _ in
+                            model.send(rewind, for: snapshot)
+                        })
+                        .accessibilityElement()
+                        .accessibilityLabel("SLUG-ACC-WATCH-ALARM-LABEL")
+                        .accessibilityHint("SLUG-ACC-WATCH-ALARM-HINT")
+                        .accessibilityAddTraits(.isButton)
+                        .accessibilityAction { model.send(rewind, for: snapshot) }
+                }
+            }
+    }
+}
+
 private struct DevicePicker: View {
     @ObservedObject private var bluetooth = RiValT_BluetoothRemote.shared
     let close: () -> Void
@@ -346,6 +370,7 @@ private extension RiValT_WatchDelegate.TimerOperation {
         case .pause:       Text("SLUG-ACC-PAUSE-LABEL")
         case .stop:        Text("SLUG-ACC-STOP-LABEL")
         case .reset:       Text("SLUG-ACC-REWIND-LABEL")
+        case .rewindGroup: Text("SLUG-ACC-WATCH-REWIND-GROUP-LABEL")
         case .fastForward: Text("SLUG-ACC-WATCH-FORWARD-LABEL")
         }
     }
@@ -357,6 +382,7 @@ private extension RiValT_WatchDelegate.TimerOperation {
         case .pause:       Text("SLUG-ACC-PAUSE-HINT")
         case .stop:        Text("SLUG-ACC-WATCH-STOP-HINT")
         case .reset:       Text("SLUG-ACC-WATCH-REWIND-HINT")
+        case .rewindGroup: Text("SLUG-ACC-WATCH-REWIND-GROUP-HINT")
         case .fastForward: Text("SLUG-ACC-WATCH-FORWARD-HINT")
         }
     }
@@ -368,6 +394,7 @@ private extension RiValT_WatchDelegate.TimerOperation {
         case .pause:       return Label(watchText("SLUG-PAUSE"), systemImage: "pause.fill")
         case .stop:        return Label(watchText("SLUG-STOP"), systemImage: "stop.fill")
         case .reset:       return Label(watchText("SLUG-REWIND"), systemImage: "backward.end.fill")
+        case .rewindGroup: return Label(watchText("SLUG-ACC-WATCH-REWIND-GROUP-LABEL"), systemImage: "backward.end.fill")
         case .fastForward: return Label(watchText("SLUG-FORWARD"), systemImage: "forward.end.fill")
         }
     }

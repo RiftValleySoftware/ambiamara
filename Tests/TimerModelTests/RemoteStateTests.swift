@@ -97,6 +97,32 @@ final class RemoteStateTests: XCTestCase {
          "expires": deadline.addingTimeInterval(3).timeIntervalSince1970]
     }
 
+    func testGroupRewindRequiresAnAdvertisedCapabilityAndCurrentRevision() throws {
+        var host = Remote.Host()
+        var ready = sample(phase: .ready, commands: [.start, .stop])
+        func rewindRequest() -> [String: Any] {
+            ["command": "rewindGroup", "session": host.session, "revision": host.revision,
+             "expires": deadline.addingTimeInterval(3).timeIntervalSince1970]
+        }
+        host.update(ready)
+        XCTAssertNil(host.consumeCommand(rewindRequest(), at: deadline))
+
+        ready.canRewindGroup = true
+        let encoded = try PropertyListEncoder().encode(ready)
+        let received = try PropertyListDecoder().decode(Remote.Snapshot.self, from: encoded)
+        XCTAssertTrue(received.supports(.rewindGroup))
+        XCTAssertEqual(received.commands, [.start, .stop])
+        host.update(received)
+        let request = rewindRequest()
+        XCTAssertEqual(host.consumeCommand(request, at: deadline), .rewindGroup)
+        XCTAssertNil(host.consumeCommand(request, at: deadline))
+
+        let queued = rewindRequest()
+        ready.canRewindGroup = nil
+        host.update(ready)
+        XCTAssertNil(host.consumeCommand(queued, at: deadline))
+    }
+
     func testDuplicateCommandCannotPauseAgainAfterResume() {
         var host = Remote.Host()
         let running = sample(deadline: deadline.addingTimeInterval(12))
@@ -242,6 +268,78 @@ final class ComplicationStateTests: XCTestCase {
             let countdown = Store.read(from: defaults)?.snapshot
             XCTAssertEqual(countdown?.complicationRemaining(at: now.addingTimeInterval(120)), 120)
             XCTAssertEqual(countdown?.complicationRemaining(at: now.addingTimeInterval(240)), 0)
+        }
+    }
+
+    func testDisconnectRestoresTheConfiguredPresetAndRemovesTheLiveDeadline() {
+        withStore { defaults in
+            let now = Date()
+            var running = sample(.countdown, seconds: 42, deadline: now.addingTimeInterval(42))
+            running.followingDuration = 30
+            running.complicationRewindTime = 180
+            Store.save(running, updatedAt: now, source: "phone", in: defaults)
+            Store.rewind(source: "ipad-test", at: now, in: defaults)
+            XCTAssertEqual(Store.read(from: defaults)?.snapshot.complicationRemaining(at: now), 72)
+
+            Store.rewind(source: "phone", at: now.addingTimeInterval(1), in: defaults)
+            let stopped = Store.read(from: defaults)?.snapshot
+            XCTAssertEqual(stopped?.phase, .ready)
+            XCTAssertNil(stopped?.displayDeadline)
+            XCTAssertEqual(stopped?.complicationRemaining(at: now.addingTimeInterval(2)), 180)
+            XCTAssertEqual(stopped?.complicationRemaining(at: now.addingTimeInterval(600)), 180)
+        }
+    }
+
+    func testDelayedContextCannotRestartCountdownAfterDisconnect() {
+        withStore { defaults in
+            let now = Date()
+            var running = sample(.countdown, seconds: 15, deadline: now.addingTimeInterval(15))
+            running.complicationRewindTime = 90
+            Store.save(running, updatedAt: now, source: "phone", in: defaults)
+            Store.rewind(source: "phone", at: now.addingTimeInterval(2), in: defaults)
+
+            // This context was newer than the live sample but was sent before the disconnection.
+            Store.save(running, updatedAt: now.addingTimeInterval(1), source: "phone", in: defaults)
+            XCTAssertEqual(Store.read(from: defaults)?.snapshot.complicationRemaining(at: now.addingTimeInterval(5)), 90)
+            XCTAssertNil(Store.read(from: defaults)?.snapshot.displayDeadline)
+
+            Store.save(running, updatedAt: now.addingTimeInterval(6), source: "phone", in: defaults)
+            XCTAssertEqual(Store.read(from: defaults)?.snapshot.complicationRemaining(at: now.addingTimeInterval(7)), 8)
+        }
+    }
+
+    func testDisconnectUsesOnlyKnownPresetTimesFromOlderHosts() {
+        let now = Date()
+        let running = sample(.countdown, seconds: 42, deadline: now.addingTimeInterval(42))
+        XCTAssertEqual(running.rewoundForComplication.phase, .unavailable)
+        XCTAssertNil(running.rewoundForComplication.displayDeadline)
+
+        var ready = sample(.ready, seconds: 120)
+        ready.complicationPresetTime = 150
+        XCTAssertEqual(ready.rewoundForComplication.complicationRemaining(at: now), 150)
+    }
+
+    func testUnconfirmedPhoneCountdownRewindsAndAConfirmationExtendsItsTimeline() throws {
+        try withStore { defaults in
+            let now = Date()
+            let interval = Store.confirmationInterval
+            let deadline = now.addingTimeInterval(8 * interval)
+            var running = sample(.countdown, seconds: Int(8 * interval), deadline: deadline)
+            running.complicationRewindTime = 10_800
+            Store.save(running, updatedAt: now, source: "phone", in: defaults)
+            let first = try XCTUnwrap(Store.read(from: defaults))
+            let firstExpiry = try XCTUnwrap(first.rewindDate)
+            XCTAssertEqual(first.snapshot(at: firstExpiry.addingTimeInterval(-1)).displayDeadline, deadline)
+            XCTAssertNil(first.snapshot(at: firstExpiry).displayDeadline)
+            XCTAssertEqual(first.snapshot(at: firstExpiry).complicationRemaining(at: firstExpiry), 10_800)
+
+            let confirmation = now.addingTimeInterval(interval + 1)
+            Store.save(running, updatedAt: confirmation, source: "phone", in: defaults)
+            let renewed = try XCTUnwrap(Store.read(from: defaults))
+            let nextExpiry = try XCTUnwrap(renewed.rewindDate)
+            XCTAssertGreaterThan(nextExpiry, firstExpiry)
+            XCTAssertEqual(renewed.snapshot(at: firstExpiry).displayDeadline, deadline)
+            XCTAssertEqual(renewed.snapshot(at: nextExpiry).phase, .ready)
         }
     }
 
