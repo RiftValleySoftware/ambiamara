@@ -404,6 +404,9 @@ extension RiValT_RunningTimer_ContainerViewController {
         appearance.backgroundImage = nil
         self.controlToolbar?.standardAppearance = appearance
         self.controlToolbar?.scrollEdgeAppearance = appearance
+        if #available(iOS 26.0, *) {
+            self.controlToolbar?.items?.forEach { $0.hidesSharedBackground = true }
+        }
         self.pausedLabel?.text = self.pausedLabel?.text?.localizedVariant
         if let tapper = self.singleTapGestureRecognizer,
            let leftSwipe = self.leftSwipeGestureRecognizer,

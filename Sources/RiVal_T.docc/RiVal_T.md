@@ -30,7 +30,7 @@ The main application target is implemented, using Apple's [`UIKit`](https://deve
 
 #### The Watch App and Watch Complication Targets
 
-RiVal.T Remote is a SwiftUI companion embedded in the iOS app. It connects to the paired iPhone through WatchConnectivity. To control an iPad, turn on **Watch Remote** in RiVal.T’s settings on iPad. On the Watch, open **Timer device**, choose **Find nearby iPads**, and select the name shown on the iPad. Check that the pairing code matches and tap **Allow** on the iPad. Close settings and keep RiVal.T in the foreground on the device running the timer. The complication is a separate development target.
+RiVal.T Remote is a SwiftUI companion embedded in the iOS app. It connects to the paired iPhone through WatchConnectivity. To control an iPad, turn on **Watch Remote** in RiVal.T’s settings on iPad. On the Watch, open **Timer device**, choose **Find nearby iPads**, and select a nearby RiVal.T device. When the pairing codes on the Watch and this iPad match, tap **Allow** on the iPad. Close settings and keep RiVal.T in the foreground on the device running the timer. The complication is a separate development target.
 
 #### The Test Targets
 

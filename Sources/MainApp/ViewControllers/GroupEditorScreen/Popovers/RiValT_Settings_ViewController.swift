@@ -195,16 +195,8 @@ class RiValT_Settings_ViewController: RiValT_GroupEditor_Popover {
         toggle.isOn = remote.isEnabled
         toggle.accessibilityLabel = "SLUG-ACC-WATCH-REMOTE-LABEL".localizedVariant
         toggle.accessibilityHint = "SLUG-ACC-WATCH-REMOTE-HINT".localizedVariant
-        watchStatusObserver = remote.$hostingIssue.combineLatest(remote.$connectedWatchName).sink { [weak self, weak label, weak toggle] issue, watchName in
-            if let issue {
-                label?.text = issue
-            } else if let watchName {
-                label?.text = watchName
-            } else if toggle?.isOn == true {
-                label?.text = String(format: "SLUG-WATCH-REMOTE-NAME".localizedVariant, remote.hostName)
-            } else {
-                label?.text = "SLUG-WATCH-REMOTE".localizedVariant
-            }
+        watchStatusObserver = remote.$hostingIssue.combineLatest(remote.$connectedWatchName).sink { [weak self, weak label] issue, watchName in
+            label?.text = issue ?? watchName ?? "SLUG-WATCH-REMOTE".localizedVariant
             self?.view.setNeedsLayout()
         }
         toggle.addAction(UIAction { [weak toggle] _ in

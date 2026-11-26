@@ -202,8 +202,6 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 
 // The iPad setting allows one approved Apple Watch to control this device's timer.
 "SLUG-WATCH-REMOTE" = "Watch Remote";
-// While waiting for a Watch, %@ identifies this iPad in the Watch's nearby iPads list.
-"SLUG-WATCH-REMOTE-NAME" = "iPad · %@";
 // Fallback for a connected Watch whose version of RiVal.T does not report its device name.
 "SLUG-WATCH-REMOTE-CONNECTED" = "Apple Watch";
 "SLUG-WATCH-PAIR-TITLE" = "Allow Watch Remote?";
