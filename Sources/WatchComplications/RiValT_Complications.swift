@@ -71,32 +71,38 @@ struct Rift_Valley_Timer_ComplicationsEntryView: View {
     @Environment(\.widgetRenderingMode) private var renderingMode
     let entry: Rift_Valley_Timer_Watch_App_Entry
 
-    /// Use an actual template image, including in inline labels where arbitrary view effects are unsupported.
-    private static let templateLogo: UIImage = {
-        guard let source = UIImage(named: "TemplateLogo")?.cgImage else { return UIImage() }
-        let width = source.width
-        let height = source.height
-        let bytesPerRow = width * 4
+    private static let fullColorLogo = loadLogo(named: "VectorLogo", asTemplate: false)
+    private static let templateLogo = loadLogo(named: "TemplateLogo", asTemplate: true)
+
+    private static func loadLogo(named name: String, asTemplate: Bool) -> UIImage {
+        guard let source = UIImage(named: name)?.cgImage else { return UIImage() }
+        // WidgetKit archives the image at its pixel size before SwiftUI lays it out.
+        // Keep the image below the limit for small complication placeholders.
+        let side = 64
+        let bytesPerRow = side * 4
         let bitmap = CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
-        guard let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8,
-                                      bytesPerRow: bytesPerRow, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: bitmap),
-              let data = context.data else { return UIImage() }
-        context.draw(source, in: CGRect(x: 0, y: 0, width: width, height: height))
-        let pixels = data.bindMemory(to: UInt8.self, capacity: bytesPerRow * height)
-        for offset in stride(from: 0, to: bytesPerRow * height, by: 4) {
-            // The supplied tinted icon is white on black. Its luminance becomes template opacity.
-            let alpha = pixels[offset]
-            pixels[offset] = alpha
-            pixels[offset + 1] = alpha
-            pixels[offset + 2] = alpha
-            pixels[offset + 3] = alpha
+        guard let context = CGContext(data: nil, width: side, height: side, bitsPerComponent: 8,
+                                      bytesPerRow: bytesPerRow, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: bitmap) else { return UIImage() }
+        context.interpolationQuality = .high
+        context.draw(source, in: CGRect(x: 0, y: 0, width: side, height: side))
+        if asTemplate, let data = context.data {
+            // Convert the white-on-black artwork to template opacity, including for inline labels.
+            let byteCount = bytesPerRow * side
+            let pixels = data.bindMemory(to: UInt8.self, capacity: byteCount)
+            for offset in stride(from: 0, to: byteCount, by: 4) {
+                let alpha = pixels[offset]
+                pixels[offset] = alpha
+                pixels[offset + 1] = alpha
+                pixels[offset + 2] = alpha
+                pixels[offset + 3] = alpha
+            }
         }
         guard let image = context.makeImage() else { return UIImage() }
-        return UIImage(cgImage: image)
-    }()
+        return UIImage(cgImage: image, scale: 2, orientation: .up)
+    }
 
     private var logoImage: Image {
-        renderingMode == .fullColor ? Image("VectorLogo").renderingMode(.original)
+        renderingMode == .fullColor ? Image(uiImage: Self.fullColorLogo).renderingMode(.original)
             : Image(uiImage: Self.templateLogo).renderingMode(.template)
     }
 
