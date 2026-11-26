@@ -55,6 +55,7 @@ final class RiValT_WatchDelegate: NSObject {
     private var waitingForPoll: PendingCommand?
     private var needsRefresh = false
     private var heartbeat: DispatchWorkItem?
+    private var complicationRewind: DispatchWorkItem?
     private var hostSession: String?
     private var revision = 0
     private var clock = RiValT_RemoteState.Clock()
@@ -199,19 +200,48 @@ extension RiValT_WatchDelegate {
         padLink.usesIPad ? "ipad-\(padLink.selectedDeviceID?.uuidString ?? "unknown")" : "phone"
     }
 
-    private var hostIsDisconnected: Bool {
-        if padLink.usesIPad { return !padLink.isConnected }
-        // A sleeping Watch app can lose interactive reachability while the phone still runs the timer.
-        return active && session?.activationState == .activated && !linkIsReachable
+    private var phoneIsUnreachable: Bool {
+        session?.activationState == .activated && !linkIsReachable
     }
 
     private func rewindComplication() {
         RiValT_ComplicationState.rewind(source: complicationSource, at: clock.hostDate(forLocalDate: Date()))
     }
 
+    private func cancelComplicationRewind() {
+        complicationRewind?.cancel()
+        complicationRewind = nil
+    }
+
+    private func handleComplicationConnectionLoss() {
+        if padLink.usesIPad {
+            rewindComplication()
+            return
+        }
+        guard active, complicationRewind == nil else { return }
+        // Interactive reachability can drop before the scene becomes inactive on the way to the face.
+        let clockAtDisconnect = clock
+        let work = DispatchWorkItem { [weak self] in
+            guard let self else { return }
+            self.complicationRewind = nil
+            guard self.active, !self.padLink.usesIPad,
+                  self.phoneIsUnreachable || self.connectionFailed else { return }
+            RiValT_ComplicationState.rewind(source: "phone", at: clockAtDisconnect.hostDate(forLocalDate: Date()))
+        }
+        complicationRewind = work
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: work)
+    }
+
     private func connectionChanged() {
         RiValT_ComplicationState.selectSource(complicationSource)
-        if hostIsDisconnected { rewindComplication() }
+        if padLink.usesIPad {
+            cancelComplicationRewind()
+            if !padLink.isConnected { rewindComplication() }
+        } else if active && phoneIsUnreachable {
+            handleComplicationConnectionLoss()
+        } else {
+            cancelComplicationRewind()
+        }
         if !padLink.usesIPad, let session { receiveComplicationContext(session.receivedApplicationContext) }
         heartbeat?.cancel()
         pendingID = nil
@@ -312,7 +342,7 @@ extension RiValT_WatchDelegate {
         isUpdateInProgress = false
         needsRefresh = false
         connectionFailed = true
-        rewindComplication()
+        handleComplicationConnectionLoss()
         clearSnapshot()
         scheduleRefresh(in: 1)
     }
@@ -335,6 +365,7 @@ extension RiValT_WatchDelegate {
         else { failed(id: id); return }
         state.deadline = state.deadline.map(clock.localDate(forHostDate:))
         state.stamp = "\(session)-\(updatedRevision)"
+        cancelComplicationRewind()
         pendingID = nil
         hostSession = session
         revision = updatedRevision
@@ -377,8 +408,7 @@ extension RiValT_WatchDelegate {
         // Use a measured clock correction when available; otherwise paired devices' wall clocks apply.
         state.deadline = state.deadline.map(clock.localDate(forHostDate:))
         let hostDate = Date(timeIntervalSince1970: timestamp)
-        let face = hostIsDisconnected || (active && connectionFailed) ? state.rewoundForComplication : state
-        RiValT_ComplicationState.save(face, updatedAt: hostDate, source: "phone", localSampleDate: clock.localDate(forHostDate: hostDate))
+        RiValT_ComplicationState.save(state, updatedAt: hostDate, source: "phone", localSampleDate: clock.localDate(forHostDate: hostDate))
     }
 
     private func scheduleRefresh(in seconds: TimeInterval) {
@@ -399,8 +429,8 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
             if !self.padLink.usesIPad {
                 self.connectionChanged()
                 if error != nil {
-                    self.rewindComplication()
                     self.connectionFailed = true
+                    self.handleComplicationConnectionLoss()
                     self.updateHandler?()
                 }
             }

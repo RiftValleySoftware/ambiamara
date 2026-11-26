@@ -104,6 +104,11 @@
 "SLUG-COMBINE-TIMERS"                           =   "Combine Timers";
 "SLUG-ABOUT-BUTTON"                             =   "About This App";
 
+// VoiceOver values supplied by RVS_Checkbox.
+"RVS_Checkbox.On" = "On";
+"RVS_Checkbox.Off" = "Off";
+"RVS_Checkbox.Mixed" = "Mixed";
+
 // MARK: Settings Advisory Alert
 
 "SLUG-ADVISORY-ALERT-HEADER"                    =   "Gestures";
@@ -134,6 +139,13 @@ LONG-PRESS: Brings up a slider, allowing you to set the time to any point.";
 "SLUG-START-TIME"                               =   "Start Time";
 "SLUG-WARN-TIME"                                =   "Warning Time";
 "SLUG-FINAL-TIME"                               =   "Final Time";
+"SLUG-CLEAR-WARNING-AND-FINAL-TIMES"            =   "Clear Warning and Final Times";
+"SLUG-START-IN-WARNING"                        =   "Start in Warning";
+"SLUG-START-IN-FINAL"                          =   "Start in Final";
+"SLUG-START-IN-FINAL-TURNS-OFF-WARNING"        =   "Turns off Warning.";
+"SLUG-TIMER-STARTS-IN-WARNING"                 =   "Starts in Warning";
+"SLUG-TIMER-ENTIRELY-IN-WARNING"               =   "Runs entirely in Warning";
+"SLUG-TIMER-ENTIRELY-IN-FINAL"                 =   "Runs entirely in Final";
 "SLUG-HOURS"                                    =   "Hours";
 "SLUG-MINUTES"                                  =   "Minutes";
 "SLUG-SECONDS"                                  =   "Seconds";
@@ -271,6 +283,8 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 "SLUG-SYNCING" = "Updating…";
 // Opens the chooser for the device running the timer.
 "SLUG-TIMER-DEVICE" = "Timer device";
+"SLUG-WATCH-DEVICES-TITLE" = "Devices";
+"SLUG-WATCH-COMPLICATION-NAME" = "Rift Valley Timer";
 // Watch heading. The integers are group number, timer number, and number of timers in the group. All are one-based.
 "SLUG-TIMER-POSITION" = "Group %1$d · Timer %2$d of %3$d";
 // The host timer has crossed the yellow warning threshold.

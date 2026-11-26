@@ -49,6 +49,14 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
          This means that we are setting the final time threshold.
          */
         case finalTime
+
+        fileprivate var colorName: String {
+            switch self {
+            case .setTime: return "Start-Color"
+            case .warnTime: return "Warn-Color"
+            case .finalTime: return "Final-Color"
+            }
+        }
     }
     
     /* ################################################################################################################################## */
@@ -116,7 +124,13 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
     /**
      Container for the set time wheels.
      */
-    @IBOutlet weak var setTimeContainerView: UIView?
+    @IBOutlet weak var setTimeContainerView: UIStackView?
+
+    @IBOutlet weak var playControlsStack: UIStackView?
+
+    private let phaseShortcutButton = UIButton(type: .system)
+    private let phaseMessageLabel = UILabel()
+    private lazy var phaseGuide = UIStackView(arrangedSubviews: [self.phaseShortcutButton, self.phaseMessageLabel])
 
     /* ############################################################## */
     /**
@@ -182,6 +196,15 @@ extension RiValT_EditTimer_ViewController {
         
         return ret
     }
+
+    /// The start picker previews the phase that the timer will enter at its full duration.
+    private var pickerColorState: TimeType {
+        let timeType = self.currentTimeSetState
+        guard timeType == .setTime, let timer, timer.startingTimeInSeconds > 0 else { return timeType }
+        if timer.finalRangeUpperBound >= timer.startingTimeInSeconds { return .finalTime }
+        if timer.warningRangeUpperBound >= timer.startingTimeInSeconds { return .warnTime }
+        return .setTime
+    }
     
     /* ############################################################## */
     /**
@@ -243,6 +266,7 @@ extension RiValT_EditTimer_ViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configurePhaseGuide()
         self.setUpTimeTypeSegmentedControl()
         self.view?.backgroundColor = .clear
     }
@@ -271,16 +295,46 @@ extension RiValT_EditTimer_ViewController {
         self.timeSetPicker?.reloadAllComponents()
     }
 
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        guard let playControlsStack, let playControlsContainer = playControlsStack.superview, let setTimeContainerView else { return }
+
+        let compact = self.traitCollection.verticalSizeClass == .compact
+        let axis: NSLayoutConstraint.Axis = compact ? .horizontal : .vertical
+        guard self.phaseGuide.superview !== playControlsContainer || self.phaseGuide.axis != axis else { return }
+
+        self.phaseGuide.removeFromSuperview()
+        self.phaseGuide.axis = axis
+        self.phaseGuide.alignment = compact ? .center : .fill
+        self.phaseGuide.spacing = compact ? 8 : 2
+        self.phaseGuide.translatesAutoresizingMaskIntoConstraints = false
+        playControlsContainer.addSubview(self.phaseGuide)
+
+        // Position the guide independently so the Play button stays centered.
+        if compact {
+            NSLayoutConstraint.activate([
+                self.phaseGuide.centerYAnchor.constraint(equalTo: playControlsStack.centerYAnchor),
+                self.phaseGuide.leadingAnchor.constraint(greaterThanOrEqualTo: playControlsContainer.leadingAnchor),
+                self.phaseGuide.trailingAnchor.constraint(equalTo: playControlsStack.leadingAnchor, constant: -16),
+                self.phaseGuide.topAnchor.constraint(greaterThanOrEqualTo: playControlsContainer.topAnchor),
+                self.phaseGuide.bottomAnchor.constraint(lessThanOrEqualTo: playControlsContainer.bottomAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                self.phaseGuide.topAnchor.constraint(equalTo: playControlsContainer.topAnchor, constant: 8),
+                self.phaseGuide.leadingAnchor.constraint(equalTo: setTimeContainerView.leadingAnchor),
+                self.phaseGuide.trailingAnchor.constraint(equalTo: setTimeContainerView.trailingAnchor),
+                self.phaseGuide.bottomAnchor.constraint(lessThanOrEqualTo: playControlsStack.topAnchor, constant: -8)
+            ])
+        }
+    }
+
     /* ############################################################## */
     /**
      Called when the view has laid itself out.
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if let groupSummaryLabel, let summaryContainer = groupSummaryLabel.superview {
-            // Keep at least eight points clear above and below the centered text.
-            groupSummaryLabel.isHidden = groupSummaryLabel.bounds.height + 16 > summaryContainer.bounds.height
-        }
         self.timeTypeSegmentedControl?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: self.isDarkMode ? UIColor.black : UIColor.label], for: .selected)
         self.timeSetPicker?.reloadAllComponents()
         self.gradientLayer?.removeFromSuperlayer()
@@ -291,6 +345,75 @@ extension RiValT_EditTimer_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_EditTimer_ViewController {
+    private func configurePhaseGuide() {
+        var configuration = UIButton.Configuration.plain()
+        configuration.titleLineBreakMode = .byWordWrapping
+        configuration.titleAlignment = .center
+        configuration.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { attributes in
+            var attributes = attributes
+            let pointSize = attributes.font?.pointSize ?? UIFont.preferredFont(forTextStyle: .body).pointSize
+            attributes.font = .boldSystemFont(ofSize: pointSize)
+            return attributes
+        }
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8)
+        self.phaseShortcutButton.configuration = configuration
+        self.phaseShortcutButton.accessibilityIdentifier = "timerPhaseShortcut"
+        self.phaseShortcutButton.addTarget(self, action: #selector(self.applyPhaseShortcut), for: .touchUpInside)
+        let touchHeight = self.phaseShortcutButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
+        touchHeight.priority = .defaultHigh
+        touchHeight.isActive = true
+
+        self.phaseMessageLabel.font = .preferredFont(forTextStyle: .footnote)
+        self.phaseMessageLabel.adjustsFontForContentSizeCategory = true
+        self.phaseMessageLabel.textAlignment = .center
+        self.phaseMessageLabel.textColor = .label
+        self.phaseMessageLabel.numberOfLines = 0
+        self.phaseMessageLabel.accessibilityIdentifier = "timerPhaseMessage"
+    }
+
+    private func updatePhaseGuide() {
+        let shortcut: String?
+        let message: String?
+        let enabled: Bool
+        let timeType = self.currentTimeSetState
+        let start = self.timer?.startingTimeInSeconds ?? 0
+        let warning = self.timer?.warningTimeInSeconds ?? 0
+        let final = self.timer?.finalTimeInSeconds ?? 0
+
+        switch timeType {
+        case .setTime:
+            enabled = 0 < warning || 0 < final
+            shortcut = enabled ? "SLUG-CLEAR-WARNING-AND-FINAL-TIMES".localizedVariant : nil
+            switch self.pickerColorState {
+            case .setTime:
+                message = nil
+            case .warnTime:
+                message = 0 < (self.timer?.finalRangeUpperBound ?? 0)
+                    ? "SLUG-TIMER-STARTS-IN-WARNING".localizedVariant
+                    : "SLUG-TIMER-ENTIRELY-IN-WARNING".localizedVariant
+            case .finalTime:
+                message = "SLUG-TIMER-ENTIRELY-IN-FINAL".localizedVariant
+            }
+        case .warnTime:
+            shortcut = 1 < start ? "SLUG-START-IN-WARNING".localizedVariant : nil
+            message = nil
+            enabled = warning != start - 1
+        case .finalTime:
+            shortcut = 2 < start ? "SLUG-START-IN-FINAL".localizedVariant : nil
+            message = shortcut != nil && 0 < warning ? "SLUG-START-IN-FINAL-TURNS-OFF-WARNING".localizedVariant : nil
+            enabled = 0 < warning || final != start - 1
+        }
+
+        self.phaseShortcutButton.configuration?.title = shortcut
+        self.phaseShortcutButton.isHidden = shortcut == nil
+        self.phaseShortcutButton.isEnabled = enabled
+        self.phaseShortcutButton.accessibilityHint = timeType == .finalTime ? message : nil
+        self.phaseMessageLabel.text = message
+        self.phaseMessageLabel.isAccessibilityElement = timeType == .setTime
+        self.phaseMessageLabel.isHidden = message == nil
+        self.phaseGuide.isHidden = shortcut == nil && message == nil
+    }
+
     private func updateGroupSummary() {
         guard let timer, let group, let index = timer.indexPath?.item else {
             self.groupSummaryLabel?.text = nil
@@ -313,9 +436,9 @@ extension RiValT_EditTimer_ViewController {
      This customizes the time set type segmented control.
      */
     func setUpTimeTypeSegmentedControl() {
-        guard let startColor = UIColor(named: "Start-Color"),
-              let warnColor = UIColor(named: "Warn-Color"),
-              let finalColor = UIColor(named: "Final-Color"),
+        guard let startColor = UIColor(named: TimeType.setTime.colorName),
+              let warnColor = UIColor(named: TimeType.warnTime.colorName),
+              let finalColor = UIColor(named: TimeType.finalTime.colorName),
               let startImage = UIImage(systemName: "\(0 < (self.timer?.startingTimeInSeconds ?? 0) ? "gauge.with.needle.fill" : "timer")")?.withTintColor(startColor),
               let warnImage = UIImage(systemName: "clock.badge.exclamationmark\(0 < (self.timer?.warningTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(warnColor),
               let finalImage = UIImage(systemName: "exclamationmark.circle\(0 < (self.timer?.finalTimeInSeconds ?? 0) ? ".fill" : "")")?.withTintColor(finalColor)
@@ -357,40 +480,30 @@ extension RiValT_EditTimer_ViewController {
      This customizes the time set type segmented control.
      */
     func updateTimeTypeSegmentedControl() {
-        guard let startColor = UIColor(named: "Start-Color"),
-              let warnColor = UIColor(named: "Warn-Color"),
-              let finalColor = UIColor(named: "Final-Color")
-        else { return }
+        guard let color = UIColor(named: self.pickerColorState.colorName) else { return }
         
         self.timeTypeSegmentedControl?.setEnabled(true, forSegmentAt: TimeType.setTime.rawValue)
-        self.timeTypeSegmentedControl?.setEnabled(1 < self.timer?.startingTimeInSeconds ?? 0,
-                                                  forSegmentAt: TimeType.warnTime.rawValue)
-        self.timeTypeSegmentedControl?.setEnabled((1 < self.timer?.startingTimeInSeconds ?? 0) && (1 != self.timer?.warningTimeInSeconds ?? 0),
-                                                  forSegmentAt: TimeType.finalTime.rawValue)
+        let start = self.timer?.startingTimeInSeconds ?? 0
+        let warning = self.timer?.warningTimeInSeconds ?? 0
+        self.timeTypeSegmentedControl?.setEnabled(1 < start, forSegmentAt: TimeType.warnTime.rawValue)
+        self.timeTypeSegmentedControl?.setEnabled(2 < start || (1 < start && warning != 1), forSegmentAt: TimeType.finalTime.rawValue)
+        // A one-second warning leaves room only for the shortcut, which turns Warning off first.
+        self.timeSetPicker?.isUserInteractionEnabled = self.currentTimeSetState != .finalTime || warning != 1
         self.timeTypeSegmentedControl?.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
         switch self.currentTimeSetState {
         case .setTime:
             self.statusLabel?.text = "SLUG-START-TIME".localizedVariant
-            self.statusLabel?.textColor = startColor
-            self.timeTypeSegmentedControl?.selectedSegmentTintColor = startColor
-            self.hoursLabel?.textColor = startColor
-            self.minutesLabel?.textColor = startColor
-            self.secondsLabel?.textColor = startColor
         case .warnTime:
             self.statusLabel?.text = "SLUG-WARN-TIME".localizedVariant
-            self.statusLabel?.textColor = warnColor
-            self.timeTypeSegmentedControl?.selectedSegmentTintColor = warnColor
-            self.hoursLabel?.textColor = warnColor
-            self.minutesLabel?.textColor = warnColor
-            self.secondsLabel?.textColor = warnColor
         case .finalTime:
             self.statusLabel?.text = "SLUG-FINAL-TIME".localizedVariant
-            self.statusLabel?.textColor = finalColor
-            self.timeTypeSegmentedControl?.selectedSegmentTintColor = finalColor
-            self.hoursLabel?.textColor = finalColor
-            self.minutesLabel?.textColor = finalColor
-            self.secondsLabel?.textColor = finalColor
         }
+        self.statusLabel?.textColor = color
+        self.timeTypeSegmentedControl?.selectedSegmentTintColor = color
+        self.hoursLabel?.textColor = color
+        self.minutesLabel?.textColor = color
+        self.secondsLabel?.textColor = color
+        self.updatePhaseGuide()
     }
     
     /* ############################################################## */
@@ -411,6 +524,21 @@ extension RiValT_EditTimer_ViewController {
         self.setUpPlayButton()
         self.timeSetPicker?.reloadAllComponents()
     }
+
+    private func updateTime(_ seconds: Int, animated: Bool) {
+        self.currentTimeInSeconds = seconds
+        timer.warningTimeInSeconds = max(0, min(timer.startingTimeInSeconds - 1, timer.warningTimeInSeconds))
+        let finalLimit = 0 < timer.warningTimeInSeconds ? timer.warningTimeInSeconds : timer.startingTimeInSeconds
+        timer.finalTimeInSeconds = max(0, min(finalLimit - 1, timer.finalTimeInSeconds))
+        self.finishTimeUpdate(animated: animated)
+    }
+
+    private func finishTimeUpdate(animated: Bool = false) {
+        self.setTime(animated)
+        self.impactHaptic()
+        self.updateSettings()
+        self.setUpTimeTypeSegmentedControl()
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -428,6 +556,24 @@ extension RiValT_EditTimer_ViewController {
         self.selectionHaptic()
         self.updateTimeTypeSegmentedControl()
         self.updateSettings()
+    }
+
+    @objc private func applyPhaseShortcut() {
+        guard let timer else { return }
+        let start = timer.startingTimeInSeconds
+        switch self.currentTimeSetState {
+        case .setTime:
+            timer.warningTimeInSeconds = 0
+            timer.finalTimeInSeconds = 0
+            self.finishTimeUpdate()
+        case .warnTime where 1 < start:
+            self.updateTime(start - 1, animated: false)
+        case .finalTime where 2 < start:
+            timer.warningTimeInSeconds = 0
+            self.updateTime(start - 1, animated: false)
+        default:
+            break
+        }
     }
 
     /* ############################################################## */
@@ -519,19 +665,9 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
         if inRow == selectedRow {
             ret.textAlignment = .center
             ret.cornerRadius = 12
-            switch currentTimeSetState {
-            case .setTime:
-                ret.textColor = .black
-                backgroundColor = UIColor(named: "Start-Color") ?? .white
-                
-            case .warnTime:
-                ret.textColor = .black
-                backgroundColor = UIColor(named: "Warn-Color") ?? .white
-                
-            case .finalTime:
-                ret.textColor = self.isDarkMode ? .black : .white
-                backgroundColor = UIColor(named: "Final-Color") ?? .black
-            }
+            let colorState = self.pickerColorState
+            ret.textColor = colorState == .finalTime && !self.isDarkMode ? .white : .black
+            backgroundColor = UIColor(named: colorState.colorName) ?? (colorState == .finalTime ? .black : .white)
         }
         
         ret.backgroundColor = backgroundColor
@@ -565,25 +701,7 @@ extension RiValT_EditTimer_ViewController: UIPickerViewDelegate {
      */
     func pickerView(_ inPickerView: UIPickerView, didSelectRow inRow: Int, inComponent: Int) {
         inPickerView.reloadComponent(inComponent)
-        switch currentTimeSetState {
-        case .setTime:
-            timer.startingTimeInSeconds = currentPickerTimeInSeconds
-            timer.warningTimeInSeconds = max(0, min(timer.startingTimeInSeconds - 1, timer.warningTimeInSeconds))
-            timer.finalTimeInSeconds = max(0, min(timer.warningTimeInSeconds - 1, timer.finalTimeInSeconds))
-        case .warnTime:
-            timer.warningTimeInSeconds = max(0, min(timer.startingTimeInSeconds - 1, currentPickerTimeInSeconds))
-            timer.finalTimeInSeconds = max(0, min(timer.warningTimeInSeconds - 1, timer.finalTimeInSeconds))
-        case .finalTime:
-            if 0 < timer.warningTimeInSeconds { // You can have just starting time and final time.
-                timer.finalTimeInSeconds = max(0, min(timer.warningTimeInSeconds - 1, currentPickerTimeInSeconds))
-            } else {
-                timer.finalTimeInSeconds = max(0, min(timer.startingTimeInSeconds - 1, currentPickerTimeInSeconds))
-            }
-        }
-        self.setTime(true)
-        self.impactHaptic()
-        self.updateSettings()
-        self.setUpTimeTypeSegmentedControl()
+        self.updateTime(self.currentPickerTimeInSeconds, animated: true)
         inPickerView.reloadAllComponents()
     }
 }

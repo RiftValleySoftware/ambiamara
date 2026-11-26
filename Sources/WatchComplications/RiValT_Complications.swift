@@ -29,6 +29,15 @@ struct Rift_Valley_Timer_Watch_App_Provider: TimelineProvider {
         let snapshot = record?.snapshot(at: now)
         let rewindDate = record?.rewindDate
         var entries = [Entry(date: now, snapshot: snapshot)]
+        if let snapshot, snapshot.phase.isCounting, let deadline = snapshot.deadline {
+            let phaseThresholds = [snapshot.warning > snapshot.final ? snapshot.warning : 0, snapshot.final]
+            for threshold in phaseThresholds where threshold > 0 {
+                let transition = deadline.addingTimeInterval(-TimeInterval(threshold))
+                if transition > now, transition < (rewindDate ?? .distantFuture) {
+                    entries.append(Entry(date: transition, snapshot: snapshot))
+                }
+            }
+        }
         if let deadline = snapshot?.displayDeadline, deadline > now, deadline < (rewindDate ?? .distantFuture) {
             // WidgetKit counts down between entries. At the displayed deadline, switch to a fixed zero.
             entries.append(Entry(date: deadline, snapshot: snapshot))
@@ -47,6 +56,22 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
 
     var phase: RiValT_RemoteState.Phase { snapshot?.phase(at: date) ?? .unavailable }
 
+    var phaseSymbol: String? {
+        switch phase {
+        case .warning: return "exclamationmark.triangle.fill"
+        case .final: return "exclamationmark.octagon.fill"
+        default: return nil
+        }
+    }
+
+    var phaseColor: Color? {
+        switch phase {
+        case .warning: return .yellow
+        case .final: return .red
+        default: return nil
+        }
+    }
+
     var timerText: Text {
         guard let snapshot, snapshot.timerID != nil, phase != .unavailable else { return Text(verbatim: "—") }
         let remaining = snapshot.complicationRemaining(at: date)
@@ -63,6 +88,14 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
         }
         if let deadline = snapshot.displayDeadline, deadline > date { return timerText }
         return Text(verbatim: Duration.seconds(snapshot.complicationRemaining(at: date)).formatted(.units(width: .wide)))
+    }
+
+    var spokenStatus: Text {
+        switch phase {
+        case .warning: return Text("SLUG-WARNING") + Text(verbatim: ", ") + spokenTime
+        case .final: return Text("SLUG-FINAL") + Text(verbatim: ", ") + spokenTime
+        default: return spokenTime
+        }
     }
 }
 
@@ -101,18 +134,25 @@ struct Rift_Valley_Timer_ComplicationsEntryView: View {
         return UIImage(cgImage: image, scale: 2, orientation: .up)
     }
 
-    private var logoImage: Image {
-        renderingMode == .fullColor ? Image(uiImage: Self.fullColorLogo).renderingMode(.original)
+    private var iconImage: Image {
+        if let symbol = entry.phaseSymbol { return Image(systemName: symbol) }
+        return renderingMode == .fullColor ? Image(uiImage: Self.fullColorLogo).renderingMode(.original)
             : Image(uiImage: Self.templateLogo).renderingMode(.template)
     }
 
-    private var logo: some View {
-        logoImage.resizable().scaledToFit()
+    private var phaseColor: Color? {
+        renderingMode == .fullColor ? entry.phaseColor : nil
+    }
+
+    private var icon: some View {
+        iconImage.resizable().scaledToFit()
+            .foregroundStyle(phaseColor ?? .primary)
             .widgetAccentable(renderingMode != .fullColor)
     }
 
     private var time: some View {
         entry.timerText
+        .foregroundColor(phaseColor)
         .monospacedDigit()
         .lineLimit(1)
         .minimumScaleFactor(0.5)
@@ -122,28 +162,33 @@ struct Rift_Valley_Timer_ComplicationsEntryView: View {
         Group {
             switch family {
             case .accessoryInline:
-                Label { time } icon: { logoImage.widgetAccentable(renderingMode != .fullColor) }
+                Label {
+                    time
+                } icon: {
+                    iconImage.foregroundStyle(phaseColor ?? .primary)
+                        .widgetAccentable(renderingMode != .fullColor)
+                }
             case .accessoryCorner:
-                logo
+                icon
                     .widgetLabel { time }
             case .accessoryCircular:
                 VStack(spacing: 1) {
-                    logo
+                    icon
                     time.font(.system(.caption2, design: .rounded, weight: .semibold))
                 }
                 .padding(2)
             case .accessoryRectangular:
                 HStack(spacing: 6) {
-                    logo.frame(width: 44)
+                    icon.frame(width: 44)
                     time.font(.system(.title2, design: .rounded, weight: .semibold))
                 }
             default:
-                logo
+                icon
             }
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("SLUG-ACC-COMPLICATION-LABEL")
-        .accessibilityValue(entry.spokenTime)
+        .accessibilityValue(entry.spokenStatus)
         .accessibilityHint("SLUG-ACC-COMPLICATION-HINT")
         .containerBackground(for: .widget) { Color.clear }
     }
@@ -157,7 +202,7 @@ struct RiValT_Complications: Widget {
         StaticConfiguration(kind: kind, provider: Rift_Valley_Timer_Watch_App_Provider()) { entry in
             Rift_Valley_Timer_ComplicationsEntryView(entry: entry)
         }
-        .configurationDisplayName("Rift Valley Timer")
+        .configurationDisplayName(String(localized: "SLUG-WATCH-COMPLICATION-NAME"))
         .supportedFamilies([.accessoryInline, .accessoryCircular, .accessoryRectangular, .accessoryCorner])
     }
 }

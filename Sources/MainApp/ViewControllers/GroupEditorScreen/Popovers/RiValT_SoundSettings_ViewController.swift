@@ -56,6 +56,7 @@ class RiValT_SoundSettings_ViewController: RiValT_GroupEditor_Popover {
      The size of the picker font
      */
     private static let _pickerFont = UIFont.boldSystemFont(ofSize: 20)
+    private static let _pickerRowHeight = ceil(_pickerFont.lineHeight) + 2
     
     /* ################################################################## */
     /**
@@ -522,7 +523,7 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
      - returns: A new view, containing the row. If it is selected, it is displayed as reversed.
     */
     func pickerView(_ inPickerView: UIPickerView, viewForRow inRow: Int, forComponent inComponent: Int, reusing inView: UIView?) -> UIView {
-        let labelFrame = CGRect(origin: .zero, size: CGSize(width: inPickerView.bounds.size.width - Self._pickerPaddingInDisplayUnits, height: inPickerView.bounds.size.height / 3))
+        let labelFrame = CGRect(origin: .zero, size: CGSize(width: inPickerView.bounds.size.width - Self._pickerPaddingInDisplayUnits, height: Self._pickerRowHeight))
         let label = UILabel(frame: labelFrame)
         label.font = Self._pickerFont
         label.textColor = .label
@@ -542,6 +543,9 @@ extension RiValT_SoundSettings_ViewController: UIPickerViewDelegate {
         }
         return label
     }
+
+    /// Keep the selected row tall enough for its text when the wheel has a shorter viewport.
+    func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent inComponent: Int) -> CGFloat { Self._pickerRowHeight }
 }
 
 /* ###################################################################################################################################### */

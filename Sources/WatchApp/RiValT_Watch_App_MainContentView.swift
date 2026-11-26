@@ -321,7 +321,7 @@ private struct DevicePicker: View {
                 }
             }
         }
-        .navigationTitle(watchText("SLUG-TIMER-DEVICE"))
+        .navigationTitle(watchText("SLUG-WATCH-DEVICES-TITLE"))
         .onDisappear { self.bluetooth.endBrowsing() }
     }
 }

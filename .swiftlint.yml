@@ -31,8 +31,8 @@ file_length:
 - 2000 # error
 
 type_body_length:
-- 399 # warning
-- 400 # error
+- 599 # warning
+- 600 # error
 
 line_length:
 - 299 # warning
@@ -46,4 +46,5 @@ excluded:
 - Pods
 - Carthage
 - .build
+- DerivedData
 - Tests

@@ -400,7 +400,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VYj-Sg-8qC" userLabel="Group Summary Container">
                                 <rect key="frame" x="16" y="59" width="361" height="239"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aqU-Gu-Kyd" userLabel="Group Summary">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="1000" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aqU-Gu-Kyd" userLabel="Group Summary">
                                         <rect key="frame" x="0.0" y="110.5" width="361" height="18"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <color key="textColor" systemColor="labelColor"/>
@@ -410,6 +410,8 @@
                                     <constraint firstItem="aqU-Gu-Kyd" firstAttribute="leading" secondItem="VYj-Sg-8qC" secondAttribute="leading" id="E5z-fB-er6"/>
                                     <constraint firstItem="aqU-Gu-Kyd" firstAttribute="trailing" secondItem="VYj-Sg-8qC" secondAttribute="trailing" id="1pJ-T4-Pt1"/>
                                     <constraint firstItem="aqU-Gu-Kyd" firstAttribute="centerY" secondItem="VYj-Sg-8qC" secondAttribute="centerY" id="MQ6-U9-W47"/>
+                                    <constraint firstItem="aqU-Gu-Kyd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="VYj-Sg-8qC" secondAttribute="top" constant="8" id="a1G-tC-8Qx"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aqU-Gu-Kyd" secondAttribute="bottom" constant="8" id="u2F-yK-9Nk"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mcb-qQ-Xdq">
@@ -434,11 +436,8 @@
                                             <action selector="timeTypeSegmentedControlChanged:" destination="JlO-Oc-S3P" eventType="valueChanged" id="6e6-vd-Wip"/>
                                         </connections>
                                     </segmentedControl>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" verticalCompressionResistancePriority="250" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAB-yM-IWU">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAB-yM-IWU">
                                         <rect key="frame" x="0.0" y="38" width="361" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="32" id="MDa-pE-VHV"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -485,15 +484,16 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="k9E-DO-eMm"/>
+                                            <constraint firstAttribute="height" priority="749" constant="30" id="k9E-DO-eMm"/>
                                         </constraints>
                                     </stackView>
-                                    <pickerView contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-IS-Nx4">
+                                    <pickerView contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-IS-Nx4">
                                         <rect key="frame" x="0.0" y="116" width="361" height="140"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TIME-PICKER-HINT" label="SLUG-ACC-TIME-PICKER-LABEL"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="140" id="F5d-Kv-mf0"/>
+                                            <constraint firstAttribute="height" priority="750" constant="140" id="F5d-Kv-mf0"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="751" constant="80" id="h1U-5K-tRa"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="dataSource" destination="JlO-Oc-S3P" id="Ltu-M7-pbN"/>
@@ -505,6 +505,8 @@
                                     <constraint firstItem="1vE-IS-Nx4" firstAttribute="leading" secondItem="mcb-qQ-Xdq" secondAttribute="leading" id="9gy-cN-kqQ"/>
                                     <constraint firstItem="rGl-Mw-lt6" firstAttribute="leading" secondItem="mcb-qQ-Xdq" secondAttribute="leading" id="ag2-ZJ-aDQ"/>
                                     <constraint firstItem="kx5-6Q-HlR" firstAttribute="leading" secondItem="mcb-qQ-Xdq" secondAttribute="leading" id="eJc-tB-3rB"/>
+                                    <constraint firstItem="lAB-yM-IWU" firstAttribute="leading" secondItem="mcb-qQ-Xdq" secondAttribute="leading" id="s7J-m1-X0k"/>
+                                    <constraint firstAttribute="trailing" secondItem="lAB-yM-IWU" secondAttribute="trailing" id="y8B-QJ-wG8"/>
                                     <constraint firstAttribute="trailing" secondItem="1vE-IS-Nx4" secondAttribute="trailing" id="jDi-79-Tv2"/>
                                     <constraint firstAttribute="trailing" secondItem="kx5-6Q-HlR" secondAttribute="trailing" id="sXk-gs-eqJ"/>
                                     <constraint firstAttribute="trailing" secondItem="rGl-Mw-lt6" secondAttribute="trailing" id="wpL-8M-RJF"/>
@@ -513,33 +515,40 @@
                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="2tz-2H-cb2" userLabel="Play Button Container View">
                                 <rect key="frame" x="20" y="554" width="353" height="264"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQC-pa-BBK">
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Pha-ct-Row">
                                         <rect key="frame" x="156.66666666666666" y="112" width="40" height="40"/>
-                                        <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-MAIN-PLAY-BUTTON-HINT" label="SLUG-ACC-MAIN-PLAY-BUTTON-LABEL"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="HqK-1J-f8B"/>
-                                            <constraint firstAttribute="width" secondItem="pQC-pa-BBK" secondAttribute="height" multiplier="1:1" id="P0n-D7-u9c"/>
-                                        </constraints>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal">
-                                            <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <imageReference key="image" image="play.slash" catalog="system" symbolScale="large"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="playButtonHit:" destination="JlO-Oc-S3P" eventType="touchUpInside" id="yRf-a4-vsR"/>
-                                        </connections>
-                                    </button>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQC-pa-BBK">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-MAIN-PLAY-BUTTON-HINT" label="SLUG-ACC-MAIN-PLAY-BUTTON-LABEL"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="HqK-1J-f8B"/>
+                                                    <constraint firstAttribute="width" secondItem="pQC-pa-BBK" secondAttribute="height" multiplier="1:1" id="P0n-D7-u9c"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal">
+                                                    <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <imageReference key="image" image="play.slash" catalog="system" symbolScale="large"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="playButtonHit:" destination="JlO-Oc-S3P" eventType="touchUpInside" id="yRf-a4-vsR"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="pQC-pa-BBK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2tz-2H-cb2" secondAttribute="top" id="0K4-EU-Il0"/>
-                                    <constraint firstItem="pQC-pa-BBK" firstAttribute="centerX" secondItem="2tz-2H-cb2" secondAttribute="centerX" id="HYm-Ce-oQZ"/>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pQC-pa-BBK" secondAttribute="bottom" id="MkH-3Y-5nJ"/>
-                                    <constraint firstItem="pQC-pa-BBK" firstAttribute="centerY" secondItem="2tz-2H-cb2" secondAttribute="centerY" priority="999" id="u15-U9-3rY"/>
+                                    <constraint firstItem="Pha-ct-Row" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2tz-2H-cb2" secondAttribute="top" id="0K4-EU-Il0"/>
+                                    <constraint firstItem="Pha-ct-Row" firstAttribute="centerX" secondItem="2tz-2H-cb2" secondAttribute="centerX" id="HYm-Ce-oQZ"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Pha-ct-Row" secondAttribute="bottom" id="MkH-3Y-5nJ"/>
+                                    <constraint firstItem="Pha-ct-Row" firstAttribute="centerY" secondItem="2tz-2H-cb2" secondAttribute="centerY" priority="999" id="u15-U9-3rY"/>
+                                    <constraint firstItem="Pha-ct-Row" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2tz-2H-cb2" secondAttribute="leading" id="Pha-ct-Led"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Pha-ct-Row" secondAttribute="trailing" id="Pha-ct-Trl"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -555,7 +564,7 @@
                             <constraint firstItem="2tz-2H-cb2" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" constant="20" id="9rU-DC-v5O"/>
                             <constraint firstItem="2tz-2H-cb2" firstAttribute="top" secondItem="mcb-qQ-Xdq" secondAttribute="bottom" id="Dmc-QH-ByM"/>
                             <constraint firstItem="ITz-Ty-22n" firstAttribute="bottom" secondItem="2tz-2H-cb2" secondAttribute="bottom" id="eVp-WX-QDD"/>
-                            <constraint firstItem="mcb-qQ-Xdq" firstAttribute="centerY" secondItem="eHC-G7-JUU" secondAttribute="centerY" priority="750" id="epD-sc-SRQ"/>
+                            <constraint firstItem="mcb-qQ-Xdq" firstAttribute="centerY" secondItem="eHC-G7-JUU" secondAttribute="centerY" priority="748" id="epD-sc-SRQ"/>
                             <constraint firstItem="ITz-Ty-22n" firstAttribute="trailing" secondItem="mcb-qQ-Xdq" secondAttribute="trailing" constant="16" id="g56-LA-uua"/>
                             <constraint firstItem="ITz-Ty-22n" firstAttribute="trailing" secondItem="2tz-2H-cb2" secondAttribute="trailing" constant="20" id="h2L-gp-XLU"/>
                             <constraint firstItem="mcb-qQ-Xdq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ITz-Ty-22n" secondAttribute="top" id="mQa-c2-ngM"/>
@@ -567,6 +576,7 @@
                         <outlet property="hoursLabel" destination="pfu-Kz-A9q" id="d8T-Dn-xGb"/>
                         <outlet property="minutesLabel" destination="cbl-rx-DkY" id="OCu-X6-LEz"/>
                         <outlet property="playButton" destination="pQC-pa-BBK" id="HJo-wA-Spo"/>
+                        <outlet property="playControlsStack" destination="Pha-ct-Row" id="Pha-ct-Out"/>
                         <outlet property="secondsLabel" destination="Nev-tz-EK3" id="XGR-Rc-zML"/>
                         <outlet property="setTimeContainerView" destination="mcb-qQ-Xdq" id="xg5-9Y-fTP"/>
                         <outlet property="statusLabel" destination="lAB-yM-IWU" id="s0K-EX-OOx"/>
@@ -740,7 +750,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-TRANSITION-SOUND-LABEL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enp-th-W0d">
                                         <rect key="frame" x="60.333333333333343" y="38" width="272.66666666666663" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="CWd-th-dZ7"/>
+                                            <constraint firstAttribute="height" priority="999" constant="30" id="CWd-th-dZ7"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -749,12 +759,13 @@
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3JS-Yi-fXh">
                                         <rect key="frame" x="0.0" y="72" width="393" height="80"/>
                                         <subviews>
-                                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eM0-Ca-QCY">
+                                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="eM0-Ca-QCY">
                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="80"/>
                                                 <color key="tintColor" systemColor="labelColor"/>
                                                 <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TRANSITION-PICKER-HINT" label="SLUG-ACC-TRANSITION-PICKER-LABEL"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="80" id="Re0-pY-wnx"/>
+                                                    <constraint firstAttribute="height" priority="750" constant="80" id="Re0-pY-wnx"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="751" constant="64" id="n2N-LP-U1c"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="dataSource" destination="Ve2-9T-BtJ" id="die-7w-kxq"/>
@@ -788,7 +799,7 @@
                                         <rect key="frame" x="20" y="76" width="353" height="1"/>
                                         <color key="backgroundColor" systemColor="labelColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="ezh-m0-1PQ"/>
+                                            <constraint firstAttribute="height" priority="999" constant="1" id="ezh-m0-1PQ"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="SLUG-NO-SOUND" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="I2Y-9F-3Ep">
@@ -803,12 +814,13 @@
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CaB-on-Nru" userLabel="Main Picker Stack View">
                                         <rect key="frame" x="0.0" y="115" width="393" height="80"/>
                                         <subviews>
-                                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="wa9-V3-AW2">
+                                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="wa9-V3-AW2">
                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="80"/>
                                                 <color key="tintColor" systemColor="labelColor"/>
                                                 <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-SOUND-PICKER-HINT" label="SLUG-ACC-SOUND-PICKER-LABEL"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="80" id="Kao-cT-848"/>
+                                                    <constraint firstAttribute="height" priority="750" constant="80" id="Kao-cT-848"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="751" constant="64" id="p4C-Nx-u2R"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="dataSource" destination="Ve2-9T-BtJ" id="5n7-b7-0f8"/>
@@ -855,10 +867,11 @@
                         <viewLayoutGuide key="safeArea" id="agT-5B-lHc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="0gF-7Y-fYR" firstAttribute="top" secondItem="agT-5B-lHc" secondAttribute="top" constant="20" id="X8J-ZR-m4Q"/>
+                            <constraint firstItem="0gF-7Y-fYR" firstAttribute="top" secondItem="agT-5B-lHc" secondAttribute="top" priority="749" constant="20" id="X8J-ZR-m4Q"/>
+                            <constraint firstItem="0gF-7Y-fYR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="agT-5B-lHc" secondAttribute="top" constant="12" id="t6s-aZ-4Vw"/>
                             <constraint firstItem="0gF-7Y-fYR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="agT-5B-lHc" secondAttribute="leading" id="XZm-rd-n5X"/>
                             <constraint firstItem="agT-5B-lHc" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0gF-7Y-fYR" secondAttribute="trailing" id="jOj-2a-9so"/>
-                            <constraint firstItem="agT-5B-lHc" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0gF-7Y-fYR" secondAttribute="bottom" priority="999" id="mdX-2t-1hn"/>
+                            <constraint firstItem="agT-5B-lHc" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0gF-7Y-fYR" secondAttribute="bottom" constant="8" id="mdX-2t-1hn"/>
                         </constraints>
                     </view>
                     <size key="freeformSize" width="393" height="391"/>

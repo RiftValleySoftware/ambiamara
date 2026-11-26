@@ -21,6 +21,8 @@
 		D40EA1B12DCEB12B00DC49BC /* RiValT_ObservableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EA1B02DCEB12B00DC49BC /* RiValT_ObservableModel.swift */; };
 		D40FB3072DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40FB3062DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift */; };
 		D4181D0D2DAC7364002CF428 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4181D0C2DAC7364002CF428 /* TimerModel.swift */; };
+		D41CDA1230B8C95900516284 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D41CDA1130B8C95900516284 /* InfoPlist.strings */; };
+		D41CDA1A30B8C95900516284 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D41CDA1930B8C95900516284 /* InfoPlist.strings */; };
 		D4273AE32DAEEE7700AB0E41 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4273AE22DAEEE7700AB0E41 /* RVS_BasicGCDTimer */; };
 		D4273AE52DAEEEE300AB0E41 /* RVS_BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D4273AE42DAEEEE300AB0E41 /* RVS_BasicGCDTimer */; };
 		D427BC0D2DB987DB009EAC8D /* Beep-025.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D427BC0C2DB987DB009EAC8D /* Beep-025.mp3 */; };
@@ -290,6 +292,22 @@
 		D40FB3062DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_DisplaySettings_ViewController.swift; sourceTree = "<group>"; };
 		D41109162DADEEB00034B591 /* TimerModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModelTests.swift; sourceTree = "<group>"; };
 		D4181D0C2DAC7364002CF428 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
+		D41CDA0030B8C92500516284 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D41CDA0130B8C93300516284 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D41CDA0230B8C93F00516284 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D41CDA0330B8C94E00516284 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D41CDA0430B8C95900516284 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D41CDA1330B8C95900516284 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en"; path = "en.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		D41CDA1430B8C95900516284 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr"; path = "fr.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		D41CDA1530B8C95900516284 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de"; path = "de.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		D41CDA1630B8C95900516284 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "it"; path = "it.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		D41CDA1730B8C95900516284 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		D41CDA1830B8C95900516284 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es"; path = "es.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		D41CDA1B30B8C95900516284 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D41CDA1C30B8C95900516284 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D41CDA1D30B8C95900516284 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D41CDA1E30B8C95900516284 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		D41CDA1F30B8C95900516284 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D427BC082DB987DB009EAC8D /* Beep-021.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-021.mp3"; sourceTree = "<group>"; };
 		D427BC092DB987DB009EAC8D /* Beep-022.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-022.mp3"; sourceTree = "<group>"; };
 		D427BC0A2DB987DB009EAC8D /* Beep-023.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-023.mp3"; sourceTree = "<group>"; };
@@ -501,6 +519,7 @@
 			isa = PBXGroup;
 			children = (
 				D43B975C2DA2C1D10028E023 /* Assets.xcassets */,
+				D41CDA1930B8C95900516284 /* InfoPlist.strings */,
 				D4D3B9FC2DC4182D00C5CA19 /* Localizable.strings */,
 				D43B97612DA2C1D10028E023 /* RiValT.storyboard */,
 				D43B975F2DA2C1D10028E023 /* LaunchScreen.storyboard */,
@@ -596,6 +615,7 @@
 				FE8A1A3500B64A18825A0D91 /* Watch_App.docc */,
 				D4A9321F2D64E9CB0028556E /* RiValT_Watch_App_MainContentView.swift */,
 				D4A9322F2D64EA8B0028556E /* Info.plist */,
+				D41CDA1130B8C95900516284 /* InfoPlist.strings */,
 				D4A9322D2D64EA310028556E /* WatchApp.entitlements */,
 				D46BC2172D8612DF0094B052 /* Assets.xcassets */,
 			);
@@ -1012,6 +1032,11 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
+				de,
+				it,
+				"pt-BR",
+				es,
 			);
 			mainGroup = D47C02922819CA6500D359F5;
 			packageReferences = (
@@ -1046,6 +1071,7 @@
 				D4E10DBD2DB05B290088DB50 /* Digital.ttf in Resources */,
 				D43B976C2DA2C1D10028E023 /* RiValT.storyboard in Resources */,
 				D4D3B9FD2DC4182D00C5CA19 /* Localizable.strings in Resources */,
+				D41CDA1A30B8C95900516284 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1078,6 +1104,7 @@
 			files = (
 				D46BC2182D8612DF0094B052 /* Assets.xcassets in Resources */,
 				D4C1B6212D806D6E00CEA6BF /* Digital.ttf in Resources */,
+				D41CDA1230B8C95900516284 /* InfoPlist.strings in Resources */,
 				D4705AA42DD22797002FAC40 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1290,8 +1317,38 @@
 			isa = PBXVariantGroup;
 			children = (
 				D4D3B9FB2DC4182D00C5CA19 /* en */,
+				D41CDA0030B8C92500516284 /* fr */,
+				D41CDA0130B8C93300516284 /* de */,
+				D41CDA0230B8C93F00516284 /* it */,
+				D41CDA0330B8C94E00516284 /* pt-BR */,
+				D41CDA0430B8C95900516284 /* es */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		D41CDA1130B8C95900516284 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D41CDA1330B8C95900516284 /* en */,
+				D41CDA1430B8C95900516284 /* fr */,
+				D41CDA1530B8C95900516284 /* de */,
+				D41CDA1630B8C95900516284 /* it */,
+				D41CDA1730B8C95900516284 /* pt-BR */,
+				D41CDA1830B8C95900516284 /* es */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D41CDA1930B8C95900516284 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D41CDA1B30B8C95900516284 /* fr */,
+				D41CDA1C30B8C95900516284 /* de */,
+				D41CDA1D30B8C95900516284 /* it */,
+				D41CDA1E30B8C95900516284 /* pt-BR */,
+				D41CDA1F30B8C95900516284 /* es */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1694,7 +1751,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/WatchApp/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "RiVal.T Remote";
+				INFOPLIST_KEY_CFBundleDisplayName = "RiVal Remote";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.riftvalleysoftware.ambiamara;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
@@ -1734,7 +1791,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/WatchApp/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "RiVal.T Remote";
+				INFOPLIST_KEY_CFBundleDisplayName = "RiVal Remote";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.riftvalleysoftware.ambiamara;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;

@@ -1,0 +1,512 @@
+/*
+ © Copyright 2018-2026, The Great Rift Valley Software Company. All rights reserved.
+ 
+ This code is proprietary code, and is not licensed for reuse.
+ It is NOT to be reused or combined into any application,
+ unless done so, specifically under written license from The Great Rift Valley Software Company.
+ 
+ The Great Rift Valley Software Company: https://riftvalleysoftware.com
+ */
+//********************************************** **********************************************************
+// --------------------------------------------   ------------------------------------------------------- *
+//|  DO NOT MODIFY ON THIS SIDE OF THE EQUALS  | |   MODIFY THE TEXT ON THIS SIDE TO THE LOCAL LANGUAGE  |*
+// --------------------------------------------   ------------------------------------------------------- *
+//********************************************** **********************************************************
+
+// MARK: -
+// MARK: TIMER END ALARM SOUND NAMES (DISPLAYED IN THE ALARM POPOVER)
+// MARK: -
+
+"00-escalation.mp3"                             =   "Alarme crescente";
+"01-low-beep.mp3"                               =   "Bipe grave";
+"02-medium-beep.mp3"                            =   "Bipe médio";
+"03-high-beep.mp3"                              =   "Bipe agudo";
+"04-electronic-buzz.mp3"                        =   "Bipes fortes";
+"05-fast-beep.mp3"                              =   "Toque suave";
+"06-high-fast-beeps.mp3"                        =   "Bipes rápidos";
+"07-videogame-beeps-lower-frequency.mp3"        =   "Bipes graves";
+"08-videogame-beeps-high-frequency.mp3"         =   "Bipes agudos";
+"09-single-beep.mp3"                            =   "Bipe simples";
+"10-annoying-alarm.mp3"                         =   "Campainha de alarme clássica";
+"11-bells.mp3"                                  =   "Sinos de igreja";
+"12-crazy-bird.mp3"                             =   "Pássaro maluco";
+"13-rooster.mp3"                                =   "Galo";
+"14-shut-up-1.mp3"                              =   "Cala a boca! (voz masculina)";
+"15-shut-up-2.mp3"                              =   "Cala a boca! (voz feminina)";
+"16-snoring-1.mp3"                              =   "Ronco";
+"17-car-horn.mp3"                               =   "Buzina de carro";
+"18-antique-phone.mp3"                          =   "Telefone antigo";
+"19-classic-phone.mp3"                          =   "Telefone clássico";
+"20-antique-car-horn.mp3"                       =   "Buzina de carro antigo";
+"21-alarm-klaxon.mp3"                           =   "Buzina de alarme";
+"22-thanks-for-sharing.mp3"                     =   "Valeu por compartilhar";
+"23-siren.mp3"                                  =   "Sirene de polícia";
+"24-deep-alarm.mp3"                             =   "Buzina de nevoeiro";
+"25-telephone.mp3"                              =   "Celular";
+
+// MARK: -
+// MARK: TIMER TRANSITION SOUND NAMES (DISPLAYED IN THE ALARM POPOVER)
+// MARK: -
+
+"Beep-001.mp3"                                  =   "Bipes curtos e agudos";
+"Beep-002.mp3"                                  =   "Bipes ascendentes";
+"Beep-003.mp3"                                  =   "Dois tons descendentes";
+"Beep-004.mp3"                                  =   "Dois tons ascendentes";
+"Beep-005.mp3"                                  =   "Sequência ascendente";
+"Beep-006.mp3"                                  =   "Três bipes médios";
+"Beep-007.mp3"                                  =   "Zumbido médio";
+"Beep-008.mp3"                                  =   "Zumbido grave";
+"Beep-009.mp3"                                  =   "Zumbido estranho";
+"Beep-010.mp3"                                  =   "Toque de telefone";
+"Beep-011.mp3"                                  =   "Bipe agudo";
+"Beep-012.mp3"                                  =   "Bipe médio 1";
+"Beep-013.mp3"                                  =   "Bipe médio 2";
+"Beep-014.mp3"                                  =   "Quatro pios de coruja";
+"Beep-015.mp3"                                  =   "Três bipes graves";
+"Beep-016.mp3"                                  =   "Tilintar 1";
+"Beep-017.mp3"                                  =   "Tilintar 2";
+"Beep-018.mp3"                                  =   "Tilintar 3";
+"Beep-019.mp3"                                  =   "Som estranho";
+"Beep-020.mp3"                                  =   "Duplo sentido";
+"Beep-021.mp3"                                  =   "Chocalho de vaca";
+"Beep-022.mp3"                                  =   "Batida de tambor oscilante";
+"Beep-023.mp3"                                  =   "Campainha 1";
+"Beep-024.mp3"                                  =   "Prato";
+"Beep-025.mp3"                                  =   "Tigela de latão";
+"Beep-026.mp3"                                  =   "Campainha 2";
+"Beep-027.mp3"                                  =   "Campainha 3";
+"Beep-028.mp3"                                  =   "Campainha 4";
+"Beep-029.mp3"                                  =   "Pum 1";
+"Beep-030.mp3"                                  =   "Pum 2";
+"Beep-031.mp3"                                  =   "Pum 3";
+
+// MARK: -
+// MARK: MAIN LOCALIZATION
+// MARK: -
+
+// MARK: Group Editor Screen
+
+"SLUG-CANCEL-BUTTON-TEXT"                       =   "Cancelar";
+"SLUG-DELETE-BUTTON-TEXT"                       =   "Apagar temporizador";
+"SLUG-DELETE-CONFIRM-HEADER"                    =   "Apagar o temporizador selecionado?";
+"SLUG-DELETE-CONFIRM-MESSAGE"                   =   "Se você selecionar “Apagar temporizador”, o temporizador selecionado será removido permanentemente do app.";
+"SLUG-TIMERS"                                   =   "RiVal.T";
+"SLUG-TIMERS-BACK"                              =   "Temporizadores";
+"SLUG-NEW-TIMER"                                =   "Novo temporizador";
+
+// MARK: Settings Screen
+
+"SLUG-SETTINGS"                                 =   "Ajustes";
+"SLUG-START-IMMEDIATELY"                        =   "Iniciar temporizador imediatamente";
+"SLUG-SHOW-TOOLBAR"                             =   "Mostrar barra de ferramentas no temporizador";
+"SLUG-AUTO-HIDE-TOOLBAR"                        =   "Ocultar barra de ferramentas automaticamente";
+"SLUG-ONE-TAP-EDIT"                             =   "Editar temporizador com um toque";
+"SLUG-COMBINE-TIMERS"                           =   "Combinar temporizadores";
+"SLUG-ABOUT-BUTTON"                             =   "Sobre este app";
+
+// VoiceOver values supplied by RVS_Checkbox.
+"RVS_Checkbox.On" = "Ativado";
+"RVS_Checkbox.Off" = "Desativado";
+"RVS_Checkbox.Mixed" = "Parcialmente marcado";
+
+// MARK: Settings Advisory Alert
+
+"SLUG-ADVISORY-ALERT-HEADER"                    =   "Gestos";
+"SLUG-ADVISORY-ALERT-BODY"                      =   "Se você ocultar a barra de ferramentas, poderá controlar o temporizador por gestos:
+
+UM TOQUE: Inicia, pausa ou retoma a contagem regressiva.
+
+DOIS TOQUES: Interrompe o temporizador por completo e volta à tela anterior.
+
+DESLIZAR PARA A ESQUERDA: Volta ao início do temporizador ou seleciona o temporizador anterior.
+
+DESLIZAR PARA A DIREITA: Dispara o alarme ou seleciona o próximo temporizador.
+
+MANTER PRESSIONADO: Mostra um controle deslizante para ajustar o tempo restante.";
+
+"SLUG-OK-BUTTON-TEXT"                           =   "OK";
+
+// MARK: Timer Edit Screen
+
+"SLUG-EDIT-FORMAT"                              =   "Editar temporizador %d";
+"SLUG-EDIT-TIMER"                               =   "Editar temporizador";
+// Timer Editor group summary. %@ is the localized duration of the group's only timer, such as “5 min”.
+"SLUG-GROUP-SUMMARY-SINGLE"                     =   "Este grupo tem um temporizador (%@).";
+// %1$d is the edited timer's position, %2$d is the number of timers in its group. “Combine Timers” is the setting name.
+"SLUG-GROUP-SUMMARY-SEPARATE"                   =   "Temporizador %1$d de %2$d. A opção “Combinar temporizadores” está desativada.";
+// The first two placeholders give the timer position and count. %3$@ is the total of all preset durations, including timers before the current one.
+"SLUG-GROUP-SUMMARY-COMBINED"                   =   "Temporizador %1$d de %2$d. A opção “Combinar temporizadores” está ativada (%3$@ no total).";
+"SLUG-START-TIME"                               =   "Duração inicial";
+"SLUG-WARN-TIME"                                =   "Limite de aviso";
+"SLUG-FINAL-TIME"                               =   "Limite final";
+"SLUG-CLEAR-WARNING-AND-FINAL-TIMES"            =   "Zerar o limite de aviso e o limite final";
+"SLUG-START-IN-WARNING"                        =   "Começar na fase de aviso";
+"SLUG-START-IN-FINAL"                          =   "Começar na fase final";
+"SLUG-START-IN-FINAL-TURNS-OFF-WARNING"        =   "Desativa a fase de aviso.";
+"SLUG-TIMER-STARTS-IN-WARNING"                 =   "Começa na fase de aviso";
+"SLUG-TIMER-ENTIRELY-IN-WARNING"               =   "Fica na fase de aviso até o fim";
+"SLUG-TIMER-ENTIRELY-IN-FINAL"                 =   "Fica na fase final até o fim";
+"SLUG-HOURS"                                    =   "Horas";
+"SLUG-MINUTES"                                  =   "Minutos";
+"SLUG-SECONDS"                                  =   "Segundos";
+"SLUG-NEXT-TIMER-TOOLBAR-TITLE"                 =   "Próximo";
+"SLUG-PAREN-GROUP-FORMAT"                       =   " (Grupo %d)";
+"SLUG-PREV-TIMER-TOOLBAR-TITLE"                 =   "Anterior";
+"SLUG-GROUP-SETTINGS"                           =   "Ajustes do grupo";
+"SLUG-SETTINGS-FORMAT"                          =   "Ajustes do grupo %d";
+
+"SLUG-DELETE-2-CONFIRM-HEADER"                  =   "Apagar este temporizador?";
+"SLUG-DELETE-2-CONFIRM-MESSAGE"                 =   "Se você selecionar “Apagar temporizador”, este temporizador será removido permanentemente do app.";
+
+// MARK: Display Settings Popover
+
+"SLUG-DISPLAY-FORMAT"                           =   "Ajustes de exibição do grupo %d";
+"SLUG-DISPLAY-GROUP-SETTINGS"                   =   "Ajustes de exibição";
+
+// MARK: Running Timer Screen
+
+"SLUG-PAUSED-LABEL"                             =   "EM PAUSA";
+
+// MARK: Sound Settings Popover
+
+"SLUG-NO-SOUND"                                 =   "Sem alarme";
+"SLUG-VIBRATE-ONLY"                             =   "Somente vibração";
+"SLUG-SOUND-ONLY"                               =   "Som do alarme";
+"SLUG-SOUND-VIBRATE"                            =   "Som do alarme (com vibração)";
+"SLUG-TRANSITION-SOUND-LABEL"                   =   "Som de transição";
+"SLUG-TRANSITION-SOUND-NONE"                    =   "Nenhum";
+
+// MARK: About Screen
+
+"SLUG-NAME-VERSION-FORMAT"                      =   "%@ - %@ (%@)";
+"SLUG-ABOUT-MAIN-TEXT"                          =   "Este app é um temporizador simples de contagem regressiva. Ele conta os segundos restantes e dispara um alarme ao chegar a zero. Você pode ajustar temporizadores para até 23 horas, 59 minutos e 59 segundos.
+
+Crie quantos temporizadores quiser e organize-os em grupos para que funcionem em sequência. Você pode arrastar e soltar temporizadores de um grupo para outro.
+
+Cada temporizador tem dois limites opcionais, um de aviso (amarelo) e um final (vermelho), que indicam que o tempo está acabando.
+
+Você pode definir sons curtos de transição entre os temporizadores de um grupo e um alarme que toca ao fim do último temporizador.
+
+Há três modos de exibição grandes e fáceis de ler:
+    • NUMÉRICO: Uma contagem regressiva no estilo digital clássico.
+    • CIRCULAR: Um anel que desaparece conforme o tempo passa.
+    • SEMÁFORO: Círculos coloridos que se acendem ao atingir os limites, ideais para debates.
+
+Para saber mais, acesse:
+    https://riftvalleysoftware.com/rival-t
+
+
+
+PACOTES DE CÓDIGO ABERTO E INFORMAÇÕES DO APP
+
+O app usa os seguintes pacotes Swift de código aberto:
+
+    •   https://github.com/RiftValleySoftware/RVS_BasicGCDTimer
+    •   https://github.com/RiftValleySoftware/RVS_Checkbox
+    •   https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox
+    •   https://github.com/RiftValleySoftware/RVS_PersistentPrefs
+    •   https://github.com/RiftValleySoftware/RVS_RetroLEDDisplay
+    •   https://github.com/RiftValleySoftware/RVS_UIKit_Toolbox
+
+O código-fonte do próprio app também está disponível para consulta:
+
+    https://github.com/RiftValleySoftware/ambiamara";
+
+// The iPad setting allows one approved Apple Watch to control this device's timer.
+"SLUG-WATCH-REMOTE" = "Controle pelo Apple Watch";
+// Fallback for a connected Watch whose version of RiVal.T does not report its device name.
+"SLUG-WATCH-REMOTE-CONNECTED" = "Apple Watch";
+"SLUG-WATCH-PAIR-TITLE" = "Permitir controle pelo Apple Watch?";
+// %@ is a four-digit code displayed on the requesting Apple Watch.
+"SLUG-WATCH-PAIR-CODE" = "Permita que este Apple Watch controle seu temporizador se ele mostrar o código %@.";
+"SLUG-WATCH-PAIR-DENY" = "Recusar";
+"SLUG-WATCH-PAIR-ALLOW" = "Permitir";
+// Shown alongside the iPad's Watch Remote switch if Bluetooth needs attention.
+"SLUG-WATCH-REMOTE-PERMISSION" = "Permita o Bluetooth nos Ajustes";
+"SLUG-WATCH-REMOTE-RADIO" = "Bluetooth indisponível";
+"SLUG-WATCH-REMOTE-RETRYING" = "Tentando conectar ao Apple Watch novamente…";
+
+// MARK: Watch App
+
+"SLUG-ACTION-REQURED" = "AÇÃO NECESSÁRIA";
+// The host confirms the timer is in its alarm state.
+"SLUG-ALARM" = "Tempo esgotado";
+"SLUG-CANT-REACH" = "App do iPhone inacessível";
+// The host declined the last command. Check the current state before trying again.
+"SLUG-COMMAND-REJECTED" = "O dispositivo do temporizador recusou o comando.";
+"SLUG-CONNECT-APP" = "Abra o app no iPhone para conectá-lo ao Apple Watch.";
+// Shown while waiting for the first live snapshot from the selected timer device.
+"SLUG-CONNECTING" = "Conectando a %@…";
+// The selected device did not return usable timer state before the request timed out or failed.
+"SLUG-CONNECTION-FAILED" = "Não foi possível sincronizar com %@.";
+// Opens secondary timer controls and the device selector.
+"SLUG-CONTROLS" = "Controles";
+// The host timer is counting down in its initial phase.
+"SLUG-COUNTDOWN" = "Em andamento";
+// The host timer has crossed the red final threshold.
+"SLUG-FINAL" = "Fase final";
+// Starts Bluetooth discovery of iPads for the Watch remote.
+"SLUG-FIND-IPADS" = "Buscar iPads por perto";
+// Performs the same operation as the host’s fast-forward button.
+"SLUG-FORWARD" = "Avançar";
+// The host app is in the background or a dialog is covering its timer controls.
+"SLUG-HOST-FOREGROUND" = "Volte à tela do temporizador em %@.";
+// Shown when connected but the host has no available timer. The placeholder identifies the host.
+"SLUG-HOST-NO-TIMER" = "Selecione um temporizador no RiVal.T em %@.";
+// The selected timer has a zero starting duration. The placeholder names the timer device.
+"SLUG-HOST-SET-TIME" = "Defina a duração do temporizador em %@.";
+"SLUG-INVALID" = "INVÁLIDO";
+// Dismisses the command rejection notice.
+"SLUG-OK" = "OK";
+"SLUG-OPEN-APP" = "Abrir app no iPhone";
+// Shown when the Watch has no live timer information. The placeholder identifies the selected device.
+"SLUG-OPEN-TIMER-APP" = "Abra o RiVal.T em %@ para conectar.";
+// Requests that the host pause the running timer.
+"SLUG-PAUSE" = "Pausar";
+// The host timer is paused.
+"SLUG-PAUSED" = "Em pausa";
+// Appears when the wearer lowers their wrist and the live remote is inactive.
+"SLUG-RAISE-WRIST" = "Levante o pulso para sincronizar";
+// The host has a timer selected and it can be started.
+"SLUG-READY" = "Pronto";
+// Requests a fresh snapshot from the timer device.
+"SLUG-REFRESH" = "Reconectar";
+// Requests that the host continue the paused timer.
+"SLUG-RESUME" = "Retomar";
+// Performs the same operation as the host’s rewind button.
+"SLUG-REWIND" = "Voltar";
+// Requests that the host start the selected timer.
+"SLUG-START" = "Iniciar";
+// Requests that the host stop the timer and exit its running screen.
+"SLUG-STOP" = "Parar";
+// The current timer's deadline passed and the Watch is waiting for the host to confirm what happened.
+"SLUG-SYNCING" = "Atualizando…";
+// Opens the chooser for the device running the timer.
+"SLUG-TIMER-DEVICE" = "Dispositivo do temporizador";
+"SLUG-WATCH-DEVICES-TITLE" = "Dispositivos";
+"SLUG-WATCH-COMPLICATION-NAME" = "Temporizador RiVal";
+// Watch heading. The integers are group number, timer number, and number of timers in the group. All are one-based.
+"SLUG-TIMER-POSITION" = "Grupo %1$d · Temporizador %2$d de %3$d";
+// The host timer has crossed the yellow warning threshold.
+"SLUG-WARNING" = "Aviso";
+
+// MARK: - ACCESSIBILITY -
+
+// MARK: - Navigation -
+"SLUG-ACC-BACK-LABEL"                           =   "Voltar";
+"SLUG-ACC-BACK-HINT"                            =   "Volta à tela anterior.";
+
+// MARK: - Group Editor Screen -
+
+"SLUG-ACC-SETTINGS-BUTTON-LABEL"                =   "Ajustes do app";
+"SLUG-ACC-SETTINGS-BUTTON-HINT"                 =   "Abre uma janela com os ajustes do app.";
+"SLUG-ACC-DISPLAY-SETTINGS-BUTTON-LABEL"        =   "Ajustes de exibição do temporizador";
+"SLUG-ACC-DISPLAY-SETTINGS-BUTTON-HINT"         =   "Abre uma janela para escolher o modo de exibição do grupo de temporizadores selecionado abaixo.";
+"SLUG-ACC-SOUND-SETTINGS-BUTTON-LABEL"          =   "Ajustes de som do temporizador";
+"SLUG-ACC-SOUND-SETTINGS-BUTTON-HINT"           =   "Abre uma janela para escolher o alarme final e os sons de transição do grupo de temporizadores selecionado abaixo.";
+
+"SLUG-ACC-TOOLBAR-DELETE-LABEL"                 =   "Apagar o temporizador selecionado";
+"SLUG-ACC-TOOLBAR-DELETE-HINT"                  =   "Pede confirmação antes de apagar o temporizador selecionado acima.";
+"SLUG-ACC-TOOLBAR-PLAY-LABEL"                   =   "Iniciar o temporizador";
+"SLUG-ACC-TOOLBAR-PLAY-HINT"                    =   "Abre a tela do temporizador selecionado. O ajuste “Iniciar temporizador imediatamente” determina se a contagem regressiva começa automaticamente.";
+"SLUG-ACC-TOOLBAR-EDIT-LABEL"                   =   "Editar o temporizador selecionado";
+"SLUG-ACC-TOOLBAR-EDIT-HINT"                    =   "Abre a tela de edição do temporizador selecionado acima.";
+
+"SLUG-ACC-COLLECTION-TIMER-FORMAT-LABEL"        =   "Temporizador %d, grupo %d";
+"SLUG-ACC-COLLECTION-TIMER-HINT"                =   "Seleciona este temporizador.";
+
+"SLUG-ACC-COLLECTION-TIMER-ADD-LABEL"           =   "Adicionar um temporizador";
+"SLUG-ACC-COLLECTION-TIMER-ADD-HINT"            =   "Cria e seleciona um novo temporizador.";
+
+"SLUG-ACC-GROUP-BUTTON-LABEL"                   =   "Alterar o temporizador selecionado";
+"SLUG-ACC-GROUP-BUTTON-HINT"                    =   "Muda o temporizador selecionado neste grupo.";
+
+// The two plus buttons at the end of a timer row and below all groups have different effects.
+"SLUG-ACC-COLLECTION-GROUP-ADD-LABEL"           =   "Adicionar um grupo";
+"SLUG-ACC-COLLECTION-GROUP-ADD-HINT"            =   "Cria um grupo e seleciona seu primeiro temporizador.";
+
+// Activation of a timer cell depends on its group and the One Tap Timer Editing preference.
+"SLUG-ACC-COLLECTION-SELECT-GROUP-HINT"         =   "Seleciona este grupo e seu primeiro temporizador.";
+"SLUG-ACC-COLLECTION-EDIT-TIMER-HINT"           =   "Abre este temporizador para edição.";
+
+// VoiceOver actions for the selected group. Earlier and later refer to the vertical list order.
+"SLUG-ACC-GROUP-START-ACTION"                   =   "Iniciar grupo pelo primeiro temporizador";
+"SLUG-ACC-GROUP-MOVE-UP-ACTION"                 =   "Mover grupo para cima";
+"SLUG-ACC-GROUP-MOVE-DOWN-ACTION"               =   "Mover grupo para baixo";
+
+// MARK: - Global Settings Popover -
+
+"SLUG-ACC-START-IMMEDIATELY-CHECKBOX-LABEL"     =   "Iniciar temporizadores imediatamente";
+"SLUG-ACC-START-IMMEDIATELY-CHECKBOX-HINT"      =   "Quando esta opção está ativada, tocar no botão Iniciar começa a contagem regressiva imediatamente. Quando está desativada, o temporizador abre pausado e precisa ser iniciado manualmente.";
+"SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-LABEL"          =   "Editar temporizadores com um toque";
+"SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-HINT"           =   "Quando esta opção está ativada, basta tocar em um temporizador no editor de grupos para editá-lo. Quando está desativada, use o botão Editar no canto inferior direito.";
+"SLUG-ACC-COMBINE-TIMERS-CHECKBOX-LABEL"        =   "Combinar temporizadores";
+"SLUG-ACC-COMBINE-TIMERS-CHECKBOX-HINT"         =   "Quando ativada, a opção mostra o tempo restante de todo o grupo. Quando desativada, mostra o tempo restante do temporizador atual.";
+"SLUG-ACC-SHOW-TOOLBAR-CHECKBOX-LABEL"          =   "Mostrar barra de ferramentas no temporizador";
+"SLUG-ACC-SHOW-TOOLBAR-CHECKBOX-HINT"           =   "Quando esta opção está ativada, os controles do temporizador aparecem em uma barra na parte inferior da tela. Quando está desativada, controle o temporizador por gestos.";
+"SLUG-ACC-HIDE-TOOLBAR-CHECKBOX-LABEL"          =   "Ocultar automaticamente a barra de ferramentas do temporizador";
+"SLUG-ACC-HIDE-TOOLBAR-CHECKBOX-HINT"           =   "Quando esta opção está ativada, a barra na parte inferior da tela do temporizador desaparece após alguns segundos. Toque na tela para mostrar a barra novamente. Quando está desativada, a barra fica sempre visível.";
+"SLUG-ACC-ABOUT-LABEL"                          =   "Mostrar informações sobre o app";
+"SLUG-ACC-ABOUT-HINT"                           =   "Abre a tela “Sobre este app”.";
+
+// Buttons on the iPad when a nearby Apple Watch requests permission to control the timer.
+"SLUG-ACC-WATCH-PAIR-DENY-LABEL"                =   "Recusar";
+"SLUG-ACC-WATCH-PAIR-DENY-HINT"                 =   "Recusa o pedido deste Apple Watch para controlar o temporizador.";
+"SLUG-ACC-WATCH-PAIR-ALLOW-LABEL"               =   "Permitir";
+"SLUG-ACC-WATCH-PAIR-ALLOW-HINT"                =   "Permite que este Apple Watch controle o temporizador neste iPad.";
+
+// The switch in global settings that makes this iPad available to an Apple Watch.
+"SLUG-ACC-WATCH-REMOTE-LABEL"                   =   "Controle pelo Apple Watch";
+"SLUG-ACC-WATCH-REMOTE-HINT"                    =   "Permite que um Apple Watch por perto encontre este iPad e solicite o controle do temporizador. Desativar a opção remove a autorização concedida ao Apple Watch.";
+
+// Dismisses the explanation shown when the running timer toolbar is switched off.
+"SLUG-ACC-TOOLBAR-ADVISORY-OK-LABEL"            =   "OK";
+"SLUG-ACC-TOOLBAR-ADVISORY-OK-HINT"             =   "Fecha as instruções de gestos do temporizador.";
+
+// MARK: - Display Settings Popover -
+
+"SLUG-ACC-DISPLAY-SETTINGS-NUMERICAL-LABEL"     =   "Exibir temporizador em dígitos";
+"SLUG-ACC-DISPLAY-SETTINGS-NUMERICAL-HINT"      =   "Mostra a contagem regressiva com dígitos grandes no estilo LED.";
+"SLUG-ACC-DISPLAY-SETTINGS-CIRCULAR-LABEL"      =   "Exibir temporizador como anel";
+"SLUG-ACC-DISPLAY-SETTINGS-CIRCULAR-HINT"       =   "Mostra um anel que desaparece conforme a contagem regressiva avança.";
+"SLUG-ACC-DISPLAY-SETTINGS-STOPLIGHTS-LABEL"    =   "Exibir temporizador como semáforo";
+"SLUG-ACC-DISPLAY-SETTINGS-STOPLIGHTS-HINT"     =   "Mostra três círculos coloridos que se acendem quando a contagem regressiva atinge os limites.";
+
+// Controls for choosing how a group is displayed and how its final alarm behaves.
+"SLUG-ACC-DISPLAY-TYPE-LABEL"                   =   "Exibição do temporizador";
+"SLUG-ACC-DISPLAY-TYPE-HINT"                    =   "Escolha como exibir a contagem regressiva deste grupo.";
+
+// MARK: - Sound Settings Popover -
+
+"SLUG-ACC-SOUND-SWITCH-NONE-LABEL"              =   "Sem som nem vibração";
+"SLUG-ACC-SOUND-SWITCH-NONE-HINT"               =   "Quando todos os temporizadores do grupo terminarem, o alarme será apenas visual.";
+"SLUG-ACC-SOUND-SWITCH-SOUND-LABEL"             =   "Somente som do alarme";
+"SLUG-ACC-SOUND-SWITCH-SOUND-HINT"              =   "Quando todos os temporizadores do grupo terminarem, o som escolhido abaixo será reproduzido repetidamente.";
+"SLUG-ACC-SOUND-SWITCH-VIBRATE-LABEL"           =   "Somente vibração";
+"SLUG-ACC-SOUND-SWITCH-VIBRATE-HINT"            =   "Quando todos os temporizadores do grupo terminarem, o dispositivo vibrará sem emitir som.";
+"SLUG-ACC-SOUND-SWITCH-SOUNDVIBRATE-LABEL"      =   "Som do alarme e vibração";
+"SLUG-ACC-SOUND-SWITCH-SOUNDVIBRATE-HINT"       =   "Quando todos os temporizadores do grupo terminarem, o som escolhido abaixo tocará e o dispositivo vibrará.";
+
+"SLUG-ACC-SOUND-PICKER-LABEL"                   =   "Selecionar o som do alarme final";
+"SLUG-ACC-SOUND-PICKER-HINT"                    =   "Permite escolher o som que tocará ao fim do último temporizador.";
+"SLUG-ACC-SOUND-PICKER-BUTTON-LABEL"            =   "Ouvir o som do alarme";
+"SLUG-ACC-SOUND-PICKER-BUTTON-HINT"             =   "Reproduz o som selecionado para o alarme final. Toque novamente para parar a reprodução.";
+
+"SLUG-ACC-TRANSITION-PICKER-LABEL"              =   "Selecionar um som de transição";
+"SLUG-ACC-TRANSITION-PICKER-HINT"               =   "Permite escolher um som curto para a passagem de um temporizador para o próximo.";
+"SLUG-ACC-TRANSITION-PICKER-BUTTON-LABEL"       =   "Ouvir o som de transição";
+"SLUG-ACC-TRANSITION-PICKER-BUTTON-HINT"        =   "Reproduz o som selecionado para a passagem ao próximo temporizador. Toque novamente para parar a reprodução.";
+
+"SLUG-ACC-ALARM-MODE-LABEL"                     =   "Modo do alarme final";
+"SLUG-ACC-ALARM-MODE-HINT"                      =   "Escolha como este grupo sinaliza o fim do último temporizador.";
+
+// MARK: - Timer Editor Screen -
+
+"SLUG-ACC-START-SEGMENT-LABEL"                  =   "Duração inicial";
+"SLUG-ACC-START-SEGMENT-HINT"                   =   "Duração total do temporizador em horas, minutos e segundos. Defina uma duração para iniciar o temporizador.";
+"SLUG-ACC-WARN-SEGMENT-LABEL"                   =   "Limite de aviso";
+"SLUG-ACC-WARN-SEGMENT-HINT"                    =   "Ao atingir esse limite, o visor fica amarelo. Deixe o valor em zero para desativar esse limite opcional.";
+"SLUG-ACC-FINAL-SEGMENT-LABEL"                  =   "Limite final";
+"SLUG-ACC-FINAL-SEGMENT-HINT"                   =   "Ao atingir esse limite, o visor fica vermelho. Deixe o valor em zero para desativar esse limite opcional.";
+
+"SLUG-ACC-TIME-PICKER-LABEL"                    =   "Definir um tempo";
+"SLUG-ACC-TIME-PICKER-HINT"                     =   "Ajuste o tempo em horas, minutos e segundos.";
+
+"SLUG-ACC-MAIN-PLAY-BUTTON-LABEL"               =   "Iniciar o temporizador";
+"SLUG-ACC-MAIN-PLAY-BUTTON-HINT"                =   "Abre a tela do temporizador. O ajuste “Iniciar temporizador imediatamente” determina se a contagem regressiva começa automaticamente.";
+"SLUG-ACC-TIME-PICKER-COMPONENT-0-LABEL"        =   "Ajustar horas";
+"SLUG-ACC-TIME-PICKER-COMPONENT-0-HINT"         =   "Escolha o número de horas, de 0 a 23.";
+"SLUG-ACC-TIME-PICKER-COMPONENT-1-LABEL"        =   "Ajustar minutos";
+"SLUG-ACC-TIME-PICKER-COMPONENT-1-HINT"         =   "Escolha o número de minutos, de 0 a 59.";
+"SLUG-ACC-TIME-PICKER-COMPONENT-2-LABEL"        =   "Ajustar segundos";
+"SLUG-ACC-TIME-PICKER-COMPONENT-2-HINT"         =   "Escolha o número de segundos, de 0 a 59.";
+
+"SLUG-ACC-TOOLBAR-TIMER-FORMAT-LABEL"           =   "Editar o temporizador %d deste grupo";
+"SLUG-ACC-TOOLBAR-TIMER-HINT"                   =   "Abre a tela de edição do temporizador.";
+
+"SLUG-ACC-NAVBAR-DELETE-LABEL"                  =   "Apagar este temporizador";
+"SLUG-ACC-NAVBAR-DELETE-HINT"                   =   "Pede confirmação antes de apagar este temporizador.";
+
+// The segmented control above the time picker chooses which time its three wheels edit.
+"SLUG-ACC-TIME-TYPE-LABEL"                      =   "Tempo a ajustar";
+"SLUG-ACC-TIME-TYPE-HINT"                       =   "Escolha a duração inicial, o limite de aviso ou o limite final.";
+
+// Shared by the Group Editor and Timer Editor when confirming deletion of the selected timer.
+"SLUG-ACC-DELETE-TIMER-CONFIRM-LABEL"           =   "Apagar temporizador";
+"SLUG-ACC-DELETE-TIMER-CONFIRM-HINT"            =   "Apaga permanentemente o temporizador selecionado.";
+"SLUG-ACC-DELETE-TIMER-CANCEL-LABEL"            =   "Cancelar";
+"SLUG-ACC-DELETE-TIMER-CANCEL-HINT"             =   "Mantém o temporizador e fecha a confirmação.";
+
+// MARK: Running Timer Screen
+
+"SLUG-ACC-REWIND-LABEL"                         =   "Reiniciar temporizador";
+"SLUG-ACC-REWIND-HINT"                          =   "Volta ao início do temporizador atual. Se já estiver no início, seleciona o temporizador anterior, se houver. Durante o alarme final, reinicia o grupo.";
+
+"SLUG-ACC-STOP-LABEL"                           =   "Parar temporizador";
+"SLUG-ACC-STOP-HINT"                            =   "Para o temporizador e volta à tela anterior.";
+
+"SLUG-ACC-PLAY-LABEL"                           =   "Iniciar o temporizador";
+"SLUG-ACC-PLAY-HINT"                            =   "Inicia a contagem regressiva.";
+
+"SLUG-ACC-RESUME-LABEL"                         =   "Retomar temporizador";
+"SLUG-ACC-RESUME-HINT"                          =   "Continua a contagem regressiva de onde foi pausada.";
+
+"SLUG-ACC-PAUSE-LABEL"                          =   "Pausar temporizador";
+"SLUG-ACC-PAUSE-HINT"                           =   "Pausa o temporizador.";
+
+"SLUG-ACC-FAST-FORWARD-LABEL"                   =   "Avançar";
+"SLUG-ACC-FAST-FORWARD-HINT"                    =   "Avança para o próximo temporizador ou dispara o alarme se este for o último.";
+
+
+// The same control is available on all three running timer displays.
+"SLUG-ACC-TIMER-GESTURE-HINT"                    =   "Executa o comando anunciado para o temporizador. Quando a barra de ferramentas está oculta, há mais comandos em Ações.";
+"SLUG-ACC-DISMISS-ALARM-LABEL"                  =   "Desligar alarme";
+"SLUG-ACC-DISMISS-ALARM-HINT"                   =   "Silencia o alarme e volta ao primeiro temporizador do grupo.";
+// The adjustable countdown position and its corresponding touch slider.
+"SLUG-ACC-TIMER-POSITION-LABEL"                 =   "Posição na contagem regressiva";
+"SLUG-ACC-TIMER-POSITION-HINT"                  =   "Aumente o valor para avançar na contagem regressiva. Diminua para voltar. O valor indica o tempo restante.";
+
+// MARK: - About Screen -
+
+// The selectable text contains website links detected by the system.
+"SLUG-ACC-ABOUT-TEXT-LABEL"                     =   "Sobre este app";
+"SLUG-ACC-ABOUT-TEXT-HINT"                      =   "Traz informações sobre o temporizador e links para o site e o código-fonte.";
+
+// MARK: Watch Remote
+
+/* Spoken when a remote command was declined and the user can dismiss the alert. */
+"SLUG-ACC-WATCH-ALERT-OK-LABEL"                  =   "OK";
+"SLUG-ACC-WATCH-ALERT-OK-HINT"                   =   "Fecha a mensagem.";
+
+/* During an alarm, the entire Watch screen performs this action. */
+"SLUG-ACC-WATCH-ALARM-LABEL"                     =   "Silenciar alarme";
+"SLUG-ACC-WATCH-ALARM-HINT"                      =   "Silencia o alarme e volta ao primeiro temporizador do grupo.";
+
+"SLUG-ACC-WATCH-STOP-HINT"                       =   "Para o temporizador e fecha a tela do temporizador no dispositivo conectado.";
+"SLUG-ACC-WATCH-REWIND-HINT"                     =   "Volta ao início deste temporizador. Se já estiver no início, seleciona o temporizador anterior, se houver.";
+/* VoiceOver action equivalent to double-tapping the Watch screen while the host is on the Running Timer screen. */
+"SLUG-ACC-WATCH-REWIND-GROUP-LABEL"              =   "Voltar ao início do grupo";
+"SLUG-ACC-WATCH-REWIND-GROUP-HINT"               =   "Volta ao primeiro temporizador e aguarda que você toque em Iniciar.";
+"SLUG-ACC-WATCH-FORWARD-LABEL"                   =   "Avançar";
+"SLUG-ACC-WATCH-FORWARD-HINT"                    =   "Avança até o fim deste temporizador ou para o próximo do grupo.";
+
+"SLUG-ACC-WATCH-CONTROLS-LABEL"                  =   "Controles do temporizador";
+"SLUG-ACC-WATCH-CONTROLS-HINT"                   =   "Mostra mais controles do temporizador e permite escolher o dispositivo do temporizador.";
+"SLUG-ACC-WATCH-DEVICE-LABEL"                    =   "Dispositivo do temporizador";
+"SLUG-ACC-WATCH-DEVICE-HINT"                     =   "Mostra os dispositivos que este Apple Watch pode controlar.";
+"SLUG-ACC-WATCH-RECONNECT-LABEL"                 =   "Reconectar";
+"SLUG-ACC-WATCH-RECONNECT-HINT"                  =   "Tenta conectar novamente ao dispositivo do temporizador selecionado.";
+
+"SLUG-ACC-WATCH-IPHONE-LABEL"                    =   "iPhone emparelhado";
+"SLUG-ACC-WATCH-IPHONE-HINT"                     =   "Seleciona este iPhone como o dispositivo a controlar.";
+"SLUG-ACC-WATCH-FIND-IPADS-LABEL"                =   "Buscar iPads por perto";
+"SLUG-ACC-WATCH-FIND-IPADS-HINT"                 =   "Busca iPads por perto com o controle pelo Apple Watch ativado.";
+/* %@ is the short Bluetooth name advertised by a nearby iPad. */
+"SLUG-ACC-WATCH-IPAD-LABEL"                      =   "iPad, %@";
+"SLUG-ACC-WATCH-IPAD-HINT"                       =   "Conecta a este iPad para controlar o temporizador.";
+
+// MARK: Watch Face Complications
+
+"SLUG-ACC-COMPLICATION-LABEL"                    =   "Temporizador Rift Valley";
+"SLUG-ACC-COMPLICATION-HINT"                     =   "Abre o controle do temporizador neste Apple Watch.";
+"SLUG-ACC-COMPLICATION-UNAVAILABLE-VALUE"        =   "Temporizador indisponível";
