@@ -40,6 +40,7 @@ struct RiValT_Watch_App_MainContentView: View {
                 self.connectionView
             }
         }
+        .overlay { self.alarmTapCatcher }
         .onChange(of: self.scenePhase, initial: true) {
             self.model.setActive(self.scenePhase == .active)
         }
@@ -76,6 +77,20 @@ struct RiValT_Watch_App_MainContentView: View {
                     .navigationTitle(watchText("SLUG-CONTROLS"))
                 }
             }
+            .overlay { self.alarmTapCatcher }
+        }
+    }
+
+    /// Consume alarm taps before they can activate any underlying control.
+    @ViewBuilder private var alarmTapCatcher: some View {
+        if let snapshot = self.model.snapshot, snapshot.phase == .alarm {
+            Color.clear
+                .contentShape(Rectangle())
+                .ignoresSafeArea()
+                .onTapGesture { self.model.send(.reset, for: snapshot) }
+                .accessibilityElement()
+                .accessibilityLabel(watchText("SLUG-REWIND"))
+                .accessibilityAddTraits(.isButton)
         }
     }
 

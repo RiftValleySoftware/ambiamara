@@ -115,6 +115,7 @@ extension RiValT_AppDelegate {
         let phase: RiValT_WatchDelegate.Phase
         var commands: [RiValT_WatchDelegate.TimerOperation] = []
         var complicationPresetTime: Int?
+        var followingDuration = running?.countdown?.followingDuration
         if let running, running.timer === timer {
             switch scrubPreview?.mode ?? timer.timerMode {
             case .countdown: phase = .countdown
@@ -146,6 +147,7 @@ extension RiValT_AppDelegate {
                 commands = [.start]
                 if RiValT_Settings().combineTimers {
                     let countdown = TimerCountdown(timer, combineTimers: true)
+                    followingDuration = countdown.followingDuration
                     complicationPresetTime = timer.startingTimeInSeconds + countdown.followingDuration
                 }
             }
@@ -158,7 +160,7 @@ extension RiValT_AppDelegate {
                      groupSize: timer.group?.count ?? 0, phase: phase, remaining: remaining,
                      deadline: phase.isCounting && scrubPreview == nil ? timer.countdownDeadline : nil,
                      warning: timer.warningRangeUpperBound, final: timer.finalRangeUpperBound,
-                     commands: commands, followingDuration: running?.countdown?.followingDuration,
+                     commands: commands, followingDuration: followingDuration,
                      complicationPresetTime: complicationPresetTime)
     }
 
