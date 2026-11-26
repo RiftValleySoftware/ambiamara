@@ -13,7 +13,7 @@ import SwiftUI
 private typealias Snapshot = RiValT_ObservableModel.Snapshot
 private typealias Operation = RiValT_ObservableModel.Operation
 
-/// Strings in the Watch target's catalog, including values chosen at runtime.
+/// Localized Watch text, including keys chosen at runtime.
 private func watchText(_ key: String) -> String { NSLocalizedString(key, comment: "") }
 
 struct RiValT_Watch_App_MainContentView: View {
@@ -40,6 +40,7 @@ struct RiValT_Watch_App_MainContentView: View {
                 self.connectionView
             }
         }
+        .accessibilityHidden(self.model.snapshot?.phase == .alarm)
         .overlay { self.alarmTapCatcher }
         .onChange(of: self.scenePhase, initial: true) {
             self.model.setActive(self.scenePhase == .active)
@@ -49,6 +50,8 @@ struct RiValT_Watch_App_MainContentView: View {
         }
         .alert(watchText("SLUG-COMMAND-REJECTED"), isPresented: self.$showRejectedCommand) {
             Button(watchText("SLUG-OK")) { }
+                .accessibilityLabel("SLUG-ACC-WATCH-ALERT-OK-LABEL")
+                .accessibilityHint("SLUG-ACC-WATCH-ALERT-OK-HINT")
         }
         .sheet(item: self.$sheet) { sheet in
             NavigationStack {
@@ -65,6 +68,8 @@ struct RiValT_Watch_App_MainContentView: View {
                                 } label: {
                                     operation.label
                                 }
+                                .accessibilityLabel(operation.spokenLabel)
+                                .accessibilityHint(operation.spokenHint)
                                 .disabled(self.model.isSendingCommand)
                             }
                         }
@@ -73,10 +78,13 @@ struct RiValT_Watch_App_MainContentView: View {
                         } label: {
                             Label(watchText("SLUG-TIMER-DEVICE"), systemImage: "applewatch.radiowaves.left.and.right")
                         }
+                        .accessibilityLabel("SLUG-ACC-WATCH-DEVICE-LABEL")
+                        .accessibilityHint("SLUG-ACC-WATCH-DEVICE-HINT")
                     }
                     .navigationTitle(watchText("SLUG-CONTROLS"))
                 }
             }
+            .accessibilityHidden(self.model.snapshot?.phase == .alarm)
             .overlay { self.alarmTapCatcher }
         }
     }
@@ -89,8 +97,10 @@ struct RiValT_Watch_App_MainContentView: View {
                 .ignoresSafeArea()
                 .onTapGesture { self.model.send(.reset, for: snapshot) }
                 .accessibilityElement()
-                .accessibilityLabel(watchText("SLUG-REWIND"))
+                .accessibilityLabel("SLUG-ACC-WATCH-ALARM-LABEL")
+                .accessibilityHint("SLUG-ACC-WATCH-ALARM-HINT")
                 .accessibilityAddTraits(.isButton)
+                .accessibilityAction { self.model.send(.reset, for: snapshot) }
         }
     }
 
@@ -146,13 +156,15 @@ struct RiValT_Watch_App_MainContentView: View {
                     } label: {
                         if self.model.isSendingCommand {
                             ProgressView()
-                                .accessibilityLabel(watchText("SLUG-SYNCING"))
                         } else {
                             primary.label
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.65)
                         }
                     }
+                    .accessibilityLabel(primary.spokenLabel)
+                    .accessibilityValue(self.model.isSendingCommand ? watchText("SLUG-SYNCING") : "")
+                    .accessibilityHint(primary.spokenHint)
                     .disabled(self.model.isSendingCommand || awaitingHost)
                 }
                 Button {
@@ -165,7 +177,8 @@ struct RiValT_Watch_App_MainContentView: View {
                             .frame(minWidth: 30)
                     }
                 }
-                .accessibilityLabel(watchText("SLUG-CONTROLS"))
+                .accessibilityLabel("SLUG-ACC-WATCH-CONTROLS-LABEL")
+                .accessibilityHint("SLUG-ACC-WATCH-CONTROLS-HINT")
                 .frame(maxWidth: primary == nil ? .infinity : 44)
             }
         }
@@ -222,8 +235,13 @@ struct RiValT_Watch_App_MainContentView: View {
                     Button(watchText("SLUG-REFRESH")) {
                         self.reconnect()
                     }
+                    .accessibilityLabel("SLUG-ACC-WATCH-RECONNECT-LABEL")
+                    .accessibilityHint(self.bluetooth.usesIPad && self.bluetooth.selectedDeviceID == nil
+                                       ? Text("SLUG-ACC-WATCH-FIND-IPADS-HINT") : Text("SLUG-ACC-WATCH-RECONNECT-HINT"))
                 }
                 Button(watchText("SLUG-TIMER-DEVICE")) { self.sheet = .devices }
+                    .accessibilityLabel("SLUG-ACC-WATCH-DEVICE-LABEL")
+                    .accessibilityHint("SLUG-ACC-WATCH-DEVICE-HINT")
             }
         }
     }
@@ -250,11 +268,16 @@ private struct DevicePicker: View {
             } label: {
                 Label("iPhone", systemImage: self.bluetooth.usesIPad ? "iphone" : "checkmark")
             }
+            .accessibilityLabel("SLUG-ACC-WATCH-IPHONE-LABEL")
+            .accessibilityHint("SLUG-ACC-WATCH-IPHONE-HINT")
+            .accessibilityAddTraits(self.bluetooth.usesIPad ? [] : .isSelected)
             Button {
                 self.bluetooth.browse()
             } label: {
                 Label(watchText("SLUG-FIND-IPADS"), systemImage: "antenna.radiowaves.left.and.right")
             }
+            .accessibilityLabel("SLUG-ACC-WATCH-FIND-IPADS-LABEL")
+            .accessibilityHint("SLUG-ACC-WATCH-FIND-IPADS-HINT")
             if self.bluetooth.usesIPad || self.bluetooth.isBrowsing {
                 ForEach(self.bluetooth.devices, id: \.id) { device in
                     Button {
@@ -263,6 +286,9 @@ private struct DevicePicker: View {
                     } label: {
                         Label(device.name, systemImage: self.bluetooth.usesIPad && self.bluetooth.selectedDeviceID == device.id ? "checkmark" : "ipad")
                     }
+                    .accessibilityLabel(String(format: watchText("SLUG-ACC-WATCH-IPAD-LABEL"), device.name))
+                    .accessibilityHint("SLUG-ACC-WATCH-IPAD-HINT")
+                    .accessibilityAddTraits(self.bluetooth.usesIPad && self.bluetooth.selectedDeviceID == device.id ? .isSelected : [])
                 }
                 if !self.bluetooth.status.isEmpty {
                     Text(verbatim: self.bluetooth.status)
@@ -313,6 +339,28 @@ private extension RiValT_WatchDelegate.Phase {
 }
 
 private extension RiValT_WatchDelegate.TimerOperation {
+    var spokenLabel: Text {
+        switch self {
+        case .start:       Text("SLUG-ACC-PLAY-LABEL")
+        case .resume:      Text("SLUG-ACC-RESUME-LABEL")
+        case .pause:       Text("SLUG-ACC-PAUSE-LABEL")
+        case .stop:        Text("SLUG-ACC-STOP-LABEL")
+        case .reset:       Text("SLUG-ACC-REWIND-LABEL")
+        case .fastForward: Text("SLUG-ACC-WATCH-FORWARD-LABEL")
+        }
+    }
+
+    var spokenHint: Text {
+        switch self {
+        case .start:       Text("SLUG-ACC-PLAY-HINT")
+        case .resume:      Text("SLUG-ACC-RESUME-HINT")
+        case .pause:       Text("SLUG-ACC-PAUSE-HINT")
+        case .stop:        Text("SLUG-ACC-WATCH-STOP-HINT")
+        case .reset:       Text("SLUG-ACC-WATCH-REWIND-HINT")
+        case .fastForward: Text("SLUG-ACC-WATCH-FORWARD-HINT")
+        }
+    }
+
     var label: Label<Text, Image> {
         switch self {
         case .start:       return Label(watchText("SLUG-START"), systemImage: "play.fill")

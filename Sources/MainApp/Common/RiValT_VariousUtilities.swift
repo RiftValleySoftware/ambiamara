@@ -12,6 +12,18 @@ import UIKit
 import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 
+extension UISegmentedControl {
+    /// Some UIKit presentations expose the individual segments as native accessibility elements.
+    func applySegmentAccessibility() {
+        for index in 0..<min(numberOfSegments, accessibilityElementCount()) {
+            guard let element = accessibilityElement(at: index) as? NSObject,
+                  let image = imageForSegment(at: index) else { continue }
+            element.accessibilityLabel = image.accessibilityLabel
+            element.accessibilityHint = image.accessibilityHint
+        }
+    }
+}
+
 /* ###################################################################################################################################### */
 // MARK: - UIImage Extension to Create Gradients -
 /* ###################################################################################################################################### */
@@ -142,6 +154,14 @@ class SoundBarButtonItem: BaseCustomBarButtonItem {
 
 /* ###################################################################################################################################### */
 // MARK: Custom Group Border Decorator
+private final class GroupNumberLabel: UILabel {
+    weak var controller: RiValT_GroupEditor_ViewController?
+
+    override func accessibilityActivate() -> Bool {
+        controller?.selectNextTimerInGroup() ?? false
+    }
+}
+
 /* ###################################################################################################################################### */
 /**
  This class draws a border around the currently selected group.
@@ -330,7 +350,7 @@ class SectionBackgroundView: UICollectionReusableView {
         // If we have more than one group, we add a number to the right end, identifying the group.
         if group.index == inLayoutAttributes.indexPath.section,
            (1 < group.model?.count ?? 0) || (1 < group.count) {
-            let groupNumberLabel = UILabel()
+            let groupNumberLabel = GroupNumberLabel()
             groupNumberLabel.backgroundColor = isDarkMode ? UIColor(white: Self._lightModeMax, alpha: 1.0) : UIColor(white: Self._darkModeMax, alpha: 1.0)
             groupNumberLabel.textAlignment = .left
             groupNumberLabel.adjustsFontSizeToFitWidth = true
@@ -344,11 +364,13 @@ class SectionBackgroundView: UICollectionReusableView {
             groupNumberLabel.widthAnchor.constraint(equalToConstant: Self._endcapWidthInDisplayUnits).isActive = true
             groupNumberLabel.cornerRadius = 0
             groupNumberLabel.clipsToBounds = true
-            if 1 < group.count {
+            if 1 < group.count, !RiValT_Settings().combineTimers {
                 groupNumberLabel.font = Self._endcapFontButton
                 groupNumberLabel.isAccessibilityElement = true
                 groupNumberLabel.accessibilityLabel = "SLUG-ACC-GROUP-BUTTON-LABEL".localizedVariant
                 groupNumberLabel.accessibilityHint = "SLUG-ACC-GROUP-BUTTON-HINT".localizedVariant
+                groupNumberLabel.accessibilityTraits = .button
+                groupNumberLabel.controller = myController
                 groupNumberLabel.textColor = UIColor(named: "Selected-Cell-Action-Color")
                 groupNumberLabel.isUserInteractionEnabled = true
                 let numberTapper = UITapGestureRecognizer(target: RiValT_AppDelegate.appDelegateInstance?.groupEditorController, action: #selector(RiValT_GroupEditor_ViewController.groupBackgroundNumberTapped))
@@ -636,8 +658,8 @@ class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
         button.frame = self.contentView.bounds
         button.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         button.isAccessibilityElement = true
-        button.accessibilityLabel = "SLUG-ACC-COLLECTION-TIMER-ADD-LABEL".localizedVariant
-        button.accessibilityHint = "SLUG-ACC-COLLECTION-TIMER-ADD-HINT".localizedVariant
+        button.accessibilityLabel = (isNewGroup ? "SLUG-ACC-COLLECTION-GROUP-ADD-LABEL" : "SLUG-ACC-COLLECTION-TIMER-ADD-LABEL").localizedVariant
+        button.accessibilityHint = (isNewGroup ? "SLUG-ACC-COLLECTION-GROUP-ADD-HINT" : "SLUG-ACC-COLLECTION-TIMER-ADD-HINT").localizedVariant
         button.addTarget(self, action: #selector(addButtonHit), for: .primaryActionTriggered)
         self.contentView.addSubview(button)
         if isNewGroup {
@@ -660,6 +682,14 @@ class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
  This describes each cell, representing a timer, in the collection view.
  */
 class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
+    override var accessibilityHint: String? {
+        get {
+            guard item?.group?.isSelected == true else { return "SLUG-ACC-COLLECTION-SELECT-GROUP-HINT".localizedVariant }
+            return (RiValT_Settings().oneTapEditing ? "SLUG-ACC-COLLECTION-EDIT-TIMER-HINT" : "SLUG-ACC-COLLECTION-TIMER-HINT").localizedVariant
+        }
+        set { super.accessibilityHint = newValue }
+    }
+
     /* ############################################################## */
     /**
      The height of our display labels, if we have a tight squeeze.

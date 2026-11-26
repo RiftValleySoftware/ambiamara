@@ -400,12 +400,8 @@ extension RiValT_RunningTimer_ContainerViewController {
             longo.require(toFail: tapper)
         }
         
-        if !RiValT_Settings().displayToolbar {
-            self.view.isAccessibilityElement = true
-            self.view.accessibilityLabel = "SLUG-ACC-HIDDEN-TOOLBAR-INSTRUCTIONS-LABEL".localizedVariant
-            self.view.accessibilityHint = "SLUG-ACC-HIDDEN-TOOLBAR-INSTRUCTIONS-HINT".localizedVariant
-        }
-        
+        self.configureAccessibleTimerControls()
+
         self.timer?.tickHandler = self.tickHandler
         self.timer?.transitionHandler = self.transitionHandler
         self.setToolbarEnablements()
@@ -892,6 +888,45 @@ extension RiValT_RunningTimer_ContainerViewController {
         )
     }
 
+    /// The three displays share a single VoiceOver control for reading and operating the countdown.
+    private func configureAccessibleTimerControls() {
+        guard let surface = flasherView, let position = timeSetSwipeContainerView, let toolbar = controlToolbar else { return }
+        surface.isAccessibilityElement = true
+        surface.accessibilityTraits = [.button, .updatesFrequently]
+        surface.accessibilityHint = "SLUG-ACC-TIMER-GESTURE-HINT".localizedVariant
+        surface.accessibilityLabelBlock = { [weak self] in self?.playPauseToolbarItem?.accessibilityLabel }
+        let remainingTime: () -> String? = { [weak self] in
+            guard let remaining = self?.countdown?.remaining else { return nil }
+            return Duration.seconds(remaining).formatted(.units(allowed: [.hours, .minutes, .seconds], width: .wide))
+        }
+        surface.accessibilityValueBlock = remainingTime
+        surface.accessibilityActivateBlock = { [weak self] in
+            guard let self, let item = playPauseToolbarItem, item.isEnabled else { return false }
+            toolbarItemHit(item)
+            return true
+        }
+        surface.accessibilityCustomActionsBlock = { [weak self] in
+            guard let self, controlToolbar?.isHidden == true else { return nil }
+            return [rewindToolbarItem, fastForwardToolbarItem, stopToolbarItem].compactMap { item in
+                guard let item, item.isEnabled, let label = item.accessibilityLabel else { return nil }
+                return UIAccessibilityCustomAction(name: label) { [weak self] _ in
+                    guard let self, item.isEnabled else { return false }
+                    toolbarItemHit(item)
+                    return true
+                }
+            }
+        }
+        // Keep scrubbing available even before a sighted user would reveal the temporary slider.
+        position.isAccessibilityElement = true
+        position.accessibilityTraits = [.adjustable, .updatesFrequently]
+        position.accessibilityLabel = "SLUG-ACC-TIMER-POSITION-LABEL".localizedVariant
+        position.accessibilityHint = "SLUG-ACC-TIMER-POSITION-HINT".localizedVariant
+        position.accessibilityValueBlock = remainingTime
+        position.accessibilityIncrementBlock = { [weak self] in self?.adjustCountdownPosition(by: 1) }
+        position.accessibilityDecrementBlock = { [weak self] in self?.adjustCountdownPosition(by: -1) }
+        view.accessibilityElements = [surface, position, toolbar]
+    }
+
     /* ############################################################## */
     /**
      This enables (or disables) toolbar items, as necessary for the current state.
@@ -909,9 +944,15 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.stopToolbarItem?.accessibilityLabel = "SLUG-ACC-STOP-LABEL".localizedVariant
         self.stopToolbarItem?.accessibilityHint = "SLUG-ACC-STOP-HINT".localizedVariant
         
-        if timer.isTimerRunning {
+        if timer.isTimerInAlarm {
+            self.playPauseToolbarItem?.accessibilityLabel = "SLUG-ACC-DISMISS-ALARM-LABEL".localizedVariant
+            self.playPauseToolbarItem?.accessibilityHint = "SLUG-ACC-DISMISS-ALARM-HINT".localizedVariant
+        } else if timer.isTimerRunning {
             self.playPauseToolbarItem?.accessibilityLabel = "SLUG-ACC-PAUSE-LABEL".localizedVariant
             self.playPauseToolbarItem?.accessibilityHint = "SLUG-ACC-PAUSE-HINT".localizedVariant
+        } else if timer.isTimerPaused {
+            self.playPauseToolbarItem?.accessibilityLabel = "SLUG-ACC-RESUME-LABEL".localizedVariant
+            self.playPauseToolbarItem?.accessibilityHint = "SLUG-ACC-RESUME-HINT".localizedVariant
         } else {
             self.playPauseToolbarItem?.accessibilityLabel = "SLUG-ACC-PLAY-LABEL".localizedVariant
             self.playPauseToolbarItem?.accessibilityHint = "SLUG-ACC-PLAY-HINT".localizedVariant
@@ -1149,6 +1190,55 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.updateDisplays()
     }
     
+    /// Use the same elapsed-time scale for the touch slider and the accessible adjustment.
+    private func setCountdownPosition(_ elapsed: Int, in countdown: TimerCountdown) {
+        let position = countdown.position(atElapsedTime: elapsed)
+        if position.timer !== countdown.timer {
+            countdown.timer.tickHandler = nil
+            countdown.timer.transitionHandler = nil
+            countdown.timer.stop()
+            self.timer = position.timer
+            position.timer.isSelected = true
+            position.timer.tickHandler = self.tickHandler
+            position.timer.transitionHandler = self.transitionHandler
+            position.timer.start()
+            self.watchDelegate?.updateSettings()
+        }
+        if position.remaining != position.timer.currentTime {
+            self.selectionHaptic()
+            position.timer.currentTime = position.remaining
+            if case .paused = position.timer.timerMode {
+                position.timer.resume()
+            }
+        }
+        self._timeSetSlider?.value = Float(elapsed)
+        self.timeSetDisplayLabel?.text = TimerEngine.timerDisplay(for: countdown.totalDuration - elapsed)
+        self.updateDisplays()
+    }
+
+    private func adjustCountdownPosition(by direction: Int) {
+        guard let countdown, countdown.totalDuration > 0 else { return }
+        let elapsed = countdown.totalDuration - countdown.remaining
+        // Move one tenth of the range, as a native slider does, and land exactly on either end.
+        let step = max(1, countdown.totalDuration / 10)
+        let target = min(countdown.totalDuration, max(0, elapsed + direction * step))
+        guard target != elapsed else { return }
+        let timer = countdown.timer
+        if timer.isTimerInAlarm {
+            self._alarmTimer?.isRunning = false
+            self._audioPlayer?.stop()
+        }
+        if !timer.isTimerRunning {
+            timer.start()
+            timer.pause()
+        }
+        setCountdownPosition(target, in: countdown)
+        if target == 0 {
+            self.timer?.stop()
+            updateDisplays()
+        }
+    }
+
     /* ############################################################## */
     /**
      The long-press on the bottom of the screen was detected.
@@ -1170,6 +1260,8 @@ extension RiValT_RunningTimer_ContainerViewController {
             self._timeSetSlider = nil
             
             let slider = UISlider()
+            slider.accessibilityLabel = "SLUG-ACC-TIMER-POSITION-LABEL".localizedVariant
+            slider.accessibilityHint = "SLUG-ACC-TIMER-POSITION-HINT".localizedVariant
             slider.maximumValue = Float(countdown.totalDuration)
             slider.minimumValue = 0.0
             slider.value = inLocation * slider.maximumValue
@@ -1182,42 +1274,6 @@ extension RiValT_RunningTimer_ContainerViewController {
             self.timeSetDisplayLabel?.isHidden = false
             self.timeSetDisplayLabel?.text = TimerEngine.timerDisplay(for: countdown.remaining)
             self._timeSetSlider = slider
-        }
-        
-        /* ########################################################## */
-        /**
-         Sets the timer to the given percentage.
-         
-         - parameter location: The 0 -> 1 location.
-         */
-        func _setTimerTo(location inLocation: Float) {
-            guard let countdown = self.countdown,
-                  (0...1).contains(inLocation)
-            else { return }
-
-            let elapsed = Int(round(Float(countdown.totalDuration) * inLocation))
-            let position = countdown.position(atElapsedTime: elapsed)
-            if position.timer !== countdown.timer {
-                countdown.timer.tickHandler = nil
-                countdown.timer.transitionHandler = nil
-                countdown.timer.stop()
-                self.timer = position.timer
-                position.timer.isSelected = true
-                position.timer.tickHandler = self.tickHandler
-                position.timer.transitionHandler = self.transitionHandler
-                position.timer.start()
-                self.watchDelegate?.updateSettings()
-            }
-            if position.remaining != position.timer.currentTime {
-                self.selectionHaptic()
-                position.timer.currentTime = position.remaining
-                if case .paused = position.timer.timerMode {
-                    position.timer.resume()
-                }
-            }
-            self._timeSetSlider?.value = Float(elapsed)
-            self.timeSetDisplayLabel?.text = TimerEngine.timerDisplay(for: countdown.totalDuration - elapsed)
-            self.updateDisplays()
         }
         
         guard let detectionView = self.longPressDetectionView,
@@ -1254,7 +1310,9 @@ extension RiValT_RunningTimer_ContainerViewController {
             fallthrough
 
         case .changed:
-            _setTimerTo(location: location)
+            if (0...1).contains(location) {
+                setCountdownPosition(Int(round(Float(countdown.totalDuration) * location)), in: countdown)
+            }
 
         default:
             self.impactHaptic()

@@ -63,7 +63,9 @@ extension RiValT_DisplaySettings_ViewController {
      The size of the popover.
      */
     override var preferredContentSize: CGSize {
-        get { CGSize(width: 270, height: 200) }
+        get {
+            CGSize(width: adaptivePopoverWidth(for: (displaySelectionSegmentedControl.map { popoverContentWidth($0) } ?? 0) + 32), height: 200)
+        }
         set { super.preferredContentSize = newValue }
     }
 
@@ -116,6 +118,7 @@ extension RiValT_DisplaySettings_ViewController {
         self.displaySelectionSegmentedControl?.setImage(ringImage, forSegmentAt: 1)
         self.displaySelectionSegmentedControl?.setImage(dotsImage, forSegmentAt: 2)
         
+        self.displaySelectionSegmentedControl?.applySegmentAccessibility()
         self.displaySelectionSegmentedControl?.subviews.flatMap { $0.subviews }.forEach { subview in
             if let imageView = subview as? UIImageView, imageView.frame.width > 5 {
                 imageView.contentMode = .scaleAspectFit

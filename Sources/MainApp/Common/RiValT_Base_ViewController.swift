@@ -13,6 +13,14 @@ import CoreHaptics
 import RVS_UIKit_Toolbox
 import RVS_Generic_Swift_Toolbox
 
+extension UIAlertAction {
+    /// Set the spoken name and consequence of an alert action using localization keys.
+    func setAccessibility(label: String, hint: String) {
+        accessibilityLabel = label.localizedVariant
+        accessibilityHint = hint.localizedVariant
+    }
+}
+
 /* ###################################################################################################################################### */
 // MARK: - Special Extension for localization -
 /* ###################################################################################################################################### */
@@ -172,8 +180,8 @@ extension RiValT_Base_ViewController {
                                              style: .plain,
                                              target: self,
                                              action: #selector(self.goBack))
-            backButton.accessibilityLabel = navigationController.viewControllers[index - 1].navigationItem.backButtonTitle
-                ?? navigationController.viewControllers[index - 1].navigationItem.title
+            backButton.accessibilityLabel = "SLUG-ACC-BACK-LABEL".localizedVariant
+            backButton.accessibilityHint = "SLUG-ACC-BACK-HINT".localizedVariant
             if #available(iOS 26.0, *) {
                 backButton.hidesSharedBackground = true
             }
@@ -314,4 +322,33 @@ extension RiValT_Base_ViewController: UIPopoverPresentationControllerDelegate {
      - parameter: ignored.
      */
     func prepareForPopoverPresentation(_: UIPopoverPresentationController) { }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Popover sizing -
+/* ###################################################################################################################################### */
+extension RiValT_Base_ViewController {
+    /// Measure visible content without allowing its current frame to compress the requested width.
+    func popoverContentWidth(_ content: UIView) -> CGFloat {
+        guard !content.isHidden else { return 0 }
+        if let stack = content as? UIStackView {
+            let children = stack.arrangedSubviews.filter { !$0.isHidden }
+            let widths = children.map { popoverContentWidth($0) }
+            if stack.axis == .horizontal {
+                return widths.reduce(0, +) + stack.spacing * CGFloat(max(0, children.count - 1))
+            }
+            return widths.max() ?? 0
+        }
+        if let label = content as? UILabel {
+            return label.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)).width
+        }
+        return max(0, content.intrinsicContentSize.width)
+    }
+
+    /// Use the presenting window, so Split View and window resizing also limit the popover.
+    func adaptivePopoverWidth(for contentWidth: CGFloat) -> CGFloat {
+        let host = presentingViewController?.viewIfLoaded ?? viewIfLoaded?.window
+        let availableWidth = host.map { $0.bounds.inset(by: $0.safeAreaInsets).width } ?? 302
+        return min(ceil(max(270, contentWidth)), max(1, availableWidth - 32))
+    }
 }

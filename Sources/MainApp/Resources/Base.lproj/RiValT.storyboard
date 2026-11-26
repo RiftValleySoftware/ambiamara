@@ -44,7 +44,9 @@
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="knm-I9-2Xm">
                                                 <rect key="frame" x="34" y="0.0" width="327" height="30"/>
-                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-START-IMMEDIATELY-CHECKBOX-HINT" label="SLUG-ACC-START-IMMEDIATELY-CHECKBOX-LABEL"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-START-IMMEDIATELY-CHECKBOX-HINT" label="SLUG-ACC-START-IMMEDIATELY-CHECKBOX-LABEL">
+                                                    <bool key="isElement" value="NO"/>
+                                                </accessibility>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-START-IMMEDIATELY">
                                                     <color key="titleColor" systemColor="labelColor"/>
@@ -77,7 +79,9 @@
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgQ-tc-QYo">
                                                 <rect key="frame" x="34" y="0.0" width="327" height="30"/>
-                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-HINT" label="SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-LABEL"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-HINT" label="SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-LABEL">
+                                                    <bool key="isElement" value="NO"/>
+                                                </accessibility>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-ONE-TAP-EDIT">
                                                     <color key="titleColor" systemColor="labelColor"/>
@@ -109,7 +113,9 @@
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7h-ZA-I2m">
                                                 <rect key="frame" x="34" y="0.0" width="327" height="30"/>
-                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-COMBINE-TIMERS-CHECKBOX-HINT" label="SLUG-ACC-COMBINE-TIMERS-CHECKBOX-LABEL"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-COMBINE-TIMERS-CHECKBOX-HINT" label="SLUG-ACC-COMBINE-TIMERS-CHECKBOX-LABEL">
+                                                    <bool key="isElement" value="NO"/>
+                                                </accessibility>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-COMBINE-TIMERS">
                                                     <color key="titleColor" systemColor="labelColor"/>
@@ -142,6 +148,9 @@
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhN-6q-Vfn">
                                                 <rect key="frame" x="34" y="0.0" width="327" height="30"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-SHOW-TOOLBAR-CHECKBOX-HINT" label="SLUG-ACC-SHOW-TOOLBAR-CHECKBOX-LABEL">
+                                                    <bool key="isElement" value="NO"/>
+                                                </accessibility>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-SHOW-TOOLBAR">
                                                     <color key="titleColor" systemColor="labelColor"/>
@@ -174,6 +183,9 @@
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4k-I5-ttI">
                                                 <rect key="frame" x="34" y="0.0" width="327" height="30"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-HIDE-TOOLBAR-CHECKBOX-HINT" label="SLUG-ACC-HIDE-TOOLBAR-CHECKBOX-LABEL">
+                                                    <bool key="isElement" value="NO"/>
+                                                </accessibility>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-AUTO-HIDE-TOOLBAR">
                                                     <color key="titleColor" systemColor="labelColor"/>
@@ -389,6 +401,7 @@
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kx5-6Q-HlR">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="31"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TIME-TYPE-HINT" label="SLUG-ACC-TIME-TYPE-LABEL"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="bQh-wi-ybI"/>
                                             <constraint firstAttribute="height" constant="30" id="dcU-CX-utB"/>
@@ -461,9 +474,7 @@
                                     <pickerView contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-IS-Nx4">
                                         <rect key="frame" x="0.0" y="116" width="361" height="140"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TIME-PICKER-HINT" label="SLUG-ACC-TIME-PICKER-LABEL">
-                                            <bool key="isElement" value="YES"/>
-                                        </accessibility>
+                                        <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TIME-PICKER-HINT" label="SLUG-ACC-TIME-PICKER-LABEL"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="140" id="F5d-Kv-mf0"/>
                                         </constraints>
@@ -555,6 +566,7 @@
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BbL-a0-0K3">
                                 <rect key="frame" x="96.666666666666686" y="126" width="200" height="31"/>
+                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-DISPLAY-TYPE-HINT" label="SLUG-ACC-DISPLAY-TYPE-LABEL"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="UA6-uT-cJw"/>
                                     <constraint firstAttribute="height" constant="30" id="W9B-c3-TDQ"/>
@@ -640,6 +652,7 @@
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" maximumZoomScale="2" editable="NO" text="SLUG-ABOUT-MAIN-TEXT" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wli-nW-nlY">
                                 <rect key="frame" x="16" y="234" width="361" height="550"/>
+                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-ABOUT-TEXT-HINT" label="SLUG-ACC-ABOUT-TEXT-LABEL"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -681,6 +694,7 @@
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2r1-h3-CVb">
                                         <rect key="frame" x="96.666666666666686" y="0.0" width="200" height="31"/>
+                                        <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-ALARM-MODE-HINT" label="SLUG-ACC-ALARM-MODE-LABEL"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="gcE-dy-GsN"/>
                                             <constraint firstAttribute="height" constant="30" id="luh-Gg-LCC"/>
@@ -714,9 +728,7 @@
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eM0-Ca-QCY">
                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="80"/>
                                                 <color key="tintColor" systemColor="labelColor"/>
-                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TRANSITION-PICKER-HINT" label="SLUG-ACC-TRANSITION-PICKER-LABEL">
-                                                    <bool key="isElement" value="YES"/>
-                                                </accessibility>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TRANSITION-PICKER-HINT" label="SLUG-ACC-TRANSITION-PICKER-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="80" id="Re0-pY-wnx"/>
                                                 </constraints>
@@ -770,9 +782,7 @@
                                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="wa9-V3-AW2">
                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="80"/>
                                                 <color key="tintColor" systemColor="labelColor"/>
-                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-SOUND-PICKER-HINT" label="SLUG-ACC-SOUND-PICKER-LABEL">
-                                                    <bool key="isElement" value="YES"/>
-                                                </accessibility>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-SOUND-PICKER-HINT" label="SLUG-ACC-SOUND-PICKER-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="80" id="Kao-cT-848"/>
                                                 </constraints>

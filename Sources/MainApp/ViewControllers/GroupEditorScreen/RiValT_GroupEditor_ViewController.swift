@@ -43,7 +43,7 @@ import RVS_UIKit_Toolbox
  
  If there is more than one row, or more than one timer in a group, then a number will appear, at the right end of the row selection highlight.
  
- If there is more than one timer in the group, then this number will be a tappable button. Tapping it, will advance the timer selection, wrapping, if at the end.
+ When Combine Timers is off and the group has multiple timers, tapping this number selects the next timer, wrapping to the first after the last.
  
  ## GLOBAL SETTINGS
  
@@ -602,8 +602,10 @@ extension RiValT_GroupEditor_ViewController {
                let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_IconCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_IconCell {
                 cell.configure(with: timer, indexPath: inIndexPath, myController: self)
                 cell.isAccessibilityElement = true
-                cell.accessibilityLabel = String(format: "SLUG-ACC-COLLECTION-TIMER-FORMAT-LABEL".localizedVariant, inIndexPath.item, inIndexPath.section)
-                cell.accessibilityHint = "SLUG-ACC-COLLECTION-TIMER-HINT".localizedVariant
+                cell.accessibilityLabel = String(format: "SLUG-ACC-COLLECTION-TIMER-FORMAT-LABEL".localizedVariant, inIndexPath.item + 1, inIndexPath.section + 1)
+                cell.accessibilityValue = timer.setTimeDisplay
+                cell.accessibilityTraits = timer.isSelected ? [.button, .selected] : .button
+                cell.accessibilityCustomActions = self.groupAccessibilityActions(for: timer)
                 ret = cell
             // Otherwise, we create an add cell.
             } else if let cell = inCollectionView.dequeueReusableCell(withReuseIdentifier: RiValT_TimerArray_AddCell.reuseIdentifier, for: inIndexPath) as? RiValT_TimerArray_AddCell {
@@ -712,9 +714,9 @@ extension RiValT_GroupEditor_ViewController {
             }
         }
         
-        let messageText = "SLUG-DELETE-CONFIRM-MESSAGE"
+        let messageText = "SLUG-DELETE-CONFIRM-MESSAGE".localizedVariant
         
-        let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER", message: messageText, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "SLUG-DELETE-CONFIRM-HEADER".localizedVariant, message: messageText, preferredStyle: .alert)
         
         // This simply displays the main message as left-aligned.
         let paragraphStyle = NSMutableParagraphStyle()
@@ -733,10 +735,12 @@ extension RiValT_GroupEditor_ViewController {
         
         let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive) { _ in _executeDelete() }
         
+        okAction.setAccessibility(label: "SLUG-ACC-DELETE-TIMER-CONFIRM-LABEL", hint: "SLUG-ACC-DELETE-TIMER-CONFIRM-HINT")
         alertController.addAction(okAction)
 
         let cancelAction = UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel, handler: nil)
 
+        cancelAction.setAccessibility(label: "SLUG-ACC-DELETE-TIMER-CANCEL-LABEL", hint: "SLUG-ACC-DELETE-TIMER-CANCEL-HINT")
         alertController.addAction(cancelAction)
 
         self.impactHaptic(1.0)
@@ -842,9 +846,7 @@ extension RiValT_GroupEditor_ViewController {
     @objc func groupDoubleTapped(_ inTapGesture: UITapGestureRecognizer) {
         guard self._groupDrag == nil, let collectionView = self.collectionView else { return }
         let location = inTapGesture.location(in: collectionView)
-        guard let section = (0..<self.timerModel.count).first(where: { groupFrame(at: $0)?.contains(location) == true }),
-              let timer = self.timerModel[section].first
-        else { return }
+        guard let section = (0..<self.timerModel.count).first(where: { groupFrame(at: $0)?.contains(location) == true }) else { return }
 
         guard self.timerModel[section].isSelected else {
             self.collectionView(collectionView, didSelectItemAt: IndexPath(item: 0, section: section))
@@ -852,16 +854,52 @@ extension RiValT_GroupEditor_ViewController {
             return
         }
 
+        startGroupFromFirstTimer(self.timerModel[section])
+    }
+
+    @discardableResult
+    private func startGroupFromFirstTimer(_ group: TimerGroup) -> Bool {
+        guard self._groupDrag == nil, group.isSelected, let timer = group.first, let collectionView else { return false }
         self._lastScrollPos = collectionView.contentOffset
         timer.isSelected = true
         self.updateSettings()
         self.updateSnapshot()
         collectionView.reloadData()
         self.watchDelegate?.publishSnapshot()
-        guard 0 < timer.startingTimeInSeconds else { return }
+        guard 0 < timer.startingTimeInSeconds else { return false }
         self.impactHaptic()
         self.forceStart = true
         self.performSegue(withIdentifier: RiValT_RunningTimer_ContainerViewController.segueID, sender: timer)
+        return true
+    }
+
+    /// Offer the row's double-tap and group drag commands on the selected timer.
+    private func groupAccessibilityActions(for timer: Timer) -> [UIAccessibilityCustomAction] {
+        guard timer.isSelected, let group = timer.group, let index = group.index else { return [] }
+        var actions: [UIAccessibilityCustomAction] = []
+        if let first = group.first, first.startingTimeInSeconds > 0 {
+            actions.append(UIAccessibilityCustomAction(name: "SLUG-ACC-GROUP-START-ACTION".localizedVariant) { [weak self, weak group] _ in
+                guard let group else { return false }
+                return self?.startGroupFromFirstTimer(group) ?? false
+            })
+        }
+        for (offset, name) in [(-1, "SLUG-ACC-GROUP-MOVE-UP-ACTION"), (1, "SLUG-ACC-GROUP-MOVE-DOWN-ACTION")] where (0..<timerModel.count).contains(index + offset) {
+            actions.append(UIAccessibilityCustomAction(name: name.localizedVariant) { [weak self, weak group] _ in
+                guard let self, let group, group.isSelected, let source = group.index else { return false }
+                let destination = source + offset
+                guard (0..<self.timerModel.count).contains(destination),
+                      self.timerModel.moveGroup(from: source, before: offset > 0 ? destination + 1 : destination) else { return false }
+                self.updateSnapshot(reloadingData: true)
+                self.watchDelegate?.updateSettings()
+                if let path = self.timerModel.selectedTimer?.indexPath, let collectionView = self.collectionView {
+                    collectionView.scrollToItem(at: path, at: .centeredVertically, animated: false)
+                    collectionView.layoutIfNeeded()
+                    UIAccessibility.post(notification: .layoutChanged, argument: collectionView.cellForItem(at: path))
+                }
+                return true
+            })
+        }
+        return actions
     }
 
     /* ############################################################## */
@@ -885,29 +923,20 @@ extension RiValT_GroupEditor_ViewController {
      - parameter inTapGesture: The tap that caused the call.
      */
     @objc func groupBackgroundNumberTapped(_ inTapGesture: UITapGestureRecognizer) {
-        if self._groupDrag == nil, let group = self.timerModel.selectedTimer?.group,
-           1 < group.count {
-            var currentSelectedIndex = -1
-            
-            group.forEach { inTimer in
-                if inTimer.isSelected,
-                   let index = inTimer.indexPath?.item {
-                    currentSelectedIndex = index < (group.count - 1) ? index : -1
-                }
-            }
-            
-            currentSelectedIndex += 1
-            
-            group[currentSelectedIndex].isSelected = true
-            if let collectionView = self.collectionView,
-               let groupIndex = group.index {
-                let oldValue = RiValT_Settings().oneTapEditing
-                RiValT_Settings().oneTapEditing = false
-                self.collectionView(collectionView, didSelectItemAt: IndexPath(item: currentSelectedIndex, section: groupIndex))
-                RiValT_Settings().oneTapEditing = oldValue
-                self.watchDelegate?.publishSnapshot()
-            }
-        }
+        selectNextTimerInGroup()
+    }
+
+    @discardableResult
+    func selectNextTimerInGroup() -> Bool {
+        guard self._groupDrag == nil, !RiValT_Settings().combineTimers, let timer = self.timerModel.selectedTimer,
+              let group = timer.group, group.count > 1, let path = timer.indexPath, let collectionView else { return false }
+        let next = IndexPath(item: (path.item + 1) % group.count, section: path.section)
+        let oldValue = RiValT_Settings().oneTapEditing
+        RiValT_Settings().oneTapEditing = false
+        self.collectionView(collectionView, didSelectItemAt: next)
+        RiValT_Settings().oneTapEditing = oldValue
+        self.watchDelegate?.publishSnapshot()
+        return true
     }
 }
 

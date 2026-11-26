@@ -362,15 +362,19 @@ final class RiValT_BluetoothRemote: NSObject, ObservableObject {
         let alert = UIAlertController(title: NSLocalizedString("SLUG-WATCH-PAIR-TITLE", comment: ""),
                                       message: String(format: NSLocalizedString("SLUG-WATCH-PAIR-CODE", comment: ""), code),
                                       preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("SLUG-WATCH-PAIR-DENY", comment: ""), style: .cancel) { [weak self] _ in
+        let decline = UIAlertAction(title: NSLocalizedString("SLUG-WATCH-PAIR-DENY", comment: ""), style: .cancel) { [weak self] _ in
             guard let self, self.subscriber?.identifier == central.identifier else { return }
             self.queue(Data([Code.denied.rawValue]))
-        })
-        alert.addAction(UIAlertAction(title: NSLocalizedString("SLUG-WATCH-PAIR-ALLOW", comment: ""), style: .default) { [weak self] _ in
+        }
+        decline.setAccessibility(label: "SLUG-ACC-WATCH-PAIR-DENY-LABEL", hint: "SLUG-ACC-WATCH-PAIR-DENY-HINT")
+        alert.addAction(decline)
+        let allow = UIAlertAction(title: NSLocalizedString("SLUG-WATCH-PAIR-ALLOW", comment: ""), style: .default) { [weak self] _ in
             guard let self, self.subscriber?.identifier == central.identifier, self.isEnabled else { return }
             UserDefaults.standard.set(central.identifier.uuidString, forKey: "remote.approvedWatch")
             self.queue(Data([Code.ready.rawValue]))
-        })
+        }
+        allow.setAccessibility(label: "SLUG-ACC-WATCH-PAIR-ALLOW-LABEL", hint: "SLUG-ACC-WATCH-PAIR-ALLOW-HINT")
+        alert.addAction(allow)
         permissionAlert = alert
         presenter.present(alert, animated: true)
     }

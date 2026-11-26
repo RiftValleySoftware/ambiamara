@@ -109,10 +109,32 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
      */
     private func _setPreferredContentSize() {
         guard let stack = self.showAboutScreenButton?.superview as? UIStackView else { return }
-        let height = stack.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height + 32
+        let width = adaptivePopoverWidth(for: popoverContentWidth(stack) + 32)
+        // UIButton needs an explicit wrapping width to report a multiline intrinsic height.
+        for row in stack.arrangedSubviews where !row.isHidden {
+            let buttons = (row as? UIStackView)?.arrangedSubviews.compactMap { $0 as? UIButton }
+                ?? [row as? UIButton].compactMap { $0 }
+            for button in buttons {
+                let siblingsWidth = (row as? UIStackView).map { rowStack in
+                    rowStack.arrangedSubviews.filter { $0 !== button && !$0.isHidden }
+                        .map { popoverContentWidth($0) }.reduce(0, +) + rowStack.spacing
+                } ?? 0
+                let labelWidth = max(1, width - 32 - siblingsWidth)
+                if button.titleLabel?.preferredMaxLayoutWidth != labelWidth {
+                    button.titleLabel?.preferredMaxLayoutWidth = labelWidth
+                    button.invalidateIntrinsicContentSize()
+                }
+            }
+        }
+        let height = stack.systemLayoutSizeFitting(
+            CGSize(width: width - 32, height: UIView.layoutFittingCompressedSize.height),
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        ).height + 32
+        guard preferredContentSize != CGSize(width: width, height: ceil(height)) else { return }
         
         UIView.animate(withDuration: 0.3) {
-            self.preferredContentSize = CGSize(width: 270, height: height)
+            self.preferredContentSize = CGSize(width: width, height: ceil(height))
         }
     }
     
@@ -138,7 +160,24 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         if UIDevice.current.userInterfaceIdiom == .pad, !ProcessInfo.processInfo.isMacCatalystApp {
             addWatchRemoteSetting()
         }
+        if let stack = self.showAboutScreenButton?.superview as? UIStackView {
+            configureWrapping(in: stack)
+        }
         self._setPreferredContentSize()
+    }
+
+    /// Keep translated settings readable when the window cannot accommodate their natural width.
+    private func configureWrapping(in view: UIView) {
+        if let button = view as? UIButton {
+            button.titleLabel?.numberOfLines = 0
+            button.titleLabel?.lineBreakMode = .byWordWrapping
+        }
+        view.subviews.forEach { configureWrapping(in: $0) }
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        _setPreferredContentSize()
     }
     
     private var watchStatusObserver: AnyCancellable?
@@ -150,13 +189,14 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         let remote = RiValT_BluetoothRemote.shared
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.75
+        label.numberOfLines = 0
         let toggle = UISwitch()
+        toggle.setContentCompressionResistancePriority(.required, for: .horizontal)
+        toggle.setContentHuggingPriority(.required, for: .horizontal)
         toggle.isOn = remote.isEnabled
-        toggle.accessibilityLabel = "SLUG-WATCH-REMOTE".localizedVariant
-        toggle.accessibilityHint = "SLUG-WATCH-REMOTE-HINT".localizedVariant
-        watchStatusObserver = remote.$hostingIssue.sink { [weak label, weak toggle] issue in
+        toggle.accessibilityLabel = "SLUG-ACC-WATCH-REMOTE-LABEL".localizedVariant
+        toggle.accessibilityHint = "SLUG-ACC-WATCH-REMOTE-HINT".localizedVariant
+        watchStatusObserver = remote.$hostingIssue.sink { [weak self, weak label, weak toggle] issue in
             if let issue {
                 label?.text = issue
             } else if toggle?.isOn == true {
@@ -164,6 +204,7 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
             } else {
                 label?.text = "SLUG-WATCH-REMOTE".localizedVariant
             }
+            self?.view.setNeedsLayout()
         }
         toggle.addAction(UIAction { [weak toggle] _ in
             if let toggle { remote.setEnabled(toggle.isOn) }
@@ -238,6 +279,7 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
         }
 
         RiValT_Settings().combineTimers = checkbox.isOn
+        self.myOwner?.collectionView?.reloadData()
         self.watchDelegate?.publishSnapshot()
     }
     
@@ -333,6 +375,7 @@ class RiValT_Settings_ViewController: RiValT_Base_ViewController {
 
         let cancelAction = UIAlertAction(title: "SLUG-OK-BUTTON-TEXT".localizedVariant, style: .cancel, handler: nil)
 
+        cancelAction.setAccessibility(label: "SLUG-ACC-TOOLBAR-ADVISORY-OK-LABEL", hint: "SLUG-ACC-TOOLBAR-ADVISORY-OK-HINT")
         alertController.addAction(cancelAction)
 
         self.impactHaptic(1.0)

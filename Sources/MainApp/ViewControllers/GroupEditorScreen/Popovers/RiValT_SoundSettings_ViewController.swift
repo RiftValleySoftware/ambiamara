@@ -223,12 +223,17 @@ extension RiValT_SoundSettings_ViewController {
         for label in [self.transitionPickerLabel, self.soundTypeLabel].compactMap({ $0 }) {
             (label.superview as? UIStackView)?.setCustomSpacing(Self._labelToPickerSpacing, after: label)
         }
-        self._setPreferredContentSize()
         super.viewDidLoad()
         self.setSegmentedSwitchUp()
         self.setTransitionPickerUp()
         self.soundPlayButton?.setImage(UIImage(systemName: "speaker.slash"), for: .disabled)
         self.transitionSoundPlayButton?.setImage(UIImage(systemName: "speaker.slash"), for: .disabled)
+        self._setPreferredContentSize()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self._setPreferredContentSize()
     }
 }
 
@@ -256,8 +261,20 @@ extension RiValT_SoundSettings_ViewController {
             height += 130 + Self._labelToPickerSpacing
         }
         
+        let labelWidth = [soundTypeLabel, transitionPickerLabel].compactMap { $0 }.map {
+            popoverContentWidth($0) + 32
+        }.max() ?? 0
+        let soundNames = (RiValT_Settings.soundURIs + RiValT_Settings.transitionSoundURIs).compactMap {
+            URL(string: $0.urlEncodedString ?? "")?.lastPathComponent.localizedVariant
+        } + ["SLUG-TRANSITION-SOUND-NONE".localizedVariant]
+        let pickerWidth = soundNames.map {
+            ($0 as NSString).size(withAttributes: [.font: Self._pickerFont]).width
+                + Self._pickerPaddingInDisplayUnits + 40
+        }.max() ?? 0
+        let size = CGSize(width: adaptivePopoverWidth(for: max(labelWidth, pickerWidth)), height: height)
+        guard preferredContentSize != size else { return }
         UIView.animate(withDuration: 0.3) {
-            self.preferredContentSize = CGSize(width: 270, height: height)
+            self.preferredContentSize = size
         }
     }
 
@@ -290,6 +307,7 @@ extension RiValT_SoundSettings_ViewController {
             self.alarmModeSegmentedSwitch?.insertSegment(with: soundVibrateImage, at: 3, animated: false)
         }
         
+        self.alarmModeSegmentedSwitch?.applySegmentAccessibility()
         self.alarmModeSegmentedSwitch?.selectedSegmentIndex = self.group?.soundType.segmentedPosition ?? 0
         self.soundTypeLabel?.text = self.group?.soundType.description ?? ""
         

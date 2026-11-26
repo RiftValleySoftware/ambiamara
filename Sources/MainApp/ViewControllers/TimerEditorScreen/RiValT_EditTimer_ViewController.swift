@@ -311,6 +311,7 @@ extension RiValT_EditTimer_ViewController {
         self.timeTypeSegmentedControl?.setImage(warnImage, forSegmentAt: TimeType.warnTime.rawValue)
         self.timeTypeSegmentedControl?.setImage(finalImage, forSegmentAt: TimeType.finalTime.rawValue)
         self.updateTimeTypeSegmentedControl()
+        self.timeTypeSegmentedControl?.applySegmentAccessibility()
     }
     
     /* ############################################################## */

@@ -42,6 +42,8 @@ extension RiValT_About_ViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Keep the full, localized text available alongside its short accessibility label.
+        aboutText?.accessibilityValue = aboutText?.text
         if let image = Bundle.main.appIcon {
             appIconImageView?.image = image
         } else {

@@ -183,6 +183,9 @@ extension RiValT_TimerEditor_PageViewContainer {
                 timerButton.isAccessibilityElement = true
                 timerButton.accessibilityLabel = String(format: "SLUG-ACC-TOOLBAR-TIMER-FORMAT-LABEL".localizedVariant, index + 1)
                 timerButton.accessibilityHint = "SLUG-ACC-TOOLBAR-TIMER-HINT".localizedVariant
+                if index == timerIndexPath.item {
+                    timerButton.accessibilityTraits.insert(.selected)
+                }
                 toolbarItems.append(timerButton)
                 toolbarItems.append(UIBarButtonItem.flexibleSpace())
             }
@@ -237,9 +240,9 @@ extension RiValT_TimerEditor_PageViewContainer {
             self.navigationController?.popViewController(animated: true)
         }
         
-        let messageText = "SLUG-DELETE-2-CONFIRM-MESSAGE"
+        let messageText = "SLUG-DELETE-2-CONFIRM-MESSAGE".localizedVariant
         
-        let alertController = UIAlertController(title: "SLUG-DELETE-2-CONFIRM-HEADER", message: messageText, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "SLUG-DELETE-2-CONFIRM-HEADER".localizedVariant, message: messageText, preferredStyle: .alert)
         
         // This simply displays the main message as left-aligned.
         let paragraphStyle = NSMutableParagraphStyle()
@@ -257,17 +260,17 @@ extension RiValT_TimerEditor_PageViewContainer {
         alertController.setValue(attributedMessageText, forKey: "attributedMessage")
         
         let okAction = UIAlertAction(title: "SLUG-DELETE-BUTTON-TEXT".localizedVariant, style: .destructive) { _ in _executeDelete() }
+        okAction.setAccessibility(label: "SLUG-ACC-DELETE-TIMER-CONFIRM-LABEL", hint: "SLUG-ACC-DELETE-TIMER-CONFIRM-HINT")
         
         alertController.addAction(okAction)
 
         let cancelAction = UIAlertAction(title: "SLUG-CANCEL-BUTTON-TEXT".localizedVariant, style: .cancel, handler: nil)
+        cancelAction.setAccessibility(label: "SLUG-ACC-DELETE-TIMER-CANCEL-LABEL", hint: "SLUG-ACC-DELETE-TIMER-CANCEL-HINT")
 
         alertController.addAction(cancelAction)
 
         self.impactHaptic(1.0)
 
-        alertController.localizeStuff()
-        
         present(alertController, animated: true, completion: nil)
     }
 

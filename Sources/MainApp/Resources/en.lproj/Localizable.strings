@@ -196,7 +196,6 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 
 // The iPad setting allows one approved Apple Watch to control this device's timer.
 "SLUG-WATCH-REMOTE" = "Watch Remote";
-"SLUG-WATCH-REMOTE-HINT" = "Allow a nearby Apple Watch to find this iPad and request control of its timer. Turn off to forget the approved Watch.";
 // %@ is a short unique Bluetooth device name, e.g. RiVal.T-A12B, also visible on the Watch.
 "SLUG-WATCH-REMOTE-NAME" = "Watch · %@";
 "SLUG-WATCH-PAIR-TITLE" = "Allow Watch Remote?";
@@ -209,7 +208,73 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 "SLUG-WATCH-REMOTE-RADIO" = "Bluetooth unavailable";
 "SLUG-WATCH-REMOTE-RETRYING" = "Retrying Watch Remote…";
 
+// MARK: Watch App
+
+"SLUG-ACTION-REQURED" = "ACTION REQUIRED";
+// The host confirms the timer is in its alarm state.
+"SLUG-ALARM" = "Time’s up";
+"SLUG-CANT-REACH" = "Cannot Reach iPhone App";
+// The host declined the last command. Check the current state before trying again.
+"SLUG-COMMAND-REJECTED" = "The timer device declined that command.";
+"SLUG-CONNECT-APP" = "Please open the app on your iPhone to connect with your watch";
+// Shown while waiting for the first live snapshot from the selected timer device.
+"SLUG-CONNECTING" = "Connecting to %@…";
+// The selected device did not return usable timer state before the request timed out or failed.
+"SLUG-CONNECTION-FAILED" = "Couldn’t sync with %@.";
+// Opens secondary timer controls and the device selector.
+"SLUG-CONTROLS" = "Controls";
+// The host timer is counting down in its initial phase.
+"SLUG-COUNTDOWN" = "Running";
+// The host timer has crossed the red final threshold.
+"SLUG-FINAL" = "Final";
+// Starts Bluetooth discovery of iPads for the Watch remote.
+"SLUG-FIND-IPADS" = "Find nearby iPads";
+// Performs the same operation as the host’s fast-forward button.
+"SLUG-FORWARD" = "Fast forward";
+// The host app is in the background or a dialog is covering its timer controls.
+"SLUG-HOST-FOREGROUND" = "Return to the timer screen on %@.";
+// Shown when connected but the host has no available timer. The placeholder identifies the host.
+"SLUG-HOST-NO-TIMER" = "Select a timer in RiVal.T on %@.";
+// The selected timer has a zero starting duration. The placeholder names the timer device.
+"SLUG-HOST-SET-TIME" = "Set a timer duration on %@.";
+"SLUG-INVALID" = "INVALID";
+// Dismisses the command rejection notice.
+"SLUG-OK" = "OK";
+"SLUG-OPEN-APP" = "Open iPhone App";
+// Shown when the Watch has no live timer information. The placeholder identifies the selected device.
+"SLUG-OPEN-TIMER-APP" = "Open RiVal.T on %@ to connect.";
+// Requests that the host pause the running timer.
+"SLUG-PAUSE" = "Pause";
+// The host timer is paused.
+"SLUG-PAUSED" = "Paused";
+// Appears when the wearer lowers their wrist and the live remote is inactive.
+"SLUG-RAISE-WRIST" = "Raise wrist to sync";
+// The host has a timer selected and it can be started.
+"SLUG-READY" = "Ready";
+// Requests a fresh snapshot from the timer device.
+"SLUG-REFRESH" = "Reconnect";
+// Requests that the host continue the paused timer.
+"SLUG-RESUME" = "Resume";
+// Performs the same operation as the host’s rewind button.
+"SLUG-REWIND" = "Rewind";
+// Requests that the host start the selected timer.
+"SLUG-START" = "Start";
+// Requests that the host stop the timer and exit its running screen.
+"SLUG-STOP" = "Stop";
+// The current timer's deadline passed and the Watch is waiting for the host to confirm what happened.
+"SLUG-SYNCING" = "Updating…";
+// Opens the chooser for the device running the timer.
+"SLUG-TIMER-DEVICE" = "Timer device";
+// Watch heading. The integers are group number, timer number, and number of timers in the group. All are one-based.
+"SLUG-TIMER-POSITION" = "Group %1$d · Timer %2$d of %3$d";
+// The host timer has crossed the yellow warning threshold.
+"SLUG-WARNING" = "Warning";
+
 // MARK: - ACCESSIBILITY -
+
+// MARK: - Navigation -
+"SLUG-ACC-BACK-LABEL"                           =   "Back";
+"SLUG-ACC-BACK-HINT"                            =   "Returns to the previous screen.";
 
 // MARK: - Group Editor Screen -
 
@@ -223,12 +288,12 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 "SLUG-ACC-TOOLBAR-DELETE-LABEL"                 =   "Delete the Selected Timer";
 "SLUG-ACC-TOOLBAR-DELETE-HINT"                  =   "This will delete the timer selected above. You will first be asked, if you are sure that you wish to delete the timer.";
 "SLUG-ACC-TOOLBAR-PLAY-LABEL"                   =   "Start the Timer";
-"SLUG-ACC-TOOLBAR-PLAY-HINT"                    =   "Selecting this, will start the the timer group, beginning with the currently selected timer.";
+"SLUG-ACC-TOOLBAR-PLAY-HINT"                    =   "Opens the running timer at the selected timer. The Start Timer Immediately setting determines whether it starts counting down.";
 "SLUG-ACC-TOOLBAR-EDIT-LABEL"                   =   "Edit the Selected Timer";
 "SLUG-ACC-TOOLBAR-EDIT-HINT"                    =   "If this button is selected, the Timer Editor Screen will be shown for the timer selected, above.";
 
 "SLUG-ACC-COLLECTION-TIMER-FORMAT-LABEL"        =   "Timer %d, In Group %d";
-"SLUG-ACC-COLLECTION-TIMER-HINT"                =   "This represents one timer in the group.";
+"SLUG-ACC-COLLECTION-TIMER-HINT"                =   "Selects this timer.";
 
 "SLUG-ACC-COLLECTION-TIMER-ADD-LABEL"           =   "Add A New Timer";
 "SLUG-ACC-COLLECTION-TIMER-ADD-HINT"            =   "Selecting this, creates and selects a new timer.";
@@ -236,10 +301,23 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 "SLUG-ACC-GROUP-BUTTON-LABEL"                   =   "Change the Selected Timer";
 "SLUG-ACC-GROUP-BUTTON-HINT"                    =   "Selecting this, changes the selected timer, within this group.";
 
+// The two plus buttons at the end of a timer row and below all groups have different effects.
+"SLUG-ACC-COLLECTION-GROUP-ADD-LABEL"           =   "Add a New Group";
+"SLUG-ACC-COLLECTION-GROUP-ADD-HINT"            =   "Creates a group and selects its first timer.";
+
+// Activation of a timer cell depends on its group and the One Tap Timer Editing preference.
+"SLUG-ACC-COLLECTION-SELECT-GROUP-HINT"         =   "Selects this group and its first timer.";
+"SLUG-ACC-COLLECTION-EDIT-TIMER-HINT"           =   "Opens this timer for editing.";
+
+// VoiceOver actions for the selected group. Earlier and later refer to the vertical list order.
+"SLUG-ACC-GROUP-START-ACTION"                   =   "Start group from first timer";
+"SLUG-ACC-GROUP-MOVE-UP-ACTION"                 =   "Move group up";
+"SLUG-ACC-GROUP-MOVE-DOWN-ACTION"               =   "Move group down";
+
 // MARK: - Global Settings Popover -
 
 "SLUG-ACC-START-IMMEDIATELY-CHECKBOX-LABEL"     =   "Start Timers Immediately";
-"SLUG-ACC-START-IMMEDIATELY-CHECKBOX-HINT"      =   "If this checkbox is on, then timers tart immediately, when the \"Play\" button is selected. If it is off, then the timer will begin in a paused state, and needs to be started manually.";
+"SLUG-ACC-START-IMMEDIATELY-CHECKBOX-HINT"      =   "If this checkbox is on, then timers start immediately, when the \"Play\" button is selected. If it is off, then the timer will begin in a paused state, and needs to be started manually.";
 "SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-LABEL"          =   "Edit Timers By Tapping On Them";
 "SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-HINT"           =   "If this checkbox is on, tapping once on a timer in the Group Editor Screen, will bring in the Timer Editor Screen for that timer. If it is off, then you need to select the \"Edit\" button, at the bottom, right of the screen, to edit the timer.";
 "SLUG-ACC-COMBINE-TIMERS-CHECKBOX-LABEL"        =   "Combine Timers";
@@ -251,14 +329,32 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 "SLUG-ACC-ABOUT-LABEL"                          =   "Display About Screen";
 "SLUG-ACC-ABOUT-HINT"                           =   "Selecting this button will take you to the \"About This App\" screen.";
 
+// Buttons on the iPad when a nearby Apple Watch requests permission to control the timer.
+"SLUG-ACC-WATCH-PAIR-DENY-LABEL"                =   "Decline";
+"SLUG-ACC-WATCH-PAIR-DENY-HINT"                 =   "Declines this Watch’s request to control the timer.";
+"SLUG-ACC-WATCH-PAIR-ALLOW-LABEL"               =   "Allow";
+"SLUG-ACC-WATCH-PAIR-ALLOW-HINT"                =   "Lets this Watch control the timer on this iPad.";
+
+// The switch in global settings that makes this iPad available to an Apple Watch.
+"SLUG-ACC-WATCH-REMOTE-LABEL"                   =   "Watch Remote";
+"SLUG-ACC-WATCH-REMOTE-HINT"                    =   "Allows a nearby Apple Watch to find this iPad and request control of its timer. Turning it off forgets the approved Watch.";
+
+// Dismisses the explanation shown when the running timer toolbar is switched off.
+"SLUG-ACC-TOOLBAR-ADVISORY-OK-LABEL"            =   "OK";
+"SLUG-ACC-TOOLBAR-ADVISORY-OK-HINT"             =   "Closes the timer gesture instructions.";
+
 // MARK: - Display Settings Popover -
 
-"SLUG-ACC-DISPLAY-SETTINGS-NUMERICAL-LABEL"     =   "Diplay Timer As Digits";
+"SLUG-ACC-DISPLAY-SETTINGS-NUMERICAL-LABEL"     =   "Display Timer As Digits";
 "SLUG-ACC-DISPLAY-SETTINGS-NUMERICAL-HINT"      =   "The timer display will consist of large \"LED\" digits.";
-"SLUG-ACC-DISPLAY-SETTINGS-CIRCULAR-LABEL"      =   "Diplay Timer As A Big Ring";
+"SLUG-ACC-DISPLAY-SETTINGS-CIRCULAR-LABEL"      =   "Display Timer As A Big Ring";
 "SLUG-ACC-DISPLAY-SETTINGS-CIRCULAR-HINT"       =   "The timer display will consist of a ring that is \"rubbed out,\" as the timer progresses.";
-"SLUG-ACC-DISPLAY-SETTINGS-STOPLIGHTS-LABEL"    =   "Diplay Timer As \"Stoplights\"";
+"SLUG-ACC-DISPLAY-SETTINGS-STOPLIGHTS-LABEL"    =   "Display Timer As \"Stoplights\"";
 "SLUG-ACC-DISPLAY-SETTINGS-STOPLIGHTS-HINT"     =   "The timer display will consist of three colored circles, and each will light, as the timer reaches the threshold.";
+
+// Controls for choosing how a group is displayed and how its final alarm behaves.
+"SLUG-ACC-DISPLAY-TYPE-LABEL"                   =   "Timer Display";
+"SLUG-ACC-DISPLAY-TYPE-HINT"                    =   "Choose how this group displays the countdown.";
 
 // MARK: - Sound Settings Popover -
 
@@ -274,12 +370,15 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 "SLUG-ACC-SOUND-PICKER-LABEL"                   =   "Select A Final Alarm Sound";
 "SLUG-ACC-SOUND-PICKER-HINT"                    =   "This allows you to select an alarm sound, to be played at the end of the last timer.";
 "SLUG-ACC-SOUND-PICKER-BUTTON-LABEL"            =   "Preview the Alarm Sound";
-"SLUG-ACC-SOUND-PICKER-BUTTON-LABEL"            =   "If you press this, you will hear the selected final alarm sound. Press again, to stop it.";
+"SLUG-ACC-SOUND-PICKER-BUTTON-HINT"             =   "If you press this, you will hear the selected final alarm sound. Press again, to stop it.";
 
 "SLUG-ACC-TRANSITION-PICKER-LABEL"              =   "Select A Transition Sound";
 "SLUG-ACC-TRANSITION-PICKER-HINT"               =   "This allows you to select a short sound, to be played as one timer ends, and another begins.";
 "SLUG-ACC-TRANSITION-PICKER-BUTTON-LABEL"       =   "Preview the Transition Sound";
-"SLUG-ACC-TRANSITION-PICKER-BUTTON-LABEL"       =   "If you press this, you will hear the selected transition sound (played when one timer ends, and switches to the next timer). Press again, to stop it.";
+"SLUG-ACC-TRANSITION-PICKER-BUTTON-HINT"        =   "If you press this, you will hear the selected transition sound (played when one timer ends, and switches to the next timer). Press again, to stop it.";
+
+"SLUG-ACC-ALARM-MODE-LABEL"                     =   "Final Alarm Mode";
+"SLUG-ACC-ALARM-MODE-HINT"                      =   "Choose how this group signals the end of its last timer.";
 
 // MARK: - Timer Editor Screen -
 
@@ -294,13 +393,13 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 "SLUG-ACC-TIME-PICKER-HINT"                     =   "Use this control to set a time, in hours, minutes, and seconds.";
 
 "SLUG-ACC-MAIN-PLAY-BUTTON-LABEL"               =   "Start the Timer";
-"SLUG-ACC-MAIN-PLAY-BUTTON-HINT"                =   "Selecting this, will start the the timer group, beginning with this timer.";
+"SLUG-ACC-MAIN-PLAY-BUTTON-HINT"                =   "Opens the running timer. The Start Timer Immediately setting determines whether it starts counting down.";
 "SLUG-ACC-TIME-PICKER-COMPONENT-0-LABEL"        =   "Set Hours";
-"SLUG-ACC-TIME-PICKER-COMPONENT-0-HINT"         =   "This is the number of hours (0 - 24) that can be set for the timer.";
+"SLUG-ACC-TIME-PICKER-COMPONENT-0-HINT"         =   "This is the number of hours (0 - 23) that can be set for the timer.";
 "SLUG-ACC-TIME-PICKER-COMPONENT-1-LABEL"        =   "Set Minutes";
 "SLUG-ACC-TIME-PICKER-COMPONENT-1-HINT"         =   "This is the number of minutes (0 - 59) that can be set for the timer.";
-"SLUG-ACC-TIME-PICKER-COMPONENT-3-LABEL"        =   "Set Seconds";
-"SLUG-ACC-TIME-PICKER-COMPONENT-3-HINT"         =   "This is the number of seconds (0 - 59) that can be set for the timer.";
+"SLUG-ACC-TIME-PICKER-COMPONENT-2-LABEL"        =   "Set Seconds";
+"SLUG-ACC-TIME-PICKER-COMPONENT-2-HINT"         =   "This is the number of seconds (0 - 59) that can be set for the timer.";
 
 "SLUG-ACC-TOOLBAR-TIMER-FORMAT-LABEL"           =   "Edit Timer %d, In This Group";
 "SLUG-ACC-TOOLBAR-TIMER-HINT"                   =   "Selecting this, will bring in the editor for the timer.";
@@ -308,24 +407,83 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 "SLUG-ACC-NAVBAR-DELETE-LABEL"                  =   "Delete This Timer";
 "SLUG-ACC-NAVBAR-DELETE-HINT"                   =   "Selecting this, will delete this timer. You will first be asked, if you are sure that you wish to delete the timer.";
 
+// The segmented control above the time picker chooses which time its three wheels edit.
+"SLUG-ACC-TIME-TYPE-LABEL"                      =   "Time to Edit";
+"SLUG-ACC-TIME-TYPE-HINT"                       =   "Choose the starting time, warning threshold, or final threshold.";
+
+// Shared by the Group Editor and Timer Editor when confirming deletion of the selected timer.
+"SLUG-ACC-DELETE-TIMER-CONFIRM-LABEL"           =   "Delete Timer";
+"SLUG-ACC-DELETE-TIMER-CONFIRM-HINT"            =   "Permanently removes the selected timer.";
+"SLUG-ACC-DELETE-TIMER-CANCEL-LABEL"            =   "Cancel";
+"SLUG-ACC-DELETE-TIMER-CANCEL-HINT"             =   "Keeps the timer and closes the confirmation.";
+
 // MARK: Running Timer Screen
 
 "SLUG-ACC-REWIND-LABEL"                         =   "Reset Timer";
-"SLUG-ACC-REWIND-HINT"                          =   "This will reset the timer to the start.";
+"SLUG-ACC-REWIND-HINT"                          =   "Rewinds the current timer. At its start, selects the previous timer if there is one. During the final alarm, resets the group.";
 
 "SLUG-ACC-STOP-LABEL"                           =   "Stop Timer";
 "SLUG-ACC-STOP-HINT"                            =   "This will stop the timer, and return to the previous screen.";
 
 "SLUG-ACC-PLAY-LABEL"                           =   "Start Timer";
-"SLUG-ACC-PLAY-HINT"                            =   "This will start the timer (or resume a paused timer).";
+"SLUG-ACC-PLAY-HINT"                            =   "Starts the countdown.";
+
+"SLUG-ACC-RESUME-LABEL"                         =   "Resume timer";
+"SLUG-ACC-RESUME-HINT"                          =   "Continues the countdown from where it paused.";
 
 "SLUG-ACC-PAUSE-LABEL"                          =   "Pause Timer";
 "SLUG-ACC-PAUSE-HINT"                           =   "This will pause the timer.";
 
-"SLUG-ACC-FAST-FORWARD-LABEL"                   =   "End Timer";
-"SLUG-ACC-FAST-FORWARD-HINT"                    =   "This will force the timer to the end (and may start the alarm).";
-
-"SLUG-ACC-HIDDEN-TOOLBAR-INSTRUCTIONS-LABEL"    =   "The Timer Is Controlled by Gestures";
-"SLUG-ACC-HIDDEN-TOOLBAR-INSTRUCTIONS-HINT"     =   "SINGLE-TAP: Starts, pauses, and resumes the timer.\nDOUBLE-TAP: Stops the timer completely, and returns to the previous screen.\nLEFT-SWIPE: Rewinds the timer to the beginning, or selects the previous timer.\nRIGHT-SWIPE: Sets the timer into \"alarm,\" or selects the next timer.\nLONG-PRESS: Brings up a slider, allowing you to set the time to any point.";
+"SLUG-ACC-FAST-FORWARD-LABEL"                   =   "Fast Forward";
+"SLUG-ACC-FAST-FORWARD-HINT"                    =   "Advances to the next timer, or triggers the alarm if this is the last timer.";
 
 
+// The same control is available on all three running timer displays.
+"SLUG-ACC-TIMER-GESTURE-HINT"                    =   "Activates the announced timer command. When the toolbar is hidden, more commands are available in Actions.";
+"SLUG-ACC-DISMISS-ALARM-LABEL"                  =   "Dismiss Alarm";
+"SLUG-ACC-DISMISS-ALARM-HINT"                   =   "Silences the alarm and resets the group to its first timer.";
+// The adjustable countdown position and its corresponding touch slider.
+"SLUG-ACC-TIMER-POSITION-LABEL"                 =   "Countdown Position";
+"SLUG-ACC-TIMER-POSITION-HINT"                  =   "Increase to advance the countdown. Decrease to rewind it. The value is the time remaining.";
+
+// MARK: - About Screen -
+
+// The selectable text contains website links detected by the system.
+"SLUG-ACC-ABOUT-TEXT-LABEL"                     =   "About This App";
+"SLUG-ACC-ABOUT-TEXT-HINT"                      =   "Read about the timer and follow links to its website and source code.";
+
+// MARK: Watch Remote
+
+/* Spoken when a remote command was declined and the user can dismiss the alert. */
+"SLUG-ACC-WATCH-ALERT-OK-LABEL"                  =   "OK";
+"SLUG-ACC-WATCH-ALERT-OK-HINT"                   =   "Dismisses the message.";
+
+/* During an alarm, the entire Watch screen performs this action. */
+"SLUG-ACC-WATCH-ALARM-LABEL"                     =   "Silence alarm";
+"SLUG-ACC-WATCH-ALARM-HINT"                      =   "Silences the alarm and rewinds to the first timer in the group.";
+
+"SLUG-ACC-WATCH-STOP-HINT"                       =   "Stops the timer and closes the timer screen on the connected device.";
+"SLUG-ACC-WATCH-REWIND-HINT"                     =   "Rewinds this timer. If it is already at the start, selects the previous timer when available.";
+"SLUG-ACC-WATCH-FORWARD-LABEL"                   =   "Fast forward";
+"SLUG-ACC-WATCH-FORWARD-HINT"                    =   "Advances to the end of this timer or to the next timer in the group.";
+
+"SLUG-ACC-WATCH-CONTROLS-LABEL"                  =   "Timer controls";
+"SLUG-ACC-WATCH-CONTROLS-HINT"                   =   "Shows more timer controls and lets you choose a timer device.";
+"SLUG-ACC-WATCH-DEVICE-LABEL"                    =   "Timer device";
+"SLUG-ACC-WATCH-DEVICE-HINT"                     =   "Shows the devices this Watch can control.";
+"SLUG-ACC-WATCH-RECONNECT-LABEL"                 =   "Reconnect";
+"SLUG-ACC-WATCH-RECONNECT-HINT"                  =   "Tries to connect to the selected timer device again.";
+
+"SLUG-ACC-WATCH-IPHONE-LABEL"                    =   "Paired iPhone";
+"SLUG-ACC-WATCH-IPHONE-HINT"                     =   "Selects this iPhone as the device to control.";
+"SLUG-ACC-WATCH-FIND-IPADS-LABEL"                =   "Find nearby iPads";
+"SLUG-ACC-WATCH-FIND-IPADS-HINT"                 =   "Searches for nearby iPads with Watch Remote enabled.";
+/* %@ is the short Bluetooth name advertised by a nearby iPad. */
+"SLUG-ACC-WATCH-IPAD-LABEL"                      =   "iPad, %@";
+"SLUG-ACC-WATCH-IPAD-HINT"                       =   "Connects to this iPad to control its timer.";
+
+// MARK: Watch Face Complications
+
+"SLUG-ACC-COMPLICATION-LABEL"                    =   "Rift Valley Timer";
+"SLUG-ACC-COMPLICATION-HINT"                     =   "Opens the timer remote on this Watch.";
+"SLUG-ACC-COMPLICATION-UNAVAILABLE-VALUE"        =   "Timer unavailable";

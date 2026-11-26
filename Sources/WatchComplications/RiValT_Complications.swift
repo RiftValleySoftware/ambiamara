@@ -49,6 +49,15 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
         }
         return Text(verbatim: RiValT_ComplicationState.clockText(remaining))
     }
+
+    /// Keep WidgetKit's live countdown for speech and expand a fixed duration into words.
+    var spokenTime: Text {
+        guard let snapshot, snapshot.timerID != nil, phase != .unavailable else {
+            return Text("SLUG-ACC-COMPLICATION-UNAVAILABLE-VALUE")
+        }
+        if let deadline = snapshot.displayDeadline, deadline > date { return timerText }
+        return Text(verbatim: Duration.seconds(snapshot.complicationRemaining(at: date)).formatted(.units(width: .wide)))
+    }
 }
 
 struct Rift_Valley_Timer_ComplicationsEntryView: View {
@@ -88,7 +97,6 @@ struct Rift_Valley_Timer_ComplicationsEntryView: View {
     private var logo: some View {
         logoImage.resizable().scaledToFit()
             .widgetAccentable(renderingMode != .fullColor)
-            .accessibilityHidden(true)
     }
 
     private var time: some View {
@@ -121,6 +129,10 @@ struct Rift_Valley_Timer_ComplicationsEntryView: View {
                 logo
             }
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("SLUG-ACC-COMPLICATION-LABEL")
+        .accessibilityValue(entry.spokenTime)
+        .accessibilityHint("SLUG-ACC-COMPLICATION-HINT")
         .containerBackground(for: .widget) { Color.clear }
     }
 }
