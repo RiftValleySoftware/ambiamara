@@ -29,6 +29,8 @@ final class RiValT_ObservableModel: ObservableObject {
     private var previousSnapshot: Snapshot?
     /// The repeating haptics task while a host-confirmed alarm is active.
     private var alarmHaptics: Task<Void, Never>?
+    /// The time of the last haptic, used to keep ticks apart from other feedback.
+    private var lastHapticAt: ContinuousClock.Instant?
 
     /// Subscribes the view model and its haptics to connection updates.
     init() {
@@ -46,6 +48,8 @@ final class RiValT_ObservableModel: ObservableObject {
     var connectionFailed: Bool { self.connection.connectionFailed }
     /// Whether a timer action is pending acknowledgement.
     var isSendingCommand: Bool { self.connection.isUpdateInProgress }
+    /// A local readout held while the phone or iPad confirms Pause.
+    var pendingPauseRemaining: Int? { self.connection.pendingPauseRemaining }
 
     /// Whether the last timer action was rejected.
     var commandRejected: Bool { self.connection.commandRejected }
@@ -55,6 +59,21 @@ final class RiValT_ObservableModel: ObservableObject {
         self.isActive = active
         self.connection.setWatchActive(active)
         self.updateHaptics()
+    }
+
+    /// Plays a light tick for a visible countdown second while the host timer is running.
+    func playCountdownTick(for displayed: Snapshot) {
+        guard self.isActive, !self.isSendingCommand, let current = self.snapshot,
+              current.stamp == displayed.stamp, current.phase.isCounting,
+              let deadline = current.deadline, deadline > .now else { return }
+        if let lastHapticAt, ContinuousClock.now - lastHapticAt < .milliseconds(500) { return }
+        self.playHaptic(.click)
+    }
+
+    /// Records feedback so the next countdown tick can leave room for phase haptics.
+    private func playHaptic(_ type: WKHapticType) {
+        self.lastHapticAt = .now
+        WKInterfaceDevice.current().play(type)
     }
 
     /// React to host-confirmed transitions, never to a locally predicted timer expiry.
@@ -89,10 +108,10 @@ final class RiValT_ObservableModel: ObservableObject {
               previous.phase != .unavailable, current.phase != .unavailable else { return }
         if previous.timerID != current.timerID || previous.phase != current.phase {
             switch current.phase {
-            case .warning, .final: WKInterfaceDevice.current().play(.directionDown)
-            case .countdown: WKInterfaceDevice.current().play(.start)
-            case .paused: WKInterfaceDevice.current().play(.stop)
-            case .ready: WKInterfaceDevice.current().play(.click)
+            case .warning, .final: self.playHaptic(.directionDown)
+            case .countdown: self.playHaptic(.start)
+            case .paused: self.playHaptic(.stop)
+            case .ready: self.playHaptic(.click)
             default: break
             }
         }

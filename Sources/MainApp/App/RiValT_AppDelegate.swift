@@ -166,13 +166,17 @@ extension RiValT_AppDelegate {
         }
 
         let remaining = scrubPreview?.remaining ?? (phase == .ready ? timer.startingTimeInSeconds : timer.currentTime)
+        let deadline = phase.isCounting && scrubPreview == nil ? timer.countdownDeadline : nil
+        // Use the same next-timer test as the controller's alarm handler.
+        let alarmAtDeadline = deadline != nil && running?.isDragging == false && running?.nextTimer == nil
         let state = RiValT_WatchDelegate.Snapshot(timerID: timer.id, groupNumber: index.section + 1, timerNumber: index.item + 1,
                                                   groupSize: timer.group?.count ?? 0, phase: phase, remaining: remaining,
-                                                  deadline: phase.isCounting && scrubPreview == nil ? timer.countdownDeadline : nil,
+                                                  deadline: deadline,
                                                   warning: timer.warningRangeUpperBound, final: timer.finalRangeUpperBound,
                                                   commands: commands, canRewindGroup: commands.contains(.stop) ? true : nil,
                                                   followingDuration: followingDuration, complicationPresetTime: complicationPresetTime,
-                                                  complicationRewindTime: countdown.totalDuration)
+                                                  complicationRewindTime: countdown.totalDuration,
+                                                  complicationAlarmAtDeadline: alarmAtDeadline ? true : nil)
         if forComplication {
             let sceneState = groupEditorController?.navigationController?.viewIfLoaded?.window?.windowScene?.activationState
             if sceneState != .foregroundActive && sceneState != .foregroundInactive { return state.rewoundForComplication }

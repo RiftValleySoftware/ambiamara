@@ -8,6 +8,10 @@
 	<array>
 		<string>Digital.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+	</array>
 	<key>UIDesignRequiresCompatibility</key>
 	<true/>
 </dict>

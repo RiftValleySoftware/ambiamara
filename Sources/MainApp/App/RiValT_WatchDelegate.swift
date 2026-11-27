@@ -93,32 +93,33 @@ extension RiValT_WatchDelegate {
     func publishCurrentSnapshot() {
         let session = self.session
         let watchIsReachable = session?.activationState == .activated && session?.isReachable == true
-        publishComplicationSnapshot()
-        guard watchIsReachable || padLink.hasRemoteSubscriber, let state = capture(),
-              lastNotifiedRevision != host.revision || lastNotifiedPhase != state.phase
-        else { return }
-        lastNotifiedRevision = host.revision
-        lastNotifiedPhase = state.phase
-        padLink.notifyChange()
-        if watchIsReachable, let session {
-            // This is just an invalidation. All Watch state comes from a measured request/reply exchange.
-            session.sendMessage(["changed": true], replyHandler: nil, errorHandler: nil)
+        var message = publishComplicationSnapshot() ?? [:]
+        if watchIsReachable || padLink.hasRemoteSubscriber, let state = capture(),
+           lastNotifiedRevision != host.revision || lastNotifiedPhase != state.phase {
+            lastNotifiedRevision = host.revision
+            lastNotifiedPhase = state.phase
+            padLink.notifyChange()
+            message["changed"] = true
+        }
+        if watchIsReachable, !message.isEmpty {
+            // The face can use this sample immediately. Interactive controls still use a measured request and reply.
+            session?.sendMessage(message, replyHandler: nil, errorHandler: nil)
         }
     }
 
-    /// Sends a changed or overdue complication sample, using priority delivery when available.
-    private func publishComplicationSnapshot() {
+    /// Queues a changed or overdue complication sample and returns it for immediate delivery to a reachable Watch.
+    private func publishComplicationSnapshot() -> [String: Any]? {
         let now = Date()
         guard let session, session.activationState == .activated, session.isPaired,
               session.isWatchAppInstalled,
-              let app = RiValT_AppDelegate.appDelegateInstance else { return }
+              let app = RiValT_AppDelegate.appDelegateInstance else { return nil }
         let state = app.remoteSnapshot(forComplication: true)
         let stateChanged = lastComplicationSnapshot?.representsSameControlState(as: state) != true
         let needsConfirmation = state.displayDeadline != nil
             && now.timeIntervalSince(lastComplicationUpdate) >= RiValT_RemoteState.complicationConfirmationInterval
         guard stateChanged || needsConfirmation,
               let encoded = try? PropertyListEncoder().encode(state)
-        else { return }
+        else { return nil }
 
         let payload: [String: Any] = ["complicationState": encoded, "complicationUpdatedAt": now.timeIntervalSince1970]
         do {
@@ -127,9 +128,10 @@ extension RiValT_WatchDelegate {
             lastComplicationSnapshot = state
             lastComplicationUpdate = now
             // Reserve the limited priority transfers for state changes outside a scrub gesture.
-            if stateChanged, !app.isScrubbingComplicationTimer, session.isComplicationEnabled {
+            if stateChanged, !app.isScrubbingComplicationTimer {
                 // Only the latest snapshot is useful if the Watch was disconnected.
                 session.outstandingUserInfoTransfers.first(where: \.isCurrentComplicationInfo)?.cancel()
+                // WatchConnectivity can grant priority transfers even when it reports the complication disabled.
                 if session.remainingComplicationUserInfoTransfers > 0 {
                     _ = session.transferCurrentComplicationUserInfo(payload)
                 }
@@ -138,6 +140,7 @@ extension RiValT_WatchDelegate {
             // A later state publication retries if the session cannot accept this update yet.
             lastComplicationSnapshot = nil
         }
+        return payload
     }
 
     /// Reads the app's current timer state and records it for command validation.

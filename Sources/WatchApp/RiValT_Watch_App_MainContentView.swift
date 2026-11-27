@@ -114,8 +114,9 @@ struct RiValT_Watch_App_MainContentView: View {
 
     /// Renders the displayed countdown and its controls, and polls the host again after expiry.
     private func readout(_ snapshot: Snapshot, at date: Date) -> some View {
-        let seconds = snapshot.displayRemaining(at: date)
+        let seconds = self.model.pendingPauseRemaining ?? snapshot.displayRemaining(at: date)
         let awaitingHost = snapshot.deadline.map { $0 <= date } ?? false
+        let updating = awaitingHost || self.model.isSendingCommand
         let phase = snapshot.phase(at: date)
         let primary = [Operation.pause, .resume, .start].first(where: snapshot.commands.contains)
         let position = String(format: watchText("SLUG-TIMER-POSITION"), locale: .current,
@@ -133,9 +134,9 @@ struct RiValT_Watch_App_MainContentView: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
             Spacer(minLength: 0)
-            Label(awaitingHost ? watchText("SLUG-SYNCING") : phase.title,
-                  systemImage: awaitingHost ? "arrow.triangle.2.circlepath" : phase.symbol)
-                .foregroundStyle(awaitingHost ? Color.secondary : phase.color)
+            Label(updating ? watchText("SLUG-SYNCING") : phase.title,
+                  systemImage: updating ? "arrow.triangle.2.circlepath" : phase.symbol)
+                .foregroundStyle(updating ? Color.secondary : phase.color)
                 .font(.headline)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
@@ -177,6 +178,11 @@ struct RiValT_Watch_App_MainContentView: View {
                 .accessibilityLabel("SLUG-ACC-WATCH-CONTROLS-LABEL")
                 .accessibilityHint("SLUG-ACC-WATCH-CONTROLS-HINT")
                 .frame(maxWidth: primary == nil ? .infinity : 44)
+            }
+        }
+        .onChange(of: seconds) { previous, current in
+            if current == previous - 1, !updating {
+                self.model.playCountdownTick(for: snapshot)
             }
         }
         .task(id: awaitingHost) {

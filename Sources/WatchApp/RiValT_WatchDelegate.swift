@@ -56,6 +56,8 @@ final class RiValT_WatchDelegate: NSObject {
     }
     /// Whether a control command is waiting to be sent or acknowledged.
     private(set) var isUpdateInProgress = false
+    /// The time shown when Pause was tapped, held only while the command is pending.
+    private(set) var pendingPauseRemaining: Int?
     /// Whether the last command was declined or its target state changed before it could be sent.
     private(set) var commandRejected = false
 
@@ -128,6 +130,18 @@ extension RiValT_WatchDelegate {
     func setWatchActive(_ value: Bool) {
         guard active != value else { return }
         active = value
+        if padLink.usesIPad {
+            if active {
+                canReachHost = false
+                updateHandler?()
+                refresh()
+            } else {
+                // Keep an in-flight Bluetooth read valid if the wearer returns to the watch face.
+                heartbeat?.cancel()
+                waitingForPoll = nil
+            }
+            return
+        }
         connectionChanged()
     }
 
@@ -172,7 +186,7 @@ extension RiValT_WatchDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: work)
     }
 
-    /// Resets interactive state, selects the complication source, and refreshes a reachable active host.
+    /// Resets interactive state, selects the complication source, and refreshes the chosen host when possible.
     private func connectionChanged() {
         RiValT_ComplicationState.selectSource(complicationSource)
         if padLink.usesIPad {
@@ -183,7 +197,7 @@ extension RiValT_WatchDelegate {
         } else {
             cancelComplicationRewind()
         }
-        if !padLink.usesIPad, let session { receiveComplicationUpdate(session.receivedApplicationContext) }
+        storeLatestComplicationContext()
         heartbeat?.cancel()
         pendingID = nil
         waitingForPoll = nil
@@ -191,8 +205,9 @@ extension RiValT_WatchDelegate {
         commandRejected = false
         connectionFailed = false
         isUpdateInProgress = false
+        pendingPauseRemaining = nil
         clearSnapshot()
-        if active && linkIsReachable { refresh() }
+        refresh()
     }
 
     /// Discards the live snapshot and host clock estimate, then notifies observers.
@@ -218,9 +233,9 @@ extension RiValT_WatchDelegate {
         refresh()
     }
 
-    /// Wake, reconnection, user refresh and a host invalidation all take this same path.
+    /// Refreshes from a reachable host, including when an iPad change indication wakes the Watch app.
     func refresh() {
-        guard active, linkIsReachable else { return }
+        guard active || padLink.usesIPad, linkIsReachable else { return }
         guard pendingID == nil else {
             needsRefresh = true
             return
@@ -228,17 +243,19 @@ extension RiValT_WatchDelegate {
         request(command: nil)
     }
 
-    /// Sends the supported command or queues it with the displayed host revision until the current poll completes.
+    /// Sends a command immediately on WatchConnectivity and waits for an in-flight poll on the serial Bluetooth link.
     func sendCommand(command: TimerOperation) {
         guard active, canReachHost, !isUpdateInProgress, linkIsReachable,
               let hostSession, snapshot?.supports(command) == true else { return }
         let tapped = Date()
-        if pendingID != nil {
+        pendingPauseRemaining = command == .pause ? snapshot?.displayRemaining(at: tapped) : nil
+        if pendingID != nil, padLink.usesIPad {
             waitingForPoll = PendingCommand(operation: command, session: hostSession, revision: revision, tapped: tapped)
             commandRejected = false
             isUpdateInProgress = true
             updateHandler?()
         } else {
+            // Installing the command's request ID makes any superseded poll reply or timeout harmless.
             request(command: command, tapped: tapped)
         }
     }
@@ -285,6 +302,7 @@ extension RiValT_WatchDelegate {
         pendingID = nil
         waitingForPoll = nil
         isUpdateInProgress = false
+        pendingPauseRemaining = nil
         needsRefresh = false
         connectionFailed = true
         handleComplicationConnectionLoss()
@@ -295,7 +313,7 @@ extension RiValT_WatchDelegate {
     /// Validates the host reply, updates the clock and timer snapshot, and reconciles any queued command.
     private func received(_ reply: [String: Any], id: String, sent: Date, at received: Date, wasCommand: Bool) {
         guard pendingID == id else { return }
-        guard active, linkIsReachable, reply["version"] as? Int == 1,
+        guard active || padLink.usesIPad, linkIsReachable, reply["version"] as? Int == 1,
               reply["request"] as? String == id, let session = reply["session"] as? String,
               let updatedRevision = reply["revision"] as? Int,
               let receivedAtHost = reply["hostReceived"] as? TimeInterval,
@@ -340,6 +358,7 @@ extension RiValT_WatchDelegate {
             }
             commandRejected = true
         }
+        pendingPauseRemaining = nil
         updateHandler?()
         if needsRefresh { refresh() } else { scheduleRefresh(in: 3) }
     }
@@ -352,6 +371,12 @@ extension RiValT_WatchDelegate {
             self.complicationDeliveries.leave()
             self.connectivityProgressHandler?()
         }
+    }
+
+    /// Persists the latest buffered phone sample while the Watch still has background execution time.
+    func storeLatestComplicationContext() {
+        guard !padLink.usesIPad, let session, session.activationState == .activated else { return }
+        receiveComplicationUpdate(session.receivedApplicationContext)
     }
 
     /// Background data is for the face only; it never enables remote controls or establishes reachability.
@@ -411,8 +436,9 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
         enqueueComplicationUpdate(userInfo)
     }
 
-    /// Requests a new snapshot after the paired phone sends a change hint.
+    /// Stores a directly delivered complication sample and refreshes interactive controls on a change hint.
     nonisolated func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
+        if message["complicationState"] != nil { enqueueComplicationUpdate(message) }
         guard message["changed"] as? Bool == true else { return }
         DispatchQueue.main.async {
             if !self.padLink.usesIPad { self.refresh() }

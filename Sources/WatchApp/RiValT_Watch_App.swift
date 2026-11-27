@@ -63,6 +63,7 @@ final class RiValT_Watch_AppDelegate: NSObject, WKApplicationDelegate {
     /// Completes retained refresh tasks after the session and complication writes settle.
     private func completeConnectivityTasks() {
         guard !pendingTasks.isEmpty, Self.connection.canCompleteConnectivityTasks else { return }
+        Self.connection.storeLatestComplicationContext()
         pendingTasks.forEach { $0.setTaskCompletedWithSnapshot(false) }
         pendingTasks.removeAll()
     }

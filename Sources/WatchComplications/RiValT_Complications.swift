@@ -30,6 +30,7 @@ struct Rift_Valley_Timer_Watch_App_Provider: TimelineProvider {
         let snapshot = record?.snapshot(at: now)
         let rewindDate = record?.rewindDate
         var entries = [Entry(date: now, snapshot: snapshot)]
+        var refreshDate = now.addingTimeInterval(RiValT_ComplicationState.confirmationInterval)
         if let snapshot, snapshot.phase.isCounting, let deadline = snapshot.deadline {
             let phaseThresholds = [snapshot.warning > snapshot.final ? snapshot.warning : 0, snapshot.final]
             for threshold in phaseThresholds where threshold > 0 {
@@ -40,14 +41,18 @@ struct Rift_Valley_Timer_Watch_App_Provider: TimelineProvider {
             }
         }
         if let deadline = snapshot?.displayDeadline, deadline > now, deadline < (rewindDate ?? .distantFuture) {
-            // WidgetKit counts down between entries. At the displayed deadline, switch to a fixed zero.
+            // At the displayed deadline, switch to a fixed zero and show any alarm scheduled by the host.
             entries.append(Entry(date: deadline, snapshot: snapshot))
+            if record?.source.hasPrefix("ipad-") == true {
+                // Check for a saved Pause or Reset if WidgetKit has deferred the background reload request.
+                refreshDate = min(refreshDate, deadline)
+            }
         }
         if let rewindDate, rewindDate > now {
             // This entry can appear even if the Watch app is suspended when contact is lost.
             entries.append(Entry(date: rewindDate, snapshot: record?.snapshot(at: rewindDate)))
         }
-        completion(Timeline(entries: entries, policy: .after(now.addingTimeInterval(RiValT_ComplicationState.confirmationInterval))))
+        completion(Timeline(entries: entries, policy: .after(refreshDate)))
     }
 }
 
@@ -58,22 +63,23 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
     let snapshot: RiValT_RemoteState.Snapshot?
 
     /// The timer phase at the date represented by the entry.
-    var phase: RiValT_RemoteState.Phase { snapshot?.phase(at: date) ?? .unavailable }
+    var phase: RiValT_RemoteState.Phase { snapshot?.complicationPhase(at: date) ?? .unavailable }
 
-    /// An SF Symbol name for the warning or final phase.
+    /// An SF Symbol name for the warning, final, or alarm phase.
     var phaseSymbol: String? {
         switch phase {
         case .warning: return "exclamationmark.triangle.fill"
         case .final: return "exclamationmark.octagon.fill"
+        case .alarm: return "bell.fill"
         default: return nil
         }
     }
 
-    /// The phase tint for a full-color complication during warning or final.
+    /// The phase tint for a full-color complication.
     var phaseColor: Color? {
         switch phase {
         case .warning: return .yellow
-        case .final: return .red
+        case .final, .alarm: return .red
         default: return nil
         }
     }
@@ -97,11 +103,12 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
         return Text(verbatim: Duration.seconds(snapshot.complicationRemaining(at: date)).formatted(.units(width: .wide)))
     }
 
-    /// The spoken time with a warning or final phase announcement when applicable.
+    /// The spoken timer status, including an announcement when the alarm is active.
     var spokenStatus: Text {
         switch phase {
         case .warning: return Text("SLUG-WARNING") + Text(verbatim: ", ") + spokenTime
         case .final: return Text("SLUG-FINAL") + Text(verbatim: ", ") + spokenTime
+        case .alarm: return Text("SLUG-ALARM")
         default: return spokenTime
         }
     }

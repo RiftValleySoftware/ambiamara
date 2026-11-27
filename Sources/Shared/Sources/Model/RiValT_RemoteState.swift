@@ -85,9 +85,12 @@ enum RiValT_RemoteState {
         var complicationPresetTime: Int?
         /// Configured duration to display if the complication loses its host mid-countdown.
         var complicationRewindTime: Int?
+        /// The host expects the active timer's deadline to start an alarm instead of another timer.
+        var complicationAlarmAtDeadline: Bool?
 
-        /// Produces a ready snapshot with the configured rewind duration when one is available.
+        /// Restores the configured rewind duration when available, keeping active alarms until the host clears them.
         var rewoundForComplication: Self {
+            guard phase != .alarm else { return self }
             // Older hosts only supplied the configured duration while the timer was ready.
             let preset = complicationRewindTime ?? complicationPresetTime ?? (phase == .ready ? remaining + (followingDuration ?? 0) : nil)
             return Self(timerID: timerID, groupNumber: groupNumber, timerNumber: timerNumber, groupSize: groupSize,
@@ -137,6 +140,13 @@ enum RiValT_RemoteState {
             return .countdown
         }
 
+        /// Shows a scheduled alarm on the face while the Watch awaits the host's next sample.
+        func complicationPhase(at date: Date) -> Phase {
+            if complicationAlarmAtDeadline == true, timerID != nil, (followingDuration ?? 0) == 0,
+               let end = displayDeadline, date >= end { return .alarm }
+            return phase(at: date)
+        }
+
         /// Continuous ticks share a command revision. A seek, restart, selection or control change invalidates it.
         func representsSameControlState(as other: Self) -> Bool {
             timerID == other.timerID && groupNumber == other.groupNumber && timerNumber == other.timerNumber
@@ -145,6 +155,7 @@ enum RiValT_RemoteState {
                 && (followingDuration ?? 0) == (other.followingDuration ?? 0)
                 && complicationPresetTime == other.complicationPresetTime
                 && complicationRewindTime == other.complicationRewindTime
+                && (complicationAlarmAtDeadline == true) == (other.complicationAlarmAtDeadline == true)
                 && (deadline != nil && phase.isCounting && other.phase.isCounting || (phase == other.phase && remaining == other.remaining))
         }
     }

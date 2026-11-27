@@ -80,6 +80,9 @@ enum RiValT_ComplicationState {
     static func save(_ snapshot: RiValT_RemoteState.Snapshot, updatedAt: Date, source: String, confirmed: Bool = false,
                      localSampleDate: Date? = nil, in storage: UserDefaults? = defaults) {
         guard let defaults = storage, (defaults.string(forKey: sourceKey) ?? "phone") == source else { return }
+        var snapshot = snapshot
+        // Only the paired phone confirms the installed countdown while the Watch app is suspended.
+        if source != "phone" { snapshot.complicationAlarmAtDeadline = nil }
         let previous = read(from: defaults)
         // A delayed background context must not replace a newer live request/reply.
         guard previous.map({ $0.updatedAt < updatedAt || (confirmed && $0.updatedAt == updatedAt) }) ?? true else { return }
