@@ -1,0 +1,12 @@
+"SLUG-SOFTWARE-DEPENDENCIES" = "Software Dependencies";
+"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Select a library to see what it does, where to find its source code, and its MIT license.";
+"SLUG-SOURCE-CODE" = "Source Code";
+"SLUG-LICENSE" = "License";
+"SLUG-DEPENDENCY-GCD-TIMER" = "Runs the countdown timers.";
+"SLUG-DEPENDENCY-CHECKBOX" = "Provides checkbox controls.";
+"SLUG-DEPENDENCY-SWIFT-TOOLBOX" = "Provides shared Swift utilities.";
+"SLUG-DEPENDENCY-PERSISTENT-PREFS" = "Saves and loads app preferences.";
+"SLUG-DEPENDENCY-LED-DISPLAY" = "Draws the digital countdown display.";
+"SLUG-DEPENDENCY-UIKIT-TOOLBOX" = "Provides shared UIKit controls and utilities.";
+"SLUG-APP-SOURCE-CODE" = "App Source Code";
+"SLUG-APP-SOURCE-DESCRIPTION" = "RiVal.T is proprietary software. You can view its source code on GitHub.";

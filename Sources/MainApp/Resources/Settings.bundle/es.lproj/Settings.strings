@@ -1,0 +1,12 @@
+"SLUG-SOFTWARE-DEPENDENCIES" = "Dependencias de software";
+"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Selecciona una biblioteca para ver qué hace, dónde está su código fuente y cuál es su licencia MIT.";
+"SLUG-SOURCE-CODE" = "Código fuente";
+"SLUG-LICENSE" = "Licencia";
+"SLUG-DEPENDENCY-GCD-TIMER" = "Controla los temporizadores de cuenta atrás.";
+"SLUG-DEPENDENCY-CHECKBOX" = "Proporciona casillas de verificación.";
+"SLUG-DEPENDENCY-SWIFT-TOOLBOX" = "Proporciona utilidades de Swift.";
+"SLUG-DEPENDENCY-PERSISTENT-PREFS" = "Guarda y carga los ajustes de la app.";
+"SLUG-DEPENDENCY-LED-DISPLAY" = "Dibuja la pantalla digital de la cuenta atrás.";
+"SLUG-DEPENDENCY-UIKIT-TOOLBOX" = "Proporciona controles y utilidades de UIKit.";
+"SLUG-APP-SOURCE-CODE" = "Código fuente de la app";
+"SLUG-APP-SOURCE-DESCRIPTION" = "RiVal.T es software propietario. Puedes consultar su código fuente en GitHub.";

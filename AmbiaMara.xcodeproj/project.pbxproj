@@ -38,6 +38,7 @@
 		D43B97692DA2C1D10028E023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D43B975C2DA2C1D10028E023 /* Assets.xcassets */; };
 		D43B976B2DA2C1D10028E023 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D43B975F2DA2C1D10028E023 /* LaunchScreen.storyboard */; };
 		D43B976C2DA2C1D10028E023 /* RiValT.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D43B97612DA2C1D10028E023 /* RiValT.storyboard */; };
+		27ED03A683344720948D1590 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27ED03A583344720948D1590 /* Settings.bundle */; };
 		D43B97702DA2C2D00028E023 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D43B976F2DA2C2D00028E023 /* RVS_Generic_Swift_Toolbox */; };
 		D43B97742DA2C2D00028E023 /* RVS_RetroLEDDisplay in Frameworks */ = {isa = PBXBuildFile; productRef = D43B97732DA2C2D00028E023 /* RVS_RetroLEDDisplay */; };
 		D43B97762DA2C2D00028E023 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D43B97752DA2C2D00028E023 /* RVS_UIKit_Toolbox */; };
@@ -319,6 +320,7 @@
 		D43B97352DA2C0F50028E023 /* RiVal.T.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RiVal.T.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D43B975B2DA2C1D10028E023 /* RiValT_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_AppDelegate.swift; sourceTree = "<group>"; };
 		D43B975C2DA2C1D10028E023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		27ED03A583344720948D1590 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D43B975D2DA2C1D10028E023 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D43B975E2DA2C1D10028E023 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D43B97602DA2C1D10028E023 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RiValT.storyboard; sourceTree = "<group>"; };
@@ -526,6 +528,7 @@
 				D4D3B9FC2DC4182D00C5CA19 /* Localizable.strings */,
 				D43B97612DA2C1D10028E023 /* RiValT.storyboard */,
 				D43B975F2DA2C1D10028E023 /* LaunchScreen.storyboard */,
+				27ED03A583344720948D1590 /* Settings.bundle */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1076,6 +1079,7 @@
 				D43B976C2DA2C1D10028E023 /* RiValT.storyboard in Resources */,
 				D4D3B9FD2DC4182D00C5CA19 /* Localizable.strings in Resources */,
 				D41CDA1A30B8C95900516284 /* InfoPlist.strings in Resources */,
+				27ED03A683344720948D1590 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -179,38 +179,10 @@ APPUYER LONGUEMENT : Affiche un curseur pour régler le temps restant.";
 // MARK: About Screen
 
 "SLUG-NAME-VERSION-FORMAT"                      =   "%@ - %@ (%@)";
-"SLUG-ABOUT-MAIN-TEXT"                          =   "Cette app permet de lancer un compte à rebours. Le minuteur décompte les secondes et déclenche une alarme lorsqu’il atteint zéro. Vous pouvez régler les minuteurs jusqu’à 23 heures, 59 minutes et 59 secondes.
+"SLUG-ABOUT-MAIN-TEXT"                          =   "Réglez un minuteur ou lancez plusieurs minuteurs à la suite. Choisissez un affichage numérique, circulaire ou tricolore. RiVal.T vous avertit quand le temps est écoulé.
 
-Créez autant de minuteurs que vous le souhaitez et organisez-les en groupes pour les lancer les uns à la suite des autres. Vous pouvez déplacer les minuteurs d’un groupe à l’autre par glisser-déposer.
-
-Chaque minuteur propose deux seuils facultatifs, un seuil d’avertissement (jaune) et un seuil final (rouge), qui signalent que le temps est presque écoulé.
-
-Vous pouvez choisir un son bref pour signaler le passage d’un minuteur à l’autre et une alarme pour signaler la fin du dernier minuteur du groupe.
-
-Le compte à rebours propose trois modes d’affichage de grande taille, faciles à lire :
-    • NUMÉRIQUE : Un compte à rebours à affichage numérique classique.
-    • CIRCULAIRE : Un anneau qui s’efface au fil du temps.
-    • FEUX TRICOLORES : Des cercles colorés qui s’allument à chaque seuil, parfaits pour les débats.
-
-Pour en savoir plus, consultez :
-    https://riftvalleysoftware.com/rival-t
-
-
-
-PAQUETS OPEN SOURCE ET INFORMATIONS SUR L’APP
-
-L’app utilise les paquets Swift open source suivants :
-
-    •   https://github.com/RiftValleySoftware/RVS_BasicGCDTimer
-    •   https://github.com/RiftValleySoftware/RVS_Checkbox
-    •   https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox
-    •   https://github.com/RiftValleySoftware/RVS_PersistentPrefs
-    •   https://github.com/RiftValleySoftware/RVS_RetroLEDDisplay
-    •   https://github.com/RiftValleySoftware/RVS_UIKit_Toolbox
-
-Le code source de l’app elle-même est également consultable à cette adresse :
-
-    https://github.com/RiftValleySoftware/ambiamara";
+Touchez la roue dentée pour voir les crédits et les licences des logiciels.";
+"SLUG-ABOUT-WEBSITE-LINK"                       =   "Consultez notre site web pour des conseils et plus de détails.";
 
 // The iPad setting allows one approved Apple Watch to control this device's timer.
 "SLUG-WATCH-REMOTE" = "Commande par Apple Watch";
@@ -468,9 +440,11 @@ Le code source de l’app elle-même est également consultable à cette adresse
 
 // MARK: - About Screen -
 
-// The selectable text contains website links detected by the system.
+// About text and links exposed to VoiceOver.
 "SLUG-ACC-ABOUT-TEXT-LABEL"                     =   "À propos de l’app";
-"SLUG-ACC-ABOUT-TEXT-HINT"                      =   "Présente le minuteur et propose des liens vers son site web et son code source.";
+"SLUG-ACC-ABOUT-TEXT-HINT"                      =   "En savoir plus sur le minuteur et suivre le lien vers son site web.";
+"SLUG-ACC-ABOUT-SETTINGS-LABEL" = "Réglages";
+"SLUG-ACC-ABOUT-SETTINGS-HINT" = "Ouvre la page RiVal.T dans Réglages pour afficher les crédits des logiciels.";
 
 // MARK: Watch Remote
 
@@ -515,6 +489,10 @@ Le code source de l’app elle-même est également consultable à cette adresse
 
 "SLUG-BACKUP-EXPORT" = "Exporter la sauvegarde…";
 "SLUG-BACKUP-RESTORE" = "Restaurer la sauvegarde…";
+"SLUG-ACC-BACKUP-EXPORT-LABEL" = "Exporter la sauvegarde";
+"SLUG-ACC-BACKUP-EXPORT-HINT" = "Choisissez où enregistrer une sauvegarde de vos minuteurs et réglages.";
+"SLUG-ACC-BACKUP-RESTORE-LABEL" = "Restaurer la sauvegarde";
+"SLUG-ACC-BACKUP-RESTORE-HINT" = "Choisissez un fichier de sauvegarde pour restaurer vos minuteurs et réglages enregistrés.";
 "SLUG-BACKUP-FILES-HINT" = "Enregistrez la sauvegarde dans iCloud Drive pour la conserver après avoir supprimé RiVal.T.";
 "SLUG-BACKUP-FILENAME" = "Sauvegarde RiVal.T %@";
 "SLUG-BACKUP-EXPORT-FAILED" = "Impossible d’exporter la sauvegarde";

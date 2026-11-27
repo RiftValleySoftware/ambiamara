@@ -47,24 +47,53 @@ extension RiValT_About_ViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Keep the full, localized text available alongside its short accessibility label.
-        aboutText?.accessibilityValue = aboutText?.text
+        configureAboutText()
         if let image = Bundle.main.appIcon {
             appIconImageView?.image = image
         } else {
             appIconImageView?.isHidden = true
         }
         navigationItem.title = String(format: "SLUG-NAME-VERSION-FORMAT".localizedVariant, Bundle.main.appDisplayName, Bundle.main.appVersionString, Bundle.main.appVersionBuildString)
+        let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gear"),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(openSettings))
+        settingsButton.tintColor = .accent
+        settingsButton.accessibilityLabel = "SLUG-ACC-ABOUT-SETTINGS-LABEL".localizedVariant
+        settingsButton.accessibilityHint = "SLUG-ACC-ABOUT-SETTINGS-HINT".localizedVariant
+        navigationItem.rightBarButtonItem = settingsButton
         configureBackupActions()
+    }
+
+    private func configureAboutText() {
+        guard let aboutText else { return }
+        let font = aboutText.font ?? .preferredFont(forTextStyle: .body)
+        let text = NSMutableAttributedString(string: aboutText.text + "\n\n", attributes: [.font: font, .foregroundColor: UIColor.label])
+        let website = NSAttributedString(string: "SLUG-ABOUT-WEBSITE-LINK".localizedVariant,
+                                         attributes: [.font: font, .link: "https://riftvalleysoftware.com/work/ios-apps/rival-t/"])
+        text.append(website)
+        aboutText.attributedText = text
+        aboutText.accessibilityValue = text.string
+    }
+
+    @objc private func openSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        UIApplication.shared.open(url)
     }
 }
 
 extension RiValT_About_ViewController: UIDocumentPickerDelegate {
     private func configureBackupActions() {
-        let export = backupButton("SLUG-BACKUP-EXPORT".localizedVariant, symbol: "square.and.arrow.up") { [weak self] _ in
+        let export = backupButton("SLUG-BACKUP-EXPORT".localizedVariant,
+                                  symbol: "square.and.arrow.up",
+                                  accessibilityLabel: "SLUG-ACC-BACKUP-EXPORT-LABEL".localizedVariant,
+                                  accessibilityHint: "SLUG-ACC-BACKUP-EXPORT-HINT".localizedVariant) { [weak self] _ in
             self?.exportTimerBackup()
         }
-        let restore = backupButton("SLUG-BACKUP-RESTORE".localizedVariant, symbol: "square.and.arrow.down") { [weak self] _ in
+        let restore = backupButton("SLUG-BACKUP-RESTORE".localizedVariant,
+                                   symbol: "square.and.arrow.down",
+                                   accessibilityLabel: "SLUG-ACC-BACKUP-RESTORE-LABEL".localizedVariant,
+                                   accessibilityHint: "SLUG-ACC-BACKUP-RESTORE-HINT".localizedVariant) { [weak self] _ in
             self?.chooseTimerBackup()
         }
         let hint = UILabel()
@@ -79,13 +108,19 @@ extension RiValT_About_ViewController: UIDocumentPickerDelegate {
         backupActions?.addArrangedSubview(hint)
     }
 
-    private func backupButton(_ title: String, symbol: String, handler: @escaping UIActionHandler) -> UIButton {
+    private func backupButton(_ title: String,
+                              symbol: String,
+                              accessibilityLabel: String,
+                              accessibilityHint: String,
+                              handler: @escaping UIActionHandler) -> UIButton {
         var configuration = UIButton.Configuration.gray()
-        configuration.baseForegroundColor = .label
+        configuration.baseForegroundColor = .accent
         configuration.title = title
         configuration.image = UIImage(systemName: symbol)
         configuration.imagePadding = 8
         let button = UIButton(configuration: configuration, primaryAction: UIAction(handler: handler))
+        button.accessibilityLabel = accessibilityLabel
+        button.accessibilityHint = accessibilityHint
         button.titleLabel?.lineBreakMode = .byWordWrapping
         button.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).isActive = true
         return button

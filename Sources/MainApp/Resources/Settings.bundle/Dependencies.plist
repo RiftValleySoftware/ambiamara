@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Settings</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>SLUG-SOFTWARE-DEPENDENCIES-DETAIL</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>RVS Basic GCD Timer</string>
+			<key>File</key>
+			<string>RVS_BasicGCDTimer</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>RVS Checkbox</string>
+			<key>File</key>
+			<string>RVS_Checkbox</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>RVS Generic Swift Toolbox</string>
+			<key>File</key>
+			<string>RVS_Generic_Swift_Toolbox</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>RVS Persistent Prefs</string>
+			<key>File</key>
+			<string>RVS_PersistentPrefs</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>RVS Retro LED Display</string>
+			<key>File</key>
+			<string>RVS_RetroLEDDisplay</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>RVS UIKit Toolbox</string>
+			<key>File</key>
+			<string>RVS_UIKit_Toolbox</string>
+		</dict>
+	</array>
+</dict>
+</plist>

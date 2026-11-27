@@ -179,38 +179,10 @@ MANTER PRESSIONADO: Mostra um controle deslizante para ajustar o tempo restante.
 // MARK: About Screen
 
 "SLUG-NAME-VERSION-FORMAT"                      =   "%@ - %@ (%@)";
-"SLUG-ABOUT-MAIN-TEXT"                          =   "Este app é um temporizador simples de contagem regressiva. Ele conta os segundos restantes e dispara um alarme ao chegar a zero. Você pode ajustar temporizadores para até 23 horas, 59 minutos e 59 segundos.
+"SLUG-ABOUT-MAIN-TEXT"                          =   "Ajuste um temporizador ou inicie um grupo de temporizadores em sequência. Escolha um mostrador digital, circular ou de semáforo. O RiVal.T avisa quando o tempo acaba.
 
-Crie quantos temporizadores quiser e organize-os em grupos para que funcionem em sequência. Você pode arrastar e soltar temporizadores de um grupo para outro.
-
-Cada temporizador tem dois limites opcionais, um de aviso (amarelo) e um final (vermelho), que indicam que o tempo está acabando.
-
-Você pode definir sons curtos de transição entre os temporizadores de um grupo e um alarme que toca ao fim do último temporizador.
-
-Há três modos de exibição grandes e fáceis de ler:
-    • NUMÉRICO: Uma contagem regressiva no estilo digital clássico.
-    • CIRCULAR: Um anel que desaparece conforme o tempo passa.
-    • SEMÁFORO: Círculos coloridos que se acendem ao atingir os limites, ideais para debates.
-
-Para saber mais, acesse:
-    https://riftvalleysoftware.com/rival-t
-
-
-
-PACOTES DE CÓDIGO ABERTO E INFORMAÇÕES DO APP
-
-O app usa os seguintes pacotes Swift de código aberto:
-
-    •   https://github.com/RiftValleySoftware/RVS_BasicGCDTimer
-    •   https://github.com/RiftValleySoftware/RVS_Checkbox
-    •   https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox
-    •   https://github.com/RiftValleySoftware/RVS_PersistentPrefs
-    •   https://github.com/RiftValleySoftware/RVS_RetroLEDDisplay
-    •   https://github.com/RiftValleySoftware/RVS_UIKit_Toolbox
-
-O código-fonte do próprio app também está disponível para consulta:
-
-    https://github.com/RiftValleySoftware/ambiamara";
+Toque na engrenagem para ver os créditos e as licenças de software.";
+"SLUG-ABOUT-WEBSITE-LINK"                       =   "Visite nosso site para ver dicas e mais detalhes.";
 
 // The iPad setting allows one approved Apple Watch to control this device's timer.
 "SLUG-WATCH-REMOTE" = "Controle pelo Apple Watch";
@@ -468,9 +440,11 @@ O código-fonte do próprio app também está disponível para consulta:
 
 // MARK: - About Screen -
 
-// The selectable text contains website links detected by the system.
+// About text and links exposed to VoiceOver.
 "SLUG-ACC-ABOUT-TEXT-LABEL"                     =   "Sobre este app";
-"SLUG-ACC-ABOUT-TEXT-HINT"                      =   "Traz informações sobre o temporizador e links para o site e o código-fonte.";
+"SLUG-ACC-ABOUT-TEXT-HINT"                      =   "Traz informações sobre o temporizador e um link para o site.";
+"SLUG-ACC-ABOUT-SETTINGS-LABEL" = "Ajustes";
+"SLUG-ACC-ABOUT-SETTINGS-HINT" = "Abre a página do RiVal.T em Ajustes para mostrar os créditos de software.";
 
 // MARK: Watch Remote
 
@@ -515,6 +489,10 @@ O código-fonte do próprio app também está disponível para consulta:
 
 "SLUG-BACKUP-EXPORT" = "Exportar backup dos temporizadores…";
 "SLUG-BACKUP-RESTORE" = "Restaurar backup dos temporizadores…";
+"SLUG-ACC-BACKUP-EXPORT-LABEL" = "Exportar backup dos temporizadores";
+"SLUG-ACC-BACKUP-EXPORT-HINT" = "Escolha onde salvar um backup dos seus temporizadores e ajustes.";
+"SLUG-ACC-BACKUP-RESTORE-LABEL" = "Restaurar backup dos temporizadores";
+"SLUG-ACC-BACKUP-RESTORE-HINT" = "Escolha um arquivo de backup para restaurar seus temporizadores e ajustes salvos.";
 "SLUG-BACKUP-FILES-HINT" = "Salve o backup no iCloud Drive para mantê-lo após apagar o RiVal.T.";
 "SLUG-BACKUP-FILENAME" = "Backup do RiVal.T %@";
 "SLUG-BACKUP-EXPORT-FAILED" = "Não foi possível exportar o backup";

@@ -179,38 +179,10 @@ GEDRÜCKT HALTEN: Zeigt einen Schieberegler an, mit dem du die verbleibende Zeit
 // MARK: About Screen
 
 "SLUG-NAME-VERSION-FORMAT"                      =   "%@ - %@ (%@)";
-"SLUG-ABOUT-MAIN-TEXT"                          =   "Diese App ist ein einfacher Countdown-Timer. Sie zählt die Sekunden herunter und löst bei null einen Alarm aus. Du kannst Timer auf bis zu 23 Stunden, 59 Minuten und 59 Sekunden einstellen.
+"SLUG-ABOUT-MAIN-TEXT"                          =   "Stelle einen Timer ein oder lasse mehrere Timer nacheinander laufen. Wähle eine Digital-, Kreis- oder Ampelanzeige. RiVal.T meldet sich, wenn die Zeit abläuft.
 
-Erstelle beliebig viele Timer und ordne sie in Gruppen an, in denen sie nacheinander ablaufen. Du kannst Timer per Drag-and-drop zwischen Gruppen verschieben.
-
-Jeder Timer hat zwei optionale Schwellen, die anzeigen, dass die Zeit bald abläuft: eine Warnschwelle (gelb) und eine Endschwelle (rot).
-
-Du kannst kurze Übergangstöne zwischen den Timern einer Gruppe und einen Abschlussalarm am Ende des letzten Timers einstellen.
-
-Es gibt drei große, gut lesbare Anzeigen:
-    • DIGITAL: Ein klassischer Countdown mit Ziffern.
-    • RING: Ein Ring, der nach und nach verschwindet.
-    • AMPEL: Farbige Kreise, die beim Erreichen der Schwellen aufleuchten. Ideal für Debatten.
-
-Weitere Informationen findest du unter:
-    https://riftvalleysoftware.com/rival-t
-
-
-
-OPEN-SOURCE-PAKETE UND APP-INFOS
-
-Die App verwendet die folgenden Open-Source-Swift-Pakete:
-
-    •   https://github.com/RiftValleySoftware/RVS_BasicGCDTimer
-    •   https://github.com/RiftValleySoftware/RVS_Checkbox
-    •   https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox
-    •   https://github.com/RiftValleySoftware/RVS_PersistentPrefs
-    •   https://github.com/RiftValleySoftware/RVS_RetroLEDDisplay
-    •   https://github.com/RiftValleySoftware/RVS_UIKit_Toolbox
-
-Der Quellcode der App selbst ist ebenfalls einsehbar:
-
-    https://github.com/RiftValleySoftware/ambiamara";
+Tippe auf das Zahnrad, um Software-Hinweise und Lizenzen zu sehen.";
+"SLUG-ABOUT-WEBSITE-LINK"                       =   "Tipps und weitere Infos findest du auf unserer Website.";
 
 // The iPad setting allows one approved Apple Watch to control this device's timer.
 "SLUG-WATCH-REMOTE" = "Steuerung per Apple Watch";
@@ -468,9 +440,11 @@ Der Quellcode der App selbst ist ebenfalls einsehbar:
 
 // MARK: - About Screen -
 
-// The selectable text contains website links detected by the system.
+// About text and links exposed to VoiceOver.
 "SLUG-ACC-ABOUT-TEXT-LABEL"                     =   "Über diese App";
-"SLUG-ACC-ABOUT-TEXT-HINT"                      =   "Enthält Informationen zum Timer und Links zur Website und zum Quellcode.";
+"SLUG-ACC-ABOUT-TEXT-HINT"                      =   "Enthält Informationen zum Timer und einen Link zur Website.";
+"SLUG-ACC-ABOUT-SETTINGS-LABEL" = "Einstellungen";
+"SLUG-ACC-ABOUT-SETTINGS-HINT" = "Öffnet die RiVal.T-Seite in den Einstellungen mit den Software-Hinweisen.";
 
 // MARK: Watch Remote
 
@@ -515,6 +489,10 @@ Der Quellcode der App selbst ist ebenfalls einsehbar:
 
 "SLUG-BACKUP-EXPORT" = "Timer-Backup exportieren …";
 "SLUG-BACKUP-RESTORE" = "Timer-Backup wiederherstellen …";
+"SLUG-ACC-BACKUP-EXPORT-LABEL" = "Timer-Backup exportieren";
+"SLUG-ACC-BACKUP-EXPORT-HINT" = "Wähle aus, wo du eine Sicherung deiner Timer und Einstellungen speichern möchtest.";
+"SLUG-ACC-BACKUP-RESTORE-LABEL" = "Timer-Backup wiederherstellen";
+"SLUG-ACC-BACKUP-RESTORE-HINT" = "Wähle eine Sicherungsdatei aus, um gespeicherte Timer und Einstellungen wiederherzustellen.";
 "SLUG-BACKUP-FILES-HINT" = "Speichere das Backup in iCloud Drive, damit es auch nach dem Löschen von RiVal.T erhalten bleibt.";
 "SLUG-BACKUP-FILENAME" = "RiVal.T Backup %@";
 "SLUG-BACKUP-EXPORT-FAILED" = "Timer-Backup konnte nicht exportiert werden";

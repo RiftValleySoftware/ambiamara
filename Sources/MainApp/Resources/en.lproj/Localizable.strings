@@ -179,38 +179,10 @@ LONG-PRESS: Brings up a slider, allowing you to set the time to any point.";
 // MARK: About Screen
 
 "SLUG-NAME-VERSION-FORMAT"                      =   "%@ - %@ (%@)";
-"SLUG-ABOUT-MAIN-TEXT"                          =   "This is a simple countdown timer app. It counts down in seconds and sounds an alarm when it reaches zero. You can set timers up to 23 hours, 59 minutes, and 59 seconds.
-    
-Create as many timers as you like and organize them into groups, where they run sequentially. You can drag and drop timers between groups.
+"SLUG-ABOUT-MAIN-TEXT"                          =   "Set a timer or run a group of timers in order. Choose a digital, ring, or stoplight display. RiVal.T alerts you when time is up.
 
-Each timer has two optional thresholds: a warning (yellow) and a final (red), indicating you’re nearing the end.
-
-You can set short transition sounds between timers in a group, and a final ending alarm when all timers in a group finish.
-
-There are three large, easy-to-read displays:
-    • NUMERIC: A classic digital-style countdown.
-    • CIRCULAR: A donut-shaped timer that disappears, as time passes.
-    • STOPLIGHTS: Colored circles that change as thresholds are reached —ideal for debates.
-
-To find out more, visit:
-    https://riftvalleysoftware.com/rival-t
-
-
-
-OPEN-SOURCE PACKAGES AND APP INFO:
-
-The app relies on the following open-source Swift packages:
-
-    •   https://github.com/RiftValleySoftware/RVS_BasicGCDTimer
-    •   https://github.com/RiftValleySoftware/RVS_Checkbox
-    •   https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox
-    •   https://github.com/RiftValleySoftware/RVS_PersistentPrefs
-    •   https://github.com/RiftValleySoftware/RVS_RetroLEDDisplay
-    •   https://github.com/RiftValleySoftware/RVS_UIKit_Toolbox
-
-Additionally, the app, itself, is \"source-available,\" and can be found here:
-
-    https://github.com/RiftValleySoftware/ambiamara";
+Tap the gear for software credits and licenses.";
+"SLUG-ABOUT-WEBSITE-LINK"                       =   "Visit our website for tips and more details.";
 
 // The iPad setting allows one approved Apple Watch to control this device's timer.
 "SLUG-WATCH-REMOTE" = "Watch Remote";
@@ -468,9 +440,11 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 
 // MARK: - About Screen -
 
-// The selectable text contains website links detected by the system.
+// About text and links exposed to VoiceOver.
 "SLUG-ACC-ABOUT-TEXT-LABEL"                     =   "About This App";
-"SLUG-ACC-ABOUT-TEXT-HINT"                      =   "Read about the timer and follow links to its website and source code.";
+"SLUG-ACC-ABOUT-TEXT-HINT"                      =   "Read about the timer and find tips on its website.";
+"SLUG-ACC-ABOUT-SETTINGS-LABEL" = "Settings";
+"SLUG-ACC-ABOUT-SETTINGS-HINT" = "Opens the RiVal.T page in Settings to show software credits.";
 
 // MARK: Watch Remote
 
@@ -515,6 +489,10 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 
 "SLUG-BACKUP-EXPORT" = "Export Timer Backup…";
 "SLUG-BACKUP-RESTORE" = "Restore Timer Backup…";
+"SLUG-ACC-BACKUP-EXPORT-LABEL" = "Export Timer Backup";
+"SLUG-ACC-BACKUP-EXPORT-HINT" = "Choose where to save a backup of your timers and settings.";
+"SLUG-ACC-BACKUP-RESTORE-LABEL" = "Restore Timer Backup";
+"SLUG-ACC-BACKUP-RESTORE-HINT" = "Choose a backup file to restore your saved timers and settings.";
 "SLUG-BACKUP-FILES-HINT" = "Save to iCloud Drive to keep your backup after deleting RiVal.T.";
 "SLUG-BACKUP-FILENAME" = "RiVal.T Backup %@";
 "SLUG-BACKUP-EXPORT-FAILED" = "Couldn’t Export Timer Backup";
