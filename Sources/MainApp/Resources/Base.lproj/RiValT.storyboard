@@ -684,7 +684,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" maximumZoomScale="2" editable="NO" text="SLUG-ABOUT-MAIN-TEXT" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wli-nW-nlY">
-                                <rect key="frame" x="16" y="175" width="361" height="643"/>
+                                <rect key="frame" x="16" y="175" width="361" height="531"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-ABOUT-TEXT-HINT" label="SLUG-ACC-ABOUT-TEXT-LABEL"/>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -692,6 +692,9 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                             </textView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="H8Y-vd-Xmw">
+                                <rect key="frame" x="16" y="714" width="361" height="96"/>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QPM-pG-ZVw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -699,7 +702,10 @@
                             <constraint firstItem="wli-nW-nlY" firstAttribute="leading" secondItem="QPM-pG-ZVw" secondAttribute="leading" constant="16" id="0VY-ac-dua"/>
                             <constraint firstItem="uQs-qb-BPd" firstAttribute="top" secondItem="QPM-pG-ZVw" secondAttribute="top" id="2Le-fS-dLZ"/>
                             <constraint firstItem="QPM-pG-ZVw" firstAttribute="trailing" secondItem="wli-nW-nlY" secondAttribute="trailing" constant="16" id="8ZH-7R-2dP"/>
-                            <constraint firstItem="QPM-pG-ZVw" firstAttribute="bottom" secondItem="wli-nW-nlY" secondAttribute="bottom" id="RGz-Cg-t2B"/>
+                            <constraint firstItem="H8Y-vd-Xmw" firstAttribute="top" secondItem="wli-nW-nlY" secondAttribute="bottom" constant="8" id="RGz-Cg-t2B"/>
+                            <constraint firstItem="H8Y-vd-Xmw" firstAttribute="leading" secondItem="wli-nW-nlY" secondAttribute="leading" id="7tD-dg-wGd"/>
+                            <constraint firstItem="H8Y-vd-Xmw" firstAttribute="trailing" secondItem="wli-nW-nlY" secondAttribute="trailing" id="Ktv-gJ-sDd"/>
+                            <constraint firstItem="QPM-pG-ZVw" firstAttribute="bottom" secondItem="H8Y-vd-Xmw" secondAttribute="bottom" constant="8" id="iKi-BR-5OP"/>
                             <constraint firstItem="wli-nW-nlY" firstAttribute="top" secondItem="uQs-qb-BPd" secondAttribute="bottom" constant="8" symbolic="YES" id="hka-Sh-IqZ"/>
                             <constraint firstItem="uQs-qb-BPd" firstAttribute="centerX" secondItem="Sn0-05-JMz" secondAttribute="centerX" id="iHY-03-VP0"/>
                         </constraints>
@@ -708,6 +714,7 @@
                     <connections>
                         <outlet property="aboutText" destination="wli-nW-nlY" id="VVO-rg-gqz"/>
                         <outlet property="appIconImageView" destination="uQs-qb-BPd" id="yz2-dY-47P"/>
+                        <outlet property="backupActions" destination="H8Y-vd-Xmw" id="FKt-bE-JTX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aJp-Ud-hRK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

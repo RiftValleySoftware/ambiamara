@@ -17,6 +17,75 @@ import XCTest
  These will run faceless tests on the timer model.
  */
 class TimerModelTests: XCTestCase {
+    func testTimerBackupRestoresPresetsAndAlarmsAfterReload() throws {
+        let original = TimerModel()
+        let first = original.createNewTimerAtEndOf(group: 0)
+        let selected = original.createNewTimerAtEndOf(group: 0)
+        let emptyPreset = original.createNewTimerAtEndOf(group: 1)
+        first.startingTimeInSeconds = 600
+        first.warningTimeInSeconds = 90
+        first.finalTimeInSeconds = 15
+        first.currentTime = 30
+        selected.startingTimeInSeconds = 120
+        selected.finalTimeInSeconds = 20
+        selected.isSelected = true
+        original[0].displayType = .circular
+        original[0].soundType = .soundVibrate(soundFileName: "/PreviousInstall/RiVal.T.app/Alarms/01-low-beep.mp3")
+        original[0].transitionSoundFilename = "/PreviousInstall/RiVal.T.app/Sounds/Beep-001.mp3"
+        original[1].soundType = .vibrate
+
+        let preferences = RiValT_TimerBackup.Preferences(startTimerImmediately: false, displayToolbar: true,
+                                                        autoHideToolbar: false, oneTapEditing: true, combineTimers: false)
+        let data = try RiValT_TimerBackup(model: original, preferences: preferences).encoded()
+        let backup = try RiValT_TimerBackup.decode(data)
+        XCTAssertEqual(backup.preferences, preferences)
+        XCTAssertEqual(backup.timerCount, 3)
+        XCTAssertEqual(backup.groupCount, 2)
+
+        let restored = TimerModel()
+        restored.asArray = backup.persistentTimerModel
+        // Exercise the existing persistence round trip, including timers that have never run.
+        let relaunched = TimerModel()
+        relaunched.asArray = restored.asArray
+        XCTAssertEqual(relaunched.allTimers.map(\.id), [first.id, selected.id, emptyPreset.id])
+        XCTAssertEqual(relaunched.selectedTimer?.id, selected.id)
+        XCTAssertEqual(relaunched.allTimers.map(\.startingTimeInSeconds), [600, 120, 0])
+        XCTAssertEqual(relaunched.allTimers.map(\.warningTimeInSeconds), [90, 0, 0])
+        XCTAssertEqual(relaunched.allTimers.map(\.finalTimeInSeconds), [15, 20, 0])
+        XCTAssertEqual(relaunched.allTimers.map(\.currentTime), [600, 120, 0])
+        XCTAssertTrue(relaunched.allTimers.allSatisfy { $0.timerMode == .stopped })
+        XCTAssertEqual(relaunched[0].displayType, .circular)
+        XCTAssertEqual(relaunched[0].transitionSoundFilename, "Beep-001.mp3")
+        guard case .soundVibrate(let filename) = relaunched[0].soundType,
+              case .vibrate = relaunched[1].soundType else {
+            return XCTFail("Expected both groups to keep their alarm modes")
+        }
+        XCTAssertEqual(filename, "01-low-beep.mp3")
+    }
+
+    func testTimerBackupRejectsUnsupportedVersionAndInvalidPreset() throws {
+        let model = TimerModel()
+        model.createNewTimerAtEndOf(group: 0)
+        let preferences = RiValT_TimerBackup.Preferences(startTimerImmediately: true, displayToolbar: true,
+                                                        autoHideToolbar: true, oneTapEditing: true, combineTimers: true)
+        let data = try RiValT_TimerBackup(model: model, preferences: preferences).encoded()
+        var backup = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        backup["version"] = 999
+        XCTAssertThrowsError(try RiValT_TimerBackup.decode(JSONSerialization.data(withJSONObject: backup))) { error in
+            guard case RiValT_TimerBackup.BackupError.unsupportedVersion = error else {
+                return XCTFail("Expected unsupported backup version, got \(error)")
+            }
+        }
+
+        backup["version"] = 1
+        var groups = try XCTUnwrap(backup["groups"] as? [[String: Any]])
+        var timers = try XCTUnwrap(groups[0]["timers"] as? [[String: Any]])
+        timers[0]["duration"] = -1
+        groups[0]["timers"] = timers
+        backup["groups"] = groups
+        XCTAssertThrowsError(try RiValT_TimerBackup.decode(JSONSerialization.data(withJSONObject: backup)))
+    }
+
     func testCombinedCountdownFromEachTimer() {
         let model = TimerModel()
         let timers = [600, 120, 30].enumerated().map { index, duration in

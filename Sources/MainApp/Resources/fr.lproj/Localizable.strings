@@ -510,3 +510,18 @@ Le code source de l’app elle-même est également consultable à cette adresse
 "SLUG-ACC-COMPLICATION-LABEL"                    =   "Minuteur Rift Valley";
 "SLUG-ACC-COMPLICATION-HINT"                     =   "Ouvre la commande du minuteur sur cette Apple Watch.";
 "SLUG-ACC-COMPLICATION-UNAVAILABLE-VALUE"        =   "Minuteur indisponible";
+
+// MARK: Timer Backup
+
+"SLUG-BACKUP-EXPORT" = "Exporter la sauvegarde…";
+"SLUG-BACKUP-RESTORE" = "Restaurer la sauvegarde…";
+"SLUG-BACKUP-FILES-HINT" = "Enregistrez la sauvegarde dans iCloud Drive pour la conserver après avoir supprimé RiVal.T.";
+"SLUG-BACKUP-FILENAME" = "Sauvegarde RiVal.T %@";
+"SLUG-BACKUP-EXPORT-FAILED" = "Impossible d’exporter la sauvegarde";
+"SLUG-BACKUP-UNSUPPORTED" = "Cette sauvegarde nécessite une autre version de RiVal.T.";
+"SLUG-BACKUP-INVALID" = "Ce fichier n’est pas une sauvegarde valide de RiVal.T.";
+"SLUG-BACKUP-RESTORE-TITLE" = "Restaurer la sauvegarde des minuteurs ?";
+"SLUG-BACKUP-RESTORE-CONFIRMATION" = "Minuteurs (%1$ld) · Groupes (%2$ld)\nLa restauration remplace vos minuteurs et réglages actuels.";
+"SLUG-BACKUP-RESTORE-ACTION" = "Restaurer";
+"SLUG-BACKUP-RESTORED" = "Sauvegarde restaurée";
+"SLUG-BACKUP-RESTORE-FAILED" = "Impossible de restaurer la sauvegarde";

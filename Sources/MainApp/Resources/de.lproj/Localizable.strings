@@ -510,3 +510,18 @@ Der Quellcode der App selbst ist ebenfalls einsehbar:
 "SLUG-ACC-COMPLICATION-LABEL"                    =   "Rift Valley Timer";
 "SLUG-ACC-COMPLICATION-HINT"                     =   "Öffnet die Timer-Steuerung auf dieser Apple Watch.";
 "SLUG-ACC-COMPLICATION-UNAVAILABLE-VALUE"        =   "Timer nicht verfügbar";
+
+// MARK: Timer Backup
+
+"SLUG-BACKUP-EXPORT" = "Timer-Backup exportieren …";
+"SLUG-BACKUP-RESTORE" = "Timer-Backup wiederherstellen …";
+"SLUG-BACKUP-FILES-HINT" = "Speichere das Backup in iCloud Drive, damit es auch nach dem Löschen von RiVal.T erhalten bleibt.";
+"SLUG-BACKUP-FILENAME" = "RiVal.T Backup %@";
+"SLUG-BACKUP-EXPORT-FAILED" = "Timer-Backup konnte nicht exportiert werden";
+"SLUG-BACKUP-UNSUPPORTED" = "Dieses Backup erfordert eine andere Version von RiVal.T.";
+"SLUG-BACKUP-INVALID" = "Diese Datei ist kein gültiges RiVal.T-Timer-Backup.";
+"SLUG-BACKUP-RESTORE-TITLE" = "Timer-Backup wiederherstellen?";
+"SLUG-BACKUP-RESTORE-CONFIRMATION" = "Timer (%1$ld) · Gruppen (%2$ld)\nBeim Wiederherstellen werden deine aktuellen Timer und Einstellungen ersetzt.";
+"SLUG-BACKUP-RESTORE-ACTION" = "Wiederherstellen";
+"SLUG-BACKUP-RESTORED" = "Timer-Backup wiederhergestellt";
+"SLUG-BACKUP-RESTORE-FAILED" = "Timer-Backup konnte nicht wiederhergestellt werden";

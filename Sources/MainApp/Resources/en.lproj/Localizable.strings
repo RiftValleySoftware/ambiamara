@@ -510,3 +510,18 @@ Additionally, the app, itself, is \"source-available,\" and can be found here:
 "SLUG-ACC-COMPLICATION-LABEL"                    =   "Rift Valley Timer";
 "SLUG-ACC-COMPLICATION-HINT"                     =   "Opens the timer remote on this Watch.";
 "SLUG-ACC-COMPLICATION-UNAVAILABLE-VALUE"        =   "Timer unavailable";
+
+// MARK: Timer Backup
+
+"SLUG-BACKUP-EXPORT" = "Export Timer Backup…";
+"SLUG-BACKUP-RESTORE" = "Restore Timer Backup…";
+"SLUG-BACKUP-FILES-HINT" = "Save to iCloud Drive to keep your backup after deleting RiVal.T.";
+"SLUG-BACKUP-FILENAME" = "RiVal.T Backup %@";
+"SLUG-BACKUP-EXPORT-FAILED" = "Couldn’t Export Timer Backup";
+"SLUG-BACKUP-UNSUPPORTED" = "This backup requires a different version of RiVal.T.";
+"SLUG-BACKUP-INVALID" = "This file isn’t a valid RiVal.T timer backup.";
+"SLUG-BACKUP-RESTORE-TITLE" = "Restore Timer Backup?";
+"SLUG-BACKUP-RESTORE-CONFIRMATION" = "Timers (%1$ld) · Groups (%2$ld)\nRestoring replaces your current timers and settings.";
+"SLUG-BACKUP-RESTORE-ACTION" = "Restore";
+"SLUG-BACKUP-RESTORED" = "Timer Backup Restored";
+"SLUG-BACKUP-RESTORE-FAILED" = "Couldn’t Restore Timer Backup";

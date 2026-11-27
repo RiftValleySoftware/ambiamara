@@ -510,3 +510,18 @@ El código fuente de la propia app también se puede consultar aquí:
 "SLUG-ACC-COMPLICATION-LABEL"                    =   "Temporizador Rift Valley";
 "SLUG-ACC-COMPLICATION-HINT"                     =   "Abre el control del temporizador en este Apple Watch.";
 "SLUG-ACC-COMPLICATION-UNAVAILABLE-VALUE"        =   "Temporizador no disponible";
+
+// MARK: Timer Backup
+
+"SLUG-BACKUP-EXPORT" = "Exportar copia de seguridad…";
+"SLUG-BACKUP-RESTORE" = "Restaurar copia de seguridad…";
+"SLUG-BACKUP-FILES-HINT" = "Guarda la copia en iCloud Drive para conservarla después de eliminar RiVal.T.";
+"SLUG-BACKUP-FILENAME" = "Copia de seguridad de RiVal.T %@";
+"SLUG-BACKUP-EXPORT-FAILED" = "No se ha podido exportar la copia de seguridad";
+"SLUG-BACKUP-UNSUPPORTED" = "Esta copia requiere otra versión de RiVal.T.";
+"SLUG-BACKUP-INVALID" = "Este archivo no es una copia de seguridad válida de RiVal.T.";
+"SLUG-BACKUP-RESTORE-TITLE" = "¿Restaurar la copia de seguridad?";
+"SLUG-BACKUP-RESTORE-CONFIRMATION" = "Temporizadores (%1$ld) · Grupos (%2$ld)\nLa restauración sustituirá tus temporizadores y ajustes actuales.";
+"SLUG-BACKUP-RESTORE-ACTION" = "Restaurar";
+"SLUG-BACKUP-RESTORED" = "Copia de seguridad restaurada";
+"SLUG-BACKUP-RESTORE-FAILED" = "No se ha podido restaurar la copia de seguridad";

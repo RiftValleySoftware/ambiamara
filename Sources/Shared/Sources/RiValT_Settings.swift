@@ -215,3 +215,32 @@ class RiValT_Settings: RVS_PersistentPrefs {
         set { self.values[Keys.timerModel.rawValue] = newValue }
     }
 }
+
+extension RiValT_Settings {
+    func timerBackup(for model: TimerModel) throws -> RiValT_TimerBackup {
+        let preferences = RiValT_TimerBackup.Preferences(startTimerImmediately: startTimerImmediately,
+                                                        displayToolbar: displayToolbar,
+                                                        autoHideToolbar: autoHideToolbar,
+                                                        oneTapEditing: oneTapEditing,
+                                                        combineTimers: combineTimers)
+        guard lastError == nil else { throw RiValT_TimerBackup.BackupError.settingsUnavailable }
+        return RiValT_TimerBackup(model: model, preferences: preferences)
+    }
+
+    func restoreTimerBackup(_ backup: RiValT_TimerBackup, into model: TimerModel) throws {
+        let preferences = backup.preferences
+        let timerValues = backup.persistentTimerModel
+        values = [
+            Keys.timerModel.rawValue: timerValues,
+            Keys.startTimerImmediately.rawValue: preferences.startTimerImmediately ? 1 : 0,
+            Keys.displayToolbar.rawValue: preferences.displayToolbar ? 1 : 0,
+            Keys.autoHideToolbar.rawValue: preferences.autoHideToolbar ? 1 : 0,
+            Keys.oneTapEditing.rawValue: preferences.oneTapEditing ? 1 : 0,
+            Keys.combineTimers.rawValue: preferences.combineTimers ? 1 : 0
+        ]
+        guard lastError == nil else { throw RiValT_TimerBackup.BackupError.settingsUnavailable }
+
+        model.allTimers.forEach { $0.stop() }
+        model.asArray = timerValues
+    }
+}

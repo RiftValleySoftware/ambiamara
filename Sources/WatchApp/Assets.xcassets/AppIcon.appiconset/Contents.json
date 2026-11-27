@@ -5,6 +5,20 @@
       "idiom" : "universal",
       "platform" : "watchos",
       "size" : "1024x1024"
+    },
+    {
+      "filename" : "CompanionSettings@2x.png",
+      "idiom" : "watch",
+      "role" : "companionSettings",
+      "scale" : "2x",
+      "size" : "29x29"
+    },
+    {
+      "filename" : "CompanionSettings@3x.png",
+      "idiom" : "watch",
+      "role" : "companionSettings",
+      "scale" : "3x",
+      "size" : "29x29"
     }
   ],
   "info" : {

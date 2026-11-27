@@ -43,6 +43,27 @@
 		<string>remote-notification</string>
 		<string>fetch</string>
 	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>com.riftvalleysoftware.rivalt.timer-backup</string>
+			<key>UTTypeDescription</key>
+			<string>RiVal.T Timer Backup</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.json</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>rivaltbackup</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 	<key>UIDesignRequiresCompatibility</key>
 	<false/>
 </dict>
