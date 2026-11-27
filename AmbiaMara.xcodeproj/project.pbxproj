@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		10FDEF96AC064B7FB85666E1 /* RiValT_GroupEditor_Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF5F90F95A441CF811ECE94 /* RiValT_GroupEditor_Popover.swift */; };
+		27ED03A683344720948D1590 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27ED03A583344720948D1590 /* Settings.bundle */; };
 		314833AFC1DE417793A4BA4A /* RiValT_RemoteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D9036B1A9E41D2B1EF6F16 /* RiValT_RemoteState.swift */; };
 		3C3ABCA82C464F488C5610FE /* RiValT_RemoteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D9036B1A9E41D2B1EF6F16 /* RiValT_RemoteState.swift */; };
 		5EB7ED46FECB426CB492AE2A /* RiValT_BluetoothRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE8946D5DD04E119AEE9BAC /* RiValT_BluetoothRemote.swift */; };
@@ -38,7 +39,6 @@
 		D43B97692DA2C1D10028E023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D43B975C2DA2C1D10028E023 /* Assets.xcassets */; };
 		D43B976B2DA2C1D10028E023 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D43B975F2DA2C1D10028E023 /* LaunchScreen.storyboard */; };
 		D43B976C2DA2C1D10028E023 /* RiValT.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D43B97612DA2C1D10028E023 /* RiValT.storyboard */; };
-		27ED03A683344720948D1590 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27ED03A583344720948D1590 /* Settings.bundle */; };
 		D43B97702DA2C2D00028E023 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D43B976F2DA2C2D00028E023 /* RVS_Generic_Swift_Toolbox */; };
 		D43B97742DA2C2D00028E023 /* RVS_RetroLEDDisplay in Frameworks */ = {isa = PBXBuildFile; productRef = D43B97732DA2C2D00028E023 /* RVS_RetroLEDDisplay */; };
 		D43B97762DA2C2D00028E023 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D43B97752DA2C2D00028E023 /* RVS_UIKit_Toolbox */; };
@@ -288,6 +288,7 @@
 
 /* Begin PBXFileReference section */
 		230D39B6498A4E57B3FEE5E8 /* RemoteStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStateTests.swift; sourceTree = "<group>"; };
+		27ED03A583344720948D1590 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		28354935E7EB4BAE9B1AFE6A /* RiValT_TimerBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_TimerBackup.swift; sourceTree = "<group>"; };
 		4DF5F90F95A441CF811ECE94 /* RiValT_GroupEditor_Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_GroupEditor_Popover.swift; sourceTree = "<group>"; };
 		A11111111111111111111100 /* RiValT_ComplicationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_ComplicationState.swift; sourceTree = "<group>"; };
@@ -320,7 +321,6 @@
 		D43B97352DA2C0F50028E023 /* RiVal.T.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RiVal.T.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D43B975B2DA2C1D10028E023 /* RiValT_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_AppDelegate.swift; sourceTree = "<group>"; };
 		D43B975C2DA2C1D10028E023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		27ED03A583344720948D1590 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D43B975D2DA2C1D10028E023 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D43B975E2DA2C1D10028E023 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D43B97602DA2C1D10028E023 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RiValT.storyboard; sourceTree = "<group>"; };
@@ -1372,7 +1372,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/MainApp/Meta/RiVal.T.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0018;
+				CURRENT_PROJECT_VERSION = 0019;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1413,7 +1413,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/MainApp/Meta/RiVal.T.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0018;
+				CURRENT_PROJECT_VERSION = 0019;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1453,7 +1453,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Tests/TimerEngineTestHarness/TimerEngine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0018;
+				CURRENT_PROJECT_VERSION = 0019;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = P53V4JS928;
@@ -1499,7 +1499,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Tests/TimerEngineTestHarness/TimerEngine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0018;
+				CURRENT_PROJECT_VERSION = 0019;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = P53V4JS928;
@@ -1753,7 +1753,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchApp/WatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0018;
+				CURRENT_PROJECT_VERSION = 0019;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_PREVIEWS = YES;
@@ -1793,7 +1793,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchApp/WatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0018;
+				CURRENT_PROJECT_VERSION = 0019;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_PREVIEWS = YES;
@@ -1832,7 +1832,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0018;
+				CURRENT_PROJECT_VERSION = 0019;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1870,7 +1870,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = Sources/WatchComplications/WatchComplications.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0018;
+				CURRENT_PROJECT_VERSION = 0019;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
