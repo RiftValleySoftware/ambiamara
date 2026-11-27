@@ -64,4 +64,4 @@ It also uses the [Let's Go Digital](https://fonts2u.com/lets-go-digital-regular.
  
 ## MORE INFORMATION:
 
-For more complete instructions, and information about authorship, support, and privacy, visit https://riftvalleysoftware.com/rival-t/
+For more complete instructions, and information about authorship, support, and privacy, visit https://riftvalleysoftware.com/the-rift-valley-timer/

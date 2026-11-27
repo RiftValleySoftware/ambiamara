@@ -91,7 +91,7 @@ extension RiValT_About_ViewController {
         let font = aboutText.font ?? .preferredFont(forTextStyle: .body)
         let text = NSMutableAttributedString(string: aboutText.text + "\n\n", attributes: [.font: font, .foregroundColor: UIColor.label])
         let website = NSAttributedString(string: "SLUG-ABOUT-WEBSITE-LINK".localizedVariant,
-                                         attributes: [.font: font, .link: "https://riftvalleysoftware.com/work/ios-apps/rival-t/"])
+                                         attributes: [.font: font, .link: "https://riftvalleysoftware.com/the-rift-valley-timer/"])
         text.append(website)
         aboutText.attributedText = text
         aboutText.accessibilityValue = text.string
