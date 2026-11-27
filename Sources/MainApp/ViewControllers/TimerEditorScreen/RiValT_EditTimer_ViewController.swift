@@ -127,6 +127,13 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
      */
     @IBOutlet weak var setTimeContainerView: UIStackView?
 
+    /// Aligns the time controls below the safe area when there's no group summary.
+    private lazy var timeControlsTopConstraint: NSLayoutConstraint? = {
+        let constraint = self.setTimeContainerView?.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16)
+        constraint?.priority = .defaultHigh
+        return constraint
+    }()
+
     /// The storyboard stack containing Play and the associated controls.
     @IBOutlet weak var playControlsStack: UIStackView?
 
@@ -422,22 +429,25 @@ extension RiValT_EditTimer_ViewController {
         self.phaseGuide.isHidden = shortcut == nil && message == nil
     }
 
-    /// Shows this preset's position in its group and the total duration when applicable.
+    /// Shows this preset's position and Combine Timers status for groups with multiple timers.
     private func updateGroupSummary() {
-        guard let timer, let group, let index = timer.indexPath?.item else {
-            self.groupSummaryLabel?.text = nil
+        guard let label = self.groupSummaryLabel else { return }
+        guard let timer, let group, group.count > 1, let index = timer.indexPath?.item else {
+            label.text = nil
+            label.isHidden = true
+            self.timeControlsTopConstraint?.isActive = true
             return
         }
 
-        if group.count > 1, !RiValT_Settings().combineTimers {
-            self.groupSummaryLabel?.text = String.localizedStringWithFormat("SLUG-GROUP-SUMMARY-SEPARATE".localizedVariant, index + 1, group.count)
-        } else {
+        if RiValT_Settings().combineTimers {
             let total = TimerCountdown(timer, combineTimers: true).totalDuration
             let duration = Duration.seconds(total).formatted(.units(allowed: [.hours, .minutes, .seconds], width: .abbreviated))
-            self.groupSummaryLabel?.text = group.count == 1
-                ? String.localizedStringWithFormat("SLUG-GROUP-SUMMARY-SINGLE".localizedVariant, duration)
-                : String.localizedStringWithFormat("SLUG-GROUP-SUMMARY-COMBINED".localizedVariant, index + 1, group.count, duration)
+            label.text = String.localizedStringWithFormat("SLUG-GROUP-SUMMARY-COMBINED".localizedVariant, index + 1, group.count, duration)
+        } else {
+            label.text = String.localizedStringWithFormat("SLUG-GROUP-SUMMARY-SEPARATE".localizedVariant, index + 1, group.count)
         }
+        label.isHidden = false
+        self.timeControlsTopConstraint?.isActive = false
     }
 
     /* ############################################################## */

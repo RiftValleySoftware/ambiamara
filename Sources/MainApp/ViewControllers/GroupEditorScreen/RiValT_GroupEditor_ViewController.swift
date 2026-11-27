@@ -754,17 +754,20 @@ extension RiValT_GroupEditor_ViewController {
         self.setUpNavBarItems()
     }
 
-    /// Refreshes the configured group duration and the current Combine Timers preference.
+    /// Shows the group duration and, for groups with multiple timers, the Combine Timers status.
     func updateGroupSummary() {
-        guard let timer = self.timerModel.selectedTimer, let groupIndex = timer.group?.index else {
+        guard let timer = self.timerModel.selectedTimer, let group = timer.group, let groupIndex = group.index else {
             self.groupSummaryLabel?.text = nil
             return
         }
 
         let total = TimerCountdown(timer, combineTimers: true).totalDuration
         let duration = Duration.seconds(total).formatted(.units(allowed: [.hours, .minutes, .seconds], width: .narrow))
-        let format = RiValT_Settings().combineTimers ? "SLUG-GROUP-EDITOR-SUMMARY-ON" : "SLUG-GROUP-EDITOR-SUMMARY-OFF"
-        let summary = String.localizedStringWithFormat(format.localizedVariant, groupIndex + 1, duration)
+        var summary = String.localizedStringWithFormat("SLUG-GROUP-EDITOR-SUMMARY".localizedVariant, groupIndex + 1, duration)
+        if group.count > 1 {
+            let status = RiValT_Settings().combineTimers ? "SLUG-GROUP-EDITOR-COMBINE-ON" : "SLUG-GROUP-EDITOR-COMBINE-OFF"
+            summary += "\n" + status.localizedVariant
+        }
         if self.groupSummaryLabel?.text != summary {
             self.groupSummaryLabel?.text = summary
         }

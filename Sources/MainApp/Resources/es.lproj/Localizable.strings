@@ -127,15 +127,14 @@ MANTENER PULSADO: Muestra un regulador con el que puedes ajustar el tiempo resta
 "SLUG-OK-BUTTON-TEXT"                           =   "Aceptar";
 
 // Group Editor summary. %1$d is the group number and %2$@ is the localized total preset duration.
-"SLUG-GROUP-EDITOR-SUMMARY-ON"                  =   "Grupo %1$d · %2$@ en total\nCombinar temporizadores: Sí";
-"SLUG-GROUP-EDITOR-SUMMARY-OFF"                 =   "Grupo %1$d · %2$@ en total\nCombinar temporizadores: No";
+"SLUG-GROUP-EDITOR-SUMMARY"                     =   "Grupo %1$d · %2$@ en total";
+"SLUG-GROUP-EDITOR-COMBINE-ON"                  =   "Combinar temporizadores: Sí";
+"SLUG-GROUP-EDITOR-COMBINE-OFF"                 =   "Combinar temporizadores: No";
 
 // MARK: Timer Edit Screen
 
 "SLUG-EDIT-FORMAT"                              =   "Editar temporizador %d";
 "SLUG-EDIT-TIMER"                               =   "Editar temporizador";
-// Timer Editor group summary. %@ is the localized duration of the group's only timer, such as “5 min”.
-"SLUG-GROUP-SUMMARY-SINGLE"                     =   "Este grupo tiene un solo temporizador (%@).";
 // %1$d is the edited timer's position, %2$d is the number of timers in its group. “Combine Timers” is the setting name.
 "SLUG-GROUP-SUMMARY-SEPARATE"                   =   "Temporizador %1$d de %2$d. La opción «Combinar temporizadores» está desactivada.";
 // The first two placeholders give the timer position and count. %3$@ is the total of all preset durations, including timers before the current one.

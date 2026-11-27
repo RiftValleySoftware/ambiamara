@@ -127,15 +127,14 @@ GEDRÜCKT HALTEN: Zeigt einen Schieberegler an, mit dem du die verbleibende Zeit
 "SLUG-OK-BUTTON-TEXT"                           =   "OK";
 
 // Group Editor summary. %1$d is the group number and %2$@ is the localized total preset duration.
-"SLUG-GROUP-EDITOR-SUMMARY-ON"                  =   "Gruppe %1$d · %2$@ gesamt\nTimer zusammenfassen: Ein";
-"SLUG-GROUP-EDITOR-SUMMARY-OFF"                 =   "Gruppe %1$d · %2$@ gesamt\nTimer zusammenfassen: Aus";
+"SLUG-GROUP-EDITOR-SUMMARY"                     =   "Gruppe %1$d · %2$@ gesamt";
+"SLUG-GROUP-EDITOR-COMBINE-ON"                  =   "Timer zusammenfassen: Ein";
+"SLUG-GROUP-EDITOR-COMBINE-OFF"                 =   "Timer zusammenfassen: Aus";
 
 // MARK: Timer Edit Screen
 
 "SLUG-EDIT-FORMAT"                              =   "Timer %d bearbeiten";
 "SLUG-EDIT-TIMER"                               =   "Timer bearbeiten";
-// Timer Editor group summary. %@ is the localized duration of the group's only timer, such as “5 min”.
-"SLUG-GROUP-SUMMARY-SINGLE"                     =   "Diese Gruppe enthält einen Timer (%@).";
 // %1$d is the edited timer's position, %2$d is the number of timers in its group. “Combine Timers” is the setting name.
 "SLUG-GROUP-SUMMARY-SEPARATE"                   =   "Timer %1$d von %2$d. „Timer zusammenfassen“ ist deaktiviert.";
 // The first two placeholders give the timer position and count. %3$@ is the total of all preset durations, including timers before the current one.

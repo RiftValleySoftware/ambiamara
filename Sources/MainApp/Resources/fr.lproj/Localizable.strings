@@ -127,15 +127,14 @@ APPUYER LONGUEMENT : Affiche un curseur pour régler le temps restant.";
 "SLUG-OK-BUTTON-TEXT"                           =   "OK";
 
 // Group Editor summary. %1$d is the group number and %2$@ is the localized total preset duration.
-"SLUG-GROUP-EDITOR-SUMMARY-ON"                  =   "Groupe %1$d · %2$@ au total\nCombiner les minuteurs : oui";
-"SLUG-GROUP-EDITOR-SUMMARY-OFF"                 =   "Groupe %1$d · %2$@ au total\nCombiner les minuteurs : non";
+"SLUG-GROUP-EDITOR-SUMMARY"                     =   "Groupe %1$d · %2$@ au total";
+"SLUG-GROUP-EDITOR-COMBINE-ON"                  =   "Combiner les minuteurs : oui";
+"SLUG-GROUP-EDITOR-COMBINE-OFF"                 =   "Combiner les minuteurs : non";
 
 // MARK: Timer Edit Screen
 
 "SLUG-EDIT-FORMAT"                              =   "Modifier le minuteur %d";
 "SLUG-EDIT-TIMER"                               =   "Modifier le minuteur";
-// Timer Editor group summary. %@ is the localized duration of the group's only timer, such as “5 min”.
-"SLUG-GROUP-SUMMARY-SINGLE"                     =   "Ce groupe contient un seul minuteur (%@).";
 // %1$d is the edited timer's position, %2$d is the number of timers in its group. “Combine Timers” is the setting name.
 "SLUG-GROUP-SUMMARY-SEPARATE"                   =   "Minuteur %1$d sur %2$d. L’option « Combiner les minuteurs » est désactivée.";
 // The first two placeholders give the timer position and count. %3$@ is the total of all preset durations, including timers before the current one.
