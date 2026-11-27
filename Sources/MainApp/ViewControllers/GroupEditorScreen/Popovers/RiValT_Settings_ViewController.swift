@@ -21,6 +21,16 @@ import RVS_Checkbox
  This is a simple popover that shows a list of checkboxes and buttons, affecting global app preferences.
  */
 class RiValT_Settings_ViewController: RiValT_GroupEditor_Popover {
+    /// Includes all wrapped lines in the label button's tap target and popover height.
+    private final class WrappingLabelButton: UIButton {
+        override var intrinsicContentSize: CGSize {
+            let size = super.intrinsicContentSize
+            guard let titleLabel, titleLabel.preferredMaxLayoutWidth > 0 else { return size }
+            let textSize = titleLabel.sizeThatFits(CGSize(width: titleLabel.preferredMaxLayoutWidth, height: CGFloat.greatestFiniteMagnitude))
+            return CGSize(width: size.width, height: max(size.height, ceil(textSize.height)))
+        }
+    }
+
     /* ############################################################## */
     /**
      The storyboard ID for instantiating the class.
@@ -117,7 +127,8 @@ class RiValT_Settings_ViewController: RiValT_GroupEditor_Popover {
             for button in buttons {
                 let siblingsWidth = (row as? UIStackView).map { rowStack in
                     rowStack.arrangedSubviews.filter { $0 !== button && !$0.isHidden }
-                        .map { popoverContentWidth($0) }.reduce(0, +) + rowStack.spacing
+                        .map { $0.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).width }
+                        .reduce(0, +) + rowStack.spacing
                 } ?? 0
                 let labelWidth = max(1, width - 32 - siblingsWidth)
                 if button.titleLabel?.preferredMaxLayoutWidth != labelWidth {
@@ -187,27 +198,55 @@ class RiValT_Settings_ViewController: RiValT_GroupEditor_Popover {
         guard let about = showAboutScreenButton, let stack = about.superview as? UIStackView,
               let index = stack.arrangedSubviews.firstIndex(of: about) else { return }
         let remote = RiValT_BluetoothRemote.shared
-        let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .body)
-        label.numberOfLines = 0
-        let toggle = UISwitch()
-        toggle.setContentCompressionResistancePriority(.required, for: .horizontal)
-        toggle.setContentHuggingPriority(.required, for: .horizontal)
-        toggle.isOn = remote.isEnabled
-        toggle.accessibilityLabel = "SLUG-ACC-WATCH-REMOTE-LABEL".localizedVariant
-        toggle.accessibilityHint = "SLUG-ACC-WATCH-REMOTE-HINT".localizedVariant
-        watchStatusObserver = remote.$hostingIssue.combineLatest(remote.$connectedWatchName).sink { [weak self, weak label] issue, watchName in
-            label?.text = issue ?? watchName ?? "SLUG-WATCH-REMOTE".localizedVariant
+        let checkbox = RVS_Checkbox(frame: .zero)
+        checkbox.tintColor = .accent
+        checkbox.isOn = remote.isEnabled
+        checkbox.accessibilityLabel = "SLUG-ACC-WATCH-REMOTE-LABEL".localizedVariant
+        checkbox.addAction(UIAction { [weak checkbox] _ in
+            if let checkbox { remote.setEnabled(checkbox.isOn) }
+        }, for: .valueChanged)
+
+        let label = WrappingLabelButton(type: .system)
+        label.contentHorizontalAlignment = .leading
+        label.titleLabel?.font = .preferredFont(forTextStyle: .subheadline)
+        label.titleLabel?.adjustsFontForContentSizeCategory = true
+        label.setTitleColor(.accent, for: .normal)
+        label.isAccessibilityElement = false
+        label.addAction(UIAction { [weak self, weak checkbox] _ in
+            guard let checkbox else { return }
+            self?.selectionHaptic()
+            checkbox.setOn(!checkbox.isOn, animated: true)
+            checkbox.sendActions(for: .valueChanged)
+        }, for: .touchUpInside)
+
+        let hint = "SLUG-ACC-WATCH-REMOTE-HINT".localizedVariant
+        watchStatusObserver = remote.$hostingIssue.combineLatest(remote.$connectedWatchName).sink { [weak self, weak label, weak checkbox] issue, watchName in
+            let status = issue ?? watchName
+            label?.setTitle(status ?? "SLUG-WATCH-REMOTE".localizedVariant, for: .normal)
+            checkbox?.accessibilityHint = status.map { "\(hint) \($0)" } ?? hint
             self?.view.setNeedsLayout()
         }
-        toggle.addAction(UIAction { [weak toggle] _ in
-            if let toggle { remote.setEnabled(toggle.isOn) }
-        }, for: .valueChanged)
-        let row = UIStackView(arrangedSubviews: [label, toggle])
+
+        let separator = UIView()
+        separator.backgroundColor = .separator
+        separator.isUserInteractionEnabled = false
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        let row = UIStackView(arrangedSubviews: [checkbox, label])
         row.alignment = .center
         row.spacing = 8
+        // Let the Watch Remote row grow independently when its text wraps.
+        stack.distribution = .fill
         stack.insertArrangedSubview(row, at: index)
-        row.widthAnchor.constraint(equalTo: stack.widthAnchor).isActive = true
+        stack.addSubview(separator)
+        NSLayoutConstraint.activate([
+            separator.widthAnchor.constraint(equalTo: stack.widthAnchor),
+            separator.leadingAnchor.constraint(equalTo: stack.leadingAnchor),
+            separator.centerYAnchor.constraint(equalTo: row.topAnchor, constant: -stack.spacing / 2),
+            separator.heightAnchor.constraint(equalToConstant: 1 / max(self.traitCollection.displayScale, 1)),
+            row.widthAnchor.constraint(equalTo: stack.widthAnchor),
+            checkbox.widthAnchor.constraint(equalToConstant: 26),
+            checkbox.heightAnchor.constraint(equalTo: checkbox.widthAnchor)
+        ])
     }
 
     /* ############################################################## */

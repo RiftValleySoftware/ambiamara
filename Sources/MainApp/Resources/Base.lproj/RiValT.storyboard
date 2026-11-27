@@ -418,7 +418,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VYj-Sg-8qC" userLabel="Group Summary Container">
                                 <rect key="frame" x="16" y="59" width="361" height="239"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="1000" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aqU-Gu-Kyd" userLabel="Group Summary">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="747" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aqU-Gu-Kyd" userLabel="Group Summary">
                                         <rect key="frame" x="0.0" y="110.5" width="361" height="18"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <color key="textColor" systemColor="labelColor"/>
@@ -428,38 +428,44 @@
                                     <constraint firstItem="aqU-Gu-Kyd" firstAttribute="leading" secondItem="VYj-Sg-8qC" secondAttribute="leading" id="E5z-fB-er6"/>
                                     <constraint firstItem="aqU-Gu-Kyd" firstAttribute="trailing" secondItem="VYj-Sg-8qC" secondAttribute="trailing" id="1pJ-T4-Pt1"/>
                                     <constraint firstItem="aqU-Gu-Kyd" firstAttribute="centerY" secondItem="VYj-Sg-8qC" secondAttribute="centerY" id="MQ6-U9-W47"/>
-                                    <constraint firstItem="aqU-Gu-Kyd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="VYj-Sg-8qC" secondAttribute="top" constant="8" id="a1G-tC-8Qx"/>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aqU-Gu-Kyd" secondAttribute="bottom" constant="8" id="u2F-yK-9Nk"/>
+                                    <constraint firstItem="aqU-Gu-Kyd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="VYj-Sg-8qC" secondAttribute="top" priority="744" constant="8" id="a1G-tC-8Qx"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aqU-Gu-Kyd" secondAttribute="bottom" priority="744" constant="8" id="u2F-yK-9Nk"/>
+                                    <constraint firstItem="aqU-Gu-Kyd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="VYj-Sg-8qC" secondAttribute="top" id="Grp-Sum-Top"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mcb-qQ-Xdq">
                                 <rect key="frame" x="16" y="298" width="361" height="256"/>
                                 <subviews>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kx5-6Q-HlR">
-                                        <rect key="frame" x="0.0" y="0.0" width="361" height="31"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TIME-TYPE-HINT" label="SLUG-ACC-TIME-TYPE-LABEL"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="bQh-wi-ybI"/>
-                                            <constraint firstAttribute="height" constant="30" id="dcU-CX-utB"/>
-                                        </constraints>
-                                        <segments>
-                                            <segment title="SLUG-START-TIME"/>
-                                            <segment title="SLUG-WARN-TIME"/>
-                                            <segment title="SLUG-FINAL-TIME"/>
-                                        </segments>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="selectedSegmentTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <connections>
-                                            <action selector="timeTypeSegmentedControlChanged:" destination="JlO-Oc-S3P" eventType="valueChanged" id="6e6-vd-Wip"/>
-                                        </connections>
-                                    </segmentedControl>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAB-yM-IWU">
-                                        <rect key="frame" x="0.0" y="38" width="361" height="32"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" userLabel="Phase Selector and Title" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Phs-Rw-Stk">
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="70"/>
+                                        <subviews>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kx5-6Q-HlR">
+                                                <rect key="frame" x="0.0" y="0.0" width="361" height="31"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TIME-TYPE-HINT" label="SLUG-ACC-TIME-TYPE-LABEL"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="bQh-wi-ybI"/>
+                                                    <constraint firstAttribute="height" constant="30" id="dcU-CX-utB"/>
+                                                </constraints>
+                                                <segments>
+                                                    <segment title="SLUG-START-TIME"/>
+                                                    <segment title="SLUG-WARN-TIME"/>
+                                                    <segment title="SLUG-FINAL-TIME"/>
+                                                </segments>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="selectedSegmentTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <action selector="timeTypeSegmentedControlChanged:" destination="JlO-Oc-S3P" eventType="valueChanged" id="6e6-vd-Wip"/>
+                                                </connections>
+                                            </segmentedControl>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAB-yM-IWU">
+                                                <rect key="frame" x="0.0" y="38" width="361" height="32"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                     <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rGl-Mw-lt6" userLabel="Labels Container View">
                                         <rect key="frame" x="0.0" y="78" width="361" height="30"/>
                                         <subviews>
@@ -511,7 +517,7 @@
                                         <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-TIME-PICKER-HINT" label="SLUG-ACC-TIME-PICKER-LABEL"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="750" constant="140" id="F5d-Kv-mf0"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="751" constant="80" id="h1U-5K-tRa"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="80" identifier="Minimum usable picker height" id="h1U-5K-tRa"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="dataSource" destination="JlO-Oc-S3P" id="Ltu-M7-pbN"/>
@@ -522,11 +528,9 @@
                                 <constraints>
                                     <constraint firstItem="1vE-IS-Nx4" firstAttribute="leading" secondItem="mcb-qQ-Xdq" secondAttribute="leading" id="9gy-cN-kqQ"/>
                                     <constraint firstItem="rGl-Mw-lt6" firstAttribute="leading" secondItem="mcb-qQ-Xdq" secondAttribute="leading" id="ag2-ZJ-aDQ"/>
-                                    <constraint firstItem="kx5-6Q-HlR" firstAttribute="leading" secondItem="mcb-qQ-Xdq" secondAttribute="leading" id="eJc-tB-3rB"/>
-                                    <constraint firstItem="lAB-yM-IWU" firstAttribute="leading" secondItem="mcb-qQ-Xdq" secondAttribute="leading" id="s7J-m1-X0k"/>
-                                    <constraint firstAttribute="trailing" secondItem="lAB-yM-IWU" secondAttribute="trailing" id="y8B-QJ-wG8"/>
+                                    <constraint firstItem="Phs-Rw-Stk" firstAttribute="leading" secondItem="mcb-qQ-Xdq" secondAttribute="leading" id="eJc-tB-3rB"/>
                                     <constraint firstAttribute="trailing" secondItem="1vE-IS-Nx4" secondAttribute="trailing" id="jDi-79-Tv2"/>
-                                    <constraint firstAttribute="trailing" secondItem="kx5-6Q-HlR" secondAttribute="trailing" id="sXk-gs-eqJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="Phs-Rw-Stk" secondAttribute="trailing" id="sXk-gs-eqJ"/>
                                     <constraint firstAttribute="trailing" secondItem="rGl-Mw-lt6" secondAttribute="trailing" id="wpL-8M-RJF"/>
                                 </constraints>
                             </stackView>
@@ -534,13 +538,13 @@
                                 <rect key="frame" x="20" y="554" width="353" height="264"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Pha-ct-Row">
-                                        <rect key="frame" x="156.66666666666666" y="112" width="40" height="40"/>
+                                        <rect key="frame" x="154.66666666666666" y="110" width="44" height="44"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQC-pa-BBK">
-                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                                 <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-MAIN-PLAY-BUTTON-HINT" label="SLUG-ACC-MAIN-PLAY-BUTTON-LABEL"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="HqK-1J-f8B"/>
+                                                    <constraint firstAttribute="height" constant="44" id="HqK-1J-f8B"/>
                                                     <constraint firstAttribute="width" secondItem="pQC-pa-BBK" secondAttribute="height" multiplier="1:1" id="P0n-D7-u9c"/>
                                                 </constraints>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -562,9 +566,11 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Pha-ct-Row" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2tz-2H-cb2" secondAttribute="top" id="0K4-EU-Il0"/>
+                                    <constraint firstItem="Pha-ct-Row" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2tz-2H-cb2" secondAttribute="top" priority="999" constant="8" identifier="Play top padding" id="Pha-Top-Pad"/>
                                     <constraint firstItem="Pha-ct-Row" firstAttribute="centerX" secondItem="2tz-2H-cb2" secondAttribute="centerX" id="HYm-Ce-oQZ"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Pha-ct-Row" secondAttribute="bottom" id="MkH-3Y-5nJ"/>
-                                    <constraint firstItem="Pha-ct-Row" firstAttribute="centerY" secondItem="2tz-2H-cb2" secondAttribute="centerY" priority="999" id="u15-U9-3rY"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Pha-ct-Row" secondAttribute="bottom" priority="999" constant="8" identifier="Play bottom padding" id="Pha-Bot-Pad"/>
+                                    <constraint firstItem="Pha-ct-Row" firstAttribute="centerY" secondItem="2tz-2H-cb2" secondAttribute="centerY" priority="746" id="u15-U9-3rY"/>
                                     <constraint firstItem="Pha-ct-Row" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2tz-2H-cb2" secondAttribute="leading" id="Pha-ct-Led"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Pha-ct-Row" secondAttribute="trailing" id="Pha-ct-Trl"/>
                                 </constraints>
@@ -582,7 +588,7 @@
                             <constraint firstItem="2tz-2H-cb2" firstAttribute="leading" secondItem="ITz-Ty-22n" secondAttribute="leading" constant="20" id="9rU-DC-v5O"/>
                             <constraint firstItem="2tz-2H-cb2" firstAttribute="top" secondItem="mcb-qQ-Xdq" secondAttribute="bottom" id="Dmc-QH-ByM"/>
                             <constraint firstItem="ITz-Ty-22n" firstAttribute="bottom" secondItem="2tz-2H-cb2" secondAttribute="bottom" id="eVp-WX-QDD"/>
-                            <constraint firstItem="mcb-qQ-Xdq" firstAttribute="centerY" secondItem="eHC-G7-JUU" secondAttribute="centerY" priority="748" id="epD-sc-SRQ"/>
+                            <constraint firstItem="1vE-IS-Nx4" firstAttribute="centerY" secondItem="ITz-Ty-22n" secondAttribute="centerY" priority="998" id="epD-sc-SRQ"/>
                             <constraint firstItem="ITz-Ty-22n" firstAttribute="trailing" secondItem="mcb-qQ-Xdq" secondAttribute="trailing" constant="16" id="g56-LA-uua"/>
                             <constraint firstItem="ITz-Ty-22n" firstAttribute="trailing" secondItem="2tz-2H-cb2" secondAttribute="trailing" constant="20" id="h2L-gp-XLU"/>
                             <constraint firstItem="mcb-qQ-Xdq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ITz-Ty-22n" secondAttribute="top" id="mQa-c2-ngM"/>
@@ -591,6 +597,7 @@
                     <navigationItem key="navigationItem" title="SLUG-EDIT" id="g8j-Dj-DgL"/>
                     <connections>
                         <outlet property="groupSummaryLabel" destination="aqU-Gu-Kyd" id="FfA-oz-Yv4"/>
+                        <outlet property="phaseSelectionStack" destination="Phs-Rw-Stk" id="Phs-Rw-Out"/>
                         <outlet property="hoursLabel" destination="pfu-Kz-A9q" id="d8T-Dn-xGb"/>
                         <outlet property="minutesLabel" destination="cbl-rx-DkY" id="OCu-X6-LEz"/>
                         <outlet property="playButton" destination="pQC-pa-BBK" id="HJo-wA-Spo"/>

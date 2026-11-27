@@ -91,6 +91,9 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
      The large variant of the digital display font.
      */
     private static let _digitalDisplayFont = UIFont(name: "Let\'s go Digital", size: 50)
+
+    /// The stacked phase controls need this much usable height to leave room for the centered picker.
+    private static let _minimumHeightForStackedControls: CGFloat = 320
     
     /* ############################################################## */
     /**
@@ -127,12 +130,8 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
      */
     @IBOutlet weak var setTimeContainerView: UIStackView?
 
-    /// Aligns the time controls below the safe area when there's no group summary.
-    private lazy var timeControlsTopConstraint: NSLayoutConstraint? = {
-        let constraint = self.setTimeContainerView?.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16)
-        constraint?.priority = .defaultHigh
-        return constraint
-    }()
+    /// The phase selector and its title share a row at compact heights.
+    @IBOutlet private weak var phaseSelectionStack: UIStackView?
 
     /// The storyboard stack containing Play and the associated controls.
     @IBOutlet weak var playControlsStack: UIStackView?
@@ -143,6 +142,8 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
     private let phaseMessageLabel = UILabel()
     /// The play-area stack containing the shortcut and its accompanying text.
     private lazy var phaseGuide = UIStackView(arrangedSubviews: [self.phaseShortcutButton, self.phaseMessageLabel])
+    /// Lets the full phase guide remain accessible when the space around the picker is short.
+    private let phaseGuideScrollView = UIScrollView()
 
     /* ############################################################## */
     /**
@@ -307,37 +308,43 @@ extension RiValT_EditTimer_ViewController {
         self.timeSetPicker?.reloadAllComponents()
     }
 
-    /// Positions the phase guide for the current vertical size class while keeping Play centered.
+    /// Adapts the controls around the centered picker to the available height.
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         guard let playControlsStack, let playControlsContainer = playControlsStack.superview, let setTimeContainerView else { return }
 
-        let compact = self.traitCollection.verticalSizeClass == .compact
+        let usableHeight = self.view.bounds.inset(by: self.view.safeAreaInsets).height
+        let compact = self.traitCollection.verticalSizeClass == .compact || usableHeight < Self._minimumHeightForStackedControls
         let axis: NSLayoutConstraint.Axis = compact ? .horizontal : .vertical
-        guard self.phaseGuide.superview !== playControlsContainer || self.phaseGuide.axis != axis else { return }
+        let scrollView = self.phaseGuideScrollView
+        guard scrollView.superview !== playControlsContainer || self.phaseSelectionStack?.axis != axis else { return }
 
-        self.phaseGuide.removeFromSuperview()
-        self.phaseGuide.axis = axis
-        self.phaseGuide.alignment = compact ? .center : .fill
-        self.phaseGuide.spacing = compact ? 8 : 2
-        self.phaseGuide.translatesAutoresizingMaskIntoConstraints = false
-        playControlsContainer.addSubview(self.phaseGuide)
+        self.phaseSelectionStack?.axis = axis
+        self.phaseSelectionStack?.alignment = compact ? .center : .fill
+        self.phaseSelectionStack?.distribution = compact ? .fillEqually : .fill
+        self.statusLabel?.numberOfLines = compact ? 1 : 0
+        self.statusLabel?.adjustsFontSizeToFitWidth = compact
+        self.statusLabel?.minimumScaleFactor = 0.7
+        setTimeContainerView.spacing = compact ? 4 : 8
 
-        // Position the guide independently so the Play button stays centered.
+        scrollView.removeFromSuperview()
+        playControlsContainer.addSubview(scrollView)
+
+        // Keep the guide independent of Play's horizontal alignment.
         if compact {
             NSLayoutConstraint.activate([
-                self.phaseGuide.centerYAnchor.constraint(equalTo: playControlsStack.centerYAnchor),
-                self.phaseGuide.leadingAnchor.constraint(greaterThanOrEqualTo: playControlsContainer.leadingAnchor),
-                self.phaseGuide.trailingAnchor.constraint(equalTo: playControlsStack.leadingAnchor, constant: -16),
-                self.phaseGuide.topAnchor.constraint(greaterThanOrEqualTo: playControlsContainer.topAnchor),
-                self.phaseGuide.bottomAnchor.constraint(lessThanOrEqualTo: playControlsContainer.bottomAnchor)
+                scrollView.centerYAnchor.constraint(equalTo: playControlsStack.centerYAnchor),
+                scrollView.leadingAnchor.constraint(equalTo: playControlsContainer.leadingAnchor),
+                scrollView.trailingAnchor.constraint(equalTo: playControlsStack.leadingAnchor, constant: -16),
+                scrollView.topAnchor.constraint(greaterThanOrEqualTo: playControlsContainer.topAnchor),
+                scrollView.bottomAnchor.constraint(lessThanOrEqualTo: playControlsContainer.bottomAnchor)
             ])
         } else {
             NSLayoutConstraint.activate([
-                self.phaseGuide.topAnchor.constraint(equalTo: playControlsContainer.topAnchor, constant: 8),
-                self.phaseGuide.leadingAnchor.constraint(equalTo: setTimeContainerView.leadingAnchor),
-                self.phaseGuide.trailingAnchor.constraint(equalTo: setTimeContainerView.trailingAnchor),
-                self.phaseGuide.bottomAnchor.constraint(lessThanOrEqualTo: playControlsStack.topAnchor, constant: -8)
+                scrollView.topAnchor.constraint(equalTo: playControlsContainer.topAnchor, constant: 8),
+                scrollView.leadingAnchor.constraint(equalTo: setTimeContainerView.leadingAnchor),
+                scrollView.trailingAnchor.constraint(equalTo: setTimeContainerView.trailingAnchor),
+                scrollView.bottomAnchor.constraint(lessThanOrEqualTo: playControlsStack.topAnchor, constant: -8)
             ])
         }
     }
@@ -351,6 +358,7 @@ extension RiValT_EditTimer_ViewController {
         self.timeTypeSegmentedControl?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: self.isDarkMode ? UIColor.black : UIColor.label], for: .selected)
         self.timeSetPicker?.reloadAllComponents()
         self.gradientLayer?.removeFromSuperlayer()
+        self.updateGroupSummaryVisibility()
     }
 }
 
@@ -383,6 +391,26 @@ extension RiValT_EditTimer_ViewController {
         self.phaseMessageLabel.textColor = .label
         self.phaseMessageLabel.numberOfLines = 0
         self.phaseMessageLabel.accessibilityIdentifier = "timerPhaseMessage"
+
+        self.phaseGuide.axis = .vertical
+        self.phaseGuide.spacing = 2
+        self.phaseGuide.translatesAutoresizingMaskIntoConstraints = false
+        let scrollView = self.phaseGuideScrollView
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.addSubview(self.phaseGuide)
+
+        // Fit the guide when it has room and allow scrolling when it needs more height.
+        let fitHeight = scrollView.frameLayoutGuide.heightAnchor.constraint(equalTo: self.phaseGuide.heightAnchor)
+        fitHeight.priority = UILayoutPriority(748)
+        NSLayoutConstraint.activate([
+            self.phaseGuide.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            self.phaseGuide.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            self.phaseGuide.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            self.phaseGuide.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            self.phaseGuide.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+            fitHeight
+        ])
     }
 
     /// Updates the shortcut and explanation for the selected time field and configured phase thresholds.
@@ -419,6 +447,9 @@ extension RiValT_EditTimer_ViewController {
             enabled = 0 < warning || final != start - 1
         }
 
+        if self.phaseShortcutButton.configuration?.title != shortcut || self.phaseMessageLabel.text != message {
+            self.phaseGuideScrollView.setContentOffset(.zero, animated: false)
+        }
         self.phaseShortcutButton.configuration?.title = shortcut
         self.phaseShortcutButton.isHidden = shortcut == nil
         self.phaseShortcutButton.isEnabled = enabled
@@ -426,7 +457,7 @@ extension RiValT_EditTimer_ViewController {
         self.phaseMessageLabel.text = message
         self.phaseMessageLabel.isAccessibilityElement = timeType == .setTime
         self.phaseMessageLabel.isHidden = message == nil
-        self.phaseGuide.isHidden = shortcut == nil && message == nil
+        self.phaseGuideScrollView.isHidden = shortcut == nil && message == nil
     }
 
     /// Shows this preset's position and Combine Timers status for groups with multiple timers.
@@ -435,19 +466,34 @@ extension RiValT_EditTimer_ViewController {
         guard let timer, let group, group.count > 1, let index = timer.indexPath?.item else {
             label.text = nil
             label.isHidden = true
-            self.timeControlsTopConstraint?.isActive = true
             return
         }
 
+        let summary: String
         if RiValT_Settings().combineTimers {
             let total = TimerCountdown(timer, combineTimers: true).totalDuration
             let duration = Duration.seconds(total).formatted(.units(allowed: [.hours, .minutes, .seconds], width: .abbreviated))
-            label.text = String.localizedStringWithFormat("SLUG-GROUP-SUMMARY-COMBINED".localizedVariant, index + 1, group.count, duration)
+            summary = String.localizedStringWithFormat("SLUG-GROUP-SUMMARY-COMBINED".localizedVariant, index + 1, group.count, duration)
         } else {
-            label.text = String.localizedStringWithFormat("SLUG-GROUP-SUMMARY-SEPARATE".localizedVariant, index + 1, group.count)
+            summary = String.localizedStringWithFormat("SLUG-GROUP-SUMMARY-SEPARATE".localizedVariant, index + 1, group.count)
         }
-        label.isHidden = false
-        self.timeControlsTopConstraint?.isActive = false
+        if label.text != summary {
+            label.text = summary
+            self.view.setNeedsLayout()
+        }
+    }
+
+    /// Hides the summary if Auto Layout compressed it to make room for the centered controls and Play.
+    private func updateGroupSummaryVisibility() {
+        guard let label = self.groupSummaryLabel, let text = label.text, !text.isEmpty, label.bounds.width > 0 else {
+            self.groupSummaryLabel?.isHidden = true
+            return
+        }
+
+        label.superview?.layoutIfNeeded()
+        let fittingSize = label.sizeThatFits(CGSize(width: label.bounds.width, height: .greatestFiniteMagnitude))
+        let pixel = 1 / max(self.traitCollection.displayScale, 1)
+        label.isHidden = label.bounds.height + pixel < fittingSize.height
     }
 
     /* ############################################################## */

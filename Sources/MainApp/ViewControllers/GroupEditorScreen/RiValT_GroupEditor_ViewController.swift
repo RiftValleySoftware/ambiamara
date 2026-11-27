@@ -311,6 +311,12 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
      This allows us to force-close the popover, easily.
      */
     weak var currentPopover: UIPopoverPresentationController?
+
+    /// The iPad settings popover can reflow while its presenting window is resized.
+    private var presentedIPadSettings: RiValT_Settings_ViewController? {
+        guard UIDevice.current.userInterfaceIdiom == .pad, !ProcessInfo.processInfo.isMacCatalystApp else { return nil }
+        return (self.presentedViewController ?? self.navigationController?.presentedViewController) as? RiValT_Settings_ViewController
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -425,6 +431,7 @@ extension RiValT_GroupEditor_ViewController {
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        self.presentedIPadSettings?.viewIfLoaded?.setNeedsLayout()
         guard self._groupDrag == nil else { return }
         if let collectionView = self.collectionView {
             var insets = collectionView.contentInset
@@ -520,6 +527,7 @@ extension RiValT_GroupEditor_ViewController {
     override func viewWillTransition(to inSize: CGSize, with inCoordinator: any UIViewControllerTransitionCoordinator) {
         self.finishGroupDrag(commit: false)
         super.viewWillTransition(to: inSize, with: inCoordinator)
+        guard self.presentedIPadSettings == nil else { return }
         self.currentPopover?.presentedViewController.dismiss(animated: true)
         self.currentPopover = nil
     }
