@@ -33,6 +33,8 @@ final class RiValT_WatchDelegate: NSObject {
 
     #if os(watchOS)
     var updateHandler: (() -> Void)?
+    var connectivityProgressHandler: (() -> Void)?
+    private nonisolated let complicationDeliveries = DispatchGroup()
     private(set) var snapshot: Snapshot?
     private(set) var canReachHost = false
     private(set) var connectionFailed = false
@@ -131,21 +133,33 @@ extension RiValT_WatchDelegate {
         }
     }
 
-    /// Application context keeps only the latest state and can be delivered with the Watch app asleep.
     private func publishComplicationSnapshot() {
         let now = Date()
         guard let session, session.activationState == .activated, session.isPaired,
               session.isWatchAppInstalled,
-              let state = RiValT_AppDelegate.appDelegateInstance?.remoteSnapshot(forComplication: true),
-              lastComplicationSnapshot?.representsSameControlState(as: state) != true
-                || (state.displayDeadline != nil && now.timeIntervalSince(lastComplicationUpdate) >= RiValT_RemoteState.complicationConfirmationInterval),
+              let app = RiValT_AppDelegate.appDelegateInstance else { return }
+        let state = app.remoteSnapshot(forComplication: true)
+        let stateChanged = lastComplicationSnapshot?.representsSameControlState(as: state) != true
+        let needsConfirmation = state.displayDeadline != nil
+            && now.timeIntervalSince(lastComplicationUpdate) >= RiValT_RemoteState.complicationConfirmationInterval
+        guard stateChanged || needsConfirmation,
               let encoded = try? PropertyListEncoder().encode(state)
         else { return }
+
+        let payload: [String: Any] = ["complicationState": encoded, "complicationUpdatedAt": now.timeIntervalSince1970]
         do {
-            try session.updateApplicationContext(["complicationState": encoded,
-                                                   "complicationUpdatedAt": now.timeIntervalSince1970])
+            // Application context keeps the latest snapshot available when priority delivery is unavailable.
+            try session.updateApplicationContext(payload)
             lastComplicationSnapshot = state
             lastComplicationUpdate = now
+            // Reserve the limited priority transfers for state changes outside a scrub gesture.
+            if stateChanged, !app.isScrubbingComplicationTimer, session.isComplicationEnabled {
+                // Only the latest snapshot is useful if the Watch was disconnected.
+                session.outstandingUserInfoTransfers.first(where: \.isCurrentComplicationInfo)?.cancel()
+                if session.remainingComplicationUserInfoTransfers > 0 {
+                    _ = session.transferCurrentComplicationUserInfo(payload)
+                }
+            }
         } catch {
             // A later state publication retries if the session cannot accept this update yet.
             lastComplicationSnapshot = nil
@@ -184,6 +198,12 @@ extension RiValT_WatchDelegate {
 }
 #else
 extension RiValT_WatchDelegate {
+    var canCompleteConnectivityTasks: Bool {
+        guard !activatingSession else { return false }
+        if let session, session.activationState == .activated, session.hasContentPending { return false }
+        return complicationDeliveries.wait(timeout: .now()) == .success
+    }
+
     private var linkIsReachable: Bool {
         if padLink.usesIPad { return padLink.isConnected }
         guard let session else { return false }
@@ -242,7 +262,7 @@ extension RiValT_WatchDelegate {
         } else {
             cancelComplicationRewind()
         }
-        if !padLink.usesIPad, let session { receiveComplicationContext(session.receivedApplicationContext) }
+        if !padLink.usesIPad, let session { receiveComplicationUpdate(session.receivedApplicationContext) }
         heartbeat?.cancel()
         pendingID = nil
         waitingForPoll = nil
@@ -398,11 +418,21 @@ extension RiValT_WatchDelegate {
         if needsRefresh { refresh() } else { scheduleRefresh(in: 3) }
     }
 
+    /// Keep background execution until the main actor has stored the delivered snapshot.
+    private nonisolated func enqueueComplicationUpdate(_ payload: [String: Any]) {
+        complicationDeliveries.enter()
+        DispatchQueue.main.async {
+            self.receiveComplicationUpdate(payload)
+            self.complicationDeliveries.leave()
+            self.connectivityProgressHandler?()
+        }
+    }
+
     /// Background data is for the face only; it never enables remote controls or establishes reachability.
-    private func receiveComplicationContext(_ context: [String: Any]) {
+    private func receiveComplicationUpdate(_ payload: [String: Any]) {
         guard !padLink.usesIPad,
-              let data = context["complicationState"] as? Data,
-              let timestamp = context["complicationUpdatedAt"] as? TimeInterval,
+              let data = payload["complicationState"] as? Data,
+              let timestamp = payload["complicationUpdatedAt"] as? TimeInterval,
               var state = try? PropertyListDecoder().decode(Snapshot.self, from: data)
         else { return }
         // Use a measured clock correction when available; otherwise paired devices' wall clocks apply.
@@ -434,6 +464,7 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
                     self.updateHandler?()
                 }
             }
+            self.connectivityProgressHandler?()
             #else
             self.publishSnapshot()
             #endif
@@ -450,7 +481,11 @@ extension RiValT_WatchDelegate: WCSessionDelegate {
 
     #if os(watchOS)
     nonisolated func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
-        DispatchQueue.main.async { self.receiveComplicationContext(applicationContext) }
+        enqueueComplicationUpdate(applicationContext)
+    }
+
+    nonisolated func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any]) {
+        enqueueComplicationUpdate(userInfo)
     }
 
     nonisolated func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {

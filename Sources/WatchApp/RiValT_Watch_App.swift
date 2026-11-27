@@ -35,16 +35,12 @@ final class RiValT_Watch_AppDelegate: NSObject, WKApplicationDelegate {
     static let connection = RiValT_WatchDelegate()
     private var pendingTasks = Set<WKWatchConnectivityRefreshBackgroundTask>()
     private var contentObservation: NSKeyValueObservation?
-    private var activationObservation: NSKeyValueObservation?
 
     override init() {
         super.init()
-        _ = Self.connection
+        Self.connection.connectivityProgressHandler = { [weak self] in self?.completeConnectivityTasks() }
         guard WCSession.isSupported() else { return }
         contentObservation = WCSession.default.observe(\.hasContentPending, options: [.new]) { [weak self] _, _ in
-            DispatchQueue.main.async { self?.completeConnectivityTasks() }
-        }
-        activationObservation = WCSession.default.observe(\.activationState, options: [.new]) { [weak self] _, _ in
             DispatchQueue.main.async { self?.completeConnectivityTasks() }
         }
     }
@@ -57,12 +53,11 @@ final class RiValT_Watch_AppDelegate: NSObject, WKApplicationDelegate {
                 task.setTaskCompletedWithSnapshot(false)
             }
         }
-        // Give queued WCSession delegate callbacks time to persist data before releasing the task.
-        DispatchQueue.main.async { self.completeConnectivityTasks() }
+        completeConnectivityTasks()
     }
 
     private func completeConnectivityTasks() {
-        guard WCSession.default.activationState == .activated, !WCSession.default.hasContentPending else { return }
+        guard !pendingTasks.isEmpty, Self.connection.canCompleteConnectivityTasks else { return }
         pendingTasks.forEach { $0.setTaskCompletedWithSnapshot(false) }
         pendingTasks.removeAll()
     }

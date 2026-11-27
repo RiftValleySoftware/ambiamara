@@ -99,10 +99,18 @@ extension RiValT_AppDelegate {
         return controller
     }
 
+    private var complicationController: UIViewController? {
+        self.groupEditorController?.navigationController?.topViewController
+    }
+
+    var isScrubbingComplicationTimer: Bool {
+        (self.complicationController as? RiValT_RunningTimer_ContainerViewController)?.isDragging == true
+    }
+
     /// Read the active screen and selected timer together, on the main thread.
     func remoteSnapshot(forComplication: Bool = false) -> RiValT_WatchDelegate.Snapshot {
         // The face can show the timer under a presented controller while the host is in the foreground.
-        let controller = forComplication ? self.groupEditorController?.navigationController?.topViewController : self.remoteController
+        let controller = forComplication ? self.complicationController : self.remoteController
         let running = controller as? RiValT_RunningTimer_ContainerViewController
         guard let timer = running?.timer ?? self.timerModel.selectedTimer,
               let index = timer.indexPath
