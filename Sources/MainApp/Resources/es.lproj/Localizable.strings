@@ -126,6 +126,10 @@ MANTENER PULSADO: Muestra un regulador con el que puedes ajustar el tiempo resta
 
 "SLUG-OK-BUTTON-TEXT"                           =   "Aceptar";
 
+// Group Editor summary. %1$d is the group number and %2$@ is the localized total preset duration.
+"SLUG-GROUP-EDITOR-SUMMARY-ON"                  =   "Grupo %1$d · %2$@ en total\nCombinar temporizadores: Sí";
+"SLUG-GROUP-EDITOR-SUMMARY-OFF"                 =   "Grupo %1$d · %2$@ en total\nCombinar temporizadores: No";
+
 // MARK: Timer Edit Screen
 
 "SLUG-EDIT-FORMAT"                              =   "Editar temporizador %d";

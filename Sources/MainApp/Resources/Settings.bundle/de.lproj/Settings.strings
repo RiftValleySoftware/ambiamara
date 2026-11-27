@@ -1,5 +1,5 @@
 "SLUG-SOFTWARE-DEPENDENCIES" = "Software-Abhängigkeiten";
-"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Wähle eine Bibliothek aus, um ihre Funktion, ihren Quellcode und ihre MIT-Lizenz zu sehen.";
+"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Wähle eine Bibliothek aus, um ihre Funktion, ihren Quellcode und ihre MIT-Lizenz zu sehen.\n\nRiVal.T verwendet die Schrift „Let's Go Digital“ von Wolf Lambert.";
 "SLUG-SOURCE-CODE" = "Quellcode";
 "SLUG-LICENSE" = "Lizenz";
 "SLUG-DEPENDENCY-GCD-TIMER" = "Steuert die Countdown-Timer.";

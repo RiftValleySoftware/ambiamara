@@ -126,6 +126,10 @@ LONG-PRESS: Brings up a slider, allowing you to set the time to any point.";
 
 "SLUG-OK-BUTTON-TEXT"                           =   "OK";
 
+// Group Editor summary. %1$d is the group number and %2$@ is the localized total preset duration.
+"SLUG-GROUP-EDITOR-SUMMARY-ON"                  =   "Group %1$d · %2$@ total\nCombine Timers: On";
+"SLUG-GROUP-EDITOR-SUMMARY-OFF"                 =   "Group %1$d · %2$@ total\nCombine Timers: Off";
+
 // MARK: Timer Edit Screen
 
 "SLUG-EDIT-FORMAT"                              =   "Edit Timer %d";

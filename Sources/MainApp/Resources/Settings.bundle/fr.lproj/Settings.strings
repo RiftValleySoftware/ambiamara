@@ -1,5 +1,5 @@
 "SLUG-SOFTWARE-DEPENDENCIES" = "Dépendances logicielles";
-"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Sélectionnez une bibliothèque pour connaître son rôle et trouver son code source et sa licence MIT.";
+"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Sélectionnez une bibliothèque pour connaître son rôle et trouver son code source et sa licence MIT.\n\nRiVal.T utilise la police « Let's Go Digital » de Wolf Lambert.";
 "SLUG-SOURCE-CODE" = "Code source";
 "SLUG-LICENSE" = "Licence";
 "SLUG-DEPENDENCY-GCD-TIMER" = "Gère les comptes à rebours.";

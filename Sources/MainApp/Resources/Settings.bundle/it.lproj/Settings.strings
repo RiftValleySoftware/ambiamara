@@ -1,5 +1,5 @@
 "SLUG-SOFTWARE-DEPENDENCIES" = "Dipendenze software";
-"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Seleziona una libreria per scoprire a cosa serve e trovare il codice sorgente e la licenza MIT.";
+"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Seleziona una libreria per scoprire a cosa serve e trovare il codice sorgente e la licenza MIT.\n\nRiVal.T usa il carattere «Let's Go Digital» di Wolf Lambert.";
 "SLUG-SOURCE-CODE" = "Codice sorgente";
 "SLUG-LICENSE" = "Licenza";
 "SLUG-DEPENDENCY-GCD-TIMER" = "Gestisce i timer con conto alla rovescia.";

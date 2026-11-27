@@ -1,5 +1,5 @@
 "SLUG-SOFTWARE-DEPENDENCIES" = "Dependências de software";
-"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Selecione uma biblioteca para ver o que ela faz, onde encontrar seu código-fonte e sua licença MIT.";
+"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Selecione uma biblioteca para ver o que ela faz, onde encontrar seu código-fonte e sua licença MIT.\n\nO RiVal.T usa a fonte “Let's Go Digital” de Wolf Lambert.";
 "SLUG-SOURCE-CODE" = "Código-fonte";
 "SLUG-LICENSE" = "Licença";
 "SLUG-DEPENDENCY-GCD-TIMER" = "Controla os temporizadores de contagem regressiva.";

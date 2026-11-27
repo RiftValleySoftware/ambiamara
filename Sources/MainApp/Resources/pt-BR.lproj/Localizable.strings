@@ -126,6 +126,10 @@ MANTER PRESSIONADO: Mostra um controle deslizante para ajustar o tempo restante.
 
 "SLUG-OK-BUTTON-TEXT"                           =   "OK";
 
+// Group Editor summary. %1$d is the group number and %2$@ is the localized total preset duration.
+"SLUG-GROUP-EDITOR-SUMMARY-ON"                  =   "Grupo %1$d · %2$@ no total\nCombinar temporizadores: Sim";
+"SLUG-GROUP-EDITOR-SUMMARY-OFF"                 =   "Grupo %1$d · %2$@ no total\nCombinar temporizadores: Não";
+
 // MARK: Timer Edit Screen
 
 "SLUG-EDIT-FORMAT"                              =   "Editar temporizador %d";

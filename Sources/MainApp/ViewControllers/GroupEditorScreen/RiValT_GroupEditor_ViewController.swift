@@ -223,6 +223,10 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
     @IBOutlet weak var settingsBarButtonItem: UIBarButtonItem?
 
     /* ############################################################## */
+    /// The selected group's summary, above the scrolling timer matrix.
+    @IBOutlet private weak var groupSummaryLabel: UILabel?
+
+    /* ############################################################## */
     /**
      The main collection view.
      */
@@ -317,6 +321,7 @@ extension RiValT_GroupEditor_ViewController {
         super.viewDidLoad()
         RiValT_AppDelegate.appDelegateInstance?.groupEditorController = self
         self.navigationItem.backButtonTitle = "SLUG-TIMERS-BACK".localizedVariant
+        self.groupSummaryLabel?.maximumContentSizeCategory = .extraExtraExtraLarge
         self.collectionView?.isDirectionalLockEnabled = true
         let doubleTapper = UITapGestureRecognizer(target: self, action: #selector(self.groupDoubleTapped))
         doubleTapper.numberOfTapsRequired = 2
@@ -655,8 +660,25 @@ extension RiValT_GroupEditor_ViewController {
         } else {
             self.dataSource?.apply(snapshot, animatingDifferences: false)
         }
+        self.updateGroupSummary()
         self.updateToolbar()
         self.setUpNavBarItems()
+    }
+
+    /// Refreshes the configured group duration and the current Combine Timers preference.
+    func updateGroupSummary() {
+        guard let timer = self.timerModel.selectedTimer, let groupIndex = timer.group?.index else {
+            self.groupSummaryLabel?.text = nil
+            return
+        }
+
+        let total = TimerCountdown(timer, combineTimers: true).totalDuration
+        let duration = Duration.seconds(total).formatted(.units(allowed: [.hours, .minutes, .seconds], width: .narrow))
+        let format = RiValT_Settings().combineTimers ? "SLUG-GROUP-EDITOR-SUMMARY-ON" : "SLUG-GROUP-EDITOR-SUMMARY-OFF"
+        let summary = String.localizedStringWithFormat(format.localizedVariant, groupIndex + 1, duration)
+        if self.groupSummaryLabel?.text != summary {
+            self.groupSummaryLabel?.text = summary
+        }
     }
     
     /* ############################################################## */

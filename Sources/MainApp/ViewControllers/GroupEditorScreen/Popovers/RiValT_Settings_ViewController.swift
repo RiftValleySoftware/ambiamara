@@ -274,6 +274,7 @@ class RiValT_Settings_ViewController: RiValT_GroupEditor_Popover {
 
         RiValT_Settings().combineTimers = checkbox.isOn
         self.myOwner?.collectionView?.reloadData()
+        self.myOwner?.updateGroupSummary()
         self.watchDelegate?.publishSnapshot()
     }
     

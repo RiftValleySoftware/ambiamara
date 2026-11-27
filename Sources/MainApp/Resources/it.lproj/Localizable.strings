@@ -126,6 +126,10 @@ PRESSIONE PROLUNGATA: Mostra un cursore per regolare il tempo rimanente.";
 
 "SLUG-OK-BUTTON-TEXT"                           =   "OK";
 
+// Group Editor summary. %1$d is the group number and %2$@ is the localized total preset duration.
+"SLUG-GROUP-EDITOR-SUMMARY-ON"                  =   "Gruppo %1$d · %2$@ in totale\nCombina i timer: Sì";
+"SLUG-GROUP-EDITOR-SUMMARY-OFF"                 =   "Gruppo %1$d · %2$@ in totale\nCombina i timer: No";
+
 // MARK: Timer Edit Screen
 
 "SLUG-EDIT-FORMAT"                              =   "Modifica timer %d";
