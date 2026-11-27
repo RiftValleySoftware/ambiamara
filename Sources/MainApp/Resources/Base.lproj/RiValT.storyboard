@@ -271,17 +271,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fXT-K6-5Fx" userLabel="Selected Group Summary">
-                                <rect key="frame" x="16" y="113" width="361" height="48"/>
-                                <accessibility key="accessibilityConfiguration" identifier="selectedGroupSummary"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="w45-y2-CdP"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                <color key="textColor" systemColor="labelColor"/>
-                            </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DVH-QM-2oZ">
-                                <rect key="frame" x="16" y="161" width="361" height="613"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DVH-QM-2oZ">
+                                <rect key="frame" x="16" y="113" width="361" height="705"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="4" minimumInteritemSpacing="4" id="Bpu-9n-KJZ">
@@ -329,6 +320,15 @@
                                     <outlet property="dropDelegate" destination="BYZ-38-t0r" id="nzx-Lg-0WA"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fXT-K6-5Fx" userLabel="Selected Group Summary">
+                                <rect key="frame" x="16" y="113" width="361" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="selectedGroupSummary"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="w45-y2-CdP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                            </label>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eX2-3V-kKN">
                                 <rect key="frame" x="0.0" y="774" width="393" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -372,10 +372,10 @@
                             <constraint firstItem="fXT-K6-5Fx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bXJ-rq-mYS"/>
                             <constraint firstItem="fXT-K6-5Fx" firstAttribute="leading" secondItem="DVH-QM-2oZ" secondAttribute="leading" id="0JM-Ol-wMe"/>
                             <constraint firstItem="fXT-K6-5Fx" firstAttribute="trailing" secondItem="DVH-QM-2oZ" secondAttribute="trailing" id="hq6-UK-5vW"/>
-                            <constraint firstItem="DVH-QM-2oZ" firstAttribute="top" secondItem="fXT-K6-5Fx" secondAttribute="bottom" id="M7N-wD-Ncf"/>
+                            <constraint firstItem="DVH-QM-2oZ" firstAttribute="top" secondItem="fXT-K6-5Fx" secondAttribute="top" id="M7N-wD-Ncf"/>
                             <constraint firstItem="DVH-QM-2oZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="fCu-yL-aA6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="eX2-3V-kKN" secondAttribute="bottom" id="seP-gA-bBP"/>
-                            <constraint firstItem="eX2-3V-kKN" firstAttribute="top" secondItem="DVH-QM-2oZ" secondAttribute="bottom" id="voD-aR-nvp"/>
+                            <constraint firstItem="eX2-3V-kKN" firstAttribute="bottom" secondItem="DVH-QM-2oZ" secondAttribute="bottom" id="voD-aR-nvp"/>
                         </constraints>
                     </view>
                     <toolbarItems/>

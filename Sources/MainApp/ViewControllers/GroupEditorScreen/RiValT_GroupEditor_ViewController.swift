@@ -211,10 +211,8 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
     var rowDoubleTapRecognizer: UITapGestureRecognizer?
     
     /* ############################################################## */
-    /**
-     Maintains the last scroll position, for iterating a row.
-     */
-    private var _lastScrollPos = CGPoint.zero
+    /// The saved scroll position, if one has been established.
+    private var _lastScrollPos: CGPoint?
 
     /* ############################################################## */
     /**
@@ -223,8 +221,14 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
     @IBOutlet weak var settingsBarButtonItem: UIBarButtonItem?
 
     /* ############################################################## */
-    /// The selected group's summary, above the scrolling timer matrix.
+    /// The selected group's summary, overlaid on the scrolling timer matrix.
     @IBOutlet private weak var groupSummaryLabel: UILabel?
+
+    /// Backdrops for the scrolling rows beneath the summary and toolbar.
+    private let _headerBlur = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+    private let _toolbarBlur = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+    private let _headerBlurTint = CAGradientLayer()
+    private let _toolbarBlurTint = CAGradientLayer()
 
     /* ############################################################## */
     /**
@@ -255,7 +259,7 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
      The edit button in the toolbar.
      */
     @IBOutlet weak var toolbarEditButton: RiValT_DisappearingBarButton?
-    
+
     /* ############################################################## */
     /**
      This is the datasource for the collection view. We manage it dynamically.
@@ -349,6 +353,22 @@ extension RiValT_GroupEditor_ViewController {
         appearance.backgroundImage = nil
         self.toolbar?.standardAppearance = appearance
         self.toolbar?.scrollEdgeAppearance = appearance
+
+        if let collectionView = self.collectionView {
+            if #available(iOS 26.0, *) {
+                collectionView.topEdgeEffect.isHidden = true
+                collectionView.bottomEdgeEffect.isHidden = true
+            }
+            for (blur, tint) in [(self._headerBlur, self._headerBlurTint), (self._toolbarBlur, self._toolbarBlurTint)] {
+                blur.isUserInteractionEnabled = false
+                blur.isHidden = true
+                blur.contentView.layer.addSublayer(tint)
+                self.view.insertSubview(blur, aboveSubview: collectionView)
+            }
+        }
+        self.registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (controller: RiValT_GroupEditor_ViewController, _) in
+            controller.view.setNeedsLayout()
+        }
     }
 
     /* ############################################################## */
@@ -375,7 +395,7 @@ extension RiValT_GroupEditor_ViewController {
      */
     override func viewDidAppear(_ inIsAnimated: Bool) {
         super.viewDidAppear(inIsAnimated)
-        if .zero == self._lastScrollPos,
+        if self._lastScrollPos == nil,
            let collectionView = self.collectionView,
            let selectedSectionIndex = self.timerModel?.selectedTimer?.indexPath,
            selectedSectionIndex.section < collectionView.numberOfSections,
@@ -383,6 +403,7 @@ extension RiValT_GroupEditor_ViewController {
             collectionView.scrollToItem(at: selectedSectionIndex, at: .bottom, animated: false)
             self._lastScrollPos = collectionView.contentOffset
         }
+        self.updateScrollEdgeBlurVisibility()
     }
 
     /* ############################################################## */
@@ -394,7 +415,7 @@ extension RiValT_GroupEditor_ViewController {
     override func viewWillDisappear(_ inIsAnimated: Bool) {
         self.finishGroupDrag(commit: false)
         RiValT_Settings.ephemeralFirstTime = false
-        self._lastScrollPos = collectionView?.contentOffset ?? .zero
+        self._lastScrollPos = collectionView?.contentOffset
         super.viewWillDisappear(inIsAnimated)
     }
     
@@ -405,12 +426,24 @@ extension RiValT_GroupEditor_ViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         guard self._groupDrag == nil else { return }
+        if let collectionView = self.collectionView {
+            var insets = collectionView.contentInset
+            insets.top = self.groupSummaryLabel?.bounds.height ?? 0
+            insets.bottom = self.toolbar?.bounds.height ?? 0
+            if collectionView.contentInset != insets {
+                // The first and last rows clear the overlays at their respective scroll limits.
+                let lastScrollPos = self._lastScrollPos
+                collectionView.contentInset = insets
+                collectionView.verticalScrollIndicatorInsets = UIEdgeInsets(top: insets.top, left: 0, bottom: insets.bottom, right: 0)
+                self._lastScrollPos = lastScrollPos
+            }
+        }
         self.setupDataSource()
         self.createLayout()
         self.updateSnapshot()
         self.watchDelegate?.updateSettings()
-        if .zero != self._lastScrollPos {
-            self.collectionView?.setContentOffset(self._lastScrollPos, animated: false)
+        if let lastScrollPos = self._lastScrollPos {
+            self.collectionView?.setContentOffset(lastScrollPos, animated: false)
         } else if let collectionView = self.collectionView,
                   let selectedSectionIndex = self.timerModel?.selectedTimer?.indexPath,
                   selectedSectionIndex.section < collectionView.numberOfSections,
@@ -419,6 +452,62 @@ extension RiValT_GroupEditor_ViewController {
             self._lastScrollPos = collectionView.contentOffset
         }
         self.updateToolbar()
+        if let groupSummaryLabel = self.groupSummaryLabel {
+            self.layoutScrollEdgeBlur(self._headerBlur, tint: self._headerBlurTint, behind: groupSummaryLabel, atTop: true)
+        }
+        if let toolbar = self.toolbar {
+            self.layoutScrollEdgeBlur(self._toolbarBlur, tint: self._toolbarBlurTint, behind: toolbar, atTop: false)
+        }
+        self.updateScrollEdgeBlurVisibility()
+    }
+
+    /// Fades in the blur toward the outside of the list, then blends it back into the surrounding background.
+    private func layoutScrollEdgeBlur(_ blur: UIVisualEffectView, tint: CAGradientLayer, behind overlay: UIView, atTop: Bool) {
+        let overlayFrame = overlay.convert(overlay.bounds, to: self.view)
+        let bounds = self.view.bounds
+        let insideFade: CGFloat = 16
+        let outsideSpace = atTop ? overlayFrame.minY - bounds.minY : bounds.maxY - overlayFrame.maxY
+        let outsideFade = max(0, min(16, outsideSpace))
+        let frame = CGRect(x: bounds.minX, y: overlayFrame.minY - (atTop ? outsideFade : insideFade),
+                           width: bounds.width, height: insideFade + overlayFrame.height + outsideFade)
+        guard overlayFrame.height > 0 else { return }
+
+        // Match the screen gradient so the material blends into the background around the rows.
+        let background = self.gradientLayer as? CAGradientLayer
+        let solidColor = (self.view.backgroundColor ?? .systemBackground).resolvedColor(with: self.traitCollection).cgColor
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        tint.frame = (background?.frame ?? bounds).offsetBy(dx: -frame.minX, dy: -frame.minY)
+        tint.colors = background?.colors ?? [solidColor, solidColor]
+        tint.opacity = !atTop && !self.isDarkMode ? 0.93 : 0.76
+        CATransaction.commit()
+
+        guard blur.frame != frame else { return }
+        blur.frame = frame
+
+        let gradient = CAGradientLayer()
+        gradient.frame = blur.bounds
+        gradient.startPoint = CGPoint(x: 0.5, y: atTop ? 1 : 0)
+        gradient.endPoint = CGPoint(x: 0.5, y: atTop ? 0 : 1)
+        // Reach full blur just inside the overlay so row details soften before meeting the controls.
+        let overlayStart = Double(insideFade / frame.height)
+        let fullBlur = Double((insideFade + overlayFrame.height * 0.18) / frame.height)
+        let overlayEnd = Double((insideFade + overlayFrame.height) / frame.height)
+        gradient.locations = [0, NSNumber(value: overlayStart), NSNumber(value: fullBlur), NSNumber(value: overlayEnd), 1]
+        gradient.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.7).cgColor,
+                           UIColor.black.cgColor, UIColor.black.cgColor, UIColor.clear.cgColor]
+        let mask = UIView(frame: blur.bounds)
+        mask.layer.addSublayer(gradient)
+        blur.mask = mask
+    }
+
+    /// Applies the backdrops only at edges where the list extends behind the controls.
+    private func updateScrollEdgeBlurVisibility() {
+        guard let collectionView = self.collectionView else { return }
+        let viewport = collectionView.bounds.inset(by: collectionView.adjustedContentInset)
+        let hasContent = collectionView.contentSize.height > 0
+        self._headerBlur.isHidden = !hasContent || viewport.minY <= 0
+        self._toolbarBlur.isHidden = !hasContent || viewport.maxY >= collectionView.contentSize.height
     }
 
     /* ################################################################## */
@@ -715,7 +804,7 @@ extension RiValT_GroupEditor_ViewController {
         else { return }
 
         self.timerModel.createNewTimer(at: indexPath).isSelected = true
-        self._lastScrollPos = .zero
+        self._lastScrollPos = nil
         self.impactHaptic(1.0)
         self.updateSettings()
         self.updateSnapshot(reloadingData: true)
@@ -1326,10 +1415,9 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDelegate {
      - parameter inOffset: The current offset.
      */
     func collectionView(_ inCollectionView: UICollectionView, targetContentOffsetForProposedContentOffset inOffset: CGPoint) -> CGPoint {
-        if .zero != self._lastScrollPos {
-            inCollectionView.setContentOffset(self._lastScrollPos, animated: false)
-        }
-        return self._lastScrollPos
+        guard let lastScrollPos = self._lastScrollPos else { return inOffset }
+        inCollectionView.setContentOffset(lastScrollPos, animated: false)
+        return lastScrollPos
     }
 }
 
@@ -1362,5 +1450,6 @@ extension RiValT_GroupEditor_ViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ inScrollView: UIScrollView) {
         inScrollView.contentOffset.x = self._initialContentOffset.x
         self._lastScrollPos = inScrollView.contentOffset
+        self.updateScrollEdgeBlurVisibility()
     }
 }
