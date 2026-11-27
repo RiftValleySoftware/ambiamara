@@ -10,22 +10,34 @@
 
 import SwiftUI
 
+/// The timer state rendered by the Watch countdown.
 private typealias Snapshot = RiValT_ObservableModel.Snapshot
+/// A host command available to the Watch controls.
 private typealias Operation = RiValT_ObservableModel.Operation
 
 /// Localized Watch text, including keys chosen at runtime.
 private func watchText(_ key: String) -> String { NSLocalizedString(key, comment: "") }
 
+/// The active countdown, connection status, and device controls for the Watch app.
 struct RiValT_Watch_App_MainContentView: View {
+    /// The panels that can be presented over the Watch countdown.
     private enum Sheet: Int, Identifiable {
-        case controls, devices
+        /// The available timer actions and a link to the device picker.
+        case controls
+        /// The device picker for choosing the timer host.
+        case devices
         var id: Int { self.rawValue }
     }
 
+    /// The scene activity used to start and stop interactive requests.
     @Environment(\.scenePhase) private var scenePhase
+    /// The model that supplies live timer state and dispatches actions to the selected host.
     @StateObject private var model = RiValT_ObservableModel()
+    /// The Bluetooth device selection and pairing status observed by the view.
     @ObservedObject private var bluetooth = RiValT_BluetoothRemote.shared
+    /// The currently presented Watch panel.
     @State private var sheet: Sheet?
+    /// Whether to display the command rejection alert.
     @State private var showRejectedCommand = false
 
     var body: some View {
@@ -87,6 +99,7 @@ struct RiValT_Watch_App_MainContentView: View {
         }
     }
 
+    /// Refreshes a running readout on the host-aligned second boundaries.
     @ViewBuilder private func timerView(_ snapshot: Snapshot) -> some View {
         if let deadline = snapshot.deadline {
             // Match the host's second boundaries, including after a fractional-second pause.
@@ -99,6 +112,7 @@ struct RiValT_Watch_App_MainContentView: View {
         }
     }
 
+    /// Renders the displayed countdown and its controls, and polls the host again after expiry.
     private func readout(_ snapshot: Snapshot, at date: Date) -> some View {
         let seconds = snapshot.displayRemaining(at: date)
         let awaitingHost = snapshot.deadline.map { $0 <= date } ?? false
@@ -170,6 +184,7 @@ struct RiValT_Watch_App_MainContentView: View {
         }
     }
 
+    /// Formats remaining seconds for the Watch readout, including an hours field when needed.
     private static func clockText(_ seconds: Int) -> String {
         if seconds >= 3600 {
             return String(format: "%d:%02d:%02d", seconds / 3600, seconds / 60 % 60, seconds % 60)
@@ -177,10 +192,12 @@ struct RiValT_Watch_App_MainContentView: View {
         return String(format: "%d:%02d", seconds / 60, seconds % 60)
     }
 
+    /// The displayed name of the selected iPad or paired iPhone.
     private var hostName: String {
         self.bluetooth.usesIPad ? self.bluetooth.selectedDeviceName ?? "iPad" : "iPhone"
     }
 
+    /// Shows connection or timer setup instructions and actions when no live countdown is available.
     private var connectionView: some View {
         let host = self.hostName
         let instruction: String
@@ -229,6 +246,7 @@ struct RiValT_Watch_App_MainContentView: View {
         }
     }
 
+    /// Opens device discovery when no iPad is selected or retries the current host.
     private func reconnect() {
         if self.bluetooth.usesIPad && self.bluetooth.selectedDeviceID == nil {
             self.sheet = .devices
@@ -241,6 +259,7 @@ struct RiValT_Watch_App_MainContentView: View {
 
 /// Apply the same screen-wide gestures to the timer and to any sheet above it.
 private struct TimerScreenGestures: ViewModifier {
+    /// The live model used to decide whether the current snapshot supports a gesture's command.
     @ObservedObject var model: RiValT_ObservableModel
 
     func body(content: Content) -> some View {
@@ -280,8 +299,11 @@ private struct TimerScreenGestures: ViewModifier {
     }
 }
 
+/// Lets the wearer choose the paired iPhone or discover and select a nearby iPad.
 private struct DevicePicker: View {
+    /// The transport exposing device results, selection, and pairing status.
     @ObservedObject private var bluetooth = RiValT_BluetoothRemote.shared
+    /// Dismisses the device picker after the wearer selects a host.
     let close: () -> Void
 
     var body: some View {
@@ -327,6 +349,7 @@ private struct DevicePicker: View {
 }
 
 private extension RiValT_WatchDelegate.Phase {
+    /// The localized name of the phase displayed next to the time.
     var title: String {
         switch self {
         case .ready:       return watchText("SLUG-READY")
@@ -339,6 +362,7 @@ private extension RiValT_WatchDelegate.Phase {
         }
     }
 
+    /// The display color for the current countdown phase.
     var color: Color {
         switch self {
         case .countdown:        return Color("Start-Color")
@@ -349,6 +373,7 @@ private extension RiValT_WatchDelegate.Phase {
         }
     }
 
+    /// The SF Symbol name used to identify the phase.
     var symbol: String {
         switch self {
         case .ready:       return "timer"
@@ -363,6 +388,7 @@ private extension RiValT_WatchDelegate.Phase {
 }
 
 private extension RiValT_WatchDelegate.TimerOperation {
+    /// The localized VoiceOver name of the timer action.
     var spokenLabel: Text {
         switch self {
         case .start:       Text("SLUG-ACC-PLAY-LABEL")
@@ -375,6 +401,7 @@ private extension RiValT_WatchDelegate.TimerOperation {
         }
     }
 
+    /// The localized VoiceOver description of what the action will do.
     var spokenHint: Text {
         switch self {
         case .start:       Text("SLUG-ACC-PLAY-HINT")
@@ -387,6 +414,7 @@ private extension RiValT_WatchDelegate.TimerOperation {
         }
     }
 
+    /// The localized title and system image shown on an action button.
     var label: Label<Text, Image> {
         switch self {
         case .start:       return Label(watchText("SLUG-START"), systemImage: "play.fill")

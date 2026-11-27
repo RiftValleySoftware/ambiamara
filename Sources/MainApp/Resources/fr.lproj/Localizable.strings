@@ -143,7 +143,7 @@ APPUYER LONGUEMENT : Affiche un curseur pour régler le temps restant.";
 "SLUG-START-IN-WARNING"                        =   "Démarrer en phase d’avertissement";
 "SLUG-START-IN-FINAL"                          =   "Démarrer en phase finale";
 "SLUG-START-IN-FINAL-TURNS-OFF-WARNING"        =   "Désactive l’avertissement.";
-"SLUG-TIMER-STARTS-IN-WARNING"                 =   "Démarre en phase d’avertissement";
+"SLUG-TIMER-STARTS-IN-WARNING"                 =   "Démarre en phase d’avertissement.";
 "SLUG-TIMER-ENTIRELY-IN-WARNING"               =   "Reste en phase d’avertissement";
 "SLUG-TIMER-ENTIRELY-IN-FINAL"                 =   "Reste en phase finale";
 "SLUG-HOURS"                                    =   "Heures";
@@ -487,11 +487,9 @@ Touchez la roue dentée pour voir les crédits et les licences des logiciels.";
 
 // MARK: Timer Backup
 
-"SLUG-BACKUP-EXPORT" = "Exporter la sauvegarde…";
-"SLUG-BACKUP-RESTORE" = "Restaurer la sauvegarde…";
-"SLUG-ACC-BACKUP-EXPORT-LABEL" = "Exporter la sauvegarde";
+"SLUG-BACKUP-EXPORT" = "Exporter sauvegarde";
+"SLUG-BACKUP-RESTORE" = "Restaurer sauvegarde";
 "SLUG-ACC-BACKUP-EXPORT-HINT" = "Choisissez où enregistrer une sauvegarde de vos minuteurs et réglages.";
-"SLUG-ACC-BACKUP-RESTORE-LABEL" = "Restaurer la sauvegarde";
 "SLUG-ACC-BACKUP-RESTORE-HINT" = "Choisissez un fichier de sauvegarde pour restaurer vos minuteurs et réglages enregistrés.";
 "SLUG-BACKUP-FILES-HINT" = "Enregistrez la sauvegarde dans iCloud Drive pour la conserver après avoir supprimé RiVal.T.";
 "SLUG-BACKUP-FILENAME" = "Sauvegarde RiVal.T %@";

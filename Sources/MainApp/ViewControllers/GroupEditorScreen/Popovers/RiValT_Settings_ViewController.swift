@@ -179,6 +179,7 @@ class RiValT_Settings_ViewController: RiValT_GroupEditor_Popover {
         _setPreferredContentSize()
     }
     
+    /// Keeps the subscription that updates the Watch Remote status label while settings are open.
     private var watchStatusObserver: AnyCancellable?
 
     /// On iPad, turning on the remote makes this host discoverable by its short Bluetooth name.

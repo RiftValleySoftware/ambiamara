@@ -217,6 +217,7 @@ class RiValT_Settings: RVS_PersistentPrefs {
 }
 
 extension RiValT_Settings {
+    /// Captures the current behavior preferences and the supplied timer model in a portable backup.
     func timerBackup(for model: TimerModel) throws -> RiValT_TimerBackup {
         let preferences = RiValT_TimerBackup.Preferences(startTimerImmediately: startTimerImmediately,
                                                         displayToolbar: displayToolbar,
@@ -227,6 +228,7 @@ extension RiValT_Settings {
         return RiValT_TimerBackup(model: model, preferences: preferences)
     }
 
+    /// Persists the backed-up preferences and presets, then stops the previous timers and replaces the live model.
     func restoreTimerBackup(_ backup: RiValT_TimerBackup, into model: TimerModel) throws {
         let preferences = backup.preferences
         let timerValues = backup.persistentTimerModel

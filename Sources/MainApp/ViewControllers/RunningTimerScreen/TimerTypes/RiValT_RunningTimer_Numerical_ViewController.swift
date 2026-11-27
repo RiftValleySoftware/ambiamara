@@ -147,8 +147,11 @@ extension RiValT_RunningTimer_Numerical_ViewController {
              Internal static cache struct.
              */
             struct _HexCache {
+                /// The cached point-up hexagon outline.
                 static var hexPath = CGMutablePath()
+                /// The radius used to build the cached outline.
                 static var hexSize = CGFloat(-1)
+                /// The bounding size of the cached hexagon.
                 static var hexBoxSize = CGSize.zero
             }
 

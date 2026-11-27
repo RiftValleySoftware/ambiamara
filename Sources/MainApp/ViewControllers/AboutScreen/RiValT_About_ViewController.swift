@@ -32,8 +32,13 @@ class RiValT_About_ViewController: RiValT_Base_ViewController {
      */
     @IBOutlet weak var aboutText: UITextView?
 
+    /// The stack that holds the divider, backup help text, and actions.
     @IBOutlet private weak var backupActions: UIStackView?
 
+    /// The two backup buttons, arranged to fit their localized titles.
+    private weak var backupButtons: UIStackView?
+
+    /// The temporary directory backing the active export picker.
     private var exportDirectory: URL?
 }
 
@@ -63,8 +68,24 @@ extension RiValT_About_ViewController {
         settingsButton.accessibilityHint = "SLUG-ACC-ABOUT-SETTINGS-HINT".localizedVariant
         navigationItem.rightBarButtonItem = settingsButton
         configureBackupActions()
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (controller: RiValT_About_ViewController, _) in
+            controller.view.setNeedsLayout()
+        }
     }
 
+    /// Reflows the backup buttons when their available width or text size changes.
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateBackupButtonLayout()
+    }
+
+    /// Rechecks the row after UIKit finishes applying the initial text size to the buttons.
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateBackupButtonLayout()
+    }
+
+    /// Formats the About text and appends an accessible link to the RiVal.T website.
     private func configureAboutText() {
         guard let aboutText else { return }
         let font = aboutText.font ?? .preferredFont(forTextStyle: .body)
@@ -76,6 +97,7 @@ extension RiValT_About_ViewController {
         aboutText.accessibilityValue = text.string
     }
 
+    /// Opens the system Settings page for RiVal.T.
     @objc private func openSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url)
@@ -83,19 +105,14 @@ extension RiValT_About_ViewController {
 }
 
 extension RiValT_About_ViewController: UIDocumentPickerDelegate {
+    /// Lays out the backup help text and actions below a thin divider.
     private func configureBackupActions() {
-        let export = backupButton("SLUG-BACKUP-EXPORT".localizedVariant,
-                                  symbol: "square.and.arrow.up",
-                                  accessibilityLabel: "SLUG-ACC-BACKUP-EXPORT-LABEL".localizedVariant,
-                                  accessibilityHint: "SLUG-ACC-BACKUP-EXPORT-HINT".localizedVariant) { [weak self] _ in
-            self?.exportTimerBackup()
-        }
-        let restore = backupButton("SLUG-BACKUP-RESTORE".localizedVariant,
-                                   symbol: "square.and.arrow.down",
-                                   accessibilityLabel: "SLUG-ACC-BACKUP-RESTORE-LABEL".localizedVariant,
-                                   accessibilityHint: "SLUG-ACC-BACKUP-RESTORE-HINT".localizedVariant) { [weak self] _ in
-            self?.chooseTimerBackup()
-        }
+        guard let backupActions else { return }
+
+        let divider = UIView()
+        divider.backgroundColor = .separator
+        divider.heightAnchor.constraint(equalToConstant: 1).isActive = true
+
         let hint = UILabel()
         hint.text = "SLUG-BACKUP-FILES-HINT".localizedVariant
         hint.font = .preferredFont(forTextStyle: .footnote)
@@ -103,29 +120,75 @@ extension RiValT_About_ViewController: UIDocumentPickerDelegate {
         hint.textColor = .label
         hint.textAlignment = .center
         hint.numberOfLines = 0
-        backupActions?.addArrangedSubview(export)
-        backupActions?.addArrangedSubview(restore)
-        backupActions?.addArrangedSubview(hint)
+
+        let restore = backupButton("SLUG-BACKUP-RESTORE".localizedVariant,
+                                   symbol: "square.and.arrow.down",
+                                   accessibilityHint: "SLUG-ACC-BACKUP-RESTORE-HINT".localizedVariant) { [weak self] _ in
+            self?.chooseTimerBackup()
+        }
+        let export = backupButton("SLUG-BACKUP-EXPORT".localizedVariant,
+                                  symbol: "square.and.arrow.up",
+                                  accessibilityHint: "SLUG-ACC-BACKUP-EXPORT-HINT".localizedVariant) { [weak self] _ in
+            self?.exportTimerBackup()
+        }
+        let buttons = UIStackView(arrangedSubviews: [restore, export])
+        buttons.axis = .horizontal
+        buttons.distribution = .fillEqually
+        buttons.spacing = 8
+
+        backupActions.addArrangedSubview(divider)
+        backupActions.addArrangedSubview(hint)
+        backupActions.addArrangedSubview(buttons)
+        backupButtons = buttons
     }
 
+    /// Gives the actions full width when two columns cannot fit the localized titles.
+    private func updateBackupButtonLayout() {
+        guard let backupButtons, backupButtons.bounds.width > 0 else { return }
+
+        let columnWidth = (backupButtons.bounds.width - backupButtons.spacing) / 2
+        let buttonTraits = backupButtons.traitCollection
+        let titleFont = UIFont.preferredFont(forTextStyle: .body, compatibleWith: buttonTraits)
+        let titleScale: CGFloat = buttonTraits.preferredContentSizeCategory <= .large ? 0.7 : 1
+        let fitsInRow = backupButtons.arrangedSubviews.allSatisfy { view in
+            guard let button = view as? UIButton, let label = button.titleLabel,
+                  let title = button.configuration?.title else { return false }
+            // The label can still have its default font during the first layout pass.
+            let titleWidth = (title as NSString).size(withAttributes: [.font: titleFont]).width
+            let otherWidth = max(0, button.intrinsicContentSize.width - label.intrinsicContentSize.width)
+            return ceil(otherWidth + titleWidth * titleScale) <= columnWidth
+        }
+        let axis: NSLayoutConstraint.Axis = fitsInRow ? .horizontal : .vertical
+        if backupButtons.axis != axis {
+            backupButtons.axis = axis
+        }
+    }
+
+    /// Creates a single-line backup button with a matching accessible name and a localized hint.
     private func backupButton(_ title: String,
                               symbol: String,
-                              accessibilityLabel: String,
                               accessibilityHint: String,
                               handler: @escaping UIActionHandler) -> UIButton {
         var configuration = UIButton.Configuration.gray()
         configuration.baseForegroundColor = .accent
         configuration.title = title
+        configuration.titleLineBreakMode = .byTruncatingTail
+        configuration.titleAlignment = .center
         configuration.image = UIImage(systemName: symbol)
-        configuration.imagePadding = 8
+        configuration.imagePadding = 4
+        configuration.contentInsets.leading = 4
+        configuration.contentInsets.trailing = 4
         let button = UIButton(configuration: configuration, primaryAction: UIAction(handler: handler))
-        button.accessibilityLabel = accessibilityLabel
+        button.titleLabel?.numberOfLines = 1
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.minimumScaleFactor = 0.35
+        button.accessibilityLabel = title
         button.accessibilityHint = accessibilityHint
-        button.titleLabel?.lineBreakMode = .byWordWrapping
         button.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).isActive = true
         return button
     }
 
+    /// Writes a dated backup to a temporary folder and offers it to the document picker.
     private func exportTimerBackup() {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
         exportDirectory = directory
@@ -143,25 +206,30 @@ extension RiValT_About_ViewController: UIDocumentPickerDelegate {
         }
     }
 
+    /// Presents a document picker restricted to timer backup files.
     private func chooseTimerBackup() {
         let type = UTType(exportedAs: RiValT_TimerBackup.typeIdentifier, conformingTo: .json)
         showPicker(UIDocumentPickerViewController(forOpeningContentTypes: [type], asCopy: true))
     }
 
+    /// Configures delegate callbacks before presenting a backup document picker.
     private func showPicker(_ picker: UIDocumentPickerViewController) {
         picker.delegate = self
         picker.presentationController?.delegate = self
         present(picker, animated: true)
     }
 
+    /// Removes the temporary export if the user cancels the picker.
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
         removeExportDirectory()
     }
 
+    /// Removes the temporary export after an interactive dismissal.
     @objc func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         removeExportDirectory()
     }
 
+    /// Cleans up a completed export or validates the chosen restore file after closing the picker.
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if exportDirectory != nil {
             removeExportDirectory()
@@ -179,12 +247,14 @@ extension RiValT_About_ViewController: UIDocumentPickerDelegate {
         }
     }
 
+    /// Removes the temporary export directory and clears the reference to it.
     private func removeExportDirectory() {
         guard let exportDirectory else { return }
         try? FileManager.default.removeItem(at: exportDirectory)
         self.exportDirectory = nil
     }
 
+    /// Requests confirmation for a valid restore or shows the appropriate validation error.
     private func showRestoreResult(_ result: Result<RiValT_TimerBackup, Error>) {
         switch result {
         case .success(let backup):
@@ -196,6 +266,7 @@ extension RiValT_About_ViewController: UIDocumentPickerDelegate {
         }
     }
 
+    /// Shows how many presets and groups will replace the current setup and asks for confirmation.
     private func confirmRestore(_ backup: RiValT_TimerBackup) {
         let message = String(format: "SLUG-BACKUP-RESTORE-CONFIRMATION".localizedVariant, locale: .current,
                              backup.timerCount, backup.groupCount)
@@ -207,6 +278,7 @@ extension RiValT_About_ViewController: UIDocumentPickerDelegate {
         present(alert, animated: true)
     }
 
+    /// Applies the confirmed backup, refreshes Watch state, and reports the result.
     private func restoreTimerBackup(_ backup: RiValT_TimerBackup) {
         do {
             try RiValT_Settings().restoreTimerBackup(backup, into: timerModel)
@@ -218,6 +290,7 @@ extension RiValT_About_ViewController: UIDocumentPickerDelegate {
         }
     }
 
+    /// Presents a localized backup status or error with a single dismissal action.
     private func showBackupMessage(_ title: String) {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "SLUG-OK-BUTTON-TEXT".localizedVariant, style: .default))

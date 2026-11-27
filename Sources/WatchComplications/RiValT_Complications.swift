@@ -12,6 +12,7 @@ import WidgetKit
 import SwiftUI
 import CoreGraphics
 
+/// Builds WidgetKit timelines from the selected host’s stored timer state.
 struct Rift_Valley_Timer_Watch_App_Provider: TimelineProvider {
     func placeholder(in context: Context) -> Rift_Valley_Timer_Watch_App_Entry {
         .init(date: .now, snapshot: .init(timerID: UUID(), groupNumber: 1, timerNumber: 1, groupSize: 1,
@@ -50,12 +51,16 @@ struct Rift_Valley_Timer_Watch_App_Provider: TimelineProvider {
     }
 }
 
+/// A dated timer sample used to render one state of the complication.
 struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
     let date: Date
+    /// The last applicable host sample, if one is available.
     let snapshot: RiValT_RemoteState.Snapshot?
 
+    /// The timer phase at the date represented by the entry.
     var phase: RiValT_RemoteState.Phase { snapshot?.phase(at: date) ?? .unavailable }
 
+    /// An SF Symbol name for the warning or final phase.
     var phaseSymbol: String? {
         switch phase {
         case .warning: return "exclamationmark.triangle.fill"
@@ -64,6 +69,7 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
         }
     }
 
+    /// The phase tint for a full-color complication during warning or final.
     var phaseColor: Color? {
         switch phase {
         case .warning: return .yellow
@@ -72,6 +78,7 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
         }
     }
 
+    /// A live countdown, fixed duration, or unavailable marker for the watch face.
     var timerText: Text {
         guard let snapshot, snapshot.timerID != nil, phase != .unavailable else { return Text(verbatim: "—") }
         let remaining = snapshot.complicationRemaining(at: date)
@@ -90,6 +97,7 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
         return Text(verbatim: Duration.seconds(snapshot.complicationRemaining(at: date)).formatted(.units(width: .wide)))
     }
 
+    /// The spoken time with a warning or final phase announcement when applicable.
     var spokenStatus: Text {
         switch phase {
         case .warning: return Text("SLUG-WARNING") + Text(verbatim: ", ") + spokenTime
@@ -99,14 +107,21 @@ struct Rift_Valley_Timer_Watch_App_Entry: TimelineEntry {
     }
 }
 
+/// Adapts the complication entry to the selected watch face family and rendering mode.
 struct Rift_Valley_Timer_ComplicationsEntryView: View {
+    /// The widget family used by the current watch face slot.
     @Environment(\.widgetFamily) private var family
+    /// Whether the watch face renders full color or applies its own accent styling.
     @Environment(\.widgetRenderingMode) private var renderingMode
+    /// The dated countdown state to show in this slot.
     let entry: Rift_Valley_Timer_Watch_App_Entry
 
+    /// The original-color RiVal.T mark for full-color watch faces.
     private static let fullColorLogo = loadLogo(named: "VectorLogo", asTemplate: false)
+    /// The template RiVal.T mark for system-tinted watch faces.
     private static let templateLogo = loadLogo(named: "TemplateLogo", asTemplate: true)
 
+    /// Rasterizes a bounded-size complication logo and converts it to a template if requested.
     private static func loadLogo(named name: String, asTemplate: Bool) -> UIImage {
         guard let source = UIImage(named: name)?.cgImage else { return UIImage() }
         // WidgetKit archives the image at its pixel size before SwiftUI lays it out.
@@ -134,22 +149,26 @@ struct Rift_Valley_Timer_ComplicationsEntryView: View {
         return UIImage(cgImage: image, scale: 2, orientation: .up)
     }
 
+    /// The current phase symbol or an app logo suited to the watch face rendering mode.
     private var iconImage: Image {
         if let symbol = entry.phaseSymbol { return Image(systemName: symbol) }
         return renderingMode == .fullColor ? Image(uiImage: Self.fullColorLogo).renderingMode(.original)
             : Image(uiImage: Self.templateLogo).renderingMode(.template)
     }
 
+    /// The phase tint when the watch face accepts full color.
     private var phaseColor: Color? {
         renderingMode == .fullColor ? entry.phaseColor : nil
     }
 
+    /// A resizable phase symbol or logo with the appropriate watch face styling.
     private var icon: some View {
         iconImage.resizable().scaledToFit()
             .foregroundStyle(phaseColor ?? .primary)
             .widgetAccentable(renderingMode != .fullColor)
     }
 
+    /// The countdown text sized and styled for a single line.
     private var time: some View {
         entry.timerText
         .foregroundColor(phaseColor)
@@ -194,8 +213,10 @@ struct Rift_Valley_Timer_ComplicationsEntryView: View {
     }
 }
 
+/// The WidgetKit entry point for the RiVal.T timer complication.
 @main
 struct RiValT_Complications: Widget {
+    /// The complication kind used by its timeline provider and reload requests.
     let kind = RiValT_ComplicationState.kind
 
     var body: some WidgetConfiguration {

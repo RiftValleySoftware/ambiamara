@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Rift_Valley_Timer_Watch_App_Entry Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Struct/Rift_Valley_Timer_Watch_App_Entry" class="dashAnchor"></a>
+
+    <a title="Rift_Valley_Timer_Watch_App_Entry Structure Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          RiVal.T Watch Complication Documentation
+        </a>
+         (100% documented)
+      </p>
+    
+      <div class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </div>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/ambiamara">
+            <img class="header-icon" src="../img/gh.png" alt="GitHub"/>
+            View on GitHub
+          </a>
+        </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Friftvalleysoftware.github.io%2Fambiamara%2Fcomplication%2Fdocsets%2FWatch_Complications.xml">
+            <img class="header-icon" src="../img/dash.png" alt="Dash"/>
+            Install in Dash
+          </a>
+        </p>
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">Watch_Complications</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      <a class="breadcrumb" href="../Structs.html">Structures</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      Rift_Valley_Timer_Watch_App_Entry Structure Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_ComplicationState.html">RiValT_ComplicationState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_ComplicationState/Record.html">– Record</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState.html">RiValT_RemoteState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/TimerOperation.html">– TimerOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Phase.html">– Phase</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Snapshot.html">– Snapshot</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Host.html">– Host</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Clock.html">– Clock</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RiValT_Complications.html">RiValT_Complications</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Rift_Valley_Timer_ComplicationsEntryView.html">Rift_Valley_Timer_ComplicationsEntryView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Rift_Valley_Timer_Watch_App_Entry.html">Rift_Valley_Timer_Watch_App_Entry</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Rift_Valley_Timer_Watch_App_Provider.html">Rift_Valley_Timer_Watch_App_Provider</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>Rift_Valley_Timer_Watch_App_Entry</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Rift_Valley_Timer_Watch_App_Entry</span> <span class="p">:</span> <span class="kt">TimelineEntry</span></code></pre>
+
+                </div>
+              </div>
+            <p>A dated timer sample used to render one state of the complication.</p>
+
+              <div class="slightly-smaller">
+                <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchComplications/RiValT_Complications.swift#L55-L108">Show on GitHub</a>
+              </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9WidgetKit13TimelineEntryP4date10Foundation4DateVvp"></a>
+                    <a name="//apple_ref/swift/Property/date" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9WidgetKit13TimelineEntryP4date10Foundation4DateVvp">date</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchComplications/RiValT_Complications.swift#L56">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19Watch_Complications018Rift_Valley_Timer_A10_App_EntryV8snapshotAA18RiValT_RemoteStateO8SnapshotVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/snapshot" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19Watch_Complications018Rift_Valley_Timer_A10_App_EntryV8snapshotAA18RiValT_RemoteStateO8SnapshotVSgvp">snapshot</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The last applicable host sample, if one is available.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">snapshot</span><span class="p">:</span> <span class="kt"><a href="../Enums/RiValT_RemoteState.html">RiValT_RemoteState</a></span><span class="o">.</span><span class="kt">Snapshot</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchComplications/RiValT_Complications.swift#L58">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19Watch_Complications018Rift_Valley_Timer_A10_App_EntryV5phaseAA18RiValT_RemoteStateO5PhaseOvp"></a>
+                    <a name="//apple_ref/swift/Property/phase" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19Watch_Complications018Rift_Valley_Timer_A10_App_EntryV5phaseAA18RiValT_RemoteStateO5PhaseOvp">phase</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The timer phase at the date represented by the entry.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">phase</span><span class="p">:</span> <span class="kt"><a href="../Enums/RiValT_RemoteState.html">RiValT_RemoteState</a></span><span class="o">.</span><span class="kt">Phase</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchComplications/RiValT_Complications.swift#L61">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19Watch_Complications018Rift_Valley_Timer_A10_App_EntryV11phaseSymbolSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/phaseSymbol" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19Watch_Complications018Rift_Valley_Timer_A10_App_EntryV11phaseSymbolSSSgvp">phaseSymbol</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An SF Symbol name for the warning or final phase.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">phaseSymbol</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchComplications/RiValT_Complications.swift#L64-L70">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19Watch_Complications018Rift_Valley_Timer_A10_App_EntryV10phaseColor7SwiftUI0I0VSgvp"></a>
+                    <a name="//apple_ref/swift/Property/phaseColor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19Watch_Complications018Rift_Valley_Timer_A10_App_EntryV10phaseColor7SwiftUI0I0VSgvp">phaseColor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The phase tint for a full-color complication during warning or final.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">phaseColor</span><span class="p">:</span> <span class="kt">Color</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchComplications/RiValT_Complications.swift#L73-L79">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19Watch_Complications018Rift_Valley_Timer_A10_App_EntryV9timerText7SwiftUI0I0Vvp"></a>
+                    <a name="//apple_ref/swift/Property/timerText" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19Watch_Complications018Rift_Valley_Timer_A10_App_EntryV9timerText7SwiftUI0I0Vvp">timerText</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A live countdown, fixed duration, or unavailable marker for the watch face.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">timerText</span><span class="p">:</span> <span class="kt">Text</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchComplications/RiValT_Complications.swift#L82-L89">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19Watch_Complications018Rift_Valley_Timer_A10_App_EntryV10spokenTime7SwiftUI4TextVvp"></a>
+                    <a name="//apple_ref/swift/Property/spokenTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19Watch_Complications018Rift_Valley_Timer_A10_App_EntryV10spokenTime7SwiftUI4TextVvp">spokenTime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Keep WidgetKit&rsquo;s live countdown for speech and expand a fixed duration into words.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">spokenTime</span><span class="p">:</span> <span class="kt">Text</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchComplications/RiValT_Complications.swift#L92-L98">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19Watch_Complications018Rift_Valley_Timer_A10_App_EntryV12spokenStatus7SwiftUI4TextVvp"></a>
+                    <a name="//apple_ref/swift/Property/spokenStatus" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19Watch_Complications018Rift_Valley_Timer_A10_App_EntryV12spokenStatus7SwiftUI4TextVvp">spokenStatus</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The spoken time with a warning or final phase announcement when applicable.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">spokenStatus</span><span class="p">:</span> <span class="kt">Text</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchComplications/RiValT_Complications.swift#L101-L107">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external noopener">©2018-2026 The Great Rift Valley Software Company</a></p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+    </section>
+  </body>
+</html>

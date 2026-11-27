@@ -56,6 +56,7 @@ class RiValT_SoundSettings_ViewController: RiValT_GroupEditor_Popover {
      The size of the picker font
      */
     private static let _pickerFont = UIFont.boldSystemFont(ofSize: 20)
+    /// The row height required by the alarm picker font with two points of padding.
     private static let _pickerRowHeight = ceil(_pickerFont.lineHeight) + 2
     
     /* ################################################################## */

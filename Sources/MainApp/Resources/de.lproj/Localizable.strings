@@ -143,7 +143,7 @@ GEDRÜCKT HALTEN: Zeigt einen Schieberegler an, mit dem du die verbleibende Zeit
 "SLUG-START-IN-WARNING"                        =   "In der Warnphase starten";
 "SLUG-START-IN-FINAL"                          =   "In der Endphase starten";
 "SLUG-START-IN-FINAL-TURNS-OFF-WARNING"        =   "Schaltet die Warnphase aus.";
-"SLUG-TIMER-STARTS-IN-WARNING"                 =   "Startet in der Warnphase";
+"SLUG-TIMER-STARTS-IN-WARNING"                 =   "Startet in der Warnphase.";
 "SLUG-TIMER-ENTIRELY-IN-WARNING"               =   "Läuft ganz in der Warnphase";
 "SLUG-TIMER-ENTIRELY-IN-FINAL"                 =   "Läuft ganz in der Endphase";
 "SLUG-HOURS"                                    =   "Stunden";
@@ -487,11 +487,9 @@ Tippe auf das Zahnrad, um Software-Hinweise und Lizenzen zu sehen.";
 
 // MARK: Timer Backup
 
-"SLUG-BACKUP-EXPORT" = "Timer-Backup exportieren …";
-"SLUG-BACKUP-RESTORE" = "Timer-Backup wiederherstellen …";
-"SLUG-ACC-BACKUP-EXPORT-LABEL" = "Timer-Backup exportieren";
+"SLUG-BACKUP-EXPORT" = "Backup exportieren";
+"SLUG-BACKUP-RESTORE" = "Backup einspielen";
 "SLUG-ACC-BACKUP-EXPORT-HINT" = "Wähle aus, wo du eine Sicherung deiner Timer und Einstellungen speichern möchtest.";
-"SLUG-ACC-BACKUP-RESTORE-LABEL" = "Timer-Backup wiederherstellen";
 "SLUG-ACC-BACKUP-RESTORE-HINT" = "Wähle eine Sicherungsdatei aus, um gespeicherte Timer und Einstellungen wiederherzustellen.";
 "SLUG-BACKUP-FILES-HINT" = "Speichere das Backup in iCloud Drive, damit es auch nach dem Löschen von RiVal.T erhalten bleibt.";
 "SLUG-BACKUP-FILENAME" = "RiVal.T Backup %@";

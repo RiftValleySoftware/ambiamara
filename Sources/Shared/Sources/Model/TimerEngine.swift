@@ -696,10 +696,10 @@ public extension TimerEngine {
     /**
      This is a closed range, from the very beginning, to (and including) the final time.
      
-     > NOTE: If no final time (set to 0), then this returns an empty range. The range needs to be at least one second long (value of 2), to be valid.
+     A positive threshold includes the last second. A threshold of zero disables the phase and returns `0...0`.
      */
     var finalRange: ClosedRange<Int> {
-        if 1 < self.finalTimeInSeconds {
+        if 0 < self.finalTimeInSeconds {
             return 1...(self.finalTimeInSeconds == self.startingTimeInSeconds - 1 ? self.startingTimeInSeconds : self.finalTimeInSeconds)
         } else {
             return 0...0

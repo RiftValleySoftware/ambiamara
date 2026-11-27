@@ -17,6 +17,32 @@ import XCTest
  These will run faceless tests on the timer engine.
  */
 class TimerEngineTests: XCTestCase {
+    func testCountdownEntersFinalWithOneSecondRemaining() {
+        let timer = TimerEngine(startingTimeInSeconds: 30, warningTimeInSeconds: 29, finalTimeInSeconds: 1)
+        let final = expectation(description: "Countdown enters Final at one second")
+        let alarm = expectation(description: "Countdown enters Alarm after Final")
+        timer.transitionHandler = { engine, from, to in
+            switch to {
+            case .final:
+                XCTAssertEqual(from, .warning)
+                XCTAssertEqual(engine.currentTime, 1)
+                final.fulfill()
+            case .alarm:
+                XCTAssertEqual(from, .final)
+                alarm.fulfill()
+            default:
+                break
+            }
+        }
+        defer { timer.stop() }
+
+        XCTAssertEqual(timer.warnRange, 2...30)
+        XCTAssertEqual(timer.finalRange, 1...1)
+        timer.seek(toRemaining: 2)
+        XCTAssertEqual(timer.mode, .warning)
+        wait(for: [final, alarm], timeout: 5, enforceOrder: true)
+    }
+
     func testSeekSkipsTransitionsAndResumesNaturalCountdown() {
         let timer = TimerEngine(startingTimeInSeconds: 30, warningTimeInSeconds: 15, finalTimeInSeconds: 5)
         let alarm = expectation(description: "Countdown reaches its alarm after the last seek")
@@ -92,7 +118,7 @@ class TimerEngineTests: XCTestCase {
      */
     func testTransition() {
         print("TimerEngineTests.testTransition (START)")
-        let totalTimeInSeconds = 6  // Six is the minimum time, if we want both a warning and a final, as each range needs to be at least one full second long.
+        let totalTimeInSeconds = 6
         let warnTimeInSeconds = 4
         let finalTimeInSeconds = 2
         
@@ -365,7 +391,7 @@ class TimerEngineTests: XCTestCase {
      */
     func testFastForward() {
         print("TimerEngineTests.testFastForward (START)")
-        let totalTimeInSeconds = 6  // Six is the minimum time, if we want both a warning and a final, as each range needs to be at least one full second long.
+        let totalTimeInSeconds = 6
         let warnTimeInSeconds = 4
         let finalTimeInSeconds = 2
         let expectationWaitTimeout: TimeInterval = TimeInterval(totalTimeInSeconds) + 0.25

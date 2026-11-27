@@ -23,6 +23,7 @@ import UIKit
 class RiValT_GroupEditor_Popover: RiValT_Base_ViewController {
     override var usesBackgroundGradient: Bool { false }
 
+    /// The noninteractive overlay that dims the editor behind the popover.
     private let dimmingView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.32)
@@ -43,6 +44,7 @@ class RiValT_GroupEditor_Popover: RiValT_Base_ViewController {
         view.accessibilityViewIsModal = true
     }
 
+    /// Adds the overlay to the presenting view and fades it in.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let presenter = presentingViewController,
@@ -52,16 +54,19 @@ class RiValT_GroupEditor_Popover: RiValT_Base_ViewController {
         setDimmingVisible(true)
     }
 
+    /// Fades the overlay out with the popover dismissal.
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         setDimmingVisible(false)
     }
 
+    /// Removes the overlay after the popover closes.
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         dimmingView.removeFromSuperview()
     }
 
+    /// Animates the overlay with the active transition or applies the opacity immediately.
     private func setDimmingVisible(_ visible: Bool) {
         guard let background = dimmingView.superview else { return }
         let alpha: CGFloat = visible ? 1 : 0
@@ -73,6 +78,7 @@ class RiValT_GroupEditor_Popover: RiValT_Base_ViewController {
 
 /** Draws the opaque body and pointer as one shape, with a continuous one-point label-colored border. */
 final class RiValT_GroupEditor_PopoverBackgroundView: UIPopoverBackgroundView {
+    /// The opaque popover surface color resolved against the current appearance.
     static let fillColor = UIColor { $0.userInterfaceStyle == .dark ? .black : .white }
 
     /// Width in points of the continuous body-and-arrow outline.
@@ -80,7 +86,9 @@ final class RiValT_GroupEditor_PopoverBackgroundView: UIPopoverBackgroundView {
     /// Preferred radius in points of the popover body corners.
     static let cornerRadius: CGFloat = 40
 
+    /// The displacement of the pointer from the center of the popover edge.
     private var storedArrowOffset: CGFloat = 0
+    /// The edge on which UIKit positions the pointer.
     private var storedArrowDirection: UIPopoverArrowDirection = .up
 
     /// Arrow displacement from the center, supplied by UIKit.
@@ -116,6 +124,7 @@ final class RiValT_GroupEditor_PopoverBackgroundView: UIPopoverBackgroundView {
         configureDrawing()
     }
 
+    /// Sets up transparent drawing and redraws the outline when appearance or contrast changes.
     private func configureDrawing() {
         backgroundColor = .clear
         isOpaque = false

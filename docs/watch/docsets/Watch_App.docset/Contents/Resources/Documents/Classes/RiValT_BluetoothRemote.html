@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RiValT_BluetoothRemote Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/RiValT_BluetoothRemote" class="dashAnchor"></a>
+
+    <a title="RiValT_BluetoothRemote Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          RiVal.T Watch App Documentation
+        </a>
+         (100% documented)
+      </p>
+    
+      <div class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </div>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/ambiamara">
+            <img class="header-icon" src="../img/gh.png" alt="GitHub"/>
+            View on GitHub
+          </a>
+        </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Friftvalleysoftware.github.io%2Fambiamara%2Fwatch%2Fdocsets%2FWatch_App.xml">
+            <img class="header-icon" src="../img/dash.png" alt="Dash"/>
+            Install in Dash
+          </a>
+        </p>
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">Watch_App</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      <a class="breadcrumb" href="../Classes.html">Classes</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      RiValT_BluetoothRemote Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_BluetoothRemote.html">RiValT_BluetoothRemote</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_BluetoothRemote/Device.html">– Device</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_ObservableModel.html">RiValT_ObservableModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_WatchDelegate.html">RiValT_WatchDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_WatchDelegate/Phase.html">– Phase</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_WatchDelegate/TimerOperation.html">– TimerOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_WatchDelegate/PendingCommand.html">– PendingCommand</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_Watch_AppDelegate.html">RiValT_Watch_AppDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_BluetoothRemotePacket.html">RiValT_BluetoothRemotePacket</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_BluetoothRemotePacket/Code.html">– Code</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_BluetoothRemotePacket/Assembly.html">– Assembly</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_ComplicationState.html">RiValT_ComplicationState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_ComplicationState/Record.html">– Record</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState.html">RiValT_RemoteState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/TimerOperation.html">– TimerOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Phase.html">– Phase</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Snapshot.html">– Snapshot</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Host.html">– Host</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Clock.html">– Clock</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:9Watch_App9watchText33_4D21450ABFD98D30F8FB6F9440238D8DLLyS2SF">watchText(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/DevicePicker.html">DevicePicker</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RiValT_Watch_App.html">RiValT_Watch_App</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RiValT_Watch_App_MainContentView.html">RiValT_Watch_App_MainContentView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RiValT_Watch_App_MainContentView/Sheet.html">– Sheet</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/TimerScreenGestures.html">TimerScreenGestures</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Watch_App9Operation33_4D21450ABFD98D30F8FB6F9440238D8DLLa">Operation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Watch_App8Snapshot33_4D21450ABFD98D30F8FB6F9440238D8DLLa">Snapshot</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>RiValT_BluetoothRemote</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">RiValT_BluetoothRemote</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">ObservableObject</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RiValT_BluetoothRemote</span><span class="p">:</span> <span class="kt">CBCentralManagerDelegate</span><span class="p">,</span> <span class="kt">CBPeripheralDelegate</span></code></pre>
+
+                </div>
+              </div>
+            <p>A foreground iPad can vend the same request/reply protocol as the paired phone.
+GATT indications carry replies and change hints; each request is applied only by the host.</p>
+
+              <div class="slightly-smaller">
+                <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L13-L231">Show on GitHub</a>
+              </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC6sharedACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/shared" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC6sharedACvpZ">shared</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The transport shared by the timer delegate and the app&rsquo;s remote settings.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">shared</span><span class="p">:</span> <span class="kt">RiValT_BluetoothRemote</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L15">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC6Packet33_52BB63E9A0E2AD7A7BF124A163E1144FLLa"></a>
+                    <a name="//apple_ref/swift/Alias/Packet" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC6Packet33_52BB63E9A0E2AD7A7BF124A163E1144FLLa">Packet</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Shared device identifiers and packet framing for the Bluetooth link.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">typealias</span> <span class="kt">Packet</span> <span class="o">=</span> <span class="kt"><a href="../Enums/RiValT_BluetoothRemotePacket.html">RiValT_BluetoothRemotePacket</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L18">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC8incoming33_52BB63E9A0E2AD7A7BF124A163E1144FLLAA0cd2T_eF6PacketO8AssemblyVvp"></a>
+                    <a name="//apple_ref/swift/Property/incoming" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC8incoming33_52BB63E9A0E2AD7A7BF124A163E1144FLLAA0cd2T_eF6PacketO8AssemblyVvp">incoming</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The current assembly for fragments received from the remote device.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">incoming</span><span class="p">:</span> <span class="kt">RiValT_BluetoothRemote</span><span class="o">.</span><span class="kt"><a href="../Classes/RiValT_BluetoothRemote.html#/s:9Watch_App22RiValT_BluetoothRemoteC6Packet33_52BB63E9A0E2AD7A7BF124A163E1144FLLa">Packet</a></span><span class="o">.</span><span class="kt">Assembly</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L21">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC6DeviceV"></a>
+                    <a name="//apple_ref/swift/Struct/Device" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC6DeviceV">Device</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The identity and advertised name of an iPad discovered by the Watch.</p>
+
+                        <a href="../Classes/RiValT_BluetoothRemote/Device.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Device</span> <span class="p">:</span> <span class="kt">Identifiable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L24-L29">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC8usesIPadSbvp"></a>
+                    <a name="//apple_ref/swift/Property/usesIPad" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC8usesIPadSbvp">usesIPad</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether the Watch uses Bluetooth to control an iPad.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">usesIPad</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L32">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC11isConnectedSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isConnected" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC11isConnectedSbvp">isConnected</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether the selected iPad has approved the encrypted request channel.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">isConnected</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L34">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC7devicesSayAC6DeviceVGvp"></a>
+                    <a name="//apple_ref/swift/Property/devices" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC7devicesSayAC6DeviceVGvp">devices</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The iPads found during the current device scan.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">devices</span><span class="p">:</span> <span class="p">[</span><span class="kt">RiValT_BluetoothRemote</span><span class="o">.</span><span class="kt"><a href="../Classes/RiValT_BluetoothRemote/Device.html">Device</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L36">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC6statusSSvp"></a>
+                    <a name="//apple_ref/swift/Property/status" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC6statusSSvp">status</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The localized scan, connection, or pairing status shown on the Watch.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">status</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L38">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC16selectedDeviceID10Foundation4UUIDVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/selectedDeviceID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC16selectedDeviceID10Foundation4UUIDVSgvp">selectedDeviceID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The persisted identifier of the selected iPad.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">selectedDeviceID</span><span class="p">:</span> <span class="kt">UUID</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L40">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC18selectedDeviceNameSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/selectedDeviceName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC18selectedDeviceNameSSSgvp">selectedDeviceName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The last advertised label saved for the selected iPad.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">selectedDeviceName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L42">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC8onChangeyycSgvp"></a>
+                    <a name="//apple_ref/swift/Property/onChange" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC8onChangeyycSgvp">onChange</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Notifies the timer delegate that the host asked for a fresh snapshot.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">onChange</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L44">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC18onConnectionChangeyycSgvp"></a>
+                    <a name="//apple_ref/swift/Property/onConnectionChange" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC18onConnectionChangeyycSgvp">onConnectionChange</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Notifies the timer delegate that link or device selection state changed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">onConnectionChange</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L46">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC7manager33_52BB63E9A0E2AD7A7BF124A163E1144FLLSo16CBCentralManagerCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/manager" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC7manager33_52BB63E9A0E2AD7A7BF124A163E1144FLLSo16CBCentralManagerCSgvp">manager</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Core Bluetooth central manager used to discover and connect to iPads.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">manager</span><span class="p">:</span> <span class="kt">CBCentralManager</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L49">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC10discovered33_52BB63E9A0E2AD7A7BF124A163E1144FLLSDy10Foundation4UUIDVSo12CBPeripheralCGvp"></a>
+                    <a name="//apple_ref/swift/Property/discovered" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC10discovered33_52BB63E9A0E2AD7A7BF124A163E1144FLLSDy10Foundation4UUIDVSo12CBPeripheralCGvp">discovered</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Recently discovered peripherals keyed by their Bluetooth identifiers.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">discovered</span><span class="p">:</span> <span class="p">[</span><span class="kt">UUID</span> <span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L51">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC4peer33_52BB63E9A0E2AD7A7BF124A163E1144FLLSo12CBPeripheralCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/peer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC4peer33_52BB63E9A0E2AD7A7BF124A163E1144FLLSo12CBPeripheralCSgvp">peer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The peripheral connecting to or serving the Watch.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">peer</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L53">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC7channel33_52BB63E9A0E2AD7A7BF124A163E1144FLLSo16CBCharacteristicCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/channel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC7channel33_52BB63E9A0E2AD7A7BF124A163E1144FLLSo16CBCharacteristicCSgvp">channel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The characteristic used to send requests and receive indications.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">channel</span><span class="p">:</span> <span class="kt">CBCharacteristic</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L55">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC10isBrowsingSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isBrowsing" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC10isBrowsingSbvp">isBrowsing</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether the device picker is actively requesting a scan.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">isBrowsing</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L57">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC6denied33_52BB63E9A0E2AD7A7BF124A163E1144FLLSbvp"></a>
+                    <a name="//apple_ref/swift/Property/denied" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC6denied33_52BB63E9A0E2AD7A7BF124A163E1144FLLSbvp">denied</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether pairing failed and automatic reconnection must wait for user action.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">denied</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L59">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC8outgoing33_52BB63E9A0E2AD7A7BF124A163E1144FLLSay10Foundation4DataVGvp"></a>
+                    <a name="//apple_ref/swift/Property/outgoing" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC8outgoing33_52BB63E9A0E2AD7A7BF124A163E1144FLLSay10Foundation4DataVGvp">outgoing</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The request fragments awaiting acknowledged writes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">outgoing</span><span class="p">:</span> <span class="p">[</span><span class="kt">Data</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L61">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC9requestID33_52BB63E9A0E2AD7A7BF124A163E1144FLLs6UInt32Vvp"></a>
+                    <a name="//apple_ref/swift/Property/requestID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC9requestID33_52BB63E9A0E2AD7A7BF124A163E1144FLLs6UInt32Vvp">requestID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The packet identifier used to match a reply to the current request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">requestID</span><span class="p">:</span> <span class="kt">UInt32</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L63">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC08reportedA4Name33_52BB63E9A0E2AD7A7BF124A163E1144FLLSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/reportedWatchName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC08reportedA4Name33_52BB63E9A0E2AD7A7BF124A163E1144FLLSSSgvp">reportedWatchName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The last Watch name acknowledged by the iPad on this connection.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">reportedWatchName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L65">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC7onReply33_52BB63E9A0E2AD7A7BF124A163E1144FLLySDySSypGcSgvp"></a>
+                    <a name="//apple_ref/swift/Property/onReply" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC7onReply33_52BB63E9A0E2AD7A7BF124A163E1144FLLySDySSypGcSgvp">onReply</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The completion callback for the current request&rsquo;s reply.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">onReply</span><span class="p">:</span> <span class="p">(([</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L67">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC9onFailure33_52BB63E9A0E2AD7A7BF124A163E1144FLLyycSgvp"></a>
+                    <a name="//apple_ref/swift/Property/onFailure" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC9onFailure33_52BB63E9A0E2AD7A7BF124A163E1144FLLyycSgvp">onFailure</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The completion callback for a timed-out or failed request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">onFailure</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L69">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC7timeout33_52BB63E9A0E2AD7A7BF124A163E1144FLL8Dispatch0Q8WorkItemCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/timeout" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC7timeout33_52BB63E9A0E2AD7A7BF124A163E1144FLL8Dispatch0Q8WorkItemCSgvp">timeout</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The pending deadline for the current request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">timeout</span><span class="p">:</span> <span class="kt">DispatchWorkItem</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L71">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC5retry33_52BB63E9A0E2AD7A7BF124A163E1144FLL8Dispatch0Q8WorkItemCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/retry" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC5retry33_52BB63E9A0E2AD7A7BF124A163E1144FLL8Dispatch0Q8WorkItemCSgvp">retry</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The scheduled reconnect after a dropped peripheral connection.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">retry</span><span class="p">:</span> <span class="kt">DispatchWorkItem</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L73">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC8activateyyF"></a>
+                    <a name="//apple_ref/swift/Method/activate()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC8activateyyF">activate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes the central manager or resumes discovery when browsing or using an iPad.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">activate</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L76-L85">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC6browseyyF"></a>
+                    <a name="//apple_ref/swift/Method/browse()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC6browseyyF">browse()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Starts a device scan and clears stale results while retaining the currently connected iPad.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">browse</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L88-L96">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC15retryConnectionyyF"></a>
+                    <a name="//apple_ref/swift/Method/retryConnection()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC15retryConnectionyyF">retryConnection()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retries an explicit connection attempt and clears a prior authorization denial.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">retryConnection</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L99-L106">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC11endBrowsingyyF"></a>
+                    <a name="//apple_ref/swift/Method/endBrowsing()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC11endBrowsingyyF">endBrowsing()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Stops device browsing and keeps scanning only when needed to reconnect to the selected iPad.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">endBrowsing</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L109-L113">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC11selectPhoneyyF"></a>
+                    <a name="//apple_ref/swift/Method/selectPhone()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC11selectPhoneyyF">selectPhone()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Switches to the paired iPhone and closes the Bluetooth link.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">selectPhone</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L116-L123">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC12selectDeviceyyAC0H0VF"></a>
+                    <a name="//apple_ref/swift/Method/selectDevice(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC12selectDeviceyyAC0H0VF">selectDevice(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Persists the chosen iPad, resets the old link, and begins connecting.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">selectDevice</span><span class="p">(</span><span class="n">_</span> <span class="nv">device</span><span class="p">:</span> <span class="kt"><a href="../Classes/RiValT_BluetoothRemote/Device.html">Device</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L126-L137">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC8discover33_52BB63E9A0E2AD7A7BF124A163E1144FLLyyF"></a>
+                    <a name="//apple_ref/swift/Method/discover()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC8discover33_52BB63E9A0E2AD7A7BF124A163E1144FLLyyF">discover()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Connects to the saved peripheral when available and scans when browsing or searching for it.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">discover</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L140-L155">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC9clearPeer33_52BB63E9A0E2AD7A7BF124A163E1144FLLyyF"></a>
+                    <a name="//apple_ref/swift/Method/clearPeer()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC9clearPeer33_52BB63E9A0E2AD7A7BF124A163E1144FLLyyF">clearPeer()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Clears the current peripheral, cancels its connection, and fails any request in flight.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">clearPeer</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L158-L168">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC9reconnect33_52BB63E9A0E2AD7A7BF124A163E1144FLL5afterySo12CBPeripheralC_tF"></a>
+                    <a name="//apple_ref/swift/Method/reconnect(after:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC9reconnect33_52BB63E9A0E2AD7A7BF124A163E1144FLL5afterySo12CBPeripheralC_tF">reconnect(after:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Releases a disconnected peer and schedules discovery again if automatic retry is allowed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">reconnect</span><span class="p">(</span><span class="n">after</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L171-L184">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC7request_5reply7failureySDySSypG_yAGcyyctF"></a>
+                    <a name="//apple_ref/swift/Method/request(_:reply:failure:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC7request_5reply7failureySDySSypG_yAGcyyctF">request(_:<wbr>reply:<wbr>failure:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sends a single framed request and calls the matching reply or failure handler.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">request</span><span class="p">(</span><span class="n">_</span> <span class="nv">message</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">],</span> <span class="nv">reply</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">([</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">failure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L187-L213">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC13finishRequest33_52BB63E9A0E2AD7A7BF124A163E1144FLLyyF"></a>
+                    <a name="//apple_ref/swift/Method/finishRequest()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC13finishRequest33_52BB63E9A0E2AD7A7BF124A163E1144FLLyyF">finishRequest()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cancels the deadline and clears the assembly, fragments, and handlers for the finished request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">finishRequest</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L216-L223">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_BluetoothRemoteC11failRequest33_52BB63E9A0E2AD7A7BF124A163E1144FLLyyF"></a>
+                    <a name="//apple_ref/swift/Method/failRequest()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_BluetoothRemoteC11failRequest33_52BB63E9A0E2AD7A7BF124A163E1144FLLyyF">failRequest()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Clears the request before notifying its failure handler.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">failRequest</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L226-L230">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)centralManagerDidUpdateState:"></a>
+                    <a name="//apple_ref/swift/Method/centralManagerDidUpdateState(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)centralManagerDidUpdateState:">centralManagerDidUpdateState(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Resumes discovery when Bluetooth powers on or clears the link and displays the unavailable state.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">centralManagerDidUpdateState</span><span class="p">(</span><span class="n">_</span> <span class="nv">central</span><span class="p">:</span> <span class="kt">CBCentralManager</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L235-L242">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)centralManager:didDiscoverPeripheral:advertisementData:RSSI:"></a>
+                    <a name="//apple_ref/swift/Method/centralManager(_:didDiscover:advertisementData:rssi:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)centralManager:didDiscoverPeripheral:advertisementData:RSSI:">centralManager(_:<wbr>didDiscover:<wbr>advertisementData:<wbr>rssi:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds a discovered iPad to the picker and connects when it matches the saved selection.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">centralManager</span><span class="p">(</span><span class="n">_</span> <span class="nv">central</span><span class="p">:</span> <span class="kt">CBCentralManager</span><span class="p">,</span> <span class="n">didDiscover</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span>
+                    <span class="nv">advertisementData</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">],</span> <span class="n">rssi</span> <span class="kt">RSSI</span><span class="p">:</span> <span class="kt">NSNumber</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L245-L255">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)centralManager:didConnectPeripheral:"></a>
+                    <a name="//apple_ref/swift/Method/centralManager(_:didConnect:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)centralManager:didConnectPeripheral:">centralManager(_:<wbr>didConnect:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Discovers the RiVal.T service on the selected iPad after connecting.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">centralManager</span><span class="p">(</span><span class="n">_</span> <span class="nv">central</span><span class="p">:</span> <span class="kt">CBCentralManager</span><span class="p">,</span> <span class="n">didConnect</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L258-L261">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)centralManager:didFailToConnectPeripheral:error:"></a>
+                    <a name="//apple_ref/swift/Method/centralManager(_:didFailToConnect:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)centralManager:didFailToConnectPeripheral:error:">centralManager(_:<wbr>didFailToConnect:<wbr>error:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Schedules reconnection if the selected peripheral fails to connect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">centralManager</span><span class="p">(</span><span class="n">_</span> <span class="nv">central</span><span class="p">:</span> <span class="kt">CBCentralManager</span><span class="p">,</span> <span class="n">didFailToConnect</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L263">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)centralManager:didDisconnectPeripheral:error:"></a>
+                    <a name="//apple_ref/swift/Method/centralManager(_:didDisconnectPeripheral:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)centralManager:didDisconnectPeripheral:error:">centralManager(_:<wbr>didDisconnectPeripheral:<wbr>error:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Schedules reconnection after losing the selected peripheral.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">centralManager</span><span class="p">(</span><span class="n">_</span> <span class="nv">central</span><span class="p">:</span> <span class="kt">CBCentralManager</span><span class="p">,</span> <span class="n">didDisconnectPeripheral</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L265">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)peripheral:didDiscoverServices:"></a>
+                    <a name="//apple_ref/swift/Method/peripheral(_:didDiscoverServices:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)peripheral:didDiscoverServices:">peripheral(_:<wbr>didDiscoverServices:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds the host service and requests discovery of its control characteristic.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">peripheral</span><span class="p">(</span><span class="n">_</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="n">didDiscoverServices</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L268-L275">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)peripheral:didModifyServices:"></a>
+                    <a name="//apple_ref/swift/Method/peripheral(_:didModifyServices:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)peripheral:didModifyServices:">peripheral(_:<wbr>didModifyServices:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reconnects when the selected iPad invalidates the timer service.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">peripheral</span><span class="p">(</span><span class="n">_</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="n">didModifyServices</span> <span class="nv">invalidatedServices</span><span class="p">:</span> <span class="p">[</span><span class="kt">CBService</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L277-L281">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)peripheral:didDiscoverCharacteristicsForService:error:"></a>
+                    <a name="//apple_ref/swift/Method/peripheral(_:didDiscoverCharacteristicsFor:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)peripheral:didDiscoverCharacteristicsForService:error:">peripheral(_:<wbr>didDiscoverCharacteristicsFor:<wbr>error:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Subscribes to indications on the selected iPad&rsquo;s control characteristic.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">peripheral</span><span class="p">(</span><span class="n">_</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="n">didDiscoverCharacteristicsFor</span> <span class="nv">service</span><span class="p">:</span> <span class="kt">CBService</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L283-L291">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)peripheral:didUpdateNotificationStateForCharacteristic:error:"></a>
+                    <a name="//apple_ref/swift/Method/peripheral(_:didUpdateNotificationStateFor:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)peripheral:didUpdateNotificationStateForCharacteristic:error:">peripheral(_:<wbr>didUpdateNotificationStateFor:<wbr>error:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Handles a failed subscription and requires a manual retry after authentication or pairing errors.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">peripheral</span><span class="p">(</span><span class="n">_</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="n">didUpdateNotificationStateFor</span> <span class="nv">characteristic</span><span class="p">:</span> <span class="kt">CBCharacteristic</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L293-L308">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)peripheral:didWriteValueForCharacteristic:error:"></a>
+                    <a name="//apple_ref/swift/Method/peripheral(_:didWriteValueFor:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)peripheral:didWriteValueForCharacteristic:error:">peripheral(_:<wbr>didWriteValueFor:<wbr>error:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sends the next request fragment after a write is acknowledged or fails the exchange.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">peripheral</span><span class="p">(</span><span class="n">_</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="n">didWriteValueFor</span> <span class="nv">characteristic</span><span class="p">:</span> <span class="kt">CBCharacteristic</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L310-L314">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)peripheral:didUpdateValueForCharacteristic:error:"></a>
+                    <a name="//apple_ref/swift/Method/peripheral(_:didUpdateValueFor:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Watch_App@objc(cs)RiValT_BluetoothRemote(im)peripheral:didUpdateValueForCharacteristic:error:">peripheral(_:<wbr>didUpdateValueFor:<wbr>error:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Handles authorization and change indications or completes the matching request from reply fragments.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">peripheral</span><span class="p">(</span><span class="n">_</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="n">didUpdateValueFor</span> <span class="nv">characteristic</span><span class="p">:</span> <span class="kt">CBCharacteristic</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_BluetoothRemote.swift#L316-L340">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external noopener">©2018-2026 The Great Rift Valley Software Company</a></p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+    </section>
+  </body>
+</html>

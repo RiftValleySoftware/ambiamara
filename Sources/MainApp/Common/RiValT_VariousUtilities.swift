@@ -154,9 +154,12 @@ class SoundBarButtonItem: BaseCustomBarButtonItem {
 
 /* ###################################################################################################################################### */
 // MARK: Custom Group Border Decorator
+/// A group-number label that exposes timer selection to VoiceOver.
 private final class GroupNumberLabel: UILabel {
+    /// The editor that handles selection within the numbered timer group.
     weak var controller: RiValT_GroupEditor_ViewController?
 
+    /// Selects the next timer in the group when accessibility activates the label.
     override func accessibilityActivate() -> Bool {
         controller?.selectNextTimerInGroup() ?? false
     }
@@ -669,6 +672,7 @@ class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
         }
     }
 
+    /// Asks the editor to add a timer at this cell when its button receives the primary action.
     @objc private func addButtonHit(_ button: UIButton) {
         guard button.superview === self.contentView else { return }
         self.myController?.addTimer(from: self)
@@ -682,6 +686,73 @@ class RiValT_TimerArray_AddCell: RiValT_BaseCollectionCell {
  This describes each cell, representing a timer, in the collection view.
  */
 class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
+    /// The preset's starting phase and whether Warning continues to the end.
+    private enum PresetPhase {
+        case standard
+        case warning
+        case warningThenFinal
+        case final
+
+        init(timer: Timer) {
+            let duration = timer.startingTimeInSeconds
+            guard duration > 0 else {
+                self = .standard
+                return
+            }
+            let final = timer.finalRangeUpperBound
+            if final >= duration {
+                self = .final
+            } else if timer.warningRangeUpperBound >= duration {
+                self = final > 0 ? .warningThenFinal : .warning
+            } else {
+                self = .standard
+            }
+        }
+
+        /// Selected cells have a black background in either appearance.
+        private static let selectedColorTraits = UITraitCollection {
+            $0.userInterfaceStyle = .dark
+            $0.accessibilityContrast = .normal
+        }
+
+        var selectedColor: UIColor {
+            let assetName: String
+            switch self {
+            case .standard: assetName = "Start-Color"
+            case .warning, .warningThenFinal: assetName = "Warn-Color"
+            case .final: assetName = "Final-Color"
+            }
+            return UIColor(named: assetName, in: nil, compatibleWith: Self.selectedColorTraits)?
+                .resolvedColor(with: Self.selectedColorTraits) ?? .white
+        }
+
+        var selectedTextColor: UIColor {
+            let color = selectedColor
+            return UIColor { $0.accessibilityContrast == .high ? .white : color }
+        }
+
+        var unselectedBackgroundColor: UIColor? {
+            switch self {
+            case .standard: return UIColor(named: "Cell-Background")
+            case .warning, .warningThenFinal: return UIColor(named: "Warning-Cell-Background")
+            case .final: return UIColor(named: "Final-Cell-Background")
+            }
+        }
+
+        var accessibilityDescription: String? {
+            switch self {
+            case .standard: return nil
+            case .warning: return "SLUG-TIMER-ENTIRELY-IN-WARNING".localizedVariant
+            case .warningThenFinal: return "SLUG-TIMER-STARTS-IN-WARNING".localizedVariant
+            case .final: return "SLUG-TIMER-ENTIRELY-IN-FINAL".localizedVariant
+            }
+        }
+    }
+
+    /// Unselected cells use dark fills in light appearance and light fills in dark appearance.
+    private static let _unselectedTextColor = UIColor { $0.userInterfaceStyle == .dark ? .black : .white }
+
+    /// Describes whether activating this cell selects its group, edits the preset, or opens the timer.
     override var accessibilityHint: String? {
         get {
             guard item?.group?.isSelected == true else { return "SLUG-ACC-COLLECTION-SELECT-GROUP-HINT".localizedVariant }
@@ -700,7 +771,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
     /**
      The width of a selected timer border.
      */
-    static let borderWidthInDisplayUnits = CGFloat(1)
+    static let borderWidthInDisplayUnits = CGFloat(3)
     
     /* ############################################################## */
     /**
@@ -754,23 +825,27 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
      */
     func configure(with inItem: Timer, indexPath inIndexPath: IndexPath, myController inMyController: RiValT_GroupEditor_ViewController?) {
         let hasSetTime = 0 < inItem.startingTimeInSeconds
-        let hasWarning = hasSetTime && 0 < inItem.warningTimeInSeconds
-        let hasFinal = hasSetTime && 0 < inItem.finalTimeInSeconds
+        let phase = PresetPhase(timer: inItem)
+        // A shortcut threshold is already represented by the full duration in its starting phase.
+        let hasWarning = hasSetTime && phase == .standard && 0 < inItem.warningTimeInSeconds
+        let hasFinal = hasSetTime && phase != .final && 0 < inItem.finalTimeInSeconds
+        let duration = inItem.setTimeDisplay
 
-        self.contentView.backgroundColor = UIColor(named: "\(inItem.isSelected ? "Selected-" : "")Cell-Background")
-        self.contentView.borderColor = inItem.isSelected ? .white : .clear
+        self.contentView.backgroundColor = inItem.isSelected ? UIColor(named: "Selected-Cell-Background") : phase.unselectedBackgroundColor
+        self.contentView.borderColor = inItem.isSelected ? phase.selectedColor : nil
         self.contentView.borderWidth = inItem.isSelected ? Self.borderWidthInDisplayUnits : 0
         self.contentView.cornerRadius = Self._cornerRadiusInDisplayUnits
         self.contentView.clipsToBounds = true
         super.configure(indexPath: inIndexPath, myController: inMyController)
+        self.accessibilityValue = phase.accessibilityDescription.map { "\(duration). \($0)" } ?? duration
         
         self.item = inItem
         self.indexPath = inIndexPath
         self.contentView.subviews.forEach { $0.removeFromSuperview() }
         let startLabel = UILabel()
-        startLabel.textColor = hasSetTime && inItem.isSelected ? UIColor(named: "Start-Color") : (hasSetTime || !inItem.isSelected ? (UIViewController().isDarkMode ? .black : .white) : .systemRed)
+        startLabel.textColor = inItem.isSelected ? phase.selectedTextColor : Self._unselectedTextColor
         startLabel.font = hasSetTime ? inItem.isSelected ? Self.digitalDisplayFontSmall : Self.unselectedDisplayFontSmall : inItem.isSelected ? Self.digitalDisplayFontBig : Self.unselectedDisplayFontBig
-        startLabel.text = hasSetTime ? inItem.setTimeDisplay : ""
+        startLabel.text = duration
         startLabel.adjustsFontSizeToFitWidth = true
         startLabel.minimumScaleFactor = 0.25
         startLabel.textAlignment = hasSetTime ? .right : .center
@@ -789,7 +864,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
         let warnLabel = UILabel()
 
         if hasWarning {
-            warnLabel.textColor = inItem.isSelected ? UIColor(named: "Warn-Color") : UIViewController().isDarkMode ? .black : .white
+            warnLabel.textColor = inItem.isSelected ? PresetPhase.warning.selectedTextColor : Self._unselectedTextColor
             warnLabel.font = inItem.isSelected ? Self.digitalDisplayFontSmall : Self.unselectedDisplayFontSmall
             warnLabel.text = inItem.warnTimeDisplay
             warnLabel.adjustsFontSizeToFitWidth = true
@@ -812,7 +887,7 @@ class RiValT_TimerArray_IconCell: RiValT_BaseCollectionCell {
         if hasFinal {
             let finalLabel = UILabel()
             
-            finalLabel.textColor = inItem.isSelected ? UIColor(named: "Final-Color") : UIViewController().isDarkMode ? .black : .white
+            finalLabel.textColor = inItem.isSelected ? PresetPhase.final.selectedTextColor : Self._unselectedTextColor
             finalLabel.font = inItem.isSelected ? Self.digitalDisplayFontSmall : Self.unselectedDisplayFontSmall
             finalLabel.text = inItem.finalTimeDisplay
             finalLabel.adjustsFontSizeToFitWidth = true

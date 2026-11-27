@@ -172,6 +172,7 @@ extension RiValT_Base_ViewController {
         self.localizeStuff()
     }
     
+    /// Installs the app's back button when needed and applies the bar item appearance.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let navigationController = self.navigationController,
@@ -195,6 +196,7 @@ extension RiValT_Base_ViewController {
         self.hideBarItemBackgrounds()
     }
 
+    /// Returns to the previous screen on the navigation stack.
     @objc private func goBack() {
         self.navigationController?.popViewController(animated: true)
     }
@@ -206,6 +208,7 @@ extension RiValT_Base_ViewController {
         buttons.forEach { $0.hidesSharedBackground = true }
         self.toolbarItems?.forEach { $0.hidesSharedBackground = true }
         self.navigationController?.toolbar.items?.forEach { $0.hidesSharedBackground = true }
+        /// Walks the view hierarchy and hides shared backgrounds on any embedded toolbar items.
         func configureToolbars(in view: UIView) {
             if let toolbar = view as? UIToolbar {
                 toolbar.items?.forEach { $0.hidesSharedBackground = true }
@@ -216,12 +219,14 @@ extension RiValT_Base_ViewController {
     }
 
     // Opening About or a settings popover can temporarily make the editor's Play action unavailable.
+    /// Refreshes bar item styling and publishes the controls available on the newly visible screen.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.hideBarItemBackgrounds()
         self.watchDelegate?.publishSnapshot()
     }
 
+    /// Publishes the host controls after this screen is no longer visible.
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.watchDelegate?.publishSnapshot()

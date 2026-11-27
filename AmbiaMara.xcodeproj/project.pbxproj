@@ -11,15 +11,18 @@
 		27ED03A683344720948D1590 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27ED03A583344720948D1590 /* Settings.bundle */; };
 		314833AFC1DE417793A4BA4A /* RiValT_RemoteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D9036B1A9E41D2B1EF6F16 /* RiValT_RemoteState.swift */; };
 		3C3ABCA82C464F488C5610FE /* RiValT_RemoteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D9036B1A9E41D2B1EF6F16 /* RiValT_RemoteState.swift */; };
-		5EB7ED46FECB426CB492AE2A /* RiValT_BluetoothRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE8946D5DD04E119AEE9BAC /* RiValT_BluetoothRemote.swift */; };
+		53C803D74B6A4A0A994D2CB2 /* Watch_Complications.docc in Sources */ = {isa = PBXBuildFile; fileRef = 53C803D74B6A4A0A994D2CB1 /* Watch_Complications.docc */; };
+		5EB7ED46FECB426CB492AE2A /* RiValT_BluetoothRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E653B3C32745CF9A6A105A /* RiValT_BluetoothRemote.swift */; };
 		7239CA3CF10245FA8F29FB45 /* RiValT_TimerBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28354935E7EB4BAE9B1AFE6A /* RiValT_TimerBackup.swift */; };
 		7971B929111F406C8576B009 /* RiValT_TimerBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28354935E7EB4BAE9B1AFE6A /* RiValT_TimerBackup.swift */; };
+		8F6FBC4BAF7542B8838237D8 /* RiValT_BluetoothRemotePacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F68ABEF4241749B4F93AE /* RiValT_BluetoothRemotePacket.swift */; };
 		942A2007CE4046D1B76E7142 /* RiValT_RemoteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D9036B1A9E41D2B1EF6F16 /* RiValT_RemoteState.swift */; };
 		A11111111111111111111101 /* RiValT_ComplicationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11111111111111111111100 /* RiValT_ComplicationState.swift */; };
 		A11111111111111111111102 /* RiValT_ComplicationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11111111111111111111100 /* RiValT_ComplicationState.swift */; };
 		A11111111111111111111103 /* RiValT_RemoteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D9036B1A9E41D2B1EF6F16 /* RiValT_RemoteState.swift */; };
 		A11111111111111111111104 /* Watch Complications.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D4F83CB32D63DB43009C4646 /* Watch Complications.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A11111111111111111111108 /* RiValT_ComplicationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11111111111111111111100 /* RiValT_ComplicationState.swift */; };
+		B19A8F599B124715B88D2CB8 /* RiValT_BluetoothRemotePacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F68ABEF4241749B4F93AE /* RiValT_BluetoothRemotePacket.swift */; };
 		B274969658BF47A1A35AA386 /* RiValT_BluetoothRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE8946D5DD04E119AEE9BAC /* RiValT_BluetoothRemote.swift */; };
 		D40EA1B12DCEB12B00DC49BC /* RiValT_ObservableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EA1B02DCEB12B00DC49BC /* RiValT_ObservableModel.swift */; };
 		D40FB3072DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40FB3062DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift */; };
@@ -99,7 +102,7 @@
 		D4E869542D99916200D56802 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E869532D99916200D56802 /* TimerEngine.swift */; };
 		D4E922712DC2451600E98B76 /* RiValT_RunningTimer_Stoplights_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E922702DC2451600E98B76 /* RiValT_RunningTimer_Stoplights_ViewController.swift */; };
 		D4EDE73B2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EDE73A2DB27661005C6BFD /* RiValT_EditTimer_ViewController.swift */; };
-		D4F3572A2D6F61C0005A815A /* RiValT_WatchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F357292D6F61C0005A815A /* RiValT_WatchDelegate.swift */; };
+		D4F3572A2D6F61C0005A815A /* RiValT_WatchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45D0D34E1554F12A21B0BF8 /* RiValT_WatchDelegate.swift */; };
 		D4F357332D6F6278005A815A /* RVS_PersistentPrefs in Frameworks */ = {isa = PBXBuildFile; productRef = D4F357322D6F6278005A815A /* RVS_PersistentPrefs */; };
 		D4F7EDE32DBD4052007F4771 /* RiValT_Settings_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7EDE22DBD4052007F4771 /* RiValT_Settings_ViewController.swift */; };
 		D4F826FB2DB9656200815664 /* Beep-014.mp3 in Copy Transition Sounds */ = {isa = PBXBuildFile; fileRef = D4F826F32DB9656200815664 /* Beep-014.mp3 */; };
@@ -290,7 +293,10 @@
 		230D39B6498A4E57B3FEE5E8 /* RemoteStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStateTests.swift; sourceTree = "<group>"; };
 		27ED03A583344720948D1590 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		28354935E7EB4BAE9B1AFE6A /* RiValT_TimerBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_TimerBackup.swift; sourceTree = "<group>"; };
+		34E653B3C32745CF9A6A105A /* RiValT_BluetoothRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_BluetoothRemote.swift; sourceTree = "<group>"; };
+		428F68ABEF4241749B4F93AE /* RiValT_BluetoothRemotePacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_BluetoothRemotePacket.swift; sourceTree = "<group>"; };
 		4DF5F90F95A441CF811ECE94 /* RiValT_GroupEditor_Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_GroupEditor_Popover.swift; sourceTree = "<group>"; };
+		53C803D74B6A4A0A994D2CB1 /* Watch_Complications.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Watch_Complications.docc; sourceTree = "<group>"; };
 		A11111111111111111111100 /* RiValT_ComplicationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_ComplicationState.swift; sourceTree = "<group>"; };
 		D3D9036B1A9E41D2B1EF6F16 /* RiValT_RemoteState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_RemoteState.swift; sourceTree = "<group>"; };
 		D40EA1B02DCEB12B00DC49BC /* RiValT_ObservableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_ObservableModel.swift; sourceTree = "<group>"; };
@@ -428,6 +434,7 @@
 		D4F83CB32D63DB43009C4646 /* Watch Complications.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Watch Complications.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F83CB42D63DB43009C4646 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		D4F83CB62D63DB43009C4646 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		F45D0D34E1554F12A21B0BF8 /* RiValT_WatchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_WatchDelegate.swift; sourceTree = "<group>"; };
 		FE8A1A3500B64A18825A0D91 /* Watch_App.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Watch_App.docc; sourceTree = "<group>"; };
 		FEE8946D5DD04E119AEE9BAC /* RiValT_BluetoothRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_BluetoothRemote.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -599,6 +606,8 @@
 			children = (
 				D43B975B2DA2C1D10028E023 /* RiValT_AppDelegate.swift */,
 				D43B97632DA2C1D10028E023 /* RiValT_SceneDelegate.swift */,
+				D4F357292D6F61C0005A815A /* RiValT_WatchDelegate.swift */,
+				FEE8946D5DD04E119AEE9BAC /* RiValT_BluetoothRemote.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -618,6 +627,8 @@
 			isa = PBXGroup;
 			children = (
 				D40EA1B02DCEB12B00DC49BC /* RiValT_ObservableModel.swift */,
+				F45D0D34E1554F12A21B0BF8 /* RiValT_WatchDelegate.swift */,
+				34E653B3C32745CF9A6A105A /* RiValT_BluetoothRemote.swift */,
 				D4A932202D64E9CB0028556E /* RiValT_Watch_App.swift */,
 				FE8A1A3500B64A18825A0D91 /* Watch_App.docc */,
 				D4A9321F2D64E9CB0028556E /* RiValT_Watch_App_MainContentView.swift */,
@@ -633,6 +644,7 @@
 			isa = PBXGroup;
 			children = (
 				D4A932282D64E9CB0028556E /* RiValT_Complications.swift */,
+				53C803D74B6A4A0A994D2CB1 /* Watch_Complications.docc */,
 				D4A932272D64E9CB0028556E /* Info.plist */,
 				D4A9322E2D64EA440028556E /* WatchComplications.entitlements */,
 				D4A932262D64E9CB0028556E /* Assets.xcassets */,
@@ -773,8 +785,7 @@
 			children = (
 				D4E869532D99916200D56802 /* TimerEngine.swift */,
 				D4181D0C2DAC7364002CF428 /* TimerModel.swift */,
-				D4F357292D6F61C0005A815A /* RiValT_WatchDelegate.swift */,
-				FEE8946D5DD04E119AEE9BAC /* RiValT_BluetoothRemote.swift */,
+				428F68ABEF4241749B4F93AE /* RiValT_BluetoothRemotePacket.swift */,
 				D3D9036B1A9E41D2B1EF6F16 /* RiValT_RemoteState.swift */,
 				A11111111111111111111100 /* RiValT_ComplicationState.swift */,
 			);
@@ -1199,6 +1210,7 @@
 				D43B97672DA2C1D10028E023 /* RiValT_SceneDelegate.swift in Sources */,
 				D4B26FD52DC6DC2900D2CD11 /* RiValT_WatchDelegate.swift in Sources */,
 				B274969658BF47A1A35AA386 /* RiValT_BluetoothRemote.swift in Sources */,
+				8F6FBC4BAF7542B8838237D8 /* RiValT_BluetoothRemotePacket.swift in Sources */,
 				314833AFC1DE417793A4BA4A /* RiValT_RemoteState.swift in Sources */,
 				D472DF922DC3C2F80076A987 /* RiValT_About_ViewController.swift in Sources */,
 				7239CA3CF10245FA8F29FB45 /* RiValT_TimerBackup.swift in Sources */,
@@ -1261,6 +1273,7 @@
 			files = (
 				D4F3572A2D6F61C0005A815A /* RiValT_WatchDelegate.swift in Sources */,
 				5EB7ED46FECB426CB492AE2A /* RiValT_BluetoothRemote.swift in Sources */,
+				B19A8F599B124715B88D2CB8 /* RiValT_BluetoothRemotePacket.swift in Sources */,
 				3C3ABCA82C464F488C5610FE /* RiValT_RemoteState.swift in Sources */,
 				A11111111111111111111101 /* RiValT_ComplicationState.swift in Sources */,
 				D4A932222D64E9CB0028556E /* RiValT_Watch_App_MainContentView.swift in Sources */,
@@ -1277,6 +1290,7 @@
 				A11111111111111111111102 /* RiValT_ComplicationState.swift in Sources */,
 				A11111111111111111111103 /* RiValT_RemoteState.swift in Sources */,
 				D4A9322C2D64E9CB0028556E /* RiValT_Complications.swift in Sources */,
+				53C803D74B6A4A0A994D2CB2 /* Watch_Complications.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1972,7 +1986,7 @@
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_UIKit_Toolbox.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.7.6;
+				minimumVersion = 1.7.7;
 			};
 		};
 		D487353E2E230FDA00DBC0A2 /* XCRemoteSwiftPackageReference "RVS_Checkbox" */ = {

@@ -99,10 +99,12 @@ extension RiValT_AppDelegate {
         return controller
     }
 
+    /// The host screen used to sample complication state, including beneath a presented controller.
     private var complicationController: UIViewController? {
         self.groupEditorController?.navigationController?.topViewController
     }
 
+    /// Whether the countdown slider is being dragged, so the host can defer priority complication transfers.
     var isScrubbingComplicationTimer: Bool {
         (self.complicationController as? RiValT_RunningTimer_ContainerViewController)?.isDragging == true
     }

@@ -229,6 +229,7 @@ extension RiValT_TimerEditor_PageViewContainer {
      The delete button in the navbar was hit.
      */
     @IBAction func deleteButtonHit(_ inButton: UIBarButtonItem) {
+        /// Deletes the confirmed preset, saves the model, and returns to the group editor.
         func _executeDelete() {
             guard let timer = self.timerModel.selectedTimer,
                   let indexPath = timer.indexPath,

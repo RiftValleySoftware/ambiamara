@@ -27,6 +27,7 @@
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="67L-Ni-xhN" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
                                                 <rect key="frame" x="0.0" y="2" width="28" height="26"/>
+                                                <color key="tintColor" name="AccentColor"/>
                                                 <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-START-IMMEDIATELY-CHECKBOX-HINT" label="SLUG-ACC-START-IMMEDIATELY-CHECKBOX-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="67L-Ni-xhN" secondAttribute="height" multiplier="1:1" id="QKx-ez-w13"/>
@@ -49,7 +50,7 @@
                                                 </accessibility>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-START-IMMEDIATELY">
-                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                    <color key="titleColor" name="AccentColor"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="startImmediatelyCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="touchUpInside" id="bWP-aa-AJF"/>
@@ -62,6 +63,7 @@
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UNm-KF-4yk" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
                                                 <rect key="frame" x="0.0" y="2" width="28" height="26"/>
+                                                <color key="tintColor" name="AccentColor"/>
                                                 <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-HINT" label="SLUG-ACC-ONE-TAP-EDIT-CHECKBOX-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="UNm-KF-4yk" secondAttribute="height" multiplier="1:1" id="ua8-wp-z2k"/>
@@ -84,7 +86,7 @@
                                                 </accessibility>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-ONE-TAP-EDIT">
-                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                    <color key="titleColor" name="AccentColor"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="oneTapEditCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="touchUpInside" id="nCf-El-IEk"/>
@@ -97,6 +99,7 @@
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5oh-Ba-sTd" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
                                                 <rect key="frame" x="0.0" y="2" width="28" height="26"/>
+                                                <color key="tintColor" name="AccentColor"/>
                                                 <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-COMBINE-TIMERS-CHECKBOX-HINT" label="SLUG-ACC-COMBINE-TIMERS-CHECKBOX-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="26" id="MSj-Kt-Gx5"/>
@@ -118,7 +121,7 @@
                                                 </accessibility>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-COMBINE-TIMERS">
-                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                    <color key="titleColor" name="AccentColor"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="combineTimersCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="touchUpInside" id="U3v-8D-QSH"/>
@@ -131,6 +134,7 @@
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sdl-6R-kiR" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
                                                 <rect key="frame" x="0.0" y="2" width="28" height="26"/>
+                                                <color key="tintColor" name="AccentColor"/>
                                                 <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-SHOW-TOOLBAR-CHECKBOX-HINT" label="SLUG-ACC-SHOW-TOOLBAR-CHECKBOX-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Sdl-6R-kiR" secondAttribute="height" multiplier="1:1" id="gAG-NC-hiT"/>
@@ -153,7 +157,7 @@
                                                 </accessibility>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-SHOW-TOOLBAR">
-                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                    <color key="titleColor" name="AccentColor"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="showToolbarCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="touchUpInside" id="RsR-L7-be3"/>
@@ -166,6 +170,7 @@
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i72-tV-rRZ" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
                                                 <rect key="frame" x="0.0" y="2" width="28" height="26"/>
+                                                <color key="tintColor" name="AccentColor"/>
                                                 <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-HIDE-TOOLBAR-CHECKBOX-HINT" label="SLUG-ACC-HIDE-TOOLBAR-CHECKBOX-LABEL"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="i72-tV-rRZ" secondAttribute="height" multiplier="1:1" id="DNi-7c-s99"/>
@@ -188,7 +193,7 @@
                                                 </accessibility>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-AUTO-HIDE-TOOLBAR">
-                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                    <color key="titleColor" name="AccentColor"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="autoHideToolbarCheckboxValueChanged:" destination="XBS-Mo-d1E" eventType="touchUpInside" id="eb9-nd-qjf"/>
@@ -671,42 +676,69 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uQs-qb-BPd">
-                                <rect key="frame" x="169.66666666666666" y="113" width="54" height="54"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="aBt-sc-Rol">
+                                <rect key="frame" x="0.0" y="113" width="393" height="705"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBt-co-Ntn">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="705"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uQs-qb-BPd">
+                                                <rect key="frame" x="169.66666666666666" y="0.0" width="54" height="54"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="54" id="DHw-Mb-VB1"/>
+                                                    <constraint firstAttribute="width" secondItem="uQs-qb-BPd" secondAttribute="height" multiplier="1:1" id="rTu-5s-vxL"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="12"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" text="SLUG-ABOUT-MAIN-TEXT" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wli-nW-nlY">
+                                                <rect key="frame" x="16" y="62" width="361" height="531"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-ABOUT-TEXT-HINT" label="SLUG-ACC-ABOUT-TEXT-LABEL"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="H8Y-vd-Xmw">
+                                                <rect key="frame" x="16" y="601" width="361" height="96"/>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="wli-nW-nlY" firstAttribute="leading" secondItem="aBt-co-Ntn" secondAttribute="leading" constant="16" id="0VY-ac-dua"/>
+                                            <constraint firstItem="uQs-qb-BPd" firstAttribute="top" secondItem="aBt-co-Ntn" secondAttribute="top" id="2Le-fS-dLZ"/>
+                                            <constraint firstItem="aBt-co-Ntn" firstAttribute="trailing" secondItem="wli-nW-nlY" secondAttribute="trailing" constant="16" id="8ZH-7R-2dP"/>
+                                            <constraint firstItem="H8Y-vd-Xmw" firstAttribute="top" secondItem="wli-nW-nlY" secondAttribute="bottom" constant="8" id="RGz-Cg-t2B"/>
+                                            <constraint firstItem="H8Y-vd-Xmw" firstAttribute="leading" secondItem="wli-nW-nlY" secondAttribute="leading" id="7tD-dg-wGd"/>
+                                            <constraint firstItem="H8Y-vd-Xmw" firstAttribute="trailing" secondItem="wli-nW-nlY" secondAttribute="trailing" id="Ktv-gJ-sDd"/>
+                                            <constraint firstItem="aBt-co-Ntn" firstAttribute="bottom" secondItem="H8Y-vd-Xmw" secondAttribute="bottom" constant="8" id="iKi-BR-5OP"/>
+                                            <constraint firstItem="wli-nW-nlY" firstAttribute="top" secondItem="uQs-qb-BPd" secondAttribute="bottom" constant="8" symbolic="YES" id="hka-Sh-IqZ"/>
+                                            <constraint firstItem="uQs-qb-BPd" firstAttribute="centerX" secondItem="aBt-co-Ntn" secondAttribute="centerX" id="iHY-03-VP0"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="54" id="DHw-Mb-VB1"/>
-                                    <constraint firstAttribute="width" secondItem="uQs-qb-BPd" secondAttribute="height" multiplier="1:1" id="rTu-5s-vxL"/>
+                                    <constraint firstItem="aBt-co-Ntn" firstAttribute="top" secondItem="aBt-cl-Gde" secondAttribute="top" id="aBt-ct-Top"/>
+                                    <constraint firstItem="aBt-co-Ntn" firstAttribute="leading" secondItem="aBt-cl-Gde" secondAttribute="leading" id="aBt-ct-Led"/>
+                                    <constraint firstItem="aBt-co-Ntn" firstAttribute="trailing" secondItem="aBt-cl-Gde" secondAttribute="trailing" id="aBt-ct-Trl"/>
+                                    <constraint firstItem="aBt-co-Ntn" firstAttribute="bottom" secondItem="aBt-cl-Gde" secondAttribute="bottom" id="aBt-ct-Bot"/>
+                                    <constraint firstItem="aBt-co-Ntn" firstAttribute="width" secondItem="aBt-fl-Gde" secondAttribute="width" id="aBt-ct-Wid"/>
+                                    <constraint firstItem="aBt-co-Ntn" firstAttribute="height" relation="greaterThanOrEqual" secondItem="aBt-fl-Gde" secondAttribute="height" id="aBt-ct-Min"/>
+                                    <constraint firstItem="aBt-co-Ntn" firstAttribute="height" secondItem="aBt-fl-Gde" secondAttribute="height" priority="249" id="aBt-ct-Hgt"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="12"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" maximumZoomScale="2" editable="NO" text="SLUG-ABOUT-MAIN-TEXT" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wli-nW-nlY">
-                                <rect key="frame" x="16" y="175" width="361" height="531"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <accessibility key="accessibilityConfiguration" hint="SLUG-ACC-ABOUT-TEXT-HINT" label="SLUG-ACC-ABOUT-TEXT-LABEL"/>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="H8Y-vd-Xmw">
-                                <rect key="frame" x="16" y="714" width="361" height="96"/>
-                            </stackView>
+                                <viewLayoutGuide key="contentLayoutGuide" id="aBt-cl-Gde"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="aBt-fl-Gde"/>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QPM-pG-ZVw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="wli-nW-nlY" firstAttribute="leading" secondItem="QPM-pG-ZVw" secondAttribute="leading" constant="16" id="0VY-ac-dua"/>
-                            <constraint firstItem="uQs-qb-BPd" firstAttribute="top" secondItem="QPM-pG-ZVw" secondAttribute="top" id="2Le-fS-dLZ"/>
-                            <constraint firstItem="QPM-pG-ZVw" firstAttribute="trailing" secondItem="wli-nW-nlY" secondAttribute="trailing" constant="16" id="8ZH-7R-2dP"/>
-                            <constraint firstItem="H8Y-vd-Xmw" firstAttribute="top" secondItem="wli-nW-nlY" secondAttribute="bottom" constant="8" id="RGz-Cg-t2B"/>
-                            <constraint firstItem="H8Y-vd-Xmw" firstAttribute="leading" secondItem="wli-nW-nlY" secondAttribute="leading" id="7tD-dg-wGd"/>
-                            <constraint firstItem="H8Y-vd-Xmw" firstAttribute="trailing" secondItem="wli-nW-nlY" secondAttribute="trailing" id="Ktv-gJ-sDd"/>
-                            <constraint firstItem="QPM-pG-ZVw" firstAttribute="bottom" secondItem="H8Y-vd-Xmw" secondAttribute="bottom" constant="8" id="iKi-BR-5OP"/>
-                            <constraint firstItem="wli-nW-nlY" firstAttribute="top" secondItem="uQs-qb-BPd" secondAttribute="bottom" constant="8" symbolic="YES" id="hka-Sh-IqZ"/>
-                            <constraint firstItem="uQs-qb-BPd" firstAttribute="centerX" secondItem="Sn0-05-JMz" secondAttribute="centerX" id="iHY-03-VP0"/>
+                            <constraint firstItem="aBt-sc-Rol" firstAttribute="top" secondItem="QPM-pG-ZVw" secondAttribute="top" id="aBt-sc-Top"/>
+                            <constraint firstItem="aBt-sc-Rol" firstAttribute="leading" secondItem="QPM-pG-ZVw" secondAttribute="leading" id="aBt-sc-Led"/>
+                            <constraint firstItem="aBt-sc-Rol" firstAttribute="trailing" secondItem="QPM-pG-ZVw" secondAttribute="trailing" id="aBt-sc-Trl"/>
+                            <constraint firstItem="aBt-sc-Rol" firstAttribute="bottom" secondItem="QPM-pG-ZVw" secondAttribute="bottom" id="aBt-sc-Bot"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="SLUG-ABOUT-BUTTON" id="1x6-4Q-gxl"/>

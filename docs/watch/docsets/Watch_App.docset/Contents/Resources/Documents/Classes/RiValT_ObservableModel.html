@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RiValT_ObservableModel Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/RiValT_ObservableModel" class="dashAnchor"></a>
+
+    <a title="RiValT_ObservableModel Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          RiVal.T Watch App Documentation
+        </a>
+         (100% documented)
+      </p>
+    
+      <div class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </div>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/ambiamara">
+            <img class="header-icon" src="../img/gh.png" alt="GitHub"/>
+            View on GitHub
+          </a>
+        </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Friftvalleysoftware.github.io%2Fambiamara%2Fwatch%2Fdocsets%2FWatch_App.xml">
+            <img class="header-icon" src="../img/dash.png" alt="Dash"/>
+            Install in Dash
+          </a>
+        </p>
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">Watch_App</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      <a class="breadcrumb" href="../Classes.html">Classes</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      RiValT_ObservableModel Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_BluetoothRemote.html">RiValT_BluetoothRemote</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_BluetoothRemote/Device.html">– Device</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_ObservableModel.html">RiValT_ObservableModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_WatchDelegate.html">RiValT_WatchDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_WatchDelegate/Phase.html">– Phase</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_WatchDelegate/TimerOperation.html">– TimerOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_WatchDelegate/PendingCommand.html">– PendingCommand</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_Watch_AppDelegate.html">RiValT_Watch_AppDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_BluetoothRemotePacket.html">RiValT_BluetoothRemotePacket</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_BluetoothRemotePacket/Code.html">– Code</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_BluetoothRemotePacket/Assembly.html">– Assembly</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_ComplicationState.html">RiValT_ComplicationState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_ComplicationState/Record.html">– Record</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState.html">RiValT_RemoteState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/TimerOperation.html">– TimerOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Phase.html">– Phase</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Snapshot.html">– Snapshot</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Host.html">– Host</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Clock.html">– Clock</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:9Watch_App9watchText33_4D21450ABFD98D30F8FB6F9440238D8DLLyS2SF">watchText(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/DevicePicker.html">DevicePicker</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RiValT_Watch_App.html">RiValT_Watch_App</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RiValT_Watch_App_MainContentView.html">RiValT_Watch_App_MainContentView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RiValT_Watch_App_MainContentView/Sheet.html">– Sheet</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/TimerScreenGestures.html">TimerScreenGestures</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Watch_App9Operation33_4D21450ABFD98D30F8FB6F9440238D8DLLa">Operation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Watch_App8Snapshot33_4D21450ABFD98D30F8FB6F9440238D8DLLa">Snapshot</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>RiValT_ObservableModel</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">final</span> <span class="kd">class</span> <span class="kt">RiValT_ObservableModel</span> <span class="p">:</span> <span class="kt">ObservableObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>The Watch observes the chosen device. Only that device can change the timer.</p>
+
+              <div class="slightly-smaller">
+                <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L17-L124">Show on GitHub</a>
+              </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC8Snapshota"></a>
+                    <a name="//apple_ref/swift/Alias/Snapshot" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC8Snapshota">Snapshot</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The live timer sample displayed by the Watch views.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">Snapshot</span> <span class="o">=</span> <span class="kt"><a href="../Classes/RiValT_WatchDelegate.html">RiValT_WatchDelegate</a></span><span class="o">.</span><span class="kt">Snapshot</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L19">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC9Operationa"></a>
+                    <a name="//apple_ref/swift/Alias/Operation" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC9Operationa">Operation</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An operation the wearer can request from the selected host.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">Operation</span> <span class="o">=</span> <span class="kt"><a href="../Classes/RiValT_WatchDelegate.html">RiValT_WatchDelegate</a></span><span class="o">.</span><span class="kt">TimerOperation</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L21">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC10connection33_D6BBA9E8F8A3035C854B570FEC819E66LLAA0cd2T_A8DelegateCvp"></a>
+                    <a name="//apple_ref/swift/Property/connection" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC10connection33_D6BBA9E8F8A3035C854B570FEC819E66LLAA0cd2T_A8DelegateCvp">connection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The app-wide connection shared by the views and background delivery handler.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">private</span> <span class="k">let</span> <span class="nv">connection</span><span class="p">:</span> <span class="kt"><a href="../Classes/RiValT_WatchDelegate.html">RiValT_WatchDelegate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L24">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC8isActive33_D6BBA9E8F8A3035C854B570FEC819E66LLSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isActive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC8isActive33_D6BBA9E8F8A3035C854B570FEC819E66LLSbvp">isActive</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether the Watch scene is active and eligible to play haptics.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">isActive</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L27">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC16previousSnapshot33_D6BBA9E8F8A3035C854B570FEC819E66LLAA0cD13T_RemoteStateO0H0VSgvp"></a>
+                    <a name="//apple_ref/swift/Property/previousSnapshot" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC16previousSnapshot33_D6BBA9E8F8A3035C854B570FEC819E66LLAA0cD13T_RemoteStateO0H0VSgvp">previousSnapshot</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The previous host sample used to detect phase and timer changes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">previousSnapshot</span><span class="p">:</span> <span class="kt"><a href="../Classes/RiValT_ObservableModel.html#/s:9Watch_App22RiValT_ObservableModelC8Snapshota">Snapshot</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L29">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC12alarmHaptics33_D6BBA9E8F8A3035C854B570FEC819E66LLScTyyts5NeverOGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/alarmHaptics" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC12alarmHaptics33_D6BBA9E8F8A3035C854B570FEC819E66LLScTyyts5NeverOGSgvp">alarmHaptics</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The repeating haptics task while a host-confirmed alarm is active.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">alarmHaptics</span><span class="p">:</span> <span class="kt">Task</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L31">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelCACycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelCACycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Subscribes the view model and its haptics to connection updates.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L34-L39">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC8snapshotAA0cD13T_RemoteStateO8SnapshotVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/snapshot" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC8snapshotAA0cD13T_RemoteStateO8SnapshotVSgvp">snapshot</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The most recent timer sample while a live host is reachable.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="k">var</span> <span class="nv">snapshot</span><span class="p">:</span> <span class="kt"><a href="../Classes/RiValT_ObservableModel.html#/s:9Watch_App22RiValT_ObservableModelC8Snapshota">Snapshot</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L42">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC12isConnectingSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isConnecting" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC12isConnectingSbvp">isConnecting</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether the active transport is waiting for a connection or first response.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="k">var</span> <span class="nv">isConnecting</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L44">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC16connectionFailedSbvp"></a>
+                    <a name="//apple_ref/swift/Property/connectionFailed" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC16connectionFailedSbvp">connectionFailed</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether the active connection is reporting a failure.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="k">var</span> <span class="nv">connectionFailed</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L46">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC16isSendingCommandSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isSendingCommand" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC16isSendingCommandSbvp">isSendingCommand</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether a timer action is pending acknowledgement.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="k">var</span> <span class="nv">isSendingCommand</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L48">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC15commandRejectedSbvp"></a>
+                    <a name="//apple_ref/swift/Property/commandRejected" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC15commandRejectedSbvp">commandRejected</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether the last timer action was rejected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="k">var</span> <span class="nv">commandRejected</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L51">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC9setActiveyySbF"></a>
+                    <a name="//apple_ref/swift/Method/setActive(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC9setActiveyySbF">setActive(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Updates the connection and haptics when the Watch scene becomes active or inactive.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">setActive</span><span class="p">(</span><span class="n">_</span> <span class="nv">active</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L54-L58">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC13updateHaptics33_D6BBA9E8F8A3035C854B570FEC819E66LLyyF"></a>
+                    <a name="//apple_ref/swift/Method/updateHaptics()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC13updateHaptics33_D6BBA9E8F8A3035C854B570FEC819E66LLyyF">updateHaptics()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>React to host-confirmed transitions, never to a locally predicted timer expiry.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">private</span> <span class="kd">func</span> <span class="nf">updateHaptics</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L61-L99">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC9reconnectyyF"></a>
+                    <a name="//apple_ref/swift/Method/reconnect()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC9reconnectyyF">reconnect()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retries the selected host connection.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">reconnect</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L102-L104">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC7refreshyyF"></a>
+                    <a name="//apple_ref/swift/Method/refresh()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC7refreshyyF">refresh()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Requests a fresh sample from the active host.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">refresh</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L107-L109">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Watch_App22RiValT_ObservableModelC4send_3foryAA0cD13T_RemoteStateO14TimerOperationO_AG8SnapshotVtF"></a>
+                    <a name="//apple_ref/swift/Method/send(_:for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Watch_App22RiValT_ObservableModelC4send_3foryAA0cD13T_RemoteStateO14TimerOperationO_AG8SnapshotVtF">send(_:<wbr>for:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A group can advance or the host can change while the wearer is choosing an action.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">send</span><span class="p">(</span><span class="n">_</span> <span class="nv">operation</span><span class="p">:</span> <span class="kt"><a href="../Classes/RiValT_ObservableModel.html#/s:9Watch_App22RiValT_ObservableModelC9Operationa">Operation</a></span><span class="p">,</span> <span class="k">for</span> <span class="nv">displayed</span><span class="p">:</span> <span class="kt"><a href="../Classes/RiValT_ObservableModel.html#/s:9Watch_App22RiValT_ObservableModelC8Snapshota">Snapshot</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/WatchApp/RiValT_ObservableModel.swift#L112-L123">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external noopener">©2018-2026 The Great Rift Valley Software Company</a></p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+    </section>
+  </body>
+</html>

@@ -6,15 +6,45 @@ import Foundation
 
 /// The Watch renders a sample from the host. Only the host runs a timer and advances its group.
 enum RiValT_RemoteState {
+    /// How often the host should confirm an unchanged countdown for the complication.
     static let complicationConfirmationInterval: TimeInterval = 15 * 60
 
+    /// A control request the host can apply to the current timer or group.
     enum TimerOperation: String, Codable, CaseIterable {
-        case start, pause, resume, stop, reset, fastForward, rewindGroup
+        /// Starts the ready timer.
+        case start
+        /// Pauses the running countdown.
+        case pause
+        /// Continues a paused countdown.
+        case resume
+        /// Stops the current countdown.
+        case stop
+        /// Resets the active timer to its configured duration.
+        case reset
+        /// Advances to the next timer in the group.
+        case fastForward
+        /// Returns the host to the first timer in the group.
+        case rewindGroup
     }
 
+    /// The countdown state displayed by the host and its remotes.
     enum Phase: String, Codable {
-        case unavailable, ready, countdown, warning, final, paused, alarm
+        /// The host has no interactive timer to control.
+        case unavailable
+        /// The selected timer is ready to start.
+        case ready
+        /// The timer is running above the warning and final thresholds.
+        case countdown
+        /// The running timer has entered its warning phase.
+        case warning
+        /// The running timer has entered its final phase.
+        case final
+        /// The countdown is paused with time remaining.
+        case paused
+        /// The countdown ended and the alarm is awaiting dismissal.
+        case alarm
 
+        /// Whether the countdown is actively advancing in this phase.
         var isCounting: Bool {
             switch self {
             case .countdown, .warning, .final: return true
@@ -23,16 +53,27 @@ enum RiValT_RemoteState {
         }
     }
 
+    /// A host sample with the timing, group position, and controls needed for remote display.
     struct Snapshot: Codable {
+        /// The selected timer's stable identifier, or nil when the host has no timer to show.
         let timerID: UUID?
+        /// The one-based number of the active timer group.
         let groupNumber: Int
+        /// The one-based position of the selected timer in its group.
         let timerNumber: Int
+        /// The number of presets in the active group.
         let groupSize: Int
+        /// The phase recorded when the host took the sample.
         let phase: Phase
+        /// Whole seconds remaining in the active timer when the host took the sample.
         let remaining: Int
+        /// The active timer's end time in the host clock, if it is counting down.
         var deadline: Date?
+        /// The active timer's warning threshold in seconds remaining.
         let warning: Int
+        /// The active timer's final threshold in seconds remaining.
         let final: Int
+        /// The operations advertised in the host's response.
         let commands: [TimerOperation]
         /// On the Watch, identifies the specific host state the displayed controls describe.
         var stamp: String?
@@ -45,6 +86,7 @@ enum RiValT_RemoteState {
         /// Configured duration to display if the complication loses its host mid-countdown.
         var complicationRewindTime: Int?
 
+        /// Produces a ready snapshot with the configured rewind duration when one is available.
         var rewoundForComplication: Self {
             // Older hosts only supplied the configured duration while the timer was ready.
             let preset = complicationRewindTime ?? complicationPresetTime ?? (phase == .ready ? remaining + (followingDuration ?? 0) : nil)
@@ -53,6 +95,7 @@ enum RiValT_RemoteState {
                         warning: warning, final: final, commands: [], complicationRewindTime: preset)
         }
 
+        /// Checks the advertised commands and the separately negotiated group rewind capability.
         func supports(_ operation: TimerOperation) -> Bool {
             operation == .rewindGroup ? canRewindGroup == true : commands.contains(operation)
         }
@@ -69,16 +112,21 @@ enum RiValT_RemoteState {
             return deadline.addingTimeInterval(TimeInterval(followingDuration ?? 0))
         }
 
+        /// Returns whole seconds left on the displayed countdown, including any following timers.
         func displayRemaining(at date: Date) -> Int {
             guard let displayDeadline else { return remaining + (followingDuration ?? 0) }
             return max(0, Int(ceil(displayDeadline.timeIntervalSince(date))))
         }
 
+        /// Uses the complication's configured ready duration when available and the live display otherwise.
         func complicationRemaining(at date: Date) -> Int {
             if phase == .ready, let complicationPresetTime { return complicationPresetTime }
             return displayRemaining(at: date)
         }
 
+        /// Advances through the warning and final thresholds using the active timer's deadline.
+        ///
+        /// At zero, it holds the last host phase until the host reports whether the timer advanced or raised an alarm.
         func phase(at date: Date) -> Phase {
             guard phase.isCounting, deadline != nil else { return phase }
             let seconds = remaining(at: date)
@@ -105,10 +153,14 @@ enum RiValT_RemoteState {
 extension RiValT_RemoteState {
     /// Each command names the host process and the control state the wearer saw.
     struct Host {
+        /// A fresh identifier for this host process that invalidates commands from an earlier session.
         let session = UUID().uuidString
+        /// The current command revision, incremented on control changes and accepted requests.
         private(set) var revision = 0
+        /// The latest snapshot used to validate a remote command.
         private var snapshot: Snapshot?
 
+        /// Records a sample and advances the revision when the available controls or their target change.
         mutating func update(_ state: Snapshot) {
             if snapshot?.representsSameControlState(as: state) != true {
                 revision += 1
@@ -131,9 +183,14 @@ extension RiValT_RemoteState {
 
     /// Estimate host clock minus Watch clock from a live request. Exclude time spent processing the request.
     struct Clock {
+        /// Recent clock offset estimates with their network delay and local measurement time.
         private var samples = [(offset: TimeInterval, delay: TimeInterval, measured: Date)]()
+        /// The offset from the lowest-latency sample, or zero before a valid exchange.
         private var offset: TimeInterval { samples.min { $0.delay < $1.delay }?.offset ?? 0 }
 
+        /// Records a valid request/reply exchange and discards outdated or inconsistent estimates.
+        ///
+        /// - Returns: Whether the exchange supplied a usable clock sample.
         @discardableResult
         mutating func record(sent: Date, received: Date, hostReceived: Date, hostReplied: Date) -> Bool {
             let roundTrip = received.timeIntervalSince(sent)
@@ -150,7 +207,9 @@ extension RiValT_RemoteState {
             return true
         }
 
+        /// Converts a time measured on the host clock to the Watch clock.
         func localDate(forHostDate date: Date) -> Date { date.addingTimeInterval(-offset) }
+        /// Converts a time measured on the Watch clock to the host clock.
         func hostDate(forLocalDate date: Date) -> Date { date.addingTimeInterval(offset) }
     }
 }

@@ -3,15 +3,21 @@
 
 [![Get From the App Store](img/AppStoreWhite.png)](https://apps.apple.com/us/app/rift-valley-timer/id1448933389)
 
-[This is the Online Code Documentation](https://riftvalleysoftware.github.io/ambiamara/)
+[Code documentation for the main app, Watch app, and Watch complication](https://riftvalleysoftware.github.io/ambiamara/)
 
 ## OVERVIEW
 
-This project is designed to provide executable apps for the iOS/iPadOS App Stores (as native apps), and the Mac App Store (as a [Mac Catalyst](https://developer.apple.com/documentation/uikit/mac-catalyst) executable).
+This repository contains RiVal.T **4.0.0 (build 0019)** for iPhone and iPad, with the RiVal.T Remote companion app for Apple Watch.
 
-iOS and iPadOS require version 17 or above, and the Mac requires Ventura (Mac OS 13) or above.
+iPhone and iPad require iOS 17 or iPadOS 17 or later. The companion app requires watchOS 10 or later.
 
-The companion Watch app requires watchOS 10 or later.
+### WHAT’S NEW IN 4.0
+
+- Use **Combine Timers** to display a timer group as one countdown. In the timer editor, use **Start in Warning** or **Start in Final** to choose the starting phase.
+- Use RiVal.T Remote to control the timer on a paired iPhone or nearby iPad. The Apple Watch complication shows the remaining time and marks the warning and final phases.
+- Open **About This App** to export or restore a timer backup. Restoring a backup replaces the current timers and settings.
+- Find dependency credits and the app source link under **RiVal.T** in the system Settings app.
+- The app supports English, French, German, Italian, Brazilian Portuguese, and European Spanish.
 
 ## BASIC ARCHITECTURE
 
@@ -25,15 +31,13 @@ The main app owns the timer engine, group selection, and alarms. `RiValT_WatchDe
 
 ### THE TARGETS
 
-![AmbiaMara Icon](img/Targets.png)
-
 #### [The Main App Target](https://github.com/RiftValleySoftware/ambiamara/tree/master/Sources/MainApp)
 
-The main application target is implemented, using Apple's [`UIKit`](https://developer.apple.com/documentation/uikit) application framework. This target is used to build the iOS release (for the iOS App Store), as well as the [Mac Catalyst](https://developer.apple.com/documentation/uikit/mac-catalyst) release (for the Mac App Store).
+The `RiVal.T` target uses Apple’s [`UIKit`](https://developer.apple.com/documentation/uikit) framework to build the iPhone and iPad app.
 
 #### The [Watch App](https://github.com/RiftValleySoftware/ambiamara/tree/master/Sources/WatchApp) and [Watch Complication](https://github.com/RiftValleySoftware/ambiamara/tree/master/Sources/WatchComplications) Targets
 
-RiVal.T Remote is a SwiftUI companion embedded in the iOS app. It connects to the paired iPhone through WatchConnectivity. To control an iPad, turn on **Watch Remote** in RiVal.T’s settings on iPad. On the Watch, open **Timer device**, choose **Find nearby iPads**, and select a nearby RiVal.T device. When the pairing codes on the Watch and this iPad match, tap **Allow** on the iPad. Close settings and keep RiVal.T in the foreground on the device running the timer. The complication is a separate development target.
+RiVal.T Remote is a SwiftUI companion embedded in the iOS app. It connects to the paired iPhone through WatchConnectivity. To control an iPad, turn on **Watch Remote** in RiVal.T’s settings on iPad. On the Watch, open **Timer device**, choose **Find nearby iPads**, and select a nearby RiVal.T device. When the pairing codes on the Watch and this iPad match, tap **Allow** on the iPad. Close settings and keep RiVal.T in the foreground on the device running the timer. The Watch app embeds the WidgetKit complication extension.
 
 #### [The Test Targets](https://github.com/RiftValleySoftware/ambiamara/tree/master/Tests)
 

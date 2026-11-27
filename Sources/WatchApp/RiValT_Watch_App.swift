@@ -12,14 +12,13 @@ import SwiftUI
 import WatchKit
 import WatchConnectivity
 
-@main
 /* ###################################################################################################################################### */
 // MARK: - Main Watch App -
 /* ###################################################################################################################################### */
-/**
- This is the main context for the timer Watch app.
- */
+/// The SwiftUI entry point for the RiVal.T Watch app.
+@main
 struct RiValT_Watch_App: App {
+    /// The WatchKit delegate responsible for background connectivity deliveries.
     @WKApplicationDelegateAdaptor private var delegate: RiValT_Watch_AppDelegate
 
     /* ################################################################## */
@@ -32,10 +31,14 @@ struct RiValT_Watch_App: App {
 /// Activate connectivity even for background deliveries, without requiring the timer screen to appear.
 @MainActor
 final class RiValT_Watch_AppDelegate: NSObject, WKApplicationDelegate {
+    /// The app-wide timer connection available to foreground views and background tasks.
     static let connection = RiValT_WatchDelegate()
+    /// Connectivity tasks awaiting session activation or completion of deliveries.
     private var pendingTasks = Set<WKWatchConnectivityRefreshBackgroundTask>()
+    /// The observation that notices changes to the session's pending content.
     private var contentObservation: NSKeyValueObservation?
 
+    /// Installs completion callbacks on the timer connection and WatchConnectivity session.
     override init() {
         super.init()
         Self.connection.connectivityProgressHandler = { [weak self] in self?.completeConnectivityTasks() }
@@ -45,6 +48,7 @@ final class RiValT_Watch_AppDelegate: NSObject, WKApplicationDelegate {
         }
     }
 
+    /// Keeps connectivity refresh tasks pending while completing other background tasks immediately.
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
         for task in backgroundTasks {
             if let connectivity = task as? WKWatchConnectivityRefreshBackgroundTask {
@@ -56,6 +60,7 @@ final class RiValT_Watch_AppDelegate: NSObject, WKApplicationDelegate {
         completeConnectivityTasks()
     }
 
+    /// Completes retained refresh tasks after the session and complication writes settle.
     private func completeConnectivityTasks() {
         guard !pendingTasks.isEmpty, Self.connection.canCompleteConnectivityTasks else { return }
         pendingTasks.forEach { $0.setTaskCompletedWithSnapshot(false) }

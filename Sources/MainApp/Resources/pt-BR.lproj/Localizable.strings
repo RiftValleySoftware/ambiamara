@@ -143,7 +143,7 @@ MANTER PRESSIONADO: Mostra um controle deslizante para ajustar o tempo restante.
 "SLUG-START-IN-WARNING"                        =   "Começar na fase de aviso";
 "SLUG-START-IN-FINAL"                          =   "Começar na fase final";
 "SLUG-START-IN-FINAL-TURNS-OFF-WARNING"        =   "Desativa a fase de aviso.";
-"SLUG-TIMER-STARTS-IN-WARNING"                 =   "Começa na fase de aviso";
+"SLUG-TIMER-STARTS-IN-WARNING"                 =   "Começa na fase de aviso.";
 "SLUG-TIMER-ENTIRELY-IN-WARNING"               =   "Fica na fase de aviso até o fim";
 "SLUG-TIMER-ENTIRELY-IN-FINAL"                 =   "Fica na fase final até o fim";
 "SLUG-HOURS"                                    =   "Horas";
@@ -487,11 +487,9 @@ Toque na engrenagem para ver os créditos e as licenças de software.";
 
 // MARK: Timer Backup
 
-"SLUG-BACKUP-EXPORT" = "Exportar backup dos temporizadores…";
-"SLUG-BACKUP-RESTORE" = "Restaurar backup dos temporizadores…";
-"SLUG-ACC-BACKUP-EXPORT-LABEL" = "Exportar backup dos temporizadores";
+"SLUG-BACKUP-EXPORT" = "Exportar backup";
+"SLUG-BACKUP-RESTORE" = "Restaurar backup";
 "SLUG-ACC-BACKUP-EXPORT-HINT" = "Escolha onde salvar um backup dos seus temporizadores e ajustes.";
-"SLUG-ACC-BACKUP-RESTORE-LABEL" = "Restaurar backup dos temporizadores";
 "SLUG-ACC-BACKUP-RESTORE-HINT" = "Escolha um arquivo de backup para restaurar seus temporizadores e ajustes salvos.";
 "SLUG-BACKUP-FILES-HINT" = "Salve o backup no iCloud Drive para mantê-lo após apagar o RiVal.T.";
 "SLUG-BACKUP-FILENAME" = "Backup do RiVal.T %@";

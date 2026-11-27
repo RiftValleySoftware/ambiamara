@@ -143,7 +143,7 @@ PRESSIONE PROLUNGATA: Mostra un cursore per regolare il tempo rimanente.";
 "SLUG-START-IN-WARNING"                        =   "Avvia in fase di avviso";
 "SLUG-START-IN-FINAL"                          =   "Avvia in fase finale";
 "SLUG-START-IN-FINAL-TURNS-OFF-WARNING"        =   "Disattiva la fase di avviso.";
-"SLUG-TIMER-STARTS-IN-WARNING"                 =   "Inizia in fase di avviso";
+"SLUG-TIMER-STARTS-IN-WARNING"                 =   "Inizia in fase di avviso.";
 "SLUG-TIMER-ENTIRELY-IN-WARNING"               =   "Resta in fase di avviso";
 "SLUG-TIMER-ENTIRELY-IN-FINAL"                 =   "Resta in fase finale";
 "SLUG-HOURS"                                    =   "Ore";
@@ -487,11 +487,9 @@ Tocca l’ingranaggio per vedere i crediti e le licenze del software.";
 
 // MARK: Timer Backup
 
-"SLUG-BACKUP-EXPORT" = "Esporta backup dei timer…";
-"SLUG-BACKUP-RESTORE" = "Ripristina backup dei timer…";
-"SLUG-ACC-BACKUP-EXPORT-LABEL" = "Esporta backup dei timer";
+"SLUG-BACKUP-EXPORT" = "Esporta backup";
+"SLUG-BACKUP-RESTORE" = "Ripristina backup";
 "SLUG-ACC-BACKUP-EXPORT-HINT" = "Scegli dove salvare un backup dei timer e delle impostazioni.";
-"SLUG-ACC-BACKUP-RESTORE-LABEL" = "Ripristina backup dei timer";
 "SLUG-ACC-BACKUP-RESTORE-HINT" = "Scegli un file di backup per ripristinare i timer e le impostazioni salvati.";
 "SLUG-BACKUP-FILES-HINT" = "Salva il backup in iCloud Drive per conservarlo dopo aver eliminato RiVal.T.";
 "SLUG-BACKUP-FILENAME" = "Backup RiVal.T %@";

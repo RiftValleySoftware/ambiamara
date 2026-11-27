@@ -50,6 +50,7 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
          */
         case finalTime
 
+        /// The asset catalog color for the selected duration or phase threshold.
         fileprivate var colorName: String {
             switch self {
             case .setTime: return "Start-Color"
@@ -126,10 +127,14 @@ class RiValT_EditTimer_ViewController: RiValT_Base_ViewController {
      */
     @IBOutlet weak var setTimeContainerView: UIStackView?
 
+    /// The storyboard stack containing Play and the associated controls.
     @IBOutlet weak var playControlsStack: UIStackView?
 
+    /// The button that offers the shortcut for the currently selected phase.
     private let phaseShortcutButton = UIButton(type: .system)
+    /// The explanatory text shown beside the phase shortcut.
     private let phaseMessageLabel = UILabel()
+    /// The play-area stack containing the shortcut and its accompanying text.
     private lazy var phaseGuide = UIStackView(arrangedSubviews: [self.phaseShortcutButton, self.phaseMessageLabel])
 
     /* ############################################################## */
@@ -295,6 +300,7 @@ extension RiValT_EditTimer_ViewController {
         self.timeSetPicker?.reloadAllComponents()
     }
 
+    /// Positions the phase guide for the current vertical size class while keeping Play centered.
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         guard let playControlsStack, let playControlsContainer = playControlsStack.superview, let setTimeContainerView else { return }
@@ -345,6 +351,7 @@ extension RiValT_EditTimer_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension RiValT_EditTimer_ViewController {
+    /// Configures the phase shortcut action and the appearance and accessibility of its text.
     private func configurePhaseGuide() {
         var configuration = UIButton.Configuration.plain()
         configuration.titleLineBreakMode = .byWordWrapping
@@ -371,6 +378,7 @@ extension RiValT_EditTimer_ViewController {
         self.phaseMessageLabel.accessibilityIdentifier = "timerPhaseMessage"
     }
 
+    /// Updates the shortcut and explanation for the selected time field and configured phase thresholds.
     private func updatePhaseGuide() {
         let shortcut: String?
         let message: String?
@@ -399,7 +407,7 @@ extension RiValT_EditTimer_ViewController {
             message = nil
             enabled = warning != start - 1
         case .finalTime:
-            shortcut = 2 < start ? "SLUG-START-IN-FINAL".localizedVariant : nil
+            shortcut = 1 < start ? "SLUG-START-IN-FINAL".localizedVariant : nil
             message = shortcut != nil && 0 < warning ? "SLUG-START-IN-FINAL-TURNS-OFF-WARNING".localizedVariant : nil
             enabled = 0 < warning || final != start - 1
         }
@@ -414,6 +422,7 @@ extension RiValT_EditTimer_ViewController {
         self.phaseGuide.isHidden = shortcut == nil && message == nil
     }
 
+    /// Shows this preset's position in its group and the total duration when applicable.
     private func updateGroupSummary() {
         guard let timer, let group, let index = timer.indexPath?.item else {
             self.groupSummaryLabel?.text = nil
@@ -486,7 +495,7 @@ extension RiValT_EditTimer_ViewController {
         let start = self.timer?.startingTimeInSeconds ?? 0
         let warning = self.timer?.warningTimeInSeconds ?? 0
         self.timeTypeSegmentedControl?.setEnabled(1 < start, forSegmentAt: TimeType.warnTime.rawValue)
-        self.timeTypeSegmentedControl?.setEnabled(2 < start || (1 < start && warning != 1), forSegmentAt: TimeType.finalTime.rawValue)
+        self.timeTypeSegmentedControl?.setEnabled(1 < start, forSegmentAt: TimeType.finalTime.rawValue)
         // A one-second warning leaves room only for the shortcut, which turns Warning off first.
         self.timeSetPicker?.isUserInteractionEnabled = self.currentTimeSetState != .finalTime || warning != 1
         self.timeTypeSegmentedControl?.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
@@ -525,6 +534,7 @@ extension RiValT_EditTimer_ViewController {
         self.timeSetPicker?.reloadAllComponents()
     }
 
+    /// Updates the selected time and clamps the warning and final thresholds to valid values.
     private func updateTime(_ seconds: Int, animated: Bool) {
         self.currentTimeInSeconds = seconds
         timer.warningTimeInSeconds = max(0, min(timer.startingTimeInSeconds - 1, timer.warningTimeInSeconds))
@@ -533,6 +543,7 @@ extension RiValT_EditTimer_ViewController {
         self.finishTimeUpdate(animated: animated)
     }
 
+    /// Refreshes the editor controls and persists the new time values.
     private func finishTimeUpdate(animated: Bool = false) {
         self.setTime(animated)
         self.impactHaptic()
@@ -558,6 +569,7 @@ extension RiValT_EditTimer_ViewController {
         self.updateSettings()
     }
 
+    /// Clears the thresholds or moves the chosen threshold just below the timer's starting duration.
     @objc private func applyPhaseShortcut() {
         guard let timer else { return }
         let start = timer.startingTimeInSeconds
@@ -568,7 +580,7 @@ extension RiValT_EditTimer_ViewController {
             self.finishTimeUpdate()
         case .warnTime where 1 < start:
             self.updateTime(start - 1, animated: false)
-        case .finalTime where 2 < start:
+        case .finalTime where 1 < start:
             timer.warningTimeInSeconds = 0
             self.updateTime(start - 1, animated: false)
         default:

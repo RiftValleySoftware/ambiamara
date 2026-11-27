@@ -136,7 +136,9 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
 
     /** A proposed new group, expressed in the unchanged model's section coordinates. */
     private(set) var insertionPreviewSection: Int?
+    /// The temporary view that marks where dropping a timer will create a group.
     private var _insertionPreviewView: UIView?
+    /// The insertion preview's frame in collection view coordinates.
     private var _insertionPreviewFrame = CGRect.zero
 
     /** The displayed number includes the uncommitted insertion, if any. */
@@ -261,7 +263,9 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
      Identifies each kind of snap position, including an uncommitted new row.
      */
     private enum DropPosition: Equatable {
+        /// A drop position within an existing group.
         case timer(IndexPath)
+        /// An insertion boundary where the drop would create a group.
         case newGroup(Int)
     }
 
@@ -271,17 +275,27 @@ class RiValT_GroupEditor_ViewController: RiValT_Base_ViewController {
     /** Gives every completed or cancelled drag a single, strong impact. */
     private let _dragEndFeedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
 
+    /// The preview and placement state for a drag of an entire group.
     private struct GroupDrag {
+        /// The original group being moved.
         let group: TimerGroup
+        /// The group's section index when the drag began.
         let source: Int
+        /// The current proposed section for the group.
         var destination: Int
+        /// The original row rectangle in collection view coordinates.
         let frame: CGRect
+        /// The vertical offset from the touch to the row's center.
         let grabOffsetY: CGFloat
+        /// The rendered row that follows the touch.
         let preview: UIView
+        /// The recognizer that supplies the drag state and touch position.
         let gesture: UILongPressGestureRecognizer
     }
 
+    /// The active whole-group drag, if any.
     private var _groupDrag: GroupDrag?
+    /// The display link that drives edge scrolling during a group drag.
     private var _groupScrollLink: CADisplayLink?
     
     /* ############################################################## */
@@ -603,7 +617,6 @@ extension RiValT_GroupEditor_ViewController {
                 cell.configure(with: timer, indexPath: inIndexPath, myController: self)
                 cell.isAccessibilityElement = true
                 cell.accessibilityLabel = String(format: "SLUG-ACC-COLLECTION-TIMER-FORMAT-LABEL".localizedVariant, inIndexPath.item + 1, inIndexPath.section + 1)
-                cell.accessibilityValue = timer.setTimeDisplay
                 cell.accessibilityTraits = timer.isSelected ? [.button, .selected] : .button
                 cell.accessibilityCustomActions = self.groupAccessibilityActions(for: timer)
                 ret = cell
@@ -695,6 +708,7 @@ extension RiValT_GroupEditor_ViewController {
      - parameter: ignored.
      */
     @IBAction func toolbarDeleteButtonHit(_: Any) {
+        /// Removes the confirmed preset and updates the editor and Watch selection when another timer is selected.
         func _executeDelete() {
             guard let timer = self.timerModel.selectedTimer,
                   let indexPath = timer.indexPath,
@@ -789,6 +803,7 @@ extension RiValT_GroupEditor_ViewController {
         self.performSegue(withIdentifier: Self._timerEditSegueID, sender: inTitle)
     }
 
+    /// Presents a Group Editor popover with its pointer anchored to the originating bar button.
     private func presentPopover(_ controller: RiValT_GroupEditor_Popover, from item: UIBarButtonItem) {
         controller.modalPresentationStyle = .popover
         guard let popover = controller.popoverPresentationController else { return }
@@ -874,6 +889,9 @@ extension RiValT_GroupEditor_ViewController {
         startGroupFromFirstTimer(self.timerModel[section])
     }
 
+    /// Selects the first preset and starts the group if that preset has a nonzero duration.
+    ///
+    /// - Returns: Whether the running timer screen was opened.
     @discardableResult
     private func startGroupFromFirstTimer(_ group: TimerGroup) -> Bool {
         guard self._groupDrag == nil, group.isSelected, let timer = group.first, let collectionView else { return false }
@@ -943,6 +961,9 @@ extension RiValT_GroupEditor_ViewController {
         selectNextTimerInGroup()
     }
 
+    /// Cycles selection within the group when timers are shown separately.
+    ///
+    /// - Returns: Whether the selection advanced.
     @discardableResult
     func selectNextTimerInGroup() -> Bool {
         guard self._groupDrag == nil, !RiValT_Settings().combineTimers, let timer = self.timerModel.selectedTimer,
@@ -961,12 +982,14 @@ extension RiValT_GroupEditor_ViewController {
 // MARK: Moving a whole group
 /* ###################################################################################################################################### */
 extension RiValT_GroupEditor_ViewController: UIGestureRecognizerDelegate {
+    /// Returns the layout rectangle of the group decoration at a section index.
     private func groupFrame(at section: Int) -> CGRect? {
         self.collectionView?.collectionViewLayout.layoutAttributesForDecorationView(
             ofKind: SectionBackgroundView.reuseIdentifier, at: IndexPath(item: 0, section: section)
         )?.frame
     }
 
+    /// Checks that a point lies within the selected group row and outside any timer cell that can be dragged.
     func canBeginGroupDrag(at point: CGPoint) -> Bool {
         guard let collectionView, let model = self.timerModel, model.count > 1,
               !collectionView.hasActiveDrag, !collectionView.hasActiveDrop,
@@ -975,10 +998,12 @@ extension RiValT_GroupEditor_ViewController: UIGestureRecognizerDelegate {
         return collectionView.indexPathForItem(at: point).map { !model.isValid(indexPath: $0) } ?? true
     }
 
+    /// Allows the group drag recognizer to receive touches from eligible parts of the selected row.
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         canBeginGroupDrag(at: touch.location(in: self.collectionView))
     }
 
+    /// Starts, updates, commits, or cancels a whole-group drag as the long press changes state.
     @objc func groupLongPressed(_ gesture: UILongPressGestureRecognizer) {
         guard let collectionView else { return }
         switch gesture.state {
@@ -1022,6 +1047,7 @@ extension RiValT_GroupEditor_ViewController: UIGestureRecognizerDelegate {
         }
     }
 
+    /// Moves the row preview and updates the proposed destination when it crosses a section boundary.
     private func updateGroupDragPosition() {
         guard let drag = self._groupDrag, let collectionView else { return }
         // All group rows have the same layout height. The trailing Add Group row is outside the reorderable range.
@@ -1059,6 +1085,7 @@ extension RiValT_GroupEditor_ViewController: UIGestureRecognizerDelegate {
         updateGroupDragPosition()
     }
 
+    /// Clears the drag and commits the reorder if requested and the group is still at its original section.
     private func finishGroupDrag(commit: Bool) {
         guard let drag = self._groupDrag else { return }
         self._groupScrollLink?.invalidate()
@@ -1080,6 +1107,7 @@ extension RiValT_GroupEditor_ViewController: UIGestureRecognizerDelegate {
 // MARK: UICollectionViewDragDelegate Conformance
 /* ###################################################################################################################################### */
 extension RiValT_GroupEditor_ViewController: UICollectionViewDragDelegate {
+    /// Clears the timer drop preview and provides feedback when the drag session ends.
     func collectionView(_ inCollectionView: UICollectionView, dragSessionDidEnd inSession: UIDragSession) {
         self.setInsertionPreview(nil)
         self._lastDropPosition = nil
@@ -1149,11 +1177,13 @@ extension RiValT_GroupEditor_ViewController: UICollectionViewDragDelegate {
 // MARK: UICollectionViewDropDelegate Conformance
 /* ###################################################################################################################################### */
 extension RiValT_GroupEditor_ViewController: UICollectionViewDropDelegate {
+    /// Clears the proposed insertion when a timer leaves the drop area.
     func collectionView(_ inCollectionView: UICollectionView, dropSessionDidExit inSession: UIDropSession) {
         self.setInsertionPreview(nil)
         self._lastDropPosition = nil
     }
 
+    /// Clears the proposed insertion when the timer drop session ends.
     func collectionView(_ inCollectionView: UICollectionView, dropSessionDidEnd inSession: UIDropSession) {
         self.setInsertionPreview(nil)
         self._lastDropPosition = nil

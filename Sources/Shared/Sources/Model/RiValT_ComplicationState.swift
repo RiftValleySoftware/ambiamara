@@ -11,28 +11,41 @@ import WidgetKit
 /// A read-only copy of the chosen host's timer, shared by the Watch app and its widgets.
 /// This never runs an engine or advances a timer group on the Watch.
 enum RiValT_ComplicationState {
+    /// The WidgetKit kind shared by the complication and its timeline reload requests.
     static let kind = "Rift_Valley_Timer_Complications"
+    /// The expected interval between phone confirmations of an unchanged countdown.
     static let confirmationInterval = RiValT_RemoteState.complicationConfirmationInterval
+    /// The storage key for the encoded timer sample.
     private static let recordKey = "complication.timer"
+    /// The storage key identifying the host selected for the complication.
     private static let sourceKey = "complication.source"
+    /// The storage key for the host-time cutoff after a disconnect.
     private static let disconnectedAtKey = "complication.disconnectedAt"
+    /// The app group preferences shared by the Watch app and complication.
     private static var defaults: UserDefaults? { UserDefaults(suiteName: "group.rvs.ambiamara") }
 
+    /// The latest timer sample for the selected host and its timeline confirmation.
     struct Record: Codable {
+        /// The last saved host snapshot with a Watch-local deadline.
         let snapshot: RiValT_RemoteState.Snapshot
+        /// The host timestamp used to reject out-of-order samples.
         let updatedAt: Date
+        /// The phone or iPad source that supplied the sample.
         let source: String
         /// Watch-local time of the host sample that last renewed the installed countdown timeline.
         var confirmedAt: Date?
 
+        /// The Watch time when a countdown without a newer confirmation reverts to its preset.
         var rewindDate: Date? { confirmedAt?.addingTimeInterval(2 * confirmationInterval) }
 
+        /// Returns the stored sample or its ready display once its confirmation expires.
         func snapshot(at date: Date) -> RiValT_RemoteState.Snapshot {
             if let rewindDate, date >= rewindDate { return snapshot.rewoundForComplication }
             return snapshot
         }
     }
 
+    /// Reads the current source's sample and rewinds it if it predates the disconnect cutoff.
     static func read(from storage: UserDefaults? = defaults) -> Record? {
         guard let defaults = storage, let data = defaults.data(forKey: recordKey),
               let record = try? PropertyListDecoder().decode(Record.self, from: data),
@@ -62,6 +75,8 @@ enum RiValT_ComplicationState {
         if let state = previous?.snapshot, !state.representsSameControlState(as: state.rewoundForComplication) { reload() }
     }
 
+    /// Stores a current-source sample and requests a timeline reload when display state or confirmation changes.
+    /// A confirmed live response clears the disconnect cutoff.
     static func save(_ snapshot: RiValT_RemoteState.Snapshot, updatedAt: Date, source: String, confirmed: Bool = false,
                      localSampleDate: Date? = nil, in storage: UserDefaults? = defaults) {
         guard let defaults = storage, (defaults.string(forKey: sourceKey) ?? "phone") == source else { return }
@@ -92,12 +107,14 @@ enum RiValT_ComplicationState {
         if stateChanged || previous?.confirmedAt != confirmation { reload() }
     }
 
+    /// Requests new timelines for the RiVal.T complication on watchOS.
     private static func reload() {
         #if os(watchOS)
         WidgetCenter.shared.reloadTimelines(ofKind: kind)
         #endif
     }
 
+    /// Formats a nonnegative duration as minutes and seconds, adding hours when needed.
     static func clockText(_ seconds: Int) -> String {
         let value = max(0, seconds)
         if value >= 3600 {

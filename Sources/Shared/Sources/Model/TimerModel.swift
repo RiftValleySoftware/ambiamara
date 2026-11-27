@@ -368,6 +368,7 @@ extension TimerModel: Sequence {
     /* ################################################################################################################################## */
     // MARK: Iterator Conformance
     /* ################################################################################################################################## */
+    /// Walks the timer groups in model order.
     struct TimerModelIterator: IteratorProtocol {
         /* ########################################################## */
         /**
@@ -878,6 +879,7 @@ extension TimerGroup: Sequence {
     /* ################################################################################################################################## */
     // MARK: Iterator Conformance
     /* ################################################################################################################################## */
+    /// Walks the presets in group order.
     struct TimerGroupIterator: IteratorProtocol {
         /* ########################################################## */
         /**
@@ -1118,7 +1120,9 @@ extension Timer {
 
     /// Used by remote displays to project the same second and phase as the engine.
     var countdownDeadline: Date? { self._engine.countdownDeadline }
+    /// The exclusive upper bound in seconds for a valid warning threshold.
     var warningRangeUpperBound: Int { self._engine.warnRange.upperBound }
+    /// The exclusive upper bound in seconds for a valid final threshold.
     var finalRangeUpperBound: Int { self._engine.finalRange.upperBound }
 
     /* ############################################################## */
@@ -1404,9 +1408,12 @@ extension Timer: CustomDebugStringConvertible {
 
 /// The time scale used by the running screen. Each timer still runs its own engine and warning thresholds.
 struct TimerCountdown {
+    /// The selected timer whose engine supplies the live countdown.
     let timer: Timer
+    /// The presets that contribute duration to the timeline, in playback order.
     let timers: [Timer]
 
+    /// Builds a timeline for the selected preset or for its group with zero-duration presets omitted.
     init(_ timer: Timer, combineTimers: Bool) {
         self.timer = timer
         if combineTimers, let group = timer.group, group.allTimers.contains(timer) {
@@ -1416,6 +1423,7 @@ struct TimerCountdown {
         }
     }
 
+    /// The sum of the configured durations on this timeline in seconds.
     var totalDuration: Int { timers.reduce(0) { $0 + $1.startingTimeInSeconds } }
 
     /// Preset durations after the active timer. Previously run timers never contribute to the time left.
@@ -1424,6 +1432,7 @@ struct TimerCountdown {
         return timers.suffix(from: index + 1).reduce(0) { $0 + $1.startingTimeInSeconds }
     }
 
+    /// The active countdown plus the configured durations of later timers in seconds.
     var remaining: Int { timer.currentTime + followingDuration }
 
     /// At a transition, elapsed time belongs to the start of the next timer.

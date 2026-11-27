@@ -274,6 +274,7 @@ class RiValT_RunningTimer_ContainerViewController: UIViewController {
 // MARK: Computed Properties
 /* ###################################################################################################################################### */
 extension RiValT_RunningTimer_ContainerViewController {
+    /// The current timer's timeline, including its group when Combine Timers is enabled.
     var countdown: TimerCountdown? {
         timer.map { TimerCountdown($0, combineTimers: _combineTimers) }
     }
@@ -283,13 +284,16 @@ extension RiValT_RunningTimer_ContainerViewController {
         _combineTimers ? scrubPreview : nil
     }
 
+    /// The remaining seconds shown by the display, using the preview while the combined slider is dragged.
     var displayedRemaining: Int? {
         guard let countdown else { return nil }
         return combinedPreview.map { $0.remaining + countdown.followingDuration } ?? countdown.remaining
     }
 
+    /// The phase shown by the display, taking the combined slider preview into account.
     var displayedMode: TimerEngine.Mode? { combinedPreview?.mode ?? timer?.timerMode }
 
+    /// Whether the displayed countdown is running, including the simulated position during a scrub.
     var displayIsRunning: Bool {
         combinedPreview.map { $0.remaining > 0 } ?? (timer?.isTimerRunning ?? false)
     }
@@ -299,6 +303,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         _combineTimers ? countdown?.timers ?? [] : timer?.group?.allTimers ?? []
     }
 
+    /// Finds the group timer at a signed offset from the active timer if it has a nonzero duration.
     private func adjacentTimer(offset: Int) -> Timer? {
         let timers = groupTimers
         guard let timer, let index = timers.firstIndex(of: timer),
@@ -1242,6 +1247,7 @@ extension RiValT_RunningTimer_ContainerViewController {
         self.updateDisplays()
     }
 
+    /// Advances or rewinds the countdown by one tenth of the range for an accessibility adjustment.
     private func adjustCountdownPosition(by direction: Int) {
         guard let countdown, countdown.totalDuration > 0 else { return }
         let elapsed = countdown.totalDuration - countdown.remaining

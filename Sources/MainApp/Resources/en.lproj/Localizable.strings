@@ -143,7 +143,7 @@ LONG-PRESS: Brings up a slider, allowing you to set the time to any point.";
 "SLUG-START-IN-WARNING"                        =   "Start in Warning";
 "SLUG-START-IN-FINAL"                          =   "Start in Final";
 "SLUG-START-IN-FINAL-TURNS-OFF-WARNING"        =   "Turns off Warning.";
-"SLUG-TIMER-STARTS-IN-WARNING"                 =   "Starts in Warning";
+"SLUG-TIMER-STARTS-IN-WARNING"                 =   "Starts in Warning.";
 "SLUG-TIMER-ENTIRELY-IN-WARNING"               =   "Runs entirely in Warning";
 "SLUG-TIMER-ENTIRELY-IN-FINAL"                 =   "Runs entirely in Final";
 "SLUG-HOURS"                                    =   "Hours";
@@ -487,11 +487,9 @@ Tap the gear for software credits and licenses.";
 
 // MARK: Timer Backup
 
-"SLUG-BACKUP-EXPORT" = "Export Timer Backup…";
-"SLUG-BACKUP-RESTORE" = "Restore Timer Backup…";
-"SLUG-ACC-BACKUP-EXPORT-LABEL" = "Export Timer Backup";
+"SLUG-BACKUP-EXPORT" = "Export Backup";
+"SLUG-BACKUP-RESTORE" = "Restore Backup";
 "SLUG-ACC-BACKUP-EXPORT-HINT" = "Choose where to save a backup of your timers and settings.";
-"SLUG-ACC-BACKUP-RESTORE-LABEL" = "Restore Timer Backup";
 "SLUG-ACC-BACKUP-RESTORE-HINT" = "Choose a backup file to restore your saved timers and settings.";
 "SLUG-BACKUP-FILES-HINT" = "Save to iCloud Drive to keep your backup after deleting RiVal.T.";
 "SLUG-BACKUP-FILENAME" = "RiVal.T Backup %@";
