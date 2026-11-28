@@ -30,8 +30,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D43B97342DA2C0F50028E023"
-               BuildableName = "RiVal.T.app"
-               BlueprintName = "RiVal.T"
+               BuildableName = "RVT.app"
+               BlueprintName = "RVT"
                ReferencedContainer = "container:AmbiaMara.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

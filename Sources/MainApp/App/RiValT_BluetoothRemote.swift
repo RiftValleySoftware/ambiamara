@@ -30,7 +30,7 @@ final class RiValT_BluetoothRemote: NSObject, ObservableObject {
     private(set) lazy var hostName: String = {
         let key = "remote.iPadLabel"
         if let label = UserDefaults.standard.string(forKey: key) { return label }
-        let label = "RiVal.T-" + UUID().uuidString.prefix(4)
+        let label = "RVT-" + UUID().uuidString.prefix(4)
         UserDefaults.standard.set(label, forKey: key)
         return label
     }()

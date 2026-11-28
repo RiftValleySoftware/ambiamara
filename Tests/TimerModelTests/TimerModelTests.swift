@@ -30,8 +30,8 @@ class TimerModelTests: XCTestCase {
         selected.finalTimeInSeconds = 20
         selected.isSelected = true
         original[0].displayType = .circular
-        original[0].soundType = .soundVibrate(soundFileName: "/PreviousInstall/RiVal.T.app/Alarms/01-low-beep.mp3")
-        original[0].transitionSoundFilename = "/PreviousInstall/RiVal.T.app/Sounds/Beep-001.mp3"
+        original[0].soundType = .soundVibrate(soundFileName: "/PreviousInstall/Timer.app/Alarms/01-low-beep.mp3")
+        original[0].transitionSoundFilename = "/PreviousInstall/Timer.app/Sounds/Beep-001.mp3"
         original[1].soundType = .vibrate
 
         let preferences = RiValT_TimerBackup.Preferences(startTimerImmediately: false, displayToolbar: true,

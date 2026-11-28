@@ -8,7 +8,7 @@ import Foundation
 
 /// The encrypted Bluetooth channel identifiers and message framing shared by iPad and Watch.
 enum RiValT_BluetoothRemotePacket {
-    /// The Bluetooth service UUID advertised by RiVal.T on iPad.
+    /// The Bluetooth service UUID advertised by RVT on iPad.
     static let serviceID = CBUUID(string: "0250A104-0738-42F6-BF10-847791B599CA")
     /// The characteristic UUID for writes from the Watch and indications from the iPad.
     static let channelID = CBUUID(string: "5585507D-1321-41A2-944C-78BFC934D4FD")

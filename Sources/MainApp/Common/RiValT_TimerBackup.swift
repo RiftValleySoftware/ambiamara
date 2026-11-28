@@ -168,10 +168,10 @@ struct RiValT_TimerBackup: Codable {
         }
     }
 
-    /// The identifier registered for timer backup documents.
+    /// The stable identifier shared by current and earlier timer backup files.
     static let typeIdentifier = "com.riftvalleysoftware.rivalt.timer-backup"
     /// The filename extension for exported backup files.
-    static let fileExtension = "rivaltbackup"
+    static let fileExtension = "rvtbackup"
     /// The schema version written and accepted by this build.
     private static let currentVersion = 1
 

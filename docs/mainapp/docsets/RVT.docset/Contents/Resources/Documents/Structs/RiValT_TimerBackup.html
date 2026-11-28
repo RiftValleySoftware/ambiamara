@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RiValT_TimerBackup Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Struct/RiValT_TimerBackup" class="dashAnchor"></a>
+
+    <a title="RiValT_TimerBackup Structure Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          RVT Main App Documentation
+        </a>
+         (100% documented)
+      </p>
+    
+      <div class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </div>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/ambiamara">
+            <img class="header-icon" src="../img/gh.png" alt="GitHub"/>
+            View on GitHub
+          </a>
+        </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Friftvalleysoftware.github.io%2Fambiamara%2Fmainapp%2Fdocsets%2FRVT.xml">
+            <img class="header-icon" src="../img/dash.png" alt="Dash"/>
+            Install in Dash
+          </a>
+        </p>
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">RVT</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      <a class="breadcrumb" href="../Structs.html">Structures</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      RiValT_TimerBackup Structure Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes.html#/c:@M@RVT@objc(cs)BaseCustomBarButtonItem">BaseCustomBarButtonItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DisplayBarButtonItem.html">DisplayBarButtonItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/GroupNumberLabel.html">GroupNumberLabel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_About_ViewController.html">RiValT_About_ViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_AppDelegate.html">RiValT_AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_BaseCollectionCell.html">RiValT_BaseCollectionCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_Base_ViewController.html">RiValT_Base_ViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_BluetoothRemote.html">RiValT_BluetoothRemote</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_CirlcleDisplayView.html">RiValT_CirlcleDisplayView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_DisappearingBarButton.html">RiValT_DisappearingBarButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_DisplaySettings_ViewController.html">RiValT_DisplaySettings_ViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_EditTimer_ViewController.html">RiValT_EditTimer_ViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_EditTimer_ViewController/TimeType.html">– TimeType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_EditTimer_ViewController/PickerRow.html">– PickerRow</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_GroupEditor_Popover.html">RiValT_GroupEditor_Popover</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_GroupEditor_PopoverBackgroundView.html">RiValT_GroupEditor_PopoverBackgroundView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_GroupEditor_ViewController.html">RiValT_GroupEditor_ViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_GroupEditor_ViewController/DropPosition.html">– DropPosition</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_GroupEditor_ViewController/GroupDrag.html">– GroupDrag</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_RunningTimer_Base_ViewController.html">RiValT_RunningTimer_Base_ViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_RunningTimer_Circular_ViewController.html">RiValT_RunningTimer_Circular_ViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_RunningTimer_ContainerViewController.html">RiValT_RunningTimer_ContainerViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_RunningTimer_Numerical_ViewController.html">RiValT_RunningTimer_Numerical_ViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_RunningTimer_Stoplights_ViewController.html">RiValT_RunningTimer_Stoplights_ViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_SceneDelegate.html">RiValT_SceneDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_Settings.html">RiValT_Settings</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_Settings/Keys.html">– Keys</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_Settings_ViewController.html">RiValT_Settings_ViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_SoundSettings_ViewController.html">RiValT_SoundSettings_ViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_TimerArray_AddCell.html">RiValT_TimerArray_AddCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_TimerArray_IconCell.html">RiValT_TimerArray_IconCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_TimerArray_Placeholder.html">RiValT_TimerArray_Placeholder</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_TimerEditor_PageViewContainer.html">RiValT_TimerEditor_PageViewContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_TimerEditor_PageViewController.html">RiValT_TimerEditor_PageViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RiValT_WatchDelegate.html">RiValT_WatchDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/SectionBackgroundView.html">SectionBackgroundView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/SoundBarButtonItem.html">SoundBarButtonItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Timer.html">Timer</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerEngine.html">TimerEngine</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerEngine/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerEngine/Mode.html">– Mode</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerGroup.html">TimerGroup</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerGroup/SoundType.html">– SoundType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerGroup/DisplayType.html">– DisplayType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerGroup/TimerGroupIterator.html">– TimerGroupIterator</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerModel.html">TimerModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TimerModel/TimerModelIterator.html">– TimerModelIterator</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_BluetoothRemotePacket.html">RiValT_BluetoothRemotePacket</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_BluetoothRemotePacket/Code.html">– Code</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_BluetoothRemotePacket/Assembly.html">– Assembly</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState.html">RiValT_RemoteState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/TimerOperation.html">– TimerOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Phase.html">– Phase</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Snapshot.html">– Snapshot</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Host.html">– Host</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RiValT_RemoteState/Clock.html">– Clock</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIAlertAction.html">UIAlertAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIImage.html">UIImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UISegmentedControl.html">UISegmentedControl</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIViewController.html">UIViewController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RiValT_TimerBackup.html">RiValT_TimerBackup</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RiValT_TimerBackup/BackupError.html">– BackupError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RiValT_TimerBackup/Preferences.html">– Preferences</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RiValT_TimerBackup/Header.html">– Header</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RiValT_TimerBackup/Group.html">– Group</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RiValT_TimerBackup/Preset.html">– Preset</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/TimerCountdown.html">TimerCountdown</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>RiValT_TimerBackup</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">RiValT_TimerBackup</span> <span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                </div>
+              </div>
+            <p>The file format for a portable snapshot of the timer setup.</p>
+
+              <div class="slightly-smaller">
+                <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L14-L240">Show on GitHub</a>
+              </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV0D5ErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/BackupError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV0D5ErrorO">BackupError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Failures specific to validating or restoring a timer backup.</p>
+
+                        <a href="../Structs/RiValT_TimerBackup/BackupError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">BackupError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L16-L23">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV11PreferencesV"></a>
+                    <a name="//apple_ref/swift/Struct/Preferences" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV11PreferencesV">Preferences</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>App-wide behavior preferences saved alongside the timer groups.</p>
+
+                        <a href="../Structs/RiValT_TimerBackup/Preferences.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Preferences</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L26-L37">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV6Header33_DD70ED98417490AAD2BCFDB20C06B759LLV"></a>
+                    <a name="//apple_ref/swift/Struct/Header" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV6Header33_DD70ED98417490AAD2BCFDB20C06B759LLV">Header</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The version field read before decoding the version-specific payload.</p>
+
+                        <a href="../Structs/RiValT_TimerBackup/Header.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">struct</span> <span class="kt">Header</span> <span class="p">:</span> <span class="kt">Decodable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L40-L43">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV5Group33_DD70ED98417490AAD2BCFDB20C06B759LLV"></a>
+                    <a name="//apple_ref/swift/Struct/Group" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV5Group33_DD70ED98417490AAD2BCFDB20C06B759LLV">Group</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The portable representation of a timer group and its presentation settings.</p>
+
+                        <a href="../Structs/RiValT_TimerBackup/Group.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">struct</span> <span class="kt">Group</span> <span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L46-L125">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV6Preset33_DD70ED98417490AAD2BCFDB20C06B759LLV"></a>
+                    <a name="//apple_ref/swift/Struct/Preset" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV6Preset33_DD70ED98417490AAD2BCFDB20C06B759LLV">Preset</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A timer&rsquo;s configured durations without its runtime countdown state.</p>
+
+                        <a href="../Structs/RiValT_TimerBackup/Preset.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">struct</span> <span class="kt">Preset</span> <span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L128-L169">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV14typeIdentifierSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/typeIdentifier" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV14typeIdentifierSSvpZ">typeIdentifier</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The identifier registered for timer backup documents.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">typeIdentifier</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L172">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV13fileExtensionSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/fileExtension" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV13fileExtensionSSvpZ">fileExtension</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The filename extension for exported backup files.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">fileExtension</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L174">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV14currentVersion33_DD70ED98417490AAD2BCFDB20C06B759LLSivpZ"></a>
+                    <a name="//apple_ref/swift/Variable/currentVersion" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV14currentVersion33_DD70ED98417490AAD2BCFDB20C06B759LLSivpZ">currentVersion</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The schema version written and accepted by this build.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">currentVersion</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L176">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV7version33_DD70ED98417490AAD2BCFDB20C06B759LLSivp"></a>
+                    <a name="//apple_ref/swift/Property/version" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV7version33_DD70ED98417490AAD2BCFDB20C06B759LLSivp">version</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The schema version stored in this backup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">let</span> <span class="nv">version</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L179">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV10exportedAt10Foundation4DateVvp"></a>
+                    <a name="//apple_ref/swift/Property/exportedAt" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV10exportedAt10Foundation4DateVvp">exportedAt</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The date and time the backup was created.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">exportedAt</span><span class="p">:</span> <span class="kt">Date</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L181">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV11preferencesAC11PreferencesVvp"></a>
+                    <a name="//apple_ref/swift/Property/preferences" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV11preferencesAC11PreferencesVvp">preferences</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The app-wide behavior preferences recorded at export.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">preferences</span><span class="p">:</span> <span class="kt"><a href="../Structs/RiValT_TimerBackup/Preferences.html">Preferences</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L183">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV08selectedC2ID33_DD70ED98417490AAD2BCFDB20C06B759LL10Foundation4UUIDVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/selectedTimerID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV08selectedC2ID33_DD70ED98417490AAD2BCFDB20C06B759LL10Foundation4UUIDVSgvp">selectedTimerID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The selected preset&rsquo;s identifier, if a timer was selected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">let</span> <span class="nv">selectedTimerID</span><span class="p">:</span> <span class="kt">UUID</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L185">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV6groups33_DD70ED98417490AAD2BCFDB20C06B759LLSayAC5GroupAELLVGvp"></a>
+                    <a name="//apple_ref/swift/Property/groups" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV6groups33_DD70ED98417490AAD2BCFDB20C06B759LLSayAC5GroupAELLVGvp">groups</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The backed-up groups in their original order.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">let</span> <span class="nv">groups</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/RiValT_TimerBackup/Group.html">Group</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L187">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV10groupCountSivp"></a>
+                    <a name="//apple_ref/swift/Property/groupCount" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV10groupCountSivp">groupCount</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The number of timer groups in the backup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">groupCount</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L190">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV10timerCountSivp"></a>
+                    <a name="//apple_ref/swift/Property/timerCount" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV10timerCountSivp">timerCount</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The total number of presets across all groups.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">timerCount</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L192">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV5model11preferencesAcA0C5ModelC_AC11PreferencesVtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(model:preferences:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV5model11preferencesAcA0C5ModelC_AC11PreferencesVtcfc">init(model:<wbr>preferences:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Captures the ordered timer groups and selection along with the supplied preferences.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">model</span><span class="p">:</span> <span class="kt"><a href="../Classes/TimerModel.html">TimerModel</a></span><span class="p">,</span> <span class="nv">preferences</span><span class="p">:</span> <span class="kt"><a href="../Structs/RiValT_TimerBackup/Preferences.html">Preferences</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L195-L201">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV7encoded10Foundation4DataVyKF"></a>
+                    <a name="//apple_ref/swift/Method/encoded()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV7encoded10Foundation4DataVyKF">encoded()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Validates the backup and encodes it as legible JSON with ISO 8601 dates.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">encoded</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Data</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L204-L210">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV6decodeyAC10Foundation4DataVKFZ"></a>
+                    <a name="//apple_ref/swift/Method/decode(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV6decodeyAC10Foundation4DataVKFZ">decode(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reads the schema version first, then decodes and validates the backup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">decode</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">RiValT_TimerBackup</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L213-L221">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV010persistentC5ModelSaySaySDySSSH_pGGGvp"></a>
+                    <a name="//apple_ref/swift/Property/persistentTimerModel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV010persistentC5ModelSaySaySDySSSH_pGGGvp">persistentTimerModel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Converts the groups and presets to the app&rsquo;s persisted timer model format.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">persistentTimerModel</span><span class="p">:</span> <span class="p">[[[</span><span class="kt">String</span> <span class="p">:</span> <span class="kd">any</span> <span class="kt">Hashable</span><span class="p">]]]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L224-L228">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3RVT0aB13T_TimerBackupV8validate33_DD70ED98417490AAD2BCFDB20C06B759LLyyKF"></a>
+                    <a name="//apple_ref/swift/Method/validate()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3RVT0aB13T_TimerBackupV8validate33_DD70ED98417490AAD2BCFDB20C06B759LLyyKF">validate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Rejects invalid groups, duplicate IDs, and a selected timer ID that is absent from the backup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">validate</span><span class="p">()</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/RiftValleySoftware/ambiamara/blob/master/Sources/MainApp/Common/RiValT_TimerBackup.swift#L231-L239">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external noopener">©2018-2026 The Great Rift Valley Software Company</a></p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+    </section>
+  </body>
+</html>

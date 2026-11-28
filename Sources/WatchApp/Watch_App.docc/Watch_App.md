@@ -1,14 +1,14 @@
 # ``Watch_App``
 
-Display and control the RiVal.T countdown on Apple Watch.
+Display and control the RVT countdown on Apple Watch.
 
 @Metadata {
-    @DisplayName("RiVal.T Remote")
+    @DisplayName("RVT Remote")
 }
 
 ## Overview
 
-RiVal.T Remote runs on watchOS 10 or later. The wearer selects a paired iPhone or a nearby iPad through **Timer device**. The paired phone uses WatchConnectivity, while the iPad connection uses ``RiValT_BluetoothRemote``.
+RVT Remote runs on watchOS 10 or later. The wearer selects a paired iPhone or a nearby iPad through **Timer device**. The paired phone uses WatchConnectivity, while the iPad connection uses ``RiValT_BluetoothRemote``.
 
 The selected host runs the timer and advances its group. ``RiValT_WatchDelegate`` requests a snapshot, converts its deadline to the Watch clock, and sends commands against the host state the wearer saw. The UI model uses confirmed host phase changes to play haptics.
 

@@ -90,7 +90,7 @@
 "SLUG-DELETE-BUTTON-TEXT"                       =   "Delete Timer";
 "SLUG-DELETE-CONFIRM-HEADER"                    =   "Delete the Selected Timer?";
 "SLUG-DELETE-CONFIRM-MESSAGE"                   =   "If you select “Delete Timer”, the selected timer will be permanently removed from the app.";
-"SLUG-TIMERS"                                   =   "RiVal.T";
+"SLUG-TIMERS"                                   =   "RVT";
 "SLUG-TIMERS-BACK"                              =   "Timers";
 "SLUG-NEW-TIMER"                                =   "New Timer";
 
@@ -182,14 +182,14 @@ LONG-PRESS: Brings up a slider, allowing you to set the time to any point.";
 // MARK: About Screen
 
 "SLUG-NAME-VERSION-FORMAT"                      =   "%@ - %@ (%@)";
-"SLUG-ABOUT-MAIN-TEXT"                          =   "Set a timer or run a group of timers in order. Choose a digital, ring, or stoplight display. RiVal.T alerts you when time is up.
+"SLUG-ABOUT-MAIN-TEXT"                          =   "Set a timer or run a group of timers in order. Choose a digital, ring, or stoplight display. RVT alerts you when time is up.
 
 Tap the gear for software credits and licenses.";
 "SLUG-ABOUT-WEBSITE-LINK"                       =   "Visit our website for tips and more details.";
 
 // The iPad setting allows one approved Apple Watch to control this device's timer.
 "SLUG-WATCH-REMOTE" = "Watch Remote";
-// Fallback for a connected Watch whose version of RiVal.T does not report its device name.
+// Fallback for a connected Watch whose version of RVT does not report its device name.
 "SLUG-WATCH-REMOTE-CONNECTED" = "Apple Watch";
 "SLUG-WATCH-PAIR-TITLE" = "Allow Watch Remote?";
 // %@ is a four-digit code displayed on the requesting Apple Watch.
@@ -227,7 +227,7 @@ Tap the gear for software credits and licenses.";
 // The host app is in the background or a dialog is covering its timer controls.
 "SLUG-HOST-FOREGROUND" = "Return to the timer screen on %@.";
 // Shown when connected but the host has no available timer. The placeholder identifies the host.
-"SLUG-HOST-NO-TIMER" = "Select a timer in RiVal.T on %@.";
+"SLUG-HOST-NO-TIMER" = "Select a timer in RVT on %@.";
 // The selected timer has a zero starting duration. The placeholder names the timer device.
 "SLUG-HOST-SET-TIME" = "Set a timer duration on %@.";
 "SLUG-INVALID" = "INVALID";
@@ -235,7 +235,7 @@ Tap the gear for software credits and licenses.";
 "SLUG-OK" = "OK";
 "SLUG-OPEN-APP" = "Open iPhone App";
 // Shown when the Watch has no live timer information. The placeholder identifies the selected device.
-"SLUG-OPEN-TIMER-APP" = "Open RiVal.T on %@ to connect.";
+"SLUG-OPEN-TIMER-APP" = "Open RVT on %@ to connect.";
 // Requests that the host pause the running timer.
 "SLUG-PAUSE" = "Pause";
 // The host timer is paused.
@@ -447,7 +447,7 @@ Tap the gear for software credits and licenses.";
 "SLUG-ACC-ABOUT-TEXT-LABEL"                     =   "About This App";
 "SLUG-ACC-ABOUT-TEXT-HINT"                      =   "Read about the timer and find tips on its website.";
 "SLUG-ACC-ABOUT-SETTINGS-LABEL" = "Settings";
-"SLUG-ACC-ABOUT-SETTINGS-HINT" = "Opens the RiVal.T page in Settings to show software credits.";
+"SLUG-ACC-ABOUT-SETTINGS-HINT" = "Opens the RVT page in Settings to show software credits.";
 
 // MARK: Watch Remote
 
@@ -494,11 +494,11 @@ Tap the gear for software credits and licenses.";
 "SLUG-BACKUP-RESTORE" = "Restore Backup";
 "SLUG-ACC-BACKUP-EXPORT-HINT" = "Choose where to save a backup of your timers and settings.";
 "SLUG-ACC-BACKUP-RESTORE-HINT" = "Choose a backup file to restore your saved timers and settings.";
-"SLUG-BACKUP-FILES-HINT" = "Save to iCloud Drive to keep your backup after deleting RiVal.T.";
-"SLUG-BACKUP-FILENAME" = "RiVal.T Backup %@";
+"SLUG-BACKUP-FILES-HINT" = "Save to iCloud Drive to keep your backup after deleting RVT.";
+"SLUG-BACKUP-FILENAME" = "RVT Backup %@";
 "SLUG-BACKUP-EXPORT-FAILED" = "Couldn’t Export Timer Backup";
-"SLUG-BACKUP-UNSUPPORTED" = "This backup requires a different version of RiVal.T.";
-"SLUG-BACKUP-INVALID" = "This file isn’t a valid RiVal.T timer backup.";
+"SLUG-BACKUP-UNSUPPORTED" = "This backup requires a different version of RVT.";
+"SLUG-BACKUP-INVALID" = "This file isn’t a valid RVT timer backup.";
 "SLUG-BACKUP-RESTORE-TITLE" = "Restore Timer Backup?";
 "SLUG-BACKUP-RESTORE-CONFIRMATION" = "Timers (%1$ld) · Groups (%2$ld)\nRestoring replaces your current timers and settings.";
 "SLUG-BACKUP-RESTORE-ACTION" = "Restore";

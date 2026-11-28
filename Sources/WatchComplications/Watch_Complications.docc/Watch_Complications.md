@@ -1,9 +1,9 @@
 # ``Watch_Complications``
 
-Show the selected RiVal.T timer on the watch face.
+Show the selected RVT timer on the watch face.
 
 @Metadata {
-    @DisplayName("RiVal.T Watch Complication")
+    @DisplayName("RVT Watch Complication")
 }
 
 ## Overview

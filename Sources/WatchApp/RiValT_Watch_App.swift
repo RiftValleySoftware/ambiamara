@@ -15,7 +15,7 @@ import WatchConnectivity
 /* ###################################################################################################################################### */
 // MARK: - Main Watch App -
 /* ###################################################################################################################################### */
-/// The SwiftUI entry point for the RiVal.T Watch app.
+/// The SwiftUI entry point for the RVT Watch app.
 @main
 struct RiValT_Watch_App: App {
     /// The WatchKit delegate responsible for background connectivity deliveries.

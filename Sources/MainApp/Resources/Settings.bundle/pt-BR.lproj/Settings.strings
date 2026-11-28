@@ -1,5 +1,5 @@
 "SLUG-SOFTWARE-DEPENDENCIES" = "Dependências de software";
-"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Selecione uma biblioteca para ver o que ela faz, onde encontrar seu código-fonte e sua licença MIT.\n\nO RiVal.T usa a fonte “Let's Go Digital” de Wolf Lambert.";
+"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Selecione uma biblioteca para ver o que ela faz, onde encontrar seu código-fonte e sua licença MIT.\n\nO RVT usa a fonte “Let's Go Digital” de Wolf Lambert.";
 "SLUG-SOURCE-CODE" = "Código-fonte";
 "SLUG-LICENSE" = "Licença";
 "SLUG-DEPENDENCY-GCD-TIMER" = "Controla os temporizadores de contagem regressiva.";
@@ -9,4 +9,4 @@
 "SLUG-DEPENDENCY-LED-DISPLAY" = "Desenha o mostrador digital da contagem regressiva.";
 "SLUG-DEPENDENCY-UIKIT-TOOLBOX" = "Fornece controles e utilitários UIKit.";
 "SLUG-APP-SOURCE-CODE" = "Código-fonte do app";
-"SLUG-APP-SOURCE-DESCRIPTION" = "O RiVal.T é um software proprietário. Você pode consultar o código-fonte no GitHub.";
+"SLUG-APP-SOURCE-DESCRIPTION" = "O RVT é um software proprietário. Você pode consultar o código-fonte no GitHub.";

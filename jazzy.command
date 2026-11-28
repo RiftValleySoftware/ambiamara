@@ -57,9 +57,9 @@ generate_docs() (
     tar -czf "$output_dir/docsets/$module.tgz" -C "$output_dir/docsets" "$docset"
 )
 
-generate_docs mainapp 'RiVal.T Main App Documentation' RiVal.T RiVal_T iOS README.md
-generate_docs watch 'RiVal.T Watch App Documentation' WatchApp Watch_App watchOS Sources/WatchApp/README.md
-generate_docs complication 'RiVal.T Watch Complication Documentation' WatchComplications Watch_Complications watchOS Sources/WatchComplications/README.md
+generate_docs mainapp 'RVT Main App Documentation' RVT RVT iOS README.md
+generate_docs watch 'RVT Watch App Documentation' WatchApp Watch_App watchOS Sources/WatchApp/README.md
+generate_docs complication 'RVT Watch Complication Documentation' WatchComplications Watch_Complications watchOS Sources/WatchComplications/README.md
 
 cp Sources/Meta/JazzyIndex.html "$site/index.html"
 cp icon.png "$site/"

@@ -90,7 +90,7 @@
 "SLUG-DELETE-BUTTON-TEXT"                       =   "Elimina timer";
 "SLUG-DELETE-CONFIRM-HEADER"                    =   "Eliminare il timer selezionato?";
 "SLUG-DELETE-CONFIRM-MESSAGE"                   =   "Se scegli «Elimina timer», il timer selezionato verrà rimosso definitivamente dall’app.";
-"SLUG-TIMERS"                                   =   "RiVal.T";
+"SLUG-TIMERS"                                   =   "RVT";
 "SLUG-TIMERS-BACK"                              =   "Timer";
 "SLUG-NEW-TIMER"                                =   "Nuovo timer";
 
@@ -182,14 +182,14 @@ PRESSIONE PROLUNGATA: Mostra un cursore per regolare il tempo rimanente.";
 // MARK: About Screen
 
 "SLUG-NAME-VERSION-FORMAT"                      =   "%@ - %@ (%@)";
-"SLUG-ABOUT-MAIN-TEXT"                          =   "Imposta un timer o avvia un gruppo di timer in sequenza. Scegli un display digitale, ad anello o a semaforo. RiVal.T ti avvisa quando il tempo è scaduto.
+"SLUG-ABOUT-MAIN-TEXT"                          =   "Imposta un timer o avvia un gruppo di timer in sequenza. Scegli un display digitale, ad anello o a semaforo. RVT ti avvisa quando il tempo è scaduto.
 
 Tocca l’ingranaggio per vedere i crediti e le licenze del software.";
 "SLUG-ABOUT-WEBSITE-LINK"                       =   "Visita il nostro sito web per suggerimenti e altri dettagli.";
 
 // The iPad setting allows one approved Apple Watch to control this device's timer.
 "SLUG-WATCH-REMOTE" = "Controllo da Apple Watch";
-// Fallback for a connected Watch whose version of RiVal.T does not report its device name.
+// Fallback for a connected Watch whose version of RVT does not report its device name.
 "SLUG-WATCH-REMOTE-CONNECTED" = "Apple Watch";
 "SLUG-WATCH-PAIR-TITLE" = "Consentire il controllo da Apple Watch?";
 // %@ is a four-digit code displayed on the requesting Apple Watch.
@@ -227,7 +227,7 @@ Tocca l’ingranaggio per vedere i crediti e le licenze del software.";
 // The host app is in the background or a dialog is covering its timer controls.
 "SLUG-HOST-FOREGROUND" = "Torna alla schermata del timer su %@.";
 // Shown when connected but the host has no available timer. The placeholder identifies the host.
-"SLUG-HOST-NO-TIMER" = "Seleziona un timer in RiVal.T su %@.";
+"SLUG-HOST-NO-TIMER" = "Seleziona un timer in RVT su %@.";
 // The selected timer has a zero starting duration. The placeholder names the timer device.
 "SLUG-HOST-SET-TIME" = "Imposta la durata del timer su %@.";
 "SLUG-INVALID" = "NON VALIDO";
@@ -235,7 +235,7 @@ Tocca l’ingranaggio per vedere i crediti e le licenze del software.";
 "SLUG-OK" = "OK";
 "SLUG-OPEN-APP" = "Apri l’app su iPhone";
 // Shown when the Watch has no live timer information. The placeholder identifies the selected device.
-"SLUG-OPEN-TIMER-APP" = "Apri RiVal.T su %@ per connetterti.";
+"SLUG-OPEN-TIMER-APP" = "Apri RVT su %@ per connetterti.";
 // Requests that the host pause the running timer.
 "SLUG-PAUSE" = "Pausa";
 // The host timer is paused.
@@ -447,7 +447,7 @@ Tocca l’ingranaggio per vedere i crediti e le licenze del software.";
 "SLUG-ACC-ABOUT-TEXT-LABEL"                     =   "Informazioni sull’app";
 "SLUG-ACC-ABOUT-TEXT-HINT"                      =   "Contiene informazioni sul timer e un link al suo sito web.";
 "SLUG-ACC-ABOUT-SETTINGS-LABEL" = "Impostazioni";
-"SLUG-ACC-ABOUT-SETTINGS-HINT" = "Apre la pagina di RiVal.T in Impostazioni per mostrare i crediti del software.";
+"SLUG-ACC-ABOUT-SETTINGS-HINT" = "Apre la pagina di RVT in Impostazioni per mostrare i crediti del software.";
 
 // MARK: Watch Remote
 
@@ -494,11 +494,11 @@ Tocca l’ingranaggio per vedere i crediti e le licenze del software.";
 "SLUG-BACKUP-RESTORE" = "Ripristina backup";
 "SLUG-ACC-BACKUP-EXPORT-HINT" = "Scegli dove salvare un backup dei timer e delle impostazioni.";
 "SLUG-ACC-BACKUP-RESTORE-HINT" = "Scegli un file di backup per ripristinare i timer e le impostazioni salvati.";
-"SLUG-BACKUP-FILES-HINT" = "Salva il backup in iCloud Drive per conservarlo dopo aver eliminato RiVal.T.";
-"SLUG-BACKUP-FILENAME" = "Backup RiVal.T %@";
+"SLUG-BACKUP-FILES-HINT" = "Salva il backup in iCloud Drive per conservarlo dopo aver eliminato RVT.";
+"SLUG-BACKUP-FILENAME" = "Backup RVT %@";
 "SLUG-BACKUP-EXPORT-FAILED" = "Impossibile esportare il backup dei timer";
-"SLUG-BACKUP-UNSUPPORTED" = "Questo backup richiede una versione diversa di RiVal.T.";
-"SLUG-BACKUP-INVALID" = "Questo file non è un backup valido di RiVal.T.";
+"SLUG-BACKUP-UNSUPPORTED" = "Questo backup richiede una versione diversa di RVT.";
+"SLUG-BACKUP-INVALID" = "Questo file non è un backup valido di RVT.";
 "SLUG-BACKUP-RESTORE-TITLE" = "Ripristinare il backup dei timer?";
 "SLUG-BACKUP-RESTORE-CONFIRMATION" = "Timer (%1$ld) · Gruppi (%2$ld)\nIl ripristino sostituisce i timer e le impostazioni attuali.";
 "SLUG-BACKUP-RESTORE-ACTION" = "Ripristina";

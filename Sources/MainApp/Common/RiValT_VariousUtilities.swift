@@ -198,7 +198,7 @@ class SectionBackgroundView: UICollectionReusableView {
     /**
      The radius of our rounded corners
      */
-    private static let _cornerRadiusInDisplayUnits = CGFloat(16)
+    static let rowCornerRadius = CGFloat(16)
     
     /* ################################################################## */
     /**
@@ -276,7 +276,7 @@ class SectionBackgroundView: UICollectionReusableView {
     override init(frame inFrame: CGRect) {
         super.init(frame: inFrame)
         self._lastFrame = inFrame
-        self.cornerRadius = Self._cornerRadiusInDisplayUnits
+        self.cornerRadius = Self.rowCornerRadius
     }
     
     /* ################################################################## */

@@ -254,7 +254,7 @@ extension RiValT_BluetoothRemote: CBCentralManagerDelegate, CBPeripheralDelegate
         if usesIPad, peripheral.identifier == selectedDeviceID, peer == nil { discover() }
     }
 
-    /// Discovers the RiVal.T service on the selected iPad after connecting.
+    /// Discovers the RVT service on the selected iPad after connecting.
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         guard peripheral === peer else { return }
         peripheral.discoverServices([Packet.serviceID])

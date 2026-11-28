@@ -41,7 +41,7 @@
 		D43B97682DA2C1D10028E023 /* RiValT_Base_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43B97642DA2C1D10028E023 /* RiValT_Base_ViewController.swift */; };
 		D43B97692DA2C1D10028E023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D43B975C2DA2C1D10028E023 /* Assets.xcassets */; };
 		D43B976B2DA2C1D10028E023 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D43B975F2DA2C1D10028E023 /* LaunchScreen.storyboard */; };
-		D43B976C2DA2C1D10028E023 /* RiValT.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D43B97612DA2C1D10028E023 /* RiValT.storyboard */; };
+		D43B976C2DA2C1D10028E023 /* RVT.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D43B97612DA2C1D10028E023 /* RVT.storyboard */; };
 		D43B97702DA2C2D00028E023 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D43B976F2DA2C2D00028E023 /* RVS_Generic_Swift_Toolbox */; };
 		D43B97742DA2C2D00028E023 /* RVS_RetroLEDDisplay in Frameworks */ = {isa = PBXBuildFile; productRef = D43B97732DA2C2D00028E023 /* RVS_RetroLEDDisplay */; };
 		D43B97762DA2C2D00028E023 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D43B97752DA2C2D00028E023 /* RVS_UIKit_Toolbox */; };
@@ -73,7 +73,7 @@
 		D4A413932DB930D40017964C /* 22-thanks-for-sharing.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4A413922DB930D40017964C /* 22-thanks-for-sharing.mp3 */; };
 		D4A413962DB930E80017964C /* 14-shut-up-1.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4A413952DB930E80017964C /* 14-shut-up-1.mp3 */; };
 		D4A413992DB930ED0017964C /* 15-shut-up-2.mp3 in Copy Alarm Sound Files */ = {isa = PBXBuildFile; fileRef = D4A413982DB930ED0017964C /* 15-shut-up-2.mp3 */; };
-		D4A5A7C32DDBA7F8001ED5AC /* RiVal_T.docc in Sources */ = {isa = PBXBuildFile; fileRef = D4A5A7C22DDBA7F8001ED5AC /* RiVal_T.docc */; };
+		D4A5A7C32DDBA7F8001ED5AC /* RVT.docc in Sources */ = {isa = PBXBuildFile; fileRef = D4A5A7C22DDBA7F8001ED5AC /* RVT.docc */; };
 		D4A932222D64E9CB0028556E /* RiValT_Watch_App_MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A9321F2D64E9CB0028556E /* RiValT_Watch_App_MainContentView.swift */; };
 		D4A932232D64E9CB0028556E /* RiValT_Watch_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A932202D64E9CB0028556E /* RiValT_Watch_App.swift */; };
 		D4A9322A2D64E9CB0028556E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4A932262D64E9CB0028556E /* Assets.xcassets */; };
@@ -183,7 +183,7 @@
 			containerPortal = D47C02932819CA6500D359F5 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D43B97342DA2C0F50028E023;
-			remoteInfo = RiVal.T;
+			remoteInfo = RVT;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -324,13 +324,13 @@
 		D427BC0A2DB987DB009EAC8D /* Beep-023.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-023.mp3"; sourceTree = "<group>"; };
 		D427BC0B2DB987DB009EAC8D /* Beep-024.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-024.mp3"; sourceTree = "<group>"; };
 		D427BC0C2DB987DB009EAC8D /* Beep-025.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beep-025.mp3"; sourceTree = "<group>"; };
-		D43B97352DA2C0F50028E023 /* RiVal.T.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RiVal.T.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D43B97352DA2C0F50028E023 /* RVT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D43B975B2DA2C1D10028E023 /* RiValT_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_AppDelegate.swift; sourceTree = "<group>"; };
 		D43B975C2DA2C1D10028E023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D43B975D2DA2C1D10028E023 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D43B975E2DA2C1D10028E023 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		D43B97602DA2C1D10028E023 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RiValT.storyboard; sourceTree = "<group>"; };
-		D43B97622DA2C1D10028E023 /* RiVal.T.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RiVal.T.entitlements; sourceTree = "<group>"; };
+		D43B97602DA2C1D10028E023 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RVT.storyboard; sourceTree = "<group>"; };
+		D43B97622DA2C1D10028E023 /* RVT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RVT.entitlements; sourceTree = "<group>"; };
 		D43B97632DA2C1D10028E023 /* RiValT_SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_SceneDelegate.swift; sourceTree = "<group>"; };
 		D43B97642DA2C1D10028E023 /* RiValT_Base_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_Base_ViewController.swift; sourceTree = "<group>"; };
 		D44E7712281AD1B000B491EF /* AmbiaMara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AmbiaMara.entitlements; sourceTree = "<group>"; };
@@ -354,7 +354,7 @@
 		D4A413922DB930D40017964C /* 22-thanks-for-sharing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "22-thanks-for-sharing.mp3"; sourceTree = "<group>"; };
 		D4A413952DB930E80017964C /* 14-shut-up-1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "14-shut-up-1.mp3"; sourceTree = "<group>"; };
 		D4A413982DB930ED0017964C /* 15-shut-up-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "15-shut-up-2.mp3"; sourceTree = "<group>"; };
-		D4A5A7C22DDBA7F8001ED5AC /* RiVal_T.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RiVal_T.docc; sourceTree = "<group>"; };
+		D4A5A7C22DDBA7F8001ED5AC /* RVT.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RVT.docc; sourceTree = "<group>"; };
 		D4A9321F2D64E9CB0028556E /* RiValT_Watch_App_MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_Watch_App_MainContentView.swift; sourceTree = "<group>"; };
 		D4A932202D64E9CB0028556E /* RiValT_Watch_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiValT_Watch_App.swift; sourceTree = "<group>"; };
 		D4A932262D64E9CB0028556E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -522,7 +522,7 @@
 			isa = PBXGroup;
 			children = (
 				D43B975D2DA2C1D10028E023 /* Info.plist */,
-				D43B97622DA2C1D10028E023 /* RiVal.T.entitlements */,
+				D43B97622DA2C1D10028E023 /* RVT.entitlements */,
 			);
 			path = Meta;
 			sourceTree = "<group>";
@@ -533,7 +533,7 @@
 				D43B975C2DA2C1D10028E023 /* Assets.xcassets */,
 				D41CDA1930B8C95900516284 /* InfoPlist.strings */,
 				D4D3B9FC2DC4182D00C5CA19 /* Localizable.strings */,
-				D43B97612DA2C1D10028E023 /* RiValT.storyboard */,
+				D43B97612DA2C1D10028E023 /* RVT.storyboard */,
 				D43B975F2DA2C1D10028E023 /* LaunchScreen.storyboard */,
 				27ED03A583344720948D1590 /* Settings.bundle */,
 			);
@@ -585,7 +585,7 @@
 				D4F83CB32D63DB43009C4646 /* Watch Complications.appex */,
 				D46B84DF2D986AB600199220 /* TimerEngineTestHarness.app */,
 				D4BB8FFF2D9C3B0900F3DB80 /* TimerEngineTests.xctest */,
-				D43B97352DA2C0F50028E023 /* RiVal.T.app */,
+				D43B97352DA2C0F50028E023 /* RVT.app */,
 				D4C665CC2DAE6BFF00A0316D /* TimerModelTests.xctest */,
 			);
 			name = Products;
@@ -724,7 +724,7 @@
 				D4A932212D64E9CB0028556E /* WatchApp */,
 				D4A932292D64E9CB0028556E /* WatchComplications */,
 				D43B97652DA2C1D10028E023 /* MainApp */,
-				D4A5A7C22DDBA7F8001ED5AC /* RiVal_T.docc */,
+				D4A5A7C22DDBA7F8001ED5AC /* RVT.docc */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -872,9 +872,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D43B97342DA2C0F50028E023 /* RiVal.T */ = {
+		D43B97342DA2C0F50028E023 /* RVT */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D43B97492DA2C0F60028E023 /* Build configuration list for PBXNativeTarget "RiVal.T" */;
+			buildConfigurationList = D43B97492DA2C0F60028E023 /* Build configuration list for PBXNativeTarget "RVT" */;
 			buildPhases = (
 				D43974572DC516E900107DBA /* SwiftLint */,
 				D43B97312DA2C0F50028E023 /* Sources */,
@@ -889,7 +889,7 @@
 			dependencies = (
 				8DA164C1663143ACB5A22499 /* PBXTargetDependency */,
 			);
-			name = RiVal.T;
+			name = RVT;
 			packageProductDependencies = (
 				D43B976F2DA2C2D00028E023 /* RVS_Generic_Swift_Toolbox */,
 				D43B97732DA2C2D00028E023 /* RVS_RetroLEDDisplay */,
@@ -898,8 +898,8 @@
 				D487353F2E230FEF00DBC0A2 /* RVS_Checkbox */,
 				D4458A962F3BDBAA0032E697 /* RVS_PersistentPrefs */,
 			);
-			productName = RiVal.T;
-			productReference = D43B97352DA2C0F50028E023 /* RiVal.T.app */;
+			productName = RVT;
+			productReference = D43B97352DA2C0F50028E023 /* RVT.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D46B84DE2D986AB600199220 /* TimerEngineTestHarness */ = {
@@ -1069,7 +1069,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D43B97342DA2C0F50028E023 /* RiVal.T */,
+				D43B97342DA2C0F50028E023 /* RVT */,
 				D4F83C9C2D63DB10009C4646 /* Watch App */,
 				D4F83CB22D63DB43009C4646 /* Watch Complications */,
 				D46B84DE2D986AB600199220 /* TimerEngineTestHarness */,
@@ -1087,7 +1087,7 @@
 				D43B97692DA2C1D10028E023 /* Assets.xcassets in Resources */,
 				D43B976B2DA2C1D10028E023 /* LaunchScreen.storyboard in Resources */,
 				D4E10DBD2DB05B290088DB50 /* Digital.ttf in Resources */,
-				D43B976C2DA2C1D10028E023 /* RiValT.storyboard in Resources */,
+				D43B976C2DA2C1D10028E023 /* RVT.storyboard in Resources */,
 				D4D3B9FD2DC4182D00C5CA19 /* Localizable.strings in Resources */,
 				D41CDA1A30B8C95900516284 /* InfoPlist.strings in Resources */,
 				27ED03A683344720948D1590 /* Settings.bundle in Resources */,
@@ -1218,7 +1218,7 @@
 				D43B97682DA2C1D10028E023 /* RiValT_Base_ViewController.swift in Sources */,
 				D40FB3072DB515A800C010A6 /* RiValT_DisplaySettings_ViewController.swift in Sources */,
 				10FDEF96AC064B7FB85666E1 /* RiValT_GroupEditor_Popover.swift in Sources */,
-				D4A5A7C32DDBA7F8001ED5AC /* RiVal_T.docc in Sources */,
+				D4A5A7C32DDBA7F8001ED5AC /* RVT.docc in Sources */,
 				D4D9A1DD2DC26354009CB13E /* RiValT_RunningTimer_Circular_ViewController.swift in Sources */,
 				D43B97792DA2C2E80028E023 /* TimerEngine.swift in Sources */,
 				D49BBA112DBC275D00DD0963 /* RiValT_TimerEditor_PageViewContainer.swift in Sources */,
@@ -1315,7 +1315,7 @@
 		};
 		D4C665D12DAE6BFF00A0316D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D43B97342DA2C0F50028E023 /* RiVal.T */;
+			target = D43B97342DA2C0F50028E023 /* RVT */;
 			targetProxy = D4C665D02DAE6BFF00A0316D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1354,12 +1354,12 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		D43B97612DA2C1D10028E023 /* RiValT.storyboard */ = {
+		D43B97612DA2C1D10028E023 /* RVT.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				D43B97602DA2C1D10028E023 /* Base */,
 			);
-			name = RiValT.storyboard;
+			name = RVT.storyboard;
 			sourceTree = "<group>";
 		};
 		D4D3B9FC2DC4182D00C5CA19 /* Localizable.strings */ = {
@@ -1384,7 +1384,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = Sources/MainApp/Meta/RiVal.T.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Sources/MainApp/Meta/RVT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0025;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
@@ -1392,12 +1392,12 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/MainApp/Meta/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RiVal.T;
+				INFOPLIST_KEY_CFBundleDisplayName = RVT;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = RiValT;
+				INFOPLIST_KEY_UIMainStoryboardFile = RVT;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -1408,7 +1408,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 4.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
-				PRODUCT_NAME = RiVal.T;
+				PRODUCT_NAME = RVT;
 				REGISTER_APP_GROUPS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1425,7 +1425,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = Sources/MainApp/Meta/RiVal.T.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Sources/MainApp/Meta/RVT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0025;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
@@ -1433,12 +1433,12 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/MainApp/Meta/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RiVal.T;
+				INFOPLIST_KEY_CFBundleDisplayName = RVT;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = RiValT;
+				INFOPLIST_KEY_UIMainStoryboardFile = RVT;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -1449,7 +1449,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 4.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.ambiamara;
-				PRODUCT_NAME = RiVal.T;
+				PRODUCT_NAME = RVT;
 				REGISTER_APP_GROUPS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1775,7 +1775,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/WatchApp/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "RiVal Remote";
+				INFOPLIST_KEY_CFBundleDisplayName = "RVT Remote";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.riftvalleysoftware.ambiamara;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
@@ -1815,7 +1815,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/WatchApp/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "RiVal Remote";
+				INFOPLIST_KEY_CFBundleDisplayName = "RVT Remote";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.riftvalleysoftware.ambiamara;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
@@ -1852,7 +1852,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/WatchComplications/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "RiVal.T Complications";
+				INFOPLIST_KEY_CFBundleDisplayName = "RVT Complications";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1890,7 +1890,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/WatchComplications/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "RiVal.T Complications";
+				INFOPLIST_KEY_CFBundleDisplayName = "RVT Complications";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1915,7 +1915,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D43B97492DA2C0F60028E023 /* Build configuration list for PBXNativeTarget "RiVal.T" */ = {
+		D43B97492DA2C0F60028E023 /* Build configuration list for PBXNativeTarget "RVT" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D43B97462DA2C0F60028E023 /* Debug */,

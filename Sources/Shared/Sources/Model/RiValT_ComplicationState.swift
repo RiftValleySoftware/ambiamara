@@ -110,7 +110,7 @@ enum RiValT_ComplicationState {
         if stateChanged || previous?.confirmedAt != confirmation { reload() }
     }
 
-    /// Requests new timelines for the RiVal.T complication on watchOS.
+    /// Requests new timelines for the RVT complication on watchOS.
     private static func reload() {
         #if os(watchOS)
         WidgetCenter.shared.reloadTimelines(ofKind: kind)

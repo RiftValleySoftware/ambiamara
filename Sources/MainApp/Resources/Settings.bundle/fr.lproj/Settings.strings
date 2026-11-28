@@ -1,5 +1,5 @@
 "SLUG-SOFTWARE-DEPENDENCIES" = "Dépendances logicielles";
-"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Sélectionnez une bibliothèque pour connaître son rôle et trouver son code source et sa licence MIT.\n\nRiVal.T utilise la police « Let's Go Digital » de Wolf Lambert.";
+"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Sélectionnez une bibliothèque pour connaître son rôle et trouver son code source et sa licence MIT.\n\nRVT utilise la police « Let's Go Digital » de Wolf Lambert.";
 "SLUG-SOURCE-CODE" = "Code source";
 "SLUG-LICENSE" = "Licence";
 "SLUG-DEPENDENCY-GCD-TIMER" = "Gère les comptes à rebours.";
@@ -9,4 +9,4 @@
 "SLUG-DEPENDENCY-LED-DISPLAY" = "Dessine l’affichage numérique du compte à rebours.";
 "SLUG-DEPENDENCY-UIKIT-TOOLBOX" = "Fournit des commandes et des utilitaires UIKit.";
 "SLUG-APP-SOURCE-CODE" = "Code source de l’app";
-"SLUG-APP-SOURCE-DESCRIPTION" = "RiVal.T est un logiciel propriétaire. Son code source est consultable sur GitHub.";
+"SLUG-APP-SOURCE-DESCRIPTION" = "RVT est un logiciel propriétaire. Son code source est consultable sur GitHub.";

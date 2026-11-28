@@ -90,7 +90,7 @@
 "SLUG-DELETE-BUTTON-TEXT"                       =   "Apagar temporizador";
 "SLUG-DELETE-CONFIRM-HEADER"                    =   "Apagar o temporizador selecionado?";
 "SLUG-DELETE-CONFIRM-MESSAGE"                   =   "Se você selecionar “Apagar temporizador”, o temporizador selecionado será removido permanentemente do app.";
-"SLUG-TIMERS"                                   =   "RiVal.T";
+"SLUG-TIMERS"                                   =   "RVT";
 "SLUG-TIMERS-BACK"                              =   "Temporizadores";
 "SLUG-NEW-TIMER"                                =   "Novo temporizador";
 
@@ -182,14 +182,14 @@ MANTER PRESSIONADO: Mostra um controle deslizante para ajustar o tempo restante.
 // MARK: About Screen
 
 "SLUG-NAME-VERSION-FORMAT"                      =   "%@ - %@ (%@)";
-"SLUG-ABOUT-MAIN-TEXT"                          =   "Ajuste um temporizador ou inicie um grupo de temporizadores em sequência. Escolha um mostrador digital, circular ou de semáforo. O RiVal.T avisa quando o tempo acaba.
+"SLUG-ABOUT-MAIN-TEXT"                          =   "Ajuste um temporizador ou inicie um grupo de temporizadores em sequência. Escolha um mostrador digital, circular ou de semáforo. O RVT avisa quando o tempo acaba.
 
 Toque na engrenagem para ver os créditos e as licenças de software.";
 "SLUG-ABOUT-WEBSITE-LINK"                       =   "Visite nosso site para ver dicas e mais detalhes.";
 
 // The iPad setting allows one approved Apple Watch to control this device's timer.
 "SLUG-WATCH-REMOTE" = "Controle pelo Apple Watch";
-// Fallback for a connected Watch whose version of RiVal.T does not report its device name.
+// Fallback for a connected Watch whose version of RVT does not report its device name.
 "SLUG-WATCH-REMOTE-CONNECTED" = "Apple Watch";
 "SLUG-WATCH-PAIR-TITLE" = "Permitir controle pelo Apple Watch?";
 // %@ is a four-digit code displayed on the requesting Apple Watch.
@@ -227,7 +227,7 @@ Toque na engrenagem para ver os créditos e as licenças de software.";
 // The host app is in the background or a dialog is covering its timer controls.
 "SLUG-HOST-FOREGROUND" = "Volte à tela do temporizador em %@.";
 // Shown when connected but the host has no available timer. The placeholder identifies the host.
-"SLUG-HOST-NO-TIMER" = "Selecione um temporizador no RiVal.T em %@.";
+"SLUG-HOST-NO-TIMER" = "Selecione um temporizador no RVT em %@.";
 // The selected timer has a zero starting duration. The placeholder names the timer device.
 "SLUG-HOST-SET-TIME" = "Defina a duração do temporizador em %@.";
 "SLUG-INVALID" = "INVÁLIDO";
@@ -235,7 +235,7 @@ Toque na engrenagem para ver os créditos e as licenças de software.";
 "SLUG-OK" = "OK";
 "SLUG-OPEN-APP" = "Abrir app no iPhone";
 // Shown when the Watch has no live timer information. The placeholder identifies the selected device.
-"SLUG-OPEN-TIMER-APP" = "Abra o RiVal.T em %@ para conectar.";
+"SLUG-OPEN-TIMER-APP" = "Abra o RVT em %@ para conectar.";
 // Requests that the host pause the running timer.
 "SLUG-PAUSE" = "Pausar";
 // The host timer is paused.
@@ -259,7 +259,7 @@ Toque na engrenagem para ver os créditos e as licenças de software.";
 // Opens the chooser for the device running the timer.
 "SLUG-TIMER-DEVICE" = "Dispositivo do temporizador";
 "SLUG-WATCH-DEVICES-TITLE" = "Dispositivos";
-"SLUG-WATCH-COMPLICATION-NAME" = "Temporizador RiVal";
+"SLUG-WATCH-COMPLICATION-NAME" = "Temporizador RVT";
 // Watch heading. The integers are group number, timer number, and number of timers in the group. All are one-based.
 "SLUG-TIMER-POSITION" = "Grupo %1$d · Temporizador %2$d de %3$d";
 // The host timer has crossed the yellow warning threshold.
@@ -447,7 +447,7 @@ Toque na engrenagem para ver os créditos e as licenças de software.";
 "SLUG-ACC-ABOUT-TEXT-LABEL"                     =   "Sobre este app";
 "SLUG-ACC-ABOUT-TEXT-HINT"                      =   "Traz informações sobre o temporizador e um link para o site.";
 "SLUG-ACC-ABOUT-SETTINGS-LABEL" = "Ajustes";
-"SLUG-ACC-ABOUT-SETTINGS-HINT" = "Abre a página do RiVal.T em Ajustes para mostrar os créditos de software.";
+"SLUG-ACC-ABOUT-SETTINGS-HINT" = "Abre a página do RVT em Ajustes para mostrar os créditos de software.";
 
 // MARK: Watch Remote
 
@@ -494,11 +494,11 @@ Toque na engrenagem para ver os créditos e as licenças de software.";
 "SLUG-BACKUP-RESTORE" = "Restaurar backup";
 "SLUG-ACC-BACKUP-EXPORT-HINT" = "Escolha onde salvar um backup dos seus temporizadores e ajustes.";
 "SLUG-ACC-BACKUP-RESTORE-HINT" = "Escolha um arquivo de backup para restaurar seus temporizadores e ajustes salvos.";
-"SLUG-BACKUP-FILES-HINT" = "Salve o backup no iCloud Drive para mantê-lo após apagar o RiVal.T.";
-"SLUG-BACKUP-FILENAME" = "Backup do RiVal.T %@";
+"SLUG-BACKUP-FILES-HINT" = "Salve o backup no iCloud Drive para mantê-lo após apagar o RVT.";
+"SLUG-BACKUP-FILENAME" = "Backup do RVT %@";
 "SLUG-BACKUP-EXPORT-FAILED" = "Não foi possível exportar o backup";
-"SLUG-BACKUP-UNSUPPORTED" = "Este backup exige outra versão do RiVal.T.";
-"SLUG-BACKUP-INVALID" = "Este arquivo não é um backup válido do RiVal.T.";
+"SLUG-BACKUP-UNSUPPORTED" = "Este backup exige outra versão do RVT.";
+"SLUG-BACKUP-INVALID" = "Este arquivo não é um backup válido do RVT.";
 "SLUG-BACKUP-RESTORE-TITLE" = "Restaurar backup dos temporizadores?";
 "SLUG-BACKUP-RESTORE-CONFIRMATION" = "Temporizadores (%1$ld) · Grupos (%2$ld)\nA restauração substitui seus temporizadores e ajustes atuais.";
 "SLUG-BACKUP-RESTORE-ACTION" = "Restaurar";

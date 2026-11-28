@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>RiVal.T uses Bluetooth to display and control the timer on a nearby iPad.</string>
+	<string>RVT uses Bluetooth to display and control the timer on a nearby iPad.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Digital.ttf</string>

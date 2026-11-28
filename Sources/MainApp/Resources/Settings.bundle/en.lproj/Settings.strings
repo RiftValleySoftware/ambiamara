@@ -1,5 +1,5 @@
 "SLUG-SOFTWARE-DEPENDENCIES" = "Software Dependencies";
-"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Select a library to see what it does, where to find its source code, and its MIT license.\n\nRiVal.T uses the Let's Go Digital font by Wolf Lambert.";
+"SLUG-SOFTWARE-DEPENDENCIES-DETAIL" = "Select a library to see what it does, where to find its source code, and its MIT license.\n\nRVT uses the Let's Go Digital font by Wolf Lambert.";
 "SLUG-SOURCE-CODE" = "Source Code";
 "SLUG-LICENSE" = "License";
 "SLUG-DEPENDENCY-GCD-TIMER" = "Runs the countdown timers.";
@@ -9,4 +9,4 @@
 "SLUG-DEPENDENCY-LED-DISPLAY" = "Draws the digital countdown display.";
 "SLUG-DEPENDENCY-UIKIT-TOOLBOX" = "Provides shared UIKit controls and utilities.";
 "SLUG-APP-SOURCE-CODE" = "App Source Code";
-"SLUG-APP-SOURCE-DESCRIPTION" = "RiVal.T is proprietary software. You can view its source code on GitHub.";
+"SLUG-APP-SOURCE-DESCRIPTION" = "RVT is proprietary software. You can view its source code on GitHub.";

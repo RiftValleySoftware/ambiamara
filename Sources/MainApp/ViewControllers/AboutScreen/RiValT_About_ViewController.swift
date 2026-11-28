@@ -85,7 +85,7 @@ extension RiValT_About_ViewController {
         updateBackupButtonLayout()
     }
 
-    /// Formats the About text and appends an accessible link to the RiVal.T website.
+    /// Formats the About text and appends an accessible link to the RVT website.
     private func configureAboutText() {
         guard let aboutText else { return }
         let font = aboutText.font ?? .preferredFont(forTextStyle: .body)
@@ -97,7 +97,7 @@ extension RiValT_About_ViewController {
         aboutText.accessibilityValue = text.string
     }
 
-    /// Opens the system Settings page for RiVal.T.
+    /// Opens the system Settings page for RVT.
     @objc private func openSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url)

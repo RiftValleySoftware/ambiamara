@@ -123,9 +123,9 @@ struct Rift_Valley_Timer_ComplicationsEntryView: View {
     /// The dated countdown state to show in this slot.
     let entry: Rift_Valley_Timer_Watch_App_Entry
 
-    /// The original-color RiVal.T mark for full-color watch faces.
+    /// The original-color RVT mark for full-color watch faces.
     private static let fullColorLogo = loadLogo(named: "VectorLogo", asTemplate: false)
-    /// The template RiVal.T mark for system-tinted watch faces.
+    /// The template RVT mark for system-tinted watch faces.
     private static let templateLogo = loadLogo(named: "TemplateLogo", asTemplate: true)
 
     /// Rasterizes a bounded-size complication logo and converts it to a template if requested.
@@ -220,7 +220,7 @@ struct Rift_Valley_Timer_ComplicationsEntryView: View {
     }
 }
 
-/// The WidgetKit entry point for the RiVal.T timer complication.
+/// The WidgetKit entry point for the RVT timer complication.
 @main
 struct RiValT_Complications: Widget {
     /// The complication kind used by its timeline provider and reload requests.
